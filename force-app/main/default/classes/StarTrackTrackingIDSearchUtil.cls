@@ -5,14 +5,10 @@ History:
 2022-11-24 - H Liyanage - Created
 2022-12-05 - Prerna Rahangdale Added a new TransferCaseQueuable and added Transfer Case feature.
 **************************************************/
-public inherited sharing class StarTrackTrackingIDSearchUtil {
-    public static StarTrackTrackingIDSearchUtil getInstance() {
-
-        return (StarTrackTrackingIDSearchUtil) Application.Utilities.getInstance(StarTrackTrackingIDSearchUtil.class);
-
+public with sharing class StarTrackTrackingIDSearchUtil {
+    public static StarTrackTrackingIDSearchUtil newInstance() {
+        return (StarTrackTrackingIDSearchUtil) Application.Utilities.newInstance(StarTrackTrackingIDSearchUtil.class);
     }
-
-    @TestVisible
     static final Id communityUserProfileId {
         get {
             if(communityUserProfileId == null) {
@@ -36,9 +32,10 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         }
     }
 
-    @TestVisible
+
     private without sharing class TrackingSearchQueueable implements Queueable, Database.AllowsCallouts {
         Case cse;
+        //TODO : Hasantha move strings to constants or custom metadata
         Set<Id> caseRecordTypes = new Set<Id>{
                 SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
                 , SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_VOC_RT_DEV).getRecordTypeId()};
@@ -55,7 +52,7 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
 
         public void execute(QueueableContext context) {
             try {
-                if((UserInfo.getProfileId() == communityUserProfileId || Test.isRunningTest())// only execute for startrack community
+                if(UserInfo.getProfileId() == communityUserProfileId // only execute for startrack community
                         && this.cse.ArticleTest__c == null // if no article record is linked
                         && this.cse.ReferenceID__c != null // and there's a reference ID
                         && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
@@ -66,9 +63,8 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
                     idSearchService.isConsole = false;
                     idSearchService.map_searchCustomSettings.get(idSearchService.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
                     StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = idSearchService.searchConsignment();
-                    StarTrackTrackingIDSearchUtil thisUtil = StarTrackTrackingIDSearchUtil.getInstance();
-                    if(thisUtil.validate(idSearchService.lst_article, cse.Id, conWrap)) {
-                        thisUtil.assignAndUpdateCase(idSearchService.lst_article[0],this.cse);
+                    if(validate(idSearchService.lst_article, cse.Id, conWrap)) {
+                        assignAndUpdateCase(idSearchService.lst_article[0],this.cse);
                     }
                 }
             } catch (Exception ex) {
@@ -82,7 +78,6 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
                         , 'TrackingSearchQueueable'
                         , StarTrack_Constants.ASYNC_QUEUEABLE
                         , LoggingLevel.ERROR);
-                throw ex;
             }
         }
     }
@@ -92,13 +87,14 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
          * @param article
          * @param cse
          */
-    public void assignAndUpdateCase(Article__c article, Case cse) {
+    public static void assignAndUpdateCase(Article__c article, Case cse) {
         try {
             case caseToBeUpdated = new Case();
             caseToBeUpdated.Id = cse.Id;
             caseToBeUpdated.ArticleTest__c = article.Id;
             caseToBeUpdated.Consignment_Unique_External_ID__c = article.ArticleID__c ;
             caseToBeUpdated.Connote_number__c  = article.Name ;
+
             // Only if Case’s Enquiry Type is LDC
             if (StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
                 caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
@@ -212,18 +208,17 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
      *
      * @return
      */
-    public Boolean validate(List<Article__c> articles, Id caseId, StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap) {
+    public static Boolean validate(List<Article__c> articles, Id caseId, StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap) {
         Boolean isValid = true;
         String comments = '';
         Boolean isDuplicate = isDuplicateConsignments(articles);
         Boolean isError = isError(conWrap);
-
         // no consignment found
         if(isError) {
             // service returned error
             comments = '\n' + System.Label.STHSIDSearchCommentsTimeoutTechError;
             isValid = false;
-        } else if((articles == null || articles.size() == 0) || StarTrack_Constants.ERR_CODE_ART_NOT_FOUND.equalsIgnoreCase(conWrap.errorCode)) {
+        } else if((articles == null || articles.size() == 0) || 'Article Not Found'.equalsIgnoreCase(conWrap.errorCode)) {
             comments = '\n' + System.Label.STHSIDSearchCommentsNoConsignment;
             isValid = false;
         } else if(isDuplicate) {

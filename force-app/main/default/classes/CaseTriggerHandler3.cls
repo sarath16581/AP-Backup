@@ -8,6 +8,7 @@
  * @group Domain
  * @domain Case
  * @changelog
+ * 2022-01-17 Dattaraj Deshmukh Added CaseInvestigation__c to SObjecType list.
  */
 public inherited sharing class CaseTriggerHandler3 extends ApplicationDomainTriggerHandler {
 
@@ -35,7 +36,8 @@ public inherited sharing class CaseTriggerHandler3 extends ApplicationDomainTrig
 				Article__c.SObjectType,
 				Task.SObjectType,
 				CaseMilestone.SObjectType,
-				AuthorisedContacts__c.SObjectType
+				AuthorisedContacts__c.SObjectType,
+				CaseInvestigation__c.SObjectType
 		};
 	}
 

@@ -4,6 +4,9 @@
 
 @IsTest
 private class StarTrackTrackingIDSearchServiceTest {
+    @IsTest
+    static void testBehavior() {
+    }
 
     @isTest
     public static void testConsignSearch_singleResponse() {

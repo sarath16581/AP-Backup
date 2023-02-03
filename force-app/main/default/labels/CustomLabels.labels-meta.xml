@@ -7890,4 +7890,60 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Case Comment Message to be included when it is Auto LIT Exception NOT found</shortDescription>
         <value>Receiver, Lost, Refer to sender. Auto close = Yes</value>
     </labels>
+    <labels>
+        <fullName>CaseInvestigationDuplicateErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CaseInvestigationDuplicateErrorMessage</shortDescription>
+        <value>Case Investigation already exists for this article {0} and network id {1} and case id {2}.</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkBlankNetworkErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Blank Network Error Message</shortDescription>
+        <value>Please select a network to submit a case investigation for this article</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkCaseInvestigationSuccessMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Case Investigation Success Message</shortDescription>
+        <value>Case Investigation records created successfully!</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkConsignmentErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Consignment Error Message</shortDescription>
+        <value>This consignment didn&apos;t go through any AusPost MyNetwork</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkDuplicateCaseInvestigationErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Duplicate Case Investigation Error Message</shortDescription>
+        <value>There&apos;s already existing case investigation for this article and this network, please check the related case investigation list for latest status</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkInvalidCaseInvestigationErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Duplicate Invalid Investigation Error Message</shortDescription>
+        <value>Please select an article to submit a case investigation</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkInvalidNetworkErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Invalid Network Error Message</shortDescription>
+        <value>Network is not available on MyNetwork Portal</value>
+    </labels>
 </CustomLabels>

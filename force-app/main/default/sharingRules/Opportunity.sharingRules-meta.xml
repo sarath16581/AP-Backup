@@ -38,4 +38,15 @@
             <role>Inside_Sales_BMS_Team_Leader</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Super_Users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Super Users</label>
+        <sharedTo>
+            <group>AusPostSuperUsers</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>
