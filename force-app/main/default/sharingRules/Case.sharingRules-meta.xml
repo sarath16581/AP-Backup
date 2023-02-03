@@ -245,11 +245,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Ex_Gratia_Credit_Dispute</fullName>
+        <fullName>ExGratiaCreditDispute</fullName>
         <accessLevel>Read</accessLevel>
+        <description>Sharing rule to grant access for Ex-Gratia Credit Dispute to Sales Users except C&amp;C Sales</description>
         <label>Ex-Gratia Credit Dispute</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -748,12 +749,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>View_all_business_Enablement_Cases</fullName>
+        <fullName>ViewAllBusinessEnablementCases</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users</description>
-        <label>View all business Enablement Cases</label>
+        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users except C&amp;C Sales</description>
+        <label>View All Business Enablement Cases</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Business_Reporting</roleAndSubordinatesInternal>
+            <group>All_Users_Ex_CC_Sales</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -787,11 +788,12 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>Sales_Implementation_Case_Sharing</fullName>
+        <fullName>SalesImplementationCaseSharing</fullName>
         <accessLevel>Read</accessLevel>
+        <description>Sharing rule to allow cases created by Business Sales Implementation team to be viewed by Sales Users except C&amp;C Sales</description>
         <label>Sales Implementation Case Sharing</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <sharedFrom>
             <group>Business_Sales_Implementation_Team</group>

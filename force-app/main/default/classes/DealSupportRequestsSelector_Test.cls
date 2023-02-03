@@ -9,6 +9,7 @@
 * @changelog
 * 2020-04-10 - arjun.singh@auspost.com.au - Created
 * 2022-04-08 - seth.heang@auspost.com.au - updated test method to test search method
+* 2022-12-01 - Harry Wang - added test method for selectByAccountRelationshipQueryLocator
 */
 @IsTest
 public with sharing class DealSupportRequestsSelector_Test {
@@ -43,6 +44,47 @@ public with sharing class DealSupportRequestsSelector_Test {
         Test.stopTest();
 
     }
+
+    /**
+	* Test:
+	*  Ensures that the selectors QueryBuilder is generating the correct output
+	*/
+    @IsTest
+    public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
+        Test.startTest();
+
+        DealSupportRequestsSelector selector = DealSupportRequestsSelector.newInstance();
+        QueryBuilder qb = selector.newQueryBuilder();
+        String soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Deal_Support_Request__c\\b').matcher(soql).find(), 'Resulting query does not select from Deal_Support_Request__c');
+
+        selector = DealSupportRequestsSelector.newInstance(1, new Set<SObjectField>{
+                Deal_Support_Request__c.Id
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Deal_Support_Request__c\\b').matcher(soql).find(), 'Resulting query does not select from Deal_Support_Request__c');
+
+        selector = DealSupportRequestsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>>{
+                Deal_Support_Request__c.SObjectType => new Set<SObjectField>{Deal_Support_Request__c.Id}
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Deal_Support_Request__c\\b').matcher(soql).find(), 'Resulting query does not select from Deal_Support_Request__c');
+
+        selector = DealSupportRequestsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
+                Deal_Support_Request__c.SObjectType => new Set<SObjectField>{Deal_Support_Request__c.Id}
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Deal_Support_Request__c\\b').matcher(soql).find(), 'Resulting query does not select from Deal_Support_Request__c');
+        Test.stopTest();
+    }
+
     /**
      * Test:
      *  Ensures that the selectors QueryBuilder is generating the correct output
@@ -184,6 +226,16 @@ public with sharing class DealSupportRequestsSelector_Test {
         searchParams.put('productNames', new Set<String>{APT_Constants.PSR_APPC_PRODUCT_NAME});
         List<Deal_Support_Request__c> resultsforAPPCPSRList = selector2.search(searchParams, new Set<Object>(), true);
         System.assertEquals(1, resultsforAPPCPSRList.size(), 'Result count was wrong');
+
+        Set<Id> accountIds = new Set<Id>{account.Id};
+        Database.QueryLocator queryLocator = DealSupportRequestsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(accountIds, new Set<Object>{
+                DealSupportRequestsSelector.Options.WITH_ORGANISATION
+        });
+
+        List<Deal_Support_Request__c> queryResults = (List<Deal_Support_Request__c>)Database.query(queryLocator.getQuery());
+
+        System.assertEquals(1, queryResults.size(), 'Expected to return only the DSRs related to the supplied account');
+        System.assertEquals(dealSupportRequest.Id, queryResults[0].Id, 'Expected to return only the DSRs related to the supplied account');
 
         Test.stopTest();
 

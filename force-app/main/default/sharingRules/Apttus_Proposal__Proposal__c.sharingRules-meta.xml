@@ -12,11 +12,12 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>APT_Share_Proposals_with_Sales</fullName>
+        <fullName>APTShareProposalsWithSalesExceptCCSales</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Share Proposals with Sales</label>
+        <description>Share proposals with Sales users excluding C&amp;C Sales</description>
+        <label>Share Proposals with Sales Except C&amp;C Sales</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>
