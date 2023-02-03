@@ -144,6 +144,30 @@ public class APT_ProposalObjectsSelector_Test {
         
      
     }
+
+    /**
+	* Test:
+	*  Ensures that the selectors QueryBuilder is generating the correct output
+	*/
+    @IsTest
+    public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
+        Test.startTest();
+
+        APT_ProposalObjectsSelector selector = APT_ProposalObjectsSelector.newInstance();
+        QueryBuilder qb = selector.newQueryBuilder();
+        String soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus_Proposal__Proposal__c\\b').matcher(soql).find(), 'Resulting query does not select from Apttus_Proposal__Proposal__c');
+
+        selector = APT_ProposalObjectsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
+                Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id}
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus_Proposal__Proposal__c\\b').matcher(soql).find(), 'Resulting query does not select from Apttus_Proposal__Proposal__c');
+        Test.stopTest();
+    }
     
     /**
 * Test:
@@ -211,6 +235,34 @@ public class APT_ProposalObjectsSelector_Test {
         
         Test.stopTest();
         
+    }
+
+    /**
+	* Test:
+	*  Ensures that the selector methods return expected matching result
+	*/
+    @IsTest
+    public static void testSelectorIntegration() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        // None!
+
+        // =====================================
+        // Stubbing
+        // =====================================
+
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+        Database.QueryLocator queryLocator = APT_ProposalObjectsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(new Set<Id>(), new Set<Object>{
+                APT_ProposalObjectsSelector.Options.WITH_ORGANISATION
+        });
+        List<Apttus_Proposal__Proposal__c> queryResults = (List<Apttus_Proposal__Proposal__c>)Database.query(queryLocator.getQuery());
+        System.assertEquals(2, queryResults.size(), 'Expected to return Apttus_Proposal__Proposal__c related to any account when account id is not specified');
+        Test.stopTest();
     }
     
 }
