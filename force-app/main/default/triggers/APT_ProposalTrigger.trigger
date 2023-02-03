@@ -2,6 +2,7 @@
 Description: Share Quote/Proposal with Opportunity Team Members
 Created By: Mausam Padhiyar
 Created Date: 14th Aug, 2015
+@test APT_ProposalTrigger_Test
 Last Modified By: Mausam Padhiyar
 Last Modified Date: 21st Oct, 2015 > Sync with Opportunity
 
@@ -22,9 +23,19 @@ Last Modified Date - 2021-06-15 Darshan Chauhan - Removing unessecary code for A
 
 Last Modified By - Mansi Shah
 Last Modified Date - 14th July 2021 | Added call for onBeforeInsert method and commented method call for setOpportunityDriver
+
+Last Modified By -Ken McGuire
+Last Modified Date - 01 December 2022 | Added record sharing logic
 */
+
 trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, after insert, after update,before update) {
-    if(trigger.isAfter == true) {
+    
+	// Application Domain
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Apttus_Proposal__Proposal__c.SObjectType))) {
+		APTProposalDomainTriggerHandler.newInstance().dispatch();
+	}
+	
+	if(trigger.isAfter == true) {
         if(trigger.isUpdate == true) {
             String result = APT_ProposalTriggerHandler.afterUpdateEvent(trigger.new, trigger.oldMap);
             if(result != APT_Constants.SUCCESS_LABEL){

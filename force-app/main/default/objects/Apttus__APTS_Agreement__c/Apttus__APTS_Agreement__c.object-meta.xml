@@ -203,5 +203,8 @@
         <searchResultsAdditionalFields>Term__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
+    <sharingRecalculations>
+        <className>SalesApttusContractSharingBatchable</className>
+    </sharingRecalculations>
     <visibility>Public</visibility>
 </CustomObject>

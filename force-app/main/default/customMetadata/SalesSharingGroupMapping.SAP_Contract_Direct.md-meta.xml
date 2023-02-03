@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SAP_Contract_Direct</label>
+    <protected>false</protected>
+    <values>
+        <field>AccessLevel__c</field>
+        <value xsi:type="xsd:string">Edit</value>
+    </values>
+    <values>
+        <field>GroupName__c</field>
+        <value xsi:type="xsd:string">All_Direct_Sales_Team</value>
+    </values>
+    <values>
+        <field>SalesSharingObjectMapping__c</field>
+        <value xsi:type="xsd:string">SAP_Contract</value>
+    </values>
+    <values>
+        <field>SalesTeamType__c</field>
+        <value xsi:type="xsd:string">Direct</value>
+    </values>
+</CustomMetadata>

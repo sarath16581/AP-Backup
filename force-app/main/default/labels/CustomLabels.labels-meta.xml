@@ -3816,6 +3816,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Please try again later. If you need help, call us on:&lt;br/&gt;&lt;b&gt;13 76 78 (13 Post)&lt;/b&gt; in Australia from 8am - 6pm (local time)&lt;br/&gt;&lt;b&gt;+61 3 8847 9045&lt;/b&gt; from overseas from 7am - 6pm (AEST)</value>
     </labels>
     <labels>
+        <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
+        <categories>Sales</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm Sharing Recalculation Info Message</shortDescription>
+        <value>Sales team sharing will be recalculated in the background for related child records linked to this record. Do you wish to proceed?</value>
+    </labels>
+    <labels>
         <fullName>Contact_Another_Network_Error</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -6625,6 +6633,14 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>StarTrack_PUD_Enquiry</value>
     </labels>
     <labels>
+        <fullName>RecalculateSharingModalTitle</fullName>
+        <categories>Sales</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recalculate Sharing Modal Title</shortDescription>
+        <value>Reset Sales Team Sharing</value>
+    </labels>
+    <labels>
         <fullName>RecentSorting</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -6927,6 +6943,22 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>Share Information Root Label</shortDescription>
         <value>Share</value>
+    </labels>
+    <labels>
+        <fullName>SharingRecalculationPermissionsErrorMessage</fullName>
+        <categories>Sales</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sharing Recalculation Permissions Error Message</shortDescription>
+        <value>You do not have sufficient permissions to recalculate sales team sharing.</value>
+    </labels>
+    <labels>
+        <fullName>SharingRecalculationRequestSuccessfullyEnqueuedMessage</fullName>
+        <categories>Sales</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sharing Recalculation Request Successfully Enqueued Message</shortDescription>
+        <value>Sales team sharing request enqueued for recalculation in the background.</value>
     </labels>
     <labels>
         <fullName>ShowTitle</fullName>
