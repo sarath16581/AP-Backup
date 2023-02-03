@@ -1180,7 +1180,7 @@ public with sharing class MyNetworkCaseListController {
 				&& selectedProductCategoryVal != null && selectedProductCategoryVal != '--Select--') {
 			innerQueryFilter = ' WHERE Article__r.ProductCategory__c = \''+String.escapeSingleQuotes(selectedProductCategoryVal)+'\' ';
 		}
-		String generateCaseInvestigationInnerQuery = '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, LastContactCentreUpdate__c from CaseInvestigations__r '+innerQueryFilter +' ) ';
+		String generateCaseInvestigationInnerQuery = '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, LastContactCentreUpdate__c, NetworkMilestonesViolated__c from CaseInvestigations__r '+innerQueryFilter +' ) ';
 
 		return generateCaseInvestigationInnerQuery;
 	}

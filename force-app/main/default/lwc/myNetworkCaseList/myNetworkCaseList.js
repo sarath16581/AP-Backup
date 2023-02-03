@@ -315,6 +315,12 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
 			caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
 
+			//set escalation case investigation has any network milestone violations
+			if(cInvestigations[cInvestigationCnt].NetworkMilestonesViolated__c !== null && cInvestigations[cInvestigationCnt].NetworkMilestonesViolated__c !== undefined) {
+				caseRecord.dotCSSClass = "redcolor";
+				caseRecord.displayIconName = "utility:warning";
+			}
+
 			let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
 			caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
 
