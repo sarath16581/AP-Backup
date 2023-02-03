@@ -27,6 +27,15 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit);
 	}
 
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static CaseInvestigationsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CaseInvestigationsSelector selector = (CaseInvestigationsSelector) Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 
 	public virtual override SObjectType getSObjectType() {
 		return CaseInvestigation__c.getSObjectType();
@@ -38,7 +47,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name,
 			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.NetworkMilestoneCurrentViolatedTier__c, 
 			CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, 
-			CaseInvestigation__c.MilestoneTimeStartDatetime__c
+			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c
 		};
 	}
 
@@ -85,8 +94,8 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	* @param selectorOptions Options
 	* @return QueryLocator
 	*/
-	public virtual Database.QueryLocator selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime violationDatetime) {
-		QueryBuilder qb = selectNetworkMilestoneViolatedOpenCaseInvestigations(violationDatetime, new Set<Object>());
+	public virtual Database.QueryLocator selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime violationDatetime, Set<Object> selectorOptions) {
+		QueryBuilder qb = selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(violationDatetime, selectorOptions);
 		return Database.getQueryLocator(qb.toSoqlString());
 	}
 
@@ -95,7 +104,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	* @param violationDatetime Cutoff datetime (method will return case investigations that were violated)
 	* @param selectorOptions - selector options
 	*/
-	public virtual QueryBuilder selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime violationDatetime, Set<Object> selectorOptions) {
+	public virtual QueryBuilder selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(Datetime violationDatetime, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).lt(violationDatetime))

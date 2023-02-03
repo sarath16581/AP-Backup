@@ -67,10 +67,13 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 				ci.NetworkMilestoneNextViolationDatetime__c = null;
 				ci.NetworkMilestoneLastViolationDatetime__c = null;
 			} else if(ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
-				//if case investigation is in any of the cloed statuses, reset the milestone start datetime 
+				//if case investigation is in any of the closed statuses, reset the milestone start datetime 
 				//and next violation datetime
 				ci.MilestoneTimeStartDatetime__c = null;
 				ci.NetworkMilestoneNextViolationDatetime__c = null;
+				ci.NetworkMilestoneCurrentViolatedTier__c = null;
+				ci.NetworkMilestonesViolated__c = null;
+				ci.NetworkTierEscalationEmail__c = null;
 			}
 		}
 	}

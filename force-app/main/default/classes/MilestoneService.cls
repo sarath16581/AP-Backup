@@ -38,7 +38,7 @@ public inherited sharing class MilestoneService {
 	@TestVisible
 	private static Map<Id, Entitlement_Rule__c> getActiveEntitlementRulesByRecordType(String recTypeDevName) {
 		if (entitlementRuleMap == null) {
-			entitlementRuleMap = EntitlementRulesSelector.newInstance().selectActiveRulesByRecordTypeDevNames(new Set<String>{recTypeDevName});
+			entitlementRuleMap = EntitlementRulesSelector.newInstance().selectActiveRulesByRecordTypeDevNames(new Set<String>{recTypeDevName}, new Set<Object>{EntitlementRulesSelector.Options.WITH_ESCALATION_HIERARCHY});
 		}
 		return entitlementRuleMap;
 	}
@@ -140,28 +140,29 @@ public inherited sharing class MilestoneService {
 		//loop through case investigations
 		for (CaseInvestigation__c ci : caseInvestigations.values()) {
 			Map<String, Integer> ruleIDUnitFullyMatched = new  Map<String, Integer>();
-			
+
 			//loop through the rule units of entitlement rule records
 			for (String ruleID : ruleIdRuleUnitsMap.keyset()) {
 				List<String> ruleUnits = ruleIdRuleUnitsMap.get(ruleID);
-				
+
 				Integer ruleUnitCounter = ruleUnits.size();
 				Integer ruleUnitMatched = 0;
-					
+
 				for (String aUnit : ruleUnits) {
 					String fieldName;
-					String fieldType; 
+					String fieldType;
 					String value;
 					Boolean isMatched = false;
 					System.debug(':RuleUnit:' + aUnit);
 					if (aUnit.contains('=')) {
 						fieldName = aUnit.split('=')[0];
 						value = aUnit.split('=')[1];
-						System.debug(':RuleFieldName:' + fieldName);
-						System.debug(':RuleValue:' + value);
-						System.debug(':CaseInvestigationValue:' + ci.get(fieldName));
-	
+
 						if (ciFieldTypeMap.containsKey(fieldName)) {
+							System.debug(':RuleFieldName:' + fieldName);
+							System.debug(':RuleValue:' + value);
+							System.debug(':CaseInvestigationValue:' + ci.get(fieldName));
+
 							fieldType = ciFieldTypeMap.get(fieldName);
 							if (STRING_TYPES.contains(fieldType)) {
 								isMatched = ci.get(fieldName) == value;
@@ -174,9 +175,12 @@ public inherited sharing class MilestoneService {
 							} else if (fieldType == 'datetime') {
 								isMatched = (Datetime)ci.get(fieldName) == stringToDatetime(value);
 							}
+						} else {
+							//field not found, go to the next rule
+							break;
 						}
-					} 
-					
+					}
+
 					if (isMatched) {
 						System.debug(':MATCHFOUND');
 						System.debug(':fieldName:' + fieldName);
@@ -184,16 +188,16 @@ public inherited sharing class MilestoneService {
 						ruleUnitMatched++;
 					}
 				}
-					
+
 				//All rule units are matched only
 				if (ruleUnitCounter == ruleUnitMatched) {
 					ruleIDUnitFullyMatched.put(ruleID,ruleUnitMatched);
-				}	
+				}
 			}
 
 			String ruleID = '';
 			Integer maxRuleUnitMatched=0;
-			
+
 			System.debug(':FullyMatchedRules:' + ruleIDUnitFullyMatched);
 			//if full match is found
 			if (ruleIDUnitFullyMatched.size() > 0){
@@ -212,7 +216,7 @@ public inherited sharing class MilestoneService {
 				ciEntitlementRuleMatchingMap.put(ci.Id, ruleID);
 			}
 		}
-		
+
 		return ciEntitlementRuleMatchingMap;
 	}
 
@@ -227,11 +231,11 @@ public inherited sharing class MilestoneService {
 				}
 			} catch (Exception e) {
 				return null;
-			}   
-		}       
+			}
+		}
 		return tempDate;
-	}    
-		
+	}
+
 	// convert string (MM-dd-yyyy hh:mm a) to datetime
 	private Datetime stringToDatetime(String strDatetime) {
 		Datetime tempDatetime = null;
@@ -243,13 +247,13 @@ public inherited sharing class MilestoneService {
 				}
 			} catch (Exception e) {
 				return null;
-			}   
-		}       
+			}
+		}
 		return tempDatetime;
 	}
 
 	private Boolean stringToBoolean(String yesNo) {
-        return yesNo.toLowerCase() == 'yes'; 
+        return yesNo.toLowerCase() == 'yes';
     }
 
 	@TestVisible
@@ -259,17 +263,24 @@ public inherited sharing class MilestoneService {
 		for (CaseInvestigation__c ci : caseInvestigations.values()) {
 			if (ciEntitlementRuleMatchingMap.containsKey(ci.Id)) {
 				Datetime violationDatetime;
+				String formattedMilestoneTierTypeField;
 				Entitlement_Rule__c er = entitlementRuleMap.get(ciEntitlementRuleMatchingMap.get(ci.Id));
 				Escalation_Hierarchy__c eh = er.Escalation_Hierarchy__r;
-				String formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c + 1) + '__c';
+				if (ci.NetworkMilestoneCurrentViolatedTier__c != null) {
+					formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c) + '__c';
+				} else {
+					//get the first tier
+					formattedMilestoneTierTypeField = milestoneTierType + '_1__c';
+				}
+
 				if (eh.get(formattedMilestoneTierTypeField) != null) {
-					Integer configuredMins = (Integer)eh.get(formattedMilestoneTierTypeField);
+					Integer configuredMins = Integer.valueOf(eh.get(formattedMilestoneTierTypeField));
 					if (ci.NetworkMilestoneNextViolationDatetime__c == null && ci.MilestoneTimeStartDatetime__c != null) {
 						//Check if new date is within working days
 						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c.addMinutes(configuredMins));
 					} else {
 						//Check if new date is within working days
-						violationDatetime = ci.NetworkMilestoneNextViolationDatetime__c.addMinutes(configuredMins);
+						violationDatetime = checkWithinBusinessHours(ci.NetworkMilestoneNextViolationDatetime__c.addMinutes(configuredMins));
 					}
 					result.put(ci.Id, violationDatetime);
 				}
@@ -282,7 +293,8 @@ public inherited sharing class MilestoneService {
 	private Datetime checkWithinBusinessHours(Datetime violationDatetime) {
 		if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
 			//If new date is not within working days, get new working day
-			violationDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
+			Datetime newDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
+			violationDatetime = Datetime.newInstance(newDatetime.year(), newDatetime.month(), newDatetime.day(), violationDatetime.hour(), violationDatetime.minute(), violationDatetime.second());
 		}
 		return violationDatetime;
 	}
