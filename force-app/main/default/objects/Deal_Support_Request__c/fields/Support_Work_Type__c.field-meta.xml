@@ -1653,6 +1653,7 @@
             <controllingFieldValue>Contract</controllingFieldValue>
             <controllingFieldValue>Copy of Contract</controllingFieldValue>
             <controllingFieldValue>Termination of Contract</controllingFieldValue>
+            <controllingFieldValue>Change OE APR rate</controllingFieldValue>
             <controllingFieldValue>Extensions</controllingFieldValue>
             <controllingFieldValue>Lodgement Points</controllingFieldValue>
             <valueName>Deal Processing</valueName>

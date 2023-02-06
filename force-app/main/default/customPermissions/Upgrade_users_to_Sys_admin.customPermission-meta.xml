@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Allows limited systems admins to upgrade other users to Sys admin</description>
-    <isLicensed>false</isLicensed>
-    <label>Upgrade users to Sys admin</label>
-</CustomPermission>

@@ -14,6 +14,7 @@
  * 2022-04-24 - Nathan Franklin - Added test methods for search and selectActiveUserByProfileName
  * 2022-08-25 - Mahesh Parvathaneni - Added test methods for selectByName
  * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
+ * 2023-01-27 - Naveen Rajanna - Updated api version and test methods for selectUsersEligibleForDeactivationQueryLocator
  * 2022-02-01 - Noel Lim - updated testSelectorIntegration method, added test for new selectActiveUserById()
  */
 @IsTest
@@ -271,6 +272,10 @@ public with sharing class UsersSelector_Test {
 		String name = users[0].FirstName + ' ' + users[0].LastName;
 		results = selector.selectByName(new Set<String>{name});
 		System.assertEquals(1, results.size(), 'Expected 1 result');
+
+		Database.QueryLocator queryLocator = selector.selectUsersEligibleForDeactivationQueryLocator(new Set<String>{'Standard'}, 0, 0, new Set<String>(), new Set<Object>());
+        System.assert(queryLocator != null, 'Expected a valid query locator');
+        System.assert(queryLocator.iterator().hasNext(), 'Expected a valid query locator');
 
 		Test.stopTest();
 

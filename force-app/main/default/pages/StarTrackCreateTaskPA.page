@@ -7,7 +7,51 @@
     NOV.05.2015 Patrick James Franco - Added rendered filter to Is Bulk Task to hide it for Pickup Booking Enquiry Cases
     NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
     NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
+    NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
 -->
-<apex:page id="page" standardController="Case" docType="html-5.0" showHeader="false" sidebar="false">
-    <c:StarTrackCreateTask case="{!Case}"/>
+<apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
+    sidebar="false">
+    <c:ScriptLoader jsLibraries="integration,jquery" />
+    
+    <div id="main">
+        <div id="VFCmp">
+            <c:StarTrackCreateTask case="{!Case}" />
+        </div>
+		<div id="wrapper">
+			<c:LightningWrapper lightningApp="c:myNetworkStarTrackApp"
+			                    lightningComponent="c:myNetworkStarTrackCaseArticlesContainer"
+			                    crossOriginLwcEvents="false"
+								componentAttributes="{&quot;recordId&quot;:&quot;{!$CurrentPage.parameters.id}&quot;}"	/>
+		</div>
+
+        <script>
+            // listen for the custom dom event subtab so we can handle anytime when a user click a record 
+			document.getElementById('wrapper').addEventListener('subtab', handleMyNetworkStarTrackLightningEvent);
+
+            /**
+             * This is the callback for anytime a lightning event is generated from MyNetwork StarTrack container
+             */
+            function handleMyNetworkStarTrackLightningEvent(e) {
+                if(e && e.detail && e.type === 'subtab' && e.detail.recordId) {
+                    // this occurs if a link is clicked in MyNetwork StarTrack container that requires a record page to be opened in subtab
+                    sforce.console.getEnclosingPrimaryTabId(function(result) {  
+            		sforce.console.openSubtab(result.id, '/' + e.detail.recordId, true, '', null);
+        		    });
+                }
+            }
+        </script>
+
+        <style>
+            div#VFCmp {
+                display: inline-block;
+                padding: 1rem;
+                border-radius: 0.25rem;
+                border: 1px solid rgb(201, 201, 201);
+            }
+
+            div#wrapper {
+                margin-top: 1rem;
+            }
+        </style>
+    </div>
 </apex:page>

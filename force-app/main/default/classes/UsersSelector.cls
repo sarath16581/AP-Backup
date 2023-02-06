@@ -14,6 +14,7 @@
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-08-25 - Mahesh Parvathaneni - Added method selectByName
  * 2022-08-30 - Nathan Franklin - Added field overrides Map<>
+ * 2023-01-27 - Naveen Rajanna - Updated api version and added method selectUsersEligibleForDeactivationQueryLocator
  * 2022-02-01 - Noel Lim - added method selectActiveUserById 
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
@@ -148,8 +149,40 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
    */
   public Map<Id, User> selectByContactId(Set<Id> contactIds, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.ContactId + ' in :contactIds')).endConditions();
-    return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
-  }
+		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+	}
+
+ /**
+  * To retrieve users who have been inactive and based on few more filters
+  * @param userTypeSet userType to be filtered
+  * @param lastLoginDays number of days of inactivity after which a user should be deactivated
+  * @param lastCreatedDays number of days to wait for deactivation after a user has been invited but has not yet logged in
+  * @param excludeProfileSet profile names to be excluded
+  * @param selectorOptions 
+  * @return  `Database.QueryLocator`
+  */	
+	public Database.QueryLocator selectUsersEligibleForDeactivationQueryLocator(
+		Set<String> userTypeSet,
+		Integer lastLoginDays,
+		Integer lastCreatedDays,
+		Set<String> excludeProfileSet,
+		Set<Object> selectorOptions
+	) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions
+			.add(new QueryBuilder.CompareCondition(User.IsActive).eq(true))
+			.add(new QueryBuilder.CompareCondition(User.IsExcludedFromAutoDeactivation__c).eq(false))
+			.add(new QueryBuilder.SimpleCondition(User.UserType + ' IN :userTypeSet'))
+			.add(new QueryBuilder.SimpleCondition('Profile.Name NOT IN :excludeProfileSet'))
+			.add(new QueryBuilder.SimpleCondition(User.LastLoginDate + ' < LAST_N_DAYS:' + lastLoginDays))
+			.add(new QueryBuilder.NullCondition(User.LastLoginDate).isNull())
+			.add(new QueryBuilder.SimpleCondition(User.CreatedDate + ' < LAST_N_DAYS:' + lastCreatedDays));
+		String conditionString = '1 AND 2 AND 3 AND 4 AND (5 OR (6 AND 7))';
+		conditions.setConditionOrder(conditionString).endConditions();	
+		qb.addOrderAsc(User.LastLoginDate);
+		return Database.getQueryLocator(qb.toSoqlString());
+	}
 
   /**
    * Run a SOQL based on the search parameters passed in
