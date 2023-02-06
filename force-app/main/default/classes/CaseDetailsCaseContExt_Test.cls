@@ -112,6 +112,7 @@ global class CaseDetailsCaseContExt_Test {
 		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
 		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
 		testCase.OwnerId = agents[0].Id;
+		testCase.Origin = 'Email';
 
 		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
 		CaseDetailsCaseContExt controller = new CaseDetailsCaseContExt(sc);
