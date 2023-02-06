@@ -513,6 +513,13 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Article__c</fields>
+        <fields>Status__c</fields>
+        <fields>Network__c</fields>
+        <relatedList>CaseInvestigation__c.Case__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>Acting_Network__c</fields>
         <fields>Request_Hold_Case__c</fields>
