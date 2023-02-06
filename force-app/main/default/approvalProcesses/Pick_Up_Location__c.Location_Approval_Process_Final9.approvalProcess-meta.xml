@@ -29,11 +29,11 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>christopher.lambert@startrack.com.au</name>
+                <name>james.barns@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
-                <name>james.barns@startrack.com.au</name>
+                <name>jamie.blacker@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -87,7 +87,7 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>christopher.lambert@startrack.com.au</name>
+                <name>jamie.blacker@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>

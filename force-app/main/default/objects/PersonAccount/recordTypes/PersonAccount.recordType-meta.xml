@@ -1645,6 +1645,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SalesTeamType__c</picklist>
+        <values>
+            <fullName>Direct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Holding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Sales_Org__c</picklist>
         <values>
             <fullName>Sales Org 1</fullName>
