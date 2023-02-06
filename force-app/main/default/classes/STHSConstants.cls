@@ -25,4 +25,7 @@ public with sharing class STHSConstants {
     public static final String CASE_CONTYPE_SENDER = 'Sender';
     public static final String PREF_CONTACT_METHOD_EMAIL = 'Email';
     public static final String CASE_DIRECTION_INBOUND = 'Inbound';
+	public static final String FORM_TRACKING_ENQUIRY = 'Tracking Enquiry';
+	public static final String ENQUIRY_TYPE_SEPARATOR = '|';
+	public static final String TRACKING_ENQUIRY_TRACK_TRACE = 'Tracking Enquiry|Track & Trace';
 }

@@ -140,7 +140,9 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 				Case.Article_Service_Type__c, 
 				Case.ReferenceID__c, 
 				Case.Origin, 
-				Case.ArticleTest__c
+				Case.ArticleTest__c,
+				Case.CHASEnquiryType__c,
+				Case.Recent_Caller_Type__c
 			};
 			Set<SObjectField> articleFields = new Set<SObjectField>{
 				Article__c.Product_Group__c
@@ -175,7 +177,10 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 if(this.cse.ArticleTest__c != null // if article record is linked
 					&& this.cse.ReferenceID__c != null // and there's a reference ID
 					&& StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
-					&& caseRecordTypes.contains(this.cse.RecordTypeId) ) { // only startrack delivery enquiry record type
+					&& caseRecordTypes.contains(this.cse.RecordTypeId) // only startrack delivery enquiry record type
+					&& STHSConstants.TRACKING_ENQUIRY_TRACK_TRACE.equalsIgnoreCase(this.cse.CHASEnquiryType__c) // Enquriy type should be only Tracking Enquiry|Track & Trace
+					&& STHSConstants.CASE_CONTYPE_SENDER.equalsIgnoreCase(this.cse.Recent_Caller_Type__c) // only Caller Type sender 
+					) { 
 					//get transfer owner Id
 					Id transferOwnerId = transferCase(this.cse);
 					if (transferOwnerId !=null && this.cse.OwnerId != transferOwnerId){
