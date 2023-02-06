@@ -11,8 +11,9 @@
  * @group Domain
  * @domain Routing 
  * @changelog
- * 2022-09-20 - Noel Lim - Created
- * 2022-12-06 - Noel Lim - added method assignToPreferredAgent
+ * 2022-09-20 - Noel Lim		- Created
+ * 2022-12-06 - Noel Lim 		- added method assignToPreferredAgent
+ * 2022-12-21 - George Nguyen	- added method resetBypassPreferredAgentFlag
  */
 
 public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
