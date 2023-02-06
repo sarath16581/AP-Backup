@@ -183,6 +183,9 @@
         <searchResultsAdditionalFields>Approval_Status__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Comments__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
+    <sharingRecalculations>
+        <className>SalesAPRSharingBatchable</className>
+    </sharingRecalculations>
     <visibility>Public</visibility>
 </CustomObject>

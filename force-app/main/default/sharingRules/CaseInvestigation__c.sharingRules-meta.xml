@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>StarTrack_Case_Investigation_Read_Write_MyNetwork</fullName>
+        <fullName>StarTrack_Case_Investigation_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Shares the case investigations created by StarTrack contact center agents to the role and internal subordinates of SSSW MyNetwork Manager</description>
-        <label>StarTrack Case Investigation Read Write MyNetwork</label>
+        <description>Share the StarTrack MyNetwork Case Investigation records to the role and internal subordinates of StarTrack CSC Manager</description>
+        <label>StarTrack Case Investigation Read Write</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>SSSW_Facility_Manager_VIC</roleAndSubordinatesInternal>
+            <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -16,12 +16,12 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>StarTrack_Case_Investigation_Read_Write</fullName>
+        <fullName>StarTrack_Case_Investigation_Read_Write_MyNetwork</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share the StarTrack MyNetwork Case Investigation records to the role and internal subordinates of StarTrack CSC Manager</description>
-        <label>StarTrack Case Investigation Read Write</label>
+        <description>Shares the case investigations created by StarTrack contact center agents to the role and internal subordinates of SSSW MyNetwork Manager</description>
+        <label>StarTrack Case Investigation Read Write MyNetwork</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
+            <roleAndSubordinatesInternal>SSSW_Facility_Manager_VIC</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
