@@ -13,6 +13,7 @@
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
 * 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
+* 1.3	31/01/2023				Noel Lim					Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 **/
 public inherited sharing class OmniChannelService {
 
@@ -56,12 +57,15 @@ public inherited sharing class OmniChannelService {
 		'Low' => 5000
 	};
 
+	/*
+	* Note these values in the range are assigned to the Case OmniRoutingSecondaryPriority__c picklist field, which has a 1000-value limit.
+	*/
 	private final Map<Integer, Integer> secondaryPriorityRanges = new Map<Integer, Integer> {
-		5000 => 4950,
-		4000 => 3950,
-		3000 => 2950,
-		2000 => 1950,
-		1000 => 950
+		5000 => 4850,
+		4000 => 3850,
+		3000 => 2850,
+		2000 => 1850,
+		1000 => 850
 	};
 
 	public void setOmniRoutingSecondaryPriority(List<PendingServiceRouting> psrs) {
