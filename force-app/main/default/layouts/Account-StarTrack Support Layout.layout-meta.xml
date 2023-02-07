@@ -375,6 +375,13 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Additional Information</label>
+		<layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>eParcelDamagesDelegate__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>

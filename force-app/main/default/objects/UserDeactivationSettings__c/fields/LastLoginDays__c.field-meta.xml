@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LastLoginDays__c</fullName>
+    <defaultValue>180</defaultValue>
+    <description>The number of days of inactivity after which a user should be deactivated</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of days of inactivity after which a user should be deactivated</inlineHelpText>
+    <label>Last Login (days)</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

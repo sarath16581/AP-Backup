@@ -1,0 +1,151 @@
+<!--
+@author Nathan Franklin
+@date 2023-02-01
+@description Custom built report for handling a breakdown of pending cases to be assigned via skills
+@changelog
+-->
+<template>
+
+	<template if:true={renderHeader}>
+		<div class="slds-page-header slds-m-bottom_medium">
+			<div class="slds-page-header__row">
+				<div class="slds-page-header__col-title">
+					<div class="slds-media">
+						<div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:report" size="large"></lightning-icon>
+						</div>
+						<div class="slds-media__body" style="align-self:center;">
+							<div class="slds-page-header__name ">
+								<div class="slds-page-header__name-title">
+									<h1>
+										<span class="slds-page-header__title slds-truncate" title="Omni Skills Report">Omni Skills Report</span>
+									</h1>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<div class="slds-is-relative">
+		<template if:true={waiting}>
+			<lightning-spinner></lightning-spinner>
+		</template>
+
+		<template if:true={loaded}>
+
+			<div class="slds-m-bottom_medium">
+				<lightning-card icon-name="standard:filter" title="Filters">
+					<div class="slds-p-right_medium slds-p-left_medium slds-p-bottom_medium">
+						<c-multi-select-picklist multi-select="true" pill-icon="standard:skill" onblur={handleSelectOptionList} selected-values={selectedFilters} options={skillMappingsForPicklist} label="Filter Skills (All)"></c-multi-select-picklist>
+					</div>
+				</lightning-card>
+			</div>
+
+			<div class="slds-m-bottom_medium">
+				<lightning-card icon-name="standard:report" title="Report" class="slds-m-bottom_medium slds-is-relative">
+
+					<table class="slds-table slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+						<thead>
+						<tr class="slds-line-height_reset">
+							<th class="" scope="col">
+								<div class="slds-truncate slds-th__action" title="Skills">Skills</div>
+							</th>
+							<template for:each={bucketColumns} for:item="column">
+								<th class="slds-is-sortable slds-cell_action-mode slds-is-sortable slds-cell_action-mode" scope="col" key={column.bucket} data-bucket={column.bucket} onclick={handleBucketSort}>
+									<a class="slds-th__action slds-text-link_reset slds-truncate" title={column.bucket}>
+										{column.bucket}
+
+										<template if:true={column.isSortField}>
+											<template if:true={isSortDesc}>
+												<lightning-icon icon-name="utility:arrowdown" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+											</template>
+											<template if:true={isSortAsc}>
+												<lightning-icon icon-name="utility:arrowup" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+											</template>
+										</template>
+
+									</a>
+								</th>
+							</template>
+							<th class="slds-is-sortable slds-cell_action-mode" scope="col" onclick={handleTotalSort}>
+								<a class="slds-th__action slds-text-link_reset slds-truncate" title="Total">
+									Total
+
+									<template if:true={isSortFieldTotal}>
+										<template if:true={isSortDesc}>
+											<lightning-icon icon-name="utility:arrowdown" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+										</template>
+										<template if:true={isSortAsc}>
+											<lightning-icon icon-name="utility:arrowup" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+										</template>
+									</template>
+								</a>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						<template for:each={reportDataAsArray} for:item="row">
+							<tr class="slds-hint-parent" key={row.key}>
+								<td scope="col">
+									<div class="slds-truncate">
+										<template for:each={row.skills} for:item="skill">
+											<lightning-pill label={skill} key={skill}>
+												<lightning-icon icon-name="standard:skill" alternative-text={skill}></lightning-icon>
+											</lightning-pill>
+											&nbsp;
+										</template>
+									</div>
+								</td>
+								<template for:each={row.buckets} for:item="bucket">
+									<td data-label="" key={bucket.key}>
+										<template if:true={bucket.countGreaterThan0}>
+											<div class="slds-truncate" title=""><a class="slds-text-link" data-skillkey={row.key} data-bucket={bucket.key} onclick={handleDrilldown}>{bucket.count}</a></div>
+										</template>
+										<template if:false={bucket.countGreaterThan0}>
+											<div class="slds-truncate" title="">{bucket.count}</div>
+										</template>
+									</td>
+								</template>
+								<th class="" scope="col">
+									<div class="slds-truncate" title="Total">{row.total}</div>
+								</th>
+							</tr>
+						</template>
+						</tbody>
+					</table>
+				</lightning-card>
+			</div>
+
+			<template if:true={hasDrilldownCases}>
+				<div class="slds-m-bottom_medium">
+					<lightning-card icon-name="standard:dataset" title="Drilldown" class="slds-is-relative">
+						<div class="slds-m-top_medium slds-m-bottom_medium" style="height: 400px;">
+							<lightning-datatable
+									key-field="CaseNumber"
+									data={drilldownCasesChunk}
+									columns={columns}
+									enable-infinite-loading={drilldownNeedsLoadMore}
+									onloadmore={handleDrilldownLoadMore}
+									resize-column-disabled
+									hide-checkbox-column
+									onsort={handleDrilldownSort}
+									sorted-by={drilldownSortedBy}
+									sorted-direction={drilldownSortedDirection}
+							>
+							</lightning-datatable>
+						</div>
+
+						<div class="slds-m-horizontal_small">
+							{drilldownLoadingStatus}
+						</div>
+					</lightning-card>
+
+				</div>
+			</template>
+		</template>
+	</div>
+
+</template>

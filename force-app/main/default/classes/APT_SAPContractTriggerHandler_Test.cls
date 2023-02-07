@@ -7,6 +7,7 @@
  * 2016-09-16 - Mausam Padhiyar - Created
  * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
  * 2022-02-11  REQ2723568: API version 52 upgrade
+ * 2023-02-03 - Ranjeewa Silva - Additional test methods to improve code coverage on legacy code sitting in APT_SAPContractTrigger.
 */
 
 @isTest
@@ -348,4 +349,126 @@ private class APT_SAPContractTriggerHandler_Test{
         	delete sapContract;
         test.stopTest();
     }
+
+    /**
+	 * Asserts the behaviour when an exception is thrown from related Apttus Contract update when a SAP Contract is deleted.
+	 * NOTE: This test is mainly to improve cde coverage on legacy code sitting in APT_SAPContractTrigger so the trigger is deployable.
+	 *       Legacy code in APT_SAPContractTrigger needs to be refactored when there is budget for regression testing !!!
+	 */
+    @IsTest
+    static void testDeletingSAPContractWhenApttusContractUpdateThrowsException() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+
+        // this test inserts a APT_SAP_Contracts__c record and attempts to verify behaviour of the  code currently
+        // sitting in the APT_SAPContractTrigger (legacy code). we do not want the domain trigger code to be executed here
+        // as that has been tested separately. disabling domain trigger handler below.
+        SystemSwitch__c settings = new SystemSwitch__c(DisableTriggers__c = true, ObjectTriggersToBeDisabled__c= 'APT_SAP_Contracts__c');
+        insert settings;
+
+        Contact contact = APT_TestUtils.createContact();
+        insert contact;
+
+        Account account = APT_TestUtils.createOrganisation();
+        insert account;
+
+        // Create test opportunity
+        Opportunity opportunity = APT_TestUtils.createOpportunity(account.id);
+        insert opportunity;
+
+        Apttus__APTS_Agreement__c apttusContract = APT_TestUtils.createAgreement(contact.Id);
+        apttusContract.APT_Product__c = 'eParcel' ;
+        apttusContract.Apttus__Related_Opportunity__c = opportunity.Id;
+        apttusContract.Apttus__Account__c = account.Id;
+        insert apttusContract;
+
+        APT_SAP_Contracts__c sapContract = new APT_SAP_Contracts__c();
+        sapContract.APT_Apttus_Contract__c = apttusContract.Id;
+        sapContract.APT_SAP_Contract_Number__c = '1234567';
+        insert sapContract;
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException('mock exception message'));
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+        Database.DeleteResult result = Database.delete(sapContract, false);
+
+        Test.stopTest();
+
+        System.assertEquals(false, result.isSuccess(), 'SAP Contract deletion is expected to fail when related apttus contract update throws exception');
+
+    }
+
+    /**
+	 * Asserts the behaviour when an exception is thrown from related Apttus Contract update when a SAP Contract is deleted.
+	 * NOTE: This test is mainly to improve cde coverage on legacy code sitting in APT_SAPContractTrigger so the trigger is deployable.
+	 *       Legacy code in APT_SAPContractTrigger needs to be refactored when there is budget for regression testing !!!
+	 */
+    @IsTest
+    static void testInsertingSAPContractWhenApttusContractUpdateThrowsException() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+
+        // this test inserts a APT_SAP_Contracts__c record and attempts to verify behaviour of the  code currently
+        // sitting in the APT_SAPContractTrigger (legacy code). we do not want the domain trigger code to be executed here
+        // as that has been tested separately. disabling domain trigger handler below.
+        SystemSwitch__c settings = new SystemSwitch__c(DisableTriggers__c = true, ObjectTriggersToBeDisabled__c= 'APT_SAP_Contracts__c');
+        insert settings;
+
+        Contact contact = APT_TestUtils.createContact();
+        insert contact;
+
+        Account account = APT_TestUtils.createOrganisation();
+        insert account;
+
+        // Create test opportunity
+        Opportunity opportunity = APT_TestUtils.createOpportunity(account.id);
+        insert opportunity;
+
+        Apttus__APTS_Agreement__c apttusContract = APT_TestUtils.createAgreement(contact.Id);
+        apttusContract.APT_Product__c = 'eParcel' ;
+        apttusContract.Apttus__Related_Opportunity__c = opportunity.Id;
+        apttusContract.Apttus__Account__c = account.Id;
+        insert apttusContract;
+
+        APT_SAP_Contracts__c sapContract = new APT_SAP_Contracts__c();
+        sapContract.APT_Apttus_Contract__c = apttusContract.Id;
+        sapContract.APT_SAP_Contract_Number__c = '1234567';
+
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException('mock exception message'));
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+        Database.SaveResult result = Database.insert(sapContract, false);
+
+        Test.stopTest();
+
+        System.assertEquals(false, result.isSuccess(), 'SAP Contract insert is expected to fail when related apttus contract update throws exception');
+
+    }
+
+    private class MockException extends Exception{}
 }

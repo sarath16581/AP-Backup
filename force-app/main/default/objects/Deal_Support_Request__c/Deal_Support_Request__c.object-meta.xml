@@ -183,5 +183,8 @@
         <searchResultsAdditionalFields>OWNER.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
+    <sharingRecalculations>
+        <className>SalesDSRSharingBatchable</className>
+    </sharingRecalculations>
     <visibility>Public</visibility>
 </CustomObject>

@@ -153,7 +153,7 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
+    <externalSharingModel>Private</externalSharingModel>
     <label>SAP Contract</label>
     <nameField>
         <displayFormat>SAP-SFNo-{YYYY}-{MM}-{0}</displayFormat>
@@ -172,6 +172,9 @@
         <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
+    <sharingRecalculations>
+        <className>SalesSAPContractSharingBatchable</className>
+    </sharingRecalculations>
     <visibility>Public</visibility>
 </CustomObject>
