@@ -9,6 +9,7 @@
 * @changelog
 * 2022-11-02 - George Nguyen - Created
 * 2023-02-06 - Nathan Franklin - Added search method and additional selector options and field overrides
+* 2023-02-08 - Noel Lim - Added method selectByLastModifiedDateLessThanEqualNDaysAgo
 */
 public inherited sharing class PendingServiceRoutingSelector extends ApplicationSelector {
 
@@ -87,14 +88,6 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 */
 	public List<PendingServiceRouting> selectByWorkItemId(Set<Id> workItemIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PendingServiceRouting.WorkItemId + ' in :workItemIds')).endConditions();
-		return (List<PendingServiceRouting>)Database.query(qb.toSoqlString());
-	}
-
-	/**
-	 * @description Run a query to get records based on the LastModifiedDate
-	 */
-	public List<PendingServiceRouting> selectByLastModifiedDateLessThanLastNDays(Integer lastNDays, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PendingServiceRouting.LastModifiedDate + ' < LAST_N_DAYS:' + lastNDays)).endConditions();
 		return (List<PendingServiceRouting>)Database.query(qb.toSoqlString());
 	}
 

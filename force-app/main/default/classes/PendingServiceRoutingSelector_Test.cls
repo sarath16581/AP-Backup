@@ -8,6 +8,7 @@
  * @changelog
  * 2022-11-03 George Nguyen - Created
  * 2023-02-06 - Nathan Franklin - Added some tests for recent updates
+ * 2023-02-08 - Noel Lim - Added method selectByLastModifiedDateLessThanEqualNDaysAgo
  */
 @IsTest
 public with sharing class PendingServiceRoutingSelector_Test {
@@ -185,12 +186,6 @@ public with sharing class PendingServiceRoutingSelector_Test {
 		selector.selectByWorkItemId(pendingServiceRoutings.keySet(), new Set<Object>());
 		queryString = qa.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\b' + PendingServiceRouting.WorkItemId + ' in :workItemIds\\b').matcher(queryString).find(), 'Filters by workItemIds in query');
-
-		qa = QueryBuilder.newInstance();
-		QueryBuilder.mockFactory.put(PendingServiceRoutingSelector.class, qa); 
-		selector.selectByLastModifiedDateLessThanLastNDays(3, new Set<Object>());
-		queryString = qa.toSoqlString();
-		System.assertEquals(true, Pattern.compile('\\b' + PendingServiceRouting.LastModifiedDate + ' < LAST_N_DAYS:3\\b').matcher(queryString).find(), 'Filters by LastModifiedDate using LAST_N_DAYS in query');
 
 		qa = QueryBuilder.newInstance();
 		QueryBuilder.mockFactory.put(PendingServiceRoutingSelector.class, qa); 

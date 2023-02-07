@@ -6,8 +6,8 @@
 * @tag Omni SObject
 * @description test class for OmniPsrSecondaryPriorityBatch
 * @changelog
-* 2022-11-06 - George Nguyen	Created
-* 2023-02-08 - Noel Lim			Updated to use PendingServiceRoutingSelector
+* 2022-11-06 - George Nguyen - Created
+* 2023-02-08 - Noel Lim - Updated to use PendingServiceRoutingSelector
 */
 @IsTest
 public with sharing class OmniPsrSecondaryPriorityBatch_Test {
