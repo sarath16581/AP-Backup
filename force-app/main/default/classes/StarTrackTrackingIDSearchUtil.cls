@@ -108,7 +108,7 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
             // access the update records via shared context since the update happens from community
             ElevatedSharingContext sharedContext = new ElevatedSharingContext();
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
-			//process the case transfer
+            //process the case transfer
             System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
         } catch (Exception e) {
             UTIL_LoggingService.logHandledException(
@@ -123,72 +123,72 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         }
     }
 
-	@TestVisible
+    @TestVisible
     private without sharing class TransferCaseQueueable implements Queueable{
         Case cse;
         Set<Id> caseRecordTypes = new Set<Id>{
-				SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
+                SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
         };
 
-        public  TransferCaseQueueable(Case record) {			
-			Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
-			Set<SObjectField> caseFields = new Set<SObjectField>{
-				Case.Id, 
-				Case.Call_Purpose__c, 
-				Case.RecordTypeId, 
-				Case.Enquiry_Type__c, 
-				Case.Business_Solutions_Customer__c, 
-				Case.Initial_Caller_Type__c,
-				Case.Status, 
-				Case.OwnerId, 
-				Case.Article_Service_Type__c, 
-				Case.ReferenceID__c, 
-				Case.Origin, 
-				Case.ArticleTest__c
-			};
-			Set<SObjectField> articleFields = new Set<SObjectField>{
-				Article__c.Product_Group__c
-			};			
-			Set<SObjectField> recordTypeFields = new Set<SObjectField>{
-				RecordType.Name
-			};			
-			Set<SObjectField> networkFields = new Set<SObjectField>{
-				Network__c.OwnerId, Network__c.Name
-			};
-			Set<SObjectField> billingAccountFields = new Set<SObjectField>{
-				Billing_Account__c.BSC_Calc_Transfer_Queue__c
-			};
-			Set<SObjectField> accountFields = new Set<SObjectField>{
-				Account.StarTrack_Customer_Stream__c
-			};
-			overrideFields.put(Case.SObjectType, caseFields);
-			overrideFields.put(Article__c.SObjectType, articleFields);
-			overrideFields.put(Network__c.SObjectType, networkFields);
-			overrideFields.put(Billing_Account__c.SObjectType, billingAccountFields);
-			overrideFields.put(Account.SObjectType, accountFields);
+        public  TransferCaseQueueable(Case record) {
+            Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
+            Set<SObjectField> caseFields = new Set<SObjectField>{
+                    Case.Id,
+                    Case.Call_Purpose__c,
+                    Case.RecordTypeId,
+                    Case.Enquiry_Type__c,
+                    Case.Business_Solutions_Customer__c,
+                    Case.Initial_Caller_Type__c,
+                    Case.Status,
+                    Case.OwnerId,
+                    Case.Article_Service_Type__c,
+                    Case.ReferenceID__c,
+                    Case.Origin,
+                    Case.ArticleTest__c
+            };
+            Set<SObjectField> articleFields = new Set<SObjectField>{
+                    Article__c.Product_Group__c
+            };
+            Set<SObjectField> recordTypeFields = new Set<SObjectField>{
+                    RecordType.Name
+            };
+            Set<SObjectField> networkFields = new Set<SObjectField>{
+                    Network__c.OwnerId, Network__c.Name
+            };
+            Set<SObjectField> billingAccountFields = new Set<SObjectField>{
+                    Billing_Account__c.BSC_Calc_Transfer_Queue__c
+            };
+            Set<SObjectField> accountFields = new Set<SObjectField>{
+                    Account.StarTrack_Customer_Stream__c
+            };
+            overrideFields.put(Case.SObjectType, caseFields);
+            overrideFields.put(Article__c.SObjectType, articleFields);
+            overrideFields.put(Network__c.SObjectType, networkFields);
+            overrideFields.put(Billing_Account__c.SObjectType, billingAccountFields);
+            overrideFields.put(Account.SObjectType, accountFields);
 
-			this.cse = CasesSelector.newInstance(0, overrideFields).selectById(
-																		new Set<Id>{Id.valueOf(record.Id)},
-																		new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_BILLINGACCOUNT, CasesSelector.Options.WITH_ACCOUNT}
-												).values()[0];
+            this.cse = CasesSelector.newInstance(0, overrideFields).selectById(
+                    new Set<Id>{Id.valueOf(record.Id)},
+                    new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_BILLINGACCOUNT, CasesSelector.Options.WITH_ACCOUNT}
+            ).values()[0];
 
         }
 
         public void execute(QueueableContext context) {
             try {
                 if(this.cse.ArticleTest__c != null // if article record is linked
-					&& this.cse.ReferenceID__c != null // and there's a reference ID
-					&& StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
-					&& caseRecordTypes.contains(this.cse.RecordTypeId) ) { // only startrack delivery enquiry record type
-					//get transfer owner Id
-					Id transferOwnerId = transferCase(this.cse);
-					if (transferOwnerId !=null && this.cse.OwnerId != transferOwnerId){
-						Case caseToBeUpdated = new Case();
-						caseToBeUpdated.Id = cse.Id;
-						caseToBeUpdated.OwnerId = transferOwnerId;
-						ElevatedSharingContext sharedContext = new ElevatedSharingContext();
-						sharedContext.updateRecords(new List<Case>{caseToBeUpdated});	
-					}
+                        && this.cse.ReferenceID__c != null // and there's a reference ID
+                        && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
+                        && caseRecordTypes.contains(this.cse.RecordTypeId) ) { // only startrack delivery enquiry record type
+                    //get transfer owner Id
+                    Id transferOwnerId = transferCase(this.cse);
+                    if (transferOwnerId !=null && this.cse.OwnerId != transferOwnerId){
+                        Case caseToBeUpdated = new Case();
+                        caseToBeUpdated.Id = cse.Id;
+                        caseToBeUpdated.OwnerId = transferOwnerId;
+                        ElevatedSharingContext sharedContext = new ElevatedSharingContext();
+                        sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
+                    }
                 }
 
             } catch (Exception ex) {
@@ -310,8 +310,8 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
                         if (!String.isBlank(c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c)) {
                             queueName = c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c;
                         }
-						ruleSatisfied = true;
-						break;
+                        ruleSatisfied = true;
+                        break;
                     } else if(tc_rule.Queue_Name__c == StarTrack_Constants.ST_NETWORK_CUST_NOTIF && !StarTrack_Constants.CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK) {
                         ruleSatisfied = false;
                         continue;

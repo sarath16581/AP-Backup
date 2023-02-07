@@ -7,9 +7,9 @@ History:
 10/12/2020   	seth.heang@auspost.com.au			                created
 02/06/2022      dattaraj.deshmukh@slalom.com     Added a trigger handler framework and created DealSupportRequestTriggerHandler2 class. 
                                                  All future updates to trigger should be done using trigger handler framework.
-
+05/12/2022 ken.mcguire added after update for sharing
 *****************************************************************************************/
-trigger DealSupportRequestTrigger on Deal_Support_Request__c (before insert, before update, after update) {
+trigger DealSupportRequestTrigger on Deal_Support_Request__c (before insert, before update, after insert, after update) {
     
     
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(Deal_Support_Request__c.SObjectType))) {

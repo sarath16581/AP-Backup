@@ -73,4 +73,3 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 	}
 
 }
-
