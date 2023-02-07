@@ -1,0 +1,19 @@
+<!--
+ @description Visualforce wrapper for the Omni Skills custom report app
+ @author Nathan Franklin
+ @date 2023-02-01
+ -->
+<apex:page id="OmniSkillsReportWrapper" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false">
+	<html>
+	<head>
+	</head>
+	<body class="slds-scope">
+		<div style="margin:1rem;">
+			<c:LightningWrapper lightningApp="c:OmniSkillsReportWrapperApp"
+			                    lightningComponent="c:omniSkillsReport"
+			                    crossOriginLwcEvents="false"
+			                    componentAttributes="{&quot;renderHeader&quot;:true}"	/>
+		</div>
+	</body>
+	</html>
+</apex:page>

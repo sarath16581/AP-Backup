@@ -16,6 +16,11 @@
  * 2021-10-01 - Nathan Franklin - Removed the clone capability to ensure the ID is set by references so the callers of this class get use it
 */
 public without sharing class TIBCODataTranslator {
+
+	public static TIBCODataTranslator newInstance() {
+		return (TIBCODataTranslator)Application.Utilities.newInstance(TIBCODataTranslator.class);
+	}
+
 	//Consignment Id to Consignment(Article)
 	@TestVisible
 	private Map<String, Article__c> consignments = new Map<String, Article__c>();
@@ -36,6 +41,15 @@ public without sharing class TIBCODataTranslator {
 	public TIBCODataTranslator(List<TIBCOTrackingResultWrapper> trackingResults) {
 		this.trackingResults = trackingResults;
 		translate();
+	}
+
+	// Need this for proper mocking
+	public TIBCODataTranslator() {}
+
+	public TIBCODataTranslator translate(List<TIBCOTrackingResultWrapper> trackingResults) {
+		this.trackingResults = trackingResults;
+		translate();
+		return this;
 	}
 
 	public void save() {

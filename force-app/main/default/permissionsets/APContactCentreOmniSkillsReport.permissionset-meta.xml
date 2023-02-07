@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>OmniSkillsReportController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Permissions to enable the omni skills report page for a user</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AP Contact Centre - Omni Skills Report</label>
+    <pageAccesses>
+        <apexPage>OmniSkillsReportWrapper</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <tabSettings>
+        <tab>OmniSkillsReport</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

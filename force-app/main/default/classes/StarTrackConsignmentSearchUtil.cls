@@ -642,6 +642,9 @@ public without sharing class StarTrackConsignmentSearchUtil {
                 thisEvent.Volume__c = eventMsg.Volume;
                 thisEvent.Post_Office_Name__c = eventMsg.PostOfficeName;
                 thisEvent.Post_Office_Code__c = eventMsg.PostOfficeCode;
+
+				thisEvent.FacilityOrganisationID__c = eventMsg.PostOfficeCode;				
+
                 thisEvent.Address_Type__c = eventMsg.AddressType;
                 thisEvent.Address_Line_1__c = eventMsg.AddressLine1;
                 thisEvent.Address_Line_2__c = eventMsg.AddressLine2;

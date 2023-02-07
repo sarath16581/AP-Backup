@@ -83,10 +83,8 @@ public class TIBCOArticleService {
 	public static TIBCOSearchResult searchArticles(String[] articleIds, Boolean searchSAPFirst, Boolean deprecated1 /*refreshCaseDetails*/, Boolean showMessages, Boolean deprecated2 /*linkToChildArticleIfSingleArticleConsignment*/, Boolean throwException) {
 		TIBCOSearchResult result;
 		if (searchSAPFirst) {
-			System.debug('---searching SAP');
 			result = searchArticlesInSAP(articleIds);
 			if (foundArticle(result)) {
-				System.debug('---saving SAP results');
 
 				// NOTE: An update was made to this to not clone the proxy objects that are passed in
 				// This is to ensure the proxy objects generated from searchArticlesInSAP will be updated with their Salesforce Id's
@@ -121,7 +119,6 @@ public class TIBCOArticleService {
 				}
 			}
 		}
-		System.debug('---returning result');
 		return result;
 	}
 
@@ -135,7 +132,6 @@ public class TIBCOArticleService {
 		}
 
 		TIBCOSearchResult result = new TIBCOSearchResult();
-		System.debug('articleIds>>>>>>>>>>>>: ' + articleIds);
 
 		if (articleIds.isEmpty()) {
 			return result;
@@ -157,8 +153,6 @@ public class TIBCOArticleService {
 				WHERE ArticleID__c IN :articleIds or TrackingID__c in :articleIds
 		];
 
-		System.debug('consignmentsAndArticles>>>>>>>>>>>>: ' + consignmentsAndArticles);
-
 		Map<String, List<Article__c>> consignmentToArticles = new Map<String, List<Article__c>>();
 		List<Id> consArticleIds = new List<Id>();
 		for (Article__c a : [
@@ -177,7 +171,6 @@ public class TIBCOArticleService {
 				FROM Article__c
 				WHERE Consignment__c IN :consignmentsAndArticles or TrackingID__c in :articleIds
 		]) {
-			System.debug('>>>>>>>>>>>>: ' + a);
 			List<Article__c> aList = consignmentToArticles.get(a.Consignment__r.ArticleID__c);
 			if (aList == null) {
 				aList = new List<Article__c>();
@@ -270,13 +263,8 @@ public class TIBCOArticleService {
 			}
 		}
 
-		System.debug('apcnNumbers: ' + apcnNumbers);
-		System.debug('nameSet: ' + nameSet);
-		System.debug('emailSet: ' + emailSet);
-
 		// based on the search params we have passed in we select all the applicable contacts
 		String soql = 'Select Id, Name, Email, APCN__c From Contact Where APCN__c In :apcnNumbers ' + ((nameSet.size()>0) ? ' OR Name IN :nameSet' : '') + ((emailSet.size()>0) ? ' OR Email IN :emailSet' : '') + ' Order by Email, CRMCSSOID__c Nulls Last, APCN__c Nulls Last, CreatedDate';
-		System.debug('Running Contact Matching Query: ' + soql);
 		List<Contact> contacts = Database.query(soql);
 
 		Map<String, Contact> apcnContactMappings = new Map<String, Contact>();
@@ -298,7 +286,6 @@ public class TIBCOArticleService {
 				}
 			}
 		}
-		System.debug('nameEmailContactMappings--->'+nameEmailContactMappings);
 		Map<Id, Map<String, Contact>> output = new Map<Id, Map<String, Contact>>();
 		for (Article__c a : consignmentsAndArticles) {
 			// we search for both apcn and name/email (just incase the APCN is not in SF)
@@ -393,10 +380,18 @@ public class TIBCOArticleService {
 				}
 			}
 		}
+	}	
+
+	/*
+	@Obsolete
+	NOTE: please use TIBCOArticleService.getInstance().searchByArticleIdsInSAP(articleIdsInbound) instead.
+	*/
+	public static TIBCOSearchResult searchArticlesInSAP(String[] articleIdsInbound) {
+		return TIBCOArticleService.getInstance().searchByArticleIdsInSAP(articleIdsInbound);
 	}
 
-	public static TIBCOSearchResult searchArticlesInSAP(String[] articleIdsInbound) {
-
+	// moved to local method for better mocking
+	public TIBCOSearchResult searchByArticleIdsInSAP(List<String> articleIdsInbound) {
 		List<String> articleIds = new List<String>();
 
 		for (String aID : articleIdsInbound) {
@@ -431,6 +426,7 @@ public class TIBCOArticleService {
 			System.debug('---Headers' + service.Header);
 			AuspostQueryTrackEventsSchema.TrackingResults_element trackResults = service.queryTrackEvents_v1(articleIds, 'NAMED_USER');
 			System.debug('---After sending request' + trackResults);
+			System.debug('>>>> response: ' + json.serialize(trackResults));
 
 			for (AuspostQueryTrackEventsSchema.TrackingResults tr : trackResults.TrackingResult) {
 				result.trackResults.add(new TIBCOTrackingResultWrapper(tr));

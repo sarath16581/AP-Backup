@@ -1,0 +1,25 @@
+.heading {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.label-heading {
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.comments {
+    padding-right: 0.5rem;
+}
+
+.field-element {
+    display: inherit;
+}
+
+.flex-el {
+    display: flex;
+}
+
+.submitBtn {
+    float: right;
+}

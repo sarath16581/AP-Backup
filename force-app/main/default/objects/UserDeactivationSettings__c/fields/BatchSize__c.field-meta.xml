@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BatchSize__c</fullName>
+    <defaultValue>100</defaultValue>
+    <description>batch size for Batch Apex</description>
+    <externalId>false</externalId>
+    <inlineHelpText>batch size for Batch Apex</inlineHelpText>
+    <label>Batch Size</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

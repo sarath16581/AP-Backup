@@ -1,0 +1,22 @@
+<!--
+    LWC action to trigger recalculation of Sales Team sharing for Account child objects. Prompts the user to confirm
+    recalculation before proceeding.
+	Changelog:
+    2023-01-23 - Ranjeewa Silva - Created.
+ -->
+
+<!-- Sales Recalculate Child Record Sharing -->
+<template>
+	<lightning-quick-action-panel header={label.recalculateSharingModalTitle}>
+		<template if:false={isRecalculateSharingDisabled}>
+			<div class="slds-p-around_medium">{label.confirmationInfoMessageLabel}</div>
+		</template>
+		<template if:true={isRecalculateSharingDisabled}>
+			<div class="slds-p-around_medium slds-text-color_destructive">{label.recalculateSharingPermissionsError}</div>
+		</template>
+		<div slot="footer">
+			<lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+			<lightning-button variant="brand" label="Proceed" class="slds-m-left_x-small" disabled={isRecalculateSharingDisabled} onclick={handleRecalculateSharing}></lightning-button>
+		</div>
+	</lightning-quick-action-panel>
+</template>
