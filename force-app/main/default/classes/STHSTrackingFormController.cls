@@ -3,6 +3,7 @@
  * @Description        : Controller class for StarTrack Tracking form
  * @Author             : Mahesh Parvathaneni
  * 					   : Jacob Isaac - REQ2995236 To add defaulting StarTrack_Calc_Email_Address__c
+ * 					   : 2023-02-06 Thang Nguyen - DDS-14064 - Add the Enquiry Type field value
  **/
 
 public with sharing class STHSTrackingFormController {
@@ -53,6 +54,7 @@ public with sharing class STHSTrackingFormController {
 		caseObj.Description_of_contents__c = formData.get(STHSConstants.FORM_DATA_DESCRIPTION_CONTENTS);
         StarTrack_Settings__c starTrackSettings = StarTrack_Settings__c.getOrgDefaults();
         caseObj.StarTrack_Calc_Email_Address__c = starTrackSettings.Investigators_From_Email__c;
+		caseObj.CHASEnquiryType__c = STHSConstants.FORM_TRACKING_ENQUIRY + STHSConstants.ENQUIRY_TYPE_SEPARATOR + formData.get(STHSConstants.FORM_DATA_ENQUIRY_TYPE);
     }
 
 	/**
