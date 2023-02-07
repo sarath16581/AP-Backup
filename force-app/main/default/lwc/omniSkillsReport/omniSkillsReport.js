@@ -8,6 +8,8 @@ import {LightningElement, api} from 'lwc';
 import fetchReportData from '@salesforce/apex/OmniSkillsReportController.fetchReportData';
 import getCases from '@salesforce/apex/OmniSkillsReportController.getCases';
 
+const DRILLDOWN_LOAD_CHUNKSIZE = 20;
+
 export default class OmniSkillsReport extends LightningElement {
 
 	@api renderHeader = false;
@@ -33,6 +35,8 @@ export default class OmniSkillsReport extends LightningElement {
 			fieldName: 'CreatedDate',
 			type: 'date',
 			sortable: true,
+			hideDefaultActions: true,
+			wrapText: true,
 			typeAttributes:{
 				year: "numeric",
 				month: "long",
@@ -41,12 +45,12 @@ export default class OmniSkillsReport extends LightningElement {
 				minute: "2-digit"
 			}
 		},
-		{ label: 'Case Priority', fieldName: 'Priority', sortable: true },
-		{ label: 'Case Number', fieldName: 'CaseNumber', sortable: true },
-		{ label: 'Type', fieldName: 'Type', sortable: true },
-		{ label: 'Product Category', fieldName: 'ProductCategory__c', sortable: true },
-		{ label: 'Product Subcategory', fieldName: 'ProductSubCategory__c', sortable: true },
-		{ label: 'Enquiry Subtype', fieldName: 'EnquirySubType__c', sortable: true },
+		{ label: 'Case Priority', fieldName: 'Priority', hideDefaultActions: true, wrapText: true, sortable: true },
+		{ label: 'Case Number', fieldName: 'CaseNumber', hideDefaultActions: true, wrapText: true, sortable: true },
+		{ label: 'Type', fieldName: 'Type', hideDefaultActions: true, wrapText: true, sortable: true },
+		{ label: 'Product Category', fieldName: 'ProductCategory__c', hideDefaultActions: true, wrapText: true, sortable: true },
+		{ label: 'Product Subcategory', fieldName: 'ProductSubCategory__c', hideDefaultActions: true, wrapText: true, sortable: true },
+		{ label: 'Enquiry Subtype', fieldName: 'EnquirySubType__c', hideDefaultActions: true, wrapText: true, sortable: true },
 		// Removed for now pending further review
 		// { label: 'Routing Priority', fieldName: 'OmniRoutingPriority', sortable: true },
 		// { label: 'Secondary Routing Priority', fieldName: 'OmniSecondaryRoutingPriority', sortable: true },
@@ -55,6 +59,9 @@ export default class OmniSkillsReport extends LightningElement {
 	parsedSkillMappings = {};
 
 	drilldownCases = [];
+	drilldownCasesChunk = [];
+	drilldownSortedBy = '';
+	drilldownSortedDirection = '';
 
 	reportData = {};
 
@@ -179,9 +186,59 @@ export default class OmniSkillsReport extends LightningElement {
 		return Object.values(output);
 	}
 
+	get drilldownLoadingStatus() {
+		return (this.drilldownNeedsLoadMore ? 'Scroll down to load more' : 'No more rows to load');
+	}
+
 	get bucketColumns() {
 		return this.buckets.map(item => { return {bucket: item, isSortField: this.sortField === item}; });
 	}
+
+	/**
+	 * Determines whether or not infinite scrolling is enabled on the drilldown datatable
+	 */
+	get drilldownNeedsLoadMore() {
+		return this.drilldownCasesChunk.length < this.drilldownCases.length;
+	}
+
+	/**
+	 * Load the next chunk into the drilldown datatable
+	 * Triggered from the user scrolling
+	 */
+	handleDrilldownLoadMore() {
+		this.addChunkToDrilldown();
+	}
+
+	/**
+	 * When the user clicks a column in the drill down data table to sort
+	 */
+	handleDrilldownSort(e) {
+		const { fieldName: sortedBy, sortDirection } = e.detail;
+		const cloneData = [...this.drilldownCases];
+		const isReverse = (sortDirection === 'asc' ? 1 : -1);
+
+		cloneData.sort((a, b) => {
+			let v1 = a[sortedBy];
+			let v2 = b[sortedBy];
+			if(sortedBy === 'CreatedDate') {
+				v1 = Date.parse(v1);
+				v2 = Date.parse(v2);
+			}
+			return isReverse * ((v1 > v2) - (v2 > v1));
+		});
+
+		// reset the chunk to the size it was before the sort process
+		this.drilldownCasesChunk = cloneData.slice(0, this.drilldownCasesChunk.length);
+
+		// reset the raw case data which we build our chunks from
+		this.drilldownCases = cloneData;
+
+		this.data = cloneData;
+		this.drilldownSortedDirection = sortDirection;
+		this.drilldownSortedBy = sortedBy;
+	}
+
+
 
 	/**
 	 * User has clicked the bucket column to sort that particular bucket
@@ -236,7 +293,9 @@ export default class OmniSkillsReport extends LightningElement {
 			caseList[index].OmniSecondaryRoutingPriority = this.pendingRoutingRecords[caseRecord.Id].secondaryRoutingPriority;
 		}
 
+		this.resetDrilldownDataset();
 		this.drilldownCases = caseList;
+		this.addChunkToDrilldown(); // add the first chunk of cases to display the first set of results
 		this.waiting = false;
 	}
 
@@ -299,7 +358,7 @@ export default class OmniSkillsReport extends LightningElement {
 			this.filteredReportData = filteredData;
 
 			// reset the case list
-			this.drilldownCases = [];
+			this.resetDrilldownDataset();
 		}
 
 		// reset the sort data based on what was previously used
@@ -335,6 +394,23 @@ export default class OmniSkillsReport extends LightningElement {
 		}
 
 		this.filteredReportData = newFilteredData;
+	}
+
+	/**
+	 * Add a chunk to the drilldown data table...
+	 * Usually the result of querying a new data set or scrolling down to trigger the infinite scrolling handler
+	 */
+	addChunkToDrilldown() {
+		if(this.drilldownCasesChunk.length < this.drilldownCases.length) {
+			this.drilldownCasesChunk = this.drilldownCases.slice(0, this.drilldownCasesChunk.length + DRILLDOWN_LOAD_CHUNKSIZE);
+		}
+	}
+
+	resetDrilldownDataset() {
+		this.drilldownCases = [];
+		this.drilldownCasesChunk = [];
+		this.drilldownSortedDirection = '';
+		this.drilldownSortedBy = '';
 	}
 
 }
