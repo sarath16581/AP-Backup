@@ -6,7 +6,8 @@
 * @tag Omni SObject
 * @description test class for OmniPsrSecondaryPriorityBatch
 * @changelog
-* 2022-11-06 - George Nguyen - Created
+* 2022-11-06 - George Nguyen	Created
+* 2023-02-08 - Noel Lim			Updated to use PendingServiceRoutingSelector
 */
 @IsTest
 public with sharing class OmniPsrSecondaryPriorityBatch_Test {
@@ -18,16 +19,24 @@ public with sharing class OmniPsrSecondaryPriorityBatch_Test {
 		Id serviceChannelId = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true)[0].Id;
 		List<PendingServiceRouting> psrs = OmniChannelTestDataFactory.getPendingServiceRoutings(2, serviceChannelId, cases.keySet(), true);
 
+		// =====================================
+		// Stubbing
+		// =====================================
 		OmniChannelService service = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
+		PendingServiceRoutingSelector psr = (PendingServiceRoutingSelector)MockUtility.mockSelector(PendingServiceRoutingSelector.class);
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(psr.selectByLastModifiedDateLessThanEqualNDaysAgo(
+			fflib_Match.eqInteger(1),
+			(Set<Object>)fflib_Match.eq(new Set<Object>{PendingServiceRoutingSelector.Options.EXCLUDE_ISPUSHED,PendingServiceRoutingSelector.Options.WITH_WORKITEM})
+		)).thenReturn(Database.getQueryLocator([SELECT Id FROM PendingServiceRouting]));
+
 		MockUtility.Mocks.stopStubbing();
 
-		Integer lastNDays = 2;
-		OmniPsrSecondaryPriorityBatch batch = new OmniPsrSecondaryPriorityBatch(lastNDays);
-		String expectedQuery = 'SELECT WorkItem.Priority, WorkItem.CreatedDate FROM PendingServiceRouting WHERE IsPushed = FALSE AND LastModifiedDate < LAST_N_DAYS:' + lastNDays;
-		System.assertEquals(expectedQuery, batch.query, 'Ensuring if there are changes in the query it is being captured');
+		Integer nDaysAgo = 1;
+		OmniPsrSecondaryPriorityBatch batch = new OmniPsrSecondaryPriorityBatch(nDaysAgo);
 
 		Test.startTest();
 		

@@ -5,26 +5,21 @@
 * @tag Batch
 * @tag Omni SObject
 * @description This batch is used to update the Secondary Priority of PendingServiceRouting records that have yet to be pushed. 
+
 * @changelog
-* 2022-11-06 - George Nguyen - Created
+* 2022-11-06 - George Nguyen 	Created
+* 2023-02-08 - Noel Lim			Updated to use PendingServiceRoutingSelector
 */
 public inherited sharing class OmniPsrSecondaryPriorityBatch implements Database.Batchable<sObject>,Schedulable  {
-	public final Integer lastNDays;
+	public final Integer nDaysAgo;
 	public final String query;
 
-	public OmniPsrSecondaryPriorityBatch(Integer lastNDays) {
-		this.lastNDays = lastNDays;
-
-		/*
-		This query is used to retrieved all PSR's that have IsPushed = False AND their LastModifiedDate is older by "lastNDays". 
-
-		E.g. If today = 2022-11-08 and LastModifiedDate = 2022-11-06 or older; if lastNDays = 2 then it should return this PSR. If LastModifiedDate = 2022-11-07 then it won't. 
-		*/
-		this.query = 'SELECT WorkItem.Priority, WorkItem.CreatedDate FROM PendingServiceRouting WHERE IsPushed = FALSE AND LastModifiedDate < LAST_N_DAYS:' + lastNDays;
+	public OmniPsrSecondaryPriorityBatch(Integer nDaysAgo) {
+		this.nDaysAgo = nDaysAgo;
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext BC){
-		return Database.getQueryLocator(query);
+		return (Database.QueryLocator)PendingServiceRoutingSelector.newInstance().selectByLastModifiedDateLessThanEqualNDaysAgo(nDaysAgo, new Set<Object>{PendingServiceRoutingSelector.Options.EXCLUDE_ISPUSHED,PendingServiceRoutingSelector.Options.WITH_WORKITEM});
 	}
 
 	// enables scheduling of this batch via cron or UI
