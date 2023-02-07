@@ -507,7 +507,7 @@ global class CaseDetailsCaseContExt  {
                     OwnerId,
                     SocialPostTags__c, // INC1852893 - SOQL query bug
                     CaseLocality__c,  // INC1852893 - SOQL query bug
-					PreferredAgentExpiry__c 
+                    PreferredAgentExpiry__c 
             from Case
             where Id = :caseId
             limit 1];
@@ -1124,9 +1124,9 @@ global class CaseDetailsCaseContExt  {
                             }
                             caseRec.AllocateToQueue__c = false;     // disable case queue allocation
 
-							if(OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseRec.OwnerId)){ //Bypass preferred agent logic if Case is being reassigned to an omni queue
-								caseRec.BypassPreferredAgent__c = true;
-							}
+                            if(OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseRec.OwnerId)){ //Bypass preferred agent logic if Case is being reassigned to an omni queue
+                                caseRec.BypassPreferredAgent__c = true;
+                            }
                         }
                     }
 
