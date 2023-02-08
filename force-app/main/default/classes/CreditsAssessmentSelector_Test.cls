@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2020-04-10 - arjun.singh@auspost.com.au - Created
+* 2023-02-08 - Harry Wang - Added test method for selectByOpportunityIds and field overrides
 */
 @IsTest
 public with sharing class CreditsAssessmentSelector_Test {
@@ -126,11 +127,52 @@ public with sharing class CreditsAssessmentSelector_Test {
         System.assertEquals(1, results.size(), 'Result count was wrong');
 
         results = selector.selectById(mappedRecord.keySet(), new Set<Object>{CreditsAssessmentSelector.Options.WITH_OWNER});
-        
         System.assertEquals(1, results.size(), 'Result count was wrong');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
 
-        Test.stopTest();
+        results = selector.selectByOpportunityIds(new Set<Id>{opportunityRecord.Id});
+        System.assertEquals(0, results.size(), 'Result count was wrong');
 
+        Test.stopTest();
+    }
+
+    /**
+	* Test:
+	*  Ensures that the selectors QueryBuilder is generating the correct output
+	*/
+    @IsTest
+    public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
+        Test.startTest();
+        CreditsAssessmentSelector selector = CreditsAssessmentSelector.newInstance(new Set<SObjectField>{
+                APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.Name
+        });
+        QueryBuilder qb = selector.newQueryBuilder();
+        String soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+
+        selector = CreditsAssessmentSelector.newInstance(1, new Set<SObjectField>{
+                APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.Name
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+
+        selector = CreditsAssessmentSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
+                Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c}
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+
+        selector = CreditsAssessmentSelector.newInstance('Name', 'Desc', 1);
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+
+        Test.stopTest();
     }
 }

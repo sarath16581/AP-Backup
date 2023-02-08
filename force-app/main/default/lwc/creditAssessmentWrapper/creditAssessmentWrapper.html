@@ -1,3 +1,9 @@
 <template>
+    <template if:true={messageBody}>
+        <c-credit-assessment-message body-message={messageBody}></c-credit-assessment-message>
+    </template>
 
+    <template if:true={showCAClosedOpp}>
+        <c-credit-assessment-details-closed-opp credit-assessments={creditAssessments}></c-credit-assessment-details-closed-opp>
+    </template>
 </template>

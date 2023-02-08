@@ -8,6 +8,7 @@
  * @changelog
  * 2020-11-18 - arjun.singh@austpost.com.au - Created
  * 2021-03-22 - avula.jansiani@auspost.com.au  added 'APT_Credit_Assessment_Status__c'
+ * 2023-02-08 - Harry Wang  added new method selectByOpportunityIds
  */
 public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
     public enum Options {
@@ -54,6 +55,17 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
         CreditsAssessmentSelector selector = (CreditsAssessmentSelector)Application.Selectors.newInstance(CreditsAssessmentSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
         return selector;
     }
+
+    /**
+     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+     * This approach removes data consistency and prevents possible caching of results
+     */
+    //Commenting it temporarily as it is not used at present
+    public static CreditsAssessmentSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+        CreditsAssessmentSelector selector = (CreditsAssessmentSelector)Application.Selectors.newInstance(CreditsAssessmentSelector.class).setFieldOverrides(fieldOverrides);
+        return selector;
+    }
+
     /**
      * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
      * This approach removes data consistency and prevents possible caching of results
@@ -95,7 +107,18 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
         qb.addConditions().add(new QueryBuilder.CompareCondition(APT_Credit_Assessment__c.APT_Organisation_Name__c).eq(orgId)).endConditions();
         return new Map<Id, APT_Credit_Assessment__c>((List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString()));
     }
-    
+
+    public Map<Id, APT_Credit_Assessment__c> selectByOpportunityIds(Set<Id> OpportunityIds){
+        QueryBuilder proposalQB = APT_ProposalObjectsSelector.newInstance(0, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id}})
+                .newQueryBuilder(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER})
+                .addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :OpportunityIds'))
+                .endConditions();
+        QueryBuilder qb = newQueryBuilder()
+                .addRelatedFields(APT_ProposalObjectsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'APT_Proposal__r')
+                .addConditions().add(new QueryBuilder.InCondition(APT_Credit_Assessment__c.APT_Proposal__c).inCollection(proposalQB)).endConditions();
+        return new Map<Id, APT_Credit_Assessment__c>((List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString()));
+    }
+
     public virtual override QueryBuilder newQueryBuilder() {
         return newQueryBuilder(new Set<Object>());
     }

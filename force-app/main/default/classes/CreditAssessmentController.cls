@@ -1,0 +1,141 @@
+/**
+ * @author Harry Wang
+ * @date 2023-02-05
+ * @group Controller
+ * @tag Controller
+ * @tag CSP
+ * @domain CSP
+ * @description Service Controller class for Credit Assessment view on Opportunity.
+ * @changelog
+ * 2023-02-05 - Harry Wang - Created
+ */
+public with sharing class CreditAssessmentController {
+	// Credit Assessment conditions on the opportunity
+	private static final String OPPORTUNITY_CLOSED_NO_CA = 'OPPORTUNITY_CLOSED_NO_CA';
+	private static final String OPPORTUNITY_INCOMPLETE_OPC = 'OPPORTUNITY_INCOMPLETE_OPC';
+	private static final Set<SObjectField> OPPORTUNITY_FIELD_OVERRIDES = new Set<SObjectField>{
+			Opportunity.StageName, Opportunity.Count_of_Contract_Start_Dates__c, Opportunity.Count_of_Contract_End_Dates__c, Opportunity.Count_of_Opportunity_Line_Items__c
+	};
+
+	/**
+	 * This method is used to get credit assessments with required settings associated to the opportunity
+	 * @param opportunityId ID of the opportunity
+	 * @return wrapper of the credit assessments result
+	 */
+	@AuraEnabled(cacheable=true)
+	public static CreditAssessmentResultWrapper getOpportunityCreditAssessment(String opportunityId) {
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c}
+		};
+		try {
+			// Retrieve query fields from Credit Assessment Config custom metadata
+			CreditAssessmentDatatableConfig__mdt config = CreditAssessmentDatatableConfig__mdt.getInstance('CreditAssessmentDatatableConfig');
+			List<String> cafields = config.QueryFields__c.split(',');
+			Set<SObjectField> caSObjectFields = new Set<SObjectField>();
+			for (String caField: cafields) {
+				Schema.SobjectField field = APT_Credit_Assessment__c.SObjectType.getDescribe().fields.getMap().get(caField.trim());
+				caSObjectFields.add(field);
+			}
+			fieldOverrides.put(APT_Credit_Assessment__c.SObjectType, caSObjectFields);
+
+			Opportunity opp = OpportunitySelector.newInstance(1, OPPORTUNITY_FIELD_OVERRIDES).selectById(new Set<Id>{opportunityId}).values()[0];
+			List<APT_Credit_Assessment__c> cas = CreditsAssessmentSelector.newInstance(fieldOverrides).selectByOpportunityIds(new Set<Id>{opportunityId}).values();
+
+			// initiate message body map with custom labels
+			Map<String, String> messageBodyMap = new Map<String, String>();
+			messageBodyMap.put(OPPORTUNITY_CLOSED_NO_CA, System.Label.CreditAssessmentRequestClosedOpp);
+			messageBodyMap.put(OPPORTUNITY_INCOMPLETE_OPC, System.Label.CreditAssessmentRequestIncompleteOPC);
+
+			return new CreditAssessmentResultWrapper(opp, cas, messageBodyMap);
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * This method is used to get datatable columns from custom metadata used for the credit assessment view in opportunity
+	 * @return list of datatable columns
+	 */
+	@AuraEnabled(cacheable=true)
+	public static List<DataTableColumn> retrieveDatatableColumns() {
+		try {
+			CreditAssessmentDatatableConfig__mdt config = CreditAssessmentDatatableConfig__mdt.getInstance('CreditAssessmentDatatableConfig');
+
+			List<DataTableColumn> dataTableColumnList = new List<DataTableColumn>();
+			List<String> columnList = config.TableHeader__c.split(',');
+			List<String> fieldAPINameList = config.FieldValue__c.split(',');
+
+			for(Integer i = 0; i < columnList.size(); i++) {
+				DataTableColumn datatableColumn = new DataTableColumn(columnList[i].trim(), fieldAPINameList[i].substringBefore(':').trim(), fieldAPINameList[i].substringAfter(':').trim());
+				dataTableColumnList.add(datatableColumn);
+			}
+			return dataTableColumnList;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	public class CreditAssessmentResultWrapper {
+		@AuraEnabled
+		public Opportunity opportunity { get; set; }
+
+		@AuraEnabled
+		public List<APT_Credit_Assessment__c> creditAssessments { get; set; }
+
+		@AuraEnabled
+		public Map<String, String> messageBodyMap { get; set; }
+
+		private CreditAssessmentResultWrapper(Opportunity opportunity, List<APT_Credit_Assessment__c> creditAssessments, Map<String, String> messageBodyMap) {
+			this.opportunity = opportunity;
+			this.creditAssessments = creditAssessments;
+			this.messageBodyMap = messageBodyMap;
+		}
+	}
+
+	public class DataTableColumn {
+		@AuraEnabled
+		public String label {get;set;}
+		@AuraEnabled
+		public String fieldName {get;set;}
+		@AuraEnabled
+		public String type {get;set;}
+		@AuraEnabled
+		public TypeAttributes typeAttributes {get;set;}
+
+		public DataTableColumn(String label, String fieldName, String type)
+		{
+			this.label = label;
+			if (fieldName == 'Name') {
+				LabelWrapper labelWrapper = new LabelWrapper(fieldName);
+				TypeAttributes typeAttributes = new TypeAttributes(labelWrapper, '_blank');
+				this.typeAttributes = typeAttributes;
+				this.fieldName = 'caUrl';
+				this.type = 'url';
+			} else {
+				this.fieldName = fieldName;
+				this.type = type;
+			}
+		}
+	}
+
+	public class TypeAttributes {
+		@AuraEnabled
+		public LabelWrapper label {get;set;}
+		@AuraEnabled
+		public String target {get;set;}
+
+		public TypeAttributes(LabelWrapper label, String target) {
+			this.label = label;
+			this.target = target;
+		}
+	}
+
+	public class LabelWrapper {
+		@AuraEnabled
+		public String fieldName {get;set;}
+
+		public LabelWrapper(String fieldName) {
+			this.fieldName = fieldName;
+		}
+	}
+}
