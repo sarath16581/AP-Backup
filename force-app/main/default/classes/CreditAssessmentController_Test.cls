@@ -1,3 +1,14 @@
+/**
+ * @author Harry Wang
+ * @date 2023-02-08
+ * @group Tests
+ * @tag Controller
+ * @tag CSP
+ * @domain CSP
+ * @description Test class for CreditAssessmentController
+ * @changelog
+ * 2023-02-08 - Harry Wang - Created
+ */
 @IsTest
 private class CreditAssessmentController_Test {
 	@IsTest
