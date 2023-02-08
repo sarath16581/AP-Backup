@@ -11,9 +11,10 @@
  * @group Domain
  * @domain Routing 
  * @changelog
- * 2022-09-20 - Noel Lim		- Created
- * 2022-12-06 - Noel Lim 		- added method assignToPreferredAgent
- * 2022-12-21 - George Nguyen	- added method resetBypassPreferredAgentFlag
+ * 2022-09-20 - Noel Lim		Created
+ * 2022-12-06 - Noel Lim 		Added method assignToPreferredAgent
+ * 2022-12-21 - George Nguyen	Added method resetBypassPreferredAgentFlag
+ * 2022-12-06	Noel Lim		Added method populateAgentType
  */
 
 public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
@@ -33,37 +34,35 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 		// Setup which triggers this module should respond to
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();		
 	}
-	
-	private Set<Id> ssswRecordTypeIds {
+
+	private static Set<Id> allValidRecordTypes{
 		get {
-			if(ssswRecordTypeIds == null){
-				ssswRecordTypeIds =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+			if(allValidRecordTypes == null){
+				allValidRecordTypes = new Set<Id>();
+				allValidRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet());
 			}
-			return ssswRecordTypeIds;
+			return allValidRecordTypes;
 		}
 		private set;
 	}
-
+	
 	/*
 	 * This method returns a list of Case records that are related to SSSW
-	 * 
-	 * NOTE: 
-	 * 
-	 * Ideally this should be in MyCustomerCasesDomain where it gets filtered. However, we need to do it here because MyCustomerCasesDomain is in the CaseTriggerHandler2. 
+	 * NOTE: Ideally this should be in MyCustomerCasesDomain where it gets filtered. However, we need to do it here because MyCustomerCasesDomain is in the CaseTriggerHandler2. 
 	 * Order of execution: CaseTriggerHandler2 >> CaseTriggerHandler (legacy code) >> CaseTriggerHandler3
 	 * 
 	 * @param caseRecords the list of Cases to filter to SSSW only
 	 */
-	private List<Case> getSSSWCasesOnly(List<Case> records){
-		List<Case> result = new List<Case>();
+	private List<Case> filterToApplicableCases(List<Case> caseRecords){
+		List<Case> filteredCases = new List<Case>();		
 		
-		for (Case c : records) {
-			if(ssswRecordTypeIds.contains(c.RecordTypeId) == true){
-				result.add(c);				
+		for (Case c : caseRecords) {
+			if(allValidRecordTypes.contains(c.RecordTypeId)){
+				filteredCases.add(c);		
 			}				
 		}
 
-		return result;
+		return filteredCases;
 	}
 
 	/**
@@ -71,12 +70,13 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	 */
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			List<Case> ssswCasesOnly = getSSSWCasesOnly((List<Case>)records);
+			List<Case> ssswCasesOnly = filterToApplicableCases((List<Case>)records);
 			populateCustomerQueueType(ssswCasesOnly, null , uow);
+			populateAgentType(ssswCasesOnly, null , uow);
 			
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, CaseSkillBasedRoutingModule.class.getName(), 'onBeforeInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -85,15 +85,16 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	 */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			List<Case> ssswCasesOnly = getSSSWCasesOnly((List<Case>)records);
-			populateCustomerQueueType(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			List<Case> ssswCasesOnly = filterToApplicableCases((List<Case>)records);
+			populateCustomerQueueType(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);			
+			populateAgentType(ssswCasesOnly, (Map<Id, Case>)existingRecords , uow);
+
 			assignToPreferredAgent(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
-			
 			resetBypassPreferredAgentFlag((List<Case>)records, (Map<Id, Case>)existingRecords, uow);
 
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, CaseSkillBasedRoutingModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -190,17 +191,17 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	 * @param existingRecords a Map of the pre-update records from the trigger. 
 	 * @param uow instance of UnitOfWork to flag records for DML operations
 	 */
-	private void populateCustomerQueueType(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
+	private void populateCustomerQueueType(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow){
 		
 		Set<Id> contactIds = new Set<Id>();
 		List<Case> caseToProcess = new List<Case>();
 		
 
-		for (Case cs : (List<Case>) records) {
+		for (Case cs : records) {
 
 			if(existingRecords == null || 
 				(existingRecords.isEmpty() == false &&
-					cs.ContactId != ((Case)existingRecords.get(cs.Id)).ContactId)
+					cs.ContactId != existingRecords.get(cs.Id).ContactId)
 			){					
 				
 				caseToProcess.add(cs);	  
@@ -221,6 +222,30 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 				Contact contact = contactsMap.get(cs.ContactId);
 				cs.CustomerQueueType__c = (contact != null && contact.Account != null && String.isEmpty(contact.Account.ServiceSLA__c) == false)  ? contact.Account.ServiceSLA__c : SERVICESLA_CONSUMER;				
 			}
+		}
+	}
+
+	/*
+	 * This method populates the Case field AgentType based on a custom metadata mapping Queues
+	 * 
+	 * @param records the list of updated or new records from the trigger.
+	 * @param existingRecords a Map of the pre-update records from the trigger. 
+	 * @param uow instance of UnitOfWork to flag records for DML operations
+	 */
+	private void populateAgentType(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow){		
+		
+		for (Case cs : (List<Case>) records) {
+			if(existingRecords == null || 
+				(existingRecords != null && 
+				 cs.OwnerId != existingRecords.get(cs.Id).OwnerId)){
+				
+				if(OmniChannelService.Cache.queuesToAgentType.containsKey(cs.OwnerId) == true){
+					cs.AgentType__c = OmniChannelService.Cache.queuesToAgentType.get(cs.OwnerId);
+				} else if(String.isBlank(cs.AgentType__c) == false){
+					cs.AgentType__c = null;
+				}
+				
+			}			
 		}
 	}
 

@@ -265,6 +265,26 @@ public inherited sharing class OmniChannelService {
 			}
 			private set;
 		}
+
+		public Map<String, String> queuesToAgentType {
+			get {
+				if(queuesToAgentType == null) {
+					queuesToAgentType = (Map<String, String>)CacheManager.get('QUEUES_TO_AGENT_TYPE');
+					if(queuesToAgentType == null) {
+						queuesToAgentType = new Map<String, String>();
+	
+						List<SSSW_Queue_to_Agent_Type__mdt> queueAgentTypes = [SELECT QueueId__c, AgentType__c from SSSW_Queue_to_Agent_Type__mdt];
+						for(SSSW_Queue_to_Agent_Type__mdt qat : queueAgentTypes){
+							queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);
+						}
+	
+						CacheManager.put('QUEUES_TO_AGENT_TYPE', queuesToAgentType);
+					}
+				}
+				return queuesToAgentType;
+			}
+			private set;
+		}
 	}
 
 	public class QueueWrapper {

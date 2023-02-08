@@ -1,7 +1,9 @@
 /*** 
  * @description
- * Updates the value of OmniRoutingSecondaryPriority field for cases that are assigned or routed to an Omni queue.
  * This is related to SSSW and StarTrack cases.
+ * a) Updates the value of OmniRoutingSecondaryPriority field for cases that are assigned or routed to an Omni queue.
+ * b) Clears PSRs that were manually inserted for Preferred Agent 
+ * 
  * 
  * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
  * 
@@ -11,8 +13,8 @@
  * @domain Routing 
  * @changelog
  * 2022-10-30	George Nguyen	Created
- * 2023-01-25	Noel Lim		Updated - added filterToApplicableCases() to filter to SSSW and StarTrack recordtypes only
- * 2023-02-06	Noel Lim		Updated - added clearPreferredAgentPSRs() to clear PSRs that were manually inserted for Preferred Agent 
+ * 2023-01-25	Noel Lim		Added filterToApplicableCases() to filter to SSSW and StarTrack recordtypes only
+ * 2023-02-06	Noel Lim		Added clearPreferredAgentPSRs() to clear PSRs that were manually inserted for Preferred Agent 
  */
 
 public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.Module  {
