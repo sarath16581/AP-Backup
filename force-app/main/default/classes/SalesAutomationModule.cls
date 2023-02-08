@@ -48,7 +48,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 		try {
 			populateSalesTeamType((List<Account>)records);
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'AP Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -66,7 +66,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 				populateSalesTeamType(accountsToPopulateSalesTeamType);
 			}
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'AP Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -119,6 +119,6 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 			additionalInfo.add('Ignored accounts : ' + ignoredRecordIds.toString());
 		}
 
-		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'AP Sales', SalesAutomationModule.class.getName(), 'populateSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'Sales', SalesAutomationModule.class.getName(), 'populateSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 	}
 }

@@ -44,7 +44,7 @@ public inherited sharing class SalesAccountChildSObjectSharingModule  extends Ap
 				shareChildRecords(sharingScope.keySet(), (List<Account>)records, uow);
 			}
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'AP Sales', SalesAccountChildSObjectSharingModule.class.getName(), 'onAfterUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAccountChildSObjectSharingModule.class.getName(), 'onAfterUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 

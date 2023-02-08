@@ -470,7 +470,7 @@ public without sharing class SalesRecordSharingService {
 
 		if (!parentAccountIdsToQuery.isEmpty()) {
 			// found parent account ids to be queried. query parent accounts for 'SalesTeamType__c'.
-			Map<Id, Account> parentAccountsQueried = AccountsSelector.newInstance(0, new Set<SObjectField>{Account.SalesTeamType__c}).selectById(new Set<Id>(parentAccountIdsToQuery.values()));
+			Map<Id, Account> parentAccountsQueried = BusinessAccountsSelector.newInstance(0, new Set<SObjectField>{Account.SalesTeamType__c}).selectById(new Set<Id>(parentAccountIdsToQuery.values()));
 			for (Id recordId: parentAccountIdsToQuery.keySet()) {
 				Id parentAccountId = parentAccountIdsToQuery.get(recordId);
 				// populate sales team type mapping with queried SalesTeamType values
@@ -715,7 +715,7 @@ public without sharing class SalesRecordSharingService {
 			additionalInfo.add('Ignored records : ' + ignoredRecordIds.toString());
 		}
 
-		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'AP Sales', SalesRecordSharingService.class.getName(), 'computeRequiredSharingEntries', '', ApplicationLogger.LoggingLevel.ERROR);
+		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'Sales', SalesRecordSharingService.class.getName(), 'computeRequiredSharingEntries', '', ApplicationLogger.LoggingLevel.ERROR);
 	}
 
 	private Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> getSharingConfiguration() {
