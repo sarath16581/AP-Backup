@@ -1,3 +1,9 @@
+<!-- 
+ * @description Case investigation network milestone violation component in MyNetwork portal (extracted from VF page myNetworkCaseMilestoneTracker.page)
+ * @author Mahesh Parvathaneni
+ * @date 2023-02-07
+ * @changelog -->
+ 
 <template>
 	<div class="slds-scope mile-card">
 		<div class="milestoneTitle">Case Investigation Milestones</div>
@@ -5,15 +11,14 @@
 			<template if:true={hasMilestonesViolated}>
 				<div class="progress">
 					<div class={milestoneDetails.progressBarClass} role="progressbar"
-						aria-valuenow={milestoneDetails.percentCompleted} aria-valuemin="0" aria-valuemax="100"
-						style="width: 30%;">
+						aria-valuenow={milestoneDetails.percentCompleted} aria-valuemin="0" aria-valuemax="100">
 						<span class="glyphicon glyphicon-check"
 							style="text-align:left;font-size:16px;width:27px;z-index:1;cursor:pointer;">
 						</span>
 						<span style="text-align:left;padding-left:30px;">
 							{milestoneDetails.tierName}
 						</span>
-						<span style="text-align:center;">{milestoneDetails.status}</span>
+						<span class="slds-align_absolute-center">{milestoneDetails.status}</span>
 						<span style="text-align:right;padding-right:30px;">
 							{milestoneDetails.timeRemainingOrCompleted}
 						</span>

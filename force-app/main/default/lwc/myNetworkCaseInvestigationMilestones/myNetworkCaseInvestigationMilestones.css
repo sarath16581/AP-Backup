@@ -1,3 +1,9 @@
+/**
+ * @description css for the MyNetworkCaseInvestigationMilestones (extracted from VF page myNetworkCaseMilestoneTracker.page)
+ * @author Mahesh Parvathaneni
+ * @date 2023-02-07
+ * @changelog
+ */
 .mile-card{
 	position: relative;
 	padding: 1.5rem;
@@ -69,6 +75,7 @@
 	color:white;
 	padding:7px;
 }
+/* Glyphicons from bootstrap */
 @font-face {
 	font-family: 'Glyphicons Halflings';
 	src: url('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/fonts/glyphicons-halflings-regular.eot');
