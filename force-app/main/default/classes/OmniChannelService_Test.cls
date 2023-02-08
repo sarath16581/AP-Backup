@@ -91,6 +91,30 @@ public class OmniChannelService_Test {
 	}
 
 	@IsTest
+	static void queuesToAgentTypesShouldReturnCustomMetadata() {
+		CacheManager.settings.CacheEnabled__c = true;
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<SSSW_Queue_to_Agent_Type__mdt> listQAT = [SELECT QueueId__c, AgentType__c from SSSW_Queue_to_Agent_Type__mdt];
+		Map<String,String> queuesToAgentType = new Map<String,String>();
+
+		for(SSSW_Queue_to_Agent_Type__mdt qat : listQAT){
+			queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);
+		}
+		Set<String> queueIds = queuesToAgentType.keySet();
+		Id queueId = queueIds.iterator().next();
+
+		System.assertEquals(queuesToAgentType.size(), OmniChannelService.Cache.queuesToAgentType.size(), 'it should return the same number of records');
+		System.assertEquals(
+			queuesToAgentType.get(queueId), OmniChannelService.Cache.queuesToAgentType.get(queueId), 'should match');
+
+		// test loading from cache
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('QUEUES_TO_AGENT_TYPE', new Map<String, String>{queueId => queuesToAgentType.get(queueId)});
+		System.assertEquals(queuesToAgentType.get(queueId), OmniChannelService.Cache.queuesToAgentType.get(queueId), 'should match');
+	}
+
+	@IsTest
 	static void setOmniRoutingSecondaryPriorityForPSR() {
 		Case aCase = (Case)ApplicationTestDataFactory.setUnwritableFields(new Case(), new Map<String, Object>{ 'CreatedDate' => Datetime.now().addDays(-10)});
 		PendingServiceRouting psr = (PendingServiceRouting)ApplicationTestDataFactory.setUnwritableFields(new PendingServiceRouting(), new Map<String, Object>{ 'WorkItem' => aCase});
