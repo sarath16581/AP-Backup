@@ -68,6 +68,8 @@ private class StarTrackTrackingIDSearchUtil_Test {
             lst_cases[i].Origin = StarTrack_Constants.CASE_ORIGIN_WEB;
             lst_cases[i].ReferenceID__c = 'XYZ';
             lst_cases[i].RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+			lst_cases[i].CHASEnquiryType__c = STHSConstants.TRACKING_ENQUIRY_TRACK_TRACE;
+			lst_cases[i].Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
         }
         Database.insert(lst_cases);
 
@@ -224,34 +226,37 @@ private class StarTrackTrackingIDSearchUtil_Test {
     }
 
     @isTest static void testCaseTransferForBusinessSolutionsNoQueueNegative() {
+	
         Case testCase = [
-                SELECT
-                        Id,
-                        Call_Purpose__c,
-                        RecordTypeId,
-                        Enquiry_Type__c,
-                        Business_Solutions_Customer__c,
-                        Initial_Caller_Type__c,
-                        Status,
-                        OwnerId,
-                        Article_Service_Type__c,
-                        ReferenceID__c,
-                        Origin,
-                        ArticleTest__c,
-                        ArticleTest__r.Product_Group__c,
-                        RecordType.Name,
-                        Network__r.OwnerId,
-                        Network__r.Name,
-                        Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c,
-                        Account.StarTrack_Customer_Stream__c
-                FROM
-                        Case
-                WHERE
-                        Account.Business_Solutions_Customer__c = true
+                        SELECT
+                                Id,
+								Call_Purpose__c, 
+								RecordTypeId, 
+								Enquiry_Type__c, 
+								Business_Solutions_Customer__c, 
+								Initial_Caller_Type__c,
+								Status, 
+								OwnerId, 
+								Article_Service_Type__c, 
+								ReferenceID__c, 
+								Origin, 
+								ArticleTest__c, 
+								ArticleTest__r.Product_Group__c,
+								RecordType.Name, 
+								Network__r.OwnerId, 
+								Network__r.Name, 
+								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c,
+								Account.StarTrack_Customer_Stream__c,
+								Account.Business_Solutions_Customer__c,
+								Account.Transfer_Case_Queue__c
+                        FROM
+                                Case
+                        WHERE
+                                Account.Business_Solutions_Customer__c = true
                         AND
-                        Account.Transfer_Case_Queue__c = 'WRONG_QUEUE_NAME'
-                LIMIT 1
-        ];
+                                Account.Transfer_Case_Queue__c = 'WRONG_QUEUE_NAME'
+                                LIMIT 1
+                        ];
 
         Test.startTest();
         // =====================================

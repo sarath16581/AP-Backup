@@ -331,7 +331,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Australian_Philatelic_Bure</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWPhilatelic</lookupValue>
+        <lookupValue>SSSW_Community_Niche</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Australian Philatelic Bure</name>
         <notifyAssignee>false</notifyAssignee>
@@ -379,7 +379,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Load_and_Go_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound_Post_Info</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Load and Go Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -452,7 +452,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Online_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWPhilatelic</lookupValue>
+        <lookupValue>SSSW_Community_Niche</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Online Cases</name>
         <notifyAssignee>false</notifyAssignee>
