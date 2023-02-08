@@ -91,6 +91,11 @@
         <field>Case.Actual_Network_Milestone_Violated__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Case.AgentType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Article_Event_Codes__c</field>
