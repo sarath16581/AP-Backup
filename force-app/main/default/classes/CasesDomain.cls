@@ -43,7 +43,6 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 
 		// Logic relating to Omni Routing such as PendingServiceRouting and AgentWork
 		// This is related to SSSW and StarTrack cases, the module filters based on recordtype
-		// a) Updates Case field OmniRoutingSecondaryPriority, for cases that are assigned or routed to an Omni queue.
 		//
 		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It requires the Case to have gone through the routing logic in SSSW_Routing__c.assignCasesAndDescription()
 		registerModule(CaseOmniRoutingModule.class);
