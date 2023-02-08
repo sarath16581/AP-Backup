@@ -44,24 +44,37 @@ public without sharing class SalesRecordSharingService {
 	// allow for sharing recalculation involving delete and insert of share records for the child records.
 	@TestVisible private static Integer MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION = 4500;
 
+	// cache key setting names for accessing platform cache
+	private static final String CACHE_KEY_SALES_SHARING_CONFIGURATION = 'SALES_SHARING_CONFIGURATION';
+	private static final String CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES = 'SALES_ACCOUNT_CHILD_REL_NAMES';
+
 	// custom metadata configured. arranged into a map where SObject API name is the key for ease of access.
 	@TestVisible private static Map<String, SalesSharingObjectMapping__mdt> salesSharingMetadata {
 		get {
 			if (salesSharingMetadata == null) {
-				Map<String, SalesSharingObjectMapping__mdt> metadata = new Map<String, SalesSharingObjectMapping__mdt>();
+				// check platform cache
+				if (CacheManager.get(CACHE_KEY_SALES_SHARING_CONFIGURATION) != null) {
+					// use sharing metadata available in platform cache.
+					salesSharingMetadata = (Map<String, SalesSharingObjectMapping__mdt>) CacheManager.get(CACHE_KEY_SALES_SHARING_CONFIGURATION);
+				} else {
+					// sharing metadata is not available in platform cache. need to be queried.
+					Map<String, SalesSharingObjectMapping__mdt> metadata = new Map<String, SalesSharingObjectMapping__mdt>();
 
-				// query metadata including specific fields from EntityDefinition and FieldDefinition types. Note that
-				// standard get* methods for accessing custom metadata is avoided so that all the fields required can be
-				// queried in one go.
-				for (SalesSharingObjectMapping__mdt record : [
-						SELECT Id, Object__r.QualifiedApiName, AccountLookup__r.QualifiedApiName,
+					// query metadata including specific fields from EntityDefinition and FieldDefinition types. Note that
+					// standard get* methods for accessing custom metadata is avoided so that all the fields required can be
+					// queried in one go.
+					for (SalesSharingObjectMapping__mdt record : [
+							SELECT Id, Object__r.QualifiedApiName, AccountLookup__r.QualifiedApiName,
 						AccountLookup__r.RelationshipName, AccountLookup__r.DurableId, SharingReasonName__c,
 						(SELECT SalesTeamType__c, GroupName__c, AccessLevel__c FROM SalesSharingGroupMappings__r)
-						FROM SalesSharingObjectMapping__mdt
-				]) {
-					metadata.put(record.Object__r.QualifiedApiName, record);
+							FROM SalesSharingObjectMapping__mdt
+					]) {
+						metadata.put(record.Object__r.QualifiedApiName, record);
+					}
+					salesSharingMetadata = metadata;
+					// also populate platform cache so it is available later
+					CacheManager.put(CACHE_KEY_SALES_SHARING_CONFIGURATION, metadata);
 				}
-				salesSharingMetadata = metadata;
 			}
 			return salesSharingMetadata;
 		}
@@ -101,26 +114,35 @@ public without sharing class SalesRecordSharingService {
 	@TestVisible private static Map<String, String> accountChildRelationshipNameMapping {
 		get {
 			if (accountChildRelationshipNameMapping == null) {
-				// collect all lookup fields configured in custom metadata
-				Set<String> fieldDefinitionDurableIds = new Set<String>();
-				for (SalesSharingObjectMapping__mdt objectMapping: salesSharingMetadata.values()) {
-					fieldDefinitionDurableIds.add(objectMapping.AccountLookup__r.DurableId);
-				}
+				// check platform cache first
+				if (CacheManager.get(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES) != null) {
+					// use sharing metadata available in platform cache.
+					accountChildRelationshipNameMapping = (Map<String, String>) CacheManager.get(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES);
+				} else {
 
-				Map<String, String> mappings = new Map<String, String>();
-				if (!fieldDefinitionDurableIds.isEmpty()) {
-					// query field definitions with 'RelationshipDomains' to extract child relationship names
+					// collect all lookup fields configured in custom metadata
+					Set<String> fieldDefinitionDurableIds = new Set<String>();
+					for (SalesSharingObjectMapping__mdt objectMapping : salesSharingMetadata.values()) {
+						fieldDefinitionDurableIds.add(objectMapping.AccountLookup__r.DurableId);
+					}
+
+					Map<String, String> mappings = new Map<String, String>();
+					if (!fieldDefinitionDurableIds.isEmpty()) {
+						// query field definitions with 'RelationshipDomains' to extract child relationship names
 					for (FieldDefinition f: [SELECT EntityDefinition.QualifiedAPiName, QualifiedApiName, (SELECT RelationshipName FROM RelationshipDomains)
-												FROM FieldDefinition
+								FROM FieldDefinition
 												WHERE DurableId IN :fieldDefinitionDurableIds]) {
 
-						if ( !f.RelationshipDomains.isEmpty() && f.RelationshipDomains[0].RelationshipName != null) {
-							// found a valid child relationship name.
-							mappings.put(f.EntityDefinition.QualifiedAPiName, f.RelationshipDomains[0].RelationshipName);
+							if (!f.RelationshipDomains.isEmpty() && f.RelationshipDomains[0].RelationshipName != null) {
+								// found a valid child relationship name.
+								mappings.put(f.EntityDefinition.QualifiedAPiName, f.RelationshipDomains[0].RelationshipName);
+							}
 						}
 					}
+					accountChildRelationshipNameMapping = mappings;
+					// populate platform cache so it is available for later
+					CacheManager.put(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES, mappings);
 				}
-				accountChildRelationshipNameMapping = mappings;
 			}
 			return accountChildRelationshipNameMapping;
 		}
@@ -452,7 +474,7 @@ public without sharing class SalesRecordSharingService {
 			for (Id recordId: parentAccountIdsToQuery.keySet()) {
 				Id parentAccountId = parentAccountIdsToQuery.get(recordId);
 				// populate sales team type mapping with queried SalesTeamType values
-				salesTeamTypeMapping.put(recordId, (String) parentAccountsQueried.get(parentAccountId).get(Account.SalesTeamType__c));
+				salesTeamTypeMapping.put(recordId, (String) parentAccountsQueried.get(parentAccountId)?.get(Account.SalesTeamType__c));
 			}
 		}
 
