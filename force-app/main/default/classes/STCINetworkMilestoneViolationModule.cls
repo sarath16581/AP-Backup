@@ -9,7 +9,9 @@
 public inherited sharing class STCINetworkMilestoneViolationModule extends ApplicationDomain.Module {
 
 	//constants
+	@TestVisible
 	private static final string ENTITLEMENT_RULE_CASE_INVESTIGATION = 'Case_Investigation';
+	@TestVisible
 	private static final string MILESTONE_TIER_TYPE_FACILITY = 'Facility_Tier';
 
 	public static STCINetworkMilestoneViolationModule newInstance() {
@@ -93,7 +95,7 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 		}
 
 		if (ciRecords.size() > 0) {
-			//call the milestone service to get the calcualted violation date time
+			//call the milestone service to get the calcualted violation date time for the case investigation records
 			Map<Id, Datetime> ciViolationDatetimeResultMap = MilestoneService.getInstance().calculateNextViolationDateForCaseInvestigation(ciRecords.keySet(), ENTITLEMENT_RULE_CASE_INVESTIGATION, MILESTONE_TIER_TYPE_FACILITY);
 
 			List<CaseInvestigation__c> recsToUpdate = new List<CaseInvestigation__c>();
@@ -115,6 +117,7 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 				}
 			}
 
+			//update the case investigation records
 			if (recsToUpdate.size() > 0) {
 				ApplicationDatabase.getInstance().dmlUpdate(recsToUpdate, false);
 			}

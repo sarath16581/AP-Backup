@@ -7,8 +7,10 @@
 
 public inherited sharing class MilestoneService {
 
+	//constants
 	private static final Set<String> STRING_TYPES = new Set<String>{'string', 'picklist', 'email', 'phone', 'textarea', 'multipicklist', 'reference', 'url', 'id'};
     private static final Set<String> NUMERIC_TYPES = new Set<String>{'double', 'currency'};
+	private static final String SSSW_SYDNEY = 'SSSWSydney';
 	private static Map<String, List<String>> ruleIdRuleUnitsMap;
 	private static Map<Id, Entitlement_Rule__c> entitlementRuleMap;
 	private static Map<String, String> ciFieldTypeMap;
@@ -34,7 +36,7 @@ public inherited sharing class MilestoneService {
 		return ruleIdRuleUnitsMap;
 	}
 
-	//get the map of entitlement rule
+	//get the map of active entitlement rules based on the record type
 	@TestVisible
 	private static Map<Id, Entitlement_Rule__c> getActiveEntitlementRulesByRecordType(String recTypeDevName) {
 		if (entitlementRuleMap == null) {
@@ -67,7 +69,8 @@ public inherited sharing class MilestoneService {
 		return ciFieldTypeMap;
 	}
 
-	public static Id getSSSWSydneyBusinessHour(){
+	//get the business for the SSSWSydney
+	private static Id getSSSWSydneyBusinessHour(){
         if(businessHourId == null){
             businessHourId = BusinessHoursSelector.newInstance().selectByName(new Set<String> {'SSSWSydney'})[0].Id;
         }
@@ -75,7 +78,7 @@ public inherited sharing class MilestoneService {
     }
 
 	/**
-	 * This method calculates the next violation date based on the matching entitlement rules configured passed records SobjectType
+	 * This method calculates and returns the next violation date based on the matching entitlement rules configured passed records for CaseInvestigation SobjectType
 	 * @param recIds Ids of records to be processed
 	 * @param entitlementRuleRecTypeDevName Record type developer name for the EntitlementRule
 	 * @param milestoneTierType Milestone tier type represented by the fields on the Entitlement Hierarchy
@@ -221,6 +224,7 @@ public inherited sharing class MilestoneService {
 	}
 
 	// convert string (MM-dd-yyyy) to date
+	@TestVisible
 	private Date stringToDate(String strDate) {
 		Date tempDate = null;
 		if (strDate != '' && strDate != null) {
@@ -237,6 +241,7 @@ public inherited sharing class MilestoneService {
 	}
 
 	// convert string (MM-dd-yyyy hh:mm a) to datetime
+	@TestVisible
 	private Datetime stringToDatetime(String strDatetime) {
 		Datetime tempDatetime = null;
 		if (strDatetime != '' && strDatetime != null) {
@@ -252,10 +257,16 @@ public inherited sharing class MilestoneService {
 		return tempDatetime;
 	}
 
+	// convert string to Boolean
+	@TestVisible
 	private Boolean stringToBoolean(String yesNo) {
         return yesNo.toLowerCase() == 'yes';
     }
 
+	/**
+	 * function that sets the next violation date based on the configuration from Escalation Hierarchy
+	 * checks the calculated date time falls within business hours or not
+	 */
 	@TestVisible
 	private Map<Id, Datetime> getViolationDatetime(Map<Id, String> ciEntitlementRuleMatchingMap, Map<Id, CaseInvestigation__c> caseInvestigations, String milestoneTierType) {
 		Map<Id, Datetime> result = new Map<Id, Datetime>();
@@ -267,12 +278,13 @@ public inherited sharing class MilestoneService {
 				Entitlement_Rule__c er = entitlementRuleMap.get(ciEntitlementRuleMatchingMap.get(ci.Id));
 				Escalation_Hierarchy__c eh = er.Escalation_Hierarchy__r;
 				if (ci.NetworkMilestoneCurrentViolatedTier__c != null) {
-					formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c) + '__c';
+					formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c.intValue() + 1) + '__c';
 				} else {
 					//get the first tier
 					formattedMilestoneTierTypeField = milestoneTierType + '_1__c';
 				}
 
+				//checks the tier has value in escalation hierarchy config
 				if (eh.get(formattedMilestoneTierTypeField) != null) {
 					Integer configuredMins = Integer.valueOf(eh.get(formattedMilestoneTierTypeField));
 					if (ci.NetworkMilestoneNextViolationDatetime__c == null && ci.MilestoneTimeStartDatetime__c != null) {
@@ -290,6 +302,7 @@ public inherited sharing class MilestoneService {
 		return result;
 	}
 
+	//function to check the target date is within business hours
 	private Datetime checkWithinBusinessHours(Datetime violationDatetime) {
 		if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
 			//If new date is not within working days, get new working day

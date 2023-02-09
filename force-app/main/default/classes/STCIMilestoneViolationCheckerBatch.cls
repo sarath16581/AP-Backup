@@ -30,6 +30,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 	public void execute(Database.BatchableContext bc, List<SObject> scope) {
 		try {
 
+			List<CaseInvestigation__c> recsToUpdate = new List<CaseInvestigation__c>();
 			// loop through case investigations to increment milestone violation tier
 			for (CaseInvestigation__c ci : (List<CaseInvestigation__c>) scope) {
 				ci.NetworkMilestoneCurrentViolatedTier__c = ci.NetworkMilestoneCurrentViolatedTier__c != null ? ci.NetworkMilestoneCurrentViolatedTier__c + 1 : 1;
@@ -49,13 +50,21 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 						ci.OwnerId = ci.Case__r.OwnerId;
 					}
 				}
+
+				//add records to update
+				//prevent records to further update as the current configuration in the escalation hierarchy is upto 5 tiers
+				if (ci.NetworkMilestoneCurrentViolatedTier__c < 5) {
+					recsToUpdate.add(ci);
+				}
 			}
 
-			//update case investigations
-			List<Database.SaveResult> sResult = ApplicationDatabase.getInstance().dmlUpdate(scope, false);
-			// Error Logged to Exception object for analysis. logDmlResults method filters out the success and only log errors
-			UTIL_LoggingService.logDmlResults(sResult, null, scope, 'ST Case Investigation Milestone Voilation Checker',
-				STCIMilestoneViolationCheckerBatch.class.getName(), 'execute', null, LoggingLevel.ERROR);
+			if (recsToUpdate.size() > 0) {
+				//update case investigations
+				List<Database.SaveResult> sResult = ApplicationDatabase.getInstance().dmlUpdate(recsToUpdate, false);
+				// Error Logged to Exception object for analysis. logDmlResults method filters out the success and only log errors
+				UTIL_LoggingService.logDmlResults(sResult, null, recsToUpdate, 'ST Case Investigation Milestone Voilation Checker',
+					STCIMilestoneViolationCheckerBatch.class.getName(), 'execute', null, LoggingLevel.ERROR);
+			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'ST Case Investigation Milestone Voilation Checker', STCIMilestoneViolationCheckerBatch.class.getName(), 'execute', null, LoggingLevel.ERROR);
