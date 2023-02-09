@@ -80,7 +80,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, 
 			Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c,
 			Case.EnquirySubType__c, Case.Primary_Name__c, Case.Address1__c, Case.Secondary_Contact__c, Case.Address2__c,
-			Case.Facility_Milestones_Violated__c, Case.Root_cause__c, Case.ArticleTest__c, Case.calc_case_consignment__c
+			Case.Facility_Milestones_Violated__c, Case.Root_cause__c, Case.ArticleTest__c, Case.calc_case_consignment__c,
+			Case.Last_Status_Change__c
 		};
 	}
 
@@ -184,6 +185,46 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 */
 	public virtual Map<Id, Case> selectByReferenceIdOrderByCreatedDate(Set<String> referenceIds) {
 		return selectByReferenceIdOrderByCreatedDate(referenceIds, new Set<Object>());
+	}
+
+	/**
+	 * Query Cases based on Id's. Query also include child case investigations based on case investigation ids.
+	 *
+	 * @param ids case ids to query
+	 * @param caseInvestigationIds child case investigation record Ids to query.
+	 * @param selectorOptions additional selector options
+	 *
+	 * @return list of cases. result include case investigations based on Ids passed.
+	 */
+	public virtual  Map<Id, Case> selectByIdWithCaseInvestigations(Set<Id> ids, Set<Id> caseInvestigationIds,  Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Case.Id + ' in :ids')).endConditions();
+		qb.addSubQuery(getChildCaseInvestigationsSubQueryBuilder(caseInvestigationIds,  selectorOptions), 'CaseInvestigations__r');
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString())); 
+	}
+
+	/**
+	 * Returns a Query Builder for child case investigations Ids and selector options passed in.
+	 *
+	 * @param caseInvestigationIds Ids to filter case investigations
+	 * @param selectorOptions set of additional selector options to augment the child case investigations result set
+	 *
+	 * @return query builder instance for child case investigations.
+	 */
+	private QueryBuilder getChildCaseInvestigationsSubQueryBuilder(Set<Id> caseInvestigationIds, Set<Object> selectorOptions) {
+
+		QueryBuilder subQueryBuilder = CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions);
+
+		QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
+		if (caseInvestigationIds != null && !caseInvestigationIds.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Id + ' in :caseInvestigationIds'));
+		}
+
+		//adding status condition
+		subQueryConditions.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Status__c + ' != \'Closed\''));
+		
+		subQueryConditions.endConditions();
+
+		return subQueryBuilder;
 	}
 
 	/**

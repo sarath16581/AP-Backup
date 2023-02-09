@@ -9,8 +9,9 @@
  * @tag Name SObject
  * @domain Core
  * @changelog
- *  2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
+ * 2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
  * 													Added 'selectOpenCaseInvestigationsByCaseIds' method.
+ * 2022-02-09	dattaraj.deshmukh@auspost.com.au	Added 'Stillunderinvestigation__c' field in getSObjectFieldList() method.
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
@@ -35,7 +36,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return new Set<SObjectField> {
 			CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
 			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name,
-			CaseInvestigation__c.LastContactCentreUpdate__c
+			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.Stillunderinvestigation__c
 		};
 	}
 
@@ -91,6 +92,18 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.ReferenceID__c + ' in :articleNums'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.Status__c).ne('Closed'))
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Select case investigation records that are not closed and from list of passed network ids. 
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkId(Set<Id> networkIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.Status__c).ne('Closed'))
 				.endConditions();

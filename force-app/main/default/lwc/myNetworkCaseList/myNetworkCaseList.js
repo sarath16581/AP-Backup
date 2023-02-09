@@ -288,40 +288,122 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         
 
         let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
-
-        for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++) {
+		console.log('data[i] :');console.log(data[i]);
+        // for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++) {
           
-			caseRecord.rowNumber = (i + cInvestigationCnt) ;
+		// 	caseRecord.rowNumber = (i + cInvestigationCnt) ;
+
+		//   	//setting Case.Type for wrapper variable for ST cases.
+		//   	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
+	
+		// 	//populate common fields between case investigation and case object.
+		// 	this.populateCaseData(caseRecord, data, i);
+
+		// 	//setting caseInvestigations to blank
+		// 	caseRecord.caseInvestigation = '';
+		// 	caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
+		// 	caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
+		// 	caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
+		// 	caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
+
+		// 	//As case and case investigation need to be shown under one column,
+		// 	//caseNum is populated with case number and Case Investigation Number.
+
+		// 	caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
+		// 	//caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
+		// 	caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
+		// 	caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
+		// 	caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+
+		// 	let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
+		// 	caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
+			
+		// 	console.log('previouse css: '+caseRecord.Case_Details);
+		// 	console.log('previouse css detailCSSClass: '+caseRecord.detailCSSClass);
+			
+
+		// 	//setting New/Updated/SUI Flag on case investigation record.
+		// 	caseRecord.Case_Details = data[i].updatedCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id) ? 'UPDATED' 
+		// 								: data[i].stillUnderCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id) ? 'SUI' 
+		// 								: data[i].newCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id)  ? 'NEW' : caseRecord.Case_Details;
+		// 	caseRecord.detailCSSClass = data[i].updatedCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'Red' 
+		// 								: data[i].stillUnderCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'Orange' 
+		// 								: data[i].newCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'green' : caseRecord.detailCSSClass;
+			
+		// 	console.log('caseRecord.Case_Details: '+caseRecord.Case_Details+' caseRecord.detailCSSClass: '+caseRecord.detailCSSClass);
+		// 	console.log(cInvestigations[cInvestigationCnt]);
+			
+		// 	if(this.selectedListViewApiName === 'Cases_updated') {
+		// 		if(data[i].updatedCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 
+		// 			|| data[i].stillUnderCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1
+		// 			) {
+		// 				caseRecordList.push(caseRecord);
+		// 			}
+		// 	}
+		// 	else {
+		// 		caseRecordList.push(caseRecord);
+		// 	}
+		// 	//create new instance of caseRecord to store next case investigation record wrapper.
+		// 	caseRecord = new Object();
+        // }
+		/** NEW CODE STARTED */
+			let cInvestigationRecord =  data[i].caseInvestigation;
+			caseRecord.rowNumber = i ;
 
 		  	//setting Case.Type for wrapper variable for ST cases.
 		  	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
-	
+		
 			//populate common fields between case investigation and case object.
 			this.populateCaseData(caseRecord, data, i);
 
 			//setting caseInvestigations to blank
 			caseRecord.caseInvestigation = '';
-			caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
-			caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
-			caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
-			caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
+			caseRecord.caseInvestigation = cInvestigationRecord.Name;
+			caseRecord.Case_sentToNetworkDate = cInvestigationRecord.CreatedDate;
+			caseRecord.Case_RefereceId = cInvestigationRecord.Article__r ? cInvestigationRecord.Article__r.Name : '';
+			caseRecord.caseInvestigationId = cInvestigationRecord.Id;
 
 			//As case and case investigation need to be shown under one column,
 			//caseNum is populated with case number and Case Investigation Number.
 
-			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
+			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRecord.Id;
 			//caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
 			caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
-			caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
-			caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+			caseRecord.Case_Priority = cInvestigationRecord.Priority__c;
+			caseRecord.casePriority = cInvestigationRecord.Priority__c;
 
 			let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
 			caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
+			
+			console.log('previouse css: '+caseRecord.Case_Details);
+			console.log('previouse css detailCSSClass: '+caseRecord.detailCSSClass);
+			
 
+			//setting New/Updated/SUI Flag on case investigation record.
+			// caseRecord.Case_Details = data[i].updatedCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id) ? 'UPDATED' 
+			// 							: data[i].stillUnderCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id) ? 'SUI' 
+			// 							: data[i].newCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id)  ? 'NEW' : caseRecord.Case_Details;
+			// caseRecord.detailCSSClass = data[i].updatedCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'Red' 
+			// 							: data[i].stillUnderCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'Orange' 
+			// 							: data[i].newCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'green' : caseRecord.detailCSSClass;
+			
+			// 
+			console.log('caseRecord.Case_Details: '+caseRecord.Case_Details+' caseRecord.detailCSSClass: '+caseRecord.detailCSSClass);
+			console.log(cInvestigationRecord);
+			
+			// if(this.selectedListViewApiName === 'Cases_updated') {
+			// 	if(data[i].updatedCaseInvestigationIds.indexOf(cInvestigationRecord.Id) != -1 
+			// 		|| data[i].stillUnderCaseInvestigationIds.indexOf(cInvestigationRecord.Id) != -1 ) {
+			// 			caseRecordList.push(caseRecord);
+			// 	}
+			// }
+			// else {
 			caseRecordList.push(caseRecord);
+			// }
 			//create new instance of caseRecord to store next case investigation record wrapper.
 			caseRecord = new Object();
-        }
+        
+			/** NEW CODE ENDED */
 
       }
       else {
