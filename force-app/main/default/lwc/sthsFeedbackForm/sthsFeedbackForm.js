@@ -9,6 +9,7 @@ import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage
 import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
+import invalidCallerType from "@salesforce/label/c.STHSSenderReceiverValidationMessage";
 import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
@@ -17,18 +18,26 @@ import createFeedbackFormCase from "@salesforce/apex/STHSFeedbackFormController.
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
 	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg"; //error icon
-	showReference = false; //flag to show/hide the reference field
 	showError = false; //flag to show/hide the error message
-	referenceRequiredFeedbackTypes = [
+	referenceRequiredFeedbackTypes = [ // reference field required feedback types
 		"Product & Sales",
 		"Pick Up",
 		"On-Road",
 		"Delivery"
-	]; // reference field required feedback types
+	];
+	callerTypesDependancyOnReferences = [ // caller types displayed for these references only
+		"Pick Up",
+		"On-Road",
+		"Delivery"
+	];
 	formData = {}; //form data to capture
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
 	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
+	toggleConfig = {
+		showReference: false,
+		showCallerType: false,
+	}
 
 	//labels
 	label = {
@@ -40,6 +49,7 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidLastName,
 		invalidPhone,
 		invalidReference,
+		invalidCallerType,
 		stSupportURL,
 		errorStateMessage,
 		invalidNameFieldCharacters
@@ -56,15 +66,29 @@ export default class SthsTrackingForm extends LightningElement {
 			{ label: "Billing", value: "Billing" },
 			{ label: "Other", value: "Other" }
 		];
+	};
+
+	get callerTypeOptions() {
+		return [
+			{ label: 'Sender', value: 'Sender' },
+			{ label: 'Receiver', value: 'Receiver' },
+			{ label: 'Other', value: 'Other' },
+		];
 	}
 
 	//handle enquiry dropdown change
 	handleEnquiryChange = (event) => {
 		const feedbackType = event.target.value;
 		if (this.referenceRequiredFeedbackTypes.includes(feedbackType)) {
-			this.showReference = true;
+			this.toggleConfig.showReference = true;
 		} else {
-			this.showReference = false;
+			this.toggleConfig.showReference = false;
+		}
+
+		if (this.callerTypesDependancyOnReferences.includes(feedbackType)) {
+			this.toggleConfig.showCallerType = true;
+		} else {
+			this.toggleConfig.showCallerType = false;
 		}
 		//save to formdata
 		this.handleInputChange(event);

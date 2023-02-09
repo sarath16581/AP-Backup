@@ -23,6 +23,7 @@ public with sharing class STHSConstants {
     public static final String FORM_DATA_DESCRIPTION_CONTENTS = 'description';
     public static final String CASE_OBJ = 'Case';
     public static final String CASE_CONTYPE_SENDER = 'Sender';
+    public static final String CASE_CALLER_TYPE = 'callerType';
     public static final String PREF_CONTACT_METHOD_EMAIL = 'Email';
     public static final String CASE_DIRECTION_INBOUND = 'Inbound';
 	public static final String FORM_TRACKING_ENQUIRY = 'Tracking Enquiry';

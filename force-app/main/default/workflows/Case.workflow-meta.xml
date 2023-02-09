@@ -2268,7 +2268,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>SSSW_Set_to_Cons_Inbnd_Post_Info_Q</fullName>
         <description>Assigns the case to the &apos;MyPost Digital Mailbox&apos; queue</description>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound_Post_Info</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW – Set to Cons Inbnd Post Info Q</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2279,7 +2279,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Consumer_Inbound_Delivery</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound_Delivery_Support</lookupValue>
+        <lookupValue>SSSW_FOH_Group_4</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Consumer Inbound Delivery</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2290,7 +2290,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Consumer_Inbound_Post_Info</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound_Post_Info</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Consumer Inbound Post Info</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2301,7 +2301,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Consumer_Inbound_Premium</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound_Premium</lookupValue>
+        <lookupValue>SSSW_FOH_Group_4</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Consumer Inbound Premium</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2335,7 +2335,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Online_Blitz</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Online_Blitz</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Online Blitz</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2379,7 +2379,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_consumer_inbound</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound</lookupValue>
+        <lookupValue>SSSW_FOH_Group_4</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to consumer inbound</name>
         <notifyAssignee>false</notifyAssignee>

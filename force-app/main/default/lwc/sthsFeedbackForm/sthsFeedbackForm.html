@@ -47,7 +47,7 @@
 								value={formData.enquiryType}
 								message-when-value-missing={label.invalidFeedbackTypeSelection}></lightning-combobox>
 						</lightning-layout-item>
-						<template if:true={showReference}>
+						<template if:true={toggleConfig.showReference}>
 							<lightning-layout-item
 								size="12"
 								medium-device-size="9"
@@ -66,6 +66,26 @@
 									class="form-sub-heading slds-var-p-top_x-small">
 									Tracking, booking, or barcode reference
 								</p>
+							</lightning-layout-item>
+						</template>
+						<template if:true={toggleConfig.showCallerType}>
+							<lightning-layout-item
+									size="12"
+									medium-device-size="9"
+									class="slds-var-p-top_x-large">
+									<lightning-radio-group
+										name="callerType"
+										label="Are you the sender or receiver for this parcel?"
+										options={callerTypeOptions}
+										value={formData.callerType}
+										onchange={handleInputChange}
+										message-when-value-missing={label.invalidCallerType}
+										required
+										type="radio"
+										data-validation="feedbackForm"
+										data-field-name="callerType"
+									>
+									</lightning-radio-group>
 							</lightning-layout-item>
 						</template>
 						<lightning-layout-item
