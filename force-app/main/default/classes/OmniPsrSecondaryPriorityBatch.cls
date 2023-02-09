@@ -19,7 +19,12 @@ public inherited sharing class OmniPsrSecondaryPriorityBatch implements Database
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext BC){
-		return (Database.QueryLocator)PendingServiceRoutingSelector.newInstance().selectByLastModifiedDateLessThanEqualNDaysAgo(nDaysAgo, new Set<Object>{PendingServiceRoutingSelector.Options.EXCLUDE_ISPUSHED,PendingServiceRoutingSelector.Options.WITH_WORKITEM});
+
+		PendingServiceRoutingSelector psrSelector = PendingServiceRoutingSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+			Case.SObjectType => new Set<SObjectField>{Case.Priority, Case.CreatedDate}
+		});		
+
+		return (Database.QueryLocator)psrSelector.selectByLastModifiedDateLessThanEqualNDaysAgo(nDaysAgo, new Set<Object>{PendingServiceRoutingSelector.Options.EXCLUDE_ISPUSHED,PendingServiceRoutingSelector.Options.WITH_WORKITEM});
 	}
 
 	// enables scheduling of this batch via cron or UI
