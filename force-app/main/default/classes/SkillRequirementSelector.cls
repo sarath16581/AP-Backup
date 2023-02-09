@@ -8,8 +8,13 @@
 * @description A very simple selector class that sits in the OmniDomain
 * @changelog
 * 2020-11-18 - George Nguyen - Created 
+* 2023-02-06 - Nathan Franklin - Added some more fields and skill related object
 */
 public inherited sharing class SkillRequirementSelector extends ApplicationSelector {
+
+	public enum Options {
+		WITH_SKILLS
+	}
 
 	public static SkillRequirementSelector newInstance() {
 		return (SkillRequirementSelector)Application.Selectors.newInstance(SkillRequirementSelector.class);
@@ -17,6 +22,24 @@ public inherited sharing class SkillRequirementSelector extends ApplicationSelec
 
 	public static SkillRequirementSelector newInstance(Integer recordLimit) {
 		return (SkillRequirementSelector)Application.Selectors.newInstance(SkillRequirementSelector.class).setLimit(recordLimit);
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static SkillRequirementSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		SkillRequirementSelector selector = (SkillRequirementSelector) Application.Selectors.newInstance(SkillRequirementSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *                          This approach removes data consistency and prevents possible caching of results
+	 */
+	public static SkillRequirementSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		SkillRequirementSelector selector = (SkillRequirementSelector) Application.Selectors.newInstance(SkillRequirementSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
 	}
 
 	public virtual override SObjectType getSObjectType() {
@@ -43,6 +66,16 @@ public inherited sharing class SkillRequirementSelector extends ApplicationSelec
 	public List<SkillRequirement> selectByRelatedRecordIds(Set<Id> relatedRecordIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(SkillRequirement.RelatedRecordId + ' in :relatedRecordIds')).endConditions();
 		return (List<SkillRequirement>)Database.query(qb.toSoqlString());
+	}
+
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_SKILLS)) {
+			builder.addRelatedFields(SkillsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Skill');
+		}
+
+		return builder;
 	}
 
 }
