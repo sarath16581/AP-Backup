@@ -13,7 +13,8 @@
 
 .THIS .sths-guest-user-form .slds-input,
 .THIS .sths-guest-user-form .slds-textarea,
-.THIS .sths-guest-user-form .form-dropdown .slds-dropdown, 
+.THIS .sths-guest-user-form .form-dropdown .slds-dropdown,
+.THIS .sths-guest-user-form fieldset[lightning-radiogroup_radiogroup] .slds-form-element__control .slds-radio__label .slds-form-element__label,
 .THIS .sths-guest-user-form .form-dropdown .slds-input_faux {
     @include text-default($primary-text-color, 400, 1rem, 1.5rem);
     padding-top: 10px;

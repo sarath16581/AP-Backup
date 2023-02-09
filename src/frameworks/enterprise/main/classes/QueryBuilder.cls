@@ -31,6 +31,7 @@
  * 2020-08-02 - Nathan Franklin - Added option for fieldOverrides
  * 2021-12-02 - Alex Volkov - Added datetime comparison conditions
  * 2022-11-23 - Mahesh Parvathaneni - Added notInCollection conditions
+ * 2023-03-06 - Nathan Franklin - Added ability to reset order by and retrieve current values
  */
 public virtual inherited sharing class QueryBuilder {
 
@@ -221,7 +222,7 @@ public virtual inherited sharing class QueryBuilder {
         hasSubQueries = true;
         return this.addField('(' + queryBuilder.toSoqlString() + ')');
     }
-    
+
     public QueryBuilder addSubQuery(QueryBuilder queryBuilder, String relationshipName) {
         hasSubQueries = true;
         QueryBuilder qb = queryBuilder.clone();
@@ -438,6 +439,14 @@ public virtual inherited sharing class QueryBuilder {
     }
 
     /**
+     * Resets the order by parameter
+     */
+    public QueryBuilder setOrder(Order order) {
+        this.sortingOrder = new List<Order>{order};
+        return this;
+    }
+
+    /**
      * Adds a SORT BY {Order} statement to the query.
      *
      * <br/><br/>
@@ -590,7 +599,7 @@ public virtual inherited sharing class QueryBuilder {
      * @param aggregateFunction
      *
      * @return this - current instance of QueryBuilder.class
-     * 
+     *
      */
     public QueryBuilder addAggregate(SObjectField field, AggregateFunction aggregate) {
         switch on aggregate {
@@ -1039,7 +1048,6 @@ public virtual inherited sharing class QueryBuilder {
         }
 
         String output = result.trim();
-        System.debug(output);
         return output;
     }
 
@@ -1575,6 +1583,14 @@ public virtual inherited sharing class QueryBuilder {
 
         public Order setNullsOrderLast() {
             return this.setNullsOrder('LAST');
+        }
+
+        public String getSortingField() {
+            return this.sortingField;
+        }
+
+        public String getSortingOrder() {
+            return this.sortingOrder;
         }
 
         public override String toString() {
