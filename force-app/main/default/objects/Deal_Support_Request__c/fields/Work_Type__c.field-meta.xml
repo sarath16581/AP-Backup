@@ -772,6 +772,11 @@
                 <default>false</default>
                 <label>Voice of Customer</label>
             </value>
+            <value>
+                <fullName>Change OE APR rate</fullName>
+                <default>false</default>
+                <label>Change OE APR rate</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

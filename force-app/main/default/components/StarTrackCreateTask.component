@@ -5,6 +5,7 @@ Description:   Create Task component for StarTrack Cases
 History
 November 23, 2015 - Patrick James Franco - Created
 March 15, 2016 - David Catindoy - Refactored
+Novenmber 24, 2022 - Mahesh Parvathaneni - Added title
 -->
 
 <apex:component controller="StarTrackCreateTaskPAController" allowDML="true">
@@ -21,6 +22,14 @@ March 15, 2016 - David Catindoy - Refactored
     .bPageBlock .detailList tr td.dataCol, 
     .bPageBlock .detailList tr th.labelCol {
         border-bottom:2px solid #FFFFFF;
+    }
+    .heading {
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: center;
+    }
+    .title-padding {
+        padding-bottom: 1rem;
     }
 </style>
 <apex:outputPanel id="redirectPanel">
@@ -55,6 +64,9 @@ March 15, 2016 - David Catindoy - Refactored
     </apex:facet>
 </apex:actionstatus>
 <apex:form id="createTask">
+    <div class="title-padding">
+        <p class="heading">StarTrack Depot</p>
+    </div>
     <apex:actionFunction name="task" action="{!createTask}" rerender="pageMessages, redirectPanel" oncomplete="publishandclose(); resizePA();" status="counterStatus"/>
     <apex:actionRegion id="thePanelActionRegion">
         <apex:outputPanel id="out">

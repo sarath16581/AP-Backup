@@ -1,0 +1,25 @@
+<template>
+    <div class="paginator">
+        <lightning-layout>
+            <template if:true={pageList}>
+                <lightning-layout-item size="12" class="slds-align_absolute-center">
+                    <lightning-icon class={previousChevronClass} icon-name="utility:chevronleft"
+                        alternative-text="Previous" title="Previous" onclick={handlePreviousClick} size="x-small">
+                    </lightning-icon>
+                    <template iterator:it={pageList}>
+                        <template if:true={it.value.isEllipsis}>
+                            <span class="ellipsis" key={it.value.key}>{it.value.pageNumber}</span>
+                        </template>
+                        <template if:false={it.value.isEllipsis}>
+                            <a key={it.value.key} onclick={handlePageClick} data-page={it.value.pageNumber}
+                                class={it.value.className}>{it.value.pageNumber}</a>
+                        </template>
+                    </template>
+                    <lightning-icon class={nextChevronClass} icon-name="utility:chevronright" alternative-text="Next"
+                        title="Next" onclick={handleNextClick} size="x-small">
+                    </lightning-icon>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </div>
+</template>

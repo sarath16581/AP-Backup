@@ -9,11 +9,13 @@
  * 2021-06-15 - Ranjeewa Silva - Updated 'readOnly' property name as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.js_props_names.
  * 2021-10-15 - Nathan Franklin - Updated comments around supportsSafeDropAttachment which is now used for signatures too + uplift to v52 and conversion of tracking number to uppercase
  * 2021-11-08 - Prerna Rahangdale - Added support to show the warning with a link to knowledge article for articles which have VODV checked.
- */
+ * 2022-11-28 - Dattaraj Deshmukh - Added 'logic to show caseInvestigation's article numbers'.
+ * 									Added logic to check if case investigation Id is passed then it's article ID is passed as tracking Id to controller.
+*/
 import { LightningElement, track, api } from "lwc";
 import {getAnalyticsApiResponse, getTrackingApiResponse, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
-
+ 
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
 
 	_trackingId = '';
@@ -84,13 +86,24 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	set trackingId(value) {
 		this._trackingId = safeToUpper(safeTrim(value));
 		if(value) {
+			console.log('triggered another search');
 			this.triggerSearch();
 		}
 	}
 
     //Contextual information passed in by the host component.
 	@api hostContext = {};
+	
+	@api hasCaseInvestigations = false;
+	@api caseInvestigations;
+	@api caseConsignmentId;
 
+	/**
+	 * Handles when case investigation's article ids are clicked.
+	 */
+	updateHappyParcels(event){
+		this.trackingId = event.target.dataset.id;
+	}
 	connectedCallback() {
 		// preload the config so all the components do not have to make individual apex calls because the config hasn't loaded
 		getConfig().then(result => {
@@ -102,6 +115,36 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	disconnectedCallback() {
 		this.template.removeEventListener('idclick', this.handleIdLinkClick);
+	}
+
+	/**
+	 * When case investigation detail is accessed from list view, show its parent case consignment number. 
+	 * If ST case is searched globally and accessed then do not show case consignement number.
+	 */
+	get isRenderConsigmentNumber(){
+		return (this.hasCaseInvestigations ? false : true);
+	}
+
+	/**
+	 * When case investigation is accessed from list view, list of case investigations under a star track are passed.
+	 */
+	get isStarTrackCase(){
+		return (this.caseInvestigations && this.caseInvestigations.length > 0 ? true : false);
+	}
+
+	/**
+	 * Populate case investigations array based on article numbers. 
+	 */ 
+	get articleItems(){
+		var items = [];
+		this.caseInvestigations.forEach( (item, index) => {
+			items.push({
+				label: item.Article__r,
+				isLink : true
+			});
+		});
+		return items;
+	
 	}
 
 	/**
@@ -543,5 +586,5 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	get consignmentHasEventMessages() {
 		return this.isConsignment && this.consignment.trackingResult.events && this.consignment.trackingResult.events.length > 0;
 	}
-
+	
 }

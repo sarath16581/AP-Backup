@@ -1981,6 +1981,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Change OE APR rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Copy of Contract</fullName>
             <default>false</default>
         </values>

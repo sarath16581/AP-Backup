@@ -1,0 +1,7 @@
+.au_post_color{
+    color:red;
+}
+
+:host {
+	--sds-c-textarea-sizing-min-height: 100px;
+ }

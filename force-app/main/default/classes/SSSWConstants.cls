@@ -76,6 +76,7 @@ public with sharing class SSSWConstants {
     
     /*** CaseTriggerHelper Constants  ***/
     public static final String CASE_TRIGGER = 'CaseTrigger'; 
+	public static final String CASE_INVESTIGATION_TRIGGER = 'CaseInvestigationTrigger'; 
     public static final String QUEUE_CHILDCASE_DEV = 'SSSWChildCases'; 
     public static final String STAT_CHILD_CASE_UPDATE = 'Child Case Update'; 
     public static final String RECTYPE_ACON_ALLCASE = 'Authorised Contact - All Cases';
