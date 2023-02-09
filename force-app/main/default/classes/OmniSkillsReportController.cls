@@ -26,23 +26,30 @@ public with sharing class OmniSkillsReportController {
 	@AuraEnabled
 	public static JobOutput fetchReportData(String lastIdRetrieved) {
 
+		// specify a dummy Id to get the process started if one isn't already passed in
 		if(String.isEmpty(lastIdRetrieved)) {
 			lastIdRetrieved = '0JR000000000000';
 		}
 
-		List<PendingServiceRouting> pendingWorkRecords = [SELECT Id, RoutingPriority, SecondaryRoutingPriority, WorkItemId, WorkItem.CreatedDate, (Select SkillId, Skill.DeveloperName From SkillRequirements)
-															FROM PendingServiceRouting
-															WHERE WorkItemId > '500000000000000'
-															AND WorkItemId < '501000000000000'
-															AND Id In (SELECT RelatedRecordId From SkillRequirement)
-															AND Id > :lastIdRetrieved
-															ORDER By Id
-															LIMIT :MAX_RECORDS_PER_ITERATION];
+		List<PendingServiceRouting> pendingWorkRecords = PendingServiceRoutingSelector.newInstance(MAX_RECORDS_PER_ITERATION, new Map<SObjectType, Set<SObjectField>>{
+			PendingServiceRouting.SObjectType => new Set<SObjectField>{PendingServiceRouting.Id, PendingServiceRouting.RoutingPriority, PendingServiceRouting.SecondaryRoutingPriority, PendingServiceRouting.WorkItemId},
+			Case.SObjectType => new Set<SObjectField>{Case.Id, Case.CreatedDate},
+			SkillRequirement.SObjectType => new Set<SObjectField>{SkillRequirement.Id, SkillRequirement.SkillId},
+			Skill.SObjectType => new Set<SObjectField>{Skill.DeveloperName, Skill.MasterLabel}
+		}).search(new Map<String, Object>{
+			'limitToCaseOnly' => true,
+			'limitToSkillWorkOnly' => true,
+			'idGreaterThan' => lastIdRetrieved,
+			'orderBy' => PendingServiceRouting.Id,
+			'sortOrder' => 'asc'
+		}, new Set<Object>{
+			PendingServiceRoutingSelector.Options.WITH_SKILLREQUIREMENTS, PendingServiceRoutingSelector.Options.WITH_WORKITEM, SkillRequirementSelector.Options.WITH_SKILLS
+		}, true);
 
 		JobOutput output = new JobOutput();
 		output.records = pendingWorkRecords;
 		output.isDone = pendingWorkRecords.size() < MAX_RECORDS_PER_ITERATION;
-		output.lastId = (pendingWorkRecords.size() > 0 ? pendingWorkRecords[pendingWorkRecords.size()-1].Id : '');
+		output.lastId = (pendingWorkRecords.size() > 0 ? pendingWorkRecords[pendingWorkRecords.size()-1].Id : null);
 
 		return output;
 	}
