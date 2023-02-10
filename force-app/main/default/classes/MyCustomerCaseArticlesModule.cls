@@ -253,11 +253,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * 2. Article record was deleted in salesforce and case was later updated
 	 * 3. Article id field on Case was removed or already empty
 	 * 
-	 * This is called by a Flow that fires on Insert and Update, and passes cases where ReferenceID__c is not null and and ArticleTest__c is null.
-	 * Note that Flows execute after Workflow Field Updates.
-	 * 
-	 * This Invocation Method called by a Flow approach is necessary as opposed to After Insert/After Update  as we need the AsyncLinkArticlesToCasesQueueable job to be queued after Workflow Field Updates.  
-	 * A Workflow Field Update sets Case.AllocateToQueue__c = true, which needs to fire before the above async job is enqueued.
 	 */
 	@TestVisible 
 	private void queueAsyncArticleToCases(List<Case> cases) {
