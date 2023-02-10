@@ -132,6 +132,25 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 * @param matchAll If true will search based on AND, else search based on OR
 	 * @return Map<Id, PendingServiceRouting>
 	 */
+	public List<PendingServiceRouting> selectByLastModifiedDateLessThanLastNDays(Integer lastNDays, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PendingServiceRouting.LastModifiedDate + ' < LAST_N_DAYS:' + lastNDays)).endConditions();
+		return (List<PendingServiceRouting>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 * NOTE: entityIds OR documentIds MUST be passed to avoid a runtime error
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *						  limitToCaseOnly: boolean to add a Case limiter to ensure only Cases are returned (Boolean)
+	 *						  limitToSkillWorkOnly: boolean to ensure that only records with at least 1 skill attached will be returned (Boolean)
+	 *						  idGreaterThan: return records greater than the id passed in (Id)
+	 *						  orderBy: set the order by field (SObjectField)
+	 *						  sortOrder: set the sort direction (asc,desc)
+	 * @param selectorOptions Selector Options
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 * @return Map<Id, PendingServiceRouting>
+	 */
 	public List<PendingServiceRouting> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 		System.debug('searchParams: ' + searchParams);
 

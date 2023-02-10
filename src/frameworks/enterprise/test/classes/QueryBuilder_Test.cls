@@ -152,6 +152,21 @@ private with sharing class QueryBuilder_Test {
         System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b.*?Order\\s+By\\s+Id\\s+Desc\\s*,\\s*Name\\s+Desc\\s*$').matcher(soql).find(), 'Resulting query does not set Order By correctly: ' + soql);
         System.assertEquals(true, Database.query(soql).isEmpty());
 
+		qb = new QueryBuilder(Account.SObjectType);
+        qb.addField('Name');
+		qb.addOrderDesc('ParentId');
+        qb.setOrder(new QueryBuilder.Order('Industry', 'Asc'));
+        soql = qb.toSoqlString();
+
+        // verify query structure
+        System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b.*?Order\\s+By\\s+Industry\\s+Asc\\s*$').matcher(soql).find(), 'Resulting query does not set Order By correctly: ' + soql);
+		System.assertEquals(false, Pattern.compile('(?ism)\\bParentId\\b').matcher(soql).find(), 'Resulting query does not set Order By correctly: ' + soql);
+        System.assertEquals(true, Database.query(soql).isEmpty());
+
+		QueryBuilder.Order orderByVar = new QueryBuilder.Order('Industry', 'Asc');
+		System.assertEquals('Industry', orderByVar.getSortingField());
+		System.assertEquals('Asc', orderByVar.getSortingOrder());
+
     }
 
     @IsTest

@@ -68,8 +68,6 @@ public with sharing class PendingServiceRoutingSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\bIsPushed\\s*=\\s*false\\b').matcher(soql).find(), 'Resulting query does not have IsPushed = false');
 
-		
-
 		Test.stopTest();
 
 	}

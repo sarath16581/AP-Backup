@@ -134,7 +134,7 @@ export default class OmniSkillsReport extends LightningElement {
 
 			// grab the developer names for each of the skils and map it with the original id
 			parsedSkillMappings = {...parsedSkillMappings, ...(record.SkillRequirements ?? []).reduce((result, value) => {
-				result[value.SkillId] = value.Skill.DeveloperName;
+				result[value.SkillId] = value.Skill.MasterLabel;
 				return result;
 			}, {})};
 		}
