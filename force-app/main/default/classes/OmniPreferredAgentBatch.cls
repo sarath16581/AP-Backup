@@ -9,22 +9,23 @@
 */
 public inherited sharing class OmniPreferredAgentBatch implements Database.Batchable<sObject>,Schedulable  {
 	public final String query;
+	public Datetime now;
 
 	public OmniPreferredAgentBatch() {
-		Id preferredAgentRoutingQueueId = OmniChannelService.getInstance().preferredAgentQueueId;
-		DateTime now = System.Now();
+		Id preferredAgentRoutingQueueId = OmniChannelService.getInstance().preferredAgentQueueId;		
 		// This query is used to retrieved all PSR's that have IsPushed = False AND the related Case.PreferredAgentExpiry__c is less than Now. 
 		this.query = 'SELECT WorkItemId FROM PendingServiceRouting WHERE IsPushed = FALSE AND WorkItem.PreferredAgentExpiry__c < :now AND Workitem.OwnerId = :preferredAgentRoutingQueueId';
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext BC){
+		now = System.Now();
 		return Database.getQueryLocator(query);
 	}
 
 	// enables scheduling of this batch via cron or UI
 	public void execute(SchedulableContext sc) {
 		Database.executeBatch(this);
-	 }
+	}
 
 	public void execute(Database.BatchableContext BC, List<sObject> scope){
 		try {
