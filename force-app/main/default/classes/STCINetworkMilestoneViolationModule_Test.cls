@@ -215,4 +215,74 @@ private class STCINetworkMilestoneViolationModule_Test {
 
 		Test.stopTest();
 	}
+
+	/**
+	* Scenario: Testing the end to end functionality with DML
+	* Test to ensure the case investigation records are populated with correct values after DML
+	*/
+	@IsTest
+	static void testEndToEndDML() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, false);
+		insert articles;
+
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, false);
+		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
+		cases[1].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
+		insert cases;
+
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		networks[0].Org_ID__c = '1234';
+		insert networks;
+
+		//test data for escalation hierarchy
+		List<Escalation_Hierarchy__c> ehRecs = ApplicationTestDataFactory.getEscalationHierarchies(1, 'ST Case Investigation', true);
+		ehRecs[0].Facility_Tier_1__c = 1440;
+		ehRecs[0].Facility_Tier_2__c = 1440;
+
+		//test data for entitlement rules
+		List<Entitlement_Rule__c> eRules = ApplicationTestDataFactory.getEntitlementRules(1, 'ST Case Investigation', ehRecs[0].Id, true);
+		eRules[0].Rule__c = 'recordtype__c=StarTrack MyNetwork';
+		eRules[0] = (Entitlement_Rule__c)ApplicationTestDataFactory.setUnwritableFields(eRules[0], new Map<String, Object>{'RecordType.DeveloperName' => 'Case_Investigation'});
+		eRules[0] = (Entitlement_Rule__c)ApplicationTestDataFactory.setUnwritableFields(eRules[0], new Map<String, Object>{'Escalation_Hierarchy__r' => ehRecs[0]});
+
+		//get the business hours from the org
+		List<BusinessHours> stdBusinessHours = [SELECT Id,Name FROM BusinessHours where Name = 'Service Delivery VIC'];
+
+
+		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
+		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[0].Id, false));
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		EntitlementRulesSelector mockEntitlementRulesSelector = (EntitlementRulesSelector)MockUtility.mockSelector(EntitlementRulesSelector.class);
+		BusinessHoursSelector mockBusinessHoursSelector = (BusinessHoursSelector)MockUtility.mockSelector(BusinessHoursSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockEntitlementRulesSelector.selectActiveRulesByRecordTypeDevNames(new Set<String>{'Case_Investigation'}, new Set<Object>{EntitlementRulesSelector.Options.WITH_ESCALATION_HIERARCHY})).thenReturn(new Map<Id, Entitlement_Rule__c>{eRules[0].Id => eRules[0]});
+		MockUtility.Mocks.when(mockBusinessHoursSelector.selectByName((Set<String>)fflib_Match.anyObject())).thenReturn(stdBusinessHours);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		insert records;
+
+		List<CaseInvestigation__c> caseInvestigations = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(new Set<Id>{cases[0].Id, cases[1].Id}).values();
+
+		System.assertEquals(2, caseInvestigations.size(), 'Expected two case investigations to be inserted');
+		System.assertNotEquals(null, caseInvestigations[0].MilestoneTimeStartDatetime__c, 'Expected MilestoneTimeStartDatetime__c to be populated');
+		System.assertNotEquals(null, caseInvestigations[0].NetworkMilestoneNextViolationDatetime__c, 'Expected NetworkMilestoneNextViolationDatetime__c to be populated');
+		System.assertNotEquals(null, caseInvestigations[1].MilestoneTimeStartDatetime__c, 'Expected MilestoneTimeStartDatetime__c to be populated');
+		System.assertNotEquals(null, caseInvestigations[1].NetworkMilestoneNextViolationDatetime__c, 'Expected NetworkMilestoneNextViolationDatetime__c to be populated');
+
+		Test.stopTest();
+	}
 }
