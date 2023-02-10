@@ -14,7 +14,6 @@ import {ShowToastEvent} from "lightning/platformShowToastEvent";
 export default class CreditAssessmentDetailsClosedOpp extends LightningElement {
 	bodyMessage = 'Approved credit assessments are found under this Opportunity, please select one from below and click Next or click Next without selecting to submit a new credit assessment';
 	@api creditAssessments;
-	// @track creditAssessmentsData = [];
 	columns = [];
 
 	@wire(getDatatableColumns)

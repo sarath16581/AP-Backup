@@ -23,26 +23,21 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	@wire(getCreditAssessment, {opportunityId: '$recordId'})
 	wiredCreditAssessmentResults({error, data}) {
 		if (data) {
-			console.log('data: ' + data);
 			// opportunity closed?
 			if (this.oppClosedStage.includes(data.opportunity.StageName)) {
-				// any credit assessments associated to the opportunity
-				if (data.creditAssessments.length === 0) {
-					this.messageBody = data.messageBodyMap['OPPORTUNITY_CLOSED_NO_CA'];
-				} else {
-					// only one primary proposal?
-					const primaryMap = new Map();
-					data.creditAssessments.forEach(ca => {
-						primaryMap.set(ca.APT_Proposal__r.Id, ca.APT_Proposal__r.Apttus_Proposal__Primary__c)
-					});
-					const primaryCount = [...primaryMap.values()].reduce((count, value) => (value ? count + 1 : count), 0);
-					if (primaryCount === 1) {
+				// only one primary proposal?
+				const primaryCount = data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.reduce((count, p) => (count + p.Apttus_Proposal__Primary__c), 0);
+				if (primaryCount === 1) {
+					// any credit assessments associated to the opportunity
+					if (data.creditAssessments.length !== 0) {
 						// Display list of credit assessments associated to the opportunity
 						this.showCAClosedOpp = true;
 						this.creditAssessments = data.creditAssessments;
 					} else {
-						this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+						this.messageBody = data.messageBodyMap['OPPORTUNITY_CLOSED_NO_CA'];
 					}
+				} else {
+					this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
 				}
 			} else {
 				// OPC complete?

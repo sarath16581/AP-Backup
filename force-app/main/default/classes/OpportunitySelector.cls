@@ -12,7 +12,7 @@
 
 public with sharing class OpportunitySelector extends ApplicationSelector{
     public enum Options {
-
+        WITH_PROPOSALS
     }
     public static OpportunitySelector newInstance() {
         return (OpportunitySelector)Application.Selectors.newInstance(OpportunitySelector.class);
@@ -57,15 +57,18 @@ public with sharing class OpportunitySelector extends ApplicationSelector{
 
     public virtual Map<Id, Opportunity> selectById(Set<Id> ids, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Opportunity.Id + ' in :ids')).endConditions();
-        System.debug('Opportunity query>>>>>>>>>>>'+qb.toSoqlString());
         return new Map<Id, Opportunity>((List<Opportunity>)Database.query(qb.toSoqlString()));
     }
+
     public virtual override QueryBuilder newQueryBuilder() {
         return newQueryBuilder(new Set<Object>());
     }
 
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
         QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+        if(selectorOptions.contains(Options.WITH_PROPOSALS)) {
+            builder.addSubQuery(APT_ProposalObjectsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__R00N70000001yUfDEAU__r');
+        }
         return builder;
     }
 }

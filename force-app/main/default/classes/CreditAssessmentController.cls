@@ -13,8 +13,9 @@ public with sharing class CreditAssessmentController {
 	// Credit Assessment conditions on the opportunity
 	private static final String OPPORTUNITY_CLOSED_NO_CA = 'OPPORTUNITY_CLOSED_NO_CA';
 	private static final String OPPORTUNITY_INCOMPLETE_OPC = 'OPPORTUNITY_INCOMPLETE_OPC';
-	private static final Set<SObjectField> OPPORTUNITY_FIELD_OVERRIDES = new Set<SObjectField>{
-			Opportunity.StageName, Opportunity.Count_of_Contract_Start_Dates__c, Opportunity.Count_of_Contract_End_Dates__c, Opportunity.Count_of_Opportunity_Line_Items__c
+	private static final Map<SObjectType, Set<SObjectField>> OPPORTUNITY_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
+			Opportunity.SObjectType => new Set<SObjectField>{Opportunity.StageName, Opportunity.Count_of_Contract_Start_Dates__c, Opportunity.Count_of_Contract_End_Dates__c, Opportunity.Count_of_Opportunity_Line_Items__c},
+			Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c}
 	};
 
 	/**
@@ -32,13 +33,18 @@ public with sharing class CreditAssessmentController {
 			CreditAssessmentDatatableConfig__mdt config = CreditAssessmentDatatableConfig__mdt.getInstance('CreditAssessmentDatatableConfig');
 			List<String> cafields = config.QueryFields__c.split(',');
 			Set<SObjectField> caSObjectFields = new Set<SObjectField>();
+			Map<String, SObjectField> fieldMap = APT_Credit_Assessment__c.SObjectType.getDescribe().fields.getMap();
 			for (String caField: cafields) {
-				Schema.SobjectField field = APT_Credit_Assessment__c.SObjectType.getDescribe().fields.getMap().get(caField.trim());
-				caSObjectFields.add(field);
+				String trimmedField = caField.trim();
+				if (fieldMap.containsKey(trimmedField)) {
+					caSObjectFields.add(fieldMap.get(trimmedField));
+				} else {
+					throw new AuraHandledException('Query field: ' + trimmedField +' retrieved from CreditAssessmentDatatableConfig is not a valid field');
+				}
 			}
 			fieldOverrides.put(APT_Credit_Assessment__c.SObjectType, caSObjectFields);
 
-			Opportunity opp = OpportunitySelector.newInstance(1, OPPORTUNITY_FIELD_OVERRIDES).selectById(new Set<Id>{opportunityId}).values()[0];
+			Opportunity opp = OpportunitySelector.newInstance(1, OPPORTUNITY_FIELD_OVERRIDES).selectById(new Set<Id>{opportunityId}, new Set<Object>{OpportunitySelector.Options.WITH_PROPOSALS}).values()[0];
 			List<APT_Credit_Assessment__c> cas = CreditsAssessmentSelector.newInstance(fieldOverrides).selectByOpportunityIds(new Set<Id>{opportunityId}).values();
 
 			// initiate message body map with custom labels
