@@ -92,7 +92,7 @@ public with sharing class SAPContractsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		Database.QueryLocator queryLocator = SAPContractsSelector.newInstance().selectByAccountRelationshipQueryLocator(new Set<Object>{SAPContractsSelector.Options.WITH_ORGANISATION});
+		Database.QueryLocator queryLocator = SAPContractsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(new Set<Id>(), new Set<Object>{SAPContractsSelector.Options.WITH_ORGANISATION});
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(queryLocator.getQuery()).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
 		Test.stopTest();
 	}

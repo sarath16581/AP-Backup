@@ -3,6 +3,7 @@
  * @Description        : Service class for StarTrack Help and Support Community
  * @Author             : Mahesh Parvathaneni
  * @Modified           : Mahesh Parvathaneni - DDS-13293,13294 - Reference Id update to the case
+ * 					   : Jacob Isaac - REQ2995236 To remove defaulting StarTrack_Calc_Email_Address__c
  **/
 
 public inherited sharing class STHSCommunityService {
@@ -41,8 +42,10 @@ public inherited sharing class STHSCommunityService {
         caseObj.Direction__c = STHSConstants.CASE_DIRECTION_INBOUND;
         caseObj.Notification_Required__c = true;
         caseObj.Recent_Caller_Pref_Method_of_Contact__c = caseObj.Initical_CallPreferred_method_of_contact__c = STHSConstants.PREF_CONTACT_METHOD_EMAIL;
-        caseObj.Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
-        caseObj.StarTrack_Calc_Email_Address__c = StarTrackUtil.getCaseSTCalcEmailAddress(String.valueOf(caseObj.SuppliedEmail));
+        if(caseObj.Recent_Caller_Type__c == null) {
+            caseObj.Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
+        }
+        //caseObj.StarTrack_Calc_Email_Address__c = StarTrackUtil.getCaseSTCalcEmailAddress(String.valueOf(caseObj.SuppliedEmail));
 
         // if there is an active case assignment rule set the DML Options to ensure assignment rule is executed on case insert
         if (CASE_ASSIGNMENT_RULE.Id != null) {
@@ -60,6 +63,7 @@ public inherited sharing class STHSCommunityService {
         caseObj.SuppliedEmail = formData.get(STHSConstants.FORM_DATA_EMAIL);
         caseObj.Recent_Caller_First_Name__c = formData.get(STHSConstants.FORM_DATA_FNAME);
         caseObj.Recent_Caller_Last_Name__c = formData.get(STHSConstants.FORM_DATA_LNAME);
+        caseObj.Recent_Caller_Type__c = formData.get(STHSConstants.CASE_CALLER_TYPE);
         String phNumber = formData.get(STHSConstants.FORM_DATA_PHONE);
         phNumber = phNumber.replaceAll('[^0-9]', ''); //replace all characters other than numbers
         //check mobile or landline number

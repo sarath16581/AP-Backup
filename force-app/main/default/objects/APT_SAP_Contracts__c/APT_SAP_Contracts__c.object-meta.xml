@@ -173,8 +173,5 @@
         <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
-    <sharingRecalculations>
-        <className>SalesSAPContractSharingBatchable</className>
-    </sharingRecalculations>
     <visibility>Public</visibility>
 </CustomObject>

@@ -37,10 +37,9 @@
     <sharingOwnerRules>
         <fullName>APT_Share_with_Sales</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share Apttus contracts with sales excluding CC team</description>
         <label>Share with Sales</label>
         <sharedTo>
-            <group>All_Sales_Team_Ex_CC</group>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>

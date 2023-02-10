@@ -6,7 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The clause diff text</inlineHelpText>
     <label>Diff Text</label>
-    <length>32768</length>
+    <length>64000</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

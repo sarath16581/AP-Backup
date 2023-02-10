@@ -5,7 +5,7 @@
     <description>Primary numbers of the line items that has triggered the rule action.</description>
     <externalId>false</externalId>
     <label>Triggering Primary Numbers</label>
-    <length>2048</length>
+    <length>6600</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

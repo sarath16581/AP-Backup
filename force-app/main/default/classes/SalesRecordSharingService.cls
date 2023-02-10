@@ -28,6 +28,10 @@ public without sharing class SalesRecordSharingService {
 	public static final String SALES_TEAM_TYPE_INTERMEDIARY = 'Intermediary';
 	public static final String SALES_TEAM_TYPE_HOLDING = 'Holding';
 
+	// name of 'Sales Team Sharing' application feature (ApplicationFeature__c). used to check if this feature is
+	// active / inactive based on the custom setting - ApplicationFeature__c.
+	public static final String SALES_RECORD_SHARING_FEATURE_NAME = 'SalesTeamSharing';
+
 	// only standard public groups are supported for configuring sharing groups
 	@TestVisible private static final Set<String> PUBLIC_GROUP_TYPES_SUPPORTED = new Set<String>{'Regular'};
 
@@ -35,24 +39,42 @@ public without sharing class SalesRecordSharingService {
 	// a form suitable for use by this service class and it's clients.
 	private static Map<SObjectType, SalesSharingObjectMapping> salesSharingObjectMappingCache = new Map<SObjectType, SalesSharingObjectMapping>();
 
+	// maximum number of child records that can be processed in a single transaction as part of account movement operation.
+	// this number is influenced mainly by the governor limit on number records for DML statements in a transaction.
+	// allow for sharing recalculation involving delete and insert of share records for the child records.
+	@TestVisible private static Integer MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION = 4500;
+
+	// cache key setting names for accessing platform cache
+	private static final String CACHE_KEY_SALES_SHARING_CONFIGURATION = 'SALES_SHARING_CONFIGURATION';
+	private static final String CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES = 'SALES_ACCOUNT_CHILD_REL_NAMES';
+
 	// custom metadata configured. arranged into a map where SObject API name is the key for ease of access.
 	@TestVisible private static Map<String, SalesSharingObjectMapping__mdt> salesSharingMetadata {
 		get {
 			if (salesSharingMetadata == null) {
-				Map<String, SalesSharingObjectMapping__mdt> metadata = new Map<String, SalesSharingObjectMapping__mdt>();
+				// check platform cache
+				if (CacheManager.get(CACHE_KEY_SALES_SHARING_CONFIGURATION) != null) {
+					// use sharing metadata available in platform cache.
+					salesSharingMetadata = (Map<String, SalesSharingObjectMapping__mdt>) CacheManager.get(CACHE_KEY_SALES_SHARING_CONFIGURATION);
+				} else {
+					// sharing metadata is not available in platform cache. need to be queried.
+					Map<String, SalesSharingObjectMapping__mdt> metadata = new Map<String, SalesSharingObjectMapping__mdt>();
 
-				// query metadata including specific fields from EntityDefinition and FieldDefinition types. Note that
-				// standard get* methods for accessing custom metadata is avoided so that all the fields required can be
-				// queried in one go.
-				for (SalesSharingObjectMapping__mdt record : [
-						SELECT Id, Object__r.QualifiedApiName, AccountLookup__r.QualifiedApiName,
-						AccountLookup__r.RelationshipName, SharingReasonName__c,
+					// query metadata including specific fields from EntityDefinition and FieldDefinition types. Note that
+					// standard get* methods for accessing custom metadata is avoided so that all the fields required can be
+					// queried in one go.
+					for (SalesSharingObjectMapping__mdt record : [
+							SELECT Id, Object__r.QualifiedApiName, AccountLookup__r.QualifiedApiName,
+						AccountLookup__r.RelationshipName, AccountLookup__r.DurableId, SharingReasonName__c,
 						(SELECT SalesTeamType__c, GroupName__c, AccessLevel__c FROM SalesSharingGroupMappings__r)
-						FROM SalesSharingObjectMapping__mdt
-				]) {
-					metadata.put(record.Object__r.QualifiedApiName, record);
+							FROM SalesSharingObjectMapping__mdt
+					]) {
+						metadata.put(record.Object__r.QualifiedApiName, record);
+					}
+					salesSharingMetadata = metadata;
+					// also populate platform cache so it is available later
+					CacheManager.put(CACHE_KEY_SALES_SHARING_CONFIGURATION, metadata);
 				}
-				salesSharingMetadata = metadata;
 			}
 			return salesSharingMetadata;
 		}
@@ -82,6 +104,47 @@ public without sharing class SalesRecordSharingService {
 				publicGroupIdMapping = mappings;
 			}
 			return publicGroupIdMapping;
+		}
+		private set;
+	}
+
+	// derive child relationship names on the Account object (e.g. 'APRs__r').
+	// use lookup field definitions captured in SalesSharingObjectMapping__mdt for this.
+	// this is required only when we need to process accounts moving sales channels (e.g. Holding to Direct etc).
+	@TestVisible private static Map<String, String> accountChildRelationshipNameMapping {
+		get {
+			if (accountChildRelationshipNameMapping == null) {
+				// check platform cache first
+				if (CacheManager.get(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES) != null) {
+					// use sharing metadata available in platform cache.
+					accountChildRelationshipNameMapping = (Map<String, String>) CacheManager.get(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES);
+				} else {
+
+					// collect all lookup fields configured in custom metadata
+					Set<String> fieldDefinitionDurableIds = new Set<String>();
+					for (SalesSharingObjectMapping__mdt objectMapping : salesSharingMetadata.values()) {
+						fieldDefinitionDurableIds.add(objectMapping.AccountLookup__r.DurableId);
+					}
+
+					Map<String, String> mappings = new Map<String, String>();
+					if (!fieldDefinitionDurableIds.isEmpty()) {
+						// query field definitions with 'RelationshipDomains' to extract child relationship names
+					for (FieldDefinition f: [SELECT EntityDefinition.QualifiedAPiName, QualifiedApiName, (SELECT RelationshipName FROM RelationshipDomains)
+								FROM FieldDefinition
+												WHERE DurableId IN :fieldDefinitionDurableIds]) {
+
+							if (!f.RelationshipDomains.isEmpty() && f.RelationshipDomains[0].RelationshipName != null) {
+								// found a valid child relationship name.
+								mappings.put(f.EntityDefinition.QualifiedAPiName, f.RelationshipDomains[0].RelationshipName);
+							}
+						}
+					}
+					accountChildRelationshipNameMapping = mappings;
+					// populate platform cache so it is available for later
+					CacheManager.put(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES, mappings);
+				}
+			}
+			return accountChildRelationshipNameMapping;
 		}
 		private set;
 	}
@@ -122,15 +185,6 @@ public without sharing class SalesRecordSharingService {
 	}
 
 	/**
-	 * TODO
-	 * @param parentAccounts
-	 * @param uow
-	 */
-	public void shareChildRecords(Map<Id, Account> parentAccounts, ApplicationUnitOfWork uow) {
-		// TODO
-	}
-
-	/**
 	 * Share records of a given SObjectType with the Sales Team based on the 'Sales Team Type' on parent account.
 	 * Access level and sharing groups are configured in custom metadata.
 	 *
@@ -162,7 +216,7 @@ public without sharing class SalesRecordSharingService {
 	public void shareRecords(SObjectType objectType, Map<Id, SObject> records, Boolean recalculate) {
 
 		// manage uow and delegate to overloaded 'shareRecords' method
-		ApplicationUnitOfWork uow = newUnitOfWork(objectType);
+		ApplicationUnitOfWork uow = newUnitOfWork(new Set<SObjectType>{objectType});
 
 		shareRecords(objectType, records, recalculate, uow);
 
@@ -202,6 +256,10 @@ public without sharing class SalesRecordSharingService {
 	 */
 	public void shareRecords(SObjectType objectType, Map<Id, SObject> records, Boolean recalculate, ApplicationUnitOfWork uow) {
 
+		if (!isSalesTeamSharingEnabled(new Set<SObjectType>{objectType})) {
+			return; // feature is disabled. nothing to do.
+		}
+
 		SalesSharingObjectMapping mapping = getSharingConfiguration(objectType);
 
 		// work out required sharing entries as per current 'SalesTeamType' configured on parent account
@@ -234,6 +292,119 @@ public without sharing class SalesRecordSharingService {
 			// we have new shares to register
 			uow.registerNew(requiredSharingEntries.values(), false, SalesRecordSharingService.class.getName() + '.shareRecords()');
 		}
+	}
+
+	/**
+	 * Recalculate sharing for child sobject records of the accounts passed in. Child sobject types are as configured
+	 * in custom metadata.
+	 *
+	 * Based on child record counts of parent accounts passed in, it works out the accounts that can be processed synchronously.
+	 * Processing results returned contains the outcome for each account requested and if it should be retried later in
+	 * partial mode (i.e. attempt one child sobject type at a time) instead of attempting to process all child sobject types
+	 * at once.
+	 *
+	 * Intended to be used by callers when it does NOT possesses a readily available unit of work instance.
+	 *
+	 * @param parentAccountIds parent account ids of child records where sharing is to be recalculated/
+	 *
+	 * @return Sharing recalculation results
+	 */
+	public List<AccountChildRecordsSharingRecalculationResult> recalculateChildRecordSharing(Set<Id> parentAccountIds) {
+		// manage uow and delegate to overloaded 'shareRecords' method
+		ApplicationUnitOfWork uow = newUnitOfWork();
+
+		List<AccountChildRecordsSharingRecalculationResult> results = recalculateChildRecordSharing(parentAccountIds, uow);
+
+		uow.commitWork();
+
+		return results;
+	}
+
+	/**
+	 * Recalculate sharing for child sobject records of the accounts passed in. Child sobject types are as configured
+	 * in custom metadata.
+	 *
+	 * Works out the accounts that can be processed synchronously based on the child record counts of accounts passed in.
+	 * Processing results returned contains the outcome for each account requested and if it should be retried later in
+	 * partial mode (i.e. attempt one child sobject type at a time) instead of attempting to process all child sobject types
+	 * for the account at once.
+	 *
+	 * Intended to be used by callers when it possesses a readily available unit of work instance (e.g. trigger context).
+	 * Please use the overloaded recalculateChildRecordSharing method if a unit of work instance is not available.
+	 *
+	 * @param parentAccountIds parent account ids of child records where sharing is to be recalculated/
+	 * @param uow unit of work instance
+	 *
+	 * @return Sharing recalculation results
+	 */
+	public List<AccountChildRecordsSharingRecalculationResult> recalculateChildRecordSharing(Set<Id> parentAccountIds, ApplicationUnitOfWork uow) {
+
+		if (!isSalesTeamSharingEnabled(new Set<SObjectType>())) {
+			return new List<AccountChildRecordsSharingRecalculationResult>(); // feature is disabled. nothing to do.
+		}
+
+		// retrieve sharing configuration for all objects configured in metadata
+		Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMappings = getSharingConfiguration();
+
+		// query parent accounts with child records for object types configured in metadata
+		Map<Id, Account> parentAccountsWithRelatedRecords = selectParentAccountsWithChildRecords(parentAccountIds, sharingObjectMappings);
+
+		List<AccountChildRecordsSharingRecalculationResult> results = new List<AccountChildRecordsSharingRecalculationResult>();
+
+		// collect accounts to be processed in current context. rest of the accounts are returned with "processed"=false in results.
+		Map<Id, Account> currentContextProcessableAccounts = new Map<Id, Account>();
+		// running total of child records count for accounts marked for processing in current context
+		Integer currentContextProcessableChildRecordCount = 0;
+
+		for (Account parentAccount: parentAccountsWithRelatedRecords.values()) {
+
+			// obtain child record counts for this account - total and also the child record count for each sobject type.
+			Map<SObjectType, Integer> childSObjectRecordCounts = new Map<SObjectType, Integer>();
+			Integer totalChildRecordCount = countChildRecords(parentAccount, sharingObjectMappings, childSObjectRecordCounts);
+
+			// check if all child records of current parent account can be processed synchronously
+			if ((currentContextProcessableChildRecordCount + totalChildRecordCount) < MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION) {
+				// current account's related records can be processed in synchronously in current context.
+				currentContextProcessableChildRecordCount += totalChildRecordCount;
+				currentContextProcessableAccounts.put(parentAccount.Id, parentAccount);
+				// populate result to return at the end.
+				results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, parentAccount.SalesTeamType__c, true, false, new Map<SObjectType, Integer>()));
+			} else {
+				// current parent account's child records cannot be processed synchronously in current transaction together with
+				// all the other accounts marked for processing in this transaction.
+				// next check if current parent account's child records by it self would go beyond the limit.
+				if (totalChildRecordCount > MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION) {
+					// child records of this parent account cannot be processed in a single transaction due to the volume
+					// do not process now and return 'retryInPartialMode=true' so the caller can retry partially (each sobject type in a separate transaction).
+					results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, parentAccount.SalesTeamType__c, false, true, childSObjectRecordCounts));
+				} else {
+					// account does not need to be split per sobject type
+					results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, parentAccount.SalesTeamType__c, false, false, childSObjectRecordCounts));
+				}
+			}
+		}
+
+		if (!currentContextProcessableAccounts.isEmpty()) {
+			// we have accounts to be processed in current context.
+			doShareChildRecords(currentContextProcessableAccounts, sharingObjectMappings, uow);
+		}
+
+		return results;
+	}
+
+	/**
+	 * Enqueue a queueable to process child record sharing of the accounts passed in
+	 *
+	 * @param accountIds account ids
+	 */
+	public void enqueueChildRecordsSharingHandlerQueueable(Set<Id> accountIds) {
+
+		if (!isSalesTeamSharingEnabled(new Set<SObjectType>())) {
+			return; // feature is disabled. nothing to do.
+		}
+
+		// recalculate sharing for child records for the accounts in an async process
+		ApplicationDatabase.getInstance().enqueueJob(new SalesAccountChildRecordsSharingHandlerQueueable(accountIds));
 	}
 
 	/**
@@ -299,11 +470,11 @@ public without sharing class SalesRecordSharingService {
 
 		if (!parentAccountIdsToQuery.isEmpty()) {
 			// found parent account ids to be queried. query parent accounts for 'SalesTeamType__c'.
-			Map<Id, Account> parentAccountsQueried = AccountsSelector.newInstance(0, new Set<SObjectField>{Account.SalesTeamType__c}).selectById(new Set<Id>(parentAccountIdsToQuery.values()));
+			Map<Id, Account> parentAccountsQueried = BusinessAccountsSelector.newInstance(0, new Set<SObjectField>{Account.SalesTeamType__c}).selectById(new Set<Id>(parentAccountIdsToQuery.values()));
 			for (Id recordId: parentAccountIdsToQuery.keySet()) {
 				Id parentAccountId = parentAccountIdsToQuery.get(recordId);
 				// populate sales team type mapping with queried SalesTeamType values
-				salesTeamTypeMapping.put(recordId, (String) parentAccountsQueried.get(parentAccountId).get(Account.SalesTeamType__c));
+				salesTeamTypeMapping.put(recordId, (String) parentAccountsQueried.get(parentAccountId)?.get(Account.SalesTeamType__c));
 			}
 		}
 
@@ -345,7 +516,7 @@ public without sharing class SalesRecordSharingService {
 			}
 
 			for (SalesSharingGroupMapping sharingGroup: sharingObjectMapping.getGroupMappings(salesTeamType)) {
-				SObject share = (SObject) Type.forName(sharingObjectMapping.shareObjectApiName).newInstance();
+				SObject share = sharingObjectMapping.shareObjectType.newSObject();
 				share.put('ParentId', recordId);
 				share.put('RowCause', sharingObjectMapping.sharingReason);
 				share.put('AccessLevel', sharingGroup.accessLevel);
@@ -373,10 +544,8 @@ public without sharing class SalesRecordSharingService {
 	 */
 	private Map<String, SObject> getExistingSharingEntries(Set<Id> recordIds, SalesSharingObjectMapping mapping) {
 
-		SObjectType shareObjectType = ((SObject) Type.forName(mapping.shareObjectApiName).newInstance()).getSObjectType();
-
 		// query existing shares for the records passed in having the sharing reason specified.
-		List<SObject> existingShares = SObjectSharesSelector.newInstance(shareObjectType).selectByParentIdAndRowCause(
+		List<SObject> existingShares = SObjectSharesSelector.newInstance(mapping.shareObjectType).selectByParentIdAndRowCause(
 				recordIds, new Set<String>{mapping.sharingReason}
 		);
 
@@ -390,6 +559,97 @@ public without sharing class SalesRecordSharingService {
 	}
 
 	/**
+	 * Recalculate sharing for child records of the specified SObjectType for the accounts passed in. This is to be
+	 * used when child record counts on a given account exceeds the limit in total.
+	 *
+	 * @param parentAccountIds parent account ids of child records where sharing is to be recalculated/
+	 * @param sobjectType child sobject type to recalculate sharing
+	 */
+	 public void recalculateChildRecordSharing(Set<Id> parentAccountIds, SObjectType sobjectType) {
+
+		 if (!isSalesTeamSharingEnabled(new Set<SObjectType>{sobjectType})) {
+			 return; // feature is disabled. nothing to do.
+		 }
+
+		ApplicationUnitOfWork uow = newUnitOfWork(new Set<SObjectType>{sobjectType});
+
+		// retrieve sharing configuration for the specified sobject type
+		SalesRecordSharingService.SalesSharingObjectMapping sharingObjectMapping = getSharingConfiguration(sobjectType);
+
+		if (sharingObjectMapping != null) {
+			Map<SObjectType,SalesSharingObjectMapping> mappings = new Map<SObjectType,SalesSharingObjectMapping>{sobjectType => sharingObjectMapping};
+			Map<Id, Account> parentAccountsWithRelatedRecords = selectParentAccountsWithChildRecords(parentAccountIds, mappings);
+			doShareChildRecords(parentAccountsWithRelatedRecords, mappings, uow);
+		}
+
+		// commit unit of work at the end.
+		uow.commitWork();
+	}
+
+	private void doShareChildRecords(Map<Id, Account> parentAccountsWithRelatedRecords, Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMappings, ApplicationUnitOfWork uow) {
+		Map<SObjectType, List<SObject>> sharableRecords = getChildRecords(parentAccountsWithRelatedRecords, sharingObjectMappings);
+
+		for (SObjectType objectType: sharableRecords.keySet()) {
+			if (!sharableRecords.get(objectType).isEmpty()) {
+				shareRecords(objectType, new Map<Id,SObject>(sharableRecords.get(objectType)), true, uow);
+			}
+		}
+	}
+
+	private Integer countChildRecords(Account parentAccount, Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMappings, Map<SObjectType, Integer> childSObjectRecordCounts) {
+
+		Integer totalCount = 0;
+
+		for (SalesRecordSharingService.SalesSharingObjectMapping sharingObjectMapping: sharingObjectMappings.values()) {
+			String childRelationShipName = accountChildRelationshipNameMapping.get(String.valueOf(sharingObjectMapping.objectType));
+			if (childRelationShipName != null && parentAccount.getSObjects(childRelationShipName) != null) {
+				Integer recordCount = parentAccount.getSObjects(childRelationShipName).size();
+				if (recordCount > 0) {
+					childSObjectRecordCounts.put(sharingObjectMapping.objectType, recordCount);
+					totalCount += recordCount;
+				}
+			}
+		}
+
+		return totalCount;
+	}
+
+	private Map<SObjectType, List<SObject>> getChildRecords(Map<Id, Account> parentAccountsWithRelatedRecords, Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMappings){
+		Map<SObjectType, List<SObject>> results = new Map<SObjectType, List<SObject>>();
+
+		for (Account parentAccount: parentAccountsWithRelatedRecords.values()) {
+			for (SalesRecordSharingService.SalesSharingObjectMapping sharingObjectMapping: sharingObjectMappings.values()) {
+				String childRelationShipName = accountChildRelationshipNameMapping.get(String.valueOf(sharingObjectMapping.objectType));
+				if (childRelationShipName != null && parentAccount.getSObjects(childRelationShipName) != null) {
+					if (!results.containsKey(sharingObjectMapping.objectType)) {
+						results.put(sharingObjectMapping.objectType, new List<SObject>());
+					}
+					for (SObject relatedObject: parentAccount.getSObjects(childRelationShipName)) {
+						relatedObject.putSObject(sharingObjectMapping.lookupRelationshipName, new Account(Id=parentAccount.Id, SalesTeamType__c=parentAccount.SalesTeamType__c));
+						results.get(sharingObjectMapping.objectType).add(relatedObject);
+					}
+				}
+			}
+		}
+
+		return results;
+	}
+
+	private Map<Id, Account> selectParentAccountsWithChildRecords(Set<Id> parentAccountIds, Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMappings) {
+		Map<SObjectType, String> childRelationships = new Map<SObjectType, String>();
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>> {
+				Account.getSObjectType() => new Set<SObjectField>{Account.Id, Account.SalesTeamType__c, Account.Sales_Segment__c}
+		};
+
+		for (SalesSharingObjectMapping mapping: sharingObjectMappings.values()) {
+			childRelationships.put(mapping.objectType, accountChildRelationshipNameMapping.get(String.valueOf(mapping.objectType)));
+			fieldOverrides.put(mapping.objectType, new Set<SObjectField>{mapping.lookupField});
+		}
+
+		return new Map<Id, Account>(BusinessAccountsSelector.newInstance(0, fieldOverrides).selectByIdWithChildRecords(parentAccountIds, childRelationships));
+	}
+
+	/**
 	 * Returns a key for the share record that can be used to compare existing shares with required shares.
 	 * @param share SObject record from a 'Share' table
 	 *
@@ -400,16 +660,27 @@ public without sharing class SalesRecordSharingService {
 	}
 
 	/**
+	 * Unit of work that encapsulates the specified sobject types.
+	 *
+	 * @return unit or work instance
+	 */
+	private ApplicationUnitOfWork newUnitOfWork(Set<SObjectType> sObjectTypes) {
+		List<SObjectType> shareObjectTypes = new List<SObjectType>();
+		for (SObjectType sObjectType: sObjectTypes) {
+			SalesSharingObjectMapping mapping = getSharingConfiguration(sObjectType);
+			shareObjectTypes.add(mapping.shareObjectType);
+		}
+
+		return ApplicationUnitOfWork.newInstance(shareObjectTypes);
+	}
+
+	/**
 	 * Unit of work that encapsulates all the required objects for this Service.
 	 *
 	 * @return unit or work instance
 	 */
-	private ApplicationUnitOfWork newUnitOfWork(SObjectType sObjectType) {
-		SalesSharingObjectMapping mapping = getSharingConfiguration(sObjectType);
-		SObjectType shareObjectType = ((SObject) Type.forName(mapping.shareObjectApiName).newInstance()).getSObjectType();
-		return ApplicationUnitOfWork.newInstance(new List<SObjectType>{
-			shareObjectType
-		});
+	private ApplicationUnitOfWork newUnitOfWork() {
+		return newUnitOfWork(getSharingConfiguration().keySet());
 	}
 
 	/**
@@ -444,7 +715,127 @@ public without sharing class SalesRecordSharingService {
 			additionalInfo.add('Ignored records : ' + ignoredRecordIds.toString());
 		}
 
-		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'AP Sales', SalesRecordSharingService.class.getName(), 'computeRequiredSharingEntries', '', ApplicationLogger.LoggingLevel.ERROR);
+		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'Sales', SalesRecordSharingService.class.getName(), 'computeRequiredSharingEntries', '', ApplicationLogger.LoggingLevel.ERROR);
+	}
+
+	private Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> getSharingConfiguration() {
+
+		Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMapping = new Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping>();
+
+
+		for (String objectAPIName: salesSharingMetadata.keySet()) {
+			SObjectType sObjectType = ((SObject)Type.forName(objectAPIName).newInstance()).getSObjectType();
+			sharingObjectMapping.put(sObjectType, getSharingConfiguration(sObjectType));
+		}
+
+		return sharingObjectMapping;
+	}
+
+	/**
+	 * Check if Sales record sharing feature is enabled / disabled. Supports enable / disable of the feature through
+	 * configuration in ApplicationFeature__c custom setting. Feature can be enabled / disabled globally for all
+	 * sobject types OR selectively for specific sobject types.
+	 *
+	 * @param sobjectTypes check feature is enabled for all of the sobject types supplied
+	 *
+	 * @return false if feature is disable globally or disabled for at least one of the sobject types specified. true otherwise.
+	 */
+	private Boolean isSalesTeamSharingEnabled(Set<SObjectType> sobjectTypes) {
+
+		// check if Sales record sharing feature is enabled globally.
+		Boolean isActive = ApplicationFeatures.getInstance().isFeatureActive(SALES_RECORD_SHARING_FEATURE_NAME);
+
+		// if the feature is Active globally, next check the status for specified sobject types one at a time.
+		if (isActive && sobjectTypes != null && !sobjectTypes.isEmpty()) {
+			for (SObjectType sobjectType: sobjectTypes) {
+				isActive = isActive && ApplicationFeatures.getInstance().isFeatureActive(SALES_RECORD_SHARING_FEATURE_NAME + '_' + sobjectType);
+			}
+		}
+
+		return isActive;
+	}
+
+	/**
+	 * Queueable class to recalculate sharing of child records related to the account id's passed in.
+	 * Supports specifying account ids together with a list of SObjectTypes where sharing recalculation is attempted
+	 * for each sobject type in separate queueable contexts.
+	 */
+	public without sharing class SalesAccountChildRecordsSharingHandlerQueueable implements Queueable {
+
+		// account ids to recalculate sharing of child records.
+		@TestVisible private Set<Id> accountIds;
+		// account ids to attempt sharing recalculation separately per each sobject type (due to volume)
+		@TestVisible private Map<Id, List<SObjectType>> accountIdsForPartialProcessing;
+
+		public SalesAccountChildRecordsSharingHandlerQueueable(Set<Id> accountIds) {
+			this.accountIds = accountIds;
+			this.accountIdsForPartialProcessing = new Map<Id, List<SObjectType>>();
+		}
+
+		@TestVisible private SalesAccountChildRecordsSharingHandlerQueueable(Set<Id> accountIds, Map<Id, List<SObjectType>> accountIdsForPartialProcessing) {
+			this.accountIds = accountIds;
+			this.accountIdsForPartialProcessing = accountIdsForPartialProcessing;
+		}
+
+		public void execute(QueueableContext ctx) {
+
+			if (this.accountIds != null && !this.accountIds.isEmpty()) {
+				// TODO consider chunking account ids
+				List<AccountChildRecordsSharingRecalculationResult> results = SalesRecordSharingService.getInstance().recalculateChildRecordSharing(this.accountIds.clone());
+
+				// go through the results and check if everything is processed.
+				Map<Id, List<SObjectType>> accountsForPartialProcessing = new Map<Id, List<SObjectType>>();
+				for (AccountChildRecordsSharingRecalculationResult result: results) {
+					if (result.processed) {
+						// account has been processed, remove it from accounts to be processed.
+						this.accountIds.remove(result.accountId);
+					} else if (result.retryInPartialMode) {
+						// account has been attempted but not processed. this is due to child record volumes.
+						// remove it from account id's collection and mark it for partial processing on retry
+						this.accountIds.remove(result.accountId);
+						List<SObjectType> validSobjectTypesForPartialProcessing = validateRelatedRecordVolumesForPartialProcessing(result.unprocessedChildSObjectTypes);
+						accountsForPartialProcessing.put(result.accountId, validSobjectTypesForPartialProcessing);
+					}
+				}
+
+				if (!accountsForPartialProcessing.isEmpty()) {
+					this.accountIdsForPartialProcessing.putAll(accountsForPartialProcessing);
+				}
+
+			} else if (accountIdsForPartialProcessing != null && !accountIdsForPartialProcessing.isEmpty()) {
+				// we have accounts that has been attempted previously and marked for partial processing per sobject type.
+				// these need to be processed one sobject type per each account.
+				// get first record in the collection.
+				Id parentAccountId = accountIdsForPartialProcessing.keySet().iterator().next();
+				if (accountIdsForPartialProcessing.get(parentAccountId).size() > 0) {
+					// attempt to process one sobject type for this account. rest will be enqueued into a another chained queueable
+					// instance at the end.
+					SObjectType objectType = accountIdsForPartialProcessing.get(parentAccountId).remove(0);
+					SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Set<Id>{parentAccountId}, objectType);
+
+					// check if we have processed all sobject types for this account. if so remove the account as it has now been
+					// processed in full.
+					if (accountIdsForPartialProcessing.get(parentAccountId).isEmpty()) {
+						accountIdsForPartialProcessing.remove(parentAccountId);
+					}
+				}
+			}
+
+			if ((this.accountIds != null && !this.accountIds.isEmpty()) || (this.accountIdsForPartialProcessing != null && !this.accountIdsForPartialProcessing.isEmpty())) {
+				// we got more to process. enqueue another queueable.
+				ApplicationDatabase.getInstance().enqueueJob(new SalesAccountChildRecordsSharingHandlerQueueable(this.accountIds, this.accountIdsForPartialProcessing));
+			}
+		}
+
+		private List<SObjectType> validateRelatedRecordVolumesForPartialProcessing(Map<SObjectType, Integer> childRecordCount) {
+			List<SObjectType> sobjectTypesForPartialProcessing = new List<SObjectType>();
+			for (SObjectType sobjectType: childRecordCount.keySet()) {
+				if (childRecordCount.get(sobjectType) <= MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION) {
+					sobjectTypesForPartialProcessing.add(sobjectType);
+				}
+			}
+			return sobjectTypesForPartialProcessing;
+		}
 	}
 
 	// exception thrown by the service
@@ -461,7 +852,7 @@ public without sharing class SalesRecordSharingService {
 		public SObjectField lookupField {get; private set;}
 		public String lookupRelationshipName {get; private set;}
 		@TestVisible private String sharingReason {get; set;}
-		@TestVisible private String shareObjectApiName {get; set;}
+		@TestVisible private SObjectType shareObjectType {get; set;}
 		// list of sharing group mappings for this sobject.
 		@TestVisible private List<SalesSharingGroupMapping> groupMappings {get;set;}
 
@@ -471,9 +862,7 @@ public without sharing class SalesRecordSharingService {
 			this.lookupRelationshipName = lookupRelationshipName;
 			this.sharingReason = sharingReason;
 			this.groupMappings = new List<SalesSharingGroupMapping>();
-			String qualifiedApiName = String.valueOf(objectType);
-			// derive share object API name from qualified api name of sobject.
-			this.shareObjectApiName = (qualifiedApiName.endsWith('__c') ?  qualifiedApiName.replace('__c' , '__Share') : (qualifiedApiName + 'Share'));
+			this.shareObjectType = getShareObjectForSObject(objectType);
 		}
 
 		/**
@@ -502,6 +891,27 @@ public without sharing class SalesRecordSharingService {
 
 			return result;
 		}
+
+		/**
+		 * Return the Share object type (e.g. XYZ__Share, XYZShare) for specified sobject
+		 * @param sobjectType sobject type such as XYZ__c, XYZ
+		 *
+		 * @return SObject Type of the Share object (e.g. XYZ__Share, XYZShare).
+		 */
+		private SObjectType getShareObjectForSObject(SObjectType sobjectType) {
+			String qualifiedApiName = String.valueOf(sobjectType);
+			// derive share object API name from qualified api name of sobject.
+			String shareObjectApiName = (qualifiedApiName.endsWith('__c') ?  qualifiedApiName.replace('__c' , '__Share') : (qualifiedApiName + 'Share'));
+
+			Type t = Type.forName(shareObjectApiName);
+			// check if the Share object type exists. Objects on the detail side of a master-detail relationship do not
+			// have an associated sharing object.
+			if (t == null) {
+				String message = 'Share object [' + shareObjectApiName + '] does not exist for SObjectType [' + sobjectType + ']. Please review sharing model for this SObjectType.';
+				throw new SalesRecordSharingException(message);
+			}
+			return ((SObject) t.newInstance()).getSObjectType();
+		}
 	}
 
 	/**
@@ -521,6 +931,22 @@ public without sharing class SalesRecordSharingService {
 			this.groupId = groupId;
 			this.groupName = groupName;
 			this.accessLevel = accessLevel;
+		}
+	}
+
+	public class AccountChildRecordsSharingRecalculationResult {
+		public Id accountId {get; private set;}
+		public Boolean processed {get; private set;}
+		public Boolean retryInPartialMode {get; private set;}
+		public Map<SObjectType, Integer> unprocessedChildSObjectTypes {get; private set;}
+		public String salesTeamType {get; private set;}
+
+		@TestVisible private AccountChildRecordsSharingRecalculationResult(Id accountId, String salesTeamType, Boolean processed, Boolean retryInPartialMode, Map<SObjectType, Integer> unprocessedSObjectTypes) {
+			this.accountId = accountId;
+			this.salesTeamType = salesTeamType;
+			this.processed = processed;
+			this.retryInPartialMode = retryInPartialMode;
+			this.unprocessedChildSObjectTypes = unprocessedSObjectTypes;
 		}
 	}
 }

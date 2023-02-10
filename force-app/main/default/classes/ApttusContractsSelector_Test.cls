@@ -161,6 +161,7 @@ public with sharing class ApttusContractsSelector_Test {
         insert opportunityRecord;      
 
         Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, false)[0];
+        apttusContracts.Apttus__Account__c = account.Id;
         insert apttusContracts;
         
         Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, false)[0];
@@ -192,8 +193,9 @@ public with sharing class ApttusContractsSelector_Test {
         System.assertNotEquals(null, results.values()[0].RecordType, 'Expected RecordType object');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
 
-        Database.QueryLocator queryLocator = ApttusContractsSelector.newInstance().selectByAccountRelationshipQueryLocator(new Set<Object>{ApttusContractsSelector.Options.WITH_ACCOUNT});
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus__APTS_Agreement__c\\b').matcher(queryLocator.getQuery()).find(), 'Resulting query does not select from Apttus__APTS_Agreement__c');
+        Database.QueryLocator queryLocator = ApttusContractsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(new Set<Id>(), new Set<Object>{ApttusContractsSelector.Options.WITH_ORGANISATION});
+        List<Apttus__APTS_Agreement__c> resultsList = (List<Apttus__APTS_Agreement__c>) Database.query(queryLocator.getQuery());
+        System.assertEquals(1, resultsList.size(), 'Expected to return Apttus contracts related to any account when account id is not specified');
 
         Test.stopTest();
 

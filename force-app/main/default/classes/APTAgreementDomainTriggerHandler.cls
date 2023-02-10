@@ -21,7 +21,7 @@ public with sharing class APTAgreementDomainTriggerHandler extends ApplicationDo
 
     public override List<Type> registerDomains() {
         return new List<Type>{
-            APTAgreementDomain.class
+            APTAgreementGenericDomain.class
         };
     }
 

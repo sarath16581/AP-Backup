@@ -4,6 +4,7 @@
  * @tag Selector
  * @tag Sharing
  * @domain Core
+ * @test SObjectSharesSelector_Test
  * @description Generic selector class for accessing Share objects of all custom objects and standard objects that support
  *              the model specified in:
  *              https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_associated_objects_share.htm
@@ -82,7 +83,7 @@ public virtual inherited sharing class SObjectSharesSelector extends Application
 	}
 
 	protected override Set<SObjectField> getSObjectFieldList() {
-		return new Set<SObjectField>(shareSObjectType.getDescribe().fields.getMap().values());
+		return shareSObjectFields;
 	}
 
 	public virtual override List<QueryBuilder.Order> getOrderBy() {

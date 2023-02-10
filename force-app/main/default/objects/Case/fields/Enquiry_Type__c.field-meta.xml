@@ -765,15 +765,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>In Transit</controllingFieldValue>
-            <controllingFieldValue>Late Delivery</controllingFieldValue>
-            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
-            <controllingFieldValue>System</controllingFieldValue>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <controllingFieldValue>In-Flight</controllingFieldValue>
-            <valueName>Customs Held</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>In Transit</controllingFieldValue>
             <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
             <controllingFieldValue>Late Delivery</controllingFieldValue>
             <controllingFieldValue>Delivery in Progress</controllingFieldValue>

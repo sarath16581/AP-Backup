@@ -21,7 +21,7 @@ public with sharing class APTProposalDomainTriggerHandler extends ApplicationDom
 
     public override List<Type> registerDomains() {
         return new List<Type>{
-            APTProposalDomain.class
+            APTProposalGenericDomain.class
         };
     }
 

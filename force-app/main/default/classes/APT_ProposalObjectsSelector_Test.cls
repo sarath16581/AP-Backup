@@ -257,8 +257,11 @@ public class APT_ProposalObjectsSelector_Test {
         // Testing
         // =====================================
         Test.startTest();
-        Database.QueryLocator queryLocator = APT_ProposalObjectsSelector.newInstance().selectByAccountRelationshipQueryLocator(new Set<Object>{APT_ProposalObjectsSelector.Options.WITH_ACCOUNT});
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus_Proposal__Proposal__c\\b').matcher(queryLocator.getQuery()).find(), 'Resulting query does not select from Apttus_Proposal__Proposal__c');
+        Database.QueryLocator queryLocator = APT_ProposalObjectsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(new Set<Id>(), new Set<Object>{
+                APT_ProposalObjectsSelector.Options.WITH_ORGANISATION
+        });
+        List<Apttus_Proposal__Proposal__c> queryResults = (List<Apttus_Proposal__Proposal__c>)Database.query(queryLocator.getQuery());
+        System.assertEquals(2, queryResults.size(), 'Expected to return Apttus_Proposal__Proposal__c related to any account when account id is not specified');
         Test.stopTest();
     }
     

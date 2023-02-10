@@ -140,7 +140,7 @@ private class SalesRecordSharingService_Test {
 		System.assertEquals(APR__c.Legal_Entity_Name_LookUp__c, mapping.lookupField, 'Account lookup field returned in sharing configuration is incorrect');
 		System.assertEquals('Legal_Entity_Name_LookUp__r', mapping.lookupRelationshipName, 'Account lookup relationship (__r) field returned in sharing configuration is incorrect');
 		System.assertNotEquals(null, mapping.sharingReason, 'Sharing reason must be populated');
-		System.assertEquals('APR__Share', mapping.shareObjectApiName, 'Share object AP Name must be populated');
+		System.assertEquals(APR__Share.SObjectType, mapping.shareObjectType, 'Share object type must be populated');
 		System.assertNotEquals(null, mapping.groupMappings, 'sharing group mappings must be populated');
 		Integer numberOfGroupsConfigured = SalesRecordSharingService.salesSharingMetadata.get(String.valueOf(APR__c.getSObjectType())).SalesSharingGroupMappings__r.size();
 		System.assertEquals(numberOfGroupsConfigured, mapping.groupMappings.size(), 'Three sharing groups are expected for APR__c, but got ' + mapping.groupMappings.size());
@@ -357,7 +357,7 @@ private class SalesRecordSharingService_Test {
 	}
 
 	/**
-	 * TODO
+	 * Test to ensure new share records are created as expected when calling service class with recalculate=true
 	 */
 	@IsTest
 	static void testRecalculateSharing() {
@@ -485,66 +485,625 @@ private class SalesRecordSharingService_Test {
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).commitWork();
 	}
 
-//	@IsTest
-//	static void testShareNewRecordsEndToEndIntegration() {
-//
-//		// =====================================
-//		// Data Preparation
-//		// =====================================
-//		MockUtility.disableTriggerExecution();
-//
-//		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(3, false);
-//		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
-//		parentAccounts[0].Sales_Segment__c = 'Enterprise & Strategic NSW 1';
-//		parentAccounts[0].LEGACY_ID__c = '60000000';
-//
-//		parentAccounts[1].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_INTERMEDIARY;
-//		parentAccounts[1].Sales_Segment__c = 'Intermediaries';
-//		parentAccounts[1].LEGACY_ID__c = '60000002';
-//
-//		parentAccounts[2].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_HOLDING;
-//		parentAccounts[2].Sales_Segment__c = 'Holding Sales Team';
-//		parentAccounts[2].LEGACY_ID__c = '60000003';
-//
-//		insert(parentAccounts);
-//
-//		List<Billing_Account__c> billingAccounts =  new List<Billing_Account__c>();
-//		for (Account parentAccount: parentAccounts) {
-//			billingAccounts.add(ApplicationTestDataFactory.getBillingAccounts(1, parentAccount.Id, 'SAP CRM', false)[0]);
-//		}
-//		insert (billingAccounts);
-//
-//		List<APR__c> aprs = new List<APR__c>();
-//		for (Billing_Account__c billingAccount: billingAccounts) {
-//			APR__c apr = ApplicationTestDataFactory.getAPRs(1, billingAccount.Id, null, false)[0];
-//			apr.Legal_Entity_Name_LookUp__c = billingAccount.Organisation__c;
-//			aprs.add(apr);
-//		}
-//		insert(aprs);
-//
-//		// =====================================
-//		// Stubbing
-//		// =====================================
-//		// None
-//
-//		// =====================================
-//		// Testing
-//		// =====================================
-//		Test.startTest();
-//
-//		SalesRecordSharingService.getInstance().shareRecords(APR__C.getSObjectType(), new Map<Id, APR__c>(aprs), false);
-//
-//		Test.stopTest();
-//
-//		List<APR__Share> shares = [Select Id, ParentId, UserOrGroupId, AccessLevel, RowCause from APR__Share Where RowCause = 'Sales_Team_Sharing__c'];
-//		System.assertEquals(3, shares.size());
-//		for (APR__Share share: shares) {
-//			System.assertEquals('Edit', share.AccessLevel);
-//			System.assertNotEquals(null, share.ParentId);
-//			System.assertNotEquals(null, share.UserOrGroupId);
-//		}
-//
-//	}
+	/**
+	 * Test to ensure no shares are created when Sales Record Sharing feature is disabled
+	 */
+	@IsTest
+	static void testShareNewRecordsWhenSalesRecordSharingFeatureDisabled() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationFeatures mockApplicationFeatures = (ApplicationFeatures) MockUtility.mockUtility(ApplicationFeatures.class);
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockApplicationFeatures.isFeatureActive((String)fflib_Match.anyObject())).thenReturn(false);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesRecordSharingService.getInstance().shareRecords(APR__C.getSObjectType(), new Map<Id, APR__c>(aprs), false, mockUow);
+
+		Test.stopTest();
+
+		// verify no new share records registered with unit of work
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerNew((List<SObject>)fflib_Match.anyObject(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+
+		// verify Application Features are checked
+		fflib_ArgumentCaptor featureNameCapture = fflib_ArgumentCaptor.forClass(String.class);
+
+		((ApplicationFeatures)MockUtility.Mocks.verify(mockApplicationFeatures, 1)).isFeatureActive((String)featureNameCapture.capture());
+		String featureNameCaptured = (String) featureNameCapture.getValue();
+		System.assertEquals(SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME, featureNameCaptured, 'Expected to check status of feature - ' + SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME + '; but not checked.' );
+	}
+
+	/**
+	 * Test to verify child record sharing recalculation behaviour for accounts with high volume of child records
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharingOnHighVolumeAccounts() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		// set this limit from the test so we could test high volume scenarios
+		SalesRecordSharingService.MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION = 12;
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(3, true);
+		for (Account parentAccount: parentAccounts) {
+			parentAccount.SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_HOLDING;
+		}
+
+		List<APR__c> aprs_parentAccountOne = ApplicationTestDataFactory.getAPRs(5, null, null, true);
+		for (APR__c apr: aprs_parentAccountOne) {
+			apr.Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+			apr = (APR__c) ApplicationTestDataFactory.setUnwritableFields(apr, new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+		}
+		parentAccounts[0] = (Account) ApplicationTestDataFactory.setChildRelationships(parentAccounts[0], new Map<String, List<SObject>>{'APRs__r' => aprs_parentAccountOne});
+
+		List<APR__c> aprs_parentAccountTwo = ApplicationTestDataFactory.getAPRs(10, null, null, true);
+		for (APR__c apr: aprs_parentAccountTwo) {
+			apr.Legal_Entity_Name_LookUp__c = parentAccounts[1].Id;
+			apr = (APR__c) ApplicationTestDataFactory.setUnwritableFields(apr, new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[1]});
+		}
+		parentAccounts[1] = (Account) ApplicationTestDataFactory.setChildRelationships(parentAccounts[1], new Map<String, List<SObject>>{'APRs__r' => aprs_parentAccountTwo});
+
+		List<APR__c> aprs_parentAccountThree = ApplicationTestDataFactory.getAPRs(15, null, null, true);
+		for (APR__c apr: aprs_parentAccountThree) {
+			apr.Legal_Entity_Name_LookUp__c = parentAccounts[2].Id;
+			apr = (APR__c) ApplicationTestDataFactory.setUnwritableFields(apr, new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[2]});
+		}
+		parentAccounts[2] = (Account) ApplicationTestDataFactory.setChildRelationships(parentAccounts[2], new Map<String, List<SObject>>{'APRs__r' => aprs_parentAccountThree});
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
+		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
+		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult> results = SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Map<Id, Account>(parentAccounts).keySet(), mockUow);
+
+		Test.stopTest();
+
+		// verify the results returned from service
+		System.assertEquals(3, results.size(), 'Expected results of each of the accounts passed in');
+		for (SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult result: results) {
+			if (result.accountId == parentAccounts[0].Id) {
+				System.assertEquals(true, result.processed, 'Expected results to indicate the account is successfully processed.');
+				System.assertEquals(false, result.retryInPartialMode, 'Expected results to indicate partial processing is not required for processed account.');
+			} else if  (result.accountId == parentAccounts[1].Id) {
+				System.assertEquals(false, result.processed, 'Expected results to indicate the account is not processed.');
+				System.assertEquals(false, result.retryInPartialMode, 'Expected results to indicate partial processing is not required for account.');
+			} else {
+				System.assertEquals(false, result.processed, 'Expected results to indicate the account is not processed.');
+				System.assertEquals(true, result.retryInPartialMode, 'Expected results to indicate partial processing is required for account.');
+				System.assertEquals(1, result.unprocessedChildSObjectTypes.size(), 'Results should have unprocessed child SObjectTypes specified');
+			}
+		}
+	}
+
+	/**
+	 * Test to ensure sharing is recalculated as expected on child records of accounts
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharing() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		List<Apttus__APTS_Agreement__c> apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, null, null, true);
+		apttusContracts[0].Apttus__Account__c = parentAccounts[0].Id;
+
+		apttusContracts[0] = (Apttus__APTS_Agreement__c) ApplicationTestDataFactory.setUnwritableFields(apttusContracts[0], new Map<String, Object>{'Apttus__Account__r' => parentAccounts[0]});
+
+		parentAccounts[0] = (Account) ApplicationTestDataFactory.setChildRelationships(parentAccounts[0], new Map<String, List<SObject>>{'APRs__r' => aprs, 'Apttus__R00N50000001Xl0UEAS__r' => apttusContracts});
+
+		//List<Group> publicGroups = ApplicationTestDataFactory.getGroups(3, SalesRecordSharingService.PUBLIC_GROUP_TYPES_SUPPORTED.iterator().next(), true);
+		//SalesSharingObjectMapping__mdt metadata = SalesRecordSharingService.salesSharingMetadata.get(String.valueOf(APR__c.SObjectType));
+
+		//List<APR__Share> existingAPRShares = new List<APR__Share>();
+		//existingAPRShares.add(new APR__Share(ParentId=aprs[0].Id, UserOrGroupId=publicGroups[0].Id, AccessLevel='View', RowCause=metadata.SharingReasonName__c));
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
+		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
+		//TODO Investigate how to mock SObjectSharesSelector properly with the chained setShareSobjectType method. We need
+		// separate selector instances when querying '__Share' sobjects of different types.
+		//MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(existingAPRShares);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
+		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		((ApplicationUnitOfWork)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult> results = SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Map<Id, Account>(parentAccounts).keySet(), mockUow);
+
+		Test.stopTest();
+
+		// verify the results returned from service
+		System.assertEquals(1, results.size(), 'Expected results of each of the accounts passed in');
+		System.assertEquals(parentAccounts[0].Id, results[0].accountId, 'Expected account id to be populated in returned results.');
+		System.assertEquals(true, results[0].processed, 'Expected results to indicate the account is successfully processed.');
+		System.assertEquals(false, results[0].retryInPartialMode, 'Expected results to indicate partial processing is not required for processed account.');
+		System.assertEquals(0, results[0].unprocessedChildSObjectTypes.size(), 'Results should not have unprocessed child SObjectTypes specified for a processed account');
+
+		// verify new share records registered with unit of work are as expected
+		fflib_ArgumentCaptor sobjectCapture = fflib_ArgumentCaptor.forClass(SObject.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 2)).registerNew((SObject)sobjectCapture.capture(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+		List<Object> newShares = (List<Object>) sobjectCapture.getAllValues();
+
+		for (Object newShare: newShares) {
+			if (newShare instanceof APR__Share) {
+				System.assertEquals(aprs[0].Id, ((APR__Share)newShare).ParentId, 'Unexpected share record created');
+				SalesSharingObjectMapping__mdt metadata = SalesRecordSharingService.salesSharingMetadata.get(String.valueOf(APR__c.SObjectType));
+				System.assertEquals(metadata.SharingReasonName__c, ((APR__Share)newShare).RowCause, 'Incorrect sharing reason specified on share record');
+			} else if (newShare instanceof Apttus__APTS_Agreement__Share) {
+				System.assertEquals(apttusContracts[0].Id, ((Apttus__APTS_Agreement__Share)newShare).ParentId, 'Unexpected share record created');
+				SalesSharingObjectMapping__mdt metadata = SalesRecordSharingService.salesSharingMetadata.get(String.valueOf(Apttus__APTS_Agreement__c.SObjectType));
+				System.assertEquals(metadata.SharingReasonName__c, ((Apttus__APTS_Agreement__Share)newShare).RowCause, 'Incorrect sharing reason specified on share record');
+			} else {
+				System.assert(false, 'Unexpected share record SObjectType');
+			}
+		}
+
+		// verify no shares deleted
+		fflib_ArgumentCaptor deletedSObjectsCapture = fflib_ArgumentCaptor.forClass(SObject.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDeleted((SObject)deletedSObjectsCapture.capture(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+	}
+
+	/**
+	 * Test to ensure sharing is recalculated as expected on child records when calling overloaded service method that also manage
+	 * the unit of work on behalf of callers.
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharingWhenNoUnitOfWorkInstanceAvailable() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		List<Apttus__APTS_Agreement__c> apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, null, null, true);
+		apttusContracts[0].Apttus__Account__c = parentAccounts[0].Id;
+
+		apttusContracts[0] = (Apttus__APTS_Agreement__c) ApplicationTestDataFactory.setUnwritableFields(apttusContracts[0], new Map<String, Object>{'Apttus__Account__r' => parentAccounts[0]});
+
+		parentAccounts[0] = (Account) ApplicationTestDataFactory.setChildRelationships(parentAccounts[0], new Map<String, List<SObject>>{'APRs__r' => aprs, 'Apttus__R00N50000001Xl0UEAS__r' => apttusContracts});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
+		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
+		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		((ApplicationUnitOfWork)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult> results = SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Map<Id, Account>(parentAccounts).keySet());
+
+		Test.stopTest();
+
+		// verify the results returned from service
+		System.assertEquals(1, results.size(), 'Expected results of each of the accounts passed in');
+		System.assertEquals(parentAccounts[0].Id, results[0].accountId, 'Expected account id to be populated in returned results.');
+		System.assertEquals(true, results[0].processed, 'Expected results to indicate the account is successfully processed.');
+		System.assertEquals(false, results[0].retryInPartialMode, 'Expected results to indicate partial processing is not required for processed account.');
+		System.assertEquals(0, results[0].unprocessedChildSObjectTypes.size(), 'Results should not have unprocessed child SObjectTypes specified for a processed account');
+
+		// verify sobject types configured in metadata are registered with unit of work
+		fflib_ArgumentCaptor sObjectTypesCapture = fflib_ArgumentCaptor.forClass(List<Schema.SObjectType>.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerSObjectTypes((List<Schema.SObjectType>)sObjectTypesCapture.capture());
+		List<Schema.SObjectType> registeredSObjectTypes = (List<Schema.SObjectType>) sObjectTypesCapture.getValue();
+		System.assertEquals(SalesRecordSharingService.salesSharingMetadata.size(), registeredSObjectTypes.size(), 'SObject Types configured in custom metadata is not configured in unit of work instance');
+
+		// verify unit of work is committed by the service
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).commitWork();
+	}
+
+	/**
+	 * Test to ensure sharing recalculation is bypassed when feature is disabled
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharingIsBypassedWhenFeatureIsDisabled() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationFeatures mockApplicationFeatures = (ApplicationFeatures) MockUtility.mockUtility(ApplicationFeatures.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockApplicationFeatures.isFeatureActive((String)fflib_Match.anyObject())).thenReturn(false);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult> results = SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Map<Id, Account>(parentAccounts).keySet(), mockUow);
+
+		Test.stopTest();
+
+		// verify Application Features are checked
+		fflib_ArgumentCaptor featureNameCapture = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationFeatures)MockUtility.Mocks.verify(mockApplicationFeatures, 1)).isFeatureActive((String)featureNameCapture.capture());
+		String featureNameCaptured = (String) featureNameCapture.getValue();
+		System.assertEquals(SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME, featureNameCaptured, 'Expected to check status of feature - ' + SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME + '; but not checked.' );
+
+		// verify the results returned from service
+		System.assertEquals(0, results.size(), 'Expected empty result set when the feature is disabled');
+
+		// verify no new share records registered with unit of work
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+
+		// verify no shares deleted
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDeleted((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+	}
+
+	/**
+	 * Test to ensure sharing is recalculated for specified child sobject types of accounts when recalculating sharing in
+	 * partial mode
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharingInPartialMode() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		List<Apttus__APTS_Agreement__c> apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, null, null, true);
+		apttusContracts[0].Apttus__Account__c = parentAccounts[0].Id;
+
+		apttusContracts[0] = (Apttus__APTS_Agreement__c) ApplicationTestDataFactory.setUnwritableFields(apttusContracts[0], new Map<String, Object>{'Apttus__Account__r' => parentAccounts[0]});
+
+		parentAccounts[0] = (Account) ApplicationTestDataFactory.setChildRelationships(parentAccounts[0], new Map<String, List<SObject>>{'APRs__r' => aprs, 'Apttus__R00N50000001Xl0UEAS__r' => apttusContracts});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
+		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
+		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
+		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		((ApplicationUnitOfWork)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		// recalculate sharing only for specified child sobject type
+		SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Map<Id, Account>(parentAccounts).keySet(), APR__c.getSObjectType());
+
+		Test.stopTest();
+
+		// verify sobject type passed in is registered with unit of work
+		fflib_ArgumentCaptor sObjectTypesCapture = fflib_ArgumentCaptor.forClass(List<Schema.SObjectType>.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerSObjectTypes((List<Schema.SObjectType>)sObjectTypesCapture.capture());
+		List<Schema.SObjectType> registeredSObjectTypes = (List<Schema.SObjectType>) sObjectTypesCapture.getValue();
+		System.assertEquals(1, registeredSObjectTypes.size(), 'Unit of Work instance should only support DML on Share records of the SObject Type specified.');
+		System.assertEquals(APR__Share.getSObjectType(), registeredSObjectTypes[0], 'Unit of Work instance should only support DML on Share records of the SObject Type specified.');
+
+		// verify new share records registered with unit of work only for APR__c
+		// sharing for apttusContracts should not be attempted as we are only passing "APR__c.getSObjectType()" in to
+		// service method for sharing recalculation
+		fflib_ArgumentCaptor sobjectCapture = fflib_ArgumentCaptor.forClass(SObject.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerNew((SObject)sobjectCapture.capture(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+		List<Object> newShares = (List<Object>) sobjectCapture.getAllValues();
+
+		for (Object newShare: newShares) {
+			if (newShare instanceof APR__Share) {
+				System.assertEquals(aprs[0].Id, ((APR__Share)newShare).ParentId, 'Unexpected share record created');
+				SalesSharingObjectMapping__mdt metadata = SalesRecordSharingService.salesSharingMetadata.get(String.valueOf(APR__c.SObjectType));
+				System.assertEquals(metadata.SharingReasonName__c, ((APR__Share)newShare).RowCause, 'Incorrect sharing reason specified on share record');
+			} else {
+				System.assert(false, 'Unexpected share record SObjectType');
+			}
+		}
+
+		// verify no shares deleted
+		fflib_ArgumentCaptor deletedSObjectsCapture = fflib_ArgumentCaptor.forClass(SObject.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDeleted((SObject)deletedSObjectsCapture.capture(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+
+		// verify unit of work is committed by the service
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).commitWork();
+	}
+
+	/**
+	 * Test to ensure sharing is recalculated as expected on child records of accounts by the queueable job
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharingQueueable() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(3, true);
+		for (Account parentAccount: parentAccounts) {
+			parentAccount.SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+		}
+
+		// setup the results returned by the service
+		List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult> recalculationResults = new List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult>();
+		// parentAccounts[0] is processed fully
+		recalculationResults.add(new SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult(parentAccounts[0].Id, parentAccounts[0].SalesTeamType__c, true, false, new Map<SObjectType, Integer>()));
+
+		// parentAccounts[1] is not processed but does not require partial processing
+		recalculationResults.add(new SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult(parentAccounts[1].Id, parentAccounts[1].SalesTeamType__c, false, false, new Map<SObjectType, Integer>{
+				APR__c.getSObjectType() => 1000
+		}));
+
+		// parentAccounts[2] is not processed and require partial processing
+		recalculationResults.add(new SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult(parentAccounts[2].Id, parentAccounts[2].SalesTeamType__c, false, true, new Map<SObjectType, Integer>{
+				APR__c.getSObjectType() => 4000,
+				Apttus__APTS_Agreement__c.getSObjectType() => 4200
+		}));
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		SalesRecordSharingService mockService = (SalesRecordSharingService) MockUtility.mockUtility(SalesRecordSharingService.class);
+		ApplicationDatabase mockApplicationDatabase = (ApplicationDatabase) MockUtility.mockUtility(ApplicationDatabase.class);
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockService.recalculateChildRecordSharing((Set<Id>)fflib_Match.anyObject())).thenReturn(recalculationResults);
+		MockUtility.Mocks.when(mockApplicationDatabase.enqueueJob((Object)fflib_Match.anyObject())).thenReturn(null);
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable queueable = new SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable(new Map<Id, Account>(parentAccounts).keySet());
+		System.enqueueJob(queueable);
+
+		Test.stopTest();
+
+		// verify account Id's passed into the service for sharing recalculation
+		fflib_ArgumentCaptor accountIdsCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((SalesRecordSharingService)MockUtility.Mocks.verify(mockService, 1)).recalculateChildRecordSharing((Set<Id>)accountIdsCaptor.capture());
+		Set<Id> accountIdsCaptured = (Set<Id>) accountIdsCaptor.getValue();
+		System.assertEquals(parentAccounts.size(), accountIdsCaptured.size(), 'Expected account ids not passed into the service for recalculating sharing');
+		System.assert(accountIdsCaptured.containsAll(new Map<Id, Account>(parentAccounts).keySet()), 'Expected account ids not passed into the service for recalculating sharing');
+
+		fflib_ArgumentCaptor chainedQueueableCaptor = fflib_ArgumentCaptor.forClass(SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable.class);
+		//((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, 1)).enqueueJob(fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, 1)).enqueueJob((SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable)chainedQueueableCaptor.capture());
+		SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable chainedQueueable = (SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable) chainedQueueableCaptor.getValue();
+
+		// verify parameters passed into the chained queueable
+		System.assert(chainedQueueable.accountIds.contains(parentAccounts[1].Id), 'Expected parentAccount[1] to be passed in to the chained queueable for processing');
+		System.assert(chainedQueueable.accountIdsForPartialProcessing.keySet().contains(parentAccounts[2].Id), 'Expected parentAccount[2] to be passed in to the chained queueable for partial processing');
+	}
+
+	/**
+    * Test to ensure sharing is recalculated in partial mode for accounts by the queueable job
+    */
+	@IsTest
+	static void testRecalculateChildRecordSharingInPartialModeQueueable() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		for (Account parentAccount: parentAccounts) {
+			parentAccount.SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+		}
+
+		// setup parameter to pass into queueable
+		Map<Id, List<SObjectType>> accountIdsForPartialProcessing = new Map<Id, List<SObjectType>>{
+				parentAccounts[0].Id => new List<SObjectType>{APR__c.getSObjectType(), Apttus__APTS_Agreement__c.getSObjectType()}
+		};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		SalesRecordSharingService mockService = (SalesRecordSharingService) MockUtility.mockUtility(SalesRecordSharingService.class);
+		ApplicationDatabase mockApplicationDatabase = (ApplicationDatabase) MockUtility.mockUtility(ApplicationDatabase.class);
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		((SalesRecordSharingService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).recalculateChildRecordSharing((Set<Id>)fflib_Match.anyObject(), (SObjectType)fflib_Match.anyObject());
+		MockUtility.Mocks.when(mockApplicationDatabase.enqueueJob((Object)fflib_Match.anyObject())).thenReturn(null);
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable queueable = new SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable(new Set<Id>(), accountIdsForPartialProcessing);
+		System.enqueueJob(queueable);
+
+		Test.stopTest();
+
+		// verify account Id's passed into the service for sharing recalculation
+		fflib_ArgumentCaptor accountIdsCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		fflib_ArgumentCaptor sObjectTypeCaptor = fflib_ArgumentCaptor.forClass(SObjectType.class);
+		((SalesRecordSharingService)MockUtility.Mocks.verify(mockService, 1)).recalculateChildRecordSharing((Set<Id>)accountIdsCaptor.capture(), (SObjectType) sObjectTypeCaptor.capture());
+		Set<Id> accountIdsCaptured = (Set<Id>) accountIdsCaptor.getValue();
+		System.assertEquals(parentAccounts.size(), accountIdsCaptured.size(), 'Expected account ids not passed into the service for recalculating sharing');
+		System.assert(accountIdsCaptured.containsAll(new Map<Id, Account>(parentAccounts).keySet()), 'Expected account ids not passed into the service for recalculating sharing');
+		SObjectType sobjectTypeCaptured = (SObjectType) sObjectTypeCaptor.getValue();
+		System.assertEquals(APR__c.getSObjectType(), sobjectTypeCaptured, 'Only one SObject Type must be passed in for sharing recalculation in partial mode');
+
+		fflib_ArgumentCaptor chainedQueueableCaptor = fflib_ArgumentCaptor.forClass(SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable.class);
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, 1)).enqueueJob((SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable)chainedQueueableCaptor.capture());
+		SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable chainedQueueable = (SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable) chainedQueueableCaptor.getValue();
+
+		// verify parameters passed into the chained queueable
+		System.assert(chainedQueueable.accountIds.isEmpty(), 'No accounts must be passed in for full processing by chained queueable');
+		System.assert(chainedQueueable.accountIdsForPartialProcessing.keySet().contains(parentAccounts[0].Id), 'Expected parentAccount[0] to be passed in to the chained queueable for partial processing');
+		System.assertEquals(Apttus__APTS_Agreement__c.getSObjectType(), chainedQueueable.accountIdsForPartialProcessing.get(parentAccounts[0].Id)[0], 'Expected remaining sobjecttypes for parentAccount[0] to be passed in chained queueable');
+	}
+
+	/**
+	 * Test to ensure a queueable job is enqueued for recalculating child record sharing for the specified account ids
+	 */
+	@IsTest
+	static void testEnqueueChildRecordsSharingHandlerQueueable() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(3, true);
+		for (Account parentAccount: parentAccounts) {
+			parentAccount.SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+		}
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationDatabase mockApplicationDatabase = (ApplicationDatabase) MockUtility.mockUtility(ApplicationDatabase.class);
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockApplicationDatabase.enqueueJob((Object)fflib_Match.anyObject())).thenReturn(null);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesRecordSharingService.getInstance().enqueueChildRecordsSharingHandlerQueueable(new Map<Id,Account>(parentAccounts).keySet());
+
+		Test.stopTest();
+
+		// verify enqueued queueable instance has been instantiated with expected account Id's.
+		fflib_ArgumentCaptor queueableInstanceCaptor = fflib_ArgumentCaptor.forClass(SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable.class);
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, 1)).enqueueJob((SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable) queueableInstanceCaptor.capture());
+		SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable queueableCaptured = (SalesRecordSharingService.SalesAccountChildRecordsSharingHandlerQueueable) queueableInstanceCaptor.getValue();
+		System.assert(queueableCaptured != null, 'Valid queueable instance is expected');
+		System.assertEquals(parentAccounts.size(), queueableCaptured.accountIds.size(), 'Expected account ids not passed into the enqueued queueable instance');
+		System.assert(queueableCaptured.accountIds.containsAll(new Map<Id, Account>(parentAccounts).keySet()), 'Expected account ids not passed into the enqueued queueable instance');
+	}
 
 	private static void injectMockPublicGroupIdsInService() {
 		SalesSharingObjectMapping__mdt aprMetadata = SalesRecordSharingService.salesSharingMetadata.get(String.valueOf(APR__c.getSObjectType()));

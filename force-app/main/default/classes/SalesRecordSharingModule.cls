@@ -10,7 +10,7 @@
  */
 
 public inherited sharing class SalesRecordSharingModule extends ApplicationDomain.Module {
-	private static final String APP = 'SalesRecordSharing'; 
+	private static final String APP = 'Sales';
 	private static final String ACTION_INSERT = 'INSERT';
 	private static final String ACTION_UPDATE = 'UPDATE';
 	// new instance
@@ -38,7 +38,7 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 		} catch (Exception ex) {
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
 													SalesRecordSharingModule.class.getName(), ACTION_INSERT, 
-													objectType.getDescribe().getName(), LoggingLevel.ERROR);
+													String.valueOf(objectType), LoggingLevel.ERROR);
 		}
 
 	}
@@ -65,8 +65,8 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 				sharingService.shareRecords(objectType, changedParentRecordMap, true, uow);
 		} catch (Exception ex) {
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
-													SalesRecordSharingModule.class.getName(), ACTION_UPDATE, 
-													objectType.getDescribe().getName(), LoggingLevel.ERROR);
+													SalesRecordSharingModule.class.getName(), ACTION_UPDATE,
+													String.valueOf(objectType), LoggingLevel.ERROR);
 		}
 	}
 

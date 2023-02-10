@@ -48,5 +48,9 @@
             <controllingFieldValue>Rebate</controllingFieldValue>
             <valueName>External Order Summary Item</valueName>
         </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Milestone Incentive</controllingFieldValue>
+            <valueName>Milestone</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

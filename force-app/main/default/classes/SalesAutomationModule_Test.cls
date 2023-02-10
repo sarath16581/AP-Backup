@@ -3,57 +3,86 @@
  * @author Harry Wang
  * @date 2022-11-08
  * @group Domain
- * @domain Account
+ * @domain Sales
  * @changelog
  * 2022-11-08 - Harry Wang - Created
+ * 2023-01-08 - Ranjeewa Silva - Refactored the tests and added more tests to cover insert scenario
 */
 @IsTest
 private class SalesAutomationModule_Test {
 
 	/**
-	* Test:
-	*  Ensure Sales Team is stamped correctly based on Sales Team Type
+	*  Ensure Sales Team Type is populated based on Sales Team (Sales_Segment__c) on insert
 	*/
 	@IsTest
-	public static void testStampSalesTeamType() {
+	public static void testEnsureSalesTeamTypePopulatedOnBeforeInsert() {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		MockUtility.disableTriggerExecution();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(4, true);
-		Account newAcc1 = accounts[0];
-		newAcc1.Sales_Segment__c = 'Holding Sales Team';
-		Account oldAcc1 = accounts[1];
-		oldAcc1.Sales_Segment__c = 'Intermediaries';
 
-		Account newAcc2 = accounts[2];
-		newAcc2.Sales_Segment__c = 'Holding';
-		Account oldAcc2 = accounts[3];
-		oldAcc2.Sales_Segment__c = 'Intermediaries';
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, true);
+		accounts[0].Sales_Segment__c = 'Holding Sales Team';
+		accounts[1].Sales_Segment__c = 'InvalidSalesTeam';
 
 		// =====================================
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
-
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
-		MockUtility.Mocks.stopStubbing();
+		ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesAutomationModule module = SalesAutomationModule.newInstance();
-		module.onBeforeUpdate(new List<Account>{newAcc1, newAcc2}, new Map<Id, SObject>{oldAcc1.Id => oldAcc1, oldAcc2.Id => oldAcc2}, mockUow);
-		System.assertEquals('Holding', newAcc1.SalesTeamType__c, 'Expected sales team type stamped');
-		System.assert(String.isEmpty(newAcc2.SalesTeamType__c), 'Expected sales team type emptied');
 
-		SalesAutomationModule.Constructor constructor = new SalesAutomationModule.Constructor();
-		constructor.construct();
-		module.onBeforeInsert(null, mockUow);
-		System.assert(true, 'PMD by-pass');
+		SalesAutomationModule.newInstance().onBeforeInsert(accounts, mockUow);
 
 		Test.stopTest();
+
+		System.assertEquals('Holding', accounts[0].SalesTeamType__c, 'Expected sales team type not populated');
+		System.assertEquals(null, accounts[1].SalesTeamType__c, 'SalesTeamType__c should be set to null when Sales Team (Sales_Segment__c) value is unknown');
+
+		// verify excluded records are logged
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logMessage((List<String>)fflib_Match.anyObject(), (List<String>)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
+
+	}
+
+	/**
+	*  Ensure Sales Team Type is populated based on Sales Team (Sales_Segment__c) on update
+	*/
+	@IsTest
+	public static void testEnsureSalesTeamTypePopulatedOnBeforeUpdate() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, true);
+		accounts[0].Sales_Segment__c = 'Intermediaries';
+		accounts[1].Sales_Segment__c = 'Intermediaries';
+
+		List<Account> updatedAccounts = accounts.deepClone(true);
+		updatedAccounts[0].Sales_Segment__c = 'InvalidSalesTeam';
+		updatedAccounts[1].Sales_Segment__c = 'Holding Sales Team';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesAutomationModule.newInstance().onBeforeUpdate(updatedAccounts, new Map<Id, SObject>(accounts), mockUow);
+
+		Test.stopTest();
+
+		System.assertEquals(null, updatedAccounts[0].SalesTeamType__c, 'SalesTeamType__c should be set to null when Sales Team (Sales_Segment__c) value is unknown');
+		System.assertEquals('Holding', updatedAccounts[1].SalesTeamType__c, 'Expected sales team type not populated');
+
+		// verify excluded records are logged
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logMessage((List<String>)fflib_Match.anyObject(), (List<String>)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
 	}
 }

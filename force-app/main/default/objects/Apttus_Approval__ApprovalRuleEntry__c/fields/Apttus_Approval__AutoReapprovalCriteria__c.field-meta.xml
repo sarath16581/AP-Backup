@@ -6,7 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The auto re-approval criteria for the step or entry</inlineHelpText>
     <label>Auto Reapproval Criteria</label>
-    <length>8000</length>
+    <length>16000</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

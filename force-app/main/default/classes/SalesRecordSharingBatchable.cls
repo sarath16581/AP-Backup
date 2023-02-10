@@ -10,48 +10,43 @@
 public abstract class SalesRecordSharingBatchable implements Database.Batchable<SObject>, Database.Stateful{
 	protected SObjectType sObjectType;
 
-	// field override and account relationship passed to selector method
-	public Map<SObjectType, Set<SObjectField>> fieldOverride = new Map<SObjectType, Set<SObjectField>>();
-	public String accountRelationshipName;
+	protected Set<Id> accountIds;
 
-	private Integer totalCount = 0;
-	private Integer successCount = 0;
+	@TestVisible private Integer totalRecordsCount = 0;
 
-	protected SalesRecordSharingBatchable(SObjectType sObjectType) {
+	protected SalesRecordSharingBatchable(SObjectType sObjectType, Set<Id> accountIds) {
 		this.sObjectType = sObjectType;
-
-		try {
-			SalesRecordSharingService.SalesSharingObjectMapping mapping = SalesRecordSharingService.getInstance().getSharingConfiguration(this.sObjectType);
-			fieldOverride.put(this.sObjectType, new Set<SObjectField>{mapping.lookupField});
-			fieldOverride.put(Account.getSObjectType(), new Set<SObjectField>{Account.SalesTeamType__c});
-			accountRelationshipName = mapping.lookupRelationshipName;
-		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales Intermediary', SalesRecordSharingBatchable.class.getName(), 'constructor', 'SalesRecordSharingBatchable: ' + sObjectType, ApplicationLogger.LoggingLevel.ERROR);
-		}
+		this.accountIds = (accountIds != null ? accountIds: new Set<Id>());
 	}
 
-	protected abstract Database.QueryLocator getQueryLocator();
+	protected abstract Database.QueryLocator getQueryLocator(Map<SObjectType, Set<SObjectField>> fieldOverrides);
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
-		return getQueryLocator();
+
+		SalesRecordSharingService.SalesSharingObjectMapping mapping = SalesRecordSharingService.getInstance().getSharingConfiguration(this.sObjectType);
+
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+			this.sObjectType => new Set<SObjectField>{mapping.lookupField},
+			Account.SObjectType => new Set<SObjectField>{Account.SalesTeamType__c}
+		};
+
+		return getQueryLocator(fieldOverrides);
 	}
 
 	public void execute(Database.BatchableContext bc, List<SObject> objectList) {
 		try {
 			SalesRecordSharingService.getInstance().shareRecords(this.sObjectType, new Map<Id, SObject>(objectList), true);
-			successCount += objectList.size();
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales Intermediary', SalesRecordSharingBatchable.class.getName(), 'execute', 'SalesRecordSharingBatchable: ' + sObjectType, ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesRecordSharingBatchable.class.getName(), 'execute', 'SalesRecordSharingBatchable: ' + sObjectType, ApplicationLogger.LoggingLevel.ERROR);
 		} finally {
-			totalCount += objectList.size();
+			this.totalRecordsCount += objectList.size();
 		}
-
 	}
 
 	public void finish(Database.BatchableContext bc) {
-		// Logging count of success out of total processed
-		String message = sObjectType + ' Record Sharing Batch completed with ' + successCount + '/' + totalCount + ' processed.';
-		ApplicationLogger.getInstance().logGenericMessage(new List<String>{message}, 'Sales Intermediary', SalesRecordSharingBatchable.class.getName(), 'finish', 'SalesRecordSharingBatchable: ' + sObjectType, ApplicationLogger.LoggingLevel.INFO);
+		// Logging count of total processed
+		String message = 'Sharing recalculation batch completed. Processed [' + totalRecordsCount +'] ' + sObjectType + ' records.';
+		ApplicationLogger.getInstance().logGenericMessage(new List<String>{message}, 'Sales', SalesRecordSharingBatchable.class.getName(), 'finish', null, ApplicationLogger.LoggingLevel.INFO);
 	}
 
 }

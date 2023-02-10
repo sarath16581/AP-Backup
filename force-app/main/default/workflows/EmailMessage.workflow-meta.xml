@@ -331,7 +331,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Australian_Philatelic_Bure</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWPhilatelic</lookupValue>
+        <lookupValue>SSSW_Community_Niche</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Australian Philatelic Bure</name>
         <notifyAssignee>false</notifyAssignee>
@@ -343,7 +343,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Consumer_Back_Office_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Back_Office_Other</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_Low_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Consumer Back Office Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -379,7 +379,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Load_and_Go_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Inbound_Post_Info</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Load and Go Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -392,7 +392,7 @@
         <fullName>SSSW_Assign_MyPost</fullName>
         <description>Assign the case owner as the MyPost queue</description>
         <field>OwnerId</field>
-        <lookupValue>SSSWMyPost</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_High_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign MyPost</name>
         <notifyAssignee>false</notifyAssignee>
@@ -452,7 +452,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Online_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWPhilatelic</lookupValue>
+        <lookupValue>SSSW_Community_Niche</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Online Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -755,6 +755,17 @@ History
         <field>CaseLocality__c</field>
         <literalValue>International</literalValue>
         <name>SSSW - Set Locality To International</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Product_Cat_to_Domestic_Parc</fullName>
+        <field>ProductCategory__c</field>
+        <literalValue>Domestic Parcels</literalValue>
+        <name>SSSW - Set Product Cat to Domestic Parc</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -1862,6 +1873,10 @@ Product Sub Category - Western Union</description>
         <fullName>SSSW - Assign Consumer Back Office Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_Consumer_Back_Office_Cases</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Set_Product_Cat_to_Domestic_Parc</name>
             <type>FieldUpdate</type>
         </actions>
         <actions>

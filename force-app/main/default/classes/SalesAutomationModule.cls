@@ -4,12 +4,36 @@
  * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
  * @author Harry Wang
  * @group Domain
- * @domain Account
+ * @domain Sales
  * @Test SalesAutomationModule_Test
  * @changelog
  * 2022-11-04 - Harry Wang - Created.
+ * 2023-01-25 - Ranjeewa Silva - Refactored to enhance performance and readability / code structure
  */
 public inherited sharing class SalesAutomationModule extends ApplicationDomain.Module {
+
+	// cache key setting names for accessing platform cache
+	private static final String CACHE_KEY_SALESTEAMTYPE_MAPPINGS = 'SALES_SALESTEAMTYPE_MAPPINGS';
+
+	@TestVisible private static Map<String, List<String>> salesTeamTypeMappings {
+		get {
+			if (salesTeamTypeMappings == null) {
+				// check in platform cache first
+				if (CacheManager.get(CACHE_KEY_SALESTEAMTYPE_MAPPINGS) != null) {
+					// use sales team mappings available in platform cache.
+					salesTeamTypeMappings = (Map<String, List<String>>) CacheManager.get(CACHE_KEY_SALESTEAMTYPE_MAPPINGS);
+				} else {
+					// sales team mappings are not available in platform cache. need to be queried.
+					Map<String, List<String>> mapping = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c, Account.Sales_Segment__c);
+					salesTeamTypeMappings = mapping;
+					// also populate platform cache so it is available later
+					CacheManager.put(CACHE_KEY_SALESTEAMTYPE_MAPPINGS, mapping);
+				}
+			}
+			return salesTeamTypeMappings;
+		}
+		set;
+	}
 
 	public static SalesAutomationModule newInstance() {
 		return (SalesAutomationModule)Application.Utilities.newInstance(SalesAutomationModule.class);
@@ -21,62 +45,80 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		stampSalesTeamType((List<Account>)records, null);
+		try {
+			populateSalesTeamType((List<Account>)records);
+		} catch (Exception e) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		stampSalesTeamType((List<Account>)records, existingRecords);
-	}
-
-	/**
-	 * This method is used to stamp sales team type based on dependent sales team(segment)
-	 * @param records list of account records to be updated
-	 * @param existingRecords Map of existing account records if triggerred from update
-	 */
-	private void stampSalesTeamType(List<Account> records, Map<Id, SObject> existingRecords) {
 		try {
-			Map<String, List<String>> salesTeamMap = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c.getDescribe().getSobjectField(), Account.Sales_Segment__c.getDescribe().getSobjectField());
-			List<String> logMessages = new List<String>();
-			List<String> additionalInfo = new List<String>();
-			for (Account acc: records) {
-				Account eAcc;
-				if (existingRecords != null && !existingRecords.isEmpty()) {
-					eAcc = (Account)existingRecords.get(acc.Id);
-				}
-				if (salesTeamMap != null && salesTeamMap.containsKey(acc.Sales_Segment__c)) {
-					List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
-					if (types.size() != 1) {
-						logMessages.add('Stamping sales team type failed: ' + acc.Id);
-						additionalInfo.add('Multiple or null Sales Team retrieved for ' + acc.Sales_Segment__c);
-					} else {
-						String newSalesTeamType = types[0];
-						if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
-							acc.SalesTeamType__c = newSalesTeamType;
-						}
-					}
-				}
-				// empty sales team type if no sales team mapped
-				if (salesTeamMap != null && !salesTeamMap.containsKey(acc.Sales_Segment__c)) {
-					acc.SalesTeamType__c = null;
+			List<Account> accountsToPopulateSalesTeamType = new List<Account>();
+			for (Account record: (List<Account>)records) {
+				Account existingRecord = (Account) existingRecords.get(record.Id);
+				if (record.Sales_Segment__c != existingRecord.Sales_Segment__c) {
+					accountsToPopulateSalesTeamType.add(record);
 				}
 			}
 
-			// Logging failure message
-			if (!logMessages.isEmpty() && !additionalInfo.isEmpty()) {
-				ApplicationLogger.getInstance().logMessage(logMessages, additionalInfo, 'Sales Intermediary', SalesAutomationModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			if (!accountsToPopulateSalesTeamType.isEmpty()) {
+				populateSalesTeamType(accountsToPopulateSalesTeamType);
 			}
 		} catch (Exception e) {
-			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales Intermediary', SalesAutomationModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+
+
+	private void populateSalesTeamType(List<Account> records) {
+
+		Map<String, List<Id>> excludedRecords = new Map<String, List<Id>>();
+		for (Account record: records) {
+			if (record.Sales_Segment__c != null && salesTeamTypeMappings.containsKey(record.Sales_Segment__c)
+					&& salesTeamTypeMappings.get(record.Sales_Segment__c).size() == 1) {
+				// found a valid Sales Team type
+				record.SalesTeamType__c = salesTeamTypeMappings.get(record.Sales_Segment__c)[0];
+			} else {
+				// cannot find a valid sales team type. this could be due to 3 reasons:
+				// 1. Sales_Segment__c is not set on the account
+				// 2. Sales_Segment__c on the account does not have a valid dependent picklist value configured for SalesTeamType__c.
+				// 3. Sales_Segment__c on the account is mapped to multiple dependent picklist values for SalesTeamType__c.
+				// set to null and proceed.
+				record.SalesTeamType__c = null;
+
+				// if this is scenario (2) or (3) above, log to exception log as this indicates the configuration is invalid.
+				// Note that the record is allowed to be saved with SalesTeamType__c set to null.
+				if (record.Sales_Segment__c != null) {
+					if (!excludedRecords.containsKey(record.Sales_Segment__c)) {
+						excludedRecords.put(record.Sales_Segment__c, new List<Id>());
+					}
+					excludedRecords.get(record.Sales_Segment__c).add(record.Id);
+				}
+			}
+		}
+
+		if (!excludedRecords.isEmpty()) {
+			logExcludedRecords(excludedRecords);
 		}
 	}
 
 	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
+	 * Generate log entries from the excluded records collected while processing.
+	 *
+	 * @param excludedRecordsBySalesTeam excluded records to generate log entries.
 	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) SalesAutomationModule.newInstance();
+	private void logExcludedRecords(Map<String, List<Id>> excludedRecordsBySalesTeam) {
+
+		List<String> messages = new List<String>();
+		List<String> additionalInfo = new List<String>();
+
+		for (String salesTeam: excludedRecordsBySalesTeam.keySet()) {
+			List<Id> ignoredRecordIds = excludedRecordsBySalesTeam.get(salesTeam);
+			messages.add('Sales Team Type cannot be determined for Sales Team [' + salesTeam + '] from dependent picklist configuration in ' + Account.SalesTeamType__c + '. Ignoring [' + ignoredRecordIds.size() + '] accounts.');
+			additionalInfo.add('Ignored accounts : ' + ignoredRecordIds.toString());
 		}
+
+		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'Sales', SalesAutomationModule.class.getName(), 'populateSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 	}
 }

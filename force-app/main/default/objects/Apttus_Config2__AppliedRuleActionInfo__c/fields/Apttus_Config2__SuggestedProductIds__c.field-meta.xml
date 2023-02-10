@@ -5,7 +5,7 @@
     <description>Product suggested by rule action definition to be included in the cart</description>
     <externalId>false</externalId>
     <label>Suggested Product Ids</label>
-    <length>16384</length>
+    <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

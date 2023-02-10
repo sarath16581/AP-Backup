@@ -15,184 +15,202 @@
  * 2022-11-26 - Harry Wang - added selector method for sales intermediary
  */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
-    public enum Options {
-        WITH_RECORDTYPE, WITH_OWNER , WITH_PRIMARYCONTACT , WITH_CHARGE_ACCOUNT_REQUEST , WITH_CREDIT_ASSESSMENT, WITH_OPPORTUNITY, WITH_CONTRACT, WITH_ORGANISATION
-    }
-    public static DealSupportRequestsSelector newInstance() {
-        return (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class);
-    }
-    public static DealSupportRequestsSelector newInstance(Integer recordLimit) {
-        return (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit);
-    }
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     * This approach removes data consistency and prevents possible caching of results
-     */ 
-    public static DealSupportRequestsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-        DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	public enum Options {
+		WITH_RECORDTYPE, WITH_OWNER , WITH_PRIMARYCONTACT , WITH_CHARGE_ACCOUNT_REQUEST , WITH_CREDIT_ASSESSMENT, WITH_OPPORTUNITY, WITH_CONTRACT, WITH_ORGANISATION
+	}
+	public static DealSupportRequestsSelector newInstance() {
+		return (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class);
+	}
+	public static DealSupportRequestsSelector newInstance(Integer recordLimit) {
+		return (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit);
+	}
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */ 
+	public static DealSupportRequestsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    /**
+	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	* This approach removes data consistency and prevents possible caching of results
 	*/
-    public static DealSupportRequestsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-        DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	public static DealSupportRequestsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     * This approach removes data consistency and prevents possible caching of results
-     */ 
-    public static DealSupportRequestsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-        DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }    
-    public virtual override SObjectType getSObjectType() {
-        return Deal_Support_Request__c.getSObjectType();
-    }    
-    public virtual override Set<SObjectField> getSObjectFieldList() {
-        return new Set<SObjectField> {
-            Deal_Support_Request__c.Id,Deal_Support_Request__c.Name, Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Integration_Status__c , Deal_Support_Request__c.Work_Type__c,
-            Deal_Support_Request__c.Billing_Account_Change_of_Details_Type__c, Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Credit_Work_Type__c, Deal_Support_Request__c.Lodgement_Point_to_Work_Centre_Code__c,
-            Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c, Deal_Support_Request__c.LastImplementationStageUpdate__c, Deal_Support_Request__c.Compass_Quote_Reference__c, Deal_Support_Request__c.Approved_Event__c,Deal_Support_Request__c.Opportunity__c,Deal_Support_Request__c.Stage__c, 
-            Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Product__c,Deal_Support_Request__c.Approved_Pricing_Structure__c,Deal_Support_Request__c.Approved_lodgement_zone__c,Deal_Support_Request__c.Quote_Validity_End_Date__c,Deal_Support_Request__c.Approved_Tier__c,
-            Deal_Support_Request__c.Compass_Quote_Reference__c
-        };
-    }
-    /**
-     * @description Run a simple query to get records based on Id's
-     */
-    public virtual Map<Id, Deal_Support_Request__c> selectById(Set<Id> ids) {
-        return selectById(ids, new Set<Object>());
-    }
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */ 
+	public static DealSupportRequestsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}	
+	public virtual override SObjectType getSObjectType() {
+		return Deal_Support_Request__c.getSObjectType();
+	}	
+	public virtual override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField> {
+			Deal_Support_Request__c.Id,Deal_Support_Request__c.Name, Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Integration_Status__c , Deal_Support_Request__c.Work_Type__c,
+			Deal_Support_Request__c.Billing_Account_Change_of_Details_Type__c, Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Credit_Work_Type__c, Deal_Support_Request__c.Lodgement_Point_to_Work_Centre_Code__c,
+			Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c, Deal_Support_Request__c.LastImplementationStageUpdate__c, Deal_Support_Request__c.Compass_Quote_Reference__c, Deal_Support_Request__c.Approved_Event__c,Deal_Support_Request__c.Opportunity__c,Deal_Support_Request__c.Stage__c, 
+			Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Product__c,Deal_Support_Request__c.Approved_Pricing_Structure__c,Deal_Support_Request__c.Approved_lodgement_zone__c,Deal_Support_Request__c.Quote_Validity_End_Date__c,Deal_Support_Request__c.Approved_Tier__c,
+			Deal_Support_Request__c.Compass_Quote_Reference__c
+		};
+	}
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Deal_Support_Request__c> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
+	}
 
-    /**
-    * @description Run a simple query to get records based on Id's
-    */
-    public virtual Map<Id, Deal_Support_Request__c> selectByRecordList(List<Deal_Support_Request__c> dsrList) {
-        return selectByRecordList(dsrList, new Set<Object>());
-    }
+	/**
+	* @description Run a simple query to get records based on Id's
+	*/
+	public virtual Map<Id, Deal_Support_Request__c> selectByRecordList(List<Deal_Support_Request__c> dsrList) {
+		return selectByRecordList(dsrList, new Set<Object>());
+	}
 
-    /**
-     * @description Run a simple query to get records based on Id's
-     */
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
 
-    public virtual Map<Id, Deal_Support_Request__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Id + ' in :ids')).endConditions();
-        return new Map<Id, Deal_Support_Request__c>((List<Deal_Support_Request__c>)Database.query(qb.toSoqlString()));
-    }
+	public virtual Map<Id, Deal_Support_Request__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Id + ' in :ids')).endConditions();
+		return new Map<Id, Deal_Support_Request__c>((List<Deal_Support_Request__c>)Database.query(qb.toSoqlString()));
+	}
 
-    /**
-     * @description Run a simple query to get records based on Recordlist
-     */
-    public virtual Map<Id, Deal_Support_Request__c> selectByRecordList(List<Deal_Support_Request__c> dsrList, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Id + ' in :dsrList')).endConditions();
-        return new Map<Id, Deal_Support_Request__c>((List<Deal_Support_Request__c>)Database.query(qb.toSoqlString()));
-    }
+	/**
+	 * @description Run a simple query to get records based on Recordlist
+	 */
+	public virtual Map<Id, Deal_Support_Request__c> selectByRecordList(List<Deal_Support_Request__c> dsrList, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Id + ' in :dsrList')).endConditions();
+		return new Map<Id, Deal_Support_Request__c>((List<Deal_Support_Request__c>)Database.query(qb.toSoqlString()));
+	}
 
-    /**
-	* This method is used to get query builder of DSR records where organisation not null
+	/**
+	* Returns a query locator to retrieve DSR records based on the account ids passed in. If set of account ids
+	* is null or empty, returns all DSR records having a parent account.
+	* Query results are ordered by parent account Id desc
+	* @param accountIds set of parent account ids. returns all child DSR records associated with a parent account if null
+	*                   or empty set is supplied.
+	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of DSR records
 	*/
-    public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions)
-                .addConditions()
-                .add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Organisation__c + ' != null'))
-                .endConditions();
-        return Database.getQueryLocator(qb.toSoqlString());
-    }
+	public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
 
-    /**
-     * Run a SOQL based on the search parameters passed in
-     *
-     * @param searchParams A map containing searchable values:
-     *                       opportunityIds: maps to Opportunity Id (Set<Id>/Id)
-     *                       recTypeIds: maps to Record Type Id (Set<Id>/Id)
-     *                       productNames: maps to Product Name (Set<String>/String)
-     *
-     *
-     * @param selectorOptions Selector Options
-     * @param matchAll If true will search based on AND, else search based on OR
-     */
-    public virtual List<Deal_Support_Request__c> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-        QueryBuilder builder = newQueryBuilder(selectorOptions);
-        // add our tracking query
-        QueryBuilder.ConditionsManager conditions = builder.addConditions();
+		Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+		options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
 
-        Set<Id> opportunityIds = (Set<Id>)(searchParams.get('opportunityIds') == null ? new Set<Id>() : (searchParams.get('opportunityIds') instanceof Set<Id> ? searchParams.get('opportunityIds') : new Set<Id>{(Id)searchParams.get('opportunityIds')}));
-        Set<Id> recTypeIds = (Set<Id>)(searchParams.get('recTypeIds') == null ? new Set<Id>() : (searchParams.get('recTypeIds') instanceof Set<Id> ? searchParams.get('recTypeIds') : new Set<Id>{(Id)searchParams.get('recTypeIds')}));
-        Set<String> productNames = (Set<String>)(searchParams.get('productNames') == null ? new Set<String>() : (searchParams.get('productNames') instanceof Set<String> ? searchParams.get('productNames') : new Set<String>{String.valueOf(searchParams.get('productNames'))}));
+		QueryBuilder qb = newQueryBuilder(options);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		if (accountIds != null && !accountIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Organisation__c + ' in :accountIds'));
+		} else {
+			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Organisation__c + ' != null'));
+		}
 
-        Integer conditionCount = 0;
-        if(searchParams.containsKey('opportunityIds')) {
-            conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Opportunity__c + ' in :opportunityIds'));
-            conditionCount++;
-        }
-        if(searchParams.containsKey('recTypeIds')) {
-            conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.RecordTypeId + ' in :recTypeIds'));
-            conditionCount++;
-        }
-        if(searchParams.containsKey('productNames')) {
-            conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Product__c + ' in :productNames'));
-            conditionCount++;
-        }
+		qb = conditions.endConditions().addOrderDesc(Deal_Support_Request__c.Organisation__c);
+		return Database.getQueryLocator(qb.toSoqlString());
+	}
 
-        // build our condition string which would end up being something liek the following:
-        // 1 AND 2 AND 3
-        // 1 OR 2 OR 3
-        String conditionOrder = '';
-        for(Integer i=0;i<conditionCount;i++) {
-            conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
-        }
-        conditions.setConditionOrder(conditionOrder);
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *					   opportunityIds: maps to Opportunity Id (Set<Id>/Id)
+	 *					   recTypeIds: maps to Record Type Id (Set<Id>/Id)
+	 *					   productNames: maps to Product Name (Set<String>/String)
+	 *
+	 *
+	 * @param selectorOptions Selector Options
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 */
+	public virtual List<Deal_Support_Request__c> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+		// add our tracking query
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
-        String soql = conditions.endConditions().toSoqlString();
-        system.debug('soql:'+ soql);
-        return (List<Deal_Support_Request__c>)Database.query(soql);
-    }
+		Set<Id> opportunityIds = (Set<Id>)(searchParams.get('opportunityIds') == null ? new Set<Id>() : (searchParams.get('opportunityIds') instanceof Set<Id> ? searchParams.get('opportunityIds') : new Set<Id>{(Id)searchParams.get('opportunityIds')}));
+		Set<Id> recTypeIds = (Set<Id>)(searchParams.get('recTypeIds') == null ? new Set<Id>() : (searchParams.get('recTypeIds') instanceof Set<Id> ? searchParams.get('recTypeIds') : new Set<Id>{(Id)searchParams.get('recTypeIds')}));
+		Set<String> productNames = (Set<String>)(searchParams.get('productNames') == null ? new Set<String>() : (searchParams.get('productNames') instanceof Set<String> ? searchParams.get('productNames') : new Set<String>{String.valueOf(searchParams.get('productNames'))}));
 
-    public virtual override QueryBuilder newQueryBuilder() {
-        return newQueryBuilder(new Set<Object>());
-    }
+		Integer conditionCount = 0;
+		if(searchParams.containsKey('opportunityIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Opportunity__c + ' in :opportunityIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('recTypeIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.RecordTypeId + ' in :recTypeIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('productNames')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Product__c + ' in :productNames'));
+			conditionCount++;
+		}
 
-    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		// build our condition string which would end up being something liek the following:
+		// 1 AND 2 AND 3
+		// 1 OR 2 OR 3
+		String conditionOrder = '';
+		for(Integer i=0;i<conditionCount;i++) {
+			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
+		}
+		conditions.setConditionOrder(conditionOrder);
 
-        if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
-            builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Organisation__r');
-        }
-       
-        if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
-            builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(), 'RecordType');
-        }
+		String soql = conditions.endConditions().toSoqlString();
+		system.debug('soql:'+ soql);
+		return (List<Deal_Support_Request__c>)Database.query(soql);
+	}
 
-        if(selectorOptions.contains(Options.WITH_OWNER)) {
-            builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
-        }
-        
-        if(selectorOptions.contains(Options.WITH_PRIMARYCONTACT)) {
-            builder.addRelatedFields(ContactsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus__Primary_Contact__r');
-        }
-        
-        if(selectorOptions.contains(Options.WITH_CHARGE_ACCOUNT_REQUEST)) {
-            builder.addRelatedFields(ChargeAccountRequestSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Charge_Account__r');
-        }
-        
-        if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
-            builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
-        }
-        
-        if(selectorOptions.contains(Options.WITH_OPPORTUNITY)) {
-            builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Opportunity__r');
-        }
-        
-		if(selectorOptions.contains(Options.WITH_CONTRACT)) {
-            builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
-        }
+	public virtual override QueryBuilder newQueryBuilder() {
+		return newQueryBuilder(new Set<Object>());
+	}
+
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
+			builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Organisation__r');
+		}
+	   
+		if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
+			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(), 'RecordType');
+		}
+
+		if(selectorOptions.contains(Options.WITH_OWNER)) {
+			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
 		
-        return builder;
-    }
+		if(selectorOptions.contains(Options.WITH_PRIMARYCONTACT)) {
+			builder.addRelatedFields(ContactsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus__Primary_Contact__r');
+		}
+		
+		if(selectorOptions.contains(Options.WITH_CHARGE_ACCOUNT_REQUEST)) {
+			builder.addRelatedFields(ChargeAccountRequestSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Charge_Account__r');
+		}
+		
+		if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
+			builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
+		}
+		
+		if(selectorOptions.contains(Options.WITH_OPPORTUNITY)) {
+			builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Opportunity__r');
+		}
+		
+		if(selectorOptions.contains(Options.WITH_CONTRACT)) {
+			builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
+		}
+		
+		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
+            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Organisation__r');
+        }
+
+		return builder;
+	}
 }

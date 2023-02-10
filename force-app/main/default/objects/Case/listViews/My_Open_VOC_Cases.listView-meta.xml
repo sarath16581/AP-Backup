@@ -21,7 +21,8 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>My Open Cases</label>
+    <label>My Open VOC Cases</label>
+    <language>en_US</language>
     <sharedTo>
         <group>All_VOC</group>
     </sharedTo>

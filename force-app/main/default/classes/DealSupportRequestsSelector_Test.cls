@@ -227,8 +227,15 @@ public with sharing class DealSupportRequestsSelector_Test {
         List<Deal_Support_Request__c> resultsforAPPCPSRList = selector2.search(searchParams, new Set<Object>(), true);
         System.assertEquals(1, resultsforAPPCPSRList.size(), 'Result count was wrong');
 
-        Database.QueryLocator queryLocator = DealSupportRequestsSelector.newInstance().selectByAccountRelationshipQueryLocator(new Set<Object>{DealSupportRequestsSelector.Options.WITH_ORGANISATION});
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Deal_Support_Request__c\\b').matcher(queryLocator.getQuery()).find(), 'Resulting query does not select from Deal_Support_Request__c');
+        Set<Id> accountIds = new Set<Id>{account.Id};
+        Database.QueryLocator queryLocator = DealSupportRequestsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(accountIds, new Set<Object>{
+                DealSupportRequestsSelector.Options.WITH_ORGANISATION
+        });
+
+        List<Deal_Support_Request__c> queryResults = (List<Deal_Support_Request__c>)Database.query(queryLocator.getQuery());
+
+        System.assertEquals(1, queryResults.size(), 'Expected to return only the DSRs related to the supplied account');
+        System.assertEquals(dealSupportRequest.Id, queryResults[0].Id, 'Expected to return only the DSRs related to the supplied account');
 
         Test.stopTest();
 

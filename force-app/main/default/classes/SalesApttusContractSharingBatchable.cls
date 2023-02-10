@@ -10,11 +10,16 @@
 public without sharing class SalesApttusContractSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesApttusContractSharingBatchable() {
-		super(Apttus__APTS_Agreement__c.SObjectType);
+		super(Apttus__APTS_Agreement__c.SObjectType, new Set<Id>());
 	}
 
-	@TestVisible
-	protected override Database.QueryLocator getQueryLocator() {
-		return ApttusContractsSelector.newInstance(fieldOverride).selectByAccountRelationshipQueryLocator(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER, ApttusContractsSelector.Options.WITH_ACCOUNT});
+	public SalesApttusContractSharingBatchable(Set<Id> accountIds) {
+		super(Apttus__APTS_Agreement__c.SObjectType, accountIds);
+	}
+
+	@TestVisible protected override Database.QueryLocator getQueryLocator(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		return ApttusContractsSelector.newInstance(fieldOverrides).selectByAccountOrderByAccountIdQueryLocator(this.accountIds, new Set<Object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION
+		});
 	}
 }
