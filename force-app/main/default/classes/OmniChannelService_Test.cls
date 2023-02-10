@@ -41,6 +41,25 @@ public class OmniChannelService_Test {
 		callbackRequestList.add(new Callback_Request__c(OwnerId=Userinfo.getUserId(),Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
 		insert callbackRequestList;
 	}
+
+	
+	@IsTest
+	static void rerouteCasesWithPreferredAgentByPass() {
+		Case aCase = (Case)ApplicationTestDataFactory.setUnwritableFields(new Case(), new Map<String, Object>{ 'CreatedDate' => Datetime.now().addDays(-10)});
+		aCase.BypassPreferredAgent__c = false;
+		PendingServiceRouting psr = (PendingServiceRouting)ApplicationTestDataFactory.setUnwritableFields(new PendingServiceRouting(), new Map<String, Object>{ 'WorkItem' => aCase});
+		List<PendingServiceRouting> psrs = new List<PendingServiceRouting>{psr};
+
+		Test.startTest();
+
+		List<Case> actual = OmniChannelService.getInstance().rerouteCasesWithPreferredAgentByPass(psrs);
+		System.assertEquals(1, actual.size(), 'Should return the case');
+		System.assertEquals(true, actual[0].BypassPreferredAgent__c, 'It should be true to bypass preferred agent logic');
+		System.assertEquals(true, actual[0].AllocateToQueue__c, 'It should be true to force the routing rules to run again');
+
+		Test.stopTest();
+
+	}
 	
 	@IsTest
 	static void queuesWithRoutingConfigShouldReturnFilteredQueues() {
