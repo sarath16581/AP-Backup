@@ -20,6 +20,7 @@
  * 2021-11-26 - Ashapriya Gadi - Added enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER and a condition for it in the newQueryBuilder
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Add fields to getSObjectFieldList
  * 2022-12-05 - Dattaraj Deshmukh - Added enum WITH_CHILD_INVESTIGATIONS and fields to getSObjectFieldList.
+ * 2023-02-08 - Dattaraj Deshmukh - Added 'selectByIdWithCaseInvestigations' and 'getChildCaseInvestigationsSubQueryBuilder' methods.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -199,6 +200,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public virtual  Map<Id, Case> selectByIdWithCaseInvestigations(Set<Id> ids, Set<Id> caseInvestigationIds,  Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Case.Id + ' in :ids')).endConditions();
 		qb.addSubQuery(getChildCaseInvestigationsSubQueryBuilder(caseInvestigationIds,  selectorOptions), 'CaseInvestigations__r');
+
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString())); 
 	}
 
@@ -210,6 +212,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 *
 	 * @return query builder instance for child case investigations.
 	 */
+	@TestVisible
 	private QueryBuilder getChildCaseInvestigationsSubQueryBuilder(Set<Id> caseInvestigationIds, Set<Object> selectorOptions) {
 
 		QueryBuilder subQueryBuilder = CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions);

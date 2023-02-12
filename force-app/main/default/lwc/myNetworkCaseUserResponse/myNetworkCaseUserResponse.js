@@ -5,6 +5,7 @@
  * @date 2022-11-29
  * @changelog
  * 2022-11-29 - Dattaraj Deshmukh - Created
+ * 2023-02-13 - Dattaraj Deshmukh - updated QualityOfTheCase fields default value.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -52,7 +53,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	deliveryOfficerKnowledge= '';
 	deliveryOptions= '';
 	networkId= '';
-	qualityOfCase= false;
+	qualityOfCase= '';
 	requireMoreInformation ='';
 	stillUnderInvestigation = false;
 	internalFacilityNotes = '';
