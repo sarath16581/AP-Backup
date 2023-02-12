@@ -8,6 +8,7 @@
  * @changelog
  * 2022-11-03 George Nguyen - Created
  * 2023-02-06 - Nathan Franklin - Added some tests for recent updates
+ * 2023-02-08 - Noel Lim - Added method selectByLastModifiedDateLessThanEqualNDaysAgo
  */
 @IsTest
 public with sharing class PendingServiceRoutingSelector_Test {
@@ -62,6 +63,10 @@ public with sharing class PendingServiceRoutingSelector_Test {
 		qb = selector.newQueryBuilder(new Set<Object>{PendingServiceRoutingSelector.Options.WITH_SKILLREQUIREMENTS});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom SkillRequirements\\b.*?\\).*?\\bfrom pendingservicerouting\\b').matcher(soql).find(), 'Resulting query does not select SkillRequirement child records: ' + soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{PendingServiceRoutingSelector.Options.EXCLUDE_ISPUSHED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\bIsPushed\\s*=\\s*false\\b').matcher(soql).find(), 'Resulting query does not have IsPushed = false');
 
 		Test.stopTest();
 
@@ -182,9 +187,8 @@ public with sharing class PendingServiceRoutingSelector_Test {
 
 		qa = QueryBuilder.newInstance();
 		QueryBuilder.mockFactory.put(PendingServiceRoutingSelector.class, qa); 
-		selector.selectByLastModifiedDateLessThanLastNDays(3, new Set<Object>());
+		selector.selectByLastModifiedDateLessThanEqualNDaysAgo(3, new Set<Object>());
 		queryString = qa.toSoqlString();
-		System.assertEquals(true, Pattern.compile('\\b' + PendingServiceRouting.LastModifiedDate + ' < LAST_N_DAYS:3\\b').matcher(queryString).find(), 'Filters by LastModifiedDate using LAST_N_DAYS in query');
-
+		System.assertEquals(true, Pattern.compile('\\b' + PendingServiceRouting.LastModifiedDate + ' <= N_DAYS_AGO:3\\b').matcher(queryString).find(), 'Filters by LastModifiedDate using N_DAYS_AGO in query');
 	}
 }

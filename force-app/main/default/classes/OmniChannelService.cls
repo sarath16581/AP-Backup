@@ -9,10 +9,11 @@
 *==============================================================================
 * Ver		 Date					 Author	  			  Modification
 *==============================================================================
-* 1.0	7/25/2019, 2:19:17 PM   rajesh.punjabi@mav3rik.com	 Initial Version
+* 1.0	7/25/2019, 2:19:17 PM   rajesh.punjabi@mav3rik.com	Initial Version
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
 * 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
+* 1.3	01/02/2022				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 * 1.3	31/01/2023				Noel Lim					Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 10/02/2023						George Nguyen				Added rerouteCasesWithPreferredAgentByPass and Cache
 **/
@@ -57,6 +58,19 @@ public inherited sharing class OmniChannelService {
 				AllocateToQueue__c  = true,
 				Bypass_Data_enforcement__c  = true,
 				Email_Bypass_Data_enforcement__c = true
+			));
+		}
+
+		return casesToUpdate;
+	}
+
+	public List<Case> rerouteCasesWithPreferredAgentByPass(List<PendingServiceRouting> psrs) {
+		List<Case> casesToUpdate = new List<Case>();
+		for(PendingServiceRouting psr: psrs) {
+			casesToUpdate.add(new Case(
+				Id = psr.WorkitemId, 
+				BypassPreferredAgent__c = true,
+				AllocateToQueue__c  = true
 			));
 		}
 
@@ -150,14 +164,30 @@ public inherited sharing class OmniChannelService {
 	}
 	
 	/*
-	* This method returns a map of CaseIds and UserIds, the UserId is the latest Agent who accepted the Case via Omni routing
+	* This method returns a map of CaseIds and its latest AgentWork where the UserId is an active User
 	*/
-	public Map<Id,AgentWork> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
+	public Map<Id,AgentWork> getLatestAcceptedAgentWorkWithActiveUser(Set<Id> caseIds) {
 		Map<Id,AgentWork> result = new Map<Id,AgentWork>();
 		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
 
+		Set<Id> pastAgentUserIds = new Set<Id>();
+
 		for(AgentWork agentWork : aws){
-			result.put(agentWork.WorkItemId, agentWork);
+			pastAgentUserIds.add(agentWork.UserId);
+		}
+		Map<Id, User> mapActiveUsers = UsersSelector.newInstance().selectActiveUserById(pastAgentUserIds);
+
+
+		if(aws.isEmpty() == false){
+			for(Id caseId : caseIds){
+				for(AgentWork agentWork : aws){
+					if(agentWork.WorkItemId == caseId 
+						&& result.containsKey(caseId) == false
+						&& mapActiveUsers.containsKey(agentWork.UserId)){
+							result.put(agentWork.WorkItemId,agentWork);
+					}
+				}
+			}
 		}
 
 		return result;
@@ -262,6 +292,26 @@ public inherited sharing class OmniChannelService {
 					}
 				}
 				return queuesWithRoutingConfig;
+			}
+			private set;
+		}
+
+		public Map<String, String> queuesToAgentType {
+			get {
+				if(queuesToAgentType == null) {
+					queuesToAgentType = (Map<String, String>)CacheManager.get('QUEUES_TO_AGENT_TYPE');
+					if(queuesToAgentType == null) {
+						queuesToAgentType = new Map<String, String>();
+	
+						List<SSSW_Queue_to_Agent_Type__mdt> queueAgentTypes = [SELECT QueueId__c, AgentType__c from SSSW_Queue_to_Agent_Type__mdt];
+						for(SSSW_Queue_to_Agent_Type__mdt qat : queueAgentTypes){
+							queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);
+						}
+	
+						CacheManager.put('QUEUES_TO_AGENT_TYPE', queuesToAgentType);
+					}
+				}
+				return queuesToAgentType;
 			}
 			private set;
 		}

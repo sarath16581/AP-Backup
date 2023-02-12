@@ -11,7 +11,7 @@
  *==============================================================================
  * 1.0	8/21/2019	rajesh.punjabi@mav3rik.com		Initial Version
  * 1.1	7/12/2022	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
- * 1.2	31/01/2023	Noel Lim						Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
+ * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 			
  * 
 **/
 @IsTest (IsParallel=true)
@@ -109,6 +109,30 @@ public class OmniChannelService_Test {
 		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
 		CacheManager.put('ALL_SERVICE_CHANNELS', new Map<String, ServiceChannel>{'test'=>serviceChannels[0]});
 		System.assertEquals(serviceChannels[0].Id, OmniChannelService.Cache.serviceChannels.get('test').Id, 'should match');
+	}
+
+	@IsTest
+	static void queuesToAgentTypesShouldReturnCustomMetadata() {
+		CacheManager.settings.CacheEnabled__c = true;
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<SSSW_Queue_to_Agent_Type__mdt> listQAT = [SELECT QueueId__c, AgentType__c from SSSW_Queue_to_Agent_Type__mdt];
+		Map<String,String> queuesToAgentType = new Map<String,String>();
+
+		for(SSSW_Queue_to_Agent_Type__mdt qat : listQAT){
+			queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);
+		}
+		Set<String> queueIds = queuesToAgentType.keySet();
+		Id queueId = queueIds.iterator().next();
+
+		System.assertEquals(queuesToAgentType.size(), OmniChannelService.Cache.queuesToAgentType.size(), 'it should return the same number of records');
+		System.assertEquals(
+			queuesToAgentType.get(queueId), OmniChannelService.Cache.queuesToAgentType.get(queueId), 'should match');
+
+		// test loading from cache
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('QUEUES_TO_AGENT_TYPE', new Map<String, String>{queueId => queuesToAgentType.get(queueId)});
+		System.assertEquals(queuesToAgentType.get(queueId), OmniChannelService.Cache.queuesToAgentType.get(queueId), 'should match');
 	}
 
 	@IsTest
@@ -290,21 +314,25 @@ public class OmniChannelService_Test {
 	 * Tests the following scenarios:
 	 * a) the returned Map has a unique set of Case Ids
 	 * b) a guest user is able to query the AgentWork object
+	 * c) only AgentWork with a UserId that is active is included
 	 * 
 	 */
 	@IsTest
-	public static void getUserIdFromLatestAcceptedAgentWork(){
-		//User
-		Id userId = UserInfo.getUserId();
+	public static void getLatestAcceptedAgentWorkWithActiveUser(){
+		//Users
+		List<User> users = ApplicationTestDataFactory.getUsers(2,true);
+		users[0].IsActive = true;
+		users[1].IsActive = false;
 
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
 		Set<Id> caseIds = new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id};
 
-		//AgentWork - both are for the same case to simulate multiple Accepted AgentWorks
+		//AgentWork - 2 are for the same case to simulate multiple Accepted AgentWorks
 		List<AgentWork> agentWorks = new List<AgentWork>{
-			OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true)[0],
-			OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true)[0]
+			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0],
+			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0],
+			OmniChannelTestDataFactory.getAgentWorks(1, users[1].Id, new Set<Id>{cases[1].Id}, true)[0]
 		};
 
 
@@ -315,6 +343,7 @@ public class OmniChannelService_Test {
 		// Stubbing
 		// =====================================
 		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);	 
+		UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);	 
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -324,18 +353,22 @@ public class OmniChannelService_Test {
 			(Set<Object>)fflib_Match.eq(new Set<Object>())		
 		)).thenReturn(agentWorks);
 
+		MockUtility.Mocks.when(mockUsersSelector.selectActiveUserById(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{users[0].Id, users[1].Id})
+		)).thenReturn(new Map<Id,User>{users[0].Id => users[0]});
+
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
-		Map<Id, AgentWork> caseIdToUserId = new Map<Id, AgentWork>();
+		Map<Id, AgentWork> caseIdsVsAgentWorks = new Map<Id, AgentWork>();
 		Boolean exceptionThrown = false;
 
 		System.runAs(communityUser){
 			try{
-				caseIdToUserId = OmniChannelService.getInstance().getUserIdsFromLatestAcceptedAgentWork(caseIds);   
+				caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(caseIds);   
 			} catch(Exception ex) {
 				exceptionThrown = true;
 			}		   
@@ -343,7 +376,7 @@ public class OmniChannelService_Test {
 
 		Test.stopTest();
 
-		System.assertEquals(1, caseIdToUserId.size(), 'caseIdToUserId map should only contain 1 record');
+		System.assertEquals(1, caseIdsVsAgentWorks.size(), 'caseIdsVsAgentWorks map should contain 1 record');
 		System.assertEquals(false, exceptionThrown, 'There should be no Exceptions thrown');
 
 	}

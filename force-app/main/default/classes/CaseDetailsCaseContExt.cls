@@ -26,6 +26,7 @@
  2021.10.01	seth.heang@auspost.com.au	INC1859157, INC1859449 Fix SOQL query issue with ReferenceID__c, Status, EnquirySubType__c
  2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
  2022-11-18 George Nguyen - Added logic to check against the target ownerId: If it is omni and the skills are matching the previous owner's skills then do not allow the case to be Reassigned. 
+ 2023-02-06 Noel Lim - Added Preferred Agent logic, which sets BypassPreferredAgent to true if the case is being routed to an omni queue.
 ***********************************/
 global class CaseDetailsCaseContExt  {
 
@@ -505,7 +506,8 @@ global class CaseDetailsCaseContExt  {
                     isCR__c,      // field related to HLC
                     OwnerId,
                     SocialPostTags__c, // INC1852893 - SOQL query bug
-                    CaseLocality__c  // INC1852893 - SOQL query bug
+                    CaseLocality__c,  // INC1852893 - SOQL query bug
+                    PreferredAgentExpiry__c 
             from Case
             where Id = :caseId
             limit 1];
@@ -1121,6 +1123,10 @@ global class CaseDetailsCaseContExt  {
                                 sameOwner = true;
                             }
                             caseRec.AllocateToQueue__c = false;     // disable case queue allocation
+
+                            if(OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseRec.OwnerId)){ //Bypass preferred agent logic if Case is being reassigned to an omni queue
+                                caseRec.BypassPreferredAgent__c = true;
+                            }
                         }
                     }
 
@@ -1129,7 +1135,7 @@ global class CaseDetailsCaseContExt  {
 					Savepoint sp = Database.setSavepoint();
 					
 					if(!sameOwner && doUpdate) {
-						Database.update(casesTobeRouted);
+						ApplicationDatabase.getInstance().dmlUpdate(casesTobeRouted);
 
 						Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{this.myCase.Id}, new Set<Object>()));
 						// If PSR was created then the new owner is an Omni queue
@@ -1155,7 +1161,7 @@ global class CaseDetailsCaseContExt  {
 
 								// user has all the required skills so we should revert the update and show the error to the user. 
 								if(hasAllSkills == true) {
-									Database.rollback(sp);
+									ApplicationDatabase.getInstance().dmlRollback(sp);
 									notAllowedToReassign = true; // showing the error to the user. 
 								}								
 							}
