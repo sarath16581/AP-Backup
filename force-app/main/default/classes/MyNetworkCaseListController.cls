@@ -60,15 +60,6 @@ public with sharing class MyNetworkCaseListController {
 		public String casePriority{get;set;}
 		@AuraEnabled
 		public Boolean isStarTrackCase{get;set;}
-
-		// @AuraEnabled
-		// public Set<Id> updatedCaseInvestigationIds{get;set;}
-		// @AuraEnabled
-		// public Set<Id> stillUnderCaseInvestigationIds{get;set;}
-		// @AuraEnabled
-		// public Set<Id> newCaseInvestigationIds{get;set;}
-		// @AuraEnabled
-		// public List<CaseInvestigation__c> caseInvestigations{get;set;}
 		@AuraEnabled
 		public CaseInvestigation__c caseInvestigation{get;set;}
 
@@ -83,32 +74,10 @@ public with sharing class MyNetworkCaseListController {
 			this.caseId = caseIdVar;
 			this.CasePriority = casePriorityVar;
 			this.isStarTrackCase = MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(myNetworkCaseVar.RecordType.DeveloperName);
-
-			// this.updatedCaseInvestigationIds = new Set<Id>();
-			// this.stillUnderCaseInvestigationIds = new Set<Id>();
-			// this.newCaseInvestigationIds = new Set<Id>();
-			// this.caseInvestigations = new List<CaseInvestigation__c>();
-			
 		}
 		public MyNetworkCasesWrapper(){
-			// this.updatedCaseInvestigationIds = new Set<Id>();
-			// this.stillUnderCaseInvestigationIds = new Set<Id>();
-			// this.newCaseInvestigationIds = new Set<Id>();
-			// this.caseInvestigations = new List<CaseInvestigation__c>();
 		}
 
-		// public void addCaseInvestigationToUpdateSet(Id cInvestigationId){
-		// 	this.updatedCaseInvestigationIds.add(cInvestigationId);
-		// }
-		// public void addCaseInvestigationToStillUnderInvestigationSet(Id cInvestigationId){
-		// 	this.stillUnderCaseInvestigationIds.add(cInvestigationId);
-		// }
-		// public void addCaseInvestigationToNewSet(Id cInvestigationId){
-		// 	this.newCaseInvestigationIds.add(cInvestigationId);
-		// }
-		// public void addCaseInvestigationsToList(CaseInvestigation__c caseInvestigationRec) {
-		// 	this.caseInvestigations.add(caseInvestigationRec);
-		// }
 		public void addCaseInvestigation(CaseInvestigation__c caseInvestigationRec) {
 			this.caseInvestigation = caseInvestigationRec;
 		}
