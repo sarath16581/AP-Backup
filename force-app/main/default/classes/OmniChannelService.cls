@@ -54,7 +54,9 @@ public inherited sharing class OmniChannelService {
 			casesToUpdate.add(new Case(
 				Id = psr.WorkitemId, 
 				BypassPreferredAgent__c = true,
-				AllocateToQueue__c  = true
+				AllocateToQueue__c  = true,
+				Bypass_Data_enforcement__c  = true,
+				Email_Bypass_Data_enforcement__c = true
 			));
 		}
 
