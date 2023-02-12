@@ -22,14 +22,25 @@
 
 public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.Module  {
 
-	private static Set<Id> allValidRecordTypes{
+	private static Set<Id> allSSSWOrStartrackRecordTypes{
 		get {
-			if(allValidRecordTypes == null){
-				allValidRecordTypes = new Set<Id>();
-				allValidRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet());
-				allValidRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'StarTrack').keySet());
+			if(allSSSWOrStartrackRecordTypes == null){
+				allSSSWOrStartrackRecordTypes = new Set<Id>();
+				allSSSWOrStartrackRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet());
+				allSSSWOrStartrackRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'StarTrack').keySet());
 			}
-			return allValidRecordTypes;
+			return allSSSWOrStartrackRecordTypes;
+		}
+		private set;
+	}
+
+	private static Set<Id> allSSSWRecordTypes{
+		get {
+			if(allSSSWRecordTypes == null){
+				allSSSWRecordTypes = new Set<Id>();
+				allSSSWRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet());
+			}
+			return allSSSWRecordTypes;
 		}
 		private set;
 	}
@@ -55,8 +66,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			List<Case> ssswOrStartrackCasesOnly = filterToApplicableCases((List<Case>) records);
-			setOmniRoutingSecondaryPriority(ssswOrStartrackCasesOnly, null, uow);
+			setOmniRoutingSecondaryPriority(filterToSSSWOrStartrackCases((List<Case>) records), null, uow);
 			
 		} catch(Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, CaseOmniRoutingModule.class.getName(), 'onBeforeInsert', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
@@ -65,12 +75,12 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			List<Case> ssswOrStartrackCasesOnly = filterToApplicableCases((List<Case>) records);
-			setOmniRoutingSecondaryPriority(ssswOrStartrackCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			setOmniRoutingSecondaryPriority(filterToSSSWOrStartrackCases((List<Case>) records), (Map<Id, Case>)existingRecords, uow);
 
-			clearPreferredAgentPSRs(ssswOrStartrackCasesOnly, (Map<Id, Case>)existingRecords, uow);
-			assignToPreferredAgent(ssswOrStartrackCasesOnly, (Map<Id, Case>)existingRecords, uow);
-			resetBypassPreferredAgentFlag(ssswOrStartrackCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			List<Case> ssswCasesOnly = filterToSSSWCases((List<Case>) records);
+			clearPreferredAgentPSRs(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			assignToPreferredAgent(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			resetBypassPreferredAgentFlag(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
 
 		} catch(Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, CaseOmniRoutingModule.class.getName(), 'onBeforeUpdate', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
@@ -122,10 +132,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 			// we only want to do that if it hasn't already been pushed.
 			// if it has been pushed then it's too late for us to do anything about and we need to let Omni do it's thing
 			for(PendingServiceRouting psrRecord : psrRecords) {
-				if(psrRecord.IsPushed == false
-					&& psrRecord.IsPushAttempted == false) {
-						deletablePsrRecords.add(psrRecord);
-					}
+				deletablePsrRecords.add(psrRecord);
 			} 
 
 			// remove all existing psr records for the work items here since we are creating new ones
@@ -208,7 +215,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 								IsReadyForRouting = true,
 								RoutingType = 'SkillsBased', 
 								ServiceChannelId = sc.Id,
-								SecondaryRoutingPriority = OmniChannelService.priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
+								SecondaryRoutingPriority = OmniChannelService.getInstance().priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
 							));
 						}
 					}
@@ -225,11 +232,27 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 	 * This method returns a list of Case records that are related to StarTrack or SSSW
 	 * @param caseRecords the list of Cases to filter
 	 */
-	private List<Case> filterToApplicableCases(List<Case> caseRecords){
+	private List<Case> filterToSSSWOrStartrackCases(List<Case> caseRecords){
 		List<Case> filteredCases = new List<Case>();		
 		
 		for (Case c : caseRecords) {
-			if(allValidRecordTypes.contains(c.RecordTypeId)){
+			if(allSSSWOrStartrackRecordTypes.contains(c.RecordTypeId)){
+				filteredCases.add(c);		
+			}				
+		}
+
+		return filteredCases;
+	}
+
+	/*
+	 * This method returns a list of Case records that are related to StarTrack or SSSW
+	 * @param caseRecords the list of Cases to filter
+	 */
+	private List<Case> filterToSSSWCases(List<Case> caseRecords){
+		List<Case> filteredCases = new List<Case>();		
+		
+		for (Case c : caseRecords) {
+			if(allSSSWRecordTypes.contains(c.RecordTypeId)){
 				filteredCases.add(c);		
 			}				
 		}
