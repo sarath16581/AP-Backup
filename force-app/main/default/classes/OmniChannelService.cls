@@ -64,19 +64,6 @@ public inherited sharing class OmniChannelService {
 		return casesToUpdate;
 	}
 
-	public List<Case> rerouteCasesWithPreferredAgentByPass(List<PendingServiceRouting> psrs) {
-		List<Case> casesToUpdate = new List<Case>();
-		for(PendingServiceRouting psr: psrs) {
-			casesToUpdate.add(new Case(
-				Id = psr.WorkitemId, 
-				BypassPreferredAgent__c = true,
-				AllocateToQueue__c  = true
-			));
-		}
-
-		return casesToUpdate;
-	}
-
 	public final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
 		'Critical' => 1000,
 		'Urgent' => 1000,
