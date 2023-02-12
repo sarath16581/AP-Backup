@@ -194,12 +194,12 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 
 				// apply article field id value to the case where possible
 				// this is where a record has a ReferenceID__c. (The existence of Article__c is irrelevant since ReferenceID__c always takes priority)
-				populateCaseArticleIds(caseInvestigationsToLinkArticlesTo, articles, m_trackingReferenceIdMappingsCache);
+				populateCaseInvestigationArticleIds(caseInvestigationsToLinkArticlesTo, articles, m_trackingReferenceIdMappingsCache);
 
 				// apply a reference id to case investigations that require it
 				// the is where Article__c has a value and there is no ReferenceID__c
 				// m_trackingArticleIdMappingsCache was populated in selectArticles calls
-				populateCaseReferences(caseInvestigationsToLinkReferencesTo, m_trackingArticleIdMappingsCache);
+				populateCaseInvestigationReferences(caseInvestigationsToLinkReferencesTo, m_trackingArticleIdMappingsCache);
 
 			}
 		} catch(Exception ex) {
@@ -212,7 +212,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. 
 	 * If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers.
 	 */
-	public List<CaseInvestigation__c> populateCaseArticleIds(List<CaseInvestigation__c> caseInvestigations, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
+	public List<CaseInvestigation__c> populateCaseInvestigationArticleIds(List<CaseInvestigation__c> caseInvestigations, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
 
 		List<CaseInvestigation__c> updateable = new List<CaseInvestigation__c>();
 		for(CaseInvestigation__c c : caseInvestigations) {
@@ -244,7 +244,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 * Where an article id was provided but a reference id was not, loop through and set the reference id
 	 * given the article field is populated it means it will always exist in our selector so we can reliably retrieve the corresponding reference id to attach to the case
 	 */
-	private void populateCaseReferences(List<CaseInvestigation__c> caseInvestigations, Map<Id, String> existingArticleIdMappings) {
+	private void populateCaseInvestigationReferences(List<CaseInvestigation__c> caseInvestigations, Map<Id, String> existingArticleIdMappings) {
 
 		for(CaseInvestigation__c c : caseInvestigations) {
 			// cache was populated in selectAndCacheArticles method call above
@@ -256,6 +256,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 * Select articles based on reference id. Mappings of these articles will be cache across the transaction to verify a reference id links to an article in subsequent trigger calls
 	 */
 	public Map<Id, Article__c> selectArticles(Set<String> processableReferenceIds) {
+
 		Map<Id, Article__c> articles = new Map<Id, Article__c>(ArticlesSelector.newInstance().selectByTracking(processableReferenceIds, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_RECORDTYPE}, false));
 
 		// store a cache of the articles so it can be used
@@ -351,7 +352,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 		caseInvestigationIds.removeAll(m_enqueuedCaseInvestigationIds);
 		if(!caseInvestigationIds.isEmpty()) {
 			m_enqueuedCaseInvestigationIds.addAll(caseInvestigationIds);
-			
+
 			// TODO: Refactor this into a better enqueueing model
 			// enqueue the job here
 			AsyncLinkArticlesToCaseInvestigationsQueueable job = new AsyncLinkArticlesToCaseInvestigationsQueueable(caseInvestigationIds, referenceIds);
@@ -396,7 +397,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 
 					// loop through all processable caseInvestigations and apply the article field id value to the case where possible
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
-					Map<Id, CaseInvestigation__c> updateable = new Map<Id, CaseInvestigation__c>(module.populateCaseArticleIds(caseInvestigations.values(), articles, m_trackingReferenceIdMappingsCache));
+					Map<Id, CaseInvestigation__c> updateable = new Map<Id, CaseInvestigation__c>(module.populateCaseInvestigationArticleIds(caseInvestigations.values(), articles, m_trackingReferenceIdMappingsCache));
 
 					//add the updates from case investigations successfully rerouted into the case investigations with articles linked in preparation for DML
 					for(CaseInvestigation__c cs : caseInvestigations.values()){
@@ -408,8 +409,8 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 						} else {
 							updateable.put(cs.Id, cs);
 						}
-					}			
-
+					}
+					
 					if(!updateable.isEmpty()) {
 
 						List<CaseInvestigation__c> caseInvestigationsToUpdate = updateable.values();
@@ -445,7 +446,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 					}
 				}
 			} catch(Exception ex) {
-				
+				System.debug('>>>>>> Exception: ' + ex.getStackTraceString());
 				// Error Logged to Exception object for analysis
 				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, AsyncLinkArticlesToCaseInvestigationsQueueable.class.getName(), 'execute', '', LoggingLevel.ERROR);
 			} 
