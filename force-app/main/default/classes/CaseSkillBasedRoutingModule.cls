@@ -123,7 +123,15 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 			
 			Map<Id, Contact> contactsMap = new Map<Id, Contact>();
 			if(contactIds.isEmpty() == false){
-				contactsMap = ContactsSelector.newInstance().selectById(contactIds, new Set<Object>{ContactsSelector.Options.WITH_ACCOUNT});
+				Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>> {
+					Contact.SObjectType => new Set<SObjectField> {
+						Contact.Id
+					},
+					Account.SObjectType => new Set<SObjectField> {
+						Account.ServiceSLA__c
+					}
+				};
+				contactsMap = ContactsSelector.newInstance(0, fieldOverrides).selectById(contactIds, new Set<Object>{ContactsSelector.Options.WITH_ACCOUNT});
 			} 
 
 			for(Case cs : caseToProcess){

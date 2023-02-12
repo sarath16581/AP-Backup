@@ -24,7 +24,6 @@ public with sharing class OmniPreferredAgentBatch_Test {
 		MockUtility.Mocks.when(mockService.rerouteCasesWithPreferredAgentByPass((List<PendingServiceRouting>)fflib_Match.eq(psrs))).thenReturn(cases.values());
 		MockUtility.Mocks.stopStubbing();
 
-		Integer lastNDays = 2;
 		OmniPreferredAgentBatch batch = new OmniPreferredAgentBatch();
 		String expectedQuery = 'SELECT WorkItemId FROM PendingServiceRouting WHERE IsPushed = FALSE AND WorkItem.PreferredAgentExpiry__c < :now AND Workitem.OwnerId = :preferredAgentRoutingQueueId';
 		System.assertEquals(expectedQuery, batch.query, 'Ensuring if there are changes in the query it is being captured');
