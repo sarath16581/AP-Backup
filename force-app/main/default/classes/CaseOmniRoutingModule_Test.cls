@@ -7,7 +7,7 @@
  * 
  * @changelog
  * 2022-11-03	George Nguyen	Created
- * 2022-12-06 - Noel Lim		Added test method for testAssignToPreferredAgent
+ * 2022-12-06	Noel Lim		Added test method for testAssignToPreferredAgent
  * 2023-01-25	Noel Lim		Added logic to assign and test for SSSW and StarTrack recordtypes
  * 2023-02-06	Noel Lim		Added logic to test clearPreferredAgentPSRs and resetBypassPreferredAgentFlag
  */

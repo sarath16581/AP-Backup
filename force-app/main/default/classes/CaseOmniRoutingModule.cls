@@ -14,8 +14,8 @@
  * @domain Routing 
  * @changelog
  * 2022-10-30	George Nguyen	Created
- * 2022-12-06 - Noel Lim 		Added method assignToPreferredAgent
- * 2022-12-21 - George Nguyen	Added method resetBypassPreferredAgentFlag
+ * 2022-12-06	Noel Lim 		Added method assignToPreferredAgent
+ * 2022-12-21	George Nguyen	Added method resetBypassPreferredAgentFlag
  * 2023-01-25	Noel Lim		Added method filterToApplicableCase
  * 2023-02-06	Noel Lim		Added method clearPreferredAgentPSRs 
  */
