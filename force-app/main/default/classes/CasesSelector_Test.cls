@@ -177,6 +177,9 @@ public with sharing class CasesSelector_Test {
 
 		//insert CaseInvestigations
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[2].Id, null, null, false);
+		caseInvestigations[0].ReferenceID__c = '12314';
+		caseInvestigations[1].ReferenceID__c = '54345';
+		
 		insert caseInvestigations;
 
 		cases[0] = [Select Id, CaseNumber From Case Where Id = :cases[0].Id];
