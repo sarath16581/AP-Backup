@@ -91,11 +91,6 @@
         <field>Case.Actual_Network_Milestone_Violated__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Case.AgentType__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Article_Event_Codes__c</field>
@@ -104,11 +99,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Automated_Network_Assignment__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Case.BypassPreferredAgent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -161,11 +151,6 @@
         <field>Case.Originating_Network__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Case.PreferredAgentExpiry__c</field>
-        <readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.PreviousMilestoneTier__c</field>
@@ -626,11 +611,6 @@
         <field>SSSWRouting__c.Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>SSSWRouting__c.PreferredAgentExpiry__c</field>
-        <readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>SSSWRouting__c.ProductCategory__c</field>
