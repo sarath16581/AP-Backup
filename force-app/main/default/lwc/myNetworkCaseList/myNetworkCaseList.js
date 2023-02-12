@@ -257,9 +257,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         caseRecord.displayIconName = "utility:warning";
       }
       caseRecord.Case_CustomerType = data[i].myNetworkCase.Customer_Type__c;
-      caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Address2__c;
-      caseRecord.Case_addresseePostcode =
-      data[i].myNetworkCase.Address2Postcode__c;
       if (data[i].myNetworkCase.Network__r != null) {
         caseRecord.Case_networkName = data[i].myNetworkCase.Network__r.Name;
       }
@@ -289,64 +286,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
         let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
 		console.log('data[i] :');console.log(data[i]);
-        // for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++) {
-          
-		// 	caseRecord.rowNumber = (i + cInvestigationCnt) ;
 
-		//   	//setting Case.Type for wrapper variable for ST cases.
-		//   	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
-	
-		// 	//populate common fields between case investigation and case object.
-		// 	this.populateCaseData(caseRecord, data, i);
-
-		// 	//setting caseInvestigations to blank
-		// 	caseRecord.caseInvestigation = '';
-		// 	caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
-		// 	caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
-		// 	caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
-		// 	caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
-
-		// 	//As case and case investigation need to be shown under one column,
-		// 	//caseNum is populated with case number and Case Investigation Number.
-
-		// 	caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
-		// 	//caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
-		// 	caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
-		// 	caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
-		// 	caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
-
-		// 	let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
-		// 	caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
-			
-		// 	console.log('previouse css: '+caseRecord.Case_Details);
-		// 	console.log('previouse css detailCSSClass: '+caseRecord.detailCSSClass);
-			
-
-		// 	//setting New/Updated/SUI Flag on case investigation record.
-		// 	caseRecord.Case_Details = data[i].updatedCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id) ? 'UPDATED' 
-		// 								: data[i].stillUnderCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id) ? 'SUI' 
-		// 								: data[i].newCaseInvestigationIds.includes(cInvestigations[cInvestigationCnt].Id)  ? 'NEW' : caseRecord.Case_Details;
-		// 	caseRecord.detailCSSClass = data[i].updatedCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'Red' 
-		// 								: data[i].stillUnderCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'Orange' 
-		// 								: data[i].newCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 ? 'green' : caseRecord.detailCSSClass;
-			
-		// 	console.log('caseRecord.Case_Details: '+caseRecord.Case_Details+' caseRecord.detailCSSClass: '+caseRecord.detailCSSClass);
-		// 	console.log(cInvestigations[cInvestigationCnt]);
-			
-		// 	if(this.selectedListViewApiName === 'Cases_updated') {
-		// 		if(data[i].updatedCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1 
-		// 			|| data[i].stillUnderCaseInvestigationIds.indexOf(cInvestigations[cInvestigationCnt].Id) != -1
-		// 			) {
-		// 				caseRecordList.push(caseRecord);
-		// 			}
-		// 	}
-		// 	else {
-		// 		caseRecordList.push(caseRecord);
-		// 	}
-		// 	//create new instance of caseRecord to store next case investigation record wrapper.
-		// 	caseRecord = new Object();
-        // }
-		/** NEW CODE STARTED */
 			let cInvestigationRecord =  data[i].caseInvestigation;
 			caseRecord.rowNumber = i ;
 
@@ -356,6 +296,9 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			//populate common fields between case investigation and case object.
 			this.populateCaseData(caseRecord, data, i);
 
+			caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Article_Receiver_Address__c;
+			caseRecord.Case_addresseePostcode = data[i].myNetworkCase.Article_Receiver_Postcode__c;
+			
 			//setting caseInvestigations to blank
 			caseRecord.caseInvestigation = '';
 			caseRecord.caseInvestigation = cInvestigationRecord.Name;
@@ -381,12 +324,9 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			
 			//create new instance of caseRecord to store next case investigation record wrapper.
 			caseRecord = new Object();
-        
-			/** NEW CODE ENDED */
-
       }
       else {
-        this.populateCaseData(caseRecord, data, i);
+        	this.populateCaseData(caseRecord, data, i);
 
 			caseRecord.rowNumber = i;
 			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
@@ -397,7 +337,9 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord.caseNum = data[i].caseNum;
 			caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
 			caseRecord.casePriority = data[i].casePriority;
-
+			caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Address2__c;
+			caseRecord.Case_addresseePostcode = data[i].myNetworkCase.Address2Postcode__c;
+			
 
 			caseRecordList.push(caseRecord);
       }
