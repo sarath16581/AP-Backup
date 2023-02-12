@@ -3,6 +3,7 @@
 * @group Batch
 * @tag Batch
 * @tag Omni SObject
+* @domain OmniDomain
 * @description This batch is used to move the case out of the preferred agent queue if the assigned preferred agent hasn't accepted the case in the allocated timeline. 
 * @changelog
 * 2023-02-10 - George Nguyen - Created
