@@ -64,7 +64,7 @@ public inherited sharing class OmniChannelService {
 		return casesToUpdate;
 	}
 
-	public final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
+	public static final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
 		'Critical' => 1000,
 		'Urgent' => 1000,
 		'Normal' => 2000,

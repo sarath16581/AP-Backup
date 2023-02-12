@@ -118,7 +118,8 @@ public with sharing class CaseOmniRoutingModule_Test {
 	 * c) Case secondary priority not updated - incorrect recordtype
 	 * d) Case secondary priority not updated - Case is coming from an Omni queue
 	 * e) Case's preferred agent PSR deleted  - Case is being routed from the Preferred Agent holding queue
-	 * f) Case moving from a Queue to a User  - Case ByPass Preferred Agent flag is reset
+	 * f) Case moving from a Queue to a User  - Case Bypass Preferred Agent flag is reset
+	 * g) Case Bypass Preferred Agent not set - incorect record type (for SSSW cases only)
 	 * 
 	 */
 	@IsTest
@@ -142,7 +143,7 @@ public with sharing class CaseOmniRoutingModule_Test {
 		List<User> agents = ApplicationTestDataFactory.getUsers(1, true);
 
 		//Cases
-		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(7, true);
 		cases[0].OwnerId = UserInfo.getUserId(); // invalid case - not going to an Omni queue
 		cases[0].Priority = 'Low';
 
@@ -160,6 +161,9 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		cases[5].OwnerId = agents[0].Id; //clear preferred Agent PSRs
 		cases[5].BypassPreferredAgent__c = true; //reset Bypass Preferred Agent
+
+		cases[6].OwnerId = agents[0].Id; 
+		cases[6].BypassPreferredAgent__c = true; // invalid case - incorrect recordtype
 
 
 		List<Case> oldCases = cases.deepClone(true, false, false);
@@ -180,6 +184,8 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		oldCases[5].OwnerId = preferredAgentQueueId;
 
+		oldCases[6].OwnerId = preferredAgentQueueId;
+
 
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
 		Id recTypeId;
@@ -195,6 +201,7 @@ public with sharing class CaseOmniRoutingModule_Test {
 		if(starTrackRecordTypes.size()>0){
 			recTypeId = starTrackRecordTypes.iterator().next(); 
 			cases[3].recordTypeId = recTypeId;
+			cases[6].recordTypeId = recTypeId;
 		}
 
 		Map<Id,String> caseRecordTypes = Utility.getsObjectRecordTypeNames('Case');

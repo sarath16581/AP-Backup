@@ -215,7 +215,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 								IsReadyForRouting = true,
 								RoutingType = 'SkillsBased', 
 								ServiceChannelId = sc.Id,
-								SecondaryRoutingPriority = OmniChannelService.getInstance().priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
+								SecondaryRoutingPriority = OmniChannelService.priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
 							));
 						}
 					}
