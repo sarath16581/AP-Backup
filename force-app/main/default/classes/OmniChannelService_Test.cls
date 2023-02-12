@@ -56,6 +56,8 @@ public class OmniChannelService_Test {
 		System.assertEquals(1, actual.size(), 'Should return the case');
 		System.assertEquals(true, actual[0].BypassPreferredAgent__c, 'It should be true to bypass preferred agent logic');
 		System.assertEquals(true, actual[0].AllocateToQueue__c, 'It should be true to force the routing rules to run again');
+		System.assertEquals(true, actual[0].Bypass_Data_enforcement__c, 'It should be true to bypass validations');
+		System.assertEquals(true, actual[0].Email_Bypass_Data_enforcement__c, 'It should be true to bypass emails');
 
 		Test.stopTest();
 
