@@ -379,7 +379,7 @@ public with sharing class MyNetworkCaseListController {
 		@ return      : Query String
 	 */
 	private static string baseQueryForCasesUpdateByContactCenter(){
-		String soqlSelect = 'SELECT RecordTypeId, RecordType.DeveloperName, Id, OwnerId, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+		String soqlSelect = 'SELECT StarTrack_RecordType__c, RecordTypeId, RecordType.DeveloperName, Id, OwnerId, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
 		soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC) FROM Case WHERE ';               
 		soqlSelect  += ' Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';
 		soqlSelect  += ' AND (Root_cause__c = ' + '\'Awaiting Network Response\')';
@@ -392,7 +392,7 @@ public with sharing class MyNetworkCaseListController {
 		@ return      : Query String
 	 */
 	private static String baseQueryForMyNetworkCases(){       
-		String soqlSelect = 'SELECT RecordTypeId,  RecordType.DeveloperName, Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+		String soqlSelect = 'SELECT StarTrack_RecordType__c, RecordTypeId,  RecordType.DeveloperName, Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
 		soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC) '
 					+' FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
 		//soqlSelect  += ' AND type IN (\'Investigation\', \'Feedback\') ';
