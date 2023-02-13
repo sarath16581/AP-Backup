@@ -37,6 +37,11 @@ import RECEIVER_ADDRESS_FIELD from '@salesforce/schema/Case.Address4__c';
 import CREATED_BY_FIELD from '@salesforce/schema/Case.CreatedById';
 import VALUE_OF_GOODS_FIELD from '@salesforce/schema/Case.Value_of_Goods__c';
 import ENQUIRY_TYPE from '@salesforce/schema/Case.Enquiry_Type__c';
+import STARTRACK_RECEIVER_NAME_FIELD from '@salesforce/schema/Case.Article_Receiver_Name__c';
+import STARTRACK_RECEIVER_ADDRESS_FIELD from '@salesforce/schema/Case.Article_Receiver_Address__c';
+import STARTRACK_SENDER_NAME_FIELD from '@salesforce/schema/Case.Article_Sender_Name__c';
+import STARTRACK_SENDER_ADDRESS_FIELD from '@salesforce/schema/Case.Article_Sender_Address__c';
+import STARTRACK_DESCRIPTION_OF_CONTENT_FIELD from '@salesforce/schema/Case.Description_of_contents__c';
 
 /**'More Details' section fields to be shown ONLY ON CaseInvestigation's DETAIL page */
 import RELATED_CASE from '@salesforce/schema/Case.RelatedCase__c';
@@ -107,15 +112,15 @@ export default class CaseDetails extends LightningElement {
     ENQUIRY_TYPE,
     PURPOSE_FIELD,
     CONSIGNMENT_ID_FIELD,
-    RECEIVER_NAME_FIELD,
-    RECEIVER_ADDRESS_FIELD,
+    STARTRACK_RECEIVER_NAME_FIELD,
+    STARTRACK_RECEIVER_ADDRESS_FIELD,
     CASE_ORIGINATOR,
-    SENDERNAME_FIELD,
-    SENDERADDRESS_FIELD,
+    STARTRACK_SENDER_NAME_FIELD,
+    STARTRACK_SENDER_ADDRESS_FIELD,
     CREATED_BY_FIELD,
     LASTMODIFIEDDATE_FIELD,
     LASTMODIFIEDBY_FIELD,
-    DESCRIPTION_CONTENT,
+    STARTRACK_DESCRIPTION_OF_CONTENT_FIELD,
     VALUE_OF_GOODS_FIELD
   ];
 
