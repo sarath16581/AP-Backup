@@ -85,13 +85,17 @@ public inherited sharing class OmniChannelService {
 		1000 => 850
 	};
 
+	public Integer calculateSecondaryPriority(String priority, Datetime aDate) {
+		Integer rangeStart = priorityMappingToSecondaryPriorityRange.get(priority);
+		Integer rangeToSet = rangeStart - aDate.date().daysBetween(Datetime.now().date());
+		return Math.max(rangeToSet, secondaryPriorityRanges.get(rangeStart));
+	}
+
 	public void setOmniRoutingSecondaryPriority(List<PendingServiceRouting> psrs) {
 		if(psrs.isEmpty() == false) {
 			for(PendingServiceRouting psr: psrs) {
 				if(String.isBlank(psr.WorkItem.Priority) == false) {
-					Integer rangeStart = priorityMappingToSecondaryPriorityRange.get(psr.WorkItem.Priority);
-					Integer rangeToSet = rangeStart - psr.WorkItem.CreatedDate.date().daysBetween(Datetime.now().date());
-					psr.SecondaryRoutingPriority = Math.max(rangeToSet, secondaryPriorityRanges.get(rangeStart));
+					psr.SecondaryRoutingPriority = calculateSecondaryPriority(psr.WorkItem.Priority, psr.WorkItem.CreatedDate);
 				}
 			}	
 		}
