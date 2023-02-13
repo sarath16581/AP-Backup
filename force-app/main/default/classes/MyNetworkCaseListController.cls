@@ -1454,6 +1454,11 @@ public with sharing class MyNetworkCaseListController {
 			colorMapVar = cInv.Stillunderinvestigation__c ? 'orange' : 'Red';
 			textMapVar =  cInv.Stillunderinvestigation__c ? 'Case is under investigation' : 'Case has been updated';
 		}
+		else if(cInv != null && cInv.Stillunderinvestigation__c) {
+			iconMapVar =  'SUI' ;
+			colorMapVar = 'orange';
+			textMapVar =  'Case is under investigation';
+		}
 		//check st case condition
 		else if( cse.Last_Status_Change__c != null && cse.Last_Status_Change__c >= System.today() - 5) {
 			//mark case as updated 
