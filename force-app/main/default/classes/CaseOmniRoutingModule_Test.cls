@@ -295,7 +295,6 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);	
-		Map<Id, Case> allCases = new Map<Id, Case>(cases);
 
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
 		if(ssswRecTypes.size()>0){
@@ -353,7 +352,6 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		OmniChannelService mockOmniChannelService = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
-		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();

@@ -85,12 +85,20 @@ public inherited sharing class OmniChannelService {
 		1000 => 850
 	};
 
+	/*
+	* this method calculates the secondary priority value by checking on the diff between the created date and now. 
+	* it takes the max between the calculated date and the lower end of the range (omni works by lowest to highest)
+	*/
 	public Integer calculateSecondaryPriority(String priority, Datetime aDate) {
 		Integer rangeStart = priorityMappingToSecondaryPriorityRange.get(priority);
 		Integer rangeToSet = rangeStart - aDate.date().daysBetween(Datetime.now().date());
 		return Math.max(rangeToSet, secondaryPriorityRanges.get(rangeStart));
 	}
 
+	/*
+	* This method sets the SecondaryRoutingPriority to a calculated value if the Case's priority is set. 
+	* The SecondaryRoutingPriority is being used by Omni to prioritise the case assignment to agents. 
+	*/
 	public void setOmniRoutingSecondaryPriority(List<PendingServiceRouting> psrs) {
 		if(psrs.isEmpty() == false) {
 			for(PendingServiceRouting psr: psrs) {
@@ -101,6 +109,12 @@ public inherited sharing class OmniChannelService {
 		}
 	}
 
+	/*
+	* This method sets the OmniRoutingSecondaryPriority__c on the case. This field is configured in the Omni routing and it is monitored by Omni. 
+	* Whenever this field changes and there is a PSR that is open, Omni will update those PRS > SecondaryRoutingPriority to this value. 
+	* If a priority is not defined in the priority mapping then it is set to a default value
+	* Or else if the setHighestValueOfRange = true it will bypass the calculation and will set it to the highest value from the priority mapping (which is lowest priorty for Omni for that group)
+	*/
 	public void setOmniRoutingSecondaryPriority(List<Case> cases, Boolean setHighestValueOfRange) {
 		if(cases.isEmpty() == false) {
 			for(Case c: cases) {
