@@ -112,7 +112,7 @@
 		System.assertEquals(1, resultsInvestigationsByCases.size(), 'Expected result size of 1');
 
 		CaseInvestigationsSelector selectorQueryLocator = CaseInvestigationsSelector.newInstance();
-		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now());
+		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Object>());
 		System.assertNotEquals(null, ciQueryLocator, 'Expected a valid query locator but got null');
 
 		Test.stopTest();
