@@ -57,7 +57,8 @@ public inherited sharing class OmniChannelService {
 				BypassPreferredAgent__c = true,
 				AllocateToQueue__c  = true,
 				Bypass_Data_enforcement__c  = true,
-				Email_Bypass_Data_enforcement__c = true
+				Email_Bypass_Data_enforcement__c = true,
+				PreferredAgentExpiry__c = null
 			));
 		}
 
