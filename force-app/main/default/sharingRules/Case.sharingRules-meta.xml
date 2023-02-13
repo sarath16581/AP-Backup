@@ -418,7 +418,7 @@
         <fullName>Secure_Post_Customer_Onboarding_with_Credit_Management</fullName>
         <accessLevel>Read</accessLevel>
         <description>Give read only access of Customer Onboarding and Business Systems integration Cases to Credit management team.</description>
-        <label>Secure Post Customer Onboarding with Credit Management</label>
+        <label>Secure Post Customer Onboarding &amp; BSI with Credit Management</label>
         <sharedTo>
             <group>APT_Credit_Management_Team</group>
         </sharedTo>
@@ -577,24 +577,10 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>StarTrack_Credit_Dispute_Read_Write1</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>StarTrack Credit Dispute Read/Write1</label>
-        <sharedTo>
-            <role>StarTrack_Credit_Disputes_Manager</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Dispute Claim</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>StarTrack_Delivery_Enquiry_sharing</fullName>
+        <fullName>StarTrack_sharing</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All the delivery enquiry cases are accesible to all startrack users except the account manager support cases. Also allow all StarTrack users to read/edit each others Pickup Booking, Sales and General enquiry cases.</description>
-        <label>StarTrack Delivery Enquiry sharing</label>
+        <label>StarTrack case sharing</label>
         <sharedTo>
             <group>All_StarTrack_Users</group>
         </sharedTo>
