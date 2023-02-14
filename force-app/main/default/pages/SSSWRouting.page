@@ -212,6 +212,10 @@
                         <apex:outputlabel value="Has Extra Cover?"/>
                         <apex:inputfield value="{!selRouting.HasExtraCover__c}"/>
                     </apex:pageBlockSectionitem>
+					<apex:pageBlockSectionitem >
+                        <apex:outputlabel value="Preferred Agent Expiry (in hours)"/>
+                        <apex:inputfield value="{!selRouting.PreferredAgentExpiry__c}"/>
+                    </apex:pageBlockSectionitem>
                 </apex:pageblocksection>
             </apex:outputPanel>
             <apex:pageblocksection columns="2" title="Case Settings" id="caseSettingRoute" >
