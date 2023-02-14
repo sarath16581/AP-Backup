@@ -16,7 +16,7 @@
  * 2022-10-30	George Nguyen	Created
  * 2022-12-21	George Nguyen	Added method resetBypassPreferredAgentFlag
  * 2023-01-25	Noel Lim		Added method filterToApplicableCase
- * 2023-02-06	Noel Lim		Added method clearPreferredAgentPSRs 
+ * 2023-02-06	Noel Lim		Added method deletePSRsForCasesNotInPreferredAgentQueue 
  */
 
 public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.Module  {
@@ -77,7 +77,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 			setOmniRoutingSecondaryPriority(filterToSSSWOrStartrackCases((List<Case>) records), (Map<Id, Case>)existingRecords, uow);
 
 			List<Case> ssswCasesOnly = filterToSSSWCases((List<Case>) records);
-			clearPreferredAgentPSRs(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			deletePSRsForCasesNotInPreferredAgentQueue(ssswCasesOnly, (Map<Id, Case>)existingRecords);
 			resetBypassPreferredAgentFlag(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
 
 		} catch(Exception ex) {
@@ -108,34 +108,26 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 	/*
 	 * This method clears PSRs that were manually inserted for Preferred Agent when the Case is being assigned from the Preferred Agent Routing queue
 	 */
-	private void clearPreferredAgentPSRs(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow){
+	private void deletePSRsForCasesNotInPreferredAgentQueue(List<Case> records, Map<Id, Case> existingRecords){
 
 		Id preferredAgentQueueId = OmniChannelService.getInstance().preferredAgentQueueId;
-		Map<Id,Case> casesToCheck = new Map<Id,Case>();
+		Map<Id,Case> validCases = new Map<Id,Case>();
 
 		for(Case c : records) {
 			// take only cases that have gone to an Omni Queue or have changed priority. 
 			if(existingRecords.get(c.Id).OwnerId == preferredAgentQueueId &&
 				c.OwnerId != preferredAgentQueueId){
-				casesToCheck.put(c.Id, c);
+
+				c.PreferredAgentExpiry__c = null; // blanking it out as it is no longer needed. 
+				validCases.put(c.Id, c);
 			}
 		}	
 		
-		if(casesToCheck.isEmpty() == false){
-			List<PendingServiceRouting> deletablePsrRecords = new List<PendingServiceRouting>();
-			List<PendingServiceRouting> psrRecords = PendingServiceRoutingSelector.newInstance().selectByWorkItemId(casesToCheck.keySet(), new Set<Object>());
+		if(validCases.isEmpty() == false){
+			List<PendingServiceRouting> psrRecords = PendingServiceRoutingSelector.newInstance().selectByWorkItemId(validCases.keySet(), new Set<Object>());
 
-
-			// check which psr records can actually deleted
-			// we only want to do that if it hasn't already been pushed.
-			// if it has been pushed then it's too late for us to do anything about and we need to let Omni do it's thing
-			for(PendingServiceRouting psrRecord : psrRecords) {
-				deletablePsrRecords.add(psrRecord);
-			} 
-
-			// remove all existing psr records for the work items here since we are creating new ones
-			if(!deletablePsrRecords.isEmpty()) {
-				uow.registerDeleted(deletablePsrRecords);
+			if(!psrRecords.isEmpty()) {
+				ApplicationDatabase.getInstance().dmlDelete(psrRecords);
 			}	
 		}		
 	}

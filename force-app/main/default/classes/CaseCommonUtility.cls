@@ -116,6 +116,10 @@ private static Boolean isAutoCloseEnabled = false;
 		get {
 			if(omniGroups == null) {
 				omniGroups = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
+
+				// The Preferred Agent Queue is a "simulated" Omni queue used by the Preferred Agent logic. If there is a preferred agent for the case, then a PSR is created and the case is assigned to this queue
+				// We need to include that queue here so that if the Case is Closed whilst in this queue, it should also move to the graveyard. 
+				omniGroups.put(OmniChannelService.getInstance().preferredAgentQueueId, new Group(Id = OmniChannelService.getInstance().preferredAgentQueueId));
 			}
 			return omniGroups;
 		}
@@ -703,7 +707,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 				// Check if it is SSSW record type or Social record type.
 				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
 					
-					Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case					
+					Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case		
 
 					//Move eligible Closed Cases to the SSSW Closed Omni Queue					
 					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 

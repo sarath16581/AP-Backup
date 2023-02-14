@@ -56,7 +56,8 @@ global with sharing class SSSWRoutingController {
                     SELECT  IsActive__c, Origin__c, ProductCategory__c, ProductSubCategory__c, CaseType__c, EnquirySubType__c, Network__c, DefaultCaseDetails__c,
                             AutoEscalate__c, ExcludeFromNPS__c, CustomerQueueType__c, Queue_ID__c, CaseRecordTypeId__c, High_Level_Complaint_Flag__c,
                             Customer_Recovery_Flag__c, Match_Rules_On__c, Sequence__c, Status__c, IsNew__c, RecordType.Name, NPS_criteria__c, Description__c,
-                    		LastModifiedDate, LastModifiedBy.FirstName, LastModifiedBy.LastName, IsStrategic__c, SocialPostTags__c, HasExtraCover__c
+                    		LastModifiedDate, LastModifiedBy.FirstName, LastModifiedBy.LastName, IsStrategic__c, SocialPostTags__c, HasExtraCover__c,
+							PreferredAgentExpiry__c
                     from SSSWRouting__c
                     where id = :controller.getRecord().id
                     limit 1
