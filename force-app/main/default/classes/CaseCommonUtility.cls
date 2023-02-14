@@ -702,7 +702,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 
 			//The logic below is positioned here instead of in a Domain Module to keep all logic related Case Owner in one place and in the same sequence in Apex execution
 			//Placed after the routing engine to ensure the to-be Queue is available for the logic below
-						Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
+			Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
 			for(Case csRec : caseList){
 				// Check if it is SSSW record type or Social record type.
 				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
