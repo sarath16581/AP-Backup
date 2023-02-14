@@ -1624,19 +1624,14 @@ private with sharing class CaseCommonUtility_Test {
 
 		Test.stopTest();
 
-		//TODO - when version is uplifted from v35 to a higher version, enable the below PSR and the 2 PSR related assertEquals
-		//List<PendingServiceRouting> psrs = [SELECT Id, PreferredUserId FROM PendingServiceRouting WHERE WorkItemId IN :casesMap.keySet()];
-
 		// PMD warning
 		
 		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');		
-		
 		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case with BypassPreferredAgent = true should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[3].OwnerId, 'Case with blank PreferredAgentExpiry should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[4].OwnerId, 'Case that is coming from an Omni Queue should be in new Omni Queue');
-		//System.assertEquals(1, psrs.size(), 'Only 1 PSR should have been inserted');	
-		//System.assertEquals(users[0].Id, psrs[0].PreferredUserId, 'Inserted PSR should have the correct PreferredUserId assigned');
+
 	}
 
 }
