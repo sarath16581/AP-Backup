@@ -4,6 +4,7 @@
  * @domain            : Case Investigation
  * @changelog
  * 2022-12-15 - Dattaraj Deshmukh - created
+ * 2023-02-14 - Mahesh Parvathaneni - Added method setCaseInvestigationClosureDate
  **/
 public inherited sharing class STCaseInvestigationLifecycleModule extends ApplicationDomain.Module {
 	public static STCaseInvestigationLifecycleModule newInstance() {
@@ -15,8 +16,18 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		getTriggerEvents().enableAfterInsert();
 	}
 
+	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		//set the case investigation closure date 
+		setCaseInvestigationClosureDate((List<CaseInvestigation__c>) records, null, uow);
+	}
+
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		updateCaseStatus((List<CaseInvestigation__c>) records, uow);
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		//set the case investigation closure date 
+		setCaseInvestigationClosureDate((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
 	}
 
 
@@ -69,6 +80,19 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		//update cases.
 		if(!casesToUpdate.isEmpty()) {
 			uow.registerDirty(casesToUpdate);
+		}
+	}
+
+	//this method set the case investigation closure date time field on case investigation records
+	private void setCaseInvestigationClosureDate(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
+		for(CaseInvestigation__c ci : records) {
+			if (!ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+				//if case investigation is not in any of the closed statuses, reset the case investigation closure date
+				ci.CaseInvestigationClosureDate__c = null;
+			} else if(ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+				//if case investigation is in any of the closed statuses, set the case investigation closure date to now
+				ci.CaseInvestigationClosureDate__c = System.now();
+			}
 		}
 	}
 
