@@ -9,7 +9,7 @@
  * 2022-11-03	George Nguyen	Created
  * 2022-12-06	Noel Lim		Added test method for testAssignToPreferredAgent
  * 2023-01-25	Noel Lim		Added logic to assign and test for SSSW and StarTrack recordtypes
- * 2023-02-06	Noel Lim		Added logic to test clearPreferredAgentPSRs and resetBypassPreferredAgentFlag
+ * 2023-02-06	Noel Lim		Added logic to test deletePSRsForCasesNotInPreferredAgentQueue  and resetBypassPreferredAgentFlag
  */
 
 @IsTest
@@ -124,8 +124,6 @@ public with sharing class CaseOmniRoutingModule_Test {
 	 */
 	@IsTest
 	static void onBeforeUpdate() {
-		ApplicationUnitOfWork uow = MockUtility.mockUnitOfWork();
-
 		//Omni queue
 		Group omniQueue = ApplicationTestDataFactory.getGroups(1, true)[0];
 		QueueRoutingConfig routingConfig = new QueueRoutingConfig();
@@ -225,6 +223,7 @@ public with sharing class CaseOmniRoutingModule_Test {
 		GroupsSelector grSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);
 		PendingServiceRoutingSelector pendingServiceRoutingSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
 
@@ -245,15 +244,14 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		Test.startTest();
 
-		CaseOmniRoutingModule.newInstance().onBeforeUpdate(cases, new Map<Id, Case>(oldCases), uow);
+		CaseOmniRoutingModule.newInstance().onBeforeUpdate(cases, new Map<Id, Case>(oldCases), mockUow);
 
 		((OmniChannelService)MockUtility.Mocks.verify(service, MockUtility.Mocks.times(1))).setOmniRoutingSecondaryPriority(
 																								(List<Case>)fflib_Match.eq(new List<Case> { cases[1], cases[2], cases[3] }), 
 																								(Boolean)fflib_Match.eq(false)
 																							);
 		
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1)))
-																							.registerDeleted((List<PendingServiceRouting>)fflib_Match.eq(psrs));
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlDelete((List<PendingServiceRouting>)fflib_Match.eq(psrs));
 											
 		// PMD Warning
 		System.assert(true);
@@ -261,6 +259,7 @@ public with sharing class CaseOmniRoutingModule_Test {
 		Test.stopTest();
 
 		System.assertEquals(false, cases[5].BypassPreferredAgent__c, 'BypassPreferredAgent field should have been reset');
+		System.assertEquals(null, cases[5].PreferredAgentExpiry__c, 'PreferredAgentExpiry__c field should have be blank');
 	}
 
 
