@@ -700,9 +700,9 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 			}
 
 
-			//The code below is positioned here and not in a Domain Module because it updates the Case OwnerId
-			//By placing the code closeby to when SSSW_Routing.assignCasesAndDescription() is called, all SSSW logic related to setting the Case Owner is in the same area and sequence in Apex Trigger execution
-			Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
+			//The logic below is positioned here instead of in a Domain Module to keep all logic related Case Owner in one place and in the same sequence in Apex execution
+			//Placed after the routing engine to ensure the to-be Queue is available for the logic below
+						Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
 			for(Case csRec : caseList){
 				// Check if it is SSSW record type or Social record type.
 				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
@@ -717,14 +717,12 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					){	
 						csRec.OwnerId = omniClosedCaseQueueId; 
 					}
-					//This method manually generates a PendingServiceRouting record to route a Case directly to an agent.
-	 				//It is done for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue), and the Case has an AgentWork that is accepted and an active User.
-	 				//Cases are moved to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.pply Preferred Agent logic to the Case
+					//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 					else if(oldCase != null 
 						&& csRec.OwnerId != oldCase.OwnerId
-						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true // omni queue check						
+						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 					
 						&& csRec.BypassPreferredAgent__c == false 
-						&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue. This is set by the routing engine 						
+						&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue				
 						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue						
 						&& String.isEmpty(preferredAgentQueueId) == false ) {
 
@@ -1101,9 +1099,8 @@ public static void markRenewedCasesToRoute(List<Case> newCases, Map<Id,Case> old
 
 /*
 * Generate a PendingServiceRouting record with the PreferredUserId value set to a previous User, based on the Case's existing AgentWork records.
-* It is done for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue)
 * The Case's AgentWork record must have been accepted and have an active User as a final criteria before PSRs are generated
-* Cases are assigned to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.pply Preferred Agent logic to the Case
+* Cases are assigned to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.
 */
 @TestVisible
 private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
