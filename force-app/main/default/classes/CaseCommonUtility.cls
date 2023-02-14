@@ -42,6 +42,8 @@
 	2021-09-26		Steve Judd								  Moved method for autoCaseClosure to StarTrack_Constants to allow for reuse
 	16.05.2022		SaiSwetha Pingali						   Removed snapIt logic as it is no longer required.
 	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+	2023-02-13		Noel Lim									Add logic for Preferred Agent routing in routeCase(), and new method processPreferredAgent()
+
 
 	************************************************/
 	public with sharing class CaseCommonUtility{
@@ -96,6 +98,16 @@ private static Boolean isAutoCloseEnabled = false;
 				omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
 			}
 			return omniClosedCaseQueueId;
+		}
+		private set;
+	}
+
+	static String preferredAgentQueueId {
+		get {
+			if(preferredAgentQueueId == null) {
+				preferredAgentQueueId = OmniChannelService.getInstance().preferredAgentQueueId;
+			}
+			return preferredAgentQueueId;
 		}
 		private set;
 	}
@@ -683,20 +695,42 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 				SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
 			}
 
+
+			//The code below is positioned here and not in a Domain Module because it updates the Case OwnerId
+			//By placing the code closeby to when SSSW_Routing.assignCasesAndDescription() is called, all SSSW logic related to setting the Case Owner is in the same area and sequence in Apex Trigger execution
+			Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
 			for(Case csRec : caseList){
 				// Check if it is SSSW record type or Social record type.
 				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
 					
 					Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case					
 
+					//Move eligible Closed Cases to the SSSW Closed Omni Queue					
 					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
 						&& String.isEmpty(omniClosedCaseQueueId) == false 
 						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
 						&& omniGroups.containsKey(csRec.OwnerId) 			
 					){	
-						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
+						csRec.OwnerId = omniClosedCaseQueueId; 
+					}
+					//This method manually generates a PendingServiceRouting record to route a Case directly to an agent.
+	 				//It is done for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue), and the Case has an AgentWork that is accepted and an active User.
+	 				//Cases are moved to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.pply Preferred Agent logic to the Case
+					else if(oldCase != null 
+						&& csRec.OwnerId != oldCase.OwnerId
+						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true // omni queue check						
+						&& csRec.BypassPreferredAgent__c == false 
+						&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue. This is set by the routing engine 						
+						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue						
+						&& String.isEmpty(preferredAgentQueueId) == false ) {
+
+							casesPreferredAgentRouting.put(csRec.Id, csRec);
 					}
 				}
+			}
+
+			if(casesPreferredAgentRouting.isEmpty() == false) {
+				processPreferredAgent(casesPreferredAgentRouting);
 			}
 
 			
@@ -1057,6 +1091,56 @@ public static void markRenewedCasesToRoute(List<Case> newCases, Map<Id,Case> old
 			){
 
 			newCase.AllocateToQueue__c = true; // Flag to re-route cases again
+		}
+	}
+}
+
+/*
+* Generate a PendingServiceRouting record with the PreferredUserId value set to a previous User, based on the Case's existing AgentWork records.
+* It is done for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue)
+* The Case's AgentWork record must have been accepted and have an active User as a final criteria before PSRs are generated
+* Cases are assigned to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.pply Preferred Agent logic to the Case
+*/
+@TestVisible
+private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
+
+	//Only some new 
+	Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(casesPreferredAgentRouting.keySet());
+
+	if(caseIdsVsAgentWorks.isEmpty() == false) {
+
+		ServiceChannel sc = OmniChannelService.Cache.serviceChannels.get('Case_Channel');
+		List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();	
+
+		for(Case csRec : casesPreferredAgentRouting.values()) {
+			if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true) {
+				
+				//use the routing configuration of the Omni queue the Case was being routed to
+				QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
+				
+				csRec.OwnerId = preferredAgentQueueId;
+
+				//PushTimeout cannot be set when IsPreferredUserRequired is set
+				newPSRs.add(new PendingServiceRouting(
+					PreferredUserId = caseIdsVsAgentWorks.get(csRec.Id).UserId,
+					IsPreferredUserRequired = true,
+					CapacityPercentage = routingConfiguration.CapacityPercentage, 
+					CapacityWeight = routingConfiguration.CapacityWeight, 
+					DropAdditionalSkillsTimeout = routingConfiguration.DropAdditionalSkillsTimeout,
+					RoutingModel = routingConfiguration.RoutingModel, 
+					RoutingPriority = routingConfiguration.RoutingPriority, 
+					CustomRequestedDateTime = csRec.CreatedDate, 
+					WorkItemId = csRec.Id,
+					IsReadyForRouting = true,
+					RoutingType = 'SkillsBased', 
+					ServiceChannelId = sc.Id,
+					SecondaryRoutingPriority = OmniChannelService.getInstance().calculateSecondaryPriority(csRec.Priority, csRec.CreatedDate) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
+				));
+			}
+		}
+
+		if(newPSRs.isEmpty() == false) {
+			ApplicationDatabase.getInstance().dmlInsert(newPSRs);
 		}
 	}
 }
