@@ -7,7 +7,8 @@
  * @description Javascript controller for creditAssessmentDetailsClosedOpp
  * @changelog
  * 2023-01-30 - Harry Wang - Created
- */import {LightningElement, api, wire, track} from 'lwc';
+ */
+import {LightningElement, api, wire, track} from 'lwc';
 import getDatatableColumns from '@salesforce/apex/CreditAssessmentController.retrieveDatatableColumns';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 

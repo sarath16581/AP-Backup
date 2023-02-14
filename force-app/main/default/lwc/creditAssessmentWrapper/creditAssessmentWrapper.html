@@ -6,4 +6,8 @@
     <template if:true={showCAClosedOpp}>
         <c-credit-assessment-details-closed-opp credit-assessments={creditAssessments}></c-credit-assessment-details-closed-opp>
     </template>
+
+    <template if:true={showProposal}>
+        <c-credit-assessment-details-primary proposal-id={primaryProposalId}></c-credit-assessment-details-primary>
+    </template>
 </template>
