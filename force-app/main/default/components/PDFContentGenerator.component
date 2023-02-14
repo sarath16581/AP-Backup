@@ -12,11 +12,36 @@ History:
 15/03/2021 - Naveen Rajanna -REQ2408232 Add page break at the end of each Case details when bulk cases (more than 1 case) so drivers information doesn't overlap upon duplex print
 21/05/2021 - Talib Raza - INC1788397 Add condition to print a blank page when case is not attached to an article. Adding var="casen" for keeping the count.
 23/06/2021 - Ranjeewa Silva - Added a new section for event message attachments (excluding safe drop image)
---->
+-->
 <apex:component >
     <apex:attribute type="CasePDFContentGenerator" name="conObj" description="con object instance"/>
     <apex:variable var="casen" value="{!0}"/>
-    <apex:repeat id="caseDetails" value="{!conObj.caseList}" var="case">
+	
+	<apex:repeat id="caseIdVsCaseMap" value="{!conObj.caseIdVsCaseMap}" var="caseId">
+
+		{!caseId}
+		{!conObj.starTrackCaseToCaseInvestigationsMap[caseId]}
+		
+		<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[caseId] != null}">
+			true
+			<apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[caseId]}" var="caseInv">
+				<c:StarTrackCaseInvestigationPDFGenerator conObj="{!conObj}" casen="{!casen}" currentCaseInv="{!caseInv}" case="{!conObj.caseIdVsCaseMap[caseId]}"/>
+			</apex:repeat>
+			
+			CI RECORDS END
+		</apex:outputPanel>
+	</apex:repeat>
+	<apex:repeat id="caseDetails" value="{!conObj.caseList}" var="case">
+		<!-- {!case.Id}
+		{!conObj.starTrackCaseToCaseInvestigationsMap[case.Id]}
+		
+		<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[case.Id] != null}">
+			true
+			<apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[case.Id]}" var="caseInv">
+				<c:StarTrackCaseInvestigationPDFGenerator conObj="{!conObj}" casen="{!casen}" currentCaseInv="{!caseInv}"/>
+			</apex:repeat>
+			
+		</apex:outputPanel> -->
         <div id="coverletter" style="page-break-after: always;page-break-inside: avoid;">
             <!--INC1788397-->
             <apex:variable var="casen" value="{!casen+1}"/>
@@ -25,9 +50,9 @@ History:
                 <H1>
                     Customer Commitment Investigation Form
                 </H1>
-          <br></br>
+          		<br></br>
                <H1 style="color: #DF1027;"><b><i>(Use of this cover page is optional)</i></b></H1>
-			 </div>
+			</div>
             <table id="investigation">
                 <tr>
                     <td style="width:20%; padding:15px;">DATE:</td>
@@ -38,10 +63,14 @@ History:
                     <td style="width:20%;padding:15px;">CASE:</td>
                     <td style="width:60%; align:right">{!case.CaseNumber}</td>
                 </tr>
+				<tr>
+					<td style="width:20%;padding:15px;">CASE INVESTIGATION:</td>
+					<td style="width:60%; align:right">{!case.CaseNumber}</td>
+				</tr>
                 <!--If the driver Contract is populated, populate it on the cover letter-->    
                 <apex:outputText rendered="{!case.ArticleTest__c != Null}">
                     <apex:variable var="count" value="{!1}"/> 
-                    <apex:repeat id="driver" value="{!conObj.casetoDriverContractMap}" var="event">
+                    <!-- <apex:repeat id="driver" value="{!conObj.casetoDriverContractMap}" var="event">
                         <apex:outputText rendered="{!IF(CONTAINS(event,case.ArticleTest__c),'true','false')}">
                             <apex:repeat value="{!conObj.casetoDriverContractMap[event]}" var="driverdetails">
                                 <tr>
@@ -51,7 +80,7 @@ History:
                                 <apex:variable var="count" value="{!count+1}"/> 
                             </apex:repeat>
                         </apex:outputText>
-                    </apex:repeat>
+                    </apex:repeat> -->
                     <apex:outputText rendered="{!count==1}">
                         <tr>
                             <td style="width:20%;padding:15px;">CONTRACT:</td>
@@ -60,7 +89,7 @@ History:
                     </apex:outputText>
                     <!--If the round no is populated, populate it on the cover letter-->
                     <apex:variable var="count" value="{!1}"/> 
-                    <apex:repeat id="roundNo" value="{!conObj.casetoDriverRoundMap}" var="event">
+                    <!-- <apex:repeat id="roundNo" value="{!conObj.casetoDriverRoundMap}" var="event">
                         <apex:outputText rendered="{!IF(CONTAINS(event,case.ArticleTest__c),'true','false')}">
                             <apex:repeat value="{!conObj.casetoDriverRoundMap[event]}" var="driverdetails">
                                 <tr>
@@ -70,7 +99,7 @@ History:
                                 <apex:variable var="count" value="{!count+1}"/> 
                             </apex:repeat>
                         </apex:outputText>
-                    </apex:repeat>
+                    </apex:repeat> -->
                     <apex:outputText rendered="{!count==1}">
                         <tr>
                             <td style="width:20%;padding:15px;">ROUND:</td>
@@ -79,7 +108,7 @@ History:
                     </apex:outputText>
                     <!--If the username is populated, populate it on the cover letter-->
                     <apex:variable var="count" value="{!1}"/> 
-                    <apex:repeat id="username" value="{!conObj.casetoDriverLogonMap}" var="event">
+                    <!-- <apex:repeat id="username" value="{!conObj.casetoDriverLogonMap}" var="event">
                         <apex:outputText rendered="{!IF(CONTAINS(event,case.ArticleTest__c),'true','false')}">
                             <apex:repeat value="{!conObj.casetoDriverLogonMap[event]}" var="driverdetails">
                                 <tr>
@@ -89,7 +118,7 @@ History:
                                 <apex:variable var="count" value="{!count+1}"/> 
                             </apex:repeat>
                         </apex:outputText>
-                    </apex:repeat>
+                    </apex:repeat> -->
                     <apex:outputText rendered="{!count==1}">
                         <tr>
                             <td style="width:20%;padding:15px;">LOGON ID:</td>
@@ -215,11 +244,11 @@ History:
             </div>
             <div style="background: #FFFFFF;margin: 5px;padding: 5px;">
                 <h3 style="color: #DF1027;">Case</h3>
-                <apex:repeat value="{!IF(case.Type == 'Investigation',$ObjectType.Case.FieldSets.PON_Investigation,IF(case.Type == 'Feedback',$ObjectType.Case.FieldSets.PON_Investigation,$ObjectType.Case.FieldSets.PON_Investigation))}" var="f" >
+                <!-- <apex:repeat value="{!IF(case.Type == 'Investigation',$ObjectType.Case.FieldSets.PON_Investigation,IF(case.Type == 'Feedback',$ObjectType.Case.FieldSets.PON_Investigation,$ObjectType.Case.FieldSets.PON_Investigation))}" var="f" >
                     
                     <b><apex:outputText value="{!f.Label}: " /></b>
                     <apex:outputText styleClass="form-control input-sm {!f.type}" value="{!case[f]}"/><br/>
-                </apex:repeat>
+                </apex:repeat> -->
                 <table style="border-collapse: collapse;border: none;padding: 0;"><tr style="border: none;padding: 0;"><td style="border: none;width:85px;vertical-align: top;padding: 0;">
                     <b><apex:outputText value="Description: " /></b></td>
                     <td style="border: none;padding: 0;">
@@ -241,8 +270,7 @@ History:
                 <apex:outputPanel rendered="{!IF(case.ContactId != Null,'true','false')}">
                 <h3 style="color: #DF1027;">Contact</h3>
                 
-                <apex:repeat id="contactDetails" value="{!conObj.caseContactMap[case.ContactId]}" var="att">
-                    <!--<apex:repeat value="{!$ObjectType.Contact.FieldSets.ContactItemSearch}" var="f" rendered="{!IF(case.ContactDoNotDisclose__c,'false','true')}">-->
+                <!-- <apex:repeat id="contactDetails" value="{!conObj.caseContactMap[case.ContactId]}" var="att">
                     <apex:outputPanel rendered="{!IF(case.ContactDoNotDisclose__c,'false','true')}">
                         <b><apex:outputText value="First Name: " /></b>
                         <apex:outputText styleClass="form-control input-sm" value="{!att.FirstName}"/><br/>
@@ -251,13 +279,13 @@ History:
                     </apex:outputPanel>
                     
                     
-                </apex:repeat>
+                </apex:repeat> -->
                 <!-- Do not display contact if DoNotDisclose__c is true -->
                 <apex:repeat value="{!1}" rendered="{!IF(case.ContactDoNotDisclose__c,'true','false')}">
                     Cannot disclose contact
                 </apex:repeat>
                 </apex:outputPanel>
-                <apex:repeat value="{!1}" rendered="{!NOT(ISBLANK(case.NetworkComments__c)) 
+                <!-- <apex:repeat value="{!1}" rendered="{!NOT(ISBLANK(case.NetworkComments__c)) 
                                                     && (case.Network_Responses1__r == null || IF(case.Network_Responses1__r.size>0,case.Network_Responses1__r[0].to_Reassign_Network__c==null,true)
                                                     )}">
                     <h3 style="color: #DF1027;">Additional Information</h3>
@@ -268,10 +296,10 @@ History:
                             </td>
                         </tr>
                     </table>
-                </apex:repeat>
+                </apex:repeat> -->
                 <!-- Consignment and Event messages related to the article Id-->
                 <div style="page-break-inside: avoid;">
-                    <apex:outputPanel rendered="{!AND(case.ArticleTest__c != Null,case.ArticleTest__r.Recordtype.Name == 'Consignment')}">
+                    <!-- <apex:outputPanel rendered="{!AND(case.ArticleTest__c != Null,case.ArticleTest__r.Recordtype.Name == 'Consignment')}">
                         <apex:repeat id="consignmentDetails" value="{!conObj.consignmentDetailsMap[case.ArticleTest__r.Name]}" var="attCon" >
                             <c:DISEmailTemplateArticle article="{!attCon.proxyConsignment}" 
                                                        eventMessages="{!attCon.eventMessages}" 
@@ -288,9 +316,9 @@ History:
                                 <br/>
                             </apex:repeat>
                         </apex:repeat>
-                    </apex:outputPanel>
+                    </apex:outputPanel> -->
                     <!-- Article and Event messages related to the article Id-->
-                    <apex:outputPanel rendered="{!AND(case.ArticleTest__c != Null,case.ArticleTest__r.Recordtype.Name == 'Article')}"> 
+                    <!-- <apex:outputPanel rendered="{!AND(case.ArticleTest__c != Null,case.ArticleTest__r.Recordtype.Name == 'Article')}"> 
                         <apex:repeat id="articleDetails" value="{!conObj.articleDetailsMap[case.ArticleTest__r.Name]}" var="attArticle" >                      
                             <c:DISEmailTemplateArticle article="{!attArticle.proxyArticle}" articleFields="{!$ObjectType.Article__c.FieldSets.ArticleItemSearch}" 
                                                        eventMessageFields="{!$ObjectType.EventMessage__c.FieldSets.EventMessageItemSearch}"
@@ -299,17 +327,15 @@ History:
                             
                             
                         </apex:repeat> 
-                    </apex:outputPanel>
+                    </apex:outputPanel> -->
                 </div>
 
-                  <apex:outputPanel rendered="{!case.ArticleTest__c != Null}">
+                <!-- <apex:outputPanel rendered="{!case.ArticleTest__c != Null}">
                     <div style="page-break-inside: avoid;">
                         <apex:repeat value="{!conObj.casetoEventGeoMap}" var="items">
                             <apex:outputText rendered="{!IF(CONTAINS(items,case.ArticleTest__c),'true','false')}">
-                                <!--<apex:outputText rendered="{!IF(AND(conObj.casetoEventGeoMap[items].EventGeoLocation__Latitude__s != NULL,conObj.casetoEventGeoMap[items].EventGeoLocation__Longitude__s != Null),'true','false')}">-->
                                 <div style="page-break-before: always">
                                     <h3 style="color: #DF1027;padding-left:2px;text-align:center;">Addressee address location on map</h3>
-                                        <!--{!conObj.deliveredDeliveryFound[items]}, {!conObj.attemptedDeliveryFound[items]}, {!conObj.caseToDeliveredAddressMap[conObj.casetoDeliveredDelivery[items].Id+'-GTA']}, {!conObj.caseToDeliveredAddressMap[conObj.casetoAttemptedDelivery[items].Id+'-GTA']}-->
                                     <div style="padding-bottom:5px">
                                         <apex:outputLink rendered="{!conObj.attemptedDeliveryFound[items]}" target="_blank" value="{!$Label.Google_map_direction}&origin={!conObj.caseToDeliveredAddressMap[items+'-ATG']}&destination={!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Longitude__s}&travelmode=driving">Map Directions</apex:outputLink>
                                         <apex:outputLink rendered="{!AND(conObj.deliveredDeliveryFound[items], !conObj.attemptedDeliveryFound[items])}" target="_blank" value="{!$Label.Google_map_direction}&origin={!conObj.caseToDeliveredAddressMap[items+'-ATG']}&destination={!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Longitude__s}&travelmode=driving">Map Directions</apex:outputLink>
@@ -321,7 +347,6 @@ History:
                                     <apex:outputText rendered="{!IF(conObj.attemptedDeliveryFound[items],'true','false')}" >
                                     <h3 style="color: #DF1027;padding-left:2px;text-align:center;">Attempted Delivery address location on map</h3>
                                     <div style="padding-bottom:2px;"><b>Attempted Delivery address: </b> {!conObj.caseToDeliveredAddressMap[conObj.casetoAttemptedDelivery[items].Id+'-GTA']}</div>
-                                    <!--<h3 style="color: #DF1027;padding-left:2px;;text-align:center">Delivered location on map</h3>-->
                                     <div style="border-style: solid;">
                                         <img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:red|label:D|{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Longitude__s}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
                                     </div>
@@ -329,22 +354,20 @@ History:
                                     <apex:outputText rendered="{!IF(conObj.deliveredDeliveryFound[items],'true','false')}" >
                                         <h3 style="color: #DF1027;padding-left:2px;text-align:center;">Delivered Delivery address location on map</h3>
                                         <div style="padding-bottom:2px;"><b>Delivered Delivery address: </b> {!conObj.caseToDeliveredAddressMap[conObj.casetoDeliveredDelivery[items].Id+'-GTA']}</div>
-                                        <!-- <h3 style="color: #DF1027;padding-left:2px;;text-align:center">Delivered location on map</h3>-->
                                         <div style="border-style: solid;">
                                             <img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:red|label:D|{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Longitude__s}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
                                         </div>
                                     </apex:outputText>
-                                    <!--</apex:outputText>-->
                                 </div>
                             </apex:outputText>
                         </apex:repeat>
                         </div>
-                </apex:outputPanel>
+                </apex:outputPanel> -->
 
                 
                 <!--safe drop image if any-->
                 
-                <apex:outputPanel rendered="{!IF(AND(conObj.caseswithsafedropGUID != NULL,case.ArticleTest__c != Null),'true','false')}">
+                <!-- <apex:outputPanel rendered="{!IF(AND(conObj.caseswithsafedropGUID != NULL,case.ArticleTest__c != Null),'true','false')}">
                     <div style="page-break-inside: avoid;">
                         <apex:repeat id="safedrop" value="{!conObj.casetoEventMessageMap}" var="event">
                             <apex:outputText rendered="{!IF(CONTAINS(event,case.ArticleTest__c),'true','false')}">
@@ -360,11 +383,11 @@ History:
                             </apex:outputText>
                         </apex:repeat> 
                     </div>
-                </apex:outputPanel>
+                </apex:outputPanel> -->
                 
                 <!--Signature image if any-->
                 
-               <apex:outputPanel rendered="{!IF(AND(conObj.caseswithMessages != NULL,case.ArticleTest__c != Null),'true','false')}">
+               <!-- <apex:outputPanel rendered="{!IF(AND(conObj.caseswithMessages != NULL,case.ArticleTest__c != Null),'true','false')}">
                     <div style="page-break-inside: avoid;">
                         <apex:repeat id="sign" value="{!conObj.casetoEventMessageMap}" var="event">
                             <apex:outputText rendered="{!IF(CONTAINS(event,case.ArticleTest__c),'true','false')}">
@@ -384,21 +407,21 @@ History:
                             </apex:outputText>
                         </apex:repeat>
                     </div>
-                </apex:outputPanel>
+                </apex:outputPanel> -->
 
                 <!-- Event Message attachments if any-->
 
-                <apex:outputPanel rendered="{!AND(NOT(ISNULL(conObj.caseArticleToEventMessageAttachmentsMap)), NOT(ISNULL(case.ArticleTest__c)))}">
+                <!-- <apex:outputPanel rendered="{!AND(NOT(ISNULL(conObj.caseArticleToEventMessageAttachmentsMap)), NOT(ISNULL(case.ArticleTest__c)))}">
                     <div style="page-break-inside: avoid;">
                         <apex:repeat id="emattachment" value="{!conObj.caseArticleToEventMessageAttachmentsMap}" var="event">
                             <apex:outputText rendered="{!AND(CONTAINS(event,case.ArticleTest__c),NOT(ISNULL(conObj.caseArticleToEventMessageAttachmentsMap[event])))}">
                                 <h3 style="color: #DF1027;">Event Message Attachments</h3>
                                 <div style="border-style: solid;display:inline-block; padding-top: 3px; padding-bottom:3px;width:100%;text-align:center">
-                                    <apex:repeat value="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments}" var="attach">
+                                    <apex:repeat value="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments}" var="attach"> -->
                                         <!-- If more than one attachments, show 2 in each row. If only one attachment show it center aligned
                                              PDF renderer doesn't seem to support CSS pseudo classes such as :only-child . having two output
                                              panels to achieve this where only one is rendered conditionally -->
-                                        <apex:outputPanel rendered="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments.size <= 1}">
+                                        <!-- <apex:outputPanel rendered="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments.size <= 1}">
                                             <div style="width: 100%;text-align:center">
                                                 <apex:image url="/servlet/servlet.FileDownload?file={!attach.attachmentId}" style="height:200px" />
                                                 <div>{!attach.label}</div>
@@ -415,7 +438,7 @@ History:
                             </apex:outputText>
                         </apex:repeat>
                     </div>
-                </apex:outputPanel>
+                </apex:outputPanel> -->
                 
             </div>
         </div>

@@ -16,7 +16,7 @@
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS 
+		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS, WITH_OWNER_DETAILS  
 	}
 
 	public static CaseInvestigationsSelector newInstance() {
@@ -36,8 +36,8 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return new Set<SObjectField> {
 			CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
 			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name,
-			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c,
-			CaseInvestigation__c.CreatedDate
+			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.ProductCategory__c, CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c,
+			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.OwnerId
 
 		};
 	}
@@ -130,6 +130,9 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		if(selectorOptions.contains(Options.WITH_NETWORKS)) {
 			builder.addRelatedFields(NetworksSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Network__r');
 		}
+		if(selectorOptions.contains(Options.WITH_OWNER_DETAILS)) {
+			builder.addRelatedFields(UsersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Owner');
+		}		
 		return builder;
 	}
 }

@@ -57,6 +57,20 @@ public with sharing class CasePDFContentGenerator {
     public transient Map<String,Boolean> deliveredDeliveryFound {get;set;}
     public transient Map<String, ArticleEventMessageAttachments> caseArticleToEventMessageAttachmentsMap {get; set;}
 
+	//Case Investigation variables
+	public transient Map<String, StarTrackCaseInvestigations> starTrackCaseToCaseInvestigations {get;set;}
+	public String selectedRecordIds {get;set;}
+	public Set<Id> caseInvestigationIdSet {get;set;} 
+	List<CaseInvestigation__c> caseInvestigations;
+	public transient CaseDetailsWrapper caseAndCaseInvestigationWrapper {get;set;}
+	public transient Map<String, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap {get;set;}
+	public transient Map<Id, Case> caseIdVsCaseMap {get;set;}
+	public Set<Id> allCaseIds;
+	public Set<Id> caseInvestigationsArticleIds;
+	public Map<String, String> caseInvestigationFieldMap;
+	public transient Map<String,TIBCOArticleWrapper> cInvArticleDetailsMap {get; set;}
+
+
     //getter method to return caseList count
     public Integer getCaseCount(){
         return caseList.size();
@@ -64,9 +78,22 @@ public with sharing class CasePDFContentGenerator {
 
     public CasePDFContentGenerator(){
         GeneratedTime = System.Now().format('d MMMM yy hh:mm a');
-        caseIds = System.currentPageReference().getParameters().get('selectedIds'); 
-        lstCaseIds = caseIds.split(',');
+        selectedRecordIds = System.currentPageReference().getParameters().get('selectedIds'); 
+		caseInvestigationIdSet = new Set<Id>();
+		allCaseIds = new Set<Id>();
+
+        lstCaseIds = selectedRecordIds.split(',');
         setCaseIds = new Set<Id>(((Set<Id>) JSON.deserialize(JSON.serialize(lstCaseIds), Set<Id>.class)));
+
+		for(Id rId :  setCaseIds) {
+			if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+				allCaseIds.add(rId);
+			} 
+			else if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('CaseInvestigation__c')) {
+				caseInvestigationIdSet.add(rId);
+			}
+		}
+
         lstCaseReferenceIds = new List<String>();
         addresseeAddress = new Map<String, String>();
         Set<Id> setContactIds = new Set<Id>();
@@ -87,30 +114,40 @@ public with sharing class CasePDFContentGenerator {
         casetoAttemptedDelivery = new Map<String, EventMessage__c>();
         eventToArticleMap = new Map<Id, EventMessage__c>();
         caseArticleToEventMessageAttachmentsMap = new Map<String, ArticleEventMessageAttachments>();
+		starTrackCaseToCaseInvestigationsMap = new Map<String, List<CaseInvestigation__c>>();
+		caseIdVsCaseMap = new Map<Id, Case>();
+		caseInvestigationFieldMap = new Map<String, String>();
+		caseInvestigationsArticleIds = new Set<Id>();
 
         //Extract the List and the Maps before further processing
         if(!lstCaseIds.isEmpty())
         {
-//            caseList = getCase(lstCaseIds);
-//            caseList = SSSWCasesSelector.newInstance(1).selectById(new Set<String>(lstCaseIds),new Set<Object>{CasesSelector.Options.WITH_CONTACT, CasesSelector.Options.WITH_NETWORK}).values();
             Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
-            caseList = SSSWCasesSelector.newInstance(rowLimit, overrideFields).selectById(setCaseIds, new Set<Object>{CasesSelector.Options.WITH_NETWORK, SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
+            caseList = SSSWCasesSelector.newInstance(rowLimit, overrideFields).selectById(allCaseIds, new Set<Object>{CasesSelector.Options.WITH_NETWORK, SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
             System.debug('caseList--->'+caseList);
-        }
-        if(!caseList.isEmpty())
+		}
+
+		if(!caseList.isEmpty())
         {
             for(Case cs : caseList)
             {
                 //Generate contact list and article list
-                setContactIds.add(cs.ContactId);
-                if (cs.ArticleTest__c != null) {
+                if(cs.ContactId != null) { 
+					setContactIds.add(cs.ContactId);
+				}
+
+                if(cs.ArticleTest__c != null) {
                     caseArticleIds.add(cs.ArticleTest__c);
                 }
-                lstCaseReferenceIds.add(cs.ReferenceID__c);
+				if(cs.ReferenceID__c != null) {
+					lstCaseReferenceIds.add(cs.ReferenceID__c);
+				}
                 //Added below for Addressee address to get geo location
                 if(cs.ArticleTest__c!=null && String.isNotBlank(cs.Address2__c)) {
                     addresseeAddress.put(cs.ArticleTest__c, cs.Address2__c);
                 }
+
+				caseIdVsCaseMap.put(cs.Id, cs);
             }
             //Moved below out of for loop Disha
             //Get the list of event messages related to the cases
@@ -122,15 +159,19 @@ public with sharing class CasePDFContentGenerator {
         {
             caseContactMap = getContactsMap(setContactIds);
         }
-        //Get consignment map
-//        consignmentDetailsMap = getConsignmentMap(caseList);
+
         //Get  article and consignmentMapmap
         getArticleConsignmentMap(caseList);
+
         //Get delivered addresses based on geo location from AME
         if(casetoEventGeoMap.size() > 0) {
             caseToDeliveredAddressMap = getcaseToDeliveredAddressMap();
             System.debug('caseToDeliveredAddressMap--->' + caseToDeliveredAddressMap);
         }
+
+		starTrackCaseToCaseInvestigationsMap = getCaseToCaseInvestigationsMap();
+		cInvArticleDetailsMap = getCaseInvestigationArticleMap();
+
     }
     
     //Method to get the Article to Case mapping
@@ -170,34 +211,7 @@ public with sharing class CasePDFContentGenerator {
             consignmentDetailsMap = consignmentMap;
         }
     }
-    //Consolidated Consignment Map method in Article Map method
-    //Method to get the Consignment to Case mapping
-//    public Map<String,TIBCOConsignmentWrapper> getConsignmentMap(List<Case> caseList)
-//    {
-//        Map<String,TIBCOConsignmentWrapper> conMap = new Map<String,TIBCOConsignmentWrapper>();
-//        consignmentWrapperList = new List<TIBCOConsignmentWrapper>();
-//        searchResult = TIBCOArticleService.searchArticlesInSFDC(lstCaseReferenceIds);
-//        if (searchResult.trackResults.size() > 0) {
-//            for (TIBCOTrackingResultWrapper results : searchResult.trackResults)
-//            {
-//                consignmentWrapperList.add(results.consignmentDetails);
-//
-//            }
-//        }
-//        if(!consignmentWrapperList.isEmpty())
-//        {
-//            for(TIBCOConsignmentWrapper wrap:consignmentWrapperList)
-//            {
-//                if(wrap != Null)
-//                {
-//                    conMap.put(wrap.proxyConsignment.ArticleID__c,wrap);
-//                }
-//
-//            }
-//        }
-//
-//        return conMap;
-//    }
+
     
     //Method to get the event to case mapping.This map is used to get the 3 images on the print document.Safe drop, Google maps and Signature
     
@@ -215,10 +229,6 @@ public with sharing class CasePDFContentGenerator {
             }
         }
         //Event type check is necessary for all other event mappings on the UI like geo location, driver contract,driver roundNo, driver logon id and images
-//        Map<Id,EventMessage__c> casetoEventMessageMap = new Map<Id,EventMessage__c>([Select Id,DriverContract__c,RoundNo__c,UserName__c,SignatoryName__c,Safe_Drop_GUID__c,Article__r.Name,Article__r.Case__r.Address2__c,Article__r.Case__c,Article__c,EventGeoLocation__Latitude__s,EventGeoLocation__Longitude__s, EventType__c,
-//                                                                                     (SELECT Id, ParentId, Name FROM Attachments order by Createddate desc LIMIT 1)
-//                                                                                     FROM EventMessage__c
-//                                                                                     WHERE Article__c = :lstCaseArticleIds AND EventType__c IN: eventTypes order by ActualDateTime__c ]);
         Map<Id,EventMessage__c> casetoEventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, eventTypes, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.WITH_ATTACHMENT});
         for(EventMessage__c event : casetoEventMessageMap.values() )
         {
@@ -328,64 +338,6 @@ public with sharing class CasePDFContentGenerator {
         return contactMap;
     }
     
-    //Method to get the case details
-//    public List<Case> getCase( List<String> caseNos) {
-//        String query = 'SELECT ';
-//        for(String disfield : getCaseFields()) {
-//            query += disfield + ', ';
-//        }
-//        query += 'Id,ContactDoNotDisclose__c, (SELECT  to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC) FROM Case WHERE Id = :caseNos';
-//        return Database.query(query);
-//    }
-//    //Method to get the case fields, used in getCase()
-//    public static Set<String> getCaseFields() {
-//        Set<String> distinctFields = new Set<String>();
-//
-//        for(Schema.FieldSetMember fm : SObjectType.Case.FieldSets.ContactNetworkInvestigation.getFields())
-//        {
-//            distinctFields.add(fm.getFieldPath());
-//        }
-//
-//        for(Schema.FieldSetMember fm : SObjectType.Case.FieldSets.ContactNetworkFeedback.getFields())
-//        {
-//            distinctFields.add(fm.getFieldPath());
-//        }
-//
-//        for(Schema.FieldSetMember fm : SObjectType.Case.FieldSets.ContactNetworkGeneralEnquiry.getFields())
-//        {
-//            distinctFields.add(fm.getFieldPath());
-//        }
-//
-//        for(Schema.FieldSetMember fm : SObjectType.Case.FieldSets.PON_Investigation.getFields())
-//        {
-//            distinctFields.add(fm.getFieldPath());
-//        }
-//
-//
-//        distinctFields.add('CaseNumber');
-//        distinctFields.add('Type');
-//        distinctFields.add('ArticleTest__c');
-//        distinctFields.add('ArticleTest__r.Recordtype.Name');
-//        distinctFields.add('ArticleTest__r.Name');
-//        distinctFields.add('Address2DPID__c');
-//        distinctFields.add('ContactId');
-//        distinctFields.add('Network__r.Contact_Facility__c');
-//        distinctFields.add('Network__r.Name');
-//        distinctFields.add('Network__r.Fax_Number__c');
-//        distinctFields.add('NetworkComments__c');
-//        distinctFields.add('EmailThreadID__c');
-//        distinctFields.add('OwnerId');
-//        distinctFields.add('Customer_Type__c');
-//        distinctFields.add('Description');
-//        distinctFields.add('ReferenceID__c');
-//        distinctFields.add('CreatedDate');
-//        distinctFields.add('SLATargetDate__c');
-//        distinctFields.add('Type');
-//        distinctFields.add('Instructions__c');
-//
-//        return distinctFields;
-//    }
-
     //Method to get the case fields, used in getCase()
     public static Map<SObjectType, Set<SObjectField>> overrideFields {
         get {
@@ -397,7 +349,8 @@ public with sharing class CasePDFContentGenerator {
                         Case.EnquirySubType__c, Case.Address2DPID__c, Case.Instructions__c, Case.Primary_Company__c, Case.Primary_Name__c,
                         Case.Address1__c, Case.Secondary_Companry__c, Case.Network__c, Case.ArticleTest__c, Case.EmailThreadID__c,
                         Case.Secondary_Contact__c, Case.Address2__c, Case.IssuePreviouslyReported__c, Case.DatePosted__c, Case.PONUser__c,
-                        Case.NetworkTierSLA__c, Case.ContactDoNotDisclose__c, Case.NetworkComments__c, Case.SLATargetDate__c, Case.Checkbox__c
+                        Case.NetworkTierSLA__c, Case.ContactDoNotDisclose__c, Case.NetworkComments__c, Case.SLATargetDate__c, Case.Checkbox__c,
+						Case.Enquiry_Type__c
                 };
                 Set<SObjectField> networkFields = new Set<SObjectField>{
                         Network__c.Contact_Facility__c, Network__c.Name, Network__c.Fax_Number__c
@@ -406,12 +359,16 @@ public with sharing class CasePDFContentGenerator {
                         Network_Response__c.to_Reassign_Network__c
                 };
                 Set<SObjectField> articleFields = new Set<SObjectField>{
-                        Article__c.Id, Article__c.Name
+                        Article__c.Id, Article__c.Name, Article__c.ArticleLodgementDate__c
                 };
+				Set<SObjectField> userFields = new Set<SObjectField>{
+					User.Id, User.FirstName
+				};
                 overrideFields.put(Case.SObjectType, caseFields);
                 overrideFields.put(Network__c.SObjectType, networkFields);
                 overrideFields.put(Network_Response__c.SObjectType, networkResponseFields);
                 overrideFields.put(Article__c.SObjectType, articleFields);
+				overrideFields.put(User.SObjectType, userFields);
             }
             return overrideFields;
         }
@@ -539,4 +496,103 @@ public with sharing class CasePDFContentGenerator {
         }
     }
 
+	/**
+	 * StarTrack Case Investigation details 
+	 */
+	public class StarTrackCaseInvestigations{
+		public String caseInvestigationNumber {get;set;}
+		public String caseInvestigationArticleNumber {get;set;}
+		public String caseInvestigationProductCategory {get;set;}
+		public String caseInvestigationProductSubCategory {get;set;}
+		public String caseInvestigationArticleLodgementDate {get;set;}
+		public String caseInvestigationChatterFeeds {get;set;}
+		public String caseInvestigationArticleReceiverAddress {get;set;}
+		public String caseInvestigationArticleReceiverName {get;set;}
+		public String caseInvestigationArticleSignRequired {get;set;}
+		public String caseInvestigationArticleCount {get;set;}
+		public String caseInvestigationArticleWeight {get;set;}
+		public String caseInvestigationArticleSenderName {get;set;}
+		public String caseInvestigationArticleSenderCompany {get;set;}
+		public String caseInvestigationArticleProductCategory {get;set;}
+		public String caseInvestigationArticleInsurance {get;set;}
+
+		public StarTrackCaseInvestigations() {}
+		
+	}
+
+	/**
+	 * Case and CaseInvestigations Wrapper
+	 */
+	public class CaseDetailsWrapper{
+		public List<Case> caseList {get;set;}
+		public List<CaseInvestigation__c> caseInvestigationList {get;set;}
+
+		public CaseDetailsWrapper(List<Case> caseList, List<CaseInvestigation__c> caseInvestigationList ) {
+			this.caseList = caseList;
+			this.caseInvestigationList = caseInvestigationList;
+		}
+		
+	}
+
+	private Map<String, List<CaseInvestigation__c>> getCaseToCaseInvestigationsMap() {
+
+		Map<String, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap = new Map<String, List<CaseInvestigation__c>>();
+
+		if(!caseInvestigationIdSet.isEmpty()) {
+			caseInvestigations = CaseInvestigationsSelector.newInstance().selectById(caseInvestigationIdSet, 
+			new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+							CaseInvestigationsSelector.Options.WITH_NETWORKS 
+							 }).values();
+		}
+		if(caseInvestigations != null) {
+			for(CaseInvestigation__c cInv : caseInvestigations) {
+					
+				if(!starTrackCaseToCaseInvestigationsMap.containsKey(cInv.Case__c)) {
+					starTrackCaseToCaseInvestigationsMap.put(cInv.Case__c, new List<CaseInvestigation__c>{cInv});
+				}
+				else {
+					starTrackCaseToCaseInvestigationsMap.get(cInv.Case__c).add(cInv);
+				}
+
+				//added case investigation's associated article ID.
+				if(cInv.Article__c != null && cInv.Article__r.ArticleID__c != null){
+					caseInvestigationsArticleIds.add(cInv.Article__c);
+				}
+			}
+		}
+
+		return starTrackCaseToCaseInvestigationsMap;
+	}
+
+	//Method to get the Article to Case mapping
+    public Map<String,TIBCOArticleWrapper> getCaseInvestigationArticleMap() {
+		List<String> cInvArticleIds = new List<String>();
+        Map<String,TIBCOArticleWrapper> articleMap = new Map<String,TIBCOArticleWrapper>();
+        articleWrapperList = new List<TIBCOArticleWrapper>();
+        consignmentWrapperList = new List<TIBCOConsignmentWrapper>();
+
+		for(CaseInvestigation__c cInv : caseInvestigations) {
+			if(!cInvArticleIds.contains(cInv.Article__r.ArticleId__c)) {
+				cInvArticleIds.add(cInv.Article__r.ArticleId__c);
+			}
+		}
+        searchResult = TIBCOArticleService.searchArticlesInSFDC(cInvArticleIds);
+        if (searchResult.trackResults.size() > 0) {
+            for (TIBCOTrackingResultWrapper results : searchResult.trackResults)
+            {
+                articleWrapperList.add(results.articleDetails);
+
+            }
+        }
+        if(!articleWrapperList.isEmpty()) {
+            for (TIBCOArticleWrapper wrap : articleWrapperList) {
+                if (wrap != Null) {
+                    articleMap.put(wrap.proxyArticle.ArticleID__c, wrap);
+                }
+            }
+            //cInvArticleDetailsMap = articleMap;
+        }
+
+		return articleMap;
+	}
 }

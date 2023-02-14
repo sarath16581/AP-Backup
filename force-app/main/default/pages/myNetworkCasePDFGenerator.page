@@ -4,7 +4,7 @@ History:
 2020-05-12 - Hara Sahoo Created
 2021-06-22 - Ranjeewa Silva - Updated to pass event messages with attachments into 'SafeDropVisualforceComponent' to retrieve
                               event message images and generate the PDF.
---->
+-->
 <apex:page controller="MyNetworkCasePDFController" standardStylesheets="false" applyHtmlTag="false" showHeader="false" applyBodyTag="false">
 
     <html> <head>
