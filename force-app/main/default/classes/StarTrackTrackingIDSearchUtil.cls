@@ -232,9 +232,9 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         } else if((articles == null || articles.size() == 0) || StarTrack_Constants.ERR_CODE_ART_NOT_FOUND.equalsIgnoreCase(conWrap.errorCode)) {
             comments = '\n' + System.Label.STHSIDSearchCommentsNoConsignment;
             isValid = false;
-        } else if(isValidReference) {
+        } else if(!isValidReference) {
             // no articles returned
-            isValid = false;
+            return false;
         } else if(isDuplicate) {
             // duplicate consignments found
             comments = '\n' + System.Label.STHSIDSearchCommentsDuplicateConsignment;
