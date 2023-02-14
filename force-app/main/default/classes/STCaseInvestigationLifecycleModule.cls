@@ -13,7 +13,7 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 
 	// Setup which trigger events this module should respond to
 	public STCaseInvestigationLifecycleModule() {
-		getTriggerEvents().enableAfterInsert();
+		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate();
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -86,6 +86,8 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 	//this method set the case investigation closure date time field on case investigation records
 	private void setCaseInvestigationClosureDate(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
 		for(CaseInvestigation__c ci : records) {
+			System.debug('closed value==>'+ ci.IsClosed__c);
+			System.debug('existing value==>'+existingRecords.get(ci.Id).IsClosed__c);
 			if (!ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
 				//if case investigation is not in any of the closed statuses, reset the case investigation closure date
 				ci.CaseInvestigationClosureDate__c = null;
