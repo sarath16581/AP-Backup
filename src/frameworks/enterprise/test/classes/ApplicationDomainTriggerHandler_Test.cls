@@ -186,8 +186,6 @@ private class ApplicationDomainTriggerHandler_Test {
 		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnAfterInsertCalled, 'OnAfterInsert should not have been called');
 		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnBeforeUpdateCalled, 'OnBeforeUpdate should not have been called');
 		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnAfterUpdateCalled, 'OnAfterUpdate should not have been called');
-		//		System.assertEquals(1, moduleOnBeforeDeleteCalled, 'Expected only 1');
-		//		System.assertEquals(1, moduleOnAfterDeleteCalled, 'Expected only 1');
 		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnAfterUndeleteCalled, 'OnAfterUndelete should have been called');
 
 	}
