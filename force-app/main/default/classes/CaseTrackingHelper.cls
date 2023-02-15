@@ -17,6 +17,7 @@
                                                                     udpated code to capture the previous owner
                                                                     updated code to get all the time captures in AEST timezone
     11/03/2021          neha.mehta@auspost.com.au                   Created inner class CaseTrackingUpdate for INC1708377   
+	15/02/2023			dattaraj.deshmukh@auspost.com.au			Added StarTrack record type ids to track case status change.
                                                                     
 *******************************  History ************************************************/
 public with sharing class CaseTrackingHelper{
@@ -47,6 +48,10 @@ public with sharing class CaseTrackingHelper{
             validRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
             //below updated by Kalpita - to open up for social cases - 'Status Tracking MWT0002177 '
             validRecTypes.addAll(Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),'Social'));
+
+			//adding StarTrack cases record types to update Last_status_change__c field.
+			Set<String> stRecordTypeDevNames = new Set<String>(); stRecordTypeDevNames.addAll(MyNetworkConstants.STAR_TRACK_RECORD_TYPES);
+			validRecTypes.addAll(Utility.getRecordTypesAsSObjectByDevName('Case', stRecordTypeDevNames).keySet());
              
             businessHourMap = Utility.getBussinessHourMap();    // get business hours for SSSW application
             closedStatus = Utility.getCaseClosedStatus();   // set of closed case statuses
