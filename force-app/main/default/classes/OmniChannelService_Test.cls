@@ -119,9 +119,27 @@ public class OmniChannelService_Test {
 		List<SSSW_Queue_to_Agent_Type__mdt> listQAT = [SELECT QueueId__c, AgentType__c from SSSW_Queue_to_Agent_Type__mdt];
 		Map<String,String> queuesToAgentType = new Map<String,String>();
 
-		for(SSSW_Queue_to_Agent_Type__mdt qat : listQAT){
-			queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);
+		//necessary for when the Org does not have any Custom Metadata records yet. This Custom Metadata relies on QueueId so it cannot be deployed via metadata
+		if(listQAT.isEmpty()){
+			Group queueRec = ApplicationTestDataFactory.getGroups(1, true)[0];
+			Schema.DescribeFieldResult agentTypeField = Case.AgentType__c.getDescribe();
+			List<Schema.PicklistEntry> agentTypePickvals = agentTypeField.getPicklistValues();
+			String agentTypeVal;
+			for(Schema.PicklistEntry pe : agentTypePickvals){
+				if(pe.IsActive()){
+					agentTypeVal = pe.getValue();
+					break;
+				}
+			}
+
+			queuesToAgentType.put(queueRec.Id,agentTypeVal);
+			CacheManager.put('QUEUES_TO_AGENT_TYPE', new Map<String, String>{queueRec.Id => agentTypeVal});
+		} else {
+			for(SSSW_Queue_to_Agent_Type__mdt qat : listQAT){
+				queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);
+			}
 		}
+		
 		Set<String> queueIds = queuesToAgentType.keySet();
 		Id queueId = queueIds.iterator().next();
 

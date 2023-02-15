@@ -114,7 +114,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 		Map<Id,Case> validCases = new Map<Id,Case>();
 
 		for(Case c : records) {
-			// take only cases that have gone to an Omni Queue or have changed priority. 
+			// take only cases that are moving out of the Preferred Agent queue
 			if(existingRecords.get(c.Id).OwnerId == preferredAgentQueueId &&
 				c.OwnerId != preferredAgentQueueId){
 
