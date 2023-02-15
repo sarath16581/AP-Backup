@@ -308,6 +308,12 @@ public inherited sharing class MilestoneService {
 			//If new date is not within working days, get new working day
 			Datetime newDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
 			violationDatetime = Datetime.newInstance(newDatetime.year(), newDatetime.month(), newDatetime.day(), violationDatetime.hour(), violationDatetime.minute(), violationDatetime.second());
+			//edge case scenario
+			//if case investigation is created/updated after business hours, new violation date time will be after business hours
+			//so set to the start time of next business day in that case otherwise take the time from the calculated violation date time
+			if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
+				violationDatetime = Datetime.newInstance(violationDatetime.year(), violationDatetime.month(), violationDatetime.day(), newDatetime.hour(), newDatetime.minute(), newDatetime.second());
+			}
 		}
 		return violationDatetime;
 	}
