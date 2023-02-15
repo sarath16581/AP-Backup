@@ -285,7 +285,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         
 
         let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
-		console.log('data[i] :');console.log(data[i]);
 
 			let cInvestigationRecord =  data[i].caseInvestigation;
 			caseRecord.rowNumber = i ;
@@ -376,8 +375,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 		this.totalNumberOfCases = (this.totalNumberOfCases ||  this.totalNumberOfCases === 0) ? this.cases.length : this.totalNumberOfCases;
 	}
 
-	console.log('this.selectedListViewApiName: '+this.selectedListViewApiName);
-	console.log('this.totalNumberOfCases: '+this.totalNumberOfCases);
+	
     this.loadLandingPage = false;
   }
   /* This method is handler of event fired from when the case list view is changed.It takes the selected
@@ -658,7 +656,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   }
   
   handleClick(evt) {
-    console.log('this.selectedRecords',this.selectedRecords);
 	var hostname = window.location.hostname;
 
     //this.selectedRecords == null modified with length() to get message when no case is selected  
