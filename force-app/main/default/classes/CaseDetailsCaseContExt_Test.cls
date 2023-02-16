@@ -113,6 +113,7 @@ global class CaseDetailsCaseContExt_Test {
 		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
 		testCase.OwnerId = agents[0].Id;
 		testCase.Origin = 'Email';
+		testCase.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id; //required when routing engine SSSW_Routing.assignCasesAndDescription() is called
 
 		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
 		CaseDetailsCaseContExt controller = new CaseDetailsCaseContExt(sc);

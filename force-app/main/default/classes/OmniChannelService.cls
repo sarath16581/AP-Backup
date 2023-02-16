@@ -249,6 +249,8 @@ public inherited sharing class OmniChannelService {
 			CacheManager.put('ALL_SERVICE_CHANNELS', null);
 			queuesWithRoutingConfig = null;
 			CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', null);
+			queuesToAgentType = null;
+			CacheManager.put('QUEUES_TO_AGENT_TYPE', null);
 		}
 
 		public Map<String, ServiceChannel> serviceChannels {
