@@ -171,8 +171,24 @@ private class CaseSkillBasedRoutingModule_Test {
 		//OwnerIds
 		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
 		Id userId = users[0].Id;
-		Id queueWithAgentTypeId = OmniChannelService.Cache.queuesToAgentType.keySet().iterator().next();
-		String agentType = OmniChannelService.Cache.queuesToAgentType.get(queueWithAgentTypeId);
+		Id queueWithAgentTypeId;
+		String agentType;
+		
+		//necessary for when the Org does not have any Custom Metadata records yet. This Custom Metadata relies on QueueId so it cannot be deployed via metadata
+		if(OmnichannelService.Cache.QueuesToAgentType.isEmpty()){
+			
+			Group queueRec = ApplicationTestDataFactory.getGroups(1, true)[0];
+			Map<String,String> queuesToAgentType = OmniChannelTestDataFactory.getQueuesToAgentType(queueRec.Id);
+
+			queueWithAgentTypeId = queueRec.Id;
+			agentType = queuesToAgentType.get(queueRec.Id);
+			CacheManager.put('QUEUES_TO_AGENT_TYPE', queuesToAgentType);
+		} else {
+			queueWithAgentTypeId = OmniChannelService.Cache.queuesToAgentType.keySet().iterator().next();
+			agentType = OmniChannelService.Cache.queuesToAgentType.get(queueWithAgentTypeId);
+		}	
+
+		
 		
 		//Generate Cases 
 		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);	

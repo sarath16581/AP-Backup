@@ -14,7 +14,7 @@
  * 26.10.2022	Noel Lim:
  * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. This change supports the logic change in SSSW_Routing.cls where cases are moved into a holding Queue for rules that require an article
  *					b) case re-route now uses the latest case values, and cases in holding queue are the ones to be re-routed. Previously there was a specified list of cases to reroute, and the rerouting was based on original case values during the syncronous process
- *
+ * 16.02.2023	Noel Lim - added updates for Preferred Agent Expiry
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
 
@@ -675,9 +675,9 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					SSSW_Routing.assignCasesAndDescription(reroutableCases, null, false, true, true);
 
 					// the routing rules have been rerun and the newly set owner id will be added to the case
-					// NOTE: we only want the owner id and not any othe fields as they might be out of date or irrelevant
+					// NOTE: we only want certain fields such as owner id and not any othe fields as they might be out of date or irrelevant. Preferred Agent Expiry is set by the routing rule, so we also need to manually set it.
 					for (Case reroutedCase : reroutableCases) {
-						casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); 						
+						casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c, PreferredAgentExpiry__c = reroutedCase.PreferredAgentExpiry__c)); 						
 					}				
 			
 			} catch(Exception ex) {
