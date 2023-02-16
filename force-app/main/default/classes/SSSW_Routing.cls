@@ -413,7 +413,7 @@ public class SSSW_Routing {
 								// its required to avoid triggering the specific workflow rules that might reset the case owner
 								cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
 
-								processPreferredAgentExpiry(cs, oldCase, rule);
+								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
 							}
 
@@ -453,7 +453,7 @@ public class SSSW_Routing {
 								// its required to avoid triggering the specific workflow rules that might reset the case owner
 								cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
 
-								processPreferredAgentExpiry(cs, oldCase, rule);
+								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
 							}
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)
@@ -486,10 +486,15 @@ public class SSSW_Routing {
 	* There is a batch that checks for PSRs against the Case.PreferredAgentExpiry__c and it will set this field to null if it has expired. 
 	* It will then push the case through the normal routing by setting the Case.AllocateToQueue__c = true and will set the Case.PreferredAgentExpiry__c = null. 
 	* This check is required so this field is not set to a new date. 
+	*
+	* IsFinalPass flag is passed in because AsyncLinkArticlesToCasesQueueable calls assignCasesAndDescription() with oldCase as null
 	*/
 	@TestVisible
-	private static void processPreferredAgentExpiry(Case cs, Case oldCase, SSSWRouting__c rule) {
-		if(cs.PreferredAgentExpiry__c == null && oldCase != null && oldCase.PreferredAgentExpiry__c == null && rule.PreferredAgentExpiry__c != null) {
+	private static void processPreferredAgentExpiry(Case cs, Case oldCase, SSSWRouting__c rule, Boolean isFinalPass) {
+		if(cs.PreferredAgentExpiry__c == null && 
+			(isFinalPass || 
+			 oldCase != null && oldCase.PreferredAgentExpiry__c == null) && 
+			 rule.PreferredAgentExpiry__c != null) {
 			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), rule.PreferredAgentExpiry__c.longValue() * 3600000);
 		}
 	}
