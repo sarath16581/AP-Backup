@@ -76,7 +76,7 @@ private without sharing class OmniSkillsReportController_Test {
 		System.assertEquals(pendingWorkRecords.size(), output.records.size(), 'should contain the same list');
 		System.assertEquals(pendingWorkRecords.values()[0].Id, output.records[0].Id, 'should contain the same list');
 		System.assertEquals(pendingWorkRecords.values()[1].Id, output.records[1].Id, 'should contain the same list');
-		System.assertEquals(true, output.isDone, 'less then MAX_RECORDS_PER_ITERATION');
+		System.assertEquals(true, output.isDone, 'less than MAX_RECORDS_PER_ITERATION');
 		System.assertEquals(pendingWorkRecords.values()[pendingWorkRecords.size()-1].Id, output.lastId, 'should contain the last record'); 
 
 		Test.stopTest();

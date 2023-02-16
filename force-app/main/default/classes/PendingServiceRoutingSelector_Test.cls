@@ -91,7 +91,7 @@ public with sharing class PendingServiceRoutingSelector_Test {
 
 		Map<String, Object> searchParams = new Map<String, Object>{
 			'limitToCaseOnly' => true,
-			'limitToSkillWorkOnly' => true,
+			'queueIds' => new Set<Id>{'00G000000000000000', '00G000000000000001'},
 			'idGreaterThan' => '0JR000000000000',
 			'orderBy' => PendingServiceRouting.CreatedById,
 			'sortOrder' => 'Desc'
@@ -106,11 +106,10 @@ public with sharing class PendingServiceRoutingSelector_Test {
 		String soql = qb.toSoqlString();
 
 		// check the limitToCaseOnly
-		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom\\s+pendingservicerouting\\b.*?WorkItemId\\s+>\\s+\'500000000000000\'').matcher(soql).find(), 'Resulting query does not correctly query WorkItemId fields: ' + soql);
-		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom\\s+pendingservicerouting\\b.*?WorkItemId\\s+<\\s+\'501000000000000\'').matcher(soql).find(), 'Resulting query does not correctly query WorkItemId fields: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom\\s+pendingservicerouting\\b.*?ServiceChannel\\.RelatedEntity\\s+=\\s+\'Case\'').matcher(soql).find(), 'Resulting query does not correctly limit to Case only: ' + soql);
 
-		// check the limitToSkillWorkOnly
-		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom\\s+pendingservicerouting\\b.*?\\bId\\s+in\\s+\\(Select\\s+RelatedRecordId\\s+from\\s+SkillRequirement\\s*?\\)').matcher(soql).find(), 'Resulting query does not correctly limit to skills work only: ' + soql);
+		// check the queueIds
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom\\s+pendingservicerouting\\b.*?\\bQueueId\\s+in\\b').matcher(soql).find(), 'Resulting query does not correctly limit to specific queues: ' + soql);
 		
 		// check the idGreaterThan
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom\\s+pendingservicerouting\\b.*?Id\\s+>\\s+:idGreaterThan').matcher(soql).find(), 'Resulting query does not correctly query based on Id: ' + soql);
