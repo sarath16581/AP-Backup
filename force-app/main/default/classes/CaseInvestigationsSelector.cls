@@ -110,6 +110,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	public virtual QueryBuilder selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(Datetime violationDatetime, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
+            	.add(new QueryBuilder.NullCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).notNull())
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).lt(violationDatetime))
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
 				.endConditions();
