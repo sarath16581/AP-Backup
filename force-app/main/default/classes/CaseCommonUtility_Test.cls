@@ -1527,7 +1527,7 @@ private with sharing class CaseCommonUtility_Test {
 	 * 
 	 */
 	@isTest
-	static void assignToPreferredAgent(){
+	static void testAssignToPreferredAgent(){
 
 		//Queues
 		QM__c custSetting = QM__c.getOrgDefaults();
@@ -1602,7 +1602,9 @@ private with sharing class CaseCommonUtility_Test {
 		// =====================================
 
 		OmniChannelService mockOmniChannelService = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
-		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -1610,6 +1612,11 @@ private with sharing class CaseCommonUtility_Test {
 		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkWithActiveUser(
 			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id,cases[1].Id})
 		)).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+
+		MockUtility.Mocks.when(mockDatabase.dmlInsert(
+			(List<SObject>)fflib_Match.anyObject(), 
+			fflib_Match.anyBoolean()
+		)).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -1623,8 +1630,6 @@ private with sharing class CaseCommonUtility_Test {
 		helper.routeCase(cases, new Map<Id,Case>(oldCases),false);
 
 		Test.stopTest();
-
-		// PMD warning
 		
 		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');		
 		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be in Omni Queue');

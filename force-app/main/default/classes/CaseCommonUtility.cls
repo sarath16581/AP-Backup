@@ -735,8 +735,6 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 				processPreferredAgent(casesPreferredAgentRouting);
 			}
 
-			
-
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -1118,8 +1116,6 @@ private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 				
 				//use the routing configuration of the Omni queue the Case was being routed to
 				QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
-				
-				csRec.OwnerId = preferredAgentQueueId;
 
 				//PushTimeout cannot be set when IsPreferredUserRequired is set
 				newPSRs.add(new PendingServiceRouting(
@@ -1141,7 +1137,28 @@ private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 		}
 
 		if(newPSRs.isEmpty() == false) {
-			ApplicationDatabase.getInstance().dmlInsert(newPSRs);
+
+			//PSR insert may fail if there is an existing PSR already. Allow other PSRs to insert successfully
+			List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlInsert(newPSRs, false);
+			
+			if(srList.isEmpty() == false){
+				Map<Id,PendingServiceRouting> newPSRMap = new Map<Id,PendingServiceRouting>(newPSRs);
+
+				for(Integer i=0;i<srList.size();i++){
+					Database.SaveResult sr = srList.get(i);
+					if (sr.isSuccess()){
+						casesPreferredAgentRouting.get(newPSRMap.get(sr.getId()).WorkItemId).OwnerId = preferredAgentQueueId; //only move Cases to the Preferred Agent queue for PSRs successfully inserted
+					} else {
+						for (Database.Error err : sr.getErrors()) {	
+							System.debug('The following error has occurred on the DML Retry.');
+							System.debug(err.getStatusCode() + ': ' + err.getMessage());
+						}
+					}					
+				}		
+				
+				// log any failed updates to ensure we can monitor save errors (especially for checking routing failures)
+				ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, CaseCommonUtility.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
+			}			
 		}
 	}
 }
