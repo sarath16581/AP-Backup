@@ -330,7 +330,7 @@ trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before i
 
         }
 
-        if (result != APT_Constants.SUCCESS_LABEL) {
+        if (!Trigger.isDelete && result != APT_Constants.SUCCESS_LABEL) {
             for (Apttus__APTS_Agreement__c agreement : Trigger.new) {
                 agreement.addError(result);
             }
