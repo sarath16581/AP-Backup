@@ -11,6 +11,7 @@ import FIELD_NETWORK_MILESTONES_VIOLATED from '@salesforce/schema/CaseInvestigat
 import FIELD_NETWORK_MILESTONE_NEXT_VIOLATION_DATETIME from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c';
 import FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c';
 import FIELD_MILESTONE_START_DATETIME from '@salesforce/schema/CaseInvestigation__c.MilestoneTimeStartDateTime__c';
+import FIELD_NETWORK_MILESTONE_CURRENT_TIER from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneCurrentViolatedTier__c';
 
 //constants
 const OPEN_VIOLATION = 'Open Violation';
@@ -27,7 +28,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 	@wire(getRecord, {
 		recordId: '$recordId',
 		fields: [FIELD_NETWORK_MILESTONES_VIOLATED, FIELD_NETWORK_MILESTONE_NEXT_VIOLATION_DATETIME,
-			FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME, FIELD_MILESTONE_START_DATETIME
+			FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME, FIELD_MILESTONE_START_DATETIME, FIELD_NETWORK_MILESTONE_CURRENT_TIER
 		]
 	})
 	caseInvestigationWiredRecord({
@@ -50,6 +51,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 			this.caseInvestigation[FIELD_NETWORK_MILESTONE_NEXT_VIOLATION_DATETIME.fieldApiName] = getFieldValue(data, FIELD_NETWORK_MILESTONE_NEXT_VIOLATION_DATETIME);
 			this.caseInvestigation[FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME.fieldApiName] = getFieldValue(data, FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME);
 			this.caseInvestigation[FIELD_MILESTONE_START_DATETIME.fieldApiName] = getFieldValue(data, FIELD_MILESTONE_START_DATETIME);
+			this.caseInvestigation[FIELD_NETWORK_MILESTONE_CURRENT_TIER.fieldApiName] = getFieldValue(data, FIELD_NETWORK_MILESTONE_CURRENT_TIER);
 
 			//load the milestones
 			this.loadMilestones();
@@ -65,7 +67,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 
 	//load the milestone details of the case investigation
 	loadMilestones() {
-		if (this.caseInvestigation.NetworkMilestonesViolated__c !== null && this.caseInvestigation.NetworkMilestonesViolated__c !== undefined) {
+		if (this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c !== null && this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c !== undefined) {
 			this.hasMilestonesViolated = true;
 			this.getMilestoneDetails();
 		} else {
@@ -87,8 +89,8 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 
 	//function to sest the case investigation milestone to render on UI
 	getMilestoneDetails() {
-		if (this.caseInvestigation.NetworkMilestonesViolated__c <= 2) {
-			this.milestoneDetails.tierName = 'Network Tier ' + `${this.caseInvestigation.NetworkMilestonesViolated__c}`;
+		if (this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c <= 2) {
+			this.milestoneDetails.tierName = 'Network Tier ' + `${this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c}`;
 			this.milestoneDetails.timeRemainingOrCompleted = this.getMilestoneTimeRemaining();
 			this.milestoneDetails.percentCompleted = this.getPercentCompleted();
 			this.milestoneDetails.status = this.milestoneDetails.percentCompleted > 100 ? OPEN_VIOLATION : REMAINING;
@@ -98,7 +100,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 			// if milestones violated greater than 2 default to tier 2 as we've only 2 network tiers for case investigations
 			this.milestoneDetails.tierName = 'Network Tier 2';
 			this.milestoneDetails.timeRemainingOrCompleted = this.getMilestoneTimeCompleted();
-			this.percentCompleted = 100;
+			this.milestoneDetails.percentCompleted = 100;
 			this.milestoneDetails.status = OPEN_VIOLATION;
 			this.milestoneDetails.progressBarClass = 'progress-bar progress-bar-danger';
 			this.milestoneDetails.iconName = 'glyphicon glyphicon-thumbs-down';
@@ -128,7 +130,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 		let startDate;
 		let todaysDate = new Date();
 		let endDate = new Date(this.caseInvestigation.NetworkMilestoneNextViolationDatetime__c);
-		if (this.caseInvestigation.NetworkMilestonesViolated__c === 1) {
+		if (this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c === 1) {
 			startDate = new Date(this.caseInvestigation.MilestoneTimeStartDatetime__c);
 		} else {
 			//for network tier 2

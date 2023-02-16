@@ -24,21 +24,13 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		try {
-			//set the network milestone violation fields
-			setNetworkMilestoneViolationFields((List<CaseInvestigation__c>) records, null, uow);
-		} catch (Exception e) {
-			UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'STCINetworkMilestoneViolationModule', STCINetworkMilestoneViolationModule.class.getName(), 'onBeforeInsert', 'STCINetworkMilestoneViolationModule', LoggingLevel.ERROR);
-		}
+		//set the network milestone violation fields
+		setNetworkMilestoneViolationFields((List<CaseInvestigation__c>) records, null, uow);
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		try {
-			//set the network milestone violation fields
-			setNetworkMilestoneViolationFields((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
-		} catch (Exception e) {
-			UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'STCINetworkMilestoneViolationModule', STCINetworkMilestoneViolationModule.class.getName(), 'onBeforeUpdate', 'STCINetworkMilestoneViolationModule', LoggingLevel.ERROR);
-		}
+		//set the network milestone violation fields
+		setNetworkMilestoneViolationFields((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -66,6 +58,7 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 				//if case investigation is not in any of the closed statuses, set the milestone start datetime to now
 				//reset the violation date time fields
 				ci.MilestoneTimeStartDatetime__c = System.now();
+				ci.NetworkMilestoneCurrentViolatedTier__c = 1; //set the violation tier to run
 				ci.NetworkMilestoneNextViolationDatetime__c = null;
 				ci.NetworkMilestoneLastViolationDatetime__c = null;
 			} else if(ci.IsClosed__c && (existingRecords == null || (existingRecords != null && ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c))) {
@@ -102,18 +95,23 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 			//loop through case investigations to update the fields
 			for (CaseInvestigation__c ci : ciRecords.values()) {
 				if (ciViolationDatetimeResultMap.containsKey(ci.Id)) {
-					//on insert scenario when the current violated tier is blank, update the next violation datetime
-					if (ci.NetworkMilestoneCurrentViolatedTier__c == null) {
+					//on insert scenario when the current violated tier is 1, update the next violation datetime
+					if (ci.NetworkMilestoneCurrentViolatedTier__c == 1) {
 						recsToUpdate.add(new CaseInvestigation__c(Id = ci.Id, 
 							NetworkMilestoneNextViolationDatetime__c = ciViolationDatetimeResultMap.get(ci.Id),
 							NetworkMilestoneLastViolationDatetime__c = null));
-					} else if (ci.NetworkMilestoneCurrentViolatedTier__c != null && ci.NetworkMilestoneNextViolationDatetime__c != null) {
+					} else if (ci.NetworkMilestoneCurrentViolatedTier__c != 1 && ci.NetworkMilestoneNextViolationDatetime__c != null) {
 						//on update scenario when the current violated tier and next violation datetime is not blank, 
 						//update the next violation datetime and last violation datetime
 						recsToUpdate.add(new CaseInvestigation__c(Id = ci.Id, 
 							NetworkMilestoneNextViolationDatetime__c = ciViolationDatetimeResultMap.get(ci.Id),
 							NetworkMilestoneLastViolationDatetime__c = ci.NetworkMilestoneNextViolationDatetime__c));
 					}
+				} else {
+					//if milestone service doesn't return the violation date time, update the next violation to blank
+					recsToUpdate.add(new CaseInvestigation__c(Id = ci.Id, 
+							NetworkMilestoneNextViolationDatetime__c = null,
+							NetworkMilestoneLastViolationDatetime__c = ci.NetworkMilestoneNextViolationDatetime__c));
 				}
 			}
 

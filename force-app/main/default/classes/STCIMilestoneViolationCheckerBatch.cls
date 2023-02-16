@@ -33,7 +33,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 			List<CaseInvestigation__c> recsToUpdate = new List<CaseInvestigation__c>();
 			// loop through case investigations to increment milestone violation tier
 			for (CaseInvestigation__c ci : (List<CaseInvestigation__c>) scope) {
-				ci.NetworkMilestoneCurrentViolatedTier__c = ci.NetworkMilestoneCurrentViolatedTier__c != null ? ci.NetworkMilestoneCurrentViolatedTier__c + 1 : 1;
+				ci.NetworkMilestoneCurrentViolatedTier__c = ci.NetworkMilestoneCurrentViolatedTier__c + 1;
 				ci.NetworkMilestonesViolated__c = ci.NetworkMilestonesViolated__c != null ? ci.NetworkMilestonesViolated__c + 1 : 1;
 
 				//set the network tier escalation email
@@ -53,7 +53,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 
 				//add records to update
 				//prevent records to further update as the current configuration in the escalation hierarchy is upto 5 tiers
-				if (ci.NetworkMilestoneCurrentViolatedTier__c < 5) {
+				if (ci.NetworkMilestoneCurrentViolatedTier__c <= 5) {
 					recsToUpdate.add(ci);
 				}
 			}

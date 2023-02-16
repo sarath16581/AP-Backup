@@ -277,22 +277,18 @@ public inherited sharing class MilestoneService {
 				String formattedMilestoneTierTypeField;
 				Entitlement_Rule__c er = entitlementRuleMap.get(ciEntitlementRuleMatchingMap.get(ci.Id));
 				Escalation_Hierarchy__c eh = er.Escalation_Hierarchy__r;
-				if (ci.NetworkMilestoneCurrentViolatedTier__c != null) {
-					formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c.intValue() + 1) + '__c';
-				} else {
-					//get the first tier
-					formattedMilestoneTierTypeField = milestoneTierType + '_1__c';
-				}
+				formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c.intValue()) + '__c';
 
 				//checks the tier has value in escalation hierarchy config
 				if (eh.get(formattedMilestoneTierTypeField) != null) {
 					Integer configuredMins = Integer.valueOf(eh.get(formattedMilestoneTierTypeField));
+					Integer days = configuredMins/1440 ;
 					if (ci.NetworkMilestoneNextViolationDatetime__c == null && ci.MilestoneTimeStartDatetime__c != null) {
 						//Check if new date is within working days
-						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c.addMinutes(configuredMins));
+						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c, days);
 					} else {
 						//Check if new date is within working days
-						violationDatetime = checkWithinBusinessHours(ci.NetworkMilestoneNextViolationDatetime__c.addMinutes(configuredMins));
+						violationDatetime = checkWithinBusinessHours(ci.NetworkMilestoneNextViolationDatetime__c, days);
 					}
 					result.put(ci.Id, violationDatetime);
 				}
@@ -303,18 +299,23 @@ public inherited sharing class MilestoneService {
 	}
 
 	//function to check the target date is within business hours
-	private Datetime checkWithinBusinessHours(Datetime violationDatetime) {
-		if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
-			//If new date is not within working days, get new working day
-			Datetime newDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
-			violationDatetime = Datetime.newInstance(newDatetime.year(), newDatetime.month(), newDatetime.day(), violationDatetime.hour(), violationDatetime.minute(), violationDatetime.second());
-			//edge case scenario
-			//if case investigation is created/updated after business hours, new violation date time will be after business hours
-			//so set to the start time of next business day in that case otherwise take the time from the calculated violation date time
+	private Datetime checkWithinBusinessHours(Datetime violationDatetime, Integer days) {
+		Integer hour = violationDatetime.hour();
+		Integer minute = violationDatetime.minute();
+		Integer second = violationDatetime.second();
+
+		for (Integer elapsed = 0; elapsed < days; elapsed++) {
+			//Add 1 day
+			violationDatetime = violationDatetime.addDays(1);
+
+			//check if new date is within business hours
 			if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
-				violationDatetime = Datetime.newInstance(violationDatetime.year(), violationDatetime.month(), violationDatetime.day(), newDatetime.hour(), newDatetime.minute(), newDatetime.second());
-			}
+				//If new date is not within working days, get new working day
+				violationDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
+			}	
 		}
+
+		violationDatetime = Datetime.newInstance(violationDatetime.year(), violationDatetime.month(), violationDatetime.day(), hour, minute, second);
 		return violationDatetime;
 	}
 }
