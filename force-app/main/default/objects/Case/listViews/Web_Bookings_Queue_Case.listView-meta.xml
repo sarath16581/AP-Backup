@@ -7,7 +7,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>Web Bookings - Unassigned</label>
+    <label>StarTrack Pickup Enquiry - Unassigned</label>
     <queue>Web_Bookings_Queue</queue>
     <sharedTo>
         <group>StarTrack_Controlled_Returns</group>
