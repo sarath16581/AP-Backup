@@ -6,6 +6,7 @@
  * @changelog
  * 2022-11-29 - Dattaraj Deshmukh - Created
  * 2023-02-13 - Dattaraj Deshmukh - updated QualityOfTheCase fields default value.
+ * 2023-02-16 - Dattaraj Deshmukh - Added updateCase method. Updated internal facility notes field placeholder.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
