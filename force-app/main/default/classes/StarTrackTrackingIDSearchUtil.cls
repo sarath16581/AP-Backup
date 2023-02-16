@@ -229,7 +229,7 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
             // service returned error
             comments = '\n' + System.Label.STHSIDSearchCommentsTimeoutTechError;
             isValid = false;
-        } else if((articles == null || articles.size() == 0) || StarTrack_Constants.ERR_CODE_ART_NOT_FOUND.equalsIgnoreCase(conWrap.errorCode)) {
+        } else if(StarTrack_Constants.ERR_CODE_ART_NOT_FOUND.equalsIgnoreCase(conWrap.errorCode)) {
             comments = '\n' + System.Label.STHSIDSearchCommentsNoConsignment;
             isValid = false;
         } else if(!isValidReference) {
@@ -267,10 +267,10 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
 
     public static Boolean isValidReference(List<Article__c> articles) {
         if(articles == null || articles.size() <= 0) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public static Boolean isDuplicateConsignments(List<Article__c> articles) {

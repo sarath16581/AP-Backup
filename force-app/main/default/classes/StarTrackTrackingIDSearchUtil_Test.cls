@@ -520,4 +520,35 @@ private class StarTrackTrackingIDSearchUtil_Test {
         return mockDatabase;
     }
 
+
+    @IsTest
+    private static void testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment() {
+
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        Case testCase = [
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+        List<Article__c> articles = new List<Article__c>();
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', null);
+
+        Test.startTest();
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
+        system.debug(' CASE COM HAS '+comments);
+        System.assertEquals(0, comments.size(), 'testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment: No case comment should get generated generated');
+        System.assertEquals(false, result, 'testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment: Expected an error in response for no invalid consignment found');
+        Test.stopTest();
+    }
 }
