@@ -11,10 +11,11 @@ Last Modified Date - 28th May 2020 | SOQL Limit exceeding Fix
 2020-10-22 - Mathew Jose - setting product lines on Agreement
 2021-08-31 - Naveen Rajanna - REQ2542972 - Comment code to set 'Fixed Term' when UMS or print Post
 2022-05-02 - SaiSwetha Pingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
+2023-02-14 - Ranjeewa Silva - Added support for before delete, after delete and after undelete trigger events
 
 */
 
-trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before insert,before update,after update) {
+trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before insert,before update,after update, before delete, after delete, after undelete) {
     String result;
     List<Opportunity> listOpportunity = new List<Opportunity>();
     Opportunity oppty;
