@@ -86,10 +86,10 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 	//this method set the case investigation closure date time field on case investigation records
 	private void setCaseInvestigationClosureDate(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
 		for(CaseInvestigation__c ci : records) {
-			if (!ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+			if (!ci.IsClosed__c && (existingRecords == null || (existingRecords != null && ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c))) {
 				//if case investigation is not in any of the closed statuses, reset the case investigation closure date
 				ci.CaseInvestigationClosureDate__c = null;
-			} else if(ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+			} else if(ci.IsClosed__c && (existingRecords == null || (existingRecords != null && ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c))) {
 				//if case investigation is in any of the closed statuses, set the case investigation closure date to now
 				ci.CaseInvestigationClosureDate__c = System.now();
 			}

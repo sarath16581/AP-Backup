@@ -62,13 +62,13 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 	//this method set the network milestone violation date time fields on case investigation records
 	private void setNetworkMilestoneViolationFields(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
 		for(CaseInvestigation__c ci : records) {
-			if (!ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+			if (!ci.IsClosed__c && (existingRecords == null || (existingRecords != null && ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c))) {
 				//if case investigation is not in any of the closed statuses, set the milestone start datetime to now
 				//reset the violation date time fields
 				ci.MilestoneTimeStartDatetime__c = System.now();
 				ci.NetworkMilestoneNextViolationDatetime__c = null;
 				ci.NetworkMilestoneLastViolationDatetime__c = null;
-			} else if(ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+			} else if(ci.IsClosed__c && (existingRecords == null || (existingRecords != null && ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c))) {
 				//if case investigation is in any of the closed statuses, reset the milestone start datetime 
 				//and next violation datetime
 				ci.MilestoneTimeStartDatetime__c = null;
@@ -88,8 +88,8 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 			//get the records on insert where milestone start datetime not null
 			//get the records on update when milestone start datetime has changed or current violated tier has changed
 			if (ci.MilestoneTimeStartDatetime__c != null && (existingRecords == null || 
-					ci.MilestoneTimeStartDatetime__c != existingRecords.get(ci.Id).MilestoneTimeStartDatetime__c ||
-					ci.NetworkMilestoneCurrentViolatedTier__c != existingRecords.get(ci.Id).NetworkMilestoneCurrentViolatedTier__c)) {
+					(existingRecords != null && (ci.MilestoneTimeStartDatetime__c != existingRecords.get(ci.Id).MilestoneTimeStartDatetime__c ||
+					ci.NetworkMilestoneCurrentViolatedTier__c != existingRecords.get(ci.Id).NetworkMilestoneCurrentViolatedTier__c)))) {
 				ciRecords.put(ci.Id, ci);
 			}
 		}
