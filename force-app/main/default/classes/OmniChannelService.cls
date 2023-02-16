@@ -27,6 +27,16 @@ public inherited sharing class OmniChannelService {
 		return instance;
 	}
 
+	public static CacheFactory Cache {
+		get {
+			if(Cache == null) {
+				Cache = new CacheFactory();
+			}
+			return Cache;
+		}
+		private set;
+	}
+
 	private final Integer defaultSecondaryPriority = 2500;
 
 	public static CacheFactory Cache {

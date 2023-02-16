@@ -10,6 +10,7 @@
 * 2022-11-02 - George Nguyen - Created
 * 2023-02-06 - Nathan Franklin - Added search method and additional selector options and field overrides
 * 2023-02-08 - Noel Lim - Added method selectByLastModifiedDateLessThanEqualNDaysAgo
+* 2023-02-16 - Nathan Franklin - Modified search parameters
 */
 public inherited sharing class PendingServiceRoutingSelector extends ApplicationSelector {
 
@@ -124,7 +125,7 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 *
 	 * @param searchParams A map containing searchable values:
 	 *						  limitToCaseOnly: boolean to add a Case limiter to ensure only Cases are returned (Boolean)
-	 *						  limitToSkillWorkOnly: boolean to ensure that only records with at least 1 skill attached will be returned (Boolean)
+	 *						  queueIds: grab the records specific to the queues passed in
 	 *						  idGreaterThan: return records greater than the id passed in (Id)
 	 *						  orderBy: set the order by field (SObjectField)
 	 *						  sortOrder: set the sort direction (asc,desc)
@@ -143,7 +144,7 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 *
 	 * @param searchParams A map containing searchable values:
 	 *						  limitToCaseOnly: boolean to add a Case limiter to ensure only Cases are returned (Boolean)
-	 *						  limitToSkillWorkOnly: boolean to ensure that only records with at least 1 skill attached will be returned (Boolean)
+	 *						  queueIds: grab the records specific to the queues passed in
 	 *						  idGreaterThan: return records greater than the id passed in (Id)
 	 *						  orderBy: set the order by field (SObjectField)
 	 *						  sortOrder: set the sort direction (asc,desc)
@@ -155,7 +156,7 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 		System.debug('searchParams: ' + searchParams);
 
 		Boolean limitToCaseOnly = (searchParams.get('limitToCaseOnly') == null || searchParams.get('limitToCaseOnly') == false ? false : true);
-		Boolean limitToSkillWorkOnly = (searchParams.get('limitToSkillWorkOnly') == null || searchParams.get('limitToSkillWorkOnly') == false ? false : true);
+		Set<Id> queueIds = (Set<Id>)(searchParams.get('queueIds') == null ? new Set<Id>() : (searchParams.get('queueIds') instanceof Set<Id> ? searchParams.get('queueIds') : new Set<Id>{(Id)searchParams.get('queueIds')}));
 		Id idGreaterThan = searchParams.get('idGreaterThan') == null ? null : (Id)searchParams.get('idGreaterThan');
 		SObjectField orderBy = searchParams.get('orderBy') == null ? null : (SObjectField)searchParams.get('orderBy');
 		String sortOrder = searchParams.get('sortOrder') == null ? '' : String.valueOf(searchParams.get('sortOrder'));
@@ -175,13 +176,11 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 
 		// this is a cheeky hack to limit to cases since WorkItem.Type = 'Case' does not work for whatever reason
 		if(limitToCaseOnly) {
-			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.WorkItemId + ' > \'500000000000000\''));
-			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.WorkItemId + ' < \'501000000000000\''));
-			conditionCount++;
+			conditions.add(new QueryBuilder.SimpleCondition('ServiceChannel.RelatedEntity = \'Case\''));
 			conditionCount++;
 		}
-		if(limitToSkillWorkOnly) {
-			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.Id + ' In (SELECT RelatedRecordId From SkillRequirement)'));
+		if(!queueIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.QueueId + ' In :queueIds'));
 			conditionCount++;
 		}
 		if(idGreaterThan != null) {
