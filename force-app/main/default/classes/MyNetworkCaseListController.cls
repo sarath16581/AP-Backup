@@ -266,7 +266,7 @@ public with sharing class MyNetworkCaseListController {
 				}
 			}
 			
-			if(myNetworkCasesWrapperVar!= null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.add(cse.Id)){
+			if(myNetworkCasesWrapperVar!= null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.contains(cse.Id)){
 				myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);
 				caseIds.add(myNetworkCasesWrapperVar.caseId);
 				processedCaseIds.add(myNetworkCasesWrapperVar.caseId);
@@ -1306,7 +1306,8 @@ public with sharing class MyNetworkCaseListController {
 			
 			//get all CI records where network ID in networkIds set.
 			List<CaseInvestigation__c> caseInvList = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Object>{
-				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS}).values();
+				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+				CaseInvestigationsSelector.Options.WITH_ARTICLES}).values();
 			for(CaseInvestigation__c cInv : caseInvList){
 				
 				if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'Case_updated') {

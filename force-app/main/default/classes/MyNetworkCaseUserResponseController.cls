@@ -5,6 +5,9 @@
 * @description Controller to post feed items against case investigations
 * @changelog
 * 2022-11-29 - Dattaraj Deshmukh - Created.
+* NOTE: THIS CLASS IS SPECIFIED AS WITHOUT SHARING. 
+* REASON: MyNetowork portal users have ONLY READ access to the case. In order to update CASE related to 
+* case investigations, 'without sharing' mode is used.
 */
 public without sharing class MyNetworkCaseUserResponseController {
 	

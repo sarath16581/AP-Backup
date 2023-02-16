@@ -69,6 +69,8 @@ import CASEINVISTIGATION_PRODUCT_CATEGORY_FIELD from "@salesforce/schema/CaseInv
 import CASEINVISTIGATION_PRODUCT_SUB_CATEGORY_FIELD from "@salesforce/schema/CaseInvestigation__c.ProductSubCategory__c";
 import CASEINVISTIGATION_NETWORK_TIER_ESCALATION_EMAIL_FIELD from "@salesforce/schema/CaseInvestigation__c.NetworkTierEscalationEmail__c";
 import CASEINVISTIGATION_NETWORK_FIELD from "@salesforce/schema/CaseInvestigation__c.Network__c";
+import CASEINVISTIGATION_ARTICLE_PRODUCT_CATEGORY_FIELD from "@salesforce/schema/CaseInvestigation__c.ArticleProductCategory__c";
+import CASEINVISTIGATION_ARTICLE_PRODUCT_SUB_CATEGORY_FIELD from "@salesforce/schema/CaseInvestigation__c.ArticleProductSubCategory__c";
 
 
 import getCaseRecord from "@salesforce/apex/MyNetworkCaseListController.getCaseRecord";
@@ -131,7 +133,7 @@ export default class CaseDetails extends LightningElement {
     CASEINVISTIGATION_NAME_FIELD,
     CASEINVISTIGATION_PRIORITY_FIELD, 
     CASEINVISTIGATION_STATUS_FIELD, 
-	CASEINVISTIGATION_PRODUCT_CATEGORY_FIELD,
+	CASEINVISTIGATION_ARTICLE_PRODUCT_CATEGORY_FIELD,
 	CASEINVISTIGATION_PRODUCT_SUB_CATEGORY_FIELD, CASEINVISTIGATION_NETWORK_MILESSTONES_VIOLATED_FIELD, 
     CASEINVISTIGATION_SENT_TO_NETWORK_FIELD,CASEINVISTIGATION_NETWORK_TIER_ESCALATION_EMAIL_FIELD
   ];
