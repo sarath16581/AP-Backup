@@ -110,7 +110,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 	 * These scenarios include:            
 	 * 1. Case expires in Preferred Agent queue and is triggered to be routed out of that queue            
 	 * 2. Case is set to Closed (e.g. dataload, or customer triggers closure), the Case will be moved to the Omnichannel Closed Cases queue
-	 * 3. A user triggers a Reassign from the UI 
+	 * 3. A user triggers a Reassign from the UI (exception case)
 	 * 4. Manually move Cases out of the Preferred Agent queue by dataloading a new Owner and Bypass Preferred Agent flag
 	 * 
 	 */

@@ -719,14 +719,17 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					}
 					//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 					else if(oldCase != null 
-						&& csRec.OwnerId != oldCase.OwnerId
-						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 					
+						&& csRec.OwnerId != oldCase.OwnerId						
+						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
+						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
 						&& csRec.BypassPreferredAgent__c == false 
-						&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue				
-						&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue						
-						&& String.isEmpty(preferredAgentQueueId) == false ) {
-
-							casesPreferredAgentRouting.put(csRec.Id, csRec);
+						&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue					
+						&& String.isEmpty(preferredAgentQueueId) == false) {
+							if(oldCase.OwnerId == preferredAgentQueueId ){
+								csRec.OwnerId = preferredAgentQueueId; //Case was being moved out of Preferred Agent queue without the Bypass flag set, so we keep it there
+							} else {
+								casesPreferredAgentRouting.put(csRec.Id, csRec); 
+							}
 					}
 				}
 			}
@@ -1138,16 +1141,20 @@ private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 
 		if(newPSRs.isEmpty() == false) {
 
-			//PSR insert may fail if there is an existing PSR already. Allow other PSRs to insert successfully
+			//Allow partial success for the insert, as some PSR insert may fail if a Case has an existing PSR already e.g. another inserted PSR has not been deleted
 			List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlInsert(newPSRs, false);
 			
 			if(srList.isEmpty() == false){
-				Map<Id,PendingServiceRouting> newPSRMap = new Map<Id,PendingServiceRouting>(newPSRs);
-
 				for(Integer i=0;i<srList.size();i++){
 					Database.SaveResult sr = srList.get(i);
+
+					//Assign the Case of successful PSRs to the Preferred Agent queue
 					if (sr.isSuccess()){
-						casesPreferredAgentRouting.get(newPSRMap.get(sr.getId()).WorkItemId).OwnerId = preferredAgentQueueId; //only move Cases to the Preferred Agent queue for PSRs successfully inserted
+						for(PendingServiceRouting newPSR : newPSRs){ 
+							if(newPSR.Id != null && newPSR.Id == sr.getId()){
+								casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = preferredAgentQueueId; 
+							}							
+						}
 					} else {
 						for (Database.Error err : sr.getErrors()) {	
 							System.debug('The following error has occurred on the DML Retry.');
@@ -1156,7 +1163,7 @@ private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 					}					
 				}		
 				
-				// log any failed updates to ensure we can monitor save errors (especially for checking routing failures)
+				// log any failed inserts to ensure we can monitor save errors (especially for checking routing failures)
 				ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, CaseCommonUtility.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
 			}			
 		}
