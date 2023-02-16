@@ -573,7 +573,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
 						Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c, Case.OwnerId, 
 						Case.AllocateToQueue__c, Case.isHLC__c, Case.isCR__c, Case.Customer_Type__c, Case.Type, Case.IsNewForRouting__c, Case.SocialPostTags__c, Case.Status, 
-						Case.CaseLocality__c, Case.ByPassRoutingRulesOnCreation__c, Case.PreferredAgentExpiry__c
+						Case.CaseLocality__c, Case.ByPassRoutingRulesOnCreation__c, Case.PreferredAgentExpiry__c, Case.BusinessHoursId
 					}).selectById(caseIds);
 
 					// TODO: This should be routed via the Domain class rather than invoked directly
