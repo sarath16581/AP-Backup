@@ -11,7 +11,9 @@
  *==============================================================================
  * 1.0	8/21/2019	rajesh.punjabi@mav3rik.com		Initial Version
  * 1.1	7/12/2022	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
- * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 			
+ * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. 
+ * 													Update secondaryPriorityRanges from a 50-point range to a 150-point range
+ * 													Add queuesToAgentTypesShouldReturnCustomMetadata
  * 
 **/
 @IsTest (IsParallel=true)
@@ -122,18 +124,9 @@ public class OmniChannelService_Test {
 		//necessary for when the Org does not have any Custom Metadata records yet. This Custom Metadata relies on QueueId so it cannot be deployed via metadata
 		if(listQAT.isEmpty()){
 			Group queueRec = ApplicationTestDataFactory.getGroups(1, true)[0];
-			Schema.DescribeFieldResult agentTypeField = Case.AgentType__c.getDescribe();
-			List<Schema.PicklistEntry> agentTypePickvals = agentTypeField.getPicklistValues();
-			String agentTypeVal;
-			for(Schema.PicklistEntry pe : agentTypePickvals){
-				if(pe.IsActive()){
-					agentTypeVal = pe.getValue();
-					break;
-				}
-			}
-
-			queuesToAgentType.put(queueRec.Id,agentTypeVal);
-			CacheManager.put('QUEUES_TO_AGENT_TYPE', new Map<String, String>{queueRec.Id => agentTypeVal});
+			queuesToAgentType = OmniChannelTestDataFactory.getQueuesToAgentType(queueRec.Id);
+			
+			CacheManager.put('QUEUES_TO_AGENT_TYPE', queuesToAgentType);
 		} else {
 			for(SSSW_Queue_to_Agent_Type__mdt qat : listQAT){
 				queuesToAgentType.put(qat.QueueId__c,qat.AgentType__c);

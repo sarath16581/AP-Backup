@@ -107,6 +107,12 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 
 	/*
 	 * This method clears PSRs that were manually inserted for Preferred Agent when the Case is being assigned from the Preferred Agent Routing queue
+	 * These scenarios include:            
+	 * 1. Case expires in Preferred Agent queue and is triggered to be routed out of that queue            
+	 * 2. Case is set to Closed (e.g. dataload, or customer triggers closure), the Case will be moved to the Omnichannel Closed Cases queue
+	 * 3. A user triggers a Reassign from the UI 
+	 * 4. Manually move Cases out of the Preferred Agent queue by dataloading a new Owner and Bypass Preferred Agent flag
+	 * 
 	 */
 	private void deletePSRsForCasesNotInPreferredAgentQueue(List<Case> records, Map<Id, Case> existingRecords){
 

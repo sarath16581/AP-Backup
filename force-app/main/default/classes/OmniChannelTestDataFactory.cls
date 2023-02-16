@@ -6,6 +6,7 @@
  * @description this is where all the test data generation in relation to Omni should go. 
  * @changelog
  * 2022-11-08 - George Nguyen - Created
+ * 2023-02-16 - Noel Lim - Added method getQueuesToAgentType
 */
 @IsTest
 public with sharing class OmniChannelTestDataFactory {
@@ -66,5 +67,21 @@ public with sharing class OmniChannelTestDataFactory {
 			AgentWork.UserId => userId,
 			AgentWork.WorkItemId => workitemIds
 		}, count), generateIds);
-	}		
+	}	
+
+	public static Map<String,String> getQueuesToAgentType(Id queueId){
+		
+
+		Schema.DescribeFieldResult agentTypeField = Case.AgentType__c.getDescribe();
+		List<Schema.PicklistEntry> agentTypePickvals = agentTypeField.getPicklistValues();
+		String agentTypeVal;
+		for(Schema.PicklistEntry pe : agentTypePickvals){
+			if(pe.IsActive()){
+				agentTypeVal = pe.getValue();
+				break;
+			}
+		}
+		
+		return new Map<String,String>{queueId => agentTypeVal};
+	}
 }

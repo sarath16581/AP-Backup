@@ -178,19 +178,11 @@ private class CaseSkillBasedRoutingModule_Test {
 		if(OmnichannelService.Cache.QueuesToAgentType.isEmpty()){
 			
 			Group queueRec = ApplicationTestDataFactory.getGroups(1, true)[0];
-			Schema.DescribeFieldResult agentTypeField = Case.AgentType__c.getDescribe();
-			List<Schema.PicklistEntry> agentTypePickvals = agentTypeField.getPicklistValues();
-			String agentTypeVal;
-			for(Schema.PicklistEntry pe : agentTypePickvals){
-				if(pe.IsActive()){
-					agentTypeVal = pe.getValue();
-					break;
-				}
-			}
+			Map<String,String> queuesToAgentType = OmniChannelTestDataFactory.getQueuesToAgentType(queueRec.Id);
 
 			queueWithAgentTypeId = queueRec.Id;
-			agentType = agentTypeVal;
-			CacheManager.put('QUEUES_TO_AGENT_TYPE', new Map<String, String>{queueRec.Id => agentTypeVal});
+			agentType = queuesToAgentType.get(queueRec.Id);
+			CacheManager.put('QUEUES_TO_AGENT_TYPE', queuesToAgentType);
 		} else {
 			queueWithAgentTypeId = OmniChannelService.Cache.queuesToAgentType.keySet().iterator().next();
 			agentType = OmniChannelService.Cache.queuesToAgentType.get(queueWithAgentTypeId);
