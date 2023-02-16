@@ -15,6 +15,19 @@ public with sharing class APRsSelector_Test {
 	 */
 	@IsTest
 	public static void testEnsureQueryBuilderProducesCorrectString() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 
 		APRsSelector selector = APRsSelector.newInstance();
@@ -22,12 +35,6 @@ public with sharing class APRsSelector_Test {
 		String soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select from APR__c');
-
-		selector = APRsSelector.newInstance(1);
-		qb = selector.newQueryBuilder();
-		soql = qb.toSoqlString();
-
-		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APR__c\\b').matcher(soql).find(), 'Resulting query does not select from APR__c');
 
 		Test.stopTest();
 	}
@@ -40,19 +47,15 @@ public with sharing class APRsSelector_Test {
 	public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
 		Test.startTest();
 
-		APRsSelector selector = APRsSelector.newInstance();
+		APRsSelector selector = APRsSelector.newInstance(1, new Set<SObjectField>{
+				APR__c.Id, APR__c.Legal_Entity_Name_LookUp__c
+		});
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
 
-		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select from APR__C');
-
-		selector = APRsSelector.newInstance(1, new Set<SObjectField>{
-				APR__c.Id, APR__c.Legal_Entity_Name_LookUp__c
-		});
-		qb = selector.newQueryBuilder();
-		soql = qb.toSoqlString();
-
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select from APR__c');
+		System.assertEquals(false, Pattern.compile('(?ism)RecordTypeId\\b.*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting selects RecordTypeId but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Legal_Entity_Name_LookUp__c\\b.*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select Legal_Entity_Name_LookUp__c field: ' + soql);
 
 		selector = APRsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>>{
 				APR__c.SObjectType => new Set<SObjectField>{APR__c.Id}
@@ -61,15 +64,51 @@ public with sharing class APRsSelector_Test {
 		soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select from APR__c');
+		System.assertEquals(false, Pattern.compile('(?ism)Legal_Entity_Name_LookUp__c\\b.*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting selects Legal_Entity_Name_LookUp__c but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Id\\b.*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select Id field: ' + soql);
 
 		selector = APRsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
-				APR__c.SObjectType => new Set<SObjectField>{APR__c.Id}
+				APR__c.SObjectType => new Set<SObjectField>{APR__c.Id, APR__c.Legal_Entity_Name_LookUp__c}
 		});
 		qb = selector.newQueryBuilder();
 		soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select from APR__c');
+		System.assertEquals(false, Pattern.compile('(?ism)RecordTypeId\\b.*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting selects RecordTypeId but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Legal_Entity_Name_LookUp__c\\b.*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select Legal_Entity_Name_LookUp__c field: ' + soql);
+
 		Test.stopTest();
+	}
+
+	/**
+     * Test:
+     *  Ensures that the selectors QueryBuilder is generating the correct output with related fields
+     */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		APRsSelector selector = APRsSelector.newInstance(0);
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{APRsSelector.Options.WITH_ORGANISATION});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Legal_Entity_Name_LookUp__r\\..*?\\bfrom APR__C\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
+
+		Test.stopTest();
+
 	}
 
 	/**

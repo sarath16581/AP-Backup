@@ -46,7 +46,7 @@ public abstract class SalesRecordSharingBatchable implements Database.Batchable<
 	public void finish(Database.BatchableContext bc) {
 		// Logging count of total processed
 		String message = 'Sharing recalculation batch completed. Processed [' + totalRecordsCount +'] ' + sObjectType + ' records.';
-		ApplicationLogger.getInstance().logGenericMessage(new List<String>{message}, 'Sales', SalesRecordSharingBatchable.class.getName(), 'finish', null, ApplicationLogger.LoggingLevel.INFO);
+		ApplicationLogger.getInstance().logGenericMessage(new List<String>{message}, 'Sales', SalesRecordSharingBatchable.class.getName(), 'finish', '', ApplicationLogger.LoggingLevel.INFO);
 	}
 
 }
