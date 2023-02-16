@@ -45,7 +45,7 @@ public with sharing class MyNetworkCaseListController {
 	public class MyNetworkCasesWrapper {
 	  
 		@AuraEnabled
-		public Case myNetworkCase{get; set;}
+		public Case myNetworkCase{get; set;} // not applicable to CI records.
 		@AuraEnabled
 		public String caseColor{get;set;}
 		@AuraEnabled
@@ -61,7 +61,9 @@ public with sharing class MyNetworkCaseListController {
 		@AuraEnabled
 		public Boolean isStarTrackCase{get;set;}
 		@AuraEnabled
-		public CaseInvestigation__c caseInvestigation{get;set;}
+		public Boolean isCaseInvestigationAvailable{get;set;}
+		@AuraEnabled
+		public CaseInvestigation__c caseInvestigation{get;set;} //
 
 		
 
@@ -73,13 +75,15 @@ public with sharing class MyNetworkCaseListController {
 			this.caseNum = caseNumVar;
 			this.caseId = caseIdVar;
 			this.CasePriority = casePriorityVar;
-			this.isStarTrackCase = MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(myNetworkCaseVar.RecordType.DeveloperName);
+			this.isStarTrackCase = false;//MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(myNetworkCaseVar.RecordType.DeveloperName);
+			this.isCaseInvestigationAvailable = false;
 		}
 		public MyNetworkCasesWrapper(){
 		}
 
 		public void addCaseInvestigation(CaseInvestigation__c caseInvestigationRec) {
 			this.caseInvestigation = caseInvestigationRec;
+			this.isCaseInvestigationAvailable = true;
 		}
 		
 	}
@@ -122,18 +126,21 @@ public with sharing class MyNetworkCaseListController {
 			list<Case> caseListResult = getAllMYNetworkCases(null, null);
 
 			//get all ST cases.
-			List<Case> stCases = getStarTrackCases(null);
-
-			//merging AP and StarTrack (ST)  cases in a single list.
-			caseListResult.addAll(stCases);
-
+			CaseInvestigationsWrapper cInvWrapper = getStarTrackCases(null);
+			
 			//create a wrapper of AP and ST cases
 			CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
+			
+			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvWrapper, selectedViewString);
 
 			list<Case> updatedCaseList = getUpdatedCasesBySOQL(null, null);
 			
 			//getContactCenterUpdatedCases() method merge network cases and updated cases. Returns single list of wrapper.
-			myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet, null) ;
+			myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet, null);
+
+			if(caseInvWrapperList !=null && !caseInvWrapperList.isEmpty()) {
+				myNetworkCasesWrapperList.addAll(caseInvWrapperList);
+			}
 
 		}catch(Exception e){
 			System.debug('Error in fetching the data ::'+e.getStackTraceString());
@@ -211,54 +218,14 @@ public with sharing class MyNetworkCaseListController {
 			if(excludeCaseSet != null && excludeCaseSet.contains(cse.Id)) continue;
 
 				MyNetworkCasesWrapper myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
-				Boolean caseFound = false;
 				//spingali - REQ2297137 updated the last_status_Change__c criteria from 1 to 15 days
 				//checking if case is NOT ST case.
 				if( !MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) &&
 						 cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)){
 					
 					myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
-					caseFound = true;
-					if(myNetworkCasesWrapperVar != null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.contains(cse.Id)){
-						processedCaseIds.add(cse.Id);
-						myNetworkCasesWrapRec.add(myNetworkCasesWrapperVar);
-					}
 				}
-				//check if case is ST case
-				else if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName)) {
-						
-						//if ST case is updated withing last 5 days, consider it as updated case.
-						//else, check if child case investigations are updated.
-						if( cse.Last_Status_Change__c != null && cse.Last_Status_Change__c >= System.today() - 5) {
-							
-							//mark case as updated 
-							myNetworkCasesWrapperVar = validationStarTrackCasesUpdatedByContactCenter(cse, null);
-							caseFound = true;
-						}
-						if( !cse.CaseInvestigations__r.isEmpty() ) {
-							Set<ID> processedCaseInvestigationIds = new Set<Id>();
 
-							for(CaseInvestigation__c cInv : cse.CaseInvestigations__r) {
-
-								 myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
-
-								//LastContactCentreUpdate__c timestamp is set when a Chatter Post is added on case investigation record by ST Contact Users.
-								if(caseFound ||( cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)
-												&& !cInv.Stillunderinvestigation__c) ) {
-									myNetworkCasesWrapperVar = validationStarTrackCasesUpdatedByContactCenter(cse, cInv);
-								}
-								else if(selectedView != 'Cases_updated') {
-									myNetworkCasesWrapperVar = validationStarTrackCasesUpdatedByContactCenter(cse, cInv);
-								}
-								if(myNetworkCasesWrapperVar != null && myNetworkCasesWrapperVar.caseId != null && !processedCaseInvestigationIds.contains(cInv.Id)){
-									processedCaseIds.add(cse.Id);
-									myNetworkCasesWrapperVar.addCaseInvestigation(cInv);
-									myNetworkCasesWrapRec.add(myNetworkCasesWrapperVar);
-									processedCaseInvestigationIds.add(cInv.Id);
-								}
-							}
-						}
-				}
 				if(myNetworkCasesWrapperVar != null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.contains(cse.Id)){
 					processedCaseIds.add(cse.Id);
 					myNetworkCasesWrapRec.add(myNetworkCasesWrapperVar);
@@ -280,67 +247,25 @@ public with sharing class MyNetworkCaseListController {
 		Set<ID> processedCaseIds = new Set<Id>();
 
 		for(Case cse : caseListResult)
-		{   Boolean cFound = false;
+		{   
+
 			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
 			if(!MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) && 'Awaiting Network Response'.equalsIgnoreCase(cse.Status) && cse.type == 'Investigation'){
-						myNetworkCasesWrapperVar = userRoleAndCaseColourValidation(cse);
-						cFound = true;
+						
+				myNetworkCasesWrapperVar = userRoleAndCaseColourValidation(cse);
 
-						if(myNetworkCasesWrapperVar!= null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.add(cse.Id)){
-							myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);
-							caseIds.add(myNetworkCasesWrapperVar.caseId);
-							processedCaseIds.add(myNetworkCasesWrapperVar.caseId);
-						} 
 			}else if(cse.type == 'Feedback'){ //this condition should only be valid for AP cases. 
 				if( (cse.closedDate > System.today() - 15 )&& ('Awaiting Network Response'.equalsIgnoreCase(cse.Status) || 
 					(cse.Network_Responses1__r.isEmpty() ) ||  'Awaiting Network Response'.equalsIgnoreCase(cse.Root_cause__c)  ||
 					(!cse.Network_Responses1__r.isEmpty() && cse.Network_Responses1__r[0].Request_Hold_Case__c  ) ||
 					(!cse.Network_Responses1__r.isEmpty() && cse.Network_Responses1__r[0].to_CCC_action__c) ||
 					(!cse.Network_Responses1__r.isEmpty() && cse.Network_Responses1__r[0].to_Reassign_Network__c != null))) {
+
 						myNetworkCasesWrapperVar = userRoleAndCaseColourValidation(cse);
-						cFound = true;
 
-						if(myNetworkCasesWrapperVar!= null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.add(cse.Id)){
-							myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);
-							caseIds.add(myNetworkCasesWrapperVar.caseId);
-							processedCaseIds.add(myNetworkCasesWrapperVar.caseId);
-						} 
 				}
 			}
-			//if ST case, then add to list
-			else if(cse.StarTrack_RecordType__c) { 
-
-				//check if child case investigations are updated.
-				if( !cse.CaseInvestigations__r.isEmpty() ) {
-					Set<ID> newCaseInvIds = new Set<Id>();
-					Set<ID> updatedCaseInvIds = new Set<Id>();
-					Set<ID> stillUnderInvestigationCaseInvIds = new Set<Id>();
-					Set<ID> processedCaseInvestigationIds = new Set<Id>();
-
-					for(CaseInvestigation__c cInv : cse.CaseInvestigations__r) {
-						
-						myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
-
-						//LastContactCentreUpdate__c timestamp is set when a Chatter Post is added on case investigation record by ST Contact Users.
-						if(cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)) {
-							myNetworkCasesWrapperVar = validationStarTrackCasesUpdatedByContactCenter(cse, cInv);
-						}
-						else {
-							myNetworkCasesWrapperVar = validationStarTrackCasesUpdatedByContactCenter(cse, cInv);
-						}
-					
-						cFound = true;
-						myNetworkCasesWrapperVar.addCaseInvestigation(cInv);
-						if(myNetworkCasesWrapperVar!= null && myNetworkCasesWrapperVar.caseId != null && !processedCaseInvestigationIds.contains(cInv.Id)) {
-							myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);
-							caseIds.add(myNetworkCasesWrapperVar.caseId);
-							processedCaseInvestigationIds.add(cInv.Id);
-						}
-
-					}
-				}
-			}
-
+			
 			if(myNetworkCasesWrapperVar!= null && myNetworkCasesWrapperVar.caseId != null && !processedCaseIds.add(cse.Id)){
 				myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);
 				caseIds.add(myNetworkCasesWrapperVar.caseId);
@@ -420,18 +345,18 @@ public with sharing class MyNetworkCaseListController {
 				colorMapVar = 'green';
 				textMapVar = 'Case is awaiting action/response' ;
 			}
-			String casePriority = getCasePriority(caseRecord);
+			String casePriority = getCasePriority(caseRecord.priority);
 			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(caseRecord, iconMapVar, colorMapVar, textMapVar, caseRecord.CaseNumber, caseRecord.Id, casePriority);
 		}
 		return myNetworkCasesWrapperVar;
 	} 
-	private static String getCasePriority(case caseRecord){
+	private static String getCasePriority(String priority){
 		String casePriority;
-		if(caseRecord.priority == 'High'){
+		if(priority == 'High'){
 			casePriority = '1';
-		}else if(caseRecord.priority == 'Medium'){
+		}else if(priority == 'Medium'){
 			casePriority = '2';
-		}else if(caseRecord.priority == 'Low'){
+		}else if(priority == 'Low'){
 			casePriority = '3';
 		}
 		return casePriority ;
@@ -474,7 +399,7 @@ public with sharing class MyNetworkCaseListController {
 				colorMapVar = 'green';
 				textMapVar = 'Case is awaiting action/response' ;
 			}
-			String casePriority = getCasePriority(cse);
+			String casePriority = getCasePriority(cse.priority);
 			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(cse, iconMapVar, colorMapVar, textMapVar, cse.CaseNumber, cse.Id, casePriority);
 		}
 		return myNetworkCasesWrapperVar;
@@ -516,47 +441,45 @@ public with sharing class MyNetworkCaseListController {
 			list<Case> caseListResult = getAllMYNetworkCases(filterVar, selectedViewWithFiltersWrp);
 
 			//get all ST cases.
-			List<Case> stCases = getStarTrackCases(selectedViewWithFiltersWrp);
-
-			//merge updated AP and StarTrack (ST) cases in a list.
-			caseListResult.addAll(stCases);
+			CaseInvestigationsWrapper cInvWrapper = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvWrapper, selectedViewWithFiltersWrp.selectedView);
 
 			//create a wrapper
 			CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
 
 			//get updated cases for AP
 			list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar, selectedViewWithFiltersWrp);
-			
+
 			//filter out AP and ST cases based on criteria
 			//Refer to method comments for all filter criteria.
 			myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet, selectedViewWithFiltersWrp.selectedView);
 
+			if(caseInvWrapperList !=null && !caseInvWrapperList.isEmpty()) {
+				myNetworkCasesWrapperList.addAll(caseInvWrapperList);
+			}
+		
 		}else if(selectedViewWithFiltersWrp.selectedView =='Cases_updated') {
 
 			//get updated cases for AP
 			list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar, selectedViewWithFiltersWrp);
 		
 			//get all ST cases.
-			List<Case> stCases = getStarTrackCases(selectedViewWithFiltersWrp);
-
-			//merging AP and StarTrack (ST) cases ina single list.
-			updatedCaseList.addAll(stCases);
+			CaseInvestigationsWrapper cInvWrapper = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvWrapper, selectedViewWithFiltersWrp.selectedView);
 
 			//filter out AP and ST cases based on criteria
 			//Refer to method comments for all filter criteria.
 			myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, null, null, selectedViewWithFiltersWrp.selectedView) ;
+
+			if(caseInvWrapperList !=null && !caseInvWrapperList.isEmpty()) {
+				myNetworkCasesWrapperList.addAll(caseInvWrapperList);
+			}
 			
 		}else if(selectedViewWithFiltersWrp.selectedView =='star_track_cases') { // filter star track cases and case investigations
 			
-			//get ST cases
-			List<Case> stCases = getStarTrackCases(selectedViewWithFiltersWrp);
-
-			//create a wrapper
-			CaseWrapper caseWrap = getNetworkQueueCases(stCases);
-		
-			//filter out AP and ST cases based on criteria
-			//Refer to method comments for all filter criteria.
-			myNetworkCasesWrapperList = getContactCenterUpdatedCases(stCases, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet, selectedViewWithFiltersWrp.selectedView) ;
+			CaseInvestigationsWrapper cInvWrapper = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvWrapper, selectedViewWithFiltersWrp.selectedView);
+			myNetworkCasesWrapperList.addAll(caseInvWrapperList);
 
 		}else {
 
@@ -1361,9 +1284,11 @@ public with sharing class MyNetworkCaseListController {
 	 */
 	//get st cases
 	@TestVisible
-	private static list<case> getStarTrackCases(SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp){
+	private static CaseInvestigationsWrapper getStarTrackCases(SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp){
 		//get case investigations where logged in user is a part of network assigned on CaseINvestigation.
 		List<Case> starTrackCases = new List<Case>();
+
+		CaseInvestigationsWrapper cInvWrapper;
 
 		//get all list of network users where logged in user is a part of
 		Set<Id> networkIds = new Set<Id>();
@@ -1380,7 +1305,9 @@ public with sharing class MyNetworkCaseListController {
 			Set<Id> updatedCaseInvestigationIds = new Set<Id>();
 			
 			//get all CI records where network ID in networkIds set.
-			for(CaseInvestigation__c cInv : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Object>{CaseInvestigationsSelector.Options.WITH_NETWORKS}).values()){
+			List<CaseInvestigation__c> caseInvList = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Object>{
+				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS}).values();
+			for(CaseInvestigation__c cInv : caseInvList){
 				
 				if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'Case_updated') {
 					updatedCaseIds.add(cInv.case__c);
@@ -1400,25 +1327,66 @@ public with sharing class MyNetworkCaseListController {
 				caseInvestigationIds.addAll(updatedCaseInvestigationIds);
 			} 
 			
-			//get cases with child case investigations.
-			//Ids of child case investigations are passed to query selective child case investigations.
-			starTrackCases = CasesSelector.newInstance().
-								selectByIdWithCaseInvestigations(caseIds, caseInvestigationIds, 
-								new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CaseInvestigationsSelector.Options.WITH_NETWORKS,  
-													CaseInvestigationsSelector.Options.WITH_ARTICLES}).values();
-
+			cInvWrapper = new CaseInvestigationsWrapper(updatedCaseInvestigationIds, caseInvList);
 		}
-		return starTrackCases;
+		return cInvWrapper;
+	}
+
+	
+	public static List<MyNetworkCasesWrapper> processCaseInvWrapper(CaseInvestigationsWrapper processCaseInvWrapper, String selectedView) {
+		list<MyNetworkCasesWrapper> myNetworkCasesWrapperList = new list<MyNetworkCasesWrapper>();
+		MyNetworkCasesWrapper myNetworkCasesWrapperVar ;
+		set<Id> caseIds = new set<Id>();
+		Set<ID> processedCaseIds = new Set<Id>();
+		Set<ID> processedCaseInvestigationIds = new Set<Id>();
+
+		if(processCaseInvWrapper != null && processCaseInvWrapper.caseInvestigationList != null
+				&& !processCaseInvWrapper.caseInvestigationList.isEmpty()) {
+			
+					for(CaseInvestigation__c cInv : processCaseInvWrapper.caseInvestigationList) {
+						myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
+
+						//LastContactCentreUpdate__c timestamp is set when a Chatter Post is added on case investigation record by ST Contact Users.
+						if( cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)
+										)  {
+							myNetworkCasesWrapperVar = validateCaseInvestigations(cInv);
+						}
+						else if(selectedView != 'Cases_updated') {
+							myNetworkCasesWrapperVar = validateCaseInvestigations(cInv);
+						}
+						if(myNetworkCasesWrapperVar != null && myNetworkCasesWrapperVar.caseId != null && !processedCaseInvestigationIds.contains(cInv.Id)){
+							processedCaseIds.add(cInv.Case__r.Id);
+							myNetworkCasesWrapperVar.addCaseInvestigation(cInv);
+
+							myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);
+							processedCaseInvestigationIds.add(cInv.Id);
+						}
+					}
+		}
+
+		return myNetworkCasesWrapperList;
+	}
+
+	public class CaseInvestigationsWrapper{
+		@AuraEnabled
+		public Set<Id> updatedCaseInvestigationIds{get;set;}   
+		@AuraEnabled
+		public List<CaseInvestigation__c> caseInvestigationList{get;set;}   
+		
+
+		public CaseInvestigationsWrapper(Set<Id> updatedCaseInvestigationIds, List<CaseInvestigation__c> caseInvestigationList) {
+			this.updatedCaseInvestigationIds = updatedCaseInvestigationIds;
+			this.caseInvestigationList = caseInvestigationList;
+		}
 	}
 
 	/**
-		@ Description : Used to get below details of StarTrack Cases updated by contact center user
-						a.Details as 'SUI' or 'NEW' or 'Updated'
+		@ Description : method creates a MyNetworkCasesWrapper with C
 		@ param       : N/A
-		@ return      : Query String
+		@ return      : MyNetworkCasesWrapper
 	 */
 	@TestVisible
-	private static MyNetworkCasesWrapper  validationStarTrackCasesUpdatedByContactCenter(case cse, CaseInvestigation__c cInv){
+	private static MyNetworkCasesWrapper  validateCaseInvestigations(CaseInvestigation__c cInv){
 		String iconMapVar ;
 		String colorMapVar;
 		String textMapVar;
@@ -1437,7 +1405,7 @@ public with sharing class MyNetworkCaseListController {
 			textMapVar =  'Case is under investigation';
 		}
 		//check st case condition
-		else if( cse.Last_Status_Change__c != null && cse.Last_Status_Change__c >= System.today() - 5) {
+		else if( cInv.Case__r.Last_Status_Change__c != null && cInv.Case__r.Last_Status_Change__c >= System.today() - 5) {
 			//mark case as updated 
 			iconMapVar = 'UPDATED';
 			colorMapVar = 'Red';
@@ -1448,11 +1416,11 @@ public with sharing class MyNetworkCaseListController {
 			colorMapVar = 'green';
 			textMapVar = 'Case is awaiting action/response' ;
 		}
-		String casePriority = getCasePriority(cse);
-		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(cse, iconMapVar, colorMapVar, textMapVar, cse.CaseNumber, cse.Id, casePriority);
+		String casePriority = getCasePriority(cInv.Case__r.priority);
+		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__r.Id, casePriority);
+		
 	
 		return myNetworkCasesWrapperVar;
 	}
-	
  
 }
