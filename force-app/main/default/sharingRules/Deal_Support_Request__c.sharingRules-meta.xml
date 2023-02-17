@@ -91,12 +91,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_DEC_DSR_with_Sales</fullName>
+        <fullName>ShareDECDSRWithSales</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This rule share read-only access to DEC DSR type with Sales.</description>
+        <description>This rule share read-only access to DEC DSR type with Sales Ex Direct &amp; Intermediaries.</description>
         <label>Share DEC DSR with Sales</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

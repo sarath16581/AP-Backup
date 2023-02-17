@@ -9,6 +9,7 @@
  * @changelog
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-04-28 - Nathan Franklin - Remove IConstructable interfaces
+ * 2023-02-14 - Ranjeewa Silva - Added tests to assert after undelete trigger dispatch
  */
 @IsTest
 private class ApplicationDomainTriggerHandler_Test {
@@ -152,6 +153,40 @@ private class ApplicationDomainTriggerHandler_Test {
 		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnAfterUpdateCalled, 'OnAfterUpdate should have been called');
 		//		System.assertEquals(1, moduleOnBeforeDeleteCalled, 'Expected only 1');
 		//		System.assertEquals(1, moduleOnAfterDeleteCalled, 'Expected only 1');
+
+	}
+
+	/**
+	 * Scenario:
+	 * Making sure we can dispatch the correct domain/module calls
+	 */
+	@IsTest
+	public static void testAfterUndeletetDispatch() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		(new AccountTriggerHandler()).dispatch(false, true, false, false, false, true, accounts, null);
+
+		Test.stopTest();
+
+		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnBeforeInsertCalled, 'OnBeforeInsert should not have been called');
+		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnAfterInsertCalled, 'OnAfterInsert should not have been called');
+		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnBeforeUpdateCalled, 'OnBeforeUpdate should not have been called');
+		System.assertEquals(0, ApplicationTestDomain1_Test.moduleOnAfterUpdateCalled, 'OnAfterUpdate should not have been called');
+		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnAfterUndeleteCalled, 'OnAfterUndelete should have been called');
 
 	}
 

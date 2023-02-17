@@ -8,12 +8,13 @@
  * @domain Core
  * @changelog
  * 2022-04-28 - Nathan Franklin - Remove IConstructable interfaces
+ * 2023-02-14 - Ranjeewa Silva - Updated to enable asserting after undelete trigger dispatch
  */
 @IsTest
 public class ApplicationTestDomainModuleAll_Test extends ApplicationDomain.Module {
 
 	public ApplicationTestDomainModuleAll_Test() {
-		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate().enableAfterUpdate().enableBeforeDelete().enableAfterDelete();
+		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate().enableAfterUpdate().enableBeforeDelete().enableAfterDelete().enableAfterUndelete();
 	}
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		ApplicationTestDomain1_Test.moduleOnBeforeInsertCalled++;
@@ -39,5 +40,9 @@ public class ApplicationTestDomainModuleAll_Test extends ApplicationDomain.Modul
 
 	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		ApplicationTestDomain1_Test.moduleOnAfterDeleteCalled++;
+	}
+
+	public override void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {
+		ApplicationTestDomain1_Test.moduleOnAfterUndeleteCalled++;
 	}
 }
