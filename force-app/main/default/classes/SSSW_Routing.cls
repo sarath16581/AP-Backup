@@ -494,6 +494,7 @@ public class SSSW_Routing {
 		if(cs.PreferredAgentExpiry__c == null && 
 			(isFinalPass || 
 			 oldCase != null && oldCase.PreferredAgentExpiry__c == null) && 
+			 cs.BusinessHoursId != null &&
 			 rule.PreferredAgentExpiry__c != null) {
 			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), rule.PreferredAgentExpiry__c.longValue() * 3600000);
 		}
