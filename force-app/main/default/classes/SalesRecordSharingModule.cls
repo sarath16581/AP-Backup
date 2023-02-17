@@ -7,38 +7,37 @@
  * @test SalesRecordSharingModule_Test
  * @changelog
  * 2022-11-28 - Ken McGuire - Created.
+ * 2022-02-13 - Ranjeewa Silva - Refactored and added support to recalculate sharing when records are undeleted.
  */
 
 public inherited sharing class SalesRecordSharingModule extends ApplicationDomain.Module {
-	private static final String APP = 'SalesRecordSharing'; 
-	private static final String ACTION_INSERT = 'INSERT';
-	private static final String ACTION_UPDATE = 'UPDATE';
-	// new instance
+
+	private static final String APP = 'Sales';
+
 	public static SalesRecordSharingModule newInstance() {
 		return (SalesRecordSharingModule)Application.Utilities.newInstance(SalesRecordSharingModule.class);
 	}
  
-	// Constructor
 	public SalesRecordSharingModule() {
 		// Setup which trigger events this module should respond to
-		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
+		getTriggerEvents().enableAfterInsert().enableAfterUpdate().enableAfterUndelete();
 	}
  
 
 	// after insert trigger handler
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		
-		// retrive object type for sharing service
-		Schema.sobjectType objectType = records[0].getSObjectType();
-		
-		
 		// Share records using sharing service
 		try {
-			SalesRecordSharingService.getInstance().shareRecords(objectType, new Map <Id, SObject>(records), false, uow);
+
+			Map<Id, SObject> sharingScope = getSharingScope(records, new Map<Id, SObject>());
+			if (!sharingScope.isEmpty()) {
+				SalesRecordSharingService.getInstance().shareRecords(records.getSObjectType(), sharingScope, false, uow);
+			}
+
 		} catch (Exception ex) {
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
-													SalesRecordSharingModule.class.getName(), ACTION_INSERT, 
-													objectType.getDescribe().getName(), LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), APP, SalesRecordSharingModule.class.getName(),
+					'onAfterInsert', String.valueOf(records.getSObjectType()), ApplicationLogger.LoggingLevel.ERROR);
 		}
 
 	}
@@ -46,48 +45,62 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 	// after update trigger handler
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 	
-		// retrieve object type for sharing service
-		Schema.sobjectType objectType = records[0].getSObjectType();
-		
-		
 		try {
-			// obtain sharing service instance
-			SalesRecordSharingService sharingService = SalesRecordSharingService.getInstance();
-	
-			// obtain any records which has a changed lookup to the parent record.
-			Map<Id,SObject> changedParentRecordMap = getChangedParentRecordMap(records,existingRecords, sharingService.getSharingConfiguration(objectType).lookupField);
-			
-			if (changedParentRecordMap.isEmpty()) {
-				return;
+
+			Map<Id, SObject> sharingScope = getSharingScope(records, existingRecords);
+			if (!sharingScope.isEmpty()) {
+				SalesRecordSharingService.getInstance().shareRecords(records.getSObjectType(), sharingScope, true, uow);
 			}
-			
-			// recalculate sharing rules for objects having changed parent lookup.
-				sharingService.shareRecords(objectType, changedParentRecordMap, true, uow);
+
 		} catch (Exception ex) {
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
-													SalesRecordSharingModule.class.getName(), ACTION_UPDATE, 
-													objectType.getDescribe().getName(), LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), APP, SalesRecordSharingModule.class.getName(),
+					'onAfterUpdate', String.valueOf(records.getSObjectType()), ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
-	/*
-	* Filters updated records for changed values in a field.
-	* @param records The specified SObject records
-	* @param existingRecords The existing SObject record values
-	* @return a Map of records for those records which have had a change to the specified field
-	*/    
-	private Map<Id,SObject> getChangedParentRecordMap(List<SObject> records, Map<Id, SObject> existingRecords, SObjectField field ) {
+	// after undelete trigger handler
+	public override void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {
 
-		Map<Id,SObject> changedParentRecordMap = new Map<Id,SObject>();
+		// Share records using sharing service
+		try {
 
-		for (SObject currentRecord : records) {
-			String currentFieldValue = (String)currentRecord.get(field);
-			String existingFieldValue = (String)(existingRecords.get(currentRecord.id)).get(field);
-			if (currentFieldValue != existingFieldValue) {
-				changedParentRecordMap.put(currentRecord.id,currentRecord);
+			Map<Id, SObject> sharingScope = getSharingScope(records, new Map<Id, SObject>());
+			if (!sharingScope.isEmpty()) {
+				SalesRecordSharingService.getInstance().shareRecords(records.getSObjectType(), sharingScope, true, uow);
+			}
+
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), APP, SalesRecordSharingModule.class.getName(),
+					'onAfterUndelete', String.valueOf(records.getSObjectType()), ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+
+	/**
+	 * Returns sub-set of records that need to be submitted for sharing calculation.
+	 *
+	 * @param records new versions of records
+	 * @param existingRecords old versions of records (only in updated scenario).
+	 *
+	 * @return records that need to be submitted for sharing calculation.
+	 */
+	private Map<Id, SObject> getSharingScope(List<SObject> records, Map<Id, SObject> existingRecords) {
+
+		SObjectField lookupField = SalesRecordSharingService.getInstance().getSharingConfiguration(records.getSObjectType())?.lookupField;
+		if (lookupField == null) {
+			return new Map<Id,SObject>();
+		}
+
+		Map<Id, SObject> results = new Map<Id, SObject>();
+		for (SObject record: records) {
+			SObject existingRecord = existingRecords?.get(record.Id);
+			// determine sharing scope based on below rules:
+			// - newly inserted(or undeleted) records need to be submitted for sharing recalculation if the account lookup field is populated
+			// - updated records need to be submitted for sharing only if the account lookup is updated
+			if (record.get(lookupField) != null
+					&& (existingRecord == null || (record.get(lookupField) != existingRecord.get(lookupField)))) {
+				results.put(record.Id, record);
 			}
 		}
-									
-		return changedParentRecordMap;
+		return results;
 	}
 }
