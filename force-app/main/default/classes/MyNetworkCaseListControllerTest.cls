@@ -475,8 +475,8 @@
 	}
 
 	/**
-	 * @desc: Method to test if cases are returned if List view is changed to 'Updated Cases'.
-	 * Expected to return all updated cases. 
+	 * @desc: Method to test if cases are returned if List view is changed to 'Star Track Cases'.
+	 * Expected to return all case investigations. 
 	 */
 
 	 @isTest
@@ -508,11 +508,10 @@
 		networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
 
 
-		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
-		List<CaseInvestigation__c> otherNetworkcaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[1].Id, true);
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, cases[0].Id, articles[0], networks[0].Id, true);
 		
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
-		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0]}});
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => networkCaseInvestigations});
 
 		// =====================================
 		// Stubbing
@@ -520,7 +519,6 @@
 		UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
 		NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
-		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
@@ -530,22 +528,17 @@
 		MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
 		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
-										new Set<Object>{CaseInvestigationsSelector.Options.WITH_NETWORKS} ))
+										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+											CaseInvestigationsSelector.Options.WITH_ARTICLES} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
 		
-		MockUtility.Mocks.when(mockCasesSelector.selectByIdWithCaseInvestigations(new Set<Id>{cases[0].Id}, 
-											new Set<Id>{networkCaseInvestigations[0].Id}, 
-											new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																CaseInvestigationsSelector.Options.WITH_ARTICLES} ))
-											.thenReturn(new Map<Id, Case>(cases));
+
 		
 		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
 		MyNetworkCaseListController controller = new MyNetworkCaseListController();
-
-		MyNetworkCaseListController.SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp = MyNetworkCaseListController.constructDynamicFilters(filteredString);
-		List<Case> stCases = MyNetworkCaseListController.getStarTrackCases(selectedViewWithFiltersWrp);
+		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
 		Test.StopTest();  
 
 		//verifying methods are called
@@ -553,45 +546,36 @@
 
 		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
 														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
-																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_NETWORKS});
-		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByIdWithCaseInvestigations(
-												new Set<Id>{cases[0].Id}, 
-												new Set<Id>{networkCaseInvestigations[0].Id}, 
-												new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																	CaseInvestigationsSelector.Options.WITH_ARTICLES});
+																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+																										CaseInvestigationsSelector.Options.WITH_ARTICLES});
+
 
 		//assert Star Track case is returned.
-		System.assert(!stCases.isEmpty());
+		System.assert(!caseInvWrapperList.isEmpty());
 		
-		//asserting return case is of expected record types
-		System.assertEquals(stCases[0].RecordTypeId, stCaseRecordTypeId);
-
-		//asserting method returns case investigations.
-		System.assertEquals(1, stCases[0].CaseInvestigations__r.size());
-
-		//asserting case investigations belongs to users assigned network.
-		System.assertEquals(networks[0].Id, stCases[0].CaseInvestigations__r[0].Network__c);
+		//asserting method returns expected case investigations.
+		System.assertEquals(3, caseInvWrapperList.size());
 
 	}
+
 	/**
 	 * @desc: Method to test case and case investigations are return with valid colour schemes for portal. 
 	 * Expected to return wrapper object with valid colour schemes.
 	 */
-
 	@isTest
-	static void test_validationStarTrackCasesUpdatedByContactCenter() {
+	static void test_validateCaseInvestigations() {
 		
 		// =====================================
 		// Data Preparation
 		// =====================================
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, cases[0].Id, null, null, true);
 		cases[0].Last_Status_Change__c = System.today().addDays(-2);
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
 
 		networkCaseInvestigations[0].LastContactCentreUpdate__c = System.today().addDays(-2);
-		networkCaseInvestigations[0].Stillunderinvestigation__c = true;
-		
+		networkCaseInvestigations[1].Stillunderinvestigation__c = true;
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -603,78 +587,110 @@
 		Test.StartTest();
 		MyNetworkCaseListController controller = new MyNetworkCaseListController();
 		
-		//passing only case
-		MyNetworkCaseListController.MyNetworkCasesWrapper caseWrapperObj = MyNetworkCaseListController.validationStarTrackCasesUpdatedByContactCenter(cases[0], null);
-
 		//passing case and case investigation
-		MyNetworkCaseListController.MyNetworkCasesWrapper caseInvWrapperObj = MyNetworkCaseListController.validationStarTrackCasesUpdatedByContactCenter(cases[0], networkCaseInvestigations[0]);
+		MyNetworkCaseListController.MyNetworkCasesWrapper updatedCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[0]);
+		MyNetworkCaseListController.MyNetworkCasesWrapper stillUnderInvestigationCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[1]);
+		MyNetworkCaseListController.MyNetworkCasesWrapper newCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[2]);
 
 		Test.StopTest();  
 		
-		//asserting passed case is returned with valid color schemes and icons
-		system.assertEquals('UPDATED', caseWrapperObj.caseIcon);
-		system.assertEquals('Red', caseWrapperObj.caseColor);
+		//asserting passed case investigation is returned with valid color schemes and icons
+		system.assertEquals('UPDATED', updatedCaseInvWrapper.caseIcon);
+		system.assertEquals('Red', updatedCaseInvWrapper.caseColor);
 		
-		//asserting passed case and case investigation is returned with valid color schemes and icons
-		system.assertEquals('SUI', caseInvWrapperObj.caseIcon);
-		system.assertEquals('orange', caseInvWrapperObj.caseColor);
+		//asserting passed case investigation is returned with valid color schemes and icons
+		system.assertEquals('SUI', stillUnderInvestigationCaseInvWrapper.caseIcon);
+		system.assertEquals('orange', stillUnderInvestigationCaseInvWrapper.caseColor);
+
+		//asserting passed case investigation is returned with valid color schemes and icons
+		system.assertEquals('NEW', newCaseInvWrapper.caseIcon);
+		system.assertEquals('green', newCaseInvWrapper.caseColor);
 		
 	}
 
 
 	/**
-	 * @desc: Method to test if cases are returned if List view is changed to 'Updated Cases'.
-	 * Expected to return all updated cases. 
+	 * @desc: Method to test if cases are returned if List view is changed to 'Updated Star Track Case Investigations'.
+	 * Expected to return all start track updated case investigations. 
 	 */
-
 	 @isTest
 	 static void test_GetFilteredCases_UpdatedStarTrackListViewFilters() {
-		String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"Cases_updated","searchButtonClicked":true,"caseNumberVal":""}';
-
 		// =====================================
 		// Data Preparation
 		// =====================================
-		Id stRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-		.get('StarTrack_PUD_Enquiry').getRecordTypeId();
+		Id profileId = Application.Cache.profileIds.get('MyNetwork Portal');
 
+		User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
+		myNetworkPortalUser.Id = UserInfo.getUserId();
+
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+
+		Id stCaseRecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].RecordTypeId = stRecordTypeId;
+		cases[0].RecordTypeId = stCaseRecordTypeId;
+
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+		networks[0].Org_ID__c = '1234';
+
+		List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), true);
+		
 		//assigning formula field as it is referred in logic.
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+		networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
 
 
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, null, null, true);
-		caseInvestigations[0].LastContactCentreUpdate__c = System.today().addDays(-5);
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
 		
-		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0], caseInvestigations[1]}});
+		// updating ONLY one CI record. 
+		networkCaseInvestigations[0].LastContactCentreUpdate__c = System.today().addDays(-2);
+		
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
 
-		//=====================================
+		// =====================================
 		// Stubbing
-		//=====================================
-		//Not required
+		// =====================================
+		UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+		NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
+		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
+		MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
+							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
+		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
+										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+											CaseInvestigationsSelector.Options.WITH_ARTICLES} ))
+							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
+
+		
+		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
-		MyNetworkCaseListController controller = new MyNetworkCaseListController();
 
-		MyNetworkCaseListController.CaseWrapper wrapperObj = MyNetworkCaseListController.getNetworkQueueCases(cases);
-		Test.StopTest();  
-
+		MyNetworkCaseListController.CaseInvestigationsWrapper cInvWrapper = MyNetworkCaseListController.getStarTrackCases(null);
+		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.processCaseInvWrapper(cInvWrapper, 'Cases_updated');
 		
-		//assert Star Track case is returned.
-		System.assert(!wrapperObj.caseIdSet.isEmpty());
+		Test.StopTest();
 		
-		//asserting method returns case investigations.
-		System.assertEquals(2, wrapperObj.myNetworkCasesWrap.size());
+		//verifying methods are called
+		((NetworkUsersSelector)MockUtility.Mocks.verify(mockNetworkUserSelector, MockUtility.Mocks.times(1))).selectByUserId(new Set<Id>{myNetworkPortalUser.Id});
 
-		//asserting one case investigation is UPDATED and other is NEW
-		for(MyNetworkCaseListController.MyNetworkCasesWrapper innerWrapperObj : wrapperObj.myNetworkCasesWrap){
-			if(innerWrapperObj.myNetworkCase.Id == caseInvestigations[0].Id){
-				system.assertEquals('UPDATED', innerWrapperObj.caseColor);
-			}
-			if(innerWrapperObj.myNetworkCase.Id == caseInvestigations[1].Id){
-				system.assertEquals('NEW', innerWrapperObj.caseColor);
-			}
-		}
+		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
+														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
+																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+																										CaseInvestigationsSelector.Options.WITH_ARTICLES});
+		
+
+		//asserting method returns ONLY UPDATED case investigations.
+		System.assertEquals(1, caseInvWrapperList.size());
+		
+		//asserting one case investigation is UPDATED and ONLY one record is filtered out of two case investigations passed.
+		System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id);
+		system.assertEquals('UPDATED', caseInvWrapperList[0].caseIcon);
+	
 	}
 
 	/**

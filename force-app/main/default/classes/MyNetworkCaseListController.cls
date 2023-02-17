@@ -496,7 +496,7 @@ public with sharing class MyNetworkCaseListController {
 	 */
 	@testVisible
 	private class SelectedViewWithFiltersWrapper{
-		String selectedView;
+		@testVisible String selectedView;
 		String filter;
 		Map<String, Object> selectedViewAndFiltersJsonObject;
 		public SelectedViewWithFiltersWrapper(String selectedViewStr, String filterStr, Map<String, Object> selectedViewAndFiltersJson){
@@ -1333,8 +1333,8 @@ public with sharing class MyNetworkCaseListController {
 		return cInvWrapper;
 	}
 
-	
-	public static List<MyNetworkCasesWrapper> processCaseInvWrapper(CaseInvestigationsWrapper processCaseInvWrapper, String selectedView) {
+	@TestVisible
+	private static List<MyNetworkCasesWrapper> processCaseInvWrapper(CaseInvestigationsWrapper processCaseInvWrapper, String selectedView) {
 		list<MyNetworkCasesWrapper> myNetworkCasesWrapperList = new list<MyNetworkCasesWrapper>();
 		MyNetworkCasesWrapper myNetworkCasesWrapperVar ;
 		set<Id> caseIds = new set<Id>();
@@ -1418,8 +1418,7 @@ public with sharing class MyNetworkCaseListController {
 			textMapVar = 'Case is awaiting action/response' ;
 		}
 		String casePriority = getCasePriority(cInv.Case__r.priority);
-		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__r.Id, casePriority);
-		
+		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority);
 	
 		return myNetworkCasesWrapperVar;
 	}

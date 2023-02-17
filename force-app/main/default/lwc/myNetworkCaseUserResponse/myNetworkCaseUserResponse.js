@@ -18,7 +18,6 @@ import { updateRecord, getRecord, getFieldValue  } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
-import COMMENTS_FIELD from '@salesforce/schema/CaseInvestigation__c.Comments__c';
 import DELIVERY_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Deliveryinformation__c';
 import DELIVERY_OFFICER_KNOWLEDGE_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOfficerKnowledge__c';
 import DELIVERY_OPTIONS_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOptions__c';
@@ -133,7 +132,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	
 	
 
-	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
+	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
 		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD,
 		INTERNAL_FACILITY_NOTES_FIELD, CASE_FIELD] })
 	wiredRecord({ error, data }) {
