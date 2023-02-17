@@ -513,6 +513,11 @@
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
 		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => networkCaseInvestigations});
 
+		//setting fieldOverrides for User sobject
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>();
+		Set<SObjectField> userFields = new Set<SObjectField>{ User.Name };
+		fieldOverrides.put(User.SObjectType, userFields);
+		
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -529,7 +534,7 @@
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
 		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-											CaseInvestigationsSelector.Options.WITH_ARTICLES} ))
+											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
 		
 
@@ -547,7 +552,7 @@
 		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
 														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
 																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																										CaseInvestigationsSelector.Options.WITH_ARTICLES});
+																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
 
 
 		//assert Star Track case is returned.
@@ -662,7 +667,7 @@
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
 		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-											CaseInvestigationsSelector.Options.WITH_ARTICLES} ))
+											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
 
 		
@@ -681,7 +686,7 @@
 		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
 														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
 																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																										CaseInvestigationsSelector.Options.WITH_ARTICLES});
+																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
 		
 
 		//asserting method returns ONLY UPDATED case investigations.

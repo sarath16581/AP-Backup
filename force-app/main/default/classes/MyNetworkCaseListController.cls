@@ -1277,6 +1277,20 @@ public with sharing class MyNetworkCaseListController {
 		return picklistValueList;
 	}
 
+	//Method to get the fieldOverrides
+	public static Map<SObjectType, Set<SObjectField>> fieldOverrides {
+		get {
+			if(fieldOverrides == null) {
+				fieldOverrides = new Map<SObjectType, Set<SObjectField>>();
+				
+				Set<SObjectField> userFields = new Set<SObjectField>{ User.Name };
+				fieldOverrides.put(User.SObjectType, userFields);
+			}
+			return fieldOverrides;
+		}
+		private set;
+	}
+
 	/**
 		@ Description	: Used to get star track cases. 
 		@ param			: SelectedViewWithFiltersWrapper
@@ -1305,9 +1319,9 @@ public with sharing class MyNetworkCaseListController {
 			Set<Id> updatedCaseInvestigationIds = new Set<Id>();
 			
 			//get all CI records where network ID in networkIds set.
-			List<CaseInvestigation__c> caseInvList = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Object>{
+			List<CaseInvestigation__c> caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Object>{
 				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-				CaseInvestigationsSelector.Options.WITH_ARTICLES}).values();
+				CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS}).values();
 			for(CaseInvestigation__c cInv : caseInvList){
 				
 				if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'Case_updated') {

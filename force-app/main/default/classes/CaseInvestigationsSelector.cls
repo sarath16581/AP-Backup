@@ -17,7 +17,7 @@
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS 
+		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS, WITH_OWNER_DETAILS 
 	}
 
 	public static CaseInvestigationsSelector newInstance() {
@@ -37,6 +37,16 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return selector;
 	}
 
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static CaseInvestigationsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CaseInvestigationsSelector selector = (CaseInvestigationsSelector) Application.Selectors.newInstance(CaseInvestigationsSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	
 
 	public virtual override SObjectType getSObjectType() {
 		return CaseInvestigation__c.getSObjectType();
@@ -167,6 +177,9 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		}
 		if(selectorOptions.contains(Options.WITH_NETWORKS)) {
 			builder.addRelatedFields(NetworksSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Network__r');
+		}
+		if(selectorOptions.contains(Options.WITH_OWNER_DETAILS)) {
+			builder.addRelatedFields(UsersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Owner');
 		}
 		return builder;
 	}

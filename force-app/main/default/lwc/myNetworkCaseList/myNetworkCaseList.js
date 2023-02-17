@@ -284,8 +284,8 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 		if (data[i].caseInvestigation.Case__r.Network__r != null) {
 		caseRecord.Case_networkName = data[i].caseInvestigation.Case__r.Network__r.Name;
 		}
-		if (data[i].caseInvestigation.Case__r.PONUser__r != null) {
-		caseRecord.Case_assignedTo = data[i].caseInvestigation.Case__r.PONUser__r.Name;
+		if (data[i].caseInvestigation.Owner.Name != null) {
+		caseRecord.Case_assignedTo = data[i].caseInvestigation.Owner.Name;
 		}
 		caseRecord = Object.assign(caseRecord, data[i]);
 	}
