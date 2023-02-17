@@ -19,8 +19,7 @@ public class AgentWorkTriggerHandler extends ApplicationDomainTriggerHandler {
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{ 
-			STAgentWorkDomain.class
-			//APAgentWorkDomain.class 
+			APAgentWorkDomain.class 
 		};
 	}
 

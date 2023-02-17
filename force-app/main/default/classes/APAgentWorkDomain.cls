@@ -15,10 +15,12 @@ public inherited sharing class APAgentWorkDomain extends ApplicationDomain {
 	 * Prefilter the records passed in to ensure this domain class only processes applicable records.
 	 */
 	public override List<SObject> filter(List<SObject> records) {
-		Set<Id> validRecordTypes = new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet();
+		Set<Id> validRecordTypeIds = new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet();
 		List<SObject> output = new List<SObject>();
+		Map<Id, SObject> mapRecords = new Map<Id, SObject>(records);
+		Map<Id, AgentWork> validAgentWorks = new Map<Id, AgentWork>(AgentWorkSelector.newInstance().selectByWorkItemIdsAndRecordTypeIds(mapRecords.keySet(), validRecordTypeIds, new Set<Object>()));
 		for(SObject record : records) {
-			if(validRecordTypes.contains((Id)record.get('WorkItem.RecordTypeId')) == true) { // Only process AP related AgentWork
+			if(validAgentWorks.containsKey((Id)record.get('WorkItemId')) == true) { // Only process AP related AgentWork
 				output.add(record);
 			}
 		}
