@@ -24,6 +24,15 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (AgentWorkSelector)Application.Selectors.newInstance(AgentWorkSelector.class).setLimit(recordLimit);
 	}
 
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *                          This approach removes data consistency and prevents possible caching of results
+	 */
+	public static AgentWorkSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		AgentWorkSelector selector = (AgentWorkSelector) Application.Selectors.newInstance(AgentWorkSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 	public virtual override SObjectType getSObjectType() {
 		return AgentWork.getSObjectType();
 	}
@@ -50,12 +59,39 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
+	/*
+	* this method returns records with matching workitem ids And matching work item record type ids. 
+	* it is being used by AgentWork domains to filter by record type. 
+	*/
+	public List<AgentWork> selectByWorkItemIdsAndRecordTypeIds(Set<Id> workItemIds, Set<Id> workItemRecordTypeIds, Set<Object> selectorOptions) {
+		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+			.add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
+			.add(new QueryBuilder.SimpleCondition('WorkItem.RecordTypeId IN :workItemRecordTypeIds'))
+			.endConditions();
+
+		return (List<AgentWork>)Database.query(qb.toSoqlString());
+	}
+
+	public List<AgentWork> selectByAcceptedWorkItemIdsAndActiveUser(Set<Id> workItemIds, Set<Object> selectorOptions) {
+		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+			.add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
+			.add(new QueryBuilder.SimpleCondition(AgentWork.AcceptDateTime + ' != NULL'))
+			.add(new QueryBuilder.SimpleCondition('User.IsActive = TRUE'))
+			.endConditions();
+
+		qb.addOrder(new QueryBuilder.Order(AgentWork.WorkItemId))
+			.addOrder(new QueryBuilder.Order(AgentWork.AcceptDateTime).setSortingOrderDesc());
+
+		return (List<AgentWork>)Database.query(qb.toSoqlString());
+	}
+
 	public List<AgentWork> selectByAcceptedWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
 		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
 			.add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
 			.add(new QueryBuilder.SimpleCondition(AgentWork.AcceptDateTime + ' != NULL'))
-			.setConditionOrder('1 AND 2')
 			.endConditions();
 
 		qb.addOrder(new QueryBuilder.Order(AgentWork.WorkItemId))
