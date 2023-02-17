@@ -203,6 +203,7 @@
     <sharingCriteriaRules>
         <fullName>Enterprise_Credit_Dispute_Claim_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
+        <description>Grant full access to Enterprise and Credit Dispute Claim cases to StarTrack Credit Disputes Managers.</description>
         <label>Enterprise Credit Dispute Claim Read/Write</label>
         <sharedTo>
             <roleAndSubordinatesInternal>StarTrack_Credit_Disputes_Manager</roleAndSubordinatesInternal>
@@ -210,7 +211,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Enterprise Credit Dispute Claim</value>
+            <value>Credit Dispute Claim,Enterprise Credit Dispute Claim</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -416,11 +417,12 @@
     <sharingCriteriaRules>
         <fullName>Secure_Post_Customer_Onboarding_with_Credit_Management</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Give read only access of Customer Onboarding Cases to Credit management team.</description>
-        <label>Secure Post Customer Onboarding with Credit Management</label>
+        <description>Give read only access of Customer Onboarding and Business Systems integration Cases to Credit management team.</description>
+        <label>Secure Post Customer Onboarding &amp; BSI with Credit Management</label>
         <sharedTo>
             <group>APT_Credit_Management_Team</group>
         </sharedTo>
+        <booleanFilter>(1 AND 2) OR 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -431,6 +433,11 @@
             <operation>equals</operation>
             <value>01t2v000009FtAv</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Business Systems Integration</value>
+        </criteriaItems>        
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -503,20 +510,6 @@
         <label>Share_CreditBSI_Parent_Case_with_CDM</label>
         <sharedTo>
             <group>CustomerDataTeam</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Business Systems Integration</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Share_Credit_Parent_Case_with_BSI</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Share Credit Parent Case with BSI</label>
-        <sharedTo>
-            <group>APT_Credit_Management_Team</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -599,41 +592,14 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>StarTrack_Credit_Dispute_Read_Write</fullName>
+        <fullName>StarTrack_sharing</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>StarTrack Credit Dispute Read/Write</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>StarTrack_Credit_Disputes_Manager</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Dispute Claim</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>StarTrack_Credit_Dispute_Read_Write1</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>StarTrack Credit Dispute Read/Write1</label>
-        <sharedTo>
-            <role>StarTrack_Credit_Disputes_Manager</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Dispute Claim</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>StarTrack_Delivery_Enquiry_sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>All the delivery enquiry cases are accesible to all startrack users except the account manager support cases</description>
-        <label>StarTrack Delivery Enquiry sharing</label>
+        <description>All the delivery enquiry cases are accesible to all startrack users except the account manager support cases. Also allow all StarTrack users to read/edit each others Pickup Booking, Sales and General enquiry cases.</description>
+        <label>StarTrack case sharing</label>
         <sharedTo>
             <group>All_StarTrack_Users</group>
         </sharedTo>
+        <booleanFilter>(1 AND 2) OR 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -643,6 +609,11 @@
             <field>Call_Purpose__c</field>
             <operation>notEqual</operation>
             <value>Account Manager Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pickup Booking Enquiry,Sales Enquiry,General Enquiry</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -672,21 +643,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Transit Warranty Claim</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>StarTrack_sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Rule to allow all StarTrack users to read and edit each others cases</description>
-        <label>StarTrack case sharing</label>
-        <sharedTo>
-            <group>All_StarTrack_Users</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Pickup Booking Enquiry,Sales Enquiry,General Enquiry</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

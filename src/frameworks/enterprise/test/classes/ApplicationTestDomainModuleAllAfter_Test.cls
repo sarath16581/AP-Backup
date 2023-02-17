@@ -8,6 +8,7 @@
  * @domain Core
  * @changelog
  * 2022-04-28 - Nathan Franklin - Remove IConstructable interfaces
+ * 2023-02-14 - Ranjeewa Silva - Updated to enable asserting after undelete trigger dispatch
  */
 @IsTest
 public class ApplicationTestDomainModuleAllAfter_Test extends ApplicationDomain.Module {
@@ -38,5 +39,9 @@ public class ApplicationTestDomainModuleAllAfter_Test extends ApplicationDomain.
 
 	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		ApplicationTestDomain2_Test.moduleOnAfterDeleteCalled++;
+	}
+
+	public override void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {
+		ApplicationTestDomain2_Test.moduleOnAfterUndeleteCalled++;
 	}
 }
