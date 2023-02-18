@@ -173,29 +173,7 @@ public inherited sharing class OmniChannelService {
 	* This method returns a map of CaseIds and its latest AgentWork where the UserId is an active User
 	*/
 	public Map<Id,AgentWork> getLatestAcceptedAgentWorkWithActiveUser(Set<Id> caseIds) {
-		Map<Id,AgentWork> result = new Map<Id,AgentWork>();
-		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
-
-		Set<Id> pastAgentUserIds = new Set<Id>();
-
-		for(AgentWork agentWork : aws){
-			pastAgentUserIds.add(agentWork.UserId);
-		}
-		Map<Id, User> mapActiveUsers = UsersSelector.newInstance().selectActiveUserById(pastAgentUserIds);
-
-
-		if(aws.isEmpty() == false){
-			for(Id caseId : caseIds){
-				for(AgentWork agentWork : aws){
-					if(agentWork.WorkItemId == caseId 
-						&& result.containsKey(caseId) == false
-						&& mapActiveUsers.containsKey(agentWork.UserId)){
-							result.put(agentWork.WorkItemId,agentWork);
-					}
-				}
-			}
-		}
-
+		Map<Id,AgentWork> result = new Map<Id,AgentWork>(new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds));
 		return result;
 	}
 
@@ -238,7 +216,7 @@ public inherited sharing class OmniChannelService {
 	public without sharing class WithoutSharingRetrieveData{
 		
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
-			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(caseIds, new Set<Object>());
+			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
 		}
 	}
 

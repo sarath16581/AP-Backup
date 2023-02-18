@@ -54,6 +54,13 @@ public with sharing class AgentWorkSelector_Test {
 		queryString = qa.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\b' + AgentWork.WorkItemId + ' in :workItemIds AND ' + AgentWork.AcceptDateTime + ' != NULL\\b').matcher(queryString).find(), 'Filters by workItemIds and AcceptDateTime not null in query');
 		System.assertEquals(true, Pattern.compile('\\bORDER BY ' + AgentWork.WorkItemId + ' ASC, ' + AgentWork.AcceptDateTime + ' DESC').matcher(queryString).find(), 'Order by work item id and date in query');
+
+		qa = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(AgentWorkSelector.class, qa); 
+		selector.selectByAcceptedWorkItemIdsAndActiveUser(agentWorks.keySet(), new Set<Object>());
+		queryString = qa.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\b' + AgentWork.WorkItemId + ' in :workItemIds AND ' + AgentWork.AcceptDateTime + ' != NULL AND User.IsActive = TRUE\\b').matcher(queryString).find(), 'Filters by workItemIds and AcceptDateTime not null in query');
+		System.assertEquals(true, Pattern.compile('\\bORDER BY ' + AgentWork.WorkItemId + ' ASC, ' + AgentWork.AcceptDateTime + ' DESC').matcher(queryString).find(), 'Order by work item id and date in query');
 	}
 
 }
