@@ -59,20 +59,6 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
-	/*
-	* this method returns records with matching workitem ids And matching work item record type ids. 
-	* it is being used by AgentWork domains to filter by record type. 
-	*/
-	public List<AgentWork> selectByWorkItemIdsAndRecordTypeIds(Set<Id> workItemIds, Set<Id> workItemRecordTypeIds, Set<Object> selectorOptions) {
-		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-			.add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
-			.add(new QueryBuilder.SimpleCondition('WorkItem.RecordTypeId IN :workItemRecordTypeIds'))
-			.endConditions();
-
-		return (List<AgentWork>)Database.query(qb.toSoqlString());
-	}
-
 	public List<AgentWork> selectByAcceptedWorkItemIdsAndActiveUser(Set<Id> workItemIds, Set<Object> selectorOptions) {
 		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()

@@ -12,4 +12,11 @@ trigger AgentWorkTrigger on AgentWork (before insert, before update,after insert
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(AgentWork.SObjectType))) {
 		AgentWorkTriggerHandler.newInstance().dispatch();
 	}
+
+	/*
+	* NOTE: This is existing method. Should be moved to the framework
+	*/
+	if (Trigger.IsUpdate && Trigger.IsAfter) {
+        AgentWorkTriggerHandler.assignDeclinedRemindersToQueue(Trigger.Old, Trigger.New);
+	}
 }
