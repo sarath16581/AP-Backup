@@ -8,10 +8,11 @@
  * @date 2020-07-27
  * @group Core
  * @domain Core
- * @changelog: onAfterDelete added by Sreenish Krishnan on 18th July 2022
  * @changelog
  * 2022-02-24 - Nathan Franklin - added logic for async and features
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
+ * 2022-07-18 - Sreenish Krishnan - added support for onAfterDelete
+ * 2023-02-14 - Ranjeewa Silva - added support for after undelete trigger event
  */
 public virtual inherited sharing class ApplicationDomain {
 	/**
@@ -190,6 +191,18 @@ public virtual inherited sharing class ApplicationDomain {
 		}
 	}
 
+	public void onAfterUndelete(ApplicationUnitOfWork uow) {
+		Map<Type, Object> modules = cachedModules.get(className);
+		if (modules != null) {
+			for (Object module : modules.values()) {
+				IModule instance = (IModule) module;
+				if (instance.getTriggerEvents().afterUndeleteEnabled) {
+					instance.onAfterUndelete(records, uow);
+				}
+			}
+		}
+	}
+
 	public void registerModule(Type moduleClass) {
 		// remove any modules which are not 'active'
 		if(!ApplicationFeatures.getInstance().isModuleActive(moduleClass)) {
@@ -341,6 +354,9 @@ public virtual inherited sharing class ApplicationDomain {
 		public virtual void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		}
 
+		public virtual void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {
+		}
+
 //		/**
 //		 * Sets the link this module has with the domain that invoked it (if any)
 //		 */
@@ -398,6 +414,8 @@ public virtual inherited sharing class ApplicationDomain {
 
 		void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow);
 		void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow);
+
+		void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow);
 
 //		void setDomain(ApplicationDomain domain);
 //		ApplicationDomain getDomain();

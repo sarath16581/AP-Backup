@@ -12,12 +12,23 @@
  */
 public inherited sharing class SalesAutomationModule extends ApplicationDomain.Module {
 
+	// cache key setting names for accessing platform cache
+	private static final String CACHE_KEY_SALESTEAMTYPE_MAPPINGS = 'SALES_SALESTEAMTYPE_MAPPINGS';
+
 	@TestVisible private static Map<String, List<String>> salesTeamTypeMappings {
 		get {
 			if (salesTeamTypeMappings == null) {
-				// TODO cache the mappings in platform cache to improve performance
-				Map<String, List<String>> mapping = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c, Account.Sales_Segment__c);
-				salesTeamTypeMappings = mapping;
+				// check in platform cache first
+				if (CacheManager.get(CACHE_KEY_SALESTEAMTYPE_MAPPINGS) != null) {
+					// use sales team mappings available in platform cache.
+					salesTeamTypeMappings = (Map<String, List<String>>) CacheManager.get(CACHE_KEY_SALESTEAMTYPE_MAPPINGS);
+				} else {
+					// sales team mappings are not available in platform cache. need to be queried.
+					Map<String, List<String>> mapping = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c, Account.Sales_Segment__c);
+					salesTeamTypeMappings = mapping;
+					// also populate platform cache so it is available later
+					CacheManager.put(CACHE_KEY_SALESTEAMTYPE_MAPPINGS, mapping);
+				}
 			}
 			return salesTeamTypeMappings;
 		}
@@ -37,7 +48,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 		try {
 			populateSalesTeamType((List<Account>)records);
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'AP Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -55,7 +66,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 				populateSalesTeamType(accountsToPopulateSalesTeamType);
 			}
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'AP Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -108,6 +119,6 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 			additionalInfo.add('Ignored accounts : ' + ignoredRecordIds.toString());
 		}
 
-		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'AP Sales', SalesAutomationModule.class.getName(), 'populateSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+		ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'Sales', SalesAutomationModule.class.getName(), 'populateSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 	}
 }
