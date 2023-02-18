@@ -105,7 +105,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	*/
 	public List<Case> selectByIdsAndRecordTypeIds(Set<Id> ids, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-			.add(new QueryBuilder.SimpleCondition(Case.Id + ' in :ids'))
+			.add(new QueryBuilder.SimpleCondition(Case.Id + ' IN :ids'))
 			.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' IN :recordTypeIds'))
 			.endConditions();
 
