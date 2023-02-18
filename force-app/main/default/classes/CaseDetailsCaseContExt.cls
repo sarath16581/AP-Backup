@@ -507,7 +507,8 @@ global class CaseDetailsCaseContExt  {
                     OwnerId,
                     SocialPostTags__c, // INC1852893 - SOQL query bug
                     CaseLocality__c,  // INC1852893 - SOQL query bug
-                    PreferredAgentExpiry__c 
+                    PreferredAgentExpiry__c, 
+					BusinessHoursId 
             from Case
             where Id = :caseId
             limit 1];
