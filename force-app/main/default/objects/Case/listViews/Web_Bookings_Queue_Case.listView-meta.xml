@@ -7,10 +7,9 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>StarTrack Pickup Enquiry - Unassigned</label>
+    <label>Web Bookings - Unassigned</label>
     <queue>Web_Bookings_Queue</queue>
     <sharedTo>
         <group>StarTrack_Controlled_Returns</group>
-        <group>StarTrack_Investigators</group>
     </sharedTo>
 </ListView>

@@ -9,12 +9,13 @@
 * @changelog
 * 2022-11-02 - George Nguyen - Created
 * 2023-02-06 - Nathan Franklin - Added search method and additional selector options and field overrides
+* 2023-02-08 - Noel Lim - Added method selectByLastModifiedDateLessThanEqualNDaysAgo
 * 2023-02-16 - Nathan Franklin - Modified search parameters
 */
 public inherited sharing class PendingServiceRoutingSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_WORKITEM, WITH_SKILLREQUIREMENTS
+		WITH_WORKITEM, WITH_SKILLREQUIREMENTS, EXCLUDE_ISPUSHED
 	}
 
 	public static PendingServiceRoutingSelector newInstance() {
@@ -92,11 +93,14 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	}
 
 	/**
-	 * @description Run a simple query to get records based on WorkItemId's
-	 */
-	public List<PendingServiceRouting> selectByLastModifiedDateLessThanLastNDays(Integer lastNDays, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PendingServiceRouting.LastModifiedDate + ' < LAST_N_DAYS:' + lastNDays)).endConditions();
-		return (List<PendingServiceRouting>)Database.query(qb.toSoqlString());
+	* @description Retrieve PSRs based on the LastModifiedDate
+	* @param nDaysAgo Specify a day in the past to retrieve PendingServiceRouting records dated on that day or older 
+	* @param selectorOptions Options
+	* @return QueryLocator
+	*/
+	public virtual Database.QueryLocator selectByLastModifiedDateLessThanEqualNDaysAgo(Integer nDaysAgo, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PendingServiceRouting.LastModifiedDate + ' <= N_DAYS_AGO:' + nDaysAgo)).endConditions();
+		return Database.getQueryLocator(qb.toSoqlString());
 	}
 
 	/**
@@ -113,6 +117,25 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 */
 	public List<PendingServiceRouting> search(Map<String, Object> searchParams, Boolean matchAll) {
 		return search(searchParams, new Set<Object>{}, matchAll);
+	}
+
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 * NOTE: entityIds OR documentIds MUST be passed to avoid a runtime error
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *						  limitToCaseOnly: boolean to add a Case limiter to ensure only Cases are returned (Boolean)
+	 *						  queueIds: grab the records specific to the queues passed in
+	 *						  idGreaterThan: return records greater than the id passed in (Id)
+	 *						  orderBy: set the order by field (SObjectField)
+	 *						  sortOrder: set the sort direction (asc,desc)
+	 * @param selectorOptions Selector Options
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 * @return Map<Id, PendingServiceRouting>
+	 */
+	public List<PendingServiceRouting> selectByLastModifiedDateLessThanLastNDays(Integer lastNDays, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PendingServiceRouting.LastModifiedDate + ' < LAST_N_DAYS:' + lastNDays)).endConditions();
+		return (List<PendingServiceRouting>)Database.query(qb.toSoqlString());
 	}
 
 	/**
@@ -186,6 +209,9 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 		}
 		if(selectorOptions.contains(Options.WITH_SKILLREQUIREMENTS)) {
 			builder.addSubQuery(SkillRequirementSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'SkillRequirements');
+		}
+		if(selectorOptions.contains(Options.EXCLUDE_ISPUSHED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(PendingServiceRouting.IsPushed).eq(false)).endConditions();
 		}
 
 		return builder;

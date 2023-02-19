@@ -1,3 +1,11 @@
+/**************************************************
+Type:       Test class for ChasCaseAssignment
+History:
+--------------------------------------------------
+2023-02-16	Noel Lim	Class comment added, Update method setupTestData to remove queues being decommissioned
+
+**************************************************/
+
 @isTest
 public class ChasCaseAssignment_Test {
 
@@ -13,7 +21,6 @@ public class ChasCaseAssignment_Test {
                 'SSSW Snap It Back Office',
                 'SSSW MyPost Business Inbound',
                 'SSSW MyPost Business Back Office',
-                'SSSW Social Media Team',
                 'SSSW Damages Back Office',
                 'SSSW Load & Go',
                 'SSSW MyPost',
@@ -29,15 +36,8 @@ public class ChasCaseAssignment_Test {
                 'SSSW International Back Office',
                 'SSSW Unaddressed Mail Inbound',
                 'SSSW Unaddressed Mail Back Office',
-                'SSSW Online Shop Inbound',
-                'SSSW Online Shop Back Office',
                 'SSSW Enterprise Back Office',
                 'SSSW Business Back Office',
-                'SSSW Consumer Inbound Specialist Del',
-                'SSSW Consumer Inbound Del Supp Prem',
-                'SSSW Consumer Inbound Del Supp Stand',
-                'SSSW Consumer Inbound Fin & Travel',
-                'SSSW Consumer Inbound Post Info',
                 'SSSW Consumer Inbound',
                 'SSSW Consumer Back Office Spec Del',
                 'SSSW Consumer Back Office Delivery Compl',

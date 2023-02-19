@@ -8,7 +8,7 @@
     <textOnly>Hi {!Case.Nominated_Advocate__c},
 
 This is a courtesy email to advise you that the resolution of VOC Incident {!Case.CaseNumber} is due by COB today.
-Please ensure you respond to this email as soon as possible.
+Please ensure you respond to this email attaching the completed VOC resolution form as soon as possible.
 
 Kind Regards,
 The Voice of Customer Team

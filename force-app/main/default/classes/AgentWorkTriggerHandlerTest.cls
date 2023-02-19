@@ -1,7 +1,30 @@
-@IsTest (IsParallel=true)
+/***
+ * @author George Nguyen
+ * @domain Core
+ * @description Test class for AgentWorkTriggerHandler 
+ * @changelog
+ * 2023-02-16 - George Nguyen - this class was created a long time ago. I have refactor it to use our framework. 
+ */
+@IsTest
 public class AgentWorkTriggerHandlerTest {
-    @TestSetup
-    static void setup(){
+
+	@IsTest
+	private static void main() {
+
+		AgentWorkTriggerHandler handler = new AgentWorkTriggerHandler();
+
+		System.assertNotEquals(null, handler.newUnitOfWork(), 'Expected a valid instance of ApplicationUnitOfWork; but got null');
+		System.assertNotEquals(null, handler.registerDomains(), 'Expected valid list of domain types to be returned');
+		System.assertEquals(AgentWork.SObjectType, handler.getSObjectType(), 'Expected the correct sobject type');
+		System.assert(AgentWorkTriggerHandler.getUnitOfWorkSObjectTypes().contains(AgentWork.SObjectType), 'Expected valid list of sobject types to be returned');
+		System.assert(AgentWorkTriggerHandler.getUnitOfWorkSObjectTypes().contains(Case.SObjectType), 'Expected valid list of sobject types to be returned');
+	}
+
+	/*
+	* NOTE: Existing test method. Should be uplifted to using the Framework. 
+	*/
+	@IsTest
+    public static void assignDeclinedRemindersToQueueTest(){
         /*** Create Case record records. */
         Case cs2 = new Case();
         cs2.RecordTypeId=Schema.SObjectType.Case.getRecordTypeInfosByName().get('SSSW General Enquiry').getRecordTypeId();
@@ -22,10 +45,7 @@ public class AgentWorkTriggerHandlerTest {
         callbackRequestList.add(new Callback_Request__c(Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15), RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
 		callbackRequestList.add(new Callback_Request__c(Type__c ='FCR',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
         insert callbackRequestList;
-    }
     
-    @IsTest
-    public static void assignDeclinedRemindersToQueueTest(){
         List<AgentWork> agentWorkListOld = new List<AgentWork>();
         List<AgentWork> agentWorkList = new List<AgentWork>();
         Callback_Request__c cbr = [SELECT Id, Type__c FROM Callback_Request__c WHERE Type__c ='Business' LIMIT 1];
@@ -42,6 +62,6 @@ public class AgentWorkTriggerHandlerTest {
         String retId = String.valueOf(cbr.OwnerId).substring(0,3);
 
         System.assert(retId=='00G', 'Owner changed to Queue');
-        
     }
+    
 }
