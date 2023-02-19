@@ -27,7 +27,6 @@
     <groups>StarTrack Network Customer Notification</groups>
     <groups>BSC - SBA</groups>
     <groups>StarTrack AP Support</groups>
-    <groups>Pending FS</groups>
     <groups>StarTrack Business Enablement Admin</groups>
     <groups>StarTrack Business Enablement Team</groups>
     <groups>uli</groups>
@@ -59,7 +58,6 @@
     <groups>Startrack CFO</groups>
     <groups>BSC - DoD Final Shortages</groups>
     <groups>BSC - Optus Stop Delivery</groups>
-    <groups>Startrack Not Home Card Left</groups>
     <groups>Startrack Damages</groups>
     <groups>BSC - Team 5</groups>
     <groups>BSC - UPS</groups>
@@ -69,10 +67,8 @@
     <groups>StarTrack Controlled Returns</groups>
     <groups>StarTrack Delivery Enquiry Team</groups>
     <groups>StarTrack Final Shortage Approver</groups>
-    <groups>StarTrack Investigators</groups>
     <groups>StarTrack Late Delivery Claims Team</groups>
     <groups>StarTrack Manage Driver Listings</groups>
-    <groups>StarTrack Next Flight Team</groups>
     <groups>StarTrack Operations</groups>
     <groups>StarTrack Service Team</groups>
     <groups>Sorry We Missed You</groups>
@@ -90,15 +86,12 @@
     <groups>BSC - Samsung</groups>
     <groups>BSC - Telstra Stop Delivery</groups>
     <groups>BSC - Telstra</groups>
-    <groups>Priority Investigations - Non-Senders</groups>
     <groups>Priority Investigations - Senders</groups>
-    <groups>CSC Feedback</groups>
     <groups>StarTrack LDC Approval Step 2</groups>
     <groups>StarTrack Recycle Bin</groups>
     <groups>BSC - DHL Apple</groups>
     <groups>BSC - DHL ColdChain</groups>
     <groups>BSC – TMS</groups>
-    <groups>Customer Service Project 1</groups>
     <groups>Disputes Access</groups>
     <groups>Security Express</groups>
     <groups>Special Services</groups>

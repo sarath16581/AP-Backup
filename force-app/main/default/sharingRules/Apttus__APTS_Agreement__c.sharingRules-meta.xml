@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>APTShareWithSalesExceptCCSales</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Apttus contracts with Sales users excluding C&amp;C Sales</description>
+        <label>Share with Sales except C&amp;C Sales</label>
+        <sharedTo>
+            <group>All_Sales_Team_Ex_CC</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>APT_Contract_Management_Access</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Gives access to Contract Management Enquiry (CME) - R/W</description>
@@ -29,17 +41,6 @@
         <label>Share with Retail Operations</label>
         <sharedTo>
             <roleAndSubordinatesInternal>Retail_Operations</roleAndSubordinatesInternal>
-        </sharedTo>
-        <sharedFrom>
-            <allInternalUsers></allInternalUsers>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>APT_Share_with_Sales</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Share with Sales</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>

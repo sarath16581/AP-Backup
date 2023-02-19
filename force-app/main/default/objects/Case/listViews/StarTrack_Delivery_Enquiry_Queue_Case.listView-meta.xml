@@ -20,7 +20,6 @@
     <label>Delivery Enquiries - Unassigned</label>
     <queue>StarTrack_Delivery_Enquiry_Queue</queue>
     <sharedTo>
-        <group>StarTrack_Investigators</group>
         <group>StarTrack_Service_Team</group>
     </sharedTo>
 </ListView>
