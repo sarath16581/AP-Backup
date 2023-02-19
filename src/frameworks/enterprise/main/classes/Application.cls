@@ -9,7 +9,6 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added methods for Domain classes
- * 2022-12-07 - Noel Lim		- Added Cache variable queuesWithRoutingConfig
  */
 public with sharing class Application {
 
