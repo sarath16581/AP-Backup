@@ -12,50 +12,50 @@
  */
 public with sharing class Application {
 
-public static UtilityFactory Utilities;
-public static SelectorFactory Selectors;
-public static DomainFactory Domains;
-public static ProfileFactory Profiler;
+	public static UtilityFactory Utilities;
+	public static SelectorFactory Selectors;
+	public static DomainFactory Domains;
+	public static ProfileFactory Profiler;
 
-static {
-	Utilities = new UtilityFactory();
-	Selectors = new SelectorFactory();
-	Domains = new DomainFactory();
-	Profiler = new ProfileFactory();
-}
-
-public static CacheFactory Cache {
-	get {
-		if(Cache == null) {
-			Cache = new CacheFactory();
-		}
-		return Cache;
-	}
-	private set;
-}
-
-public class CacheFactory {
-
-	@TestVisible 
-	void resetStaticVariablesForUnitTestOnly() {
-		organizationInfo = null;
-		CacheManager.put('ORGANISATION_INFO', null);
-		profileIds = null;
-		CacheManager.put('ALL_PROFILE_IDS', null);
+	static {
+		Utilities = new UtilityFactory();
+		Selectors = new SelectorFactory();
+		Domains = new DomainFactory();
+		Profiler = new ProfileFactory();
 	}
 
-	public OrganizationWrapper organizationInfo {
+	public static CacheFactory Cache {
 		get {
-			if(organizationInfo == null) {
-				organizationInfo = (OrganizationWrapper)CacheManager.get('ORGANISATION_INFO');
-				if(organizationInfo == null) {
-					organizationInfo = new OrganizationWrapper([SELECT Name, IsSandbox, InstanceName FROM Organization LIMIT 1]);
-					CacheManager.put('ORGANISATION_INFO', organizationInfo);
-				}
+			if(Cache == null) {
+				Cache = new CacheFactory();
 			}
-			return organizationInfo;
+			return Cache;
 		}
 		private set;
+	}
+
+	public class CacheFactory {
+
+		@TestVisible 
+		void resetStaticVariablesForUnitTestOnly() {
+			organizationInfo = null;
+			CacheManager.put('ORGANISATION_INFO', null);
+			profileIds = null;
+			CacheManager.put('ALL_PROFILE_IDS', null);
+		}
+
+		public OrganizationWrapper organizationInfo {
+			get {
+				if(organizationInfo == null) {
+					organizationInfo = (OrganizationWrapper)CacheManager.get('ORGANISATION_INFO');
+					if(organizationInfo == null) {
+						organizationInfo = new OrganizationWrapper([SELECT Name, IsSandbox, InstanceName FROM Organization LIMIT 1]);
+						CacheManager.put('ORGANISATION_INFO', organizationInfo);
+					}
+				}
+				return organizationInfo;
+			}
+			private set;
 		}	
 	
 		public Map<String, Id> profileIds {
@@ -73,145 +73,145 @@ public class CacheFactory {
 				return profileIds;
 			}
 			private set;
+		}		
+	}
+
+	public class OrganizationWrapper {
+		public Boolean isSandbox {get; private set;}
+		public String sandboxName {get; private set;}
+
+		public OrganizationWrapper(Organization org) {
+			isSandbox = org.IsSandbox;
+			if(isSandbox == true) {
+				sandboxName = System.Url.getSalesforceBaseUrl().getHost().substringBetween('--', '.');
+			} else {
+				sandboxName = '';
+			}
 		}
 	}
 
-public class OrganizationWrapper {
-	public Boolean isSandbox {get; private set;}
-	public String sandboxName {get; private set;}
+	public class UtilityFactory {
 
-	public OrganizationWrapper(Organization org) {
-		isSandbox = org.IsSandbox;
-		if(isSandbox == true) {
-			sandboxName = System.Url.getSalesforceBaseUrl().getHost().substringBetween('--', '.');
-		} else {
-			sandboxName = '';
+		Map<Type, Object> mockInstances = new Map<Type, Object>();
+		Map<Type, Object> instances = new Map<Type, Object>();
+
+		/**
+		 * Store a list of type instance mappings to be able grab the correct instance of a selector when needed
+		 * This is used to we can provide mocks in test classes to override default functionality
+		 */
+		@TestVisible
+		private void setMock(Type utilityType, Object instance) {
+			mockInstances.put(utilityType, instance);
+		}
+
+		/**
+		 * Used to inject mocking class for writing isolated unit tests
+		 * When not running tests, the method simply returns the normal instance
+		 */
+		public Object getInstance(Type utilityType) {
+			if(Test.isRunningTest() && mockInstances.get(utilityType) != null) {
+				return mockInstances.get(utilityType);
+			} else if(instances.get(utilityType) == null) {
+				instances.put(utilityType, utilityType.newInstance());
+			}
+			return instances.get(utilityType);
+		}
+
+		/**
+		 * Used to inject mocking class for writing isolated unit tests
+		 * When not running tests, the method simply returns the normal instance
+		 */
+		public Object newInstance(Type utilityType) {
+			if(Test.isRunningTest() && mockInstances.get(utilityType) != null) {
+				return mockInstances.get(utilityType);
+			} else {
+				return utilityType.newInstance();
+			}
 		}
 	}
-}
 
-public class UtilityFactory {
+	public class SelectorFactory {
 
-	Map<Type, Object> mockInstances = new Map<Type, Object>();
-	Map<Type, Object> instances = new Map<Type, Object>();
+		Map<Type, ApplicationSelector> mockSelectors = new Map<Type, ApplicationSelector>();
 
-	/**
-	 * Store a list of type instance mappings to be able grab the correct instance of a selector when needed
-	 * This is used to we can provide mocks in test classes to override default functionality
-	 */
-	@TestVisible
-	private void setMock(Type utilityType, Object instance) {
-		mockInstances.put(utilityType, instance);
-	}
-
-	/**
-	 * Used to inject mocking class for writing isolated unit tests
-	 * When not running tests, the method simply returns the normal instance
-	 */
-	public Object getInstance(Type utilityType) {
-		if(Test.isRunningTest() && mockInstances.get(utilityType) != null) {
-			return mockInstances.get(utilityType);
-		} else if(instances.get(utilityType) == null) {
-			instances.put(utilityType, utilityType.newInstance());
+		/**
+		 * Store a list of type instance mappings to be able grab the correct instance of a selector when needed
+		 * This is used to we can provide mocks in test classes to override default functionality of a selector class where we don't care about the results
+		 */
+		@TestVisible
+		private void setMock(Type selectorType, ApplicationSelector selectorInstance) {
+			mockSelectors.put(selectorType, selectorInstance);
 		}
-		return instances.get(utilityType);
-	}
 
-	/**
-	 * Used to inject mocking class for writing isolated unit tests
-	 * When not running tests, the method simply returns the normal instance
-	 */
-	public Object newInstance(Type utilityType) {
-		if(Test.isRunningTest() && mockInstances.get(utilityType) != null) {
-			return mockInstances.get(utilityType);
-		} else {
-			return utilityType.newInstance();
+		/**
+		 * Used to inject mocking class for writing isolated unit tests
+		 * When not running tests, the method simply returns the normal instance
+		 */
+		public ApplicationSelector newInstance(Type selectorType) {
+			if(Test.isRunningTest() && mockSelectors.get(selectorType) != null) {
+				ApplicationSelector selector = mockSelectors.get(selectorType);
+				return selector;
+			} else {
+				return (ApplicationSelector)selectorType.newInstance();
+			}
 		}
 	}
-}
 
-public class SelectorFactory {
+	public class DomainFactory {
 
-	Map<Type, ApplicationSelector> mockSelectors = new Map<Type, ApplicationSelector>();
+		Map<Type, ApplicationDomain> mockDomains = new Map<Type, ApplicationDomain>();
 
-	/**
-	 * Store a list of type instance mappings to be able grab the correct instance of a selector when needed
-	 * This is used to we can provide mocks in test classes to override default functionality of a selector class where we don't care about the results
-	 */
-	@TestVisible
-	private void setMock(Type selectorType, ApplicationSelector selectorInstance) {
-		mockSelectors.put(selectorType, selectorInstance);
-	}
+		/**
+		 * Store a list of type instance mappings to be able grab the correct instance when needed
+		 * This is used to we can provide mocks in test classes to override default functionality where we don't care about the results
+		 */
+		@TestVisible
+		private void setMock(Type domainType, ApplicationDomain domainInstance) {
+			mockDomains.put(domainType, domainInstance);
+		}
 
-	/**
-	 * Used to inject mocking class for writing isolated unit tests
-	 * When not running tests, the method simply returns the normal instance
-	 */
-	public ApplicationSelector newInstance(Type selectorType) {
-		if(Test.isRunningTest() && mockSelectors.get(selectorType) != null) {
-			ApplicationSelector selector = mockSelectors.get(selectorType);
-			return selector;
-		} else {
-			return (ApplicationSelector)selectorType.newInstance();
+		/**
+		 * Used to inject mocking class for writing isolated unit tests
+		 * When not running tests, the method simply returns the normal instance
+		 */
+		public ApplicationDomain newInstance(Type domainType, List<SObject> sObjectList) {
+			if(Test.isRunningTest() && mockDomains.get(domainType) != null) {
+				ApplicationDomain domain = mockDomains.get(domainType);
+				return domain;
+			} else {
+				return (ApplicationDomain)domainType.newInstance();
+			}
 		}
 	}
-}
 
-public class DomainFactory {
+	public class GenericFactory {
+		private Map<Type, Object> instances = new Map<Type, Object>();
 
-	Map<Type, ApplicationDomain> mockDomains = new Map<Type, ApplicationDomain>();
+		@TestVisible
+		private void put(Type classType, Object instance) {
+			instances.put(classType, instance);
+		}
 
-	/**
-	 * Store a list of type instance mappings to be able grab the correct instance when needed
-	 * This is used to we can provide mocks in test classes to override default functionality where we don't care about the results
-	 */
-	@TestVisible
-	private void setMock(Type domainType, ApplicationDomain domainInstance) {
-		mockDomains.put(domainType, domainInstance);
-	}
-
-	/**
-	 * Used to inject mocking class for writing isolated unit tests
-	 * When not running tests, the method simply returns the normal instance
-	 */
-	public ApplicationDomain newInstance(Type domainType, List<SObject> sObjectList) {
-		if(Test.isRunningTest() && mockDomains.get(domainType) != null) {
-			ApplicationDomain domain = mockDomains.get(domainType);
-			return domain;
-		} else {
-			return (ApplicationDomain)domainType.newInstance();
+		public Object get(Type classType) {
+			return instances.get(classType);
 		}
 	}
-}
 
-public class GenericFactory {
-	private Map<Type, Object> instances = new Map<Type, Object>();
+	public class ProfileFactory {
+		private Map<String, Long> profileMap;
 
-	@TestVisible
-	private void put(Type classType, Object instance) {
-		instances.put(classType, instance);
+		public ProfileFactory() {
+			profileMap = new Map<String, Long>();
+		}
+
+		public void start(String key) {
+			profileMap.put(key, System.currentTimeMillis());
+		}
+		public Decimal stop(String key) {
+			Decimal timer = (System.currentTimeMillis() - profileMap.get(key));
+			System.debug('Profiler Results: ' + key + ' ' + timer + 'ms');
+			return timer;
+		}
 	}
-
-	public Object get(Type classType) {
-		return instances.get(classType);
-	}
-}
-
-public class ProfileFactory {
-	private Map<String, Long> profileMap;
-
-	public ProfileFactory() {
-		profileMap = new Map<String, Long>();
-	}
-
-	public void start(String key) {
-		profileMap.put(key, System.currentTimeMillis());
-	}
-	public Decimal stop(String key) {
-		Decimal timer = (System.currentTimeMillis() - profileMap.get(key));
-		System.debug('Profiler Results: ' + key + ' ' + timer + 'ms');
-		return timer;
-	}
-}
 
 }

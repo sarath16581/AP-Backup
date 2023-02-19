@@ -8,6 +8,7 @@
  * @group Domain
  * @domain Case
  * @changelog
+ * 2022-12-12 Noel Lim			Added PendingServiceRouting toSObjectType list.
  * 2022-01-17 Dattaraj Deshmukh Added CaseInvestigation__c to SObjecType list.
  */
 public inherited sharing class CaseTriggerHandler3 extends ApplicationDomainTriggerHandler {
@@ -37,6 +38,7 @@ public inherited sharing class CaseTriggerHandler3 extends ApplicationDomainTrig
 				Task.SObjectType,
 				CaseMilestone.SObjectType,
 				AuthorisedContacts__c.SObjectType,
+				PendingServiceRouting.SObjectType,
 				CaseInvestigation__c.SObjectType
 		};
 	}

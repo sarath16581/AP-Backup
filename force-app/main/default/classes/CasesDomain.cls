@@ -27,10 +27,12 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 		// the survey service and the last survey sent date on the case object is updated to reflect this.
 		registerModule(CaseSurveyInvitationModule.class);
 
-		// Logic relating to Omni Skills-based Routing
-		// Populate Case attributes used in Skills routing rules
-		// Related to SSSW Cases only, the module filters to SSSW Cases only
-		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId
+		// Logic relating to Omni Skills-based Routing, setting Case fields for Skill assignment
+		// Related to SSSW Cases only, the module filters based on recordtype
+		// a) Populate Case attributes used in Skills routing rules
+		// b) AgentType field for Omni skill assignment
+		//
+		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId AND must execute after the routing engine - SSSW_Routing.assignCasesAndDescription()
 		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
 		registerModule(CaseSkillBasedRoutingModule.class);
 		
@@ -39,11 +41,12 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 		// child case investigation records and marked them closed.
 		registerModule(STCaseRelatedRecordsProcessingModule.class); 
 
-		// Logic relating to Omni Routing
-		// Updates the value of OmniRoutingSecondaryPriority field for cases that are assigned or routed to an Omni queue.
+		// Logic relating to Omni Routing such as PendingServiceRouting and AgentWork
 		// This is related to SSSW and StarTrack cases, the module filters based on recordtype
+		//
 		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It requires the Case to have gone through the routing logic in SSSW_Routing__c.assignCasesAndDescription()
 		registerModule(CaseOmniRoutingModule.class);
+		
 	}
 	/**
 	 * Trigger instantiation context

@@ -27,7 +27,8 @@ public with sharing class SSSWSortingController {
         'AutoEscalate__c', 'ExcludeFromNPS__c', 'CustomerQueueType__c', 
         'Queue_ID__c', 'CaseRecordTypeId__c', 'High_Level_Complaint_Flag__c',
         'Customer_Recovery_Flag__c', 'Match_Rules_On__c', 
-        'Sequence__c', 'NPS_criteria__c' , 'IsNew__c', 'IsStrategic__c', 'SocialPostTags__c', 'HasExtraCover__c'
+        'Sequence__c', 'NPS_criteria__c' , 'IsNew__c', 'IsStrategic__c', 'SocialPostTags__c', 'HasExtraCover__c',
+		'PreferredAgentExpiry__c', 'Status__c'
     };
 
     private static List<SSSWRouting__c> getRules(String recordTypeName) {
@@ -245,7 +246,8 @@ public with sharing class SSSWSortingController {
         List<SSSWRouting__c> rules = new List<SSSWRouting__c>([
             Select Id, IsActive__c, Origin__c, ProductCategory__c, ProductSubCategory__c, CaseType__c, EnquirySubType__c, Network__c, DefaultCaseDetails__c,
                 AutoEscalate__c, ExcludeFromNPS__c, CustomerQueueType__c, Queue_ID__c, CaseRecordTypeId__c, High_Level_Complaint_Flag__c,
-                Customer_Recovery_Flag__c, Match_Rules_On__c, Sequence__c, Description__c, IsStrategic__c, SocialPostTags__c, HasExtraCover__c
+                Customer_Recovery_Flag__c, Match_Rules_On__c, Sequence__c, Description__c, IsStrategic__c, SocialPostTags__c, HasExtraCover__c,
+				PreferredAgentExpiry__c,Status__c
             from SSSWRouting__c
             where Match_Rules_On__c != null
             order by Sequence__c Asc
