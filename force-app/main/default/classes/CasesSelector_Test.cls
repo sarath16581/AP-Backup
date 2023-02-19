@@ -223,12 +223,6 @@ public with sharing class CasesSelector_Test {
 		results = selector.selectByReferenceIdOrderByCreatedDate(new Set<String>{cases[1].ReferenceID__c});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		
-		results = selector.selectByIdWithCaseInvestigations(new Set<Id>{cases[2].Id}, new Set<Id>{caseInvestigations[0].Id, caseInvestigations[1].Id }, 
-																new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CaseInvestigationsSelector.Options.WITH_NETWORKS,  
-																	CaseInvestigationsSelector.Options.WITH_ARTICLES});
-		System.assertEquals(1, results.values().size(), 'Expected result size of 1 for ST Case');
-		System.assertEquals(2, (results.values()[0]).CaseInvestigations__r.size(), 'Expected result size of 2 for Case Investigations');
-		
 		Test.stopTest();
 
 	}

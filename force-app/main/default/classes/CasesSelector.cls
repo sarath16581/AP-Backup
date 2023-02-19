@@ -20,7 +20,7 @@
  * 2021-11-26 - Ashapriya Gadi - Added enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER and a condition for it in the newQueryBuilder
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Add fields to getSObjectFieldList
  * 2022-12-05 - Dattaraj Deshmukh - Added enum WITH_CHILD_INVESTIGATIONS and fields to getSObjectFieldList.
- * 2023-02-08 - Dattaraj Deshmukh - Added fields in getSObjectFieldList. Added 'selectByIdWithCaseInvestigations' and 'getChildCaseInvestigationsSubQueryBuilder' methods.
+ * 2023-02-08 - Dattaraj Deshmukh - Added fields in getSObjectFieldList.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -189,48 +189,6 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 */
 	public virtual Map<Id, Case> selectByReferenceIdOrderByCreatedDate(Set<String> referenceIds) {
 		return selectByReferenceIdOrderByCreatedDate(referenceIds, new Set<Object>());
-	}
-
-	/**
-	 * Query Cases based on Id's. Query also include child case investigations based on case investigation ids.
-	 *
-	 * @param ids case ids to query
-	 * @param caseInvestigationIds child case investigation record Ids to query.
-	 * @param selectorOptions additional selector options
-	 *
-	 * @return list of cases. result include case investigations based on Ids passed.
-	 */
-	public virtual  Map<Id, Case> selectByIdWithCaseInvestigations(Set<Id> ids, Set<Id> caseInvestigationIds,  Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Case.Id + ' in :ids')).endConditions();
-		qb.addSubQuery(getChildCaseInvestigationsSubQueryBuilder(caseInvestigationIds,  selectorOptions), 'CaseInvestigations__r');
-
-		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString())); 
-	}
-
-	/**
-	 * Returns a Query Builder for child case investigations Ids and selector options passed in.
-	 *
-	 * @param caseInvestigationIds Ids to filter case investigations
-	 * @param selectorOptions set of additional selector options to augment the child case investigations result set
-	 *
-	 * @return query builder instance for child case investigations.
-	 */
-	@TestVisible
-	private QueryBuilder getChildCaseInvestigationsSubQueryBuilder(Set<Id> caseInvestigationIds, Set<Object> selectorOptions) {
-
-		QueryBuilder subQueryBuilder = CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions);
-
-		QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
-		if (caseInvestigationIds != null && !caseInvestigationIds.isEmpty()) {
-			subQueryConditions.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Id + ' in :caseInvestigationIds'));
-		}
-
-		//adding status condition
-		subQueryConditions.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Status__c + ' != \'Closed\''));
-		
-		subQueryConditions.endConditions();
-
-		return subQueryBuilder;
 	}
 
 	/**
