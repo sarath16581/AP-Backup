@@ -547,6 +547,16 @@ private class SalesRecordSharingService_Test {
 		// inject public group ids in service class so that the test doesn't depend on public group data in the org
 		injectMockPublicGroupIdsInService();
 
+		// injecting child relationship names into service to ensure FieldDefinition query is not executed from tests.
+		// this is to work around a wierd test case failure encountered only when running this test together with some
+		// of the other test classes (e.g. APT_AgreementTriggerHandler_Test, APT_SAPContractValidationController_Test).
+		// ERROR - __MISSING LABEL__ PropertyFile - val CatalogException$InternalException not found in section Exception
+		// FieldDefinition query is running as per normal, and the test was passing, when this test class was run in isolation.
+		SalesRecordSharingService.accountChildRelationshipNameMapping = new Map<String, String> {
+				'APR__c' => 'APRs__r',
+				'Apttus__APTS_Agreement__c' => 'Apttus__R00N50000001Xl0UEAS__r'
+		};
+
 		// set this limit from the test so we could test high volume scenarios
 		SalesRecordSharingService.MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION = 12;
 
@@ -629,6 +639,16 @@ private class SalesRecordSharingService_Test {
 
 		// inject public group ids in service class so that the test doesn't depend on public group data in the org
 		injectMockPublicGroupIdsInService();
+
+		// injecting child relationship names into service to ensure FieldDefinition query is not executed from tests.
+		// this is to work around a wierd test case failure encountered only when running this test together with some
+		// of the other test classes (e.g. APT_AgreementTriggerHandler_Test, APT_SAPContractValidationController_Test).
+		// ERROR - __MISSING LABEL__ PropertyFile - val CatalogException$InternalException not found in section Exception
+		// FieldDefinition query is running as per normal, and the test was passing, when this test class was run in isolation.
+		SalesRecordSharingService.accountChildRelationshipNameMapping = new Map<String, String> {
+				'APR__c' => 'APRs__r',
+				'Apttus__APTS_Agreement__c' => 'Apttus__R00N50000001Xl0UEAS__r'
+		};
 
 		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
 		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
@@ -722,6 +742,16 @@ private class SalesRecordSharingService_Test {
 
 		// inject public group ids in service class so that the test doesn't depend on public group data in the org
 		injectMockPublicGroupIdsInService();
+
+		// injecting child relationship names into service to ensure FieldDefinition query is not executed from tests.
+		// this is to work around a wierd test case failure encountered only when running this test together with some
+		// of the other test classes (e.g. APT_AgreementTriggerHandler_Test, APT_SAPContractValidationController_Test).
+		// ERROR - __MISSING LABEL__ PropertyFile - val CatalogException$InternalException not found in section Exception
+		// FieldDefinition query is running as per normal, and the test was passing, when this test class was run in isolation.
+		SalesRecordSharingService.accountChildRelationshipNameMapping = new Map<String, String> {
+				'APR__c' => 'APRs__r',
+				'Apttus__APTS_Agreement__c' => 'Apttus__R00N50000001Xl0UEAS__r'
+		};
 
 		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
 		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
@@ -848,6 +878,16 @@ private class SalesRecordSharingService_Test {
 
 		// inject public group ids in service class so that the test doesn't depend on public group data in the org
 		injectMockPublicGroupIdsInService();
+
+		// injecting child relationship names into service to ensure FieldDefinition query is not executed from tests.
+		// this is to work around a wierd test case failure encountered only when running this test together with some
+		// of the other test classes (e.g. APT_AgreementTriggerHandler_Test, APT_SAPContractValidationController_Test).
+		// ERROR - __MISSING LABEL__ PropertyFile - val CatalogException$InternalException not found in section Exception
+		// FieldDefinition query is running as per normal, and the test was passing, when this test class was run in isolation.
+		SalesRecordSharingService.accountChildRelationshipNameMapping = new Map<String, String> {
+				'APR__c' => 'APRs__r',
+				'Apttus__APTS_Agreement__c' => 'Apttus__R00N50000001Xl0UEAS__r'
+		};
 
 		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
 		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;

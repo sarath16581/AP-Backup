@@ -5,6 +5,7 @@
  * @changelog
  * 2023-01-18 - Dattaraj Deshmukh- created
  * 2023-02-14 - Mahesh Parvathaneni - updated tests for setCaseInvestigationClosureDate method
+ * 2023-02-20 - Dattaraj Deshmukh - Added and passed 'stCaseInvestigationRecordTypeId' to CI selectors.
  **/
 @IsTest
 private class  STCaseInvestigationLifecycleModule_Test {
@@ -65,6 +66,9 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		// Data Preparation
 		// =====================================
 
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
+
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
 		//Map<Id, Case> casesMap = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
@@ -81,6 +85,7 @@ private class  STCaseInvestigationLifecycleModule_Test {
 
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, new Set<Id>{cases[0].Id, cases[1].Id}, articles[0], networks[0].Id, true);
 		caseInvestigations[0].Status__c = 'New';
+		caseInvestigations[0].RecordTypeId = stCaseInvestigationRecordTypeId;
 		
 		//assigning child CI records to case.
 		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
@@ -89,7 +94,6 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		//assigning formula field as it is referred in logic.
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
 
-		
 		//mock
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
@@ -99,7 +103,7 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		// =====================================
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByCaseIds((Set<Id>) fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
+		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByCaseIds(new Set<Id>{cases[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId})).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================

@@ -18,9 +18,24 @@
  * 2021-11-26 - Ashapriya Gadi - Added test coverage for enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
  * 2022-02-17 - Nathan Franklin - Refactored WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
  * 2022-01-23 - Dattaraj Deshmukh - Added tests for 'CaseInvestigations__r' child records query.
+ * 2022-02-13 - Dattaraj Deshmukh - Added test for StarTrack cases and case investigations in testSelectorIntegration method.
  */
 @IsTest
 public with sharing class CasesSelector_Test {
+
+	@IsTest
+	static void selectWithTheCorrectQueryAttributes() {
+		
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
+		CasesSelector selector = CasesSelector.newInstance();
+
+		QueryBuilder qa = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(CasesSelector.class, qa); 
+		selector.selectByIdsAndRecordTypeIds(cases.keySet(), new Set<Id>(), new Set<Object>());
+		String queryString = qa.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\b' + Case.Id + ' IN :ids AND ' + Case.RecordTypeId + ' IN :recordTypeIds\\b').matcher(queryString).find(), 'Filters by ids and record type ids in query');
+		
+	}
 
 	/**
 	 * Test:
@@ -123,6 +138,8 @@ public with sharing class CasesSelector_Test {
 			'Resulting query does not select Case Investigation child records: ' + soql
 		);
 
+
+
 		Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
 		Set<SObjectField> caseFields = new Set<SObjectField>{Case.Id, Case.Call_Purpose__c};
 		Set<SObjectField> billingAccountFields = new Set<SObjectField>{Billing_Account__c.BSC_Calc_Transfer_Queue__c};
@@ -162,13 +179,22 @@ public with sharing class CasesSelector_Test {
 		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
 		insert contact;
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(2, new List<Id>{contact.Id, contact.Id}, false);
+		List<Case> cases = ApplicationTestDataFactory.getCases(3, new List<Id>{contact.Id, contact.Id, contact.Id}, false);
 		cases[0].RecordTypeId = rt.Id;
 		cases[0].Type = 'General Enquiry';
 		cases[1].RecordTypeId = rt.Id;
 		cases[1].Type = 'General Enquiry';
 		cases[1].ReferenceID__c = '5555000';
+		//assigning ST case record type ID.
+		cases[2].RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId();
 		insert cases;
+
+		//insert CaseInvestigations
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[2].Id, null, null, false);
+		caseInvestigations[0].ReferenceID__c = '12314';
+		caseInvestigations[1].ReferenceID__c = '54345';
+		
+		insert caseInvestigations;
 
 		cases[0] = [Select Id, CaseNumber From Case Where Id = :cases[0].Id];
 

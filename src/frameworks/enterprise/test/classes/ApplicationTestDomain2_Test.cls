@@ -8,6 +8,7 @@
  * @domain Core
  * @changelog
  * 2022-04-28 - Nathan Franklin - Remove IConstructable interfaces
+ * 2023-02-14 - Ranjeewa Silva - Updated to enable asserting after undelete trigger dispatch
  */
 @IsTest
 public class ApplicationTestDomain2_Test extends ApplicationDomain {
@@ -22,6 +23,7 @@ public class ApplicationTestDomain2_Test extends ApplicationDomain {
 	public static Integer moduleOnAfterUpdateCalled = 0;
 	public static Integer moduleOnBeforeDeleteCalled = 0;
 	public static Integer moduleOnAfterDeleteCalled = 0;
+	public static Integer moduleOnAfterUndeleteCalled = 0;
 
 	/**
 	 * These are the modules that the domain may use for triggers or method execution

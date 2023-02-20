@@ -5,7 +5,6 @@
     <name>StarTrack Delivery Enquiry Queue</name>
     <queueMembers>
         <publicGroups>
-            <publicGroup>StarTrack_Investigators</publicGroup>
             <publicGroup>StarTrack_Service_Team</publicGroup>
         </publicGroups>
         <users>

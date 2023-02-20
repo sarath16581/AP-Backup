@@ -8,10 +8,11 @@
  * @date 2020-07-27
  * @group Core
  * @domain Core
- * @changelog : After Delete handler added by Sreenish Krishnan on 20th July 2022
  * @changelog
  * 2022-02-24 - Nathan Franklin - added logic for async and features
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
+ * 2022-07-20 - Sreenish Krishnan - Added After Delete handler
+ * 2023-02-14 - Ranjeewa Silva - Added support for handling after undelete trigger event
  */
 public abstract inherited sharing class ApplicationDomainTriggerHandler {
 	public enum TriggerState {
@@ -152,9 +153,18 @@ public abstract inherited sharing class ApplicationDomainTriggerHandler {
 
 					// since the currentAsyncStack is a static, we need to remove the item that was just added
 					ApplicationUnitOfWork.currentAsyncStack.remove(stackElement);
-				}
-				else if (isDelete) {
+				} else if (isDelete) {
 					instance.onAfterDelete(oldRecordsMap.values(), unitOfWork);
+				} else if (isUndelete) {
+					// Add an entry to the stack so if registerAsyncWork is called it take a snap shot of the stack so it can copy it into a new AsyncWorker__e platform event
+					// This helps keep track of the stack for debugging
+					ApplicationUnitOfWork.currentAsyncStack.add('Trigger: ' + getSObjectType() + ' - After Undelete');
+					Integer stackElement = ApplicationUnitOfWork.currentAsyncStack.size() - 1;
+
+					instance.onAfterUndelete(unitOfWork);
+
+					// since the currentAsyncStack is a static, we need to remove the item that was just added
+					ApplicationUnitOfWork.currentAsyncStack.remove(stackElement);
 				}
 			}
 		}

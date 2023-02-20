@@ -7,6 +7,9 @@ History:
 2020-10-04  naseer.abbasi@auspost.com.au    Addded test class to assert case queue assignment for strategic support customers cases
 2020-11-18 - Ranjeewa Silva - Added test case to verify field value matching.
 2021-06-30  steve.judd6@auspost.com.au Added test class for Extra Cover to test sending to SSSW Extra Cover queue
+2023-02-16	Noel Lim -	Update method createTestData to remove old queues being decommissioned
+						Update method testRoutingRaw to transform old queues transforming to Omni queues
+						Moved method testSortingController to new class SSSWSortingController_Test
 
 **************************************************/
 @isTest
@@ -26,7 +29,6 @@ public with sharing class SSSW_Routing_Sorting_Test {
             'SSSW Snap It Back Office',
             'SSSW MyPost Business Inbound',
             'SSSW MyPost Business Back Office',
-            'SSSW Social Media Team',
             'SSSW Damages Back Office',
             'SSSW Load & Go',
             'SSSW MyPost',
@@ -42,15 +44,8 @@ public with sharing class SSSW_Routing_Sorting_Test {
             'SSSW International Back Office',
             'SSSW Unaddressed Mail Inbound',
             'SSSW Unaddressed Mail Back Office',
-            'SSSW Online Shop Inbound',
-            'SSSW Online Shop Back Office',
             'SSSW Enterprise Back Office',
             'SSSW Business Back Office',
-            'SSSW Consumer Inbound Specialist Del',
-            'SSSW Consumer Inbound Del Supp Prem',
-            'SSSW Consumer Inbound Del Supp Stand',
-            'SSSW Consumer Inbound Fin & Travel',
-            'SSSW Consumer Inbound Post Info',
             'SSSW Consumer Inbound',
             'SSSW Consumer Back Office Spec Del',
             'SSSW Consumer Back Office Delivery Compl',
@@ -58,7 +53,8 @@ public with sharing class SSSW_Routing_Sorting_Test {
             'SSSW Consumer Back Office Standard',
             'SSSW Consumer Back Office Fin & Trav',
             'SSSW Consumer Back Office Other',
-            'SSSW Extra Cover'
+            'SSSW Extra Cover',
+			'SSSW Consumer Back Office High Priority'
         };
 
         Profile adminProf = [select Id from Profile where Name = 'System Administrator'];
@@ -125,9 +121,9 @@ public with sharing class SSSW_Routing_Sorting_Test {
         routesToInsert.add(routingRule);
 
         //Routing rule for cust type Consumer
-        routingRule = TestUtility.createSSSWRouting(null,'eParcel- Express','General Enquiry',null,'Consumer',null,'ALL',SSSWConstants.RECTYPEROUTING);
+        routingRule = TestUtility.createSSSWRouting(null,'Mail redirection',null,null,'Consumer','Internal form','ALL',SSSWConstants.RECTYPEROUTING);
         routingRule.IsActive__c = True;
-        routingRule.Queue_ID__c = nameToQId.get('SSSW Consumer Inbound Del Supp Prem');
+        routingRule.Queue_ID__c = nameToQId.get('SSSW Consumer Back Office High Priority');
         routingRule.Sequence__c = 4;
         routesToInsert.add(routingRule);
 
@@ -284,10 +280,10 @@ public with sharing class SSSW_Routing_Sorting_Test {
                 System.assertEquals(nameToQId.get('SSSW Customer Recovery'), cs.ownerId, 'Expected SSSW Customer Recovery');
                 //System.assertEquals('Test\nTesting Any Description',cs.Description);
             }
-            if(cs.CustomerQueueType__c == 'Consumer'){
+            if(cs.CustomerQueueType__c == 'Consumer' && cs.Origin == 'Internal form'){
                 System.debug('Consumer caseOwner---->'+cs.ownerId);
-                System.debug('nameToQId.get(\'SSSW Consumer Inbound Del Supp Prem\')--->'+nameToQId.get('SSSW Consumer Inbound Del Supp Prem'));
-                System.assertEquals(nameToQId.get('SSSW Consumer Inbound Del Supp Prem'), cs.ownerId, 'Expected SSSW Consumer Inbound Del Supp Prem');
+                System.debug('nameToQId.get(\'SSSW Consumer Back Office High Priority\')--->'+nameToQId.get('SSSW Consumer Back Office High Priority'));
+                System.assertEquals(nameToQId.get('SSSW Consumer Back Office High Priority'), cs.ownerId, 'Expected SSSW Consumer Back Office High Priority');
             }
             if(cs.ProductCategory__c == 'International Letters'){
                 System.debug('International caseOwner---->'+cs.ownerId);
@@ -301,30 +297,6 @@ public with sharing class SSSW_Routing_Sorting_Test {
         }
     }
 	
-    @isTest
-    private static void testSortingController() {
-        Test.startTest(); 
-        CreateRoutingRulesForRaw();
-        SSSWSortingController ext = new SSSWSortingController();
-        ext.sortRoutings();
-        ext.cancelSort();
-        ext.refreshRoutings();
-        ext.refreshNPS();
-        ext.refreshEscalate();
-        ext.refreshDescription();
-        ext.saveRoutings();
-        ext.saveNPS();
-        ext.saveEscalate();
-        ext.saveDescription();
-        ext.deleteRouting();
-        ext.deleteNPS();
-        ext.deleteEscalate();
-        ext.deleteDescription();
-        ext.getrecordTypes();
-        SSSWSortingController.getRoutingRules();
-        Test.stoptest();
-    }
-    
     @isTest
     private static void testMultiSelectAll()
     {

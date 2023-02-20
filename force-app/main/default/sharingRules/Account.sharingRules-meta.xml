@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>All_Internal_Users_except_Retail_Merchandise</fullName>
+        <fullName>AllInternalUsersExceptRetailMerchandiseCC</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
             <caseAccessLevel>None</caseAccessLevel>
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>Read</opportunityAccessLevel>
         </accountSettings>
-        <description>This rule enables all accounts to be shared within internal users except retail merchandise users who only need access retail data.</description>
-        <label>All Internal Users except Retail Merchandise</label>
+        <description>This rule enables all accounts to be shared within internal users except retail merchandise &amp; CC users who only need access retail data.</description>
+        <label>All Internal Users except Retail Merchandise &amp; C&amp;C</label>
         <sharedTo>
-            <group>All_Users_Ex_Retail_Merchandise</group>
+            <group>All_Users_Ex_Retail_Merchandise_CC</group>
         </sharedTo>
         <criteriaItems>
             <field>Is_a_facility__c</field>
@@ -197,6 +197,66 @@
             <value>Organisation</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareDirectAccountswithCCDirectUsers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Direct accounts with only Direct Sales team</description>
+        <label>Share Direct Accounts with CC Direct Users</label>
+        <sharedTo>
+            <group>All_Direct_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>SalesTeamType__c</field>
+            <operation>equals</operation>
+            <value>Direct</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareHoldingAccountswithAllCCUsers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Holding accounts with all CC Sales team</description>
+        <label>Share Holding Accounts with All CC Users</label>
+        <sharedTo>
+            <group>All_CC_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>SalesTeamType__c</field>
+            <operation>equals</operation>
+            <value>Holding</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareIntermediaryAccountsWithCCIntermediaryUsers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Intermediary accounts with only Intermediary Sales team</description>
+        <label>Share Intermediary Accounts with CC Intermediary Users</label>
+        <sharedTo>
+            <group>All_Intermediary_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>SalesTeamType__c</field>
+            <operation>equals</operation>
+            <value>Intermediary</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Organisations_to_LBPs</fullName>

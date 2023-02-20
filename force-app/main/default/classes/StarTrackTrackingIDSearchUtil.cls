@@ -221,6 +221,7 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         Boolean isValid = true;
         String comments = '';
         Boolean isDuplicate = isDuplicateConsignments(articles);
+        Boolean isValidReference = isValidReference(articles);
         Boolean isError = isError(conWrap);
 
         // no consignment found
@@ -228,9 +229,12 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
             // service returned error
             comments = '\n' + System.Label.STHSIDSearchCommentsTimeoutTechError;
             isValid = false;
-        } else if((articles == null || articles.size() == 0) || StarTrack_Constants.ERR_CODE_ART_NOT_FOUND.equalsIgnoreCase(conWrap.errorCode)) {
+        } else if(StarTrack_Constants.ERR_CODE_ART_NOT_FOUND.equalsIgnoreCase(conWrap.errorCode)) {
             comments = '\n' + System.Label.STHSIDSearchCommentsNoConsignment;
             isValid = false;
+        } else if(!isValidReference) {
+            // no articles returned
+            return false;
         } else if(isDuplicate) {
             // duplicate consignments found
             comments = '\n' + System.Label.STHSIDSearchCommentsDuplicateConsignment;
@@ -259,6 +263,14 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         context.insertRecords(new List<SObject>{
                 comment
         });
+    }
+
+    public static Boolean isValidReference(List<Article__c> articles) {
+        if(articles == null || articles.size() <= 0) {
+            return false;
+        }
+
+        return true;
     }
 
     public static Boolean isDuplicateConsignments(List<Article__c> articles) {
