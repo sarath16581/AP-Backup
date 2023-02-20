@@ -663,9 +663,6 @@
             <quickActionName>Case.No_Data_Consignment</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>Case.Email</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
             <quickActionName>Case.Closed</quickActionName>
         </quickActionListItems>
     </quickActionList>
@@ -735,6 +732,13 @@
         <relatedList>RelatedChildCaseList</relatedList>
         <sortField>CASES.CREATED_DATE</sortField>
         <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Article__c</fields>
+        <fields>Status__c</fields>
+        <fields>Network__c</fields>
+        <relatedList>CaseInvestigation__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedAttachmentList</relatedList>
