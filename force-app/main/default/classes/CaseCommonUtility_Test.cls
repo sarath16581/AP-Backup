@@ -1609,7 +1609,7 @@ private with sharing class CaseCommonUtility_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkWithActiveUser(
+		MockUtility.Mocks.when(mockOmniChannelService.getCaseIdsWithLatestAcceptedAgentWorks(
 			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id,cases[1].Id})
 		)).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
 

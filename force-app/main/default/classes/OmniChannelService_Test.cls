@@ -11,7 +11,7 @@
  *==============================================================================
  * 1.0	8/21/2019	rajesh.punjabi@mav3rik.com		Initial Version
  * 1.1	7/12/2022	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
- * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. 
+ * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getCaseIdsWithLatestAcceptedAgentWorks, only return active UserIds. 
  * 													Update secondaryPriorityRanges from a 50-point range to a 150-point range
  * 													Add queuesToAgentTypesShouldReturnCustomMetadata
  * 
@@ -329,7 +329,7 @@ public class OmniChannelService_Test {
 	 * 
 	 */
 	@IsTest
-	public static void getLatestAcceptedAgentWorkWithActiveUser(){
+	public static void getCaseIdsWithLatestAcceptedAgentWorks(){
 		//Users
 		List<User> users = ApplicationTestDataFactory.getUsers(2,true);
 		users[0].IsActive = true;
@@ -379,7 +379,7 @@ public class OmniChannelService_Test {
 
 		System.runAs(communityUser){
 			try{
-				caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(caseIds);   
+				caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(caseIds);   
 			} catch(Exception ex) {
 				exceptionThrown = true;
 			}		   
