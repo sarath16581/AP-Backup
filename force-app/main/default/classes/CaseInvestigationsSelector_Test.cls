@@ -149,7 +149,7 @@
  
 
 		CaseInvestigationsSelector selectorQueryLocator = CaseInvestigationsSelector.newInstance();
-		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Object>());
+		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>());
 		System.assertNotEquals(null, ciQueryLocator, 'Expected a valid query locator but got null');
 
 		Test.stopTest();
