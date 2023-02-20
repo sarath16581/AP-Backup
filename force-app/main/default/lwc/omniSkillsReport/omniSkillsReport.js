@@ -47,6 +47,7 @@ export default class OmniSkillsReport extends LightningElement {
 		},
 		{ label: 'Case Priority', fieldName: 'Priority', hideDefaultActions: true, wrapText: true, sortable: true },
 		{ label: 'Case Number', fieldName: 'CaseNumber', hideDefaultActions: true, wrapText: true, sortable: true },
+		{ label: 'Case Status', fieldName: 'Status', hideDefaultActions: true, wrapText: true, sortable: true },
 		{ label: 'Type', fieldName: 'Type', hideDefaultActions: true, wrapText: true, sortable: true },
 		{ label: 'Product Category', fieldName: 'ProductCategory__c', hideDefaultActions: true, wrapText: true, sortable: true },
 		{ label: 'Product Subcategory', fieldName: 'ProductSubCategory__c', hideDefaultActions: true, wrapText: true, sortable: true },
@@ -134,7 +135,7 @@ export default class OmniSkillsReport extends LightningElement {
 
 			// grab the developer names for each of the skils and map it with the original id
 			parsedSkillMappings = {...parsedSkillMappings, ...(record.SkillRequirements ?? []).reduce((result, value) => {
-				result[value.SkillId] = value.Skill.DeveloperName;
+				result[value.SkillId] = value.Skill.MasterLabel;
 				return result;
 			}, {})};
 		}

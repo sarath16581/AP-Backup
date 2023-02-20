@@ -7,7 +7,8 @@
  * @domain SSSW
  * @changelog
  * SaiSwetha Pingali - Removed the test method for SnapIt cases as it is no longer required.
- * 31.10.2022	Noel Lim - Updated tests relating to strategic rules, as case re-routing logic during the async call need to be in the holding Queue to be re-routed
+ * 2022-10-31	Noel Lim - Updated tests relating to strategic rules, as case re-routing logic during the async call need to be in the holding Queue to be re-routed
+ * 2023-02-16	Noel Lim - Update testEnsureStrategicCaseIsReroutedInQueueable() to assert Case.PreferredAgentExpiry is set
  */
 @IsTest
 private class MyCustomerCaseArticlesModule_Test {
@@ -349,6 +350,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		cases[0].ReferenceID__c = 'ART1231'; // links to articles[0]
 		cases[0].Origin = 'Email';
 		cases[0].OwnerId = holdingQueue;
+		cases[0].BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id;
 		cases[1].ReferenceID__c = 'ART1232';  // links to articles[1]
 		cases[1].Origin = 'Phone';
 		cases[1].OwnerId = holdingQueue;
@@ -375,6 +377,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		routingRule.IsStrategic__c = true;
 		routingRule.Queue_ID__c = queues[0].QueueId;
 		routingRule.Sequence__c = 1;
+		routingRule.PreferredAgentExpiry__c = 1;
 		routesToInsert.add(routingRule);
 
 		insert routesToInsert;
@@ -420,6 +423,7 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		// verify the owner of case[0] has changed and the owner of case[1] hasn't
 		System.assertEquals(queues[0].QueueId, ((Case)MockUtility.mockDMLUpdatedRecords[0]).OwnerId, 'Expected case to be rerouted to strategic queue');
+		System.assert(((Case)MockUtility.mockDMLUpdatedRecords[0]).PreferredAgentExpiry__c != null, 'Expected case PreferredAgentExpiry to be set');
 		System.assertEquals(holdingQueue, ((Case)MockUtility.mockDMLUpdatedRecords[1]).OwnerId, 'Expected case to be in the holding Queue');
 	}
 

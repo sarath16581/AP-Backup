@@ -14,7 +14,7 @@
  * 26.10.2022	Noel Lim:
  * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. This change supports the logic change in SSSW_Routing.cls where cases are moved into a holding Queue for rules that require an article
  *					b) case re-route now uses the latest case values, and cases in holding queue are the ones to be re-routed. Previously there was a specified list of cases to reroute, and the rerouting was based on original case values during the syncronous process
- *
+ * 16.02.2023	Noel Lim - added updates for Preferred Agent Expiry
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
 
@@ -253,11 +253,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * 2. Article record was deleted in salesforce and case was later updated
 	 * 3. Article id field on Case was removed or already empty
 	 * 
-	 * This is called by a Flow that fires on Insert and Update, and passes cases where ReferenceID__c is not null and and ArticleTest__c is null.
-	 * Note that Flows execute after Workflow Field Updates.
-	 * 
-	 * This Invocation Method called by a Flow approach is necessary as opposed to After Insert/After Update  as we need the AsyncLinkArticlesToCasesQueueable job to be queued after Workflow Field Updates.  
-	 * A Workflow Field Update sets Case.AllocateToQueue__c = true, which needs to fire before the above async job is enqueued.
 	 */
 	@TestVisible 
 	private void queueAsyncArticleToCases(List<Case> cases) {
@@ -416,7 +411,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. 
 	 * If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers.
 	 */
-public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
+	public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
 
 		System.debug('populateCaseArticleIds:cases: ' + cases);
 		System.debug('populateCaseArticleIds:queriedArticles: ' + queriedArticles);
@@ -578,7 +573,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
 						Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c, Case.OwnerId, 
 						Case.AllocateToQueue__c, Case.isHLC__c, Case.isCR__c, Case.Customer_Type__c, Case.Type, Case.IsNewForRouting__c, Case.SocialPostTags__c, Case.Status, 
-						Case.CaseLocality__c, Case.ByPassRoutingRulesOnCreation__c
+						Case.CaseLocality__c, Case.ByPassRoutingRulesOnCreation__c, Case.PreferredAgentExpiry__c, Case.BusinessHoursId
 					}).selectById(caseIds);
 
 					// TODO: This should be routed via the Domain class rather than invoked directly
@@ -680,9 +675,9 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					SSSW_Routing.assignCasesAndDescription(reroutableCases, null, false, true, true);
 
 					// the routing rules have been rerun and the newly set owner id will be added to the case
-					// NOTE: we only want the owner id and not any othe fields as they might be out of date or irrelevant
+					// NOTE: we only want certain fields such as owner id and not any othe fields as they might be out of date or irrelevant. Preferred Agent Expiry is set by the routing rule, so we also need to manually set it.
 					for (Case reroutedCase : reroutableCases) {
-						casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); 						
+						casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c, PreferredAgentExpiry__c = reroutedCase.PreferredAgentExpiry__c)); 						
 					}				
 			
 			} catch(Exception ex) {

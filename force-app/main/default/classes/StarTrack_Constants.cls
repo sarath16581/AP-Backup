@@ -13,6 +13,7 @@ October 02, 2017 - Angelo Rivera - Added for Minor Work MWT0004521
 2021-09-09 - Steve Judd - Added values for MW0004540
 2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
 2022-11-23 - Mahesh Parvathaneni - Addded constants for StarTrack Agent and Care agent
+2023-02-15 - naveen.rajanna@auspost.com.au - REQ3072620 Added constants for Web Bookings Queue, ETA Queue and renamed labels
 **************************************************/
 public class StarTrack_Constants {
 
@@ -129,6 +130,8 @@ public class StarTrack_Constants {
     public static final String TRANSFER_QUEUE = 'Transfer Queue';
     public static final String DEPOT_OWNER_QUEUE = 'Depot Owner Queue';
     public static final String RECYCLE_BIN_QUEUE = 'StarTrack Recycle Bin';
+    public static final String WEB_BOOKINGS_QUEUE = 'StarTrack Pickup Enquiry Queue';
+    public static final String ETA_QUEUE = 'StarTrack ETA Request Queue';
     public static final String ST_NETWORK_CUST_NOTIF = 'StarTrack Network Customer Notification';
     public static final String ST_EVENT_TYPE = 'DELIVERED'; 
     public static final String ST_SCAN_TYPE = 'Label'; 

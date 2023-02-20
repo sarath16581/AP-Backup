@@ -47,11 +47,6 @@
 					</lightning-layout-item>
 					<lightning-layout-item
 						size="12"
-						class="slds-var-p-top_x-large">
-						<div class="line-border"></div>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
 						medium-device-size="9"
 						class="slds-var-p-top_x-large">
 						<lightning-input
@@ -67,6 +62,29 @@
 						<p class="form-sub-heading slds-var-p-top_x-small">
 							Tracking, booking, or barcode reference
 						</p>
+					</lightning-layout-item>
+					<lightning-layout-item
+							size="12"
+							medium-device-size="9"
+							class="slds-var-p-top_x-large">
+						<lightning-radio-group
+								name="callerType"
+								label="Are you the sender or receiver for this parcel?"
+								options={callerTypeOptions}
+								value={formData.callerType}
+								onchange={handleInputChange}
+								message-when-value-missing={label.invalidCallerType}
+								required
+								type="radio"
+								data-validation="trackingForm"
+								data-field-name="callerType"
+						>
+						</lightning-radio-group>
+					</lightning-layout-item>
+					<lightning-layout-item
+							size="12"
+							class="slds-var-p-top_x-large">
+						<div class="line-border"></div>
 					</lightning-layout-item>
 					<lightning-layout-item
 						size="12"
