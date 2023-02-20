@@ -85,6 +85,9 @@ public with sharing class CasePDFContentGenerator {
         lstCaseIds = selectedRecordIds.split(',');
         setCaseIds = new Set<Id>(((Set<Id>) JSON.deserialize(JSON.serialize(lstCaseIds), Set<Id>.class)));
 
+		system.debug('lstCaseIds: '+lstCaseIds);
+		system.debug('setCaseIds: '+setCaseIds);
+		
 		for(Id rId :  setCaseIds) {
 			if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
 				allCaseIds.add(rId);
@@ -572,6 +575,9 @@ public with sharing class CasePDFContentGenerator {
         consignmentWrapperList = new List<TIBCOConsignmentWrapper>();
 
 		for(CaseInvestigation__c cInv : caseInvestigations) {
+			system.debug('cInv: '+cInv);
+			system.debug('cInv.Article__r: '+cInv.Article__r);
+			
 			if(!cInvArticleIds.contains(cInv.Article__r.ArticleId__c)) {
 				cInvArticleIds.add(cInv.Article__r.ArticleId__c);
 			}
