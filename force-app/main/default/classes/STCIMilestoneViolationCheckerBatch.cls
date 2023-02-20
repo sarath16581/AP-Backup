@@ -15,7 +15,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 	private static final String ST_MYNETWORK_RECORD_TYPE = 'StarTrack_MyNetwork';
 
 
-	public STCIMilestoneViolationCheckerBatch() {
+	public STCIMilestoneViolationCheckerBatch() { //NOPMD
 	}
 
 	//constructor to set the batch size
@@ -85,7 +85,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 		}
 	}
 
-	public void finish(Database.BatchableContext bc) {
+	public void finish(Database.BatchableContext bc) { //NOPMD
 	}
 
 	public void execute(SchedulableContext ctx) {
