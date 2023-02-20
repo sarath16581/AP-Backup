@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Skill xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This skill is applied to agents work work on the generic back of house consumer cases such as disputed deliveries, premium, finance and travel, post info and other back of house generic cases.</description>
+    <label>Standard</label>
+</Skill>

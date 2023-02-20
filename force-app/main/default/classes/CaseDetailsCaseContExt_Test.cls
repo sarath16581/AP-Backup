@@ -108,14 +108,24 @@ global class CaseDetailsCaseContExt_Test {
 	static void ensureAssignCaseChecksForSkills() {
 		Map<String, Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		MockUtility.disableTriggerExecution();
+		List<User> agents = ApplicationTestDataFactory.getUsers(1, true);
 		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
 		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
-		testCase.OwnerId = UserInfo.getUserId();
+		testCase.OwnerId = agents[0].Id;
+		testCase.Origin = 'Email';
+		testCase.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id; //required when routing engine SSSW_Routing.assignCasesAndDescription() is called
+
 		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
 		CaseDetailsCaseContExt controller = new CaseDetailsCaseContExt(sc);
 		controller.reassignCase = testCase; // TODO: clean up these silly business
 		controller.myCase = testCase; // TODO: clean up these silly business
 		controller.remediationAvailable = false; // skipping article fetch
+
+
+		//Update SSSWRouting from TestSetup to Omni Queue
+		SSSWRouting__c testRouting = [SELECT Id,Queue_ID__c FROM SSSWRouting__c LIMIT 1];
+		testRouting.Queue_ID__c = OmniChannelService.Cache.queuesWithRoutingConfig.keySet().iterator().next(); 
+		Database.update(testRouting);
 
 		List<ServiceChannel> serviceChannels = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true);
 		Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(OmniChannelTestDataFactory.getPendingServiceRoutings(1, serviceChannels[0].Id, new Set<Id>{testCase.Id}, true));
@@ -130,6 +140,7 @@ global class CaseDetailsCaseContExt_Test {
 		PendingServiceRoutingSelector pendingServiceRoutingSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
 		SkillRequirementSelector skillRequirementSelector = (SkillRequirementSelector) MockUtility.mockSelector(SkillRequirementSelector.class);
 		ServiceResourceSkillSelector serviceResourceSkillSelector = (ServiceResourceSkillSelector) MockUtility.mockSelector(ServiceResourceSkillSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
 
@@ -148,6 +159,9 @@ global class CaseDetailsCaseContExt_Test {
 									(Set<Object>) fflib_Match.eq(new Set<Object>())
 								)).thenReturn(serviceResourceSkills);
 
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlRollback((Savepoint)fflib_Match.anyObject())).thenReturn(true);
+						
 		MockUtility.Mocks.stopStubbing();
 
 		//test start and stop
@@ -157,6 +171,7 @@ global class CaseDetailsCaseContExt_Test {
 
 		Test.stopTest();
 
+		System.assertEquals(true, controller.myCase.BypassPreferredAgent__c, 'Should flag Bypass Preferred Agent if reassigning to an Omni queue');
 		System.assertEquals(true, controller.notAllowedToReassign, 'Should not allow user to reassign case');
 	}
 

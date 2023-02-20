@@ -9,7 +9,7 @@ private class StarTrackTrackingIDSearchUtil_Test {
         List<StarTrack_Transfer_Case_Rule__c> transferCaseRules = new List<StarTrack_Transfer_Case_Rule__c>();
         transferCaseRules.add(new StarTrack_Transfer_Case_Rule__c(Queue_Name__c = 'StarTrack Next Flight Queue', Product_Group__c = 'Next Flight', Order__c = 1, Business_Solutions_Customer__c = true));
         transferCaseRules.add(new StarTrack_Transfer_Case_Rule__c(Queue_Name__c = StarTrack_Constants.TRANSFER_QUEUE, Case_Purpose__c = 'Other' , Order__c = 2));
-        transferCaseRules.add(new StarTrack_Transfer_Case_Rule__c(Queue_Name__c = 'ETA Queue', Case_RecordType__c = 'Pickup Booking Enquiry', Case_Purpose__c = 'Pickup ETA', Order__c = 4));
+        transferCaseRules.add(new StarTrack_Transfer_Case_Rule__c(Queue_Name__c = StarTrack_Constants.ETA_QUEUE, Case_RecordType__c = 'Pickup Booking Enquiry', Case_Purpose__c = 'Pickup ETA', Order__c = 4));
         Database.insert(transferCaseRules);
 
         List<Account> lst_account = TestDataProvider.createAccount('test', 1);
@@ -59,8 +59,8 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
             List<Group> testQueues = new List<Group>();
             testQueues.add(new Group(Name='StarTrack Next Flight Queue',  Type='Queue'));
-            testQueues.add(new Group(Name='ETA Queue',  Type='Queue'));
-            testQueues.add(new Group(Name='Web Bookings Queue',  Type='Queue'));
+            testQueues.add(new Group(Name=StarTrack_Constants.ETA_QUEUE,  Type='Queue'));
+            testQueues.add(new Group(Name=StarTrack_Constants.WEB_BOOKINGS_QUEUE,  Type='Queue'));
             testQueues.add(new Group(Name='Controlled Returns Queue',  Type='Queue'));
             testQueues.add(new Group(Name='Sorry We Missed You',  Type='Queue'));
             testQueues.add(new Group(Name='Delivery Queue',  Type='Queue'));
@@ -79,8 +79,8 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
         StarTrack_Settings__c customSetting = new StarTrack_Settings__c();
         customSetting.Next_Flight_Case_Consignment__c = 'StarTrack Next Flight Queue';
-        customSetting.PBE_ETA_Enquiry__c = 'ETA Queue';
-        customSetting.PBE_Missed_Futile_Enquiry__c = 'Web Bookings Queue';
+        customSetting.PBE_ETA_Enquiry__c = StarTrack_Constants.ETA_QUEUE;
+        customSetting.PBE_Missed_Futile_Enquiry__c = StarTrack_Constants.WEB_BOOKINGS_QUEUE;
         customSetting.PBE_Controlled_Returns__c = 'Controlled Returns Queue';
         customSetting.Redelivery_Redirection_Enquiry__c = 'Sorry We Missed You';
         customSetting.SetupOwnerId = UserInfo.getOrganizationId();
@@ -520,4 +520,35 @@ private class StarTrackTrackingIDSearchUtil_Test {
         return mockDatabase;
     }
 
+
+    @IsTest
+    private static void testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment() {
+
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        Case testCase = [
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+        List<Article__c> articles = new List<Article__c>();
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', null);
+
+        Test.startTest();
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
+        system.debug(' CASE COM HAS '+comments);
+        System.assertEquals(0, comments.size(), 'testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment: No case comment should get generated generated');
+        System.assertEquals(false, result, 'testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment: Expected an error in response for no invalid consignment found');
+        Test.stopTest();
+    }
 }

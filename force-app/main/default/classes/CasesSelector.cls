@@ -104,6 +104,19 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 
+	/*
+	* this method returns records with matching ids And matching record type ids. 
+	* it is being used in Domain filtering
+	*/
+	public List<Case> selectByIdsAndRecordTypeIds(Set<Id> ids, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+			.add(new QueryBuilder.SimpleCondition(Case.Id + ' IN :ids'))
+			.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' IN :recordTypeIds'))
+			.endConditions();
+
+		return (List<Case>)Database.query(qb.toSoqlString());
+	}
+
 	/**
 	 * @description Run a simple query to get records based on case numbers
 	 */

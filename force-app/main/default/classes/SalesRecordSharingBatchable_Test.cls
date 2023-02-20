@@ -113,10 +113,6 @@ private class SalesRecordSharingBatchable_Test {
 		// =====================================
 		SalesRecordSharingService mockService = (SalesRecordSharingService) MockUtility.mockUtility(SalesRecordSharingService.class);
 
-		//MockUtility.Mocks.startStubbing();
-		//MockUtility.Mocks.when(mockService.shareRecords((SObjectType)fflib_Match.eq(APR__c.SObjectType), (Map<Id, SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(true))).thenReturn(shareObjectMapping);
-		//MockUtility.Mocks.stopStubbing();
-
 		// =====================================
 		// Testing
 		// =====================================
@@ -133,6 +129,40 @@ private class SalesRecordSharingBatchable_Test {
 
 		System.assertEquals(3, shareRecordsCaptured.size(),'records should be submitted for sharing');
 		System.assertEquals(3, batch.totalRecordsCount,'processed record count must be updated after processing each batch');
+	}
+
+	/**
+	 * Test to ensure execute method logs any exceptions from the service
+	 */
+	@IsTest
+	static void testBatchJobExecuteWhenServiceThrowsException() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(3, null, null, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		SalesRecordSharingService mockService = (SalesRecordSharingService) MockUtility.mockUtility(SalesRecordSharingService.class);
+		ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
+
+		MockUtility.Mocks.startStubbing();
+		((SalesRecordSharingService)MockUtility.Mocks.doAnswer(new ThrowSalesRecordSharingServiceExceptionAnswer(), mockService)).shareRecords((SObjectType)fflib_Match.eq(APR__c.SObjectType),(Map<Id, SObject>) fflib_Match.anyObject(), fflib_Match.eqBoolean(true));
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesAPRSharingBatchable batch = new SalesAPRSharingBatchable();
+		batch.execute(null, aprs);
+
+		Test.stopTest();
+
+		// verify the exception is logged
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.eq(ApplicationLogger.LoggingLevel.ERROR));
 	}
 
 	/**
@@ -162,8 +192,15 @@ private class SalesRecordSharingBatchable_Test {
 		Test.stopTest();
 
 		// verify the processing summary is logged
-		//((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logGenericMessage((List<String>)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (String)fflib_Match.anyObject(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logGenericMessage((List<String>)fflib_Match.anyList(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.eq(ApplicationLogger.LoggingLevel.INFO));
 	}
 
 	private class MockException extends Exception{}
+
+	public class ThrowSalesRecordSharingServiceExceptionAnswer implements fflib_Answer {
+		public Object answer(fflib_InvocationOnMock invocation)
+		{
+			throw new SalesRecordSharingService.SalesRecordSharingException();
+		}
+	}
 }

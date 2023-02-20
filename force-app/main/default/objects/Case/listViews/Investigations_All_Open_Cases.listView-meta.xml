@@ -28,7 +28,5 @@
         <value>0</value>
     </filters>
     <label>Investigations - All Open Cases</label>
-    <sharedTo>
-        <group>StarTrack_Investigators</group>
-    </sharedTo>
+    <sharedTo></sharedTo>
 </ListView>

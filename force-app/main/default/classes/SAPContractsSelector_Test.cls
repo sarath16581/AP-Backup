@@ -23,12 +23,6 @@ public with sharing class SAPContractsSelector_Test {
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
 
-		selector = SAPContractsSelector.newInstance(1);
-		qb = selector.newQueryBuilder();
-		soql = qb.toSoqlString();
-
-		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
-
 		Test.stopTest();
 	}
 
@@ -40,36 +34,69 @@ public with sharing class SAPContractsSelector_Test {
 	public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
 		Test.startTest();
 
-		SAPContractsSelector selector = SAPContractsSelector.newInstance();
+		SAPContractsSelector selector = SAPContractsSelector.newInstance(1, new Set<SObjectField>{
+				APT_SAP_Contracts__c.Id, APT_SAP_Contracts__c.Organisation__c
+		});
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
+		System.assertEquals(false, Pattern.compile('(?ism)RecordTypeId\\b.*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting selects RecordTypeId but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__c\\b.*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation__c field: ' + soql);
 
-		selector = SAPContractsSelector.newInstance(1, new Set<SObjectField>{
-				APT_SAP_Contracts__c.Id
-		});
-		qb = selector.newQueryBuilder();
-		soql = qb.toSoqlString();
-
-		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
 
 		selector = SAPContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>>{
-				APT_SAP_Contracts__c.SObjectType => new Set<SObjectField>{APT_SAP_Contracts__c.Id}
+				APT_SAP_Contracts__c.SObjectType => new Set<SObjectField>{APT_SAP_Contracts__c.Id, APT_SAP_Contracts__c.Organisation__c}
 		});
 		qb = selector.newQueryBuilder();
 		soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
+		System.assertEquals(false, Pattern.compile('(?ism)RecordTypeId\\b.*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting selects RecordTypeId but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__c\\b.*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation__c field: ' + soql);
 
 		selector = SAPContractsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
-				APT_SAP_Contracts__c.SObjectType => new Set<SObjectField>{APT_SAP_Contracts__c.Id}
+				APT_SAP_Contracts__c.SObjectType => new Set<SObjectField>{APT_SAP_Contracts__c.Id, APT_SAP_Contracts__c.Organisation__c}
 		});
 		qb = selector.newQueryBuilder();
 		soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_SAP_Contracts__c');
+		System.assertEquals(false, Pattern.compile('(?ism)RecordTypeId\\b.*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting selects RecordTypeId but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__c\\b.*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation__c field: ' + soql);
+
 		Test.stopTest();
+	}
+
+	/**
+     * Test:
+     *  Ensures that the selectors QueryBuilder is generating the correct output with related fields
+     */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SAPContractsSelector selector = SAPContractsSelector.newInstance(0);
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{SAPContractsSelector.Options.WITH_ORGANISATION});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\..*?\\bfrom APT_SAP_Contracts__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
+
+		Test.stopTest();
+
 	}
 
 	/**

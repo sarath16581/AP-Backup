@@ -2,7 +2,7 @@
 <QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <capacityPercentage>100.0</capacityPercentage>
     <isAttributeBased>false</isAttributeBased>
-    <label>StarTrack Web Bookings Routing Configuration</label>
+    <label>StarTrack Pickup Enquiry Routing Configuration</label>
     <pushTimeout>30</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>13</routingPriority>

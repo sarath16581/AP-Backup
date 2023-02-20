@@ -3,6 +3,11 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Network Queue</name>
+    <queueMembers>
+        <users>
+            <user>swati.mogadala@my.network</user>
+        </users>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

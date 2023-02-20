@@ -7,6 +7,7 @@
  * @group Core
  * @domain Core
  * @changelog
+ * 2023-02-14 - Updated to assert behaviour on after undelete
  */
 @IsTest
 private class ApplicationDomain_Test {
@@ -55,6 +56,7 @@ private class ApplicationDomain_Test {
 		domain.onAfterUpdate(new Map<Id, Account>(oldAccounts), uow);
 		//		domain.onBeforeDelete(uow);
 		//		domain.onAfterDelete(uow);
+		domain.onAfterUndelete(uow);
 
 		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnBeforeInsertCalled, 'Expected only 1');
 		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnAfterInsertCalled, 'Expected only 1');
@@ -62,6 +64,7 @@ private class ApplicationDomain_Test {
 		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnAfterUpdateCalled, 'Expected only 1');
 		//		System.assertEquals(1, moduleOnBeforeDeleteCalled, 'Expected only 1');
 		//		System.assertEquals(1, moduleOnAfterDeleteCalled, 'Expected only 1');
+		System.assertEquals(1, ApplicationTestDomain1_Test.moduleOnAfterUndeleteCalled, 'Expected only 1');
 
 		// verify that getIsChanged fired successfully in the module
 		System.assertEquals(1, ApplicationTestDomain1_Test.moduleBeforeUpdateChangedValues.size(), 'Expected only 1');
@@ -120,6 +123,7 @@ private class ApplicationDomain_Test {
 		domain.onAfterUpdate(new Map<Id, Account>(oldAccounts), uow);
 		//		domain.onBeforeDelete(uow);
 		//		domain.onAfterDelete(uow);
+		domain.onAfterUndelete(uow);
 
 		System.assertEquals(1, ApplicationTestDomain2_Test.moduleOnBeforeInsertCalled, 'Expected only 1');
 		System.assertEquals(1, ApplicationTestDomain2_Test.moduleOnAfterInsertCalled, 'Expected only 1');
@@ -127,6 +131,7 @@ private class ApplicationDomain_Test {
 		System.assertEquals(1, ApplicationTestDomain2_Test.moduleOnAfterUpdateCalled, 'Expected only 1');
 		//		System.assertEquals(1, moduleOnBeforeDeleteCalled, 'Expected only 1');
 		//		System.assertEquals(1, moduleOnAfterDeleteCalled, 'Expected only 1');
+		System.assertEquals(1, ApplicationTestDomain2_Test.moduleOnAfterUndeleteCalled, 'Expected only 1');
 
 		// verify that getIsChanged fired successfully in the module
 		System.assertEquals(1, ApplicationTestDomain2_Test.moduleBeforeUpdateChangedValues.size(), 'Expected only 1');

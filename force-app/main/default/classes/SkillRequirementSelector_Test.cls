@@ -7,9 +7,11 @@
  * @description Test class for SkillRequirementSelector
  * @changelog
  * 2022-11-18 George Nguyen - Created
+ * 2023-02-06 - Nathan Franklin - Added test methods to cover recent work
  */
 @IsTest
 public with sharing class SkillRequirementSelector_Test {
+	
 	@IsTest
 	private static void queryFromCorrectObjectWithCorrectFields() {
 		SkillRequirementSelector selector = SkillRequirementSelector.newInstance(1);
@@ -19,6 +21,68 @@ public with sharing class SkillRequirementSelector_Test {
 		System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(SkillRequirement.SkillId) + '\\b').matcher(soql).find(), 'Field exists in query');
 		System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(SkillRequirement.SkillLevel) + '\\b').matcher(soql).find(), 'Field exists in query');
 		System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(SkillRequirement.RelatedRecordId) + '\\b').matcher(soql).find(), 'Field exists in query');
+	}
+
+	/**
+	 * Scenario:
+	 * Ensure field overrides produce correct query string
+	 */
+	@IsTest
+	private static void testEnsureFieldOverridesAreCorrectlyIncludedInQueryBuilderOutput() {
+		SkillRequirementSelector selector = SkillRequirementSelector.newInstance(1, new Set<SObjectField>{SkillRequirement.RelatedRecordId});
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom SkillRequirement\\b').matcher(soql).find(), 'Query from SkillRequirement object: ' + soql);
+		System.assertEquals(false, Pattern.compile('\\b' + String.valueOf(SkillRequirement.SkillId) + '\\b').matcher(soql).find(), 'Field exists in query: ' + soql);
+		System.assertEquals(false, Pattern.compile('\\b' + String.valueOf(SkillRequirement.SkillLevel) + '\\b').matcher(soql).find(), 'Field exists in query: ' + soql);
+		System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(SkillRequirement.RelatedRecordId) + '\\b').matcher(soql).find(), 'Field does not exists in query: ' + soql);
+
+		selector = SkillRequirementSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>>{
+			SkillRequirement.SObjectType => new Set<SObjectField>{SkillRequirement.RelatedRecordId},
+			Skill.SObjectType => new Set<SObjectField>{Skill.DeveloperName}
+		});
+		qb = selector.newQueryBuilder(new Set<Object>{SkillRequirementSelector.Options.WITH_SKILLS});
+		soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom SkillRequirement\\b').matcher(soql).find(), 'Query from SkillRequirement object: ' + soql);
+		System.assertEquals(false, Pattern.compile('\\b' + String.valueOf(SkillRequirement.SkillId) + '\\b').matcher(soql).find(), 'Field exists in query: ' + soql);
+		System.assertEquals(false, Pattern.compile('\\b' + String.valueOf(SkillRequirement.SkillLevel) + '\\b').matcher(soql).find(), 'Field exists in query: ' + soql);
+		System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(SkillRequirement.RelatedRecordId) + '\\b').matcher(soql).find(), 'Field does not exist in query: ' + soql);
+		System.assertEquals(true, Pattern.compile('\\bSkill\\.DeveloperName\\b').matcher(soql).find(), 'Field does not exist in query: ' + soql);
+		System.assertEquals(false, Pattern.compile('\\bSkill\\.MasterLabel\\b').matcher(soql).find(), 'Field exists in query: ' + soql);
+
+	}
+
+	/**
+	 * Scenario:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SkillRequirementSelector selector = SkillRequirementSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
+			SkillRequirementSelector.Options.WITH_SKILLS
+		});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Skill\\..*?\\bfrom SkillRequirement\\b').matcher(soql).find(), 'Resulting query does not select Skill fields: ' + soql);
+
+		Test.stopTest();
 	}
 
 	@IsTest
