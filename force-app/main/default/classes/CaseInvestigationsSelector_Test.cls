@@ -9,6 +9,7 @@
  * 2022-12-08 - Dattaraj Deshmukh - Updated test method 'testSelectorIntegration' and added test for 'selectOpenCaseInvestigationsByCaseArticleNetworkId'.
  * 									Replaced Status__c value from 'Open' to 'New'.
  * 2023-01-31 - Mahesh Parvathaneni - Updated tests for selectNetworkMilestoneViolatedOpenCaseInvestigations
+ * 2023-02-22 - Dattaraj Deshmukh	- Updated methods by passing 'stCaseInvestigationRecordTypeId' to selector methods.
  */
 
  @IsTest
@@ -80,6 +81,9 @@
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
+
 		//create test data
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		insert articles;
@@ -99,6 +103,7 @@
 
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		caseInvestigations[0].Status__c = 'New';
+		caseInvestigations[0].RecordTypeId = stCaseInvestigationRecordTypeId;
 		insert caseInvestigations;
 
 		//update NetworkMilestoneNextViolationDatetime__c
@@ -129,12 +134,14 @@
 
 		//passing options to select CI records with Articles, Networks and Case details
 		Map<Id, CaseInvestigation__c> resultsInvestigationsByCases = selectorOpenCaseInvestion.selectOpenCaseInvestigationsByCaseIds(new Set<Id> {cases[0].Id}, 
+																				new Set<Id>{stCaseInvestigationRecordTypeId}, 
 																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
 																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
 																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
 		System.assertEquals(1, resultsInvestigationsByCases.size(), 'Expected result size of 1');
 
 		Map<Id, CaseInvestigation__c> resultsInvestigationsByNetworks = selector.selectOpenCaseInvestigationsByNetworkId(new Set<Id> {networks[0].Id}, 
+																				new Set<Id>{stCaseInvestigationRecordTypeId}, 
 																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
 																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
 																									CaseInvestigationsSelector.Options.WITH_NETWORKS});

@@ -5,6 +5,7 @@
  * @changelog
  * 2022-12-15 - Dattaraj Deshmukh - created
  * 2023-02-14 - Mahesh Parvathaneni - Added method setCaseInvestigationClosureDate
+ * 2022-02-22 - Dattaraj Deshmukh 	- Added recordTypeIds to 'selectOpenCaseInvestigationsByCaseIds' method call. 
  **/
 public inherited sharing class STCaseInvestigationLifecycleModule extends ApplicationDomain.Module {
 	public static STCaseInvestigationLifecycleModule newInstance() {
@@ -39,6 +40,8 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		
 		Set<Id> caseIds = new Set<Id>();
 		List<CaseInvestigation__c> caseInvestigationsToUpdate = new List<CaseInvestigation__c>();
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
 
 		for(Case updatedCase : cases) {
 
@@ -51,7 +54,7 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 
 		//query CI records based on parent cases.
 		//update status = CLOSED for all child case investigations.
-		for(CaseInvestigation__c caseInv : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(caseIds).values()) {
+		for(CaseInvestigation__c caseInv : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(caseIds, new Set<Id>{stCaseInvestigationRecordTypeId}).values()) {
 			caseInvestigationsToUpdate.add( new CaseInvestigation__c(Id = caseInv.Id, Status__c = MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS));
 		}
 

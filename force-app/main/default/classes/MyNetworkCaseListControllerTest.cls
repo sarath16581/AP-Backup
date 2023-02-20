@@ -507,6 +507,8 @@
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
 		networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
 
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+			.get('StarTrack_MyNetwork').getRecordTypeId();
 
 		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, cases[0].Id, articles[0], networks[0].Id, true);
 		
@@ -532,7 +534,7 @@
 		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
 		MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
-		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
+		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
 											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
@@ -550,7 +552,7 @@
 		((NetworkUsersSelector)MockUtility.Mocks.verify(mockNetworkUserSelector, MockUtility.Mocks.times(1))).selectByUserId(new Set<Id>{myNetworkPortalUser.Id});
 
 		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
-														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
+														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
 																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
 
@@ -651,6 +653,9 @@
 		
 		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
 
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -665,7 +670,7 @@
 		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
 		MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
-		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
+		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
 											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
@@ -675,8 +680,8 @@
 
 		Test.StartTest();
 
-		MyNetworkCaseListController.CaseInvestigationsWrapper cInvWrapper = MyNetworkCaseListController.getStarTrackCases(null);
-		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.processCaseInvWrapper(cInvWrapper, 'Cases_updated');
+		List<CaseInvestigation__c> cInvList = MyNetworkCaseListController.getStarTrackCases(null);
+		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.processCaseInvWrapper(cInvList, 'Cases_updated');
 		
 		Test.StopTest();
 		
@@ -684,7 +689,7 @@
 		((NetworkUsersSelector)MockUtility.Mocks.verify(mockNetworkUserSelector, MockUtility.Mocks.times(1))).selectByUserId(new Set<Id>{myNetworkPortalUser.Id});
 
 		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
-														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, 
+														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
 																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
 		

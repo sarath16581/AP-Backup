@@ -6,11 +6,15 @@
 * @changelog
 * @test MyNetworkOtherCaseInvestigations_Test
 * 2022-12-07 - Dattaraj Deshmukh - Created.
+* 2022-02-22 - Dattaraj Deshmukh - passing 'stCaseInvestigationRecordTypeId' to selectors.
 */
 public with sharing class MyNetworkOtherCaseInvestigationsCntr {
 	
 	@AuraEnabled(cacheable=true)
 	public static List<CaseInvestigation__c> getOtherCaseInvestigations(Id caseInvestigationRecordId) { 
+
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
 
 		List<CaseInvestigation__c> otherCaseInvestigations = new List<CaseInvestigation__c>();
 		
@@ -18,6 +22,7 @@ public with sharing class MyNetworkOtherCaseInvestigationsCntr {
 
 		List<CaseInvestigation__c> caseInvestigations = new List<CaseInvestigation__c>();
 		caseInvestigations = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(new Set<Id>{selectedCI.Case__c},
+															new Set<Id>{stCaseInvestigationRecordTypeId}, 
 															new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS,
 																				CaseInvestigationsSelector.Options.WITH_ARTICLES,
 																				CaseInvestigationsSelector.Options.WITH_NETWORKS}).values();
