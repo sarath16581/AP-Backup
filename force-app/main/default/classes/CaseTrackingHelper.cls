@@ -16,7 +16,8 @@
                                                                     updated code to handle status tracking for Social Cases
                                                                     udpated code to capture the previous owner
                                                                     updated code to get all the time captures in AEST timezone
-    11/03/2021          neha.mehta@auspost.com.au                   Created inner class CaseTrackingUpdate for INC1708377                                                                    
+    11/03/2021          neha.mehta@auspost.com.au                   Created inner class CaseTrackingUpdate for INC1708377   
+                                                                    
 *******************************  History ************************************************/
 public with sharing class CaseTrackingHelper{
     
@@ -46,6 +47,7 @@ public with sharing class CaseTrackingHelper{
             validRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
             //below updated by Kalpita - to open up for social cases - 'Status Tracking MWT0002177 '
             validRecTypes.addAll(Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),'Social'));
+             
             businessHourMap = Utility.getBussinessHourMap();    // get business hours for SSSW application
             closedStatus = Utility.getCaseClosedStatus();   // set of closed case statuses
         }
