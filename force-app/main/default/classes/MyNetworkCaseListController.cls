@@ -1311,12 +1311,7 @@ public with sharing class MyNetworkCaseListController {
 		List<CaseInvestigation__c> caseInvList;
 
 		if(!networkIds.isEmpty()) {
-			Set<Id> caseIds = new Set<Id>();
-			Set<Id> caseInvestigationIds = new Set<Id>();
 			
-			Set<Id> updatedCaseIds = new Set<Id>();
-			Set<Id> updatedCaseInvestigationIds = new Set<Id>();
-
 			Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
 			.get('StarTrack_MyNetwork').getRecordTypeId();
 
@@ -1332,12 +1327,15 @@ public with sharing class MyNetworkCaseListController {
 		return caseInvList;
 	}
 
+	/**
+	 * @desc: Create a list of wrapper for Case Investigations. Each wrapper entry represents Case Investigation record details.
+	 * @param: case investigation list and selected list view from portal.
+	 * @return: List<MyNetworkCasesWrapper>
+	 */
 	@TestVisible
 	private static List<MyNetworkCasesWrapper> processCaseInvWrapper(List<CaseInvestigation__c> caseInvestigationList, String selectedView) {
 		list<MyNetworkCasesWrapper> myNetworkCasesWrapperList = new list<MyNetworkCasesWrapper>();
 		MyNetworkCasesWrapper myNetworkCasesWrapperVar ;
-		set<Id> caseIds = new set<Id>();
-		Set<ID> processedCaseIds = new Set<Id>();
 		Set<ID> processedCaseInvestigationIds = new Set<Id>();
 
 		if(caseInvestigationList != null && !caseInvestigationList.isEmpty()) {
@@ -1345,15 +1343,13 @@ public with sharing class MyNetworkCaseListController {
 				myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
 
 				//LastContactCentreUpdate__c timestamp is set when a Chatter Post is added on case investigation record by ST Contact Users.
-				if( cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)
-								)  {
+				if(cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5))  {
 					myNetworkCasesWrapperVar = validateCaseInvestigations(cInv);
 				}
 				else if(selectedView != 'Cases_updated') {
 					myNetworkCasesWrapperVar = validateCaseInvestigations(cInv);
 				}
 				if(myNetworkCasesWrapperVar != null && myNetworkCasesWrapperVar.caseId != null && !processedCaseInvestigationIds.contains(cInv.Id)){
-					processedCaseIds.add(cInv.Case__r.Id);
 					myNetworkCasesWrapperVar.addCaseInvestigation(cInv);
 
 					myNetworkCasesWrapperList.add(myNetworkCasesWrapperVar);

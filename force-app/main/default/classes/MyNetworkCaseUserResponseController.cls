@@ -25,7 +25,7 @@ public without sharing class MyNetworkCaseUserResponseController {
 				post.ParentId = caseInvestigationId;
 				post.Body = newtorkComments;
 
-				//create new feed item record and update case status
+				//create new feed item record
 				ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{post});
 				
 			}
