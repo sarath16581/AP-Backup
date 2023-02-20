@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Pending_FS_Queue_Case</fullName>
+    <fullName>SSSW_Community_Niche_Case</fullName>
     <filterScope>Queue</filterScope>
-    <label>Pending FS Queue</label>
-    <queue>Pending_FS_Queue</queue>
+    <label>SSSW Community Niche</label>
+    <queue>SSSW_Community_Niche</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>

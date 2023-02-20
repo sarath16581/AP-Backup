@@ -17,15 +17,6 @@
                             <value>Deal_Support_Request__c.Close</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Global.LogACall</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.New_BG_Task</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.New_BG_Event</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Deal_Support_Request__c.Additional_Information_Required_AllRequest</value>
                         </valueListItems>
                         <valueListItems>
@@ -72,6 +63,15 @@
                         </valueListItems>
                         <valueListItems>
                             <value>FeedItem.TextPost</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.LogACall</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.New_BG_Task</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.New_BG_Event</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
