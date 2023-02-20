@@ -455,14 +455,6 @@
 		list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
 
 		Test.StartTest();
-		
-			if(apCasesMap != null && !apCasesMap.isEmpty()) {
-				apCasesMap.values()[0].Last_Status_Change__c = System.today().addDays(-1);
-				apCasesMap.values()[0].OwnerId = UserInfo.getUserId();
-				system.debug('STATUS: '+apCasesMap.values()[0].Status );
-				system.debug('OWNER: '+apCasesMap.values()[0].OwnerId );
-				update apCasesMap.values()[0];
-			}
 			wrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
 		Test.StopTest();  
 
