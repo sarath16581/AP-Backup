@@ -45,7 +45,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return new Set<SObjectField> {
 			CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
 			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name,
-			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.NetworkMilestoneCurrentViolatedTier__c, 
+			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.NetworkMilestoneCurrentTier__c, 
 			CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, 
 			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
 			CaseInvestigation__c.NetworkTierEscalationEmail__c
@@ -92,24 +92,27 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	/**
 	* @description Return open case investigations where the network milestone is violated
 	* @param violationDatetime Cutoff datetime (method will return case investigations that were violated)
+	* @param recordTypeIds record type id set
 	* @param selectorOptions Options
 	* @return QueryLocator
 	*/
-	public virtual Database.QueryLocator selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime violationDatetime, Set<Object> selectorOptions) {
-		QueryBuilder qb = selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(violationDatetime, selectorOptions);
+	public virtual Database.QueryLocator selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime violationDatetime, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(violationDatetime, recordTypeIds, selectorOptions);
 		return Database.getQueryLocator(qb.toSoqlString());
 	}
 
 	/**
 	* @description : simple query to return open case investigations where the network milestone is violated
 	* @param violationDatetime Cutoff datetime (method will return case investigations that were violated)
+	* @param recordTypeIds record type id set
 	* @param selectorOptions - selector options
 	*/
-	public virtual QueryBuilder selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(Datetime violationDatetime, Set<Object> selectorOptions) {
+	public virtual QueryBuilder selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(Datetime violationDatetime, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.NullCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).notNull())
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).lt(violationDatetime))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
 				.endConditions();
 		return qb;

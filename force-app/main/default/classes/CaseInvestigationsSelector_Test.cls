@@ -61,6 +61,9 @@
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
+
 		//create test data
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		insert articles;
@@ -76,6 +79,7 @@
 
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		caseInvestigations[0].Status__c = 'New';
+		caseInvestigations[0].RecordTypeId = stCaseInvestigationRecordTypeId;
 		insert caseInvestigations;
 
 		//update NetworkMilestoneNextViolationDatetime__c
@@ -112,7 +116,7 @@
 		System.assertEquals(1, resultsInvestigationsByCases.size(), 'Expected result size of 1');
 
 		CaseInvestigationsSelector selectorQueryLocator = CaseInvestigationsSelector.newInstance();
-		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Object>());
+		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>());
 		System.assertNotEquals(null, ciQueryLocator, 'Expected a valid query locator but got null');
 
 		Test.stopTest();

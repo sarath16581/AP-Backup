@@ -11,7 +11,7 @@ import FIELD_NETWORK_MILESTONES_VIOLATED from '@salesforce/schema/CaseInvestigat
 import FIELD_NETWORK_MILESTONE_NEXT_VIOLATION_DATETIME from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c';
 import FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c';
 import FIELD_MILESTONE_START_DATETIME from '@salesforce/schema/CaseInvestigation__c.MilestoneTimeStartDateTime__c';
-import FIELD_NETWORK_MILESTONE_CURRENT_TIER from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneCurrentViolatedTier__c';
+import FIELD_NETWORK_MILESTONE_CURRENT_TIER from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneCurrentTier__c';
 
 //constants
 const OPEN_VIOLATION = 'Open Violation';
@@ -67,7 +67,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 
 	//load the milestone details of the case investigation
 	loadMilestones() {
-		if (this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c !== null && this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c !== undefined) {
+		if (this.caseInvestigation.NetworkMilestoneCurrentTier__c !== null && this.caseInvestigation.NetworkMilestoneCurrentTier__c !== undefined) {
 			this.hasMilestonesViolated = true;
 			this.getMilestoneDetails();
 		} else {
@@ -89,8 +89,8 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 
 	//function to sest the case investigation milestone to render on UI
 	getMilestoneDetails() {
-		if (this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c <= 2) {
-			this.milestoneDetails.tierName = 'Network Tier ' + `${this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c}`;
+		if (this.caseInvestigation.NetworkMilestoneCurrentTier__c <= 2) {
+			this.milestoneDetails.tierName = 'Network Tier ' + `${this.caseInvestigation.NetworkMilestoneCurrentTier__c}`;
 			this.milestoneDetails.timeRemainingOrCompleted = this.getMilestoneTimeRemaining();
 			this.milestoneDetails.percentCompleted = this.getPercentCompleted();
 			this.milestoneDetails.status = this.milestoneDetails.percentCompleted > 100 ? OPEN_VIOLATION : REMAINING;
@@ -130,7 +130,7 @@ export default class MyNetworkCaseInvestigationMilestones extends LightningEleme
 		let startDate;
 		let todaysDate = new Date();
 		let endDate = new Date(this.caseInvestigation.NetworkMilestoneNextViolationDatetime__c);
-		if (this.caseInvestigation.NetworkMilestoneCurrentViolatedTier__c === 1) {
+		if (this.caseInvestigation.NetworkMilestoneCurrentTier__c === 1) {
 			startDate = new Date(this.caseInvestigation.MilestoneTimeStartDatetime__c);
 		} else {
 			//for network tier 2

@@ -277,7 +277,7 @@ public inherited sharing class MilestoneService {
 				String formattedMilestoneTierTypeField;
 				Entitlement_Rule__c er = entitlementRuleMap.get(ciEntitlementRuleMatchingMap.get(ci.Id));
 				Escalation_Hierarchy__c eh = er.Escalation_Hierarchy__r;
-				formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c.intValue()) + '__c';
+				formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentTier__c.intValue()) + '__c';
 
 				//checks the tier has value in escalation hierarchy config
 				if (eh.get(formattedMilestoneTierTypeField) != null) {

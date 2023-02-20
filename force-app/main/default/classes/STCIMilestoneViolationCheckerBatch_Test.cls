@@ -10,7 +10,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 
 	/**
 	 * @description Test the execute() method of the batch.
-	 * This method runs and validates main logic of the batch job: updating the field NetworkMilestoneCurrentViolatedTier__c by 1
+	 * This method runs and validates main logic of the batch job: updating the field NetworkMilestoneCurrentTier__c by 1
 	 * The test makes sure that all CaseInvestigation records passed to execute() method will get updated.
 	 * Correctness of the CaseInvestigation list passed to the execute() method is ensured by CaseInvestigationsSelector_Test.
 	 */
@@ -37,9 +37,9 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		//assigning network to case investigations
 		//so email is populated from network record
 		for (Integer i = 0; i < 50 ; i++) {
-			caseInvestigations[i].Status__c = 'Open';
+			caseInvestigations[i].Status__c = 'New';
 			caseInvestigations[i].NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
-			caseInvestigations[i].NetworkMilestoneCurrentViolatedTier__c = null;
+			caseInvestigations[i].NetworkMilestoneCurrentTier__c = 1;
 			caseInvestigations[i].NetworkMilestonesViolated__c = null;
 			caseInvestigations[i].Network__r = networks[0];
 		}
@@ -47,18 +47,18 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		//assigning no network to case investigations
 		//so case investigations are assigned to the owner
 		for (Integer i = 50; i < 100 ; i++) {
-			caseInvestigations[i].Status__c = 'Open';
+			caseInvestigations[i].Status__c = 'New';
 			caseInvestigations[i].NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
-			caseInvestigations[i].NetworkMilestoneCurrentViolatedTier__c = null;
+			caseInvestigations[i].NetworkMilestoneCurrentTier__c = 1;
 			caseInvestigations[i].NetworkMilestonesViolated__c = null;
 		}
 
 		//assigning network to case investigations
 		//so email is populated from network record
 		for (Integer i = 100; i < 150 ; i++) {
-			caseInvestigations[i].Status__c = 'Open';
+			caseInvestigations[i].Status__c = 'New';
 			caseInvestigations[i].NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
-			caseInvestigations[i].NetworkMilestoneCurrentViolatedTier__c = 1;
+			caseInvestigations[i].NetworkMilestoneCurrentTier__c = 1;
 			caseInvestigations[i].NetworkMilestonesViolated__c = 1;
 			caseInvestigations[i].Network__r = networks[0];
 		}
@@ -66,9 +66,9 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		//assigning no network to case investigations
 		//so case investigations are assigned to the owner
 		for (Integer i = 150; i < 200 ; i++) {
-			caseInvestigations[i].Status__c = 'Open';
+			caseInvestigations[i].Status__c = 'New';
 			caseInvestigations[i].NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
-			caseInvestigations[i].NetworkMilestoneCurrentViolatedTier__c = 1;
+			caseInvestigations[i].NetworkMilestoneCurrentTier__c = 1;
 			caseInvestigations[i].NetworkMilestonesViolated__c = 1;
 		}
 
@@ -78,7 +78,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		CaseInvestigationsSelector vSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 		ApplicationDatabase vMockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(vSelector.selectNetworkMilestoneViolatedOpenCaseInvestigations((Datetime)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(Database.getQueryLocator([SELECT Id FROM CaseInvestigation__c LIMIT 1]));
+		MockUtility.Mocks.when(vSelector.selectNetworkMilestoneViolatedOpenCaseInvestigations((Datetime)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(Database.getQueryLocator([SELECT Id FROM CaseInvestigation__c LIMIT 1]));
 		MockUtility.Mocks.when(vMockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 
@@ -96,7 +96,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		System.assertEquals('Completed', vJob[0].Status, 'Batch status: failed');
 
 		//verify that selector is called once with expected arguments to get the query locator
-		((CaseInvestigationsSelector) MockUtility.Mocks.verify(vSelector, MockUtility.Mocks.times(1))).selectNetworkMilestoneViolatedOpenCaseInvestigations((Datetime)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
+		((CaseInvestigationsSelector) MockUtility.Mocks.verify(vSelector, MockUtility.Mocks.times(1))).selectNetworkMilestoneViolatedOpenCaseInvestigations((Datetime)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
 
 		// verify that updates has been done
 		((ApplicationDatabase) MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>) fflib_Match.anyList(), (Boolean) fflib_Match.anyBoolean());
@@ -135,6 +135,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 
 		for (CaseInvestigation__c ci : caseInvestigations) {
 			ci.NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
+			ci.NetworkMilestoneCurrentTier__c = 1;
 		}
 		insert caseInvestigations;
 
@@ -148,7 +149,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		// =====================================
 		Test.startTest();
 
-		STCIMilestoneViolationCheckerBatch vBatch = new STCIMilestoneViolationCheckerBatch();
+		STCIMilestoneViolationCheckerBatch vBatch = new STCIMilestoneViolationCheckerBatch(20);
 		// run the scheduler
 		vBatch.execute(null);
 
@@ -157,7 +158,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		//asserting tier value updated by the batch.
 		List<CaseInvestigation__c> updatedCaseInvestigations = CaseInvestigationsSelector.newInstance().selectById(new Map<Id,CaseInvestigation__c>(caseInvestigations).keySet()).values();
 		for (CaseInvestigation__c ci: updatedCaseInvestigations) {
-			System.assertNotEquals(null, ci.NetworkMilestoneCurrentViolatedTier__c, 'Expected current violated tier to be updated');
+			System.assertEquals(2, ci.NetworkMilestoneCurrentTier__c, 'Expected current network tier to be updated');
 			System.assertNotEquals(null, ci.NetworkMilestonesViolated__c, 'Expected network milestones to be updated');
 		}
 	}

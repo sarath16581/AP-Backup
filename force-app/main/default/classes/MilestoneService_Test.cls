@@ -39,9 +39,10 @@ private class MilestoneService_Test {
 		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[1].Id, true));
 		records[0].MilestoneTimeStartDatetime__c = Datetime.now();
+		records[0].NetworkMilestoneCurrentTier__c = 1;
 		records[0].NetworkMilestoneNextViolationDatetime__c = null;
 		records[1].MilestoneTimeStartDatetime__c = Datetime.now().addDays(-1);
-		records[1].NetworkMilestoneCurrentViolatedTier__c = 1;
+		records[1].NetworkMilestoneCurrentTier__c = 2;
 		records[0].NetworkMilestoneNextViolationDatetime__c = Datetime.now();
 		records[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object>{'RecordType__c' => 'StarTrack MyNetwork'});
 		records[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object>{'RecordType__c' => 'StarTrack MyNetwork'});

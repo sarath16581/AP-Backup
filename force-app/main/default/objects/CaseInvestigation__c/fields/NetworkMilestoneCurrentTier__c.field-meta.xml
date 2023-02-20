@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>NetworkMilestoneCurrentViolatedTier__c</fullName>
-    <description>Stores the network milestone current violated tier</description>
+    <fullName>NetworkMilestoneCurrentTier__c</fullName>
+    <description>Stores the network milestone current tier</description>
     <externalId>false</externalId>
-    <label>Network Milestone Current Violated Tier</label>
+    <label>Network Milestone Current Tier</label>
     <precision>1</precision>
     <required>false</required>
     <scale>0</scale>
