@@ -13,7 +13,7 @@
 	
 	/**
 	 * Test: Ensure that CaseInvestigation__c.LastContactCentreUpdate__c is not updated when users having
-	 * profile other than 'SSSW - Service Agent' adds a chatter feed.
+	 * profile other than 'StarTrack Support' adds a chatter feed.
 	 * Expected: CaseInvestigation record is NOT UPDATED when a feed item is added in test method. (which will run in running user context)
 	 */
 	@IsTest
@@ -56,7 +56,7 @@
 	}
 
 	/**
-	 * Test: Ensure that CaseInvestigation__c.LastContactCentreUpdate__c is updated when 'SSSW - Service Agent' profile user adds a chatter feed.
+	 * Test: Ensure that CaseInvestigation__c.LastContactCentreUpdate__c is updated when 'StarTrack Support' profile user adds a chatter feed.
 	 * Expected: CaseInvestigation record is updated when a feed item is added in test method.
 	 */
 	@IsTest
@@ -74,7 +74,7 @@
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
-		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
+		Id profileId = Application.Cache.profileIds.get('StarTrack Support');
 
 
 		// =====================================
@@ -137,7 +137,7 @@
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, false);
 		feedItems[0].Body = 'test feed'; feedItems[1].Body = 'test feed 2';
 
-		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
+		Id profileId = Application.Cache.profileIds.get('StarTrack Support');
 		
 		//query contact user
 		User userRec = [Select id from user where ProfileId=:profileId AND isActive = true LIMIT 1];

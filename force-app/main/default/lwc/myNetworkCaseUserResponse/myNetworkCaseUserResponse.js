@@ -5,17 +5,19 @@
  * @date 2022-11-29
  * @changelog
  * 2022-11-29 - Dattaraj Deshmukh - Created
+ * 2023-02-13 - Dattaraj Deshmukh - updated QualityOfTheCase fields default value.
+ * 2023-02-16 - Dattaraj Deshmukh - Added updateCase method. Updated internal facility notes field placeholder.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
+import updateCase from "@salesforce/apex/MyNetworkCaseUserResponseController.updateCase";
 
 import { updateRecord, getRecord, getFieldValue  } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
-import COMMENTS_FIELD from '@salesforce/schema/CaseInvestigation__c.Comments__c';
 import DELIVERY_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Deliveryinformation__c';
 import DELIVERY_OFFICER_KNOWLEDGE_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOfficerKnowledge__c';
 import DELIVERY_OPTIONS_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOptions__c';
@@ -45,14 +47,15 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	caseInvestigationRecord;
 	@track isComponentVisible = false;
 	@track isLoaded = false;
-
+	
+	isCaseUpdatedRequired = false;
 	addressType = '';
 	comments= '';
 	deliveryInformation= '';
 	deliveryOfficerKnowledge= '';
 	deliveryOptions= '';
 	networkId= '';
-	qualityOfCase= false;
+	qualityOfCase= '';
 	requireMoreInformation ='';
 	stillUnderInvestigation = false;
 	internalFacilityNotes = '';
@@ -62,10 +65,11 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	handleCommentsChange(event) {
 		this.comments = event.target.value;
 		console.log("comments",this.comments);
+		this.isCaseUpdatedRequired = true;
 	}
 	handleNetworkChange(event) {
 		this.networkId = event.target.value;
-		console.log("networkId",this.networkId);
+		this.isCaseUpdatedRequired = true;
 	}
 	handleRequireMoreInfoChange(event) {
 
@@ -82,6 +86,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		else if(!event.target.value && !this.stillUnderInvestigation) {
 			this.status = 'Closed' ;
 		}
+		this.isCaseUpdatedRequired = true;
 	}
 	handleStillUnderInvestigationChange(event) {
 		
@@ -98,21 +103,27 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		else if(!event.target.value && !this.requireMoreInformation) {
 			this.status = 'Closed' ;
 		}
+		this.isCaseUpdatedRequired = true;
 	}
 	handleQualityOfCaseChange(event) {
 		this.qualityOfCase = event.target.value;
+		this.isCaseUpdatedRequired = true;
 	}
 	handleDeliveryInformationChange(event) {
 		this.deliveryInformation = event.target.value;
+		this.isCaseUpdatedRequired = true;
 	}
 	handleDeliveryOfficerKnowledgeChange(event) {
 		this.deliveryOfficerKnowledge = event.target.value;
+		this.isCaseUpdatedRequired = true;
 	}
 	handleAddressTypeChange(event) {
 		this.addressType = event.target.value;
+		this.isCaseUpdatedRequired = true;
 	}
 	handleDeliveryOptionsChange(event) {
 		this.deliveryOptions = event.target.value;
+		this.isCaseUpdatedRequired = true;
 	}
 	handleInternalFacilityNotesChange(event) {
 		this.internalFacilityNotes = event.target.value;
@@ -121,7 +132,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	
 	
 
-	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
+	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
 		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD,
 		INTERNAL_FACILITY_NOTES_FIELD, CASE_FIELD] })
 	wiredRecord({ error, data }) {
@@ -152,6 +163,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			this.requireMoreInformation = this.caseInvestigationRecord.fields.Requiremoreinformation__c.value;
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
 			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.Stillunderinvestigation__c.value;
+			this.internalFacilityNotes = this.caseInvestigationRecord.fields.InternalFacilityNotes__c.value;
 			this.isLoaded = true;
 
 		}
@@ -180,28 +192,23 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			.then(CaseInvestigation__c => {
 			// this.recordId = CaseInvestigation__c.id;
 
-			// this.dispatchEvent(
-			//     new ShowToastEvent({
-			//         title: 'Success',
-			//         message: 'Case investigation updated successfully',
-			//         variant: 'success'
-			//     })
-			// )
-			
+
 			//create a chatter feed for comments entered.
 			if(this.comments){
 				this.createChatterFeed();
 			}
-
+			this.updateCaseRecord();
 		})
 		.catch(error => {
-				this.dispatchEvent(
-					new ShowToastEvent({
-						title: 'Error creating record',
-						message: reduceErrors(error).join(', '),
-						variant: 'error'
-					})
-				);
+			
+			this.isLoaded = true;
+			this.dispatchEvent(
+				new ShowToastEvent({
+					title: 'Error creating record',
+					message: reduceErrors(error).join(', '),
+					variant: 'error'
+				})
+			);
 		});
 		
 
@@ -209,7 +216,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 
 	createChatterFeed(){
 		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
-		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId})
+		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId })
 		.then((result) => {
 			if (result) {
 
@@ -222,9 +229,19 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 						field.value = '';
 					});
 				}
+				this.isLoaded = true;
+
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: 'Success',
+						message: 'Network response has been saved.',
+						variant: 'success'
+					})
+				)
 			}
 		})
 		.catch((error) => {
+			this.isLoaded = true;
 			this.error = error;
 			console.log("error>", this.error);
 			this.dispatchEvent(
@@ -241,6 +258,26 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		return ( (getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD) === CASE_TYPE ) 
 					&& (getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD) === CASE_PURPOSE) ? true : false
 					);
+	}
+
+	updateCaseRecord(){
+		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
+		updateCase({ caseId : caseRecId})
+		.then((result) => {
+			this.isLoaded = true;
+		})
+		.catch((error) => {
+			this.isLoaded = true;
+			this.error = error;
+			console.log("error>", this.error);
+			this.dispatchEvent(
+				new ShowToastEvent({
+					title: 'Error in creating chatter feed',
+					message: reduceErrors(error).join(', '),
+					variant: 'error'
+				})
+			);
+		});
 	}
 	
 }

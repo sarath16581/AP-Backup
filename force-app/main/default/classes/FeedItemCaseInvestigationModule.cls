@@ -37,13 +37,13 @@
 	@TestVisible
 	private void updateCaseInvestigations( Id loggedInUserProfileId, List<SObject> feedItems, ApplicationUnitOfWork uow) {
 
-		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
+		Id profileId = Application.Cache.profileIds.get('StarTrack Support');
 			
 		List<CaseInvestigation__c> caseInvestigationToUpdate = new List<CaseInvestigation__c>();
 		for(FeedItem fItem :  (List<FeedItem>)  feedItems) {
 
 			//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
-			//by users with 'SSSW - Service Agent' profiles.
+			//by users with 'StarTrack Support' profiles.
 			if(loggedInUserProfileId == profileId){
 				caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = fItem.ParentId, LastContactCentreUpdate__c = System.now()) );
 			}

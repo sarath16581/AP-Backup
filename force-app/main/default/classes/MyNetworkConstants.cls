@@ -7,9 +7,9 @@
 * 18/11/2022 - Dattaraj Deshmukh - Created.
 */
 public with sharing class MyNetworkConstants {
-   
-	public static final String[] STAR_TRACK_RECORD_TYPES = new String[]{'StarTrack_Credit_Dispute_Claim', 'StarTrack_PUD_Enquiry', 'StarTrack_General_Enquiry', 'StarTrack_Pickup_Booking_Enquiry', 
-	'StarTrack_Sales_Enquiry', 'StarTrack_Tactical', 'StarTrack_Transit_Warranty_Claim', 'StarTrack_Voice_of_Customer', 'StarTrack_Voice_of_Customer_Incident'}; 
+   //StarTrack_General_Enquiry, StarTrack_Pickup_Booking_Enquiry, StarTrack_Voice_of_Customer, StarTrack_PUD_Enquiry
+	public static final String[] STAR_TRACK_RECORD_TYPES = new String[]{'StarTrack_PUD_Enquiry', 'StarTrack_General_Enquiry', 'StarTrack_Pickup_Booking_Enquiry', 
+	'StarTrack_Voice_of_Customer'}; 
 	
 
 	public static final Map<String, String> MY_NETWORK_PORTAL_LIST_VIEWS = new Map<String, String> {
@@ -22,6 +22,7 @@ public with sharing class MyNetworkConstants {
 
 	public static final String CASE_STATUS_WAITING_ON_OPERATIONS='Waiting on operations';
 	public static final String CASE_STATUS_NETWORK_RESPONDED='Network Responded';
+	public static final String CASE_UPDATE_OPERATIONS_RESPONDED='Operations Responded';
 	public static final String CASE_STATUS_CLOSED='Closed';
 
 	public static final String CASE_INVESTIGATION_NEW_STATUS='New';

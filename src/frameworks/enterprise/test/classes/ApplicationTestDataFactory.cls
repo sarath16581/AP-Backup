@@ -39,6 +39,7 @@
  * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method. Added null check in getCaseInvestigations method.
  * 2022-12-07 - Noel - Added 'getQueueRoutingConfig' method
  * 2023-01-26 - Mahesh Parvathaneni - Added getEntitlementRules, getEscalationHierarchies method
+ * 2022-02-09 - Dattaraj Deshmukh - Added 'getNetworkUsers' method.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -95,6 +96,13 @@ public with sharing class ApplicationTestDataFactory {
 				CaseInvestigation__c.Article__c => article == null ? null : article.Id,
 				CaseInvestigation__c.ReferenceID__c => article == null ? null : article.Name,
 				CaseInvestigation__c.Network__c => networkId
+				}, count), generateIds);
+	}
+
+	public static List<Facility_User__c> getNetworkUsers(Integer count, Id networkId, Id userId, Boolean generateIds) {
+		return (List<Facility_User__c>)maybeGenerateIds(populateSObjects(Facility_User__c.SObjectType, new Map<SObjectField, Object> {
+				Facility_User__c.Network__c => networkId,
+				Facility_User__c.User__c => userId
 				}, count), generateIds);
 	}
 

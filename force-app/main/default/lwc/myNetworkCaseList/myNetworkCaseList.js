@@ -244,7 +244,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
   /**
    * 
-   * @param caseData: Method populates case details for common fields for AP and ST (StarTrack) cases. 
+   * @param caseData: Method populates case details for common fields for AP cases. 
    */
   populateCaseData(caseRecord, data, i){
       caseRecord.Case_Print = data[i].myNetworkCase.Checkbox__c ? "Yes" : "No";
@@ -257,9 +257,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         caseRecord.displayIconName = "utility:warning";
       }
       caseRecord.Case_CustomerType = data[i].myNetworkCase.Customer_Type__c;
-      caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Address2__c;
-      caseRecord.Case_addresseePostcode =
-      data[i].myNetworkCase.Address2Postcode__c;
       if (data[i].myNetworkCase.Network__r != null) {
         caseRecord.Case_networkName = data[i].myNetworkCase.Network__r.Name;
       }
@@ -268,6 +265,30 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       }
       caseRecord = Object.assign(caseRecord, data[i]);
   }
+
+	/**
+	 * 
+	 * @param caseData: Method populates case investigation details for common fields for ST (StarTrack) cases. 
+	 */
+	populateCaseInvestigationData(caseRecord, data, i){
+		caseRecord.Case_Print = data[i].caseInvestigation.Case__r.Checkbox__c ? "Yes" : "No";
+		caseRecord.Case_Details = data[i].caseIcon;
+		caseRecord.detailCSSClass = data[i].caseColor;
+
+		caseRecord.caseNumberCSSClass = "blue";
+		if (data[i].caseInvestigation.Case__r.Facility_Milestones_Violated__c > 1) {
+		caseRecord.dotCSSClass = "redcolor";
+		caseRecord.displayIconName = "utility:warning";
+		}
+		caseRecord.Case_CustomerType = data[i].caseInvestigation.Case__r.Customer_Type__c;
+		if (data[i].caseInvestigation.Case__r.Network__r != null) {
+		caseRecord.Case_networkName = data[i].caseInvestigation.Case__r.Network__r.Name;
+		}
+		if (data[i].caseInvestigation.Owner.Name != null) {
+		caseRecord.Case_assignedTo = data[i].caseInvestigation.Owner.Name;
+		}
+		caseRecord = Object.assign(caseRecord, data[i]);
+	}
 
   /* Method take the cases return from apex method as input parameter and return the list of case wrapper
    *  used to display the case list view on MyNetwork landing page.
@@ -282,67 +303,65 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       let caseRecord = {};
       
      
-      //check if case investigations exists under a case. For all ST Cases, investigations exists under a case.
-      if(data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) {
+      //check if case investigations exists. For all ST Cases, investigations exists under a case.
+	  if(data[i].caseInvestigation !== undefined && data[i].caseInvestigation != null) {
         
-        
-
-        let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
-
-        for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++) {
-          
-			caseRecord.rowNumber = (i + cInvestigationCnt) ;
+			let cInvestigationRecord =  data[i].caseInvestigation;
+			caseRecord.rowNumber = i ;
 
 		  	//setting Case.Type for wrapper variable for ST cases.
-		  	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
-	
+		  	caseRecord.Case_enquirySubtype = cInvestigationRecord.Case__r.Enquiry_Type__c;
+		
 			//populate common fields between case investigation and case object.
-			this.populateCaseData(caseRecord, data, i);
+			this.populateCaseInvestigationData(caseRecord, data, i);
 
+			caseRecord.Case_addresseeAddress = cInvestigationRecord.Case__r.Article_Receiver_Address__c;
+			caseRecord.Case_addresseePostcode = cInvestigationRecord.Case__r.Article_Receiver_Postcode__c;
+			
 			//setting caseInvestigations to blank
 			caseRecord.caseInvestigation = '';
-			caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
-			caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
-			caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
-			caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
+			caseRecord.caseInvestigation = cInvestigationRecord.Name;
+			caseRecord.Case_sentToNetworkDate = cInvestigationRecord.CreatedDate;
+			caseRecord.Case_RefereceId = cInvestigationRecord.Article__r ? cInvestigationRecord.Article__r.Name : '';
+			caseRecord.caseInvestigationId = cInvestigationRecord.Id;
 
 			//As case and case investigation need to be shown under one column,
 			//caseNum is populated with case number and Case Investigation Number.
-
-			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
-			//caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
-			caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
-			caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
-			caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRecord.Id;
+			caseRecord.caseNum = data[i].caseNum + ' - ' +  cInvestigationRecord.Name;
+			caseRecord.Case_Priority = cInvestigationRecord.Priority__c;
+			caseRecord.casePriority = cInvestigationRecord.Priority__c;
 
 			//set escalation case investigation has any network milestone violations
-			if(cInvestigations[cInvestigationCnt].NetworkMilestonesViolated__c !== null && cInvestigations[cInvestigationCnt].NetworkMilestonesViolated__c !== undefined) {
+			if(cInvestigationRecord.NetworkMilestonesViolated__c !== null && cInvestigationRecord.NetworkMilestonesViolated__c !== undefined) {
 				caseRecord.dotCSSClass = "redcolor";
 				caseRecord.displayIconName = "utility:warning";
 			}
 
-			let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
-			caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
-
+			if(cInvestigationRecord.Network__r) {
+				caseRecord.Case_networkName = cInvestigationRecord.Network__r.Name;
+			}
+			
 			caseRecordList.push(caseRecord);
+			
 			//create new instance of caseRecord to store next case investigation record wrapper.
 			caseRecord = new Object();
-        }
-
       }
       else {
-        this.populateCaseData(caseRecord, data, i);
+        	this.populateCaseData(caseRecord, data, i);
 
 			caseRecord.rowNumber = i;
 			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
 			caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
-			caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Type : data[i].myNetworkCase.EnquirySubType__c;
+			caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Enquiry_Type__c : data[i].myNetworkCase.EnquirySubType__c;
 			caseRecord.caseNumberCSSClass = "blue";
 			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId;
 			caseRecord.caseNum = data[i].caseNum;
 			caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
 			caseRecord.casePriority = data[i].casePriority;
-
+			caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Address2__c;
+			caseRecord.Case_addresseePostcode = data[i].myNetworkCase.Address2Postcode__c;
+			
 
 			caseRecordList.push(caseRecord);
       }
@@ -372,8 +391,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 		this.totalNumberOfCases = (this.totalNumberOfCases ||  this.totalNumberOfCases === 0) ? this.cases.length : this.totalNumberOfCases;
 	}
 
-	console.log('this.selectedListViewApiName: '+this.selectedListViewApiName);
-	console.log('this.totalNumberOfCases: '+this.totalNumberOfCases);
+	
     this.loadLandingPage = false;
   }
   /* This method is handler of event fired from when the case list view is changed.It takes the selected
@@ -654,7 +672,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   }
   
   handleClick(evt) {
-    console.log('this.selectedRecords',this.selectedRecords);
 	var hostname = window.location.hostname;
 
     //this.selectedRecords == null modified with length() to get message when no case is selected  
