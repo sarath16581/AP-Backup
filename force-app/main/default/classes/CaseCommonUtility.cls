@@ -1107,7 +1107,7 @@
 	private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 
 		//Only some new 
-		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(casesPreferredAgentRouting.keySet());
+		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
 
 		if(caseIdsVsAgentWorks.isEmpty() == false) {
 
