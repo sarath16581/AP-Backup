@@ -9,8 +9,9 @@
  * @tag Name SObject
  * @domain Core
  * @changelog
- *  2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
+ * 2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
  * 													Added 'selectOpenCaseInvestigationsByCaseIds' method.
+ * 2023-01-24 - Mahesh Parvathaneni - Added selectNetworkMileStoneViolatedOpenCaseInvestigations method
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
@@ -26,6 +27,15 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit);
 	}
 
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static CaseInvestigationsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CaseInvestigationsSelector selector = (CaseInvestigationsSelector) Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 
 	public virtual override SObjectType getSObjectType() {
 		return CaseInvestigation__c.getSObjectType();
@@ -35,7 +45,10 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return new Set<SObjectField> {
 			CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
 			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name,
-			CaseInvestigation__c.LastContactCentreUpdate__c
+			CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.NetworkMilestoneCurrentViolatedTier__c, 
+			CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, 
+			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
+			CaseInvestigation__c.NetworkTierEscalationEmail__c
 		};
 	}
 
@@ -74,6 +87,32 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 				.endConditions();
 
 		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	* @description Return open case investigations where the network milestone is violated
+	* @param violationDatetime Cutoff datetime (method will return case investigations that were violated)
+	* @param selectorOptions Options
+	* @return QueryLocator
+	*/
+	public virtual Database.QueryLocator selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime violationDatetime, Set<Object> selectorOptions) {
+		QueryBuilder qb = selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(violationDatetime, selectorOptions);
+		return Database.getQueryLocator(qb.toSoqlString());
+	}
+
+	/**
+	* @description : simple query to return open case investigations where the network milestone is violated
+	* @param violationDatetime Cutoff datetime (method will return case investigations that were violated)
+	* @param selectorOptions - selector options
+	*/
+	public virtual QueryBuilder selectNetworkMilestoneViolatedOpenCaseInvestigationsQueryBuilder(Datetime violationDatetime, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.NullCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).notNull())
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c).lt(violationDatetime))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.endConditions();
+		return qb;
 	}
 
 	/**

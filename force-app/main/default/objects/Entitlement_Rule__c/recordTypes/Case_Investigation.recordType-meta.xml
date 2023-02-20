@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Investigation</fullName>
+    <active>true</active>
+    <description>This is used by the StarTrack MyNetwork to separate rules for Case Investigation</description>
+    <label>Case Investigation</label>
+</RecordType>

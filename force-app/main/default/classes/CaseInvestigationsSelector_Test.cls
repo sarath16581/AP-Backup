@@ -8,6 +8,7 @@
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Updated test method 'testSelectorIntegration' and added test for 'selectOpenCaseInvestigationsByCaseArticleNetworkId'.
  * 									Replaced Status__c value from 'Open' to 'New'.
+ * 2023-01-31 - Mahesh Parvathaneni - Updated tests for selectNetworkMilestoneViolatedOpenCaseInvestigations
  */
 
  @IsTest
@@ -77,6 +78,10 @@
 		caseInvestigations[0].Status__c = 'New';
 		insert caseInvestigations;
 
+		//update NetworkMilestoneNextViolationDatetime__c
+		caseInvestigations[0].NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
+		update caseInvestigations;
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -105,7 +110,12 @@
 																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
 																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
 		System.assertEquals(1, resultsInvestigationsByCases.size(), 'Expected result size of 1');
- 
+
+		CaseInvestigationsSelector selectorQueryLocator = CaseInvestigationsSelector.newInstance();
+		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Object>());
+		System.assertNotEquals(null, ciQueryLocator, 'Expected a valid query locator but got null');
+
 		Test.stopTest();
-	 }
- }
+
+	}
+}

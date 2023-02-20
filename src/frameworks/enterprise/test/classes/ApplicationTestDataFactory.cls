@@ -36,6 +36,7 @@
  * 2022-11-18 - Noel - Added getCaseStatuses method
  * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method. Added null check in getCaseInvestigations method.
  * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
+ * 2023-01-26 - Mahesh Parvathaneni - Added getEntitlementRules, getEscalationHierarchies method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -730,6 +731,21 @@ public with sharing class ApplicationTestDataFactory {
 				Entitlement.Type => 'Phone Support'
 		}, count), generateIds);
 	}
+
+	public static List<Entitlement_Rule__c> getEntitlementRules(Integer count, String ruleName, Id escHierarchyId, Boolean generateIds) {
+		return (List<Entitlement_Rule__c>)maybeGenerateIds(populateSObjects(Entitlement_Rule__c.SObjectType, new Map<SObjectField, Object> {
+				Entitlement_Rule__c.Entitlement_Rule_Name__c => ruleName,
+				Entitlement_Rule__c.Escalation_Hierarchy__c => escHierarchyId,
+				Entitlement_Rule__c.Active__c => true
+		}, count), generateIds);
+	}
+	
+	public static List<Escalation_Hierarchy__c> getEscalationHierarchies(Integer count, String name, Boolean generateIds) {
+		return (List<Escalation_Hierarchy__c>)maybeGenerateIds(populateSObjects(Escalation_Hierarchy__c.SObjectType, new Map<SObjectField, Object> {
+				Escalation_Hierarchy__c.Name => name
+		}, count), generateIds);
+	}
+	
 	//Added by Asha | MW0004779
 	public static List<EmailMessage> getEmailMessages(Integer count, Boolean generateIds,Boolean isIncoming, String fromAddress, String toAddress, String subject, Id caseId) {
 		return getEmailMessages(count, generateIds, isIncoming, fromAddress, toAddress, null, null, subject, caseId);
