@@ -53,6 +53,7 @@ private class MyNetworkCaseUserResponseController_Test {
 		// Data Preparation
 		// =====================================
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+
 		// =====================================
 		// Stubbing
 		// =====================================

@@ -10,6 +10,7 @@
  * 									Replaced Status__c value from 'Open' to 'New'.
  * 2023-01-31 - Mahesh Parvathaneni - Updated tests for selectNetworkMilestoneViolatedOpenCaseInvestigations
  * 2023-02-22 - Dattaraj Deshmukh	- Updated methods by passing 'stCaseInvestigationRecordTypeId' to selector methods.
+ * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId
  */
 
  @IsTest
@@ -129,7 +130,7 @@
 		System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
 
 		CaseInvestigationsSelector selectorOpenCaseInvestion = CaseInvestigationsSelector.newInstance();
-		Map<Id, CaseInvestigation__c> resultsOpenCaseInvestion = selectorOpenCaseInvestion.selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id> {cases[0].Id}, new Set<String> {articles[0].Name}, new Set<Id> {networks[0].Id});
+		Map<Id, CaseInvestigation__c> resultsOpenCaseInvestion = selectorOpenCaseInvestion.selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id> {cases[0].Id}, new Set<String> {articles[0].Name}, new Set<Id> {networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId});
 		System.assertEquals(1, resultsOpenCaseInvestion.size(), 'Expected result size of 1');
 
 		//passing options to select CI records with Articles, Networks and Case details

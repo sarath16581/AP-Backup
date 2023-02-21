@@ -29,6 +29,7 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();		
 		STCaseInvestigationLifecycleModule mockModuleUtil = (STCaseInvestigationLifecycleModule) MockUtility.mockUtility(STCaseInvestigationLifecycleModule.class);
+
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();
 
