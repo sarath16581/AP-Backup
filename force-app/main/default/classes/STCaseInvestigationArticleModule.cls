@@ -5,7 +5,8 @@
  * @changelog
  * 2022-12-05 - George Nguyen - created
  * 2022-12-13 - Mahesh Parvathaneni - Added beforeInsert trigger event and checkDuplicateCaseInvestigationRecords method
- * 2023-01-30 - George Nguyen - Added retrieveArticles which contains copied code from MyCustomerCaseArticleModule for async retrieval and mapping of the article. 
+ * 2023-01-30 - George Nguyen - Added retrieveArticles which contains copied code from MyCustomerCaseArticleModule for async retrieval and mapping of the article.
+ * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId
  **/
 public inherited sharing class STCaseInvestigationArticleModule extends ApplicationDomain.Module {
 
@@ -28,6 +29,17 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 		m_enqueuedCaseInvestigationIds = new Set<Id>();
 		m_trackingReferenceIdMappingsCache = new Map<String, Id>();
 		m_trackingArticleIdMappingsCache = new Map<Id, String>();
+	}
+
+	// Get record type for StarTrack MyNetwork record type on case investigation
+	public static Id starTrackMyNetworkRecordTypeId {
+		get {
+			if (starTrackMyNetworkRecordTypeId == null) {
+				starTrackMyNetworkRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('CaseInvestigation__c', new Set<String>{ 'StarTrack_MyNetwork' }).values()[0].Id;
+			}
+			return starTrackMyNetworkRecordTypeId;
+		}
+		private set;
 	}
 
 
@@ -90,7 +102,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 
 		if (caseIds.size() > 0 || articleReferences.size() > 0 || networkIds.size() > 0) {
 			//get existing case investigation related to the case, network and article reference ids
-			for (CaseInvestigation__c eci : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleReferences, networkIds).values()) {
+			for (CaseInvestigation__c eci : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleReferences, networkIds, new Set<Id>{starTrackMyNetworkRecordTypeId}).values()) {
 				String exisitngKey = eci.Case__c + eci.ReferenceID__c + eci.Network__c;
 				existingCaseArticleNetworkKeys.add(exisitngKey);
 			}

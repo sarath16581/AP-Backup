@@ -226,6 +226,8 @@ private class STCINetworkMilestoneViolationModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get('StarTrack_MyNetwork').getRecordTypeId();
+
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, false);
 		insert articles;
 
@@ -275,7 +277,7 @@ private class STCINetworkMilestoneViolationModule_Test {
 
 		insert records;
 
-		List<CaseInvestigation__c> caseInvestigations = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(new Set<Id>{cases[0].Id, cases[1].Id}).values();
+		List<CaseInvestigation__c> caseInvestigations = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(new Set<Id>{cases[0].Id, cases[1].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}).values();
 
 		System.assertEquals(2, caseInvestigations.size(), 'Expected two case investigations to be inserted');
 		System.assertNotEquals(null, caseInvestigations[0].MilestoneTimeStartDatetime__c, 'Expected MilestoneTimeStartDatetime__c to be populated');

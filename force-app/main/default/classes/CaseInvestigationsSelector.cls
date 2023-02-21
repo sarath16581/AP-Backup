@@ -13,7 +13,8 @@
  * 													Added 'selectOpenCaseInvestigationsByCaseIds' method.
  * 2023-01-24 - Mahesh Parvathaneni - Added selectNetworkMileStoneViolatedOpenCaseInvestigations method
  * 2022-02-09	dattaraj.deshmukh@auspost.com.au	Added 'Stillunderinvestigation__c, Priority__c, CreatedDate & IsClosed__c' fields in getSObjectFieldList() method.
- * 2022-02-22	dattaraj.deshmukh@auspost.com.au	Added 'RecordTypeId' condition in query methods. 
+ * 2022-02-22	dattaraj.deshmukh@auspost.com.au	Added 'RecordTypeId' condition in query methods.
+ * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId 
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
@@ -135,19 +136,20 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	/**
 	 * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
 	 */
-	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds) {
-		return selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleNums, networkIds, new Set<Object>());
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds, Set<Id> recordTypeIds) {
+		return selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleNums, networkIds, recordTypeIds, new Set<Object>());
 	}
 
 	/**
 	 * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
 	 */
-	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds, Set<Object> selectorOptions) {
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.ReferenceID__c + ' in :articleNums'))
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
 				.endConditions();
 		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
