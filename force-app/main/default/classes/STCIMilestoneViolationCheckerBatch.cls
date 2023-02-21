@@ -10,17 +10,31 @@
 
 public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
+	//default batch size
+	private Integer batchSize = 200;
+	private static final String ST_MYNETWORK_RECORD_TYPE = 'StarTrack_MyNetwork';
+
+
+	public STCIMilestoneViolationCheckerBatch() { //NOPMD
+	}
+
+	//constructor to set the batch size
+	public STCIMilestoneViolationCheckerBatch(Integer batchSize) {
+		this.batchSize = batchSize;
+	}
+
 	/**
 	 * @description Overridable query
 	 * @return Database.QueryLocator
 	 */
 	public virtual Database.QueryLocator getEligibleCaseInvestigations(){
+		Id starTrackRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get(ST_MYNETWORK_RECORD_TYPE).getRecordTypeId();
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-			CaseInvestigation__c.SObjectType => new Set<SObjectField>{CaseInvestigation__c.Id, CaseInvestigation__c.NetworkMilestoneCurrentViolatedTier__c, CaseInvestigation__c.NetworkMilestonesViolated__c, CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, CaseInvestigation__c.IsClosed__c},
+			CaseInvestigation__c.SObjectType => new Set<SObjectField>{CaseInvestigation__c.Id, CaseInvestigation__c.NetworkMilestoneCurrentTier__c, CaseInvestigation__c.NetworkMilestonesViolated__c, CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, CaseInvestigation__c.IsClosed__c},
 			Network__c.SObjectType => new Set<SObjectField>{Network__c.Email_1__c, Network__c.Email_2__c},
 			Case.SObjectType => new Set<SObjectField>{Case.OwnerId}
 		};
-		return CaseInvestigationsSelector.newInstance(0, fieldOverrides).selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Object>{CaseInvestigationsSelector.Options.WITH_NETWORKS, CaseInvestigationsSelector.Options.WITH_CASE_DETAILS});
+		return CaseInvestigationsSelector.newInstance(0, fieldOverrides).selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Id>{starTrackRecordTypeId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_NETWORKS, CaseInvestigationsSelector.Options.WITH_CASE_DETAILS});
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -33,7 +47,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 			List<CaseInvestigation__c> recsToUpdate = new List<CaseInvestigation__c>();
 			// loop through case investigations to increment milestone violation tier
 			for (CaseInvestigation__c ci : (List<CaseInvestigation__c>) scope) {
-				ci.NetworkMilestoneCurrentViolatedTier__c = ci.NetworkMilestoneCurrentViolatedTier__c + 1;
+				ci.NetworkMilestoneCurrentTier__c = ci.NetworkMilestoneCurrentTier__c + 1;
 				ci.NetworkMilestonesViolated__c = ci.NetworkMilestonesViolated__c != null ? ci.NetworkMilestonesViolated__c + 1 : 1;
 
 				//set the network tier escalation email
@@ -53,7 +67,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 
 				//add records to update
 				//prevent records to further update as the current configuration in the escalation hierarchy is upto 5 tiers
-				if (ci.NetworkMilestoneCurrentViolatedTier__c <= 5) {
+				if (ci.NetworkMilestoneCurrentTier__c <= 5) {
 					recsToUpdate.add(ci);
 				}
 			}
@@ -71,10 +85,10 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 		}
 	}
 
-	public void finish(Database.BatchableContext bc) {
+	public void finish(Database.BatchableContext bc) { //NOPMD
 	}
 
 	public void execute(SchedulableContext ctx) {
-		Database.executeBatch(new STCIMilestoneViolationCheckerBatch());
+		Database.executeBatch(this, batchSize);
 	}
 }
