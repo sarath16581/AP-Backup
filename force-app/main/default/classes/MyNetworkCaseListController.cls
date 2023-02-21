@@ -274,7 +274,6 @@ public with sharing class MyNetworkCaseListController {
 			}                
 		}
 		CaseWrapper caseWrap = new CaseWrapper(caseIds, myNetworkCasesWrapperList) ;
-		system.debug('caseWrap: '+caseWrap.myNetworkCasesWrap);
 		return caseWrap ;
 	}
 

@@ -338,7 +338,6 @@
 	}
 	@isTest
 	static void myNetworkEnqrySubTypeTest() {
-		Case caseRecordVar = [Select id, ArticleTest__c from Case limit 1];
 		Test.StartTest();
 		list<myNetworkPickListFieldValues__mdt> subtypeString = MyNetworkCaseListController.getpickListValues();        
 		MyNetworkCaseListController.getFiltersData();
@@ -483,7 +482,6 @@
 		User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
 		myNetworkPortalUser.Id = UserInfo.getUserId();
 		
-		User anotherMyNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
 
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
@@ -519,8 +517,6 @@
 		NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
@@ -536,7 +532,6 @@
 		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
-		MyNetworkCaseListController controller = new MyNetworkCaseListController();
 		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
 		Test.StopTest();  
 
@@ -584,7 +579,6 @@
 		// Testing
 		// =====================================
 		Test.StartTest();
-		MyNetworkCaseListController controller = new MyNetworkCaseListController();
 		
 		//passing case and case investigation
 		MyNetworkCaseListController.MyNetworkCasesWrapper updatedCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[0]);
@@ -655,8 +649,6 @@
 		NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
@@ -718,7 +710,6 @@
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -734,7 +725,6 @@
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-		MyNetworkCaseListController controller = new MyNetworkCaseListController();
 		MyNetworkCaseListController.RecordDetailsWrapper caseDetailsWrapper =  MyNetworkCaseListController.getCaseRecord(cases[0].Id);
 
 		MyNetworkCaseListController.RecordDetailsWrapper caseInvestigationDetailsWrapper =  MyNetworkCaseListController.getCaseRecord(caseInvestigations[0].Id);
