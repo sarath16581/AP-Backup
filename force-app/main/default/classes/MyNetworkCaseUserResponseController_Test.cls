@@ -53,9 +53,7 @@ private class MyNetworkCaseUserResponseController_Test {
 		// Data Preparation
 		// =====================================
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		
-		ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
-		
+
 		// =====================================
 		// Stubbing
 		// =====================================
