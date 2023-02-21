@@ -257,6 +257,8 @@ private class STCINetworkMilestoneViolationModule_Test {
 
 		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[0].Id, false));
+		records[0].RecordTypeId = stCaseInvestigationRecordTypeId;
+		records[1].RecordTypeId = stCaseInvestigationRecordTypeId;
 
 		// =====================================
 		// Stubbing
