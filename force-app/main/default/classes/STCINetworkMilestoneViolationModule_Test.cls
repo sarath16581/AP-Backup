@@ -114,8 +114,8 @@ private class STCINetworkMilestoneViolationModule_Test {
 		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[1].Id, true));
 		records[0].MilestoneTimeStartDatetime__c = Datetime.now();
 		records[1].MilestoneTimeStartDatetime__c = Datetime.now();
-		records[0].NetworkMilestoneCurrentViolatedTier__c = null;
-		records[1].NetworkMilestoneCurrentViolatedTier__c = null;
+		records[0].NetworkMilestoneCurrentTier__c = 1;
+		records[1].NetworkMilestoneCurrentTier__c = 1;
 		records[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object>{'IsClosed__c' => false});
 		records[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object>{'IsClosed__c' => false});
 
@@ -173,12 +173,12 @@ private class STCINetworkMilestoneViolationModule_Test {
 		records[1].MilestoneTimeStartDatetime__c = Datetime.now().addDays(-1);
 		records[0].NetworkMilestoneNextViolationDatetime__c = Datetime.now();
 		records[1].NetworkMilestoneNextViolationDatetime__c = Datetime.now();
-		records[0].NetworkMilestoneCurrentViolatedTier__c = 2;
-		records[1].NetworkMilestoneCurrentViolatedTier__c = 2;
+		records[0].NetworkMilestoneCurrentTier__c = 2;
+		records[1].NetworkMilestoneCurrentTier__c = 2;
 
 		List<CaseInvestigation__c> oldRecords = new List<CaseInvestigation__c>{records[0].clone(true),records[1].clone(true)};
-		oldRecords[0].NetworkMilestoneCurrentViolatedTier__c = 1;
-		oldRecords[1].NetworkMilestoneCurrentViolatedTier__c = 1;
+		oldRecords[0].NetworkMilestoneCurrentTier__c = 1;
+		oldRecords[1].NetworkMilestoneCurrentTier__c = 1;
 		
 
 		// =====================================

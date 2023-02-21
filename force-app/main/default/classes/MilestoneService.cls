@@ -156,15 +156,11 @@ public inherited sharing class MilestoneService {
 					String fieldType;
 					String value;
 					Boolean isMatched = false;
-					System.debug(':RuleUnit:' + aUnit);
 					if (aUnit.contains('=')) {
 						fieldName = aUnit.split('=')[0];
 						value = aUnit.split('=')[1];
 
 						if (ciFieldTypeMap.containsKey(fieldName)) {
-							System.debug(':RuleFieldName:' + fieldName);
-							System.debug(':RuleValue:' + value);
-							System.debug(':CaseInvestigationValue:' + ci.get(fieldName));
 
 							fieldType = ciFieldTypeMap.get(fieldName);
 							if (STRING_TYPES.contains(fieldType)) {
@@ -185,9 +181,6 @@ public inherited sharing class MilestoneService {
 					}
 
 					if (isMatched) {
-						System.debug(':MATCHFOUND');
-						System.debug(':fieldName:' + fieldName);
-						System.debug(':value:' + value);
 						ruleUnitMatched++;
 					}
 				}
@@ -201,7 +194,6 @@ public inherited sharing class MilestoneService {
 			String ruleID = '';
 			Integer maxRuleUnitMatched=0;
 
-			System.debug(':FullyMatchedRules:' + ruleIDUnitFullyMatched);
 			//if full match is found
 			if (ruleIDUnitFullyMatched.size() > 0){
 					//get maximum ruleUnitMatched
@@ -209,8 +201,6 @@ public inherited sharing class MilestoneService {
 					if (ruleIDUnitFullyMatched.get(s) > maxRuleUnitMatched) {
 						maxRuleUnitMatched = ruleIDUnitFullyMatched.get(s);
 						ruleID = s;
-						System.debug(':maxRuleUnitMatched:' + maxRuleUnitMatched);
-						System.debug(':ruleID:' + ruleID);
 					}
 				}
 			}
@@ -277,7 +267,7 @@ public inherited sharing class MilestoneService {
 				String formattedMilestoneTierTypeField;
 				Entitlement_Rule__c er = entitlementRuleMap.get(ciEntitlementRuleMatchingMap.get(ci.Id));
 				Escalation_Hierarchy__c eh = er.Escalation_Hierarchy__r;
-				formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c.intValue()) + '__c';
+				formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentTier__c.intValue()) + '__c';
 
 				//checks the tier has value in escalation hierarchy config
 				if (eh.get(formattedMilestoneTierTypeField) != null) {
