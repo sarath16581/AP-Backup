@@ -1,0 +1,45 @@
+<!-- 
+ * @description Case investigation network milestone violation component in MyNetwork portal (extracted from VF page myNetworkCaseMilestoneTracker.page)
+ * @author Mahesh Parvathaneni
+ * @date 2023-02-07
+ * @changelog -->
+ 
+<template>
+	<div class="slds-scope mile-card">
+		<div class="milestoneTitle">Case Investigation Milestones</div>
+		<template if:true={caseInvestigation}>
+			<template if:true={hasMilestonesViolated}>
+				<div class="progress">
+					<div class={milestoneDetails.progressBarClass} role="progressbar"
+						aria-valuenow={milestoneDetails.percentCompleted} aria-valuemin="0" aria-valuemax="100">
+						<span class="glyphicon glyphicon-check"
+							style="text-align:left;font-size:16px;width:27px;z-index:1;cursor:pointer;">
+						</span>
+						<span style="text-align:left;padding-left:30px;">
+							{milestoneDetails.tierName}
+						</span>
+						<span class="slds-align_absolute-center">{milestoneDetails.status}</span>
+						<span style="text-align:right;padding-right:30px;">
+							{milestoneDetails.timeRemainingOrCompleted}
+						</span>
+						<span class={milestoneDetails.iconName} aria-hidden="true"
+							style="text-align:right;font-size:16px;"></span>
+					</div>
+				</div>
+			</template>
+			<template if:false={hasMilestonesViolated}>
+				<div class="milestoneText">No Network Tier milestones found</div>
+			</template>
+		</template>
+		<template if:true={error}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+				<!--error message-->
+				<h2>{error}</h2>
+			</div>
+		</template>
+		<template if:true={isLoading}>
+			<!--LOAD SPINNER-->
+			<lightning-spinner variant="brand" size="large" alternative-text="Loading"></lightning-spinner>
+		</template>
+	</div>
+</template>

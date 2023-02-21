@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <decisions>
+        <name>Identify_Case_Investigation_Domain</name>
+        <label>Identify Case Investigation Domain</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>StarTrack_MyNetwork</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>StarTrack_MyNetwork</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Case_Investigation_StarTrack_MyNetwork_Domain_Subflow</targetReference>
+            </connector>
+            <label>StarTrack MyNetwork</label>
+        </rules>
+    </decisions>
+    <description>Record triggered flow upon After save on Case Investigation which invokes multiple sub flows</description>
+    <environments>Default</environments>
+    <interviewLabel>Case Investigation Common AfterSave Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Investigation Common AfterSave Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Identify_Case_Investigation_Domain</targetReference>
+        </connector>
+        <object>CaseInvestigation__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Case_Investigation_StarTrack_MyNetwork_Domain_Subflow</name>
+        <label>Case Investigation StarTrack MyNetwork Domain Subflow</label>
+        <locationX>50</locationX>
+        <locationY>455</locationY>
+        <flowName>CaseInvestigationStarTrackMyNetworkDomainSubflow</flowName>
+        <inputAssignments>
+            <name>vCaseInvestigation</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>vOldCaseInvestigation</name>
+            <value>
+                <elementReference>$Record__Prior</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

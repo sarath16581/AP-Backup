@@ -16,7 +16,7 @@
                 <field>Status__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>ProductCategory__c</field>
             </layoutItems>
             <layoutItems>
@@ -36,6 +36,14 @@
                 <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>NetworkMilestonesViolated__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>NetworkTierEscalationEmail__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>LastModifiedById</field>
             </layoutItems>
@@ -50,7 +58,7 @@
                 <field>Network__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>ProductSubCategory__c</field>
             </layoutItems>
             <layoutItems>
@@ -64,6 +72,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Qualityofthecase__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Stillunderinvestigation__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>NetworkMilestoneNextViolationDatetime__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SentToNetworkDate__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

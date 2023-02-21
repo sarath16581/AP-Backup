@@ -1,3 +1,7 @@
+/**
+ * @changelog
+ * 09-02-2023	Mahesh Parvathaneni		Updated record type for the entitlement rule
+ */
 @isTest
 private class TestCalculateMilestoneTime {
 	static testMethod void MethodTest() {
@@ -31,17 +35,18 @@ private class TestCalculateMilestoneTime {
 			Internal_Tier_3__c=1
 		);
 		insert escHierarchy;
-		
+
+		Id ssswCaseRecordTypeId = Schema.SObjectType.Entitlement_Rule__c.getRecordTypeInfosByDeveloperName().get('SSSW_Case').getRecordTypeId();
 		// create entitlement rule
 		List<Entitlement_Rule__c> eRules = new List<Entitlement_Rule__c>();
 		String rule1 = 'customer_type__c=SMB||priority=High';
-		eRules.add(new Entitlement_Rule__c(Entitlement_Rule_Name__c='Name1', Active__c=true, Rule__c=rule1, Escalation_Hierarchy__c=escHierarchy.Id));
+		eRules.add(new Entitlement_Rule__c(Entitlement_Rule_Name__c='Name1', Active__c=true, Rule__c=rule1, Escalation_Hierarchy__c=escHierarchy.Id, RecordTypeId=ssswCaseRecordTypeId));
 		
 		String rule2 = 'customer_type__c=SMB||benefit__c=2.5||cashondelivery__c=yes||closed_date__c=01-01-2001||laststatusupdate__c=01-01-2001 11:00 am||' +
 					  'customer_type__c<>SMB||benefit__c<>2.5||cashondelivery__c<>yes||closed_date__c<>01-01-2001||laststatusupdate__c<>01-01-2001 11:00 am||' +
 					  'benefit__c>2.5||closed_date__c>01-01-2001||laststatusupdate__c>01-01-2001 11:00 am||' +
 					  'benefit__c<2.5||closed_date__c<01-01-2001||laststatusupdate__c<01-01-2001 11:00 am';	
-		eRules.add(new Entitlement_Rule__c(Entitlement_Rule_Name__c='Name2', Active__c=true, Rule__c=rule2, Escalation_Hierarchy__c=escHierarchy.Id));
+		eRules.add(new Entitlement_Rule__c(Entitlement_Rule_Name__c='Name2', Active__c=true, Rule__c=rule2, Escalation_Hierarchy__c=escHierarchy.Id, RecordTypeId=ssswCaseRecordTypeId));
 		insert eRules;
 		
 		// create network
