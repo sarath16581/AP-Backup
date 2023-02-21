@@ -11,6 +11,5 @@
     <queue>Web_Bookings_Queue</queue>
     <sharedTo>
         <group>StarTrack_Controlled_Returns</group>
-        <group>StarTrack_Investigators</group>
     </sharedTo>
 </ListView>

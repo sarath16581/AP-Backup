@@ -125,7 +125,7 @@
             <value>
                 <fullName>Delivered to incorrect address - retrieval and redelivery</fullName>
                 <default>false</default>
-                <label>Delivered to incorrect address - retrieval and redelivery</label>
+                <label>Delivered to incorrect address - Attempting retrieval and redelivery</label>
             </value>
             <value>
                 <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
@@ -165,7 +165,7 @@
             <value>
                 <fullName>Redirection failure - retrieval and redelivery</fullName>
                 <default>false</default>
-                <label>Redirection failure - retrieval and redelivery</label>
+                <label>Redirection failure - Attempting retrieval and redelivery</label>
             </value>
             <value>
                 <fullName>Redirection failure - customer now has article</fullName>

@@ -1,34 +1,20 @@
-/** 
-Description: Share Quote/Proposal with Opportunity Team Members
-Created By: Mausam Padhiyar
-Created Date: 14th Aug, 2015
-@test APT_ProposalTrigger_Test
-Last Modified By: Mausam Padhiyar
-Last Modified Date: 21st Oct, 2015 > Sync with Opportunity
-
-Last Modified By - Mausam Padhiyar
-Last Modified Date - 16th March, 2017 | CR - Kg Rounding
-
-Last Modified By - Mathew Jose
-Last Modified Date - 22nd Oct, 2020 | Added contracting entity calculation logic.
-
-Last Modified By - Krishna Velani
-Last Modified Date - 6th May, 2021 | STP-5088 setOpportunityDriver method to update Proposal Owner at line 50
-
-Last Modified By - Mansi Shah
-Last Modified Date - 10th June 2021 | Added Code to blank out Approval related fields on Approval Rejection/Cancellation
-
-Last Modified By - Darshan Chauhan
-Last Modified Date - 2021-06-15 Darshan Chauhan - Removing unessecary code for Approval Rejection
-
-Last Modified By - Mansi Shah
-Last Modified Date - 14th July 2021 | Added call for onBeforeInsert method and commented method call for setOpportunityDriver
-
-Last Modified By -Ken McGuire
-Last Modified Date - 01 December 2022 | Added record sharing logic
-*/
-
-trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, after insert, after update,before update) {
+/**
+ * @description Share Quote/Proposal with Opportunity Team Members
+ * @author  Mausam Padhiyar
+ * @date 2015-08-14
+ * @Test APT_ProposalTrigger_Test
+ * @changelog
+ * 2015-10-21 - Mausam Padhiyar - Sync with Opportunity
+ * 2017-03-16 - Mausam Padhiyar - CR - Kg Rounding
+ * 2020-10-22 - Mathew Jose - Added contracting entity calculation logic.
+ * 2021-05-06 - Krishna Velani - STP-5088 setOpportunityDriver method to update Proposal Owner at line 50
+ * 2021-06-10 - Mansi Shah - Added Code to blank out Approval related fields on Approval Rejection/Cancellation
+ * 2021-06-15 - Darshan Chauhan - Removing unessecary code for Approval Rejection
+ * 2021-07-14 - Mansi Shah - Added call for onBeforeInsert method and commented method call for setOpportunityDriver
+ * 2022-12-01 - Ken McGuire - Added record sharing logic
+ * 2023-02-14 - Ranjeewa Silva - Added support for before delete, after delete and after undelete trigger events
+ */
+trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, after insert, after update,before update, before delete, after delete, after undelete) {
     
 	// Application Domain
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Apttus_Proposal__Proposal__c.SObjectType))) {

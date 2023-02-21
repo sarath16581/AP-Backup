@@ -23,6 +23,20 @@
 @IsTest
 public with sharing class CasesSelector_Test {
 
+	@IsTest
+	static void selectWithTheCorrectQueryAttributes() {
+		
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
+		CasesSelector selector = CasesSelector.newInstance();
+
+		QueryBuilder qa = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(CasesSelector.class, qa); 
+		selector.selectByIdsAndRecordTypeIds(cases.keySet(), new Set<Id>(), new Set<Object>());
+		String queryString = qa.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\b' + Case.Id + ' IN :ids AND ' + Case.RecordTypeId + ' IN :recordTypeIds\\b').matcher(queryString).find(), 'Filters by ids and record type ids in query');
+		
+	}
+
 	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output

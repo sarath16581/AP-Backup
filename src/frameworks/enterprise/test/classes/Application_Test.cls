@@ -8,10 +8,11 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added new test methods for domains
+ * 2022-12-07 - Noel Lim 		- Added test methods for new Cache variables queuesWithRoutingConfig, queueIdVsRoutingConfig
  */
 @IsTest
 private with sharing class Application_Test {
-	
+
     @IsTest
 	static void organisationInfoShouldReturnTheCurrentOrg() {
 		CacheManager.settings.CacheEnabled__c = true;

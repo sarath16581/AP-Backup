@@ -1174,10 +1174,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customs Held</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Damaged</fullName>
             <default>false</default>
         </values>

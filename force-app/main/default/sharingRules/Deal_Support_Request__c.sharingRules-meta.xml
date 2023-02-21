@@ -46,6 +46,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ShareDECDSRWithSales</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This rule share read-only access to DEC DSR type with Sales Ex Direct &amp; Intermediaries.</description>
+        <label>Share DEC DSR with Sales</label>
+        <sharedTo>
+            <group>All_Sales_Team_Ex_CC</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Onboarding,Pricing Support Request - Domestic,Pricing Support Request - StarTrack,Pricing Support Request - International</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Share_All_DSR_with_DEC_Public_Group</fullName>
         <accessLevel>Read</accessLevel>
         <description>This rule allow DEC team member with Read-only access to all DSR types.</description>
@@ -87,21 +102,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Credit Management Request</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Share_DEC_DSR_with_Sales</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>This rule share read-only access to DEC DSR type with Sales.</description>
-        <label>Share DEC DSR with Sales</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Onboarding,Pricing Support Request - Domestic,Pricing Support Request - StarTrack,Pricing Support Request - International</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

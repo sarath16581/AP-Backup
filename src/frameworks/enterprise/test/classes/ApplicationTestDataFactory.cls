@@ -34,8 +34,10 @@
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
  * 2022-11-18 - Noel - Added getCaseStatuses method
- * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method. Added null check in getCaseInvestigations method.
+
  * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
+ * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method. Added null check in getCaseInvestigations method.
+ * 2022-12-07 - Noel - Added 'getQueueRoutingConfig' method
  * 2023-01-26 - Mahesh Parvathaneni - Added getEntitlementRules, getEscalationHierarchies method
  * 2022-02-09 - Dattaraj Deshmukh - Added 'getNetworkUsers' method.
 */
@@ -428,6 +430,11 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<GroupMember>)maybeGenerateIds(populateSObjects(GroupMember.SObjectType, new Map<SObjectField, Object> {
 				GroupMember.userOrGroupId => userOrGroupIds,
 				GroupMember.GroupId => groupIds
+		}, count), generateIds);
+	}
+
+	public static List<QueueRoutingConfig> getQueueRoutingConfigs(Integer count, Boolean generateIds) {
+		return (List<QueueRoutingConfig>)maybeGenerateIds(populateSObjects(QueueRoutingConfig.SObjectType, new Map<SObjectField, Object> {
 		}, count), generateIds);
 	}
 

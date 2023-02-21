@@ -115,7 +115,7 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>ReadWrite</externalSharingModel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>RelatedRecord</customTabListAdditionalFields>
         <customTabListAdditionalFields>ResourceType</customTabListAdditionalFields>

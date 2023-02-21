@@ -20,7 +20,5 @@
     </filters>
     <label>Investigations - SA/NT</label>
     <queue>StarTrack_AP_Support</queue>
-    <sharedTo>
-        <group>StarTrack_Investigators</group>
-    </sharedTo>
+    <sharedTo></sharedTo>
 </ListView>
