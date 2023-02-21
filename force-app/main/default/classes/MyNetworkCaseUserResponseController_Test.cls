@@ -54,7 +54,7 @@ private class MyNetworkCaseUserResponseController_Test {
 		// =====================================
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
+		ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
 		
 		// =====================================
 		// Stubbing
