@@ -13,6 +13,7 @@ History:
 2020-11-17 - Ranjeewa Silva - Added test casses to verify Social Case routing behaviour
 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
 2022-11-18	 Noel Lim - added test method routeReopenedCases()
+2023-02-14	 Noel Lim - added test method assignToPreferredAgent()
 **************************************************/
 @isTest
 private with sharing class CaseCommonUtility_Test {
@@ -1513,4 +1514,129 @@ private with sharing class CaseCommonUtility_Test {
 		System.assert(cases[3].OwnerId != closedCaseQueueId, 'Case not in a Closed Status => not in Closed Case Queue');
 		System.assert(cases[4].OwnerId != closedCaseQueueId, 'Case with no change in Status => not in Closed Case Queue');
 	}
+
+	/**
+	 * Tests the logic relating to Preferred Agent routing in routeCase() 
+	 * 
+	 * Scenarios:
+	 * a) PSR inserted with correct PreferredUserId
+	 * b) PSR not inserted - no AgentWork exists
+	 * c) PSR not inserted - BypassPreferredAgent is true
+	 * d) PSR not inserted - PreferredAgentExpiry is blank
+	 * e) PSR not inserted - has Accepted AgentWork, but in Omni Queue 
+	 * 
+	 */
+	@isTest
+	static void testAssignToPreferredAgent(){
+
+		//Queues
+		QM__c custSetting = QM__c.getOrgDefaults();
+		QueueSobject preferredAgentQueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Preferred_Agent_Queue' AND SobjectType = 'Case' LIMIT 1];
+		custSetting.PreferredAgentQueueId__c = preferredAgentQueue.QueueId;
+		Insert custSetting;
+		Id preferredAgentQueueId = preferredAgentQueue.QueueId;
+
+		Group omniQueue = OmniChannelService.Cache.queuesWithRoutingConfig.values()[0].queue;		
+
+		//Users
+		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
+		users[0].IsActive = true;	
+		
+		//DateTime
+		DateTime oneHourFromNow = DateTime.now().addHours(1);
+
+		//Cases
+		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);	
+		Map<Id,Case> casesMap = new Map<Id,Case>(cases);
+
+		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+		if(ssswRecTypes.size()>0){
+			Id recTypeId = ssswRecTypes.iterator().next(); 
+			for(Case tempCase : cases){
+				tempCase.recordTypeId = recTypeId;
+			}
+		}
+
+		cases[0].OwnerId = omniQueue.Id; //a) PSR inserted with correct PreferredUserId
+		cases[0].Priority = 'Low';
+		cases[0].BypassPreferredAgent__c = false;
+		cases[0].PreferredAgentExpiry__c = oneHourFromNow;
+
+		cases[1].OwnerId = omniQueue.Id; //b) PSR not inserted - no Accepted Agent Work exists
+		cases[0].Priority = 'Low';
+		cases[1].BypassPreferredAgent__c = false;
+		cases[1].PreferredAgentExpiry__c = oneHourFromNow;
+
+		cases[2].OwnerId = omniQueue.Id; //c) PSR not inserted - BypassPreferredAgent is true
+		cases[2].BypassPreferredAgent__c = true;
+		cases[2].PreferredAgentExpiry__c = oneHourFromNow;
+
+		cases[3].OwnerId = omniQueue.Id; //d) PSR not inserted - PreferredAgentExpiry is blank
+		cases[3].BypassPreferredAgent__c = false;
+		cases[3].PreferredAgentExpiry__c = null;
+
+		cases[4].OwnerId = omniQueue.Id; //e) PSR not inserted - has Accepted AgentWork, but currently in Omni Queue 
+		cases[4].Priority = 'Low';
+		cases[4].BypassPreferredAgent__c = false;
+		cases[4].PreferredAgentExpiry__c = oneHourFromNow;		
+
+		//Clone to simulate existing Case records to test Case Update 
+		List<Case> oldCases = new List<Case>{
+			cases[0].clone(true),
+			cases[1].clone(true),
+			cases[2].clone(true),
+			cases[3].clone(true),
+			cases[4].clone(true)
+		};
+
+		for(Case tempCase : oldCases){
+			tempCase.OwnerId = users[0].Id;
+		}
+		oldCases[4].OwnerId = omniQueue.Id;
+
+		//AgentWorks
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(3, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id}, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+
+		OmniChannelService mockOmniChannelService = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		
+		
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockOmniChannelService.getCaseIdsWithLatestAcceptedAgentWorks(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id,cases[1].Id})
+		)).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+
+		MockUtility.Mocks.when(mockDatabase.dmlInsert(
+			(List<SObject>)fflib_Match.anyObject(), 
+			fflib_Match.anyBoolean()
+		)).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		
+		Test.startTest();
+
+		CaseCommonUtility helper = new CaseCommonUtility();			
+		helper.routeCase(cases, new Map<Id,Case>(oldCases),false);
+
+		Test.stopTest();
+		
+		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');		
+		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be in Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case with BypassPreferredAgent = true should be in Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[3].OwnerId, 'Case with blank PreferredAgentExpiry should be in Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[4].OwnerId, 'Case that is coming from an Omni Queue should be in new Omni Queue');
+
+	}
+
 }

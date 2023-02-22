@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack MyNetwork - Used to notify the network that the case investigation milestone has been violated.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack MyNetwork Network Escalation Email</name>
+    <style>none</style>
+    <subject>Unanswered: {!CaseInvestigation__c.CaseType__c} - {!CaseInvestigation__c.NetworkName__c} - Case: {!CaseInvestigation__c.CaseNumber__c}</subject>
+    <textOnly>Australia Post
+
+You are listed as a point of escalation for 			{!CaseInvestigation__c.NetworkName__c}
+
+Case {!CaseInvestigation__c.CaseNumber__c} has 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is 			waiting on a response.
+
+Can you please
+
+update the 				Customer Contact Centre (CCC) by either replying to this email or responding through MyNetwork, 				or
+Forward to 				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they respond to the CCC via this email 				or MyNetwork.
+
+No longer the contact?
+
+If you are no longer the appropriate contact for 			{!CaseInvestigation__c.NetworkName__c} please email MyNetworkSupport@auspost.com.au with the correct contact&apos;s 			details so we can update our records.
+
+MyNetwork access
+
+Access 				requests can be made via MyIT
+
+MyNetwork support
+
+MyNetwork 					FAQs
+The 				MyNetwork Information Guide is accessible within MyNetwork via the ‘Support’ tab, or via the Knowledge 				Base in POP.
+For 				technical issues, please contact MyNetworkSupport@auspost.com.au  or log a  MyIT ticket  under ‘Applications and Software’ &amp; ‘Salesforce’
+For 				deliveries last mile support, please contact DeliveriesMyNetworkSupport@auspost.com.au
+
+Thank you.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

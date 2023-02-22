@@ -23,6 +23,20 @@
 @IsTest
 public with sharing class CasesSelector_Test {
 
+	@IsTest
+	static void selectWithTheCorrectQueryAttributes() {
+		
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
+		CasesSelector selector = CasesSelector.newInstance();
+
+		QueryBuilder qa = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(CasesSelector.class, qa); 
+		selector.selectByIdsAndRecordTypeIds(cases.keySet(), new Set<Id>(), new Set<Object>());
+		String queryString = qa.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\b' + Case.Id + ' IN :ids AND ' + Case.RecordTypeId + ' IN :recordTypeIds\\b').matcher(queryString).find(), 'Filters by ids and record type ids in query');
+		
+	}
+
 	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
@@ -222,12 +236,6 @@ public with sharing class CasesSelector_Test {
 
 		results = selector.selectByReferenceIdOrderByCreatedDate(new Set<String>{cases[1].ReferenceID__c});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
-		
-		results = selector.selectByIdWithCaseInvestigations(new Set<Id>{cases[2].Id}, new Set<Id>{caseInvestigations[0].Id, caseInvestigations[1].Id }, 
-																new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CaseInvestigationsSelector.Options.WITH_NETWORKS,  
-																	CaseInvestigationsSelector.Options.WITH_ARTICLES});
-		System.assertEquals(1, results.values().size(), 'Expected result size of 1 for ST Case');
-		System.assertEquals(2, (results.values()[0]).CaseInvestigations__r.size(), 'Expected result size of 2 for Case Investigations');
 		
 		Test.stopTest();
 

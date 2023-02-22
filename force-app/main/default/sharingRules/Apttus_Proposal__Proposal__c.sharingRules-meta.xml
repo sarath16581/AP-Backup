@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
-        <fullName>APT_Share_Proposals_with_FBU_Pricing</fullName>
+        <fullName>APTShareProposalsWithSalesExceptCCSales</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Share Proposals with FBU Pricing</label>
+        <description>Share proposals with Sales users excluding C&amp;C Sales</description>
+        <label>Share Proposals with Sales Except C&amp;C Sales</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>FBU_Pricing</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>APT_Share_Proposals_with_Sales</fullName>
+        <fullName>APT_Share_Proposals_with_FBU_Pricing</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Share Proposals with Sales</label>
+        <label>Share Proposals with FBU Pricing</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <roleAndSubordinatesInternal>FBU_Pricing</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>

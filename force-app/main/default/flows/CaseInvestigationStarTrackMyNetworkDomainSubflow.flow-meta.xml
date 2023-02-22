@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send an email to Network when the case investigation has violated the network milestone</description>
+        <name>Email_Notification_Network_Milestone_Violation</name>
+        <label>Email Notification - Network Milestone Violation</label>
+        <locationX>242</locationX>
+        <locationY>398</locationY>
+        <actionName>CaseInvestigation__c.StarTrack_MyNetwork_Network_Escalation_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCaseInvestigation.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <decisions>
+        <name>Is_new_or_existing</name>
+        <label>Is new or existing</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <defaultConnector>
+            <targetReference>StarTrack_MyNetwork_scenarios</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>existing</defaultConnectorLabel>
+        <rules>
+            <name>Is_new</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vOldCaseInvestigation</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Is new</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>StarTrack_MyNetwork_scenarios</name>
+        <label>StarTrack MyNetwork scenarios</label>
+        <locationX>374</locationX>
+        <locationY>278</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Network_Milestone_Violation</name>
+            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>vCaseInvestigation.RecordType__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>StarTrack MyNetwork</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCaseInvestigation.NetworkTierEscalationEmail__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCaseInvestigation.NetworkMilestonesViolated__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vOldCaseInvestigation.NetworkMilestonesViolated__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCaseInvestigation.NetworkMilestonesViolated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCaseInvestigation.NetworkMilestonesViolated__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>2.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Email_Notification_Network_Milestone_Violation</targetReference>
+            </connector>
+            <label>Network Milestone Violation</label>
+        </rules>
+    </decisions>
+    <description>subflow for StarTrack MyNetwork Domain triggerred from CaseInvestigation Common AfterSave flow</description>
+    <environments>Default</environments>
+    <interviewLabel>Case Investigation StarTrack MyNetwork {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Investigation StarTrack MyNetwork Domain Subflow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_new_or_existing</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Contains Case Investigation Record value</description>
+        <name>vCaseInvestigation</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>CaseInvestigation__c</objectType>
+    </variables>
+    <variables>
+        <description>Contains Case Investigation Record prior value</description>
+        <name>vOldCaseInvestigation</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>CaseInvestigation__c</objectType>
+    </variables>
+</Flow>

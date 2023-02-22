@@ -39,8 +39,8 @@
                     <name>recordId</name>
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
-                <componentName>myNetworkCaseMilestonesWrapper</componentName>
-                <identifier>myNetworkCaseMilestonesWrapper</identifier>
+                <componentName>myNetworkCaseInvestigationMilestones</componentName>
+                <identifier>myNetworkCaseInvestigationMilestones</identifier>
             </componentInstance>
         </itemInstances>
         <name>2c44d686-3162-450a-b031-f1004d7cf5fa</name>

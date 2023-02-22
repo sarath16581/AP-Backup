@@ -46,7 +46,6 @@ import STARTRACK_DESCRIPTION_OF_CONTENT_FIELD from '@salesforce/schema/Case.Desc
 /**'More Details' section fields to be shown ONLY ON CaseInvestigation's DETAIL page */
 import RELATED_CASE from '@salesforce/schema/Case.RelatedCase__c';
 import ORIGIN_FIELD from '@salesforce/schema/Case.Origin';
-import RESOLUTIONCODE_FIELD from '@salesforce/schema/Case.ResolutionCode__c';
 import CONTACT_FIELD from '@salesforce/schema/Case.ContactId';
 import LEGAL_ENTITY_NAME_FIELD from '@salesforce/schema/Case.Calc_Link_Account__c';
 import RELATED_BILLING_ACCOUNT_FIELD from '@salesforce/schema/Case.Related_Billing_Account__c';
@@ -141,7 +140,6 @@ export default class CaseDetails extends LightningElement {
   starTrack_more_details_casefields = [
     RELATED_CASE,
     ORIGIN_FIELD,
-    RESOLUTIONCODE_FIELD,
     CONTACT_FIELD,
     LEGAL_ENTITY_NAME_FIELD,
     RELATED_BILLING_ACCOUNT_FIELD,

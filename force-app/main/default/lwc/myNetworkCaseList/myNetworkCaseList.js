@@ -244,7 +244,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
   /**
    * 
-   * @param caseData: Method populates case details for common fields for AP and ST (StarTrack) cases. 
+   * @param caseData: Method populates case details for common fields for AP cases. 
    */
   populateCaseData(caseRecord, data, i){
       caseRecord.Case_Print = data[i].myNetworkCase.Checkbox__c ? "Yes" : "No";
@@ -266,6 +266,30 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       caseRecord = Object.assign(caseRecord, data[i]);
   }
 
+	/**
+	 * 
+	 * @param caseData: Method populates case investigation details for common fields for ST (StarTrack) cases. 
+	 */
+	populateCaseInvestigationData(caseRecord, data, i){
+		caseRecord.Case_Print = data[i].caseInvestigation.Case__r.Checkbox__c ? "Yes" : "No";
+		caseRecord.Case_Details = data[i].caseIcon;
+		caseRecord.detailCSSClass = data[i].caseColor;
+
+		caseRecord.caseNumberCSSClass = "blue";
+		if (data[i].caseInvestigation.Case__r.Facility_Milestones_Violated__c > 1) {
+		caseRecord.dotCSSClass = "redcolor";
+		caseRecord.displayIconName = "utility:warning";
+		}
+		caseRecord.Case_CustomerType = data[i].caseInvestigation.Case__r.Customer_Type__c;
+		if (data[i].caseInvestigation.Case__r.Network__r != null) {
+		caseRecord.Case_networkName = data[i].caseInvestigation.Case__r.Network__r.Name;
+		}
+		if (data[i].caseInvestigation.Owner.Name != null) {
+		caseRecord.Case_assignedTo = data[i].caseInvestigation.Owner.Name;
+		}
+		caseRecord = Object.assign(caseRecord, data[i]);
+	}
+
   /* Method take the cases return from apex method as input parameter and return the list of case wrapper
    *  used to display the case list view on MyNetwork landing page.
    */
@@ -279,25 +303,20 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       let caseRecord = {};
       
      
-      //check if case investigations exists under a case. For all ST Cases, investigations exists under a case.
-      if(data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) {
+      //check if case investigations exists. For all ST Cases, investigations exists under a case.
+	  if(data[i].caseInvestigation !== undefined && data[i].caseInvestigation != null) {
         
-        
-
-        let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
-		console.log('data[i] :');console.log(data[i]);
-
 			let cInvestigationRecord =  data[i].caseInvestigation;
 			caseRecord.rowNumber = i ;
 
 		  	//setting Case.Type for wrapper variable for ST cases.
-		  	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Enquiry_Type__c;
+		  	caseRecord.Case_enquirySubtype = cInvestigationRecord.Case__r.Enquiry_Type__c;
 		
 			//populate common fields between case investigation and case object.
-			this.populateCaseData(caseRecord, data, i);
+			this.populateCaseInvestigationData(caseRecord, data, i);
 
-			caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Article_Receiver_Address__c;
-			caseRecord.Case_addresseePostcode = data[i].myNetworkCase.Article_Receiver_Postcode__c;
+			caseRecord.Case_addresseeAddress = cInvestigationRecord.Case__r.Article_Receiver_Address__c;
+			caseRecord.Case_addresseePostcode = cInvestigationRecord.Case__r.Article_Receiver_Postcode__c;
 			
 			//setting caseInvestigations to blank
 			caseRecord.caseInvestigation = '';
@@ -309,7 +328,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			//As case and case investigation need to be shown under one column,
 			//caseNum is populated with case number and Case Investigation Number.
 			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRecord.Id;
-			caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
+			caseRecord.caseNum = data[i].caseNum + ' - ' +  cInvestigationRecord.Name;
 			caseRecord.Case_Priority = cInvestigationRecord.Priority__c;
 			caseRecord.casePriority = cInvestigationRecord.Priority__c;
 
@@ -322,10 +341,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			if(cInvestigationRecord.Network__r) {
 				caseRecord.Case_networkName = cInvestigationRecord.Network__r.Name;
 			}
-
-			let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationId);
-			caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
-
 			
 			caseRecordList.push(caseRecord);
 			
@@ -376,8 +391,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 		this.totalNumberOfCases = (this.totalNumberOfCases ||  this.totalNumberOfCases === 0) ? this.cases.length : this.totalNumberOfCases;
 	}
 
-	console.log('this.selectedListViewApiName: '+this.selectedListViewApiName);
-	console.log('this.totalNumberOfCases: '+this.totalNumberOfCases);
+	
     this.loadLandingPage = false;
   }
   /* This method is handler of event fired from when the case list view is changed.It takes the selected
@@ -658,7 +672,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   }
   
   handleClick(evt) {
-    console.log('this.selectedRecords',this.selectedRecords);
 	var hostname = window.location.hostname;
 
     //this.selectedRecords == null modified with length() to get message when no case is selected  

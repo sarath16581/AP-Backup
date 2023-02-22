@@ -11,10 +11,6 @@
         <field>Account.BillingStreet</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
-    </displayedFields><displayedFields>
-        <field>Account.eParcelDamagesDelegate__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
         <field>Account.OwnerId</field>
@@ -73,6 +69,11 @@
     </displayedFields>
     <displayedFields>
         <field>Related_Billing_Account__r.StarTrack_Priority_Express_Icon__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Account.eParcelDamagesDelegate__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>

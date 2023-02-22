@@ -10,6 +10,7 @@ import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import invalidCallerType from "@salesforce/label/c.STHSSenderReceiverValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
@@ -33,17 +34,29 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidLastName,
 		invalidPhone,
 		invalidReference,
+		invalidCallerType,
 		stSupportURL,
 		errorStateMessage,
 		invalidNameFieldCharacters
 	};
 
+	toggleConfig = {
+		showCallerType: false,
+	}
+
 	get enquiryOptions() {
 		return [
 			{ label: "Track & Trace", value: "Track & Trace" },
 			{ label: "Pick-ups", value: "Pick-ups" },
-			{ label: "Missed delivery", value: "Missed delivery" },
 			{ label: "Other", value: "Other" }
+		];
+	}
+
+	get callerTypeOptions() {
+		return [
+			{ label: 'Sender', value: 'Sender' },
+			{ label: 'Receiver', value: 'Receiver' },
+			{ label: 'Other', value: 'Other' },
 		];
 	}
 
