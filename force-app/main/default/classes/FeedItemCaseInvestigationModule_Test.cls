@@ -6,6 +6,7 @@
  * @domain PUD
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
+ * 2022-02-21 - Dattaraj Deshmukh - Fixed 'testEndToEndTriggerIntegrationForInsert' method.
   */
 @IsTest
  private class FeedItemCaseInvestigationModule_Test {
@@ -121,49 +122,49 @@
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		insert articles;
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
-		cases[0].ArticleTest__c = articles[0].Id;
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
-		insert cases;
-
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
 
 		insert networks;
-
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
-		insert caseInvestigations;
-
-		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, false);
-		feedItems[0].Body = 'test feed'; feedItems[1].Body = 'test feed 2';
 
 		Id profileId = Application.Cache.profileIds.get('StarTrack Support');
 		
 		//query contact user
 		User userRec = [Select id from user where ProfileId=:profileId AND isActive = true LIMIT 1];
 
-
 		// =====================================
 		// Stubbing
 		// =====================================
 		//NONE
-
 		// =====================================
 		// Testing
 		// =====================================
 		System.runAs(userRec){
+
+			List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+			cases[0].ArticleTest__c = articles[0].Id;
+			cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+			insert cases;
+
+			List<CaseInvestigation__c>  caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
+			insert caseInvestigations;
+
+			List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, false);
+			feedItems[0].Body = 'test feed'; feedItems[1].Body = 'test feed 2';
+
 			Test.startTest();
 			insert(feedItems);
 			Test.stopTest();
+
+			//asserting feeditem record is successfully inserted.
+			List<FeedItem> createdFeedItems = FeedItemsSelector.newInstance().selectById(new Set<Id>{feedItems[0].Id}, new Set<Object>()).values();
+			system.assertNotEquals(null, createdFeedItems);
+
+			//asserting CaseInvestigation record is updated upon insertion of feeditem by Contact Centre users.
+			List<CaseInvestigation__c> cIRecords = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{createdFeedItems[0].ParentId}).values();
+			system.assertNotEquals(null, cIRecords[0].LastContactCentreUpdate__c);
+
 		}
-
-		//asserting feeditem record is successfully inserted.
-		List<FeedItem> createdFeedItems = FeedItemsSelector.newInstance().selectByTextPostParentIds(new Set<Id>{caseInvestigations[0].Id}, new Set<Object>()).values();
-		system.assertNotEquals(null, createdFeedItems);
-
-		//asserting CaseInvestigation record is updated upon insertion of feeditem by Contact Centre users.
-		List<CaseInvestigation__c> cIRecords = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{caseInvestigations[0].Id}).values();
-		system.assertNotEquals(null, cIRecords[0].LastContactCentreUpdate__c);
 	}
 	
  }
