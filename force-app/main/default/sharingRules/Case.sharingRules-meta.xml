@@ -648,12 +648,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Supply_Chain_Optimisation_Case</fullName>
+        <fullName>SupplyChainOptimisationCase</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing for SCO Cases - read only for other profile</description>
+        <description>Sharing rule to allow read only access to SCO Cases for Service Partner users except SSSW and C&amp;C Sales users.</description>
         <label>Supply Chain Optimisation Case</label>
         <sharedTo>
-            <group>All_Users_Ex_SSSW</group>
+            <group>All_Service_Partner_Users</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
