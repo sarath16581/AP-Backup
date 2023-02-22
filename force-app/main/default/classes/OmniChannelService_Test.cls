@@ -359,14 +359,10 @@ public class OmniChannelService_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds(
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIdsAndActiveUser(
 			(Set<Id>)fflib_Match.eq(caseIds), 
 			(Set<Object>)fflib_Match.eq(new Set<Object>())		
 		)).thenReturn(agentWorks);
-
-		MockUtility.Mocks.when(mockUsersSelector.selectActiveUserById(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{users[0].Id, users[1].Id})
-		)).thenReturn(new Map<Id,User>{users[0].Id => users[0]});
 
 		MockUtility.Mocks.stopStubbing();
 
