@@ -16,10 +16,12 @@ private class APCaseAgentWorkDomain_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		APCaseAgentWorkDomain.Constructor constructor = new APCaseAgentWorkDomain.Constructor();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-		List<SObject> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
+		
+		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true);
 
-		ApplicationDomain appDomain = constructor.construct(contacts);
+		ApplicationDomain appDomain = constructor.construct(agentWorks);
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(APCaseAgentWorkPreferredAgentModule.class);
 
 		// PMD by-pass
