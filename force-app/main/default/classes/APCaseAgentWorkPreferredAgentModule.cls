@@ -31,7 +31,12 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 		for(AgentWork aw: records) {
 			if(aw.Status != existingRecords.get(aw.Id).Status) {
 				if(aw.Status == 'Opened') {
-					casesToUpdate.add(new Case(Id = aw.WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false));
+					casesToUpdate.add(new Case(
+						Id = aw.WorkItemId, 
+						BypassPreferredAgent__c = false, 
+						AllocateToQueue__c = false,
+						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
+					));
 
 				// If the PSR was created PreferredUserId (i.e. manualy created) and it was declined by the agent (manually or timed out) then bypass the preferred agent logic and push via gen pop omni
 				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout')) { 
@@ -39,7 +44,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 						Id = aw.WorkItemId, 
 						BypassPreferredAgent__c = true, 
 						AllocateToQueue__c = true,
-						PreferredAgentExpiry__c = null
+						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
 				}
 			}

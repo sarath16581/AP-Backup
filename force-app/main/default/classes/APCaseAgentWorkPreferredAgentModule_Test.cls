@@ -11,11 +11,10 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 	@IsTest
 	static void resetPreferredAgentBypassFlag() {
 		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(5, true));
-		cases.values()[0].BypassPreferredAgent__c = true;
-		cases.values()[1].BypassPreferredAgent__c = true;
-		cases.values()[2].BypassPreferredAgent__c = true;
-		cases.values()[3].BypassPreferredAgent__c = true;
-		cases.values()[4].BypassPreferredAgent__c = true;
+		for(Case csRec : cases.values()){
+			csRec.BypassPreferredAgent__c = true;
+			csRec.PreferredAgentExpiry__c = Datetime.now();
+		}
 
 		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(5, UserInfo.getUserId(), cases.keySet(), true);
 		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Opened'});
@@ -37,9 +36,9 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<Case>) fflib_Match.eq(new List<Case>{
-				new Case(Id = records[0].WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false),
-				new Case(Id = records[3].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true,PreferredAgentExpiry__c = null),
-				new Case(Id = records[4].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true,PreferredAgentExpiry__c = null)
+				new Case(Id = records[0].WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false, PreferredAgentExpiry__c = null),
+				new Case(Id = records[3].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true, PreferredAgentExpiry__c = null),
+				new Case(Id = records[4].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true, PreferredAgentExpiry__c = null)
 			}),
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.AllocateToQueue__c  }),
 			fflib_Match.eqBoolean(true),
