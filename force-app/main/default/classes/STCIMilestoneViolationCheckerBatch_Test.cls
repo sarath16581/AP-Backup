@@ -133,9 +133,12 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[3].Id, articles[3], networks[0].Id, false));
 		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[4].Id, articles[4], networks[0].Id, false));
 
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get('StarTrack_MyNetwork').getRecordTypeId();
+
 		for (CaseInvestigation__c ci : caseInvestigations) {
 			ci.NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
 			ci.NetworkMilestoneCurrentTier__c = 1;
+			ci.RecordTypeId = stCaseInvestigationRecordTypeId;
 		}
 		insert caseInvestigations;
 

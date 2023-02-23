@@ -25,8 +25,8 @@
                     <name>recordId</name>
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
-                <componentName>myNetworkCaseMilestonesWrapper</componentName>
-                <identifier>myNetworkCaseMilestonesWrapper</identifier>
+                <componentName>myNetworkCaseInvestigationMilestones</componentName>
+                <identifier>myNetworkCaseInvestigationMilestones</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

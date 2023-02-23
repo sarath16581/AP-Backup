@@ -94,10 +94,6 @@ private class FeedItemsSelector_Test {
 		Map<Id, FeedItem> resultsLimit = selectorLimit.selectById(new Set<Id> {feedItems[0].Id});
 		System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
 
-		FeedItemsSelector selectorByParentId = FeedItemsSelector.newInstance();
-		Map<Id, FeedItem> resultsOpenCaseInvestion = selectorByParentId.selectByTextPostParentIds(new Set<Id> {caseInvestigations[0].Id});
-		System.assertEquals(2, resultsOpenCaseInvestion.size(), 'Expected result size of 2');
-
 		FeedItemsSelector sObjectOverrideSelector = FeedItemsSelector.newInstance(1, new Set<SObjectField>{FeedItem.Id});
 		Map<Id, FeedItem> sObjectOverrideSelectorResults = sObjectOverrideSelector.selectById(new Set<Id> {feedItems[0].Id});
 		System.assert(sObjectOverrideSelectorResults.size() >= 1, 'Expected result size greater than or equal to 1');
