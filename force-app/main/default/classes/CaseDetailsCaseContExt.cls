@@ -1127,6 +1127,7 @@ global class CaseDetailsCaseContExt  {
 
                             if(OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseRec.OwnerId)){ //Bypass preferred agent logic if Case is being reassigned to an omni queue
                                 caseRec.BypassPreferredAgent__c = true;
+								caseRec.PreferredAgentExpiry__c = null; //needs to be cleared so that in the future, the routing engine can stamp a new value
                             }
                         }
                     }

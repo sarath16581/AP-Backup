@@ -38,8 +38,8 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<Case>) fflib_Match.eq(new List<Case>{
 				new Case(Id = records[0].WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false),
-				new Case(Id = records[3].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true),
-				new Case(Id = records[4].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true)
+				new Case(Id = records[3].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true,PreferredAgentExpiry__c = null),
+				new Case(Id = records[4].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true,PreferredAgentExpiry__c = null)
 			}),
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.AllocateToQueue__c  }),
 			fflib_Match.eqBoolean(true),

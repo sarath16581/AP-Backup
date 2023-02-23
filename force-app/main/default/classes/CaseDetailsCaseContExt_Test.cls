@@ -113,6 +113,7 @@ global class CaseDetailsCaseContExt_Test {
 		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
 		testCase.OwnerId = agents[0].Id;
 		testCase.Origin = 'Email';
+		testCase.PreferredAgentExpiry__c = Datetime.now();
 		testCase.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id; //required when routing engine SSSW_Routing.assignCasesAndDescription() is called
 
 		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
@@ -172,6 +173,7 @@ global class CaseDetailsCaseContExt_Test {
 		Test.stopTest();
 
 		System.assertEquals(true, controller.myCase.BypassPreferredAgent__c, 'Should flag Bypass Preferred Agent if reassigning to an Omni queue');
+		System.assertEquals(true, controller.myCase.PreferredAgentExpiry__c == null, 'Should set Preferred Agent Expiry to null');
 		System.assertEquals(true, controller.notAllowedToReassign, 'Should not allow user to reassign case');
 	}
 

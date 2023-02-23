@@ -35,7 +35,12 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 
 				// If the PSR was created PreferredUserId (i.e. manualy created) and it was declined by the agent (manually or timed out) then bypass the preferred agent logic and push via gen pop omni
 				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout')) { 
-					casesToUpdate.add(new Case(Id = aw.WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true));
+					casesToUpdate.add(new Case(
+						Id = aw.WorkItemId, 
+						BypassPreferredAgent__c = true, 
+						AllocateToQueue__c = true,
+						PreferredAgentExpiry__c = null
+					));
 				}
 			}
 		}
