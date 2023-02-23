@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 26/01/2023
  * @changelog
+ * 2023-02-23	Mahesh Parvathaneni	- Changed logic to calculate the violation datetime based on hours
  */
 
 public inherited sharing class MilestoneService {
@@ -272,13 +273,13 @@ public inherited sharing class MilestoneService {
 				//checks the tier has value in escalation hierarchy config
 				if (eh.get(formattedMilestoneTierTypeField) != null) {
 					Integer configuredMins = Integer.valueOf(eh.get(formattedMilestoneTierTypeField));
-					Integer days = configuredMins/1440 ;
+					Integer hours = configuredMins/60 ;
 					if (ci.NetworkMilestoneNextViolationDatetime__c == null && ci.MilestoneTimeStartDatetime__c != null) {
 						//Check if new date is within working days
-						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c, days);
+						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c, hours);
 					} else {
 						//Check if new date is within working days
-						violationDatetime = checkWithinBusinessHours(ci.NetworkMilestoneNextViolationDatetime__c, days);
+						violationDatetime = checkWithinBusinessHours(ci.NetworkMilestoneNextViolationDatetime__c, hours);
 					}
 					result.put(ci.Id, violationDatetime);
 				}
@@ -289,14 +290,14 @@ public inherited sharing class MilestoneService {
 	}
 
 	//function to check the target date is within business hours
-	private Datetime checkWithinBusinessHours(Datetime violationDatetime, Integer days) {
+	private Datetime checkWithinBusinessHours(Datetime violationDatetime, Integer hours) {
 		Integer hour = violationDatetime.hour();
 		Integer minute = violationDatetime.minute();
 		Integer second = violationDatetime.second();
 
-		for (Integer elapsed = 0; elapsed < days; elapsed++) {
-			//Add 1 day
-			violationDatetime = violationDatetime.addDays(1);
+		for (Integer elapsed = 0; elapsed < hours; elapsed++) {
+			//Add 1 hour
+			violationDatetime = violationDatetime.addHours(1);
 
 			//check if new date is within business hours
 			if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {

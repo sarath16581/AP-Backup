@@ -19,8 +19,8 @@ private class MilestoneService_Test {
 		// =====================================
 		//test data for escalation hierarchy
 		List<Escalation_Hierarchy__c> ehRecs = ApplicationTestDataFactory.getEscalationHierarchies(1, 'ST Case Investigation', true);
-		ehRecs[0].Facility_Tier_1__c = 1440;
-		ehRecs[0].Facility_Tier_2__c = 1440;
+		ehRecs[0].Facility_Tier_1__c = 600;
+		ehRecs[0].Facility_Tier_2__c = 600;
 
 		//test data for entitlement rules
 		List<Entitlement_Rule__c> eRules = ApplicationTestDataFactory.getEntitlementRules(1, 'ST Case Investigation', ehRecs[0].Id, true);
