@@ -6,7 +6,7 @@
  * 2023-02-23 Mahesh Parvathaneni - updated logic to the server side
  */
 
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import getCaseInvestigationNetworkMilestones from '@salesforce/apex/MyNetworkCIMilestoneController.getCaseInvestigationNetworkMilestones';
 
 export default class MyNetworkCaseInvestigationMilestones extends LightningElement {
