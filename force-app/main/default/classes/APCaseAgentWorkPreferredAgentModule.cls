@@ -29,13 +29,19 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	private void resetPreferredAgentBypassFlag(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
 		List<Case> casesToUpdate = new List<Case>();
 		for(AgentWork aw: records) {
-			if(aw.Status != existingRecords.get(aw.Id).Status && aw.Status == 'Opened') {
-				casesToUpdate.add(new Case(Id = aw.WorkItemId, BypassPreferredAgent__c = false));
+			if(aw.Status != existingRecords.get(aw.Id).Status) {
+				if(aw.Status == 'Opened') {
+					casesToUpdate.add(new Case(Id = aw.WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false));
+
+				// If the PSR was created PreferredUserId (i.e. manualy created) and it was declined by the agent (manually or timed out) then bypass the preferred agent logic and push via gen pop omni
+				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout')) { 
+					casesToUpdate.add(new Case(Id = aw.WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true));
+				}
 			}
 		}
 
 		if(casesToUpdate.isEmpty() == false) {
-			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.BypassPreferredAgent__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
+			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
 		}
 	}
 }
