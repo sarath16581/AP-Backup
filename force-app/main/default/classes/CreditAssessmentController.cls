@@ -26,7 +26,7 @@ public with sharing class CreditAssessmentController {
 	@AuraEnabled(cacheable=true)
 	public static CreditAssessmentResultWrapper getOpportunityCreditAssessment(String opportunityId) {
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-				Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c}
+				Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c, Apttus_Proposal__Proposal__c.APT_Credit_Assessment_Status__c, Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c, Apttus_Proposal__Proposal__c.APT_Credit_Assessment__c}
 		};
 		try {
 			// Retrieve query fields from Credit Assessment Config custom metadata
@@ -76,6 +76,18 @@ public with sharing class CreditAssessmentController {
 				dataTableColumnList.add(datatableColumn);
 			}
 			return dataTableColumnList;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * This method is used to update credit assessment details
+	 */
+	@AuraEnabled
+	public static void updateCreditAssessmentDetails(List<SObject> creditAssessmentDetails) {
+		try {
+			ApplicationDatabase.getInstance().dmlUpdate(creditAssessmentDetails);
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}

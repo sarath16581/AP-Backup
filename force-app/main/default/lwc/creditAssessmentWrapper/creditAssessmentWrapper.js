@@ -16,10 +16,11 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	messageBody;
 	showCAClosedOpp;
 	showProposal;
-
-	primaryProposalId
+	showApprovedCAs;
+	primaryProposalId;
 	creditAssessments = [];
 	oppClosedStage = ['Closed Won', 'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'];
+
 	@api recordId;
 
 	@wire(getCreditAssessment, {opportunityId: '$recordId'})
@@ -56,8 +57,9 @@ export default class CreditAssessmentWrapper extends LightningElement {
 						// Any credit assessments under primary proposal?
 						if (this.creditAssessments.reduce((isPrimary, ca) => isPrimary || ca.APT_Proposal__r.Apttus_Proposal__Primary__c, false)) {
 							this.showProposal = true;
-						} else if (this.creditAssessments.length > 0) {
-							//TODO: Show list of approved CA
+						} else if (this.creditAssessments.length > 0 && this.creditAssessments.reduce((isApproved, ca) => isApproved || ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved', false)) {
+							this.showApprovedCAs = true;
+							this.creditAssessments = this.creditAssessments.filter(ca => ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved');
 						} else {
 							//TODO: Show new account type selection
 						}
@@ -76,5 +78,10 @@ export default class CreditAssessmentWrapper extends LightningElement {
 			});
 			this.dispatchEvent(event);
 		}
+	}
+
+	creditAssessmentRelinked() {
+		this.showApprovedCAs = false;
+		this.showProposal = true;
 	}
 }

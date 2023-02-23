@@ -22,23 +22,27 @@ private class CreditAssessmentController_Test {
 
 		Map<Id, Opportunity> opportunityMap = new Map<Id, Opportunity>(ApplicationTestDataFactory.getOpportunities(1, account.Id, true));
 
-		List<Apttus_Proposal__Proposal__c> proposalList = ApplicationTestDataFactory.getApttusProposals(1, account.Id, true);
+		List<Apttus_Proposal__Proposal__c> proposalList = ApplicationTestDataFactory.getApttusProposals(2, account.Id, true);
 		proposalList[0].Apttus_Proposal__Opportunity__c = opportunityMap.values()[0].Id;
 
 		Map<Id, APT_Credit_Assessment__c> caMap = new Map<Id, APT_Credit_Assessment__c>(ApplicationTestDataFactory.getApttusCreditsAssessment(1, account.Id, true));
 		caMap.values()[0].APT_Proposal__c = proposalList[0].Id;
+
+		List<APT_Charge_Account__c> chargeAccounts = ApplicationTestDataFactory.getApttusChargeAccountRequest(1, true);
 
 		// =====================================
 		// Stubbing
 		// =====================================
 		OpportunitySelector oppSelector = (OpportunitySelector) MockUtility.mockSelector(OpportunitySelector.class);
 		CreditsAssessmentSelector caSelector = (CreditsAssessmentSelector) MockUtility.mockSelector(CreditsAssessmentSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(oppSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(opportunityMap);
 		MockUtility.Mocks.when(caSelector.selectByOpportunityIds((Set<Id>) fflib_Match.anyObject())).thenReturn(caMap);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -47,6 +51,16 @@ private class CreditAssessmentController_Test {
 		// =====================================
 		Test.startTest();
 		CreditAssessmentController.CreditAssessmentResultWrapper result = CreditAssessmentController.getOpportunityCreditAssessment(opportunityMap.values()[0].Id);
+
+		List<SObject> caDetails = new List<SObject>{proposalList[0], proposalList[1], caMap.values()[0], chargeAccounts[0]};
+
+		try {
+			CreditAssessmentController.updateCreditAssessmentDetails(caDetails);
+			System.assert(false, 'Expected an exception to be thrown - but was not thrown.');
+		} catch (Exception ex) {
+			//expected
+		}
+
 		System.assert(result.opportunity != null && !result.creditAssessments.isEmpty(), 'Non-empty results');
 
 		Test.stopTest();
@@ -70,4 +84,6 @@ private class CreditAssessmentController_Test {
 		List<CreditAssessmentController.DataTableColumn> columns = CreditAssessmentController.retrieveDatatableColumns();
 		System.assert(!columns.isEmpty(), 'Non-empty results');
 	}
+
+	private class MockException extends Exception {}
 }

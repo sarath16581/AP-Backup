@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>QueryFields__c</field>
-        <value xsi:type="xsd:string">Name, Aus_Post_Proposed_for_New_Account__c, StarTrack_Proposed_for_New_Account__c,   APT_Credit_Assessment_Status__c, CreatedDate</value>
+        <value xsi:type="xsd:string">Name, Aus_Post_Proposed_for_New_Account__c, StarTrack_Proposed_for_New_Account__c, APT_Credit_Assessment_Status__c, CreatedDate, APT_Charge_Account__c</value>
     </values>
     <values>
         <field>TableHeader__c</field>

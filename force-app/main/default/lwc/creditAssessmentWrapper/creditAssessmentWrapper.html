@@ -10,4 +10,8 @@
     <template if:true={showProposal}>
         <c-credit-assessment-details-primary proposal-id={primaryProposalId}></c-credit-assessment-details-primary>
     </template>
+
+    <template if:true={showApprovedCAs}>
+        <c-credit-assessment-details-selection credit-assessments={creditAssessments} primary-proposal-id={primaryProposalId} onrelinked={creditAssessmentRelinked}></c-credit-assessment-details-selection>
+    </template>
 </template>
