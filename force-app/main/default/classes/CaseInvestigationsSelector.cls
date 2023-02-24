@@ -19,7 +19,7 @@
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS, WITH_OWNER_DETAILS 
+		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS, WITH_OWNER_DETAILS, WITH_FEEDS
 	}
 
 	public static CaseInvestigationsSelector newInstance() {
@@ -62,7 +62,9 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, 
 			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
 			CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c, 
-			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c
+			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c, CaseInvestigation__c.OwnerId, CaseInvestigation__c.ProductCategory__c,
+			CaseInvestigation__c.ProductSubCategory__c
+
 		};
 	}
 
@@ -170,6 +172,20 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	}
 
 	/**
+	 * Select case investigation records with feeds. 
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectByIdAndWithFeeds(Set<Id> ids, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
 	 * overridden method to generate QueryBuilder instance
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
@@ -189,6 +205,10 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		}
 		if(selectorOptions.contains(Options.WITH_OWNER_DETAILS)) {
 			builder.addRelatedFields(UsersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Owner');
+		}
+		if(selectorOptions.contains(Options.WITH_FEEDS)) {
+			builder.addSubQuery(FeedItemsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions)
+			.addConditions().add(new QueryBuilder.CompareCondition(FeedItem.Type).eq('TextPost')).endConditions(), 'Feeds');
 		}
 		return builder;
 	}

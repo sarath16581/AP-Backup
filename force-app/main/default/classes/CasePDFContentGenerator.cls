@@ -69,6 +69,10 @@ public with sharing class CasePDFContentGenerator {
 	public Set<Id> caseInvestigationsArticleIds;
 	public Map<String, String> caseInvestigationFieldMap;
 	public transient Map<String,TIBCOArticleWrapper> cInvArticleDetailsMap {get; set;}
+	public transient Map<Id, List<Id>> caseIdToCaseInvestigationsId {get;set;}
+	
+	public transient Map<String,List<EventMessage__c>> caseInvestigationArticleEventMessageMap {get;set;}
+
 
 
     //getter method to return caseList count
@@ -121,7 +125,9 @@ public with sharing class CasePDFContentGenerator {
 		caseIdVsCaseMap = new Map<Id, Case>();
 		caseInvestigationFieldMap = new Map<String, String>();
 		caseInvestigationsArticleIds = new Set<Id>();
-
+		caseInvestigationArticleEventMessageMap = new Map<String,List<EventMessage__c>>();
+		caseIdToCaseInvestigationsId = new Map<Id, List<Id>>();
+		
         //Extract the List and the Maps before further processing
         if(!lstCaseIds.isEmpty())
         {
@@ -152,10 +158,10 @@ public with sharing class CasePDFContentGenerator {
 
 				caseIdVsCaseMap.put(cs.Id, cs);
             }
-            //Moved below out of for loop Disha
-            //Get the list of event messages related to the cases
-            casetoEventMessageMap = getcasetoEventMessageMap();
-            caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
+			// //Moved below out of for loop Disha
+			// //Get the list of event messages related to the cases
+			// casetoEventMessageMap = getcasetoEventMessageMap();
+			// caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
         }
         //Get contact map
         if(!setContactIds.isEmpty())
@@ -166,15 +172,26 @@ public with sharing class CasePDFContentGenerator {
         //Get  article and consignmentMapmap
         getArticleConsignmentMap(caseList);
 
-        //Get delivered addresses based on geo location from AME
-        if(casetoEventGeoMap.size() > 0) {
-            caseToDeliveredAddressMap = getcaseToDeliveredAddressMap();
-            System.debug('caseToDeliveredAddressMap--->' + caseToDeliveredAddressMap);
-        }
+	
 
 		starTrackCaseToCaseInvestigationsMap = getCaseToCaseInvestigationsMap();
 		cInvArticleDetailsMap = getCaseInvestigationArticleMap();
 
+		if(!caseArticleIds.isEmpty()) {
+			//Moved below out of for loop Disha
+            //Get the list of event messages related to the cases
+            casetoEventMessageMap = getcasetoEventMessageMap();
+            caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
+		}
+			
+
+		//Get delivered addresses based on geo location from AME
+		if(casetoEventGeoMap.size() > 0) {
+			caseToDeliveredAddressMap = getcaseToDeliveredAddressMap();
+			System.debug('caseToDeliveredAddressMap--->' + caseToDeliveredAddressMap);
+		}
+
+		caseInvestigationArticleEventMessageMap = getCaseInvestigationEventMessageMap();
     }
     
     //Method to get the Article to Case mapping
@@ -217,8 +234,6 @@ public with sharing class CasePDFContentGenerator {
 
     
     //Method to get the event to case mapping.This map is used to get the 3 images on the print document.Safe drop, Google maps and Signature
-    
-    
     public Map<String,EventMessage__c> getcasetoEventMessageMap() {
         Map<String,EventMessage__c> casetoEvent = new Map<String,EventMessage__c>();
         Set<String> eventTypes = new Set<String>();
@@ -235,7 +250,7 @@ public with sharing class CasePDFContentGenerator {
         Map<Id,EventMessage__c> casetoEventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, eventTypes, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.WITH_ATTACHMENT});
         for(EventMessage__c event : casetoEventMessageMap.values() )
         {
-
+			system.debug('Event Msgs Attachments: '+event.Attachments);
             uniqueId = event.Article__c ;
             //Set default value
             if(!deliveredDeliveryFound.containsKey(uniqueId) && !attemptedDeliveryFound.containsKey(uniqueId)) {
@@ -265,7 +280,6 @@ public with sharing class CasePDFContentGenerator {
             if(event.EventGeoLocation__Latitude__s != Null && event.EventGeoLocation__Longitude__s != Null)
             {
                 //Attempted delivery takes precedence over delivered event. Check if attempted delivery event is already added in map
-//                if(!(casetoEventGeoMap.containsKey(uniqueId) && attemptedDeliveryFound.containsKey(uniqueId) && attemptedDeliveryFound.get(uniqueId))) {
                     casetoEventGeoMap.put(uniqueId, event);
                     eventToArticleMap.put(event.Id, event);
                     //Map to check if attempted delivery event found
@@ -277,7 +291,6 @@ public with sharing class CasePDFContentGenerator {
                         deliveredDeliveryFound.put(uniqueId, true);
                         casetoDeliveredDelivery.put(uniqueId, event);
                     }
-//                }
             }
             caseswithMessages.add(event.Id);
             casetoEvent.put(uniqueId,event);
@@ -308,8 +321,8 @@ public with sharing class CasePDFContentGenerator {
         public void execute(QueueableContext qc) {
             try {
                 List<Case> updateCase = new List<Case>();
-//            String queryStr = 'SELECT Id,Checkbox__c FROM CASE WHERE Id=:lstCaseIds';
-                System.debug('caseList--->' + caseList);
+
+				System.debug('caseList--->' + caseList);
                 for (Case cs : caseList) {
                     //Check if the flag is already set to true, no action needed
                     if (cs.Checkbox__c == false) {
@@ -330,9 +343,6 @@ public with sharing class CasePDFContentGenerator {
     //Method to get the contacts map
     public Map<Id,sObject> getContactsMap( Set<Id> contactIds) {
         Map<Id,sObject> contactMap = new Map<Id,sObject>();
-//        String query = 'SELECT Id,FirstName,LastName';
-//        query += ' FROM Contact WHERE Id = :contacts';
-//        List<sObject> conList = Database.query(query);
         List<sObject> conList = ContactsSelector.newInstance().selectById(contactIds).values();
         for(SObject con: conList)
         {
@@ -544,7 +554,8 @@ public with sharing class CasePDFContentGenerator {
 		if(!caseInvestigationIdSet.isEmpty()) {
 			caseInvestigations = CaseInvestigationsSelector.newInstance().selectById(caseInvestigationIdSet, 
 			new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES, 
-							CaseInvestigationsSelector.Options.WITH_NETWORKS 
+							CaseInvestigationsSelector.Options.WITH_NETWORKS, CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+							CaseInvestigationsSelector.Options.WITH_FEEDS, FeedItemsSelector.Options.TEXTPOST_ONLY 
 							 }).values();
 		}
 		if(caseInvestigations != null) {
@@ -561,6 +572,11 @@ public with sharing class CasePDFContentGenerator {
 				if(cInv.Article__c != null && cInv.Article__r.ArticleID__c != null){
 					caseInvestigationsArticleIds.add(cInv.Article__c);
 				}
+				
+				//added address details
+				if(cInv.Article__c!=null && String.isNotBlank(cInv.case__r.Address2__c)) {
+                    addresseeAddress.put(cInv.Article__c, cInv.case__r.Address2__c);
+                }
 			}
 		}
 
@@ -578,8 +594,13 @@ public with sharing class CasePDFContentGenerator {
 			system.debug('cInv: '+cInv);
 			system.debug('cInv.Article__r: '+cInv.Article__r);
 			
-			if(!cInvArticleIds.contains(cInv.Article__r.ArticleId__c)) {
+			if(cInv.Article__c!= null && !cInvArticleIds.contains(cInv.Article__r.ArticleId__c)) {
 				cInvArticleIds.add(cInv.Article__r.ArticleId__c);
+			}
+
+			//adding in a set to be used later
+			if(cInv.Article__c!= null && !caseArticleIds.contains(cInv.Article__c)) {
+				caseArticleIds.add(cInv.Article__c);
 			}
 		}
         searchResult = TIBCOArticleService.searchArticlesInSFDC(cInvArticleIds);
@@ -601,4 +622,70 @@ public with sharing class CasePDFContentGenerator {
 
 		return articleMap;
 	}
+
+	public Map<String,List<EventMessage__c>> getCaseInvestigationEventMessageMap() { 
+		Map<String,List<EventMessage__c>> articleVsEventMessagesMap = new Map<String,List<EventMessage__c>>();
+		Set<String> eventTypes = new Set<String>();
+		Set<String> attemptedEventTypes = new Set<String>();
+		String uniqueId = '';
+		for(EventMessageTypeMapping__mdt evType: [Select MasterLabel, Category__c From EventMessageTypeMapping__mdt Where Category__c IN ('AttemptedDelivery','Delivered')]){
+			eventTypes.add(evType.MasterLabel);
+
+			//Create a set of string for attempted delivery scan
+			if(evType.Category__c.equalsIgnoreCase('AttemptedDelivery')){
+				attemptedEventTypes.add(evType.MasterLabel);
+			}
+		}
+		//Event type check is necessary for all other event mappings on the UI like geo location, driver contract,driver roundNo, driver logon id and images
+		Map<Id,EventMessage__c> eventMessages = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, eventTypes, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.WITH_ATTACHMENT});
+		for(EventMessage__c event : eventMessages.values()) {
+
+			system.debug('Event Msgs Attachments: '+event.Attachments);
+			uniqueId = event.Article__c ;
+			
+			//Retrive the map for driver contract mapping
+			if(event.DriverContract__c != Null )
+			{
+				casetoDriverContractMap.put(uniqueId,event);
+			}
+			//Retrive the login id for driver username mapping
+			if(event.UserName__c != Null )
+			{
+				casetoDriverLogonMap.put(uniqueId,event);
+			}//Retrive the round no for driver roundNo mapping
+			if(event.RoundNo__c != Null )
+			{
+				casetoDriverRoundMap.put(uniqueId,event);
+			}
+			//Retrive the list for safedrops GUID
+			if(event.Safe_Drop_GUID__c != Null)
+			{
+				caseswithsafedropGUID.add(event.Id);
+			}
+			//Retrive the map for delivered event geo mapping
+			if(event.EventGeoLocation__Latitude__s != Null && event.EventGeoLocation__Longitude__s != Null) {
+					casetoEventGeoMap.put(uniqueId, event);
+					eventToArticleMap.put(event.Id, event);
+					
+					//Map to check if attempted delivery event found
+					if(attemptedEventTypes.contains(event.EventType__c)){
+						attemptedDeliveryFound.put(uniqueId, true);
+						casetoAttemptedDelivery.put(uniqueId, event);
+					}else {
+						//set default attempted delivery to false
+						deliveredDeliveryFound.put(uniqueId, true);
+						casetoDeliveredDelivery.put(uniqueId, event);
+					}
+			}
+			caseswithMessages.add(event.Id);
+			if(!articleVsEventMessagesMap.containsKey(uniqueId)) {
+				articleVsEventMessagesMap.put(uniqueId,new List<EventMessage__c> {event});
+			}
+
+			articleVsEventMessagesMap.get(uniqueId).add(event);
+
+		}
+		return (articleVsEventMessagesMap.isEmpty() ? null : articleVsEventMessagesMap);
+	}
+
 }

@@ -18,30 +18,19 @@ History:
     <apex:variable var="casen" value="{!0}"/>
 	
 	<apex:repeat id="caseIdVsCaseMap" value="{!conObj.caseIdVsCaseMap}" var="caseId">
-
-		{!caseId}
-		{!conObj.starTrackCaseToCaseInvestigationsMap[caseId]}
-		
 		<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[caseId] != null}">
-			true
 			<apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[caseId]}" var="caseInv">
 				<c:StarTrackCaseInvestigationPDFGenerator conObj="{!conObj}" casen="{!casen}" currentCaseInv="{!caseInv}" case="{!conObj.caseIdVsCaseMap[caseId]}"/>
 			</apex:repeat>
-			
-			CI RECORDS END
 		</apex:outputPanel>
 	</apex:repeat>
+	regular case details started
+	
 	<apex:repeat id="caseDetails" value="{!conObj.caseList}" var="case">
-		<!-- {!case.Id}
-		{!conObj.starTrackCaseToCaseInvestigationsMap[case.Id]}
-		
-		<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[case.Id] != null}">
-			true
-			<apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[case.Id]}" var="caseInv">
-				<c:StarTrackCaseInvestigationPDFGenerator conObj="{!conObj}" casen="{!casen}" currentCaseInv="{!caseInv}"/>
-			</apex:repeat>
-			
-		</apex:outputPanel> -->
+		ST RT: {!case.StarTrack_RecordType__c}
+		{!IF(case.StarTrack_RecordType__c == false,'false','true')}
+
+		<apex:outputPanel rendered="{!IF(case.StarTrack_RecordType__c == false,'false','true')}">
         <div id="coverletter" style="page-break-after: always;page-break-inside: avoid;">
             <!--INC1788397-->
             <apex:variable var="casen" value="{!casen+1}"/>
@@ -445,5 +434,6 @@ History:
 		
         <!-- REQ2408232 Add page break only when bulk cases (more than 1 case), so drivers information doesn't overlap upon duplex print-->
         <div style="{!IF(AND(conObj.caseCount > 1, conObj.caseCount != casen), 'display:block;page-break-before: always', 'display: none')}"><p></p></div>
-    </apex:repeat>
+		</apex:outputPanel>
+	</apex:repeat>
 </apex:component>
