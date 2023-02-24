@@ -8,10 +8,10 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>Read</opportunityAccessLevel>
         </accountSettings>
-        <description>This rule enables all accounts to be shared within internal users except retail merchandise &amp; CC users who only need access retail data.</description>
-        <label>All Internal Users except Retail Merchandise &amp; C&amp;C</label>
+        <description>This rule enables all accounts to be shared within internal users except retail merchandise &amp; PP&amp;ECS users who only need access retail data.</description>
+        <label>All Internal Users except Retail Merchandise &amp; PP&amp;ECS</label>
         <sharedTo>
-            <group>All_Users_Ex_Retail_Merchandise_CC</group>
+            <group>All_Users_Ex_Retail_Merchandise_PPECS</group>
         </sharedTo>
         <criteriaItems>
             <field>Is_a_facility__c</field>
@@ -207,7 +207,7 @@
             <opportunityAccessLevel>Read</opportunityAccessLevel>
         </accountSettings>
         <description>Share Direct accounts with only Direct Sales team</description>
-        <label>Share Direct Accounts with CC Direct Users</label>
+        <label>Share Direct Accounts with PP&amp;ECS Direct Users</label>
         <sharedTo>
             <group>All_Direct_Sales_Team</group>
         </sharedTo>
@@ -226,10 +226,10 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>Read</opportunityAccessLevel>
         </accountSettings>
-        <description>Share Holding accounts with all CC Sales team</description>
-        <label>Share Holding Accounts with All CC Users</label>
+        <description>Share Holding accounts with all PP&amp;ECS Sales team</description>
+        <label>Share Holding Accounts with All PP&amp;ECS Users</label>
         <sharedTo>
-            <group>All_CC_Sales_Team</group>
+            <group>All_Holding_Sales_Team</group>
         </sharedTo>
         <criteriaItems>
             <field>SalesTeamType__c</field>
@@ -247,7 +247,7 @@
             <opportunityAccessLevel>Read</opportunityAccessLevel>
         </accountSettings>
         <description>Share Intermediary accounts with only Intermediary Sales team</description>
-        <label>Share Intermediary Accounts with CC Intermediary Users</label>
+        <label>Share Intermediary Accounts with PP&amp;ECS Intermediary Users</label>
         <sharedTo>
             <group>All_Intermediary_Sales_Team</group>
         </sharedTo>
