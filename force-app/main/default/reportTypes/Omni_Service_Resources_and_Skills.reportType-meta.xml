@@ -77,11 +77,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Vehicle__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>RelatedRecord.Name</field>
             <table>ServiceResource</table>
         </columns>
