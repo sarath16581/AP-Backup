@@ -10,7 +10,7 @@ import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import FIELD_NETWORK_MILESTONES_VIOLATED from '@salesforce/schema/CaseInvestigation__c.NetworkMilestonesViolated__c';
 import FIELD_NETWORK_MILESTONE_NEXT_VIOLATION_DATETIME from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c';
 import FIELD_NETWORK_MILESTONE_LAST_VIOLATION_DATETIME from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c';
-import FIELD_MILESTONE_START_DATETIME from '@salesforce/schema/CaseInvestigation__c.MilestoneTimeStartDateTime__c';
+import FIELD_MILESTONE_START_DATETIME from '@salesforce/schema/CaseInvestigation__c.MilestoneTimeStartDatetime__c';
 import FIELD_NETWORK_MILESTONE_CURRENT_TIER from '@salesforce/schema/CaseInvestigation__c.NetworkMilestoneCurrentTier__c';
 
 //constants

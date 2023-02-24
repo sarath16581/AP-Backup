@@ -32,6 +32,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>AgentType__c</picklist>
+        <values>
+            <fullName>BOH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FOH</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Approval_Status__c</picklist>
         <values>
             <fullName>Approved</fullName>
