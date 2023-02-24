@@ -2368,7 +2368,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Web_Apps</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Web_App_Support</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Web &amp; Apps</name>
         <notifyAssignee>false</notifyAssignee>

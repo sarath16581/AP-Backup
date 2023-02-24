@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>StarTrack - Delivery Enquiry Response</name>
     <style>none</style>
-    <subject>RE: {!Case.Subject}{!Case.Other__c}</subject>
+    <subject>RE: {!Case.Subject}{!Case.Other__c} Case Number {!Case.CaseNumber}</subject>
     <textOnly>Case No.: {!Case.CaseNumber}
 
 Thank you for contacting our customer service team. Your case number is {!Case.CaseNumber}.

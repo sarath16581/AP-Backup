@@ -11,6 +11,7 @@ private class MyNetworkConstants_Test {
 	static void constantValues() {
 		System.assertEquals(MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS, 'Waiting on operations');
 		System.assertEquals(MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED, 'Network Responded');
+		System.assertEquals(MyNetworkConstants.CASE_UPDATE_OPERATIONS_RESPONDED, 'Operations Responded');
 		System.assertEquals(MyNetworkConstants.CASE_STATUS_CLOSED, 'Closed');
 		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_NEW_STATUS, 'New');
 		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, 'In Progress');
