@@ -32,6 +32,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>AgentType__c</picklist>
+        <values>
+            <fullName>BOH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FOH</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Area_Affected__c</picklist>
         <values>
             <fullName>Billing Accounts</fullName>
