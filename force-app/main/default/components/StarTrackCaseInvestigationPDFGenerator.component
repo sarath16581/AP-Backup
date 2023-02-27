@@ -21,8 +21,6 @@
 			</div>
 			<!-- REPEAT Case Investigation details -->
 			<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[case.Id] != null}">
-				<!-- <apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[case.Id]}" var="caseInv"> -->
-
 					<table id="investigation">
 						<tr>
 							<td style="width:20%; padding:15px;">DATE:</td>
@@ -116,9 +114,6 @@
 							</tr>
 						</apex:outputText>
 					</table>
-
-				<!-- </apex:repeat> -->
-				
 			</apex:outputPanel>
 			
 			
@@ -212,7 +207,6 @@
 					<div style="display:table-row">
 						<h1 style="padding: 0px; color: #DF1027">StarTrack Case Investigation: {!currentCaseInv.Name}</h1><br/>
 						<h1 style="padding: 0px; color: #DF1027">StarTrack Case: {!case.CaseNumber}</h1>
-						<h3 style="padding: 0px; color: #DF1027">Type           : {!case.Type}</h3>
 						<h3 style="padding: 0px; color: #DF1027">Created Date   : <apex:outputField value=" {!case.CreatedDate}"/></h3>
 					</div>
 				</div>
@@ -249,9 +243,8 @@
 
 				<b><apex:outputText value="Date posted: "> </apex:outputText></b>
 				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Article__r.ArticleLodgementDate__c}"> </apex:outputText> <br/>
-
 				<b><apex:outputText value="Case investigation assigned to: "> </apex:outputText></b>
-				<apex:outputText styleClass="form-control input-sm " value="{!case.Enquiry_Type__c}"> </apex:outputText> <br/>
+				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Owner.Name}"> </apex:outputText> <br/>
 
 				
 				<table style="border-collapse: collapse;border: none;padding: 0; page-break-inside: avoid;">
@@ -259,9 +252,10 @@
 						<td style="border: none;width:85px;vertical-align: top;padding: 0;">
 							<b><apex:outputText value="Description: " /></b>
 						</td>
+						<!-- rendering chatter feeds on CI record. Only user entered feeds are rendered. -->
 						<td style="border: none;padding: 0;">
 								<apex:repeat id="feedDetails" value="{!currentCaseInv.Feeds}" var="feedItem">
-									<!-- escape TAG is required in order to render text as is from Chatter Feed -->
+									<!-- Note: escape TAG is required in order to render text as is from Chatter Feed -->
 									<apex:outputText styleClass="form-control input-sm " value="{!feedItem.Body}" escape="false"> 
 									</apex:outputText>
 								</apex:repeat>
@@ -315,7 +309,6 @@
 				<apex:outputPanel rendered="{!currentCaseInv.Article__c != null}">
 					<div style="page-break-inside: avoid;">
 						<apex:repeat value="{!conObj.casetoEventGeoMap}" var="items">
-							{!IF(CONTAINS(items,currentCaseInv.Article__c),'true','false')}
 							<apex:outputText rendered="{!IF(CONTAINS(items,currentCaseInv.Article__c),'true','false')}">
 								<div style="page-break-before: always">
 									<h3 style="color: #DF1027;padding-left:2px;text-align:center;">Addressee address location on map</h3>

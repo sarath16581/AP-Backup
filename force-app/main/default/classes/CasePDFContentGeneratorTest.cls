@@ -397,4 +397,80 @@ private class CasePDFContentGeneratorTest {
             System.assert(emAttachmentForCasePrintOut.name.startsWith(EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX), 'Only non-safedrop event message attachments expected.');
         }
     }
+
+	/**
+	 * @test: Test case investigations are printed when case investigations record Ids are passed.
+	 * @scenario: Simulating selection of Case Investigations records to print. Records are selected on mynetwork portal.  
+	 */
+	@IsTest
+	private static void testCasePDFContentGenerator_starTrackCaseInvestigations() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+		EventMessage__c event = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+		event.Safe_Drop_GUID__c='23123-35435-gf-454';
+		Account testAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0];
+		Case cases = ApplicationTestDataFactory.getCases(1, new List<Id>{contacts.Id}, true)[0];
+		cases.ReferenceID__c = article.Id;
+		cases.ArticleTest__c = article.Id;
+
+		article.Name = '12345';
+		article.ArticleID__c = '12345';
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(3, cases.Id, article, null, true);
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		SSSWCasesSelector mockCasesSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
+		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		CaseInvestigationsSelector mockCaseInvestigationsSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+
+		TIBCOArticleService mockUtil = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{cases.Id => cases});
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{event.Id => event});
+		MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectById(new Set<Id>{caseInvestigations[0].Id, caseInvestigations[1].Id}, 
+																			new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+																				CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS, 
+																				CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+																				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+																				CaseInvestigationsSelector.Options.WITH_FEEDS, 
+																				FeedItemsSelector.Options.TEXTPOST_ONLY}))
+			.thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0],
+														caseInvestigations[1].Id => caseInvestigations[1]});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		
+		String recordIds = cases.Id + ','+caseInvestigations[0].Id + ','+caseInvestigations[1].Id;
+		Apexpages.currentpage().getparameters().put('selectedIds' , recordIds);
+		CasePDFContentGenerator controller = new CasePDFContentGenerator();
+
+		Test.stopTest();
+
+		List<CaseInvestigation__c> stCaseInvestigations = controller.starTrackCaseToCaseInvestigationsMap.get(cases.Id);
+		
+		system.assert(stCaseInvestigations.contains(caseInvestigations[0]), 'Case Investigation record should have been included in a map');
+		system.assert(!stCaseInvestigations.contains(caseInvestigations[2]), 'Case Investigation record should have NOT been included in a map');
+		
+		//verify that CaseInvestigationsSelector is called 
+		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationsSelector, MockUtility.Mocks.times(1)))
+														.selectById(new Set<Id>{caseInvestigations[0].Id, caseInvestigations[1].Id}, 
+																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+																										CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS, 
+																										CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+																										CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+																										CaseInvestigationsSelector.Options.WITH_FEEDS, 
+																										FeedItemsSelector.Options.TEXTPOST_ONLY});
+	}
+
 }

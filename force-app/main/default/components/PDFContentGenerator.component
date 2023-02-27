@@ -19,10 +19,10 @@ History:
 	<apex:variable var="casen" value="{!0}"/>
 	
 	<!--  ST Case Investigations Priting -->
-	<apex:repeat id="caseIdVsCaseInvestigationsCaseMap" value="{!conObj.caseIdVsCaseInvestigationsCaseMap}" var="caseId">
+	<apex:repeat id="starTrackCaseIdVsCaseMap" value="{!conObj.starTrackCaseIdVsCaseMap}" var="caseId">
 		<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[caseId] != null}">
 			<apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[caseId]}" var="caseInv">
-				<c:StarTrackCaseInvestigationPDFGenerator conObj="{!conObj}" casen="{!casen}" currentCaseInv="{!caseInv}" case="{!conObj.caseIdVsCaseInvestigationsCaseMap[caseId]}"/>
+				<c:StarTrackCaseInvestigationPDFGenerator conObj="{!conObj}" casen="{!casen}" currentCaseInv="{!caseInv}" case="{!conObj.starTrackCaseIdVsCaseMap[caseId]}"/>
 			</apex:repeat>
 		</apex:outputPanel>
 	</apex:repeat>
