@@ -80,7 +80,6 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 		if (confirmed) {
 			try {
 				this.isProcessing = true;
-				const selectedCA = this.template.querySelector("lightning-datatable").getSelectedRows()[0];
 				// Relink selected CA to primary proposal from current proposal
 				const primaryProposalFields = {};
 				primaryProposalFields['Id'] = this.primaryProposalId;
@@ -136,7 +135,14 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 		}
 	}
 
-	handleCreate() {
-		// TODO: launch existing VF Wrapper
+	async handleCreate() {
+		const confirmed = await LightningConfirm.open({
+			message: 'Are you sure to create a new Credit Assessment?',
+			variant: 'headerless',
+			label: 'New Credit Assessment Creation'
+		});
+		if (confirmed) {
+			this.dispatchEvent(new CustomEvent('create'));
+		}
 	}
 }

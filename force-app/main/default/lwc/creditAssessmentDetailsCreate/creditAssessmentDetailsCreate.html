@@ -1,0 +1,13 @@
+<template>
+    <div class="slds-p-around_small">
+        <div class="slds-card slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <h2 class="slds-card__header-title">Credit Assessment Details</h2>
+            </header>
+        </div>
+        <lightning-radio-group label="Please Select Account Type" options={options} required type="radio" onchange={handleChange}></lightning-radio-group>
+    </div>
+    <div class="button-container slds-m-around_small slds-align_absolute-center" slot="footer">
+        <lightning-button data-id="next" variant="brand-outline" label="Next" onclick={handleNext} disabled={disabled} ></lightning-button>
+    </div>
+</template>

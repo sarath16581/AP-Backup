@@ -17,6 +17,7 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	showCAClosedOpp;
 	showProposal;
 	showApprovedCAs;
+	showCACreate;
 	primaryProposalId;
 	creditAssessments = [];
 	oppClosedStage = ['Closed Won', 'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'];
@@ -61,7 +62,7 @@ export default class CreditAssessmentWrapper extends LightningElement {
 							this.showApprovedCAs = true;
 							this.creditAssessments = this.creditAssessments.filter(ca => ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved');
 						} else {
-							//TODO: Show new account type selection
+							this.showCACreate = true;
 						}
 					} else {
 						this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
@@ -83,5 +84,10 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	creditAssessmentRelinked() {
 		this.showApprovedCAs = false;
 		this.showProposal = true;
+	}
+
+	creditAssessmentCreate() {
+		this.showApprovedCAs = false;
+		this.showCACreate = true;
 	}
 }

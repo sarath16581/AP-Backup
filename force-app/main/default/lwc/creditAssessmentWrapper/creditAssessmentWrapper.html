@@ -12,6 +12,10 @@
     </template>
 
     <template if:true={showApprovedCAs}>
-        <c-credit-assessment-details-selection credit-assessments={creditAssessments} primary-proposal-id={primaryProposalId} onrelinked={creditAssessmentRelinked}></c-credit-assessment-details-selection>
+        <c-credit-assessment-details-selection credit-assessments={creditAssessments} primary-proposal-id={primaryProposalId} onrelinked={creditAssessmentRelinked} oncreate={creditAssessmentCreate}></c-credit-assessment-details-selection>
+    </template>
+
+    <template if:true={showCACreate}>
+        <c-credit-assessment-details-create proposal-id={primaryProposalId} opportunity-id={recordId}></c-credit-assessment-details-create>
     </template>
 </template>
