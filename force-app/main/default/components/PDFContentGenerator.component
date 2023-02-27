@@ -28,7 +28,7 @@ History:
 	</apex:repeat>
 
 	<!-- AP Case Printing -->
-	<apex:repeat id="caseDetails" value="{!conObj.uniqueCaseList}" var="case">
+	<apex:repeat id="caseDetails" value="{!conObj.apCaseList}" var="case">
 		<apex:outputPanel rendered="{!IF(case.StarTrack_RecordType__c == false,'true','false')}">
 		<div id="coverletter" style="page-break-after: always;page-break-inside: avoid;">
 			<!--INC1788397-->

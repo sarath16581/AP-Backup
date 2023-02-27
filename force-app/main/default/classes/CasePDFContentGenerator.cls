@@ -58,21 +58,17 @@ public with sharing class CasePDFContentGenerator {
     public transient Map<String, ArticleEventMessageAttachments> caseArticleToEventMessageAttachmentsMap {get; set;}
 
 	//Case Investigation variables
-	public transient Map<String, StarTrackCaseInvestigations> starTrackCaseToCaseInvestigations {get;set;}
 	public String selectedRecordIds {get;set;}
 	public Set<Id> caseInvestigationIdSet {get;set;} 
 	List<CaseInvestigation__c> caseInvestigations;
-	public transient CaseDetailsWrapper caseAndCaseInvestigationWrapper {get;set;}
 	public transient Map<String, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap {get;set;}
 	public transient Map<Id, Case> caseIdVsCaseMap {get;set;}
 	public Set<Id> allCaseIds;
 	public Set<Id> caseInvestigationsArticleIds;
-	public Map<String, String> caseInvestigationFieldMap;
 	public transient Map<String,TIBCOArticleWrapper> cInvArticleDetailsMap {get; set;}
-	public transient Map<Id, List<Id>> caseIdToCaseInvestigationsId {get;set;}
 	public transient Map<Id, Case> caseIdVsCaseInvestigationsCaseMap {get;set;} // Set to store case Ids of  CaseInvestigaitons.
 	public transient Map<String,List<EventMessage__c>> caseInvestigationArticleEventMessageMap {get;set;}
-	public transient List<Case> uniqueCaseList {get;set;} // Set to store case Ids of  CaseInvestigaitons.
+	public transient List<Case> apCaseList {get;set;} // list to store AP cases only.
 
 
     //getter method to return caseList count
@@ -123,12 +119,10 @@ public with sharing class CasePDFContentGenerator {
         caseArticleToEventMessageAttachmentsMap = new Map<String, ArticleEventMessageAttachments>();
 		starTrackCaseToCaseInvestigationsMap = new Map<String, List<CaseInvestigation__c>>();
 		caseIdVsCaseMap = new Map<Id, Case>();
-		caseInvestigationFieldMap = new Map<String, String>();
 		caseInvestigationsArticleIds = new Set<Id>();
 		caseInvestigationArticleEventMessageMap = new Map<String,List<EventMessage__c>>();
-		caseIdToCaseInvestigationsId = new Map<Id, List<Id>>();
 		caseIdVsCaseInvestigationsCaseMap = new Map<Id, Case> ();
-		uniqueCaseList = new List<Case>();
+		apCaseList = new List<Case>();
 
         //Extract the List and the Maps before further processing
         if(!lstCaseIds.isEmpty())
@@ -195,7 +189,8 @@ public with sharing class CasePDFContentGenerator {
 
 		caseInvestigationArticleEventMessageMap = getCaseInvestigationEventMessageMap();
 
-		uniqueCaseList = buildCaseMap();
+		//filtering out AP case list from AP, ST case list 
+		apCaseList = buildCaseMap();
     }
     
     //Method to get the Article to Case mapping
@@ -513,43 +508,6 @@ public with sharing class CasePDFContentGenerator {
         }
     }
 
-	/**
-	 * StarTrack Case Investigation details 
-	 */
-	public class StarTrackCaseInvestigations{
-		public String caseInvestigationNumber {get;set;}
-		public String caseInvestigationArticleNumber {get;set;}
-		public String caseInvestigationProductCategory {get;set;}
-		public String caseInvestigationProductSubCategory {get;set;}
-		public String caseInvestigationArticleLodgementDate {get;set;}
-		public String caseInvestigationChatterFeeds {get;set;}
-		public String caseInvestigationArticleReceiverAddress {get;set;}
-		public String caseInvestigationArticleReceiverName {get;set;}
-		public String caseInvestigationArticleSignRequired {get;set;}
-		public String caseInvestigationArticleCount {get;set;}
-		public String caseInvestigationArticleWeight {get;set;}
-		public String caseInvestigationArticleSenderName {get;set;}
-		public String caseInvestigationArticleSenderCompany {get;set;}
-		public String caseInvestigationArticleProductCategory {get;set;}
-		public String caseInvestigationArticleInsurance {get;set;}
-
-		public StarTrackCaseInvestigations() {}
-		
-	}
-
-	/**
-	 * Case and CaseInvestigations Wrapper
-	 */
-	public class CaseDetailsWrapper{
-		public List<Case> caseList {get;set;}
-		public List<CaseInvestigation__c> caseInvestigationList {get;set;}
-
-		public CaseDetailsWrapper(List<Case> caseList, List<CaseInvestigation__c> caseInvestigationList ) {
-			this.caseList = caseList;
-			this.caseInvestigationList = caseInvestigationList;
-		}
-		
-	}
 
 	private Map<String, List<CaseInvestigation__c>> getCaseToCaseInvestigationsMap() {
 
@@ -699,17 +657,17 @@ public with sharing class CasePDFContentGenerator {
 
 	public List<Case> buildCaseMap() {
 
-		List<Case> uniqueCaseList = new List<Case>();
+		List<Case> apCaseList = new List<Case>();
 		
 		for(Case caseRecord : caseList) {
-			
-			//this is NOT Case for passed case Investigations.
+
+			//filtering out AP case list from consolidated case list.
 			if(!starTrackCaseToCaseInvestigationsMap.containsKey(caseRecord.Id)) {
-				uniqueCaseList.add(caseRecord);
+				apCaseList.add(caseRecord);
 			}
 		}
 
-		return uniqueCaseList;
+		return apCaseList;
 	}
 
 }
