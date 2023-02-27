@@ -25,11 +25,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 			'SSSWGeneralEnquiry',
 			'SSSWService',
 			'Social_Record_Type',
-			'NCCCDirectEmail',
-			'StarTrack_Credit_Dispute_Claim', 'StarTrack_PUD_Enquiry', 'StarTrack_General_Enquiry', 'StarTrack_Pickup_Booking_Enquiry', 
-			'StarTrack_Sales_Enquiry', 'StarTrack_Tactical', 'StarTrack_Transit_Warranty_Claim', 'StarTrack_Voice_of_Customer', 
-			'StarTrack_Voice_of_Customer_Incident'
-
+			'NCCCDirectEmail'
 	};
 
 	public static SSSWCasesSelector newInstance() {
@@ -169,8 +165,8 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
-				  //.add(new QueryBuilder.CompareCondition(Case.Case_Reopen_Date__c).lt(pReopenDate));
-		.add(new QueryBuilder.NullCondition(Case.ProductCategory__c).notNull());
+				  .add(new QueryBuilder.CompareCondition(Case.Case_Reopen_Date__c).lt(pReopenDate));
+		conditions.add(new QueryBuilder.NullCondition(Case.ProductCategory__c).notNull());
 		conditions.add(new QueryBuilder.NullCondition(Case.ProductSubCategory__c).notNull());
 		conditions.add(new QueryBuilder.NullCondition(Case.EnquirySubType__c).notNull());
 		conditions.add(new QueryBuilder.CompareCondition(Case.IsHLC__c).eq(false));

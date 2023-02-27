@@ -128,7 +128,11 @@ public with sharing class CasePDFContentGenerator {
 		//Extract the List and the Maps before further processing
 		if(!caseIdSet.isEmpty()) {
 			Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
-			caseList = SSSWCasesSelector.newInstance(rowLimit, overrideFields).selectById(caseIdSet, new Set<Object>{CasesSelector.Options.WITH_NETWORK, SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
+			/**
+			 * Note: Replacing SSSWCasesSelector with CasesSelector
+			 */
+			//caseList = SSSWCasesSelector.newInstance(rowLimit, overrideFields).selectById(caseIdSet, new Set<Object>{CasesSelector.Options.WITH_NETWORK, SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
+			caseList = CasesSelector.newInstance(rowLimit, overrideFields).selectById(caseIdSet, new Set<Object>{CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
 			System.debug('caseList--->'+caseList);
 		}
 
@@ -627,5 +631,27 @@ public with sharing class CasePDFContentGenerator {
 		}
 
 		return apCaseList;
+	}
+
+	public static Set<Id> caseRecordTypeIds {
+		get { 
+			if( caseRecordTypeIds == null) {
+				Map<String, Schema.RecordTypeInfo> caseRecordTypes = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName();
+				caseRecordTypeIds = new Set<Id>{caseRecordTypes.get('SSSWDelivery').getRecordTypeId(), 
+												caseRecordTypes.get('SSSWFax').getRecordTypeId(),
+												caseRecordTypes.get('SSSWGeneralEnquiry').getRecordTypeId(),
+												caseRecordTypes.get('SSSWService').getRecordTypeId(),
+												caseRecordTypes.get('Social_Record_Type').getRecordTypeId(),
+												caseRecordTypes.get('NCCCDirectEmail').getRecordTypeId(),
+												caseRecordTypes.get('StarTrack_PUD_Enquiry').getRecordTypeId(),
+												caseRecordTypes.get('StarTrack_General_Enquiry').getRecordTypeId(),
+												caseRecordTypes.get('StarTrack_Pickup_Booking_Enquiry').getRecordTypeId(),
+												caseRecordTypes.get('StarTrack_Voice_of_Customer').getRecordTypeId()
+				};
+			}
+
+			return caseRecordTypeIds;
+		}
+		private set;
 	}
 }
