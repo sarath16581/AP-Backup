@@ -166,6 +166,29 @@
             <field>IsConference</field>
             <table>AgentWork</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>User.IsCurrentUser__c</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Agent Work: User: L1 Manager</displayNameOverride>
+            <field>User.Manager</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Agent Work: User: L2 Manager</displayNameOverride>
+            <field>User.Manager.Manager</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Agent Work: User: L3 Manager</displayNameOverride>
+            <field>User.Manager.Manager.Manager</field>
+            <table>AgentWork</table>
+        </columns>
         <masterLabel>Agent Work</masterLabel>
     </sections>
 </ReportType>

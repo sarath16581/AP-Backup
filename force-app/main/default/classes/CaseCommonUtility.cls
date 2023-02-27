@@ -83,9 +83,16 @@
 	public static Boolean isNotifyAutoRecursive = false;
 	public static Boolean isduplicateSTRcursive = false;
 
-		private static Set<String> NON_CLOSED_STATUSES = new Set<String>();
-		private static Set<Id> validRecTypes;
-		private static Set<Id> socialAndSsswRecordTypeIds;
+	private static Set<String> NON_CLOSED_STATUSES = new Set<String>();
+	private static Set<Id> validRecTypes;
+	private static Set<Id> socialAndSsswRecordTypeIds;
+
+	/**
+	 * List of cases that have already been processed for Preferred Agent in this transaction.
+	 * There are exception cases where the routing engine will be triggered 2x, such as when a customer responds to a case via Email-to-Case.
+	 * In this situation, preferred Agent logic can fire twice and attempt to generate a 2nd PSR for the same Case, which will encounter an Exception and negate the Preferred Agent logic applied in the 1st run.
+	 */
+	private static Set<Id> m_processedPreferredAgentCaseIds = new Set<Id>();
 
 	private static Map<Id,Group> groupIdMap = new Map<Id,Group>();
 	private static Map<String,Group> groupNameMap = new Map<String,Group>();
@@ -725,8 +732,11 @@
 							&& csRec.BypassPreferredAgent__c == false 
 							&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue					
 							&& String.isEmpty(preferredAgentQueueId) == false) {
-								if(oldCase.OwnerId == preferredAgentQueueId ){
-									csRec.OwnerId = preferredAgentQueueId; //Case was being moved out of Preferred Agent queue without the Bypass flag set, so we keep it there
+								if(oldCase.OwnerId == preferredAgentQueueId || m_processedPreferredAgentCaseIds.contains(csRec.Id) ){ 
+									// 2 scenarios where the Case already has a manual PSR and so we should not attempt to generate another one, and ensure the queue is in the Preferred Agent queue:
+									// a) Case being moved out of Preferred Agent queue without the Bypass flag set, OR 
+									// b) Case has already been processed by Preferred Agent in the same transaction
+									csRec.OwnerId = preferredAgentQueueId; 
 								} else {
 									casesPreferredAgentRouting.put(csRec.Id, csRec); 
 								}
@@ -735,7 +745,7 @@
 				}
 
 				if(casesPreferredAgentRouting.isEmpty() == false) {
-					processPreferredAgent(casesPreferredAgentRouting);
+					processPreferredAgent(casesPreferredAgentRouting); 
 				}
 
 			}
@@ -1153,6 +1163,7 @@
 							for(PendingServiceRouting newPSR : newPSRs){ 
 								if(newPSR.Id != null && newPSR.Id == sr.getId()){
 									casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = preferredAgentQueueId; 
+									m_processedPreferredAgentCaseIds.add(newPSR.WorkItemId);
 								}							
 							}
 						} else {
