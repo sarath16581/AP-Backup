@@ -70,9 +70,9 @@ public with sharing class CasePDFContentGenerator {
 	public Map<String, String> caseInvestigationFieldMap;
 	public transient Map<String,TIBCOArticleWrapper> cInvArticleDetailsMap {get; set;}
 	public transient Map<Id, List<Id>> caseIdToCaseInvestigationsId {get;set;}
-	
+	public transient Map<Id, Case> caseIdVsCaseInvestigationsCaseMap {get;set;} // Set to store case Ids of  CaseInvestigaitons.
 	public transient Map<String,List<EventMessage__c>> caseInvestigationArticleEventMessageMap {get;set;}
-
+	public transient List<Case> uniqueCaseList {get;set;} // Set to store case Ids of  CaseInvestigaitons.
 
 
     //getter method to return caseList count
@@ -127,7 +127,9 @@ public with sharing class CasePDFContentGenerator {
 		caseInvestigationsArticleIds = new Set<Id>();
 		caseInvestigationArticleEventMessageMap = new Map<String,List<EventMessage__c>>();
 		caseIdToCaseInvestigationsId = new Map<Id, List<Id>>();
-		
+		caseIdVsCaseInvestigationsCaseMap = new Map<Id, Case> ();
+		uniqueCaseList = new List<Case>();
+
         //Extract the List and the Maps before further processing
         if(!lstCaseIds.isEmpty())
         {
@@ -192,6 +194,8 @@ public with sharing class CasePDFContentGenerator {
 		}
 
 		caseInvestigationArticleEventMessageMap = getCaseInvestigationEventMessageMap();
+
+		uniqueCaseList = buildCaseMap();
     }
     
     //Method to get the Article to Case mapping
@@ -577,6 +581,10 @@ public with sharing class CasePDFContentGenerator {
 				if(cInv.Article__c!=null && String.isNotBlank(cInv.case__r.Address2__c)) {
                     addresseeAddress.put(cInv.Article__c, cInv.case__r.Address2__c);
                 }
+
+				if(caseIdVsCaseMap.containsKey(cInv.Case__c) && !caseIdVsCaseInvestigationsCaseMap.containsKey(cInv.Case__c)) {
+					caseIdVsCaseInvestigationsCaseMap.put(cInv.Case__c, caseIdVsCaseMap.get(cInv.Case__c));
+				}
 			}
 		}
 
@@ -686,6 +694,22 @@ public with sharing class CasePDFContentGenerator {
 
 		}
 		return (articleVsEventMessagesMap.isEmpty() ? null : articleVsEventMessagesMap);
+	}
+
+
+	public List<Case> buildCaseMap() {
+
+		List<Case> uniqueCaseList = new List<Case>();
+		
+		for(Case caseRecord : caseList) {
+			
+			//this is NOT Case for passed case Investigations.
+			if(!starTrackCaseToCaseInvestigationsMap.containsKey(caseRecord.Id)) {
+				uniqueCaseList.add(caseRecord);
+			}
+		}
+
+		return uniqueCaseList;
 	}
 
 }
