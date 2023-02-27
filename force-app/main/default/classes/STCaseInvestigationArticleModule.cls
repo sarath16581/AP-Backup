@@ -356,6 +356,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 *		  It's the callers responsibility to pass in a synchronised list of caseids/referenceids
 	 */
 	private void ensureQueryJobEnqueued(Set<Id> caseInvestigationIds, Set<String> referenceIds) {
+
 		// if the queueable has already fired or if we are already in an async context then we prevent the execution of a subsequent queueable from being fired.
 		if(preventRecursiveReschedule || System.isQueueable() || System.isFuture() || System.isBatch() || System.isScheduled()) {
 			return;
@@ -407,22 +408,10 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 					// this will also populate m_trackingReferenceIdMappings cache which we use here
 					Map<Id, Article__c> articles = module.selectArticles(referenceIds);
 
-					// loop through all processable caseInvestigations and apply the article field id value to the case where possible
+					// loop through all processable caseInvestigations and apply the article field id value to the case investigation where possible
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
 					Map<Id, CaseInvestigation__c> updateable = new Map<Id, CaseInvestigation__c>(module.populateCaseInvestigationArticleIds(caseInvestigations.values(), articles, m_trackingReferenceIdMappingsCache));
 
-					//add the updates from case investigations successfully rerouted into the case investigations with articles linked in preparation for DML
-					for(CaseInvestigation__c cs : caseInvestigations.values()){
-						if(updateable.containsKey(cs.Id)){
-							Map<String, Object> populatedFields = cs.getPopulatedFieldsAsMap();
-							for(String populatedField : populatedFields.keySet()) {
-								updateable.get(cs.Id).put(populatedField, populatedFields.get(populatedField));
-							}
-						} else {
-							updateable.put(cs.Id, cs);
-						}
-					}
-					
 					if(!updateable.isEmpty()) {
 
 						List<CaseInvestigation__c> caseInvestigationsToUpdate = updateable.values();
