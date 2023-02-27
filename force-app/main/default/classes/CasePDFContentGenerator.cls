@@ -76,14 +76,14 @@ public with sharing class CasePDFContentGenerator {
     }
 
     public CasePDFContentGenerator(){
-        GeneratedTime = System.Now().format('d MMMM yy hh:mm a');
-        selectedRecordIds = System.currentPageReference().getParameters().get('selectedIds'); 
+		GeneratedTime = System.Now().format('d MMMM yy hh:mm a');
+		selectedRecordIds = System.currentPageReference().getParameters().get('selectedIds'); 
 		caseInvestigationIdSet = new Set<Id>();
 		caseIdSet = new Set<Id>();
 		
 		//split recordIds.
 		recordIdList = selectedRecordIds.split(',');
-        recordIdSet = new Set<Id>(((Set<Id>) JSON.deserialize(JSON.serialize(recordIdList), Set<Id>.class)));
+		recordIdSet = new Set<Id>(((Set<Id>) JSON.deserialize(JSON.serialize(recordIdList), Set<Id>.class)));
 
 		system.debug('recordIdList: '+recordIdList);
 		system.debug('recordIdSet: '+recordIdSet);
@@ -98,26 +98,26 @@ public with sharing class CasePDFContentGenerator {
 			}
 		}
 
-        lstCaseReferenceIds = new List<String>();
-        addresseeAddress = new Map<String, String>();
-        Set<Id> setContactIds = new Set<Id>();
-        caseswithsafedropGUID = new List<Id>();
-        caseswithMessages=new Set<String>();
-        casetoEventDelivered = new List<String>();
-        casetoEventMessageMap = new Map<String,EventMessage__c>();
-        casetoEventGeoMap = new Map<String,EventMessage__c>();
-        casetoDriverContractMap = new Map<String,EventMessage__c>();
-        casetoDriverLogonMap = new Map<String,EventMessage__c>();
-        casetoDriverRoundMap = new Map<String,EventMessage__c>();
-        articleDetailsMap = new Map<String,TIBCOArticleWrapper>();
-        consignmentDetailsMap = new Map<String,TIBCOConsignmentWrapper>();
-        caseToDeliveredAddressMap = new Map<String, String>();
-        attemptedDeliveryFound = new Map<String, Boolean>();
-        deliveredDeliveryFound = new Map<String, Boolean>();
-        casetoDeliveredDelivery = new Map<String, EventMessage__c>();
-        casetoAttemptedDelivery = new Map<String, EventMessage__c>();
-        eventToArticleMap = new Map<Id, EventMessage__c>();
-        caseArticleToEventMessageAttachmentsMap = new Map<String, ArticleEventMessageAttachments>();
+		lstCaseReferenceIds = new List<String>();
+		addresseeAddress = new Map<String, String>();
+		Set<Id> setContactIds = new Set<Id>();
+		caseswithsafedropGUID = new List<Id>();
+		caseswithMessages=new Set<String>();
+		casetoEventDelivered = new List<String>();
+		casetoEventMessageMap = new Map<String,EventMessage__c>();
+		casetoEventGeoMap = new Map<String,EventMessage__c>();
+		casetoDriverContractMap = new Map<String,EventMessage__c>();
+		casetoDriverLogonMap = new Map<String,EventMessage__c>();
+		casetoDriverRoundMap = new Map<String,EventMessage__c>();
+		articleDetailsMap = new Map<String,TIBCOArticleWrapper>();
+		consignmentDetailsMap = new Map<String,TIBCOConsignmentWrapper>();
+		caseToDeliveredAddressMap = new Map<String, String>();
+		attemptedDeliveryFound = new Map<String, Boolean>();
+		deliveredDeliveryFound = new Map<String, Boolean>();
+		casetoDeliveredDelivery = new Map<String, EventMessage__c>();
+		casetoAttemptedDelivery = new Map<String, EventMessage__c>();
+		eventToArticleMap = new Map<Id, EventMessage__c>();
+		caseArticleToEventMessageAttachmentsMap = new Map<String, ArticleEventMessageAttachments>();
 		starTrackCaseToCaseInvestigationsMap = new Map<Id, List<CaseInvestigation__c>>();
 		caseIdVsCaseMap = new Map<Id, Case>();
 		caseInvestigationsArticleIds = new Set<Id>();
@@ -125,7 +125,7 @@ public with sharing class CasePDFContentGenerator {
 		starTrackCaseIdVsCaseMap = new Map<Id, Case> ();
 		apCaseList = new List<Case>();
 
-        //Extract the List and the Maps before further processing
+		//Extract the List and the Maps before further processing
 		if(!caseIdSet.isEmpty()) {
 			Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
 			caseList = SSSWCasesSelector.newInstance(rowLimit, overrideFields).selectById(caseIdSet, new Set<Object>{CasesSelector.Options.WITH_NETWORK, SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
@@ -156,14 +156,14 @@ public with sharing class CasePDFContentGenerator {
 			// //Get the list of event messages related to the cases
 			// casetoEventMessageMap = getcasetoEventMessageMap();
 			// caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
-        }
-        //Get contact map
-        if(!setContactIds.isEmpty()) {
-            caseContactMap = getContactsMap(setContactIds);
-        }
+		}
+		//Get contact map
+		if(!setContactIds.isEmpty()) {
+			caseContactMap = getContactsMap(setContactIds);
+		}
 
-        //Get  article and consignmentMapmap
-        getArticleConsignmentMap(caseList);
+		//Get  article and consignmentMapmap
+		getArticleConsignmentMap(caseList);
 
 	
 		//get case and selected case investigations map
@@ -174,9 +174,9 @@ public with sharing class CasePDFContentGenerator {
 
 		if(!caseArticleIds.isEmpty()) {
 			//Moved below out of for loop Disha
-            //Get the list of event messages related to the cases
-            casetoEventMessageMap = getcasetoEventMessageMap();
-            caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
+			//Get the list of event messages related to the cases
+			casetoEventMessageMap = getcasetoEventMessageMap();
+			caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
 		}
 			
 
@@ -188,63 +188,63 @@ public with sharing class CasePDFContentGenerator {
 
 		//filtering out AP case list from AP, ST case list 
 		apCaseList = filterAPCases();
-    }
+	}
     
-    //Method to get the Article to Case mapping
-    public void getArticleConsignmentMap(List<Case> caseList)
-    {
-        Map<String,TIBCOArticleWrapper> articleMap = new Map<String,TIBCOArticleWrapper>();
-        Map<String,TIBCOConsignmentWrapper> consignmentMap = new Map<String,TIBCOConsignmentWrapper>();
-        articleWrapperList = new List<TIBCOArticleWrapper>();
-        consignmentWrapperList = new List<TIBCOConsignmentWrapper>();
-        searchResult = TIBCOArticleService.searchArticlesInSFDC(lstCaseReferenceIds);
-        if (searchResult.trackResults.size() > 0) {
-            for (TIBCOTrackingResultWrapper results : searchResult.trackResults)
-            {
-                articleWrapperList.add(results.articleDetails);
-                consignmentWrapperList.add(results.consignmentDetails);
-                
-            }
-        }
-        if(!articleWrapperList.isEmpty()) {
-            for (TIBCOArticleWrapper wrap : articleWrapperList) {
-                if (wrap != Null) {
-                    articleMap.put(wrap.proxyArticle.ArticleID__c, wrap);
-                }
-            }
-            articleDetailsMap = articleMap;
-        }
-        if(!consignmentWrapperList.isEmpty())
-        {
-            for(TIBCOConsignmentWrapper wrap:consignmentWrapperList)
-            {
-                if(wrap != Null)
-                {
-                    consignmentMap.put(wrap.proxyConsignment.ArticleID__c,wrap);
-                }
+	//Method to get the Article to Case mapping
+	public void getArticleConsignmentMap(List<Case> caseList)
+	{
+		Map<String,TIBCOArticleWrapper> articleMap = new Map<String,TIBCOArticleWrapper>();
+		Map<String,TIBCOConsignmentWrapper> consignmentMap = new Map<String,TIBCOConsignmentWrapper>();
+		articleWrapperList = new List<TIBCOArticleWrapper>();
+		consignmentWrapperList = new List<TIBCOConsignmentWrapper>();
+		searchResult = TIBCOArticleService.searchArticlesInSFDC(lstCaseReferenceIds);
+		if (searchResult.trackResults.size() > 0) {
+			for (TIBCOTrackingResultWrapper results : searchResult.trackResults)
+			{
+				articleWrapperList.add(results.articleDetails);
+				consignmentWrapperList.add(results.consignmentDetails);
+				
+			}
+		}
+		if(!articleWrapperList.isEmpty()) {
+			for (TIBCOArticleWrapper wrap : articleWrapperList) {
+				if (wrap != Null) {
+					articleMap.put(wrap.proxyArticle.ArticleID__c, wrap);
+				}
+			}
+			articleDetailsMap = articleMap;
+		}
+		if(!consignmentWrapperList.isEmpty())
+		{
+			for(TIBCOConsignmentWrapper wrap:consignmentWrapperList)
+			{
+				if(wrap != Null)
+				{
+					consignmentMap.put(wrap.proxyConsignment.ArticleID__c,wrap);
+				}
 
-            }
-            consignmentDetailsMap = consignmentMap;
-        }
-    }
+			}
+			consignmentDetailsMap = consignmentMap;
+		}
+	}
 
     
-    //Method to get the event to case mapping.This map is used to get the 3 images on the print document.Safe drop, Google maps and Signature
-    public Map<String,EventMessage__c> getcasetoEventMessageMap() {
-        Map<String,EventMessage__c> casetoEvent = new Map<String,EventMessage__c>();
-        Set<String> eventTypes = new Set<String>();
-        Set<String> attemptedEventTypes = new Set<String>();
-        String uniqueId = '';
-        for(EventMessageTypeMapping__mdt evType: [Select MasterLabel, Category__c From EventMessageTypeMapping__mdt Where Category__c IN ('AttemptedDelivery','Delivered')]){
-            eventTypes.add(evType.MasterLabel);
-            //Create a set of string for attempted delivery scan
-            if(evType.Category__c.equalsIgnoreCase('AttemptedDelivery')){
-                attemptedEventTypes.add(evType.MasterLabel);
-            }
-        }
-        //Event type check is necessary for all other event mappings on the UI like geo location, driver contract,driver roundNo, driver logon id and images
-        Map<Id,EventMessage__c> casetoEventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, eventTypes, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.WITH_ATTACHMENT});
-        if(casetoEventMessageMap != null) {
+	//Method to get the event to case mapping.This map is used to get the 3 images on the print document.Safe drop, Google maps and Signature
+	public Map<String,EventMessage__c> getcasetoEventMessageMap() {
+		Map<String,EventMessage__c> casetoEvent = new Map<String,EventMessage__c>();
+		Set<String> eventTypes = new Set<String>();
+		Set<String> attemptedEventTypes = new Set<String>();
+		String uniqueId = '';
+		for(EventMessageTypeMapping__mdt evType: [Select MasterLabel, Category__c From EventMessageTypeMapping__mdt Where Category__c IN ('AttemptedDelivery','Delivered')]){
+			eventTypes.add(evType.MasterLabel);
+			//Create a set of string for attempted delivery scan
+			if(evType.Category__c.equalsIgnoreCase('AttemptedDelivery')){
+				attemptedEventTypes.add(evType.MasterLabel);
+			}
+		}
+		//Event type check is necessary for all other event mappings on the UI like geo location, driver contract,driver roundNo, driver logon id and images
+		Map<Id,EventMessage__c> casetoEventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, eventTypes, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.WITH_ATTACHMENT});
+		if(casetoEventMessageMap != null) {
 			for(EventMessage__c event : casetoEventMessageMap.values()) {
 			system.debug('Event Msgs Attachments: '+event.Attachments);
 			uniqueId = event.Article__c ;
@@ -294,217 +294,217 @@ public with sharing class CasePDFContentGenerator {
 			}
 		}
 		
-        return (casetoEvent.isEmpty() ? null : casetoEvent);
-    }
+		return (casetoEvent.isEmpty() ? null : casetoEvent);
+	}
 
-    //Method to update print flag on case as a queueable job
-    public void updatePrintFlag(){
-        List<Case> toUpdate = new List<Case>();
-        for(Case cs : caseList){
-            if(!cs.Checkbox__c){
-                toUpdate.add(cs);
-            }
-        }
-        if (toUpdate.size() > 0) {
-            System.enqueueJob(new UpdateCasePrintFlagFuture(toUpdate));
-        }
-    }
+	//Method to update print flag on case as a queueable job
+	public void updatePrintFlag(){
+		List<Case> toUpdate = new List<Case>();
+		for(Case cs : caseList){
+			if(!cs.Checkbox__c){
+				toUpdate.add(cs);
+			}
+		}
+		if (toUpdate.size() > 0) {
+			System.enqueueJob(new UpdateCasePrintFlagFuture(toUpdate));
+		}
+	}
     
-    //Action method in the VF page to mark the if Printed(Checkbox__c) flag
-    public class UpdateCasePrintFlagFuture implements System.Queueable {
-        private List<Case> caseList;
-        public UpdateCasePrintFlagFuture(List<Case> caseList) {
-            this.caseList = caseList;
-        }
-        public void execute(QueueableContext qc) {
-            try {
-                List<Case> updateCase = new List<Case>();
+	//Action method in the VF page to mark the if Printed(Checkbox__c) flag
+	public class UpdateCasePrintFlagFuture implements System.Queueable {
+		private List<Case> caseList;
+		public UpdateCasePrintFlagFuture(List<Case> caseList) {
+			this.caseList = caseList;
+		}
+		public void execute(QueueableContext qc) {
+			try {
+				List<Case> updateCase = new List<Case>();
 
 				System.debug('caseList--->' + caseList);
-                for (Case cs : caseList) {
-                    //Check if the flag is already set to true, no action needed
-                    if (cs.Checkbox__c == false) {
-                        cs.Checkbox__c = true;
-                        updateCase.add(cs);
-                    }
-                }
-                Database.update(updateCase);
-            }catch (Exception exp){
-                // Added exception to track any error
-                // Error Logged to Exception object for analysis
-                UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), 'SSSW','CasePDFContentGenerator', 'UpdateCasePrintFlagFuture', null, LoggingLevel.ERROR);
-            }
-        }
-    }
+				for (Case cs : caseList) {
+					//Check if the flag is already set to true, no action needed
+					if (cs.Checkbox__c == false) {
+						cs.Checkbox__c = true;
+						updateCase.add(cs);
+					}
+				}
+				Database.update(updateCase);
+			}catch (Exception exp){
+				// Added exception to track any error
+				// Error Logged to Exception object for analysis
+				UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), 'SSSW','CasePDFContentGenerator', 'UpdateCasePrintFlagFuture', null, LoggingLevel.ERROR);
+			}
+		}
+	}
+	
+		
+	//Method to get the contacts map
+	public Map<Id,sObject> getContactsMap( Set<Id> contactIds) {
+		Map<Id,sObject> contactMap = new Map<Id,sObject>();
+		List<sObject> conList = ContactsSelector.newInstance().selectById(contactIds).values();
+		for(SObject con: conList)
+		{
+			contactMap.put(con.Id,con);
+		}
+		return contactMap;
+	}
     
-    
-    //Method to get the contacts map
-    public Map<Id,sObject> getContactsMap( Set<Id> contactIds) {
-        Map<Id,sObject> contactMap = new Map<Id,sObject>();
-        List<sObject> conList = ContactsSelector.newInstance().selectById(contactIds).values();
-        for(SObject con: conList)
-        {
-            contactMap.put(con.Id,con);
-        }
-        return contactMap;
-    }
-    
-    //Method to get the case fields, used in getCase()
-    public static Map<SObjectType, Set<SObjectField>> overrideFields {
-        get {
-            if(overrideFields == null) {
-                overrideFields = new Map<SObjectType, Set<SObjectField>>();
-                Set<SObjectField> caseFields = new Set<SObjectField>{
-                        Case.Id, Case.ContactId, Case.CaseNumber, Case.OwnerId, Case.CreatedDate,
-                        Case.RecordTypeId, Case.Description, Case.ReferenceID__c, Case.Type, Case.Customer_Type__c, Case.ProductCategory__c, Case.ProductSubCategory__c,
-                        Case.EnquirySubType__c, Case.Address2DPID__c, Case.Instructions__c, Case.Primary_Company__c, Case.Primary_Name__c,
-                        Case.Address1__c, Case.Secondary_Companry__c, Case.Network__c, Case.ArticleTest__c, Case.EmailThreadID__c,
-                        Case.Secondary_Contact__c, Case.Address2__c, Case.IssuePreviouslyReported__c, Case.DatePosted__c, Case.PONUser__c,
-                        Case.NetworkTierSLA__c, Case.ContactDoNotDisclose__c, Case.NetworkComments__c, Case.SLATargetDate__c, Case.Checkbox__c,
+	//Method to get the case fields, used in getCase()
+	public static Map<SObjectType, Set<SObjectField>> overrideFields {
+		get {
+			if(overrideFields == null) {
+				overrideFields = new Map<SObjectType, Set<SObjectField>>();
+				Set<SObjectField> caseFields = new Set<SObjectField>{
+						Case.Id, Case.ContactId, Case.CaseNumber, Case.OwnerId, Case.CreatedDate,
+						Case.RecordTypeId, Case.Description, Case.ReferenceID__c, Case.Type, Case.Customer_Type__c, Case.ProductCategory__c, Case.ProductSubCategory__c,
+						Case.EnquirySubType__c, Case.Address2DPID__c, Case.Instructions__c, Case.Primary_Company__c, Case.Primary_Name__c,
+						Case.Address1__c, Case.Secondary_Companry__c, Case.Network__c, Case.ArticleTest__c, Case.EmailThreadID__c,
+						Case.Secondary_Contact__c, Case.Address2__c, Case.IssuePreviouslyReported__c, Case.DatePosted__c, Case.PONUser__c,
+						Case.NetworkTierSLA__c, Case.ContactDoNotDisclose__c, Case.NetworkComments__c, Case.SLATargetDate__c, Case.Checkbox__c,
 						Case.Enquiry_Type__c
-                };
-                Set<SObjectField> networkFields = new Set<SObjectField>{
-                        Network__c.Contact_Facility__c, Network__c.Name, Network__c.Fax_Number__c
-                };
-                Set<SObjectField> networkResponseFields = new Set<SObjectField>{
-                        Network_Response__c.to_Reassign_Network__c
-                };
-                Set<SObjectField> articleFields = new Set<SObjectField>{
-                        Article__c.Id, Article__c.Name, Article__c.ArticleLodgementDate__c
-                };
+				};
+				Set<SObjectField> networkFields = new Set<SObjectField>{
+						Network__c.Contact_Facility__c, Network__c.Name, Network__c.Fax_Number__c
+				};
+				Set<SObjectField> networkResponseFields = new Set<SObjectField>{
+						Network_Response__c.to_Reassign_Network__c
+				};
+				Set<SObjectField> articleFields = new Set<SObjectField>{
+						Article__c.Id, Article__c.Name, Article__c.ArticleLodgementDate__c
+				};
 				Set<SObjectField> userFields = new Set<SObjectField>{
 					User.Id, User.FirstName, User.LastName, User.Name
 				};
-                overrideFields.put(Case.SObjectType, caseFields);
-                overrideFields.put(Network__c.SObjectType, networkFields);
-                overrideFields.put(Network_Response__c.SObjectType, networkResponseFields);
-                overrideFields.put(Article__c.SObjectType, articleFields);
+				overrideFields.put(Case.SObjectType, caseFields);
+				overrideFields.put(Network__c.SObjectType, networkFields);
+				overrideFields.put(Network_Response__c.SObjectType, networkResponseFields);
+				overrideFields.put(Article__c.SObjectType, articleFields);
 				overrideFields.put(User.SObjectType, userFields);
-            }
-            return overrideFields;
-        }
-        private set;
-    }
+			}
+			return overrideFields;
+		}
+		private set;
+	}
 
-    /**
+	/**
 	 * Method to get delivered address using AME
 	 */
-    public Map<String, String> getcaseToDeliveredAddressMap(){
-        Map<String, String> articleGeoStrings = new Map<String, String>();
-        for(Id event : eventToArticleMap.keySet()){
-            //articleId to be used as unique identifier in AME request -- GTA is for Geolocation To Address
-            articleGeoStrings.put(event+'-GTA' , eventToArticleMap.get(event).EventGeoLocation__Latitude__s+','+eventToArticleMap.get(event).EventGeoLocation__Longitude__s);
-        }
-        for(String article : addresseeAddress.keySet()){
-            //Check if the article has a delivered address from casetoEventGeoMap -- ATG is for Address To Geolocation
-            if(casetoEventGeoMap.containsKey(article)){
-                articleGeoStrings.put(article+'-ATG' , addresseeAddress.get(article));
-            }
-        }
-        System.debug('articleGeoStrings--->'+articleGeoStrings);
-        Map<String,String> results = AMEAddressValidationController1.searchAddressOrGeoLocation(articleGeoStrings);
-        //If no geocoords returned for atg then manually add the addressee address
-        for(String key : results.keySet()){
-            if(key.containsIgnoreCase('-atg') && String.isBlank(results.get(key))){
-                results.put(key, articleGeoStrings.get(key));
-            }
-        }
-        //Get delivered address from AME, use article Id as unique identifier
-        return results;
-    }
+	public Map<String, String> getcaseToDeliveredAddressMap(){
+		Map<String, String> articleGeoStrings = new Map<String, String>();
+		for(Id event : eventToArticleMap.keySet()){
+			//articleId to be used as unique identifier in AME request -- GTA is for Geolocation To Address
+			articleGeoStrings.put(event+'-GTA' , eventToArticleMap.get(event).EventGeoLocation__Latitude__s+','+eventToArticleMap.get(event).EventGeoLocation__Longitude__s);
+		}
+		for(String article : addresseeAddress.keySet()){
+			//Check if the article has a delivered address from casetoEventGeoMap -- ATG is for Address To Geolocation
+			if(casetoEventGeoMap.containsKey(article)){
+				articleGeoStrings.put(article+'-ATG' , addresseeAddress.get(article));
+			}
+		}
+		System.debug('articleGeoStrings--->'+articleGeoStrings);
+		Map<String,String> results = AMEAddressValidationController1.searchAddressOrGeoLocation(articleGeoStrings);
+		//If no geocoords returned for atg then manually add the addressee address
+		for(String key : results.keySet()){
+			if(key.containsIgnoreCase('-atg') && String.isBlank(results.get(key))){
+				results.put(key, articleGeoStrings.get(key));
+			}
+		}
+		//Get delivered address from AME, use article Id as unique identifier
+		return results;
+	}
 
-    /**
-     * Get the event message attachments related to selected cases.
-     *
-     * @return Map of event message attachments, Key = Article__c (Salesforce Id of Article)
-     */
-    @TestVisible private Map<String, ArticleEventMessageAttachments> getCaseArticleToEventMessageAttachmentsMap() {
-        Map<String, ArticleEventMessageAttachments> eventMessageAttachments = new Map<String, ArticleEventMessageAttachments>();
+	/**
+	 * Get the event message attachments related to selected cases.
+	 *
+	 * @return Map of event message attachments, Key = Article__c (Salesforce Id of Article)
+	 */
+	@TestVisible private Map<String, ArticleEventMessageAttachments> getCaseArticleToEventMessageAttachmentsMap() {
+		Map<String, ArticleEventMessageAttachments> eventMessageAttachments = new Map<String, ArticleEventMessageAttachments>();
 
-        // retrieve event messages where AttachmentGUID__c is not blank. also include child Attachment records related to event messages.
-        Map<Id,EventMessage__c> eventMessagesMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, new Set<Object>{EventMessagesSelector.Options.FILTER_ATTACHMENT_GUID, EventMessagesSelector.Options.WITH_ATTACHMENT});
+		// retrieve event messages where AttachmentGUID__c is not blank. also include child Attachment records related to event messages.
+		Map<Id,EventMessage__c> eventMessagesMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, new Set<Object>{EventMessagesSelector.Options.FILTER_ATTACHMENT_GUID, EventMessagesSelector.Options.WITH_ATTACHMENT});
 
-        // grab the list of attachment types to be included in generated PDF based on configuration.
-        Map<String, EventMessageAttachmentTypeMapping__mdt> attachmentTypeDefinitions = getAttachmentTypesForCasePDF();
+		// grab the list of attachment types to be included in generated PDF based on configuration.
+		Map<String, EventMessageAttachmentTypeMapping__mdt> attachmentTypeDefinitions = getAttachmentTypesForCasePDF();
 
-        for (EventMessage__c event: eventMessagesMap.values()) {
+		for (EventMessage__c event: eventMessagesMap.values()) {
 
-            // check if attachment type is to be included in PDF. exclude safe drop attachments as they are included separately.
-            if (String.isEmpty(event.Safe_Drop_GUID__c)
-                    && String.isNotEmpty(event.AttachmentGUID__c)
-                    && attachmentTypeDefinitions.containsKey(event.AttachmentType__c)) {
+			// check if attachment type is to be included in PDF. exclude safe drop attachments as they are included separately.
+			if (String.isEmpty(event.Safe_Drop_GUID__c)
+					&& String.isNotEmpty(event.AttachmentGUID__c)
+					&& attachmentTypeDefinitions.containsKey(event.AttachmentType__c)) {
 
-                ArticleEventMessageAttachments attachments = eventMessageAttachments.get(event.Article__c);
+				ArticleEventMessageAttachments attachments = eventMessageAttachments.get(event.Article__c);
 
-                for (Attachment attachment: event.Attachments) {
+				for (Attachment attachment: event.Attachments) {
 
-                    if (String.isNotBlank(attachment.Name) && attachment.Name.contains(EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX)) {
+					if (String.isNotBlank(attachment.Name) && attachment.Name.contains(EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX)) {
 
-                        if (attachments == null) {
-                            attachments = new ArticleEventMessageAttachments();
-                            eventMessageAttachments.put(event.Article__c, attachments);
-                        }
+						if (attachments == null) {
+							attachments = new ArticleEventMessageAttachments();
+							eventMessageAttachments.put(event.Article__c, attachments);
+						}
 
-                        attachments.addAttachment(new EventMessageAttachment(attachment.Id, attachmentTypeDefinitions.get(event.AttachmentType__c).Label, attachment.name, event.EventType__c, event.EventDescription__c));
-                    }
-                }
-            }
-        }
+						attachments.addAttachment(new EventMessageAttachment(attachment.Id, attachmentTypeDefinitions.get(event.AttachmentType__c).Label, attachment.name, event.EventType__c, event.EventDescription__c));
+					}
+				}
+			}
+		}
 
-        return eventMessageAttachments;
-    }
+		return eventMessageAttachments;
+	}
 
-    /**
-     * Retrieve the attachment types configured to be included in Case PDF
-     *
-     * @return Map of EventMessageAttachmentTypeMapping indexed by attachment type.
-     */
-    private Map<String, EventMessageAttachmentTypeMapping__mdt> getAttachmentTypesForCasePDF() {
-        Map<String, EventMessageAttachmentTypeMapping__mdt> output = new Map<String, EventMessageAttachmentTypeMapping__mdt>();
-        for(EventMessageAttachmentTypeMapping__mdt mapping : EventMessageUtil.getEventMessageAttachmentTypes().values()) {
-            if(mapping.IsIncludedOnCasePrintOut__c) {
-                output.put(mapping.DeveloperName, mapping);
-            }
-        }
-        return output;
-    }
+	/**
+	 * Retrieve the attachment types configured to be included in Case PDF
+	 *
+	 * @return Map of EventMessageAttachmentTypeMapping indexed by attachment type.
+	 */
+	private Map<String, EventMessageAttachmentTypeMapping__mdt> getAttachmentTypesForCasePDF() {
+		Map<String, EventMessageAttachmentTypeMapping__mdt> output = new Map<String, EventMessageAttachmentTypeMapping__mdt>();
+		for(EventMessageAttachmentTypeMapping__mdt mapping : EventMessageUtil.getEventMessageAttachmentTypes().values()) {
+			if(mapping.IsIncludedOnCasePrintOut__c) {
+				output.put(mapping.DeveloperName, mapping);
+			}
+		}
+		return output;
+	}
 
-    /**
-     * Wrapper containing all event message attachments related to an Article.
-     * This allow the Visualforce components to render conditionally based on number of attachments. i.e. if single attachment
-     * render center aligned, else render 2 images in each row.
-     */
-    public class ArticleEventMessageAttachments {
-        public List<EventMessageAttachment> attachments {get; set;}
+	/**
+	 * Wrapper containing all event message attachments related to an Article.
+	 * This allow the Visualforce components to render conditionally based on number of attachments. i.e. if single attachment
+	 * render center aligned, else render 2 images in each row.
+	 */
+	public class ArticleEventMessageAttachments {
+		public List<EventMessageAttachment> attachments {get; set;}
 
-        public void addAttachment(EventMessageAttachment attachment) {
-            this.attachments.add(attachment);
-        }
+		public void addAttachment(EventMessageAttachment attachment) {
+			this.attachments.add(attachment);
+		}
 
-        public ArticleEventMessageAttachments() {
-            this.attachments = new List<EventMessageAttachment>();
-        }
-    }
+		public ArticleEventMessageAttachments() {
+			this.attachments = new List<EventMessageAttachment>();
+		}
+	}
 
-    /**
-     * Event Message attachment with attributes for display
-     */
-    public class EventMessageAttachment {
-        public Id attachmentId {get;set;}
-        public String attachmentType {get;set;}
-        public String name {get;set;}
-        public String label {get;set;}
-        public EventMessageAttachment(Id attachmentId, String attachmentType, String name, String eventType, String eventDescription) {
-            this.attachmentId = attachmentId;
-            this.attachmentType = attachmentType;
-            this.name = name;
-            if (String.isNotBlank(eventType)) {
-                this.label = eventType + (String.isNotBlank(eventDescription) ? (' - ' + eventDescription) : '');
-            } else {
-                this.label = attachmentType;
-            }
-        }
-    }
+	/**
+	 * Event Message attachment with attributes for display
+	 */
+	public class EventMessageAttachment {
+		public Id attachmentId {get;set;}
+		public String attachmentType {get;set;}
+		public String name {get;set;}
+		public String label {get;set;}
+		public EventMessageAttachment(Id attachmentId, String attachmentType, String name, String eventType, String eventDescription) {
+			this.attachmentId = attachmentId;
+			this.attachmentType = attachmentType;
+			this.name = name;
+			if (String.isNotBlank(eventType)) {
+				this.label = eventType + (String.isNotBlank(eventDescription) ? (' - ' + eventDescription) : '');
+			} else {
+				this.label = attachmentType;
+			}
+		}
+	}
 
 	/**
 	 * @desc: Method queries case investigations based on selected Ids and creates a map against parent case.
@@ -568,10 +568,10 @@ public with sharing class CasePDFContentGenerator {
 	 * @return: Map<String, TIBCOArticleWrapper>. Returns map of Article external Id and its wrapper.
 	 */
 	@testVisible 
-    private Map<String,TIBCOArticleWrapper> getCaseInvestigationArticleMap(Map<Id, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap) {
+	private Map<String,TIBCOArticleWrapper> getCaseInvestigationArticleMap(Map<Id, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap) {
 		List<String> cInvArticleIds = new List<String>();
-        Map<String,TIBCOArticleWrapper> articleMap = new Map<String,TIBCOArticleWrapper>();
-        List<TIBCOArticleWrapper> articleWrapperList = new List<TIBCOArticleWrapper>();
+		Map<String,TIBCOArticleWrapper> articleMap = new Map<String,TIBCOArticleWrapper>();
+		List<TIBCOArticleWrapper> articleWrapperList = new List<TIBCOArticleWrapper>();
 
 		if(!starTrackCaseToCaseInvestigationsMap.isEmpty() && starTrackCaseToCaseInvestigationsMap != null) {
 

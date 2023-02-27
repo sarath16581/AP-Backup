@@ -27,7 +27,8 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 			'Social_Record_Type',
 			'NCCCDirectEmail',
 			'StarTrack_Credit_Dispute_Claim', 'StarTrack_PUD_Enquiry', 'StarTrack_General_Enquiry', 'StarTrack_Pickup_Booking_Enquiry', 
-	'StarTrack_Sales_Enquiry', 'StarTrack_Tactical', 'StarTrack_Transit_Warranty_Claim', 'StarTrack_Voice_of_Customer', 'StarTrack_Voice_of_Customer_Incident'
+			'StarTrack_Sales_Enquiry', 'StarTrack_Tactical', 'StarTrack_Transit_Warranty_Claim', 'StarTrack_Voice_of_Customer', 
+			'StarTrack_Voice_of_Customer_Incident'
 
 	};
 
