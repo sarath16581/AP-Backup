@@ -8,11 +8,13 @@
  * @changelog
  * 2023-02-23 - Harry Wang - Created
  */
-import {api, LightningElement} from 'lwc';
+import {api, LightningElement, wire} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { updateRecord } from 'lightning/uiRecordApi';
-import ACCOUNT_TYPE from '@salesforce/schema/Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c';
+import RECORD_TYPE_ID from "@salesforce/schema/Apttus_Proposal__Proposal__c.RecordTypeId";
+import { getPicklistValues } from "lightning/uiObjectInfoApi";
+import { getRecord, updateRecord } from 'lightning/uiRecordApi';
+import NEW_ACCOUNT_TYPE from '@salesforce/schema/Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c';
 import ID from '@salesforce/schema/Apttus_Proposal__Proposal__c.Id';
 
 export default class CreditAssessmentDetailsCreate extends NavigationMixin(LightningElement) {
@@ -20,15 +22,21 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 	@api opportunityId;
 	selectedValue;
 
-	get disabled() {
-		return !this.selectedValue;
-	}
+	@wire(getRecord, {recordId: '$proposalId', fields: [RECORD_TYPE_ID]})
+	proposalInfo;
+
+	@wire(getPicklistValues, {
+		recordTypeId: '$proposalInfo.data.recordTypeId',
+		fieldApiName: NEW_ACCOUNT_TYPE
+	})
+	accountTypes;
 
 	get options() {
-		return [
-			{ label: 'Charge Account', value: 'Charge Account' },
-			{ label: 'Charge Account + Sub Account', value: 'Charge Account + Sub Account' },
-		];
+		return this.accountTypes?.data?.values;
+	}
+
+	get disabled() {
+		return !this.selectedValue;
 	}
 
 	handleChange(event) {
@@ -39,7 +47,7 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 		// Update primary proposal with selected account type
 		const fields = {};
 		fields[ID.fieldApiName] = this.proposalId;
-		fields[ACCOUNT_TYPE.fieldApiName] = this.selectedValue;
+		fields[NEW_ACCOUNT_TYPE.fieldApiName] = this.selectedValue;
 		const recordInput = {fields};
 		updateRecord(recordInput).then(() => {
 			// Generate a URL to a User record page
@@ -61,6 +69,5 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 				})
 			);
 		});
-
 	}
 }
