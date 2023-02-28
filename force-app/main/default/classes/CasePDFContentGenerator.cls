@@ -633,6 +633,9 @@ public with sharing class CasePDFContentGenerator {
 		return apCaseList;
 	}
 
+	/**
+	 * @desc: static property to get SSSW case record types and StarTrack case record types.
+	 */
 	public static Set<Id> caseRecordTypeIds {
 		get { 
 			if( caseRecordTypeIds == null) {
