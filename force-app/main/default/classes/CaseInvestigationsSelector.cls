@@ -15,6 +15,7 @@
  * 2022-02-09	dattaraj.deshmukh@auspost.com.au	Added 'Stillunderinvestigation__c, Priority__c, CreatedDate & IsClosed__c' fields in getSObjectFieldList() method.
  * 2022-02-22	dattaraj.deshmukh@auspost.com.au	Added 'RecordTypeId' condition in query methods.
  * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId 
+ * 2023-02-13 - Dattaraj Deshmukh 	- Added 'WITH_FEEDS' option.
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
@@ -161,20 +162,6 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	 * Select case investigation records that are not closed and from list of passed network ids. 
 	 */
 	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkId(Set<Id> networkIds, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
-				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
-				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
-				
-				.endConditions();
-		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
-	}
-
-	/**
-	 * Select case investigation records with feeds. 
-	 */
-	public virtual Map<Id, CaseInvestigation__c> selectByIdAndWithFeeds(Set<Id> ids, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))

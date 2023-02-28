@@ -8,6 +8,7 @@
  * @description Test Class covering FeedItemsSelector
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
+ * 2023-02-28 - Dattaraj Deshmukh - Added 'TEXTPOST_ONLY' in testEnsureQueryBuilderProducesCorrectString method.
  */
 @IsTest
 private class FeedItemsSelector_Test {
@@ -39,6 +40,11 @@ private class FeedItemsSelector_Test {
 		String soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom FeedItem\\b').matcher(soql).find(), 'Resulting query does not select from FeedItem');
+
+		qb = selector.newQueryBuilder(new Set<Object>{FeedItemsSelector.Options.WITH_CREATEDBY});
+		soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?is)CreatedBy\\..*?\\bfrom FeedItem\\b').matcher(soql).find(), 'Resulting query does not select User fields');
 
 		Test.stopTest();
 
@@ -87,7 +93,7 @@ private class FeedItemsSelector_Test {
 		Test.startTest();
 
 		FeedItemsSelector selector = FeedItemsSelector.newInstance();
-		Map<Id, FeedItem> results = selector.selectById(new Set<Id> {feedItems[0].Id});
+		Map<Id, FeedItem> results = selector.selectById(new Set<Id> {feedItems[0].Id}, new Set<Object>{FeedItemsSelector.Options.TEXTPOST_ONLY});
 		System.assert(results.size() >= 1, 'Expected result size greater than or equal to 1');
 
 		FeedItemsSelector selectorLimit = FeedItemsSelector.newInstance(1);

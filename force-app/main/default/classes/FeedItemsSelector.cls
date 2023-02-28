@@ -9,6 +9,7 @@
  * @changelog
  * 2022-01-12 Dattaraj Deshmukh - Created
  * 2022-02-21 Dattaraj Deshmukh - Removed unused method 'selectByTextPostParentIds'.
+ * 2023-02-28 Dattaraj Deshmukh - Added 'TEXTPOST_ONLY' in options.
 */
 public virtual inherited sharing class FeedItemsSelector extends ApplicationSelector  {
 
