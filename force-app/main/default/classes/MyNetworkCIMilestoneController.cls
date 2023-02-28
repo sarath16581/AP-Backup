@@ -34,15 +34,14 @@ public with sharing class MyNetworkCIMilestoneController {
 				if (ci != null && ci.NetworkMilestoneCurrentTier__c <= 2) {
 					//for network tiers 1 and 2
 					wrapper.networkTierName = NETWORK_TIER + ' ' + String.valueOf(ci.NetworkMilestoneCurrentTier__c);
-					Long diffInMilliSeconds = BusinessHours.diff(businessHoursId, System.now(), ci.NetworkMilestoneNextViolationDatetime__c);
-					Integer timeRemainingOrCompleted = ((diffInMilliSeconds/1000)/60).intValue();
+					Integer timeRemainingOrCompleted = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(businessHoursId, System.now(), ci.NetworkMilestoneNextViolationDatetime__c).intValue();
 					wrapper.timeRemainingOrCompleted = Math.abs(timeRemainingOrCompleted);
 					wrapper.percentTimeCompleted = getPercentTimeCompleted(ci, timeRemainingOrCompleted, businessHoursId);
 					wrapper.status = wrapper.percentTimeCompleted >= 100 ? OPEN_VIOLATION : REMAINING;
 				} else {
 					wrapper.networkTierName = NETWORK_TIER_2;
-					Long diffInMilliSeconds = Math.abs(BusinessHours.diff(businessHoursId, ci.NetworkMilestoneLastViolationDatetime__c, System.now()));
-					wrapper.timeRemainingOrCompleted = ((diffInMilliSeconds/1000)/60).intValue();
+					Integer timeRemainingOrCompleted = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(businessHoursId, ci.NetworkMilestoneLastViolationDatetime__c, System.now()).intValue();
+					wrapper.timeRemainingOrCompleted = Math.abs(timeRemainingOrCompleted);
 					wrapper.percentTimeCompleted = 100;
 					wrapper.status = OPEN_VIOLATION;
 				}
@@ -61,7 +60,7 @@ public with sharing class MyNetworkCIMilestoneController {
 
 	//function to get the percent of time completed to render for the progress bar
 	private static Integer getPercentTimeCompleted(CaseInvestigation__c ci, Integer timeRemainingOrCompleted, String businessHoursId) {
-		Long timeDiff;
+		Decimal targetResponseInMins;
 
 		if (timeRemainingOrCompleted < 0) {
 			//if the violation time already passed, return 100
@@ -69,11 +68,10 @@ public with sharing class MyNetworkCIMilestoneController {
 		}
 
 		if (ci.NetworkMilestoneCurrentTier__c == 1) {
-			timeDiff = BusinessHours.diff(businessHoursId, ci.MilestoneTimeStartDatetime__c, ci.NetworkMilestoneNextViolationDatetime__c);
+			targetResponseInMins = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(businessHoursId, ci.MilestoneTimeStartDatetime__c, ci.NetworkMilestoneNextViolationDatetime__c);
 		} else {
-			timeDiff = BusinessHours.diff(businessHoursId, ci.NetworkMilestoneLastViolationDatetime__c, ci.NetworkMilestoneNextViolationDatetime__c);
+			targetResponseInMins = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(businessHoursId, ci.NetworkMilestoneLastViolationDatetime__c, ci.NetworkMilestoneNextViolationDatetime__c);
 		}
-		Decimal targetResponseInMins = ((timeDiff/1000)/60);
 
 		return Math.round((1 - (Decimal.valueOf(timeRemainingOrCompleted) / targetResponseInMins)) * 100);
 	}

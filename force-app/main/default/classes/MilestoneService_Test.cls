@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 09/02/2023
  * @changelog
+ * 2023-02-28	Mahesh Parvathaneni	- Added test method for getBusinessHoursDiffInMinutes
  */
 
 @IsTest
@@ -89,7 +90,8 @@ private class MilestoneService_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		// None!
+		//get the business hours from the org
+		List<BusinessHours> stdBusinessHours = [SELECT Id,Name FROM BusinessHours where Name = 'Service Delivery VIC'];
 
 		// =====================================
 		// Stubbing
@@ -111,6 +113,44 @@ private class MilestoneService_Test {
 		System.assertEquals(true, b, 'Expected true');
 
 		Test.stopTest();
+	}
+
+	@IsTest
+	static void testGetBusinessHoursDiffInMinutes() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//create start date time Feb 27, 2023 at 11:00:00 AM in the local timezone.
+		DateTime startDatetime = DateTime.newInstance(2023, 2, 27, 11, 0, 0);
+		//create end date time Feb 28, 2023 at 10:00:00 AM in the local timezone.
+		DateTime endDatettime = DateTime.newInstance(2023, 2, 28, 10, 0, 0);
+		//get the business hours from the org
+		List<BusinessHours> stdBusinessHours = [SELECT Id,Name FROM BusinessHours where Name = 'Service Delivery VIC'];
+		
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		//start and end time are in business hours
+		Decimal result = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(stdBusinessHours[0].Id, startDatetime, endDatettime);
+		Integer hours = result.intValue()/60;
+		System.assertEquals(7, hours, 'Expected 7 business hours to be returned');
+		
+		//start time is outside the business hours
+		//create start date time Feb 27, 2023 at 07:00:00 PM in the local timezone.
+		startDatetime = DateTime.newInstance(2023, 2, 27, 19, 0, 0);
+		result = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(stdBusinessHours[0].Id, startDatetime, endDatettime);
+		hours = result.intValue()/60;
+		System.assertEquals(1, hours, 'Expected 1 business hours to be returned');
+
+		Test.stopTest();
+
 	}
     
 }

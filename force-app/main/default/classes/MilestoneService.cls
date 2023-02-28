@@ -309,4 +309,10 @@ public inherited sharing class MilestoneService {
 		violationDatetime = Datetime.newInstance(violationDatetime.year(), violationDatetime.month(), violationDatetime.day(), hour, minute, second);
 		return violationDatetime;
 	}
+
+	//function to return the business hours diff in minutes by using BusinessHours class
+	public Decimal getBusinessHoursDiffInMinutes(String businessHourId, Datetime startTime, Datetime endTime) {
+		Long diffInMilliSeconds = BusinessHours.diff(businessHourId, startTime, endTime);
+		return ((diffInMilliSeconds/1000)/60); //convert to minutes
+	}
 }
