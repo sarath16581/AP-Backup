@@ -663,6 +663,9 @@
             <quickActionName>Case.No_Data_Consignment</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
+            <quickActionName>Case.Email</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
             <quickActionName>Case.Closed</quickActionName>
         </quickActionListItems>
     </quickActionList>

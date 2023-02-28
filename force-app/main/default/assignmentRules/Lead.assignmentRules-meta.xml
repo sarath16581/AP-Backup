@@ -121,6 +121,15 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>LPuD_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Lead.LeadSource</field>
+                <operation>equals</operation>
+                <value>LPuD Enquiries</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>Digital_ID_Campaign_Launch</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>

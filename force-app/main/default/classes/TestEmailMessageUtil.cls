@@ -18,6 +18,11 @@ private class TestEmailMessageUtil {
         listOfCases.add(new Case(RecordTypeId = deliveryRecType, Subject = 'Update Consignment Details', Origin = 'Direct Email', SuppliedEmail='test@test.com'));
         listOfCases.add(new Case(Status = 'New', Subject = 'Test VOC Enquiry', Origin = 'Email', Classification__c = 'Complaint', Priority = 'Normal', BusinessHoursId = stdBusinessHours.Id, RecordTypeId = vocEnqRecType));
         Database.insert(listOfCases);
+        
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
+        UserRole r = [SELECT Id FROM UserRole WHERE Name = 'User Support - Business Systems Consultant'];
+        User systemSupport = new User(Alias = 'ssupp', Email='systemsupport@testorg.a', EmailEncodingKey='UTF-8', FirstName = 'System', LastName='Support', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='systemsupport@testorg.a');
+        Database.insert(systemSupport);
 
         AusPostSettings__c setting = new AusPostSettings__c(Name = 'Spam Email Settings', Number1__c = 30);
         insert setting;
@@ -34,12 +39,12 @@ private class TestEmailMessageUtil {
                 }
 
     //Added by David Catindoy - Nov 29, 2016
-    @testSetup static void createUser(){
-        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
-        UserRole r = [SELECT Id FROM UserRole WHERE Name = 'User Support - Business Systems Consultant'];
-        User systemSupport = new User(Alias = 'ssupp', Email='systemsupport@testorg.a', EmailEncodingKey='UTF-8', FirstName = 'System', LastName='Support', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='systemsupport@testorg.a');
-        Database.insert(systemSupport);
-    }
+   // @testSetup static void createUser(){
+   //     Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
+    //    UserRole r = [SELECT Id FROM UserRole WHERE Name = 'User Support - Business Systems Consultant'];
+   //     User systemSupport = new User(Alias = 'ssupp', Email='systemsupport@testorg.a', EmailEncodingKey='UTF-8', FirstName = 'System', LastName='Support', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='systemsupport@testorg.a');
+   //     Database.insert(systemSupport);
+  //  }
     
     @isTest
     static void testCloningPermanentlyClosedCases() {
@@ -88,7 +93,7 @@ private class TestEmailMessageUtil {
             String previousCaseSubject = newCase.Subject;
             
             Test.startTest();
-                EmailMessage newEmail = new EmailMessage(ParentId = newCase.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = 'support@test.com', Headers = 'Return-Path: Testing header');
+                EmailMessage newEmail = new EmailMessage(ParentId = newCase.Id, FromAddress = 'testAgain@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = 'support@test.com', Headers = 'Return-Path: Testing header');
                 Database.insert(newEmail);
             Test.stopTest();
             
