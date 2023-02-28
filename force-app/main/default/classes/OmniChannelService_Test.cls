@@ -331,19 +331,17 @@ public class OmniChannelService_Test {
 	@IsTest
 	public static void getCaseIdsWithLatestAcceptedAgentWorks(){
 		//Users
-		List<User> users = ApplicationTestDataFactory.getUsers(2,true);
+		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
 		users[0].IsActive = true;
-		users[1].IsActive = false;
 
 		//Cases
-		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
-		Set<Id> caseIds = new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id};
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		Set<Id> caseIds = new Set<Id>{cases[0].Id, cases[1].Id};
 
 		//AgentWork - 2 are for the same case to simulate multiple Accepted AgentWorks
 		List<AgentWork> agentWorks = new List<AgentWork>{
 			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0],
-			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0],
-			OmniChannelTestDataFactory.getAgentWorks(1, users[1].Id, new Set<Id>{cases[1].Id}, true)[0]
+			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0]
 		};
 
 
@@ -359,14 +357,10 @@ public class OmniChannelService_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds(
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIdsAndActiveUser(
 			(Set<Id>)fflib_Match.eq(caseIds), 
 			(Set<Object>)fflib_Match.eq(new Set<Object>())		
 		)).thenReturn(agentWorks);
-
-		MockUtility.Mocks.when(mockUsersSelector.selectActiveUserById(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{users[0].Id, users[1].Id})
-		)).thenReturn(new Map<Id,User>{users[0].Id => users[0]});
 
 		MockUtility.Mocks.stopStubbing();
 
