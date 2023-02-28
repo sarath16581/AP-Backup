@@ -17,6 +17,7 @@
 *				c) fixed a bug where the AllocateToQueue__c was not checked and a case would be routed unintentionally
 *				d) change of existing boolean parameter's logic and label in assignCasesAndDescription(). Parameter is now 'isFinalPass' and prevents a rerouted Case from being put in the holding queue
 * 2022-12-16 - George Nguyen - added processPreferredAgentExpiry
+* 2023-02-24 - Noel Lim - add static isFinalPass flag
 **/
 
 public class SSSW_Routing {
@@ -148,6 +149,10 @@ public class SSSW_Routing {
 
 	// Avoid Queue Check change from Reassign Button
 	public static Boolean reassignNoCheckOwnerQueue = false;
+
+	// Allow other context e.g. Batch jobs to set the isFinalPass in assignCasesAndDescription(), to prevent the Case from going into the Omni Holding Queue. 
+	// MyCustomerCaseArticlesModule.ensureQueryJobEnqueued() processes Cases out of the Omni Holding queue, however it doesn't run when in Batch, Queueable, or Future context.
+	public static Boolean isFinalPassOverride = false;
 
 	// Date Modified : 12/03/2021- Moving getRules() to an inner class GetRulesForAllProfiles. 
 	// This is to allow guest profiles as well to access the method
@@ -342,6 +347,8 @@ public class SSSW_Routing {
 	public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
 		String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
 		String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
+
+		isFinalPass = isFinalPassOverride ? isFinalPassOverride : isFinalPass;
 
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(recType);

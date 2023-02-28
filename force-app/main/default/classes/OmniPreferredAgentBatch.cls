@@ -32,6 +32,9 @@ public inherited sharing class OmniPreferredAgentBatch implements Database.Batch
 
 	public void execute(Database.BatchableContext BC, List<sObject> scope){
 		try {
+			
+			SSSW_Routing.isFinalPassOverride = true; //Cases expired and routed in this Batch will skip the Omni Holding queue, because in MyCustomerCaseArticlesModule.ensureQueryJobEnqueued() it doesn't enqueue the Queueable in Batch context 
+
 			List<Case> casesToUpdate = OmniChannelService.getInstance().rerouteCasesWithPreferredAgentByPass(scope);
 			if(casesToUpdate.isEmpty() == false) {
 				ApplicationDatabase.getInstance().dmlUpdate(casesToUpdate);
