@@ -58,7 +58,6 @@ public with sharing class CasePDFContentGenerator {
 	//Case Investigation variables
 	public String selectedRecordIds {get;set;}
 	public Set<Id> caseInvestigationIdSet {get;set;} 
-	List<CaseInvestigation__c> caseInvestigations;
 	public transient Map<Id, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap {get;set;}
 	public transient Map<Id, Case> caseIdVsCaseMap {get;set;}
 	public Set<Id> caseIdSet;
@@ -85,12 +84,9 @@ public with sharing class CasePDFContentGenerator {
 		recordIdList = selectedRecordIds.split(',');
 		recordIdSet = new Set<Id>(((Set<Id>) JSON.deserialize(JSON.serialize(recordIdList), Set<Id>.class)));
 
-		system.debug('recordIdList: '+recordIdList);
-		system.debug('recordIdSet: '+recordIdSet);
-		
 		//iterate over record Ids and determine SObjectType.
 		for(Id rId :  recordIdSet) {
-			if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+			if(rId.getSObjectType() == Case.SObjectType) {
 				caseIdSet.add(rId);
 			} 
 			else if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('CaseInvestigation__c')) {
@@ -130,10 +126,12 @@ public with sharing class CasePDFContentGenerator {
 			Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
 			/**
 			 * Note: Replacing SSSWCasesSelector with CasesSelector
+			 * Reason: 1. 'SSSWCasesSelector' filters records for specific record types. In order to query StarTrack records, using casesselector.
+			 * 			2. Also, no point in checking for record types when specific record Ids are passed to selectors. 
+			 * 
 			 */
 			//caseList = SSSWCasesSelector.newInstance(rowLimit, overrideFields).selectById(caseIdSet, new Set<Object>{CasesSelector.Options.WITH_NETWORK, SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
 			caseList = CasesSelector.newInstance(rowLimit, overrideFields).selectById(caseIdSet, new Set<Object>{CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_NETWORK_RESPONSE, CasesSelector.Options.WITH_ARTICLE}).values();
-			System.debug('caseList--->'+caseList);
 		}
 
 		if(!caseList.isEmpty()) {
@@ -174,7 +172,7 @@ public with sharing class CasePDFContentGenerator {
 		starTrackCaseToCaseInvestigationsMap = getCaseToCaseInvestigationsMap(caseInvestigationIdSet);
 
 		//get case investigations and its related articles map.
-		cInvArticleDetailsMap = getCaseInvestigationArticleMap(starTrackCaseToCaseInvestigationsMap);
+		cInvArticleDetailsMap = getCaseInvestigationArticleMapAndAddCaseArticleIds(starTrackCaseToCaseInvestigationsMap, caseArticleIds);
 
 		if(!caseArticleIds.isEmpty()) {
 			//Moved below out of for loop Disha
@@ -187,7 +185,6 @@ public with sharing class CasePDFContentGenerator {
 		//Get delivered addresses based on geo location from AME
 		if(casetoEventGeoMap.size() > 0) {
 			caseToDeliveredAddressMap = getcaseToDeliveredAddressMap();
-			System.debug('caseToDeliveredAddressMap--->' + caseToDeliveredAddressMap);
 		}
 
 		//filtering out AP case list from AP, ST case list 
@@ -250,7 +247,6 @@ public with sharing class CasePDFContentGenerator {
 		Map<Id,EventMessage__c> casetoEventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(caseArticleIds, eventTypes, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.WITH_ATTACHMENT});
 		if(casetoEventMessageMap != null) {
 			for(EventMessage__c event : casetoEventMessageMap.values()) {
-			system.debug('Event Msgs Attachments: '+event.Attachments);
 			uniqueId = event.Article__c ;
 			//Set default value
 			if(!deliveredDeliveryFound.containsKey(uniqueId) && !attemptedDeliveryFound.containsKey(uniqueId)) {
@@ -324,7 +320,6 @@ public with sharing class CasePDFContentGenerator {
 			try {
 				List<Case> updateCase = new List<Case>();
 
-				System.debug('caseList--->' + caseList);
 				for (Case cs : caseList) {
 					//Check if the flag is already set to true, no action needed
 					if (cs.Checkbox__c == false) {
@@ -405,7 +400,6 @@ public with sharing class CasePDFContentGenerator {
 				articleGeoStrings.put(article+'-ATG' , addresseeAddress.get(article));
 			}
 		}
-		System.debug('articleGeoStrings--->'+articleGeoStrings);
 		Map<String,String> results = AMEAddressValidationController1.searchAddressOrGeoLocation(articleGeoStrings);
 		//If no geocoords returned for atg then manually add the addressee address
 		for(String key : results.keySet()){
@@ -512,13 +506,14 @@ public with sharing class CasePDFContentGenerator {
 
 	/**
 	 * @desc: Method queries case investigations based on selected Ids and creates a map against parent case.
+	 * 			Method also updates 'addresseeAddress' map and adds CI's article Ids in 'caseInvestigationsArticleIds' set.
 	 * @param: none
 	 * @return: Returns a map of case with its child case investigations.
 	 */
 	@testVisible
 	private Map<Id, List<CaseInvestigation__c>> getCaseToCaseInvestigationsMap(Set<Id> caseInvestigationIdSet) {
 
-		Map<Id, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap = new Map<Id, List<CaseInvestigation__c>>();
+		Map<Id, List<CaseInvestigation__c>> stCaseToCaseInvestigationsMap = new Map<Id, List<CaseInvestigation__c>>();
 		Map<Id, CaseInvestigation__c> caseInvestigationsMap; 
 
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>();
@@ -539,11 +534,11 @@ public with sharing class CasePDFContentGenerator {
 		if(caseInvestigationsMap != null) {
 			for(CaseInvestigation__c cInv : caseInvestigationsMap.values()) {
 					
-				if(!starTrackCaseToCaseInvestigationsMap.containsKey(cInv.Case__c)) {
-					starTrackCaseToCaseInvestigationsMap.put(cInv.Case__c, new List<CaseInvestigation__c>{cInv});
+				if(!stCaseToCaseInvestigationsMap.containsKey(cInv.Case__c)) {
+					stCaseToCaseInvestigationsMap.put(cInv.Case__c, new List<CaseInvestigation__c>{cInv});
 				}
 				else {
-					starTrackCaseToCaseInvestigationsMap.get(cInv.Case__c).add(cInv);
+					stCaseToCaseInvestigationsMap.get(cInv.Case__c).add(cInv);
 				}
 
 				//added case investigation's associated article ID.
@@ -562,17 +557,18 @@ public with sharing class CasePDFContentGenerator {
 			}
 		}
 
-		return starTrackCaseToCaseInvestigationsMap;
+		return stCaseToCaseInvestigationsMap;
 	}
 
 	//Method to get the Article to Case mapping
 	/**
 	 * @desc: method queries articles related to case investigations.
+	 * 			method also adds CI article Ids 'caseArticleIds' set. This set is used to query articles for AP and ST case investigations.
 	 * @param: none
 	 * @return: Map<String, TIBCOArticleWrapper>. Returns map of Article external Id and its wrapper.
 	 */
 	@testVisible 
-	private Map<String,TIBCOArticleWrapper> getCaseInvestigationArticleMap(Map<Id, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap) {
+	private Map<String,TIBCOArticleWrapper> getCaseInvestigationArticleMapAndAddCaseArticleIds(Map<Id, List<CaseInvestigation__c>> starTrackCaseToCaseInvestigationsMap, Set<Id> caseArticleIds) {
 		List<String> cInvArticleIds = new List<String>();
 		Map<String,TIBCOArticleWrapper> articleMap = new Map<String,TIBCOArticleWrapper>();
 		List<TIBCOArticleWrapper> articleWrapperList = new List<TIBCOArticleWrapper>();
@@ -587,6 +583,7 @@ public with sharing class CasePDFContentGenerator {
 					}
 		
 					//adding in a set to be used later
+					//IDs added in this set are used to query Articles.
 					if(cInv.Article__c!= null && !caseArticleIds.contains(cInv.Article__c)) {
 						caseArticleIds.add(cInv.Article__c);
 					}
@@ -595,7 +592,7 @@ public with sharing class CasePDFContentGenerator {
 		}
 
 		if(!cInvArticleIds.isEmpty()) {
-			searchResult = TIBCOArticleService.getInstance().searchArticlesInSFDC(cInvArticleIds);
+			searchResult = TIBCOArticleService.getInstance().searchArticleRecordsInSFDC(cInvArticleIds);
 			if (searchResult.trackResults.size() > 0) {
 				for (TIBCOTrackingResultWrapper results : searchResult.trackResults) {
 					articleWrapperList.add(results.articleDetails);
@@ -613,48 +610,23 @@ public with sharing class CasePDFContentGenerator {
 	}
 
 	/**
-	 * @desc: Filter out AP case from all case list. This is required to keep and print AP pdf generation logic. 
+	 * @desc: Filter out AP cases from all case list. This is required to keep and print AP pdf generation logic. 
 	 * @param: none
 	 * @return: List<Case>
 	 */
 	@testVisible
 	private List<Case> filterAPCases() {
 
-		List<Case> apCaseList = new List<Case>();
+		List<Case> apFilteredCases = new List<Case>();
 		
 		for(Case caseRecord : caseList) {
 
 			//filtering out AP case list from consolidated case list.
 			if(!starTrackCaseToCaseInvestigationsMap.containsKey(caseRecord.Id)) {
-				apCaseList.add(caseRecord);
+				apFilteredCases.add(caseRecord);
 			}
 		}
 
-		return apCaseList;
-	}
-
-	/**
-	 * @desc: static property to get SSSW case record types and StarTrack case record types.
-	 */
-	public static Set<Id> caseRecordTypeIds {
-		get { 
-			if( caseRecordTypeIds == null) {
-				Map<String, Schema.RecordTypeInfo> caseRecordTypes = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName();
-				caseRecordTypeIds = new Set<Id>{caseRecordTypes.get('SSSWDelivery').getRecordTypeId(), 
-												caseRecordTypes.get('SSSWFax').getRecordTypeId(),
-												caseRecordTypes.get('SSSWGeneralEnquiry').getRecordTypeId(),
-												caseRecordTypes.get('SSSWService').getRecordTypeId(),
-												caseRecordTypes.get('Social_Record_Type').getRecordTypeId(),
-												caseRecordTypes.get('NCCCDirectEmail').getRecordTypeId(),
-												caseRecordTypes.get('StarTrack_PUD_Enquiry').getRecordTypeId(),
-												caseRecordTypes.get('StarTrack_General_Enquiry').getRecordTypeId(),
-												caseRecordTypes.get('StarTrack_Pickup_Booking_Enquiry').getRecordTypeId(),
-												caseRecordTypes.get('StarTrack_Voice_of_Customer').getRecordTypeId()
-				};
-			}
-
-			return caseRecordTypeIds;
-		}
-		private set;
+		return apFilteredCases;
 	}
 }

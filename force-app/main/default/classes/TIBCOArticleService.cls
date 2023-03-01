@@ -25,6 +25,7 @@
  * 2021-10-20 - prerna.rahangdale@auspost.com.au added VODV_Redirect__c to article SOQL.
  * 2022-04-11 - Mahesh Parvathaneni - added Outside_Delivery_Radius__c, Geo_Precision__c to event message SOQL
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - added MLID to Article Query
+ * 2023-03-01 - Dattaraj Deshmukh - added 'searchArticleRecordsInSFDC' method to wrap static method and to be able to use in mock.
 **/
 public class TIBCOArticleService {
 
@@ -127,7 +128,7 @@ public class TIBCOArticleService {
 	 *	  These wrap the legacy static methods
 	 *	  in order to provide proper mocking
 	 ************************************************************/
-	public TIBCOSearchResult searchArticlesInSFDC(String[] articleIdsInbound) {
+	public TIBCOSearchResult searchArticleRecordsInSFDC(String[] articleIdsInbound) {
 		return TIBCOArticleService.searchArticlesInSFDC(articleIdsInbound);
 	}
 

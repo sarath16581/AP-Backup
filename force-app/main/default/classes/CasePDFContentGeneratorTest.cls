@@ -10,6 +10,7 @@
 15/03/2021 - Naveen Rajanna -REQ2408232 Add code coverage for getCaseCount method
 29/06/2021 - Ranjeewa Silva - Updated for changes to include event message attachments in the PDF.
 01/10/2021 - Seth Heang - Uplift SF API Version to 52
+01/02/2023 - Dattaraj Deshmukh - Added test methods 'testGetCaseInvestigationArticleMapAndAddCaseArticleIds' & 'testCasePDFContentGenerator_starTrackCaseInvestigations'.
 */
 @isTest
 private class CasePDFContentGeneratorTest {
@@ -422,16 +423,25 @@ private class CasePDFContentGeneratorTest {
 		article.ArticleID__c = '12345';
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(3, cases.Id, article, null, true);
 
+		caseInvestigations[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[0], new Map<String, Object>{'Article__r' => article});
+		caseInvestigations[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[1], new Map<String, Object>{'Article__r' => article});
+		caseInvestigations[2] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[2], new Map<String, Object>{'Article__r' => article});
+
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		//SSSWCasesSelector mockCasesSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
 		CaseInvestigationsSelector mockCaseInvestigationsSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 
 		TIBCOArticleService mockUtil = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
+		
+		//setting response values
+		TIBCOSearchResult result = new TIBCOSearchResult();
+		Map<Id, Map<String, Contact>> contactMappings = new Map<Id, Map<String, Contact>>{article.Id=> new Map<String, Contact>{'receiver' => contacts}};
+
+		result.trackResults.add(new TIBCOTrackingResultWrapper(article, new Map<String, List<Article__c>>{article.ArticleID__c => null}, new Map<Id, List<EventMessage__c>>{event.Id => new List<EventMessage__c>{event}}, contactMappings));
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -446,6 +456,9 @@ private class CasePDFContentGeneratorTest {
 																				FeedItemsSelector.Options.TEXTPOST_ONLY}))
 			.thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0],
 														caseInvestigations[1].Id => caseInvestigations[1]});
+		
+		
+		MockUtility.Mocks.when(mockUtil.searchArticleRecordsInSFDC(new List<String>{article.ArticleID__c})).thenReturn(result);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -456,23 +469,87 @@ private class CasePDFContentGeneratorTest {
 		String recordIds = cases.Id + ','+caseInvestigations[0].Id + ','+caseInvestigations[1].Id;
 		Apexpages.currentpage().getparameters().put('selectedIds' , recordIds);
 		CasePDFContentGenerator controller = new CasePDFContentGenerator();
-
 		Test.stopTest();
 
 		List<CaseInvestigation__c> stCaseInvestigations = controller.starTrackCaseToCaseInvestigationsMap.get(cases.Id);
-		
+
+		//asserting expected case investigations are returned.
 		system.assert(stCaseInvestigations.contains(caseInvestigations[0]), 'Case Investigation record should have been included in a map');
 		system.assert(!stCaseInvestigations.contains(caseInvestigations[2]), 'Case Investigation record should have NOT been included in a map');
-		
-		//verify that CaseInvestigationsSelector is called 
-		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationsSelector, MockUtility.Mocks.times(1)))
-														.selectById(new Set<Id>{caseInvestigations[0].Id, caseInvestigations[1].Id}, 
-																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES, 
-																										CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS, 
-																										CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																										CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
-																										CaseInvestigationsSelector.Options.WITH_FEEDS, 
-																										FeedItemsSelector.Options.TEXTPOST_ONLY});
+
 	}
 
+	/**
+	 * @test: testing caseinvestigations and their articles are populated correctly for print form.
+	 */
+	@IsTest
+	private static void testGetCaseInvestigationArticleMapAndAddCaseArticleIds() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+		EventMessage__c event = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+		event.Safe_Drop_GUID__c='23123-35435-gf-454';
+		Account testAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0];
+		Case cases = ApplicationTestDataFactory.getCases(1, new List<Id>{contacts.Id}, true)[0];
+		cases.ReferenceID__c = article.Id;
+		cases.ArticleTest__c = article.Id;
+
+		article.Name = '12345';
+		article.ArticleID__c = '12345';
+
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(3, cases.Id, article, null, true);
+		caseInvestigations[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[0], new Map<String, Object>{'Article__r' => article});
+		caseInvestigations[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[1], new Map<String, Object>{'Article__r' => article});
+		caseInvestigations[2] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[2], new Map<String, Object>{'Article__r' => article});
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
+		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		CaseInvestigationsSelector mockCaseInvestigationsSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+
+		TIBCOArticleService mockUtil = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
+
+		//setting response values
+		TIBCOSearchResult result = new TIBCOSearchResult();
+		Map<Id, Map<String, Contact>> contactMappings = new Map<Id, Map<String, Contact>>{article.Id=> new Map<String, Contact>{'receiver' => contacts}};
+		result.trackResults.add(new TIBCOTrackingResultWrapper(article, new Map<String, List<Article__c>>{article.ArticleID__c => null}, new Map<Id, List<EventMessage__c>>{event.Id => new List<EventMessage__c>{event}}, contactMappings));
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{cases.Id => cases});
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{event.Id => event});
+		MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectById(new Set<Id>{caseInvestigations[0].Id, caseInvestigations[1].Id}, 
+																			new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+																				CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS, 
+																				CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+																				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+																				CaseInvestigationsSelector.Options.WITH_FEEDS, 
+																				FeedItemsSelector.Options.TEXTPOST_ONLY}))
+			.thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0],
+														caseInvestigations[1].Id => caseInvestigations[1]});
+
+
+		MockUtility.Mocks.when(mockUtil.searchArticleRecordsInSFDC(new List<String>{article.ArticleID__c})).thenReturn(result);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		
+		String recordIds = cases.Id + ','+caseInvestigations[0].Id + ','+caseInvestigations[1].Id;
+		Apexpages.currentpage().getparameters().put('selectedIds' , recordIds);
+		CasePDFContentGenerator controller = new CasePDFContentGenerator();
+		Map<String,TIBCOArticleWrapper> cInvArticleDetailsMap = controller.getCaseInvestigationArticleMapAndAddCaseArticleIds(controller.starTrackCaseToCaseInvestigationsMap, controller.caseArticleIds);
+		Test.stopTest();
+
+		//asserting map contains case investigations article details
+		system.assert(cInvArticleDetailsMap.containsKey(article.ArticleID__c), 'Article map should contain article details of passed ArticleID__c'); 
+	}
 }

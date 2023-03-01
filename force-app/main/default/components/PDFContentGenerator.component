@@ -51,10 +51,6 @@ History:
 					<td style="width:20%;padding:15px;">CASE:</td>
 					<td style="width:60%; align:right">{!case.CaseNumber}</td>
 				</tr>
-				<tr>
-					<td style="width:20%;padding:15px;">CASE INVESTIGATION:</td>
-					<td style="width:60%; align:right">{!case.CaseNumber}</td>
-				</tr>
 				<!--If the driver Contract is populated, populate it on the cover letter-->    
 				<apex:outputText rendered="{!case.ArticleTest__c != Null}">
 					<apex:variable var="count" value="{!1}"/> 
