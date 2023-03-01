@@ -704,7 +704,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 	let caseInvestigationIds = [];
     // getting selected record id
     for (let i = 0; i < selectedRows.length; i++) {
-      conIds.add(selectedRows[i].myNetworkCase.Id);
+      conIds.add(selectedRows[i].caseId);
 	  selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
     }
     // coverting to array
