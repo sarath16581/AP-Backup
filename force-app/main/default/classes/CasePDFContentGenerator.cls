@@ -595,7 +595,7 @@ public with sharing class CasePDFContentGenerator {
 		}
 
 		if(!cInvArticleIds.isEmpty()) {
-			searchResult = TIBCOArticleService.searchArticlesInSFDC(cInvArticleIds);
+			searchResult = TIBCOArticleService.getInstance().searchArticlesInSFDC(cInvArticleIds);
 			if (searchResult.trackResults.size() > 0) {
 				for (TIBCOTrackingResultWrapper results : searchResult.trackResults) {
 					articleWrapperList.add(results.articleDetails);

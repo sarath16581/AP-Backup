@@ -122,6 +122,15 @@ public class TIBCOArticleService {
 		return result;
 	}
 
+	/************************************************************
+	 * Class instance methods
+	 *	  These wrap the legacy static methods
+	 *	  in order to provide proper mocking
+	 ************************************************************/
+	public TIBCOSearchResult searchArticlesInSFDC(String[] articleIdsInbound) {
+		return TIBCOArticleService.searchArticlesInSFDC(articleIdsInbound);
+	}
+
 	public static TIBCOSearchResult searchArticlesInSFDC(String[] articleIdsInbound) {
 		List<String> articleIds = new List<String>();
 
