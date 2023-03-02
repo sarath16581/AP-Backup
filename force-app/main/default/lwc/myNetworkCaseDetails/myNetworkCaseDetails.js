@@ -167,7 +167,6 @@ export default class CaseDetails extends LightningElement {
 		try {
 			const getCaseRecordResponse = await getCaseRecord({ recordId: this.recordId });
 			if(getCaseRecordResponse){
-				console.log(getCaseRecordResponse);
 				this.caseId = getCaseRecordResponse.caseRecord.Id;
 				this.sObjectTypeName = getCaseRecordResponse.sObjectTypeName;
 			}
@@ -196,8 +195,6 @@ export default class CaseDetails extends LightningElement {
 			if(caseInvestigationsRecords){
 			let recordIdToFind = (this.sObjectTypeName === 'Case' ? caseDetails.Id : this.recordId);
 			let caseInvestigation  = caseInvestigationsRecords.find(cInv => cInv.Id === recordIdToFind);
-			console.log('Article Id found for happy parcel ');
-			console.log(caseInvestigation);
 			this.happyParcelArticleId = caseInvestigation ? caseInvestigation.Article__r.Name : caseDetails.Calc_Case_Consignment__c;
 			}
 			
@@ -220,7 +217,6 @@ export default class CaseDetails extends LightningElement {
 
 		}
 		this.caseInvestigations = tempCaseInvestigations;
-		console.log(this.caseInvestigations);
 	}
 
 	connectedCallback() {
