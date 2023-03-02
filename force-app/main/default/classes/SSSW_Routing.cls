@@ -17,6 +17,7 @@
 *				c) fixed a bug where the AllocateToQueue__c was not checked and a case would be routed unintentionally
 *				d) change of existing boolean parameter's logic and label in assignCasesAndDescription(). Parameter is now 'isFinalPass' and prevents a rerouted Case from being put in the holding queue
 * 2022-12-16 - George Nguyen - added processPreferredAgentExpiry
+* 2023-03-02 - Noel Lim - added logic to assign cases without a matched routing rule to a default Omni queue
 **/
 
 public class SSSW_Routing {
@@ -342,6 +343,7 @@ public class SSSW_Routing {
 	public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
 		String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
 		String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
+		String defaultOmniQueue = QM__c.getOrgDefaults().DefaultOmniQueueId__c;
 
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(recType);
@@ -415,6 +417,8 @@ public class SSSW_Routing {
 
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
+							} else {
+								setRoutingCaseOwner(cs, defaultOmniQueue);
 							}
 
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)
@@ -455,7 +459,10 @@ public class SSSW_Routing {
 
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
+							} else {
+								setRoutingCaseOwner(cs, defaultOmniQueue);
 							}
+
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)
 							// In this scenario we ignore any strategic routing checks
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
