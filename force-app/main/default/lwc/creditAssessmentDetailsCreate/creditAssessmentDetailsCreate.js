@@ -63,7 +63,7 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 			console.error(error);
 			this.dispatchEvent(
 				new ShowToastEvent({
-					title: 'Error updating primary account.',
+					title: 'Error updating primary proposal with new account type',
 					message: error.body.message,
 					variant: 'error'
 				})

@@ -27,6 +27,10 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	@wire(getCreditAssessment, {opportunityId: '$recordId'})
 	wiredCreditAssessmentResults({error, data}) {
 		if (data) {
+			if (!data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r) {
+				this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+				return;
+			}
 			this.creditAssessments = data.creditAssessments;
 			let primaryCount = 0;
 			data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.forEach(p => {
