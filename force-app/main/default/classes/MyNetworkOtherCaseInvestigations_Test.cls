@@ -34,7 +34,9 @@ private class MyNetworkOtherCaseInvestigations_Test {
 		caseInvestigations[0].Status__c = 'Open';
 		caseInvestigations[1].Status__c = 'Open';
 
-		
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -44,7 +46,7 @@ private class MyNetworkOtherCaseInvestigations_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(mockSelector.selectById(new Set<Id>{caseInvestigations[0].Id})).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
-		MockUtility.Mocks.when(mockSelector.selectOpenCaseInvestigationsByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS,
+		MockUtility.Mocks.when(mockSelector.selectOpenCaseInvestigationsByCaseIds(new Set<Id>{cases[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS,
 														CaseInvestigationsSelector.Options.WITH_ARTICLES,
 														CaseInvestigationsSelector.Options.WITH_NETWORKS} ))
 														.thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0],

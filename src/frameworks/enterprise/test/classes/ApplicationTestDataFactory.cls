@@ -34,9 +34,12 @@
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
  * 2022-11-18 - Noel - Added getCaseStatuses method
+
  * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
  * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method. Added null check in getCaseInvestigations method.
  * 2022-12-07 - Noel - Added 'getQueueRoutingConfig' method
+ * 2023-01-26 - Mahesh Parvathaneni - Added getEntitlementRules, getEscalationHierarchies method
+ * 2022-02-09 - Dattaraj Deshmukh - Added 'getNetworkUsers' method.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -93,6 +96,13 @@ public with sharing class ApplicationTestDataFactory {
 				CaseInvestigation__c.Article__c => article == null ? null : article.Id,
 				CaseInvestigation__c.ReferenceID__c => article == null ? null : article.Name,
 				CaseInvestigation__c.Network__c => networkId
+				}, count), generateIds);
+	}
+
+	public static List<Facility_User__c> getNetworkUsers(Integer count, Id networkId, Id userId, Boolean generateIds) {
+		return (List<Facility_User__c>)maybeGenerateIds(populateSObjects(Facility_User__c.SObjectType, new Map<SObjectField, Object> {
+				Facility_User__c.Network__c => networkId,
+				Facility_User__c.User__c => userId
 				}, count), generateIds);
 	}
 
@@ -736,6 +746,21 @@ public with sharing class ApplicationTestDataFactory {
 				Entitlement.Type => 'Phone Support'
 		}, count), generateIds);
 	}
+
+	public static List<Entitlement_Rule__c> getEntitlementRules(Integer count, String ruleName, Id escHierarchyId, Boolean generateIds) {
+		return (List<Entitlement_Rule__c>)maybeGenerateIds(populateSObjects(Entitlement_Rule__c.SObjectType, new Map<SObjectField, Object> {
+				Entitlement_Rule__c.Entitlement_Rule_Name__c => ruleName,
+				Entitlement_Rule__c.Escalation_Hierarchy__c => escHierarchyId,
+				Entitlement_Rule__c.Active__c => true
+		}, count), generateIds);
+	}
+	
+	public static List<Escalation_Hierarchy__c> getEscalationHierarchies(Integer count, String name, Boolean generateIds) {
+		return (List<Escalation_Hierarchy__c>)maybeGenerateIds(populateSObjects(Escalation_Hierarchy__c.SObjectType, new Map<SObjectField, Object> {
+				Escalation_Hierarchy__c.Name => name
+		}, count), generateIds);
+	}
+	
 	//Added by Asha | MW0004779
 	public static List<EmailMessage> getEmailMessages(Integer count, Boolean generateIds,Boolean isIncoming, String fromAddress, String toAddress, String subject, Id caseId) {
 		return getEmailMessages(count, generateIds, isIncoming, fromAddress, toAddress, null, null, subject, caseId);

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>LPuD Queue</name>
+    <queueMembers>
+        <users>
+            <user>ish.husnu2@auspost.com.au</user>
+            <user>joshua.beales@my.network</user>
+            <user>lauren.picchianti@my.network</user>
+            <user>luke.jensen@auspost.com.au</user>
+            <user>michael.owens@my.network</user>
+            <user>nhu-ha.nguyen@my.network</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>

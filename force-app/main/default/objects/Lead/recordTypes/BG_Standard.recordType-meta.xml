@@ -1417,6 +1417,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>LPuD Enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Local Business Partner CPO</fullName>
             <default>false</default>
         </values>

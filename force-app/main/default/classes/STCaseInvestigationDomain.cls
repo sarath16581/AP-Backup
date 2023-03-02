@@ -4,7 +4,8 @@
  * @domain            : Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
- * 2022-01-15 - Dattaraj Deshmukh - Added STCaseInvestigationLifeCycleModule. Removed Constructor class and 'IConstructableModule' interface implementation. 
+ * 2022-01-15 - Dattaraj Deshmukh - Added STCaseInvestigationLifeCycleModule. Removed Constructor class and 'IConstructableModule' interface implementation.
+ * 2023-01-25 - Mahesh Parvathaneni - Added STCINetworkMilestoneViolationModule
  **/
 public inherited sharing class STCaseInvestigationDomain extends ApplicationDomain {
 
@@ -15,7 +16,7 @@ public inherited sharing class STCaseInvestigationDomain extends ApplicationDoma
 	public override void registerModules() {
 		registerModule(STCaseInvestigationArticleModule.class);
 		registerModule(STCaseInvestigationLifecycleModule.class);
-
+		registerModule(STCINetworkMilestoneViolationModule.class);
 	}
 
 	/**

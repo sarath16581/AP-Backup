@@ -20,6 +20,7 @@
  * 2021-11-26 - Ashapriya Gadi - Added enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER and a condition for it in the newQueryBuilder
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Add fields to getSObjectFieldList
  * 2022-12-05 - Dattaraj Deshmukh - Added enum WITH_CHILD_INVESTIGATIONS and fields to getSObjectFieldList.
+ * 2023-02-08 - Dattaraj Deshmukh - Added fields in getSObjectFieldList.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -80,7 +81,11 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, 
 			Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c,
 			Case.EnquirySubType__c, Case.Primary_Name__c, Case.Address1__c, Case.Secondary_Contact__c, Case.Address2__c,
-			Case.Facility_Milestones_Violated__c, Case.Root_cause__c, Case.ArticleTest__c, Case.calc_case_consignment__c
+			Case.Facility_Milestones_Violated__c, Case.Root_cause__c, Case.ArticleTest__c, Case.calc_case_consignment__c,
+			Case.Last_Status_Change__c, Case.Article_Receiver_Address__c, Case.Article_Receiver_Postcode__c,
+			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
+			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c
+
 		};
 	}
 
@@ -97,6 +102,19 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public virtual Map<Id, Case> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Case.Id + ' in :ids')).endConditions();
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
+	/*
+	* this method returns records with matching ids And matching record type ids. 
+	* it is being used in Domain filtering
+	*/
+	public List<Case> selectByIdsAndRecordTypeIds(Set<Id> ids, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+			.add(new QueryBuilder.SimpleCondition(Case.Id + ' IN :ids'))
+			.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' IN :recordTypeIds'))
+			.endConditions();
+
+		return (List<Case>)Database.query(qb.toSoqlString());
 	}
 
 	/**

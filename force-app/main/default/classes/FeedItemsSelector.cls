@@ -8,6 +8,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2022-01-12 Dattaraj Deshmukh - Created
+ * 2022-02-21 Dattaraj Deshmukh - Removed unused method 'selectByTextPostParentIds'.
 */
 public virtual inherited sharing class FeedItemsSelector extends ApplicationSelector  {
 
@@ -65,17 +66,6 @@ public virtual inherited sharing class FeedItemsSelector extends ApplicationSele
 	public Map<Id, FeedItem> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.Id + ' in :ids')).endConditions();
 		return new Map<Id, FeedItem>((List<FeedItem>)Database.query(qb.toSoqlString()));
-	}
-
-	public Map<Id, FeedItem> selectByTextPostParentIds(Set<Id> ids, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions);//.addConditions();
-		qb.addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.ParentId + ' in :ids'));
-		qb.addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.Type + ' = '+'\'TextPost\'')).endConditions();
-		return new Map<Id, FeedItem>((List<FeedItem>)Database.query(qb.toSoqlString()));
-	}
-
-	public Map<Id, FeedItem> selectByTextPostParentIds(Set<Id> ids) {
-		return selectByTextPostParentIds(ids, new Set<Object>());
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {

@@ -14,7 +14,7 @@
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
 * 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
 *		31/01/2023				Noel Lim					Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
-*		01/02/2023				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
+*		01/02/2023				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getCaseIdsWithLatestAcceptedAgentWorks, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 * 		10/02/2023				George Nguyen				Added rerouteCasesWithPreferredAgentByPass and Cache
 **/
 public inherited sharing class OmniChannelService {
@@ -172,31 +172,14 @@ public inherited sharing class OmniChannelService {
 	/*
 	* This method returns a map of CaseIds and its latest AgentWork where the UserId is an active User
 	*/
-	public Map<Id,AgentWork> getLatestAcceptedAgentWorkWithActiveUser(Set<Id> caseIds) {
-		Map<Id,AgentWork> result = new Map<Id,AgentWork>();
-		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
-
-		Set<Id> pastAgentUserIds = new Set<Id>();
-
-		for(AgentWork agentWork : aws){
-			pastAgentUserIds.add(agentWork.UserId);
-		}
-		Map<Id, User> mapActiveUsers = UsersSelector.newInstance().selectActiveUserById(pastAgentUserIds);
-
-
-		if(aws.isEmpty() == false){
-			for(Id caseId : caseIds){
-				for(AgentWork agentWork : aws){
-					if(agentWork.WorkItemId == caseId 
-						&& result.containsKey(caseId) == false
-						&& mapActiveUsers.containsKey(agentWork.UserId)){
-							result.put(agentWork.WorkItemId,agentWork);
-					}
-				}
+	public Map<Id,AgentWork> getCaseIdsWithLatestAcceptedAgentWorks(Set<Id> caseIds) {
+		Map<Id, AgentWork> caseIdsVsAgentWorks = new Map<Id, AgentWork>();
+		for(AgentWork aw: new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds)) {
+			if(caseIdsVsAgentWorks.containsKey(aw.WorkItemId) == false) { // The selector returns by sorting AcceptedDate DESC so we only need to take the first AW for each Case.
+				caseIdsVsAgentWorks.put(aw.WorkItemId, aw);
 			}
 		}
-
-		return result;
+		return caseIdsVsAgentWorks;
 	}
 
 	/**
@@ -238,7 +221,7 @@ public inherited sharing class OmniChannelService {
 	public without sharing class WithoutSharingRetrieveData{
 		
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
-			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(caseIds, new Set<Object>());
+			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
 		}
 	}
 

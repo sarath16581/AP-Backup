@@ -737,6 +737,13 @@
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Article__c</fields>
+        <fields>Status__c</fields>
+        <fields>Network__c</fields>
+        <relatedList>CaseInvestigation__c.Case__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedAttachmentList</relatedList>
     </relatedLists>
     <relatedLists>

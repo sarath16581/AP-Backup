@@ -47,6 +47,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>AgentType__c</picklist>
+        <values>
+            <fullName>BOH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FOH</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Approval_Status__c</picklist>
         <values>
             <fullName>Draft</fullName>
@@ -1171,10 +1182,6 @@
         </values>
         <values>
             <fullName>Customer Urgency Requested</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customs Held</fullName>
             <default>false</default>
         </values>
         <values>

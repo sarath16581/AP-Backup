@@ -5,8 +5,11 @@
 * @description Controller to post feed items against case investigations
 * @changelog
 * 2022-11-29 - Dattaraj Deshmukh - Created.
+* NOTE: THIS CLASS IS SPECIFIED AS WITHOUT SHARING. 
+* REASON: MyNetowork portal users have ONLY READ access to the case. In order to update CASE related to 
+* case investigations, 'without sharing' mode is used. updateCase() method updates the case.
 */
-public with sharing class MyNetworkCaseUserResponseController {
+public without sharing class MyNetworkCaseUserResponseController {
 	
 	/**
 	 * @param: networkComments, caseInvestigationId
@@ -22,14 +25,11 @@ public with sharing class MyNetworkCaseUserResponseController {
 				post.ParentId = caseInvestigationId;
 				post.Body = newtorkComments;
 
-				//update case status to 'Network Responded'
-				Case caseToUpdate = new Case(Id = caseId, Status = MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED);
-
-				//create new feed item record and update case status
-				//ApplicationDatabase.getInstance().dmlUpsert(new List<SObject>{post, caseToUpdate}, FeedItem.Id);
+				//create new feed item record
 				ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{post});
-				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{caseToUpdate});
+				
 			}
+
 			return 'success';
 			
 
@@ -37,4 +37,24 @@ public with sharing class MyNetworkCaseUserResponseController {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
+
+	/**
+	 * @param: caseId
+	 * @desc: Updates Case_Update__c field on Case.
+	 * @return: success/exception message.
+	 */
+	@AuraEnabled
+	public static string updateCase(Id caseId) {
+		try {
+			
+			//update case status to 'Network Responded'
+			Case caseToUpdate = new Case(Id = caseId, Case_Update__c = MyNetworkConstants.CASE_UPDATE_OPERATIONS_RESPONDED);
+			ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{caseToUpdate});
+		
+			return 'success';
+
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	} 
 }
