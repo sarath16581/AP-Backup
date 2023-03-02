@@ -622,12 +622,16 @@ private class MyCustomerCaseArticlesModule_Test {
 		// this is our test data where 1 record has a reference ID and another article has the Id
 		cases[0].ReferenceID__c = 'ART1231';
 
-		Set<String> caseIds = new Set<String>{cases[0].Id};
+		Set<Id> caseIds = new Set<Id>{cases[0].Id};
+		Set<String> caseIdsString = new Set<String>{cases[0].Id};
+		Set<String> referenceIds = new Set<String>{'ART1231'};
 
 		List<Case> oldCases = new List<Case>{cases[0].clone(true)};
 
 		MyCustomerCaseArticlesModule.AsyncLinkArticlesToCasesWorker worker = new MyCustomerCaseArticlesModule.AsyncLinkArticlesToCasesWorker();
-		Map<String,Set<String>> params = new Map<String,Set<String>>{'caseIds' => caseIds, 'referenceIds' =>  new Set<String>{'ART1231'}};
+		Map<String,Set<String>> params = new Map<String,Set<String>>{'caseIds' => caseIdsString, 'referenceIds' =>  referenceIds};
+
+		
 
 
 		// =====================================
@@ -640,9 +644,21 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockArticleSelector.selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new Map<Id, Article__c>(articles));
-		MockUtility.Mocks.when(mockCaseSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>(cases));
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+
+		MockUtility.Mocks.when(mockArticleSelector.selectByTracking(
+				(Set<String>) fflib_Match.eq(referenceIds),
+				(Set<Object>) fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_RECORDTYPE}),
+				(Boolean)fflib_Match.eq(false)
+		)).thenReturn(new Map<Id, Article__c>(articles));
+
+		MockUtility.Mocks.when(mockCaseSelector.selectById(
+			(Set<Id>) fflib_Match.eq(caseIds)
+		)).thenReturn(new Map<Id, Case>(cases));
+
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate(
+			(List<SObject>) fflib_Match.eq(cases), 
+			(Boolean)fflib_Match.eq(false)
+		)).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -660,10 +676,10 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		Test.stopTest();
 
-		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
-		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
+		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>) fflib_Match.eq(new List<String>(referenceIds)), (Boolean)fflib_Match.eq(true), (Boolean)fflib_Match.eq(false), (Boolean)fflib_Match.eq(false), (Boolean)fflib_Match.eq(false), (Boolean)fflib_Match.eq(true));
+		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>) fflib_Match.eq(referenceIds),(Set<Object>) fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_RECORDTYPE}),(Boolean)fflib_Match.eq(false));
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>) fflib_Match.eq(caseIds));
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>) fflib_Match.eq(cases), (Boolean)fflib_Match.eq(false));
 	}	
 
 	/**
