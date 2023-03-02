@@ -29,7 +29,12 @@
     <!-- Added below code on 24/10/2018 for parsing and setting the Tracking Id passed from App view to the Missing Items form. -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
-
+    <aura:attribute name="recipientOrSenderRadioGroup" type="List"
+                    default="[
+                             {'label':'Sender', image:'','id':'secondRadio'},
+                             {'label':'Recipient', image:'','id':'firstRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
     <!--Autoprogress this form if the url parameters are passed, for rest of every other scenario continue allow user to enter the tracking id-->
     <aura:if isTrue="{!or(v.isFromBackButton, or(empty(v.dpidFromUrl) ,and(not(empty(v.dpidFromUrl)),empty(v.trackingIdFromUrl))))}">
         <aura:if isTrue="{!(v.isMultipleArticles)}">
@@ -130,6 +135,18 @@
             <aura:if isTrue="{!(v.error400)}">
                 <div class="slds-p-bottom_medium">
                     <p>Not sure what this means? <a onclick='{!c.navToLearnMore}'><u>Learn more</u></a></p>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{! and(not(v.wizardData.isEligibleForMultipleArticleSelection),not(v.error500), v.wizardData.eddStatus == 'NO_EDD')}">
+                <!-- Recipient/Sender Radio Buttions Group-->
+                <div class="form-input-container">
+                    <c:ChasRadioButtons
+                        aura:id="chasInput"
+                        name="recipientOrSenderRadioButtons"
+                        required="true"
+                        label="Are you the recipient or sender?"
+                        options="{!v.recipientOrSenderRadioGroup}"
+                        value="{!v.wizardData.selectedRadio1}"/>
                 </div>
             </aura:if>
             <aura:if isTrue="{! not(v.error500) }">
