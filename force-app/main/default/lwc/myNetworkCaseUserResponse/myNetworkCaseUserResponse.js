@@ -40,6 +40,8 @@ import CASE_INVESTIGATION_RECORD_ID from '@salesforce/schema/CaseInvestigation__
 const CASE_TYPE = 'Delivery Dispute';
 const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
+const STATUS_RESPONDED = 'Responded';
+const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
 
 
 export default class MyNetworkCaseUserResponse extends NavigationMixin(LightningElement) {
@@ -85,10 +87,10 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			this.errorMsg = 'Still under investigation and Require more information can not be selected at the same time';
 		} 
 		else if(event.target.value && !this.stillUnderInvestigation) {
-			this.status = 'Closed - Required More Information' ;
+			this.status = STATUS_CLOSED_REQUIRE_MORE_INFO ;
 		}
 		else if(!event.target.value && !this.stillUnderInvestigation) {
-			this.status = 'Closed' ;
+			this.status = STATUS_CLOSED ;
 		}
 		this.isCaseUpdatedRequired = true;
 	}
@@ -102,10 +104,10 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			this.errorMsg = 'Still under investigation and Require more information can not be selected at the same time';
 		} 
 		else if(event.target.value && !this.requireMoreInformation) {
-			this.status = 'Responded' ;
+			this.status = STATUS_RESPONDED ;
 		}
 		else if(!event.target.value && !this.requireMoreInformation) {
-			this.status = 'Closed' ;
+			this.status = STATUS_CLOSED ;
 		}
 		this.isCaseUpdatedRequired = true;
 	}
@@ -189,7 +191,6 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 
 		const fields = {};
 		fields[CASE_INVESTIGATION_RECORD_ID.fieldApiName] = this.recordId;
-		// fields[COMMENTS_FIELD.fieldApiName] = this.comments;
 		fields[NETWORK_FIELD.fieldApiName] = this.networkId;
 
 		fields[ADDRESS_TYPE_FIELD.fieldApiName] = this.addressType;
@@ -199,16 +200,13 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
 		fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
-		fields[STATUS_FIELD.fieldApiName] = this.status;
+		fields[STATUS_FIELD.fieldApiName] = (this.status != '') ? this.status : STATUS_CLOSED;
 		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
 		
 		
 		const recordInput = { fields };
 		updateRecord(recordInput)
 			.then(CaseInvestigation__c => {
-			// this.recordId = CaseInvestigation__c.id;
-
-
 			//create a chatter feed for comments entered.
 			if(this.comments){
 				this.createChatterFeed();
@@ -231,22 +229,22 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	}
 
 	createChatterFeed(){
-		this.isLoaded = false;
+		//this.isLoaded = false;
 		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
 		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId })
 		.then((result) => {
 			if (result) {
 
-				//reset text area values
-				const inputFields = this.template.querySelectorAll(
-					'lightning-textarea'
-				);
-				if(inputFields) {
-					inputFields.forEach(field => {
-						field.value = '';
-					});
-				}
-				this.isLoaded = true;
+				// //reset text area values
+				// const inputFields = this.template.querySelectorAll(
+				// 	'lightning-textarea'
+				// );
+				// if(inputFields) {
+				// 	inputFields.forEach(field => {
+				// 		field.value = '';
+				// 	});
+				// }
+				//this.isLoaded = true;
 
 				this.dispatchEvent(
 					new ShowToastEvent({
@@ -255,6 +253,8 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 						variant: 'success'
 					})
 				)
+				//reset all form fields.
+				this.handleReset();
 			}
 		})
 		.catch((error) => {
@@ -335,5 +335,36 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			}
 		});
     }
+
+	//reset all fields
+	handleReset() {
+		const allInputFields = this.template.querySelectorAll(
+			'lightning-input-field'
+		);
+
+		if (allInputFields) {
+			allInputFields.forEach(field => {
+				//field.reset() not working for some reason.
+				//todo: check.
+				field.value = '';
+				if(field.name === 'requireinfo') {
+					field.value = false;
+				}
+				if(field.name === 'sui') {
+					field.value = false;
+				}
+			});
+		}
+
+		//reset text area values
+		const textAreaFields = this.template.querySelectorAll(
+			'lightning-textarea'
+		);
+		if(textAreaFields) {
+			textAreaFields.forEach(field => {
+				field.value = '';
+			});
+		}
+	 }
 	
 }
