@@ -1,3 +1,7 @@
+/**
+* @changelog
+* 2023-03-02 - Mahesh Parvathaneni - Updated title to show Network name
+*/ 
 import {
     api,
     track,
@@ -27,13 +31,17 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
                 ...eventMessages[i]
             };
             let actualDatetime = this.formattedDateTime(eventMessages[i].ActualDateTime__c);
+			let network = eventMessages[i].Facility__c;
             //set title
-            let title = eventMessages[i].EventDescription__c;
+			let title;
+			if (network) {
+				title = eventMessages[i].Facility__r.Name + ' - ';
+			}
+            title += eventMessages[i].EventDescription__c;
             if (actualDatetime !== null) {
                 title += ' @ ' + actualDatetime;
             }
             eventMessageScan.title = title;
-            let network = eventMessages[i].Facility__c;
             if (network) {
                 let contactMethod = eventMessages[i].Facility__r.Contact_Facility__c;
                 //set disabled checkbox
