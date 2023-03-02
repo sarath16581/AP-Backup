@@ -90,8 +90,7 @@ private class MilestoneService_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		//get the business hours from the org
-		List<BusinessHours> stdBusinessHours = [SELECT Id,Name FROM BusinessHours where Name = 'Service Delivery VIC'];
+		// None!
 
 		// =====================================
 		// Stubbing
