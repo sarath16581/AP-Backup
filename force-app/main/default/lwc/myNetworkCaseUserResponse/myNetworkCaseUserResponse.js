@@ -11,6 +11,7 @@
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
 
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
 import updateCase from "@salesforce/apex/MyNetworkCaseUserResponseController.updateCase";
@@ -41,7 +42,7 @@ const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
 
 
-export default class MyNetworkCaseUserResponse extends LightningElement {
+export default class MyNetworkCaseUserResponse extends NavigationMixin(LightningElement) {
 
 	@api recordId;
 	@api caseInvestigationRecordId;
@@ -308,8 +309,9 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			.then(() => {
 			if(this.comments){
 				this.createChatterFeed();
-			}
+			} 	
 			this.isLoaded = true;
+			this.navigateToHome();
 		})
 		.catch(error => {
 			this.isLoaded = true;
@@ -323,5 +325,15 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			console.error('handleAcknowledgeBtnClick call failed: ' + reduceErrors(error).join(', '));
 		});
 	}
+
+	//Navigate to home page
+	navigateToHome() {
+		this[NavigationMixin.Navigate]({
+			type: 'comm__namedPage',
+			attributes: {
+				name: 'Home'
+			}
+		});
+    }
 	
 }
