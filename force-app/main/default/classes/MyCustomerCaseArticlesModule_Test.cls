@@ -8,7 +8,8 @@
  * @changelog
  * SaiSwetha Pingali - Removed the test method for SnapIt cases as it is no longer required.
  * 2022-10-31	Noel Lim - Updated tests relating to strategic rules, as case re-routing logic during the async call need to be in the holding Queue to be re-routed
- * 2023-02-16	Noel Lim - Update testEnsureStrategicCaseIsReroutedInQueueable() to assert Case.PreferredAgentExpiry is set
+ * 2023-02-16	Noel Lim - Update testEnsureStrategicCaseIsReroutedInQueueable method to assert Case.PreferredAgentExpiry is set
+ * 2023-03-02	Noel Lim - Add testAsyncLinkArticlesToCasesWorker method
  */
 @IsTest
 private class MyCustomerCaseArticlesModule_Test {
@@ -115,7 +116,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		Test.startTest();
 
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-		module.queueAsyncArticleToCases(cases);
+		module.queueAsyncArticleToCases(cases, uow);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -297,7 +298,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		Test.startTest();
 
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-		module.queueAsyncArticleToCases(cases);
+		module.queueAsyncArticleToCases(cases, uow);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -409,7 +410,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
 
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-		module.queueAsyncArticleToCases(cases);
+		module.queueAsyncArticleToCases(cases, uow);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -506,7 +507,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
 
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-		module.queueAsyncArticleToCases(cases);
+		module.queueAsyncArticleToCases(cases, uow);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -608,4 +609,99 @@ private class MyCustomerCaseArticlesModule_Test {
 
 	}
 
+	@IsTest
+	static void testAsyncLinkArticlesToCasesWorker() {
+		
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, null, true);
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+
+		// this is our test data where 1 record has a reference ID and another article has the Id
+		cases[0].ReferenceID__c = 'ART1231';
+
+		Set<String> caseIds = new Set<String>{cases[0].Id};
+
+		List<Case> oldCases = new List<Case>{cases[0].clone(true)};
+
+		MyCustomerCaseArticlesModule.AsyncLinkArticlesToCasesWorker worker = new MyCustomerCaseArticlesModule.AsyncLinkArticlesToCasesWorker();
+		Map<String,Set<String>> params = new Map<String,Set<String>>{'caseIds' => caseIds, 'referenceIds' =>  new Set<String>{'ART1231'}};
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		TIBCOArticleService mockArticleService = (TIBCOArticleService)MockUtility.mockUtility(TIBCOArticleService.class);
+		SSSWCasesSelector mockCaseSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
+		ArticlesSelector mockArticleSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockArticleSelector.selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new Map<Id, Article__c>(articles));
+		MockUtility.Mocks.when(mockCaseSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>(cases));
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		System.assertEquals(MyCustomerCaseArticlesModule.AsyncLinkArticlesToCasesWorker.class, worker.getClassType(), 'matching type');
+		System.assertEquals(Case.SObjectType, worker.getSObjectTypeGroup(), 'matching type');
+		worker.deserialiseParams(JSON.serialize(params));
+		System.assert(worker.caseIds.contains(cases[0].Id), 'CaseIds should be passed in via the params');
+		System.assert(worker.referenceIds.contains('ART1231'), 'ReferenceIds should be passed in via the params');
+
+		worker.execute(uow);
+
+		Test.stopTest();
+
+		// these methods exist in the queueable
+		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
+		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
+	}	
+
+	/**
+	 * test the Exception handling on the module onBeforeInsert and onBeforeUpdate methods
+	 */
+	@isTest
+	static void testExceptionHandling(){
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
+
+		 // =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
+		module.onBeforeInsert(null,null);
+		module.onBeforeUpdate(null,null,null);
+		module.onAfterInsert(null,null);
+		module.onAfterUpdate(null,null,null);
+
+		Test.stopTest();
+
+		//An exception should be created when thre are invalid parameters in the onBeforeInsert, onBeforeUpdate, onAfterInsert, onAfterUpdate
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 4)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
+		
+		// PMD warning
+		System.assert(true);
+	}
 }

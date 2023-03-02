@@ -150,10 +150,6 @@ public class SSSW_Routing {
 	// Avoid Queue Check change from Reassign Button
 	public static Boolean reassignNoCheckOwnerQueue = false;
 
-	// Allow other context e.g. Batch jobs to set the isFinalPass in assignCasesAndDescription(), to prevent the Case from going into the Omni Holding Queue. 
-	// MyCustomerCaseArticlesModule.ensureQueryJobEnqueued() processes Cases out of the Omni Holding queue, however it doesn't run when in Batch, Queueable, or Future context.
-	public static Boolean isFinalPassOverride = false;
-
 	// Date Modified : 12/03/2021- Moving getRules() to an inner class GetRulesForAllProfiles. 
 	// This is to allow guest profiles as well to access the method
 	/**
@@ -191,7 +187,6 @@ public class SSSW_Routing {
 			List<String> sswFields = new List<String>();
 			sswFields.addAll(routingFields);
 			String queryString = String.format('select {0},Sequence__c, Match_Rules_On__c, NPS_criteria__c, AutoEscalate__c, Recordtype.DeveloperName, ' +
-											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c,PreferredAgentExpiry__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
 											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c,PreferredAgentExpiry__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
 											   '(RecordType.DeveloperName=\'\'{1}\'\') order by Sequence__c',
 											   new List<String>{
