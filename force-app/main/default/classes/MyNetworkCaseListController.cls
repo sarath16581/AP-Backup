@@ -19,6 +19,7 @@
 01/11/2022         Dattaraj Deshmukh           Updated - Added logic to include CaseInvestigation__c in all queries. 
 														 Added methods for StarTrack dynamic SOQL, updated existing methods to filter star track cases.
 														 Added star_track_cases listview filter.
+01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -1385,24 +1386,18 @@ public with sharing class MyNetworkCaseListController {
 		String textMapVar;
 		MyNetworkCasesWrapper myNetworkCasesWrapperVar ;
 
-		//check case investigation record
-		if(cInv != null && cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)) {
-									
-			iconMapVar = cInv.Stillunderinvestigation__c ? 'SUI' : 'UPDATED';
-			colorMapVar = cInv.Stillunderinvestigation__c ? 'orange' : 'Red';
-			textMapVar =  cInv.Stillunderinvestigation__c ? 'Case is under investigation' : 'Case has been updated';
-		}
-		else if(cInv != null && cInv.Stillunderinvestigation__c) {
-			iconMapVar =  'SUI' ;
-			colorMapVar = 'orange';
-			textMapVar =  'Case is under investigation';
-		}
-		//check st case condition
-		else if( cInv.Case__r.Last_Status_Change__c != null && cInv.Case__r.Last_Status_Change__c >= System.today() - 5) {
-			//mark case as updated 
+		//if related startrack case is closed
+		if(cInv.Case__r.IsClosed) {
+			//mark case investigation as updated 
 			iconMapVar = 'UPDATED';
 			colorMapVar = 'Red';
 			textMapVar = 'Case has been updated';
+		}
+		else if(cInv != null && cInv.Stillunderinvestigation__c) {
+			//if case investigation is under investigation
+			iconMapVar =  'SUI' ;
+			colorMapVar = 'orange';
+			textMapVar =  'Case is under investigation';
 		}
 		else {
 			iconMapVar = 'NEW';
