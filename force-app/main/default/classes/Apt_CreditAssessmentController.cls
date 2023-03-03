@@ -51,6 +51,9 @@
 * Last Modified By -Seth Heang
 * Last Modified Date - 8th June, 2021 | STP 5389 - Pre-populate Trustee Name and Trustee ACN from Opportunity
 
+* Last Modified By -Harry Wang
+* Last Modified Date - 2nd Mar, 2023 | STP-7602 - adding new parameter: contextId and allowing redirect based on contextId
+
 */
 
 public with sharing class Apt_CreditAssessmentController {
@@ -76,6 +79,7 @@ public with sharing class Apt_CreditAssessmentController {
     //private variables
     private String creditAssesmentId;
     private String proposalId;
+    private String contextId;
     public decimal sum {get;set;}
     public string entityTypeForAssessment;
     public boolean isGovernmentEntity;
@@ -266,7 +270,6 @@ public with sharing class Apt_CreditAssessmentController {
             individualResponseWrapper = new APT_IndividualCreditAssessmentWrapper.individualCommercialResponse_element();
             if(String.IsNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID))){
                 accountID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID);
-                
                 accountType = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ACCOUNT_TYPE);
                 isAccountFlow = true;
                 
@@ -274,6 +277,7 @@ public with sharing class Apt_CreditAssessmentController {
                 isAnonymousFlow = false;
                 isAccountFlow = false;
                 proposalID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID);
+                contextId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CONTEXT_ID);
                 proposal = [SELECT id, Apttus_Proposal__Account__c, Apttus_Proposal__Account__r.Role_Type_Roll_Up__c,
                             Apttus_Proposal__Account__r.Name, Is_Startrack_Proposal__c,
                             APT_Credit_Assessment_Status__c, Apttus_Proposal__Opportunity__c,Apttus_Proposal__Opportunity__r.amount,
@@ -1245,7 +1249,11 @@ public with sharing class Apt_CreditAssessmentController {
                 redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
                 redirectPage.getParameters().put(APT_Constants.PARAM_CHARGE_ACCOUNT_ID, chargeAccount.Id);
             } else {
-                redirectPage = new ApexPages.StandardController(proposal).View();
+                if (String.isNotBlank(contextId)) {
+                    redirectPage = new PageReference('/' + contextId);
+                } else {
+                    redirectPage = new ApexPages.StandardController(proposal).View();
+                }
             }
             
         } else if(isAccountFlow) {
@@ -1352,7 +1360,19 @@ public with sharing class Apt_CreditAssessmentController {
             return null;
         }
     }
-    
+
+    /**
+       This method will redirect user to the record detail page of given context
+     **/
+    public pageReference backToContext(Id contextId){
+        try {
+            return new PageReference('/' + contextId);
+        }  catch(Exception ex){
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
+            return null;
+        }
+    }
+
     /** 
       Cancel button action
      **/
@@ -1376,9 +1396,12 @@ public with sharing class Apt_CreditAssessmentController {
             //1550
 
             PageReference redirectPage = null;
-            if(String.IsNotBlank(proposalId)){
+            if(String.IsNotBlank(proposalId) && String.isBlank(contextId)){
                 //back to proposal
                 redirectPage  = backToProposal();
+            } else if(String.IsNotBlank(proposalId) && String.isNotBlank(contextId)) {
+                // back to object of context
+                redirectPage = backToContext(contextId);
             } else if(String.IsNotBlank(AccountID)){
                 //back to account
                 redirectPage  = backToAccount();
