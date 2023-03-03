@@ -1238,24 +1238,23 @@ public with sharing class Apt_CreditAssessmentController {
             **/
             system.debug('*** proposal ***'+proposal);
             update proposal;
-                        
-            if(accountType != null && accountType.equalsIgnoreCase(APT_Constants.ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT) == true) {
-                system.debug('StarTrack Porposal:::'+proposal.Is_Startrack_Proposal__c);
-                if(proposal.Is_Startrack_Proposal__c == 'No'){
-                    redirectPage = Page.SubAcctReqFormCmpfromCreditAssesment; 
-                }else{
-                    redirectPage = Page.APT_SubAccountAssessment; 
-                }
-                redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
-                redirectPage.getParameters().put(APT_Constants.PARAM_CHARGE_ACCOUNT_ID, chargeAccount.Id);
+
+            if (String.isNotBlank(contextId)) {
+                redirectPage = new PageReference('/' + contextId);
             } else {
-                if (String.isNotBlank(contextId)) {
-                    redirectPage = new PageReference('/' + contextId);
+                if(accountType != null && accountType.equalsIgnoreCase(APT_Constants.ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT) == true) {
+                    system.debug('StarTrack Porposal:::'+proposal.Is_Startrack_Proposal__c);
+                    if(proposal.Is_Startrack_Proposal__c == 'No'){
+                        redirectPage = Page.SubAcctReqFormCmpfromCreditAssesment;
+                    }else{
+                        redirectPage = Page.APT_SubAccountAssessment;
+                    }
+                    redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
+                    redirectPage.getParameters().put(APT_Constants.PARAM_CHARGE_ACCOUNT_ID, chargeAccount.Id);
                 } else {
                     redirectPage = new ApexPages.StandardController(proposal).View();
                 }
             }
-            
         } else if(isAccountFlow) {
             
             if((APT_Constants.CREDIT_ASSESSMENT_STATUS_REFERRED).equalsIgnoreCase(creditAssessmentStatus)){
