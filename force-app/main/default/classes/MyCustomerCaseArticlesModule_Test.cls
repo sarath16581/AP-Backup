@@ -683,7 +683,7 @@ private class MyCustomerCaseArticlesModule_Test {
 	}	
 
 	/**
-	 * test the Exception handling on the module onBeforeInsert and onBeforeUpdate methods
+	 * test the Exception handling on the module
 	 */
 	@isTest
 	static void testExceptionHandling(){

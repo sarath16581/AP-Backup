@@ -122,7 +122,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			}
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onBeforeInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onBeforeInsert', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -225,8 +225,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				setArticlesSubscribed(subscribedArticleIds, uow);
 			}
 		} catch(Exception ex) {
-			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onBeforeUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			// Error Logged to Exception object for analysis			
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onBeforeUpdate', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -235,7 +235,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			queueAsyncArticleToCases((List<Case>)records, uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -244,7 +244,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			queueAsyncArticleToCases((List<Case>)records, uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
