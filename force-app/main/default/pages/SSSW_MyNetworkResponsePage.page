@@ -297,9 +297,9 @@
                                                 <apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
                                             </apex:outputPanel>
                                             <apex:outputPanel id="fieldvalues">
-                                                <apex:inputField value="{!nresp[field]}" style="width:90%;text-align:left;" label="{!fieldMap2[field]}" rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c' || field=='Request_Hold_Case__c' || field=='to_CCC_action__c' ) && field!='to_Reassign_Network__c'}">
+                                                <!-- <apex:inputField value="{!nresp[field]}" style="width:90%;text-align:left;" label="{!fieldMap2[field]}" rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c' || field=='Request_Hold_Case__c' || field=='to_CCC_action__c' ) && field!='to_Reassign_Network__c'}">
                                                     <apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt,PONPanel" />
-                                                </apex:inputField>
+                                                </apex:inputField> -->
                                                 <!-- Start -Split the 2 fields SUI and CCC Action-->
                                                 <apex:inputField id="cccAction" value="{!nresp[field]}" label="{!fieldMap2[field]}" style="float:left;width:10%" rendered="{!(field=='to_CCC_action__c' && 
                                                          relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))) && field!='to_Reassign_Network__c'}" onclick="showMessage(this.id,'message')">

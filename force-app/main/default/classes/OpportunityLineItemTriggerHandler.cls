@@ -330,12 +330,11 @@ public class OpportunityLineItemTriggerHandler {
             }
         }
         OpportunityLineItemService.populateClassification(populateClassificationFilteredList);
-        //OpportunityLineItemService.populateClassification(newOppLineItemList);
+ 
     }
 
     public static void beforeUpdateActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
-        OpportunityLineItemService.updateClassification(RecursionUtility.getUnprocessedRecords('Populate Classification Update', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap);
-        OpportunityLineItemService.changeClassification(RecursionUtility.getUnprocessedRecords('Change Classification', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap);
+        OpportunityLineItemService.recalculateClassification(RecursionUtility.getUnprocessedRecords('Recalculate Classification', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap);
     }
 
     public static void beforeDeleteActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
