@@ -206,8 +206,9 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		
 		const recordInput = { fields };
 		updateRecord(recordInput)
-			.then(CaseInvestigation__c => {
+			.then(result => {
 			//create a chatter feed for comments entered.
+			
 			if(this.comments){
 				this.createChatterFeed();
 			}
@@ -235,17 +236,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		.then((result) => {
 			if (result) {
 
-				// //reset text area values
-				// const inputFields = this.template.querySelectorAll(
-				// 	'lightning-textarea'
-				// );
-				// if(inputFields) {
-				// 	inputFields.forEach(field => {
-				// 		field.value = '';
-				// 	});
-				// }
 				//this.isLoaded = true;
-
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Success',
