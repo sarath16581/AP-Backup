@@ -4,6 +4,7 @@
  * @Author             : Mahesh Parvathaneni
  * 					   : Jacob Isaac - REQ2995236 To add defaulting StarTrack_Calc_Email_Address__c
  * 					   : 2023-02-06 Thang Nguyen - DDS-14064 - Add the Enquiry Type field value
+ * 					   : 2023-03-02 Thang Nguyen - DDS-14900 - Set the comment to private 
  **/
 
 public with sharing class STHSTrackingFormController {
@@ -33,7 +34,7 @@ public with sharing class STHSTrackingFormController {
 			//build case comments from form data
 			commentBody = service.buildCaseCommentsWithFormData(commentBody, formData);
 			comment.CommentBody = commentBody;
-			comment.IsPublished = true;
+			comment.IsPublished = false;
 			comment.ParentId = caseObj.Id;
 			//insert case comments
 			service.insertRecords(new List<SObject>{comment});

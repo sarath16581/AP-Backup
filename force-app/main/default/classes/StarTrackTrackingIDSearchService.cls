@@ -182,6 +182,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                 StarTrackIntegrationLogging.logRequestResponse(StarTrack_Constants.CLASS_CONSIGNSEARCH, StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
                         searchString, 'INT-RES - consignmentSearch', respTimeStamp, emsResponse);
             }
+
             conWrap = StarTrackConsignmentSearchUtil.processResponse(emsResponse, isConsole, false);
 
             if (StarTrack_Constants.ERR_CODE_0.equals(conWrap.errorCode)) {

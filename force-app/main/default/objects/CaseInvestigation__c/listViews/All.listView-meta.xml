@@ -3,8 +3,6 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Case__c</columns>
-    <columns>Subject__c</columns>
-    <columns>Comments__c</columns>
     <columns>Network__c</columns>
     <columns>Status__c</columns>
     <columns>OWNER.ALIAS</columns>
