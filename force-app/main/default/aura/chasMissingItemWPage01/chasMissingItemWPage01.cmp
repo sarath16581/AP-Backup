@@ -21,6 +21,7 @@
     <aura:attribute name="showSelectionError" type="Boolean" default="false"/>
     <aura:attribute name="showInvalidMessage" type="Boolean" default="false"/>
     <aura:attribute name="showInvalidWithinEDDMessage" type="Boolean" default="false"/>
+    <aura:attribute name="showCallerType" type="Boolean" default="false"/>
     <aura:attribute name="eddDisplayDate"  type="String" default="" />
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
@@ -137,7 +138,7 @@
                     <p>Not sure what this means? <a onclick='{!c.navToLearnMore}'><u>Learn more</u></a></p>
                 </div>
             </aura:if>
-            <aura:if isTrue="{! and(not(v.wizardData.isEligibleForMultipleArticleSelection),not(v.error500), v.wizardData.eddStatus == 'NO_EDD')}">
+            <aura:if isTrue="{! v.showCallerType}">
                 <!-- Recipient/Sender Radio Buttions Group-->
                 <div class="form-input-container">
                     <c:ChasRadioButtons
@@ -147,6 +148,9 @@
                         label="Are you the recipient or sender?"
                         options="{!v.recipientOrSenderRadioGroup}"
                         value="{!v.wizardData.selectedRadio1}"/>
+                </div>
+                <div>
+                    <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.navNextPage }"/>
                 </div>
             </aura:if>
             <aura:if isTrue="{! not(v.error500) }">

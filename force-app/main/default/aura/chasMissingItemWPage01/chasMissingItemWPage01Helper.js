@@ -21,6 +21,7 @@
                 //-- Trcking number is changed, so make a server call
                 cmp.set("v.showInvalidWithinEDDMessage", false)
                 cmp.set("v.showInvalidMessage", false);
+               cmp.set("v.showCallerType",false);
                 var action = cmp.get("c.searchTrackingNumber");
                 action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
                 
@@ -129,6 +130,11 @@
                             } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
                                 cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
                                 helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'LATE'){
+                                cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
+                                cmp.set("v.showCallerType",true);
+                                cmp.set("v.isLoading", false);
+                                //helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
                             }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
                         else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )

@@ -50,6 +50,9 @@
             helper.callTrackingNumberService(cmp, event, helper);
         }
     },
+    navNextPage : function(cmp, event, helper) {
+        helper.gotoNextPage(cmp);
+    },
     searchTrackingNumberService : function(cmp, event, helper) {
         helper.callTrackingNumberService(cmp, event, helper);
     },
