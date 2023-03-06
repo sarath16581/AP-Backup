@@ -8,6 +8,7 @@
  * 2023-02-13 - Dattaraj Deshmukh - updated QualityOfTheCase fields default value.
  * 2023-02-16 - Dattaraj Deshmukh - Added updateCase method. Updated internal facility notes field placeholder.
  * 2023-03-01 - Mahesh Parvathaneni - SF-830 Updated logic if the related case is closed
+ * 2023-03-06 - Dattaraj Deshmukh - Fixed bug SF-864. Made network response field required.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -42,7 +43,7 @@ const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
 const STATUS_RESPONDED = 'Responded';
 const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
-
+const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
 
 export default class MyNetworkCaseUserResponse extends NavigationMixin(LightningElement) {
 
@@ -205,8 +206,21 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		
 		
 		const recordInput = { fields };
+		
+		//check network response is entered.
+		//show error message if network response is NOT entered.
+		if(this.comments == undefined || this.comments == '') {
+			const networkResponseField = this.template.querySelector(
+				'[data-id="networkRes"]'
+			);
+			//message-when-value-missing="Please enter the network response." 
+			networkResponseField.setCustomValidity(NETWORK_RESPONSE_REQUIRED);
+			networkResponseField.reportValidity();
+		}
+	
 		updateRecord(recordInput)
 			.then(result => {
+			
 			//create a chatter feed for comments entered.
 			
 			if(this.comments){
@@ -236,7 +250,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		.then((result) => {
 			if (result) {
 
-				//this.isLoaded = true;
+				this.isLoaded = true;
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Success',
@@ -326,36 +340,4 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			}
 		});
     }
-
-	//reset all fields
-	handleReset() {
-		const allInputFields = this.template.querySelectorAll(
-			'lightning-input-field'
-		);
-
-		if (allInputFields) {
-			allInputFields.forEach(field => {
-				//field.reset() not working for some reason.
-				//todo: check.
-				field.value = '';
-				if(field.name === 'requireinfo') {
-					field.value = false;
-				}
-				if(field.name === 'sui') {
-					field.value = false;
-				}
-			});
-		}
-
-		//reset text area values
-		const textAreaFields = this.template.querySelectorAll(
-			'lightning-textarea'
-		);
-		if(textAreaFields) {
-			textAreaFields.forEach(field => {
-				field.value = '';
-			});
-		}
-	 }
-	
 }
