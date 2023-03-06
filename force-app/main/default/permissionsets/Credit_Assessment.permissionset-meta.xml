@@ -87,4 +87,8 @@
         <apexPage>Apt_CreditAssessment</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <pageAccesses>
+        <apexPage>SubAcctReqFormCmpfromCreditAssesment</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
 </PermissionSet>
