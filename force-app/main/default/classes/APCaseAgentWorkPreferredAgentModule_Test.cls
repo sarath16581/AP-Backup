@@ -40,7 +40,7 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 				new Case(Id = records[3].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true, PreferredAgentExpiry__c = null),
 				new Case(Id = records[4].WorkItemId, BypassPreferredAgent__c = true, AllocateToQueue__c = true, PreferredAgentExpiry__c = null)
 			}),
-			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.AllocateToQueue__c  }),
+			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.AllocateToQueue__c, Case.PreferredAgentExpiry__c }),
 			fflib_Match.eqBoolean(true),
 			fflib_Match.eqString(APCaseAgentWorkPreferredAgentModule.class.getName())
 		);
