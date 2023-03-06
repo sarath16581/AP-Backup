@@ -258,8 +258,6 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 						variant: 'success'
 					})
 				)
-				//reset all form fields.
-				this.handleReset();
 			}
 		})
 		.catch((error) => {
