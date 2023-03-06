@@ -42,7 +42,7 @@ const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
 const STATUS_RESPONDED = 'Responded';
 const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
-
+const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
 
 export default class MyNetworkCaseUserResponse extends NavigationMixin(LightningElement) {
 
@@ -205,10 +205,22 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		
 		
 		const recordInput = { fields };
+		
+		//check network response is entered.
+		//show error message if network response is NOT entered.
+		if(this.comments == undefined || this.comments == '') {
+			const networkResponseField = this.template.querySelector(
+				'[data-id="networkRes"]'
+			);
+			//message-when-value-missing="Please enter the network response." 
+			networkResponseField.setCustomValidity(NETWORK_RESPONSE_REQUIRED);
+			networkResponseField.reportValidity();
+		}
+	
 		updateRecord(recordInput)
 			.then(result => {
-			//create a chatter feed for comments entered.
 			
+			//create a chatter feed for comments entered.
 			if(this.comments){
 				this.createChatterFeed();
 			}
@@ -230,13 +242,13 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	}
 
 	createChatterFeed(){
-		//this.isLoaded = false;
+		this.isLoaded = false;
 		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
 		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId })
 		.then((result) => {
 			if (result) {
 
-				//this.isLoaded = true;
+				this.isLoaded = true;
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Success',
@@ -244,8 +256,6 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 						variant: 'success'
 					})
 				)
-				//reset all form fields.
-				this.handleReset();
 			}
 		})
 		.catch((error) => {
@@ -326,36 +336,4 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			}
 		});
     }
-
-	//reset all fields
-	handleReset() {
-		const allInputFields = this.template.querySelectorAll(
-			'lightning-input-field'
-		);
-
-		if (allInputFields) {
-			allInputFields.forEach(field => {
-				//field.reset() not working for some reason.
-				//todo: check.
-				field.value = '';
-				if(field.name === 'requireinfo') {
-					field.value = false;
-				}
-				if(field.name === 'sui') {
-					field.value = false;
-				}
-			});
-		}
-
-		//reset text area values
-		const textAreaFields = this.template.querySelectorAll(
-			'lightning-textarea'
-		);
-		if(textAreaFields) {
-			textAreaFields.forEach(field => {
-				field.value = '';
-			});
-		}
-	 }
-	
 }
