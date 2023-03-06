@@ -14,6 +14,7 @@
  * 2021-10-01 - Nathan Franklin - Added selectByArticleNumber and uplifted to version 52 and also the WITH_SIGNATURE_FIELD option
  * 2021-10-03 - Nathan Franklin - Updated to pass selectorOptions into all related object selectors
  * 2022-11-23 - Mahesh Parvathaneni - Added newInstance method with sort field and order and also added the selector FILTER_AP_NETWORK_NOT_NULL
+ * 2023-03-06 - Mahesh Parvathaneni - Added field ActualDateTime_Timestamp__c
  */
 public virtual inherited sharing class EventMessagesSelector extends ApplicationSelector {
 
@@ -83,7 +84,8 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 		return new Set<SObjectField> {
 			EventMessage__c.Id, EventMessage__c.DriverContract__c, EventMessage__c.RoundNo__c, EventMessage__c.UserName__c, EventMessage__c.SignatoryName__c, EventMessage__c.Safe_Drop_GUID__c, 
 			EventMessage__c.Article__c, EventMessage__c.EventGeoLocation__Latitude__s, EventMessage__c.EventGeoLocation__Longitude__s, EventMessage__c.EventType__c, EventMessage__c.AttachmentGUID__c,
-			EventMessage__c.AttachmentType__c, EventMessage__c.EventDescription__c, EventMessage__c.ActualDateTime__c, EventMessage__c.TrackingID__c, EventMessage__c.FacilityOrganisationID__c
+			EventMessage__c.AttachmentType__c, EventMessage__c.EventDescription__c, EventMessage__c.ActualDateTime__c, EventMessage__c.TrackingID__c, EventMessage__c.FacilityOrganisationID__c,
+			EventMessage__c.ActualDateTime_Timestamp__c
 		};
 	}
 
