@@ -193,7 +193,7 @@ public class EmailMessageUtil {
                 if (caseRec.RecordType.Developername.startsWith(StarTrack_Constants.CASE_STARTRACK_RECTYPE)) { //Validate if case is a StarTrack record.
                     starTrackEmailMessages.add(caseToEmailMessage.get(caseRec.Id));
                 }
-            }
+            }	
 
             if (!starTrackEmailMessages.isEmpty()) {
                 for (EmailMessage newEmail : starTrackEmailMessages) {

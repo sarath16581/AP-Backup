@@ -3,10 +3,10 @@
     <sharingOwnerRules>
         <fullName>ShareAllSAPContractsExCC</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Sharing rule to grant access to all SAP Contracts for all users except C&amp;C Sales team</description>
-        <label>Share All SAP Contracts Ex C&amp;C Sales</label>
+        <description>Sharing rule to grant access to all SAP Contracts for all users except PP&amp;ECS Sales team</description>
+        <label>Share All SAP Contracts Ex PP&amp;ECS Sales</label>
         <sharedTo>
-            <group>All_Users_Ex_CC_Sales</group>
+            <group>All_Users_Ex_PPECS_Sales</group>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>

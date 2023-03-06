@@ -19,6 +19,7 @@
  * 2022-02-17 - Nathan Franklin - Refactored WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
  * 2022-01-23 - Dattaraj Deshmukh - Added tests for 'CaseInvestigations__r' child records query.
  * 2022-02-13 - Dattaraj Deshmukh - Added test for StarTrack cases and case investigations in testSelectorIntegration method.
+ * 2022-02-28 - Dattaraj Deshmukh - Added test for WITH_NETWORK_RESPONSE in 'testEnsureQueryBuilderProducesCorrectStringWithRelatedFields' method.
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -136,6 +137,14 @@ public with sharing class CasesSelector_Test {
 			true,
 			Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom CaseInvestigations__r\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(),
 			'Resulting query does not select Case Investigation child records: ' + soql
+		);
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_NETWORK_RESPONSE});
+		soql = qb.toSoqlString();
+		System.assertEquals(
+			true,
+			Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Network_Responses1__r\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(),
+			'Resulting query does not select Network Response child records: ' + soql
 		);
 
 

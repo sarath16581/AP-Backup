@@ -30,7 +30,7 @@ public with sharing class OmniSkillsReportController {
 		// check to see if we need to reduce the limit size depending on if the query was recently run or not
 		// we do this because if the internal query cache isn't primed, this query can take a significant amount of time to run which increases the risk of concurrent errors
 		// by reducing the limit, the request should complete quicker and hopefully avoid the long running request bucket (synchronous transactions > 5 seconds)
-		Long startOfDayTime = Datetime.newInstanceGmt(Date.today(), Time.newInstance(0, 0, 0, 0)).getTime() / 1000; // this is the number of seconds for the start of day represented in GMT time
+		Long startOfDayTime = Datetime.newInstance(Date.today(), Time.newInstance(0, 0, 0, 0)).getTime() / 1000; // this is the number of seconds for the start of day represented in GMT time
 
 		// NOTE: Datetime.now() is GMT
 		Long nowTime = Datetime.now().getTime() / 1000; // this is the number of seconds represented in GMT time

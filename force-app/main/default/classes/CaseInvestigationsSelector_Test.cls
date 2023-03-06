@@ -11,6 +11,7 @@
  * 2023-01-31 - Mahesh Parvathaneni - Updated tests for selectNetworkMilestoneViolatedOpenCaseInvestigations
  * 2023-02-22 - Dattaraj Deshmukh	- Updated methods by passing 'stCaseInvestigationRecordTypeId' to selector methods.
  * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId
+ * 2023-02-28 - Dattaraj Deshmukh 	- Added tests for 'WITH_FEEDS' options.
  */
 
  @IsTest
@@ -60,11 +61,14 @@
 		selector = CaseInvestigationsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
 			User.getSObjectType() => new Set<SObjectField>{User.Name}
 		});
-		qb = selector.newQueryBuilder(new Set<Object>{CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
+		qb = selector.newQueryBuilder(new Set<Object>{CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS, CaseInvestigationsSelector.Options.WITH_FEEDS});
 		soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom CaseInvestigation__c\\b').matcher(soql).find(), 'Resulting query does not select User fields');
-		
+		System.assertEquals(true, 
+		Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Feeds\\b.*?\\).*?\\bfrom CaseInvestigation__c\\b').matcher(soql).find(),
+			'Resulting query does not select FeedItem records: ' + soql);
+
 
 		Test.stopTest();
  

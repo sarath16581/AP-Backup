@@ -315,6 +315,9 @@
             <quickActionName>Case.Create_Task</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
+            <quickActionName>Case.Create_Task</quickActionName>
+        </quickActionListItems>
+        <quickActionListItems>
             <quickActionName>FeedItem.ContentPost</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
