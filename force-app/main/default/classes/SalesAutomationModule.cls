@@ -18,6 +18,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 	@TestVisible private static Map<String, List<String>> salesTeamTypeMappings {
 		get {
 			if (salesTeamTypeMappings == null) {
+				Application.Profiler.start('SalesAutomationModule.salesTeamTypeMappings(static)');
 				// check in platform cache first
 				if (CacheManager.get(CACHE_KEY_SALESTEAMTYPE_MAPPINGS) != null) {
 					// use sales team mappings available in platform cache.
@@ -29,6 +30,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 					// also populate platform cache so it is available later
 					CacheManager.put(CACHE_KEY_SALESTEAMTYPE_MAPPINGS, mapping);
 				}
+				Application.Profiler.stop('SalesAutomationModule.salesTeamTypeMappings(static)');
 			}
 			return salesTeamTypeMappings;
 		}
@@ -45,14 +47,17 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		Application.Profiler.start('SalesAutomationModule.onBeforeInsert');
 		try {
 			populateSalesTeamType((List<Account>)records);
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
+		Application.Profiler.stop('SalesAutomationModule.onBeforeInsert');
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		Application.Profiler.start('SalesAutomationModule.onBeforeUpdate');
 		try {
 			List<Account> accountsToPopulateSalesTeamType = new List<Account>();
 			for (Account record: (List<Account>)records) {
@@ -68,10 +73,12 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
+		Application.Profiler.stop('SalesAutomationModule.onBeforeUpdate');
 	}
 
 
 	private void populateSalesTeamType(List<Account> records) {
+		Application.Profiler.start('SalesAutomationModule.populateSalesTeamType');
 
 		Map<String, List<Id>> excludedRecords = new Map<String, List<Id>>();
 		for (Account record: records) {
@@ -101,6 +108,7 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 		if (!excludedRecords.isEmpty()) {
 			logExcludedRecords(excludedRecords);
 		}
+		Application.Profiler.stop('SalesAutomationModule.populateSalesTeamType');
 	}
 
 	/**

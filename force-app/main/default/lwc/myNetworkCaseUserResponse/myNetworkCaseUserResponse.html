@@ -38,8 +38,8 @@
 									</template>
 									<lightning-textarea value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
 									<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
-									<lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
-									<lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>
+									<lightning-input-field field-name="Stillunderinvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
+									<lightning-input-field field-name="Requiremoreinformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>
 									<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
 									<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Poster Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"> 
 									</lightning-textarea>

@@ -15,7 +15,7 @@
  * 2022-02-09	dattaraj.deshmukh@auspost.com.au	Added 'Stillunderinvestigation__c, Priority__c, CreatedDate & IsClosed__c' fields in getSObjectFieldList() method.
  * 2022-02-22	dattaraj.deshmukh@auspost.com.au	Added 'RecordTypeId' condition in query methods.
  * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId 
- * 2023-02-13 - Dattaraj Deshmukh 	- Added 'WITH_FEEDS' option.
+ * 2023-02-13 - Dattaraj Deshmukh 	- Added 'WITH_FEEDS' option and 'IsPrinted__c' field in getSObjectFieldList() method
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
@@ -64,7 +64,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
 			CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c, 
 			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c, CaseInvestigation__c.OwnerId, CaseInvestigation__c.ProductCategory__c,
-			CaseInvestigation__c.ProductSubCategory__c
+			CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.IsPrinted__c
 
 		};
 	}

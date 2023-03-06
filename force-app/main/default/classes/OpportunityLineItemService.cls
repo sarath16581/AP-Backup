@@ -17,9 +17,10 @@ public class OpportunityLineItemService {
     private static final String currentProfileName = [SELECT Name FROM Profile WHERE Id = :userId].Name;
     private static final Set<String> salesAdminProfiles = Constants.salesAdminProfiles();
     private static final Set<String> salesUserProfiles = Constants.salesUserProfiles();
-    // INSERT OF OPPORTUNITY LINE ITEM
+    
+    // OPC CALCULATION ENTRY POINT FOR INSERT OF AN OPPORTUNITY LINE ITEM
      /*****************************
-     * Description: Populate line item classification upon insertion of new opportunity line items having a contract start date. 
+     * Description: Populate line item classification BEFORE INSERTION of new opportunity line items having a contract start date. 
      * - Called by opportunityLineItemTriggerHander.beforeInsert method.
    	 * Param newOptyLineItemList - the newly inserted opportunity line items. Must have a contract start date.	
      * Author: JPalmero
@@ -28,135 +29,233 @@ public class OpportunityLineItemService {
      * 22/07/2022	Ken McGuire	Modified
      ****************************/
     public static void populateClassification(List<OpportunityLineItem> newOptyLineItemList){
+        
+        // The products associated with the line items
         Set<Id> productIdSet = new Set<Id>();
+        // The opportunities associated with the line items.
        	Set<Id> optyIdSet = new Set<Id>();
+        // maps Opportunities to their associated Account
         Map<Id, Id> optyOrgMap = new Map<Id, Id>();
+		
+        // Since the line items are being inserted (new), do NOT exclude records flagged from renewal to growth
+        // as we need to first calculate whether the line item OPC is in fact renewal.
+        
+        // populate associated products and opportunities
         for(OpportunityLineItem optyLine : newOptyLineItemList){
             productIdSet.add(optyLine.Product2Id);//saves the product Id to the list
             optyIdSet.add(optyLine.OpportunityId);
         }
-        Set<String> accountIdSet = new Set<String>();
+		
+        // Map opportunities to their accounts
         if(optyIdSet != NULL) {
             for(Opportunity optyObj : [SELECT Id, AccountId, StageName 
                                        FROM Opportunity 
                                        WHERE Id IN: optyIdSet
                                        LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())]) {
-				optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the org in a map for later use
-            	accountIdSet.add(optyObj.AccountId);//gets the opportunity's account id                    
+				optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the org in a map for later use                  
          	}
         }
-        updateClassification(newOptyLineItemList,accountIdSet,optyOrgMap);
+        // populate classification for the line items.
+        List<OpportunityLineItem> populatedLineItems = calculateClassification(newOptyLineItemList,optyOrgMap);
+        // Enforce OPC classification override from renewal to growth 
+		overrideRenewalToGrowth(populatedLineItems);
+        
     }
     
-    // INSERT OF OPPORTUNITY LINE ITEM
-    /*****************************
-     * Description: Populate the classification field 
-     * (1) upon insertion of new opportunity line item 
-     *  - called by populateClassification method above  
-     * (2) upon change of opportunity to closed won (called through opportunity trigger handlers 
-     * 	- called by opportunityUtility.populateClassification(List<Opportunity> newOptyList, Map<Id, Opportunity> oldRecMap)
-     * @parameter lineItemsToUpdate - a list of line items from  (1) or (2) above
-     * @parameter accountIdSet - the ids of all accounts associated with the line item opportunities.
-     * @parameter optyOrgMap - a map linking an opportunity Id with its associated account Id.
-     * 22/07/2022	Ken McGuire	Modified
-     ****************************/
-   public static List<OpportunityLineItem> updateClassification(List<OpportunityLineItem> lineItemsToUpdate,Set<String> accountIdSet,Map<Id, Id> optyOrgMap  ){
-		List<OpportunityLineItem> updatedLineItems = new List<OpportunityLineItem>();
-        NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
-        TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
-        tradingHistoryMaps.optyOrgMap = optyOrgMap;
-        try{
-            OPCUtility.calculateParentAccountRevenueMaP(accountIdSet);
-            List<OPCUtility.ParentAccountRevenue> revenue = OPCUtility.parentAccountRevenueMap.values();
-            revenue.sort();
-            populateGroupedTradingHistoryMaps(tradingHistoryMaps,revenue,(Double) ntAmount.Amount__c);
-       
-        	for(OpportunityLineItem optyLine : lineItemsToUpdate){
-			
-                string newClassification = getClassification(New TradingHistoryInfo(optyLine,tradingHistoryMaps,(Double)ntAmount.Amount__c)); 
-                
-                if (optyLine.Classification__c != newClassification) {
-                    optyLine.Classification__c = newClassification;
-                    if(salesUserProfiles.contains(currentProfileName) && !Constants.growthCLSS().contains(optyLine.Classification__c) && Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                        optyLine.Change_Classification__c.addError(Label.Not_Renewal);
-                    }
-                    updatedLineItems.add(optyLine);
-                }
-        	}
-            
-        }catch(exception excp){
-            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'updateClassification', triggerName, LoggingLevel.ERROR);
-        }
-        return updatedLineItems;
-    }
     
-    // CHANGE TO OPPORTUNITY LINE ITEM
+    
+    
+    // OPC CALCULATION ENTRY POINT FOR UPDATE OPPORTUNITY LINE ITEM
     /**********************************
-     * Description: Update the classification field upon change of Opty Line Item's Revenue Dates
+     * Description: recalculate the OPC upon change of Opty Line Item's Revenue Dates
      * - called by opportunityLineItemTriggerHandler.beforeUpdateActions
      * Author: Ken McGuire
      * History:
      * 26/08/2022            Created
      ****************************/
-    public static void updateClassification(List<OpportunityLineItem> newOptyLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
-        OpportunityLineItem oldRec = new OpportunityLineItem();
-        List<OpportunityLineItem> newOptyProdList = new List<OpportunityLineItem>();
-        NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
-		TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
-        Set<Id> optyIdSet = new Set<Id>();
-        Set<String> accountIdSet = new Set<String>();
-        Map<Id, String> optyStageMap = new Map<Id, String>();
+    public static void recalculateClassification(List<OpportunityLineItem> newOptyLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
+        // filtered list of candidates for OPC recalculation
+        // specifically, these candidates do not have overridden OPC values however they may be associated with opportunities 
+        // that have been closed-won
+        List<OpportunityLineItem> recalculationCandidates = filterForRecalculationCandidates(newOptyLineItemList,oldRecMap);
+        
+        if (recalculationCandidates.Size()==0) {
+            return;
+        }
+        
+        // maps Opportunities to their associated Account
+        Map<Id, Id> optyOrgMap = new Map<Id, Id>();
+        
         try{
-            for(OpportunityLineItem optyLine : newOptyLineItemList){
-                oldRec = oldRecMap != NULL && oldRecMap.containsKey(optyLine.Id) ? oldRecMap.get(optyLine.Id) : NULL;
-                if((optyLine.Contract_Start_Date__c != oldRec.Contract_Start_Date__c) ||
-                   (optyLine.Contract_End_Date__c != oldRec.Contract_End_Date__c) ||
-                   ((salesAdminProfiles.contains(currentProfileName)) && (optyLine.Classification__c != oldRec.Classification__c) &&
-                    !(Constants.CLSS_GROWTH.equalsIgnoreCase(oldRec.Classification__c) || Constants.CLSS_RENEWAL.equalsIgnoreCase(oldRec.Classification__c))))
-                {//if revenue dates change and Classification shouldn't be Growth
-                       optyIdSet.add(optyLine.OpportunityId);//saves the opportunity IDs of Line Items whose Dates changed (10/4/19: ...and Classification too)
-                       newOptyProdList.add(optyLine);//saves the Line Items that fits the criteria to specify the values to be looped later
-                }
-                if(salesUserProfiles.contains(currentProfileName) && !Constants.growthCLSS().contains(optyLine.Classification__c) 
-                   && Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c) && Constants.NO_STRING.equalsIgnoreCase(oldRec.Change_Classification__c)){
-                    optyLine.Change_Classification__c.addError(Label.Not_Renewal);//Sales User cannot set YES if it is not Renewal
-                }
-                if(!Constants.CLSS_Growth.equalsIgnoreCase(optyLine.Classification__c) && Constants.CLSS_GROWTH.equalsIgnoreCase(oldRec.Classification__c)){
-                    //From Growth to ANY, Growth? -> NO
-                    optyLine.Change_Classification__c = Constants.NO_STRING;
-                }
-                if(Constants.CLSS_GROWTH.equalsIgnoreCase(optyLine.Classification__c) && !Constants.CLSS_GROWTH.equalsIgnoreCase(oldRec.Classification__c)){
-                    //Any value to Growth, Growth? -> YES
-                    optyLine.Change_Classification__c = Constants.YES_STRING;               
+            // obtain opportunityIds from the product line items
+            Set<Id> optyIdSet = new Set<Id>();
+            for (OpportunityLineItem currentItem : recalculationCandidates) {
+                optyIdSet.add(currentItem.opportunityId);
+            }
+            // obtain associated opportunities for the product line items, ignoring closed opportunities
+            list<Opportunity> assocatedOpenOpportunities = loadOpenOpportunities(optyIdSet);
+            if(assocatedOpenOpportunities.size()==0) {
+                return;
+            }
+            
+            // populate opportunity account map
+             for(Opportunity currentOpportunity : assocatedOpenOpportunities) {
+				optyOrgMap.put(currentOpportunity.Id, currentOpportunity.AccountId);                        
+         	}
+ 			
+            // only recalculate line items that have associated opportunities in the opportunity account map.
+            // Specifically, this excludes opportunities that have been closed won
+            List<OpportunityLineItem> opportunityLineItemsToRecalculate = filterForRecalculation(recalculationCandidates,optyIdSet);
+            
+            // recalculate classification for the relevant line items.
+			List<OpportunityLineItem> updatedLineItems = calculateClassification(opportunityLineItemsToRecalculate,optyOrgMap);
+			
+         	// Enforce OPC classification override from renewal to growth 
+			overrideRenewalToGrowth(opportunityLineItemsToRecalculate,oldRecMap);
+
+            
+            
+        }catch(exception excp){
+            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'recalculateClassification', triggerName, LoggingLevel.ERROR);
+        }
+    }
+    
+     // OPC CALCULATION ENTRY POINT FOR UPDATE OF AN OPPORTUNITY
+     /*********************************
+     * Description: Updates all the opportunity line items OPC for opportunities that have been closed-won
+     * Author: Prince Encina
+     * History:
+     * 08/20/19          		Created
+     * 22/07/2022	Ken McGuire	Modified
+     ********************************/
+    public static void updateClassification(List<Opportunity> newOptyList, Map<Id, Opportunity> oldRecMap){
+		// Maps Opportunities and their associated accounts.
+		// Filtered for those opportunities that have been changed to closed won.
+        Map<Id, Id> newlyClosedOpportunityAccountMap = new Map<Id, Id>();
+        // the opportunity line items associated with the newly closed won opportunities that require new OPC calculations
+        List<OpportunityLineItem> optyLineItemList = new List<OpportunityLineItem>();
+        // populate the list of opportuninites that have been changed to closed-won.
+        try{
+            for(Opportunity currentOpportunity : newOptyList){
+                Opportunity oldOptyRec =  oldRecMap.get(currentOpportunity.Id);
+                if(Constants.CLOSED_WON.equalsIgnoreCase(currentOpportunity.StageName) && !Constants.CLOSED_WON.equalsIgnoreCase(oldOptyRec.StageName)){
+                    newlyClosedOpportunityAccountMap.put(currentOpportunity.Id, currentOpportunity.AccountId);
                 }
             }
             
-            if(optyIdSet != NULL){
-                for(Opportunity optyObj : [SELECT Id, AccountId, StageName 
-                                           FROM Opportunity 
-                                           WHERE Id IN: optyIdSet
-                                           LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())]){
-                    tradingHistoryMaps.optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the Opty's Organisation
-                    optyStageMap.put(optyObj.Id, optyObj.StageName);//saves the Opty's Stage
-                    accountIdSet.add(optyObj.AccountId);//gets the opportunity's account id
+            if (newlyClosedOpportunityAccountMap.size()==0) {
+                return;
+            } 
+            
+            // track opportunities with products
+            Set<Id> opportunitiesWithProducts = new Set<id>();
+			// obtain opportunity line items associated with opportunities that have been closed-won.
+			// filter out those line items whose OPC value has been overridden.The remainder are candidates for OPC recalculation.
+            for (OpportunityLineItem currentItem : [SELECT Id, Product2Id, Contract_Start_Date__c, OpportunityId, Classification__c, Opportunity.AccountId,
+                                 Contract_End_Date__c, APT_Is_Apttus_Opportunity_Line_item__c, Change_Classification__c
+                                 FROM OpportunityLineItem
+                                 WHERE OpportunityId IN : newlyClosedOpportunityAccountMap.keySet()
+                                 AND Change_Classification__c = 'No'
+                                 LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())]) {
+             	optyLineItemList.add(currentItem);
+             	opportunitiesWithProducts.add(currentItem.OpportunityId);                                   
+            }
+            // If there are no opportunity line item OPC calculation candidates, return.
+            if (optyLineItemList.size()==0) {
+                return;
+            } 
+            // remove any closed-won opportunities that do not have line item candidates for OPC caclulation updates.
+            // this will avoid unnecessary calls for associated account sales history.
+            Set<Id> opportunitiesWithoutProducts = new Set<id>();
+            
+            for (Id currentOpportunityId : newlyClosedOpportunityAccountMap.keyset()) {
+                if (!opportunitiesWithProducts.contains(currentOpportunityId)) {
+                    opportunitiesWithoutProducts.add(currentOpportunityId);
                 }
             }
-            if(accountIdSet != NULL){//get all T&R records from the organisation
-            	OPCUtility.calculateParentAccountRevenueMaP(accountIdSet);
-                 populateGroupedTradingHistoryMaps(tradingHistoryMaps,OPCUtility.parentAccountRevenueMap.values(),(Double) ntAmount.Amount__c);
+
+            if (opportunitiesWithoutProducts.size()>0) {
+                newlyClosedOpportunityAccountMap.keyset().removeAll(opportunitiesWithoutProducts);
             }
-            for(OpportunityLineItem optyLine : newOptyProdList){
-                if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)) {//if the Classification is not Growth, Growth? should be NO
- 					if(!Constants.CLOSED_WON.equalsIgnoreCase(optyStageMap.get(optyLine.OpportunityId))) {//skips the classification if the Opty is Closed Won
-                    	optyLine.Classification__c = getClassification(New TradingHistoryInfo(optyLine,TradingHistoryMaps,(Double)ntAmount.Amount__c)); 
-                    }
-                }
+            
+            // Update classification for the line items.
+			List<OpportunityLineItem> updatedLineItems = calculateClassification(optyLineItemList,newlyClosedOpportunityAccountMap);
+
+
+            if(updatedLineItems.size()>0){
+                Database.update(updatedLineItems, TRUE);
             }
+
         }catch(exception excp){
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'updateClassification', triggerName, LoggingLevel.ERROR);
         }
     }
     
+    // PERFORMS OPC CALCULATIONS
+    /*****************************
+     * Description: Calculate the classification field based on current sales history 
+     * @parameter recordsToCalculate - a list of line items that have not been overridden.
+     * @parameter accountIdSet - the ids of all accounts associated with the line item opportunities.
+     * @parameter optyOrgMap - a map linking an opportunity Id with its associated account Id.
+     * 22/07/2022	Ken McGuire	Modified
+     ****************************/
+   private static List<OpportunityLineItem> calculateClassification(List<OpportunityLineItem> recordsToCalculate,Map<Id, String> optyOrgMap  ){
+	 	// Track the opportunity line items that have a new or different classification.
+       List<OpportunityLineItem> calculatedLineItems = new List<OpportunityLineItem>();
+       if (recordsToCalculate.size()==0) {
+           return calculatedLineItems;
+       }
+       
+       // Nominal trading amount for determining any significant sales history
+       NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
+       // a data object (class) that provides trading history calculations for accounts that are relevant to OPC classificaton
+       TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
+       // populate the trading history maps with the map of opportunities to their accounts as passed in to this method
+       tradingHistoryMaps.optyOrgMap = optyOrgMap;
+        try{
+            // obtain account revenue figures 
+            OPCUtility.calculateParentAccountRevenueMap(new Set<String>(optyOrgMap.values()));
+            List<OPCUtility.ParentAccountRevenue> revenue = OPCUtility.parentAccountRevenueMap.values();
+            revenue.sort();
+            // populate the trading history map figures using account revenue figures
+            populateGroupedTradingHistoryMaps(tradingHistoryMaps,revenue,(Double) ntAmount.Amount__c);
+       		// classify the opportunity line items	
+       		List<String> errors = new List<String>();
+        	for(OpportunityLineItem optyLine : recordsToCalculate){
+				// obtain the current opportunity line item classification based on current trading history
+                string newClassification = getClassification(New TradingHistoryInfo(optyLine,tradingHistoryMaps,(Double)ntAmount.Amount__c)); 
+                //  If the new classification is different than the existing one, update it and add it to the list of updated items.
+                if (newClassification == null) {
+                    //OPC classificaiton should never be null
+                	errors.add('Null Classification Id: ' + optyLine.id + ' ChangeClassification: ' + optyLine.Change_Classification__c + ' prior Classification: ' + optyLine.Classification__c);
+                }
+                if (optyLine.Classification__c != newClassification) {
+                    optyLine.Classification__c = newClassification;
+                    calculatedLineItems.add(optyLine);
+                }
+        	}
+            // Log any instances where the classification was null
+            if (errors.size()>0) {
+           		ApplicationLogger.getInstance().logGenericMessage(errors, 'Sales', CLASSNAME, 'calculateClassification', triggerName, ApplicationLogger.LoggingLevel.ERROR);
+            }
+            
+        }catch(exception excp){
+            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'calculateClassification', triggerName, LoggingLevel.ERROR);
+        }
+       // return the list of opportunity line items which have changed classification.
+        return calculatedLineItems;
+    }
+    
+    /**********************************
+     * Description: populate tradingHistoryMaps object with sales history maps used for OPC calculations.
+     * @parameter tradingHistoryMaps - custom data structure (class) to provide account sales revenue data and calculations
+     * @parameter revenue - relevant sales revenue history for opportunity accounts, including immediate AccountRelationship child accounts.
+     * @parameter ntAmount - nominal trading amount used to determine if sales history is 'significant'
+     * @returns by reference population of the tradingHistoryMaps object passed in
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
     private static void populateGroupedTradingHistoryMaps(TradingHistoryMaps tradingHistoryMaps, List<OPCUtility.ParentAccountRevenue> revenue, double ntAmount) {
          	for (OPCUtility.ParentAccountRevenue bar : revenue ) {
                 bar.group();             					
@@ -169,13 +268,32 @@ public class OpportunityLineItemService {
                 }
             }//end BaR for
     }
-    
+    /**********************************
+     * Description: Calculates a classificaiton for an opportunity line item based on its account trading history.
+     * @parameter TradingHistoryInfo - contains a reference to an opportunity line item and its associated trading history parameters.
+     * @returns a string representing the calculated classification for the opportunity line item.
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
     private static string getClassification(TradingHistoryInfo tradingHistoryInfo) {
-       String classification = salesclassification(tradingHistoryInfo);
-       if (classification == null) classification = getClassificationFromAccountTradingHistory(tradingHistoryInfo);
-        return classification == null ? tradingHistoryInfo.optyLine.Classification__c : classification;
+       // try getting the classification of the product based on product sales history
+       	String classification = salesclassification(tradingHistoryInfo);
+        // try getting the classification of the product based on account sales history
+        if (classification == null) {
+            classification = getClassificationFromAccountTradingHistory(tradingHistoryInfo);
+        }
+     	return classification;
     }
-    
+     
+    /**********************************
+     * Description: Calculates a classificaiton for an opportunity line item based on its account trading history.
+     * @parameter TradingHistoryInfo - contains a reference to an opportunity line item and its associated trading history parameters.
+     * @returns a string representing the calculated classification for the opportunity line item.
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
     private static string getClassificationFromAccountTradingHistory(TradingHistoryInfo tradingHistoryInfo) {
         if (tradingHistoryInfo.optyLine.Contract_Start_Date__c == null) return tradingHistoryInfo.optyLine.Classification__c;
         Integer contractStartMonth = tradingHistoryInfo.optyLine.Contract_Start_Date__c.MONTH();//get the start month for 12 months computation
@@ -245,7 +363,14 @@ public class OpportunityLineItemService {
         return classification;
 
     }
-
+    /**********************************
+     * Description: Calculates a classificaiton for an opportunity line item based on its product trading history.
+     * @parameter TradingHistoryInfo - contains a reference to an opportunity line item and its associated trading history parameters.
+     * @returns a string representing the calculated classification for the opportunity line item.
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
     @testVisible
     private static string salesclassification(TradingHistoryInfo tradingHistoryInfo) {
         //if there hasn't been any trade or the total revenue is <NTA
@@ -265,6 +390,16 @@ public class OpportunityLineItemService {
 
         return null;
     }
+     /**********************************
+     * Description: Calculates a classificaiton for an opportunity line item based on revenue inside and outside the current FY.
+     * @parameter TradingHistoryInfo - contains a reference to an opportunity line item and its associated trading history parameters.
+     * @parameter totalRevenue - the total revenue in the current FY.
+     * @parameter totalOutsideRevenue - the total revenue outside the current FY.
+     * @returns a string representing the calculated classification for the opportunity line item.
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
 	@testVisible
     private static String salesclassification(TradingHistoryInfo tradingHistoryInfo, Double totalRevenue, Double totalOutsideRevenue) {
         if(totalRevenue == 0 && tradingHistoryInfo.anyTradedProdcutExceedsNTA && !tradingHistoryInfo.productTradeExceedsNTA) {
@@ -281,12 +416,9 @@ public class OpportunityLineItemService {
         if(totalRevenue < tradingHistoryInfo.ntAmount && totalOutsideRevenue <  tradingHistoryInfo.ntAmount && tradingHistoryInfo.anyTradedProdcutExceedsNTA) {
             return Constants.CLSS_CROSSSELL;
         }
-        //if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
-        if(totalRevenue > tradingHistoryInfo.ntAmount  && Constants.NO_STRING.equalsIgnoreCase(tradingHistoryInfo.optyLine.Change_Classification__c)) { 
+        //if the total revenue exceeds the NTA, it is Renewal
+        if(totalRevenue > tradingHistoryInfo.ntAmount) { 
             return Constants.CLSS_RENEWAL;
-        }
-        if(totalRevenue > tradingHistoryInfo.ntAmount && Constants.YES_STRING.equalsIgnoreCase(tradingHistoryInfo.optyLine.Change_Classification__c)) {
-            return Constants.CLSS_GROWTH;
         }
 
         return null;
@@ -326,41 +458,195 @@ public class OpportunityLineItemService {
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'beforeDeleteValidation', triggerName, LoggingLevel.ERROR);
         }
     }
-    
+     
     /*****************************
-     * Description: Changes the classification from Renewal to Growth and vice versa if the user is a Coverage Sales User
-     *  - called by opportunityLineItemTriggerHandler.beforeUpdateActions
-     * Author: JPalmero
+     * Description: filters a list of changed opportunity line items, 
+     * returning those items that may require OPC recalculation.
+     * @parameter items : a list of opportunity Line Items to filter
+     * @parameter priorValues: a map of prior values for the opportunity Line Items to filter.
+     * @returns a filtered list of opportunityLineItem containing only those items that may require recalculation.
+     * Author: Ken McGuire
      * History:
-     * 9/10/2019            Created
+     * 06/02/2022            Created
      ****************************/
-    public static void changeClassification(List<OpportunityLineItem> newOptyLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
-        Set<Id> optyIdSet = new Set<Id>();
-        Map<Id, String> optyStageMap = new Map<Id, String>();
-        OpportunityLineItem oldRec = new OpportunityLineItem();
-        try{
-            //check if the user is a Coverage Sales user
-            if(salesUserProfiles.contains(currentProfileName)){
-                for(OpportunityLineItem optyLine : newOptyLineItemList){
-                    oldRec = oldRecMap.containsKey(optyLine.Id) ? oldRecMap.get(optyLine.Id) : NULL;
-                    if(Constants.CLSS_RENEWAL.equalsIgnoreCase(optyLine.Classification__c) &&
-                       (Constants.NO_STRING.equalsIgnoreCase(oldRec.Change_Classification__c) && Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c))){
-                           optyLine.Classification__c = Constants.CLSS_GROWTH;
-                           //if the Classification is Renewal and the Growth? field is set from NO to YES, Classification will be changed to Growth
-              
-                       }
-                    //if the Classification is Growth and the Growth? field is set from YES to NO, Classification will be changed to Renewal
-                    else if(Constants.CLSS_GROWTH.equalsIgnoreCase(optyLine.Classification__c) && 
-                       (Constants.YES_String.equalsIgnoreCase(oldRec.Change_Classification__c) && Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c))){
-                           optyLine.Classification__c = Constants.CLSS_RENEWAL;
-                       }
-                }
+    private static List<OpportunityLineItem> filterForRecalculationCandidates(List<OpportunityLineItem> items, Map<Id,OpportunityLineItem> priorValues) {
+        // the list of items that will require OPC recalculation
+        List<OpportunityLineItem> filteredItems = new List<OpportunityLineItem>();
+        // exlude items that have been overridden
+        for (OpportunityLineItem currentItem : excludeOverride(items)) {
+            OpportunityLineItem priorValue = priorValues.get(currentItem.id);
+            // include only items requiring recalcuation
+            if (requiresRecalculation(currentItem,priorValue)) {
+                filteredItems.add(currentItem);
             }
-        } catch(exception excp){
-            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'changeClassification', triggerName, LoggingLevel.ERROR);
+    	}
+        return filteredItems;
+    }
+    /*****************************
+     * Description: filters a list of opportunity line item recalculation canddidates, 
+     * returning those items that actually require OPC recalculation.
+     * @parameter items : a list of opportunity Line Items to filter
+     * @parameter associatedOpportunities : a set of associated opportunityIds
+     * @returns a filtered list of opportunityLineItem containing only those items requiring recalculation.
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static List<OpportunityLineItem> filterForRecalculation(List<OpportunityLineItem> items, Set<Id> associatedOpportunities) {
+        // the list of items that will require OPC recalculation
+        List<OpportunityLineItem> filteredItems = new List<OpportunityLineItem>();
+        // exlude items that have been overridden
+        for (OpportunityLineItem currentItem : items) {
+            // include only items having an associated opportunity
+            if (associatedOpportunities.contains(currentItem.OpportunityId)) {
+                filteredItems.add(currentItem);
+            }
+    	}
+        return filteredItems;
+    }
+     /*****************************
+     * Description: filters a list of opportunity line items, returning only those items that have not had their OPC overridden.
+     * @parameter opportunityLineItems : a list of opportunityLineItems to filter
+     * @returns a filtered list of opportunityLineItem containing only those items that have not been overridden.
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static List<OpportunityLineItem> excludeOverride(List<OpportunityLineItem> opportunityLineItems) {
+        List<OpportunityLineItem> filteredItems = new List<OpportunityLineItem>();
+        for (OpportunityLineItem currentItem : opportunityLineItems) {
+            if (!isGrowthOverride(currentItem)) filteredItems.add(currentItem);
+        }
+        return filteredItems;
+    }
+    
+     /*****************************
+     * Description: filters a list of opportunity line items, returning only those items that have requested OPC override from Renewal to Growth.
+     * @parameter opportunityLineItems : a list of opportunityLineItems to filter
+     * @returns a filtered list of opportunityLineItem containing only those items that have not been overridden.
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static List<OpportunityLineItem> getNewOverrideRenewalToGrowth(List<OpportunityLineItem> opportunityLineItems) {
+        List<OpportunityLineItem> filteredItems = new List<OpportunityLineItem>();
+        for (OpportunityLineItem currentItem : opportunityLineItems) {
+            boolean changeRequested  = Constants.YES_STRING.equalsIgnoreCase(currentItem.Change_Classification__c);
+            if (changeRequested) {
+                filteredItems.add(currentItem);
+            } 
+        }
+        return filteredItems;
+    }
+    
+
+     /*****************************
+     * Description: Enforces OPC classification override from renewal to growth 
+     * @parameter opportunityLineItems : a list of opportunityLineItem candidates to override
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static void overrideRenewalToGrowth(List<OpportunityLineItem> opportunityLineItems) {
+        if (opportunityLineItems.isEmpty()) {
+            return;
+        }
+        for (OpportunityLineItem currentItem : getNewOverrideRenewalToGrowth(opportunityLineItems)) {
+            if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
+                currentItem.Classification__c = Constants.CLSS_GROWTH;
+            } else if (currentItem.Classification__c != Constants.CLSS_GROWTH) {
+                currentItem.Change_Classification__c.addError(Label.Not_Renewal);
+            }
         }
     }
     
+ /*****************************
+     * Description: Enforces OPC classification override from renewal to growth 
+     * @parameter opportunityLineItems : a list of opportunityLineItem candidates to override
+     * @parameter priorValues : trigger old map values (for update) or null (for insert)
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static void overrideRenewalToGrowth(List<OpportunityLineItem> opportunityLineItems, Map<id,OpportunityLineItem> priorValues) {
+        if (opportunityLineItems.isEmpty()) {
+            return;
+        }
+        for (OpportunityLineItem currentItem : getNewOverrideRenewalToGrowth(opportunityLineItems,priorValues)) {
+            if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
+                currentItem.Classification__c = Constants.CLSS_GROWTH;
+            } else if (currentItem.Classification__c != Constants.CLSS_GROWTH) {
+                currentItem.Change_Classification__c.addError(Label.Not_Renewal);
+            }
+        }
+    }
+
+
+     /*****************************
+     * Description: filters a list of opportunity line items, returning only those items that have requested OPC override from Renewal to Growth.
+     * @parameter opportunityLineItems : a list of opportunityLineItems to filter
+     * @parameter priorValues : the prior values for the list of opportunity line items.
+     * @returns a filtered list of opportunityLineItem containing only those items that have not been overridden.
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static List<OpportunityLineItem> getNewOverrideRenewalToGrowth(List<OpportunityLineItem> opportunityLineItems, Map<Id,OpportunityLineItem> priorValues) {
+        List<OpportunityLineItem> filteredItems = new List<OpportunityLineItem>();
+        for (OpportunityLineItem currentItem : opportunityLineItems) {
+            // change requested must have changed from no to yes.
+            boolean changeRequested  = Constants.YES_STRING.equalsIgnoreCase(currentItem.Change_Classification__c) && Constants.NO_STRING.equalsIgnoreCase(priorValues.get(currentItem.id).Change_Classification__c);
+            if (changeRequested) filteredItems.add(currentItem);
+        }
+        return filteredItems;
+    }
+    
+    
+    /*****************************
+     * Description: determines if an opportunity line items OPC value has been overridden.
+     * @parameter item : the opportunity line item to evaluate
+     * @returns true if the OPC value has been overridden.
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static boolean isGrowthOverride(OpportunityLineItem item) {
+        return  Constants.YES_STRING.equalsIgnoreCase(item.Change_Classification__c) && item.Classification__c == Constants.CLSS_GROWTH;
+    }
+     
+    /*****************************
+     * Description: determines if an opportunity line items has changed such that
+     * the OPC value requires recalcuation.
+     * @parameter item : the opportunity line item to evaluate
+     * @parameter priorValue : the prior value of the item
+     * @returns true if the OPC value requires recalculation.
+     * Author: Ken McGuire
+     * History:
+     * 06/02/2022            Created
+     ****************************/
+    private static boolean requiresRecalculation(OpportunityLineItem item, OpportunityLineItem priorValue) {
+    	boolean datesHaveChanged = 	item.Contract_Start_Date__c != priorValue.Contract_Start_Date__c 
+                    				|| item.Contract_End_Date__c != priorValue.Contract_End_Date__c;
+        boolean growthOverrideChanged =  item.Change_Classification__c != priorValue.Change_Classification__c;
+        return datesHaveChanged || growthOverrideChanged;
+    }
+    
+    private static List<Opportunity> loadOpenOpportunities(Set<Id> opportunityIds) {
+        return  [SELECT Id, AccountId, StageName 
+       			FROM Opportunity 
+           		WHERE Id IN :opportunityIds
+                and StageName !=  :Constants.CLOSED_WON
+                LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())];
+    }
+    
+    
+     /*****************************
+     * Description: a data structure that contains sales history and parameters used in OPC calculations for
+     * an opportunity line item.
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
     public class TradingHistoryInfo {
         public OpportunityLineItem optyLine;
    		public Boolean isTradingAccount;
@@ -382,7 +668,13 @@ public class OpportunityLineItemService {
             this.ntAmount = ntAmount;
         }
     }
-    
+     /*****************************
+     * Description: a data structure that contains sales revenue history maps (collection) for Accounts, Opportunities and Line Items.
+     * an opportunity line item.
+     * Author: Ken McGuire
+     * History:
+     * 26/08/2022            Created
+     ****************************/
     public class TradingHistoryMaps {
     
         public Set<Id> tradedAcctSet = new Set<Id>();
@@ -420,5 +712,6 @@ public class OpportunityLineItemService {
             return significantTradedProductSet.containsKey(accountId);
         }
     }
+    // custom exception handling
     public class OPCException extends Exception {}
 }

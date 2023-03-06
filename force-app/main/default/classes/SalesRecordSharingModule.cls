@@ -26,7 +26,8 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 
 	// after insert trigger handler
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		
+		Application.Profiler.start('SalesRecordSharingModule.onAfterInsert');
+
 		// Share records using sharing service
 		try {
 
@@ -39,12 +40,12 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), APP, SalesRecordSharingModule.class.getName(),
 					'onAfterInsert', String.valueOf(records.getSObjectType()), ApplicationLogger.LoggingLevel.ERROR);
 		}
-
+		Application.Profiler.stop('SalesRecordSharingModule.onAfterInsert');
 	}
  
 	// after update trigger handler
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-	
+		Application.Profiler.start('SalesRecordSharingModule.onAfterUpdate');
 		try {
 
 			Map<Id, SObject> sharingScope = getSharingScope(records, existingRecords);
@@ -56,11 +57,12 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), APP, SalesRecordSharingModule.class.getName(),
 					'onAfterUpdate', String.valueOf(records.getSObjectType()), ApplicationLogger.LoggingLevel.ERROR);
 		}
+		Application.Profiler.stop('SalesRecordSharingModule.onAfterUpdate');
 	}
 
 	// after undelete trigger handler
 	public override void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {
-
+		Application.Profiler.start('SalesRecordSharingModule.onAfterUndelete');
 		// Share records using sharing service
 		try {
 
@@ -73,6 +75,7 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), APP, SalesRecordSharingModule.class.getName(),
 					'onAfterUndelete', String.valueOf(records.getSObjectType()), ApplicationLogger.LoggingLevel.ERROR);
 		}
+		Application.Profiler.stop('SalesRecordSharingModule.onAfterUndelete');
 	}
 
 	/**

@@ -4139,11 +4139,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Comments__c</field>
-            <table>Case.CaseInvestigations__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>DeliveryOptions__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
@@ -4205,11 +4200,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Stillunderinvestigation__c</field>
-            <table>Case.CaseInvestigations__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Subject__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>

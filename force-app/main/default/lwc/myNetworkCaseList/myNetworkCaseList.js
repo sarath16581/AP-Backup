@@ -271,7 +271,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 	 * @param caseData: Method populates case investigation details for common fields for ST (StarTrack) cases. 
 	 */
 	populateCaseInvestigationData(caseRecord, data, i){
-		caseRecord.Case_Print = data[i].caseInvestigation.Case__r.Checkbox__c ? "Yes" : "No";
+		caseRecord.Case_Print = data[i].caseInvestigation.IsPrinted__c ? "Yes" : "No";
 		caseRecord.Case_Details = data[i].caseIcon;
 		caseRecord.detailCSSClass = data[i].caseColor;
 
@@ -304,13 +304,13 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       
      
       //check if case investigations exists. For all ST Cases, investigations exists under a case.
-	  if(data[i].caseInvestigation !== undefined && data[i].caseInvestigation != null) {
+		if(data[i].caseInvestigation !== undefined && data[i].caseInvestigation != null) {
         
 			let cInvestigationRecord =  data[i].caseInvestigation;
 			caseRecord.rowNumber = i ;
 
-		  	//setting Case.Type for wrapper variable for ST cases.
-		  	caseRecord.Case_enquirySubtype = cInvestigationRecord.Case__r.Enquiry_Type__c;
+			//setting Case.Type for wrapper variable for ST cases.
+			caseRecord.Case_enquirySubtype = cInvestigationRecord.Case__r.Enquiry_Type__c;
 		
 			//populate common fields between case investigation and case object.
 			this.populateCaseInvestigationData(caseRecord, data, i);
@@ -348,7 +348,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord = new Object();
       }
       else {
-        	this.populateCaseData(caseRecord, data, i);
+			this.populateCaseData(caseRecord, data, i);
 
 			caseRecord.rowNumber = i;
 			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
@@ -699,18 +699,15 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
   // Getting selected rows
   getSelectedRows(event) {
-    const selectedRows = event.detail.selectedRows;
-    let conIds = new Set();
-	let caseInvestigationIds = [];
-    // getting selected record id
-    for (let i = 0; i < selectedRows.length; i++) {
-      conIds.add(selectedRows[i].caseId);
-	  selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
-    }
-    // coverting to array
-    this.selectedRecords = Array.from(conIds);
-	//this.selectedRecords.push(caseInvestigationIds);
-
+	const selectedRows = event.detail.selectedRows;
+	let conIds = new Set();
+	// getting selected record id
+	for (let i = 0; i < selectedRows.length; i++) {
+		conIds.add(selectedRows[i].caseId);
+		selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
+	}
+	// coverting to array
+	this.selectedRecords = Array.from(conIds);
 
   }
   // openModal() {

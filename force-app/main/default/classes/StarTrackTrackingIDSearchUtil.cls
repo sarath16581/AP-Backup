@@ -257,7 +257,7 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         ElevatedSharingContext context = new ElevatedSharingContext();
         CaseComment comment = new CaseComment();
         comment.CommentBody = comments;
-        comment.IsPublished = true;
+        comment.IsPublished = false;
         comment.ParentId = caseId;
         //insert case comments
         context.insertRecords(new List<SObject>{
