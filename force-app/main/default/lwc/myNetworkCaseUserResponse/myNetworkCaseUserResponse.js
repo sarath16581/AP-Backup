@@ -8,6 +8,7 @@
  * 2023-02-13 - Dattaraj Deshmukh - updated QualityOfTheCase fields default value.
  * 2023-02-16 - Dattaraj Deshmukh - Added updateCase method. Updated internal facility notes field placeholder.
  * 2023-03-01 - Mahesh Parvathaneni - SF-830 Updated logic if the related case is closed
+ * 2023-03-06 - Dattaraj Deshmukh - Fixed bug SF-864. Made network response field required.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
