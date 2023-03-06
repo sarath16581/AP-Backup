@@ -9,11 +9,12 @@
  * @changelog
  * 2022-01-12 Dattaraj Deshmukh - Created
  * 2022-02-21 Dattaraj Deshmukh - Removed unused method 'selectByTextPostParentIds'.
+ * 2023-02-28 Dattaraj Deshmukh - Added 'TEXTPOST_ONLY' in options.
 */
 public virtual inherited sharing class FeedItemsSelector extends ApplicationSelector  {
 
 	public enum Options {
-		WITH_CREATEDBY
+		WITH_CREATEDBY, TEXTPOST_ONLY
 	}
 
 	public static FeedItemsSelector newInstance() {
@@ -49,7 +50,8 @@ public virtual inherited sharing class FeedItemsSelector extends ApplicationSele
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			FeedItem.Id, FeedItem.ParentId, FeedItem.Body, FeedItem.CreatedById, FeedItem.CreatedDate 
+			FeedItem.Id, FeedItem.ParentId, FeedItem.Body, FeedItem.CreatedById, FeedItem.CreatedDate,
+			FeedItem.Type
 		};
 	}
 
@@ -76,6 +78,9 @@ public virtual inherited sharing class FeedItemsSelector extends ApplicationSele
 				User.Id, User.FirstName, User.LastName
 			};
 			builder.addRelatedFields(UsersSelector.newInstance(1, fieldOverrides).newQueryBuilder(selectorOptions), 'CreatedBy');
+		}
+		if(selectorOptions.contains(Options.TEXTPOST_ONLY)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(FeedItem.Type).eq('TextPost'));
 		}
 		return builder;
 	}

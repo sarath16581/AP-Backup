@@ -294,10 +294,6 @@
     <picklistValues>
         <picklist>Status__c</picklist>
         <values>
-            <fullName>Awaiting invesitgation</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Closed</fullName>
             <default>false</default>
         </values>
@@ -312,10 +308,6 @@
         <values>
             <fullName>New</fullName>
             <default>true</default>
-        </values>
-        <values>
-            <fullName>Resolved</fullName>
-            <default>false</default>
         </values>
         <values>
             <fullName>Responded</fullName>
