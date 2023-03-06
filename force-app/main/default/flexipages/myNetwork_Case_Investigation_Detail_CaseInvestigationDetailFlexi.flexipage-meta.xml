@@ -23,6 +23,16 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <appendable>enabled</appendable>
+		<itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>recordId</name>
+                    <value>{!recordId}</value>
+                </componentInstanceProperties>
+                <componentName>myNetworkPrintSingleCaseInvestigation</componentName>
+                <identifier>myNetworkPrintSingleCaseInvestigation</identifier>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

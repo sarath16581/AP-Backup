@@ -248,10 +248,10 @@
     <sharingCriteriaRules>
         <fullName>ExGratiaCreditDispute</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing rule to grant access for Ex-Gratia Credit Dispute to Sales Users except C&amp;C Sales</description>
+        <description>Sharing rule to grant access for Ex-Gratia Credit Dispute to Sales Users except PP&amp;ECS Sales</description>
         <label>Ex-Gratia Credit Dispute</label>
         <sharedTo>
-            <group>All_Sales_Team_Ex_CC</group>
+            <group>All_Sales_Team_Ex_PPECS</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -722,10 +722,10 @@
     <sharingCriteriaRules>
         <fullName>ViewAllBusinessEnablementCases</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users except C&amp;C Sales</description>
+        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users except PP&amp;ECS Sales</description>
         <label>View All Business Enablement Cases</label>
         <sharedTo>
-            <group>All_Users_Ex_CC_Sales</group>
+            <group>All_Users_Ex_PPECS_Sales</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -761,10 +761,10 @@
     <sharingOwnerRules>
         <fullName>SalesImplementationCaseSharing</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing rule to allow cases created by Business Sales Implementation team to be viewed by Sales Users except C&amp;C Sales</description>
+        <description>Sharing rule to allow cases created by Business Sales Implementation team to be viewed by Sales Users except PP&amp;ECS Sales</description>
         <label>Sales Implementation Case Sharing</label>
         <sharedTo>
-            <group>All_Sales_Team_Ex_CC</group>
+            <group>All_Sales_Team_Ex_PPECS</group>
         </sharedTo>
         <sharedFrom>
             <group>Business_Sales_Implementation_Team</group>

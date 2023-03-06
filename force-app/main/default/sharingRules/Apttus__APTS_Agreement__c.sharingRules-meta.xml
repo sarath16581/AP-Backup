@@ -3,10 +3,10 @@
     <sharingOwnerRules>
         <fullName>APTShareWithSalesExceptCCSales</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share Apttus contracts with Sales users excluding C&amp;C Sales</description>
-        <label>Share with Sales except C&amp;C Sales</label>
+        <description>Share Apttus contracts with Sales users excluding PP&amp;ECS Sales</description>
+        <label>Share with Sales except PP&amp;ECS Sales</label>
         <sharedTo>
-            <group>All_Sales_Team_Ex_CC</group>
+            <group>All_Sales_Team_Ex_PPECS</group>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>

@@ -52,6 +52,7 @@ public without sharing class SalesRecordSharingService {
 	@TestVisible private static Map<String, SalesSharingObjectMapping__mdt> salesSharingMetadata {
 		get {
 			if (salesSharingMetadata == null) {
+				Application.Profiler.start('SalesRecordSharingService.salesSharingMetadata(static)');
 				// check platform cache
 				if (CacheManager.get(CACHE_KEY_SALES_SHARING_CONFIGURATION) != null) {
 					// use sharing metadata available in platform cache.
@@ -75,6 +76,7 @@ public without sharing class SalesRecordSharingService {
 					// also populate platform cache so it is available later
 					CacheManager.put(CACHE_KEY_SALES_SHARING_CONFIGURATION, metadata);
 				}
+				Application.Profiler.stop('SalesRecordSharingService.salesSharingMetadata(static)');
 			}
 			return salesSharingMetadata;
 		}
@@ -85,6 +87,8 @@ public without sharing class SalesRecordSharingService {
 	@TestVisible private static Map<String, Id> publicGroupIdMapping {
 		get {
 			if (publicGroupIdMapping == null) {
+				Application.Profiler.start('SalesRecordSharingService.publicGroupIdMapping(static)');
+
 				// collect all group names configured in custom metadata
 				Set<String> groupNames = new Set<String>();
 				for (SalesSharingObjectMapping__mdt objectMapping: salesSharingMetadata.values()) {
@@ -102,6 +106,7 @@ public without sharing class SalesRecordSharingService {
 					}
 				}
 				publicGroupIdMapping = mappings;
+				Application.Profiler.stop('SalesRecordSharingService.publicGroupIdMapping(static)');
 			}
 			return publicGroupIdMapping;
 		}
@@ -114,6 +119,7 @@ public without sharing class SalesRecordSharingService {
 	@TestVisible private static Map<String, String> accountChildRelationshipNameMapping {
 		get {
 			if (accountChildRelationshipNameMapping == null) {
+				Application.Profiler.start('SalesRecordSharingService.accountChildRelationshipNameMapping(static)');
 				// check platform cache first
 				if (CacheManager.get(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES) != null) {
 					// use sharing metadata available in platform cache.
@@ -143,6 +149,8 @@ public without sharing class SalesRecordSharingService {
 					// populate platform cache so it is available for later
 					CacheManager.put(CACHE_KEY_SALES_ACCOUNT_CHILD_REL_NAMES, mappings);
 				}
+				Application.Profiler.stop('SalesRecordSharingService.accountChildRelationshipNameMapping(static)');
+
 			}
 			return accountChildRelationshipNameMapping;
 		}
@@ -164,7 +172,7 @@ public without sharing class SalesRecordSharingService {
 	 * @return Sharing configuration for the SObjectType. Throws SalesRecordSharingException if configuration not available or invalid.
 	 */
 	public SalesRecordSharingService.SalesSharingObjectMapping getSharingConfiguration(SObjectType sobjectType) {
-
+		Application.Profiler.start('SalesRecordSharingService.getSharingConfiguration_'+sobjectType);
 		// check if configuration already cached. if configuration for the sobjectType is already available return the cached version.
 		if (salesSharingObjectMappingCache.containsKey(sobjectType)) {
 			return salesSharingObjectMappingCache.get(sobjectType);
@@ -181,6 +189,7 @@ public without sharing class SalesRecordSharingService {
 
 		// cache the configuration for reuse later
 		salesSharingObjectMappingCache.put(sobjectType, sharingObjectMapping);
+		Application.Profiler.stop('SalesRecordSharingService.getSharingConfiguration_'+sobjectType);
 		return sharingObjectMapping;
 	}
 
@@ -214,6 +223,7 @@ public without sharing class SalesRecordSharingService {
 	 * @param recalculate recalculates sharing if true. otherwise only create new shares.
 	 */
 	public void shareRecords(SObjectType objectType, Map<Id, SObject> records, Boolean recalculate) {
+		Application.Profiler.start('SalesRecordSharingService.shareRecords_noUoW');
 
 		// manage uow and delegate to overloaded 'shareRecords' method
 		ApplicationUnitOfWork uow = newUnitOfWork(new Set<SObjectType>{objectType});
@@ -222,6 +232,7 @@ public without sharing class SalesRecordSharingService {
 
 		// ensure Unit of Work is committed.
 		uow.commitWork();
+		Application.Profiler.stop('SalesRecordSharingService.shareRecords_noUoW');
 	}
 
 	/**
@@ -254,8 +265,8 @@ public without sharing class SalesRecordSharingService {
 	 * @param recalculate recalculates sharing if true. otherwise only create new shares.
 	 * @param uow Unit of Work instance
 	 */
-	public void shareRecords(SObjectType objectType, Map<Id, SObject> records, Boolean recalculate, ApplicationUnitOfWork uow) {
-
+	public void shareRecords(SObjectType objectType, Map<Id, SObject> records, Boolean recalculate, ApplicationUnitOfWork uow) { 
+		Application.Profiler.start('SalesRecordSharingService.shareRecords');
 		if (!isSalesTeamSharingEnabled(new Set<SObjectType>{objectType})) {
 			return; // feature is disabled. nothing to do.
 		}
@@ -292,6 +303,7 @@ public without sharing class SalesRecordSharingService {
 			// we have new shares to register
 			uow.registerNew(requiredSharingEntries.values(), false, SalesRecordSharingService.class.getName() + '.shareRecords()');
 		}
+		Application.Profiler.stop('SalesRecordSharingService.shareRecords');
 	}
 
 	/**
@@ -310,12 +322,14 @@ public without sharing class SalesRecordSharingService {
 	 * @return Sharing recalculation results
 	 */
 	public List<AccountChildRecordsSharingRecalculationResult> recalculateChildRecordSharing(Set<Id> parentAccountIds) {
+		Application.Profiler.start('SalesRecordSharingService.recalculateChildRecordSharing_noUoW');
 		// manage uow and delegate to overloaded 'shareRecords' method
 		ApplicationUnitOfWork uow = newUnitOfWork();
 
 		List<AccountChildRecordsSharingRecalculationResult> results = recalculateChildRecordSharing(parentAccountIds, uow);
 
 		uow.commitWork();
+		Application.Profiler.stop('SalesRecordSharingService.recalculateChildRecordSharing_noUoW');
 
 		return results;
 	}
@@ -338,7 +352,7 @@ public without sharing class SalesRecordSharingService {
 	 * @return Sharing recalculation results
 	 */
 	public List<AccountChildRecordsSharingRecalculationResult> recalculateChildRecordSharing(Set<Id> parentAccountIds, ApplicationUnitOfWork uow) {
-
+		Application.Profiler.start('SalesRecordSharingService.recalculateChildRecordSharing');
 		if (!isSalesTeamSharingEnabled(new Set<SObjectType>())) {
 			return new List<AccountChildRecordsSharingRecalculationResult>(); // feature is disabled. nothing to do.
 		}
@@ -388,7 +402,7 @@ public without sharing class SalesRecordSharingService {
 			// we have accounts to be processed in current context.
 			doShareChildRecords(currentContextProcessableAccounts, sharingObjectMappings, uow);
 		}
-
+		Application.Profiler.stop('SalesRecordSharingService.recalculateChildRecordSharing');
 		return results;
 	}
 
@@ -778,6 +792,7 @@ public without sharing class SalesRecordSharingService {
 		}
 
 		public void execute(QueueableContext ctx) {
+			Application.Profiler.start('SalesAccountChildRecordsSharingHandlerQueueable.execute');
 
 			if (this.accountIds != null && !this.accountIds.isEmpty()) {
 				// TODO consider chunking account ids
@@ -825,6 +840,7 @@ public without sharing class SalesRecordSharingService {
 				// we got more to process. enqueue another queueable.
 				ApplicationDatabase.getInstance().enqueueJob(new SalesAccountChildRecordsSharingHandlerQueueable(this.accountIds, this.accountIdsForPartialProcessing));
 			}
+			Application.Profiler.stop('SalesAccountChildRecordsSharingHandlerQueueable.execute');			
 		}
 
 		private List<SObjectType> validateRelatedRecordVolumesForPartialProcessing(Map<SObjectType, Integer> childRecordCount) {

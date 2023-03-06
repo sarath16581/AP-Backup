@@ -243,62 +243,82 @@ private class CasePDFContentGeneratorTest {
     }
 
     @isTest
-    static void testupdatePrintFlagIntegration()
-    {
-        // =====================================
-        // Data Preparation
-        // =====================================
-        Article__c article2 = ApplicationTestDataFactory.getConsignments(1, false)[0];
-        insert article2;
-        article2.ArticleID__c = article2.Id;
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(3, article2.Id, false);
-        insert articles;
+    static void testupdatePrintFlagIntegration() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c article2 = ApplicationTestDataFactory.getConsignments(1, false)[0];
+		insert article2;
+		article2.ArticleID__c = article2.Id;
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(3, article2.Id, false);
+		insert articles;
 
-        //Create Account
-        Account testAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
-        testAccount.name = 'Social Account';
-        insert testAccount;
+		//Create Account
+		Account testAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		testAccount.name = 'Social Account';
+		insert testAccount;
 
-        //Create Contact
-        Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, false)[0];
-        insert contacts;
+		//Create Contact
+		Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, false)[0];
+		insert contacts;
 
-        RecordType rt = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
+		RecordType rt = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
+		Id stCaseRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId();
 
-        //Create Cases
-        List<Case> cases = ApplicationTestDataFactory.getCases(2, new List<Id>{contacts.Id, contacts.Id}, false);
-        cases[0].ReferenceID__c = articles[0].Id;
-        cases[0].ArticleTest__c = articles[0].Id;
-        cases[0].Address2__c = 'TestAddress';
-        cases[0].RecordTypeId = rt.Id;
-        cases[0].Type = 'General Enquiry';
-        cases[1].ReferenceID__c = article2.Id;
-        cases[1].ArticleTest__c = article2.Id;
-        cases[1].Address2__c = 'TestAddress';
-        cases[1].RecordTypeId = rt.Id;
-        cases[1].Type = 'General Enquiry';
-        insert cases;
 
-        // =====================================
-        // Testing
-        // =====================================
-        //Test for multiple cases, passed in the parameter string
-        List<String> caseList = new List<String>();
-        caseList.add(cases[0].Id);
-        caseList.add(cases[1].Id);
-        String result = String.join(caseList, ',' );
+		//Create Cases
+		List<Case> cases = ApplicationTestDataFactory.getCases(3, new List<Id>{contacts.Id, contacts.Id, contacts.Id}, false);
+		cases[0].ReferenceID__c = articles[0].Id;
+		cases[0].ArticleTest__c = articles[0].Id;
+		cases[0].Address2__c = 'TestAddress';
+		cases[0].RecordTypeId = rt.Id;
+		cases[0].Type = 'General Enquiry';
+		cases[1].ReferenceID__c = article2.Id;
+		cases[1].ArticleTest__c = article2.Id;
+		cases[1].Address2__c = 'TestAddress';
+		cases[1].RecordTypeId = rt.Id;
+		cases[1].Type = 'General Enquiry';
 
-        Test.startTest();
-        Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
-        System.debug('result--->'+result);
-        Apexpages.currentpage().getparameters().put('selectedIds' , result);
-        CasePDFContentGenerator redirectControlller = new CasePDFContentGenerator();
-        redirectControlller.updatePrintFlag();
-        Test.stopTest();
+		//setting StarTrackCase
+		cases[2].RecordTypeId = stCaseRecordTypeId;
+		insert cases;
 
-        cases = [SELECT Id, Checkbox__c FROM Case WHERE Id in :caseList];
-        System.assertEquals(true, cases[0].Checkbox__c, 'Print flag not marked true');
-        System.assertEquals(caseList.size(), redirectControlller.getCaseCount(), 'Case count is not matching');
+		//insert case investigation records
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(2, cases[2].Id, articles[0], null, false);
+		insert caseInvestigations;
+
+		// =====================================
+		// Testing
+		// =====================================
+		//Test for multiple cases, passed in the parameter string
+		List<String> recordIdList = new List<String>();
+		recordIdList.add(cases[0].Id);
+		recordIdList.add(cases[1].Id);
+		recordIdList.add(cases[2].Id);
+		recordIdList.add(caseInvestigations[0].Id); // passing just one CI record for print
+		
+		String result = String.join(recordIdList, ',' );
+
+		Test.startTest();
+		Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
+		System.debug('result--->'+result);
+		Apexpages.currentpage().getparameters().put('selectedIds' , result);
+		CasePDFContentGenerator redirectControlller = new CasePDFContentGenerator();
+		redirectControlller.updatePrintFlag();
+		Test.stopTest();
+		
+
+		Set<Id> caseIds = new Set<Id>{cases[0].Id,cases[1].Id,cases[2].Id};
+		cases = [SELECT Id, Checkbox__c FROM Case WHERE Id in : caseIds];
+		List<CaseInvestigation__c> updatedCaseIvs = [Select Id, IsPrinted__c from CaseInvestigation__c Where Id =:caseInvestigations[0].Id];
+
+		//asserting if AP cases are updated and ST case is NOT updated.
+		System.assertEquals(true, cases[0].Checkbox__c, 'Print flag AP cases should be marked true');
+		System.assertEquals(false, cases[2].Checkbox__c, 'Print flag for StarTrack should not be marked true');
+
+		//asserting if StarTrack CaseInvestigation is updated. 
+		System.assertEquals(true, updatedCaseIvs[0].IsPrinted__c, 'Print flag for CaseINvestigation should be marked true');
+
     }
 
     @IsTest

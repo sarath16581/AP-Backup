@@ -14,6 +14,8 @@ History:
 15/03/2021 - Naveen Rajanna -REQ2408232 Add getter method to return caseList count to add blank page if multiple cases
 22/06/2021 - Ranjeewa Silva - Added support to include event message attachments in the PDF.
 01/10/2021 - Seth Heang - Uplift SF API Version to 52
+02/03/2023 - Dattaraj Deshmukh - Added logic to print case investigations. Updated 'updatePrintFlag' method to update case and case investigations.
+								- Renamed Queueable class from 'UpdateCasePrintFlagFuture' to 'CaseAndCaseInvestigationPrintFlagQueueable'.
 **************************************************/
 public with sharing class CasePDFContentGenerator {
     
@@ -297,41 +299,58 @@ public with sharing class CasePDFContentGenerator {
 		return (casetoEvent.isEmpty() ? null : casetoEvent);
 	}
 
-	//Method to update print flag on case as a queueable job
+	/**
+	 * @desc: action method called in VF page 'myNetworkRedirectCasePDFGenerator' to update print flag on case and case investigation as a queueable job.
+	 */
 	public void updatePrintFlag(){
-		List<Case> toUpdate = new List<Case>();
+		
+		//generic list of SObject to perform update
+		List<SObject> recordsToUpdate = new List<SObject>();
+		
+		//check cases to update
 		for(Case cs : caseList){
-			if(!cs.Checkbox__c){
-				toUpdate.add(cs);
+			//check if case is not of star track case.
+			//update only AP cases.
+			if(!cs.Checkbox__c && starTrackCaseToCaseInvestigationsMap != null && !starTrackCaseToCaseInvestigationsMap.containsKey(cs.Id)) {
+				cs.Checkbox__c = true;
+				recordsToUpdate.add(cs);
 			}
 		}
-		if (toUpdate.size() > 0) {
-			System.enqueueJob(new UpdateCasePrintFlagFuture(toUpdate));
+
+		//check case investigations to update
+		//iterating over starTrackCaseToCaseInvestigationsMap and checking if Print needs to be set to true.
+		for(Id stCaseId : starTrackCaseToCaseInvestigationsMap.keySet()) {
+			for(CaseInvestigation__c cInv : starTrackCaseToCaseInvestigationsMap.get(stCaseId)) {
+				if(!cInv.IsPrinted__c) {
+					cInv.IsPrinted__c = true;
+					recordsToUpdate.add(cInv);
+				}
+			}
+		}
+		if (!recordsToUpdate.isEmpty()) {
+			System.enqueueJob(new CaseAndCaseInvestigationPrintFlagQueueable(recordsToUpdate));
 		}
 	}
     
-	//Action method in the VF page to mark the if Printed(Checkbox__c) flag
-	public class UpdateCasePrintFlagFuture implements System.Queueable {
-		private List<Case> caseList;
-		public UpdateCasePrintFlagFuture(List<Case> caseList) {
-			this.caseList = caseList;
+	/**
+	 * @desc: Queueable class to update (Printed) Case.Checkbox__c and CaseInvestigation.IsPrinted__c flag
+	 */
+	public class CaseAndCaseInvestigationPrintFlagQueueable implements System.Queueable {
+
+		private List<SObject> recordList;
+
+		public CaseAndCaseInvestigationPrintFlagQueueable(List<SObject> rList) {
+			this.recordList = rList;
 		}
 		public void execute(QueueableContext qc) {
 			try {
-				List<Case> updateCase = new List<Case>();
-
-				for (Case cs : caseList) {
-					//Check if the flag is already set to true, no action needed
-					if (cs.Checkbox__c == false) {
-						cs.Checkbox__c = true;
-						updateCase.add(cs);
-					}
+				if(!recordList.isEmpty()) {
+					ApplicationDatabase.getInstance().dmlUpdate(recordList);
 				}
-				Database.update(updateCase);
 			}catch (Exception exp){
 				// Added exception to track any error
 				// Error Logged to Exception object for analysis
-				UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), 'SSSW','CasePDFContentGenerator', 'UpdateCasePrintFlagFuture', null, LoggingLevel.ERROR);
+				UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), 'SSSW','CasePDFContentGenerator', 'CaseAndCaseInvestigationPrintFlagQueueable', null, LoggingLevel.ERROR);
 			}
 		}
 	}

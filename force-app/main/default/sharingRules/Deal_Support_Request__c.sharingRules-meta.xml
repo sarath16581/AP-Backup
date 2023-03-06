@@ -51,7 +51,7 @@
         <description>This rule share read-only access to DEC DSR type with Sales Ex Direct &amp; Intermediaries.</description>
         <label>Share DEC DSR with Sales</label>
         <sharedTo>
-            <group>All_Sales_Team_Ex_CC</group>
+            <group>All_Sales_Team_Ex_PPECS</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
