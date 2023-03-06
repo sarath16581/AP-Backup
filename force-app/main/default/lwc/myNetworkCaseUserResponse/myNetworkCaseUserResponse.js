@@ -222,6 +222,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			.then(result => {
 			
 			//create a chatter feed for comments entered.
+			
 			if(this.comments){
 				this.createChatterFeed();
 			}
@@ -243,7 +244,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	}
 
 	createChatterFeed(){
-		this.isLoaded = false;
+		//this.isLoaded = false;
 		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
 		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId })
 		.then((result) => {
@@ -257,6 +258,8 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 						variant: 'success'
 					})
 				)
+				//reset all form fields.
+				this.handleReset();
 			}
 		})
 		.catch((error) => {

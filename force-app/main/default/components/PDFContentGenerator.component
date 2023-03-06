@@ -29,7 +29,6 @@ History:
 
 	<!-- AP Case Printing -->
 	<apex:repeat id="caseDetails" value="{!conObj.apCaseList}" var="case">
-		<apex:outputPanel rendered="{!IF(case.StarTrack_RecordType__c == false,'true','false')}">
 		<div id="coverletter" style="page-break-after: always;page-break-inside: avoid;">
 			<!--INC1788397-->
 			<apex:variable var="casen" value="{!casen+1}"/>
@@ -424,6 +423,5 @@ History:
 		
 		<!-- REQ2408232 Add page break only when bulk cases (more than 1 case), so drivers information doesn't overlap upon duplex print-->
 		<div style="{!IF(AND(conObj.caseCount > 1, conObj.caseCount != casen), 'display:block;page-break-before: always', 'display: none')}"><p></p></div>
-		</apex:outputPanel>
 	</apex:repeat>
 </apex:component>
