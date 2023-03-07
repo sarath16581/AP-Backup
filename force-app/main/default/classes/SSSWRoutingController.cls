@@ -186,7 +186,6 @@ global with sharing class SSSWRoutingController {
                 //EnquirySubType__c = :enquirySubType AND
                 //CustomerQueueType__c = :customerQueueType AND
                 //Origin__c = :origin AND
-            	//Status__c =: status and
             	Status__c =: sStatus and
                 High_Level_Complaint_Flag__c = :selRouting.High_Level_Complaint_Flag__c and
                 Customer_Recovery_Flag__c = :selRouting.Customer_Recovery_Flag__c and
@@ -207,6 +206,7 @@ global with sharing class SSSWRoutingController {
                     && (route.CaseType__c==null? '' : route.CaseType__c) == sEnquiryType
                     && (route.EnquirySubType__c==null? '' : route.EnquirySubType__c) == sEnquirySubType
                     && (route.Origin__c==null? '' : route.Origin__c) == sOrigin
+					&& (route.CustomerQueueType__c==null? '' : route.CustomerQueueType__c) == sCustomerQueueType
                     && isSamePostTags(route.SocialPostTags__c, selRouting.SocialPostTags__c))
             {
                 existingRoutings.add(route);
