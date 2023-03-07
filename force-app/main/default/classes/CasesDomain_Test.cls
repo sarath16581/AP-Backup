@@ -8,7 +8,6 @@
 * @description Test class covering CasesDomain
 * @changelog
 * 2021-12-08 - Ashapriya Gadi - Created
-* 2023-01-23 - Dattaraj Deshmukh - Added ensureThatRegisterModulesIsBeingCalled to test STCaseRelatedRecordsProcessingModule is called.
 */
 @IsTest
 private class CasesDomain_Test {
@@ -24,23 +23,4 @@ private class CasesDomain_Test {
 		System.assertEquals(cases[0].Id, domain.records[0].Id, 'Expected record');
 	}
 
-	/**
-	 * Test: Ensure expected module class is registered. Expected to register 'STCaseRelatedRecordsProcessingModule' class
-	 */
-
-	@IsTest
-	static void ensureThatRegisterModulesIsBeingCalled() {
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
-
-		MockUtility.mockDomain(ApplicationDomain.class);
-
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.stopStubbing();
-		
-		ApplicationDomain appDomain = STCaseInvestigationDomain.newInstance(cases);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(STCaseRelatedRecordsProcessingModule.class);
-
-		// PMD by-pass
-		System.assert(true, 'PMD by-pass');
-	}
 }

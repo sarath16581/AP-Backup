@@ -23,16 +23,6 @@
                 <label>In Progress</label>
             </value>
             <value>
-                <fullName>Resolved</fullName>
-                <default>false</default>
-                <label>Resolved</label>
-            </value>
-            <value>
-                <fullName>Awaiting invesitgation</fullName>
-                <default>false</default>
-                <label>Awaiting invesitgation</label>
-            </value>
-            <value>
                 <fullName>Closed</fullName>
                 <default>false</default>
                 <label>Closed</label>
