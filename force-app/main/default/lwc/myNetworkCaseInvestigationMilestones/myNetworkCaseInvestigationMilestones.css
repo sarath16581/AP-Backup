@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 2023-02-07
  * @changelog
+ * 2023-02-23 Mahesh Parvathaneni - Added glyphicon-pause 
  */
 .mile-card{
 	position: relative;
@@ -72,7 +73,7 @@
 	position: absolute;
 	display: block;
 	width: 100%;
-	color:white;
+	color: #333;
 	padding:7px;
 }
 /* Glyphicons from bootstrap */
@@ -110,4 +111,7 @@
 }
 .glyphicon-time:before {
 	content: "\e023"
+}
+.glyphicon-pause:before {
+	content: "\e073"
 }

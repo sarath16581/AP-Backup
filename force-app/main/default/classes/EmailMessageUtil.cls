@@ -11,7 +11,7 @@ History:
 2022-04-08  naveen.rajanna@auspost.com.au - REQ2804764 - Remove debug and Add null check to prevent nullpointerexception for parseEmailbodySnapIt,setEmailToCaseAddress
 2022-05-03  saiswetha.pingali@auspost.com.au - Removed parseEmailbodySnapIT as it is no more used.
 2022-11-04  Naveen Rajanna - REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
-2023-02-09  Swati.mogadala@auspost.com.au - Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
+2023-02-09  Swati.mogadala@auspost.com.au -REQ3045758 Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
 **************************************************/
 public class EmailMessageUtil {
 
@@ -193,7 +193,7 @@ public class EmailMessageUtil {
                 if (caseRec.RecordType.Developername.startsWith(StarTrack_Constants.CASE_STARTRACK_RECTYPE)) { //Validate if case is a StarTrack record.
                     starTrackEmailMessages.add(caseToEmailMessage.get(caseRec.Id));
                 }
-            }
+            }	
 
             if (!starTrackEmailMessages.isEmpty()) {
                 for (EmailMessage newEmail : starTrackEmailMessages) {

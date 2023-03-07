@@ -6,9 +6,10 @@
 /*******************************  History ************************************************
  * 19-06-2020 Hara Sahoo Added test method for myNetworkupdatePrintedCaseFlag
  * 12-08-2020 Disha Kariya Updated http mock for AME API
- * 28-11-2-22 Dattaraj Deshmukh - Removed 'myNetworkAssignToselfMethodTest' and 'myNetworkAssignToUserMethodTest'. 
+ * 28-11-2022 Dattaraj Deshmukh - Removed 'myNetworkAssignToselfMethodTest' and 'myNetworkAssignToUserMethodTest'. 
  *                                Added 'test_assignSelectedRecords' and 'test_assignSelectedRecords_self' methods to test generic 'assignSelectedRecords' method.
  *                                Added   'test_GetFilteredCases_StarTrackCasesListViewFilters' & 'test_GetFilteredCases_StarTrackUpdatedListViewFilters' method.
+ * 02-03-2023 Mahesh Parvathaneni - SF-830 Updated method test_validateCaseInvestigations and test_GetFilteredCases_UpdatedStarTrackListViewFilters
  * ***************************************************************************************/
 @isTest
  private  class MyNetworkCaseListControllerTest {
@@ -562,13 +563,16 @@
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, cases[0].Id, null, null, true);
-		cases[0].Last_Status_Change__c = System.today().addDays(-2);
-		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, null, null, true);
+		networkCaseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, null, null, true));
 
-		networkCaseInvestigations[0].LastContactCentreUpdate__c = System.today().addDays(-2);
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+		cases[1] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+		cases[1] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object>{'IsClosed' => true});
+
 		networkCaseInvestigations[1].Stillunderinvestigation__c = true;
+		networkCaseInvestigations[2].Case__r = cases[1];
 
 		// =====================================
 		// Stubbing
@@ -581,9 +585,9 @@
 		Test.StartTest();
 		
 		//passing case and case investigation
-		MyNetworkCaseListController.MyNetworkCasesWrapper updatedCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[0]);
+		MyNetworkCaseListController.MyNetworkCasesWrapper updatedCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[2]);
 		MyNetworkCaseListController.MyNetworkCasesWrapper stillUnderInvestigationCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[1]);
-		MyNetworkCaseListController.MyNetworkCasesWrapper newCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[2]);
+		MyNetworkCaseListController.MyNetworkCasesWrapper newCaseInvWrapper = MyNetworkCaseListController.validateCaseInvestigations(networkCaseInvestigations[0]);
 
 		Test.StopTest();  
 		
@@ -681,9 +685,9 @@
 		//asserting method returns ONLY UPDATED case investigations.
 		System.assertEquals(1, caseInvWrapperList.size());
 		
-		//asserting one case investigation is UPDATED and ONLY one record is filtered out of two case investigations passed.
+		//asserting one case investigation is NEW and ONLY one record is filtered out of two case investigations passed.
 		System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id);
-		system.assertEquals('UPDATED', caseInvWrapperList[0].caseIcon);
+		system.assertEquals('NEW', caseInvWrapperList[0].caseIcon);
 	
 	}
 
