@@ -3,6 +3,7 @@
  * @Description        : Controller class for StarTrack Feedback form
  * @Author             : Mahesh Parvathaneni
  * 					   : Jacob Isaac - REQ2995236 To remove defaulting StarTrack_Calc_Email_Address__c
+ * 					   : 2023-03-02 Thang Nguyen - DDS-14900 - Set the comment to private 
  **/
 
 public with sharing class STHSFeedbackFormController {
@@ -32,7 +33,7 @@ public with sharing class STHSFeedbackFormController {
 			//build case comments from form data
 			commentBody = service.buildCaseCommentsWithFormData(commentBody, formData);
 			comment.CommentBody = commentBody;
-			comment.IsPublished = true;
+			comment.IsPublished = false;
 			comment.ParentId = caseObj.Id;
 			//insert case comments
 			service.insertRecords(new List<SObject>{comment});

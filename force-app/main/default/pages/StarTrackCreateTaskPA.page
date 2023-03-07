@@ -8,13 +8,14 @@
     NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
     NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
     NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
+	FEB.27.2023 Mahesh Parvathaneni  - SF-856 Added recordtype check to render StarTrackCreateTask component
 -->
 <apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
     sidebar="false">
     <c:ScriptLoader jsLibraries="integration,jquery" />
     
     <div id="main">
-        <div id="VFCmp">
+        <div id="VFCmp" style="{!IF(Case.RecordType.DeveloperName != 'StarTrack_Voice_of_Customer', 'display:inline-block', 'display:none')}">
             <c:StarTrackCreateTask case="{!Case}" />
         </div>
 		<div id="wrapper">

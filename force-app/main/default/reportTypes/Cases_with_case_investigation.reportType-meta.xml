@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
     <baseObject>Case</baseObject>
-    <category>other</category>
-    <deployed>false</deployed>
+    <category>cases</category>
+    <deployed>true</deployed>
     <description>Cases with case investigation</description>
     <join>
         <outerJoin>false</outerJoin>
@@ -4120,11 +4120,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Comments__c</field>
-            <table>Case.CaseInvestigations__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>DeliveryOptions__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
@@ -4155,12 +4150,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>ProductCategory__c</field>
+            <field>ProductCategoryOLD__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>ProductSubCategory__c</field>
+            <field>ProductSubCategoryOLD__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>
@@ -4186,11 +4181,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Stillunderinvestigation__c</field>
-            <table>Case.CaseInvestigations__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Subject__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>

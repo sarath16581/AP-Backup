@@ -8,6 +8,7 @@ History:
 2020-09-14 haraprasad.sahoo@auspost.com.au Modified : Change made for roll out of Safe Drop feature on Missing Items form - Updated the tracking url
 2020-10-06  hara.sahoo@auspost.com.au  Modified getChasCalloutHttpRequest to cater for consignment search API
 2021-06-24  hara.sahoo@auspost.com.au  Added requestEDDEstimates() for shipment EDD service
+2023-02-17  thang.nguyen231@auspost.com.au  Update Safedrop v2 DDS-14509
 **************************************************/
 public with sharing class ChasCallout {
     
@@ -130,7 +131,8 @@ public with sharing class ChasCallout {
         //Added the query parameters like ?expand=events and AUTH-KEY settings
         if(queryParams.contains('safedropimage'))
         {
-            endpointURLWithTrackingNum = endpointURL + trackingNumber.trim() + queryParams;
+            //endpointURLWithTrackingNum = endpointURL + trackingNumber.trim() + queryParams;
+			endpointURLWithTrackingNum = endpointURL.replace('TRACKING_NUMBER', trackingNumber.trim());
         } else
         {
             endpointURLWithTrackingNum = endpointURL + '?q=' + trackingNumber.trim() + queryParams;

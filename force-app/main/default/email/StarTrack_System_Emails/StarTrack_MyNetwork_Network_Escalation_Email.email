@@ -1,0 +1,66 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Australia Post</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body style="margin:0; padding:0;">
+	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">You are listed as a point of escalation for
+			{!CaseInvestigation__c.NetworkName__c}</span></h3>
+	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!CaseInvestigation__c.CaseNumber__c} has
+			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is
+			waiting on a response.</span></p>
+	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Can you please</span></h3>
+	<ul>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">update the
+				Customer Contact Centre (CCC) by either replying to this email or responding through MyNetwork,
+				or</span></li>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Forward to
+				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they respond to the CCC via this email
+				or MyNetwork.</span></li>
+	</ul>
+	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">No longer the contact?</span></h3>
+	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">If you are no longer the appropriate contact for
+			{!CaseInvestigation__c.NetworkName__c} please email
+			<a href="mailto:MyNetworkSupport@auspost.com.au">MyNetworkSupport@auspost.com.au</a> with the correct contact's 
+			details so we can update our records.</span></p>
+	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">MyNetwork access</span></h3>
+	<ul>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Access
+				requests can be made via
+				<a
+					href="https://auspostprod.service-now.com/myit/?id=sc_cat_item&sys_id=b5e5fde4db8549104ee812e214961947">MyIT</a></span>
+		</li>
+	</ul>
+	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">MyNetwork support</span></h3>
+	<ul>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">
+				<a
+					href="https://auspostprod.service-now.com/myit/?sys_kb_id=0f2d64df1b2a5dd0a868c91a274bcbb1&id=kb_article_view&sysparm_rank=1&sysparm_tsqueryId=89409a6c1bdfdd5c1a9b213a2d4bcb40">MyNetwork
+					FAQs</a></span>
+		</li>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">The
+				MyNetwork Information Guide is accessible within MyNetwork via the ‘Support’ tab, or via the Knowledge
+				Base in POP.
+			</span>
+		</li>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">For
+				technical issues, please contact <a
+					href="mailto:MyNetworkSupport@auspost.com.au">MyNetworkSupport@auspost.com.au </a> or log a <a
+					href="https://auspostprod.service-now.com/myit?id=sc_cat_item&sys_id=b44e8376dbceb780c7a2147a3a96191d">
+					MyIT ticket </a> under ‘Applications and Software’ & ‘Salesforce’
+			</span>
+		</li>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">For
+				deliveries last mile support, please contact <a
+					href="mailto:DeliveriesMyNetworkSupport@auspost.com.au">DeliveriesMyNetworkSupport@auspost.com.au</a>
+			</span>
+		</li>
+	</ul>
+	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Thank you.</span></p>
+</body>
+
+</html>

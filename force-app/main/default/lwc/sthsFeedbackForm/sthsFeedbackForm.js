@@ -26,9 +26,12 @@ export default class SthsTrackingForm extends LightningElement {
 		"Delivery"
 	];
 	callerTypesDependancyOnReferences = [ // caller types displayed for these references only
+		"Product & Sales",
 		"Pick Up",
 		"On-Road",
-		"Delivery"
+		"Delivery",
+		"Contact Centre",
+		"Other"
 	];
 	formData = {}; //form data to capture
 	isLoading = false; //flag to show/hide the spinner

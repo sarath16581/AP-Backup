@@ -512,44 +512,7 @@ public with sharing class OpportunityUtility {
      * 08/20/19         Created
      ********************************/
     public static void populateClassification(List<Opportunity> newOptyList, Map<Id, Opportunity> oldRecMap){
-        Set<String> accountIdSet = new Set<String>();
-        Opportunity oldOptyRec = new Opportunity();
-        Set<Id> optyIdSet = new Set<Id>();
-        Map<Id, Id> optyOrgMap = new Map<Id, Id>();
-        List<OpportunityLineItem> optyLineItemList = new List<OpportunityLineItem>();
-        try{
-            for(Opportunity optyObj : newOptyList){
-                oldOptyRec = oldRecMap != NULL && oldRecMap.containsKey(optyObj.Id) ? oldRecMap.get(optyObj.Id) : NULL;
-                if(Constants.CLOSED_WON.equalsIgnoreCase(optyObj.StageName) && !Constants.CLOSED_WON.equalsIgnoreCase(oldOptyRec.StageName)){
-                    optyIdSet.add(optyObj.Id);
-                }
-                optyOrgMap.put(optyObj.Id, optyObj.AccountId);
-                accountIdSet.add(optyObj.AccountId);//gets the opportunity's account id
-            }
-
-            if(optyIdSet != NULL){
-                for(OpportunityLineItem optyLine : [SELECT Id, Product2Id, Contract_Start_Date__c, OpportunityId, Classification__c, Opportunity.AccountId,
-                Contract_End_Date__c, APT_Is_Apttus_Opportunity_Line_item__c, Change_Classification__c
-                FROM OpportunityLineItem
-                WHERE OpportunityId IN : optyIdSet
-                LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())])
-                {
-                    if(!optyLine.APT_Is_Apttus_Opportunity_Line_item__c){
-                        optyLineItemList.add(optyLine);
-                    }
-                }
-            }
-            
-			List<OpportunityLineItem> optyLIToUpdate = OpportunityLineItemService.updateClassification(optyLineItemList,accountIdSet,optyOrgMap);
-
-
-            if(optyLIToUpdate != NULL && optyLIToUpdate.size()>0){
-                Database.update(optyLIToUpdate, TRUE);
-            }
-
-        }catch(exception excp){
-            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'populateClassification', triggerName, LoggingLevel.ERROR);
-        }
+       OpportunityLineItemService.updateClassification(newOptyList,oldRecMap);
     }
 
     /*********************************

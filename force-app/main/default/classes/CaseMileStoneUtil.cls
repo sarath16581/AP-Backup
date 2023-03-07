@@ -5,6 +5,7 @@ Test Class - TestCalculateMilestoneTime
     Date                User                                        Comments
     29/05/2015          C.McIntyre                                  Added LIMIT clauses to open SOQL queries as part of apex audit.
     29/09/2015          disha.kariya@auspost.com.au                 Commented Code called from Inactive Trigger CaseTrigger.trigger
+	09/02/2023			Mahesh Parvathaneni							Updated the queries with record type for method ruleIDRuleUnits
 *******************************  History ************************************************/
 
 global without sharing class CaseMileStoneUtil {   
@@ -522,7 +523,7 @@ global without sharing class CaseMileStoneUtil {
         get {
             if(ruleIDRuleUnits == null){
                 ruleIDRuleUnits = new Map<String, List<String>>();
-                for (Entitlement_Rule__c er :[Select Rule__c From Entitlement_Rule__c where Active__c = true order by lastmodifieddate desc limit 50000]) {
+                for (Entitlement_Rule__c er :[Select Rule__c From Entitlement_Rule__c where Active__c = true AND RecordType.DeveloperName = 'SSSW_Case' order by lastmodifieddate desc limit 50000]) {
                     ruleIDRuleUnits.put(er.Id, er.Rule__c.split('\\|\\|'));                     
                 }
             }

@@ -11,7 +11,7 @@ History:
 2022-04-08  naveen.rajanna@auspost.com.au - REQ2804764 - Remove debug and Add null check to prevent nullpointerexception for parseEmailbodySnapIt,setEmailToCaseAddress
 2022-05-03  saiswetha.pingali@auspost.com.au - Removed parseEmailbodySnapIT as it is no more used.
 2022-11-04  Naveen Rajanna - REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
-
+2023-02-09  Swati.mogadala@auspost.com.au - Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
 **************************************************/
 public class EmailMessageUtil {
 
@@ -179,6 +179,7 @@ public class EmailMessageUtil {
             //Initialize containers.
             Map<Id, EmailMessage> caseToEmailMessage = new Map<Id, EmailMessage>();
             List<String> emailMessageSubject = new List<String>();
+            List<String> fromEmailAddr = new List<String>();
             List<EmailMessage> emailMessageList = new List<EmailMessage>();
             List<EmailMessage> starTrackEmailMessages = new List<EmailMessage>();
             StarTrack_Settings__c customSetting = StarTrack_Settings__c.getOrgDefaults();
@@ -192,22 +193,25 @@ public class EmailMessageUtil {
                 if (caseRec.RecordType.Developername.startsWith(StarTrack_Constants.CASE_STARTRACK_RECTYPE)) { //Validate if case is a StarTrack record.
                     starTrackEmailMessages.add(caseToEmailMessage.get(caseRec.Id));
                 }
-            }
+            }	
 
             if (!starTrackEmailMessages.isEmpty()) {
                 for (EmailMessage newEmail : starTrackEmailMessages) {
                     String emailSubject = newEmail.Subject; //Get email message subject to avoid modification in the actual subject field.
+                    String fromEmailAddress = newEmail.FromAddress; //Get 'FromAddress' from the incoming email
                     //Validate if email body contains parent case thread Id.
                     // System.debug('Case Thread Id: ' + getThreadId(newEmail.ParentId));
                     // System.debug('Current parent id: ' + newEmail.ParentId);
                     //REQ3018517
-                    if (emailSubject != null && newEmail.Incoming && 
+                    if (emailSubject != null && newEmail.Incoming && fromEmailAddress!=null &&
                             (String.isBlank(newEmail.HTMLBody) || 
                                 (String.isNotBlank(newEmail.HTMLBody) && !newEmail.HTMLBody.contains(getThreadId(newEmail.ParentId))))) {
+                       
                         //Validate if Subject contains any of the specified prefix.
                         if (emailSubject.containsIgnoreCase(StarTrack_Constants.rePrefix) || emailSubject.containsIgnoreCase(StarTrack_Constants.forwardPrefix1) || emailSubject.containsIgnoreCase(StarTrack_Constants.forwardPrefix2)) {
                             emailSubject = getEmailSubject(emailSubject); //Call the method that removes all the prefix that is found in the subject.
                             emailMessageSubject.add(emailSubject); //Add the new subject value to the container.
+                            fromEmailAddr.add(fromEmailAddress);// Add the incoming email value to container.
                             newCasesId.add(newEmail.ParentId);
                             emailMessageList.add(newEmail);
                             // System.debug('Valid 255');
@@ -221,9 +225,9 @@ public class EmailMessageUtil {
                     Map<String, Case> caseSubjectMap = new Map<String, Case>();
                     Map<Id, Case> parentCase = new Map<Id, Case>();
                     List<Case> existingCases = new List<Case>([
-                            SELECT Id, Subject, CreatedDate, CaseNumber
+                            SELECT Id, Subject, CreatedDate, CaseNumber,SuppliedEmail
                             FROM Case
-                            WHERE Subject IN :emailMessageSubject AND Id NOT IN :newCasesId AND CreatedDate >= :(System.now() - Integer.valueOf(customSetting.Email2Case_Check_Last_X_Days__c))
+                            WHERE Id NOT IN :newCasesId AND CreatedDate >= :(System.now() - Integer.valueOf(customSetting.Email2Case_Check_Last_X_Days__c)) AND Subject IN :emailMessageSubject AND SuppliedEmail IN :fromEmailAddr
                             AND RecordType.DeveloperName LIKE 'StarTrack%'
                             ORDER BY CreatedDate ASC
                     ]); //Query cases that matches with the criteria. Used ORDER BY CreatedDate ASC to make sure that we get old cases first.
