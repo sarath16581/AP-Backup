@@ -21,6 +21,9 @@
                 //-- Trcking number is changed, so make a server call
                 cmp.set("v.showInvalidWithinEDDMessage", false)
                 cmp.set("v.showInvalidMessage", false);
+               cmp.set("v.showCallerType",false);
+               cmp.set("v.wizardData.hasQualifiedForLateFlow",false);
+               cmp.set('v.wizardData.skipDeflectionPage', false);
                 var action = cmp.get("c.searchTrackingNumber");
                 action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
                 
@@ -129,6 +132,11 @@
                             } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
                                 cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
                                 helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'LATE'){
+                                cmp.set("v.wizardData.hasQualifiedForLateFlow",true);
+                                cmp.set('v.wizardData.skipDeflectionPage', true);
+                                cmp.set("v.showCallerType",true);
+                                cmp.set("v.isLoading", false);
                             }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
                         else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
@@ -197,7 +205,11 @@
                  helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
               } else if(cmp.get("v.wizardData.hasQualifiedForNoEDDFlow")){
                    helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
-               } else if (cmp.get("v.showInvalidMessage")) {
+               } else if(cmp.get("v.wizardData.hasQualifiedForLateFlow")){
+                  cmp.set("v.showCallerType",true);
+                  cmp.set("v.isLoading", false);
+                  cmp.set('v.wizardData.skipDeflectionPage', true);
+              } else if (cmp.get("v.showInvalidMessage")) {
                 let invalidBspCmp = cmp.find("invalidBsp");
                 if ($A.util.hasClass(invalidBspCmp, "slds-hide")) {
                     $A.util.removeClass(invalidBspCmp, "slds-hide");
@@ -406,5 +418,68 @@
              trackingType: trackingType,
              componentAttributes: analyticsObject
          });
-     }
+     },
+
+     validateRadioButtons: function(cmp, showError) {
+         return this.validateNotNull(cmp, showError, "Choose an option");
+     },
+     validationMap: function() {
+         return {
+             'recipientOrSenderRadioButtons': this.validateRadioButtons,
+         };
+     },
+     checkAllInputs: function(cmp, showError) {
+         var allInputs = this.asArray(cmp.find('chasInput'));
+         var isValid = this.checkEachInput(cmp, allInputs, showError);
+         this.updateErrorSummary(cmp, allInputs);
+         /* Commented below code on 4/10/2018 for International Missing Item Changes.
+            When user enters International tracking number and selects Recipient, next button is enabled to proceed further. */
+         /*if(cmp.get('v.wizardData.senderOrRecipientType') === 'International' && cmp.get('v.wizardData.selectedRadio1Name') === 'Recipient'){
+             isValid = false;
+         }*/
+
+         if(isValid){
+             cmp.set('v.formValid', true);
+         }else{
+             cmp.set('v.formValid', false);
+         }
+         return isValid;
+     },
+     checkEachInput: function(cmp, inputs, showError) {
+         var validationMap = this.validationMap();
+         var isValid = true;
+         for (var i=0; i<inputs.length; i++) {
+             var inputCmp = inputs[i];
+             var inputName = inputCmp.get('v.name');
+             var inputRequired = inputCmp.get('v.required');
+             var validationFunction = validationMap[inputName];
+             if (validationFunction) validationFunction.bind(this)(inputCmp, showError);
+             var inputError = inputCmp.get('v.error');
+             isValid = isValid && !inputError && (!inputRequired || (inputError === null && inputRequired));
+         }
+
+         return isValid;
+     },
+
+     updateErrorSummary: function(cmp, allInputs) {
+         var errors = [];
+         for (var i=0; i<allInputs.length; i++) {
+             var inputCmp = allInputs[i];
+             var inputName = inputCmp.get('v.name');
+             var inputLabel = inputCmp.get('v.label');
+             var inputError = inputCmp.get('v.error');
+
+             for (var j=0; j<errors; j++) {
+                 if (errors[j].name === inputName) {
+                     errors.splice(j, 1);
+                     break;
+                 }
+             }
+             if (inputError) {
+                 errors.push({name: inputName, label: inputLabel, error: inputError});
+             }
+         }
+
+         cmp.set('v.errors', errors);
+     },
 })

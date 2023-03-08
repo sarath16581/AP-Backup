@@ -7,6 +7,7 @@
 * 5-Jul-2018    disha.kariya@auspost.com.au Updated Controller to accommodate NPS and Auto Escalation
 * 28-Sep-2020   naseer.abbasi@auspost.com.au    Updated to include new flag i.e isStrategic    
 * 17-Nov-2020 - Ranjeewa Silva - Updated to include new field on SSSW Rule - 'SocialPostTags__c'
+* 07-03-2023	george.nguyen8@auspost.com.au	Added CustomerQueueType__c to the validation rule that checks for existing matching rule with the same attributes. 
 **/
 global with sharing class SSSWRoutingController {
     public static String MULTI_SELECT_DELIM = ';';
@@ -186,7 +187,6 @@ global with sharing class SSSWRoutingController {
                 //EnquirySubType__c = :enquirySubType AND
                 //CustomerQueueType__c = :customerQueueType AND
                 //Origin__c = :origin AND
-            	//Status__c =: status and
             	Status__c =: sStatus and
                 High_Level_Complaint_Flag__c = :selRouting.High_Level_Complaint_Flag__c and
                 Customer_Recovery_Flag__c = :selRouting.Customer_Recovery_Flag__c and
@@ -207,6 +207,7 @@ global with sharing class SSSWRoutingController {
                     && (route.CaseType__c==null? '' : route.CaseType__c) == sEnquiryType
                     && (route.EnquirySubType__c==null? '' : route.EnquirySubType__c) == sEnquirySubType
                     && (route.Origin__c==null? '' : route.Origin__c) == sOrigin
+					&& (route.CustomerQueueType__c==null? '' : route.CustomerQueueType__c) == sCustomerQueueType
                     && isSamePostTags(route.SocialPostTags__c, selRouting.SocialPostTags__c))
             {
                 existingRoutings.add(route);
