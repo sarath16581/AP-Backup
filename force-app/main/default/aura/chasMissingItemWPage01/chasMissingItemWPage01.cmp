@@ -21,6 +21,7 @@
     <aura:attribute name="showSelectionError" type="Boolean" default="false"/>
     <aura:attribute name="showInvalidMessage" type="Boolean" default="false"/>
     <aura:attribute name="showInvalidWithinEDDMessage" type="Boolean" default="false"/>
+    <aura:attribute name="showCallerType" type="Boolean" default="false"/>
     <aura:attribute name="eddDisplayDate"  type="String" default="" />
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
@@ -29,7 +30,12 @@
     <!-- Added below code on 24/10/2018 for parsing and setting the Tracking Id passed from App view to the Missing Items form. -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
-
+    <aura:attribute name="recipientOrSenderRadioGroup" type="List"
+                    default="[
+                             {'label':'Sender', image:'','id':'Sender'},
+                             {'label':'Receiver', image:'','id':'Receiver'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
     <!--Autoprogress this form if the url parameters are passed, for rest of every other scenario continue allow user to enter the tracking id-->
     <aura:if isTrue="{!or(v.isFromBackButton, or(empty(v.dpidFromUrl) ,and(not(empty(v.dpidFromUrl)),empty(v.trackingIdFromUrl))))}">
         <aura:if isTrue="{!(v.isMultipleArticles)}">
@@ -130,6 +136,32 @@
             <aura:if isTrue="{!(v.error400)}">
                 <div class="slds-p-bottom_medium">
                     <p>Not sure what this means? <a onclick='{!c.navToLearnMore}'><u>Learn more</u></a></p>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{! v.showCallerType}">
+                <!-- Recipient/Sender Radio Buttions Group-->
+                <div class="form-input-container">
+                    <c:ChasRadioButtons
+                        aura:id="chasInput"
+                        name="recipientOrSenderRadioButtons"
+                        required="true"
+                        label="Are you the recipient or sender?"
+                        options="{!v.recipientOrSenderRadioGroup}"
+                        value="{!v.wizardData.selectedRadio1}"/>
+                </div>
+                <aura:if isTrue="{!(v.wizardData.selectedRadio1 == 'Sender')}">
+                    <div class="standard-info">
+                        <c:ChasBspDeflection aura:id="isSender" noInfoIcon="true" hasClose="false" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
+                            <h3 class="chas-body_regular slds-m-bottom_xx-small">Business contract customer?</h3>
+                            <p class="message-text">
+                                Access priority support, track items and manage your enquiries 24/7 by logging on to the
+                                <a href="https://auspostbusiness.force.com/bsp/s/login/" class="link-plain" target="_blank" >Business Support Portal</a>.
+                            </p>
+                        </c:ChasBspDeflection>
+                    </div>
+                </aura:if>
+                <div class="chas-button-box-container">
+                    <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.navNextPage }"/>
                 </div>
             </aura:if>
             <aura:if isTrue="{! not(v.error500) }">
