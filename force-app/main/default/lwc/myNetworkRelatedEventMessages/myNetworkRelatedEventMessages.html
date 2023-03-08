@@ -10,6 +10,7 @@
 02.09.2020    disha.kariya@auspost.com.au   Changes to add help text for map directions
 29.07.2021    neha.mehta@auspost.com.au     Added changes related to REQ2547720
 13.12.2022	  dattaraj.deshmukh@auspost.com.au	Removed '<br /><br />' tags before start of Accordion.
+08.03.2023	  mahesh.parvathaneni@auspost.com.au Fixed styling for GPS Pin drop 
 -->
 <template>
     <lightning-card>
@@ -21,7 +22,7 @@
                     <p> There are no Event Messages to display</p>
                 </template>
                 <template if:true={hasEventMessage}>
-                    <div if:true={safeDropDataAvailable}>
+                    <div if:true={safeDropDataAvailable} class="header-map">
                         <div class="slds-float_right slds-box slds-box_xx-small">
                             <table class="slds-table slds-no-row-hover ">
                                 <tr><td class="blue">

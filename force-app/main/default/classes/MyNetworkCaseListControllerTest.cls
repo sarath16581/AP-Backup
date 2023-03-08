@@ -10,6 +10,7 @@
  *                                Added 'test_assignSelectedRecords' and 'test_assignSelectedRecords_self' methods to test generic 'assignSelectedRecords' method.
  *                                Added   'test_GetFilteredCases_StarTrackCasesListViewFilters' & 'test_GetFilteredCases_StarTrackUpdatedListViewFilters' method.
  * 02-03-2023 Mahesh Parvathaneni - SF-830 Updated method test_validateCaseInvestigations and test_GetFilteredCases_UpdatedStarTrackListViewFilters
+ * 08-03-2023 Mahesh Parvathaneni - SF-873 Added method testGetSafeDropInformationCaseInvestigation
  * ***************************************************************************************/
 @isTest
  private  class MyNetworkCaseListControllerTest {
@@ -282,6 +283,71 @@
 			Test.StartTest();
 			Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
 			sDetails = MyNetworkCaseListController.getSafeDropInformation(cId);
+			Test.StopTest();  
+		}
+		System.assertEquals(sDetails.isValid, true, 'Valid Delivery address not found');
+		System.assertEquals(sDetails.addresseeAddress.latitudeValue, String.valueOf(-37.82022851), 'Addressee latitude found from mock');
+	}
+
+	/**
+	 * Scenario: Testing to get safe drop information related to article associated to case investigation
+	 */
+	@isTest
+	static void testGetSafeDropInformationCaseInvestigation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
+		Case c = ApplicationTestDataFactory.getCases(1, true)[0];
+		c.ReferenceID__c = consignment.ArticleID__c;
+		c.ArticleTest__c = consignment.Id;
+		c = (Case) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{'Article_Receiver_Address__c' => '140 SHARPS ROAD, MELBOURNE AIRPORT, VIC, 3064'});
+		consignment = (Article__c)ApplicationTestDataFactory.setUnwritableFields(consignment, new Map<String, Object>{'RecordType.Name' => 'Consignment'});
+
+		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+		article.Consignment__c = consignment.Id;
+		article.ReceiverAddressLine1__c = '140 SHARPS ROAD';
+		article.ReceiverCity__c = 'MELBOURNE AIRPORT';
+		article.ReceiverState__c = 'VIC';
+		article.ReceiverPostcode__c = '3064';
+		article.ReceiverCountry__c = 'AU';
+		article.ReceiverAddress__c = '140 SHARPS ROAD, MELBOURNE AIRPORT, VIC, 3064';
+		EventMessage__c eventMessage = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+		eventMessage.EventGeoLocation__Longitude__s = 151.62805;
+		eventMessage.EventGeoLocation__Latitude__s = -32.927406;
+
+		//associating articles with consignment.
+		consignment = (Article__c)ApplicationTestDataFactory.setChildRelationships(consignment, new Map<String, List<SObject>>{'Articles__r' => new List<SObject>{article}});
+
+		//associating event messages with articles.
+		article = (Article__c)ApplicationTestDataFactory.setChildRelationships(article, new Map<String, List<SObject>>{'Event_Messages__r' => new List<SObject>{eventMessage}});
+
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, c.Id, article, networks[0].Id, true);
+		caseInvestigations[0].Article__r = article;
+		caseInvestigations[0].Case__r = c;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		CaseInvestigationsSelector mockCaseInvestigationsSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{eventMessage.Id => eventMessage});
+		MockUtility.Mocks.stopStubbing();
+
+		User uRecrd = [Select Id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
+
+		// =====================================
+		// Testing
+		// =====================================
+		MyNetworkCaseListController.SafeLocationDetails sDetails;
+		System.runAs(uRecrd){
+			Test.StartTest();
+			Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
+			sDetails = MyNetworkCaseListController.getSafeDropInformation(caseInvestigations[0].Id);
 			Test.StopTest();  
 		}
 		System.assertEquals(sDetails.isValid, true, 'Valid Delivery address not found');
