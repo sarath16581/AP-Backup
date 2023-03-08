@@ -20,7 +20,7 @@
 														 Added methods for StarTrack dynamic SOQL, updated existing methods to filter star track cases.
 														 Added star_track_cases listview filter.
 01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
-08/03/2023         Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
+08/03/2023		   Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
