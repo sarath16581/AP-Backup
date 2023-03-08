@@ -17,10 +17,11 @@ public with sharing class APT_SubAccountAssessmentController {
     
     public boolean isExistingCustomer {get;set;}
     
-    public boolean haserrorMessages {get; set;}
+    public boolean hasErrorMessages {get; set;}
     public APT_Sub_Account__c subAccount {get; set;}
     
     String proposalId;
+    String contextId;
     String chargeAccountId;
     Apttus_Proposal__Proposal__c proposal;
     Account account;
@@ -96,7 +97,7 @@ public with sharing class APT_SubAccountAssessmentController {
         try {
           init ();
         } catch(Exception ex) {
-            haserrorMessages = true;
+            hasErrorMessages = true;
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
         }   
         if(!(isAccountFlow || isExistingCustomer)) {
@@ -108,12 +109,13 @@ public with sharing class APT_SubAccountAssessmentController {
      init method
     **/
     public void init () {
-        haserrorMessages = false;
+        hasErrorMessages = false;
         subAccount = new APT_Sub_Account__c();
         account = new Account();
         system.Debug(isExistingCustomer);
         
         proposalId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID2);
+        contextId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CONTEXT_ID);
         chargeAccountId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CHARGE_ACCOUNT_ID);
         accountID = ApexPages.currentPage().getParameters().get(APT_Constants.URL_ACCOUNT_ID);
         
@@ -143,11 +145,11 @@ public with sharing class APT_SubAccountAssessmentController {
                     accountID = proposal.Apttus_Proposal__Account__c;               
                     subAccount.APT_Organisation__c = proposal.Apttus_Proposal__Account__c;
                 } else {
-                    haserrorMessages = true;
+                    hasErrorMessages = true;
                     ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.MISSING_PROPOSAL));
                 }
             } else {
-                haserrorMessages = true;
+                hasErrorMessages = true;
                 ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.MISSING_PROPOSAL));
             } 
         } 
@@ -228,7 +230,7 @@ public with sharing class APT_SubAccountAssessmentController {
             }
             
         }  catch(Exception ex) {
-            haserrorMessages = true;
+            hasErrorMessages = true;
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
         } 
 
@@ -317,7 +319,7 @@ public with sharing class APT_SubAccountAssessmentController {
             }
 
         }  catch(Exception ex) {
-            haserrorMessages = true;
+            hasErrorMessages = true;
             System.debug('**Message:'+ ex.getMessage());
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
         } 
@@ -328,21 +330,21 @@ public with sharing class APT_SubAccountAssessmentController {
     /**
         This method will redirect user to quote/proposal detail page
      */
-    public pageReference backToProposal(){
-     PageReference redirectPage = null; 
-     try {   
-        
-         
-        if(String.isNotBlank(proposalId)) {
-            redirectPage=  new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + proposalId);
-        } else if(isAccountFlow) {
-            redirectPage =  new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + accountID);
-        } else {}
-    }  catch(Exception ex) {
-            haserrorMessages = true;
+    public pageReference backToProposal() {
+        PageReference redirectPage = null;
+        try {
+            if (String.isNotBlank(contextId)) {
+                redirectPage = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + contextId);
+            } else if(String.isNotBlank(proposalId)) {
+                redirectPage = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + proposalId);
+            } else if(isAccountFlow) {
+                redirectPage = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + accountID);
+            } else {}
+        }catch(Exception ex) {
+            hasErrorMessages = true;
             System.debug('**Message:'+ ex.getMessage());
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
-        } 
+        }
         return redirectPage;        
     }
 }

@@ -18,7 +18,7 @@
                 <script>
                     $Lightning.use("c:createProposalSubAccountRequestApp", function() {
                         $Lightning.createComponent("c:createProposalSubAccountsRequestWrapper",
-                        {recordId:"{!proposalId}"},
+                        {recordId:"{!proposalId}", contextId:"{!contextId}"},
                             "lightning",
                         function(cmp) {
                             console.log("Component is created!");

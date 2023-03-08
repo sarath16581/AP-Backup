@@ -11,7 +11,8 @@
 
     <aura:attribute name="initialLoad" type="Boolean" default='true'/>
     <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="contextId" type="String" />
 
-    <c:createProposalSubAccountsRequest recordId="{!v.recordId}" initialLoad="{!v.initialLoad}" onclose="{!c.closePopUp}" />
+    <c:createProposalSubAccountsRequest recordId="{!v.recordId}" contextId="{!v.contextId}" initialLoad="{!v.initialLoad}" onclose="{!c.closePopUp}" />
     
 </aura:component>

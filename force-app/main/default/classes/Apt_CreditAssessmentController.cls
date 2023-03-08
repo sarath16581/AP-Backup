@@ -1247,6 +1247,7 @@ public with sharing class Apt_CreditAssessmentController {
                     redirectPage = Page.APT_SubAccountAssessment;
                 }
                 redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
+                redirectPage.getParameters().put(APT_Constants.PARAM_CONTEXT_ID, contextId);
                 redirectPage.getParameters().put(APT_Constants.PARAM_CHARGE_ACCOUNT_ID, chargeAccount.Id);
             } else {
                 if (String.isNotBlank(contextId)) {

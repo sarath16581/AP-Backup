@@ -11,11 +11,11 @@
 <template>
     <template if:true={initialLoad}>
         <template if:true={showSubAccountNewForm}>
-            <c-new-proposal-sub-account-request-edit-form record-id={recordId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newsubaccountrecordhandler} oneditsubaccount={editsubaccounthandler} ></c-new-proposal-sub-account-request-edit-form>
+            <c-new-proposal-sub-account-request-edit-form record-id={recordId} context-id={contextId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newsubaccountrecordhandler} oneditsubaccount={editsubaccounthandler} ></c-new-proposal-sub-account-request-edit-form>
         </template>
     </template>
 
     <template if:true={showSubAccountListForm}>
-        <c-new-proposal-sub-account-request-summary record-id={recordId} sub-account-list={subAccountList} onshowformevent={showformeventhandler} oneditsubaccount={editsubaccounthandler}></c-new-proposal-sub-account-request-summary>
+        <c-new-proposal-sub-account-request-summary record-id={recordId} context-id={contextId} sub-account-list={subAccountList} onshowformevent={showformeventhandler} oneditsubaccount={editsubaccounthandler}></c-new-proposal-sub-account-request-summary>
     </template>
 </template>

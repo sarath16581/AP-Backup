@@ -11,15 +11,14 @@
 01.08.2022    Prerna Rahangdale     - Added the the validation for lodgement point records to be same as Proposal.
 */
 
-import { LightningElement ,track, wire, api} from 'lwc';
+import { LightningElement ,track, api} from 'lwc';
 import getProposalDetails from "@salesforce/apex/CreateSubAccountsController.getProposalDetails";
 import createSubAccountRequests from '@salesforce/apex/CreateSubAccountsController.createSubAccounts';
 import { NavigationMixin } from 'lightning/navigation';
-import { reduceErrors } from 'c/ldsUtils';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class NewProposalSubAccountRequestEditForm extends NavigationMixin(LightningElement) {
     @api recordId;
+    @api contextId;
     @api subAccountRecord;
     @api subAccountId;
     //@track billingAccountRecord;
@@ -359,6 +358,10 @@ export default class NewProposalSubAccountRequestEditForm extends NavigationMixi
 
 
     cancel(){
-        window.location.assign('/'+this.recordId);
+        if (this.contextId) {
+            window.location.assign('/'+this.contextId);
+        } else {
+            window.location.assign('/'+this.recordId);
+        }
     }
 }

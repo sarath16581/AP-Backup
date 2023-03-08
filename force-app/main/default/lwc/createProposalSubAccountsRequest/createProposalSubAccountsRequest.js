@@ -15,6 +15,7 @@ import getRelatedSubAccountRequestsforProposal from "@salesforce/apex/CreateSubA
 
 export default class CreateProposalSubAccountsRequest extends NavigationMixin(LightningElement) {
     @api recordId;
+    @api contextId;
     @api initialLoad;
     @api isModalOpen;
     @track subAccountList = [];
@@ -29,6 +30,7 @@ export default class CreateProposalSubAccountsRequest extends NavigationMixin(Li
 
     connectedCallback() {
         console.log('recordId>>>>',this.recordId);
+        console.log('contextId>>>>',this.contextId);
         console.log('initialLoad>>>>',this.initialLoad);
         console.log('proposalRecord>>>>',this.proposalRecord);
 
