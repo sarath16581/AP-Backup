@@ -22,6 +22,11 @@
         if(statusCode == 403 || component.get('v.wizardData.skipDeflectionPage'))
         {
             component.set('v.displaySection','START_CASE_CREATE');
+            // setting the caller type (sender/Receiver) from the previous page if a value is selected
+            var recipientOrSenderCallerType = component.get('v.wizardData.recipientOrSenderCallerType');
+            if(recipientOrSenderCallerType) {
+                component.set('v.recipientOrSenderRadioGroup',recipientOrSenderCallerType);
+            }
         }
         
     },

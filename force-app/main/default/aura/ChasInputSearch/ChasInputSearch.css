@@ -38,7 +38,7 @@
 	}
 
 	.THIS .chas-input-search-button lightning-primitive-icon::after {
-		content: "Continue";
+		content: "Search";
 	}
 }
 
