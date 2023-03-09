@@ -10,78 +10,79 @@
 * 2022-05-30 - Nasir JAwed Added method selectByConfigIds
 * 2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
 * 2022-11-22 - Harry Wang - added selector method for sales intermediary
+* 2022-12-06 - Nasir Jawed - Added field APT_Use_Offline_Rates__c
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
-    public enum Options {
-        WITH_ORGANISATION
-    }
-    
-    public static APT_ProposalObjectsSelector newInstance() {
-        return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class);
-    }
-    public static APT_ProposalObjectsSelector newInstance(Integer recordLimit) {
-        return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit);
-    }
-    /**
+	public enum Options {
+		WITH_ORGANISATION
+	}
+
+	public static APT_ProposalObjectsSelector newInstance() {
+		return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class);
+	}
+	public static APT_ProposalObjectsSelector newInstance(Integer recordLimit) {
+		return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit);
+	}
+	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	* This approach removes data consistency and prevents possible caching of results
 	*/
-    public static APT_ProposalObjectsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-        APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
-    
+	public static APT_ProposalObjectsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 	/**
 	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	*						  This approach removes data consistency and prevents possible caching of results
+	*                         This approach removes data consistency and prevents possible caching of results
 	*/
 	public static APT_ProposalObjectsSelector newInstance(Integer recordLimit, Map<Schema.SObjectType,Set<Schema.SObjectField>> fieldOverrides) {
 		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
-    
-    public virtual override SObjectType getSObjectType() {
-        return Apttus_Proposal__Proposal__c.getSObjectType();
-    }
-    public virtual override Set<SObjectField> getSObjectFieldList() {
-        return new Set<SObjectField> {
-            Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c
-                };
-                    }
-    
-    /**
-* @description Run a simple query to get records based on Apttus shopping cart config Id's
-*/
-    public virtual Map<Id, Apttus_Proposal__Proposal__c> selectByConfigId(Set<Id> configIds) {
-        return selectByConfigId(configIds, new Set<Object>());
-    }
-    
-    /**
-* @description Run a simple query to get records based on Apttus shopping cart config Id's
-*/
-    public virtual Map<Id, Apttus_Proposal__Proposal__c> selectByConfigId(Set<Id> configIds, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions);
-        qb.addConditions()
-            .add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.ID + ' = :configIds'))
-            .endConditions();
-        return new Map<Id, Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
-    }
-    /**
-     * @description Run a simple query to get records based on Proposal id
-     */
-    public virtual List<Apttus_Proposal__Proposal__c> selectByConfigIds(Set<Id> ProposalIds) {
-        return selectByConfigIds(ProposalIds, new Set<Object>());
-    }
-  
-    public virtual List<Apttus_Proposal__Proposal__c> selectByConfigIds(Set<Id> ProposalIds, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions);
-        qb.addConditions()
-            .add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.ID + ' = :ProposalIds'))
-            .endConditions();
-        return new List<Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
-    }
 
-    /**
+	public virtual override SObjectType getSObjectType() {
+		return Apttus_Proposal__Proposal__c.getSObjectType();
+	}
+	public virtual override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField> {
+			Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,
+			Apttus_Proposal__Proposal__c.APT_Use_Offline_Rates__c };
+	}
+
+	/**
+	* @description Run a simple query to get records based on Apttus shopping cart config Id's
+	*/
+	public virtual Map<Id, Apttus_Proposal__Proposal__c> selectByConfigId(Set<Id> configIds) {
+		return selectByConfigId(configIds, new Set<Object>());
+	}
+
+	/**
+	* @description Run a simple query to get records based on Apttus shopping cart config Id's
+	*/
+	public virtual Map<Id, Apttus_Proposal__Proposal__c> selectByConfigId(Set<Id> configIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.ID + ' = :configIds'))
+			.endConditions();
+		return new Map<Id, Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
+	}
+	/**
+	 * @description Run a simple query to get records based on Proposal id
+	 */
+	public virtual List<Apttus_Proposal__Proposal__c> selectByConfigIds(Set<Id> ProposalIds) {
+		return selectByConfigIds(ProposalIds, new Set<Object>());
+	}
+
+	public virtual List<Apttus_Proposal__Proposal__c> selectByConfigIds(Set<Id> ProposalIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.ID + ' = :ProposalIds'))
+			.endConditions();
+		return new List<Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
 	* Returns a query locator to retrieve Proposal (Apttus_Proposal__Proposal__c) records based on the account ids passed in. If set of account ids
 	* is null or empty, returns all Proposal records having a parent account.
 	* Query results are ordered by parent account Id desc
@@ -90,29 +91,29 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of Apttus_Proposal__Proposal__c records
 	*/
-    public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+	public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
 
-        Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
-        options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+		Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+		options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
 
-        QueryBuilder qb = newQueryBuilder(options);
-        QueryBuilder.ConditionsManager conditions = qb.addConditions();
-        if (accountIds != null && !accountIds.isEmpty()) {
-            conditions.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' in :accountIds'));
-        } else {
-            conditions.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' != null'));
-        }
+		QueryBuilder qb = newQueryBuilder(options);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		if (accountIds != null && !accountIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' in :accountIds'));
+		} else {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' != null'));
+		}
 
-        qb = conditions.endConditions().addOrderDesc(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c);
-        return Database.getQueryLocator(qb.toSoqlString());
-    }
-    
-    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-        if (selectorOptions.contains(Options.WITH_ORGANISATION)) {
-            builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__Account__r');
-        }
-        return builder;
-    }
-    
+		qb = conditions.endConditions().addOrderDesc(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c);
+		return Database.getQueryLocator(qb.toSoqlString());
+	}
+
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		if (selectorOptions.contains(Options.WITH_ORGANISATION)) {
+			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__Account__r');
+		}
+		return builder;
+	}
+
 }
