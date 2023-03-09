@@ -8665,6 +8665,11 @@
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Domestic_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Domestic_eParcel_Spend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Domestic_Price_Type__c</field>
@@ -9198,6 +9203,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_RK_Code_Applied__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Recommended_Pricing_Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

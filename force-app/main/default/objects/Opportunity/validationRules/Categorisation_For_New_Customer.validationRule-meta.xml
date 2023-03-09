@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Categorisation_For_New_Customer</fullName>
+    <active>true</active>
+    <description>Validate if the user tries to select opportunity sub type as migration for customer type New.</description>
+    <errorConditionFormula>AND(ISPICKVAL(Opportunity_SubType__c,&quot;Migration&quot;),ISPICKVAL(Type, &quot;New Customer&quot;))</errorConditionFormula>
+    <errorMessage>Opportunity cannot be categorized as migration for new customer</errorMessage>
+</ValidationRule>

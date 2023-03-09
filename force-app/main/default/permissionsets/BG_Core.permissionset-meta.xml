@@ -584,6 +584,16 @@
         <field>Deal_Support_Request__c.Are_partners_required_briefed_engaged__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.APT_Evaluated_Spend_per_annum__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.APT_Incremental_Spend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Assigned_Lawyer__c</field>

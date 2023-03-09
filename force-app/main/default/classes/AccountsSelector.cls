@@ -17,6 +17,7 @@
  * 2022-06-12 - Sreenish Krishnan - Added new selector query based on APCN and Id
  * 2022-09-05 - Kamil / Nathan Franklin - Add new method and uplifted to 55
  * 2022-09-28 - Noel Lim - added new SObject Field, removed 3 debug statements
+ * 2023-02-07 - Deepak Kemidi - remove minimum spend field reference from account object
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
@@ -54,7 +55,8 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField>{
-				Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c, Account.APT_Min_Spend_Per_Annum__c, Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c,
+				//CI-339 Remove references to minimum spend field from account object
+				Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c, Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c,
 				Account.BillingStreet, Account.BillingCity, Account.BillingState,
 				Account.BillingPostalCode, Account.Phone, Account.Email__c, Account.ABN__c,
 				Account.ACN__c, Account.Primary_Business_Solutions_Contact__c, Account.BillingCountry, Account.Role_Type_Roll_Up__c,

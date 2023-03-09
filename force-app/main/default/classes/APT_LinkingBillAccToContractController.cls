@@ -1,13 +1,15 @@
 /* @author Seth Heang
- * @date 2022-05-30
- * @tag ApexController
- * @domain Core, Apttus
- * @description A controller for LWC interface for linking functionality of billing account, charge/sub accound request to Apttus Contract
- * @changelog
- * 2022-05-30 - Seth Heang - created
- * 01/08/2022 - prerna.rahangdale@auspost.com.au - insertAgreementLodgementPoints - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
- *                                                 the lodegement zones of proposals.
- */
+* @date 2022-05-30
+* @tag ApexController
+* @domain Core, Apttus
+* @description A controller for LWC interface for linking functionality of billing account, charge/sub accound request to Apttus Contract
+* @changelog
+* 2022-05-30 - Seth Heang - created
+* 01/08/2022 - prerna.rahangdale@auspost.com.au - insertAgreementLodgementPoints - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
+*                                                 the lodegement zones of proposals.
+* 27/01/2023 - Sarath Burra - Removing the LodgmentZone Validation for APPC in the method insertAgreementLodgementPoints() as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
+* 								Lines Removed 165-167
+*/
 public with sharing class APT_LinkingBillAccToContractController {
 
 	/**
@@ -75,7 +77,7 @@ public with sharing class APT_LinkingBillAccToContractController {
 	public static List<APT_Charge_Account__c> retrieveChargeAccountRequests(String propId) {
 		List<APT_Charge_Account__c> chargeAccList = new List<APT_Charge_Account__c>();
 		try {
-		    chargeAccList = ChargeAccountRequestSelector.newInstance().selectByProposalId(
+			chargeAccList = ChargeAccountRequestSelector.newInstance().selectByProposalId(
 				new Set<Id>{
 					(Id) propId
 				},
@@ -160,10 +162,7 @@ public with sharing class APT_LinkingBillAccToContractController {
 			if (lodgementPointWCCs != null) {
 				// deserialise the JSON and convert to the custom Sboject
 				responseDetail = (List<CreateSubAccountsController.SObjectResult>) System.JSON.deserialize(lodgementPointWCCs, List<CreateSubAccountsController.SObjectResult>.class);
-			// validate whether the lodgement zone selected is matching the Agreement line items lodgement Zones.
-			if(!CreateSubAccountsController.validateSearchLodgementZone(proposalId,responseDetail[0].postCode)){
-				return 'FAILED';
-			}
+
 			}
 			// iterate over wrapper object and map to respective lookup fields based on supplied SObject type(eg. Billing Acc, Charge Acc Req, Sub Acc Req)
 			for (LinkingAccountWrapper wrapperRec : wrapperObjList) {
@@ -201,13 +200,13 @@ public with sharing class APT_LinkingBillAccToContractController {
 		} catch (Exception e) {
 			throw new AuraHandledException('Error occurred while inserting Agreement Lodgement Point records: ' + e.getMessage());
 		}
-    }
+	}
 
 	/**
 	 * @description Wrapper class object to pass over a wrapper object of Id and object api value from LWC into apex controller
 	 *              Two Attributes:
 	 *              -id: id of billing account, charge account request, sub account request, organisation
-	 *              -objType: API name of the respective lookup fields on Agreement lodgement point for mapping billing account, 
+	 *              -objType: API name of the respective lookup fields on Agreement lodgement point for mapping billing account,
 	 *                          charge account request, sub account request, organisation
 	 */
 	public class LinkingAccountWrapper {

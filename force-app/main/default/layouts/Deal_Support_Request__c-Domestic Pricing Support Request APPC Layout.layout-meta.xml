@@ -146,6 +146,10 @@
                 <behavior>Required</behavior>
                 <field>Sales_Justification__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Incremental_Spend__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -174,6 +178,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Assigned_Team__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Evaluated_Spend_per_annum__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -296,11 +304,6 @@
             <sortOrder>4</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>8</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Deal_Support_Request__c.Re_Submit</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>5</sortOrder>
@@ -314,6 +317,11 @@
             <actionName>Deal_Support_Request__c.Complete</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>8</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>FeedItem.TextPost</actionName>
@@ -395,7 +403,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h0w0000011qYa</masterLabel>
+        <masterLabel>00h2v00000pOGuk</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

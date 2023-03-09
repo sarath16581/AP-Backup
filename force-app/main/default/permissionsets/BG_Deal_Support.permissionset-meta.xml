@@ -870,6 +870,11 @@
         <field>Deal_Support_Request__c.Expected_Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.APT_Evaluated_Spend_per_annum__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.FY_Managed__c</field>
@@ -943,6 +948,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Incumbent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	 <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.APT_Incremental_Spend__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

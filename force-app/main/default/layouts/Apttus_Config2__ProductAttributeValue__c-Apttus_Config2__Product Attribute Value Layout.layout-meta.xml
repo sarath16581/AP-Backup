@@ -51,6 +51,14 @@
                 <behavior>Edit</behavior>
                 <field>APT_Band__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Domestic_eParcel_Spend__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Recommended_Pricing_Action__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
