@@ -20,6 +20,7 @@
 														 Added methods for StarTrack dynamic SOQL, updated existing methods to filter star track cases.
 														 Added star_track_cases listview filter.
 01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
+08/03/2023		   Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -882,7 +883,7 @@ public with sharing class MyNetworkCaseListController {
 	}
 	/**
 	 * @Description : This method is used to get the address information to plot on google map.
-	 *               1. Addressee address is fetched from Case Addressee Address
+	 *               1. Addressee address is fetched from Case Addressee Address (for AP cases) (or) Case Receiver Address (for StarTrack cases)
 	 *               2. Manifest address is fetched from Article Address
 	 *               3. Delivered address is fetched from Event Message of certain event code types
 	 */
@@ -908,8 +909,11 @@ public with sharing class MyNetworkCaseListController {
 		Map<String, String> getAddressOrGeoLocationAME = new Map<String, String>();
 		Map<String, String> addressType = new Map<String, String>();
 		CaseInvestigation__c caseInvestigation;
+		Case caseRecord;
+		Article__c article;
 		String sObjectTypeName;
 		Id caseRecordId;
+		Id articleId;
 		try{
 
 			//get SObject type as this component is called from Case Detail and Case Investigation detail page on mynetwork community.
@@ -917,42 +921,49 @@ public with sharing class MyNetworkCaseListController {
 			
 			//if recordId is of the type = CaseInvestigation, query case investigation details
 			if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
-				caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}).values()[0];
-				caseRecordId = caseInvestigation.Case__c;
-			}
-			else { 
-				caseRecordId = recordId;
-			}
+				caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+										CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
+				articleId = caseInvestigation.Article__c;
+				article = caseInvestigation.Article__r;
+				
+				//get the Addressee address field for StarTrack cases
+				if((caseInvestigation.Case__r.Article_Receiver_Address__c != null)){
+					String addressValue = caseInvestigation.Case__r.Article_Receiver_Address__c.trim();
+					//Add to map to get geo location based on address (ATG) from AME
+					getAddressOrGeoLocationAME.put(caseInvestigation.Case__c+'-ATG', addressValue);
+				}
 
-			Case caseRecord = [Select Id, ArticleTest__c, ArticleTest__r.ReceiverAddressLine1__c, ArticleTest__r.ReceiverAddressLine2__c, ArticleTest__r.ReceiverCity__c,
-				ArticleTest__r.ReceiverState__c, ArticleTest__r.ReceiverPostcode__c, ArticleTest__r.ReceiverCountry__c,
-				Address2__c, ArticleTest__r.ReceiverAddress__c
-				From Case Where Id =: caseRecordId];
-			if(caseRecord.ArticleTest__c != null ){
+			}
+			else {
+				caseRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_ARTICLE}).values()[0];
+				articleId = caseRecord.ArticleTest__c;
+				article = caseRecord.ArticleTest__r;
 
+				//get the Addressee address field for AP cases
 				if((caseRecord.Address2__c != null)){
 					String addressValue = caseRecord.Address2__c.trim();
 					//Add to map to get geo location based on address (ATG) from AME
 					getAddressOrGeoLocationAME.put(caseRecord.Id+'-ATG', addressValue);
-
-					
 				}
+			}
 
-				if((caseRecord.ArticleTest__r.ReceiverAddressLine1__c != null || caseRecord.ArticleTest__r.ReceiverAddressLine2__c != null) && (caseRecord.ArticleTest__r.ReceiverCity__c != null || caseRecord.ArticleTest__r.ReceiverState__c != null || caseRecord.ArticleTest__r.ReceiverPostcode__c != null || caseRecord.ArticleTest__r.ReceiverCountry__c != null)){
+			if(articleId != null ){
+
+				if((article.ReceiverAddressLine1__c != null || article.ReceiverAddressLine2__c != null) && (article.ReceiverCity__c != null || article.ReceiverState__c != null || article.ReceiverPostcode__c != null || article.ReceiverCountry__c != null)){
 					isValidManifestAddress = true;
 					String streetStr ;
-					if(caseRecord.ArticleTest__r.ReceiverAddressLine1__c != null){
-						streetStr = caseRecord.ArticleTest__r.ReceiverAddressLine1__c;
+					if(article.ReceiverAddressLine1__c != null){
+						streetStr = article.ReceiverAddressLine1__c;
 					}
-					if(caseRecord.ArticleTest__r.ReceiverAddressLine2__c != null){
-						streetStr = streetStr==null?caseRecord.ArticleTest__r.ReceiverAddressLine2__c:streetStr+caseRecord.ArticleTest__r.ReceiverAddressLine2__c;
+					if(article.ReceiverAddressLine2__c != null){
+						streetStr = streetStr==null?article.ReceiverAddressLine2__c:streetStr+article.ReceiverAddressLine2__c;
 					}
 					manifestAddresssDetails.streetName = streetStr;
-					manifestAddresssDetails.streetCity = caseRecord.ArticleTest__r.ReceiverCity__c ;
-					manifestAddresssDetails.streetState = caseRecord.ArticleTest__r.ReceiverState__c ;
-					manifestAddresssDetails.streetPostCode = caseRecord.ArticleTest__r.ReceiverPostcode__c ;
-					manifestAddresssDetails.streetCountry = caseRecord.ArticleTest__r.ReceiverCountry__c ;
-					manifestAddresssDetails.combinedAddress = caseRecord.ArticleTest__r.ReceiverAddress__c ;
+					manifestAddresssDetails.streetCity = article.ReceiverCity__c ;
+					manifestAddresssDetails.streetState = article.ReceiverState__c ;
+					manifestAddresssDetails.streetPostCode = article.ReceiverPostcode__c ;
+					manifestAddresssDetails.streetCountry = article.ReceiverCountry__c ;
+					manifestAddresssDetails.combinedAddress = article.ReceiverAddress__c ;
 				}
 
 				for(EventMessageTypeMapping__mdt evType: [Select MasterLabel, Category__c From EventMessageTypeMapping__mdt Where Category__c IN ('AttemptedDelivery','Delivered')]){
@@ -962,8 +973,7 @@ public with sharing class MyNetworkCaseListController {
 						attemptedEventTypes.add(evType.MasterLabel);
 					}
 				}
-				for(EventMessage__c ev:[Select Id, EventGeoLocation__Latitude__s, EventGeoLocation__Longitude__s, EventType__c From EventMessage__c
-										Where (Article__c =:caseRecord.ArticleTest__c AND EventType__c IN: eventTypes AND EventGeoLocation__Latitude__s != null AND EventGeoLocation__Longitude__s != null) order by createdDate DESC]){
+				for(EventMessage__c ev: EventMessagesSelector.newInstance('CreatedDate', 'Desc').selectByArticleId(new Set<Id>{articleId}, eventTypes, new Set<Object>{EventMessagesSelector.Options.FILTER_GEO_LOCATION}).values()){
 
 					//Moved if condition into SOQL so as to fetch event messages only with geo locations
 						//Add to map to get address based on geo location (GTA) from AME
@@ -979,7 +989,6 @@ public with sharing class MyNetworkCaseListController {
 							deliveredLatitude = String.valueOf(ev.EventGeoLocation__Latitude__s) ;
 							deliveredLongitute = String.valueOf(ev.EventGeoLocation__Longitude__s);
 						}
-//                    }
 				}
 
 				if(!getAddressOrGeoLocationAME.isEmpty()){
