@@ -18,7 +18,7 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	showProposal;
 	showApprovedCAs;
 	showCACreate;
-	primaryProposalId;
+	primaryProposal;
 	creditAssessments = [];
 	oppClosedStage = ['Closed Won', 'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'];
 
@@ -35,7 +35,7 @@ export default class CreditAssessmentWrapper extends LightningElement {
 			let primaryCount = 0;
 			data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.forEach(p => {
 				if (p.Apttus_Proposal__Primary__c) {
-					this.primaryProposalId = p.Id;
+					this.primaryProposal = p;
 					primaryCount++;
 				}
 			});
@@ -58,7 +58,7 @@ export default class CreditAssessmentWrapper extends LightningElement {
 				// OPC complete?
 				if (data.opportunity.Count_of_Contract_Start_Dates__c === 0 && data.opportunity.Count_of_Contract_End_Dates__c === 0 && data.opportunity.Count_of_Opportunity_Line_Items__c > 0) {
 					// only one primary proposal?
-					if (primaryCount === 1 && this.primaryProposalId) {
+					if (primaryCount === 1 && this.primaryProposal && this.primaryProposal.Apttus_QPConfig__ConfigurationFinalizedDate__c) {
 						// Any credit assessments under primary proposal?
 						if (this.creditAssessments.reduce((isPrimary, ca) => isPrimary || ca.APT_Proposal__r.Apttus_Proposal__Primary__c, false)) {
 							this.showProposal = true;
@@ -83,6 +83,10 @@ export default class CreditAssessmentWrapper extends LightningElement {
 			});
 			this.dispatchEvent(event);
 		}
+	}
+
+	get primaryProposalId() {
+		return this.primaryProposal.Id;
 	}
 
 	creditAssessmentRelinked() {

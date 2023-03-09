@@ -15,7 +15,7 @@ public with sharing class CreditAssessmentController {
 	private static final String OPPORTUNITY_INCOMPLETE_OPC = 'OPPORTUNITY_INCOMPLETE_OPC';
 	private static final Map<SObjectType, Set<SObjectField>> OPPORTUNITY_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
 			Opportunity.SObjectType => new Set<SObjectField>{Opportunity.StageName, Opportunity.Count_of_Contract_Start_Dates__c, Opportunity.Count_of_Contract_End_Dates__c, Opportunity.Count_of_Opportunity_Line_Items__c},
-			Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c}
+			Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c, Apttus_Proposal__Proposal__c.Apttus_QPConfig__ConfigurationFinalizedDate__c}
 	};
 
 	/**
