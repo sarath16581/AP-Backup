@@ -9,18 +9,19 @@
  * 2022-06-01 - seth.heang@auspost.com.au - Added method selectByContractIdsAndLineType
  * 2022-08-04 - Seth Heang - Added related list WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC and added fields to query
  * 2022-10-17 - Seth Heang - Added WITH_APPLIED_PSR
+ * 2022-12-06 - Nasir Jawed - Added method selectByContractIdsLineTypeProduct
  */
 public with sharing class APT_AgreementLineItemsSelector extends ApplicationSelector{
-    public enum Options {
+	public enum Options {
 		WITH_CONTRACT, WITH_PROPOSAL, WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC, WITH_APPLIED_PSR
 	}
 	public static APT_AgreementLineItemsSelector newInstance() {
 		return (APT_AgreementLineItemsSelector)Application.Selectors.newInstance(APT_AgreementLineItemsSelector.class);
 	}
-	
+
 	/**
 	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	*						  This approach removes data consistency and prevents possible caching of results
+	*                         This approach removes data consistency and prevents possible caching of results
 	*/
 	public static APT_AgreementLineItemsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		APT_AgreementLineItemsSelector selector = (APT_AgreementLineItemsSelector)Application.Selectors.newInstance(APT_AgreementLineItemsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -51,6 +52,30 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 		.addConditions()
 			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
 			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
+		.endConditions();
+		return (List<Apttus__AgreementLineItem__c>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	* @description Run a simple query to get Agreement Line Items based on Contract Id, line type and product name
+	* @param Set<Id> contractIds
+	* @param Set<String> lineTypes
+	* @param Set<String> productName
+	* @param Set<Object> selectorOptions
+	* @return List<Apttus__AgreementLineItem__c>
+	*/
+
+	public virtual List<Apttus__AgreementLineItem__c> selectByContractIdsLineTypeProduct(Set<Id> contractIds, Set<String> lineTypes,Set<String> productName) {
+		return selectByContractIdsLineTypeProduct(contractIds, lineTypes,productName, new Set<Object>());
+	}
+
+	public virtual List<Apttus__AgreementLineItem__c> selectByContractIdsLineTypeProduct(Set<Id> contractIds, Set<String> lineTypes,Set<String> productName, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)    
+		.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
+			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
+			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.APT_Product_Name__c + '  in :productName'))
+			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.APT_New__c + ' = true'))
 		.endConditions();
 		return (List<Apttus__AgreementLineItem__c>)Database.query(qb.toSoqlString());
 	}

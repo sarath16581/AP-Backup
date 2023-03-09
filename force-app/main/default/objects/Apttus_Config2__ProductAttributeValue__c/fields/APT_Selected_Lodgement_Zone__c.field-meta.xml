@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Selected_Lodgement_Zone__c</fullName>
     <externalId>false</externalId>
-    <formula>APT_Lodgement_Zone__r.Name</formula>
+    <formula>IF( Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode = &apos;APPC&apos; ,&apos;Capital&apos;,APT_Lodgement_Zone__r.Name)</formula>
     <inlineHelpText>The lodgement zone corresponding with the customers Primary Post Code - i.e. related to the address where the majority of the customers parcels are lodged.</inlineHelpText>
     <label>Selected Lodgement Zone</label>
     <required>false</required>
