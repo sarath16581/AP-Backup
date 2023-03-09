@@ -36,6 +36,9 @@ Last Modified Date - 23rd Feb, 2021 | STP-4289 STPAC - DLWT: Ability to generate
 2021-08-31 - Naveen Rajanna - REQ2542972 - Set term to 'Fixed Term' when UMS or print Post
 2022-04-14 -Sri Harsha-CI-128- Updated trigger code to populate expiration date.
 2022-07-21 - INC1993350 Adding ContentDocument query to get the notes and attachment in lightning.
+
+Last Modified By - Deepak Kemidi
+Last Modified Date - 7th Feb, 2023 | remove minimum spend field reference from account object
 **/
 public with sharing class APT_AgreementTriggerHandler{
 
@@ -498,18 +501,13 @@ public with sharing class APT_AgreementTriggerHandler{
                                 }
                                 
                                 //US:CI-126
-                                if(productType.equalsIgnoreCase(APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT)) 
-                                    {
-                                      opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(0)?.Id;  
-                                      if(propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c)
-                                      {
-                                        opSchedule.APT_APPC_Minimum_spend__c = mapAccount.get(agrmnt.Apttus__Account__c).APT_Min_Spend_Per_Annum__c;
-                                      }
-                                      else {
-                                          opSchedule.APT_APPC_Minimum_spend__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c;
-                                         }
-                                          opSchedule.APT_Parcel_Services_Transit_Cover_Amount__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
-                                    }
+								if(productType.equalsIgnoreCase(APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT))
+								{
+									//CI-339 remove minimum spend field reference from account object
+									opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(0)?.Id;
+									opSchedule.APT_APPC_Minimum_spend__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c;
+									opSchedule.APT_Parcel_Services_Transit_Cover_Amount__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
+								}
                                 
                                 //US: CI-126
                                 //commenting below SOQL, not required as a part of CI-106 which is a design change on top of CI-126 by Gopesh Banker on 22/04/2022

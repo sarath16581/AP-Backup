@@ -8,65 +8,66 @@
  * @changelog
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
  * 2022-05-09 - NAsir Jawed - Added selectByConfigId, selectByProposalId methods
+ * 2022-11-30 - NAsir Jawed - Added methods selectByProposalIdAndStatusWithOrder
  */
 public virtual inherited sharing class ProductConfigurationSelector extends ApplicationSelector {
-    public enum Options {
-        WITH_LINE_ITEMS
-    }
+	public enum Options {
+		WITH_LINE_ITEMS,WITH_ACCOUNT
+	}
 
-    public static ProductConfigurationSelector newInstance() {
-        return (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class);
-    }
-    public static ProductConfigurationSelector newInstance(Integer recordLimit) {
-        return (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit);
-    }
+	public static ProductConfigurationSelector newInstance() {
+		return (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class);
+	}
+	public static ProductConfigurationSelector newInstance(Integer recordLimit) {
+		return (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit);
+	}
 
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     * This approach removes data consistency and prevents possible caching of results
-     */
-    public static ProductConfigurationSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-        ProductConfigurationSelector selector = (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static ProductConfigurationSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		ProductConfigurationSelector selector = (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    /**
-     * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     *                          This approach removes data consistency and prevents possible caching of results
-     */
-    public static ProductConfigurationSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-        ProductConfigurationSelector selector = (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *                          This approach removes data consistency and prevents possible caching of results
+	 */
+	public static ProductConfigurationSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		ProductConfigurationSelector selector = (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    public override SObjectType getSObjectType() {
-        return Apttus_Config2__ProductConfiguration__c.getSObjectType();
-    }
+	public override SObjectType getSObjectType() {
+		return Apttus_Config2__ProductConfiguration__c.getSObjectType();
+	}
 
-    public virtual override Set<SObjectField> getSObjectFieldList() {
-        return new Set<SObjectField> {
-                Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name, 
-                Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c
-        };
-    }
+	public virtual override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField> {
+				Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name, 
+				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c
+		};
+	}
 
-    /**
-     * @description Run a simple query to get records based on Id's
-     */
-    public Map<Id, Apttus_Config2__ProductConfiguration__c> selectById(Set<Id> ids) {
-        return selectById(ids, new Set<Object>());
-    }
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public Map<Id, Apttus_Config2__ProductConfiguration__c> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
+	}
 
-    /**
-     * @description Run a simple query to get records based on Id's
-     */
-    public Map<Id, Apttus_Config2__ProductConfiguration__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        String Status = 'Finalized';
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c + ' in :ids'))
-                .add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c + ' =:Status')).endConditions();
-        System.debug('Product Configuration QUERY>>>>>>>>>>>'+qb.toSoqlString());
-        return new Map<Id, Apttus_Config2__ProductConfiguration__c>((List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString()));
-    }
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public Map<Id, Apttus_Config2__ProductConfiguration__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		String Status = 'Finalized';
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c + ' in :ids'))
+				.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c + ' =:Status')).endConditions();
+		System.debug('Product Configuration QUERY>>>>>>>>>>>'+qb.toSoqlString());
+		return new Map<Id, Apttus_Config2__ProductConfiguration__c>((List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString()));
+	}
 
 	/**
 	* @description Run a simple query to get records based on Apttus shopping cart config Id's
@@ -101,6 +102,30 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 		return (List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString());
 	}
 
+
+	/**
+	* @description Run a simple query to get records based on Proposal Id and status on Configuration record
+	*/
+	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByProposalIdAndStatusWithOrder(Set<Id> proposalIds,Set<String> status) {
+		return selectByProposalIdAndStatusWithOrder(proposalIds,status, new Set<Object>());
+	}
+
+	/**
+	* @description Run a simple query to get records based on Proposal Id and status on Configuration record
+	*/
+	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByProposalIdAndStatusWithOrder(Set<Id> proposalIds,Set<String> status, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);     
+		
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c + ' = :proposalIds'))
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c+ '=:status'))
+			.endConditions();
+			qb.addOrderDesc(Apttus_Config2__ProductConfiguration__c.createdDate);
+		return (List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString());
+	}
+
+
+
 	/**
 	 * @description Grabs a new QueryBuilder based on the selector options passed in
 	 */
@@ -108,7 +133,10 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_LINE_ITEMS)) {
-			builder.addSubQuery(LineItemsSelector.newInstance().newQueryBuilder(new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE}), 'Apttus_Config2__LineItems__r');
+			builder.addSubQuery(LineItemsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE}), 'Apttus_Config2__LineItems__r');
+		}
+		if(selectorOptions.contains(Options.WITH_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Apttus_Config2__AccountId__r');
 		}
 
 		return builder;

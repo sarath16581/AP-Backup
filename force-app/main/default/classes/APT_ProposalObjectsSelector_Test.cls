@@ -170,9 +170,9 @@ public class APT_ProposalObjectsSelector_Test {
     }
     
     /**
-* Test:
-*  Ensures that the selectors method is returning the correct query result
-*/
+    * Test:
+    *  Ensures that the selectors method is returning the correct query result
+    */
     @IsTest
     private static void testEnsureSelectorMethodsReturnCorrectResult() {
         

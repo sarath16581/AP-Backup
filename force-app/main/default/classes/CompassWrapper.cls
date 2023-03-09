@@ -4,6 +4,8 @@
  * @tag APT_CompassPricingcontroller
  * @domain Core
  * @description A wrapper for the class to store the API values
+ * @changelog: 
+ 	2023-01-24 - Sarath Burra - Added the evaluatedSpend field to capture the value received from Compass
  */
 Public class CompassWrapper {
 
@@ -22,6 +24,8 @@ Public class CompassWrapper {
             Public string ratingGroup{ get; set; }
             Public string subsequentDiscount{ get; set; }
             Public string subsequentDiscountPriceType{ get; set; }
+			//CI-772 Added the evaluatedSpend field to capture the value received from Compass
+			Public decimal evaluatedSpend{ get; set; }
             Public string ratecardDwtconvfac{ get; set; }        
             Public List<ratecardItem> ratecardItem{ get; set; }   
     
