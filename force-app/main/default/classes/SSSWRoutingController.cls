@@ -164,66 +164,66 @@ global with sharing class SSSWRoutingController {
 	//     return pr;
 	// }
 
-	public void checkExisting() {
-		//Check for existing records
-		Integer seq = sequenceNo != null ? Integer.valueOf(sequenceNo) : 0;
-		
-		String sProductCategory = joinMultiSelectValue(productCategory);
-		String sProductSubCategory = joinMultiSelectValue(productSubCategory);
-		String sEnquiryType = joinMultiSelectValue(enquiryType);
-		String sEnquirySubType = joinMultiSelectValue(enquirySubType);
-		String sCustomerQueueType = joinMultiSelectValue(customerQueueType);
-		String sOrigin = joinMultiSelectValue(origin);
-		String sStatus = joinMultiSelectValue(status);
-			  	 
-		List<SSSWRouting__c> soqlRoutings = new List<SSSWRouting__c>([
-				Select Id, Sequence__c, Origin__c, CustomerQueueType__c, CaseType__c, EnquirySubType__c, ProductCategory__c,
-						ProductSubCategory__c, SocialPostTags__c, HasExtraCover__c
-				from SSSWRouting__c
-				where
-				//ProductCategory__c = :productCategory AND
-				//ProductSubCategory__c = :productSubCategory AND
-				//CaseType__c = :enquiryType AND
-				//EnquirySubType__c = :enquirySubType AND
-				//CustomerQueueType__c = :customerQueueType AND
-				//Origin__c = :origin AND
-				Status__c =: sStatus and
-				High_Level_Complaint_Flag__c = :selRouting.High_Level_Complaint_Flag__c and
-				Customer_Recovery_Flag__c = :selRouting.Customer_Recovery_Flag__c and
-				Match_Rules_On__c = :selRouting.Match_Rules_On__c and
-				IsNew__c = :selRouting.IsNew__c and
-				IsStrategic__c = :selRouting.IsStrategic__c and
-				HasExtraCover__c = :selRouting.HasExtraCover__c and
-				Sequence__c != :seq and 
-				RecordType.name = :recordType
-		]);
+    public void checkExisting() {
+        //Check for existing records
+        Integer seq = sequenceNo != null ? Integer.valueOf(sequenceNo) : 0;
+        
+        String sProductCategory = joinMultiSelectValue(productCategory);
+        String sProductSubCategory = joinMultiSelectValue(productSubCategory);
+        String sEnquiryType = joinMultiSelectValue(enquiryType);
+        String sEnquirySubType = joinMultiSelectValue(enquirySubType);
+        String sCustomerQueueType = joinMultiSelectValue(customerQueueType);
+        String sOrigin = joinMultiSelectValue(origin);
+        String sStatus = joinMultiSelectValue(status);
+              	 
+        List<SSSWRouting__c> soqlRoutings = new List<SSSWRouting__c>([
+                Select Id, Sequence__c, Origin__c, CustomerQueueType__c, CaseType__c, EnquirySubType__c, ProductCategory__c,
+                        ProductSubCategory__c, SocialPostTags__c, HasExtraCover__c
+                from SSSWRouting__c
+                where
+                //ProductCategory__c = :productCategory AND
+                //ProductSubCategory__c = :productSubCategory AND
+                //CaseType__c = :enquiryType AND
+                //EnquirySubType__c = :enquirySubType AND
+                //CustomerQueueType__c = :customerQueueType AND
+                //Origin__c = :origin AND
+            	Status__c =: sStatus and
+                High_Level_Complaint_Flag__c = :selRouting.High_Level_Complaint_Flag__c and
+                Customer_Recovery_Flag__c = :selRouting.Customer_Recovery_Flag__c and
+                Match_Rules_On__c = :selRouting.Match_Rules_On__c and
+                IsNew__c = :selRouting.IsNew__c and
+                IsStrategic__c = :selRouting.IsStrategic__c and
+                HasExtraCover__c = :selRouting.HasExtraCover__c and
+                Sequence__c != :seq and 
+                RecordType.name = :recordType
+        ]);
 
-		existingRoutings = new List<SSSWRouting__c>();
-		for(Integer i = 0; i < soqlRoutings.size(); i++)
-		{
-			SSSWRouting__c route = soqlRoutings[i];
-			if((route.ProductCategory__c==null? '' : route.ProductCategory__c) == sProductCategory
-					&& (route.ProductSubCategory__c==null? '' : route.ProductSubCategory__c) == sProductSubCategory
-					&& (route.CaseType__c==null? '' : route.CaseType__c) == sEnquiryType
-					&& (route.EnquirySubType__c==null? '' : route.EnquirySubType__c) == sEnquirySubType
-					&& (route.Origin__c==null? '' : route.Origin__c) == sOrigin
+        existingRoutings = new List<SSSWRouting__c>();
+        for(Integer i = 0; i < soqlRoutings.size(); i++)
+        {
+            SSSWRouting__c route = soqlRoutings[i];
+            if((route.ProductCategory__c==null? '' : route.ProductCategory__c) == sProductCategory
+                    && (route.ProductSubCategory__c==null? '' : route.ProductSubCategory__c) == sProductSubCategory
+                    && (route.CaseType__c==null? '' : route.CaseType__c) == sEnquiryType
+                    && (route.EnquirySubType__c==null? '' : route.EnquirySubType__c) == sEnquirySubType
+                    && (route.Origin__c==null? '' : route.Origin__c) == sOrigin
 					&& (route.CustomerQueueType__c==null? '' : route.CustomerQueueType__c) == sCustomerQueueType
-					&& isSamePostTags(route.SocialPostTags__c, selRouting.SocialPostTags__c))
-			{
-				existingRoutings.add(route);
-			}
-		}
-		System.debug('existingRoutings--->'+existingRoutings);
-	}
-	
-	private List<String> splitMultiSelectValue(String sSelected)
-	{
-		if(null == sSelected)
-		{
-			return new List<String>();
-		}
-		return sSelected.split(MULTI_SELECT_DELIM);
-	}
+                    && isSamePostTags(route.SocialPostTags__c, selRouting.SocialPostTags__c))
+            {
+                existingRoutings.add(route);
+            }
+        }
+        System.debug('existingRoutings--->'+existingRoutings);
+    }
+    
+    private List<String> splitMultiSelectValue(String sSelected)
+    {
+        if(null == sSelected)
+        {
+            return new List<String>();
+        }
+        return sSelected.split(MULTI_SELECT_DELIM);
+    }
 
 	private String joinMultiSelectValue(List<String> listSelected)
 	{
