@@ -20,6 +20,7 @@
 														 Added methods for StarTrack dynamic SOQL, updated existing methods to filter star track cases.
 														 Added star_track_cases listview filter.
 01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
+06/03/2023		   Dattaraj Deshmukh		   Updated - SF-867 Added logic to return case investigation records when 'My_Cases' list view is selected.														 
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -28,6 +29,8 @@ public with sharing class MyNetworkCaseListController {
 	public static String managerRoleId = [Select Id from UserRole where Name = 'SSSW MyNetwork Manager' limit 1].Id;
 	private static final Integer MAX_RESULTS = 10;
 	static final String CASE_INVESTIGATION_CLOSED_STATUS = 'Closed';
+	static final String MYNETWORK_PROFILE_NAME = 'MyNetwork Portal';
+	static final String ENTERPRISE_CUSTOMERS = 'Enterprise';
 
 	//get StarTrack case record type developer names.
 	//Declaring it here as SOQL are executed dynamically.
@@ -65,10 +68,12 @@ public with sharing class MyNetworkCaseListController {
 		public Boolean isCaseInvestigationAvailable{get;set;}
 		@AuraEnabled
 		public CaseInvestigation__c caseInvestigation{get;set;} //
-
+		@AuraEnabled
+		public String assignedTo {get;set;}
 		
 
-		public MyNetworkCasesWrapper(case myNetworkCaseVar, String caseIconVar, String caseColorVar, String caseHoverTextVar, String caseNumVar, String caseIdVar, String casePriorityVar){
+		public MyNetworkCasesWrapper(case myNetworkCaseVar, String caseIconVar, String caseColorVar, String caseHoverTextVar, 
+										String caseNumVar, String caseIdVar, String casePriorityVar, String assignedToVar){
 			this.myNetworkCase = myNetworkCaseVar;            
 			this.caseIcon = caseIconVar;
 			this.caseColor = caseColorVar;
@@ -78,6 +83,7 @@ public with sharing class MyNetworkCaseListController {
 			this.CasePriority = casePriorityVar;
 			this.isStarTrackCase = false;//MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(myNetworkCaseVar.RecordType.DeveloperName);
 			this.isCaseInvestigationAvailable = false;
+			this.assignedTo = assignedToVar;
 		}
 		public MyNetworkCasesWrapper(){
 		}
@@ -347,7 +353,8 @@ public with sharing class MyNetworkCaseListController {
 				textMapVar = 'Case is awaiting action/response' ;
 			}
 			String casePriority = getCasePriority(caseRecord.priority);
-			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(caseRecord, iconMapVar, colorMapVar, textMapVar, caseRecord.CaseNumber, caseRecord.Id, casePriority);
+			String assignedToVar = (caseRecord.PONUser__c != null ) ? caseRecord.PONUser__r.Name : '';
+			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(caseRecord, iconMapVar, colorMapVar, textMapVar, caseRecord.CaseNumber, caseRecord.Id, casePriority, assignedToVar);
 		}
 		return myNetworkCasesWrapperVar;
 	} 
@@ -401,7 +408,8 @@ public with sharing class MyNetworkCaseListController {
 				textMapVar = 'Case is awaiting action/response' ;
 			}
 			String casePriority = getCasePriority(cse.priority);
-			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(cse, iconMapVar, colorMapVar, textMapVar, cse.CaseNumber, cse.Id, casePriority);
+			String assignedToVar = (cse.PONUser__c != null ) ? cse.PONUser__r.Name : '';
+			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(cse, iconMapVar, colorMapVar, textMapVar, cse.CaseNumber, cse.Id, casePriority, assignedToVar);
 		}
 		return myNetworkCasesWrapperVar;
 	}
@@ -487,7 +495,17 @@ public with sharing class MyNetworkCaseListController {
 
 			list<Case> caseListResult = getAllMYNetworkCases(filterVar, selectedViewWithFiltersWrp);
 			CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
+
+			//get all ST cases.
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewWithFiltersWrp.selectedView);
+
+
 			myNetworkCasesWrapperList =caseWrap.myNetworkCasesWrap;
+			
+			if(caseInvWrapperList !=null && !caseInvWrapperList.isEmpty()) {
+				myNetworkCasesWrapperList.addAll(caseInvWrapperList);
+			}
 		}
 		return myNetworkCasesWrapperList;
 	}
@@ -1314,14 +1332,32 @@ public with sharing class MyNetworkCaseListController {
 			
 			Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
 			.get('StarTrack_MyNetwork').getRecordTypeId();
+			
+			/** Get all case investigations where logged in user is a part of network assigned on CaseINvestigation.
+			 */
 
-			
-			//get all CI records where network ID in networkIds set.
-			//get case investigations where logged in user is a part of network assigned on CaseINvestigation.
-			
-			caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>{
-				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-				CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS}).values();
+			//on page load, selectedViewWithFiltersWrp will always be NULL.
+			if(selectedViewWithFiltersWrp == null || selectedViewWithFiltersWrp.selectedView == 'All_Cases' || selectedViewWithFiltersWrp.selectedView == 'Cases_updated'
+				|| selectedViewWithFiltersWrp.selectedView == 'star_track_cases') { //for everything else.
+				caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>{
+					CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+					CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+					UsersSelector.Options.WITH_PROFILE}).values();
+			}
+			else if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'My_Cases') { // list view for My_Cases
+				caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkIdOwnerId(networkIds, new Set<Id>{stCaseInvestigationRecordTypeId}, 
+				new Set<Id>{UserInfo.getUserId()}, new Set<Object>{
+					CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+					CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+					UsersSelector.Options.WITH_PROFILE}).values();
+			}
+			else if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'Enterprise_customers') { // list view for Enterprise Customers
+				caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(networkIds,new Set<Id>{stCaseInvestigationRecordTypeId},  ENTERPRISE_CUSTOMERS, new Set<Object>{
+					CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+					CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+					UsersSelector.Options.WITH_PROFILE}).values();
+
+			}
 		}
 		
 		return caseInvList;
@@ -1405,7 +1441,9 @@ public with sharing class MyNetworkCaseListController {
 			textMapVar = 'Case is awaiting action/response' ;
 		}
 		String casePriority = getCasePriority(cInv.Case__r.priority);
-		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority);
+
+		String assignedToVar = (cInv.Owner.Profile.Name == MYNETWORK_PROFILE_NAME ) ? cInv.Owner.Name : '';
+		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority, assignedToVar);
 	
 		return myNetworkCasesWrapperVar;
 	}

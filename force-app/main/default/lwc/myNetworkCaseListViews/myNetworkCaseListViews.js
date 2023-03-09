@@ -186,9 +186,15 @@ export default class CaseListViews extends LightningElement {
   searchFilteredCase() {
 
 	//searching if selected EnquiryType value is of the type StarTrack.
+	let enquirySubType;
+	let stProductCategory;
+	if(this.listEnquirySubType) {
+		 enquirySubType = this.listEnquirySubType.find(el => el.value === this.selectEnquirySubType );
+	}
+	if( this.listProductCategory) {
+		 stProductCategory = this.listProductCategory.find(el => el.value === this.selectedProductCategoryValue );
 
-	let enquirySubType = this.listEnquirySubType.find(el => el.value === this.selectEnquirySubType );
-	let stProductCategory = this.listProductCategory.find(el => el.value === this.selectedProductCategoryValue );
+	}
    
 	this.searchFieldDetails = {
 	  isPrinted: this.casePrintedFlag,
