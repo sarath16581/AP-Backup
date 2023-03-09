@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approved_lodgement_zone__c</fullName>
+    <defaultValue>&quot;Capital;Metro;Country&quot;</defaultValue>
+    <description>Lodgement Zone for the PSR. Defaults to Capital;Metro;Country
+This field has been deprecated based on the changes in APPC release 4.2
+Field is still being retained to accomodate any future reinstatement by business.</description>
     <externalId>false</externalId>
-    <label>Approved lodgement zone</label>
+    <label>Approved lodgement zone(Deprecated)</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

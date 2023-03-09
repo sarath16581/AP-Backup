@@ -39,6 +39,11 @@
     background-color: #D7E7F7;
 }
 
+.THIS .standard-info .info-box {
+    border: 3px;
+    background-color: #D7E7F7;
+}
+
 .THIS .message-text {
     font-weight: 400;
     font-size: 14px;
@@ -61,4 +66,14 @@
 .THIS .tabbed-bullet {
     list-style-type:disc;
     margin-left: 15px;
+}
+
+.THIS .chas-button-box {
+    border-top: 0px !important;
+    display: block !important;
+    padding-top: 0px !important;
+}
+
+.THIS .chas-button-box-container {
+    padding-bottom: 32px;
 }

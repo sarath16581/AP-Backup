@@ -43,6 +43,7 @@
 	16.05.2022		SaiSwetha Pingali						   Removed snapIt logic as it is no longer required.
 	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
 	2023-02-13		Noel Lim									Add logic for Preferred Agent routing in routeCase(), and new method processPreferredAgent()
+	2023-03-08		Noel Lim									Add Release 2 TEMPORARY FIX - exclude Preferred Agent routing for cases from portals
 
 
 	************************************************/
@@ -726,6 +727,7 @@
 						}
 						//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 						else if(oldCase != null 
+							&& (new Set<String>{'Web','Portal','BSP','MyPost Business'}).contains(csRec.Origin) == false //Omni Release 2 TEMPORARY FIX
 							&& csRec.OwnerId != oldCase.OwnerId						
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue

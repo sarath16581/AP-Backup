@@ -50,12 +50,31 @@
             helper.callTrackingNumberService(cmp, event, helper);
         }
     },
+    navNextPage : function(cmp, event, helper) {
+        if(cmp.get("v.showCallerType")) {
+            var isValid = helper.checkAllInputs(cmp, true);
+            if (isValid) {
+                var recipientOrSender = cmp.get("v.wizardData.selectedRadio1");
+                if(recipientOrSender) {
+                    cmp.set('v.wizardData.recipientOrSenderCallerType', recipientOrSender);
+                }
+                helper.gotoNextPage(cmp);
+            } else {
+                helper.showErrorSummary(cmp)
+            }
+        }
+    },
     searchTrackingNumberService : function(cmp, event, helper) {
         helper.callTrackingNumberService(cmp, event, helper);
     },
     onchange: function(cmp, event, helper) {
         cmp.set('v.error500', false);
         helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
+        // setting the values on change event for the fields
+        var fieldName = event.getParam("name");
+        if (fieldName === 'recipientOrSenderRadioButtons') {
+            helper.setRadioName(cmp, 'v.recipientOrSenderRadioGroup', 'v.wizardData.selectedRadio1', 'v.wizardData.selectedRadio1Name');
+        }
     },
     navToLearnMore:function(cmp,event,helper){
         var urlEvent = $A.get("e.force:navigateToURL");

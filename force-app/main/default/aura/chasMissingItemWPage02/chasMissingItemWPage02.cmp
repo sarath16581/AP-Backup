@@ -20,7 +20,7 @@
     <!-- If we want to change the order of Radion Buttons, change the order but dont swap/change the Ids-->
     <aura:attribute name="recipientOrSenderRadioGroup" type="List"
                     default="[
-                             {'label':'Recipient', image:'','id':'firstRadio'},
+                             {'label':'Receiver', image:'','id':'firstRadio'},
                              {'label':'Sender', image:'','id':'secondRadio'}
                              ]"
                     description='The radio button label and its image URL to display'/>
@@ -153,7 +153,7 @@
                             <c:ChasDuplicateCaseMessage duplicateCase="{!v.wizardData.duplicateCase}"/>
                         </c:ChasDeflectionMessage>
                     </aura:if>
-                    <aura:if isTrue="{!v.wizardData.eddStatus == 'LATE'}">
+                    <!-- aura:if isTrue="{!v.wizardData.eddStatus == 'LATE'}">
                         <c:ChasDeflectionMessage trackingId="{!v.wizardData.trackingId}" weNoticed="false">
                             <c:ChasBspDeflection heading='Still waiting?'>
                                 <div class="outer-box-fonts">
@@ -168,7 +168,7 @@
                             </c:ChasBspDeflection>
                             <c:ChasDuplicateCaseMessage duplicateCase="{!v.wizardData.duplicateCase}"/>
                         </c:ChasDeflectionMessage>
-                    </aura:if>
+                    </aura:if -->
 <!--                THis has been commented since the user will never be redirected to this deflection according the requirement DDS-11626
                     DDS-11626 : do not allow the user to proceed to the next step when the EDD is a future date
                     <aura:if isTrue="{!v.wizardData.eddStatus == 'ON_TIME'}">
@@ -316,9 +316,22 @@
                         <label for="trackingId" class="slds-form-element__label">Tracking number</label>
                         <div id="trackingId">{!v.wizardData.trackingId}</div>
                     </div>
-                    
-                    
-                    
+                    <!-- Recipient/Sender Radio Buttions Group-->
+                    <aura:if isTrue="{! not(empty(v.wizardData.recipientOrSenderCallerType))}">
+                        <div class="chas-output">
+                            <label for="youAre" class="slds-form-element__label">You are the</label>
+                            <div id="youAre">{!v.wizardData.recipientOrSenderCallerType}</div>
+                        </div>
+                        <aura:set attribute="else">
+                            <c:ChasRadioButtons
+                                    aura:id="chasInput"
+                                    name="recipientOrSenderRadioButtons"
+                                    required="true"
+                                    label="Are you the recipient or sender?"
+                                    options="{!v.recipientOrSenderRadioGroup}"
+                                    value="{!v.wizardData.selectedRadio1}"/>
+                        </aura:set>
+                    </aura:if>
                     <!--Display the delivery address type display, if entered by the user manual or returned from the AME service -->
                     <aura:if isTrue="{!v.wizardData.correctDeliveryAddress != null}">
                         <div class="chas-output">
@@ -486,17 +499,8 @@
                     <legend class="chas-header_small">
                         <h3>Enquiry details</h3>
                     </legend>
-                    
-                    <!-- Recipient/Sender Radio Buttions Group-->
-                    <c:ChasRadioButtons
-                                        aura:id="chasInput"
-                                        name="recipientOrSenderRadioButtons"
-                                        required="true"
-                                        label="Are you the recipient or sender?"
-                                        options="{!v.recipientOrSenderRadioGroup}"
-                                        value="{!v.wizardData.selectedRadio1}"/>
                     <!-- Business Deflection login screen -->
-                    <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Sender'}">
+                    <aura:if isTrue="{!or(v.wizardData.selectedRadio1Name == 'Sender', v.wizardData.recipientOrSenderCallerType == 'Sender')}">
                         <c:ChasBspDeflection heading='Business customer?' animate="true" borderStyle="info-box bottom-gap">
                             <p>
                                 Log in to the <a onclick="{!c.navToBsp}">Business Support Portal</a> to access priority
@@ -507,7 +511,7 @@
                     <!--Your/Sender Addess ............ START -->
                     <!-- Changed below if condition on 4/10/2018 for International Missing Item Changes.
                          To provide form fields when user enters International tracking number and selects Recipient. -->
-                    <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Sender'}">
+                    <aura:if isTrue="{!or(v.wizardData.selectedRadio1Name == 'Sender', v.wizardData.recipientOrSenderCallerType == 'Sender')}">
                         <div id="AMEDeliveryAddress" name="AMEDeliveryAddress" class="AMEAddress">
                             <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
                             <!-- Sender delivery address-->

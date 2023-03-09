@@ -35,6 +35,11 @@
                 <label>DoV Decrease</label>
             </value>
             <value>
+                <fullName>Migration</fullName>
+                <default>false</default>
+                <label>Migration</label>
+            </value>
+            <value>
                 <fullName>Deed of Variation</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

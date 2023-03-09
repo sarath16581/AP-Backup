@@ -15,6 +15,10 @@ History:
 @ModifiedBy: Mahesh Patel
 @ModifiedOn: 15 Mar, 2021
 @Description: Made removeTemplateCS to have unique templates
+
+@ModifiedBy: Nasir Jawed
+@ModifiedOn: 6 DEC, 2022
+@Description: REmoved all the SOQL with Selectors
 **************************************************/
 public with sharing class APTS_MergeTemplatesController{
     
@@ -91,17 +95,9 @@ public with sharing class APTS_MergeTemplatesController{
             //Get the ID of the current agreement
             this.APTSAgreement = (Apttus__APTS_Agreement__c)stdController.getRecord();
             Id IdAgreement = Apexpages.currentPage().getParameters().get('Id');
-            Agreement = new Apttus__APTS_Agreement__c();
-            Agreement = [SELECT ID, Name, RecordType.DeveloperName, Apttus__Subtype__c, Included_Product_Lines__c, Document_Generated_by_Merge__c, APT_Contract_Type__c,
-                        APT_Is_Create_Contract_Batch_Job_Running__c, APT_Merge_Documents__c, APT_Remove_Standalone_Docs__c,
-                        APT_Is_Generate_Doc_Batch_Running__c, APT_New_Pricing__c,
-                        APT_SelectedContractAmendRenewCategory__c, APT_Require_Customer_Signature__c,
-                        Apttus_QPComply__RelatedProposalId__c, Apttus_QPComply__RelatedProposalId__r.APT_Use_Offline_Rates__c,
-                        APT_Pricing_Category__c
-                        FROM Apttus__APTS_Agreement__c 
-                        WHERE Id = :IdAgreement 
-                        LIMIT 1];
-
+            Agreement = new Apttus__APTS_Agreement__c();            
+            Agreement = APT_AgreementObjectsSelector.newInstance().selectByConfigId(new set<ID>{(ID)IdAgreement},new set<Object>{APT_AgreementObjectsSelector.options.WITH_RECORDTYPE,APT_AgreementObjectsSelector.options.WITH_PROPOSAL})[0] ;
+           
             agreementID = Agreement.ID;
             
             //1825
@@ -109,11 +105,12 @@ public with sharing class APTS_MergeTemplatesController{
             if(Agreement != null && Agreement.Apttus_QPComply__RelatedProposalId__r.APT_Use_Offline_Rates__c && String.isNotBlank(Agreement.APT_Pricing_Category__c) && Agreement.APT_Pricing_Category__c.equalsIgnoreCase(APT_Constants.OFFLINE_RATES))  {
                 hasOfflineRates = true;
             }
-            //1825
-
-            mergeDocuments = (Agreement.RecordType.DeveloperName.equalsIgnoreCase(Label.APT_Letter_of_Intent_RecordType) 
-                                && Agreement.Apttus__Subtype__c.equalsIgnoreCase(Label.APT_Applications_and_Questionnaire_Subtype)) ? false : true;
+            //1825            
             
+            if(Agreement.RecordType.DeveloperName!=null){
+                mergeDocuments = (Agreement.RecordType.DeveloperName.equalsIgnoreCase(Label.APT_Letter_of_Intent_RecordType) 
+                                && Agreement.Apttus__Subtype__c.equalsIgnoreCase(Label.APT_Applications_and_Questionnaire_Subtype)) ? false : true;
+            }
             
             //Query the custom setting records that have the same Record Type and Subtype
             templateCS = [SELECT Id, Name, Compare_against_IPL__c, Template_Product_Name__c, Sequence_No__c, Template_ID__c, Default_Document_Output__c, Security_Level__c,
@@ -127,7 +124,7 @@ public with sharing class APTS_MergeTemplatesController{
                                AND
                                Settings_Type__c = 'Template'
                          ORDER BY Sequence_No__c];
-
+            
             //Set noFile to false if there are at least one template retrived
             if(templateCS.size() > 0) {
                 noFile = false;
@@ -138,17 +135,15 @@ public with sharing class APTS_MergeTemplatesController{
             //1084
             //Find original contract
             map<Id, String> mapOriginalIncludedProductLines = new map<Id, String>();
-            for(Apttus__APTS_Related_Agreement__c relatedAgreement : [SELECT Id, Apttus__APTS_Contract_From__c, Apttus__APTS_Contract_From__r.Included_Product_Lines__c,
-                                                                    Apttus__APTS_Contract_To__c, LastModifiedDate 
-                                                                    FROM Apttus__APTS_Related_Agreement__c 
-                                                                    WHERE Apttus__APTS_Contract_To__c = :agreementID 
-                                                                    Order By LastModifiedDate desc]) {
-
+            
+            List<Apttus__APTS_Related_Agreement__c> relatedAgreementList = APT_RelatedAgreementsSelector.newInstance().selectByAgreementId(new set<ID>{agreementID},new set<Object>{APT_RelatedAgreementsSelector.options.WITH_AGREEMENT});
+                                                                                
+            for(Apttus__APTS_Related_Agreement__c relatedAgreement :relatedAgreementList){
                 if(String.isBlank(mapOriginalIncludedProductLines.get(relatedAgreement.Apttus__APTS_Contract_To__c))){
                     mapOriginalIncludedProductLines.put(relatedAgreement.Apttus__APTS_Contract_To__c, relatedAgreement.Apttus__APTS_Contract_From__r.Included_Product_Lines__c);
                 }
             }
-
+            
             set<String> setOldIncludedProductLines = new set<String>();
             set<String> setNewProductLines = new set<String>();
             if(String.isNotBlank(Agreement.Included_Product_Lines__c) && String.isNotBlank(mapOriginalIncludedProductLines.get(Agreement.Id)) && !Agreement.Included_Product_Lines__c.equalsIgnoreCase(mapOriginalIncludedProductLines.get(Agreement.Id))) {
@@ -171,13 +166,8 @@ public with sharing class APTS_MergeTemplatesController{
             //check if print post is added and having new pricing?
             Boolean bPrintPostNewPricing = false;
             if(String.isNotBlank(Agreement.Included_Product_Lines__c) && Agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_PRINT_POST)) {
-                list<Apttus__AgreementLineItem__c> listAgreementLineItem = [SELECT Id, APT_Product_Name__c
-                                                                        FROM Apttus__AgreementLineItem__c
-                                                                        WHERE Apttus__AgreementId__c = :agreementID
-                                                                        AND APT_Product_Name__c = :APT_Constants.PRODUCT_CODE_PRINT_POST
-                                                                        AND APT_New__c = true
-                                                                        AND Apttus_CMConfig__LineType__c = :APT_Constants.LINE_TYPE_PRODUCT_SERVICE];
-                
+                list<Apttus__AgreementLineItem__c> listAgreementLineItem = APT_AgreementLineItemsSelector.newInstance().selectByContractIdsLineTypeProduct(new set<ID>{(ID)agreementID},new set<String>{APT_Constants.LINE_TYPE_PRODUCT_SERVICE},new set<String>{APT_Constants.PRODUCT_CODE_PRINT_POST}) ;
+                system.debug('listAgreementLineItem :'+ listAgreementLineItem );
                 if(listAgreementLineItem != null && listAgreementLineItem.size() > 0) {
                     bPrintPostNewPricing = true;  
                 }                                                     
@@ -199,8 +189,7 @@ public with sharing class APTS_MergeTemplatesController{
                 if(String.isBlank(tmpCS.Template_Product_Name__c) && (excludedProdLinesSet.contains(Agreement.Included_Product_Lines__c.toLowerCase()))){
                     removeTemplateCS.add(tmpCS);
                 }
-
-                //check against included product lines
+                 //check against included product lines
                 if(tmpCS.Compare_against_IPL__c && !String.isEmpty(Agreement.Included_Product_Lines__c) && !String.isEmpty(tmpCS.Template_Product_Name__c)) {
                     if(!(Agreement.Included_Product_Lines__c.Contains(tmpCS.Template_Product_Name__c))) {
                         //system.debug('*** Name1 **'+tmpCS.Name);
@@ -320,10 +309,9 @@ public with sharing class APTS_MergeTemplatesController{
             for(APT_R2T_Templates_Settings__c  tem  : templateCS){
                // system.debug('*** tem1 **'+tem.Name);
                 templatesRefList.add(tem.Template_ID__c);
-            }
-            
-            List<Apttus__APTS_Template__c> templatesList = [select id, Name, Apttus__Category__c, Apttus__ReferenceId__c from Apttus__APTS_Template__c 
-                                                                where Apttus__ReferenceId__c in:templatesRefList];
+            }            
+                                                               
+            List<Apttus__APTS_Template__c> templatesList = APT_TemplateObjectSelector.newInstance().selectByRefrenceId(templatesRefList);                                                    
             //Query the templates from the remaining custom setting records
             map<String, Apttus__APTS_Template__c> mapTemplates = new map<String, Apttus__APTS_Template__c>();
             if(templatesList != null && templatesList.size() > 0 ){
