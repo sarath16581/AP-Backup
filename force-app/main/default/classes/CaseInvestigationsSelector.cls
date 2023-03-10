@@ -187,7 +187,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	}
 
 	/**
-	 * Select case investigation records that are not closed and from list of passed network ids and whose owner Ids are from passed owner id set. 
+	 * Select case investigation records that are not closed and related to network ids and match with specific case SLA value.  
 	 */
 	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(Set<Id> networkIds, Set<Id> recordTypeIds, String sla, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
