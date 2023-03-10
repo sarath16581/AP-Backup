@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingOwnerRules>
-        <fullName>ShareAllSAPContractsExCC</fullName>
+    <sharingCriteriaRules>
+        <fullName>ShareAllSAPContractsExPPECS</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Sharing rule to grant access to all SAP Contracts for all users except PP&amp;ECS Sales team</description>
         <label>Share All SAP Contracts Ex PP&amp;ECS Sales</label>
         <sharedTo>
             <group>All_Users_Ex_PPECS_Sales</group>
         </sharedTo>
-        <sharedFrom>
-            <allInternalUsers></allInternalUsers>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value>.</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>
