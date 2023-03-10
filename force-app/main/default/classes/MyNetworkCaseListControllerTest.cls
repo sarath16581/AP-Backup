@@ -591,7 +591,8 @@
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
 		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS} ))
+											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+											UsersSelector.Options.WITH_PROFILE} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
 		
 
@@ -605,10 +606,6 @@
 		//verifying methods are called
 		((NetworkUsersSelector)MockUtility.Mocks.verify(mockNetworkUserSelector, MockUtility.Mocks.times(1))).selectByUserId(new Set<Id>{myNetworkPortalUser.Id});
 
-		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
-														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
-																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
 
 
 		//assert Star Track case is returned.
@@ -726,7 +723,8 @@
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
 		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS} ))
+											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+											UsersSelector.Options.WITH_PROFILE} ))
 							.thenReturn(new Map<Id, CaseInvestigation__c>(networkCaseInvestigations));
 
 		
@@ -745,7 +743,8 @@
 		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
 														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
+																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+																										UsersSelector.Options.WITH_PROFILE});
 		
 
 		//asserting method returns ONLY UPDATED case investigations.
@@ -806,5 +805,87 @@
 		
 
 	}
+
+	/**
+	 * @desc: Method to test if cases/case investigations are returned if List view is changed to 'My_Cases'.
+	 * Expected to return all start track case investigations where logged in user is an owner. 
+	 */
+	@isTest
+	static void test_GetFilteredCases_MyCasesStarTrackListViewFilters() {
+	   // =====================================
+	   // Data Preparation
+	   // =====================================
+	   Id profileId = Application.Cache.profileIds.get('MyNetwork Portal');
+
+	   User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
+	   myNetworkPortalUser.Id = UserInfo.getUserId();
+
+	   List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+
+	   Id stCaseRecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+	   List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+	   cases[0].RecordTypeId = stCaseRecordTypeId;
+
+	   List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+	   networks[0].Org_ID__c = '1234';
+
+	   List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), true);
+	   
+	   //assigning formula field as it is referred in logic.
+	   cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+	   networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
+
+
+	   List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
+	   List<User> myNetworkUserlist = ApplicationTestDataFactory.getUsers(1, true);
+
+	   // setting owner Id to  ONLY one CI record. 
+	   networkCaseInvestigations[0].OwnerId = UserInfo.getUserId();
+	   networkCaseInvestigations[1].OwnerId = myNetworkUserlist[0].Id; //setting some random owner id other than logged in users id.
+
+	   
+	   cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
+
+	   Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+	   .get('StarTrack_MyNetwork').getRecordTypeId();
+
+	   String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"My_Cases","searchButtonClicked":true,"caseNumberVal":""}';
+
+	   // =====================================
+	   // Stubbing
+	   // =====================================
+	   UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+	   NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
+	   CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+
+	   // set up our responses
+	   MockUtility.Mocks.startStubbing();
+	   MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
+	   MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
+						   .thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
+	   MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkIdOwnerId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
+	   new Set<Id>{UserInfo.getUserId()},
+									   new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+										   CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+										   UsersSelector.Options.WITH_PROFILE} ))
+						   .thenReturn(new Map<Id, CaseInvestigation__c>{networkCaseInvestigations[0].Id => networkCaseInvestigations[0]});
+
+	   
+	   MockUtility.Mocks.stopStubbing();
+
+	   Test.StartTest();
+
+	   List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
+
+	   Test.StopTest();
+	   
+	  //asserting method returns ONLY one case investigation owned by logged in user.
+	   System.assertEquals(1, caseInvWrapperList.size());
+	   
+	   //asserting only one CI record is returned.
+	   System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id, 'only one record should have been returned.');
+	   system.assertEquals(UserInfo.getUserId(), caseInvWrapperList[0].caseInvestigation.OwnerId,'Owner id of record should match with logged in user');
+   
+   }
 
 }
