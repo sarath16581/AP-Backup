@@ -21,7 +21,8 @@
 														 Added star_track_cases listview filter.
 01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
 08/03/2023		   Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
-09/03/2023		   Dattaraj Deshmukh		   Updated - SF-867 Added logic to return case investigation records when 'My_Cases' list view is selected.														 
+09/03/2023		   Dattaraj Deshmukh		   Updated - SF-867 Added logic to return case investigation records when 'My_Cases' list view is selected.	
+											   		   - Added 'filterBasedOnSearchCriteria' method to filter based on search criteria.											 
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -594,10 +595,7 @@ public with sharing class MyNetworkCaseListController {
 					}
 					if( !String.isBlank(enquirySubTypeVal ) && enquirySubTypeVal != '--Select--'){
 
-						//if StarTrack case field is selected then select 'Enquiry_Type__c' field.
-						//if AP enquiry values are selected then filter based on 'EnquirySubType__c'.
-						String enquiryField = isStarTrackCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
-
+						String enquiryField =  'EnquirySubType__c';
 						String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + String.escapeSingleQuotes(enquirySubTypeVal) + '\')' ;
 						if(dynamicFilter != null){
 							dynamicFilter += filterVar ;
@@ -1367,11 +1365,18 @@ public with sharing class MyNetworkCaseListController {
 					UsersSelector.Options.WITH_PROFILE}).values();
 
 			}
+
+			//filter based on search criteria
+			if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject != null) {
+				caseInvList = filterBasedOnSearchCriteria(caseInvList, selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject);
+			}
+			
 		}
 		
 		return caseInvList;
 	}
 
+	
 	/**
 	 * @desc: Create a list of wrapper for Case Investigations. Each wrapper entry represents Case Investigation record details.
 	 * @param: case investigation list and selected list view from portal.
@@ -1449,12 +1454,53 @@ public with sharing class MyNetworkCaseListController {
 			colorMapVar = 'green';
 			textMapVar = 'Case is awaiting action/response' ;
 		}
-		String casePriority = getCasePriority(cInv.Case__r.priority);
+		String casePriority = getCasePriority(cInv.Priority__c);
 
 		String assignedToVar = (cInv.Owner.Profile.Name == MYNETWORK_PROFILE_NAME ) ? cInv.Owner.Name : '';
 		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority, assignedToVar);
 	
 		return myNetworkCasesWrapperVar;
+	}
+
+	/**
+	 * @desc: method applies search filters on queried case investigation records and returns a filtered list.
+	 * Since, search filters are applied at UI level and on mulitple fields, selectors classes are not feasible to implement.
+	 * hence, filtering queried results explicitly.
+	 * @param: List<CaseInvestigation__c>, String filterString
+	 * @return: filtered List<CaseInvestigation__c>
+	 */
+	@testVisible
+	private static List<CaseInvestigation__c> filterBasedOnSearchCriteria(List<CaseInvestigation__c> cInvList, Map<string,object> filtersMap) {
+		List<CaseInvestigation__c> resultList = new List<CaseInvestigation__c>();
+
+		//get search filters selected on UI
+		String caseNumberVal = (String)filtersMap.get('caseNumberVal');
+		String priorityVal = (String)filtersMap.get('priorityVal');
+		String isPrintedVal = ((String)filtersMap.get('isPrinted'));
+		String enquirySubTypeVal = ((String)filtersMap.get('enquirySubTypeVal'));
+		String selectedProductCategoryVal = ((String)filtersMap.get('selectedProductCategoryVal'));
+		String selectedNetworkRecrdIdVal = ((String)filtersMap.get('selectedNetworkRecrdIdVal'));
+		String addressePostcodeVal = (String)filtersMap.get('addressePostcodeVal');
+
+		//postcodes 
+		List<String> postCodes = (addressePostcodeVal != null ? addressePostcodeVal.split(',') : null);
+
+		//iterate through CI list and filter out records matching with search criteria
+		for( CaseInvestigation__c cInv : cInvList) {
+
+			if( (String.isBlank(caseNumberVal) || cInv.Case__r.CaseNumber == caseNumberVal)
+				&& (( priorityVal.equalsIgnoreCase('--Select--') || cInv.Priority__c == priorityVal))
+				&& (( isPrintedVal.equalsIgnoreCase('--Select--') || cInv.IsPrinted__c == isPrintedVal.equalsIgnoreCase('Yes')  )) 
+				&& (( enquirySubTypeVal.equalsIgnoreCase('--Select--') || cInv.Case__r.Enquiry_Type__c == enquirySubTypeVal )) 
+				&& (( selectedProductCategoryVal.equalsIgnoreCase('--Select--') || cInv.ProductCategory__c == selectedProductCategoryVal )) 
+				&& (( String.isBlank(selectedNetworkRecrdIdVal) || cInv.Network__c == selectedNetworkRecrdIdVal )) 
+				&& (( String.isBlank(addressePostcodeVal) || postCodes!=null && postCodes.contains(cInv.Article__r.ReceiverPostcode__c) )) ) {
+					
+				resultList.add(cInv);
+			}
+		}
+
+		return resultList;
 	}
  
 }
