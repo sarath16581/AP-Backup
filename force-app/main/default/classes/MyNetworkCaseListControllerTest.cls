@@ -11,6 +11,7 @@
 	 *                                Added   'test_GetFilteredCases_StarTrackCasesListViewFilters' & 'test_GetFilteredCases_StarTrackUpdatedListViewFilters' method.
 	 * 02-03-2023 Mahesh Parvathaneni - SF-830 Updated method test_validateCaseInvestigations and test_GetFilteredCases_UpdatedStarTrackListViewFilters
 	 * 08-03-2023 Mahesh Parvathaneni - SF-873 Added method testGetSafeDropInformationCaseInvestigation
+	 * 10-03-2023 Dattaraj Deshmukh   - Added method 'test_filterBasedOnSearchCriteria'.
 	 * ***************************************************************************************/
 	@isTest
 	private  class MyNetworkCaseListControllerTest {

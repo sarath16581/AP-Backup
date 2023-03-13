@@ -7,6 +7,7 @@
  * 2021-06-15 - Ranjeewa Silva - Fixed an issue where 'selectedCaseRecordWrapper' was not getting populated from results.
  * 2022-11-08 - Dattaraj Deshmukh - Added Case Investigation fields. 
  * 2023-03-02 - Dattaraj Deshmukh - Added 'caseInvestigationActiveSections' and 'caseActiveSections' properties to toggle active sections.
+ * 2023-03-10 - Dattaraj Deshmukh - Added 'OWNER_NAME_FIELD' for a case to display case's owner name.
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
