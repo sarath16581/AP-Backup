@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW BOH Group 4</name>
+    <queueRoutingConfig>AP_SSSW_BOH_Group_4</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>
