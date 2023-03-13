@@ -1,19 +1,19 @@
-/**
-* @author       : arjun.singh@auspost.com.au
-* @date         : 23/03/2020
-* @description  : Test class for MyNetworkCaseListController
-*/
-/*******************************  History ************************************************
- * 19-06-2020 Hara Sahoo Added test method for myNetworkupdatePrintedCaseFlag
- * 12-08-2020 Disha Kariya Updated http mock for AME API
- * 28-11-2022 Dattaraj Deshmukh - Removed 'myNetworkAssignToselfMethodTest' and 'myNetworkAssignToUserMethodTest'. 
- *                                Added 'test_assignSelectedRecords' and 'test_assignSelectedRecords_self' methods to test generic 'assignSelectedRecords' method.
- *                                Added   'test_GetFilteredCases_StarTrackCasesListViewFilters' & 'test_GetFilteredCases_StarTrackUpdatedListViewFilters' method.
- * 02-03-2023 Mahesh Parvathaneni - SF-830 Updated method test_validateCaseInvestigations and test_GetFilteredCases_UpdatedStarTrackListViewFilters
- * 08-03-2023 Mahesh Parvathaneni - SF-873 Added method testGetSafeDropInformationCaseInvestigation
- * ***************************************************************************************/
-@isTest
- private  class MyNetworkCaseListControllerTest {
+	/**
+	* @author       : arjun.singh@auspost.com.au
+	* @date         : 23/03/2020
+	* @description  : Test class for MyNetworkCaseListController
+	*/
+	/*******************************  History ************************************************
+	 * 19-06-2020 Hara Sahoo Added test method for myNetworkupdatePrintedCaseFlag
+	 * 12-08-2020 Disha Kariya Updated http mock for AME API
+	 * 28-11-2022 Dattaraj Deshmukh - Removed 'myNetworkAssignToselfMethodTest' and 'myNetworkAssignToUserMethodTest'. 
+	 *                                Added 'test_assignSelectedRecords' and 'test_assignSelectedRecords_self' methods to test generic 'assignSelectedRecords' method.
+	 *                                Added   'test_GetFilteredCases_StarTrackCasesListViewFilters' & 'test_GetFilteredCases_StarTrackUpdatedListViewFilters' method.
+	 * 02-03-2023 Mahesh Parvathaneni - SF-830 Updated method test_validateCaseInvestigations and test_GetFilteredCases_UpdatedStarTrackListViewFilters
+	 * 08-03-2023 Mahesh Parvathaneni - SF-873 Added method testGetSafeDropInformationCaseInvestigation
+	 * ***************************************************************************************/
+	@isTest
+	private  class MyNetworkCaseListControllerTest {
 	// Constants
 	private static final String ADMIN_PROFILE = 'System Administrator';
 	private static final String SSSW_MYNETWORK_PROFILE = 'MyNetwork Portal';
@@ -28,7 +28,7 @@
 		private set;
 	}
 	private static final UserRole portalUserRole = [Select id from UserRole where developerName='SSSW_Facility_Manager_VIC'];
-	
+
 	private static User myNetworkUser;
 	@testSetup
 	static void testDataCreation() {
@@ -134,7 +134,7 @@
 		csRecord.ReferenceId__c ='testArticle1';
 		csRecord.Status = 'Awaiting Network Response';
 		csRecord.Network__c = networkList[0].id;
-	   // csRecord.PONUser__c = userinfo.getuserid();
+		// csRecord.PONUser__c = userinfo.getuserid();
 		csRecord.Type = 'Investigation';
 		csRecord.CaseOriginator__c = 'Addressee';
 		csRecord.Checkbox__c = true;  
@@ -207,20 +207,20 @@
 		insert setting;
 	}
 	@isTest
-	 static void myNetworkupdatePrintedCaseFlag()
-	 {
-		 List<Case> caseList = [SELECT Id From Case];
-		 List<String> caseIds = new List<String>();
-		 for(Case cs : caseList)
-		 {
-			 caseIds.add(cs.Id);
-		 }
-		 Test.StartTest();
-		 MyNetworkCaseListController.updatePrintedCaseFlag(caseIds);
-		 Test.StopTest();
-		 List<Case> casesUpdated = [SELECT Id, Checkbox__c FROM Case WHERE Id = :caseIds];
-		 System.assertEquals(true, casesUpdated[0].Checkbox__c, 'Printed Case flag not set to true');
-	 }
+		static void myNetworkupdatePrintedCaseFlag()
+		{
+			List<Case> caseList = [SELECT Id From Case];
+			List<String> caseIds = new List<String>();
+			for(Case cs : caseList)
+			{
+				caseIds.add(cs.Id);
+			}
+			Test.StartTest();
+			MyNetworkCaseListController.updatePrintedCaseFlag(caseIds);
+			Test.StopTest();
+			List<Case> casesUpdated = [SELECT Id, Checkbox__c FROM Case WHERE Id = :caseIds];
+			System.assertEquals(true, casesUpdated[0].Checkbox__c, 'Printed Case flag not set to true');
+		}
 	@isTest
 	static void myNetworkCasesMethodTest() {
 		String selectedListView = 'All_Cases';
@@ -256,7 +256,7 @@
 		list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
 		case cRecrd = [Select Id, PONUser__c from case where PONUser__c != null And PONUser__r.profileId=:prof.Id limit 1] ;
 		User uRecrd = [Select id,name from user where Id=: cRecrd.PONUser__c];
-	   
+		
 		CaseTeamMember ctmem = new CaseTeamMember(ParentId = cRecrd.id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
 		insert ctmem;
 		System.runAs(uRecrd){
@@ -266,16 +266,16 @@
 			system.assert(!wrapperList.isEmpty());
 		}
 	}
-	
+
 	@isTest
 	static void getSafeDropInformationTest() {
 		case cRecrd = [Select Id,ArticleTest__c from case where ArticleTest__r.Name = 'testArticle2' limit 1 ] ;
 		
 		User uRecrd = [Select Id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-	   
+		
 		CaseTeamMember ctmem = new CaseTeamMember(ParentId = cRecrd.id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
 		insert ctmem;
-//        Test.setMock(HttpCalloutMock.class, new AddressFromGeolocationResGenerator());
+	//        Test.setMock(HttpCalloutMock.class, new AddressFromGeolocationResGenerator());
 		System.debug('cRecrd>>>'+cRecrd);
 		String cId =  cRecrd.Id;
 		MyNetworkCaseListController.SafeLocationDetails sDetails;
@@ -353,7 +353,7 @@
 		System.assertEquals(sDetails.isValid, true, 'Valid Delivery address not found');
 		System.assertEquals(sDetails.addresseeAddress.latitudeValue, String.valueOf(-37.82022851), 'Addressee latitude found from mock');
 	}
-	
+
 	@isTest
 	static void getMyNetworkPortalUserTst() {
 		case cRecrd = [Select Id,ArticleTest__c from case where ArticleTest__r.Name = 'testArticle2' limit 1 ] ;
@@ -380,7 +380,7 @@
 		CaseTeamMember ctmem = new CaseTeamMember(ParentId = cRecrd.id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
 		insert ctmem;
 		EventMessage__c evMsg = [Select id From EventMessage__c where Article__r.Name = 'testArticle2' limit 1];
-//        Test.setMock(HttpCalloutMock.class, new AddressFromGeolocationResGenerator());
+	//        Test.setMock(HttpCalloutMock.class, new AddressFromGeolocationResGenerator());
 		System.debug('cRecrd>>>'+cRecrd);
 		MyNetworkCaseListController.GeoLocationWithAddress  geoAddr;
 		String cId =  cRecrd.Id;
@@ -393,7 +393,7 @@
 		System.assertEquals(geoAddr.geoLatitdue, '-32.927406', 'Latitude for the request.');
 		System.assertEquals(geoAddr.addressValue, 'Test Address', 'Address found in AME');
 	}
-	
+
 	@isTest
 	static void myNetworkgetRelatedEventMsgMethodTest() {
 		Case caseRecordVar = [Select id, ArticleTest__c from Case limit 1];
@@ -427,8 +427,8 @@
 	/**
 	 * @Test: Test method to simulate 'Assign to self' button.
 	 *			This method assign case investigation ownership to selected user for ST cases and 
-	 *			if AP Case is selected then it updates PONUser__c field on case.
-	 */
+		*			if AP Case is selected then it updates PONUser__c field on case.
+		*/
 	@isTest
 	static void test_assignSelectedRecords_withMocks() {
 		
@@ -537,8 +537,8 @@
 	 * Expected to return all case investigations. 
 	 */
 
-	 @isTest
-	 static void test_GetFilteredCases_StarTrackListViewFilters() {
+		@isTest
+		static void test_GetFilteredCases_StarTrackListViewFilters() {
 		String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"star_track_cases","searchButtonClicked":true,"caseNumberVal":""}';
 
 		// =====================================
@@ -673,8 +673,8 @@
 	 * @desc: Method to test if cases are returned if List view is changed to 'Updated Star Track Case Investigations'.
 	 * Expected to return all start track updated case investigations. 
 	 */
-	 @isTest
-	 static void test_GetFilteredCases_UpdatedStarTrackListViewFilters() {
+		@isTest
+		static void test_GetFilteredCases_UpdatedStarTrackListViewFilters() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -753,7 +753,7 @@
 		//asserting one case investigation is NEW and ONLY one record is filtered out of two case investigations passed.
 		System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id);
 		system.assertEquals('NEW', caseInvWrapperList[0].caseIcon);
-	
+
 	}
 
 	/**
@@ -812,80 +812,146 @@
 	 */
 	@isTest
 	static void test_GetFilteredCases_MyCasesStarTrackListViewFilters() {
-	   // =====================================
-	   // Data Preparation
-	   // =====================================
-	   Id profileId = Application.Cache.profileIds.get('MyNetwork Portal');
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Id profileId = Application.Cache.profileIds.get('MyNetwork Portal');
 
-	   User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
-	   myNetworkPortalUser.Id = UserInfo.getUserId();
+		User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
+		myNetworkPortalUser.Id = UserInfo.getUserId();
 
-	   List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-	   Id stCaseRecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
-	   List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-	   cases[0].RecordTypeId = stCaseRecordTypeId;
+		Id stCaseRecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].RecordTypeId = stCaseRecordTypeId;
 
-	   List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
-	   networks[0].Org_ID__c = '1234';
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+		networks[0].Org_ID__c = '1234';
 
-	   List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), true);
-	   
-	   //assigning formula field as it is referred in logic.
-	   cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
-	   networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
+		List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), true);
+		
+		//assigning formula field as it is referred in logic.
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+		networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
 
 
-	   List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
-	   List<User> myNetworkUserlist = ApplicationTestDataFactory.getUsers(1, true);
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
+		List<User> myNetworkUserlist = ApplicationTestDataFactory.getUsers(1, true);
 
-	   // setting owner Id to  ONLY one CI record. 
-	   networkCaseInvestigations[0].OwnerId = UserInfo.getUserId();
-	   networkCaseInvestigations[1].OwnerId = myNetworkUserlist[0].Id; //setting some random owner id other than logged in users id.
+		// setting owner Id to  ONLY one CI record. 
+		networkCaseInvestigations[0].OwnerId = UserInfo.getUserId();
+		networkCaseInvestigations[1].OwnerId = myNetworkUserlist[0].Id; //setting some random owner id other than logged in users id.
 
-	   
-	   cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
+		
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
 
-	   Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
-	   .get('StarTrack_MyNetwork').getRecordTypeId();
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
+		.get('StarTrack_MyNetwork').getRecordTypeId();
 
-	   String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"My_Cases","searchButtonClicked":true,"caseNumberVal":""}';
+		String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"My_Cases","searchButtonClicked":true,"caseNumberVal":""}';
 
-	   // =====================================
-	   // Stubbing
-	   // =====================================
-	   UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
-	   NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
-	   CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+		NetworkUsersSelector mockNetworkUserSelector = (NetworkUsersSelector)MockUtility.mockSelector(NetworkUsersSelector.class);
+		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 
-	   // set up our responses
-	   MockUtility.Mocks.startStubbing();
-	   MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
-	   MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
-						   .thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
-	   MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkIdOwnerId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
-	   new Set<Id>{UserInfo.getUserId()},
-									   new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-										   CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
-										   UsersSelector.Options.WITH_PROFILE} ))
-						   .thenReturn(new Map<Id, CaseInvestigation__c>{networkCaseInvestigations[0].Id => networkCaseInvestigations[0]});
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
+		MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
+							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
+		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkIdOwnerId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
+		new Set<Id>{UserInfo.getUserId()},
+										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+											UsersSelector.Options.WITH_PROFILE} ))
+							.thenReturn(new Map<Id, CaseInvestigation__c>{networkCaseInvestigations[0].Id => networkCaseInvestigations[0]});
 
-	   
-	   MockUtility.Mocks.stopStubbing();
+		
+		MockUtility.Mocks.stopStubbing();
 
-	   Test.StartTest();
+		Test.StartTest();
 
-	   List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
+		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
 
-	   Test.StopTest();
-	   
-	  //asserting method returns ONLY one case investigation owned by logged in user.
-	   System.assertEquals(1, caseInvWrapperList.size());
-	   
-	   //asserting only one CI record is returned.
-	   System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id, 'only one record should have been returned.');
-	   system.assertEquals(UserInfo.getUserId(), caseInvWrapperList[0].caseInvestigation.OwnerId,'Owner id of record should match with logged in user');
-   
-   }
+		Test.StopTest();
+		
+		//asserting method returns ONLY one case investigation owned by logged in user.
+		System.assertEquals(1, caseInvWrapperList.size());
+		
+		//asserting only one CI record is returned.
+		System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id, 'only one record should have been returned.');
+		system.assertEquals(UserInfo.getUserId(), caseInvWrapperList[0].caseInvestigation.OwnerId,'Owner id of record should match with logged in user');
+
+	}
+
+	/**
+	 * @desc: method to test search filters applied on portal home page.
+	 * search filters are passed as a JSON for a method and filtered list is returned.
+	 * @expected: Filtered list of CI as per search filters.
+	 */
+	@isTest
+	static void test_filterBasedOnSearchCriteria() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+
+		Id stCaseRecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].RecordTypeId = stCaseRecordTypeId;
+
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+		networks[0].Org_ID__c = '1234';
+
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(5, cases[0].Id, articles[0], networks[0].Id, true);
+		
+		//assigning a priority to one CI record to test filtering based on priority
+		networkCaseInvestigations[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(networkCaseInvestigations[0], new Map<String, Object>{'Priority__c' => 'Medium'});
+
+		// assigning CI records to a case.
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => networkCaseInvestigations });
+
+		//setting printed flag to true to two CI records.
+		networkCaseInvestigations[1].IsPrinted__c = true;
+		networkCaseInvestigations[2].IsPrinted__c = true;
+		
+		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get('StarTrack_MyNetwork').getRecordTypeId();
+		
+		//setting a filter of Priority='Medium' to search records.
+		String filteredStringWithMediumPriority = '{"isPrinted":"","priorityVal":"Medium","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"All_Cases","searchButtonClicked":true,"caseNumberVal":""}';
+		
+		//setting a filter of Printed = 'Yes' to search records.
+		String filteredStringWithPrintedFlag = '{"isPrinted":"Yes","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"All_Cases","searchButtonClicked":true,"caseNumberVal":""}';
+		
+		// =====================================
+		// Stubbing
+		// =====================================
+		//Not Required
+
+		Test.StartTest();
+
+		Map<string,object> filtersMap = (Map<string,object>)JSON.deserializeUntyped(filteredStringWithMediumPriority);
+		List<CaseInvestigation__c> priorityFilteredCiList = MyNetworkCaseListController.filterBasedOnSearchCriteria(networkCaseInvestigations, filtersMap);
+
+		filtersMap = (Map<string,object>)JSON.deserializeUntyped(filteredStringWithPrintedFlag);
+		List<CaseInvestigation__c> printedFlagFilteredCiList = MyNetworkCaseListController.filterBasedOnSearchCriteria(networkCaseInvestigations, filtersMap);
+
+		Test.StopTest();
+
+		//asserting only one record is returned with medium priority
+		system.assertEquals(1, priorityFilteredCiList.size());
+		system.assertEquals(networkCaseInvestigations[0].Priority__c, priorityFilteredCiList[0].Priority__c);
+
+		//asserting two records are returned as per Printed flag
+		system.assertEquals(2, printedFlagFilteredCiList.size());
+		system.assert(printedFlagFilteredCiList[0].IsPrinted__c);
+		system.assert(printedFlagFilteredCiList[1].IsPrinted__c);
+
+	}
 
 }
