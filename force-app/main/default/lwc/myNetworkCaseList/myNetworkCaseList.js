@@ -328,7 +328,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRecord.Id;
 			caseRecord.caseNum = data[i].caseNum + ' - ' +  cInvestigationRecord.Name;
 			caseRecord.Case_Priority = cInvestigationRecord.Priority__c;
-			caseRecord.casePriority = cInvestigationRecord.Priority__c;
+			caseRecord.casePriority = data[i].casePriority;
 
 			//set escalation case investigation has any network milestone violations
 			if(cInvestigationRecord.NetworkMilestonesViolated__c !== null && cInvestigationRecord.NetworkMilestonesViolated__c !== undefined) {
@@ -351,7 +351,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord.rowNumber = i;
 			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
 			caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
-			caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Enquiry_Type__c : data[i].myNetworkCase.EnquirySubType__c;
+			caseRecord.Case_enquirySubtype = data[i].myNetworkCase.EnquirySubType__c;
 			caseRecord.caseNumberCSSClass = "blue";
 			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId;
 			caseRecord.caseNum = data[i].caseNum;

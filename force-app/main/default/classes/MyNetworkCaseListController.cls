@@ -1453,7 +1453,7 @@ public with sharing class MyNetworkCaseListController {
 			colorMapVar = 'green';
 			textMapVar = 'Case is awaiting action/response' ;
 		}
-		String casePriority = getCasePriority(cInv.Case__r.priority);
+		String casePriority = getCasePriority(cInv.Priority__c);
 
 		String assignedToVar = (cInv.Owner.Profile.Name == MYNETWORK_PROFILE_NAME ) ? cInv.Owner.Name : '';
 		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority, assignedToVar);

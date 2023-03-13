@@ -51,7 +51,7 @@ import CONTACT_FIELD from '@salesforce/schema/Case.ContactId';
 import LEGAL_ENTITY_NAME_FIELD from '@salesforce/schema/Case.Calc_Link_Account__c';
 import RELATED_BILLING_ACCOUNT_FIELD from '@salesforce/schema/Case.Related_Billing_Account__c';
 import NETWORK_FIELD from '@salesforce/schema/Case.Network__c';
-import OWNER_FIELD from '@salesforce/schema/Case.OwnerId';
+import OWNER_NAME_FIELD from '@salesforce/schema/Case.Calc_Owner_Name__c';
 import DESCRIPTION_OF_PACKAGING_FIELD from '@salesforce/schema/Case.Description_of_packaging__c';
 import WEB_EMAIL_FIELD from '@salesforce/schema/Case.SuppliedEmail';
 
@@ -145,7 +145,7 @@ export default class CaseDetails extends LightningElement {
     LEGAL_ENTITY_NAME_FIELD,
     RELATED_BILLING_ACCOUNT_FIELD,
     NETWORK_FIELD,
-    OWNER_FIELD,
+    OWNER_NAME_FIELD,
     DESCRIPTION_OF_PACKAGING_FIELD,
     WEB_EMAIL_FIELD
   ];
