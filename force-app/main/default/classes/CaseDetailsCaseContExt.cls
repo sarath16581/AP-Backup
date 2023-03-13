@@ -972,11 +972,11 @@ global class CaseDetailsCaseContExt  {
     public Boolean isChildCase {get;set;}
     private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
     'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-    'Enterprise' => 'SSSWEnterpriseBackOffice',
-    'SMB' => 'SSSWBusinessBackOffice',
-    'Silver' => 'SSSWBusinessBackOffice',
-    'MyPost Business' => 'SSSW_MyPost_Business_Back_Office',
-    'Gold' => 'SSSWBusinessBackOffice'};
+    'Enterprise' => 'SSSW_BOH_Group_2',
+    'SMB' => 'SSSW_BOH_Group_3',
+    'Silver' => 'SSSW_BOH_Group_3',
+    'MyPost Business' => 'SSSW_BOH_Group_4',
+    'Gold' => 'SSSW_BOH_Group_3'};
 
     private static final String REOPEN_QUEUE_NAME = 'SSSW Awaiting Reopen';
     private static final String DAMAGES_IN_TRANSIT = 'Damages in transit';

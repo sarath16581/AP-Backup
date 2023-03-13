@@ -104,10 +104,10 @@ public class SSSW_Routing {
 	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{
 		'International' => 'SSSWInternationalBackOffice',
 		'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-		'Enterprise' => 'SSSWEnterpriseBackOffice',
-		'SMB' => 'SSSWBusinessBackOffice',
-		'Gold' => 'SSSWBusinessBackOffice',
-		'MyPost Business' => 'SSSW_MyPost_Business_Back_Office'
+		'Enterprise' => 'SSSW_BOH_Group_2',
+		'SMB' => 'SSSW_BOH_Group_3',
+		'Gold' => 'SSSW_BOH_Group_3',
+		'MyPost Business' => 'SSSW_BOH_Group_4'
 	};
 
 	/**

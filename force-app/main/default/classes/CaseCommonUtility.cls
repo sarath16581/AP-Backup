@@ -62,12 +62,12 @@
 	// CLIEW 14/4/2016: added additional queue map entry for MyPost Business
 	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
 																							'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-																							'Enterprise' => 'SSSWEnterpriseBackOffice',
-																							'SMB' => 'SSSWBusinessBackOffice',
-																							'Gold' => 'SSSWBusinessBackOffice',
-																							'MyPost Business' => 'SSSW_MyPost_Business_Back_Office'};
+																							'Enterprise' => 'SSSW_BOH_Group_2',
+																							'SMB' => 'SSSW_BOH_Group_3',
+																							'Gold' => 'SSSW_BOH_Group_3',
+																							'MyPost Business' => 'SSSW_BOH_Group_4'};
 	private static final Set<String> DEF_QUEUE_SET = new Set<String>{'SSSWInternationalBackOffice','SSSW_Consumer_Back_Office_Low_Priority',
-																		'SSSWEnterpriseBackOffice','SSSWBusinessBackOffice'};
+																		'SSSW_BOH_Group_2','SSSW_BOH_Group_3','SSSW_BOH_Group_4'};
 
 	private static final Set<String> ST_CASE_AUTOCLOSE_TEMPLATES = new Set<String>{'StarTrack Redirection Notification - Customer Service','StarTrack Depot Collection Notification - Customer Service', 'StarTrack Check Address Notification - Customer Service'};
 
