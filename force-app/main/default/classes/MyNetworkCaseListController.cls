@@ -134,7 +134,7 @@ public with sharing class MyNetworkCaseListController {
 			list<Case> caseListResult = getAllMYNetworkCases(null, null);
 
 			//get all ST cases.
-			List<CaseInvestigation__c> cInvList = getStarTrackCases(null);
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(null, null);
 
 			//create a wrapper of ST cases.
 			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewString);
@@ -451,7 +451,7 @@ public with sharing class MyNetworkCaseListController {
 			list<Case> caseListResult = getAllMYNetworkCases(filterVar, selectedViewWithFiltersWrp);
 
 			//get all ST cases.
-			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp, filteredString);
 			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewWithFiltersWrp.selectedView);
 
 			//create a wrapper
@@ -474,7 +474,7 @@ public with sharing class MyNetworkCaseListController {
 			list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar, selectedViewWithFiltersWrp);
 		
 			//get all ST cases.
-			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp, filteredString);
 
 			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewWithFiltersWrp.selectedView);
 
@@ -488,7 +488,7 @@ public with sharing class MyNetworkCaseListController {
 			
 		}else if(selectedViewWithFiltersWrp.selectedView =='star_track_cases') { // filter star track cases and case investigations
 			
-			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp, filteredString);
 			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewWithFiltersWrp.selectedView);
 			myNetworkCasesWrapperList.addAll(caseInvWrapperList);
 
@@ -498,7 +498,7 @@ public with sharing class MyNetworkCaseListController {
 			CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
 
 			//get all ST cases.
-			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp, filteredString);
 			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewWithFiltersWrp.selectedView);
 
 
@@ -594,10 +594,7 @@ public with sharing class MyNetworkCaseListController {
 					}
 					if( !String.isBlank(enquirySubTypeVal ) && enquirySubTypeVal != '--Select--'){
 
-						//if StarTrack case field is selected then select 'Enquiry_Type__c' field.
-						//if AP enquiry values are selected then filter based on 'EnquirySubType__c'.
-						String enquiryField = isStarTrackCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
-
+						String enquiryField =  'EnquirySubType__c';
 						String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + String.escapeSingleQuotes(enquirySubTypeVal) + '\')' ;
 						if(dynamicFilter != null){
 							dynamicFilter += filterVar ;
@@ -1327,7 +1324,7 @@ public with sharing class MyNetworkCaseListController {
 	 */
 	//get st cases
 	@TestVisible
-	private static List<CaseInvestigation__c> getStarTrackCases(SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp){
+	private static List<CaseInvestigation__c> getStarTrackCases(SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp, String filteredString){
 
 		//get all list of network users where logged in user is a part of
 		Set<Id> networkIds = new Set<Id>();
@@ -1367,11 +1364,57 @@ public with sharing class MyNetworkCaseListController {
 					UsersSelector.Options.WITH_PROFILE}).values();
 
 			}
+
+			//filter based on search criteria
+			if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject != null) {
+				caseInvList = filterBasedOnSearchCriteria(caseInvList, selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject);
+			}
+			
 		}
 		
 		return caseInvList;
 	}
 
+	/**
+	 * @desc: method applies search filters on queried case investigation records and returns a filtered list.
+	 * Since, search filters are applied at UI level and on mulitple fields, selectors classes are not feasible to implement.
+	 * hence, filtering queried results explicitly.
+	 * @param: List<CaseInvestigation__c>, String filterString
+	 * @return: filtered List<CaseInvestigation__c>
+	 */
+	@testVisible
+	private static List<CaseInvestigation__c> filterBasedOnSearchCriteria(List<CaseInvestigation__c> cInvList, Map<string,object> filtersMap) {
+		List<CaseInvestigation__c> resultList = new List<CaseInvestigation__c>();
+
+		//get search filters selected on UI
+		String caseNumberVal = (String)filtersMap.get('caseNumberVal');
+		String priorityVal = (String)filtersMap.get('priorityVal');
+		String isPrintedVal = ((String)filtersMap.get('isPrinted'));
+		String enquirySubTypeVal = ((String)filtersMap.get('enquirySubTypeVal'));
+		String selectedProductCategoryVal = ((String)filtersMap.get('selectedProductCategoryVal'));
+		String selectedNetworkRecrdIdVal = ((String)filtersMap.get('selectedNetworkRecrdIdVal'));
+		String addressePostcodeVal = (String)filtersMap.get('addressePostcodeVal');
+
+		//postcodes 
+		List<String> postCodes = (addressePostcodeVal != null ? addressePostcodeVal.split(',') : null);
+
+		//iterate through CI list and filter out records matching with search criteria
+		for( CaseInvestigation__c cInv : cInvList) {
+
+			if( (String.isBlank(caseNumberVal) || cInv.Case__r.CaseNumber == caseNumberVal)
+				&& (( priorityVal.equalsIgnoreCase('--Select--') || cInv.Priority__c == priorityVal))
+				&& (( isPrintedVal.equalsIgnoreCase('--Select--') || cInv.IsPrinted__c == isPrintedVal.equalsIgnoreCase('Yes')  )) 
+				&& (( enquirySubTypeVal.equalsIgnoreCase('--Select--') || cInv.Case__r.Enquiry_Type__c == enquirySubTypeVal )) 
+				&& (( selectedProductCategoryVal.equalsIgnoreCase('--Select--') || cInv.ProductCategory__c == selectedProductCategoryVal )) 
+				&& (( String.isBlank(selectedNetworkRecrdIdVal) || cInv.Network__c == selectedNetworkRecrdIdVal )) 
+				&& (( String.isBlank(addressePostcodeVal) || postCodes!=null && postCodes.contains(cInv.Article__r.ReceiverPostcode__c) )) ) {
+					
+				resultList.add(cInv);
+			}
+		}
+
+		return resultList;
+	}
 	/**
 	 * @desc: Create a list of wrapper for Case Investigations. Each wrapper entry represents Case Investigation record details.
 	 * @param: case investigation list and selected list view from portal.
