@@ -505,51 +505,62 @@ export default class CaseList extends NavigationMixin(LightningElement) {
    * Custom Sorting using case priority and sent to network date field.
    */
   customSortingWithMultipleColumn(){
-    let caseList = this.records;
-    let caseMap= new Map();
-    let caseSortedMap = new Map();
-    let finalSortedCaseList = [];
-    let caseVar ;
-    let caserecordListVar ;
-    let caseRec;
-      for (let i = 0; i < caseList.length; i++) {
-        if(caseMap.has(caseList[i].Case_Priority)){
-            caseVar = {};
-            caserecordListVar = [];
-            caseRec = {};
-            caseVar = caseList[i];
-            caserecordListVar = caseMap.get(caseList[i].Case_Priority);
-            caseRec = Object.assign(caseRec, caseVar);
-            caserecordListVar.push(caseRec);
-            caseMap.set(caseList[i].Case_Priority, caserecordListVar);
-        }else{
-          let caseVariable = caseList[i];
-          caserecordListVar = [];
-          let carVarData = {};
-          carVarData = Object.assign(carVarData, caseVariable);
-          caserecordListVar.push(carVarData);
-          caseMap.set(caseList[i].Case_Priority, caserecordListVar);
-        }
-      }
-      for (let key of caseMap.keys()) {
-        let casesForEachPriority = caseMap.get(key);
-        this.customSortingOnSingleColumn(casesForEachPriority, 'Case_sentToNetworkDate', 'asc');
-        caseSortedMap.set(key, this.sortedRecords);
-      }
-      let caseTempList =[];
-      for (let key of caseSortedMap.keys()) {
-        caseTempList = caseSortedMap.get(key);
-        for (let i = 0; i < caseTempList.length; i++) {
-          let cVar = caseTempList[i];
-          cVar.rowNumber = i;
-          finalSortedCaseList.push(cVar);
-        }
-      }
-    this.records = finalSortedCaseList;
-    this.cases = finalSortedCaseList ;
-    this.recordsToDisplay = this.finalSortedCaseList;
-    this.totalRecords = finalSortedCaseList.length;
-    this.setRecordsToDisplay();
+	let caseList = this.records;
+	let caseMap= new Map();
+	let caseSortedMap = new Map();
+	let finalSortedCaseList = [];
+	let caseVar ;
+	let caserecordListVar ;
+	let caseRec;
+	//setting expected sorted priority.
+	let predefinedSortedPriority = ['High', 'Medium', 'Low'];
+
+	//iterating through record list and creating a map of priority vs list of records against each priority.
+	//e.g. caseMap below will contain 'Low' => recordsList, 'High' => recordsList, 'Medium' => recordsList.
+	for (let i = 0; i < caseList.length; i++) {
+		if(caseMap.has(caseList[i].Case_Priority)){
+			caseVar = {};
+			caserecordListVar = [];
+			caseRec = {};
+			caseVar = caseList[i];
+			caserecordListVar = caseMap.get(caseList[i].Case_Priority);
+			caseRec = Object.assign(caseRec, caseVar);
+			caserecordListVar.push(caseRec);
+			caseMap.set(caseList[i].Case_Priority, caserecordListVar);
+		}else{
+			let caseVariable = caseList[i];
+			caserecordListVar = [];
+			let carVarData = {};
+			carVarData = Object.assign(carVarData, caseVariable);
+			caserecordListVar.push(carVarData);
+			caseMap.set(caseList[i].Case_Priority, caserecordListVar);
+		}
+	}
+
+	//iterating and sorting list of records as per 'Case_sentToNetworkDate'
+	for (let key of caseMap.keys()) {
+		let casesForEachPriority = caseMap.get(key);
+		this.customSortingOnSingleColumn(casesForEachPriority, 'Case_sentToNetworkDate', 'asc');
+		caseSortedMap.set(key, this.sortedRecords);
+	}
+	let caseTempList =[];
+
+	//arraging records as per expected priority sort.
+	for (let key of predefinedSortedPriority) {
+		if(caseSortedMap.has(key)) {
+			caseTempList = caseSortedMap.get(key);
+			for (let i = 0; i < caseTempList.length; i++) {
+				let cVar = caseTempList[i];
+				cVar.rowNumber = i;
+				finalSortedCaseList.push(cVar);
+			}
+		}
+	}
+	this.records = finalSortedCaseList;
+	this.cases = finalSortedCaseList ;
+	this.recordsToDisplay = this.finalSortedCaseList;
+	this.totalRecords = finalSortedCaseList.length;
+	this.setRecordsToDisplay();
   }
   customSortingOnSingleColumn(data, keyValue, sortDirection){ 
     this.sortedRecords = [];
