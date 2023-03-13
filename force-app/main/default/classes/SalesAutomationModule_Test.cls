@@ -163,7 +163,7 @@ private class SalesAutomationModule_Test {
 
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockApplicationDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false))).thenReturn(null);
+		MockUtility.Mocks.when(mockApplicationDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false))).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
