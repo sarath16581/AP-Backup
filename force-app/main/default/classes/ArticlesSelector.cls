@@ -9,14 +9,14 @@
  * 2020-07-22 - Nathan Franklin - Added field override capability
  * 2021-10-01 - Nathan Franklin - Added new fields list
  * 2022-11-23 - Mahesh Parvathaneni - Added selectByCaseIds method
- * 2022-12-15 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_NETWORK_DESC_ORDER options 
+ * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options 
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_CONSIGNMENT, WITH_CHILDARTICLES,
 		WITH_BILLINGACCOUNT, // using BillingAccountsSelector
-		WITH_EVENTMESSAGES_NETWORK_DESC_ORDER,
+		WITH_EVENTMESSAGES_DESC_ORDER,
 		FILTER_BY_NETWORK_NOT_NULL
 	}
 
@@ -177,8 +177,8 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Billing_Account__r');
 		}
 
-		if(selectorOptions.contains(Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER)) {
-			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL}), 'Event_Messages__r');
+		if(selectorOptions.contains(Options.WITH_EVENTMESSAGES_DESC_ORDER)) {
+			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Event_Messages__r');
 		}
 
 		if(selectorOptions.contains(Options.FILTER_BY_NETWORK_NOT_NULL)) {

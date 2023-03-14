@@ -24,7 +24,7 @@
                         <td scope="row">
                             <lightning-input type="checkbox" label="" variant="label-hidden" onchange={handleRowChange}
                                 data-id={articleData.article.Id} data-reference-id={articleData.article.Name}
-                                checked={articleData.isArticleSelected}>
+                                checked={articleData.isArticleSelected} disabled={articleData.isDisabled}>
                             </lightning-input>
                         </td>
                         <template for:each={articleData.rowData} for:item="row">

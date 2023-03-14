@@ -5,12 +5,14 @@
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - Added getCriticalIncidents method and updates to getArticlesByCase method
  * 2023-01-17 - Mahesh Parvathaneni - Updated to set the StarTrack MyNetwork record type for Case Investigation
+ * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated wrapper to get the network for event messages based on Facility Org Id
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
 
 	@TestVisible
 	private static final String ST_MYNETWORK_RECORD_TYPE = 'StarTrack_MyNetwork';
+	private static final String STAR_TRACK = 'startrack'; 
 
 	/**
 	 * Function to get the articles and related event messages for a case that is associated with AP Network
@@ -41,12 +43,39 @@ public with sharing class MyNetworkStarTrackCaseController {
 
 				if (articleIds.size() > 0) {
 					//get articles with event messages
-					List<Article__c> articlesWithEventMessages = ArticlesSelector.newInstance().selectById(articleIds, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER}).values();
-					
+					List<Article__c> articlesWithEventMessages = ArticlesSelector.newInstance().selectById(articleIds, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER}).values();
+
+					List<Article__c> articleList = new List<Article__c>();
 					for (Article__c aem : articlesWithEventMessages) {
-						//add the articles if related event messages passed through AP network
+						//add the articles if there are related event messages
 						if (aem.Event_Messages__r.size() > 0) {
-							articleDetails.add(new ArticleDetails(aem));
+							articleList.add(aem);
+						}
+					}
+
+					if (articleList.size() > 0) {
+						//get the network for the event messages based on the facility organisation id to render on UI
+						//since StarTrack articles eventmessage doesn't have facility populated.
+						Map<Id, Network__c> eventMessageToNetworkMap = getEventMessageToNetworkMap(articleList);
+
+						for (Article__c a : articleList) {
+							List<EventMessage> emList = new List<EventMessage>();
+							//add the articles if related event messages passed through AP network
+							for (EventMessage__c em : a.Event_Messages__r) {
+								if (eventMessageToNetworkMap.containsKey(em.Id)) {
+									EventMessage evm = new EventMessage();
+									evm.eventMessage = em;
+									evm.network = eventMessageToNetworkMap.get(em.Id);
+									//check if any network name contains StarTrack, ignore these events
+									if (!evm.network.Name.toLowerCase().contains(STAR_TRACK)) {
+										emList.add(evm);
+									}
+								}
+							}
+							ArticleDetails ad = new ArticleDetails();
+							ad.article = a;
+							ad.eventMessages = emList;
+							articleDetails.add(ad);
 						}
 					}
 				}
@@ -61,6 +90,44 @@ public with sharing class MyNetworkStarTrackCaseController {
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
+	}
+
+	/**
+	 * This function get the facility for the event message based on the facility organisation id
+	 * This is required to do some validation on the UI based on the network
+	 */
+	private static Map<Id, Network__c> getEventMessageToNetworkMap(List<Article__c> articles) {
+		Map<Id, Network__c> eventMessageToNetworkMap = new Map<Id, Network__c>();
+		Map<String, Network__c> networkOrgsMap = new Map<String, Network__c>();
+		Set<String> networkOrgs = new Set<String>();
+
+		//Process all ORGs from the incomming events.
+		for (Article__c article : articles) {
+			for (EventMessage__c e : article.Event_Messages__r) {
+				if (e.FacilityOrganisationID__c != null) {
+					networkOrgs.add(e.FacilityOrganisationID__c);
+				}
+			}
+		}
+
+		if (networkOrgs.size() > 0) {
+			//get AP networks related to Org Ids
+			for (Network__c nOrg : NetworksSelector.newInstance().selectByOrgId(networkOrgs, new Set<Object> {NetworksSelector.Options.FILTER_AP_NETWORK}).values()) {
+				networkOrgsMap.put(nOrg.Org_ID__c, nOrg);
+			}
+
+			for (Article__c article : articles) {
+				for (EventMessage__c e : article.Event_Messages__r) {
+					//Set the ORG on the Event, if it is blank and found.
+					if (networkOrgsMap.containsKey(e.FacilityOrganisationID__c)) {
+						e.Facility__c = networkOrgsMap.get(e.FacilityOrganisationID__c).Id;
+						eventMessageToNetworkMap.put(e.Id, networkOrgsMap.get(e.FacilityOrganisationID__c));
+					}
+				}
+			}
+		}
+
+		return eventMessageToNetworkMap;
 	}
 
 	/**
@@ -221,23 +288,13 @@ public with sharing class MyNetworkStarTrackCaseController {
 		public Article__c article {get; set;}
 		@AuraEnabled
 		public List<EventMessage> eventMessages {get; set;}
-
-		public ArticleDetails(Article__c article) {
-			this.article = article;
-			this.eventMessages = new List<EventMessage>();
-			for (EventMessage__c em: article.Event_Messages__r) {
-				this.eventMessages.add(new EventMessage(em));
-			}
-		}
 	}
 
 	public class EventMessage {
 		@AuraEnabled 
 		public EventMessage__c eventMessage {get; set;}
-
-		public EventMessage(EventMessage__c em) {
-			this.eventMessage = em;
-		}
+		@AuraEnabled
+		public Network__c network {get; set;}
 	}
 
 }
