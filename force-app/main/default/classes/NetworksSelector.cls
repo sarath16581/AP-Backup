@@ -15,11 +15,12 @@
 * 2021-07-27 - Naveen Rajanna - Added method selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING_OR_WORKCENTRE()
 * 2022-03-23 - Ranjeewa Silva - Added methods to select by name
 * 2022-12-05 - Mahesh Parvathaneni - Added StarTrack network record types variable
+* 2023-03-10 - Mahesh Parvathaneni - Added FILTER_AP_NETWORK options
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER
+		WITH_RECORDTYPE, WITH_OWNER, FILTER_AP_NETWORK
 	}
 
 	public static final Set<String> ST_NETWORK_RECORD_TYPES = new Set<String>{
@@ -297,6 +298,10 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 
 		if(selectorOptions.contains(Options.WITH_OWNER)) {
 			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
+
+		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
+			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(ST_NETWORK_RECORD_TYPES)).endConditions();
 		}
 
 		return builder;

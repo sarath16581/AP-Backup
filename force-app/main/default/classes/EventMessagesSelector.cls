@@ -16,6 +16,7 @@
  * 2022-11-23 - Mahesh Parvathaneni - Added newInstance method with sort field and order and also added the selector FILTER_AP_NETWORK_NOT_NULL
  * 2023-03-06 - Mahesh Parvathaneni - Added field ActualDateTime_Timestamp__c
  * 2023-03-08 - Mahesh Parvathaneni - Added options FILTER_GEO_LOCATION
+ * 2023-03-10 - Mahesh Parvathaneni - Removed the option FILTER_AP_NETWORK_NOT_NULL
  */
 public virtual inherited sharing class EventMessagesSelector extends ApplicationSelector {
 
@@ -26,7 +27,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	 * NOTE: WITH_SIGNATURE_FIELD allows us to conditionally add the signature long text field only when it's needed
 	 */
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_ARTICLE, WITH_ATTACHMENT, WITH_SIGNATURE_FIELD, FILTER_SAFE_DROP_GUID, FILTER_ATTACHMENT_GUID, FILTER_AP_NETWORK_NOT_NULL, FILTER_GEO_LOCATION
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ARTICLE, WITH_ATTACHMENT, WITH_SIGNATURE_FIELD, FILTER_SAFE_DROP_GUID, FILTER_ATTACHMENT_GUID, FILTER_GEO_LOCATION
 	}
 
 	public static EventMessagesSelector newInstance() {
@@ -193,13 +194,6 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 
 		if (selectorOptions.contains(Options.FILTER_ATTACHMENT_GUID)) {
 			builder.addConditions().add(new QueryBuilder.NullCondition(EventMessage__c.AttachmentGUID__c).notNull()).endConditions();
-		}
-
-		if (selectorOptions.contains(Options.FILTER_AP_NETWORK_NOT_NULL)) {
-			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Facility__r');
-			builder.addConditions().add(new QueryBuilder.CompareCondition(EventMessage__c.Facility__c).ne('')).endConditions();
-			builder.addConditions().add(new QueryBuilder.NullCondition(EventMessage__c.Facility__c).notNull()).endConditions();
-			builder.addConditions().add((new QueryBuilder.InCondition('Facility__r.RecordType.DeveloperName')).notInCollection(NetworksSelector.ST_NETWORK_RECORD_TYPES)).endConditions();
 		}
 
 		if (selectorOptions.contains(Options.FILTER_GEO_LOCATION)) {
