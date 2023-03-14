@@ -42,6 +42,7 @@ const CASE_TYPE = 'Delivery Dispute';
 const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
 const STATUS_RESPONDED = 'Responded';
+const STATUS_IN_PROGRESS = 'In Progress';
 const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
 const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
 
@@ -198,12 +199,16 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		fields[DELIVERY_INFORMATION_FIELD.fieldApiName] = this.deliveryInformation;
 		fields[DELIVERY_OFFICER_KNOWLEDGE_FIELD.fieldApiName] = this.deliveryOfficerKnowledge;
 		fields[QUALITY_OF_THE_CASE_FIELD.fieldApiName] = this.qualityOfCase;
-		fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
-		fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
 
-		// only change the status if the user hasn't changed the network. If they have changed it then it is a case of Reassigning to another network. 
-		if(this.originalNetworkId == this.networkId) { 
+		// If they have changed it then it is a case of Reassigning to another network. 
+		if(this.originalNetworkId != this.networkId) { 
+			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = false;
+			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = false;
+			fields[STATUS_FIELD.fieldApiName] = STATUS_IN_PROGRESS;
+		} else {
+			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
+			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 			fields[STATUS_FIELD.fieldApiName] = (this.status != '') ? this.status : STATUS_CLOSED;
 		}
 
