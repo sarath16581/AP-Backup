@@ -62,6 +62,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	deliveryOfficerKnowledge= '';
 	deliveryOptions= '';
 	networkId= '';
+	originalNetworkId = '';
 	qualityOfCase= '';
 	requireMoreInformation ='';
 	stillUnderInvestigation = false;
@@ -162,7 +163,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		} else if (data) {
 			this.caseInvestigationRecord = data;
 			// this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
-			this.networkId = this.caseInvestigationRecord.fields.Network__c.value;
+			this.originalNetworkId = this.networkId = this.caseInvestigationRecord.fields.Network__c.value; // setting this value so we can detect if the user changes it. 
 			this.addressType = this.caseInvestigationRecord.fields.AddressType__c.value;
 			this.deliveryInformation = this.caseInvestigationRecord.fields.Deliveryinformation__c.value;
 			this.deliveryOfficerKnowledge = this.caseInvestigationRecord.fields.DeliveryOfficerKnowledge__c.value;
@@ -193,7 +194,6 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		const fields = {};
 		fields[CASE_INVESTIGATION_RECORD_ID.fieldApiName] = this.recordId;
 		fields[NETWORK_FIELD.fieldApiName] = this.networkId;
-
 		fields[ADDRESS_TYPE_FIELD.fieldApiName] = this.addressType;
 		fields[DELIVERY_INFORMATION_FIELD.fieldApiName] = this.deliveryInformation;
 		fields[DELIVERY_OFFICER_KNOWLEDGE_FIELD.fieldApiName] = this.deliveryOfficerKnowledge;
@@ -201,7 +201,12 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
 		fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
-		fields[STATUS_FIELD.fieldApiName] = (this.status != '') ? this.status : STATUS_CLOSED;
+
+		// only change the status if the user hasn't changed the network. If they have changed it then it is a case of Reassigning to another network. 
+		if(this.originalNetworkId == this.networkId) { 
+			fields[STATUS_FIELD.fieldApiName] = (this.status != '') ? this.status : STATUS_CLOSED;
+		}
+
 		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
 		
 		
