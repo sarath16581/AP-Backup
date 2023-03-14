@@ -60,14 +60,13 @@
 	private static final Set<String> SKIP_DUPLICATE_CHECK_BY_ORIGIN = new Set<String>{'Portal'};  // set of case origins to ignore in duplication check
 
 	// CLIEW 14/4/2016: added additional queue map entry for MyPost Business
-	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
-																							'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-																							'Enterprise' => 'SSSW_BOH_Group_2',
-																							'SMB' => 'SSSW_BOH_Group_3',
-																							'Gold' => 'SSSW_BOH_Group_3',
-																							'MyPost Business' => 'SSSW_BOH_Group_4'};
-	private static final Set<String> DEF_QUEUE_SET = new Set<String>{'SSSWInternationalBackOffice','SSSW_Consumer_Back_Office_Low_Priority',
-																		'SSSW_BOH_Group_2','SSSW_BOH_Group_3','SSSW_BOH_Group_4'};
+	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSW_BOH_Group_1',
+																							'Consumer' => 'SSSW_BOH_Group_4',
+																							'Enterprise' => 'SSSW_BOH_Group_1',
+																							'SMB' => 'SSSW_BOH_Group_2',
+																							'Gold' => 'SSSW_BOH_Group_2',
+																							'MyPost Business' => 'SSSW_BOH_Group_3'};
+	private static final Set<String> DEF_QUEUE_SET = new Set<String>{'SSSW_BOH_Group_1','SSSW_BOH_Group_2','SSSW_BOH_Group_3','SSSW_BOH_Group_4'};
 
 	private static final Set<String> ST_CASE_AUTOCLOSE_TEMPLATES = new Set<String>{'StarTrack Redirection Notification - Customer Service','StarTrack Depot Collection Notification - Customer Service', 'StarTrack Check Address Notification - Customer Service'};
 

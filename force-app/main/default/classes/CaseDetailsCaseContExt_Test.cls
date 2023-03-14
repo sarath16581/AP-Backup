@@ -26,7 +26,7 @@ global class CaseDetailsCaseContExt_Test {
 				SELECT Id,DeveloperName
 				FROM Group
 				WHERE Type = 'Queue'
-				AND DeveloperName = 'SSSW_BOH_Group_3'
+				AND DeveloperName = 'SSSW_BOH_Group_2'
 				LIMIT 1
 		];
 
