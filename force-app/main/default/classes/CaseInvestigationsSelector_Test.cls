@@ -106,6 +106,7 @@
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
+		networks[0].Contact_Facility__c = 'MyNetwork';
 		insert networks;
 
 		List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), false);
