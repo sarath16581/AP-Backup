@@ -2245,7 +2245,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Business_Inbound</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Business_Inbound</lookupValue>
+        <lookupValue>SSSW_FOH_Group_3</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Business Inbound</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2324,7 +2324,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>SSSW_Set_to_MyPost_Business_Queue</fullName>
         <description>Assigns to the MyPost Business Inbound queue</description>
         <field>OwnerId</field>
-        <lookupValue>SSSW_MyPost_Business_Inbound</lookupValue>
+        <lookupValue>SSSW_FOH_Group_4</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW – Set to MyPost Business Queue</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2971,7 +2971,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>mpbhsp_Set_Case_Owner_to_MPB_Inbound</fullName>
         <description>This updates a Case&apos;s owner to Mypost Business Inbound</description>
         <field>OwnerId</field>
-        <lookupValue>SSSW_MyPost_Business_Inbound</lookupValue>
+        <lookupValue>SSSW_FOH_Group_4</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>mpbhsp Set Case Owner to MPB Inbound</name>
         <notifyAssignee>false</notifyAssignee>

@@ -749,7 +749,7 @@ private with sharing class CaseCommonUtility_Test {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_3' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'Consumer','Email','Any',SSSWConstants.RECTYPEROUTING);
 			routing.IsNew__c = true;
 			routing.ExcludeFromNPS__c = true;
@@ -802,7 +802,7 @@ private with sharing class CaseCommonUtility_Test {
 		socialCase2.SocialPostTags__c = 'post';//Ensure the social post tags on case does not match SSSW routing rule
 
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_3' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting(null,null,null,null,null,'Social','All',SSSWConstants.RECTYPEROUTING);
 			routing.SocialPostTags__c = 'post tag1;post tag2';
 			routing.IsActive__c = true;
@@ -831,7 +831,7 @@ private with sharing class CaseCommonUtility_Test {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_3' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'Consumer','Email','Any',SSSWConstants.RECTYPEROUTING);
 			routing.IsNew__c = true;
 			routing.IsActive__c = True;
@@ -882,7 +882,7 @@ private with sharing class CaseCommonUtility_Test {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_3' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'SMB','Email');
 			routing.IsNew__c = true;
 			routing.IsActive__c = True;

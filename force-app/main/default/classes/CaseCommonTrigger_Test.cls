@@ -9,7 +9,7 @@ private with sharing class CaseCommonTrigger_Test {
      // Variables
     private static final String ADMIN_PROFILE = 'System Administrator';
     private static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
-    private static final String BACK_OFC_QUEUE = 'SSSWBusinessBackOffice';
+    private static final String BACK_OFC_QUEUE = 'SSSW_BOH_Group_3';
     private static final String HLC_QUEUE = 'SSSW_High_Level_Complaints';
     private static final String CR_QUEUE = 'SSSW_Customer_Recovery';
     
