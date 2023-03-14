@@ -3,18 +3,8 @@
     <apiVersion>55.0</apiVersion>
     <packageVersions>
         <majorNumber>11</majorNumber>
-        <minorNumber>582</minorNumber>
-        <namespace>Apttus</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>11</majorNumber>
         <minorNumber>190</minorNumber>
         <namespace>Apttus_Approval</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>11</majorNumber>
-        <minorNumber>19</minorNumber>
-        <namespace>Apttus_CQApprov</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>12</majorNumber>
@@ -25,6 +15,11 @@
         <majorNumber>10</majorNumber>
         <minorNumber>227</minorNumber>
         <namespace>Apttus_Proposal</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>6</majorNumber>
+        <minorNumber>5</minorNumber>
+        <namespace>Apttus_QPApprov</namespace>
     </packageVersions>
     <status>Active</status>
 </ApexClass>

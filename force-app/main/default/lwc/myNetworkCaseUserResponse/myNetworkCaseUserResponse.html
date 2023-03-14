@@ -36,7 +36,7 @@
 										<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
 										<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
 									</template>
-									<lightning-textarea value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+									<lightning-textarea data-id="networkRes" required value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
 									<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
 									<lightning-input-field field-name="Stillunderinvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
 									<lightning-input-field field-name="Requiremoreinformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>

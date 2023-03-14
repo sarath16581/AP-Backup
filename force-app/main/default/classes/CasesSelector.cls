@@ -86,7 +86,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Last_Status_Change__c, Case.Article_Receiver_Address__c, Case.Article_Receiver_Postcode__c,
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
-			Case.Checkbox__c
+			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c 
 
 		};
 	}

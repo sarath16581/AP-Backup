@@ -11,8 +11,12 @@
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.UNREAD</columns>
     <filterScope>Queue</filterScope>
+    <filters>
+        <field>Campaign_Name__c</field>
+        <operation>contains</operation>
+        <value>test</value>
+    </filters>
     <label>TSA Leads Queue</label>
-    <language>en_US</language>
     <queue>TSA_Leads_Queue</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
