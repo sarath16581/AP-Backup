@@ -13,6 +13,7 @@
  * 2022-11-29 - Mahesh Parvathaneni - Updated test for newInstance with sort filter
  * 2022-12-15 - Mahesh Parvathaneni - Updated options FILTER_AP_NETWORK_NOT_NULL in tests
  * 2023-03-08 - Mahesh Parvathaneni - Updated options FILTER_GEO_LOCATION in tests
+ * 2023-03-10 - Mahesh Parvathaneni - Removed the option FILTER_AP_NETWORK_NOT_NULL
  */
 @IsTest
 public with sharing class EventMessagesSelector_Test {
@@ -91,12 +92,6 @@ public with sharing class EventMessagesSelector_Test {
         soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?ism)Booking_Reference__c.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Booking_Reference__c field: ' + soql);
 
-        selector = EventMessagesSelector.newInstance(EventMessagesSelector.sortfieldAPIName, EventMessagesSelector.sortOrder);
-        qb = selector.newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL});
-        soql = qb.toSoqlString();
-        System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Facility__r field: ' + soql);
-        System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b.*Facility__r.RecordType.DeveloperName NOT IN*').matcher(soql).find(), 'Resulting query does not select Facility__r record type field: ' + soql);
-
 		selector = EventMessagesSelector.newInstance(EventMessagesSelector.sortfieldAPIName, EventMessagesSelector.sortOrder);
 		qb = selector.newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_GEO_LOCATION});
 		soql = qb.toSoqlString();
@@ -129,8 +124,6 @@ public with sharing class EventMessagesSelector_Test {
         List<EventMessage__c> events = ApplicationTestDataFactory.getEventMessages(2, article.Id, false);
         events[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
         events[1].EventType__c = eventMessageType.get('Delivered')[0].Label;
-        events[0].Facility__c = network.Id;
-        events[1].Facility__c = network.Id;
 		events[0].EventGeoLocation__Longitude__s = 151.62805;
 		events[0].EventGeoLocation__Latitude__s = -32.927406;
         insert events;
@@ -166,14 +159,8 @@ public with sharing class EventMessagesSelector_Test {
         System.assertEquals(2, resultsList.size(), 'Expected result size of 2');
         System.assertNotEquals(null, resultsList[0].Article__r, 'Expected article object');
 
-        selector = EventMessagesSelector.newInstance();
-        List<EventMessage__c> eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL});
-        System.assertEquals(2, eventsList.size(), 'Expected result size of 2');
-        System.assertNotEquals(null, eventsList[0].Facility__c, 'Expected network record');
-        System.assertNotEquals(null, eventsList[0].Facility__r.Name, 'Expected facility name');
-
 		selector = EventMessagesSelector.newInstance();
-		eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.FILTER_GEO_LOCATION});
+		List<EventMessage__c> eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.FILTER_GEO_LOCATION});
 		System.assertEquals(1, eventsList.size(), 'Expected result size of 1');
 
         Test.stopTest();

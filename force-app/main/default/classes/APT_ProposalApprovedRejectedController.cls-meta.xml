@@ -7,11 +7,6 @@
         <namespace>Apttus_Approval</namespace>
     </packageVersions>
     <packageVersions>
-        <majorNumber>6</majorNumber>
-        <minorNumber>62</minorNumber>
-        <namespace>Apttus_CQApprov</namespace>
-    </packageVersions>
-    <packageVersions>
         <majorNumber>9</majorNumber>
         <minorNumber>1093</minorNumber>
         <namespace>Apttus_Config2</namespace>
@@ -20,11 +15,6 @@
         <majorNumber>8</majorNumber>
         <minorNumber>109</minorNumber>
         <namespace>Apttus_Proposal</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>9</majorNumber>
-        <minorNumber>182</minorNumber>
-        <namespace>Apttus_QPConfig</namespace>
     </packageVersions>
     <status>Active</status>
 </ApexClass>
