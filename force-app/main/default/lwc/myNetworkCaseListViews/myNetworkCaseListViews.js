@@ -1,4 +1,4 @@
-	/**
+/**
 	 * @author       : arjun.singh@auspost.com.au
 	 * @date         : 23/03/2020
 	 * @description  : Component that has custom list view and search filters

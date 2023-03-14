@@ -18,7 +18,7 @@ History:
 	<apex:attribute type="CasePDFContentGenerator" name="conObj" description="con object instance"/>
 	<apex:variable var="casen" value="{!0}"/>
 	
-	<!--  ST Case Investigations Printing -->
+	<!--  ST Case Investigations Printing --> 
 	<apex:repeat id="starTrackCaseIdVsCaseMap" value="{!conObj.starTrackCaseIdVsCaseMap}" var="caseId">
 		<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[caseId] != null}">
 			<apex:repeat value="{!conObj.starTrackCaseToCaseInvestigationsMap[caseId]}" var="caseInv">
@@ -420,7 +420,7 @@ History:
 				</apex:outputPanel>
 			</div>
 		</div>
-		
+
 		<!-- REQ2408232 Add page break only when bulk cases (more than 1 case), so drivers information doesn't overlap upon duplex print-->
 		<div style="{!IF(AND(conObj.caseCount > 1, conObj.caseCount != casen), 'display:block;page-break-before: always', 'display: none')}"><p></p></div>
 	</apex:repeat>
