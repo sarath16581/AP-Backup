@@ -33,7 +33,9 @@
 									<template if:true={isDelieryFieldVisible}>
 										<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
 										<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
-										<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+										<!-- Note: Hiding DeliveryOptions__c field it is controlling field for DeliveryInformation__c.
+													If controlling (DeliverOptions__c)  field is not included on the form, dependent field is disabled by default -->
+										<lightning-input-field class="slds-hidden" value={deliveryOptions} field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
 										<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
 									</template>
 									<lightning-textarea data-id="networkRes" required value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
