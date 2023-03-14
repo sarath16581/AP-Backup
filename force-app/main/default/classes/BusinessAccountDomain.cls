@@ -26,7 +26,7 @@ public inherited sharing class BusinessAccountDomain extends ApplicationDomain {
 	 * Prefilter the records passed in to ensure this domain class only processes applicable records.
 	 */
 	public override List<SObject> filter(List<SObject> records) {
-		Application.Profiler.start('BusinessAccountDomain.filter');
+
 		Set<Id> validRecordTypes = new RecordTypesSelector().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).keySet();
 		List<SObject> output = new List<SObject>();
 		for(SObject record : records) {
@@ -34,7 +34,6 @@ public inherited sharing class BusinessAccountDomain extends ApplicationDomain {
 				output.add(record);
 			}
 		}
-		Application.Profiler.stop('BusinessAccountDomain.filter');
 		return output;
 	}
 }
