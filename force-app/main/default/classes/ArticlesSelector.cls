@@ -197,9 +197,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 				.add(new QueryBuilder.SimpleCondition(Article__c.Source_System__c + ' in :sourceSystems'))
 
 				.endConditions();
-		system.debug(qb.toSoqlString());
 		Map<Id, Article__c> res = new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
-		system.debug(res);
 		return res;
 	}
 }

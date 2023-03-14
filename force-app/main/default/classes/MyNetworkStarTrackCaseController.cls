@@ -72,10 +72,13 @@ public with sharing class MyNetworkStarTrackCaseController {
 									}
 								}
 							}
-							ArticleDetails ad = new ArticleDetails();
-							ad.article = a;
-							ad.eventMessages = emList;
-							articleDetails.add(ad);
+							//if there are event messages add to article details
+							if (emList.size() > 0) {
+								ArticleDetails ad = new ArticleDetails();
+								ad.article = a;
+								ad.eventMessages = emList;
+								articleDetails.add(ad);
+							}
 						}
 					}
 				}
