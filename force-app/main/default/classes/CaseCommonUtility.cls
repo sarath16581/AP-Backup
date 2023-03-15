@@ -9,8 +9,6 @@
 																	setOwnerToCurrentUser , setArticlesSubscribed & linkCaseToArticles methods
 	17/11/2015		nandan.narasappa@auspost.com.au			 Added routeCase method
 	20/01/2016		nandan.narasappa@auspost.com.au			 updated linkCaseToArticles to skip API call for unknown articles
-	14/04/2016		cliew@salesforce.com						Added entry to CUST_TYPE_QUEUE_MAP for supporting new Customer Type (Case)
-																	/ Service SLA (Account) introduced as part of MyPost Business Portal implementation
 	25/08/2016		david.e.catindoy@accenture.com			  Added closeRelatedTasksAndWFEmails method to cater additional processes on StarTrack closed cases.
 	29/08/2016		eric.shen@auspost.com.au					Add the logic in routeCase that DefaultCaseDetails fields will be appended to case description when case description is empty or a new case, bug fix for INC0699609
 	06/09/2016		eric.shen@auspost.com.au					Create a new method to call linkCaseToArticles method to be used in Snap It case for Missing Item enquiry.
@@ -58,15 +56,6 @@
 	private static final Set<String> SKIP_CASE_ORIGIN = new Set<String>{'Portal','Email'};  // set of case origins to ignore
 	private static final Set<String> SKIP_LINK_ARTICLE_ORIGIN = new Set<String>{'Phone','AP Retail (PM26)'};  // set of case origins to ignore'
 	private static final Set<String> SKIP_DUPLICATE_CHECK_BY_ORIGIN = new Set<String>{'Portal'};  // set of case origins to ignore in duplication check
-
-	// CLIEW 14/4/2016: added additional queue map entry for MyPost Business
-	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSW_BOH_Group_1',
-																							'Consumer' => 'SSSW_BOH_Group_4',
-																							'Enterprise' => 'SSSW_BOH_Group_1',
-																							'SMB' => 'SSSW_BOH_Group_2',
-																							'Gold' => 'SSSW_BOH_Group_2',
-																							'MyPost Business' => 'SSSW_BOH_Group_3'};
-	private static final Set<String> DEF_QUEUE_SET = new Set<String>{'SSSW_BOH_Group_1','SSSW_BOH_Group_2','SSSW_BOH_Group_3','SSSW_BOH_Group_4'};
 
 	private static final Set<String> ST_CASE_AUTOCLOSE_TEMPLATES = new Set<String>{'StarTrack Redirection Notification - Customer Service','StarTrack Depot Collection Notification - Customer Service', 'StarTrack Check Address Notification - Customer Service'};
 
