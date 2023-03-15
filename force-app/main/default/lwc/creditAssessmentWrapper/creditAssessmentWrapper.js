@@ -42,31 +42,30 @@ export default class CreditAssessmentWrapper extends LightningElement {
 
 			// opportunity closed?
 			if (this.oppClosedStage.includes(data.opportunity.StageName)) {
-				// only one primary proposal?
-				if (primaryCount === 1) {
-					// any credit assessments associated to the opportunity
-					if (this.creditAssessments.length > 0) {
-						// Display list of credit assessments associated to the opportunity
-						this.showCAClosedOpp = true;
-					} else {
-						this.messageBody = data.messageBodyMap['OPPORTUNITY_CLOSED_NO_CA'];
-					}
+				// any credit assessments associated to the opportunity
+				if (this.creditAssessments.length > 0) {
+					// Display list of credit assessments associated to the opportunity
+					this.showCAClosedOpp = true;
 				} else {
-					this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+					this.messageBody = data.messageBodyMap['OPPORTUNITY_CLOSED_NO_CA'];
 				}
 			} else {
-				// OPC complete?
-				if (data.opportunity.Count_of_Contract_Start_Dates__c === 0 && data.opportunity.Count_of_Contract_End_Dates__c === 0 && data.opportunity.Count_of_Opportunity_Line_Items__c > 0) {
-					// only one primary proposal?
-					if (primaryCount === 1 && this.primaryProposal && this.primaryProposal.Apttus_QPConfig__ConfigurationFinalizedDate__c) {
-						// Any credit assessments under primary proposal?
-						if (this.creditAssessments.reduce((isPrimary, ca) => isPrimary || ca.APT_Proposal__r.Apttus_Proposal__Primary__c, false)) {
-							this.showProposal = true;
-						} else if (this.creditAssessments.length > 0 && this.creditAssessments.reduce((isApproved, ca) => isApproved || ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved', false)) {
-							this.showApprovedCAs = true;
-							this.creditAssessments = this.creditAssessments.filter(ca => ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved');
+				// only one primary proposal?
+				if (primaryCount === 1) {
+					// OPC complete?
+					if (data.opportunity.Count_of_Contract_Start_Dates__c === 0 && data.opportunity.Count_of_Contract_End_Dates__c === 0 && data.opportunity.Count_of_Opportunity_Line_Items__c > 0) {
+						if (this.primaryProposal && this.primaryProposal.Apttus_QPConfig__ConfigurationFinalizedDate__c) {
+							// Any credit assessments under primary proposal?
+							if (this.creditAssessments.reduce((isPrimary, ca) => isPrimary || ca.APT_Proposal__r.Apttus_Proposal__Primary__c, false)) {
+								this.showProposal = true;
+							} else if (this.creditAssessments.length > 0 && this.creditAssessments.reduce((isApproved, ca) => isApproved || ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved', false)) {
+								this.showApprovedCAs = true;
+								this.creditAssessments = this.creditAssessments.filter(ca => ca.APT_Credit_Assessment_Status__c === 'Approved' || ca.APT_Credit_Assessment_Status__c === 'Auto-Approved');
+							} else {
+								this.showCACreate = true;
+							}
 						} else {
-							this.showCACreate = true;
+							this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
 						}
 					} else {
 						this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
