@@ -11,6 +11,8 @@
  * 2023-01-31 - Mahesh Parvathaneni - Updated tests for selectNetworkMilestoneViolatedOpenCaseInvestigations
  * 2023-02-22 - Dattaraj Deshmukh	- Updated methods by passing 'stCaseInvestigationRecordTypeId' to selector methods.
  * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId
+ * 2023-02-28 - Dattaraj Deshmukh 	- Added tests for 'WITH_FEEDS' options.
+ * 2023-03-10 - Dattaraj Deshmukh   - Added tests for 'selectOpenCaseInvestigationsByNetworkIdOwnerId' and 'selectOpenCaseInvestigationsByNetworkIdAndCaseSLA'.
  */
 
  @IsTest
@@ -60,11 +62,14 @@
 		selector = CaseInvestigationsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
 			User.getSObjectType() => new Set<SObjectField>{User.Name}
 		});
-		qb = selector.newQueryBuilder(new Set<Object>{CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS});
+		qb = selector.newQueryBuilder(new Set<Object>{CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS, CaseInvestigationsSelector.Options.WITH_FEEDS});
 		soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom CaseInvestigation__c\\b').matcher(soql).find(), 'Resulting query does not select User fields');
-		
+		System.assertEquals(true, 
+		Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Feeds\\b.*?\\).*?\\bfrom CaseInvestigation__c\\b').matcher(soql).find(),
+			'Resulting query does not select FeedItem records: ' + soql);
+
 
 		Test.stopTest();
  
@@ -86,16 +91,22 @@
 		.get('StarTrack_MyNetwork').getRecordTypeId();
 
 		//create test data
+		Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		account.ServiceSLA__c = 'Enterprise';
+		insert account;
+
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		insert articles;
 
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+		cases[0].AccountId = account.Id;
 		insert cases;
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
+		networks[0].Contact_Facility__c = 'MyNetwork';
 		insert networks;
 
 		List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), false);
@@ -152,6 +163,21 @@
 		CaseInvestigationsSelector selectorQueryLocator = CaseInvestigationsSelector.newInstance();
 		Database.QueryLocator ciQueryLocator = selectorQueryLocator.selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>());
 		System.assertNotEquals(null, ciQueryLocator, 'Expected a valid query locator but got null');
+
+
+		Map<Id, CaseInvestigation__c> resultsInvestigationsByNetworksAndOwner = selector.selectOpenCaseInvestigationsByNetworkIdOwnerId(new Set<Id> {networks[0].Id}, 
+																				new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Id>{UserInfo.getUserId()},
+																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
+		System.assertEquals(1, resultsInvestigationsByNetworksAndOwner.size(), 'Expected result size of 1');
+
+		Map<Id, CaseInvestigation__c> resultsInvestigationsByNetworksAndSLA = selector.selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(new Set<Id> {networks[0].Id}, 
+																				new Set<Id>{stCaseInvestigationRecordTypeId}, 'Enterprise',
+																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
+		System.assertEquals(1, resultsInvestigationsByNetworksAndSLA.size(), 'Expected result size of 1');
 
 		Test.stopTest();
 

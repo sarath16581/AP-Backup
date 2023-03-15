@@ -14,6 +14,7 @@ History:
 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
 2022-11-18	 Noel Lim - added test method routeReopenedCases()
 2023-02-14	 Noel Lim - added test method assignToPreferredAgent()
+2023-03-08	 Noel Lim - update test method testAssignToPreferredAgent() for Release 2 TEMPORARY FIX
 **************************************************/
 @isTest
 private with sharing class CaseCommonUtility_Test {
@@ -748,7 +749,7 @@ private with sharing class CaseCommonUtility_Test {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_2' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'Consumer','Email','Any',SSSWConstants.RECTYPEROUTING);
 			routing.IsNew__c = true;
 			routing.ExcludeFromNPS__c = true;
@@ -801,7 +802,7 @@ private with sharing class CaseCommonUtility_Test {
 		socialCase2.SocialPostTags__c = 'post';//Ensure the social post tags on case does not match SSSW routing rule
 
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_2' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting(null,null,null,null,null,'Social','All',SSSWConstants.RECTYPEROUTING);
 			routing.SocialPostTags__c = 'post tag1;post tag2';
 			routing.IsActive__c = true;
@@ -830,7 +831,7 @@ private with sharing class CaseCommonUtility_Test {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_2' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'Consumer','Email','Any',SSSWConstants.RECTYPEROUTING);
 			routing.IsNew__c = true;
 			routing.IsActive__c = True;
@@ -881,7 +882,7 @@ private with sharing class CaseCommonUtility_Test {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
-			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSWBusinessBackOffice' LIMIT 1];
+			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_2' LIMIT 1];
 			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'SMB','Email');
 			routing.IsNew__c = true;
 			routing.IsActive__c = True;
@@ -1546,7 +1547,7 @@ private with sharing class CaseCommonUtility_Test {
 		DateTime oneHourFromNow = DateTime.now().addHours(1);
 
 		//Cases
-		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);	
+		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);	
 		Map<Id,Case> casesMap = new Map<Id,Case>(cases);
 
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
@@ -1561,24 +1562,35 @@ private with sharing class CaseCommonUtility_Test {
 		cases[0].Priority = 'Low';
 		cases[0].BypassPreferredAgent__c = false;
 		cases[0].PreferredAgentExpiry__c = oneHourFromNow;
+		cases[0].Origin = 'Email';
 
 		cases[1].OwnerId = omniQueue.Id; //b) PSR not inserted - no Accepted Agent Work exists
-		cases[0].Priority = 'Low';
+		cases[1].Priority = 'Low';
 		cases[1].BypassPreferredAgent__c = false;
 		cases[1].PreferredAgentExpiry__c = oneHourFromNow;
+		cases[1].Origin = 'Email';
 
 		cases[2].OwnerId = omniQueue.Id; //c) PSR not inserted - BypassPreferredAgent is true
 		cases[2].BypassPreferredAgent__c = true;
 		cases[2].PreferredAgentExpiry__c = oneHourFromNow;
+		cases[2].Origin = 'Email';
 
 		cases[3].OwnerId = omniQueue.Id; //d) PSR not inserted - PreferredAgentExpiry is blank
 		cases[3].BypassPreferredAgent__c = false;
 		cases[3].PreferredAgentExpiry__c = null;
+		cases[3].Origin = 'Email';
 
 		cases[4].OwnerId = omniQueue.Id; //e) PSR not inserted - has Accepted AgentWork, but currently in Omni Queue 
 		cases[4].Priority = 'Low';
 		cases[4].BypassPreferredAgent__c = false;
-		cases[4].PreferredAgentExpiry__c = oneHourFromNow;		
+		cases[4].PreferredAgentExpiry__c = oneHourFromNow;
+		cases[4].Origin = 'Email';		
+
+		cases[5].OwnerId = omniQueue.Id; // part of Release 2 TEMPORARY FIX
+		cases[5].Priority = 'Low';
+		cases[5].BypassPreferredAgent__c = false;
+		cases[5].PreferredAgentExpiry__c = oneHourFromNow;
+		cases[5].Origin = 'Portal';	
 
 		//Clone to simulate existing Case records to test Case Update 
 		List<Case> oldCases = new List<Case>{
@@ -1586,7 +1598,8 @@ private with sharing class CaseCommonUtility_Test {
 			cases[1].clone(true),
 			cases[2].clone(true),
 			cases[3].clone(true),
-			cases[4].clone(true)
+			cases[4].clone(true),
+			cases[5].clone(true)
 		};
 
 		for(Case tempCase : oldCases){
@@ -1595,7 +1608,7 @@ private with sharing class CaseCommonUtility_Test {
 		oldCases[4].OwnerId = omniQueue.Id;
 
 		//AgentWorks
-		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(3, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id}, true);
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(4, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id,cases[5].Id}, true);
 
 		// =====================================
 		// Stubbing
@@ -1636,7 +1649,7 @@ private with sharing class CaseCommonUtility_Test {
 		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case with BypassPreferredAgent = true should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[3].OwnerId, 'Case with blank PreferredAgentExpiry should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[4].OwnerId, 'Case that is coming from an Omni Queue should be in new Omni Queue');
-
+		System.assertEquals(omniQueue.Id, cases[5].OwnerId, 'Case with portal-related Origin should be in Omni Queue'); // part of Release 2 TEMPORARY FIX
 	}
 
 }

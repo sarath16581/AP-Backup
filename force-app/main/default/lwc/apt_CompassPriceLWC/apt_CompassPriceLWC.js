@@ -31,12 +31,11 @@ const completedPSRColumns = [
 	{ label: 'Deal Support Request', fieldName: 'psrURL', type:'url',
 			typeAttributes: { label: { fieldName: 'Name'}, target:'_blank'} },
 	{ label: 'Approved Pricing Structure', fieldName: 'Approved_Pricing_Structure__c' },
-	{ label: 'Approved Lodgment Zone', fieldName: 'Approved_lodgement_zone__c'},
 	{ label: 'Validity End Date', fieldName: 'Quote_Validity_End_Date__c'}
 ];
 
 export default class Apt_CompassPriceLWC extends LightningElement{
-	
+
 	@api configId; // receive as paramenters from VF Page
 	@api opportunityId; // receive as paramenters from VF Page
 	@api lineitemId; // receive as paramenters from VF Page
@@ -93,13 +92,13 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 				}else{
 					this.incompletePSRs.push(psrRec);
 				}
-				
-				
+
+
 			});
 			/**
 			 * rebuild array to make the view rerender, @track does not detect array.push() change
 			 * same problem here: https://salesforce.stackexchange.com/questions/252996/array-push-wont-update-lightning-web-component-view
-			 **/ 
+			 **/
 			this.completedPSRs = [...this.completedPSRs];
 			this.incompletePSRs = [...this.incompletePSRs];
 			this.validateIncompletePSR();
@@ -120,7 +119,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	}
 
 	/**
-	 * function to validate if theres exist only incomplete PSR, then display appropriate error msg from custom label 
+	 * function to validate if theres exist only incomplete PSR, then display appropriate error msg from custom label
 	 */
 	validateIncompletePSR(){
 		if(this.completedPSRs.length === 0 && this.incompletePSRs.length > 0){
@@ -130,7 +129,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	}
 
 	/**
-	 * Wire function to retrieve the Apttus temporary configuration record Id, in order to build the 'Back to Cart' navigation url 
+	 * Wire function to retrieve the Apttus temporary configuration record Id, in order to build the 'Back to Cart' navigation url
 	 * @param configId
 	 * @return configRequestId
 	 */
@@ -144,7 +143,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	}
 
 	/**
-	 * function to link PSR by running through various validation scenarios 
+	 * function to link PSR by running through various validation scenarios
 	 * and determine if standard delegated pricing or custom pricing is required in apex controller.
 	 */
 	handleApplyPSR(){
@@ -157,14 +156,14 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 
 		linkPSR(
 			{
-				selectedLineItemId: this.lineitemId, 
+				selectedLineItemId: this.lineitemId,
 				objDSR: this.selectedPSR,
 				configId: this.configId
 			})
 			.then((result)=>{
 				// display success message on successful link
-			
-				var reseultValue = result;				
+
+				var reseultValue = result;
 				if(result != null && reseultValue.indexOf(this.customerTierDefault) > -1 ) {
 
 					//reset old cust tier
@@ -172,18 +171,18 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 					if(resultList.length > 1) {
 						this.cartTier = resultList[1];
 						repriceCartRequest(
-							{				
-								configId: this.configId			
+							{
+								configId: this.configId
 							})
-							.then((result)=>{				
+							.then((result)=>{
 								updateCartForCustomPricing(
 									{
-										selectedLineItemId: this.lineitemId, 
+										selectedLineItemId: this.lineitemId,
 										objDSR: this.selectedPSR,
 										configId: this.configId,
 										cartTier: this.cartTier
 									})
-									.then((result)=>{				
+									.then((result)=>{
 										// display success message on successful link
 										this.success = result;
 										this.error = void 0;
@@ -194,12 +193,12 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 									.catch((error) => {
 										this.isLoading = false;
 										this.error = error.body.message;
-									})	
+									})
 							})
 							.catch((error) => {
 								this.isLoading = false;
 								this.error = error.body.message;
-							})	
+							})
 					}
 				}
 				else {
@@ -209,7 +208,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 					// disable Apply PSR button once successful link
 					this.disableApplyPSR = true;
 					this.isLoading = false;
-							
+
 				}
 			})
 			.catch((error) => {
@@ -220,10 +219,10 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 
 	/**
 	 * function to navigate back to cart summary page by sending a custom event to VF page to directly perform navigation using PageReference
-	 * limitation: 
+	 * limitation:
 	 * 	-window.history.back() or location.href() does not work correctly in Apttus shopping cart's lightning experience
 	 * 	-'lightning/navigation' lwc library and pageReference are not being supported in Lightning Out framework
-	 * @param event 
+	 * @param event
 	 */
 	handleBackToCart(event){
 		this.isLoading = true;
@@ -233,7 +232,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 			url: this.backToShoppingCartURL
 		};
 		this.dispatchEvent(new CustomEvent(
-			'backToCart', 
+			'backToCart',
 			{
 				detail: detail,
 				bubbles: true,
@@ -246,7 +245,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 
 	/**
 	 * function to retrieve the PSR object selected in the table
-	 * @param event 
+	 * @param event
 	 */
 	handleSelectedPSR(event){
 		// convert array of obj to a single obj
@@ -259,7 +258,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 
 	/**
 	 * function checks if field is undefined or null
-	 * @param  field 
+	 * @param  field
 	 * @returns boolean
 	 */
 	isUndefinedOrNull(field) {

@@ -271,7 +271,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 	 * @param caseData: Method populates case investigation details for common fields for ST (StarTrack) cases. 
 	 */
 	populateCaseInvestigationData(caseRecord, data, i){
-		caseRecord.Case_Print = data[i].caseInvestigation.Case__r.Checkbox__c ? "Yes" : "No";
+		caseRecord.Case_Print = data[i].caseInvestigation.IsPrinted__c ? "Yes" : "No";
 		caseRecord.Case_Details = data[i].caseIcon;
 		caseRecord.detailCSSClass = data[i].caseColor;
 
@@ -280,13 +280,11 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 		caseRecord.dotCSSClass = "redcolor";
 		caseRecord.displayIconName = "utility:warning";
 		}
-		caseRecord.Case_CustomerType = data[i].caseInvestigation.Case__r.Customer_Type__c;
+		caseRecord.Case_CustomerType = data[i].caseInvestigation.Case__r.Service_SLA__c;
 		if (data[i].caseInvestigation.Case__r.Network__r != null) {
 		caseRecord.Case_networkName = data[i].caseInvestigation.Case__r.Network__r.Name;
 		}
-		if (data[i].caseInvestigation.Owner.Name != null) {
-		caseRecord.Case_assignedTo = data[i].caseInvestigation.Owner.Name;
-		}
+		caseRecord.Case_assignedTo = data[i].assignedTo;
 		caseRecord = Object.assign(caseRecord, data[i]);
 	}
 
@@ -304,13 +302,13 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       
      
       //check if case investigations exists. For all ST Cases, investigations exists under a case.
-	  if(data[i].caseInvestigation !== undefined && data[i].caseInvestigation != null) {
+		if(data[i].caseInvestigation !== undefined && data[i].caseInvestigation != null) {
         
 			let cInvestigationRecord =  data[i].caseInvestigation;
 			caseRecord.rowNumber = i ;
 
-		  	//setting Case.Type for wrapper variable for ST cases.
-		  	caseRecord.Case_enquirySubtype = cInvestigationRecord.Case__r.Enquiry_Type__c;
+			//setting Case.Type for wrapper variable for ST cases.
+			caseRecord.Case_enquirySubtype = cInvestigationRecord.Case__r.Enquiry_Type__c;
 		
 			//populate common fields between case investigation and case object.
 			this.populateCaseInvestigationData(caseRecord, data, i);
@@ -330,7 +328,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRecord.Id;
 			caseRecord.caseNum = data[i].caseNum + ' - ' +  cInvestigationRecord.Name;
 			caseRecord.Case_Priority = cInvestigationRecord.Priority__c;
-			caseRecord.casePriority = cInvestigationRecord.Priority__c;
+			caseRecord.casePriority = data[i].casePriority;
 
 			//set escalation case investigation has any network milestone violations
 			if(cInvestigationRecord.NetworkMilestonesViolated__c !== null && cInvestigationRecord.NetworkMilestonesViolated__c !== undefined) {
@@ -348,12 +346,12 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			caseRecord = new Object();
       }
       else {
-        	this.populateCaseData(caseRecord, data, i);
+			this.populateCaseData(caseRecord, data, i);
 
 			caseRecord.rowNumber = i;
 			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
 			caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
-			caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Enquiry_Type__c : data[i].myNetworkCase.EnquirySubType__c;
+			caseRecord.Case_enquirySubtype = data[i].myNetworkCase.EnquirySubType__c;
 			caseRecord.caseNumberCSSClass = "blue";
 			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId;
 			caseRecord.caseNum = data[i].caseNum;
@@ -507,51 +505,62 @@ export default class CaseList extends NavigationMixin(LightningElement) {
    * Custom Sorting using case priority and sent to network date field.
    */
   customSortingWithMultipleColumn(){
-    let caseList = this.records;
-    let caseMap= new Map();
-    let caseSortedMap = new Map();
-    let finalSortedCaseList = [];
-    let caseVar ;
-    let caserecordListVar ;
-    let caseRec;
-      for (let i = 0; i < caseList.length; i++) {
-        if(caseMap.has(caseList[i].Case_Priority)){
-            caseVar = {};
-            caserecordListVar = [];
-            caseRec = {};
-            caseVar = caseList[i];
-            caserecordListVar = caseMap.get(caseList[i].Case_Priority);
-            caseRec = Object.assign(caseRec, caseVar);
-            caserecordListVar.push(caseRec);
-            caseMap.set(caseList[i].Case_Priority, caserecordListVar);
-        }else{
-          let caseVariable = caseList[i];
-          caserecordListVar = [];
-          let carVarData = {};
-          carVarData = Object.assign(carVarData, caseVariable);
-          caserecordListVar.push(carVarData);
-          caseMap.set(caseList[i].Case_Priority, caserecordListVar);
-        }
-      }
-      for (let key of caseMap.keys()) {
-        let casesForEachPriority = caseMap.get(key);
-        this.customSortingOnSingleColumn(casesForEachPriority, 'Case_sentToNetworkDate', 'asc');
-        caseSortedMap.set(key, this.sortedRecords);
-      }
-      let caseTempList =[];
-      for (let key of caseSortedMap.keys()) {
-        caseTempList = caseSortedMap.get(key);
-        for (let i = 0; i < caseTempList.length; i++) {
-          let cVar = caseTempList[i];
-          cVar.rowNumber = i;
-          finalSortedCaseList.push(cVar);
-        }
-      }
-    this.records = finalSortedCaseList;
-    this.cases = finalSortedCaseList ;
-    this.recordsToDisplay = this.finalSortedCaseList;
-    this.totalRecords = finalSortedCaseList.length;
-    this.setRecordsToDisplay();
+	let caseList = this.records;
+	let caseMap= new Map();
+	let caseSortedMap = new Map();
+	let finalSortedCaseList = [];
+	let caseVar ;
+	let caserecordListVar ;
+	let caseRec;
+	//setting expected sorted priority.
+	let predefinedSortedPriority = ['High', 'Medium', 'Low'];
+
+	//iterating through record list and creating a map of priority vs list of records against each priority.
+	//e.g. caseMap below will contain 'Low' => recordsList, 'High' => recordsList, 'Medium' => recordsList.
+	for (let i = 0; i < caseList.length; i++) {
+		if(caseMap.has(caseList[i].Case_Priority)){
+			caseVar = {};
+			caserecordListVar = [];
+			caseRec = {};
+			caseVar = caseList[i];
+			caserecordListVar = caseMap.get(caseList[i].Case_Priority);
+			caseRec = Object.assign(caseRec, caseVar);
+			caserecordListVar.push(caseRec);
+			caseMap.set(caseList[i].Case_Priority, caserecordListVar);
+		}else{
+			let caseVariable = caseList[i];
+			caserecordListVar = [];
+			let carVarData = {};
+			carVarData = Object.assign(carVarData, caseVariable);
+			caserecordListVar.push(carVarData);
+			caseMap.set(caseList[i].Case_Priority, caserecordListVar);
+		}
+	}
+
+	//iterating and sorting list of records as per 'Case_sentToNetworkDate'
+	for (let key of caseMap.keys()) {
+		let casesForEachPriority = caseMap.get(key);
+		this.customSortingOnSingleColumn(casesForEachPriority, 'Case_sentToNetworkDate', 'asc');
+		caseSortedMap.set(key, this.sortedRecords);
+	}
+	let caseTempList =[];
+
+	//arraging records as per expected priority sort.
+	for (let key of predefinedSortedPriority) {
+		if(caseSortedMap.has(key)) {
+			caseTempList = caseSortedMap.get(key);
+			for (let i = 0; i < caseTempList.length; i++) {
+				let cVar = caseTempList[i];
+				cVar.rowNumber = i;
+				finalSortedCaseList.push(cVar);
+			}
+		}
+	}
+	this.records = finalSortedCaseList;
+	this.cases = finalSortedCaseList ;
+	this.recordsToDisplay = this.finalSortedCaseList;
+	this.totalRecords = finalSortedCaseList.length;
+	this.setRecordsToDisplay();
   }
   customSortingOnSingleColumn(data, keyValue, sortDirection){ 
     this.sortedRecords = [];
@@ -699,18 +708,15 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
   // Getting selected rows
   getSelectedRows(event) {
-    const selectedRows = event.detail.selectedRows;
-    let conIds = new Set();
-	let caseInvestigationIds = [];
-    // getting selected record id
-    for (let i = 0; i < selectedRows.length; i++) {
-      conIds.add(selectedRows[i].myNetworkCase.Id);
-	  selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
-    }
-    // coverting to array
-    this.selectedRecords = Array.from(conIds);
-	//this.selectedRecords.push(caseInvestigationIds);
-
+	const selectedRows = event.detail.selectedRows;
+	let conIds = new Set();
+	// getting selected record id
+	for (let i = 0; i < selectedRows.length; i++) {
+		conIds.add(selectedRows[i].caseId);
+		selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
+	}
+	// coverting to array
+	this.selectedRecords = Array.from(conIds);
 
   }
   // openModal() {

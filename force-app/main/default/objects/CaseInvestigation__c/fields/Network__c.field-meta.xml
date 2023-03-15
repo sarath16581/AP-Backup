@@ -4,6 +4,15 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <label>Network</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Network__c.Contact_Facility__c</field>
+            <operation>equals</operation>
+            <value>MyNetwork</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Case Investigations</relationshipLabel>
     <relationshipName>Case_Investigations</relationshipName>

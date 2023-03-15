@@ -1364,6 +1364,26 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Network__c.LBP_Retail_relationship_network__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.LBP_Retail_relationship_type_network__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.LBP_Sales_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.LBP_Sales_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opp_Product_Classification__c.Apr_Actual_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4802,6 +4822,14 @@ Used by Integration User (Einstein Analytics)</description>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Apttus__APTS_Agreement__c.APT_SecurePay_Online_Payments</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Network__c.Business_Hub_3</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Network__c.Retail_2</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

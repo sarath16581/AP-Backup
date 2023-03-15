@@ -15,11 +15,12 @@
  * 2022-02-09	dattaraj.deshmukh@auspost.com.au	Added 'Stillunderinvestigation__c, Priority__c, CreatedDate & IsClosed__c' fields in getSObjectFieldList() method.
  * 2022-02-22	dattaraj.deshmukh@auspost.com.au	Added 'RecordTypeId' condition in query methods.
  * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId 
+ * 2023-02-13 - Dattaraj Deshmukh 	- Added 'WITH_FEEDS' option and 'IsPrinted__c' field in getSObjectFieldList() method
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS, WITH_OWNER_DETAILS 
+		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS, WITH_OWNER_DETAILS, WITH_FEEDS
 	}
 
 	public static CaseInvestigationsSelector newInstance() {
@@ -62,7 +63,9 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			CaseInvestigation__c.NetworkMilestoneLastViolationDatetime__c, CaseInvestigation__c.NetworkMilestoneNextViolationDatetime__c, 
 			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
 			CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c, 
-			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c
+			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c, CaseInvestigation__c.OwnerId, CaseInvestigation__c.ProductCategory__c,
+			CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.IsPrinted__c, CaseInvestigation__c.CaseServiceSLA__c
+
 		};
 	}
 
@@ -170,6 +173,34 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	}
 
 	/**
+	 * Select case investigation records that are not closed and from list of passed network ids and whose owner Ids are from passed owner id set. 
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdOwnerId(Set<Id> networkIds, Set<Id> recordTypeIds, Set<Id> ownerIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.OwnerId + ' in :ownerIds'))
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Select case investigation records that are not closed and related to network ids and match with specific case SLA value.  
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(Set<Id> networkIds, Set<Id> recordTypeIds, String sla, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.CaseServiceSLA__c).eq(sla))
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
 	 * overridden method to generate QueryBuilder instance
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
@@ -189,6 +220,10 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		}
 		if(selectorOptions.contains(Options.WITH_OWNER_DETAILS)) {
 			builder.addRelatedFields(UsersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Owner');
+		}
+		if(selectorOptions.contains(Options.WITH_FEEDS)) {
+			builder.addSubQuery(FeedItemsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions)
+			.addConditions().add(new QueryBuilder.CompareCondition(FeedItem.Type).eq('TextPost')).endConditions(), 'Feeds');
 		}
 		return builder;
 	}

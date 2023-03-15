@@ -19,6 +19,10 @@
 01/11/2022         Dattaraj Deshmukh           Updated - Added logic to include CaseInvestigation__c in all queries. 
 														 Added methods for StarTrack dynamic SOQL, updated existing methods to filter star track cases.
 														 Added star_track_cases listview filter.
+01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
+08/03/2023		   Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
+09/03/2023		   Dattaraj Deshmukh		   Updated - SF-867 Added logic to return case investigation records when 'My_Cases' list view is selected.	
+											   		   - Added 'filterBasedOnSearchCriteria' method to filter based on search criteria.											 
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -27,6 +31,8 @@ public with sharing class MyNetworkCaseListController {
 	public static String managerRoleId = [Select Id from UserRole where Name = 'SSSW MyNetwork Manager' limit 1].Id;
 	private static final Integer MAX_RESULTS = 10;
 	static final String CASE_INVESTIGATION_CLOSED_STATUS = 'Closed';
+	static final String MYNETWORK_PROFILE_NAME = 'MyNetwork Portal';
+	static final String ENTERPRISE_CUSTOMERS = 'Enterprise';
 
 	//get StarTrack case record type developer names.
 	//Declaring it here as SOQL are executed dynamically.
@@ -64,10 +70,12 @@ public with sharing class MyNetworkCaseListController {
 		public Boolean isCaseInvestigationAvailable{get;set;}
 		@AuraEnabled
 		public CaseInvestigation__c caseInvestigation{get;set;} //
-
+		@AuraEnabled
+		public String assignedTo {get;set;}
 		
 
-		public MyNetworkCasesWrapper(case myNetworkCaseVar, String caseIconVar, String caseColorVar, String caseHoverTextVar, String caseNumVar, String caseIdVar, String casePriorityVar){
+		public MyNetworkCasesWrapper(case myNetworkCaseVar, String caseIconVar, String caseColorVar, String caseHoverTextVar, 
+										String caseNumVar, String caseIdVar, String casePriorityVar, String assignedToVar){
 			this.myNetworkCase = myNetworkCaseVar;            
 			this.caseIcon = caseIconVar;
 			this.caseColor = caseColorVar;
@@ -77,6 +85,7 @@ public with sharing class MyNetworkCaseListController {
 			this.CasePriority = casePriorityVar;
 			this.isStarTrackCase = false;//MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(myNetworkCaseVar.RecordType.DeveloperName);
 			this.isCaseInvestigationAvailable = false;
+			this.assignedTo = assignedToVar;
 		}
 		public MyNetworkCasesWrapper(){
 		}
@@ -346,7 +355,8 @@ public with sharing class MyNetworkCaseListController {
 				textMapVar = 'Case is awaiting action/response' ;
 			}
 			String casePriority = getCasePriority(caseRecord.priority);
-			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(caseRecord, iconMapVar, colorMapVar, textMapVar, caseRecord.CaseNumber, caseRecord.Id, casePriority);
+			String assignedToVar = (caseRecord.PONUser__c != null ) ? caseRecord.PONUser__r.Name : '';
+			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(caseRecord, iconMapVar, colorMapVar, textMapVar, caseRecord.CaseNumber, caseRecord.Id, casePriority, assignedToVar);
 		}
 		return myNetworkCasesWrapperVar;
 	} 
@@ -400,7 +410,8 @@ public with sharing class MyNetworkCaseListController {
 				textMapVar = 'Case is awaiting action/response' ;
 			}
 			String casePriority = getCasePriority(cse.priority);
-			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(cse, iconMapVar, colorMapVar, textMapVar, cse.CaseNumber, cse.Id, casePriority);
+			String assignedToVar = (cse.PONUser__c != null ) ? cse.PONUser__r.Name : '';
+			myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(cse, iconMapVar, colorMapVar, textMapVar, cse.CaseNumber, cse.Id, casePriority, assignedToVar);
 		}
 		return myNetworkCasesWrapperVar;
 	}
@@ -486,7 +497,17 @@ public with sharing class MyNetworkCaseListController {
 
 			list<Case> caseListResult = getAllMYNetworkCases(filterVar, selectedViewWithFiltersWrp);
 			CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
+
+			//get all ST cases.
+			List<CaseInvestigation__c> cInvList = getStarTrackCases(selectedViewWithFiltersWrp);
+			List<MyNetworkCasesWrapper> caseInvWrapperList = processCaseInvWrapper(cInvList, selectedViewWithFiltersWrp.selectedView);
+
+
 			myNetworkCasesWrapperList =caseWrap.myNetworkCasesWrap;
+			
+			if(caseInvWrapperList !=null && !caseInvWrapperList.isEmpty()) {
+				myNetworkCasesWrapperList.addAll(caseInvWrapperList);
+			}
 		}
 		return myNetworkCasesWrapperList;
 	}
@@ -574,10 +595,7 @@ public with sharing class MyNetworkCaseListController {
 					}
 					if( !String.isBlank(enquirySubTypeVal ) && enquirySubTypeVal != '--Select--'){
 
-						//if StarTrack case field is selected then select 'Enquiry_Type__c' field.
-						//if AP enquiry values are selected then filter based on 'EnquirySubType__c'.
-						String enquiryField = isStarTrackCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
-
+						String enquiryField =  'EnquirySubType__c';
 						String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + String.escapeSingleQuotes(enquirySubTypeVal) + '\')' ;
 						if(dynamicFilter != null){
 							dynamicFilter += filterVar ;
@@ -881,7 +899,7 @@ public with sharing class MyNetworkCaseListController {
 	}
 	/**
 	 * @Description : This method is used to get the address information to plot on google map.
-	 *               1. Addressee address is fetched from Case Addressee Address
+	 *               1. Addressee address is fetched from Case Addressee Address (for AP cases) (or) Case Receiver Address (for StarTrack cases)
 	 *               2. Manifest address is fetched from Article Address
 	 *               3. Delivered address is fetched from Event Message of certain event code types
 	 */
@@ -907,8 +925,11 @@ public with sharing class MyNetworkCaseListController {
 		Map<String, String> getAddressOrGeoLocationAME = new Map<String, String>();
 		Map<String, String> addressType = new Map<String, String>();
 		CaseInvestigation__c caseInvestigation;
+		Case caseRecord;
+		Article__c article;
 		String sObjectTypeName;
 		Id caseRecordId;
+		Id articleId;
 		try{
 
 			//get SObject type as this component is called from Case Detail and Case Investigation detail page on mynetwork community.
@@ -916,42 +937,49 @@ public with sharing class MyNetworkCaseListController {
 			
 			//if recordId is of the type = CaseInvestigation, query case investigation details
 			if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
-				caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}).values()[0];
-				caseRecordId = caseInvestigation.Case__c;
-			}
-			else { 
-				caseRecordId = recordId;
-			}
+				caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+										CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
+				articleId = caseInvestigation.Article__c;
+				article = caseInvestigation.Article__r;
+				
+				//get the Addressee address field for StarTrack cases
+				if((caseInvestigation.Case__r.Article_Receiver_Address__c != null)){
+					String addressValue = caseInvestigation.Case__r.Article_Receiver_Address__c.trim();
+					//Add to map to get geo location based on address (ATG) from AME
+					getAddressOrGeoLocationAME.put(caseInvestigation.Case__c+'-ATG', addressValue);
+				}
 
-			Case caseRecord = [Select Id, ArticleTest__c, ArticleTest__r.ReceiverAddressLine1__c, ArticleTest__r.ReceiverAddressLine2__c, ArticleTest__r.ReceiverCity__c,
-				ArticleTest__r.ReceiverState__c, ArticleTest__r.ReceiverPostcode__c, ArticleTest__r.ReceiverCountry__c,
-				Address2__c, ArticleTest__r.ReceiverAddress__c
-				From Case Where Id =: caseRecordId];
-			if(caseRecord.ArticleTest__c != null ){
+			}
+			else {
+				caseRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_ARTICLE}).values()[0];
+				articleId = caseRecord.ArticleTest__c;
+				article = caseRecord.ArticleTest__r;
 
+				//get the Addressee address field for AP cases
 				if((caseRecord.Address2__c != null)){
 					String addressValue = caseRecord.Address2__c.trim();
 					//Add to map to get geo location based on address (ATG) from AME
 					getAddressOrGeoLocationAME.put(caseRecord.Id+'-ATG', addressValue);
-
-					
 				}
+			}
 
-				if((caseRecord.ArticleTest__r.ReceiverAddressLine1__c != null || caseRecord.ArticleTest__r.ReceiverAddressLine2__c != null) && (caseRecord.ArticleTest__r.ReceiverCity__c != null || caseRecord.ArticleTest__r.ReceiverState__c != null || caseRecord.ArticleTest__r.ReceiverPostcode__c != null || caseRecord.ArticleTest__r.ReceiverCountry__c != null)){
+			if(articleId != null ){
+
+				if((article.ReceiverAddressLine1__c != null || article.ReceiverAddressLine2__c != null) && (article.ReceiverCity__c != null || article.ReceiverState__c != null || article.ReceiverPostcode__c != null || article.ReceiverCountry__c != null)){
 					isValidManifestAddress = true;
 					String streetStr ;
-					if(caseRecord.ArticleTest__r.ReceiverAddressLine1__c != null){
-						streetStr = caseRecord.ArticleTest__r.ReceiverAddressLine1__c;
+					if(article.ReceiverAddressLine1__c != null){
+						streetStr = article.ReceiverAddressLine1__c;
 					}
-					if(caseRecord.ArticleTest__r.ReceiverAddressLine2__c != null){
-						streetStr = streetStr==null?caseRecord.ArticleTest__r.ReceiverAddressLine2__c:streetStr+caseRecord.ArticleTest__r.ReceiverAddressLine2__c;
+					if(article.ReceiverAddressLine2__c != null){
+						streetStr = streetStr==null?article.ReceiverAddressLine2__c:streetStr+article.ReceiverAddressLine2__c;
 					}
 					manifestAddresssDetails.streetName = streetStr;
-					manifestAddresssDetails.streetCity = caseRecord.ArticleTest__r.ReceiverCity__c ;
-					manifestAddresssDetails.streetState = caseRecord.ArticleTest__r.ReceiverState__c ;
-					manifestAddresssDetails.streetPostCode = caseRecord.ArticleTest__r.ReceiverPostcode__c ;
-					manifestAddresssDetails.streetCountry = caseRecord.ArticleTest__r.ReceiverCountry__c ;
-					manifestAddresssDetails.combinedAddress = caseRecord.ArticleTest__r.ReceiverAddress__c ;
+					manifestAddresssDetails.streetCity = article.ReceiverCity__c ;
+					manifestAddresssDetails.streetState = article.ReceiverState__c ;
+					manifestAddresssDetails.streetPostCode = article.ReceiverPostcode__c ;
+					manifestAddresssDetails.streetCountry = article.ReceiverCountry__c ;
+					manifestAddresssDetails.combinedAddress = article.ReceiverAddress__c ;
 				}
 
 				for(EventMessageTypeMapping__mdt evType: [Select MasterLabel, Category__c From EventMessageTypeMapping__mdt Where Category__c IN ('AttemptedDelivery','Delivered')]){
@@ -961,8 +989,7 @@ public with sharing class MyNetworkCaseListController {
 						attemptedEventTypes.add(evType.MasterLabel);
 					}
 				}
-				for(EventMessage__c ev:[Select Id, EventGeoLocation__Latitude__s, EventGeoLocation__Longitude__s, EventType__c From EventMessage__c
-										Where (Article__c =:caseRecord.ArticleTest__c AND EventType__c IN: eventTypes AND EventGeoLocation__Latitude__s != null AND EventGeoLocation__Longitude__s != null) order by createdDate DESC]){
+				for(EventMessage__c ev: EventMessagesSelector.newInstance('CreatedDate', 'Desc').selectByArticleId(new Set<Id>{articleId}, eventTypes, new Set<Object>{EventMessagesSelector.Options.FILTER_GEO_LOCATION}).values()){
 
 					//Moved if condition into SOQL so as to fetch event messages only with geo locations
 						//Add to map to get address based on geo location (GTA) from AME
@@ -978,7 +1005,6 @@ public with sharing class MyNetworkCaseListController {
 							deliveredLatitude = String.valueOf(ev.EventGeoLocation__Latitude__s) ;
 							deliveredLongitute = String.valueOf(ev.EventGeoLocation__Longitude__s);
 						}
-//                    }
 				}
 
 				if(!getAddressOrGeoLocationAME.isEmpty()){
@@ -1313,19 +1339,44 @@ public with sharing class MyNetworkCaseListController {
 			
 			Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
 			.get('StarTrack_MyNetwork').getRecordTypeId();
+			
+			/** Get all case investigations where logged in user is a part of network assigned on CaseINvestigation.
+			 */
 
+			//on page load, selectedViewWithFiltersWrp will always be NULL.
+			if(selectedViewWithFiltersWrp == null || selectedViewWithFiltersWrp.selectedView == 'All_Cases' || selectedViewWithFiltersWrp.selectedView == 'Cases_updated'
+				|| selectedViewWithFiltersWrp.selectedView == 'star_track_cases') { //for everything else.
+				caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>{
+					CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+					CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+					UsersSelector.Options.WITH_PROFILE}).values();
+			}
+			else if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'My_Cases') { // list view for My_Cases
+				caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkIdOwnerId(networkIds, new Set<Id>{stCaseInvestigationRecordTypeId}, 
+				new Set<Id>{UserInfo.getUserId()}, new Set<Object>{
+					CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+					CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+					UsersSelector.Options.WITH_PROFILE}).values();
+			}
+			else if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView == 'Enterprise_customers') { // list view for Enterprise Customers
+				caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(networkIds,new Set<Id>{stCaseInvestigationRecordTypeId},  ENTERPRISE_CUSTOMERS, new Set<Object>{
+					CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
+					CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
+					UsersSelector.Options.WITH_PROFILE}).values();
+
+			}
+
+			//filter based on search criteria
+			if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject != null) {
+				caseInvList = filterBasedOnSearchCriteria(caseInvList, selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject);
+			}
 			
-			//get all CI records where network ID in networkIds set.
-			//get case investigations where logged in user is a part of network assigned on CaseINvestigation.
-			
-			caseInvList = CaseInvestigationsSelector.newInstance(fieldOverrides).selectOpenCaseInvestigationsByNetworkId(networkIds, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>{
-				CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-				CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS}).values();
 		}
 		
 		return caseInvList;
 	}
 
+	
 	/**
 	 * @desc: Create a list of wrapper for Case Investigations. Each wrapper entry represents Case Investigation record details.
 	 * @param: case investigation list and selected list view from portal.
@@ -1385,34 +1436,71 @@ public with sharing class MyNetworkCaseListController {
 		String textMapVar;
 		MyNetworkCasesWrapper myNetworkCasesWrapperVar ;
 
-		//check case investigation record
-		if(cInv != null && cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)) {
-									
-			iconMapVar = cInv.Stillunderinvestigation__c ? 'SUI' : 'UPDATED';
-			colorMapVar = cInv.Stillunderinvestigation__c ? 'orange' : 'Red';
-			textMapVar =  cInv.Stillunderinvestigation__c ? 'Case is under investigation' : 'Case has been updated';
-		}
-		else if(cInv != null && cInv.Stillunderinvestigation__c) {
-			iconMapVar =  'SUI' ;
-			colorMapVar = 'orange';
-			textMapVar =  'Case is under investigation';
-		}
-		//check st case condition
-		else if( cInv.Case__r.Last_Status_Change__c != null && cInv.Case__r.Last_Status_Change__c >= System.today() - 5) {
-			//mark case as updated 
+		//if related startrack case is closed
+		if(cInv.Case__r.IsClosed) {
+			//mark case investigation as updated 
 			iconMapVar = 'UPDATED';
 			colorMapVar = 'Red';
 			textMapVar = 'Case has been updated';
+		}
+		else if(cInv != null && cInv.Stillunderinvestigation__c) {
+			//if case investigation is under investigation
+			iconMapVar =  'SUI' ;
+			colorMapVar = 'orange';
+			textMapVar =  'Case is under investigation';
 		}
 		else {
 			iconMapVar = 'NEW';
 			colorMapVar = 'green';
 			textMapVar = 'Case is awaiting action/response' ;
 		}
-		String casePriority = getCasePriority(cInv.Case__r.priority);
-		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority);
+		String casePriority = getCasePriority(cInv.Priority__c);
+
+		String assignedToVar = (cInv.Owner.Profile.Name == MYNETWORK_PROFILE_NAME ) ? cInv.Owner.Name : '';
+		myNetworkCasesWrapperVar = new MyNetworkCasesWrapper(null, iconMapVar, colorMapVar, textMapVar, cInv.Case__r.CaseNumber, cInv.Case__c, casePriority, assignedToVar);
 	
 		return myNetworkCasesWrapperVar;
+	}
+
+	/**
+	 * @desc: method applies search filters on queried case investigation records and returns a filtered list.
+	 * Since, search filters are applied at UI level and on mulitple fields, selectors classes are not feasible to implement.
+	 * hence, filtering queried results explicitly.
+	 * @param: List<CaseInvestigation__c>, String filterString
+	 * @return: filtered List<CaseInvestigation__c>
+	 */
+	@testVisible
+	private static List<CaseInvestigation__c> filterBasedOnSearchCriteria(List<CaseInvestigation__c> cInvList, Map<string,object> filtersMap) {
+		List<CaseInvestigation__c> resultList = new List<CaseInvestigation__c>();
+
+		//get search filters selected on UI
+		String caseNumberVal = (String)filtersMap.get('caseNumberVal');
+		String priorityVal = (String)filtersMap.get('priorityVal');
+		String isPrintedVal = ((String)filtersMap.get('isPrinted'));
+		String enquirySubTypeVal = ((String)filtersMap.get('enquirySubTypeVal'));
+		String selectedProductCategoryVal = ((String)filtersMap.get('selectedProductCategoryVal'));
+		String selectedNetworkRecrdIdVal = ((String)filtersMap.get('selectedNetworkRecrdIdVal'));
+		String addressePostcodeVal = (String)filtersMap.get('addressePostcodeVal');
+
+		//postcodes 
+		List<String> postCodes = (addressePostcodeVal != null ? addressePostcodeVal.split(',') : null);
+
+		//iterate through CI list and filter out records matching with search criteria
+		for( CaseInvestigation__c cInv : cInvList) {
+
+			if( (String.isBlank(caseNumberVal) || cInv.Case__r.CaseNumber == caseNumberVal)
+				&& (( priorityVal.equalsIgnoreCase('--Select--') || cInv.Priority__c == priorityVal))
+				&& (( isPrintedVal.equalsIgnoreCase('--Select--') || cInv.IsPrinted__c == isPrintedVal.equalsIgnoreCase('Yes')  )) 
+				&& (( enquirySubTypeVal.equalsIgnoreCase('--Select--') || cInv.Case__r.Enquiry_Type__c == enquirySubTypeVal )) 
+				&& (( selectedProductCategoryVal.equalsIgnoreCase('--Select--') || cInv.ProductCategory__c == selectedProductCategoryVal )) 
+				&& (( String.isBlank(selectedNetworkRecrdIdVal) || cInv.Network__c == selectedNetworkRecrdIdVal )) 
+				&& (( String.isBlank(addressePostcodeVal) || postCodes!=null && postCodes.contains(cInv.Article__r.ReceiverPostcode__c) )) ) {
+					
+				resultList.add(cInv);
+			}
+		}
+
+		return resultList;
 	}
  
 }

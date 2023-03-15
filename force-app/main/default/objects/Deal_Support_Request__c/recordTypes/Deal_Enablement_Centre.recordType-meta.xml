@@ -2013,23 +2013,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Parking Lot</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Pre Entry</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Presale Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Termination of Contract</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Update proposal%2Foffer expiration date</fullName>
             <default>false</default>
         </values>
     </picklistValues>

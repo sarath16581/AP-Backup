@@ -1,0 +1,421 @@
+<!-- Description:    VF component to generate PDF document for StarTrack Case Investigations.
+	History:
+	--------------------------------------------------		
+	12/02/2022 - Dattaraj Deshmukh - Created
+	-->
+	<apex:component >
+	<apex:attribute type="CasePDFContentGenerator" name="conObj" description="con object instance"/>
+	<apex:attribute type="Integer" name="casen" description="page number"/>
+	<apex:attribute type="CaseInvestigation__c" name="currentCaseInv" description="current case investigation record" />
+	<apex:attribute type="Case" name="case" description="current case record" />
+
+		<div id="coverletter" style="page-break-after: always;page-break-inside: avoid;">
+			<!--INC1788397-->
+			<div style="{!IF(AND(case.ArticleTest__c == null, casen != 1), 'display:block;page-break-after: always', 'display: none')}"><p></p></div>
+			<div  style="text-align:center;">
+				<H1>
+					Customer Commitment Investigation Form
+				</H1>
+				<br></br>
+				<H1 style="color: #DF1027;"><b><i>(Use of this cover page is optional)</i></b></H1>
+			</div>
+			<!-- REPEAT Case Investigation details -->
+			<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[case.Id] != null}">
+					<table id="investigation">
+						<tr>
+							<td style="width:20%; padding:10px;">DATE:</td>
+							<td style="width:60%; align:right">{!conObj.GeneratedTime}
+							</td>
+						</tr>
+						<tr>
+							<td style="width:20%;padding:10px;">CASE:</td>
+							<td style="width:60%; align:right">{!case.CaseNumber}</td>
+						</tr>
+						<tr>
+							<td style="width:40%;padding:10px;">CASE INVESTIGATION:</td>
+							<td style="width:60%; align:right">{!currentCaseInv.Name}</td>
+						</tr>
+						<!--If the driver Contract is populated, populate it on the cover letter-->    
+						<apex:outputText rendered="{!currentCaseInv.Article__c != Null}">
+							<apex:variable var="count" value="{!1}"/> 
+							<apex:repeat id="driver" value="{!conObj.casetoDriverContractMap}" var="event">
+								<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
+									<apex:repeat value="{!conObj.casetoDriverContractMap[event]}" var="driverdetails">
+										<tr>
+											<td style="width:20%;padding:10px;">CONTRACT:</td>
+											<td style="width:60%; align:right">{!driverdetails.DriverContract__c}</td>
+										</tr>
+										<apex:variable var="count" value="{!count+1}"/> 
+									</apex:repeat>
+								</apex:outputText>
+							</apex:repeat>
+							<apex:outputText rendered="{!count==1}">
+								<tr>
+									<td style="width:20%;padding:10px;">CONTRACT:</td>
+									<td style="width:60%; align:right"></td>
+								</tr>
+							</apex:outputText>
+							<!--If the round no is populated, populate it on the cover letter-->
+							<apex:variable var="count" value="{!1}"/> 
+							<apex:repeat id="roundNo" value="{!conObj.casetoDriverRoundMap}" var="event">
+								<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
+									<apex:repeat value="{!conObj.casetoDriverRoundMap[event]}" var="driverdetails">
+										<tr>
+											<td style="width:20%;padding:10px;">ROUND:</td>
+											<td style="width:60%; align:right">{!driverdetails.RoundNo__c}</td>
+										</tr>
+										<apex:variable var="count" value="{!count+1}"/> 
+									</apex:repeat>
+								</apex:outputText>
+							</apex:repeat>
+							<apex:outputText rendered="{!count==1}">
+								<tr>
+									<td style="width:20%;padding:10px;">ROUND:</td>
+									<td style="width:60%; align:right"></td>
+								</tr>
+							</apex:outputText>
+							<!--If the username is populated, populate it on the cover letter-->
+							<apex:variable var="count" value="{!1}"/> 
+							<apex:repeat id="username" value="{!conObj.casetoDriverLogonMap}" var="event">
+								<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
+									<apex:repeat value="{!conObj.casetoDriverLogonMap[event]}" var="driverdetails">
+										<tr>
+											<td style="width:20%;padding:10px;">LOGON ID:</td>
+											<td style="width:60%; align:right">{!driverdetails.UserName__c}</td>
+										</tr>
+										<apex:variable var="count" value="{!count+1}"/> 
+									</apex:repeat>
+								</apex:outputText>
+							</apex:repeat>
+							<apex:outputText rendered="{!count==1}">
+								<tr>
+									<td style="width:20%;padding:10px;">LOGON ID:</td>
+									<td style="width:60%; align:right"></td>
+								</tr>
+							</apex:outputText>
+							
+							<tr>
+								<td style="width:20%;padding:10px;">DRIVERS NAME:</td>
+								<td style="width:60%; align:right"></td>
+							</tr>
+						</apex:outputText>
+						<apex:outputText rendered="{!currentCaseInv.Article__c  == Null}">
+							<tr>
+								<td style="width:20%;padding:10px;">CONTRACT:</td>
+								<td style="width:60%; align:right"></td>
+							</tr>
+							<tr>
+								<td style="width:20%;padding:10px;">ROUND:</td>
+								<td style="width:60%; align:right"></td>
+							</tr>
+							<tr>
+								<td style="width:20%;padding:10px;">LOGON ID:</td>
+								<td style="width:60%; align:right"></td>
+							</tr>
+						</apex:outputText>
+					</table>
+			</apex:outputPanel>
+			
+			
+			<div >
+				<H3 style="color: #DF1027;">
+					DRIVERS RESPONSE
+				</H3>
+				
+				<div style="display: flex;  justify-content: center;  align-items: center;">
+					<table id="response">
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+					</table>
+				</div>
+				
+			</div>
+			<div  >
+				<H3 style = "color: #DF1027;">
+					PRINCIPAL OR REPRESENTATIVE INVESTIGATION AND RESOLUTION
+				</H3>
+				<div style="display: flex;  justify-content: center;  align-items: center;">
+					<table id="resolution">
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						
+					</table>
+				</div>
+			</div>
+			<div>
+				<H3 style = "color: #DF1027;">
+					AUS POST CONCLUSION AND NOTES
+				</H3>
+				<div style="display: flex;  justify-content: center;  align-items: center;">
+					<table id="conclusion">
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						<tr>
+							<td style="width:100%; padding:15px;"></td>
+						</tr>
+						
+					</table>
+				</div>
+			</div>
+			<table id="signoff">
+				<H3 style = "color: #DF1027;">
+					SIGN OFF
+				</H3>
+				<tr>
+					<td style="width:20%; padding:10px;">DRIVER SIGNATURE:</td>
+					<td style="width:60%; align:right"></td>
+				</tr>
+				<tr>
+					<td style="width:20%;padding:10px;">PRINCIPAL NAME:</td>
+					<td style="width:60%; align:right"></td>
+				</tr>
+				<tr>
+					<td style="width:20%;padding:10px;">PRINCIPAL SIGNATURE:</td>
+					<td style="width:60%; align:right"></td>
+				</tr>
+				<tr>
+					<td style="width:20%;padding:10px;">DATE:</td>
+					<td style="width:60%; align:right"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div style="background: #FFEDBA;padding: 5px;">
+			<div style="background: #FFFFFF;padding: 5px;margin: 5px;">
+				<div style="display:table">
+					<div style="display:table-row">
+						<h1 style="padding: 0px; color: #DF1027">StarTrack Case Investigation: {!currentCaseInv.Name}</h1><br/>
+						<h1 style="padding: 0px; color: #DF1027">StarTrack Case: {!case.CaseNumber}</h1>
+						<h3 style="padding: 0px; color: #DF1027">Created Date   : <apex:outputField value=" {!case.CreatedDate}"/></h3>
+					</div>
+				</div>
+			</div>
+			<div style="background: #FFFFFF;margin: 5px;padding: 5px;">
+				<h3 style="color: #DF1027;">Case</h3>
+				
+				<b><apex:outputText value="Reference ID: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Article__r.Name}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Customer type: "> </apex:outputText></b> 
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Service_SLA__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Product category: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.ProductCategory__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Product sub category: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.ProductSubCategory__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Case type: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Enquiry_Type__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Sender name: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Sender_Name__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Sender address: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Sender_Address__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Addresee name: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Receiver_Name__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Addressee address: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Receiver_Address__c}"> </apex:outputText> <br/>
+
+				<b><apex:outputText value="Date posted: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Article__r.ArticleLodgementDate__c}"> </apex:outputText> <br/>
+				<b><apex:outputText value="Case investigation assigned to: "> </apex:outputText></b>
+				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Owner.Name}"> </apex:outputText> <br/>
+
+				
+				<table style="border-collapse: collapse;border: none;padding: 0; page-break-inside: avoid;">
+					<tr style="border: none;padding: 0;">
+						<td style="border: none;width:85px;vertical-align: top;padding: 0;">
+							<b><apex:outputText value="Description: " /></b>
+						</td>
+						<!-- rendering chatter feeds on CI record. Only user entered feeds are rendered. -->
+						<td style="border: none;padding: 0;">
+								<apex:repeat id="feedDetails" value="{!currentCaseInv.Feeds}" var="feedItem">
+									<!-- Note: escape TAG is required in order to render text as is from Chatter Feed -->
+									<apex:outputText styleClass="form-control input-sm " value="{!feedItem.Body}" escape="false"> 
+									</apex:outputText>
+								</apex:repeat>
+							<apex:outputField styleClass="form-control input-sm TextArea" value=" {!case.Description}" />
+						</td>
+					</tr>
+				</table>
+				<!-- <table style="border-collapse: collapse;border: none;padding: 0;">
+					<tr style="border: none;padding: 0;">
+						<td style="border: none;width:85px;vertical-align: top;padding: 0;">
+							<b><apex:outputText value="Instructions: " /></b>
+							
+						</td>
+						<td style="border: none;padding: 0;">
+							<apex:outputField styleClass="form-control input-sm TextArea" value=" {!case.Instructions__c}" />
+						</td>
+					</tr>
+				</table> -->
+				<!-- Contacts-->
+				<!-- Added by Neha Mehta for INC1627090 "check if Contact is null Do not display this section" -->
+				<apex:outputPanel rendered="{!IF(case.ContactId != Null,'true','false')}">
+				<h3 style="color: #DF1027;">Contact</h3>
+				
+				<apex:repeat id="contactDetails" value="{!conObj.caseContactMap[case.ContactId]}" var="att">
+					<apex:outputPanel rendered="{!IF(case.ContactDoNotDisclose__c,'false','true')}">
+						<b><apex:outputText value="First Name: " /></b>
+						<apex:outputText styleClass="form-control input-sm" value="{!att.FirstName}"/><br/>
+						<b><apex:outputText value="Last Name: " /></b>
+						<apex:outputText styleClass="form-control input-sm" value="{!att.LastName}"/><br/>
+					</apex:outputPanel>
+				</apex:repeat>
+
+				<!-- Do not display contact if DoNotDisclose__c is true -->
+				<apex:repeat value="{!1}" rendered="{!IF(case.ContactDoNotDisclose__c,'true','false')}">
+					Cannot disclose contact
+				</apex:repeat>
+				</apex:outputPanel>
+				<div style="page-break-inside: avoid;">
+					<!-- Article and Event messages related to the article Id-->
+					<apex:outputPanel rendered="{!currentCaseInv.Article__c != null}"> 
+						<apex:repeat id="articleDetails" value="{!conObj.cInvArticleDetailsMap[currentCaseInv.Article__r.Name]}" var="attArticle" >                      
+							<c:DISEmailTemplateArticle article="{!attArticle.proxyArticle}" articleFields="{!$ObjectType.Article__c.FieldSets.ArticleItemSearch}" 
+														eventMessageFields="{!$ObjectType.EventMessage__c.FieldSets.EventMessageItemSearch}"
+														IsConsignment="false"
+														eventMessages="{!attArticle.eventMessages}"/><br/>
+							
+							
+						</apex:repeat> 
+					</apex:outputPanel>
+				</div>
+				<apex:outputPanel rendered="{!currentCaseInv.Article__c != null}">
+					<div style="page-break-inside: avoid;">
+						<apex:repeat value="{!conObj.casetoEventGeoMap}" var="items">
+							<apex:outputText rendered="{!IF(CONTAINS(items,currentCaseInv.Article__c),'true','false')}">
+								<div style="page-break-before: always">
+									<h3 style="color: #DF1027;padding-left:2px;text-align:center;">Addressee address location on map</h3>
+									<div style="padding-bottom:5px">
+										<apex:outputLink rendered="{!conObj.attemptedDeliveryFound[items]}" target="_blank" value="{!$Label.Google_map_direction}&origin={!conObj.caseToDeliveredAddressMap[items+'-ATG']}&destination={!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Longitude__s}&travelmode=driving">Map Directions</apex:outputLink>
+										<apex:outputLink rendered="{!AND(conObj.deliveredDeliveryFound[items], !conObj.attemptedDeliveryFound[items])}" target="_blank" value="{!$Label.Google_map_direction}&origin={!conObj.caseToDeliveredAddressMap[items+'-ATG']}&destination={!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Longitude__s}&travelmode=driving">Map Directions</apex:outputLink>
+									</div>
+									<div style="padding-bottom:2px;"><b>Addressee address: </b>{!currentCaseInv.Case__r.Article_Receiver_Address__c}</div>
+									<div style="border-style: solid;">
+										<img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:green|label:A|{!URLENCODE(currentCaseInv.Case__r.Article_Receiver_Address__c + '')}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
+									</div>
+
+									<apex:outputText rendered="{!IF(conObj.attemptedDeliveryFound[items],'true','false')}" >
+									<h3 style="color: #DF1027;padding-left:2px;text-align:center;">Attempted Delivery address location on map</h3>
+									<div style="padding-bottom:2px;"><b>Attempted Delivery address: </b> {!conObj.caseToDeliveredAddressMap[conObj.casetoAttemptedDelivery[items].Id+'-GTA']}</div>
+									<div style="border-style: solid;">
+										<img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:red|label:D|{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Longitude__s}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
+									</div>
+									</apex:outputText>
+									<apex:outputText rendered="{!IF(conObj.deliveredDeliveryFound[items],'true','false')}" >
+										<h3 style="color: #DF1027;padding-left:2px;text-align:center;">Delivered Delivery address location on map</h3>
+										<div style="padding-bottom:2px;"><b>Delivered Delivery address: </b> {!conObj.caseToDeliveredAddressMap[conObj.casetoDeliveredDelivery[items].Id+'-GTA']}</div>
+										<div style="border-style: solid;">
+											<img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:red|label:D|{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Longitude__s}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
+										</div>
+									</apex:outputText>
+								</div>
+							</apex:outputText>
+						</apex:repeat>
+					</div>
+				</apex:outputPanel>
+
+				
+				<!--safe drop image if any-->
+				<apex:outputPanel rendered="{!IF(AND(conObj.caseswithsafedropGUID != NULL,currentCaseInv.Article__c != Null),'true','false')}">
+					<div style="page-break-inside: avoid;">
+						<apex:repeat id="safedrop" value="{!conObj.casetoEventMessageMap}" var="event">
+							<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
+								<apex:repeat value="{!conObj.casetoEventMessageMap[event].Attachments}" var="attach">
+									
+									<apex:outputText rendered="{!IF(CONTAINS(attach.Name,'safedrop'),'true','false')}">
+										<h3 style="color: #DF1027;padding-left:2px;">Safe Drop Image</h3>
+										<div style="border-style: solid;">
+											<apex:image url="/servlet/servlet.FileDownload?file={!attach.Id}" style="margin-left:200px;height:200px" />
+										</div>
+									</apex:outputText>
+								</apex:repeat>
+							</apex:outputText>
+						</apex:repeat> 
+					</div>
+				</apex:outputPanel>
+				
+				<!--Signature image if any-->
+				<apex:outputPanel rendered="{!IF(AND(conObj.caseswithMessages != NULL,currentCaseInv.Article__c != Null),'true','false')}">
+					<div style="page-break-inside: avoid;">
+						<apex:repeat id="sign" value="{!conObj.casetoEventMessageMap}" var="event">
+							<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
+								<apex:repeat value="{!conObj.casetoEventMessageMap[event].Attachments}" var="attach">
+									
+									<apex:outputText rendered="{!IF(CONTAINS(attach.Name,'Signature'),'true','false')}" >
+										<h3 style="color: #DF1027;padding-left:2px;">Delivered with signature</h3>
+										<div style="border-style: solid;">
+											<apex:image url="/servlet/servlet.FileDownload?file={!attach.Id}" style="margin-left:200px;height:200px" /><br/>
+											<b><apex:outputText style="padding-left:2px;" value="Signatory Name: " /></b>
+											<apex:outputText value="{!conObj.casetoEventMessageMap[event].SignatoryName__c}"/><br/>
+										</div>
+									</apex:outputText>
+									
+									
+								</apex:repeat>
+							</apex:outputText>
+						</apex:repeat>
+					</div>
+				</apex:outputPanel> 
+
+				<!-- Event Message attachments if any-->
+				<apex:outputPanel rendered="{!AND(NOT(ISNULL(conObj.caseArticleToEventMessageAttachmentsMap)), NOT(ISNULL(currentCaseInv.Article__c)))}">
+					<div style="page-break-inside: avoid;">
+						<apex:repeat id="emattachment" value="{!conObj.caseArticleToEventMessageAttachmentsMap}" var="event">
+							<apex:outputText rendered="{!AND(CONTAINS(event,currentCaseInv.Article__c),NOT(ISNULL(conObj.caseArticleToEventMessageAttachmentsMap[event])))}">
+								<h3 style="color: #DF1027;">Event Message Attachments</h3>
+								<div style="border-style: solid;display:inline-block; padding-top: 3px; padding-bottom:3px;width:100%;text-align:center">
+									<apex:repeat value="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments}" var="attach">
+										<!-- If more than one attachments, show 2 in each row. If only one attachment show it center aligned
+												PDF renderer doesn't seem to support CSS pseudo classes such as :only-child . having two output
+												panels to achieve this where only one is rendered conditionally -->
+										<apex:outputPanel rendered="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments.size <= 1}">
+											<div style="width: 100%;text-align:center">
+												<apex:image url="/servlet/servlet.FileDownload?file={!attach.attachmentId}" style="height:200px" />
+												<div>{!attach.label}</div>
+											</div>
+										</apex:outputPanel>
+										<apex:outputPanel rendered="{!conObj.caseArticleToEventMessageAttachmentsMap[event].attachments.size > 1}">
+											<div style="float: left;width: 50%;text-align:center">
+												<apex:image url="/servlet/servlet.FileDownload?file={!attach.attachmentId}" style="height:200px" />
+												<div>{!attach.label}</div>
+											</div>
+										</apex:outputPanel>
+									</apex:repeat>
+								</div>
+							</apex:outputText>
+						</apex:repeat>
+					</div>
+				</apex:outputPanel>
+			</div>
+		</div>
+		<!-- REQ2408232 Add page break only when bulk cases (more than 1 case), so drivers information doesn't overlap upon duplex print-->
+		<!-- <div style="{!IF(AND(conObj.caseCount > 1, conObj.caseCount != casen), 'display:block;page-break-before: always', 'display: none')}"><p></p></div> -->
+		<div style="display:block;page-break-before: always"><p></p></div>
+	</apex:component>

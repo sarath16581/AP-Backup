@@ -6,6 +6,8 @@
  * 2020-03-23 - Arjun Singh - Created
  * 2021-06-15 - Ranjeewa Silva - Fixed an issue where 'selectedCaseRecordWrapper' was not getting populated from results.
  * 2022-11-08 - Dattaraj Deshmukh - Added Case Investigation fields. 
+ * 2023-03-02 - Dattaraj Deshmukh - Added 'caseInvestigationActiveSections' and 'caseActiveSections' properties to toggle active sections.
+ * 2023-03-10 - Dattaraj Deshmukh - Added 'OWNER_NAME_FIELD' for a case to display case's owner name.
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
@@ -50,7 +52,7 @@ import CONTACT_FIELD from '@salesforce/schema/Case.ContactId';
 import LEGAL_ENTITY_NAME_FIELD from '@salesforce/schema/Case.Calc_Link_Account__c';
 import RELATED_BILLING_ACCOUNT_FIELD from '@salesforce/schema/Case.Related_Billing_Account__c';
 import NETWORK_FIELD from '@salesforce/schema/Case.Network__c';
-import OWNER_FIELD from '@salesforce/schema/Case.OwnerId';
+import OWNER_NAME_FIELD from '@salesforce/schema/Case.Calc_Owner_Name__c';
 import DESCRIPTION_OF_PACKAGING_FIELD from '@salesforce/schema/Case.Description_of_packaging__c';
 import WEB_EMAIL_FIELD from '@salesforce/schema/Case.SuppliedEmail';
 
@@ -144,14 +146,15 @@ export default class CaseDetails extends LightningElement {
     LEGAL_ENTITY_NAME_FIELD,
     RELATED_BILLING_ACCOUNT_FIELD,
     NETWORK_FIELD,
-    OWNER_FIELD,
+    OWNER_NAME_FIELD,
     DESCRIPTION_OF_PACKAGING_FIELD,
     WEB_EMAIL_FIELD
   ];
 
   @api recordId;
   @track objectApiName = "Case";
-  @track activeSections = ["A"];
+  @track caseActiveSections = ['A'];
+  @track caseInvestigationActiveSections = ['A','C'];
   @track caseInvestigationObjectApiName = "CaseInvestigation__c";
   @track happyParcelArticleId;
   @track caseId;
@@ -161,117 +164,110 @@ export default class CaseDetails extends LightningElement {
    * @desc get case details based on recordId.
    * record Id can be of Case record id or Case Investigation record ID. 	
    */
-  async getRequiredDetails(){
-	try {
-		const getCaseRecordResponse = await getCaseRecord({ recordId: this.recordId });
-		if(getCaseRecordResponse){
-			console.log(getCaseRecordResponse);
-			this.caseId = getCaseRecordResponse.caseRecord.Id;
-			this.sObjectTypeName = getCaseRecordResponse.sObjectTypeName;
+	async getRequiredDetails(){
+		try {
+			const getCaseRecordResponse = await getCaseRecord({ recordId: this.recordId });
+			if(getCaseRecordResponse){
+				this.caseId = getCaseRecordResponse.caseRecord.Id;
+				this.sObjectTypeName = getCaseRecordResponse.sObjectTypeName;
+			}
+
+			//const getSelectedCasesResponse = await getSelectedCases({ recordId: getCaseRecordResponse.caseRecord.Id });
+			if(getCaseRecordResponse){
+				this.populateCaseDetails(getCaseRecordResponse.caseRecord);
+			}
+
 		}
-
-		//const getSelectedCasesResponse = await getSelectedCases({ recordId: getCaseRecordResponse.caseRecord.Id });
-		if(getCaseRecordResponse){
-			this.populateCaseDetails(getCaseRecordResponse.caseRecord);
+		catch(error) {
+			console.log('error'+error);
 		}
-
 	}
-	catch(error) {
-		console.log('error'+error);
-	}
-  }
 
-  populateCaseDetails(caseDetails){
+	populateCaseDetails(caseDetails){
 
 		this.recordFound = true;
-        this.selectedCaseRecordWrapper = caseDetails;
+		this.selectedCaseRecordWrapper = caseDetails;
 		this.caseId = caseDetails.Id;
 
-        let tempCaseInvestigations = [];
-        if(caseDetails.hasOwnProperty('CaseInvestigations__r') && caseDetails.CaseInvestigations__r){
-          let caseInvestigationsRecords = caseDetails.CaseInvestigations__r;
-          
-          if(caseInvestigationsRecords){
+		let tempCaseInvestigations = [];
+		if(caseDetails.hasOwnProperty('CaseInvestigations__r') && caseDetails.CaseInvestigations__r){
+			let caseInvestigationsRecords = caseDetails.CaseInvestigations__r;
+			
+			if(caseInvestigationsRecords){
 			let recordIdToFind = (this.sObjectTypeName === 'Case' ? caseDetails.Id : this.recordId);
-            let caseInvestigation  = caseInvestigationsRecords.find(cInv => cInv.Id === recordIdToFind);
-            console.log('Article Id found for happy parcel ');
-            console.log(caseInvestigation);
-            this.happyParcelArticleId = caseInvestigation ? caseInvestigation.Article__r.Name : caseDetails.Calc_Case_Consignment__c;
-          }
-         
-          
-          caseInvestigationsRecords.forEach(function (cInvestigationRec) {
-            let cInvestigationRecord = {};
-            for(let c in cInvestigationRec){
-              if(c === 'Article__r' || c === 'Network__r')  {
-                cInvestigationRecord[c] = cInvestigationRec[c].Name;
-              }
-              else if(c === 'Id') {
-                cInvestigationRecord[c] = cInvestigationRec[c];
-              }
-              else {
-                cInvestigationRecord[c] = cInvestigationRec[c];
-              }   
-            }
-            tempCaseInvestigations.push(cInvestigationRecord);
-          });
-      
-        }
-        this.caseInvestigations = tempCaseInvestigations;
-        console.log(this.caseInvestigations);
-  }
+			let caseInvestigation  = caseInvestigationsRecords.find(cInv => cInv.Id === recordIdToFind);
+			this.happyParcelArticleId = caseInvestigation ? caseInvestigation.Article__r.Name : caseDetails.Calc_Case_Consignment__c;
+			}
+			
+			
+			caseInvestigationsRecords.forEach(function (cInvestigationRec) {
+			let cInvestigationRecord = {};
+			for(let c in cInvestigationRec) {
+				if(c === 'Article__r' || c === 'Network__r')  {
+				cInvestigationRecord[c] = cInvestigationRec[c].Name;
+				}
+				else if(c === 'Id') {
+				cInvestigationRecord[c] = cInvestigationRec[c];
+				}
+				else {
+				cInvestigationRecord[c] = cInvestigationRec[c];
+				}   
+			}
+			tempCaseInvestigations.push(cInvestigationRecord);
+			});
 
-  connectedCallback() {
-    console.log("recordId>>>", this.recordId);
+		}
+		this.caseInvestigations = tempCaseInvestigations;
+	}
 
-   
-    Promise.all([
-      loadStyle(this, customStyle + "/MYNetworkCustomStyle.css")
-    ]).catch(error => {
-      // eslint-disable-next-line no-console
-      console.log("error in loading the style>>", error);
-    });
+	connectedCallback() {
+		Promise.all([
+			loadStyle(this, customStyle + "/MYNetworkCustomStyle.css")
+		]).catch(error => {
+			// eslint-disable-next-line no-console
+			console.log("error in loading the style>>", error);
+		});
+		//get case record when called from CI Detail Page
+		this.getRequiredDetails();
+	}
 
-	//get case record when called from CI Detail Page
-	this.getRequiredDetails();
-  }
-
-  get happyParcelId() {
-    return (this.sObjectTypeName === 'CaseInvestigation__c' && this.happyParcelArticleId ? this.happyParcelArticleId : this.selectedCaseRecordWrapper.Calc_Case_Consignment__c);
-  }
+	get happyParcelId() {
+		return (this.sObjectTypeName === 'CaseInvestigation__c' && this.happyParcelArticleId ? this.happyParcelArticleId : this.selectedCaseRecordWrapper.Calc_Case_Consignment__c);
+	}
   
-  /**
-   * @desc: Returns true if case has any investigations. 
-   *        Any case which have Case Investigations are considered as StarTrack cases.
-   */
-  get isStarTrackCase() {
-    if(this.selectedCaseRecordWrapper && this.selectedCaseRecordWrapper.StarTrack_RecordType__c) {
-      return true;
-    }
-    return false;
-  }
+	/**
+	 * @desc: Returns true if case has any investigations. 
+	 *        Any case which have Case Investigations are considered as StarTrack cases.
+	 */
+	get isStarTrackCase() {
+		if(this.selectedCaseRecordWrapper && this.selectedCaseRecordWrapper.StarTrack_RecordType__c) {
+			return true;
+		}
+		return false;
+	}
 
-  /**
-   * @desc: Cases can be accessed by Global Search or from MyNetwork home page list view (LWC Component)
-   * Different views are rendered if case is navigated to from Global Search or from  MyNetwork home page list view.
-   */
-  get isGlobalSearch() {
-    if(this.selectedCaseRecordWrapper && this.selectedCaseRecordWrapper.StarTrack_RecordType__c && this.sObjectTypeName === 'Case') {
-      return true;
-    }    
-    return false;
-  }
+	/**
+	 * @desc: Cases can be accessed by Global Search or from MyNetwork home page list view (LWC Component)
+	 * Different views are rendered if case is navigated to from Global Search or from  MyNetwork home page list view.
+	 */
+	get isGlobalSearch() {
+		if(this.selectedCaseRecordWrapper && this.selectedCaseRecordWrapper.StarTrack_RecordType__c && this.sObjectTypeName === 'Case') {
+			return true;
+		}
+		return false;
+	}
 
-  showToast(titleVar, messageVar, modeVar, variantVar) {
-    const event = new ShowToastEvent({
-      title: titleVar,
-      message: messageVar,
-      mode: modeVar,
-      variant: variantVar
-    });
-    this.dispatchEvent(event);
-  }
-  handleSectionToggle(event) {
-    const openSections = event.detail.openSections;
-  }
+	showToast(titleVar, messageVar, modeVar, variantVar) {
+	const event = new ShowToastEvent({
+		title: titleVar,
+		message: messageVar,
+		mode: modeVar,
+		variant: variantVar
+	});
+	this.dispatchEvent(event);
+	}
+	
+	handleSectionToggle(event) {
+		const openSections = event.detail.openSections;
+	}
 }

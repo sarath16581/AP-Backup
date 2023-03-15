@@ -31,40 +31,6 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		setCaseInvestigationClosureDate((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
 	}
 
-
-	/**
-	*	@desc: Function to update all child case investigations when parent case is Closed.
-	*	@param: List of updated cases, ApplicationUnitOfWork 
-	*/
-	public void updateAllCaseInvestigations(List<Case> cases, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow) {
-		
-		Set<Id> caseIds = new Set<Id>();
-		List<CaseInvestigation__c> caseInvestigationsToUpdate = new List<CaseInvestigation__c>();
-		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
-		.get('StarTrack_MyNetwork').getRecordTypeId();
-
-		for(Case updatedCase : cases) {
-
-			//check if status is CLOSED and RecordType is of StarTrack case
-			if(existingRecords.containsKey(updatedCase.Id) && updatedCase.Status != existingRecords.get(updatedCase.Id).Status && 
-					updatedCase.Status == MyNetworkConstants.CASE_STATUS_CLOSED && updatedCase.StarTrack_RecordType__c) {
-				caseIds.add(updatedCase.Id);
-			}
-		}
-
-		//query CI records based on parent cases.
-		//update status = CLOSED for all child case investigations.
-		for(CaseInvestigation__c caseInv : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(caseIds, new Set<Id>{stCaseInvestigationRecordTypeId}).values()) {
-			caseInvestigationsToUpdate.add( new CaseInvestigation__c(Id = caseInv.Id, Status__c = MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS));
-		}
-
-		//update case investigations records
-		if(!caseInvestigationsToUpdate.isEmpty()) {
-			uow.registerDirty(caseInvestigationsToUpdate);
-		}
-	}
-
-
 	/**
 	 * function to update parent case whenever new CI records are created.
 	 */

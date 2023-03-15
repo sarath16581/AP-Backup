@@ -4,7 +4,6 @@
   * @description  : Visualforce page for the case Milestone tracker component on myNetwork Community Case Detail page
 --------------------------------------- History --------------------------------------------------
 02.04.2020    Hara Sahoo    Created
-13.12.2022	  Dattaraj Deshmukh Updated text color to white for .progress .span css.
 -->
 <apex:page docType="html-5.0" showHeader="false" sidebar="false" standardController="Case" extensions="CaseMilestonesTrackerCtrl">
     <head>
@@ -53,8 +52,7 @@
             position: absolute;
             display: block;
             width: 100%;
-            /* color: #333; */
-			color:white;
+            color: #333;
             padding:7px;
             }
             .clickable{

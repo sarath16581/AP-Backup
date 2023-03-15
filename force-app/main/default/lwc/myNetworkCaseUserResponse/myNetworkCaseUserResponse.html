@@ -4,6 +4,7 @@
  * @date 2022-11-29
  * @changelog
  * 2022-11-29 - Dattaraj Deshmukh - Created
+ * 2023-03-01 - Mahesh Parvathaneni - SF-830 Updated UI based on case closed status
  */
 -->
 <template>
@@ -26,27 +27,40 @@
 					</template>
 					<template if:true={isLoaded}>
 						<div class="slds-m-around_small">
-									<lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
-											<template if:true={isDelieryFieldVisible}>
-												<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
-												<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
-												<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
-												<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
-											</template>
-											<lightning-textarea value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
-											<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
-											<lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
-											<lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>
-											<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
-											<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Poster Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"> 
-											</lightning-textarea>
-										</lightning-record-edit-form>
-										</br>
-										<lightning-button
-												label="Save Update"
-												variant="brand"
-												onclick={updateCaseInvestigation}
-										></lightning-button>
+							<!-- UI to show if related case is not closed -->
+							<template if:false={isCaseClosed}>
+								<lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
+									<template if:true={isDelieryFieldVisible}>
+										<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
+										<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
+										<!-- Note: Hiding DeliveryOptions__c field it is controlling field for DeliveryInformation__c.
+													If controlling (DeliverOptions__c)  field is not included on the form, dependent field is disabled by default -->
+										<lightning-input-field class="slds-hidden" value={deliveryOptions} field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+										<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
+									</template>
+									<lightning-textarea data-id="networkRes" required value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+									<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
+									<lightning-input-field field-name="Stillunderinvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
+									<lightning-input-field field-name="Requiremoreinformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>
+									<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
+									<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Poster Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"> 
+									</lightning-textarea>
+								</lightning-record-edit-form>
+								</br>
+								<lightning-button
+										label="Save Update"
+										variant="brand"
+										onclick={updateCaseInvestigation}
+								></lightning-button>
+							</template>
+							<!-- UI to show if related case is closed -->
+							<template if:true={isCaseClosed}>
+								<lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
+									<lightning-textarea value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+								</lightning-record-edit-form>
+								<lightning-button label="Acknowledge" variant="brand" onclick={handleAcknowledgeBtnClick} class="slds-var-p-top_small">
+								</lightning-button>
+							</template>
 							<template if:true={error}>
 								{errorMessage}
 							</template>

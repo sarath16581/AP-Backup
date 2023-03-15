@@ -102,12 +102,12 @@ public class SSSW_Routing {
 	};
 	private static final String LOC_INTERNATIONAL = 'International';
 	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{
-		'International' => 'SSSWInternationalBackOffice',
-		'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-		'Enterprise' => 'SSSWEnterpriseBackOffice',
-		'SMB' => 'SSSWBusinessBackOffice',
-		'Gold' => 'SSSWBusinessBackOffice',
-		'MyPost Business' => 'SSSW_MyPost_Business_Back_Office'
+		'International' => 'SSSW_BOH_Group_1',
+		'Consumer' => 'SSSW_BOH_Group_4',
+		'Enterprise' => 'SSSW_BOH_Group_1',
+		'SMB' => 'SSSW_BOH_Group_2',
+		'Gold' => 'SSSW_BOH_Group_2',
+		'MyPost Business' => 'SSSW_BOH_Group_3'
 	};
 
 	/**
