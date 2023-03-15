@@ -7403,6 +7403,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Domestic_eParcel_Spend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_ECI_Documents_AVG_Weight_KG__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7719,6 +7724,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Proposal_Cubic_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Recommended_Pricing_Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

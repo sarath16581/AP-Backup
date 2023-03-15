@@ -1,3 +1,7 @@
+/**
+* @changelog
+* 2023-03-06 - Mahesh Parvathaneni - SF-874 Used ActualDateTime_TimeStamp__c field
+*/
 import {
     api,
     track,
@@ -42,10 +46,10 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         {
             label: 'Last Scan Date',
             objName: 'EventMessage__c',
-            fieldName: 'ActualDateTime__c',
+            fieldName: 'ActualDateTime_TimeStamp__c',
             editable: false,
             sortedColumn: false,
-            fieldType: 'DATETIME',
+            fieldType: 'TEXT',
             headerCssClass: 'slds-th__action slds-text-link_reset',
             dataCssClass: 'slds-cell-wrap'
         },

@@ -5,3 +5,7 @@
 .THIS .wrapText{
     word-wrap:break-word;
 }
+.header-map {
+	display: flow-root;
+	padding-right: 1rem;
+}

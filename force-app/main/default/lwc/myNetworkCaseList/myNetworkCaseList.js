@@ -280,13 +280,11 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 		caseRecord.dotCSSClass = "redcolor";
 		caseRecord.displayIconName = "utility:warning";
 		}
-		caseRecord.Case_CustomerType = data[i].caseInvestigation.Case__r.Customer_Type__c;
+		caseRecord.Case_CustomerType = data[i].caseInvestigation.Case__r.Service_SLA__c;
 		if (data[i].caseInvestigation.Case__r.Network__r != null) {
 		caseRecord.Case_networkName = data[i].caseInvestigation.Case__r.Network__r.Name;
 		}
-		if (data[i].caseInvestigation.Owner.Name != null) {
-		caseRecord.Case_assignedTo = data[i].caseInvestigation.Owner.Name;
-		}
+		caseRecord.Case_assignedTo = data[i].assignedTo;
 		caseRecord = Object.assign(caseRecord, data[i]);
 	}
 

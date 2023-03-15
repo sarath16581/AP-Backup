@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>35.0</apiVersion>
+    <apiVersion>55.0</apiVersion>
     <packageVersions>
         <majorNumber>8</majorNumber>
         <minorNumber>384</minorNumber>
         <namespace>Apttus_Approval</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>6</majorNumber>
-        <minorNumber>62</minorNumber>
-        <namespace>Apttus_CQApprov</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>9</majorNumber>
@@ -20,11 +15,6 @@
         <majorNumber>8</majorNumber>
         <minorNumber>109</minorNumber>
         <namespace>Apttus_Proposal</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>9</majorNumber>
-        <minorNumber>182</minorNumber>
-        <namespace>Apttus_QPConfig</namespace>
     </packageVersions>
     <status>Active</status>
 </ApexClass>
