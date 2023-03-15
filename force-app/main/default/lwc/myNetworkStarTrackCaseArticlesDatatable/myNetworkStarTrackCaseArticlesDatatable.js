@@ -1,6 +1,7 @@
 /**
 * @changelog
 * 2023-03-06 - Mahesh Parvathaneni - SF-874 Used ActualDateTime_TimeStamp__c field
+* 2023-03-10 - Mahesh Parvathaneni - SF-889 Updated the logic to check the contact facility from the network
 */
 import {
     api,
@@ -9,7 +10,8 @@ import {
 } from 'lwc';
 import {
     getValue,
-    getCriticalIncidents
+    getCriticalIncidents,
+	CONSTANTS
 } from 'c/myNetworkStarTrackCaseArticlesService';
 
 export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningElement {
@@ -76,7 +78,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
                     ...column,
                     fieldValue: column.objName === 'Article__c' ? getValue(item.article, column.fieldName, null) : getValue(item.eventMessages[0]?.eventMessage ?? null, column.fieldName, null),
                     key: item.article.Id,
-                    networkPillItems: this.getNeworkPillItems(item, item.eventMessages[0]?.eventMessage ?? null, column),
+                    networkPillItems: this.getNeworkPillItems(item, item.eventMessages[0]?.eventMessage ?? null, item.eventMessages[0]?.network ?? null, column),
                     fieldUrl: this.getFieldUrl(item, column),
                     eventMessageId: item.eventMessages[0] !== null || item.eventMessages[0] !== undefined ? item.eventMessages[0].eventMessage.Id : null
                 };
@@ -86,6 +88,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
             return {
                 ...item,
                 isArticleSelected: this.isArticleSelected(item.article.Id),
+				isDisabled: this.isRowDisabled(item.eventMessages[0]?.network),
                 rowData: rowData
             }
         })
@@ -98,8 +101,28 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         return this.selectedRows.some(row => row.articleId === articleId);
     }
 
+	//function to set the disabled property for rows in datatable
+	isRowDisabled(network) {
+		let isDisabled = false;
+		if (this.selectedNetworkRows.length > 0) {
+			this.selectedNetworkRows.forEach(row => {
+				if (row.contactMethod === CONSTANTS.MY_NETWORK) {
+					return isDisabled;
+				}
+			})
+		} else {
+			//set disabled checkbox
+			if (network && network.Contact_Facility__c === CONSTANTS.MY_NETWORK) {
+				return isDisabled;				
+			} else {
+				isDisabled = true;
+			}
+		}
+		return isDisabled;
+	}
+
     //get network pill items data object for the event messages
-    getNeworkPillItems(item, eventMessage, column) {
+    getNeworkPillItems(item, eventMessage, network, column) {
         let networkPillItems = [];
         let articleId = item.article.Id;
         //check if any selected networks for an article (not the initial load)
@@ -147,12 +170,12 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
             } else {
                 //for initial render when no networks selected from modal
                 //set the network as per the latest event message record
-                networkPillItems = this.getLatestNetworkPillItems(eventMessage);
+                networkPillItems = this.getLatestNetworkPillItems(eventMessage, network);
             }
-        } else if (column.fieldType === 'PILL' && eventMessage !== null) {
+        } else if (column.fieldType === 'PILL' && eventMessage !== null && network !== null) {
             //for initial render when no networks selected from modal
             //set the network as per the latest event message record
-            networkPillItems = this.getLatestNetworkPillItems(eventMessage);
+            networkPillItems = this.getLatestNetworkPillItems(eventMessage, network);
         }
         return networkPillItems;
     }
@@ -167,16 +190,16 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
     }
 
     //get the latest network from event message
-    getLatestNetworkPillItems(eventMessage) {
+    getLatestNetworkPillItems(eventMessage, network) {
         let networkPillItems = [];
         const index = this.removedNetworkRows.findIndex(obj => {
-            return obj.articleId === eventMessage.Article__c && obj.network === eventMessage.Facility__c;
+            return obj.articleId === eventMessage.Article__c && obj.network === network.Id;
         });
         if(index === -1) {
             networkPillItems.push({
-                label: eventMessage.Facility__r.Name,
-                name: eventMessage.Facility__c,
-                contactMethod: eventMessage.Facility__r.Contact_Facility__c
+                label: network.Name,
+                name: network.Id,
+                contactMethod: network.Contact_Facility__c
             });
         }
         return networkPillItems;
@@ -186,7 +209,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
     handleNetworkSearch(event) {
         let articleId = event.detail.articleId;
         this.eventMessagesNetworkWrapper = {
-            eventMessages: this.articleDetails.find(data => data.article.Id === articleId).article.Event_Messages__r,
+            eventMessages: this.articleDetails.find(data => data.article.Id === articleId).eventMessages,
             selectedNetworks: event.detail.selectedNetworks
         }
 

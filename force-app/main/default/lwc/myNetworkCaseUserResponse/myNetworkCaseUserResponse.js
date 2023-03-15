@@ -9,6 +9,8 @@
  * 2023-02-16 - Dattaraj Deshmukh - Added updateCase method. Updated internal facility notes field placeholder.
  * 2023-03-01 - Mahesh Parvathaneni - SF-830 Updated logic if the related case is closed
  * 2023-03-06 - Dattaraj Deshmukh - Fixed bug SF-864. Made network response field required.
+ * 2023-03-14 - Dattaraj Deshmukh - SF(SF-886) Set DeliveryOption__c(controlling) field values. 
+ * 									SF(SF-895) Fixed status update issue where SUI/Require More Info statuses were updated to Closed.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -42,6 +44,7 @@ const CASE_TYPE = 'Delivery Dispute';
 const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
 const STATUS_RESPONDED = 'Responded';
+const STATUS_IN_PROGRESS = 'In Progress';
 const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
 const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
 
@@ -62,6 +65,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	deliveryOfficerKnowledge= '';
 	deliveryOptions= '';
 	networkId= '';
+	originalNetworkId = '';
 	qualityOfCase= '';
 	requireMoreInformation ='';
 	stillUnderInvestigation = false;
@@ -84,14 +88,17 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		this.requireMoreInformation = event.target.value;
 
 		//Require More Information and Still Under Investigation cannot be true at same time.
-		if(event.target.value && this.stillUnderInvestigation) {
+		if(this.requireMoreInformation && this.stillUnderInvestigation) {
 			this.errorMsg = 'Still under investigation and Require more information can not be selected at the same time';
 		} 
-		else if(event.target.value && !this.stillUnderInvestigation) {
+		else if(this.requireMoreInformation && !this.stillUnderInvestigation) {
 			this.status = STATUS_CLOSED_REQUIRE_MORE_INFO ;
 		}
-		else if(!event.target.value && !this.stillUnderInvestigation) {
+		else if(!this.requireMoreInformation && !this.stillUnderInvestigation) {
 			this.status = STATUS_CLOSED ;
+		}
+		else if(!this.requireMoreInformation && this.stillUnderInvestigation) {
+			this.status = STATUS_RESPONDED ;
 		}
 		this.isCaseUpdatedRequired = true;
 	}
@@ -101,14 +108,17 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		this.stillUnderInvestigation = event.target.value;
 
 		//Require More Information and Still Under Investigation cannot be true at same time.
-		if(event.target.value && this.requireMoreInformation) {
+		if(this.stillUnderInvestigation && this.requireMoreInformation) {
 			this.errorMsg = 'Still under investigation and Require more information can not be selected at the same time';
 		} 
-		else if(event.target.value && !this.requireMoreInformation) {
+		else if(this.stillUnderInvestigation && !this.requireMoreInformation) {
 			this.status = STATUS_RESPONDED ;
 		}
-		else if(!event.target.value && !this.requireMoreInformation) {
+		else if(!this.stillUnderInvestigation && !this.requireMoreInformation) {
 			this.status = STATUS_CLOSED ;
+		}
+		else if(!this.stillUnderInvestigation && this.requireMoreInformation) {
+			this.status = STATUS_CLOSED_REQUIRE_MORE_INFO ;
 		}
 		this.isCaseUpdatedRequired = true;
 	}
@@ -123,10 +133,18 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	handleDeliveryOfficerKnowledgeChange(event) {
 		this.deliveryOfficerKnowledge = event.target.value;
 		this.isCaseUpdatedRequired = true;
+		//setting value of controlling field.
+		//Business wants to use logic of setting controlling field value based on combination of addresstype__c and deliveryofficerknowledge__c.
+		this.deliveryOptions = (this.addressType && this.deliveryOfficerKnowledge) ? (this.addressType + this.deliveryOfficerKnowledge) : '';
+
 	}
 	handleAddressTypeChange(event) {
 		this.addressType = event.target.value;
 		this.isCaseUpdatedRequired = true;
+		//setting value of controlling field.
+		//Business wants to use logic of setting controlling field value based on combination of addresstype__c and deliveryofficerknowledge__c.
+		this.deliveryOptions = (this.addressType && this.deliveryOfficerKnowledge) ? (this.addressType + this.deliveryOfficerKnowledge) : '';
+
 	}
 	handleDeliveryOptionsChange(event) {
 		this.deliveryOptions = event.target.value;
@@ -162,7 +180,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		} else if (data) {
 			this.caseInvestigationRecord = data;
 			// this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
-			this.networkId = this.caseInvestigationRecord.fields.Network__c.value;
+			this.originalNetworkId = this.networkId = this.caseInvestigationRecord.fields.Network__c.value; // setting this value so we can detect if the user changes it. 
 			this.addressType = this.caseInvestigationRecord.fields.AddressType__c.value;
 			this.deliveryInformation = this.caseInvestigationRecord.fields.Deliveryinformation__c.value;
 			this.deliveryOfficerKnowledge = this.caseInvestigationRecord.fields.DeliveryOfficerKnowledge__c.value;
@@ -171,6 +189,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
 			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.Stillunderinvestigation__c.value;
 			this.internalFacilityNotes = this.caseInvestigationRecord.fields.InternalFacilityNotes__c.value;
+			this.status = this.caseInvestigationRecord.fields.Status__c.value;
 
 			if (getFieldValue(this.caseInvestigationRecord, IS_CASE_CLOSED) === true) {
 				this.isCaseClosed = true;
@@ -189,56 +208,72 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	}
 
 	updateCaseInvestigation(){
+		let validInput = true;
 
 		const fields = {};
 		fields[CASE_INVESTIGATION_RECORD_ID.fieldApiName] = this.recordId;
 		fields[NETWORK_FIELD.fieldApiName] = this.networkId;
-
 		fields[ADDRESS_TYPE_FIELD.fieldApiName] = this.addressType;
 		fields[DELIVERY_INFORMATION_FIELD.fieldApiName] = this.deliveryInformation;
 		fields[DELIVERY_OFFICER_KNOWLEDGE_FIELD.fieldApiName] = this.deliveryOfficerKnowledge;
 		fields[QUALITY_OF_THE_CASE_FIELD.fieldApiName] = this.qualityOfCase;
-		fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
-		fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
-		fields[STATUS_FIELD.fieldApiName] = (this.status != '') ? this.status : STATUS_CLOSED;
+
+		// If they have changed it then it is a case of Reassigning to another network. 
+		if(this.originalNetworkId != this.networkId) { 
+			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = false;
+			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = false;
+			fields[STATUS_FIELD.fieldApiName] = STATUS_IN_PROGRESS;
+		} else {
+			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
+			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
+			fields[STATUS_FIELD.fieldApiName] = this.status;//(this.status != '') ? this.status : STATUS_CLOSED;
+		}
+
 		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
 		
 		
 		const recordInput = { fields };
-		
+		const networkResponseField = this.template.querySelector('[data-id="networkRes"]');
+
 		//check network response is entered.
 		//show error message if network response is NOT entered.
 		if(this.comments == undefined || this.comments == '') {
-			const networkResponseField = this.template.querySelector(
-				'[data-id="networkRes"]'
-			);
-			//message-when-value-missing="Please enter the network response." 
+			
+			validInput = false;
+			//show message if required field is missing
 			networkResponseField.setCustomValidity(NETWORK_RESPONSE_REQUIRED);
 			networkResponseField.reportValidity();
 		}
-	
-		updateRecord(recordInput)
-			.then(result => {
-			
-			//create a chatter feed for comments entered.
-			
-			if(this.comments){
-				this.createChatterFeed();
-			}
-			this.updateCaseRecord();
-		})
-		.catch(error => {
-			
-			this.isLoaded = true;
-			this.dispatchEvent(
-				new ShowToastEvent({
-					title: 'Error creating record',
-					message: reduceErrors(error).join(', '),
-					variant: 'error'
-				})
-			);
-		});
+		else {
+			networkResponseField.setCustomValidity('');
+			networkResponseField.reportValidity();
+		}
+
+
+		if(validInput) {
+			updateRecord(recordInput)
+				.then(result => {
+				
+				//create a chatter feed for comments entered.
+				
+				if(this.comments){
+					this.createChatterFeed();
+				}
+				this.updateCaseRecord();
+			})
+			.catch(error => {
+				
+				this.isLoaded = true;
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: 'Error creating record',
+						message: reduceErrors(error).join(', '),
+						variant: 'error'
+					})
+				);
+			});
+		}
 		
 
 	}

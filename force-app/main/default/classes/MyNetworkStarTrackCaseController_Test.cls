@@ -5,6 +5,7 @@
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - added new test methods
  * 2023-01-17 - Mahesh Parvathaneni - added tests to set the StarTrack MyNetwork record type for Case Investigation
+ * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated test method testGetArticlesByCase
  **/
 
 @IsTest
@@ -28,13 +29,22 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 		article.Consignment__c = consignment.Id;
 		EventMessage__c eventMessage = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+		eventMessage.FacilityOrganisationID__c = '1234';
+
+		Network__c network = ApplicationTestDataFactory.getNetworks(1, true)[0];
+		network.Org_ID__c = '1234';
 
 		//associating articles with consignment.
 		consignment = (Article__c)ApplicationTestDataFactory.setChildRelationships(consignment, new Map<String, List<SObject>>{'Articles__r' => new List<SObject>{article}});
 
 		//associating event messages with articles.
 		article = (Article__c)ApplicationTestDataFactory.setChildRelationships(article, new Map<String, List<SObject>>{'Event_Messages__r' => new List<SObject>{eventMessage}});
-		MyNetworkStarTrackCaseController.ArticleDetails mockDetails = new MyNetworkStarTrackCaseController.ArticleDetails(article);
+		MyNetworkStarTrackCaseController.EventMessage em = new MyNetworkStarTrackCaseController.EventMessage();
+		em.eventMessage = eventMessage;
+		em.network = network;
+		MyNetworkStarTrackCaseController.ArticleDetails mockDetails = new MyNetworkStarTrackCaseController.ArticleDetails();
+		mockDetails.article = article;
+		mockDetails.eventMessages = new List<MyNetworkStarTrackCaseController.EventMessage>{em};
 		MyNetworkStarTrackCaseController.ArticleResponseWrapper mockWrapper = new MyNetworkStarTrackCaseController.ArticleResponseWrapper();
 		mockWrapper.articleDetails = new List<MyNetworkStarTrackCaseController.ArticleDetails>{mockDetails};
 
@@ -43,12 +53,14 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// =====================================
 		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
+		NetworksSelector mockNetworksSelector = (NetworksSelector)MockUtility.mockSelector(NetworksSelector.class);
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{c.Id => c});
 		MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{consignment.Id}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES})).thenReturn(new Map<Id, Article__c>{consignment.Id => consignment});
-		MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{article.Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER})).thenReturn(new Map<Id, Article__c>{article.Id => article});
+		MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{article.Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER})).thenReturn(new Map<Id, Article__c>{article.Id => article});
+		MockUtility.Mocks.when(mockNetworksSelector.selectByOrgId(new Set<String>{eventMessage.FacilityOrganisationID__c}, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK})).thenReturn(new Map<Id, Network__c>{network.Id => network});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -176,6 +188,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 		insert cases;
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		networks[0].Contact_Facility__c = 'MyNetwork';
 		insert networks;
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		caseInvestigations[0].RecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get('StarTrack_MyNetwork').getRecordTypeId();
