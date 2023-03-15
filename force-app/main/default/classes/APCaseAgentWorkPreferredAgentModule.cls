@@ -7,6 +7,7 @@
  * @domain APAgentWork
  * @changelog
  * 2023-02-16 - George Nguyen - Created.
+ * 2023-03-15 - Noel Lim - Added logic to route Case if AgentWork.Status = Unavailable (user's Omni status changes to Offline, or user closes the browser)
  *
  */
 public inherited sharing class APCaseAgentWorkPreferredAgentModule extends ApplicationDomain.Module {
@@ -39,7 +40,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 					));
 
 				// If the PSR was created PreferredUserId (i.e. manualy created) and it was declined by the agent (manually or timed out) then bypass the preferred agent logic and push via gen pop omni
-				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout')) { 
+				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout' || aw.Status == 'Unavailable')) { 
 					casesToUpdate.add(new Case(
 						Id = aw.WorkItemId, 
 						BypassPreferredAgent__c = true, 
