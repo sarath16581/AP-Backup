@@ -227,7 +227,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		} else {
 			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
 			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
-			fields[STATUS_FIELD.fieldApiName] = this.status;//(this.status != '') ? this.status : STATUS_CLOSED;
+			fields[STATUS_FIELD.fieldApiName] = (!this.stillUnderInvestigation && !this.requireMoreInformation) ? STATUS_CLOSED : this.status;//(this.status != '') ? this.status : STATUS_CLOSED;
 		}
 
 		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
