@@ -23,13 +23,16 @@
                 </sidebarComponents>
                 <sidebarComponents>
                     <componentType>VisualForcePage</componentType>
-                    <label>Customer</label>
-                    <page>StarTrackCaseCustomerAccountSummary</page>
-                </sidebarComponents>
-                <sidebarComponents>
-                    <componentType>VisualForcePage</componentType>
                     <label>Related Tasks</label>
                     <page>StarTrackTaskRListSidePanel</page>
+                </sidebarComponents>
+                <sidebarComponents>
+                    <componentType>RelatedList</componentType>
+                    <label>Related Case Investigations</label>
+                    <relatedLists>
+                        <hideOnDetail>false</hideOnDetail>
+                        <name>CaseInvestigation__c.Case__c</name>
+                    </relatedLists>
                 </sidebarComponents>
                 <style>Accordion</style>
                 <unit>Percentage</unit>
@@ -40,14 +43,17 @@
                 <region>Left</region>
                 <sidebarComponents>
                     <componentType>VisualForcePage</componentType>
-                    <height>100</height>
                     <label>Add Contact</label>
                     <page>StarTrackAddContactSidePanel</page>
-                    <unit>Percentage</unit>
                 </sidebarComponents>
-                <style>Stack</style>
+                <sidebarComponents>
+                    <componentType>VisualForcePage</componentType>
+                    <label>Customer</label>
+                    <page>StarTrackCaseCustomerAccountSummary</page>
+                </sidebarComponents>
+                <style>Accordion</style>
                 <unit>Percentage</unit>
-                <width>20</width>
+                <width>40</width>
             </containers>
         </primaryTabComponents>
     </customConsoleComponents>
@@ -737,6 +743,7 @@
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Article__c</fields>
         <fields>Status__c</fields>
