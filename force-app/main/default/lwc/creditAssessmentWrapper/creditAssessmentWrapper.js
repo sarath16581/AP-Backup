@@ -27,19 +27,7 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	@wire(getCreditAssessment, {opportunityId: '$recordId'})
 	wiredCreditAssessmentResults({error, data}) {
 		if (data) {
-			if (!data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r) {
-				this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
-				return;
-			}
 			this.creditAssessments = data.creditAssessments;
-			let primaryCount = 0;
-			data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.forEach(p => {
-				if (p.Apttus_Proposal__Primary__c) {
-					this.primaryProposal = p;
-					primaryCount++;
-				}
-			});
-
 			// opportunity closed?
 			if (this.oppClosedStage.includes(data.opportunity.StageName)) {
 				// any credit assessments associated to the opportunity
@@ -50,6 +38,18 @@ export default class CreditAssessmentWrapper extends LightningElement {
 					this.messageBody = data.messageBodyMap['OPPORTUNITY_CLOSED_NO_CA'];
 				}
 			} else {
+				// no proposal
+				if (!data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r) {
+					this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+					return;
+				}
+				let primaryCount = 0;
+				data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.forEach(p => {
+					if (p.Apttus_Proposal__Primary__c) {
+						this.primaryProposal = p;
+						primaryCount++;
+					}
+				});
 				// only one primary proposal?
 				if (primaryCount === 1) {
 					// OPC complete?
