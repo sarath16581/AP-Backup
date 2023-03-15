@@ -970,13 +970,13 @@ global class CaseDetailsCaseContExt  {
 
     //added by kalpita for new case management - reassign
     public Boolean isChildCase {get;set;}
-    private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
-    'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-    'Enterprise' => 'SSSWEnterpriseBackOffice',
-    'SMB' => 'SSSWBusinessBackOffice',
-    'Silver' => 'SSSWBusinessBackOffice',
-    'MyPost Business' => 'SSSW_MyPost_Business_Back_Office',
-    'Gold' => 'SSSWBusinessBackOffice'};
+    private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSW_BOH_Group_1',
+    'Consumer' => 'SSSW_BOH_Group_4',
+    'Enterprise' => 'SSSW_BOH_Group_1',
+    'SMB' => 'SSSW_BOH_Group_2',
+    'Silver' => 'SSSW_BOH_Group_2',
+    'MyPost Business' => 'SSSW_BOH_Group_3',
+    'Gold' => 'SSSW_BOH_Group_2'};
 
     private static final String REOPEN_QUEUE_NAME = 'SSSW Awaiting Reopen';
     private static final String DAMAGES_IN_TRANSIT = 'Damages in transit';
