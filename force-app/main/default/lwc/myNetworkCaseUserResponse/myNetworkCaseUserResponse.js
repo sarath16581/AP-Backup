@@ -220,7 +220,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
 
 		// If they have changed it then it is a case of Reassigning to another network. 
-		if(this.originalNetworkId != this.networkId) { 
+		if(this.originalNetworkId !== this.networkId) { 
 			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = false;
 			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = false;
 			fields[STATUS_FIELD.fieldApiName] = STATUS_IN_PROGRESS;
@@ -238,7 +238,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 
 		//check network response is entered.
 		//show error message if network response is NOT entered.
-		if(this.comments == undefined || this.comments == '') {
+		if(this.comments === undefined || this.comments === '') {
 			
 			validInput = false;
 			//show message if required field is missing
