@@ -952,7 +952,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>iagroup.org.au </value>
+                <value>iagroup.org.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1012,7 +1012,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>ocs@opticalcourier.com.au</value>
+                <value>opticalcourier.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1027,7 +1027,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>returns@usanainc.com</value>
+                <value>usanainc.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
