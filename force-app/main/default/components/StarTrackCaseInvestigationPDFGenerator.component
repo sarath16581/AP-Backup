@@ -1,4 +1,4 @@
-	<!-- Description:    VF component to generate PDF document for StarTrack Case Investigations.
+<!-- Description:    VF component to generate PDF document for StarTrack Case Investigations.
 	History:
 	--------------------------------------------------		
 	12/02/2022 - Dattaraj Deshmukh - Created
@@ -23,16 +23,16 @@
 			<apex:outputPanel rendered="{! conObj.starTrackCaseToCaseInvestigationsMap[case.Id] != null}">
 					<table id="investigation">
 						<tr>
-							<td style="width:20%; padding:15px;">DATE:</td>
+							<td style="width:20%; padding:10px;">DATE:</td>
 							<td style="width:60%; align:right">{!conObj.GeneratedTime}
 							</td>
 						</tr>
 						<tr>
-							<td style="width:20%;padding:15px;">CASE:</td>
+							<td style="width:20%;padding:10px;">CASE:</td>
 							<td style="width:60%; align:right">{!case.CaseNumber}</td>
 						</tr>
 						<tr>
-							<td style="width:20%;padding:15px;">CASE INVESTIGATION:</td>
+							<td style="width:40%;padding:10px;">CASE INVESTIGATION:</td>
 							<td style="width:60%; align:right">{!currentCaseInv.Name}</td>
 						</tr>
 						<!--If the driver Contract is populated, populate it on the cover letter-->    
@@ -42,7 +42,7 @@
 								<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
 									<apex:repeat value="{!conObj.casetoDriverContractMap[event]}" var="driverdetails">
 										<tr>
-											<td style="width:20%;padding:15px;">CONTRACT:</td>
+											<td style="width:20%;padding:10px;">CONTRACT:</td>
 											<td style="width:60%; align:right">{!driverdetails.DriverContract__c}</td>
 										</tr>
 										<apex:variable var="count" value="{!count+1}"/> 
@@ -51,7 +51,7 @@
 							</apex:repeat>
 							<apex:outputText rendered="{!count==1}">
 								<tr>
-									<td style="width:20%;padding:15px;">CONTRACT:</td>
+									<td style="width:20%;padding:10px;">CONTRACT:</td>
 									<td style="width:60%; align:right"></td>
 								</tr>
 							</apex:outputText>
@@ -61,7 +61,7 @@
 								<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
 									<apex:repeat value="{!conObj.casetoDriverRoundMap[event]}" var="driverdetails">
 										<tr>
-											<td style="width:20%;padding:15px;">ROUND:</td>
+											<td style="width:20%;padding:10px;">ROUND:</td>
 											<td style="width:60%; align:right">{!driverdetails.RoundNo__c}</td>
 										</tr>
 										<apex:variable var="count" value="{!count+1}"/> 
@@ -70,7 +70,7 @@
 							</apex:repeat>
 							<apex:outputText rendered="{!count==1}">
 								<tr>
-									<td style="width:20%;padding:15px;">ROUND:</td>
+									<td style="width:20%;padding:10px;">ROUND:</td>
 									<td style="width:60%; align:right"></td>
 								</tr>
 							</apex:outputText>
@@ -80,7 +80,7 @@
 								<apex:outputText rendered="{!IF(CONTAINS(event,currentCaseInv.Article__c),'true','false')}">
 									<apex:repeat value="{!conObj.casetoDriverLogonMap[event]}" var="driverdetails">
 										<tr>
-											<td style="width:20%;padding:15px;">LOGON ID:</td>
+											<td style="width:20%;padding:10px;">LOGON ID:</td>
 											<td style="width:60%; align:right">{!driverdetails.UserName__c}</td>
 										</tr>
 										<apex:variable var="count" value="{!count+1}"/> 
@@ -89,27 +89,27 @@
 							</apex:repeat>
 							<apex:outputText rendered="{!count==1}">
 								<tr>
-									<td style="width:20%;padding:15px;">LOGON ID:</td>
+									<td style="width:20%;padding:10px;">LOGON ID:</td>
 									<td style="width:60%; align:right"></td>
 								</tr>
 							</apex:outputText>
 							
 							<tr>
-								<td style="width:20%;padding:15px;">DRIVERS NAME:</td>
+								<td style="width:20%;padding:10px;">DRIVERS NAME:</td>
 								<td style="width:60%; align:right"></td>
 							</tr>
 						</apex:outputText>
 						<apex:outputText rendered="{!currentCaseInv.Article__c  == Null}">
 							<tr>
-								<td style="width:20%;padding:15px;">CONTRACT:</td>
+								<td style="width:20%;padding:10px;">CONTRACT:</td>
 								<td style="width:60%; align:right"></td>
 							</tr>
 							<tr>
-								<td style="width:20%;padding:15px;">ROUND:</td>
+								<td style="width:20%;padding:10px;">ROUND:</td>
 								<td style="width:60%; align:right"></td>
 							</tr>
 							<tr>
-								<td style="width:20%;padding:15px;">LOGON ID:</td>
+								<td style="width:20%;padding:10px;">LOGON ID:</td>
 								<td style="width:60%; align:right"></td>
 							</tr>
 						</apex:outputText>
@@ -217,8 +217,8 @@
 				<b><apex:outputText value="Reference ID: "> </apex:outputText></b>
 				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Article__r.Name}"> </apex:outputText> <br/>
 
-				<b><apex:outputText value="Customer type: "> </apex:outputText></b>
-				<apex:outputText styleClass="form-control input-sm " value="{!case.Customer_Type__c}"> </apex:outputText> <br/>
+				<b><apex:outputText value="Customer type: "> </apex:outputText></b> 
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Service_SLA__c}"> </apex:outputText> <br/>
 
 				<b><apex:outputText value="Product category: "> </apex:outputText></b>
 				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.ProductCategory__c}"> </apex:outputText> <br/>
@@ -230,16 +230,16 @@
 				<apex:outputText styleClass="form-control input-sm " value="{!case.Enquiry_Type__c}"> </apex:outputText> <br/>
 
 				<b><apex:outputText value="Sender name: "> </apex:outputText></b>
-				<apex:outputText styleClass="form-control input-sm " value="{!case.Primary_Name__c}"> </apex:outputText> <br/>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Sender_Name__c}"> </apex:outputText> <br/>
 
 				<b><apex:outputText value="Sender address: "> </apex:outputText></b>
-				<apex:outputText styleClass="form-control input-sm " value="{!case.Address1__c}"> </apex:outputText> <br/>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Sender_Address__c}"> </apex:outputText> <br/>
 
 				<b><apex:outputText value="Addresee name: "> </apex:outputText></b>
-				<apex:outputText styleClass="form-control input-sm " value="{!case.Secondary_Contact__c}"> </apex:outputText> <br/>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Receiver_Name__c}"> </apex:outputText> <br/>
 
 				<b><apex:outputText value="Addressee address: "> </apex:outputText></b>
-				<apex:outputText styleClass="form-control input-sm " value="{!case.Address2__c}"> </apex:outputText> <br/>
+				<apex:outputText styleClass="form-control input-sm " value="{!case.Article_Receiver_Address__c}"> </apex:outputText> <br/>
 
 				<b><apex:outputText value="Date posted: "> </apex:outputText></b>
 				<apex:outputText styleClass="form-control input-sm " value="{!currentCaseInv.Article__r.ArticleLodgementDate__c}"> </apex:outputText> <br/>
@@ -316,10 +316,11 @@
 										<apex:outputLink rendered="{!conObj.attemptedDeliveryFound[items]}" target="_blank" value="{!$Label.Google_map_direction}&origin={!conObj.caseToDeliveredAddressMap[items+'-ATG']}&destination={!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoAttemptedDelivery[items].EventGeoLocation__Longitude__s}&travelmode=driving">Map Directions</apex:outputLink>
 										<apex:outputLink rendered="{!AND(conObj.deliveredDeliveryFound[items], !conObj.attemptedDeliveryFound[items])}" target="_blank" value="{!$Label.Google_map_direction}&origin={!conObj.caseToDeliveredAddressMap[items+'-ATG']}&destination={!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Latitude__s},{!conObj.casetoDeliveredDelivery[items].EventGeoLocation__Longitude__s}&travelmode=driving">Map Directions</apex:outputLink>
 									</div>
-									<div style="padding-bottom:2px;"><b>Addressee address: </b>{!currentCaseInv.Case__r.Address2__c}</div>
-									<!-- <div style="border-style: solid;">
-										<img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:green|label:A|{!URLENCODE(case.Address2__c)}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
-									</div> -->
+									<div style="padding-bottom:2px;"><b>Addressee address: </b>{!currentCaseInv.Case__r.Article_Receiver_Address__c}</div>
+									<div style="border-style: solid;">
+										<img src="https://maps.googleapis.com/maps/api/staticmap?&markers=color:green|label:A|{!URLENCODE(currentCaseInv.Case__r.Article_Receiver_Address__c + '')}&zoom=19&size=670x400&key={!$Setup.myNetworkCommunityCS__c.GoogleMapsAPIKey__c}"/>
+									</div>
+
 									<apex:outputText rendered="{!IF(conObj.attemptedDeliveryFound[items],'true','false')}" >
 									<h3 style="color: #DF1027;padding-left:2px;text-align:center;">Attempted Delivery address location on map</h3>
 									<div style="padding-bottom:2px;"><b>Attempted Delivery address: </b> {!conObj.caseToDeliveredAddressMap[conObj.casetoAttemptedDelivery[items].Id+'-GTA']}</div>

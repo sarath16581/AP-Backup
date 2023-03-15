@@ -1,6 +1,7 @@
 /**
 * @changelog
 * 2023-03-02 - Mahesh Parvathaneni - Updated title to show Network name
+* 2023-03-06 - Mahesh Parvathaneni - SF-874 Used ActualDateTime_TimeStamp__c field
 */ 
 import {
     api,
@@ -8,7 +9,8 @@ import {
     LightningElement
 } from 'lwc';
 import {
-    CONSTANTS
+    CONSTANTS,
+	getStarTrackFormattedDateTimeString
 } from 'c/myNetworkStarTrackCaseArticlesService';
 
 export default class MyNetworkStarTrackNetworkScan extends LightningElement {
@@ -30,7 +32,7 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
             let eventMessageScan = {
                 ...eventMessages[i]
             };
-            let actualDatetime = this.formattedDateTime(eventMessages[i].ActualDateTime__c);
+            let actualDatetime = getStarTrackFormattedDateTimeString(eventMessages[i].ActualDateTime_TimeStamp__c);
 			let network = eventMessages[i].Facility__c;
             //set title
 			let title;
@@ -61,16 +63,6 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
             }
             this.eventMessagesList.push(eventMessageScan);
         }
-    }
-
-    //function to return the formatted date time to display in accordion title
-    formattedDateTime(dateTime) {
-        if (dateTime) {
-            let actualDateTimeString = new Date(dateTime).toLocaleString();
-            let dateArray = actualDateTimeString.split(',');
-            return dateArray[0].trim() + ' ' + dateArray[1].trim();
-        }
-        return null;
     }
 
     //handler for modal close button
