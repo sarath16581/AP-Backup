@@ -9,6 +9,7 @@
     NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
     NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
 	FEB.27.2023 Mahesh Parvathaneni  - SF-856 Added recordtype check to render StarTrackCreateTask component
+	MAR.16.2023 Mahesh Parvathaneni	 - SF-862 Added event listener to refresh the primary tab
 -->
 <apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
     sidebar="false">
@@ -28,6 +29,8 @@
         <script>
             // listen for the custom dom event subtab so we can handle anytime when a user click a record 
 			document.getElementById('wrapper').addEventListener('subtab', handleMyNetworkStarTrackLightningEvent);
+			// listen for the custom dom event for primary tab refresh
+			document.getElementById('wrapper').addEventListener('refreshprimarytab', handleMyNetworkStarTrackRefreshPrimaryTabEvent);
 
             /**
              * This is the callback for anytime a lightning event is generated from MyNetwork StarTrack container
@@ -40,6 +43,17 @@
         		    });
                 }
             }
+
+			/**
+			 * This is the callback for anytime a primary tab refresh lightning event is generated from MyNetwork StarTrack container
+			 */
+			function handleMyNetworkStarTrackRefreshPrimaryTabEvent(){
+				sforce.console.getEnclosingPrimaryTabId(function(result){
+					sforce.console.getFocusedPrimaryTabObjectId(function(res) {
+						sforce.console.refreshPrimaryTabById(result.id, true, function() {}, true);
+					});
+				});
+			}
         </script>
 
         <style>
