@@ -124,6 +124,7 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
+		networks[0].Contact_Facility__c = 'MyNetwork';
 		insert networks;
 
 
