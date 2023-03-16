@@ -8,6 +8,7 @@
 * NOTE: THIS CLASS IS SPECIFIED AS WITHOUT SHARING. 
 * REASON: MyNetowork portal users have ONLY READ access to the case. In order to update CASE related to 
 * case investigations, 'without sharing' mode is used. updateCase() method updates the case.
+* 2023-03-16 - Mahesh Parvathaneni - Modified the method updateCase
 */
 public without sharing class MyNetworkCaseUserResponseController {
 	
@@ -39,20 +40,15 @@ public without sharing class MyNetworkCaseUserResponseController {
 	}
 
 	/**
-	 * @param: caseId
-	 * @desc: Updates Case_Update__c field on Case.
+	 * @param: caseToUpdate
+	 * @desc: Update the case record
 	 * @return: success/exception message.
 	 */
 	@AuraEnabled
-	public static string updateCase(Id caseId) {
+	public static string updateCase(Case caseToUpdate) {
 		try {
-			
-			//update case status to 'Network Responded'
-			Case caseToUpdate = new Case(Id = caseId, Case_Update__c = MyNetworkConstants.CASE_UPDATE_OPERATIONS_RESPONDED);
 			ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{caseToUpdate});
-		
 			return 'success';
-
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
