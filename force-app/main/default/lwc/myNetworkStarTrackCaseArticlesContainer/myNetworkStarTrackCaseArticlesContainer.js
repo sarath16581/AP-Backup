@@ -163,9 +163,9 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                                 message: response.errorMessage,
                                 theme: 'error', // a red theme intended for error states
                                 label: 'Error', // this is the header text
-                            });
+							});
 							this.resetPageDetails();
-                        	this.isLoading = false;
+							this.isLoading = false;
                         }
                     })
                     .catch(error => {
