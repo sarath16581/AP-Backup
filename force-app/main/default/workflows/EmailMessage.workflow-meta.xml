@@ -343,7 +343,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Consumer_Back_Office_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Back_Office_Low_Priority</lookupValue>
+        <lookupValue>SSSW_BOH_Group_4</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Consumer Back Office Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -367,7 +367,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_International_ECI_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_International_ECI_Back_Office</lookupValue>
+        <lookupValue>SSSW_FOH_Group_1</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign International ECI Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -392,7 +392,7 @@
         <fullName>SSSW_Assign_MyPost</fullName>
         <description>Assign the case owner as the MyPost queue</description>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Back_Office_High_Priority</lookupValue>
+        <lookupValue>SSSW_BOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign MyPost</name>
         <notifyAssignee>false</notifyAssignee>
@@ -404,7 +404,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_NCCCBusinessEnquiries_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Business_Inbound</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW-Assign NCCCBusinessEnquiries Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -416,7 +416,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_NCCC_International_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWInternationalBackOffice</lookupValue>
+        <lookupValue>SSSW_BOH_Group_1</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign NCCC International Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -440,7 +440,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_NCCC_Wine_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Business_Inbound</lookupValue>
+        <lookupValue>SSSW_FOH_Group_2</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign NCCC Wine Cases</name>
         <notifyAssignee>false</notifyAssignee>

@@ -105,6 +105,14 @@
                     <label for="trackingId" class="slds-form-element__label">Tracking number</label>
                     <div id="trackingId">{!v.wizardData.trackingId}</div>
                 </div>
+                <!-- Recipient/Sender Radio Buttions Group-->
+                <c:ChasRadioButtons
+                        aura:id="chasInput"
+                        name="recipientOrSenderRadioButtons"
+                        required="true"
+                        label="Are you the recipient or sender?"
+                        options="{!v.recipientOrSenderRadioGroup}"
+                        value="{!v.wizardData.selectedRadio1}"/>
                 <!--Delivery address type display -->
                 <aura:if isTrue="{!v.wizardData.safeDropPayload != Null}">
                 <div class="chas-output">
@@ -206,14 +214,7 @@
             <legend class="chas-header">
                 <h3 class="item-label">Enquiry details</h3>
             </legend>
-            <!-- Recipient/Sender Radio Buttions Group-->
-            <c:ChasRadioButtons
-                                aura:id="chasInput"
-                                name="recipientOrSenderRadioButtons"
-                                required="true"
-                                label="Are you the recipient or sender?"
-                                options="{!v.recipientOrSenderRadioGroup}"
-                                value="{!v.wizardData.selectedRadio1}"/>
+
             <!-- Business Deflection login screen -->
             <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Sender'}">
                 <c:ChasBspDeflection heading='Business customer?' animate="true" borderStyle="info-box bottom-gap-Large">

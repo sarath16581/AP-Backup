@@ -715,11 +715,6 @@
             <sortOrder>12</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>RemoveFromCadence</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>16</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>ChangeRecordType</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>13</sortOrder>
@@ -733,6 +728,11 @@
             <actionName>CreateMyList</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>15</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>RemoveFromCadence</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>16</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>ChangeOwnerOne</actionName>

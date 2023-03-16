@@ -13,6 +13,7 @@
  * 2021-07-20 - seth.heang@auspost.com.au - Add code coverage for selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING()
  * 2021-07-27 - naveen.rajanna@auspost.com.au - Add code coverage for selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING_OR_WORKCENTRE()
  * 2022-03-23 - Ranjeewa Silva - Added tests for select by name
+ * 2023-03-10 - Mahesh Parvathaneni - Added test for WITH_EVENTMESSAGES_DESC_ORDER options
  */
 @IsTest
 public with sharing class NetworksSelector_Test {
@@ -139,6 +140,9 @@ public with sharing class NetworksSelector_Test {
 		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_CARE_AGENT), 'Expected Care Agent record type');
 		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_METRO), 'Expected Metro record type');
 		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_REGIONAL), 'Expected Regional record type');
+
+		Map<Id, Network__c> resultsAPNetwork = selector.selectById(new Set<Id>{networks[0].Id, networks[1].Id, networks[2].Id}, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK});
+		System.assertEquals(3, resultsAPNetwork.size(), 'Expected result size of 3');
 
 		Test.stopTest();
 

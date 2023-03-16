@@ -2,6 +2,8 @@
  * @description Service component for MyNetwork StarTrack case functionality
  * @author Mahesh Parvathaneni
  * @date 2022-11-22
+ * @changelog
+ * 2023-03-06 - Mahesh Parvathaneni - Added function getStarTrackFormattedDateTimeString
  */
 
 // server calls
@@ -76,4 +78,24 @@ export const getCriticalIncidents = async () => {
 
     const result = await getCriticalIncidentsKav();
 	return result;
+}
+
+const monthNameToNum = new Map([
+	["jan", "01"], ["feb", "02"], ["mar", "03"], ["apr", "04"], ["may", "05"], ["jun", "06"], ["jul", "07"], ["aug", "08"], 
+	["sep", "09"], ["oct", "10"], ["nov", "11"], ["dec", "12"]
+])
+
+/**
+ * Converts the timestamp string to dd/mm/yyyy hh:mm format
+ * @param {String} dateTimeString // '20-Nov-201912:00 AM' format
+ * @returns String 20/11/2019 12:00 AM
+ */
+export const getStarTrackFormattedDateTimeString = (dateTimeString) => {
+	let formattedDatetime;
+	if (dateTimeString) {
+		let tempArray = dateTimeString.split('-');
+		formattedDatetime = tempArray[0] + '/' + monthNameToNum.get(tempArray[1].toLowerCase()) + '/' + 
+			tempArray[2].substring(0, 4) + (tempArray[2].substring(4) ? (' ' + tempArray[2].substring(4)) : '');
+	}
+	return formattedDatetime;
 }

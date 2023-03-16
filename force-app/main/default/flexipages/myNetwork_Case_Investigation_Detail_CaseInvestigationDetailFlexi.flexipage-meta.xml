@@ -23,7 +23,7 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <appendable>enabled</appendable>
-		<itemInstances>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>recordId</name>

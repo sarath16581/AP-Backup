@@ -9,8 +9,6 @@
 																	setOwnerToCurrentUser , setArticlesSubscribed & linkCaseToArticles methods
 	17/11/2015		nandan.narasappa@auspost.com.au			 Added routeCase method
 	20/01/2016		nandan.narasappa@auspost.com.au			 updated linkCaseToArticles to skip API call for unknown articles
-	14/04/2016		cliew@salesforce.com						Added entry to CUST_TYPE_QUEUE_MAP for supporting new Customer Type (Case)
-																	/ Service SLA (Account) introduced as part of MyPost Business Portal implementation
 	25/08/2016		david.e.catindoy@accenture.com			  Added closeRelatedTasksAndWFEmails method to cater additional processes on StarTrack closed cases.
 	29/08/2016		eric.shen@auspost.com.au					Add the logic in routeCase that DefaultCaseDetails fields will be appended to case description when case description is empty or a new case, bug fix for INC0699609
 	06/09/2016		eric.shen@auspost.com.au					Create a new method to call linkCaseToArticles method to be used in Snap It case for Missing Item enquiry.
@@ -43,6 +41,7 @@
 	16.05.2022		SaiSwetha Pingali						   Removed snapIt logic as it is no longer required.
 	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
 	2023-02-13		Noel Lim									Add logic for Preferred Agent routing in routeCase(), and new method processPreferredAgent()
+	2023-03-08		Noel Lim									Add Release 2 TEMPORARY FIX - exclude Preferred Agent routing for cases from portals
 
 
 	************************************************/
@@ -57,16 +56,6 @@
 	private static final Set<String> SKIP_CASE_ORIGIN = new Set<String>{'Portal','Email'};  // set of case origins to ignore
 	private static final Set<String> SKIP_LINK_ARTICLE_ORIGIN = new Set<String>{'Phone','AP Retail (PM26)'};  // set of case origins to ignore'
 	private static final Set<String> SKIP_DUPLICATE_CHECK_BY_ORIGIN = new Set<String>{'Portal'};  // set of case origins to ignore in duplication check
-
-	// CLIEW 14/4/2016: added additional queue map entry for MyPost Business
-	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
-																							'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-																							'Enterprise' => 'SSSWEnterpriseBackOffice',
-																							'SMB' => 'SSSWBusinessBackOffice',
-																							'Gold' => 'SSSWBusinessBackOffice',
-																							'MyPost Business' => 'SSSW_MyPost_Business_Back_Office'};
-	private static final Set<String> DEF_QUEUE_SET = new Set<String>{'SSSWInternationalBackOffice','SSSW_Consumer_Back_Office_Low_Priority',
-																		'SSSWEnterpriseBackOffice','SSSWBusinessBackOffice'};
 
 	private static final Set<String> ST_CASE_AUTOCLOSE_TEMPLATES = new Set<String>{'StarTrack Redirection Notification - Customer Service','StarTrack Depot Collection Notification - Customer Service', 'StarTrack Check Address Notification - Customer Service'};
 
@@ -726,6 +715,7 @@
 						}
 						//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 						else if(oldCase != null 
+							&& (new Set<String>{'Web','Portal','BSP','MyPost Business'}).contains(csRec.Origin) == false //Omni Release 2 TEMPORARY FIX
 							&& csRec.OwnerId != oldCase.OwnerId						
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
