@@ -12,6 +12,7 @@
 public with sharing class CreditAssessmentController {
 	// Credit Assessment conditions on the opportunity
 	private static final String OPPORTUNITY_CLOSED_NO_CA = 'OPPORTUNITY_CLOSED_NO_CA';
+	private static final String OPPORTUNITY_PRIMARY_NOT_CHECKED = 'OPPORTUNITY_PRIMARY_NOT_CHECKED';
 	private static final String OPPORTUNITY_INCOMPLETE_OPC = 'OPPORTUNITY_INCOMPLETE_OPC';
 	private static final Map<SObjectType, Set<SObjectField>> OPPORTUNITY_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
 			Opportunity.SObjectType => new Set<SObjectField>{Opportunity.StageName, Opportunity.Count_of_Contract_Start_Dates__c, Opportunity.Count_of_Contract_End_Dates__c, Opportunity.Count_of_Opportunity_Line_Items__c},
@@ -51,6 +52,7 @@ public with sharing class CreditAssessmentController {
 			Map<String, String> messageBodyMap = new Map<String, String>();
 			messageBodyMap.put(OPPORTUNITY_CLOSED_NO_CA, System.Label.CreditAssessmentRequestClosedOpp);
 			messageBodyMap.put(OPPORTUNITY_INCOMPLETE_OPC, System.Label.CreditAssessmentRequestIncompleteOPC);
+			messageBodyMap.put(OPPORTUNITY_PRIMARY_NOT_CHECKED, System.Label.CreditAssessmentRequestPrimaryNotChecked);
 
 			return new CreditAssessmentResultWrapper(opp, cas, messageBodyMap);
 		} catch (Exception e) {
