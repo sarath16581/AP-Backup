@@ -6,13 +6,13 @@
         <group>SSSW_Consumer_BOH_Community_Care</group>
     </omniSupervisorConfigGroup>
     <omniSupervisorConfigQueue>
-        <queue>SSSW_Consumer_Back_Office_High_Priority</queue>
+        <queue>SSSW_BOH_Group_2</queue>
     </omniSupervisorConfigQueue>
     <omniSupervisorConfigQueue>
         <queue>SSSW_FOH_Group_2</queue>
     </omniSupervisorConfigQueue>
     <omniSupervisorConfigQueue>
-        <queue>SSSW_Consumer_Back_Office_Low_Priority</queue>
+        <queue>SSSW_BOH_Group_4</queue>
     </omniSupervisorConfigQueue>
     <omniSupervisorConfigQueue>
         <queue>SSSW_Community_Niche</queue>

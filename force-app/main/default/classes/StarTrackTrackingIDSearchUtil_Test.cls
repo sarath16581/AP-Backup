@@ -352,7 +352,7 @@ private class StarTrackTrackingIDSearchUtil_Test {
         ];
 
 
-        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', null);
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,StarTrack_Constants.ERR_CODE_ART_NOT_FOUND, null);
 
         Test.startTest();
         StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();

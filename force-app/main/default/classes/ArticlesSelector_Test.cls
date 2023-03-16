@@ -193,7 +193,7 @@ private class ArticlesSelector_Test {
 		System.assertNotEquals(null, results.values()[0].Consignment__r, 'Expected Consignment__r to be populated');
 		System.assertEquals(2, results.size(), 'Expected Articles__r to be populated');
 
-		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER});
+		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 		Test.stopTest();
