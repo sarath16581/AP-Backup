@@ -1,50 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW International Back Office</name>
     <queueMembers>
         <users>
-            <user>adi.sutiono@auspost.com.au</user>
-            <user>amy.graham@auspost.com.au</user>
-            <user>andrew.freeland@auspost.com.au</user>
-            <user>avei.alofaga-futi@auspost.com.au</user>
-            <user>brian.mcgregor@auspost.com.au</user>
-            <user>brooke.morgan@auspost.com.au</user>
-            <user>cassandra.ferguson@auspost.com.au</user>
-            <user>catherine.currell@auspost.com.au</user>
-            <user>charlotte.hetaraka@auspost.com.au</user>
-            <user>corinne.johnson@auspost.com.au</user>
-            <user>diane.paterson@auspost.com.au</user>
-            <user>diane.watson@auspost.com.au</user>
-            <user>eileen.greer@auspost.com.au</user>
-            <user>graham.folling@auspost.com.au</user>
-            <user>heather.forsyth@auspost.com.au</user>
-            <user>jamie.kuka@auspost.com.au</user>
-            <user>jim.pimpilidis@auspost.com.au</user>
-            <user>karin.mills@auspost.com.au</user>
-            <user>keara.forde@auspost.com.au</user>
-            <user>lin.stiles@auspost.com.au</user>
-            <user>linda.davies@auspost.com.au</user>
-            <user>lorraine.campbell@auspost.com.au</user>
-            <user>lucy.shirtcliff@auspost.com.au</user>
-            <user>maselino.fa&apos;aleava@auspost.com.au</user>
-            <user>mason.york@auspost.com.au</user>
-            <user>melissa.ryan2@auspost.com.au</user>
-            <user>michael.byrne@auspost.com.au</user>
-            <user>michael.cronin@auspost.com.au</user>
-            <user>michelle.liu@auspost.com.au</user>
-            <user>michelle.tangaere@auspost.com.au</user>
-            <user>rebecca.vincent-le@auspost.com.au</user>
-            <user>ricci.manganaro@auspost.com.au</user>
-            <user>shanija.perera@auspost.com.au</user>
-            <user>mheridan.mccool@auspost.com.au</user>
-            <user>shilpa.fernando@auspost.com.au</user>
-            <user>siew.lau@auspost.com.au</user>
-            <user>sonya.doyle@auspost.com.au</user>
-            <user>thomas.scoales@auspost.com.au</user>
-            <user>tony.loriente@auspost.com.au</user>
-            <user>troy.clark@auspost.com.au</user>
+            <user>danielle.larson@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>
