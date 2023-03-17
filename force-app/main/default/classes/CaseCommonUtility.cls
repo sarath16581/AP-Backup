@@ -663,7 +663,7 @@
 								|| csRec.Permanent_Close__c == true
 								|| csRec.OwnerId != OmniChannelService.getInstance().omniHoldingQueueId // Prevent routing of cases in Omni Holding Queue. Note: MyCustomerCaseArticlesModule class has async logic that routes these cases out of the Omni Holding queue
 							)
-					    ){
+						){
 							csRec.AllocateToQueue__c = false;
 						}
 
