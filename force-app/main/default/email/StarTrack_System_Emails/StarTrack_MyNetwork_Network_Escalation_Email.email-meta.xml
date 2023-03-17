@@ -5,12 +5,12 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>StarTrack MyNetwork Network Escalation Email</name>
     <style>none</style>
-    <subject>Unanswered: {!CaseInvestigation__c.CaseType__c} - {!CaseInvestigation__c.NetworkName__c} - Case: {!CaseInvestigation__c.CaseNumber__c}</subject>
+    <subject>Unanswered: {!CaseInvestigation__c.CaseType__c} - {!CaseInvestigation__c.NetworkName__c} - Case: {!CaseInvestigation__c.CaseNumber__c} - {!CaseInvestigation__c.Name}</subject>
     <textOnly>Australia Post
 
 You are listed as a point of escalation for 			{!CaseInvestigation__c.NetworkName__c}
 
-Case {!CaseInvestigation__c.CaseNumber__c} has 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is 			waiting on a response.
+Case {!CaseInvestigation__c.CaseNumber__c} - {!CaseInvestigation__c.Name} has 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is 			waiting on a response.
 
 Can you please
 
