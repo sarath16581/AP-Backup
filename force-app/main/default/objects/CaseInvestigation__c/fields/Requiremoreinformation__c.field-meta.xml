@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Requiremoreinformation__c</fullName>
+    <fullName>RequireMoreInformation__c</fullName>
+    <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Used on MyNetwork community to add network response for ST cases.</description>
     <externalId>false</externalId>

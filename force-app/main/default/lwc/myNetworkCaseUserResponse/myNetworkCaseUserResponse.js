@@ -23,13 +23,13 @@ import { updateRecord, getRecord, getFieldValue  } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
-import DELIVERY_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Deliveryinformation__c';
+import DELIVERY_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryInformation__c';
 import DELIVERY_OFFICER_KNOWLEDGE_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOfficerKnowledge__c';
 import DELIVERY_OPTIONS_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOptions__c';
 import NETWORK_FIELD from '@salesforce/schema/CaseInvestigation__c.Network__c';
 import QUALITY_OF_THE_CASE_FIELD from '@salesforce/schema/CaseInvestigation__c.Qualityofthecase__c';
-import REQUIRE_MORE_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Requiremoreinformation__c';
-import STILL_UNDER_INVESTIGATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Stillunderinvestigation__c';
+import REQUIRE_MORE_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.RequireMoreInformation__c';
+import STILL_UNDER_INVESTIGATION_FIELD from '@salesforce/schema/CaseInvestigation__c.StillUnderInvestigation__c';
 import CASE_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Enquiry_Type__c';
 import PURPOSE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Call_Purpose__c';
 import STATUS_FIELD from '@salesforce/schema/CaseInvestigation__c.Status__c';
@@ -182,12 +182,12 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			// this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
 			this.originalNetworkId = this.networkId = this.caseInvestigationRecord.fields.Network__c.value; // setting this value so we can detect if the user changes it. 
 			this.addressType = this.caseInvestigationRecord.fields.AddressType__c.value;
-			this.deliveryInformation = this.caseInvestigationRecord.fields.Deliveryinformation__c.value;
+			this.deliveryInformation = this.caseInvestigationRecord.fields.DeliveryInformation__c.value;
 			this.deliveryOfficerKnowledge = this.caseInvestigationRecord.fields.DeliveryOfficerKnowledge__c.value;
 			this.qualityOfCase = this.caseInvestigationRecord.fields.Qualityofthecase__c.value;
-			this.requireMoreInformation = this.caseInvestigationRecord.fields.Requiremoreinformation__c.value;
+			this.requireMoreInformation = this.caseInvestigationRecord.fields.RequireMoreInformation__c.value;
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
-			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.Stillunderinvestigation__c.value;
+			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.StillUnderInvestigation__c.value;
 			this.internalFacilityNotes = this.caseInvestigationRecord.fields.InternalFacilityNotes__c.value;
 			this.status = this.caseInvestigationRecord.fields.Status__c.value;
 
