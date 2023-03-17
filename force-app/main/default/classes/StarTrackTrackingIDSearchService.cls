@@ -53,6 +53,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     public String searchString { get; set; }
     //List of articles
     public List<Article__c> lst_article { get; set; }
+    public Integer numberOfArticles { get; set; }
 
     /*map to capture article id as key and article as value to quickly
       cases for the selected article
@@ -200,6 +201,9 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                     if (!map_article.containsKey(thisArticle.ArticleID__c)) {
                         map_article.put(thisArticle.ArticleID__c, thisArticle);
                     }
+                }
+                if (emsResponse.Consignment.Articles != null && emsResponse.Consignment.Articles.Article != null) {
+                    numberOfArticles =  emsResponse.Consignment.Articles.Article.size();
                 }
                 lst_article = map_article.values();
                 system.debug('HASANTHA TEST 8 after lst_article '+lst_article);
