@@ -79,7 +79,7 @@
         var attemptedDeliveryScanWcid = cmp.get("v.wizardData.latestDeliveredScanWcid");
         var previousDeliveredScanWcid = cmp.get("v.wizardData.previousDeliveredScanWcid");
         // set network eligibility flag based on issue type
-        if(issueName == 'Item was left in an unsafe place' || issueName == 'Postie didn\'t knock before leaving a card')
+        if(issueName == 'Item was left in an unsafe place' || issueName == 'Postie didn\'t knock')
         {
             // check for duplicate case, RTS, delivered scan
             if(duplicateCase == '' && !isReturnToSender && !$A.util.isEmpty(attemptedDeliveryScanWcid))

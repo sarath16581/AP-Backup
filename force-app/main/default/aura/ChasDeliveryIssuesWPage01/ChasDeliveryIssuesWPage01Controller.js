@@ -81,7 +81,7 @@
         cmp.set('v.inCorrectDeliveryAddressFlag',false);
         cmp.set('v.deliveryAddress','Delivery address');
         cmp.set('v.issueDateFlag',false);
-        if(issueVal =='Postie didn\'t knock before leaving a card'  || issueVal =='Item was left in an unsafe place'){
+        if(issueVal =='Postie didn\'t knock'  || issueVal =='Item was left in an unsafe place'){
             cmp.set('v.parcelOrLetterRadioButtonsFlag',true);
             cmp.set('v.issueDateFlag',true);
         }else if(issueVal =='Item was damaged' ){
@@ -127,7 +127,7 @@
             //Setting selected options from the url for auto-progression of the forms
             if(option == 'postiecarded')
             {
-                cmp.set('v.wizardData.IssueName','Postie didn\'t knock before leaving a card');
+                cmp.set('v.wizardData.IssueName','Postie didn\'t knock');
             } 
             if(option == 'unsafeplace')
             {
@@ -151,7 +151,7 @@
             } 
             // Invoke the service for the below issue types for auto progression of the forms
             var issueName = cmp.get('v.wizardData.IssueName');
-            if(!$A.util.isEmpty(issueName) && (issueName == 'Postie didn\'t knock before leaving a card' || issueName == 'Item was left in an unsafe place'))
+            if(!$A.util.isEmpty(issueName) && (issueName == 'Postie didn\'t knock' || issueName == 'Item was left in an unsafe place'))
             {
                 helper.searchTrackingNumber(cmp,event,helper);
             }
@@ -165,7 +165,7 @@
         {
             cmp.set('v.inCorrectDeliveryAddressFlag',true);
         }
-        if(cmp.get('v.wizardData.IssueName') == 'Postie didn\'t knock before leaving a card' || cmp.get('v.wizardData.IssueName') == 'Item was left in an unsafe place' || cmp.get('v.wizardData.IssueName') == 'Item was damaged')
+        if(cmp.get('v.wizardData.IssueName') == 'Postie didn\'t knock' || cmp.get('v.wizardData.IssueName') == 'Item was left in an unsafe place' || cmp.get('v.wizardData.IssueName') == 'Item was damaged')
         {
             cmp.set('v.parcelOrLetterRadioButtonsFlag',true);
             
@@ -174,7 +174,7 @@
     searchTrackingNumberService : function (cmp, event, helper) {
         var issueName = cmp.get('v.wizardData.IssueName');
         // invoke the service for the below issue types only
-        if(!$A.util.isEmpty(issueName) && (issueName == "Postie didn\'t knock before leaving a card" || issueName == "Item was left in an unsafe place"))
+        if(!$A.util.isEmpty(issueName) && (issueName == "Postie didn\'t knock" || issueName == "Item was left in an unsafe place"))
         {
             helper.searchTrackingNumber(cmp,event,helper);
             
