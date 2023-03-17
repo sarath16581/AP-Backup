@@ -661,11 +661,11 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			List<Case> reroutableCases = new List<Case>();
 
 			try {
-					String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;				
+					String omniHoldingQueueId = OmniChannelService.getInstance().omniHoldingQueueId;				
 
 					//Cases that were put in the holding queue during the synchronous execution need to be re-routed
 					for (Case cs : cases.values()) {				
-						if(cs.OwnerId.equals(Id.valueOf(holdingQueue))){
+						if(cs.OwnerId.equals(Id.valueOf(omniHoldingQueueId))){
 							cs.AllocateToQueue__c = true; //manually set to trigger routing logic
 							reroutableCases.add(cs);
 						}

@@ -346,7 +346,6 @@ public class SSSW_Routing {
 	 */
 	public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
 		String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
-		String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
 
 		isFinalPass = isFinalPassOverride ? isFinalPassOverride : isFinalPass;
 
@@ -429,9 +428,7 @@ public class SSSW_Routing {
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-							if (String.isEmpty(holdingQueue) == false) {
-								setRoutingCaseOwner(cs, holdingQueue);
-							}
+							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
 
 							break;
 						}
@@ -468,9 +465,8 @@ public class SSSW_Routing {
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-							if (String.isEmpty(holdingQueue) == false) {
-								setRoutingCaseOwner(cs, holdingQueue);
-							}
+							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
+
 
 							break;
 						}
