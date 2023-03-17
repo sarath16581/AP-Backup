@@ -12,12 +12,9 @@
     </alerts>
     <rules>
         <fullName>et4ae5__NewSupportRequest</fullName>
-        <actions>
-            <name>et4ae5__Send_Support_Request</name>
-            <type>Alert</type>
-        </actions>
         <active>true</active>
-        <formula>true</formula>
+        <description>This workflow rule is now deprecated. Please deactivate this workflow rule.</description>
+        <formula>ISBLANK(&apos;DEPRECATED&apos;)</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

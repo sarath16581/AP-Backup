@@ -7726,7 +7726,7 @@
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Proposal_Cubic_Factor__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Recommended_Pricing_Action__c</field>
         <readable>true</readable>
