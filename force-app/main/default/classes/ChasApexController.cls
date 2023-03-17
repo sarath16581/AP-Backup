@@ -1534,7 +1534,7 @@ commentBody = commentBody  + 'False';
             
             //-- Building Comment Body
             String commentBody ='Issue details : '  + issueDetailsType ;
-            if(issueDetailsType == 'Postie didn\'t knock before leaving a card' || issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Item was damaged'){
+            if(issueDetailsType == 'Postie didn\'t knock' || issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Item was damaged'){
                 commentBody = commentBody+ '\n' +'Which items are you having issues with : '+parcelOrLetter;
             }
             
@@ -1577,7 +1577,7 @@ commentBody = commentBody+ '\n' +'Tracking Number : '+trackingNumber;
                     enquirySubType = 'Delayed delivery';
                 }
             }
-            else if(issueDetailsType == 'Postie didn\'t knock before leaving a card'){
+            else if(issueDetailsType == 'Postie didn\'t knock'){
                 if(parcelOrLetter == 'Parcel'){
                     typeAndProduct = 'Feedback|Domestic Parcels|Parcel Post';
                     productCategory = 'Domestic Parcels';
@@ -1681,10 +1681,10 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 
             } 
              //REQ2361513 -- Modified by Paul Swarnapandian
-                if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock before leaving a card') && isEligibleForMyNetworkAssignment == 'true'){
+                if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
                     commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
                 } 
-                else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock before leaving a card') && isEligibleForMyNetworkAssignment != 'true'){
+                else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
                     commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
                 }
                 
