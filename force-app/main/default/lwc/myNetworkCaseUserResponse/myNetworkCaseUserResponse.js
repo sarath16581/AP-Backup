@@ -11,7 +11,6 @@
  * 2023-03-06 - Dattaraj Deshmukh - Fixed bug SF-864. Made network response field required.
  * 2023-03-14 - Dattaraj Deshmukh - SF(SF-886) Set DeliveryOption__c(controlling) field values. 
  * 									SF(SF-895) Fixed status update issue where SUI/Require More Info statuses were updated to Closed.
- * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -48,8 +47,6 @@ const STATUS_RESPONDED = 'Responded';
 const STATUS_IN_PROGRESS = 'In Progress';
 const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
 const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
-const CASE_UPDATE_OPERATIONS_RESPONDED = 'Operations Responded';
-const CASE_STATUS_AWAITING_REVIEW = 'Awaiting Review';
 
 export default class MyNetworkCaseUserResponse extends NavigationMixin(LightningElement) {
 
@@ -318,29 +315,16 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 					);
 	}
 
-	//function to update the case record
 	updateCaseRecord(){
 		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
-		let caseToUpdate = {
-			"Id": caseRecId,
-			"Case_Update__c": CASE_UPDATE_OPERATIONS_RESPONDED,
-            "sobjectType": "Case"
-        };
-
-		//if SUI is not ticked, set the case status
-		if (!this.stillUnderInvestigation) {
-			caseToUpdate = {...caseToUpdate, "Status" : CASE_STATUS_AWAITING_REVIEW};
-		}
-
-		//call apex method
-		updateCase({ caseToUpdate : caseToUpdate})
-		.then(() => {
+		updateCase({ caseId : caseRecId})
+		.then((result) => {
 			this.isLoaded = true;
 		})
 		.catch((error) => {
 			this.isLoaded = true;
 			this.error = error;
-			console.error("error>", this.error);
+			console.log("error>", this.error);
 			this.dispatchEvent(
 				new ShowToastEvent({
 					title: 'Error in creating chatter feed',
