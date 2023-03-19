@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>APT_Recommended_Pricing_Action__c</fullName>
-	<description>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
+    <fullName>APT_Recommended_Pricing_Action__c</fullName>
+    <description>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
 		unable to proceed without pricing support</description>
-	<inlineHelpText>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
+    <externalId>false</externalId>
+    <inlineHelpText>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
 		unable to proceed without pricing support</inlineHelpText>
-	<externalId>false</externalId>
-	<label>Recommended Pricing Action</label>
-	<required>false</required>
-	<trackFeedHistory>false</trackFeedHistory>
-	<trackHistory>false</trackHistory>
-	<type>Picklist</type>
-	<valueSet>
-		<restricted>true</restricted>
-		<valueSetDefinition>
-			<sorted>false</sorted>
-			<value>
-				<fullName>Self-Service</fullName>
-				<default>false</default>
-				<label>Self-Service</label>
-			</value>
-			<value>
-				<fullName>Raise a PSR</fullName>
-				<default>false</default>
-				<label>Raise a PSR</label>
-			</value>
-		</valueSetDefinition>
-	</valueSet>
+    <label>Recommended Pricing Action</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Self-Service</fullName>
+                <default>false</default>
+                <label>Self-Service</label>
+            </value>
+            <value>
+                <fullName>Raise a PSR</fullName>
+                <default>false</default>
+                <label>Raise a PSR</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

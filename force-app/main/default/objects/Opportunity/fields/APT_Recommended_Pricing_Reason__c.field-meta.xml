@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>APT_Recommended_Pricing_Reason__c</fullName>
-	<description>Description of why a pricing action is recommended, This could be blank if pricing
+    <fullName>APT_Recommended_Pricing_Reason__c</fullName>
+    <description>Description of why a pricing action is recommended, This could be blank if pricing
 		action is self-serve</description>
-	<inlineHelpText>Description of why a pricing action is recommended, This could be blank if
+    <externalId>false</externalId>
+    <inlineHelpText>Description of why a pricing action is recommended, This could be blank if
 		pricing action is self-serve</inlineHelpText>
-	<externalId>false</externalId>
-	<label>Recommended Pricing Reason</label>
-	<length>131072</length>
-	<trackFeedHistory>false</trackFeedHistory>
-	<trackHistory>false</trackHistory>
-	<type>LongTextArea</type>
-	<visibleLines>3</visibleLines>
+    <label>Recommended Pricing Reason</label>
+    <length>131072</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
 </CustomField>

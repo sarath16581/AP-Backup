@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>APT_Recommended_Pricing_Code__c</fullName>
-	<description>Reason identification code</description>
-	<inlineHelpText>Reason identification code</inlineHelpText>
-	<externalId>false</externalId>
-	<label>Recommended Pricing Code</label>
-	<length>255</length>
-	<required>false</required>
-	<trackFeedHistory>false</trackFeedHistory>
-	<trackHistory>false</trackHistory>
-	<type>Text</type>
-	<unique>false</unique>
+    <fullName>APT_Recommended_Pricing_Code__c</fullName>
+    <description>Reason identification code</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reason identification code</inlineHelpText>
+    <label>Recommended Pricing Code</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
