@@ -63,7 +63,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 		}
 
 		if(casesToUpdate.isEmpty() == false) {
-			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c}, true, APCaseAgentWorkPreferredAgentModule.class.getName());
+			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
 		}
 	}
 
