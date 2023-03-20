@@ -10,7 +10,7 @@
 <body style="margin:0; padding:0;">
 	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">You are listed as a point of escalation for
 			{!CaseInvestigation__c.NetworkName__c}</span></h3>
-	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!CaseInvestigation__c.CaseNumber__c} has
+	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!CaseInvestigation__c.CaseNumber__c} - {!CaseInvestigation__c.Name} has
 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is
 			waiting on a response.</span></p>
 	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Can you please</span></h3>

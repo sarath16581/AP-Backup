@@ -1,3 +1,10 @@
+/**************************************************
+Description:    Test Class for EmailMessageUtil
+History:
+--------------------------------------------------
+// 2023-02-09  Swati.mogadala@auspost.com.au -REQ3045758 - Updated testStarTrackDuplicateInboundEmail()
+**************************************************/
+
 @isTest
 private class TestEmailMessageUtil {
     //Added by David Catindoy - Nov 29, 2016

@@ -11,6 +11,7 @@
  * 2023-03-06 - Dattaraj Deshmukh - Fixed bug SF-864. Made network response field required.
  * 2023-03-14 - Dattaraj Deshmukh - SF(SF-886) Set DeliveryOption__c(controlling) field values. 
  * 									SF(SF-895) Fixed status update issue where SUI/Require More Info statuses were updated to Closed.
+ * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -23,13 +24,13 @@ import { updateRecord, getRecord, getFieldValue  } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
-import DELIVERY_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Deliveryinformation__c';
+import DELIVERY_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryInformation__c';
 import DELIVERY_OFFICER_KNOWLEDGE_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOfficerKnowledge__c';
 import DELIVERY_OPTIONS_FIELD from '@salesforce/schema/CaseInvestigation__c.DeliveryOptions__c';
 import NETWORK_FIELD from '@salesforce/schema/CaseInvestigation__c.Network__c';
 import QUALITY_OF_THE_CASE_FIELD from '@salesforce/schema/CaseInvestigation__c.Qualityofthecase__c';
-import REQUIRE_MORE_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Requiremoreinformation__c';
-import STILL_UNDER_INVESTIGATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Stillunderinvestigation__c';
+import REQUIRE_MORE_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.RequireMoreInformation__c';
+import STILL_UNDER_INVESTIGATION_FIELD from '@salesforce/schema/CaseInvestigation__c.StillUnderInvestigation__c';
 import CASE_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Enquiry_Type__c';
 import PURPOSE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Call_Purpose__c';
 import STATUS_FIELD from '@salesforce/schema/CaseInvestigation__c.Status__c';
@@ -47,6 +48,8 @@ const STATUS_RESPONDED = 'Responded';
 const STATUS_IN_PROGRESS = 'In Progress';
 const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
 const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
+const CASE_UPDATE_OPERATIONS_RESPONDED = 'Operations Responded';
+const CASE_STATUS_AWAITING_REVIEW = 'Awaiting Review';
 
 export default class MyNetworkCaseUserResponse extends NavigationMixin(LightningElement) {
 
@@ -182,12 +185,12 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			// this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
 			this.originalNetworkId = this.networkId = this.caseInvestigationRecord.fields.Network__c.value; // setting this value so we can detect if the user changes it. 
 			this.addressType = this.caseInvestigationRecord.fields.AddressType__c.value;
-			this.deliveryInformation = this.caseInvestigationRecord.fields.Deliveryinformation__c.value;
+			this.deliveryInformation = this.caseInvestigationRecord.fields.DeliveryInformation__c.value;
 			this.deliveryOfficerKnowledge = this.caseInvestigationRecord.fields.DeliveryOfficerKnowledge__c.value;
 			this.qualityOfCase = this.caseInvestigationRecord.fields.Qualityofthecase__c.value;
-			this.requireMoreInformation = this.caseInvestigationRecord.fields.Requiremoreinformation__c.value;
+			this.requireMoreInformation = this.caseInvestigationRecord.fields.RequireMoreInformation__c.value;
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
-			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.Stillunderinvestigation__c.value;
+			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.StillUnderInvestigation__c.value;
 			this.internalFacilityNotes = this.caseInvestigationRecord.fields.InternalFacilityNotes__c.value;
 			this.status = this.caseInvestigationRecord.fields.Status__c.value;
 
@@ -220,14 +223,14 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
 
 		// If they have changed it then it is a case of Reassigning to another network. 
-		if(this.originalNetworkId != this.networkId) { 
+		if(this.originalNetworkId !== this.networkId) { 
 			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = false;
 			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = false;
 			fields[STATUS_FIELD.fieldApiName] = STATUS_IN_PROGRESS;
 		} else {
 			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
 			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
-			fields[STATUS_FIELD.fieldApiName] = this.status;//(this.status != '') ? this.status : STATUS_CLOSED;
+			fields[STATUS_FIELD.fieldApiName] = (!this.stillUnderInvestigation && !this.requireMoreInformation) ? STATUS_CLOSED : this.status;//(this.status != '') ? this.status : STATUS_CLOSED;
 		}
 
 		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
@@ -238,7 +241,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 
 		//check network response is entered.
 		//show error message if network response is NOT entered.
-		if(this.comments == undefined || this.comments == '') {
+		if(this.comments === undefined || this.comments === '') {
 			
 			validInput = false;
 			//show message if required field is missing
@@ -315,16 +318,29 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 					);
 	}
 
+	//function to update the case record
 	updateCaseRecord(){
 		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
-		updateCase({ caseId : caseRecId})
-		.then((result) => {
+		let caseToUpdate = {
+			"Id": caseRecId,
+			"Case_Update__c": CASE_UPDATE_OPERATIONS_RESPONDED,
+            "sobjectType": "Case"
+        };
+
+		//if SUI is not ticked, set the case status
+		if (!this.stillUnderInvestigation) {
+			caseToUpdate = {...caseToUpdate, "Status" : CASE_STATUS_AWAITING_REVIEW};
+		}
+
+		//call apex method
+		updateCase({ caseToUpdate : caseToUpdate})
+		.then(() => {
 			this.isLoaded = true;
 		})
 		.catch((error) => {
 			this.isLoaded = true;
 			this.error = error;
-			console.log("error>", this.error);
+			console.error("error>", this.error);
 			this.dispatchEvent(
 				new ShowToastEvent({
 					title: 'Error in creating chatter feed',

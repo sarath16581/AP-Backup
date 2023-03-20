@@ -1113,7 +1113,7 @@ deliveryIssue_Left_Card_Letter
 			TestData vTestData = wizardDataSetUp();
 
 
-			vTestData.dliveryWizardData.put('IssueName','Postie didn\'t knock before leaving a card');
+			vTestData.dliveryWizardData.put('IssueName','Postie didn\'t knock');
 			/* Test for more than 255 characters*/
 			vTestData.dliveryWizardData.put('issueDetails','complaintDetails complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails '+
 					'complaintDetails complaintDetails complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails'+
@@ -1148,7 +1148,7 @@ deliveryIssue_Left_Card_Parcel
 			TestData vTestData = wizardDataSetUp();
 
 
-			vTestData.dliveryWizardData.put('IssueName','Postie didn\'t knock before leaving a card');
+			vTestData.dliveryWizardData.put('IssueName','Postie didn\'t knock');
 			vTestData.dliveryWizardData.put('selectedRadio2Name','Parcel');
 
 			Test.startTest();
