@@ -12,6 +12,7 @@
 	 * 02-03-2023 Mahesh Parvathaneni - SF-830 Updated method test_validateCaseInvestigations and test_GetFilteredCases_UpdatedStarTrackListViewFilters
 	 * 08-03-2023 Mahesh Parvathaneni - SF-873 Added method testGetSafeDropInformationCaseInvestigation
 	 * 10-03-2023 Dattaraj Deshmukh   - Added method 'test_filterBasedOnSearchCriteria'.
+	 * 16-03-2023 Dattaraj Deshmukh   - Updated 'test_GetFilteredCases_UpdatedStarTrackListViewFilters' to test UPDATED CI records.
 	 * ***************************************************************************************/
 	@isTest
 	private  class MyNetworkCaseListControllerTest {
@@ -689,6 +690,7 @@
 		Id stCaseRecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		cases[0].RecordTypeId = stCaseRecordTypeId;
+		cases[0].Status = 'Closed';
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
 		networks[0].Org_ID__c = '1234';
@@ -696,19 +698,24 @@
 		List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), true);
 		
 		//assigning formula field as it is referred in logic.
-		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true, 'IsClosed' => true});
 		networks[0] = (Network__c)ApplicationTestDataFactory.setChildRelationships(networks[0], new Map<String, List<SObject>>{'Network_Users__r' => new List<SObject>{networkUsers[0]}});
-
-
-		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
-		
-		// updating ONLY one CI record. 
-		networkCaseInvestigations[0].LastContactCentreUpdate__c = System.today().addDays(-2);
-		
-		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
 
 		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName()
 		.get('StarTrack_MyNetwork').getRecordTypeId();
+
+		List<CaseInvestigation__c> networkCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
+		networkCaseInvestigations[0].RecordTypeId = stCaseInvestigationRecordTypeId;
+		networkCaseInvestigations[1].RecordTypeId = stCaseInvestigationRecordTypeId;
+		
+		networkCaseInvestigations[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(networkCaseInvestigations[0], new Map<String, Object>{'IsClosed__c' => true, 'IsCaseClosed__c' => true, 'Case__r' =>  cases[0]});
+		networkCaseInvestigations[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(networkCaseInvestigations[1], new Map<String, Object>{'IsClosed__c' => true, 'IsCaseClosed__c' => true, 'Case__r' =>  cases[0]});
+
+		
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{networkCaseInvestigations[0], networkCaseInvestigations[1]}});
+
+		
+		String filteredStringWithUpdatedFilter = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"Cases_updated","searchButtonClicked":true,"caseNumberVal":""}';
 
 		// =====================================
 		// Stubbing
@@ -722,7 +729,7 @@
 		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
 		MockUtility.Mocks.when(mockNetworkUserSelector.selectByUserId(new Set<Id>{myNetworkPortalUser.Id}))
 							.thenReturn(new Map<Id, Facility_User__c>{networkUsers[0].Id => networkUsers[0]});
-		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
+		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByNetworkIdAndClosedCases(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
 										new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
 											CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
 											UsersSelector.Options.WITH_PROFILE} ))
@@ -732,28 +739,24 @@
 		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
-
-		List<CaseInvestigation__c> cInvList = MyNetworkCaseListController.getStarTrackCases(null);
-		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.processCaseInvWrapper(cInvList, 'Cases_updated');
+		MyNetworkCaseListController.SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp = MyNetworkCaseListController.constructDynamicFilters(filteredStringWithUpdatedFilter);									
+		List<CaseInvestigation__c> cInvList = MyNetworkCaseListController.getStarTrackCases(selectedViewWithFiltersWrp);
+		List<MyNetworkCaseListController.MyNetworkCasesWrapper> caseInvWrapperList = MyNetworkCaseListController.processCaseInvWrapper(cInvList);
 		
 		Test.StopTest();
 		
 		//verifying methods are called
 		((NetworkUsersSelector)MockUtility.Mocks.verify(mockNetworkUserSelector, MockUtility.Mocks.times(1))).selectByUserId(new Set<Id>{myNetworkPortalUser.Id});
 
-		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockCaseInvestigationSelector, MockUtility.Mocks.times(1)))
-														.selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, 
-																									new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, CaseInvestigationsSelector.Options.WITH_NETWORKS, 
-																										CaseInvestigationsSelector.Options.WITH_ARTICLES, CaseInvestigationsSelector.Options.WITH_OWNER_DETAILS,
-																										UsersSelector.Options.WITH_PROFILE});
-		
+			
 
 		//asserting method returns ONLY UPDATED case investigations.
-		System.assertEquals(1, caseInvWrapperList.size());
+		System.assertEquals(2, caseInvWrapperList.size());
 		
-		//asserting one case investigation is NEW and ONLY one record is filtered out of two case investigations passed.
+		//asserting all CI records are marked as UPDATED as parent case is CLOSED.
 		System.assertEquals(networkCaseInvestigations[0].Id, caseInvWrapperList[0].caseInvestigation.Id);
-		system.assertEquals('NEW', caseInvWrapperList[0].caseIcon);
+		system.assertEquals('UPDATED', caseInvWrapperList[0].caseIcon);
+		system.assertEquals('UPDATED', caseInvWrapperList[1].caseIcon);
 
 	}
 

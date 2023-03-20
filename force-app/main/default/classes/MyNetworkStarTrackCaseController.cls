@@ -5,7 +5,7 @@
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - Added getCriticalIncidents method and updates to getArticlesByCase method
  * 2023-01-17 - Mahesh Parvathaneni - Updated to set the StarTrack MyNetwork record type for Case Investigation
- * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated wrapper to get the network for event messages based on Facility Org Id
+ * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated wrapper to get the network for event messages based on Post office code
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
@@ -54,7 +54,7 @@ public with sharing class MyNetworkStarTrackCaseController {
 					}
 
 					if (articleList.size() > 0) {
-						//get the network for the event messages based on the facility organisation id to render on UI
+						//get the network for the event messages based on the post office code to render on UI
 						//since StarTrack articles eventmessage doesn't have facility populated.
 						Map<Id, Network__c> eventMessageToNetworkMap = getEventMessageToNetworkMap(articleList);
 
@@ -96,7 +96,7 @@ public with sharing class MyNetworkStarTrackCaseController {
 	}
 
 	/**
-	 * This function get the facility for the event message based on the facility organisation id
+	 * This function get the facility for the event message based on the post office code
 	 * This is required to do some validation on the UI based on the network
 	 */
 	private static Map<Id, Network__c> getEventMessageToNetworkMap(List<Article__c> articles) {
@@ -107,8 +107,8 @@ public with sharing class MyNetworkStarTrackCaseController {
 		//Process all ORGs from the incomming events.
 		for (Article__c article : articles) {
 			for (EventMessage__c e : article.Event_Messages__r) {
-				if (e.FacilityOrganisationID__c != null) {
-					networkOrgs.add(e.FacilityOrganisationID__c);
+				if (e.Post_Office_Code__c != null) {
+					networkOrgs.add(e.Post_Office_Code__c);
 				}
 			}
 		}
@@ -122,9 +122,9 @@ public with sharing class MyNetworkStarTrackCaseController {
 			for (Article__c article : articles) {
 				for (EventMessage__c e : article.Event_Messages__r) {
 					//Set the ORG on the Event, if it is blank and found.
-					if (networkOrgsMap.containsKey(e.FacilityOrganisationID__c)) {
-						e.Facility__c = networkOrgsMap.get(e.FacilityOrganisationID__c).Id;
-						eventMessageToNetworkMap.put(e.Id, networkOrgsMap.get(e.FacilityOrganisationID__c));
+					if (networkOrgsMap.containsKey(e.Post_Office_Code__c)) {
+						e.Facility__c = networkOrgsMap.get(e.Post_Office_Code__c).Id;
+						eventMessageToNetworkMap.put(e.Id, networkOrgsMap.get(e.Post_Office_Code__c));
 					}
 				}
 			}

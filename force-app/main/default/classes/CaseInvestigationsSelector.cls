@@ -201,6 +201,20 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	}
 
 	/**
+	 * Select case investigation records that are not closed and whose case is closed and related to passed network ids. 
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdAndClosedCases(Set<Id> networkIds, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsCaseClosed__c).eq(true))
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
 	 * overridden method to generate QueryBuilder instance
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {

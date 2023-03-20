@@ -6,7 +6,8 @@
  * @domain PUD
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
- * 2023-02-015- Dattaraj Deshmukh - Added testUpdateCase method.
+ * 2023-02-15 - Dattaraj Deshmukh - Added testUpdateCase method.
+ * 2023-03-16 - Mahesh Parvathaneni - Updated testUpdateCase method. 
 */
 @IsTest
 private class MyNetworkCaseUserResponseController_Test {
@@ -43,9 +44,8 @@ private class MyNetworkCaseUserResponseController_Test {
 	}	
 
 	/**
-	 * @desc: test if method creates chatter feed record for a case investigation record.
-	 * When Portal user updates response on case investgiation record and Case_Update__c is updated to 'Operations Responded'.
-	 * Expected: Case.Case_Update__c is updated to 'Operations Responded'.
+	 * @desc: test if method update case record.
+	 * When Portal user updates response on case investgiation record then related case record has to be updated.
 	 */
 	@IsTest
 	public static void testUpdateCase() {
@@ -64,11 +64,45 @@ private class MyNetworkCaseUserResponseController_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
-		String result = MyNetworkCaseUserResponseController.updateCase(cases[0].Id);
+		String result = MyNetworkCaseUserResponseController.updateCase(cases[0]);
 		Test.stopTest();
 
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) fflib_Match.eqList(new List<Case>{ new Case(Id = cases[0].Id, Case_Update__c = MyNetworkConstants.CASE_UPDATE_OPERATIONS_RESPONDED)}));
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) fflib_Match.eqList(new List<Case>{ cases[0] }));
 
-		System.assertEquals('success', result);
+		System.assertEquals('success', result, 'Expected case record to be updated.');
+	}
+
+	/**
+	 * @desc: test if method update case record throw an exception.
+	 */
+	@IsTest
+	public static void testUpdateCaseException() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.eqList(cases))).thenThrow(new MockException());
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		try {
+			String result = MyNetworkCaseUserResponseController.updateCase(cases[0]);
+			System.assert(false, 'Expected to throw an Exception on any errors. but not thrown.');
+		} catch (Exception ex) {
+			// expected
+			System.assertNotEquals(null, ex.getMessage(), 'Expected exception to be thrown');
+		}
+		Test.stopTest();
+	}
+
+	private class MockException extends Exception {
 	}
 }
