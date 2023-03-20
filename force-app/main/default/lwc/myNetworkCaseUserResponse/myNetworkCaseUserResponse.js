@@ -12,6 +12,7 @@
  * 2023-03-14 - Dattaraj Deshmukh - SF(SF-886) Set DeliveryOption__c(controlling) field values. 
  * 									SF(SF-895) Fixed status update issue where SUI/Require More Info statuses were updated to Closed.
  * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
+ * 2023-03-20 - Dattaraj Deshmukh - SF-900 Navigated to 'Home' page after Network Response is added.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -264,6 +265,8 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 					this.createChatterFeed();
 				}
 				this.updateCaseRecord();
+				//navigate to home page.
+				this.navigateToHome();
 			})
 			.catch(error => {
 				
