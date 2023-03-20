@@ -560,21 +560,20 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					// TODO: Revisit the TIBCO Search service....
 					TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
 
-					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
-					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
-					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
-					// TODO i) change routingFields var in SSSW_Routing to public ii) add the routingFields values into the Set below via addAll(), and remove fields in the current Set that are in routingFields 
-					Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
-						Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
-						Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
+					Set<SObjectField> caseFieldsForOverride = new Set<SObjectField>{
+						Case.Related_Billing_Account__c, Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
 						Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
 						Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
 						Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
-						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
-						Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c, Case.OwnerId, 
-						Case.AllocateToQueue__c, Case.isHLC__c, Case.isCR__c, Case.Customer_Type__c, Case.Type, Case.IsNewForRouting__c, Case.SocialPostTags__c, Case.Status, 
-						Case.CaseLocality__c, Case.ByPassRoutingRulesOnCreation__c, Case.PreferredAgentExpiry__c, Case.BusinessHoursId
-					}).selectById(caseIds);
+						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, 
+						Case.ParentId, Case.LastRoutingRuleIsStrategic__c						
+					};
+					caseFieldsForOverride.addAll(SSSW_Routing.caseFieldsForRouting);
+
+					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
+					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
+					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
+					Map<Id, Case> cases = SSSWCasesSelector.newInstance(caseFieldsForOverride).selectById(caseIds);
 
 					// TODO: This should be routed via the Domain class rather than invoked directly
 					MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
