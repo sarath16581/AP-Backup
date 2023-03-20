@@ -229,7 +229,7 @@ public class SSSW_Routing {
 			// get the case value, defaults to empty String
 			String caseValue;
 
-			String caseFieldName = fieldsMapping.get(matchingField).getDescribe().getName();
+			String caseFieldName = fieldsMapping.get(matchingField)?.getDescribe().getName();
 
 			/**
 			 * Modified 2021-06-30 changed to use articleAttributesMap
@@ -239,7 +239,7 @@ public class SSSW_Routing {
 			 * Has ExtraCover is determined by a static defined articleAttributesMap.hasExtraCover
 			 */
 			if(!matchingField.equalsIgnoreCase('IsStrategic__c') && !matchingField.equalsIgnoreCase('HasExtraCover__c')) {
-				caseValue = cs.get(caseFieldName) != null && !String.isEmpty(String.valueOf(cs.get(caseFieldName))) ? String.valueOf(cs.get(caseFieldName)) : '';
+				caseValue = caseFieldName != null && !String.isEmpty(String.valueOf(cs?.get(caseFieldName))) ? String.valueOf(cs.get(caseFieldName)) : '' ;
 			} else if(matchingField.equalsIgnoreCase('IsStrategic__c') && articleAttributesMap.get(referenceId) != null ) {
 				caseValue = (!String.isEmpty(String.valueOf(articleAttributesMap.get(referenceId).isStrategic)) ? String.valueOf(articleAttributesMap.get(referenceId).isStrategic) : '');
 			} else if(matchingField.equalsIgnoreCase('HasExtraCover__c') && articleAttributesMap.get(referenceId) != null ) {

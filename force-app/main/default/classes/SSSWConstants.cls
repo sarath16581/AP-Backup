@@ -17,8 +17,8 @@
   * 16.08.2021  alex.volkov@auspost.com.au Added a constant for Network Queue developer name
   * 10.09.2021  hara.sahoo@auspost.com.au Added constants for Compensation statuses
   * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
- 
-*/  
+  * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
+  */  
 public with sharing class SSSWConstants {
 
     // NOT USED
@@ -311,4 +311,8 @@ public with sharing class SSSWConstants {
     /**SSSW Compensation Constants **/
     public static final String STATUS_APPROVED_AWAITING_CUSTOMER = 'Approved Awaiting Customer';
     public static final String STATUS_APPROVED = 'Approved';
+
+	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
+	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
+	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
 }

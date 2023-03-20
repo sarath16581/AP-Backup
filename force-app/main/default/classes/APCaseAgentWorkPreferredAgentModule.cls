@@ -21,13 +21,17 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		resetPreferredAgentBypassFlag((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);
+		processUserResponseForPreferredAgent((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);
 	}
 	
 	/*
-	* This method is used to reset the BypassPreferredAgent__c on the case. This is a workaround for scenarios when Omni assigns the case to an agent - no triggers are firing. 
+	* This method performs logic relating to PreferredAgent based on the User's response to the Omni push. Below are the responses processed:
+	* - Accept
+	* - Decline
+	* - Decline On Push Timeout
+	* - Unavailable (when User sets their Omni Status to Offline or closes the console).
 	*/
-	private void resetPreferredAgentBypassFlag(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
+	private void processUserResponseForPreferredAgent(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
 		List<Case> casesToUpdate = new List<Case>();
 		Set<Id> caseIdsToReroute = new Set<Id>();
 
@@ -41,8 +45,9 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
 
-				// If the PSR was created PreferredUserId (i.e. manualy created) and it was declined by the agent (manually or timed out) then bypass the preferred agent logic and push via gen pop omni
-				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout')) { 
+				// AgentWork with a PreferredUserId (i.e. no OriginalGroupId) will remain with the User on Decline.
+				// We need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
+				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout' || aw.Status == 'Unavailable')) { 
 					caseIdsToReroute.add(aw.WorkItemId);
 				}
 			}

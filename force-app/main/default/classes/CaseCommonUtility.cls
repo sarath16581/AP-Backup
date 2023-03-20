@@ -659,7 +659,7 @@
 						if(csRec.AllocateToQueue__c &&
 							(
 								(oldCase != null && oldCase.AllocateToQueue__c == csRec.AllocateToQueue__c)
-								|| (csRec.OwnerId.getSobjectType() == User.getSObjectType() && Utility.getCaseClosedStatus().contains(csRec.Status) == false)
+								|| (csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == User.getSObjectType() && csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE  && Utility.getCaseClosedStatus().contains(csRec.Status) == false)
 								|| csRec.Permanent_Close__c == true
 								|| csRec.OwnerId == OmniChannelService.getInstance().omniHoldingQueueId // Prevent routing of cases in Omni Holding Queue. Note: MyCustomerCaseArticlesModule class has async logic that routes these cases out of the Omni Holding queue
 							)

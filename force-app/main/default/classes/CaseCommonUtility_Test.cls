@@ -15,7 +15,7 @@ History:
 2022-11-18	 Noel Lim - added test method routeReopenedCases()
 2023-02-14	 Noel Lim - added test method assignToPreferredAgent()
 2023-03-08	 Noel Lim - update test method testAssignToPreferredAgent() for Release 2 TEMPORARY FIX
-2023-03-17	 Noel Lim - update test method closedCasesToClosedQueue() to include new logic that prevents routing from AllocateToQueue = true based on Case Owner
+2023-03-17	 Noel Lim - update test method closedCasesToClosedQueue() to include new logic that prevents routing from AllocateToQueue = true based on Case Owner. Update existing test methods that simulate portal or Social Case creation to use the correct Profile
 **************************************************/
 @isTest
 private with sharing class CaseCommonUtility_Test {
@@ -747,11 +747,17 @@ private with sharing class CaseCommonUtility_Test {
 	  * @throws			NA
 	  */
 	private static testMethod void testCaseRouting(){
-		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
-		
-		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
+		Profile bspProf = [SELECT Id,Name FROM profile where Name =: SSSWConstants.SSSW_BSP_COMMUNITY_USER_PROFILE LIMIT 1]; //new cases created for routing will come from Portal
+		Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
+		Account bspAcc = TestUtility.createBusinessAccount('BSP Account',
+														accRecTypeMap.get('Organisation').getRecordTypeId());
+		Database.insert(bspAcc);
+		Contact bspCon = TestUtility.createContact('BSP','User','bspuser@test.com',bspAcc.id);
+		Database.insert(bspCon);
+
+		System.runAs(TestUtility.createPortalUser('Wayne',bspProf.Id,bspCon.Id)){ 
 			Group backOfcQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_2' LIMIT 1];
-			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'Consumer','Email','Any',SSSWConstants.RECTYPEROUTING);
+			SSSWRouting__c routing = TestUtility.createSSSWRouting('Domestic Parcels','Express','General Enquiry',null,'Consumer','Portal','Any',SSSWConstants.RECTYPEROUTING);
 			routing.IsNew__c = true;
 			routing.ExcludeFromNPS__c = true;
 			routing.IsActive__c = True;
@@ -759,18 +765,10 @@ private with sharing class CaseCommonUtility_Test {
 			Database.insert(routing);
 			System.debug('Routing4--->'+routing);
 			
-			Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
-			Account acc = TestUtility.createBusinessAccount('Wayne Enterprises',
-															accRecTypeMap.get('Organisation').getRecordTypeId());
-			Database.insert(acc);
-
-			Contact con = TestUtility.createContact('Bruce','Wayne','bruce@wayne.com',acc.id);
-			Database.insert(con);
-			
 			Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
-			Case csRec = TestUtility.createCase('Enquiry','In Progress','General Enquiry',acc.Id,con.Id,
+			Case csRec = TestUtility.createCase('Enquiry','In Progress','General Enquiry',null,bspCon.Id,
 												caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
-			csRec.Origin = 'Email';
+			csRec.Origin = 'Portal';
 			csRec.ProductCategory__c = 'Domestic Parcels';
 			csRec.ProductSubCategory__c = 'Express';
 			csRec.ReferenceId__c = '12345';
@@ -787,7 +785,7 @@ private with sharing class CaseCommonUtility_Test {
 	}
 
 	private static testMethod void testSocialCaseRouting(){
-		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
+		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSWConstants.SSSW_SOCIAL_INTEGRATION_PROFILE LIMIT 1];
 
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		Case socialCase1 = TestUtility.createCase('Social Post','New',null, null, null, caseRecTypeMap.get('Social Record Type').getRecordTypeId());
@@ -1404,11 +1402,11 @@ private with sharing class CaseCommonUtility_Test {
 	 * f) Case with no change in Status (negative)
 	 * 
 	 * For 2. Prevent Routing based on Case Owner, test scenarios are:
-	 * a) Open Case owned by Customer (positive)
+	 * a) Open Case owned by an Agent (positive)
 	 * b) Permanently Closed Case (positive)
 	 * c) Case owned by Omni Holding Queue (positive)
 	 * d) No change to AllocateToQueue (positive)
-	 * 3) Closed Case owned by Customer (negative, allow routing)
+	 * e) Closed Case owned by an (negative, allow routing)
 	 * 
 	 */
 	@IsTest
@@ -1440,7 +1438,7 @@ private with sharing class CaseCommonUtility_Test {
 		Group nonOmniQueue = queues.values()[1];
 
 		//Agent User
-		List<User> agents = ApplicationTestDataFactory.getUsers(1, true);
+		List<User> users = ApplicationTestDataFactory.getUsers(1, true);
 
 		//Routing Rule
 		SSSWRouting__c routingRule = new SSSWRouting__c();
@@ -1502,12 +1500,14 @@ private with sharing class CaseCommonUtility_Test {
 
 
 		//2. Prevent Routing - POSITIVE scenarios 
-		cases[6].OwnerId = agents[0].Id; //Open Case with User
+		cases[6].OwnerId = users[0].Id; //Open Case with User
 		cases[6].Status = nonClosedStatus.MasterLabel;
 		cases[6].Permanent_Close__c = false;
 		cases[6].AllocateToQueue__c = true;
+		Profile agentProfile = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
+		cases[6] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[6], new Map<String, Object>{'Case_Owner_User_Profile_Name__c' => agentProfile.Name});
 
-		cases[7].OwnerId = agents[0].Id; //Permanently closed Case
+		cases[7].OwnerId = users[0].Id; //Permanently closed Case
 		cases[7].Status = closedStatus.MasterLabel;
 		cases[7].Permanent_Close__c = true;
 		cases[7].AllocateToQueue__c = true;
@@ -1523,7 +1523,7 @@ private with sharing class CaseCommonUtility_Test {
 		cases[9].AllocateToQueue__c = true;
 
 		//2. Prevent Routing - NEGATIVE scenarios, allow routing
-		cases[10].OwnerId = agents[0].Id; //Closed Case with User
+		cases[10].OwnerId = users[0].Id; //Closed Case with User
 		cases[10].Status = closedStatus.MasterLabel;
 		cases[10].Permanent_Close__c = false;
 		cases[10].AllocateToQueue__c = true;
@@ -1546,7 +1546,7 @@ private with sharing class CaseCommonUtility_Test {
 		//1. Closed Cases
 		oldCases[0].Status = nonClosedStatus.MasterLabel;
 		oldcases[1].Status = closedStatus.MasterLabel;
-		oldcases[1].OwnerId = UserInfo.getUserId();
+		oldcases[1].OwnerId = users[0].Id;
 		oldcases[2].Status = nonClosedStatus.MasterLabel;
 		oldcases[3].Status = nonClosedStatus.MasterLabel;
 		oldcases[4].Status = closedStatus.MasterLabel;
@@ -1584,27 +1584,20 @@ private with sharing class CaseCommonUtility_Test {
 
 		Test.stopTest();
 
-		System.debug('Omni Closed Queue Id ' + omniClosedQueueId);
-		System.debug('Agent User Id' + agents[0].Id);
-		for(Case csRec : cases){
-			System.debug('Case ' +csRec.Subject+ ' OwnerId = ' + csRec.OwnerId);
-		}
-		
-
 		//1. Closed Cases
-		System.assert(cases[0].OwnerId == omniClosedQueueId, 'Closed Case status changed from Open to Close => moved to Closed Case Queue');
-		System.assert(cases[1].OwnerId == omniClosedQueueId, 'Closed Case Owner changed  => moved to Closed Case Queue');
-		System.assert(cases[5].OwnerId == omniClosedQueueId, 'Closed Case inserted  => moved to Closed Case Queue');
-		System.assert(cases[2].OwnerId != omniClosedQueueId, 'Closed Case in a Queue without Routing config => not in Closed Case Queue');
-		System.assert(cases[3].OwnerId != omniClosedQueueId, 'Case not in a Closed Status => not in Closed Case Queue');
-		System.assert(cases[4].OwnerId != omniClosedQueueId, 'Case with no change in Status => not in Closed Case Queue');
+		System.assertEquals(omniClosedQueueId, cases[0].OwnerId, 'Closed Case status changed from Open to Close => moved to Closed Case Queue');
+		System.assertEquals(omniClosedQueueId, cases[1].OwnerId, 'Closed Case Owner changed  => moved to Closed Case Queue');
+		System.assertEquals(omniClosedQueueId, cases[5].OwnerId, 'Closed Case inserted  => moved to Closed Case Queue');
+		System.assertNotEquals(omniClosedQueueId, cases[2].OwnerId, 'Closed Case in a Queue without Routing config => not in Closed Case Queue');
+		System.assertNotEquals(omniClosedQueueId, cases[3].OwnerId, 'Case not in a Closed Status => not in Closed Case Queue');
+		System.assertNotEquals(omniClosedQueueId, cases[4].OwnerId, 'Case with no change in Status => not in Closed Case Queue');
 
 		//2. Prevent Routing
-		System.assert(cases[6].OwnerId == agents[0].Id, 'Open Case with User should not have routed');
-		System.assert(cases[7].OwnerId == agents[0].Id, 'Permanently closed Case should not have routed');
-		System.assert(cases[8].OwnerId == omniHoldingQueueId, 'Case in Omni Holding queue should not have routed');
-		System.assert(cases[9].OwnerId != agents[0].Id, 'Case should not have routed if AllocateToQueue did not change');
-		System.assert(cases[10].OwnerId != omniQueue.Id, 'Case should be routed based on routing rule if Case is Closed but not Permanently closed');
+		System.assertEquals(users[0].Id, cases[6].OwnerId, 'Open Case with User should not have routed');
+		System.assertEquals(users[0].Id, cases[7].OwnerId, 'Permanently closed Case should not have routed');
+		System.assertEquals(omniHoldingQueueId, cases[8].OwnerId, 'Case in Omni Holding queue should not have routed');
+		System.assertNotEquals(users[0].Id, cases[9].OwnerId, 'Case should not have routed if AllocateToQueue did not change');
+		System.assertNotEquals(omniQueue.Id, cases[10].OwnerId, 'Case should be routed based on routing rule if Case is Closed but not Permanently closed');
 	}
 
 	/**
