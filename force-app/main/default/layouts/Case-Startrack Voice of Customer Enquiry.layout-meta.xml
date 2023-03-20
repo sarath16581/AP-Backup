@@ -118,6 +118,10 @@
                 <field>Action_Date__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ReferenceID__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Complaint__c</field>
             </layoutItems>
@@ -347,6 +351,7 @@
         <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Article__c</fields>
         <fields>Status__c</fields>

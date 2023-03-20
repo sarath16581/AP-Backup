@@ -1,3 +1,7 @@
+/**
+* @changelog
+* 2023-03-16 - Mahesh Parvathaneni - SF-862 Added logic to refresh the primary tab after successful case investigation creation
+*/
 import {
     api,
     track,
@@ -146,17 +150,23 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                                 message: this.label.caseInvestigationSuccessMessage,
                                 theme: 'success', // a green theme intended for success states
                                 label: 'Success', // this is the header text
-                            });
-                            this.loadArticles();
+                            }).then(() => {
+								//dispatches event to the vf page to refresh the primary tab
+								this.dispatchEvent(new CustomEvent('refreshprimarytab', {
+									bubbles: true,
+									composed: true
+								}));
+								this.isLoading = false;
+							});
                         } else {
                             LightningAlert.open({
                                 message: response.errorMessage,
                                 theme: 'error', // a red theme intended for error states
                                 label: 'Error', // this is the header text
-                            });
+							});
+							this.resetPageDetails();
+							this.isLoading = false;
                         }
-                        this.resetPageDetails();
-                        this.isLoading = false;
                     })
                     .catch(error => {
                         this.isLoading = false;

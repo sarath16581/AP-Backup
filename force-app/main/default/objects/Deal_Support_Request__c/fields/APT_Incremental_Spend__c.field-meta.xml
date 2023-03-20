@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Incremental_Spend__c</fullName>
-    <description>Field to capture Incremental spend by the customer, is manually captured by the Business</description>
+    <description>Field to capture Incremental spend by the customer, is manually captured by the
+		Business</description>
     <externalId>false</externalId>
     <label>Incremental Spend</label>
     <precision>18</precision>

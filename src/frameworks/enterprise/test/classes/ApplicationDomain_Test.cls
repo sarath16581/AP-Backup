@@ -7,7 +7,7 @@
  * @group Core
  * @domain Core
  * @changelog
- * 2023-02-14 - Updated to assert behaviour on after undelete
+ * 2023-02-14 - Ranjeewa Silva - Updated to assert behaviour on after undelete
  */
 @IsTest
 private class ApplicationDomain_Test {

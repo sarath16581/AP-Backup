@@ -29,7 +29,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 		article.Consignment__c = consignment.Id;
 		EventMessage__c eventMessage = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
-		eventMessage.FacilityOrganisationID__c = '1234';
+		eventMessage.Post_Office_Code__c = '1234';
 
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		network.Org_ID__c = '1234';
@@ -60,7 +60,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{c.Id => c});
 		MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{consignment.Id}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES})).thenReturn(new Map<Id, Article__c>{consignment.Id => consignment});
 		MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{article.Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER})).thenReturn(new Map<Id, Article__c>{article.Id => article});
-		MockUtility.Mocks.when(mockNetworksSelector.selectByOrgId(new Set<String>{eventMessage.FacilityOrganisationID__c}, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK})).thenReturn(new Map<Id, Network__c>{network.Id => network});
+		MockUtility.Mocks.when(mockNetworksSelector.selectByOrgId(new Set<String>{eventMessage.Post_Office_Code__c}, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK})).thenReturn(new Map<Id, Network__c>{network.Id => network});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================

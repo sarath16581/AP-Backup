@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Recommended_Pricing_Action__c</fullName>
+    <description>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
+		unable to proceed without pricing support</description>
     <externalId>false</externalId>
+    <inlineHelpText>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
+		unable to proceed without pricing support</inlineHelpText>
     <label>Recommended Pricing Action</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
