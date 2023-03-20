@@ -12,6 +12,7 @@
  * 2023-03-14 - Dattaraj Deshmukh - SF(SF-886) Set DeliveryOption__c(controlling) field values. 
  * 									SF(SF-895) Fixed status update issue where SUI/Require More Info statuses were updated to Closed.
  * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
+ * 2023-03-20 - Mahesh Parvathaneni - SF-854 - Updated status 'Closed - Required More information' to 'More information required'.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -46,7 +47,7 @@ const CASE_PURPOSE = 'Delivered';
 const STATUS_CLOSED = 'Closed';
 const STATUS_RESPONDED = 'Responded';
 const STATUS_IN_PROGRESS = 'In Progress';
-const STATUS_CLOSED_REQUIRE_MORE_INFO = 'Closed - Required More Information';
+const STATUS_MORE_INFO_REQUIRED = 'More information required';
 const NETWORK_RESPONSE_REQUIRED = 'Please enter the network response.';
 const CASE_UPDATE_OPERATIONS_RESPONDED = 'Operations Responded';
 const CASE_STATUS_AWAITING_REVIEW = 'Awaiting Review';
@@ -95,7 +96,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			this.errorMsg = 'Still under investigation and Require more information can not be selected at the same time';
 		} 
 		else if(this.requireMoreInformation && !this.stillUnderInvestigation) {
-			this.status = STATUS_CLOSED_REQUIRE_MORE_INFO ;
+			this.status = STATUS_MORE_INFO_REQUIRED ;
 		}
 		else if(!this.requireMoreInformation && !this.stillUnderInvestigation) {
 			this.status = STATUS_CLOSED ;
@@ -121,7 +122,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			this.status = STATUS_CLOSED ;
 		}
 		else if(!this.stillUnderInvestigation && this.requireMoreInformation) {
-			this.status = STATUS_CLOSED_REQUIRE_MORE_INFO ;
+			this.status = STATUS_MORE_INFO_REQUIRED ;
 		}
 		this.isCaseUpdatedRequired = true;
 	}
