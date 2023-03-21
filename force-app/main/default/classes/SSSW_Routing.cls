@@ -366,7 +366,6 @@ public class SSSW_Routing {
 	 */
 	public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
 		String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
-		String defaultOmniQueue = QM__c.getOrgDefaults().DefaultOmniQueueId__c;
 
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(recType);
@@ -441,7 +440,7 @@ public class SSSW_Routing {
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
 							} else {
-								setRoutingCaseOwner(cs, defaultOmniQueue);
+								setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniDefaultQueueId);
 							}
 
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)
@@ -481,7 +480,7 @@ public class SSSW_Routing {
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
 							} else {
-								setRoutingCaseOwner(cs, defaultOmniQueue);
+								setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniDefaultQueueId);
 							}
 
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)

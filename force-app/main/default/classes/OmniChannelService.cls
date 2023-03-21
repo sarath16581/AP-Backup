@@ -70,6 +70,16 @@ public inherited sharing class OmniChannelService {
 		private set;
 	}
 
+	public String omniDefaultQueueId {
+		get {
+			if(omniDefaultQueueId == null) {
+				omniDefaultQueueId = QM__c.getOrgDefaults().DefaultOmniQueueId__c;
+			}
+			return omniDefaultQueueId;
+		}
+		private set;
+	}
+
 	public List<Case> rerouteCasesWithPreferredAgentByPass(List<PendingServiceRouting> psrs) {
 		List<Case> casesToUpdate = new List<Case>();
 		for(PendingServiceRouting psr: psrs) {

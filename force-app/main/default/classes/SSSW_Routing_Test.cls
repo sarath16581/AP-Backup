@@ -81,11 +81,16 @@ private class SSSW_Routing_Test {
 	}
 
 	/**
-	 * Test that isFinalPass flag is working, and that if a Case doesn not match a rule, assign it to a default Omni queue.
+	 * Test Scenarios:
+	 * a) Test that isFinalPass flag is working, and that if a Case doesn not match a rule, assign it to a default Omni queue.
 	 * 
 	 * The above test Scenario is simulated by having a 2 rules, cruicially the rule with a lower sequence needs to require an article. 
 	 * The routing engine will route a Case to the Holding queue when an rule that requires an Article is reached, regardless of other rules after it.
 	 * With IsFinalPass set to true, the Holding Queue is skipped, and the Case is allowed to be matched to rules following the rule that required an article.
+	 *
+	 * 	 
+	 * b) Default Queue
+	 * When a Case does not meet any Routing rule, it will be assigned to a default Omni queue that is defined in Custom Settings
 	 *
 	 */
 	@IsTest
@@ -98,7 +103,7 @@ private class SSSW_Routing_Test {
 		QM__c custSetting = QM__c.getOrgDefaults();
 		QueueSobject routingHoldingQueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1];
 		custSetting.HoldingQueueId__c = routingHoldingQueue.QueueId;
-		QueueSobject defaultOmnniQueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Consumer_Back_Office_Low_Priority' AND SobjectType = 'Case' LIMIT 1];
+		QueueSobject defaultOmnniQueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_BOH_Group_4' AND SobjectType = 'Case' LIMIT 1];
 		custSetting.DefaultOmniQueueId__c = defaultOmnniQueue.QueueId;
 		Insert custSetting;
 
@@ -141,7 +146,7 @@ private class SSSW_Routing_Test {
 
 		SSSWRouting__c routingRuleNoArticle = new SSSWRouting__c();
 		routingRuleNoArticle.RecordTypeId = routingRuleRecordTypeId;
-		routingRuleNoArticle.Match_Rules_On__c = 'All';
+		routingRuleNoArticle.Match_Rules_On__c = 'Any';
 		routingRuleNoArticle.Origin__c = 'Email';
 		routingRuleNoArticle.IsActive__c = true;
 		routingRuleNoArticle.Queue_ID__c = queues[1].QueueId;
