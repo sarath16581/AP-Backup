@@ -7,7 +7,8 @@
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
  * 2022-02-21 - Dattaraj Deshmukh - Fixed 'testEndToEndTriggerIntegrationForInsert' method.
-  */
+ * 2023-03-21 - Mahesh Parvathaneni - Updated tests for 'testEndToEndTriggerIntegrationForInsert' method.
+*/
 @IsTest
  private class FeedItemCaseInvestigationModule_Test {
 
@@ -124,6 +125,7 @@
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
+		networks[0].Contact_Facility__c = 'MyNetwork';
 
 		insert networks;
 
@@ -163,6 +165,8 @@
 			//asserting CaseInvestigation record is updated upon insertion of feeditem by Contact Centre users.
 			List<CaseInvestigation__c> cIRecords = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{createdFeedItems[0].ParentId}).values();
 			system.assertNotEquals(null, cIRecords[0].LastContactCentreUpdate__c);
+			System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, cIRecords[0].Status__c, 'Expected case investigation status to be In Progress');
+			System.assertEquals(false, cIRecords[0].RequireMoreInformation__c, 'Expected Require More Information value to be false');
 
 		}
 	}
