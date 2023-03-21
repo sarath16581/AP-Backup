@@ -3,7 +3,7 @@
     <fullName>APT_Eligible_APPC_Tier__c</fullName>
     <description>Eligible APPC tier (part of compass price management data)</description>
     <externalId>false</externalId>
-    <label>Eligible APPC Tier</label>
+    <label>Eligible APPC Tier (Depreciated)</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

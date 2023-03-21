@@ -117,7 +117,7 @@
 		type="List"
 		default="[
                                  {'label':'Postie didn\'t wait long enough', value:'Postie didn\'t wait long enough'},
-                                 {'label':'Postie didn\'t knock before leaving a card', value:'Postie didn\'t knock before leaving a card'},
+                                 {'label':'Postie didn\'t knock', value:'Postie didn\'t knock'},
                                  {'label':'Delivery location doesn\'t meet my accessibility needs', value:'Delivery location doesn\'t meet my accessibility needs'},
                                  {'label':'Item was taken to an inconvenient post office', value:'Item was taken to an inconvenient post office'},
                                  {'label':'Delivery driver\'s service', value:'Delivery driver\'s service'},

@@ -22,6 +22,15 @@ private class SSSW_Routing_Test {
 		// Data Preparation
 		// =====================================
 
+		//setup Queues
+		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(2, 'Queue', true));	
+
+		QM__c custSetting = QM__c.getOrgDefaults();
+		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
+		custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
+		Insert custSetting;
+		
+		//setup Case
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		cases[0].ReferenceID__c = 'ART1231'; // links to articles[0]
@@ -29,12 +38,15 @@ private class SSSW_Routing_Test {
 		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
 		cases[0].IsNewForRouting__c  = true;
 		cases[0].AllocateToQueue__c = true;
+		cases[0].OwnerId = queues.values()[0].Id;
+
+		
+
 
 		// TODO: move SSSWRouting generation into ApplicationTestDataFactory
 		// create a new routing rule in teh database for SSSW_Routing to pick up
 		// NOTE: we only do this because we currently haven't enabled SSSW_Routing for mocking
 		Id routingRuleRecordTypeId = [SELECT Id FROM RecordType WHERE SobjectType = 'SSSWRouting__c' AND DeveloperName = 'SSSWRouting'].Id;
-		List<QueueSobject> queues = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.Name LIKE 'SSSW%' AND SobjectType = 'Case' LIMIT 1]);
 
 		List<SSSWRouting__c> routesToInsert = new List<SSSWRouting__c>();
 
@@ -46,17 +58,10 @@ private class SSSW_Routing_Test {
 		routingRule.IsActive__c = true;
 		//To reach the routing logic where a Case is flagged for Queuable and rerouting, formula field SSSW_Routing__r.RuleRequiresArticleAttributes__c needs to be true
 		routingRule.HasExtraCover__c = true; 
-		routingRule.Queue_ID__c = queues[0].QueueId;
+		routingRule.Queue_ID__c = queues.values()[1].Id;
 		routingRule.Sequence__c = 1;
 		routesToInsert.add(routingRule);
 		Insert routesToInsert;
-
-
-		QM__c custSetting = QM__c.getOrgDefaults();
-		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
-		custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
-		Insert custSetting;
-
 
 		// =====================================
 		// Testing

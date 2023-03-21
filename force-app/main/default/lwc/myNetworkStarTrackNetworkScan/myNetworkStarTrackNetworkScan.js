@@ -56,7 +56,7 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
                 //set critical incidents knowledge articles
                 eventMessageScan.criticalIncidents = [];
                 if (this.criticalIncidents !== undefined && this.criticalIncidents !== null) {
-                    let incidentListWrapper = this.criticalIncidents.find(inc => inc.networkOrgId === eventMessages[i].eventMessage.FacilityOrganisationID__c);
+                    let incidentListWrapper = this.criticalIncidents.find(inc => inc.networkOrgId === eventMessages[i].eventMessage.Post_Office_Code__c);
                     if (incidentListWrapper && incidentListWrapper.criticalIncidentList) {
                         eventMessageScan.criticalIncidents = incidentListWrapper.criticalIncidentList;
                     }
