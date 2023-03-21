@@ -48,7 +48,7 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 				if(ciWithCaseDetails.containsKey(ci.Id) == true) {
 					CaseInvestigation__c ciWithCaseDetail = ciWithCaseDetails.get(ci.Id);
 					if(ciWithCaseDetail.Case__r != null && ciWithCaseDetail.Case__r.OwnerId != null) {
-						ci.OwnerId = ciWithCaseDetail.Case__r.OwnerId;
+						//ci.OwnerId = ciWithCaseDetail.Case__r.OwnerId; //TODO: can't assign to queue if case is assigned to queue. 
 						ci.RequireMoreInformation__c = false;
 						ci.StillUnderInvestigation__c = false;
 						ci.Status__c = 'In Progress';
