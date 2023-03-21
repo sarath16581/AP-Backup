@@ -28,8 +28,8 @@
     <profiles>Business Enablement</profiles>
     <profiles>Sales Contracts CME</profiles>
     <profiles>SecurePay SuperUser</profiles>
-    <profiles>Sales Admin</profiles>
     <profiles>Sales 3rd Party</profiles>
+    <profiles>Sales Admin</profiles>
     <roles>Sales Operations</roles>
     <roles>Marketing</roles>
     <roles>Sales</roles>

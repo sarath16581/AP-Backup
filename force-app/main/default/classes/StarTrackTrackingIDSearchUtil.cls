@@ -67,7 +67,7 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
                     idSearchService.map_searchCustomSettings.get(idSearchService.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
                     StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = idSearchService.searchConsignment();
                     StarTrackTrackingIDSearchUtil thisUtil = StarTrackTrackingIDSearchUtil.getInstance();
-                    if(thisUtil.validate(idSearchService.lst_article, cse.Id, conWrap)) {
+                    if(thisUtil.validate(idSearchService.lst_article, cse.Id, conWrap, idSearchService.numberOfArticles)) {
                         thisUtil.assignAndUpdateCase(idSearchService.lst_article[0],this.cse);
                     }
                 }
@@ -217,11 +217,11 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
      *
      * @return
      */
-    public Boolean validate(List<Article__c> articles, Id caseId, StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap) {
+    public Boolean validate(List<Article__c> articles, Id caseId, StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap, Integer numberOfArticles) {
         Boolean isValid = true;
         String comments = '';
         Boolean isDuplicate = isDuplicateConsignments(articles);
-        Boolean isValidReference = isValidReference(articles);
+        Boolean isValidReference = isValidReference(numberOfArticles);
         Boolean isError = isError(conWrap);
 
         // no consignment found
@@ -265,8 +265,8 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
         });
     }
 
-    public static Boolean isValidReference(List<Article__c> articles) {
-        if(articles == null || articles.size() <= 0) {
+    public static Boolean isValidReference(Integer numberOfArticles) {
+        if(numberOfArticles == null || numberOfArticles <= 0) {
             return false;
         }
 

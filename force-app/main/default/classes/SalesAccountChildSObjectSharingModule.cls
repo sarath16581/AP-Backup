@@ -37,7 +37,6 @@ public inherited sharing class SalesAccountChildSObjectSharingModule  extends Ap
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		Application.Profiler.start('SalesAccountChildSObjectSharingModule.onAfterUpdate');
 		try {
 			// get accounts where SalesTeamType__c is changing.
 			Map<Id, Set<SObjectField>> sharingScope = getIsChanged(records, existingRecords, new Set<SObjectField>{Account.SalesTeamType__c});
@@ -47,7 +46,6 @@ public inherited sharing class SalesAccountChildSObjectSharingModule  extends Ap
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAccountChildSObjectSharingModule.class.getName(), 'onAfterUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
-		Application.Profiler.stop('SalesAccountChildSObjectSharingModule.onAfterUpdate');
 	}
 
 	/**

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Evaluated_Spend_Per_Annum__c</fullName>
+    <description>Pricing team assessed annual spend on eligible products, used to determine
+		customer’s pricing</description>
     <externalId>false</externalId>
+    <inlineHelpText>Pricing team assessed annual spend on eligible products, used to determine
+		customer’s pricing</inlineHelpText>
     <label>Evaluated Spend (per annum)</label>
     <precision>18</precision>
     <required>false</required>

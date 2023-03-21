@@ -553,27 +553,29 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		
 		System.debug('>> Processing IDs: ' + caseIds);
 
-		if(!referenceIds.isEmpty()) {
-			// trigger a search into SAP-EM
-			// for any found articles, the article service will populate the Article__c table
-			// TODO: Revisit the TIBCO Search service....
-			TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
+				if(!referenceIds.isEmpty()) {
+					// trigger a search into SAP-EM
+					// for any found articles, the article service will populate the Article__c table
+					// TODO: Revisit the TIBCO Search service....
+					TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
 
-			// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
-			//	  (Integration callout could take 5 or 10 seconds or sometimes more).
-			//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
-			// TODO i) change routingFields var in SSSW_Routing to public ii) add the routingFields values into the Set below via addAll(), and remove fields in the current Set that are in routingFields 
-			Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
-				Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
-				Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
-				Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
-				Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
-				Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
-				Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
-				Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c, Case.OwnerId, 
-				Case.AllocateToQueue__c, Case.isHLC__c, Case.isCR__c, Case.Customer_Type__c, Case.Type, Case.IsNewForRouting__c, Case.SocialPostTags__c, Case.Status, 
-				Case.CaseLocality__c, Case.ByPassRoutingRulesOnCreation__c, Case.PreferredAgentExpiry__c, Case.BusinessHoursId
-			}).selectById(caseIds);
+					Set<SObjectField> caseFieldsForOverride = new Set<SObjectField>{
+						Case.Related_Billing_Account__c, Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
+						Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
+						Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
+						Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
+						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, 
+						Case.ParentId, Case.LastRoutingRuleIsStrategic__c						
+					};
+					caseFieldsForOverride.addAll(SSSW_Routing.caseFieldsForRouting);
+
+					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
+					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
+					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
+					Map<Id, Case> cases = SSSWCasesSelector.newInstance(caseFieldsForOverride).selectById(caseIds);
+
+					// TODO: This should be routed via the Domain class rather than invoked directly
+					MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
 
 			// grab a list of existing articles to see if we can match them up to the cases that have been passed in
 			// this will also populate m_trackingReferenceIdMappings cache which we use here
@@ -654,16 +656,16 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		Map<Id, Case> casesRerouted = new Map<Id, Case>();
 		List<Case> reroutableCases = new List<Case>();
 
-		try {
-				String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;				
+			try {
+					String omniHoldingQueueId = OmniChannelService.getInstance().omniHoldingQueueId;				
 
-				//Cases that were put in the holding queue during the synchronous execution need to be re-routed
-				for (Case cs : cases.values()) {				
-					if(cs.OwnerId.equals(Id.valueOf(holdingQueue))){
-						cs.AllocateToQueue__c = true; //manually set to trigger routing logic
-						reroutableCases.add(cs);
+					//Cases that were put in the holding queue during the synchronous execution need to be re-routed
+					for (Case cs : cases.values()) {				
+						if(cs.OwnerId.equals(Id.valueOf(omniHoldingQueueId))){
+							cs.AllocateToQueue__c = true; //manually set to trigger routing logic
+							reroutableCases.add(cs);
+						}
 					}
-				}
 
 				// attempt to reroute the newly article linked cases to see if the article belongs to a strategic customer or extra cover applies or not
 				SSSW_Routing.assignCasesAndDescription(reroutableCases, null, false, true, true);

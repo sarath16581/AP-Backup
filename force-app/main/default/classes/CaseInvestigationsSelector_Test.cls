@@ -13,6 +13,7 @@
  * 2023-02-21 - Mahesh Parvathaneni - Added recordtype filter for selector selectOpenCaseInvestigationsByCaseArticleNetworkId
  * 2023-02-28 - Dattaraj Deshmukh 	- Added tests for 'WITH_FEEDS' options.
  * 2023-03-10 - Dattaraj Deshmukh   - Added tests for 'selectOpenCaseInvestigationsByNetworkIdOwnerId' and 'selectOpenCaseInvestigationsByNetworkIdAndCaseSLA'.
+ * 2023-03-16 - Dattaraj Deshmukh   - Added tests for 'selectOpenCaseInvestigationsByNetworkIdAndClosedCases'.
  */
 
  @IsTest
@@ -98,10 +99,14 @@
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		insert articles;
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, false);
 		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 		cases[0].AccountId = account.Id;
+		cases[1].ArticleTest__c = articles[0].Id;
+		cases[1].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+		cases[1].AccountId = account.Id;
+		cases[1].ResolutionCode__c = 'sample resolution';
 		insert cases;
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
@@ -116,11 +121,21 @@
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		caseInvestigations[0].Status__c = 'New';
 		caseInvestigations[0].RecordTypeId = stCaseInvestigationRecordTypeId;
-		insert caseInvestigations;
+
+		List<CaseInvestigation__c> caseInvestigationsWithClosedCase = ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[0], networks[0].Id, false);
+		caseInvestigationsWithClosedCase[0].Status__c = 'New';
+		caseInvestigationsWithClosedCase[0].Case__c = cases[1].Id;
+		caseInvestigationsWithClosedCase[0].RecordTypeId = stCaseInvestigationRecordTypeId;
+
+		insert (new List<CaseInvestigation__c>{caseInvestigations[0], caseInvestigationsWithClosedCase[0]});
 
 		//update NetworkMilestoneNextViolationDatetime__c
 		caseInvestigations[0].NetworkMilestoneNextViolationDatetime__c = Datetime.now().addMinutes(-10);
 		update caseInvestigations;
+
+		
+		//perfoming an update on Case, as IsClosed field is NOT set to true when a Case is created with 'Closed' status.
+		update (new Case(Id = cases[1].Id, Status='Closed'));//All CI records against closed case should marked as UPDATED ON PORTAL(ONLY).
 
 		// =====================================
 		// Stubbing
@@ -157,7 +172,7 @@
 																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
 																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
 																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
-		System.assertEquals(1, resultsInvestigationsByNetworks.size(), 'Expected result size of 1');
+		System.assertEquals(2, resultsInvestigationsByNetworks.size(), 'Expected result size of 2');
  
 
 		CaseInvestigationsSelector selectorQueryLocator = CaseInvestigationsSelector.newInstance();
@@ -170,14 +185,21 @@
 																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
 																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
 																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
-		System.assertEquals(1, resultsInvestigationsByNetworksAndOwner.size(), 'Expected result size of 1');
+		System.assertEquals(2, resultsInvestigationsByNetworksAndOwner.size(), 'Expected result size of 2');
 
 		Map<Id, CaseInvestigation__c> resultsInvestigationsByNetworksAndSLA = selector.selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(new Set<Id> {networks[0].Id}, 
 																				new Set<Id>{stCaseInvestigationRecordTypeId}, 'Enterprise',
 																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
 																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
 																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
-		System.assertEquals(1, resultsInvestigationsByNetworksAndSLA.size(), 'Expected result size of 1');
+		System.assertEquals(2, resultsInvestigationsByNetworksAndSLA.size(), 'Expected result size of 2');
+
+		Map<Id, CaseInvestigation__c> resultsInvestigationsByNetworksAndClosedCase = selector.selectOpenCaseInvestigationsByNetworkIdAndClosedCases(new Set<Id> {networks[0].Id}, 
+																				new Set<Id>{stCaseInvestigationRecordTypeId}, 
+																				new Set<Object> {CaseInvestigationsSelector.Options.WITH_ARTICLES, 
+																									CaseInvestigationsSelector.Options.WITH_CASE_DETAILS, 
+																									CaseInvestigationsSelector.Options.WITH_NETWORKS});
+		System.assertEquals(1, resultsInvestigationsByNetworksAndClosedCase.size(), 'Expected result size of 1');
 
 		Test.stopTest();
 
