@@ -64,7 +64,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
 			CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c, 
 			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c, CaseInvestigation__c.OwnerId, CaseInvestigation__c.ProductCategory__c,
-			CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.IsPrinted__c
+			CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.IsPrinted__c, CaseInvestigation__c.CaseServiceSLA__c
 
 		};
 	}
@@ -168,6 +168,48 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
 				
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Select case investigation records that are not closed and from list of passed network ids and whose owner Ids are from passed owner id set. 
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdOwnerId(Set<Id> networkIds, Set<Id> recordTypeIds, Set<Id> ownerIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.OwnerId + ' in :ownerIds'))
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Select case investigation records that are not closed and related to network ids and match with specific case SLA value.  
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdAndCaseSLA(Set<Id> networkIds, Set<Id> recordTypeIds, String sla, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.CaseServiceSLA__c).eq(sla))
+				.endConditions();
+		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Select case investigation records that are not closed and whose case is closed and related to passed network ids. 
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByNetworkIdAndClosedCases(Set<Id> networkIds, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.RecordTypeId + ' in :recordTypeIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsClosed__c).eq(false))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.IsCaseClosed__c).eq(true))
 				.endConditions();
 		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
 	}

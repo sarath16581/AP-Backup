@@ -580,6 +580,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>Account.New_Deal_Support_Request</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>FeedItem.TextPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>9</sortOrder>
@@ -628,11 +633,6 @@
             <actionName>Account.New_BG_Opportunity</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Account.New_Deal_Support_Request</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>2</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

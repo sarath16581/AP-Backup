@@ -291,7 +291,7 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
         Test.startTest();
         StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
-        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        Boolean result = util.validate(articles, testCase.Id, conWrap, 1);
         List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
 
         System.assertEquals(0, comments.size(), 'testValidateBeforeCaseUpdate_success: Expected an success in response with no case comments');
@@ -325,7 +325,7 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
         Test.startTest();
         StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
-        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        Boolean result = util.validate(articles, testCase.Id, conWrap, 1);
         List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
 
         System.assertEquals(System.Label.STHSIDSearchCommentsTimeoutTechError, comments[0].CommentBody, 'testValidateBeforeCaseUpdate_error_in_response: Expected an error in response with case comments');
@@ -352,11 +352,12 @@ private class StarTrackTrackingIDSearchUtil_Test {
         ];
 
 
-        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', null);
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,StarTrack_Constants.ERR_CODE_ART_NOT_FOUND, null);
 
         Test.startTest();
         StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
-        Boolean result = util.validate(null, testCase.Id, conWrap);
+        conWrap.errorCode = StarTrack_Constants.ERR_CODE_ART_NOT_FOUND;
+        Boolean result = util.validate(null, testCase.Id, conWrap, 1);
         List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
 
         System.assertEquals(System.Label.STHSIDSearchCommentsNoConsignment, comments[0].CommentBody, 'testValidateBeforeCaseUpdate_error_in_response_no_articles: Expected an error in response with case comments');
@@ -395,7 +396,7 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
         Test.startTest();
         StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
-        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        Boolean result = util.validate(articles, testCase.Id, conWrap, 1);
         List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
 
         System.assertEquals(System.Label.STHSIDSearchCommentsDuplicateConsignment, comments[0].CommentBody, 'testValidateBeforeCaseUpdate_error_in_response: Expected an error in response with case comments');
@@ -544,7 +545,7 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
         Test.startTest();
         StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
-        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        Boolean result = util.validate(articles, testCase.Id, conWrap, null);
         List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
         system.debug(' CASE COM HAS '+comments);
         System.assertEquals(0, comments.size(), 'testValidateBeforeCaseUpdate_error_in_response_Invalid_consignment: No case comment should get generated generated');

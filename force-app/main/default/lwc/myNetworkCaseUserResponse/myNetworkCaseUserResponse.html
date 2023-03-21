@@ -33,13 +33,15 @@
 									<template if:true={isDelieryFieldVisible}>
 										<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
 										<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
-										<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
-										<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
+										<!-- Note: Hiding DeliveryOptions__c field it is controlling field for DeliveryInformation__c.
+													If controlling (DeliverOptions__c)  field is not included on the form, dependent field is disabled by default -->
+										<lightning-input-field class="slds-hidden" value={deliveryOptions} field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+										<lightning-input-field field-name="DeliveryInformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
 									</template>
-									<lightning-textarea value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+									<lightning-textarea data-id="networkRes" required value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
 									<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
-									<lightning-input-field field-name="Stillunderinvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
-									<lightning-input-field field-name="Requiremoreinformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>
+									<lightning-input-field field-name="StillUnderInvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
+									<lightning-input-field field-name="RequireMoreInformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>
 									<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
 									<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Poster Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"> 
 									</lightning-textarea>

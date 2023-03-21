@@ -160,6 +160,41 @@
                         </c:ChasBspDeflection>
                     </div>
                 </aura:if>
+                <aura:if isTrue="{!(v.wizardData.selectedRadio1 == 'Receiver')}">
+                    <aura:if isTrue="{!(v.showInvalidWithinEDDMessage)}">
+                        <div class="standard-info">
+                            <c:ChasBspDeflection aura:id="isReceiverBeforeEDD" noInfoIcon="true" hasClose="false" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
+                                <h3 class="chas-body_regular slds-m-bottom_xx-small">Contact the sender</h3>
+                                <p class="message-text">
+                                    It’s best to contact the sender first if your parcel is delayed. The sender can assist you based on their policies.
+                                </p>
+                                <p class="message-text">
+                                    The sender may be able to offer you a quicker solution. They have details that help us look into a delayed parcel. These details include the parcel packaging, address and contents.
+                                </p>
+                                <p class="message-text">
+                                    If the sender can’t assist, continue with this enquiry form.
+                                </p>
+                            </c:ChasBspDeflection>
+                        </div>
+                        <aura:set attribute="else">
+
+                            <div class="standard-info">
+                                <c:ChasBspDeflection aura:id="isReceiverBeforeEDD" noInfoIcon="true" hasClose="false" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
+                                    <h3 class="chas-body_regular slds-m-bottom_xx-small">Contact the sender</h3>
+                                    <p class="message-text">
+                                        We need to look into your delayed parcel. Please contact the sender and they can assist you based on their policies.
+                                    </p>
+                                    <p class="message-text">
+                                        The sender can raise an enquiry with us. They have details that help us look into your delayed parcel. These details include the parcel packaging, address and contents.
+                                    </p>
+                                    <p class="message-text">
+                                        If you’ve contacted the sender and they can’t assist, continue with this enquiry form.
+                                    </p>
+                                </c:ChasBspDeflection>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                </aura:if>
                 <div class="chas-button-box-container">
                     <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.navNextPage }"/>
                 </div>

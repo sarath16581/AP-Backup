@@ -1,44 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Enterprise Back Office</name>
     <queueMembers>
         <users>
-            <user>aleisha.takar@auspost.com.au</user>
-            <user>alyshia.maugham@auspost.com.au</user>
-            <user>bernadette.armansin@auspost.com.au</user>
-            <user>chris.morton@auspost.com.au</user>
-            <user>cristian.inostroza@auspost.com.au</user>
-            <user>davy.seng@auspost.com.au</user>
-            <user>dobby.allen10@auspost.com.au</user>
-            <user>duane.watson@auspost.com.au</user>
-            <user>elizabeth.day@auspost.com.au</user>
-            <user>emily.burt@auspost.com.au</user>
-            <user>emily.evans@auspost.com.au</user>
-            <user>frank.fallace@auspost.com.au</user>
-            <user>hannah.rigo2@auspost.com.au.sbam</user>
-            <user>harry.moseley@auspost.com.au</user>
-            <user>helen.armansin@auspost.com.au</user>
-            <user>kirsty.butterfield@auspost.com.au</user>
-            <user>liam.o&apos;connell@auspost.com.au</user>
-            <user>lisa.martino@auspost.com.au</user>
-            <user>lorraine.barrett@auspost.com.au</user>
-            <user>matthew.petruolo@auspost.com.au</user>
-            <user>melanie.weeda@auspost.com.au</user>
-            <user>peter.riedel@auspost.com.au</user>
-            <user>rory.kham@auspost.com.au</user>
-            <user>samantha.yap@auspost.com.au</user>
-            <user>samuel.horton@auspost.com.au</user>
-            <user>shereen.mcphie@auspost.com.au</user>
-            <user>shilpa.fernando@auspost.com.au</user>
-            <user>stephanie.murdoch@my.network</user>
-            <user>stephanie.soiza@auspost.com.au</user>
-            <user>stephanie.stolk@auspost.com.au.invalid</user>
-            <user>stuart.holley@auspost.com.au</user>
-            <user>sujata.shrestha@auspost.com.au</user>
-            <user>tamir.goldberg@auspost.com.au</user>
-            <user>victoria.rimaputa@auspost.com.au</user>
+            <user>danielle.larson@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

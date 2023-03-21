@@ -139,14 +139,14 @@ private class MilestoneService_Test {
 		//start and end time are in business hours
 		Decimal result = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(stdBusinessHours[0].Id, startDatetime, endDatettime);
 		Integer hours = result.intValue()/60;
-		System.assertEquals(7, hours, 'Expected 7 business hours to be returned');
+		System.assertEquals(9, hours, 'Expected 9 business hours to be returned');
 		
 		//start time is outside the business hours
 		//create start date time Feb 27, 2023 at 07:00:00 PM in the local timezone.
 		startDatetime = DateTime.newInstance(2023, 2, 27, 19, 0, 0);
 		result = MilestoneService.getInstance().getBusinessHoursDiffInMinutes(stdBusinessHours[0].Id, startDatetime, endDatettime);
 		hours = result.intValue()/60;
-		System.assertEquals(1, hours, 'Expected 1 business hours to be returned');
+		System.assertEquals(2, hours, 'Expected 2 business hours to be returned');
 
 		Test.stopTest();
 

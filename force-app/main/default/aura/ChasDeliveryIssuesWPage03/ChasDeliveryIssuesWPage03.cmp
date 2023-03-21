@@ -55,7 +55,7 @@
                         </aura:set>
                     </aura:if>
                     <div>
-                        <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Postie didn\'t knock before leaving card'}">
+                        <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Postie didn\'t knock'}">
                             <dt>Delivery address</dt>
                             <aura:set attribute='else'>
                                 <dt>Property address</dt>

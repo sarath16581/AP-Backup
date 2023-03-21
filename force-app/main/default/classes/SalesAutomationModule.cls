@@ -18,7 +18,6 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 	@TestVisible private static Map<String, List<String>> salesTeamTypeMappings {
 		get {
 			if (salesTeamTypeMappings == null) {
-				Application.Profiler.start('SalesAutomationModule.salesTeamTypeMappings(static)');
 				// check in platform cache first
 				if (CacheManager.get(CACHE_KEY_SALESTEAMTYPE_MAPPINGS) != null) {
 					// use sales team mappings available in platform cache.
@@ -30,7 +29,6 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 					// also populate platform cache so it is available later
 					CacheManager.put(CACHE_KEY_SALESTEAMTYPE_MAPPINGS, mapping);
 				}
-				Application.Profiler.stop('SalesAutomationModule.salesTeamTypeMappings(static)');
 			}
 			return salesTeamTypeMappings;
 		}
@@ -47,17 +45,14 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		Application.Profiler.start('SalesAutomationModule.onBeforeInsert');
 		try {
 			populateSalesTeamType((List<Account>)records);
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
-		Application.Profiler.stop('SalesAutomationModule.onBeforeInsert');
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		Application.Profiler.start('SalesAutomationModule.onBeforeUpdate');
 		try {
 			List<Account> accountsToPopulateSalesTeamType = new List<Account>();
 			for (Account record: (List<Account>)records) {
@@ -73,24 +68,22 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesAutomationModule.class.getName(), 'onBeforeUpdate', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
-		Application.Profiler.stop('SalesAutomationModule.onBeforeUpdate');
 	}
 
 
 	private void populateSalesTeamType(List<Account> records) {
-		Application.Profiler.start('SalesAutomationModule.populateSalesTeamType');
 
 		Map<String, List<Id>> excludedRecords = new Map<String, List<Id>>();
 		for (Account record: records) {
-			if (record.Sales_Segment__c != null && salesTeamTypeMappings.containsKey(record.Sales_Segment__c)
-					&& salesTeamTypeMappings.get(record.Sales_Segment__c).size() == 1) {
+		if (record.Sales_Segment__c != null && salesTeamTypeMappings.containsKey(record.Sales_Segment__c)
+				&& salesTeamTypeMappings.get(record.Sales_Segment__c).size() == 1) {
 				// found a valid Sales Team type
 				record.SalesTeamType__c = salesTeamTypeMappings.get(record.Sales_Segment__c)[0];
-			} else {
-				// cannot find a valid sales team type. this could be due to 3 reasons:
-				// 1. Sales_Segment__c is not set on the account
-				// 2. Sales_Segment__c on the account does not have a valid dependent picklist value configured for SalesTeamType__c.
-				// 3. Sales_Segment__c on the account is mapped to multiple dependent picklist values for SalesTeamType__c.
+		} else {
+			// cannot find a valid sales team type. this could be due to 3 reasons:
+			// 1. Sales_Segment__c is not set on the account
+			// 2. Sales_Segment__c on the account does not have a valid dependent picklist value configured for SalesTeamType__c.
+			// 3. Sales_Segment__c on the account is mapped to multiple dependent picklist values for SalesTeamType__c.
 				// set to null and proceed.
 				record.SalesTeamType__c = null;
 
@@ -108,7 +101,6 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 		if (!excludedRecords.isEmpty()) {
 			logExcludedRecords(excludedRecords);
 		}
-		Application.Profiler.stop('SalesAutomationModule.populateSalesTeamType');
 	}
 
 	/**

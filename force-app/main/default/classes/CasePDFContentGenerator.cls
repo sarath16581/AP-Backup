@@ -379,7 +379,7 @@ public with sharing class CasePDFContentGenerator {
 						Case.Address1__c, Case.Secondary_Companry__c, Case.Network__c, Case.ArticleTest__c, Case.EmailThreadID__c,
 						Case.Secondary_Contact__c, Case.Address2__c, Case.IssuePreviouslyReported__c, Case.DatePosted__c, Case.PONUser__c,
 						Case.NetworkTierSLA__c, Case.ContactDoNotDisclose__c, Case.NetworkComments__c, Case.SLATargetDate__c, Case.Checkbox__c,
-						Case.Enquiry_Type__c
+						Case.Enquiry_Type__c, Case.Service_SLA__c, Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Article_Receiver_Name__c, Case.Article_Receiver_Address__c
 				};
 				Set<SObjectField> networkFields = new Set<SObjectField>{
 						Network__c.Contact_Facility__c, Network__c.Name, Network__c.Fax_Number__c
@@ -566,8 +566,8 @@ public with sharing class CasePDFContentGenerator {
 				}
 				
 				//added address details
-				if(cInv.Article__c!=null && String.isNotBlank(cInv.case__r.Address2__c)) {
-                    addresseeAddress.put(cInv.Article__c, cInv.case__r.Address2__c);
+				if(cInv.Article__c!=null && String.isNotBlank(cInv.case__r.Article_Receiver_Address__c)) {
+                    addresseeAddress.put(cInv.Article__c, cInv.case__r.Article_Receiver_Address__c);
                 }
 
 				if(caseIdVsCaseMap.containsKey(cInv.Case__c) && !starTrackCaseIdVsCaseMap.containsKey(cInv.Case__c)) {

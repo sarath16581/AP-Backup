@@ -29,19 +29,36 @@ public class SSSW_Routing {
 	 * Sobject definition, at this point this degree of flexibility is not required
 	 * SSSW Routing Rule Field => Case Field..
 	 */
-	private static final Map<String, String> fieldsMapping = new Map<String, String>{
-		'Origin__c' => 'Origin',
-		'High_Level_Complaint_Flag__c' => 'IsHLC__c',
-		'EnquirySubType__c' => 'EnquirySubType__c',
-		'Customer_Recovery_Flag__c' => 'IsCR__c',
-		'CaseType__c' => 'Type',
-		'CustomerQueueType__c' => 'Customer_Type__c',
-		'ProductCategory__c' => 'ProductCategory__c',
-		'ProductSubCategory__c' => 'ProductSubCategory__c',
-		'Status__c' => 'Status',
-		'IsNew__c' => 'IsNewForRouting__c',
-		'SocialPostTags__c' => 'SocialPostTags__c'
+	private static final Map<String, SObjectField> fieldsMapping = new Map<String, SObjectField>{
+		'Origin__c' => Case.Origin,
+		'High_Level_Complaint_Flag__c' => Case.IsHLC__c,
+		'EnquirySubType__c' => Case.EnquirySubType__c,
+		'Customer_Recovery_Flag__c' => Case.IsCR__c,
+		'CaseType__c' => Case.Type,
+		'CustomerQueueType__c' => Case.Customer_Type__c,
+		'ProductCategory__c' => Case.ProductCategory__c,
+		'ProductSubCategory__c' => Case.ProductSubCategory__c,
+		'Status__c' => Case.Status,
+		'IsNew__c' => Case.IsNewForRouting__c,
+		'SocialPostTags__c' => Case.SocialPostTags__c
 	};
+
+	/*
+	 * Fields in method assignCasesAndDescription for routing a Case, for overriding fields in Case Selector.
+	 */
+	public static final Set<SObjectField> caseFieldsForRouting {
+		get {
+			if(caseFieldsForRouting == null) {
+				caseFieldsForRouting = new Set<SObjectField>{
+					Case.Id, Case.ReferenceID__c,Case.ArticleTest__c,Case.ByPassRoutingRulesOnCreation__c,
+					Case.OwnerId,Case.Description,Case.AllocateToQueue__c, Case.PreferredAgentExpiry__c,Case.BusinessHoursId,Case.CaseLocality__c				
+				};
+				caseFieldsForRouting.addAll(fieldsMapping.values());
+			}
+			return caseFieldsForRouting;
+		}
+		private set;
+	}
 
 	/**
 	 * Mapping between SSSW_Routing field and the matcher to use when matching case field values.
@@ -102,12 +119,12 @@ public class SSSW_Routing {
 	};
 	private static final String LOC_INTERNATIONAL = 'International';
 	private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{
-		'International' => 'SSSWInternationalBackOffice',
-		'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
-		'Enterprise' => 'SSSWEnterpriseBackOffice',
-		'SMB' => 'SSSWBusinessBackOffice',
-		'Gold' => 'SSSWBusinessBackOffice',
-		'MyPost Business' => 'SSSW_MyPost_Business_Back_Office'
+		'International' => 'SSSW_BOH_Group_1',
+		'Consumer' => 'SSSW_BOH_Group_4',
+		'Enterprise' => 'SSSW_BOH_Group_1',
+		'SMB' => 'SSSW_BOH_Group_2',
+		'Gold' => 'SSSW_BOH_Group_2',
+		'MyPost Business' => 'SSSW_BOH_Group_3'
 	};
 
 	/**
@@ -211,6 +228,9 @@ public class SSSW_Routing {
 			String ruleValues = rule.get(matchingField) != null && !String.isEmpty(String.valueOf(rule.get(matchingField))) ? String.valueOf(rule.get(matchingField)) : '';
 			// get the case value, defaults to empty String
 			String caseValue;
+
+			String caseFieldName = fieldsMapping.get(matchingField)?.getDescribe().getName();
+
 			/**
 			 * Modified 2021-06-30 changed to use articleAttributesMap
 			 * IsStrategic doesn't have a corresponding case field defined in the routing mappings
@@ -219,7 +239,7 @@ public class SSSW_Routing {
 			 * Has ExtraCover is determined by a static defined articleAttributesMap.hasExtraCover
 			 */
 			if(!matchingField.equalsIgnoreCase('IsStrategic__c') && !matchingField.equalsIgnoreCase('HasExtraCover__c')) {
-				caseValue = cs.get(fieldsMapping.get(matchingField)) != null && !String.isEmpty(String.valueOf(cs.get(fieldsMapping.get(matchingField)))) ? String.valueOf(cs.get(fieldsMapping.get(matchingField))) : '';
+				caseValue = caseFieldName != null && !String.isEmpty(String.valueOf(cs?.get(caseFieldName))) ? String.valueOf(cs.get(caseFieldName)) : '' ;
 			} else if(matchingField.equalsIgnoreCase('IsStrategic__c') && articleAttributesMap.get(referenceId) != null ) {
 				caseValue = (!String.isEmpty(String.valueOf(articleAttributesMap.get(referenceId).isStrategic)) ? String.valueOf(articleAttributesMap.get(referenceId).isStrategic) : '');
 			} else if(matchingField.equalsIgnoreCase('HasExtraCover__c') && articleAttributesMap.get(referenceId) != null ) {
@@ -253,13 +273,17 @@ public class SSSW_Routing {
 
 			// get the case value, defaults to empty String
 			String caseValue;
+
+
+			String caseFieldName = fieldsMapping.get(matchingField)?.getDescribe().getName();
+
 			/**
 			 * IsStrategic doesn't have a corresponding case field defined in the routing mappings
 			 * Its value is determined by a static defined 'articleAttributesMap' Map
 			 * Modified 21/6/2021: HasExtraCover__c is defined in 'extraCoverArticleMappings' Map
 			 */
 			if(!matchingField.equalsIgnoreCase('IsStrategic__c') && !matchingField.equalsIgnoreCase('HasExtraCover__c')) {
-				caseValue = cs.get(fieldsMapping.get(matchingField)) != null && !String.isEmpty(String.valueOf(cs.get(fieldsMapping.get(matchingField)))) ? String.valueOf(cs.get(fieldsMapping.get(matchingField))) : '';
+				caseValue = caseFieldName != null && !String.isEmpty(String.valueOf(cs?.get(caseFieldName))) ? String.valueOf(cs.get(caseFieldName)) : '' ;
 			} else if(matchingField.equalsIgnoreCase('IsStrategic__c') && articleAttributesMap.get(referenceId) != null ) {
 				caseValue = (!String.isEmpty(String.valueOf(articleAttributesMap.get(referenceId).isStrategic)) ? String.valueOf(articleAttributesMap.get(referenceId).isStrategic) : '');
 			} else if(matchingField.equalsIgnoreCase('HasExtraCover__c') && articleAttributesMap.get(referenceId) != null ) {
@@ -346,7 +370,6 @@ public class SSSW_Routing {
 	 */
 	public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
 		String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
-		String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
 
 		isFinalPass = isFinalPassOverride ? isFinalPassOverride : isFinalPass;
 
@@ -429,9 +452,7 @@ public class SSSW_Routing {
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-							if (String.isEmpty(holdingQueue) == false) {
-								setRoutingCaseOwner(cs, holdingQueue);
-							}
+							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
 
 							break;
 						}
@@ -468,9 +489,8 @@ public class SSSW_Routing {
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-							if (String.isEmpty(holdingQueue) == false) {
-								setRoutingCaseOwner(cs, holdingQueue);
-							}
+							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
+
 
 							break;
 						}
@@ -643,7 +663,7 @@ public class SSSW_Routing {
 	 * @param - N/A
 	 * @return - Map of SSSWRouting to Case fields
 	 */
-	public static Map<String, String> getFieldsMapping() {
+	public static Map<String, SObjectField> getFieldsMapping() {
 		return fieldsMapping;
 	}
 

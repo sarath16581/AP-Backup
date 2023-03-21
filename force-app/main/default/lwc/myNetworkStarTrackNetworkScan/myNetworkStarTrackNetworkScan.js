@@ -1,6 +1,8 @@
 /**
 * @changelog
 * 2023-03-02 - Mahesh Parvathaneni - Updated title to show Network name
+* 2023-03-06 - Mahesh Parvathaneni - SF-874 Used ActualDateTime_TimeStamp__c field
+* 2023-03-10 - Mahesh Parvathaneni - SF-889 Updated the logic to check the contact facility from the network
 */ 
 import {
     api,
@@ -8,7 +10,8 @@ import {
     LightningElement
 } from 'lwc';
 import {
-    CONSTANTS
+    CONSTANTS,
+	getStarTrackFormattedDateTimeString
 } from 'c/myNetworkStarTrackCaseArticlesService';
 
 export default class MyNetworkStarTrackNetworkScan extends LightningElement {
@@ -30,20 +33,20 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
             let eventMessageScan = {
                 ...eventMessages[i]
             };
-            let actualDatetime = this.formattedDateTime(eventMessages[i].ActualDateTime__c);
-			let network = eventMessages[i].Facility__c;
+            let actualDatetime = getStarTrackFormattedDateTimeString(eventMessages[i].eventMessage.ActualDateTime_TimeStamp__c);
+			let network = eventMessages[i].network?.Id;
             //set title
 			let title;
 			if (network) {
-				title = eventMessages[i].Facility__r.Name + ' - ';
+				title = eventMessages[i].network.Name + ' - ';
 			}
-            title += eventMessages[i].EventDescription__c;
+            title += eventMessages[i].eventMessage.EventDescription__c;
             if (actualDatetime !== null) {
                 title += ' @ ' + actualDatetime;
             }
             eventMessageScan.title = title;
             if (network) {
-                let contactMethod = eventMessages[i].Facility__r.Contact_Facility__c;
+                let contactMethod = eventMessages[i].network.Contact_Facility__c;
                 //set disabled checkbox
                 if (contactMethod !== undefined && contactMethod !== null && contactMethod === CONSTANTS.MY_NETWORK) {
                     eventMessageScan.isDisabled = false;
@@ -53,7 +56,7 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
                 //set critical incidents knowledge articles
                 eventMessageScan.criticalIncidents = [];
                 if (this.criticalIncidents !== undefined && this.criticalIncidents !== null) {
-                    let incidentListWrapper = this.criticalIncidents.find(inc => inc.networkOrgId === eventMessages[i].FacilityOrganisationID__c);
+                    let incidentListWrapper = this.criticalIncidents.find(inc => inc.networkOrgId === eventMessages[i].eventMessage.Post_Office_Code__c);
                     if (incidentListWrapper && incidentListWrapper.criticalIncidentList) {
                         eventMessageScan.criticalIncidents = incidentListWrapper.criticalIncidentList;
                     }
@@ -61,16 +64,6 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
             }
             this.eventMessagesList.push(eventMessageScan);
         }
-    }
-
-    //function to return the formatted date time to display in accordion title
-    formattedDateTime(dateTime) {
-        if (dateTime) {
-            let actualDateTimeString = new Date(dateTime).toLocaleString();
-            let dateArray = actualDateTimeString.split(',');
-            return dateArray[0].trim() + ' ' + dateArray[1].trim();
-        }
-        return null;
     }
 
     //handler for modal close button
@@ -82,13 +75,13 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
     handleCheckboxChange(event) {
         if (event.target.checked) {
             let eventMessageId = event.target.dataset.eventMessageId;
-            let eventMessage = this.eventMessagesList.find(em => em.Id === eventMessageId);
+            let eventMessageNetworkScan = this.eventMessagesList.find(em => em.eventMessage.Id === eventMessageId);
             let row = {
-                eventMsgId: eventMessage.Id,
-                articleId: eventMessage.Article__c,
-                networkLabel: eventMessage.Facility__r.Name,
-                network: eventMessage.Facility__c,
-                contactMethod: eventMessage.Facility__r.Contact_Facility__c
+                eventMsgId: eventMessageNetworkScan.eventMessage.Id,
+                articleId: eventMessageNetworkScan.eventMessage.Article__c,
+                networkLabel: eventMessageNetworkScan.network.Name,
+                network: eventMessageNetworkScan.network.Id,
+                contactMethod: eventMessageNetworkScan.network.Contact_Facility__c
             }
             this.selectedRows.push(row);
         } else {

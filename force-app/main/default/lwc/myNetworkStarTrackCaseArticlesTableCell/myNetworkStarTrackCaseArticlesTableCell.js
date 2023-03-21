@@ -1,7 +1,14 @@
+/**
+* @changelog
+* 2023-03-06 - Mahesh Parvathaneni - SF-874 Used ActualDateTime_TimeStamp__c field
+*/
 import {
     api,
     LightningElement
 } from 'lwc';
+import {
+	getStarTrackFormattedDateTimeString
+} from 'c/myNetworkStarTrackCaseArticlesService';
 
 export default class MyNetworkStarTrackCaseArticlesTableCell extends LightningElement {
     @api articleId; //article id
@@ -18,7 +25,12 @@ export default class MyNetworkStarTrackCaseArticlesTableCell extends LightningEl
         return this.source;
     }
     set value(v) {
-        this.source = v;
+		if (this.name === "ActualDateTime_TimeStamp__c") {
+			//format date time string
+			this.source = getStarTrackFormattedDateTimeString(v);
+		} else {
+			this.source = v;
+		}
     }
 
     //returns true if this field is a Pill field

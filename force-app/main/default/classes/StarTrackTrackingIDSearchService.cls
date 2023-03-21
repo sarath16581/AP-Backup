@@ -53,6 +53,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     public String searchString { get; set; }
     //List of articles
     public List<Article__c> lst_article { get; set; }
+    public Integer numberOfArticles { get; set; }
 
     /*map to capture article id as key and article as value to quickly
       cases for the selected article
@@ -75,16 +76,19 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     }
 
     public StarTrackConsignmentSearchUtil.ConsignmentWrapper searchConsignment() {
+        system.debug('HASANTHA TEST 2');
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap;
 
         lst_article = null;
         map_article = new Map<String, Article__c>();
 
         if (validate()) {
+            system.debug('HASANTHA TEST 3');
             searchLocalConsignments();
             try {
                 // Check if there is a callout search type
                 if (String.isNotBlank(map_searchCustomSettings.get(fieldName).Callout_Search_Type__c)) {
+                    system.debug('HASANTHA TEST 4');
                     header = new wwwAuspostComAuSchemaCustomercarema.Header();
                     DateTime nowDT = DateTime.now();
                     header.TimeStamp = nowDT;
@@ -116,6 +120,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                         clientCert = stSettings.StarTrack_ConSearch_Client_Cert__c;
                     }
 
+                    system.debug('HASANTHA TEST 5');
                     emsStub.endpoint_x = endpoint;
                     if (!httpHeaders.isEmpty()) {
                         emsStub.inputHttpHeaders_x = httpHeaders;
@@ -124,6 +129,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                         emsStub.clientCertName_x = clientCert;
                     }
                     emsStub.timeout_x = Integer.valueOf(stSettings.Sync_Web_Service_Callout_Timeout__c * 1000);
+                    system.debug('HASANTHA TEST 6');
                     conWrap = (StarTrackConsignmentSearchUtil.ConsignmentWrapper) processSearchConsignment();
 
                 }
@@ -163,16 +169,21 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     public boolean validate() {
         Boolean result = true;
         if (String.isEmpty(searchString) || searchString.length() < Integer.valueOf(Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_NOOFSEARCHCHAR).Field_Name__c)) {
+            system.debug('HASANTHA TEST 2 validate false  '+Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_NOOFCHARERR).Field_Name__c);
             result = false;
         }
+        system.debug('HASANTHA TEST 2 validate' + result);
         return result;
     }
 
     public Object processSearchConsignment() {
+        system.debug('HASANTHA TEST 7 ');
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap;
         try {
             reqTimeStamp = StarTrackIntegrationLogging.timeNowFormatted();
+            system.debug('HASANTHA TEST 8 ');
             emsResponse = emsStub.Search_x(request);
+            system.debug('HASANTHA TEST 8 after search');
             respTimeStamp = StarTrackIntegrationLogging.timeNowFormatted();
 
             // REQUEST/RESPONSE LOG
@@ -182,7 +193,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                 StarTrackIntegrationLogging.logRequestResponse(StarTrack_Constants.CLASS_CONSIGNSEARCH, StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
                         searchString, 'INT-RES - consignmentSearch', respTimeStamp, emsResponse);
             }
-
+            system.debug('HASANTHA TEST 9 ');
             conWrap = StarTrackConsignmentSearchUtil.processResponse(emsResponse, isConsole, false);
 
             if (StarTrack_Constants.ERR_CODE_0.equals(conWrap.errorCode)) {
@@ -191,7 +202,11 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                         map_article.put(thisArticle.ArticleID__c, thisArticle);
                     }
                 }
+                if (emsResponse.Consignment.Articles != null && emsResponse.Consignment.Articles.Article != null) {
+                    numberOfArticles =  emsResponse.Consignment.Articles.Article.size();
+                }
                 lst_article = map_article.values();
+                system.debug('HASANTHA TEST 8 after lst_article '+lst_article);
             }
 
         } catch (CalloutException e) {
