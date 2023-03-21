@@ -4,7 +4,8 @@
  * @description Test class for APCaseAgentWorkPreferredAgentModule 
  * @changelog
  * 2023-02-16 - George Nguyen - Created
- * 2023-03-18 - Noel Lim - Updated to test routing logic which directly assigns the routed Queue as the Owner.
+ * 2023-03-18 - Noel Lim - Updated to test routing logic which directly assigns the routed Queue as the Owner, and handle AgentWork with Unavailable status
+ * 							
  */
 @IsTest
 class APCaseAgentWorkPreferredAgentModule_Test {
@@ -18,7 +19,7 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
 		
 		//Case
-		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(5, true));
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(6, true));
 		for(Case csRec : cases.values()){
 			csRec.BypassPreferredAgent__c = true;
 			csRec.PreferredAgentExpiry__c = Datetime.now();
@@ -38,15 +39,16 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 		Insert routingRule;
 
 		//AgentWork
-		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(5, UserInfo.getUserId(), cases.keySet(), true);
+		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(6, UserInfo.getUserId(), cases.keySet(), true);
 		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Opened'});
 		records[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object> { 'Status' => 'Assigned'});
 		records[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[2], new Map<String, Object> { 'Status' => 'Declined'});
 		records[3] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[3], new Map<String, Object> { 'Status' => 'Declined', 'PreferredUserId' => users[0].Id });
 		records[4] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[4], new Map<String, Object> { 'Status' => 'DeclinedOnPushTimeout', 'PreferredUserId' => users[0].Id });
+		records[5] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[5], new Map<String, Object> { 'Status' => 'Unavailable', 'PreferredUserId' => users[0].Id });
 
-		Set<Id> caseIdsToRoute = new Set<Id>{ records[3].WorkItemId, records[4].WorkItemId};
-		List<Case> casesToRoute = new List<Case>{cases.values()[3],cases.values()[4]};
+		Set<Id> caseIdsToRoute = new Set<Id>{ records[3].WorkItemId, records[4].WorkItemId, records[5].WorkItemId};
+		List<Case> casesToRoute = new List<Case>{cases.values()[3],cases.values()[4], cases.values()[5]};
 
 		List<AgentWork> existingRecords = records.deepClone(true, true, true);
 		existingRecords[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[0], new Map<String, Object> { 'Status' => 'Assigned'});
@@ -54,6 +56,7 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 		existingRecords[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[2], new Map<String, Object> { 'Status' => 'Assigned'});
 		existingRecords[3] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[3], new Map<String, Object> { 'Status' => 'Assigned'});
 		existingRecords[4] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[4], new Map<String, Object> { 'Status' => 'Assigned'});
+		existingRecords[5] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[5], new Map<String, Object> { 'Status' => 'Assigned'});
 
 		// =====================================
 		// Stubbing
@@ -82,7 +85,8 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 			(List<Case>) fflib_Match.eq(new List<Case>{
 				new Case(Id = records[0].WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false, PreferredAgentExpiry__c = null),
 				new Case(Id = records[3].WorkItemId, OwnerId = queues.values()[0].Id, BypassPreferredAgent__c = true, PreferredAgentExpiry__c = null),
-				new Case(Id = records[4].WorkItemId, OwnerId = queues.values()[0].Id, BypassPreferredAgent__c = true, PreferredAgentExpiry__c = null)
+				new Case(Id = records[4].WorkItemId, OwnerId = queues.values()[0].Id, BypassPreferredAgent__c = true, PreferredAgentExpiry__c = null),
+				new Case(Id = records[5].WorkItemId, OwnerId = queues.values()[0].Id, BypassPreferredAgent__c = true, PreferredAgentExpiry__c = null)
 			}),
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }),
 			fflib_Match.eqBoolean(true),
