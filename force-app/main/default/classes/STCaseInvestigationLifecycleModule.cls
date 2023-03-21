@@ -29,6 +29,34 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		//set the case investigation closure date 
 		setCaseInvestigationClosureDate((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
+		resetValuesOnNetworkChange((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
+	}
+
+	// this method resets the owner id back to the case's ownerid, status to In Progress and sets Require More Information, Still Under Investigation and Is Printed to FALSE
+	@TestVisible
+	private void resetValuesOnNetworkChange(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
+		Map<Id, CaseInvestigation__c> validCIs = new Map<Id, CaseInvestigation__c>();
+		for(CaseInvestigation__c ci: records) {
+			if(ci.Network__c != existingRecords.get(ci.Id).Network__c) {
+				validCIs.put(ci.Id, ci);
+			}
+		}
+
+		if(validCIs.isEmpty() == false) {
+			Map<Id, CaseInvestigation__c> ciWithCaseDetails = CaseInvestigationsSelector.newInstance().selectById(validCIs.keySet(), new Set<Object>{CaseInvestigationsSelector.Options.WITH_CASE_DETAILS});
+			for(CaseInvestigation__c ci: validCIs.values()) {
+				if(ciWithCaseDetails.containsKey(ci.Id) == true) {
+					CaseInvestigation__c ciWithCaseDetail = ciWithCaseDetails.get(ci.Id);
+					if(ciWithCaseDetail.Case__r != null && ciWithCaseDetail.Case__r.OwnerId != null) {
+						//ci.OwnerId = ciWithCaseDetail.Case__r.OwnerId; //TODO: can't assign to queue if case is assigned to queue. 
+						ci.RequireMoreInformation__c = false;
+						ci.StillUnderInvestigation__c = false;
+						ci.Status__c = 'In Progress';
+						ci.IsPrinted__c = false;
+					}
+				}
+			}
+		}
 	}
 
 	/**

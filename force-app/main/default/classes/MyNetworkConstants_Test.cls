@@ -4,6 +4,7 @@
  * @domain            : Case
  * @changelog
  * 2023-01-23 - Dattaraj Deshmukh - created
+ * 2023-03-20 - Mahesh Parvathaneni - SF-854 - Updated status 'Closed - Required More information' to 'More information required'.
  **/
 @IsTest
 private class MyNetworkConstants_Test {
@@ -17,7 +18,7 @@ private class MyNetworkConstants_Test {
 		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, 'In Progress');
 		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_RESPONDED_STATUS, 'Responded');
 		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS, 'Closed');
-		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_CLOSED_REQUIRED_INFO_STATUS, 'Closed - Required More Information');
+		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_MORE_INFO_REQUIRED, 'More information required');
 		System.assertNotEquals(null, MyNetworkConstants.STAR_TRACK_RECORD_TYPES);
 		System.assertNotEquals(null, MyNetworkConstants.MY_NETWORK_PORTAL_LIST_VIEWS);
 	}
