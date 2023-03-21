@@ -265,8 +265,6 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 					this.createChatterFeed();
 				}
 				this.updateCaseRecord();
-				//navigate to home page.
-				this.navigateToHome();
 			})
 			.catch(error => {
 				
@@ -299,6 +297,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 						variant: 'success'
 					})
 				)
+				this.navigateToHome(); //navigate to home page
 			}
 		})
 		.catch((error) => {
