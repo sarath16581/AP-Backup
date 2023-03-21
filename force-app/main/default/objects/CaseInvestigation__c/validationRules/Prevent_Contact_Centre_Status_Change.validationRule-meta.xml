@@ -2,8 +2,8 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Prevent_Contact_Centre_Status_Change</fullName>
     <active>true</active>
-    <description>This rule prevents contact centre user to change status from “Closed - Required More Information” to anything but “New”. ST contact centre user will only be allowed to change the case investigation status from “Closed - Required More Information” to “New”</description>
-    <errorConditionFormula>AND(CONTAINS( $User.Profile_Name_in_Text__c , &quot;StarTrack Support&quot;),  ISCHANGED( Status__c),  ISPICKVAL(PRIORVALUE(Status__c), &quot;Closed - Required More Information&quot;),   NOT(ISPICKVAL(Status__c, &quot;New&quot;)))</errorConditionFormula>
+    <description>This rule prevents contact centre user to change status from “More information required” to anything but “New”. ST contact centre user will only be allowed to change the case investigation status from “More information required” to “New”</description>
+    <errorConditionFormula>AND(CONTAINS( $User.Profile_Name_in_Text__c , &quot;StarTrack Support&quot;),  ISCHANGED( Status__c),  ISPICKVAL(PRIORVALUE(Status__c), &quot;More information required&quot;),   NOT(ISPICKVAL(Status__c, &quot;New&quot;)))</errorConditionFormula>
     <errorDisplayField>Status__c</errorDisplayField>
     <errorMessage>This case investigation status change is not allowed.</errorMessage>
 </ValidationRule>
