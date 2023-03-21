@@ -44,6 +44,7 @@
 	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
 	2023-02-13		Noel Lim									Add logic for Preferred Agent routing in routeCase(), and new method processPreferredAgent()
 	2023-03-08		Noel Lim									Add Release 2 TEMPORARY FIX - exclude Preferred Agent routing for cases from portals
+	2023-03-17		Noel Lim									Add criteria to routing engine, to allow routing when AllocateToQueue = true only if Owner is not a User, Owner is not the Omni Holding Queue, or Owner is a User but Case is Closed
 
 
 	************************************************/
@@ -98,26 +99,6 @@
 	private static Map<String,Group> groupNameMap = new Map<String,Group>();
 	//MW004540 Added for determining if user has Autoclosure permission
 	private static Boolean isAutoCloseEnabled = false;
-		
-		static String omniClosedCaseQueueId {
-			get {
-				if(omniClosedCaseQueueId == null) {
-					omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
-				}
-				return omniClosedCaseQueueId;
-			}
-			private set;
-		}
-
-		static String preferredAgentQueueId {
-			get {
-				if(preferredAgentQueueId == null) {
-					preferredAgentQueueId = OmniChannelService.getInstance().preferredAgentQueueId;
-				}
-				return preferredAgentQueueId;
-			}
-			private set;
-		}
 
 		static Map<Id, Group> omniGroups {
 			get {
@@ -659,12 +640,14 @@
 	//	}
 
 		/**
-		 * @description	   This method is fetch routing keys based on case key and assigns case to queue. From all the updated Cases, we need to identify which Cases need routing. Within the same Tx, some Cases have AllocateToQueue__c been updated (ex: child cases). Those will have to be re-routed.
-		* @param			 caseList - Changed Cases
-		* @param			 oldMap - Older Case objects. NULL if it is caused by an insert
-		* @return			Void
-		* @throws			Method might throw exception which is handled by Try-Catch block
-		*/
+		 * @description	   This method is fetch routing keys based on case key and assigns case to queue. 
+		 * From all the updated Cases, we need to identify which Cases need routing. Within the same Tx, some Cases have AllocateToQueue__c been updated (ex: child cases). Those will have to be re-routed.
+		 * 
+		 * @param			 caseList - Changed Cases
+		 * @param			 oldMap - Older Case objects. NULL if it is caused by an insert
+		 * @return			Void
+		 * @throws			Method might throw exception which is handled by Try-Catch block
+		 */
 		public void routeCase(List<Case> caseList, Map<Id,Case> oldMap, Boolean isInsert){
 			try{
 				List<Case> casesTobeRouted = new List<Case>();
@@ -675,23 +658,32 @@
 					// Check if it is SSSW record type or Social record type.
 					if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
 						System.debug(LoggingLevel.ERROR,'**Case is SSSW Record Type');
-						Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case
+
+						Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	
 						// verify if network or description is null & case is set for queue allocation
 						System.debug(LoggingLevel.ERROR,'**csRec.Network__c: ' + csRec.Network__c);
-						//System.debug(LoggingLevel.ERROR,'**oldCase.Network__c: ' + oldCase.Network__c);
 						System.debug(LoggingLevel.ERROR,'**csRec.Description: ' + csRec.Description);
-						//System.debug(LoggingLevel.ERROR,'**oldCase.Description: ' + oldCase.Description);
 						System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
-						//System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 
-						if( (csRec.Network__c == null
-							&& (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
+
+						//Prevent routing of the Case to a new Owner based on certain criterias
+						if(csRec.AllocateToQueue__c &&
+							(
+								(oldCase != null && oldCase.AllocateToQueue__c == csRec.AllocateToQueue__c)
+								|| (csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == User.getSObjectType() && csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE  && Utility.getCaseClosedStatus().contains(csRec.Status) == false)
+								|| csRec.Permanent_Close__c == true
+								|| csRec.OwnerId == OmniChannelService.getInstance().omniHoldingQueueId // Prevent routing of cases in Omni Holding Queue. Note: MyCustomerCaseArticlesModule class has async logic that routes these cases out of the Omni Holding queue
+							)
+						){
+							csRec.AllocateToQueue__c = false;
+						}
+
+						if( (csRec.Network__c == null && (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
 							||
 							(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
 							||
-							(csRec.AllocateToQueue__c && (oldCase == null || (oldCase != null && (oldCase.AllocateToQueue__c != csRec.AllocateToQueue__c))))
-
-							){
+							csRec.AllocateToQueue__c
+						){
 							System.debug(LoggingLevel.ERROR,'**Case meets evaluation to go to routing method');
 							
 							setCaseKeyMap(csRec,caseOriginKeyMap,caseNoOriginKeyMap);   // set case key maps
@@ -718,11 +710,11 @@
 
 						//Move eligible Closed Cases to the SSSW Closed Omni Queue					
 						if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
-							&& String.isEmpty(omniClosedCaseQueueId) == false 
+							&& String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false 
 							&& Utility.getCaseClosedStatus().contains(csRec.Status) 
 							&& omniGroups.containsKey(csRec.OwnerId) 			
 						){	
-							csRec.OwnerId = omniClosedCaseQueueId; 
+							csRec.OwnerId = OmniChannelService.getInstance().omniClosedCaseQueueId; 
 						}
 						//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 						else if(oldCase != null 
@@ -732,12 +724,12 @@
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
 							&& csRec.BypassPreferredAgent__c == false 
 							&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue					
-							&& String.isEmpty(preferredAgentQueueId) == false) {
-								if(oldCase.OwnerId == preferredAgentQueueId || m_processedPreferredAgentCaseIds.contains(csRec.Id) ){ 
+							&& String.isEmpty(OmniChannelService.getInstance().preferredAgentQueueId) == false) {
+								if(oldCase.OwnerId == OmniChannelService.getInstance().preferredAgentQueueId || m_processedPreferredAgentCaseIds.contains(csRec.Id) ){ 
 									// 2 scenarios where the Case already has a manual PSR and so we should not attempt to generate another one, and ensure the queue is in the Preferred Agent queue:
 									// a) Case being moved out of Preferred Agent queue without the Bypass flag set, OR 
 									// b) Case has already been processed by Preferred Agent in the same transaction
-									csRec.OwnerId = preferredAgentQueueId; 
+									csRec.OwnerId = OmniChannelService.getInstance().preferredAgentQueueId; 
 								} else {
 									casesPreferredAgentRouting.put(csRec.Id, csRec); 
 								}
@@ -1101,7 +1093,7 @@
 				(oldCase != null 
 					&& Utility.getCaseClosedStatus().contains(newCase.Status) == false
 					&& newCase.Status != oldCase.Status 
-					&& String.isEmpty(omniClosedCaseQueueId) == false && newCase.OwnerId == omniClosedCaseQueueId)
+					&& String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false && newCase.OwnerId == OmniChannelService.getInstance().omniClosedCaseQueueId)
 				){
 
 				newCase.AllocateToQueue__c = true; // Flag to re-route cases again
@@ -1163,7 +1155,7 @@
 						if (sr.isSuccess()){
 							for(PendingServiceRouting newPSR : newPSRs){ 
 								if(newPSR.Id != null && newPSR.Id == sr.getId()){
-									casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = preferredAgentQueueId; 
+									casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = OmniChannelService.getInstance().preferredAgentQueueId; 
 									m_processedPreferredAgentCaseIds.add(newPSR.WorkItemId);
 								}							
 							}

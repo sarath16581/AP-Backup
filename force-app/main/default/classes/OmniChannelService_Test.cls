@@ -385,4 +385,30 @@ public class OmniChannelService_Test {
 		System.assertEquals(false, exceptionThrown, 'There should be no Exceptions thrown');
 
 	}
+
+	@IsTest 
+	static void testClassVariables(){
+
+		QM__c custSetting = QM__c.getOrgDefaults();
+		List<Group> omniQueues = [SELECT Id, DeveloperName FROM Group WHERE DeveloperName IN ('SSSW_Routing_Preferred_Agent_Queue','SSSW_Closed_Omnichannel_Cases','SSSW_Routing_Holding_Queue')];
+		for(Group omniQueue : omniQueues){
+			if(omniQueue.DeveloperName == 'SSSW_Routing_Preferred_Agent_Queue'){
+				custSetting.PreferredAgentQueueId__c = omniQueue.Id;
+			}
+			
+			if(omniQueue.DeveloperName == 'SSSW_Closed_Omnichannel_Cases'){
+				custSetting.ClosedQueueId__c = omniQueue.Id;
+			}
+
+			if(omniQueue.DeveloperName == 'SSSW_Routing_Holding_Queue'){
+				custSetting.HoldingQueueId__c = omniQueue.Id;
+			}
+		}
+		Insert custSetting;
+
+
+		System.assert(String.isEmpty(OmniChannelService.getInstance().preferredAgentQueueId) == false, 'Preferred Agent Queue Id is empty');
+		System.assert(String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false, 'Omni Closed Case Queue Id is empty');
+		System.assert(String.isEmpty(OmniChannelService.getInstance().omniHoldingQueueId) == false, 'Omni Holding Queue Id is empty');
+	}
 }
