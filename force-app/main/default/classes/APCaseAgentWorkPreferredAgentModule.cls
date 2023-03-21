@@ -94,6 +94,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 					Id = csRec.Id, 
 					OwnerId = csRec.OwnerId,
 					BypassPreferredAgent__c = true, 
+					AllocateToQueue__c = false, //Unit of Work expects this to be populated
 					PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 				));
 			}				
