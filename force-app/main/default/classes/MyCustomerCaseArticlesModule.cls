@@ -281,8 +281,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * This method will ensure that the case is only enqueued once to limit scenarios where recursion may occur
 	 * 
 	 * When in Batch context - instead of calling the Queueable, call an Async Worker (Platform Event). This preserves using a Batch run's Queueable quota of 1.
-	 * In theory, an Async Worker recursion will not happen as subsequent jobs enqueued in this method will not be in Batch context and will use Queueable instead.
-	 * Estimated volume: the number of Async Worker calls expected is 180 per month, based on 30-day stats collected in March 2023 relating to Cases moving from Case Reopen > Omni Holding queue, and Preferred Agent Expiration.
+	 * The risk of an Async Worker recursion happening and exhausting Platform Event limit would not happen as the Async Worker will fire a Queueable to execute the logic which is not in a Batch context and therefore will not register another Async Worker.
 	 *
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
 	 *		  It's the callers responsibility to pass in a synchronised list of caseids/referenceids
