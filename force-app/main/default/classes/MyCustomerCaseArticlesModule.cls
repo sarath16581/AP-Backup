@@ -290,18 +290,19 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			return;
 		}
 
-		if(System.isBatch()){
-			uow.registerAsyncWork(new ApplicationUnitOfWork.AsyncStagingWorker(AsyncLinkArticlesToCasesWorker.class,new Map<String, Object>{ 'caseIds' => caseIds, 'referenceIds' => referenceIds }));
-		} else {
+		if(preventRecursiveReschedule == false){
 			caseIds.removeAll(m_enqueuedCaseIds);
 			if(!caseIds.isEmpty()) {
 				m_enqueuedCaseIds.addAll(caseIds);
 				
-				// TODO: Refactor this into a better enqueueing model
-				// enqueue the job here
-				AsyncLinkArticlesToCasesQueueable job = new AsyncLinkArticlesToCasesQueueable(caseIds, referenceIds);
-				System.enqueueJob(job);
-
+				if(System.isBatch()) {
+					uow.registerAsyncWork(new ApplicationUnitOfWork.AsyncStagingWorker(AsyncLinkArticlesToCasesWorker.class,new Map<String, Object>{ 'caseIds' => caseIds, 'referenceIds' => referenceIds }));
+				} else {
+					// TODO: Refactor this into a better enqueueing model
+					// enqueue the job here
+					AsyncLinkArticlesToCasesQueueable job = new AsyncLinkArticlesToCasesQueueable(caseIds, referenceIds);
+					System.enqueueJob(job);
+				}
 			}
 		}
 	}
@@ -770,7 +771,16 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
-	 * Async Worker that mirrors AsyncLinkArticlesToCasesQueueable, please refer to comments in that class.
+	 * Async Worker that has the same logic as AsyncLinkArticlesToCasesQueueable.
+	 * 
+	 * The Cases passed are:
+	 * i) processed by the routing engine 
+	 * ii) traversed the routing rules and reached a rule that requires an Article 
+	 * iii) Case does not have an Article linked (i.e. not in SF DB)
+	 * 
+	 * The routing engine have parked these Cases to a Holding Queue so that Omni does not push them to Agents, and will be routed out of the queue by triggering routing.
+	 * 
+	 * Needs to be called within an Async context due to API callout.
 	 */
 	public without sharing class AsyncLinkArticlesToCasesWorker extends ApplicationUnitOfWork.AsyncWorker {
 		
