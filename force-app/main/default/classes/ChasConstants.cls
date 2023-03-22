@@ -39,7 +39,8 @@ public class ChasConstants {
     public static final String  ECONOMY_AIR = 'Economy Air';
     public static final String  ECONOMY_SEA = 'Economy Sea';
 
-    public static final String  RECIPIENT ='Recipient';
+    public static final String  RECIPIENT ='Recipient'; // old value still uses in Delivery form
+    public static final String  RECEIVER ='Receiver'; // new value for LOMI form
     public static final String  ADDRESSE ='Addressee';
     public static final String SENDER = 'Sender';
     public static final String DOMESTIC_PARCELS ='Domestic Parcels';
