@@ -77,32 +77,32 @@
                 <default>false</default>
                 <label>PBP</label>
             </value>
-            <value>
+			<value>
                 <fullName>PBP-Transaction</fullName>
                 <default>false</default>
                 <label>PBP-Transaction</label>
             </value>
-            <value>
+			<value>
                 <fullName>PBP-PaymentMethod</fullName>
                 <default>false</default>
                 <label>PBP-PaymentMethod</label>
             </value>
-            <value>
+			<value>
                 <fullName>PBP-Cheque</fullName>
                 <default>false</default>
                 <label>PBP-Cheque</label>
             </value>
-            <value>
+			<value>
                 <fullName>PBP-CardFees</fullName>
                 <default>false</default>
                 <label>PBP-CardFees</label>
             </value>
-            <value>
+			<value>
                 <fullName>PBP-SetupFees</fullName>
                 <default>false</default>
                 <label>PBP-SetupFees</label>
             </value>
-            <value>
+			<value>
                 <fullName>PBP-ChangeFees</fullName>
                 <default>false</default>
                 <label>PBP-ChangeFees</label>
