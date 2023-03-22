@@ -37,7 +37,7 @@
         cmp.set('v.error', ''); 
         var senderOrRecipientType = cmp.get("v.wizardData.senderOrRecipientType");
         var recipientOrSender = cmp.get("v.wizardData.selectedRadio1Name");
-        if(senderOrRecipientType == 'International' && recipientOrSender == 'Recipient'){
+        if(senderOrRecipientType == 'International' && recipientOrSender == 'Receiver'){
             if(isValid){
                 helper.gotoNextPage(cmp);
             } else {

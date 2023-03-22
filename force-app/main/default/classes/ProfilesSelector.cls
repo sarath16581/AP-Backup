@@ -9,6 +9,7 @@
 * @changelog
 * 2020-04-10 - Nathan Franklin - Created
 * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyName and selectbyType Methods
+* 2023-03-06 - Nathan Franklin - add field overrides constructors
 */
 public virtual inherited sharing class ProfilesSelector extends ApplicationSelector {
 
@@ -17,6 +18,24 @@ public virtual inherited sharing class ProfilesSelector extends ApplicationSelec
 	}
 	public static ProfilesSelector newInstance(Integer recordLimit) {
 		return (ProfilesSelector)Application.Selectors.newInstance(ProfilesSelector.class).setLimit(recordLimit);
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static ProfilesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		ProfilesSelector selector = (ProfilesSelector)Application.Selectors.newInstance(ProfilesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static ProfilesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		ProfilesSelector selector = (ProfilesSelector)Application.Selectors.newInstance(ProfilesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
 	}
 
 	public override SObjectType getSObjectType() {

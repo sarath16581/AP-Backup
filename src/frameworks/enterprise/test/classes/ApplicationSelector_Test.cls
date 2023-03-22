@@ -214,6 +214,62 @@ public class ApplicationSelector_Test {
 	//
 	//	}
 
+	/**
+	 * Executes a query to ensure it returns expected results with actual inserted data
+	 */
+	@IsTest
+	public static void testSearchParamValidation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+	
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		MySelector selector = new MySelector();
+
+		try {
+			selector.validateSearchParams(new Set<String>{'invalidParam'});
+			System.assert(true);
+		} catch(ApplicationSelector.SelectorException ex) {
+			System.assert(true);
+		} catch(Exception ex) {
+			System.assert(false);
+		}
+
+		selector.validateSearchParams(new Set<String>{'param1', 'param2'});
+
+		System.assert(true); // :)
+
+		Test.stopTest();
+	}
+
+	private class MySelector extends ApplicationSelector {
+		public override SObjectType getSObjectType() {
+			return Account.getSObjectType();
+		}
+
+		public virtual override Set<SObjectField> getSObjectFieldList() {
+			return new Set<SObjectField>{
+				Account.Id
+			};
+		}
+
+		public void validateSearchParams(Set<String> paramKeys) {
+			super.validateSearchParams(paramKeys, new Set<String>{'param1', 'param2', 'param3', 'param4'});
+		}
+	}
+
 
 	public class AccountsSelector extends ApplicationSelector {
 
