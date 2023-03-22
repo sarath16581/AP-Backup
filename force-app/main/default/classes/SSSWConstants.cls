@@ -215,7 +215,7 @@ public with sharing class SSSWConstants {
     public static final String METH_CHECK_NPS = 'checkNPS';
     public static final String METH_COMPLETE_FCR = 'completeFirstCustomerResponse'; 
     
-     /*** PM26Form Constants ***/
+    /*** PM26Form Constants ***/
     public static final String SEC_CON_FIRSTNAME = 'Secondary Contact First Name'; 
     public static final String FIRSTNAME = 'First Name'; 
     public static final String SEC_CON_LASTNAME = 'Secondary Contact Last Name'; 
@@ -312,7 +312,14 @@ public with sharing class SSSWConstants {
     public static final String STATUS_APPROVED_AWAITING_CUSTOMER = 'Approved Awaiting Customer';
     public static final String STATUS_APPROVED = 'Approved';
 
+	/*** User Profiles ***/
 	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
 	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
+
+	/*** Omnichannel Constants ***/
+	public static final String OMNI_AGENTWORK_STATUS_OPENED = 'Opened';
+	public static final String OMNI_AGENTWORK_STATUS_DECLINED = 'Declined';
+	public static final String OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT = 'DeclinedOnPushTimeout';
+	public static final String OMNI_AGENTWORK_STATUS_UNAVAILABLE = 'Unavailable';
 }
