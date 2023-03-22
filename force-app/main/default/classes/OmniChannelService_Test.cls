@@ -390,7 +390,7 @@ public class OmniChannelService_Test {
 	static void testClassVariables(){
 
 		QM__c custSetting = QM__c.getOrgDefaults();
-		List<Group> omniQueues = [SELECT Id, DeveloperName FROM Group WHERE DeveloperName IN ('SSSW_Routing_Preferred_Agent_Queue','SSSW_Closed_Omnichannel_Cases','SSSW_Routing_Holding_Queue')];
+		List<Group> omniQueues = [SELECT Id, DeveloperName FROM Group WHERE DeveloperName IN ('SSSW_Routing_Preferred_Agent_Queue','SSSW_Closed_Omnichannel_Cases','SSSW_Routing_Holding_Queue','SSSW_BOH_Group_4')];
 		for(Group omniQueue : omniQueues){
 			if(omniQueue.DeveloperName == 'SSSW_Routing_Preferred_Agent_Queue'){
 				custSetting.PreferredAgentQueueId__c = omniQueue.Id;
@@ -403,6 +403,10 @@ public class OmniChannelService_Test {
 			if(omniQueue.DeveloperName == 'SSSW_Routing_Holding_Queue'){
 				custSetting.HoldingQueueId__c = omniQueue.Id;
 			}
+
+			if(omniQueue.DeveloperName == 'SSSW_BOH_Group_4'){
+				custSetting.DefaultOmniQueueId__c = omniQueue.Id;
+			}
 		}
 		Insert custSetting;
 
@@ -410,5 +414,6 @@ public class OmniChannelService_Test {
 		System.assert(String.isEmpty(OmniChannelService.getInstance().preferredAgentQueueId) == false, 'Preferred Agent Queue Id is empty');
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false, 'Omni Closed Case Queue Id is empty');
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniHoldingQueueId) == false, 'Omni Holding Queue Id is empty');
+		System.assert(String.isEmpty(OmniChannelService.getInstance().omniDefaultQueueId) == false, 'Omni Default Queue Id is empty');
 	}
 }
