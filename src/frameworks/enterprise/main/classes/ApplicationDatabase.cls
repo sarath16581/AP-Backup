@@ -12,6 +12,7 @@
  * 2020-10-18 - Nathan Franklin - Increased API Version to 49
  * 2022-05-09 - Ranjeewa Silva - Added support for upsert operation.
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
+ * 2023-03-21 - Nathan Franklin - added revokeTokenAccess method
  */
 public inherited sharing class ApplicationDatabase {
 
@@ -113,5 +114,9 @@ public inherited sharing class ApplicationDatabase {
 
 	public Id enqueueJob(Object queueable) {
 		return System.enqueueJob(queueable);
+	}
+
+	public Boolean revokeTokenAccess(Id ssoProviderId, String providerName, Id userId, String remoteIdentifier) {
+		return Auth.AuthToken.revokeAccess(ssoProviderId, providerName.toLowerCase(), userId, remoteIdentifier);
 	}
 }
