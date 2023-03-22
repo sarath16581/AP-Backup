@@ -37,7 +37,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 
 		for(AgentWork aw: records) {
 			if(aw.Status != existingRecords.get(aw.Id).Status) {
-				if(aw.Status == 'Opened') {
+				if(SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED.equalsIgnoreCase(aw.Status)) {
 					casesToUpdate.add(new Case(
 						Id = aw.WorkItemId, 
 						BypassPreferredAgent__c = false, 
@@ -47,7 +47,10 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 
 				// AgentWork with a PreferredUserId (i.e. no OriginalGroupId) will remain with the User on Decline.
 				// We need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
-				} else if(aw.PreferredUserId != null && (aw.Status == 'Declined' || aw.Status == 'DeclinedOnPushTimeout' || aw.Status == 'Unavailable')) { 
+				} else if(aw.PreferredUserId != null && 
+					(SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED.equalsIgnoreCase(aw.Status) 
+					|| SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT.equalsIgnoreCase(aw.Status) 
+					|| SSSWConstants.OMNI_AGENTWORK_STATUS_UNAVAILABLE.equalsIgnoreCase(aw.Status) )) { 
 					caseIdsToReroute.add(aw.WorkItemId);
 				}
 			}
@@ -91,6 +94,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 					Id = csRec.Id, 
 					OwnerId = csRec.OwnerId,
 					BypassPreferredAgent__c = true, 
+					AllocateToQueue__c = false, //Unit of Work expects this to be populated
 					PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 				));
 			}				
