@@ -12,6 +12,7 @@
  * 2020-08-02 - Nathan Franklin - Add field overrides
  * 2020-10-12 - Jansi - Added offsetLimit
  * 2022-04-12 - Ranjeewa Silva - Added new selector option to build queries with no default ordering applied
+ * 2023-03-22 - Nathan Franklin - Add method for validating search params and minor changes to order by method
  */
 public inherited sharing abstract class ApplicationSelector {
 
@@ -168,7 +169,10 @@ public inherited sharing abstract class ApplicationSelector {
 		}
 		qb.addFrom(String.valueOf(getSObjectType()));
 		if (!selectorOptions.contains(Options.WITHOUT_DEFAULT_ORDER)) {
-			qb.addOrder(getOrderBy());
+			List<QueryBuilder.Order> o = getOrderBy();
+			if(o != null) {
+				qb.addOrder(o);
+			}
 		}
 
 		if(recordLimit != null && recordLimit != 0) {
@@ -207,6 +211,17 @@ public inherited sharing abstract class ApplicationSelector {
 			}
 		}
 		return createableFields;
+	}
+
+	/**
+	 * Will force an exception to be thrown if the search params are invalid
+	 */
+	protected void validateSearchParams(Set<String> paramsPassed, Set<String> validParams) {
+		Set<String> remainingOptions = paramsPassed.clone();
+		remainingOptions.removeAll(validParams);
+		if(!remainingOptions.isEmpty()) {
+			throw new SelectorException('Invalid search parameters received');
+		}
 	}
 
 	// TODO: Activate Cache
