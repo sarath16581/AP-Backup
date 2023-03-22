@@ -10,9 +10,10 @@
 	<required>false</required>
 	<securityClassification>INTERNAL</securityClassification>
 	<trackTrending>false</trackTrending>
-	<type>Picklist</type>
+	<type>MultiselectPicklist</type>
 	<valueSet>
 		<restricted>true</restricted>
 		<valueSetName>Payment_Method</valueSetName>
 	</valueSet>
+	<visibleLines>3</visibleLines>
 </CustomField>
