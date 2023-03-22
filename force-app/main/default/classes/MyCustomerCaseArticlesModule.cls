@@ -279,7 +279,10 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * This will ensure that a SAP-EM query job will be enqueued for all the cases in the list.
 	 * This will be in the scenario where no article was found in SF for the ReferenceID listed on the case
 	 * This method will ensure that the case is only enqueued once to limit scenarios where recursion may occur
+	 * 
 	 * When in Batch context - instead of calling the Queueable, call an Async Worker (Platform Event). This preserves using a Batch run's Queueable quota of 1.
+	 * In theory, an Async Worker recursion will not happen as subsequent jobs enqueued in this method will not be in Batch context and will use Queueable instead.
+	 * Estimated volume: the number of Async Worker calls expected is 150 per month - 65 from Case Reopen queue and 85 from Preferred Agent queue. Based on 30-day stats collected in March 2023.
 	 *
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
 	 *		  It's the callers responsibility to pass in a synchronised list of caseids/referenceids
