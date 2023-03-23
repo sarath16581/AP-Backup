@@ -14,6 +14,7 @@
  * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
  * 2023-03-20 - Mahesh Parvathaneni - SF-854 - Updated status 'Closed - Required More information' to 'More information required'.
  * 2023-03-20 - Dattaraj Deshmukh - SF-900 Navigated to 'Home' page after Network Response is added.
+ * 2023-03-23 - Dattaraj Deshmukh - SF-892 Made Network response mandatory when SUI/RequireMoreInfo checkbox is changed and response is NOT added. 
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -78,6 +79,9 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	status='';
 	errorMsg = '';
 	isCaseClosed = false; //flag to show/hide the component if the case related to case investigation is closed.
+	originalInternalFacilityNotes = '';
+	originalStillUnderInvestigationValue = false;
+	originalRequireMoreInfoValue = false
 
 	handleCommentsChange(event) {
 		this.comments = event.target.value;
@@ -99,7 +103,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		else if(this.requireMoreInformation && !this.stillUnderInvestigation) {
 			this.status = STATUS_MORE_INFO_REQUIRED ;
 		}
-		else if(!this.requireMoreInformation && !this.stillUnderInvestigation) {
+		else if(this.comments !== '' &&  !this.requireMoreInformation && !this.stillUnderInvestigation) {
 			this.status = STATUS_CLOSED ;
 		}
 		else if(!this.requireMoreInformation && this.stillUnderInvestigation) {
@@ -119,7 +123,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		else if(this.stillUnderInvestigation && !this.requireMoreInformation) {
 			this.status = STATUS_RESPONDED ;
 		}
-		else if(!this.stillUnderInvestigation && !this.requireMoreInformation) {
+		else if(this.comments !== '' && !this.stillUnderInvestigation && !this.requireMoreInformation) {
 			this.status = STATUS_CLOSED ;
 		}
 		else if(!this.stillUnderInvestigation && this.requireMoreInformation) {
@@ -190,10 +194,10 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			this.deliveryInformation = this.caseInvestigationRecord.fields.DeliveryInformation__c.value;
 			this.deliveryOfficerKnowledge = this.caseInvestigationRecord.fields.DeliveryOfficerKnowledge__c.value;
 			this.qualityOfCase = this.caseInvestigationRecord.fields.Qualityofthecase__c.value;
-			this.requireMoreInformation = this.caseInvestigationRecord.fields.RequireMoreInformation__c.value;
+			this.originalRequireMoreInfoValue = this.requireMoreInformation = this.caseInvestigationRecord.fields.RequireMoreInformation__c.value;
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
-			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.StillUnderInvestigation__c.value;
-			this.internalFacilityNotes = this.caseInvestigationRecord.fields.InternalFacilityNotes__c.value;
+			this.originalStillUnderInvestigationValue = this.stillUnderInvestigation = this.caseInvestigationRecord.fields.StillUnderInvestigation__c.value;
+			this.originalInternalFacilityNotes = this.internalFacilityNotes = this.caseInvestigationRecord.fields.InternalFacilityNotes__c.value;
 			this.status = this.caseInvestigationRecord.fields.Status__c.value;
 
 			if (getFieldValue(this.caseInvestigationRecord, IS_CASE_CLOSED) === true) {
@@ -232,7 +236,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		} else {
 			fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
 			fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
-			fields[STATUS_FIELD.fieldApiName] = (!this.stillUnderInvestigation && !this.requireMoreInformation) ? STATUS_CLOSED : this.status;//(this.status != '') ? this.status : STATUS_CLOSED;
+			fields[STATUS_FIELD.fieldApiName] = (this.comments  !== '' && !this.stillUnderInvestigation && !this.requireMoreInformation) ? STATUS_CLOSED : this.status;
 		}
 
 		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
@@ -241,9 +245,14 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		const recordInput = { fields };
 		const networkResponseField = this.template.querySelector('[data-id="networkRes"]');
 
-		//check network response is entered.
-		//show error message if network response is NOT entered.
-		if(this.comments === undefined || this.comments === '') {
+		
+		/** Show error message if 
+		 * 		1. Network Response is empty. AND
+		 * 		2. Either Still Under Investigation OR Require More Information checkbox is TRUE/CHANGED.
+		 * 	
+		 */
+		if((this.comments === undefined || this.comments === '' ) && (this.stillUnderInvestigation  || this.requireMoreInformation 
+			|| this.originalStillUnderInvestigationValue !== this.stillUnderInvestigation || this.originalRequireMoreInfoValue !== this.requireMoreInformation) ) {
 			
 			validInput = false;
 			//show message if required field is missing
@@ -265,6 +274,14 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 				if(this.comments){
 					this.createChatterFeed();
 				}
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: 'Success',
+						message: 'Network response has been saved.',
+						variant: 'success'
+					})
+				)
+				this.navigateToHome(); //navigate to home page
 				this.updateCaseRecord();
 			})
 			.catch(error => {
@@ -289,16 +306,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId })
 		.then((result) => {
 			if (result) {
-
 				this.isLoaded = true;
-				this.dispatchEvent(
-					new ShowToastEvent({
-						title: 'Success',
-						message: 'Network response has been saved.',
-						variant: 'success'
-					})
-				)
-				this.navigateToHome(); //navigate to home page
 			}
 		})
 		.catch((error) => {
