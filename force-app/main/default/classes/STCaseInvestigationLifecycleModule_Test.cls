@@ -81,7 +81,7 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		System.assertEquals(false, records[1].StillUnderInvestigation__c, 'Should reset to false');
 		System.assertEquals(false, records[1].IsPrinted__c, 'Should reset to false');
 		System.assertEquals('In Progress', records[1].Status__c, 'Should reset to In Progress');
-		System.assertEquals(cases[0].OwnerId, records[1].OwnerId, 'Should reset to case owner id');
+		System.assertEquals(records[1].CreatedById, records[1].OwnerId, 'Should reset to case owner id');
 
 		Test.stopTest();
 	}

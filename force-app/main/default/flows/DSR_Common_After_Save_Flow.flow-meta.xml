@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send email with DSR details</description>
+        <name>Send_Email_to_Assigned_Lawyer</name>
+        <label>Send Email to Assigned Lawyer</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <actionName>Deal_Support_Request__c.Legal_DSR_Assigned</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <decisions>
+        <description>If Lawyer is assigned</description>
+        <name>Assigned_Lawyer_Updated</name>
+        <label>Assigned Lawyer Updated</label>
+        <locationX>182</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Lawyer_Assigned</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isLawyerAssigned</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_to_Assigned_Lawyer</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Lawyer Assigned</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Identify record type of DSR</description>
+        <name>Determine_Record_Type</name>
+        <label>Determine Record Type</label>
+        <locationX>380</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Legal_DSR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_LEGALDSR</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assigned_Lawyer_Updated</targetReference>
+            </connector>
+            <label>Legal DSR</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>isLawyerAssigned</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+NOT(ISNEW()),
+NOT(ISBLANK({!$Record.Assigned_Lawyer__c})),
+ISCHANGED({!$Record.Assigned_Lawyer__c})
+)</expression>
+    </formulas>
+    <interviewLabel>DSR Common After Save Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>DSR Common After Save Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Determine_Record_Type</targetReference>
+        </connector>
+        <object>Deal_Support_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
