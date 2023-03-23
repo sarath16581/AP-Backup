@@ -6,6 +6,7 @@
  * 2022-11-29 - Dattaraj Deshmukh - Created
  * 2023-03-01 - Mahesh Parvathaneni - SF-830 Updated UI based on case closed status
  * 2023-03-20 - Dattaraj Deshmukh - SF-900. Rearranged 'DeliveryOptions__c' field.
+ * 2023-03-23 - Dattaraj Deshmukh - SF-892. Removed 'required' property from Network Response.
  */
 -->
 <template>
@@ -36,7 +37,7 @@
 										<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
 										<lightning-input-field field-name="DeliveryInformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
 									</template>
-									<lightning-textarea data-id="networkRes" required value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+									<lightning-textarea data-id="networkRes" value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
 									<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
 									<lightning-input-field field-name="StillUnderInvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
 									<lightning-input-field field-name="RequireMoreInformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>
