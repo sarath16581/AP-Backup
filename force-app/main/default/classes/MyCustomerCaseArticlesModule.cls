@@ -784,7 +784,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * 
 	 * Needs to be called within an Async context due to API callout.
 	 */
-	public without sharing class AsyncLinkArticlesToCasesWorker extends ApplicationUnitOfWork.AsyncWorker {
+	public without sharing class AsyncLinkArticlesToCasesWorker extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
 		
 		@TestVisible
 		Set<Id> caseIds;
