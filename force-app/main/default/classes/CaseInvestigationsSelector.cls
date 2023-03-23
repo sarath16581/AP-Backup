@@ -64,7 +64,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			CaseInvestigation__c.MilestoneTimeStartDatetime__c, CaseInvestigation__c.RecordType__c, CaseInvestigation__c.NetworkMilestonesViolated__c,
 			CaseInvestigation__c.NetworkTierEscalationEmail__c, CaseInvestigation__c.Stillunderinvestigation__c, CaseInvestigation__c.Priority__c, 
 			CaseInvestigation__c.CreatedDate, CaseInvestigation__c.IsClosed__c, CaseInvestigation__c.OwnerId, CaseInvestigation__c.ProductCategory__c,
-			CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.IsPrinted__c, CaseInvestigation__c.CaseServiceSLA__c
+			CaseInvestigation__c.ProductSubCategory__c, CaseInvestigation__c.IsPrinted__c, CaseInvestigation__c.CaseServiceSLA__c, CaseInvestigation__c.RequireMoreInformation__c
 
 		};
 	}
