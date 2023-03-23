@@ -40,6 +40,7 @@
  * 2022-12-07 - Noel - Added 'getQueueRoutingConfig' method
  * 2023-01-26 - Mahesh Parvathaneni - Added getEntitlementRules, getEscalationHierarchies method
  * 2022-02-09 - Dattaraj Deshmukh - Added 'getNetworkUsers' method.
+ * 2023-03-21 - Nathan Franklin - small refactor / adding record type for consumer
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -994,9 +995,18 @@ public with sharing class ApplicationTestDataFactory {
 	public static Id personAccountRecordType {
 		get {
 			if(personAccountRecordType == null) {
-				personAccountRecordType = [Select Id From RecordType Where IsPersonType = true And SObjectType = 'Account'].Id;
+				personAccountRecordType = personAccountRecordTypeRecord.Id;
 			}
 			return personAccountRecordType;
+		}
+		private set;
+	}
+	public static RecordType personAccountRecordTypeRecord {
+		get {
+			if(personAccountRecordTypeRecord == null) {
+				personAccountRecordTypeRecord = [Select Id From RecordType Where IsPersonType = true And SObjectType = 'Account'];
+			}
+			return personAccountRecordTypeRecord;
 		}
 		private set;
 	}
