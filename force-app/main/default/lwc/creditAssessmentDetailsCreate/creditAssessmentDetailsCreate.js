@@ -21,6 +21,7 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 	@api proposalId;
 	@api opportunityId;
 	selectedValue;
+	isProcessing = false;
 
 	@wire(getRecord, {recordId: '$proposalId', fields: [RECORD_TYPE_ID]})
 	proposalInfo;
@@ -45,6 +46,7 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 
 	handleNext() {
 		// Update primary proposal with selected account type
+		this.isProcessing = true;
 		const fields = {};
 		fields[ID.fieldApiName] = this.proposalId;
 		fields[NEW_ACCOUNT_TYPE.fieldApiName] = this.selectedValue;
@@ -54,10 +56,10 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 			this[NavigationMixin.GenerateUrl]({
 				type: 'standard__webPage',
 				attributes: {
-					url: '/apex/Apt_CreditAssessment?proposalId='+ this.proposalId + '&contextId=' + this.opportunityId
+					url: '/apex/Apt_CreditAssessment?proposalID='+ this.proposalId + '&contextID=' + this.opportunityId
 				}
 			}).then((url) => {
-				window.open(url);
+				window.open(url, '_self');
 			});
 		}).catch(error => {
 			console.error(error);
@@ -68,6 +70,8 @@ export default class CreditAssessmentDetailsCreate extends NavigationMixin(Light
 					variant: 'error'
 				})
 			);
+		}).finally(() => {
+			this.isProcessing = false;
 		});
 	}
 }

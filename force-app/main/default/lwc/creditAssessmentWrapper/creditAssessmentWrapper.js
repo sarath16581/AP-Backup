@@ -11,6 +11,7 @@
 import {LightningElement, api, wire} from 'lwc';
 import getCreditAssessment from '@salesforce/apex/CreditAssessmentController.getOpportunityCreditAssessment';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
+import { refreshApex } from '@salesforce/apex';
 
 export default class CreditAssessmentWrapper extends LightningElement {
 	messageBody;
@@ -21,11 +22,21 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	primaryProposal;
 	creditAssessments = [];
 	oppClosedStage = ['Closed Won', 'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'];
-
+	_wiredResult;
+	reloadDisabled;
 	@api recordId;
 
 	@wire(getCreditAssessment, {opportunityId: '$recordId'})
-	wiredCreditAssessmentResults({error, data}) {
+	wiredCreditAssessmentResults(result) {
+		const { data, error} = result;
+		this._wiredResult = result;
+		console.log('wired called');
+		//reset views
+		this.messageBody = null;
+		this.showCACreate = false;
+		this.showProposal = false;
+		this.showApprovedCAs = false;
+		this.showCAClosedOpp = false
 		if (data) {
 			this.creditAssessments = data.creditAssessments;
 			// opportunity closed?
@@ -97,5 +108,10 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	creditAssessmentCreate() {
 		this.showApprovedCAs = false;
 		this.showCACreate = true;
+	}
+
+	handleReload() {
+		this.reloadDisabled = true;
+		refreshApex(this._wiredResult).then(() => {this.reloadDisabled = false});
 	}
 }

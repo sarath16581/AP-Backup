@@ -3850,7 +3850,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CreditAssessmentRequestIncompleteOPC</shortDescription>
-        <value>Opportunity Classification (OPC) against Primary Proposal is required before conducting a Credit Assessment.</value>
+        <value>Opportunity Classification (OPC) against Primary Proposal is required before conducting a Credit Assessment.&lt;br&gt;&lt;br&gt;Once OPC is completed, hit the Reload button to refresh this tab.</value>
     </labels>
     <labels>
         <fullName>CreditAssessmentRequestPrimaryNotChecked</fullName>
