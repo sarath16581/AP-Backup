@@ -7,7 +7,7 @@
 * 18/11/2022 - Dattaraj Deshmukh - Created.
 * 20/03/2023 - Mahesh Parvathaneni - SF-854 - Updated status 'Closed - Required More information' to 'More information required'.
 */
-public with sharing class MyNetworkConstants {
+public inherited sharing class MyNetworkConstants {
    //StarTrack_General_Enquiry, StarTrack_Pickup_Booking_Enquiry, StarTrack_Voice_of_Customer, StarTrack_PUD_Enquiry
 	public static final String[] STAR_TRACK_RECORD_TYPES = new String[]{'StarTrack_PUD_Enquiry', 'StarTrack_General_Enquiry', 'StarTrack_Pickup_Booking_Enquiry', 
 	'StarTrack_Voice_of_Customer'}; 

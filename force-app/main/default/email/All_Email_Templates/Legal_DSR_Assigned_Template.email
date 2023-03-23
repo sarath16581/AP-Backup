@@ -1,0 +1,15 @@
+<messaging:emailTemplate recipientType="User"
+    relatedToType="Deal_Support_Request__c"
+    subject="New Deal Support Request for Account : {!relatedTo.Organisation__r.Name}">
+    <messaging:htmlEmailBody >
+        <html>
+            <body>
+                <p>Dear {!relatedTo.Assigned_Lawyer__r.FirstName},</p>
+                <p>A Legal Deal Support Request for <b>{!relatedTo.Organisation__r.Name}</b> has been assigned to you for your attention.</p>
+                <p>To view this DSR in full, please follow this link: <a href = "https://auspost--ss.sandbox.my.salesforce.com/{!relatedTo.id}">{!relatedTo.Name}</a>
+                </p> 
+                <p>Thank you.</p>           
+            </body>
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>
