@@ -16,6 +16,7 @@
 *		31/01/2023				Noel Lim					Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 *		01/02/2023				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getCaseIdsWithLatestAcceptedAgentWorks, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 * 		10/02/2023				George Nguyen				Added rerouteCasesWithPreferredAgentByPass and Cache
+*		17/03/2023				Noel Lim					Added class variables omniClosedCaseQueueId and omniHoldingQueueId
 **/
 public inherited sharing class OmniChannelService {
 
@@ -45,6 +46,36 @@ public inherited sharing class OmniChannelService {
 				preferredAgentQueueId = QM__c.getOrgDefaults().PreferredAgentQueueId__c;
 			}
 			return preferredAgentQueueId;
+		}
+		private set;
+	}
+
+	public String omniClosedCaseQueueId {
+		get {
+			if(omniClosedCaseQueueId == null) {
+				omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
+			}
+			return omniClosedCaseQueueId;
+		}
+		private set;
+	}
+
+	public String omniHoldingQueueId {
+		get {
+			if(omniHoldingQueueId == null) {
+				omniHoldingQueueId = QM__c.getOrgDefaults().HoldingQueueId__c;
+			}
+			return omniHoldingQueueId;
+		}
+		private set;
+	}
+
+	public String omniDefaultQueueId {
+		get {
+			if(omniDefaultQueueId == null) {
+				omniDefaultQueueId = QM__c.getOrgDefaults().DefaultOmniQueueId__c;
+			}
+			return omniDefaultQueueId;
 		}
 		private set;
 	}
