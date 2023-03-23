@@ -5,6 +5,7 @@
  * @changelog
  * 2022-11-29 - Dattaraj Deshmukh - Created
  * 2023-03-01 - Mahesh Parvathaneni - SF-830 Updated UI based on case closed status
+ * 2023-03-20 - Dattaraj Deshmukh - SF-900. Rearranged 'DeliveryOptions__c' field.
  */
 -->
 <template>
@@ -33,9 +34,6 @@
 									<template if:true={isDelieryFieldVisible}>
 										<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
 										<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
-										<!-- Note: Hiding DeliveryOptions__c field it is controlling field for DeliveryInformation__c.
-													If controlling (DeliverOptions__c)  field is not included on the form, dependent field is disabled by default -->
-										<lightning-input-field class="slds-hidden" value={deliveryOptions} field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
 										<lightning-input-field field-name="DeliveryInformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
 									</template>
 									<lightning-textarea data-id="networkRes" required value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
@@ -45,6 +43,10 @@
 									<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
 									<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Poster Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"> 
 									</lightning-textarea>
+									<!-- Note: Hiding DeliveryOptions__c field it is controlling field for DeliveryInformation__c.
+													If controlling (DeliverOptions__c)  field is not included on the form, dependent field is disabled by default -->
+									<lightning-input-field class="slds-hidden" value={deliveryOptions} field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+										
 								</lightning-record-edit-form>
 								</br>
 								<lightning-button

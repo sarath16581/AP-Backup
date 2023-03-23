@@ -13,6 +13,7 @@
  * 									SF(SF-895) Fixed status update issue where SUI/Require More Info statuses were updated to Closed.
  * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
  * 2023-03-20 - Mahesh Parvathaneni - SF-854 - Updated status 'Closed - Required More information' to 'More information required'.
+ * 2023-03-20 - Dattaraj Deshmukh - SF-900 Navigated to 'Home' page after Network Response is added.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -297,6 +298,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 						variant: 'success'
 					})
 				)
+				this.navigateToHome(); //navigate to home page
 			}
 		})
 		.catch((error) => {
