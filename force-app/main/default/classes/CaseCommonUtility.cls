@@ -688,7 +688,7 @@
 							||
 							(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
 							||
-							csRec.AllocateToQueue__c && (oldCase == null || (oldCase != null && (oldCase.AllocateToQueue__c != csRec.AllocateToQueue__c)) )
+							(csRec.AllocateToQueue__c && (oldCase == null || (oldCase != null && (oldCase.AllocateToQueue__c != csRec.AllocateToQueue__c))))
 						){
 							System.debug(LoggingLevel.ERROR,'**Case meets evaluation to go to routing method');
 							
