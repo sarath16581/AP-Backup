@@ -6611,6 +6611,13 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>SSSWGeneralEnquiry</value>
     </labels>
     <labels>
+        <fullName>REC_TYPE_DEV_LEGALDSR</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_LEGALDSR</shortDescription>
+        <value>Legal_Support_Request</value>
+    </labels>
+	<labels>
         <fullName>REC_TYPE_DEV_SSSW_SERVICE</fullName>
         <language>en_US</language>
         <protected>false</protected>
