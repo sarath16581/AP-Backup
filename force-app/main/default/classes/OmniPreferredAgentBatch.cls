@@ -7,6 +7,7 @@
 * @description This batch is used to move the case out of the preferred agent queue if the assigned preferred agent hasn't accepted the case in the allocated timeline. 
 * @changelog
 * 2023-02-10 - George Nguyen - Created
+* 2023-03-15 - Noel Lim - updated DML to allow partial success (allOrNothing = false)
 */
 public inherited sharing class OmniPreferredAgentBatch implements Database.Batchable<sObject>,Schedulable  {
 	public final String query;
@@ -33,11 +34,9 @@ public inherited sharing class OmniPreferredAgentBatch implements Database.Batch
 	public void execute(Database.BatchableContext BC, List<sObject> scope){
 		try {
 			
-			SSSW_Routing.isFinalPassOverride = true; //Cases expired and routed in this Batch will skip the Omni Holding queue, because in MyCustomerCaseArticlesModule.ensureQueryJobEnqueued() it doesn't enqueue the Queueable in Batch context 
-
 			List<Case> casesToUpdate = OmniChannelService.getInstance().rerouteCasesWithPreferredAgentByPass(scope);
 			if(casesToUpdate.isEmpty() == false) {
-				ApplicationDatabase.getInstance().dmlUpdate(casesToUpdate);
+				ApplicationDatabase.getInstance().dmlUpdate(casesToUpdate,false);
 			}
 		} catch(Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, OmniPreferredAgentBatch.class.getName(), 'execute', 'Batch', ApplicationLogger.LoggingLevel.ERROR);
