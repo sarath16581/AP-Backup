@@ -7935,7 +7935,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MyNetwork Consignment Error Message</shortDescription>
-        <value>This consignment didn&apos;t go through any AusPost MyNetwork</value>
+        <value>This article has not been scanned at an AusPost facility</value>
     </labels>
     <labels>
         <fullName>MyNetworkDuplicateCaseInvestigationErrorMessage</fullName>

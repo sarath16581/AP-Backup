@@ -8,6 +8,7 @@
  * @domain PUD
  * @changelog
  * 23/11/2022 - Dattaraj Deshmukh - Created.
+ * 21/03/2023 - Mahesh Parvathaneni - Updated - SF-853 - Set the status and Require more information fields on case investigation
  */
 
  public inherited sharing class FeedItemCaseInvestigationModule extends ApplicationDomain.Module  {
@@ -30,7 +31,7 @@
 	}
 
 	/**
-	* @description       This method updates timestamp whenever any StarTrack Contact Center user Post feed on Case Investigation Object.
+	* @description       This method updates the case investigations whenever any StarTrack Contact Center user Post feed on Case Investigation Object.
 	* @param             feedItems - List<SObject>, uow - APplicationUnitOfWork
 	* @return            Void
 	*/
@@ -44,8 +45,10 @@
 
 			//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
 			//by users with 'StarTrack Support' profiles.
+			//update Status__c field to 'In Progress' and RequireMoreInformation__c field to false
 			if(loggedInUserProfileId == profileId){
-				caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = fItem.ParentId, LastContactCentreUpdate__c = System.now()) );
+				caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = fItem.ParentId, LastContactCentreUpdate__c = System.now(), 
+						Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS , RequireMoreInformation__c = false) );
 			}
 		}
 
