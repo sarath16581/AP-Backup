@@ -58,7 +58,7 @@
                 <field>Article__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Required</behavior>
                 <field>Network__c</field>
             </layoutItems>
             <layoutItems>

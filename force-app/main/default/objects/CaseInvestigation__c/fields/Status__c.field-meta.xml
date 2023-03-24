@@ -44,6 +44,12 @@
                 <label>Awaiting invesitgation</label>
             </value>
             <value>
+                <fullName>Closed - Required More Information</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Closed - Required More Information</label>
+            </value>
+            <value>
                 <fullName>Resolved</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
