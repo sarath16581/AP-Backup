@@ -14,7 +14,8 @@
  * 2023-03-16 - Mahesh Parvathaneni - SF-876 Set case status based on SUI
  * 2023-03-20 - Mahesh Parvathaneni - SF-854 - Updated status 'Closed - Required More information' to 'More information required'.
  * 2023-03-20 - Dattaraj Deshmukh - SF-900 Navigated to 'Home' page after Network Response is added.
- * 2023-03-23 - Dattaraj Deshmukh - SF-892 Made Network response mandatory when SUI/RequireMoreInfo checkbox is changed and response is NOT added. 
+ * 2023-03-23 - Dattaraj Deshmukh - SF-892 Made Network response mandatory when SUI/RequireMoreInfo checkbox is changed and response is NOT added.
+ * 2023-03-24 - Mahesh Parvathaneni - SF-921 Restrict the network response to save when SUI and Require More Information is checked. 
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -207,8 +208,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 					new ShowToastEvent({
 						title: 'Case',
 						message: 'This case is now closed. No further action is required.',
-						variant: 'success',
-						mode: 'sticky'
+						variant: 'success'
 					})
 				)
 			}
@@ -246,7 +246,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		const networkResponseField = this.template.querySelector('[data-id="networkRes"]');
 
 		
-		/** Show error message if 
+		/** Show Network Response error message if 
 		 * 		1. Network Response is empty. AND
 		 * 		2. Either Still Under Investigation OR Require More Information checkbox is TRUE/CHANGED.
 		 * 	
@@ -264,6 +264,10 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 			networkResponseField.reportValidity();
 		}
 
+		//restrict the network response to save if SUI and Require more information is checked
+		if(this.stillUnderInvestigation  && this.requireMoreInformation){
+			validInput = false;
+		}
 
 		if(validInput) {
 			updateRecord(recordInput)
