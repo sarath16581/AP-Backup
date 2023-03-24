@@ -50,7 +50,7 @@ public with sharing class OmniPreferredAgentBatch_Test {
 		batch.execute(null, psrs); 
 
 		((OmniChannelService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).rerouteCasesWithPreferredAgentByPass((List<PendingServiceRouting>)fflib_Match.eq(psrs));
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>)fflib_Match.eq(cases.values()));
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>)fflib_Match.eq(cases.values()), (Boolean)fflib_Match.eq(false));
 
 		Database.executeBatch(batch);
 

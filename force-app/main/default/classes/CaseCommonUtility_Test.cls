@@ -787,6 +787,13 @@ private with sharing class CaseCommonUtility_Test {
 	private static testMethod void testSocialCaseRouting(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSWConstants.SSSW_SOCIAL_INTEGRATION_PROFILE LIMIT 1];
 
+		//Setup default Omni queue
+		QM__c custSetting = QM__c.getOrgDefaults();
+		Group defaultOmnniQueue =  [SELECT Id, DeveloperName FROM Group WHERE DeveloperName = 'SSSW_BOH_Group_4' LIMIT 1];
+		custSetting.DefaultOmniQueueId__c = defaultOmnniQueue.Id;
+		Insert custSetting;
+
+		//Cases
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		Case socialCase1 = TestUtility.createCase('Social Post','New',null, null, null, caseRecTypeMap.get('Social Record Type').getRecordTypeId());
 		socialCase1.Origin = 'Social';
@@ -817,7 +824,7 @@ private with sharing class CaseCommonUtility_Test {
 		System.assertEquals(Group.sObjectType,savedCases.get(socialCase1.Id).OwnerId.getSObjectType());
 
 		System.assertEquals(false, savedCases.get(socialCase2.Id).AllocateToQueue__c);
-		System.assertEquals(User.sObjectType,savedCases.get(socialCase2.Id).OwnerId.getSObjectType());
+		System.assertEquals(defaultOmnniQueue.Id,savedCases.get(socialCase2.Id).OwnerId);
 	}
 	
 	/**

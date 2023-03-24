@@ -666,17 +666,19 @@
 						System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
 
 
-						//Prevent routing of the Case to a new Owner based on certain criterias
+						//Prevent routing of the Case in the following scenarios:
+						// 1. An Open Case that is assigned to an Agent, to prevent case theft where an Agent is working on a case and e.g. a customer response triggers the case to route and assigning the case away from the agent. Note that Closed cases with an agent should be allowed to route.
+						// 2. Cases that are permantently closed 
+						// 3. Cases in the process of routing and are in the Omni Holding Queue. NOTE: async logic in the MyCustomerCaseArticlesModule class is responsible for routing the case out of the holding queue 
 						if(csRec.AllocateToQueue__c &&
 							(
-								(oldCase != null && oldCase.AllocateToQueue__c == csRec.AllocateToQueue__c)
-								|| (csRec.OwnerId != null 
+								(csRec.OwnerId != null 
 									&& csRec.OwnerId.getSobjectType() == User.getSObjectType() 
-									&& csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE  
+									&& csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE //This logic relies on User Profile and needs to be assessed at a future date and refactored. 1 refactor option is to prevent case routing if i) User's License is not a Guest User (for cases created from Portals) ii) User is not System Support (cases created from email-to-case)
 									&& Utility.getCaseClosedStatus().contains(csRec.Status) == false 
-									&& (oldCase != null && Utility.getCaseClosedStatus().contains(oldCase.Status) == false))
+									&& (oldCase != null && Utility.getCaseClosedStatus().contains(oldCase.Status) == false)) //Closed Cases assigned to an Agent that receives a Customer or Network email needs to route. However Workflow Rules updates the Status from Closed before this logic runs, so we also need to check oldCase value was not Closed
 								|| csRec.Permanent_Close__c == true 
-								|| csRec.OwnerId == OmniChannelService.getInstance().omniHoldingQueueId // Prevent routing of cases in Omni Holding Queue. Note: MyCustomerCaseArticlesModule class has async logic that routes these cases out of the Omni Holding queue
+								|| csRec.OwnerId == OmniChannelService.getInstance().omniHoldingQueueId 
 							)
 						){
 							csRec.AllocateToQueue__c = false;
@@ -686,7 +688,7 @@
 							||
 							(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
 							||
-							csRec.AllocateToQueue__c
+							(csRec.AllocateToQueue__c && (oldCase == null || (oldCase != null && (oldCase.AllocateToQueue__c != csRec.AllocateToQueue__c))))
 						){
 							System.debug(LoggingLevel.ERROR,'**Case meets evaluation to go to routing method');
 							
