@@ -4,9 +4,9 @@
     <available>true</available>
     <description>DSR Assigned to Lawyer VF</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>Legal DSR Assigned VF Template</name>
+    <name>Legal DSR Assigned</name>
     <style>none</style>
-    <subject>Legal DSR has been assigned</subject>
+    <subject>New Deal Support Request for Account :</subject>
     <type>visualforce</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
