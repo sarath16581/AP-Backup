@@ -271,7 +271,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <constants>
         <description>Email Id of MS power apps which needs to be blocked</description>
         <name>vMSPowerAppsEmail</name>
