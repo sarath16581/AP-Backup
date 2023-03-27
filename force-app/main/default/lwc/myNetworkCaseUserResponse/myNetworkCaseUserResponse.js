@@ -208,7 +208,8 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 					new ShowToastEvent({
 						title: 'Case',
 						message: 'This case is now closed. No further action is required.',
-						variant: 'success'
+						variant: 'success',
+						mode: 'sticky'
 					})
 				)
 			}
