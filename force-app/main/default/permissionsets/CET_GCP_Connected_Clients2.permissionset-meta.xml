@@ -10088,17 +10088,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>CaseInvestigation__c.DeliveryInformation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CaseInvestigation__c.DeliveryOfficerKnowledge__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>CaseInvestigation__c.DeliveryOptions__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>CaseInvestigation__c.Deliveryinformation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10153,11 +10153,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>CaseInvestigation__c.Network__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>CaseInvestigation__c.Priority__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10198,7 +10193,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>CaseInvestigation__c.Requiremoreinformation__c</field>
+        <field>CaseInvestigation__c.RequireMoreInformation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10213,7 +10208,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>CaseInvestigation__c.Stillunderinvestigation__c</field>
+        <field>CaseInvestigation__c.StillUnderInvestigation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

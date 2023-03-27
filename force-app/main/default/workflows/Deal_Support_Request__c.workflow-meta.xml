@@ -254,6 +254,18 @@
         <template>LPO_Email_Templates/LPO_Deal_Support_Request_Completion_Notiifcation</template>
     </alerts>
     <alerts>
+        <fullName>Legal_DSR_Assigned</fullName>
+        <description>Legal DSR Assigned</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Assigned_Lawyer__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Legal_DSR_Assigned</template>
+    </alerts>
+    <alerts>
         <fullName>Product_Specialist_Solution_Support_DSR_Request_submit_Notification</fullName>
         <description>Product Specialist Solution Support DSR Request submit Notification</description>
         <protected>false</protected>
