@@ -164,16 +164,19 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		Test.stopTest();
 
 		//asserting tier value updated by the batch.
-		List<CaseInvestigation__c> updatedCaseInvestigations = CaseInvestigationsSelector.newInstance().selectById(new Map<Id,CaseInvestigation__c>(caseInvestigations).keySet()).values();
-		for (CaseInvestigation__c ci: updatedCaseInvestigations) {
+		List<CaseInvestigation__c> caseInvestigationsWithNetworkEmail = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[0].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>()).values();
+		List<CaseInvestigation__c> caseInvestigationsWithoutNetworkEmail = CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByNetworkId(new Set<Id>{networks[1].Id}, new Set<Id>{stCaseInvestigationRecordTypeId}, new Set<Object>()).values();
+		for (CaseInvestigation__c ci: caseInvestigationsWithNetworkEmail) {
 			System.assertEquals(2, ci.NetworkMilestoneCurrentTier__c, 'Expected current network tier to be updated');
 			System.assertNotEquals(null, ci.NetworkMilestonesViolated__c, 'Expected network milestones to be updated');
-			if (ci.Network__c == networks[1].Id) {
-				//Assert Network Tier Escalation email shouldn't be populated
-				System.assertEquals(null, ci.NetworkTierEscalationEmail__c, 'Expected network email should not be populated');
-			} else {
-				System.assertEquals(networks[0].Email_1__c, ci.NetworkTierEscalationEmail__c, 'Expected network email to be populated');
-			}
+			System.assertEquals(networks[0].Email_1__c, ci.NetworkTierEscalationEmail__c, 'Expected network email to be populated');
+		}
+
+		for (CaseInvestigation__c ci: caseInvestigationsWithoutNetworkEmail) {
+			System.assertEquals(2, ci.NetworkMilestoneCurrentTier__c, 'Expected current network tier to be updated');
+			System.assertNotEquals(null, ci.NetworkMilestonesViolated__c, 'Expected network milestones to be updated');
+			//Assert Network Tier Escalation email shouldn't be populated
+			System.assertEquals(null, ci.NetworkTierEscalationEmail__c, 'Expected network email should not be populated');
 		}
 	}
 }
