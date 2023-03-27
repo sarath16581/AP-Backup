@@ -527,7 +527,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_eParcel_Damages_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_BOH_Group_1</lookupValue>
+        <lookupValue>SSSW_International_CN08</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign eParcel Damages Cases</name>
         <notifyAssignee>false</notifyAssignee>
