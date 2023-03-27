@@ -248,11 +248,10 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		
 		/** Show error message if 
 		 * 		1. Network Response is empty. AND
-		 * 		2. Either Still Under Investigation OR Require More Information checkbox is TRUE/CHANGED.
+		 * 		2. Either Still Under Investigation OR Require More Information checkbox is CHANGED.
 		 * 	
 		 */
-		if((this.comments === undefined || this.comments === '' ) && (this.stillUnderInvestigation  || this.requireMoreInformation 
-			|| this.originalStillUnderInvestigationValue !== this.stillUnderInvestigation || this.originalRequireMoreInfoValue !== this.requireMoreInformation) ) {
+		if((this.comments === undefined || this.comments === '' ) && (this.originalStillUnderInvestigationValue !== this.stillUnderInvestigation || this.originalRequireMoreInfoValue !== this.requireMoreInformation) ) {
 			
 			validInput = false;
 			//show message if required field is missing
