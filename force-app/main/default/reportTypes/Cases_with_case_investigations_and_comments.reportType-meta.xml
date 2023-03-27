@@ -4189,7 +4189,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Requiremoreinformation__c</field>
+            <field>RequireMoreInformation__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>
@@ -4199,7 +4199,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Stillunderinvestigation__c</field>
+            <field>StillUnderInvestigation__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>
@@ -4209,7 +4209,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Deliveryinformation__c</field>
+            <field>DeliveryInformation__c</field>
             <table>Case.CaseInvestigations__r</table>
         </columns>
         <columns>
