@@ -4,10 +4,12 @@
     <name>LPuD Queue</name>
     <queueMembers>
         <users>
+            <user>asad.mateen@auspost.com.au</user>
             <user>ish.husnu2@auspost.com.au</user>
             <user>joshua.beales@my.network</user>
             <user>lauren.picchianti@my.network</user>
             <user>luke.jensen@auspost.com.au</user>
+            <user>mamata.atluri@auspost.com.au.prod</user>
             <user>michael.owens@my.network</user>
             <user>nhu-ha.nguyen@my.network</user>
         </users>
