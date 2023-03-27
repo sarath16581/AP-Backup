@@ -762,11 +762,6 @@
             <sortOrder>39</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>LoginToNetworkAsPersonUser</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>22</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>EnableCustomerPortalUser</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>19</sortOrder>
@@ -780,6 +775,11 @@
             <actionName>RecordShareHierarchy</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>21</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>LoginToNetworkAsPersonUser</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>22</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>RemoveFromCadence</actionName>
