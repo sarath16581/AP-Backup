@@ -3,6 +3,7 @@
 * @date 27/01/2023
 * @description Test class for STCIMilestoneViolationCheckerBatch job
 * @changelog
+* 24-03-2023 - Mahesh Parvathaneni - SF-916 - Removed logic to assign to case owner if there is no email on network
 */
 
 @IsTest
@@ -122,17 +123,25 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		}
 		insert cases;
 
-		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, false);
 		networks[0].Org_ID__c = '1234';
+		networks[1].Org_ID__c = '4567';
 		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[1].Contact_Facility__c = 'MyNetwork';
+		networks[0].Email_1__c = 'test.test@test.com';
 		insert networks;
 
-
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
-		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[0].Id, false));
-		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[2].Id, articles[2], networks[0].Id, false));
-		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[3].Id, articles[3], networks[0].Id, false));
-		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[4].Id, articles[4], networks[0].Id, false));
+		List<CaseInvestigation__c> caseInvestigations = new List<CaseInvestigation__c>();
+		CaseInvestigation__c ci1 = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false)[0];
+		caseInvestigations.add(ci1);
+		CaseInvestigation__c ci2 = ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[0].Id, false)[0];
+		caseInvestigations.add(ci2);
+		CaseInvestigation__c ci3 = ApplicationTestDataFactory.getCaseInvestigations(1, cases[2].Id, articles[2], networks[0].Id, false)[0];
+		caseInvestigations.add(ci3);
+		CaseInvestigation__c ci4 = ApplicationTestDataFactory.getCaseInvestigations(1, cases[3].Id, articles[3], networks[0].Id, false)[0];
+		caseInvestigations.add(ci4);
+		CaseInvestigation__c ci5 = ApplicationTestDataFactory.getCaseInvestigations(1, cases[4].Id, articles[4], networks[1].Id, false)[0];
+		caseInvestigations.add(ci5);
 
 		Id stCaseInvestigationRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get('StarTrack_MyNetwork').getRecordTypeId();
 
@@ -160,10 +169,15 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		Test.stopTest();
 
 		//asserting tier value updated by the batch.
-		List<CaseInvestigation__c> updatedCaseInvestigations = CaseInvestigationsSelector.newInstance().selectById(new Map<Id,CaseInvestigation__c>(caseInvestigations).keySet()).values();
-		for (CaseInvestigation__c ci: updatedCaseInvestigations) {
-			System.assertEquals(2, ci.NetworkMilestoneCurrentTier__c, 'Expected current network tier to be updated');
-			System.assertNotEquals(null, ci.NetworkMilestonesViolated__c, 'Expected network milestones to be updated');
-		}
+		Map<Id, CaseInvestigation__c> updatedCaseInvestigations = CaseInvestigationsSelector.newInstance().selectById(new Map<Id,CaseInvestigation__c>(caseInvestigations).keySet());
+		System.assertEquals(2, updatedCaseInvestigations.get(ci1.Id).NetworkMilestoneCurrentTier__c, 'Expected current network tier to be updated');
+		System.assertNotEquals(null, updatedCaseInvestigations.get(ci1.Id).NetworkMilestonesViolated__c, 'Expected network milestones to be updated');
+		//Assert Network Tier Escalation email should be populated
+		System.assertEquals(networks[0].Email_1__c, updatedCaseInvestigations.get(ci1.Id).NetworkTierEscalationEmail__c, 'Expected network email should not be populated');
+
+		System.assertEquals(2, updatedCaseInvestigations.get(ci5.Id).NetworkMilestoneCurrentTier__c, 'Expected current network tier to be updated');
+		System.assertNotEquals(null, updatedCaseInvestigations.get(ci5.Id).NetworkMilestonesViolated__c, 'Expected network milestones to be updated');
+		//Assert Network Tier Escalation email shouldn't be populated
+		System.assertEquals(null, updatedCaseInvestigations.get(ci5.Id).NetworkTierEscalationEmail__c, 'Expected network email should not be populated');
 	}
 }
