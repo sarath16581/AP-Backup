@@ -373,7 +373,7 @@ public with sharing class ChasApexController extends ChasBase{
             String email =  (String)wizardData.get('emailId');
             String phone =  (String)wizardData.get('phone');
 
-            if(wizardData.get('selectedRadio1Name') == ChasConstants.RECEIVER) {
+            if(wizardData.get('selectedRadio1Name') == ChasConstants.RECEIVER || wizardData.get('selectedRadio1Name') == ChasConstants.RECIPIENT) {
                 deliveryOrRecipientFirstName = userContactFirstName;
                 deliveryOrRecipientLastName = userContactLastName;
                 deliveryOrRecipientName = (deliveryOrRecipientFirstName + ' ' + deliveryOrRecipientLastName).trim();
@@ -523,7 +523,7 @@ public with sharing class ChasApexController extends ChasBase{
             
             //-- Assigning Case Originator
             if(wizardData.get('selectedRadio1Name') !=null){
-                if(wizardData.get('selectedRadio1Name') == ChasConstants.RECEIVER){
+                if(wizardData.get('selectedRadio1Name') == ChasConstants.RECEIVER || wizardData.get('selectedRadio1Name') == ChasConstants.RECIPIENT){
                     caseOriginator = ChasConstants.ADDRESSE;
                 }else{
                     caseOriginator = ChasConstants.SENDER;
