@@ -5426,6 +5426,11 @@
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Volume_Threshold_Post_BillPay__c</field>
@@ -5614,6 +5619,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Subsequent_Parcel_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7021,6 +7031,11 @@
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__PriceDimension__c.APTS_Ext_ID__c</field>
@@ -7899,6 +7914,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Volume_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11299,6 +11319,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Volume_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

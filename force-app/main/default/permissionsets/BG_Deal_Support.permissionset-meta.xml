@@ -55,6 +55,31 @@
         <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Billing_Account__c.Is_Intermediary_Account_StarTrack__c</field>
