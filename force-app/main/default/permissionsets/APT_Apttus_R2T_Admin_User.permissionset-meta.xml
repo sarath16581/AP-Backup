@@ -5371,6 +5371,11 @@
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Minimum_Quantity__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Price_Point__c</field>
@@ -5619,6 +5624,11 @@
 	<fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_PostBillPay_Channel__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7029,6 +7039,11 @@
 	<fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11191,6 +11206,11 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Per_Kg_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PostBillPay_Customer_Type__c</field>
