@@ -6,6 +6,7 @@
 * @domain StarTrack MyNetwork
 * @description Batch job responsible for checking milestone violation on case investigation records
 * @changelog
+* 24-03-2023 - Mahesh Parvathaneni - SF-916 - Removed logic to assign to case owner if there is no email on network
 */
 
 public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
@@ -51,18 +52,10 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 				ci.NetworkMilestonesViolated__c = ci.NetworkMilestonesViolated__c != null ? ci.NetworkMilestonesViolated__c + 1 : 1;
 
 				//set the network tier escalation email
-				if (ci.NetworkMilestonesViolated__c == 1) {
-					if (ci.Network__r.Email_1__c != null) {
-						ci.NetworkTierEscalationEmail__c = ci.Network__r.Email_1__c;
-					} else {
-						ci.OwnerId = ci.Case__r.OwnerId;
-					}
-				} else if(ci.NetworkMilestonesViolated__c == 2) {
-					if (ci.Network__r.Email_2__c != null) {
-						ci.NetworkTierEscalationEmail__c = ci.Network__r.Email_2__c;
-					} else {
-						ci.OwnerId = ci.Case__r.OwnerId;
-					}
+				if (ci.NetworkMilestonesViolated__c == 1 && ci.Network__r.Email_1__c != null) {
+					ci.NetworkTierEscalationEmail__c = ci.Network__r.Email_1__c;
+				} else if(ci.NetworkMilestonesViolated__c == 2 && ci.Network__r.Email_2__c != null) {
+					ci.NetworkTierEscalationEmail__c = ci.Network__r.Email_2__c;
 				}
 
 				//add records to update
