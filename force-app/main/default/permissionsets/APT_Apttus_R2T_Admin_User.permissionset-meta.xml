@@ -3976,6 +3976,11 @@
         <field>APT_Operational_Schedule__c.APT_Parcl_Servcs_eParcl_Identity_on_Deli__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Payment_Method__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Print_Post_AP_Contact__c</field>
@@ -5373,6 +5378,11 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Payment_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5624,6 +5634,11 @@
 	<fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Payment_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
@@ -7043,6 +7058,11 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Payment_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7689,6 +7709,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_PackNTrackInternationalAnnualVolume__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Payment_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11201,6 +11226,11 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PackNTrackInternationalAnnualVolume__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Payment_Method__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Per_Kg_Rate__c</field>
