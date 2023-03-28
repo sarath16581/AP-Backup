@@ -4620,6 +4620,11 @@
         <field>APT_Operational_Schedule__c.APT_MPLR_Customer_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Minimum_Fees__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Minimum_Monthly_Revenue__c</field>
@@ -6450,6 +6455,11 @@
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Lodgement_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Min_Quantity__c</field>
@@ -6718,6 +6728,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Existing_APPC_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Minimum_Fees__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8235,6 +8250,11 @@
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Existing_APPC_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Min_Spend_Per_Annum__c</field>
@@ -9058,6 +9078,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Method_of_Payment_postbillpay__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Minimum_Fees__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12985,6 +13010,11 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Lodgment_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Minimum_Fees__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Min_Spend_Per_Annum__c</field>
