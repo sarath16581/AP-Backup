@@ -108,15 +108,11 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
         return new Map<Id, APT_Credit_Assessment__c>((List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString()));
     }
 
-    public Map<Id, APT_Credit_Assessment__c> selectByOpportunityIds(Set<Id> OpportunityIds){
-        QueryBuilder proposalQB = APT_ProposalObjectsSelector.newInstance(0, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id}})
-                .newQueryBuilder(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER})
-                .addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :OpportunityIds'))
+    public List<APT_Credit_Assessment__c> selectByOpportunityIds(Set<Id> OpportunityIds){
+        QueryBuilder qb = newQueryBuilder().addRelatedFields(APT_ProposalObjectsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'APT_Proposal__r')
+                .addConditions().add(new QueryBuilder.SimpleCondition('APT_Proposal__r.Apttus_Proposal__Opportunity__c IN :OpportunityIds'))
                 .endConditions();
-        QueryBuilder qb = newQueryBuilder()
-                .addRelatedFields(APT_ProposalObjectsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'APT_Proposal__r')
-                .addConditions().add(new QueryBuilder.InCondition(APT_Credit_Assessment__c.APT_Proposal__c).inCollection(proposalQB)).endConditions();
-        return new Map<Id, APT_Credit_Assessment__c>((List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString()));
+        return Database.query(qb.toSoqlString());
     }
 
     public virtual override QueryBuilder newQueryBuilder() {

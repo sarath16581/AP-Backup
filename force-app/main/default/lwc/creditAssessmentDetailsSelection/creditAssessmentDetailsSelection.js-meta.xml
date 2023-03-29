@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>55.0</apiVersion>
-    <description>Credit Assessment Details Selection</description>
+    <apiVersion>57.0</apiVersion>
+    <description>Credit Assessment Details view to allow user to select and move an existing credit assessment to the primary proposal</description>
     <isExposed>false</isExposed>
     <masterLabel>Credit Assessment Details Selection</masterLabel>
 </LightningComponentBundle>

@@ -678,8 +678,7 @@ public with sharing class APT_Constants {
 	public static final string PARAM_FLOW = 'flow';
 	public static final string PARAM_SELECTED_CATEGORY = 'selectedCategory';
 	public static final string PARAM_PROPOSAL_ID = 'proposalID';
-    public static final string PARAM_CONTEXT_ID = 'contextID';
-    public static final string PARAM_ACCOUNT_ID = 'accountId';
+	public static final string PARAM_ACCOUNT_ID = 'accountId';
 	public static final string PARAM_RECORD_NO = 'recordNo';
 	public static final string PARAM_CHARGE_ACCOUNT_ID = 'chargeAccountId';
 

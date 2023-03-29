@@ -1,13 +1,16 @@
-/*
-* @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
-* @date         : 06/05/2021
-* @description  : This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
-*                 1. It contains logic for displaying sub account request records on summary from Proposal flow
-*********************************History*******************************************************************
-06.05.2021    Dheeraj Mandavilli   Created
-04.06.2021    Dheeraj Mandavilli   Added Logic to check sub account request count to navigate to accurate landing page as part of STP-5933.
-*/
-
+/**
+ * @author Dheeraj Mandavilli
+ * @date 2021-05-06
+ * @group Controller
+ * @tag Controller
+ * @domain Sales
+ * @description This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
+ *              1. It contains logic for displaying sub account request records on summary from Proposal flow
+ * @changelog
+ * 2021-05-06 - Dheeraj Mandavilli - Created
+ * 2021-06-04 - Dheeraj Mandavilli - Added Logic to check sub account request count to navigate to accurate landing page as part of STP-5933.
+ * 2023-03-29 - Harry Wang - Added support for contextId
+ */
 import { LightningElement,track,api} from 'lwc';
 import deleteSubAccounts from '@salesforce/apex/CreateSubAccountsController.deleteSubAccounts';
 import setPendingStatus from '@salesforce/apex/CreateSubAccountsController.setPendingStatus';

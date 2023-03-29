@@ -3,7 +3,7 @@
  * @date 2023-01-30
  * @group Controller
  * @tag Controller
- * @domain CSP
+ * @domain Sales
  * @description Javascript controller for creditAssessmentWrapper
  * @changelog
  * 2023-01-30 - Harry Wang - Created
@@ -30,7 +30,6 @@ export default class CreditAssessmentWrapper extends LightningElement {
 	wiredCreditAssessmentResults(result) {
 		const { data, error} = result;
 		this._wiredResult = result;
-		console.log('wired called');
 		//reset views
 		this.messageBody = null;
 		this.showCACreate = false;
@@ -46,12 +45,12 @@ export default class CreditAssessmentWrapper extends LightningElement {
 					// Display list of credit assessments associated to the opportunity
 					this.showCAClosedOpp = true;
 				} else {
-					this.messageBody = data.messageBodyMap['OPPORTUNITY_CLOSED_NO_CA'];
+					this.messageBody = data.messageBodyMap.OPPORTUNITY_CLOSED_NO_CA;
 				}
 			} else {
 				// no proposal
 				if (!data.opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r) {
-					this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+					this.messageBody = data.messageBodyMap.OPPORTUNITY_INCOMPLETE_OPC;
 					return;
 				}
 				let primaryCount = 0;
@@ -77,13 +76,13 @@ export default class CreditAssessmentWrapper extends LightningElement {
 								this.showCACreate = true;
 							}
 						} else {
-							this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+							this.messageBody = data.messageBodyMap.OPPORTUNITY_INCOMPLETE_OPC;
 						}
 					} else {
-						this.messageBody = data.messageBodyMap['OPPORTUNITY_PRIMARY_NOT_CHECKED'];
+						this.messageBody = data.messageBodyMap.OPPORTUNITY_PRIMARY_NOT_CHECKED;
 					}
 				} else {
-					this.messageBody = data.messageBodyMap['OPPORTUNITY_INCOMPLETE_OPC'];
+					this.messageBody = data.messageBodyMap.OPPORTUNITY_INCOMPLETE_OPC;
 				}
 			}
 		} else if (error) {

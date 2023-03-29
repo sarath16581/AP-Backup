@@ -129,8 +129,8 @@ public with sharing class CreditsAssessmentSelector_Test {
         System.assertEquals(1, results.size(), 'Result count was wrong');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
 
-        results = selector.selectByOpportunityIds(new Set<Id>{opportunityRecord.Id});
-        System.assertEquals(0, results.size(), 'Result count was wrong');
+        List<APT_Credit_Assessment__c> resultList = selector.selectByOpportunityIds(new Set<Id>{opportunityRecord.Id});
+        System.assertEquals(0, resultList.size(), 'Result count was wrong');
 
         Test.stopTest();
     }
@@ -148,7 +148,7 @@ public with sharing class CreditsAssessmentSelector_Test {
         QueryBuilder qb = selector.newQueryBuilder();
         String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+        System.assertEquals(true, Pattern.compile('(?ism)\\bName\\b.*?\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select name from APT_Credit_Assessment__c');
 
         selector = CreditsAssessmentSelector.newInstance(1, new Set<SObjectField>{
                 APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.Name
@@ -156,21 +156,13 @@ public with sharing class CreditsAssessmentSelector_Test {
         qb = selector.newQueryBuilder();
         soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
-
-        selector = CreditsAssessmentSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
-                Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c}
-        });
-        qb = selector.newQueryBuilder();
-        soql = qb.toSoqlString();
-
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+        System.assertEquals(true, Pattern.compile('(?ism)\\bName\\b.*?\\bfrom APT_Credit_Assessment__c\\b.*?\\blimit 1\\b').matcher(soql).find(), 'Resulting query does not select name from APT_Credit_Assessment__c limit 1');
 
         selector = CreditsAssessmentSelector.newInstance('Name', 'Desc', 1);
         qb = selector.newQueryBuilder();
         soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c');
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b.*?\\border by Name DESC\\..*?\\blimit 1\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c order by name limit 1');
 
         Test.stopTest();
     }

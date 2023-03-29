@@ -4,13 +4,17 @@
  * @group Tests
  * @tag Controller
  * @tag CSP
- * @domain CSP
+ * @domain Sales
  * @description Test class for CreditAssessmentController
  * @changelog
  * 2023-02-08 - Harry Wang - Created
  */
 @IsTest
 private class CreditAssessmentController_Test {
+	/**
+	* Test:
+	*  Ensures that the opportunity and credit assessment are retrieved correctly
+	*/
 	@IsTest
 	public static void testGetOpportunityCreditAssessment() {
 		// =====================================
@@ -25,8 +29,8 @@ private class CreditAssessmentController_Test {
 		List<Apttus_Proposal__Proposal__c> proposalList = ApplicationTestDataFactory.getApttusProposals(2, account.Id, true);
 		proposalList[0].Apttus_Proposal__Opportunity__c = opportunityMap.values()[0].Id;
 
-		Map<Id, APT_Credit_Assessment__c> caMap = new Map<Id, APT_Credit_Assessment__c>(ApplicationTestDataFactory.getApttusCreditsAssessment(1, account.Id, true));
-		caMap.values()[0].APT_Proposal__c = proposalList[0].Id;
+		List<APT_Credit_Assessment__c> caList = ApplicationTestDataFactory.getApttusCreditsAssessment(1, account.Id, true);
+		caList[0].APT_Proposal__c = proposalList[0].Id;
 
 		List<APT_Charge_Account__c> chargeAccounts = ApplicationTestDataFactory.getApttusChargeAccountRequest(1, true);
 
@@ -41,7 +45,7 @@ private class CreditAssessmentController_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(oppSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(opportunityMap);
-		MockUtility.Mocks.when(caSelector.selectByOpportunityIds((Set<Id>) fflib_Match.anyObject())).thenReturn(caMap);
+		MockUtility.Mocks.when(caSelector.selectByOpportunityIds((Set<Id>) fflib_Match.anyObject())).thenReturn(caList);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException());
 
 		MockUtility.Mocks.stopStubbing();
@@ -52,7 +56,7 @@ private class CreditAssessmentController_Test {
 		Test.startTest();
 		CreditAssessmentController.CreditAssessmentResultWrapper result = CreditAssessmentController.getOpportunityCreditAssessment(opportunityMap.values()[0].Id);
 
-		List<SObject> caDetails = new List<SObject>{proposalList[0], proposalList[1], caMap.values()[0], chargeAccounts[0]};
+		List<SObject> caDetails = new List<SObject>{proposalList[0], proposalList[1], caList[0], chargeAccounts[0]};
 
 		try {
 			CreditAssessmentController.updateCreditAssessmentDetails(caDetails);
@@ -66,6 +70,10 @@ private class CreditAssessmentController_Test {
 		Test.stopTest();
 	}
 
+	/**
+	* Test:
+	*  Ensures that the datatable columns are retrieved correctly
+	*/
 	@IsTest
 	public static void testRetrieveOpportunityCreditAssessment() {
 		// =====================================

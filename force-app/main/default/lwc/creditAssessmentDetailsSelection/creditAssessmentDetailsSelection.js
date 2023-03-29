@@ -3,7 +3,7 @@
  * @date 2023-02-15
  * @group Controller
  * @tag Controller
- * @domain CSP
+ * @domain Sales
  * @description Javascript controller for creditAssessmentDetailsSelection
  * @changelog
  * 2023-02-15 - Harry Wang - Created
@@ -20,7 +20,6 @@ import CREDIT_ASSESSMENT from "@salesforce/schema/Apttus_Proposal__Proposal__c.A
 import CREDIT_ASSESSMENT_PROPOSAL from "@salesforce/schema/APT_Credit_Assessment__c.APT_Proposal__c";
 import CHARGE_ACCOUNT_PROPOSAL from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__c";
 import SUB_CHARGE_ACCOUNT_PROPOSAL from "@salesforce/schema/APT_Sub_Account__c.APT_Quote_Proposal__c";
-
 
 export default class CreditAssessmentDetailsSelection extends LightningElement {
 	bodyMessage = 'Approved credit assessments are linked to this Opportunity. Please select one of the below Approved credit assessments to continue or create a new Credit Assessment using the Create button below.';
@@ -82,32 +81,32 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 				this.isProcessing = true;
 				// Relink selected CA to primary proposal from current proposal
 				const primaryProposalFields = {};
-				primaryProposalFields['Id'] = this.primaryProposalId;
+				primaryProposalFields.Id = this.primaryProposalId;
 				primaryProposalFields[CREDIT_ASSESSMENT_STATUS.fieldApiName] = selectedCA.APT_Proposal__r[CREDIT_ASSESSMENT_STATUS.fieldApiName];
 				primaryProposalFields[NEW_ACCOUNT_TYPE.fieldApiName] = selectedCA.APT_Proposal__r[NEW_ACCOUNT_TYPE.fieldApiName];
 				primaryProposalFields[CREDIT_ASSESSMENT.fieldApiName] = selectedCA.APT_Proposal__r[CREDIT_ASSESSMENT.fieldApiName];
 
 				// Clear fields on current proposal
 				const proposalFields = {};
-				proposalFields['Id'] = selectedCA.APT_Proposal__c;
+				proposalFields.Id = selectedCA.APT_Proposal__c;
 				proposalFields[CREDIT_ASSESSMENT_STATUS.fieldApiName] = null;
 				proposalFields[NEW_ACCOUNT_TYPE.fieldApiName] = null;
 				proposalFields[CREDIT_ASSESSMENT.fieldApiName] = null;
 
 				// Update credit assessment
 				const creditAssessmentFields = {};
-				creditAssessmentFields['Id'] = selectedCA.Id;
+				creditAssessmentFields.Id = selectedCA.Id;
 				creditAssessmentFields[CREDIT_ASSESSMENT_PROPOSAL.fieldApiName] = this.primaryProposalId;
 
 				// Relink charge account and sub charge accounts
 				const chargeAccountFields = {};
-				chargeAccountFields['Id'] = selectedCA.APT_Charge_Account__c;
+				chargeAccountFields.Id = selectedCA.APT_Charge_Account__c;
 				chargeAccountFields[CHARGE_ACCOUNT_PROPOSAL.fieldApiName] = this.primaryProposalId;
 
 				const subChargeAccounts = [];
 				this.subChargeAccounts.data.records.forEach(sca => {
 					const subChargeAccountFields = {};
-					subChargeAccountFields['Id'] = sca.id;
+					subChargeAccountFields.Id = sca.id;
 					subChargeAccountFields[SUB_CHARGE_ACCOUNT_PROPOSAL.fieldApiName] = this.primaryProposalId;
 					subChargeAccounts.push(subChargeAccountFields);
 				});

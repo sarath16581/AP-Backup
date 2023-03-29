@@ -4,11 +4,12 @@
  * @group Controller
  * @tag Controller
  * @tag CSP
- * @domain CSP
+ * @domain Sales
  * @description Service Controller class for Credit Assessment view on Opportunity.
  * @changelog
  * 2023-02-05 - Harry Wang - Created
  */
+// TODO: Rename to SalesCreditAssessmentController
 public with sharing class CreditAssessmentController {
 	// Credit Assessment conditions on the opportunity
 	private static final String OPPORTUNITY_CLOSED_NO_CA = 'OPPORTUNITY_CLOSED_NO_CA';
@@ -30,23 +31,19 @@ public with sharing class CreditAssessmentController {
 				Apttus_Proposal__Proposal__c.SObjectType => new Set<SObjectField>{Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c, Apttus_Proposal__Proposal__c.APT_Credit_Assessment_Status__c, Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c, Apttus_Proposal__Proposal__c.APT_Credit_Assessment__c}
 		};
 		try {
-			// Retrieve query fields from Credit Assessment Config custom metadata
-			CreditAssessmentDatatableConfig__mdt config = CreditAssessmentDatatableConfig__mdt.getInstance('CreditAssessmentDatatableConfig');
-			List<String> cafields = config.QueryFields__c.split(',');
+			// Retrieve query fields from fieldset
 			Set<SObjectField> caSObjectFields = new Set<SObjectField>();
-			Map<String, SObjectField> fieldMap = APT_Credit_Assessment__c.SObjectType.getDescribe().fields.getMap();
-			for (String caField: cafields) {
-				String trimmedField = caField.trim();
-				if (fieldMap.containsKey(trimmedField)) {
-					caSObjectFields.add(fieldMap.get(trimmedField));
-				} else {
-					throw new AuraHandledException('Query field: ' + trimmedField +' retrieved from CreditAssessmentDatatableConfig is not a valid field');
-				}
+
+			for (Schema.FieldSetMember fs: SObjectType.APT_Credit_Assessment__c.fieldSets.Credit_Assessment_View_in_Opportunity.getFields()) {
+				caSObjectFields.add(fs.getSObjectField());
 			}
+			// Add additional required fields
+			caSObjectFields.add(APT_Credit_Assessment__c.SObjectType.getDescribe().fields.getMap().get('APT_Charge_Account__c'));
 			fieldOverrides.put(APT_Credit_Assessment__c.SObjectType, caSObjectFields);
 
-			Opportunity opp = OpportunitySelector.newInstance(1, OPPORTUNITY_FIELD_OVERRIDES).selectById(new Set<Id>{opportunityId}, new Set<Object>{OpportunitySelector.Options.WITH_PROPOSALS}).values()[0];
-			List<APT_Credit_Assessment__c> cas = CreditsAssessmentSelector.newInstance(fieldOverrides).selectByOpportunityIds(new Set<Id>{opportunityId}).values();
+			Opportunity opp = OpportunitySelector.newInstance(1, OPPORTUNITY_FIELD_OVERRIDES).selectById(new Set<Id>{opportunityId}, new Set<Object>{OpportunitySelector.Options.WITH_CHILD_PROPOSALS
+			}).values()[0];
+			List<APT_Credit_Assessment__c> cas = CreditsAssessmentSelector.newInstance(fieldOverrides).selectByOpportunityIds(new Set<Id>{opportunityId});
 
 			// initiate message body map with custom labels
 			Map<String, String> messageBodyMap = new Map<String, String>();
@@ -61,22 +58,19 @@ public with sharing class CreditAssessmentController {
 	}
 
 	/**
-	 * This method is used to get datatable columns from custom metadata used for the credit assessment view in opportunity
+	 * This method is used to get datatable columns from fieldset used for the credit assessment view in opportunity
 	 * @return list of datatable columns
 	 */
 	@AuraEnabled(cacheable=true)
 	public static List<DataTableColumn> retrieveDatatableColumns() {
 		try {
-			CreditAssessmentDatatableConfig__mdt config = CreditAssessmentDatatableConfig__mdt.getInstance('CreditAssessmentDatatableConfig');
-
 			List<DataTableColumn> dataTableColumnList = new List<DataTableColumn>();
-			List<String> columnList = config.TableHeader__c.split(',');
-			List<String> fieldAPINameList = config.FieldValue__c.split(',');
 
-			for(Integer i = 0; i < columnList.size(); i++) {
-				DataTableColumn datatableColumn = new DataTableColumn(columnList[i].trim(), fieldAPINameList[i].substringBefore(':').trim(), fieldAPINameList[i].substringAfter(':').trim());
+			for (Schema.FieldSetMember fs: SObjectType.APT_Credit_Assessment__c.fieldSets.Credit_Assessment_View_in_Opportunity.getFields()) {
+				DataTableColumn datatableColumn = new DataTableColumn(fs.getLabel(), fs.getFieldPath(), String.valueOf(fs.getType()));
 				dataTableColumnList.add(datatableColumn);
 			}
+
 			return dataTableColumnList;
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
@@ -133,7 +127,11 @@ public with sharing class CreditAssessmentController {
 				this.type = 'url';
 			} else {
 				this.fieldName = fieldName;
-				this.type = type;
+				if (fieldName == 'CreatedDate') {
+					this.type = 'date';
+				} else {
+					this.type = type;
+				}
 			}
 		}
 	}

@@ -1,16 +1,19 @@
-/*
-  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
-  * @date         : 06/05/2021
-  * @description  : This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
-  *                 1. It contains the sub account request creation input form.
-*********************************History*******************************************************************
-06.05.2021    Dheeraj Mandavilli   Created
-18.05.2021    Dheeraj Mandavilli   Updated logic to auto populate contact with opportunity.key contact value.
-20.05.2021    Dheeraj Mandavilli   Added elms Enabled Lodgement Points Hyperlink on the form.
-30.07.2021    Naveen Rajanna       REQ2570608 - Set fieldList to empty at start of onsubmitHandler and commented console log statements
-01.08.2022    Prerna Rahangdale     - Added the the validation for lodgement point records to be same as Proposal.
-*/
-
+/**
+ * @author Dheeraj Mandavilli
+ * @date 2021-05-06
+ * @group Controller
+ * @tag Controller
+ * @domain Sales
+ * @description This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
+ *              1. It contains the sub account request creation input form.
+ * @changelog
+ * 2021-05-06 - Dheeraj Mandavilli - Created
+ * 2021-05-18 - Dheeraj Mandavilli - Updated logic to auto populate contact with opportunity.key contact value.
+ * 2021-05-20 - Dheeraj Mandavilli - Added elms Enabled Lodgement Points Hyperlink on the form.
+ * 2021-07-30 - Dheeraj Mandavilli - REQ2570608 - Set fieldList to empty at start of onsubmitHandler and commented console log statements
+ * 2021-08-01 - Dheeraj Mandavilli - Added the the validation for lodgement point records to be same as Proposal.
+ * 2023-03-29 - Harry Wang - Added support for contextId
+ */
 import { LightningElement ,track, api} from 'lwc';
 import getProposalDetails from "@salesforce/apex/CreateSubAccountsController.getProposalDetails";
 import createSubAccountRequests from '@salesforce/apex/CreateSubAccountsController.createSubAccounts';

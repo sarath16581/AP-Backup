@@ -1,59 +1,29 @@
 /**
-* Description: Integrate with TIBCO for credit assessment flow
-* Created By: Himanshu jain
-* Created Date: 1st Oct, 2015
-* 
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 6th Sept, 2016 | 940 - Validate State
-* 
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 7th Sept, 2016 | 1339 - Negative Credit Limit
-* 
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 15th Sept, 2016 | 1222 - Credit Assessment referred manually?
-* 
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 15th Nov, 2016 | 1760 - Credit Assessment referred manually?
-* 
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 25th Nov, 2016 | 1552
-
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 14th Dec, 2016 | 1550
-
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 19th Dec, 2016 | 1549
-
-* Last Modified By - Mausam Padhiyar
-* Last Modified Date - 20th Jan, 2017 | 1746
-
-* Last Modified By - Sheryl Crisostomo
-* Last Modified Date - 27th Apr, 2017 | 1855 - Added new custom label to update State error message
-
-* Last Modified By - Lija Jawahar
-* Last Modified Date - 16/09/2020 | Update proposal with credit assessment details
-
-* Last Modified By - Seth Heang
-* Last Modified Date - 20th Nov, 2020 | STP 3414 - Modify Account 'Update' functionalty, Hide 'Next' and 'Update' button based on Organisation Roles of Known, Prospect or Customer
-
-* Last Modified By -Shashwat Nath
-* Last Modified Date - 11th Dec, 2020 | STP 2832 - Populate Values for "Aus Post Proposed for New Account" and "StarTrack Proposed for New Account" field on Credit Assessment.
-
-* Last Modified By -Madhuri Awasthi
-* Last Modified Date - 5th May, 2021 | REQ2472870 - Credit Limit Field Calculation EnhancementRequest 
-
-* Last Modified By -Dheeraj Mandavilli
-* Last Modified Date - 06th May, 2021 | STP 4285 - Added a new VF page to Navigate to SubAccountRequest Form LWC component from Credit Asessment process initiated from Propsoal Record.
-
-* Last Modified By -Dheeraj Mandavilli
-* Last Modified Date - 21st May, 2021 | STP 5839 - Added logic to switch between LWC component and VF page based upon Teams vs SAP from Credit Asessment process initiated from Propsoal Record.
-
-* Last Modified By -Seth Heang
-* Last Modified Date - 8th June, 2021 | STP 5389 - Pre-populate Trustee Name and Trustee ACN from Opportunity
-
-* Last Modified By -Harry Wang
-* Last Modified Date - 2nd Mar, 2023 | STP-7602 - adding new parameter: contextId and allowing redirect based on contextId
-
+* @author Himanshu jain
+* @date 2015-10-01
+* @group Controller
+* @tag Controller
+* @tag CSP
+* @domain Sales
+* @description Integrate with TIBCO for credit assessment flow
+* @changelog
+* 2015-10-01 - Himanshu jain - Created
+* 2016-09-07 - Mausam Padhiyar - Negative Credit Limit
+* 2016-09-15 - Mausam Padhiyar - Credit Assessment referred manually?
+* 2016-11-15 - Mausam Padhiyar - Credit Assessment referred manually?
+* 2016-11-25 - Mausam Padhiyar - 1552
+* 2016-12-14 - Mausam Padhiyar - 1550
+* 2016-12-19 - Mausam Padhiyar - 1549
+* 2017-01-20 - Mausam Padhiyar - 1746
+* 2017-04-27 - Sheryl Crisostomo - 1855 - Added new custom label to update State error message
+* 2020-09-16 - Lija Jawahar - Update proposal with credit assessment details
+* 2020-11-20 - Seth Heang - STP 3414 - Modify Account 'Update' functionalty, Hide 'Next' and 'Update' button based on Organisation Roles of Known, Prospect or Customer
+* 2020-12-11 - Shashwat Nath - STP 2832 - Populate Values for "Aus Post Proposed for New Account" and "StarTrack Proposed for New Account" field on Credit Assessment.
+* 2021-05-05 - Madhuri Awasthi - REQ2472870 - Credit Limit Field Calculation EnhancementRequest
+* 2021-05-06 - Dheeraj Mandavilli - STP 4285 - Added a new VF page to Navigate to SubAccountRequest Form LWC component from Credit Asessment process initiated from Propsoal Record.
+* 2021-05-21 - Dheeraj Mandavilli - STP 5839 - Added logic to switch between LWC component and VF page based upon Teams vs SAP from Credit Asessment process initiated from Propsoal Record.
+* 2021-06-08 - Seth Heang - STP 5389 - Pre-populate Trustee Name and Trustee ACN from Opportunity
+* 2023-03-02 - Harry Wang - STP-7602 - adding new parameter: contextId allowing redirect based on contextId
 */
 
 public with sharing class Apt_CreditAssessmentController {
@@ -245,7 +215,7 @@ public with sharing class Apt_CreditAssessmentController {
     **/
     public Apt_CreditAssessmentController (ApexPages.StandardController controller){
         try {
-            if(String.IsNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PageType))){
+            if(String.isNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PageType))){
                 PageType = Apexpages.currentPage().getParameters().get(APT_Constants.PageType);
             } else {
                 PageType = PAGE_TYPE_CHARGE_ACCOUNT;
@@ -268,16 +238,16 @@ public with sharing class Apt_CreditAssessmentController {
             proposal = new Apttus_Proposal__Proposal__c();
             responseWrapper = new APT_CompanyCreditAssessmentWrapper.CompanyBusinessResponse_element();
             individualResponseWrapper = new APT_IndividualCreditAssessmentWrapper.individualCommercialResponse_element();
-            if(String.IsNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID))){
+            if(String.isNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID))){
                 accountID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID);
                 accountType = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ACCOUNT_TYPE);
                 isAccountFlow = true;
                 
-            } else if(String.IsNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID))) {
+            } else if(String.isNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID))) {
                 isAnonymousFlow = false;
                 isAccountFlow = false;
                 proposalID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID);
-                contextId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CONTEXT_ID);
+                contextId = ApexPages.currentPage().getParameters().get('contextId');
                 proposal = [SELECT id, Apttus_Proposal__Account__c, Apttus_Proposal__Account__r.Role_Type_Roll_Up__c,
                             Apttus_Proposal__Account__r.Name, Is_Startrack_Proposal__c,
                             APT_Credit_Assessment_Status__c, Apttus_Proposal__Opportunity__c,Apttus_Proposal__Opportunity__r.amount,
@@ -317,12 +287,10 @@ public with sharing class Apt_CreditAssessmentController {
         showSearchResults = false;
         PageType = PAGE_TYPE_CHARGE_ACCOUNT;
         creditAssesment = new APT_Credit_Assessment__c();
-        assesmentType = APT_WebServiceUtility.ACN;          
-        system.debug('***** AccountID: ' + accountID);
-        system.debug('***** ProposalID: ' + proposalID);
+        assesmentType = APT_WebServiceUtility.ACN;
         referToCredit = false;
         try{
-            if(String.IsNotBlank(accountID)){
+            if(String.isNotBlank(accountID)){
                 account = [select ABN__c, Legal_Name__c, ACN__c, Name, Organisation_Trading_Name__c,Role_Type_Roll_Up__c,L2C_Star_Track_Approved_Credit_Limit__c,
                             BillingPostalCode, BillingState, BillingStreet, BillingCity, BillingCountry,L2C_Approved_AP_Credit_Limit__c,
                             ShippingState, ShippingPostalCode, ShippingStreet, ShippingCity, ShippingCountry,isPersonAccount, L2C_Hotlist__c
@@ -396,7 +364,7 @@ public with sharing class Apt_CreditAssessmentController {
                 chargeAccount.APT_Street_Address_Country_Code__c = String.isNotBlank(account.ShippingCountry) ? account.ShippingCountry.subString(0, 2):APT_Constants.EMPTY_STRING;
             } 
 
-            if(String.IsNotBlank(opportunityId)) {
+            if(String.isNotBlank(opportunityId)) {
                 Opportunity oppty = [SELECT Id, Amount, ExpectedRevenue, Trustee_name__c, Trustee_ACN__c, KeyContact__r.Name,
                                     KeyContact__r.Phone, KeyContact__r.FirstName, KeyContact__r.LastName
                                     FROM Opportunity
@@ -434,13 +402,6 @@ public with sharing class Apt_CreditAssessmentController {
      **/
     public PageReference doNextForChargeAccount() {
         try {
-             system.debug('**** Inside this method****');
-            //1339            
-            /*if(chargeAccount.APT_Credit_Limit_Required__c != null && chargeAccount.APT_Credit_Limit_Required__c < 0) {
-                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Invalid Credit Limit.'));
-                return null;
-            }*/
-            system.debug('**** Total Proposed Credit ****'+chargeAccount.L2C_Total_Proposed_Credit__c);
             if(chargeAccount.AP_Proposed_Credit_Limit__c ==null){
                 chargeAccount.AP_Proposed_Credit_Limit__c = 0 ;
             }
@@ -453,9 +414,7 @@ public with sharing class Apt_CreditAssessmentController {
                 return null;
             }
             else{
-                system.debug('Sum before:' + Sum);
                 Sum = (chargeAccount.AP_Proposed_Credit_Limit__c + chargeAccount.Star_Track_Proposed_Credit_Limit__c).intValue() ;
-                system.debug('Sum after:' + Sum);
                 chargeAccount.L2C_Total_Proposed_Credit__c = String.ValueOf(Sum );
                 
             }
@@ -683,7 +642,6 @@ public with sharing class Apt_CreditAssessmentController {
                 
                 
             if(listReferredCreditAssessment != null && listReferredCreditAssessment.size() > 0) {
-                system.debug('*** listReferredCreditAssessment > inside ***'+listReferredCreditAssessment);
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.CREDIT_ASSESSMENT_ALREADY_REFERRED));
                 return;
             }        
@@ -710,7 +668,6 @@ public with sharing class Apt_CreditAssessmentController {
         
         
             responseService = endPoint.queryABN_v1(OrganisationNumber,AustralianBusinessNumber, OrgName,BusinessRegistrationNumber,BureauReference);
-            system.debug('*****'+responseService);
             APT_OrgIDWebServiceWrapper.queryABNResponseType orgIdResponse = APT_CompanyBusinessContHelper.parseOrgIDResponseToWrapper(responseService, chargeAccount.APT_Credit_Limit_Required__c,chargeAccount.APT_Company_Name__c);            
             orgIdResultList = orgIdResponse.OrgIdResult;  
             PageType = PAGE_TYPE_ABN_RESULTS;
@@ -731,7 +688,6 @@ public with sharing class Apt_CreditAssessmentController {
             // Checking if assessment is being carried out from Manual Entry Screen
             if(isAnonymousFlow){
                 List<Account> accList = new List<Account>();
-        system.debug('***INSIDE ANONYMOUS FLOW**');
                 // Finding out if the user is using ABN for searching the Organisation 
                 if(APT_WebServiceUtility.ABN.equalsIgnoreCase(assesmentType)){
                     // fetching account details to check if the account exist in salesforce and if it is hotlisted one.
@@ -747,7 +703,6 @@ public with sharing class Apt_CreditAssessmentController {
                                ABN__c , BillingCountry , ShippingStreet , ShippingCity , ShippingState , ShippingPostalCode , 
                                ShippingCountry from Account WHERE ACN__c =:userinput LIMIT 1];
                 }
-        system.debug('***OUTSIDE ANONYMOUS FLOW**');    
                 If(!accList.isEmpty() && accList[0].L2C_Hotlist__c){
                     // Setting the hotlist override option to true                 
                     proceedHotlistCreditAssessment = true;
@@ -784,10 +739,8 @@ public with sharing class Apt_CreditAssessmentController {
             APT_OrgIDWebServiceWrapper.OrgIdResult_element orgIdWrap = APT_CompanyBusinessContHelper.getSelectedOrgIDWrapper(orgIdResultList, selectedOrgIdUniqueNumber);
             
             //1550
-            //system.debug('*** orgIDWrap.AustralianBusinessRegisterReport ***'+orgIDWrap.AustralianBusinessRegisterReport);
             String entityType;
             if(orgIDWrap.AustralianBusinessRegisterReport != null && orgIDWrap.AustralianBusinessRegisterReport.EntityTypeInd != null) {
-                system.debug('*** orgIDWrap.AustralianBusinessRegisterReport.EntityTypeInd ***'+orgIDWrap.AustralianBusinessRegisterReport.EntityTypeInd); 
                 entityType = orgIDWrap.AustralianBusinessRegisterReport.EntityTypeInd;
                 if(String.isNotBlank(entityType) && (entityType.equalsIgnoreCase(APT_Constants.ENTITY_TYPE_FPT)
                     || entityType.equalsIgnoreCase(APT_Constants.ENTITY_TYPE_PTR)
@@ -797,7 +750,6 @@ public with sharing class Apt_CreditAssessmentController {
                     isEntityTypePartnership = true;
                 }                
             }
-            //system.debug('*** isEntityTypePartnership ***'+isEntityTypePartnership);   
             //1550
 
             isTrustFlag = false;
@@ -895,18 +847,18 @@ public with sharing class Apt_CreditAssessmentController {
             }
             
             account.Name = chargeAccount.APT_Company_Name__c;
-            if(String.IsNotBlank(chargeAccount.APT_ACN__c)){
+            if(String.isNotBlank(chargeAccount.APT_ACN__c)){
                 account.ACN__c = chargeAccount.APT_ACN__c;
-            }else if(String.IsBlank(chargeAccount.APT_ACN__c) && String.IsNotBlank(account.ACN__c)){
+            }else if(String.IsBlank(chargeAccount.APT_ACN__c) && String.isNotBlank(account.ACN__c)){
                 equifaxBlankValues = true;
                 // Overwrite 'Blank' ACN value returned from Equifax to Salesforce's ACN
                 if(isSoleTrader){
                     account.ACN__c = chargeAccount.APT_ACN__c;                    
                 }
             }
-            if(String.IsNotBlank(chargeAccount.APT_ABN__c)){
+            if(String.isNotBlank(chargeAccount.APT_ABN__c)){
                 account.ABN__c = chargeAccount.APT_ABN__c;
-            }else if(String.IsBlank(chargeAccount.APT_ABN__c) && String.IsNotBlank(account.ABN__c)){
+            }else if(String.IsBlank(chargeAccount.APT_ABN__c) && String.isNotBlank(account.ABN__c)){
                 equifaxBlankValues = true;
             }
             Boolean isAccountChanged;
@@ -1174,10 +1126,10 @@ public with sharing class Apt_CreditAssessmentController {
         
         if(proposal != null && !isAccountFlow) {
             
-            if(String.IsNotBlank(creditAssessmentID)){
+            if(String.isNotBlank(creditAssessmentID)){
                 proposal.APT_Credit_Assessment__c = creditAssessmentID;
             }
-            if(String.IsNotBlank(creditAssessmentStatus)){
+            if(String.isNotBlank(creditAssessmentStatus)){
                 if((APT_Constants.CREDIT_ASSESSMENT_DECLINE).equalsIgnoreCase(creditAssessmentStatus)) {
                     creditAssessmentStatus = APT_Constants.APPROVAL_STATUS_REJECTED;
                 } else if(APT_Constants.CREDIT_ASSESSMENT_STATUS_REFER .equalsIgnoreCase(creditAssessmentStatus)
@@ -1236,18 +1188,16 @@ public with sharing class Apt_CreditAssessmentController {
             }
             //Defect 1222 END
             **/
-            system.debug('*** proposal ***'+proposal);
             update proposal;
 
             if(accountType != null && accountType.equalsIgnoreCase(APT_Constants.ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT) == true) {
-                system.debug('StarTrack Porposal:::'+proposal.Is_Startrack_Proposal__c);
                 if(proposal.Is_Startrack_Proposal__c == 'No'){
                     redirectPage = Page.SubAcctReqFormCmpfromCreditAssesment;
                 }else{
                     redirectPage = Page.APT_SubAccountAssessment;
                 }
                 redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
-                redirectPage.getParameters().put(APT_Constants.PARAM_CONTEXT_ID, contextId);
+                redirectPage.getParameters().put('contextId', contextId);
                 redirectPage.getParameters().put(APT_Constants.PARAM_CHARGE_ACCOUNT_ID, chargeAccount.Id);
             } else {
                 if (String.isNotBlank(contextId)) {
@@ -1396,13 +1346,13 @@ public with sharing class Apt_CreditAssessmentController {
             //1550
 
             PageReference redirectPage = null;
-            if(String.IsNotBlank(proposalId) && String.isBlank(contextId)){
+            if(String.isNotBlank(proposalId) && String.isBlank(contextId)){
                 //back to proposal
                 redirectPage  = backToProposal();
-            } else if(String.IsNotBlank(proposalId) && String.isNotBlank(contextId)) {
+            } else if(String.isNotBlank(proposalId) && String.isNotBlank(contextId)) {
                 // back to object of context
                 redirectPage = backToContext(contextId);
-            } else if(String.IsNotBlank(AccountID)){
+            } else if(String.isNotBlank(AccountID)){
                 //back to account
                 redirectPage  = backToAccount();
             } else {}
@@ -1510,7 +1460,6 @@ public with sharing class Apt_CreditAssessmentController {
      **/
     public void doCreditCheck() {
         String initialPageType = PageType;
-        system.debug('****** In credit check method****');    
         try{
             
             //940
@@ -1557,8 +1506,6 @@ public with sharing class Apt_CreditAssessmentController {
                 }
             }
             //940
-            
-            System.debug('***** creditAssessmentErrorMessage: ' + creditAssessmentErrorMessage);
             if(String.isBlank(creditAssessmentErrorMessage)) {  //940
                 
                 /**
@@ -1650,13 +1597,11 @@ public with sharing class Apt_CreditAssessmentController {
                             chargeAccount.id = listInProgressCreditAssessment[0].APT_Charge_Account__c ;    
                         }
                     }
-                    system.debug('**** CHARGE ACCOUNT TO BE UPDATED *****'+chargeAccount);
                     upsert chargeAccount;
                 }
                 
                 //1550
                 String creditAssessmentStat = null;
-                system.debug('****** Total Proposed Limit****'+chargeAccount.L2C_Total_Proposed_Credit__c); 
                 if(!isAnonymousFlow){
                     if(account.L2C_HotList__c == true && proceedHotlistCreditAssessment == false){
                         creditAssessmentStat = APT_Constants.CREDIT_ASSESSMENT_STATUS_REFERRED;
@@ -1696,7 +1641,7 @@ public with sharing class Apt_CreditAssessmentController {
                            
                            //This is an additional Check to confirm if ABN is not blank for an account at SF level & if it does not match with the ABN returned by Equifax
                             
-                            if(String.IsNotBlank(originalOrganisationABN) &&
+                            if(String.isNotBlank(originalOrganisationABN) &&
                                 !originalOrganisationABN.equalsIgnoreCase(chargeAccount.APT_ABN__c)){
                                 // Populating the Outcome Reason to be displayed on the Outcome Screen
                                 AssessmentOutComeReason = 'Organisation name and ABN does not match';
@@ -1705,7 +1650,7 @@ public with sharing class Apt_CreditAssessmentController {
                             }
                            
                             //This is an additional Check to confirm if ACN is not blank for an account at SF level & if it does not match with the ABN returned by Equifax
-                            else if(String.IsNotBlank(originalOrganisationACN) &&
+                            else if(String.isNotBlank(originalOrganisationACN) &&
                                 !originalOrganisationACN.equalsIgnoreCase(chargeAccount.APT_ACN__c)){
                                 
                                 // Populating the Outcome Reason to be displayed on the Outcome Screen
@@ -1733,8 +1678,8 @@ public with sharing class Apt_CreditAssessmentController {
                          STP-3414 - Include 'Known' Organisation Role into the logic
                    */
                        
-                    else if((String.IsNotBlank(account.ABN__C) && !(account.ABN__C).equalsIgnoreCase(chargeAccount.APT_ABN__c)) || (!APT_Constants.Prospect.equalsIgnoreCase(account.Role_Type_Roll_Up__c) && 
-                            !APT_Constants.Known.equalsIgnoreCase(account.Role_Type_Roll_Up__c) && String.IsNotBlank(originalOrganisationABN) &&
+                    else if((String.isNotBlank(account.ABN__C) && !(account.ABN__C).equalsIgnoreCase(chargeAccount.APT_ABN__c)) || (!APT_Constants.Prospect.equalsIgnoreCase(account.Role_Type_Roll_Up__c) &&
+                            !APT_Constants.Known.equalsIgnoreCase(account.Role_Type_Roll_Up__c) && String.isNotBlank(originalOrganisationABN) &&
                             !originalOrganisationABN.equalsIgnoreCase(chargeAccount.APT_ABN__c))){
                             // Setting the Status to Referred
                             creditAssessmentStat = APT_Constants.CREDIT_ASSESSMENT_STATUS_REFERRED;
@@ -1754,8 +1699,8 @@ public with sharing class Apt_CreditAssessmentController {
                          STP-3414 - Include 'Known' Organisation Role into the logic
                     */
                     
-                    else if((String.IsNotBlank(account.ACN__C) && !(account.ACN__C).equalsIgnoreCase(chargeAccount.APT_ACN__c)) || (!APT_Constants.Prospect.equalsIgnoreCase(account.Role_Type_Roll_Up__c) &&
-                        !APT_Constants.Known.equalsIgnoreCase(account.Role_Type_Roll_Up__c) && String.IsNotBlank(originalOrganisationACN) &&
+                    else if((String.isNotBlank(account.ACN__C) && !(account.ACN__C).equalsIgnoreCase(chargeAccount.APT_ACN__c)) || (!APT_Constants.Prospect.equalsIgnoreCase(account.Role_Type_Roll_Up__c) &&
+                        !APT_Constants.Known.equalsIgnoreCase(account.Role_Type_Roll_Up__c) && String.isNotBlank(originalOrganisationACN) &&
                             !originalOrganisationACN.equalsIgnoreCase(chargeAccount.APT_ACN__c))){
                             // Setting the Status to Referred
                             creditAssessmentStat = APT_Constants.CREDIT_ASSESSMENT_STATUS_REFERRED;
@@ -1894,7 +1839,6 @@ public with sharing class Apt_CreditAssessmentController {
 
     private void populateChargeAccountAddress(){
         if(PAGE_TYPE_SOLE_TRADER.equalsIgnoreCase(PageType)){
-            system.debug('***** In: SoleTrader - populateChargeAccountAddress');
                 chargeAccount.APT_Applicant1_BA_State__c=soleTraderAddrress.state  ;
                 chargeAccount.APT_Applicant1_BA_Street_Postcode__c= soleTraderAddrress.PostCode ;
                 chargeAccount.APT_Applicant1_BA_Suburb__c =soleTraderAddrress.city ;
@@ -1932,7 +1876,6 @@ public with sharing class Apt_CreditAssessmentController {
                 
                 
             } else {
-                system.debug('***** In: CompanyTrader - populateChargeAccountAddress');
                 chargeAccount.APT_Billing_Addres_State__c = mailingAddress.state;
                 chargeAccount.APT_Billing_Address_Street_Postcode__c = mailingAddress.PostCode;
                 chargeAccount.APT_Billing_Address_Suburb__c = mailingAddress.city;
@@ -1958,7 +1901,6 @@ public with sharing class Apt_CreditAssessmentController {
         Populate charge account for partnership
     */
     private void populateChargeAccountForPartnership(APT_Charge_Account__c ca, Integer existingCreditAssessmentSize) {
-        system.debug('In: populateChargeAccountForPartnership');
         if(existingCreditAssessmentSize == 0) {
             //partner 1
             ca.APT_ABN__c = chargeAccount.APT_ABN__c;
@@ -2081,14 +2023,14 @@ public with sharing class Apt_CreditAssessmentController {
             Boolean Flag = true;
             if(acc != null){
                 Account oldAccount = [select id, ABN__c, ACN__c, Name from Account where id =:acc.ID];
-                if(String.IsBlank(oldAccount.Name) || !(oldAccount.Name).equalsIgnoreCase(acc.Name)){
+                if(String.isBlank(oldAccount.Name) || !(oldAccount.Name).equalsIgnoreCase(acc.Name)){
                     Flag = false;
                 }
-                if(String.IsBlank(oldAccount.ABN__c) || !(oldAccount.ABN__c).equalsIgnoreCase(acc.ABN__c)){
+                if(String.isBlank(oldAccount.ABN__c) || !(oldAccount.ABN__c).equalsIgnoreCase(acc.ABN__c)){
                     Flag = false;
                 }
                 
-                if(String.IsBlank(oldAccount.ACN__c) || !(oldAccount.ACN__c).equalsIgnoreCase(acc.ACN__c)){
+                if(String.isBlank(oldAccount.ACN__c) || !(oldAccount.ACN__c).equalsIgnoreCase(acc.ACN__c)){
                     Flag = false;
                 }
             }
@@ -2138,7 +2080,6 @@ public with sharing class Apt_CreditAssessmentController {
             }
             
             //1550
-            system.debug('*** CreditAssessmentFinalOutcome ***'+CreditAssessmentFinalOutcome);
             if(String.isNotBlank(CreditAssessmentFinalOutcome) && CreditAssessmentFinalOutcome.equalsIgnoreCase(APT_Constants.APPROVAL_STATUS_REJECTED)) {
                 isEntityTypePartnership = false;
                 //end partnership process
@@ -2278,7 +2219,6 @@ public with sharing class Apt_CreditAssessmentController {
         }  catch(Exception ex){
             // Displaying error to the user for any generic Exception
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
-            system.debug('***** Exception Line Number*****'+ex.getLineNumber());
         }
     }
         /**
@@ -2286,7 +2226,6 @@ public with sharing class Apt_CreditAssessmentController {
      */
     private void insertCreditRecord(){
         try {
-            system.debug('*** insertCreditRecord inside ***');
             //1550
             if(isEntityTypePartnership) {
                 insert selectedABRReport;
