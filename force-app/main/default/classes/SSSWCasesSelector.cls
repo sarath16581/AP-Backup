@@ -13,11 +13,13 @@
 * 2020-08-28 - Disha Kariya - Added With Network Response
 * 2021-12-02 - Alex Volkov - Added selectCasesEligibleForReopenByOwnerAndDate method
 * 2022-11-21 - Thang Nguyen - DDS-13756 Added CHASEnquiryType__c field
+* 2023-03-23 - StephenL - Modified this selector to include the WITH_ARTICLE option
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {
 		WITH_NETWORK_RESPONSE,
-		RETURN_QUERY_LOCATOR
+		RETURN_QUERY_LOCATOR,
+		WITH_ARTICLE
 	}
 	private static final Set<String> SSSW_CASE_RECORD_TYPES = new Set<String>{
 			'SSSWDelivery',
@@ -213,6 +215,10 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 
 		if(selectorOptions.contains(Options.WITH_NETWORK_RESPONSE)) {
 			builder.addSubQuery(NetworkResponsesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Network_Responses1__r');
+		}
+
+		if(selectorOptions.contains(Options.WITH_ARTICLE)) {
+			builder.addRelatedFields(ArticlesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE}), 'ArticleTest__r');
 		}
 
 		return builder;

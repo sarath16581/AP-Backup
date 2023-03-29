@@ -10,9 +10,11 @@
  * @changelog
  * 2022-11-14 - Thang Nguyen - DDS-13602 update case comments
  * 2022-11-21 - Thang Nguyen - DDS-13756 Added isWithComment parameter of assignCasesToAgentQueue
+ * 2023-03-27 - StephenL - DDS-15372 & DDS-15373 added exception logic to check if the Case's Article is of record type Consignment
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
+    @TestVisible private static Id consignmentArticleRTId = SObjectType.Article__c.getRecordTypeInfosByName().get(SSSWConstants.RECTYPE_ARTICLE_CONSIGNMENT).getRecordTypeId();
     private List<String> exceptionEventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
     private List<String> notificationEventMessageString = EventMessageUtil.getCHASNotificationEventMessageTypes();
 
@@ -70,6 +72,9 @@ public inherited sharing class ExceptionCheckerService {
         if (!isCaseRaisedByReceiver(exceptionDTO)) {
             return true;
         }
+        if (isConsignment(exceptionDTO)) { // if the article is of RT consignment, we flag exception
+            return true;
+        }
         return false;
     }
 
@@ -121,6 +126,16 @@ public inherited sharing class ExceptionCheckerService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * is the case's article part of a consignment
+     * @param exceptionDTO
+     *
+     * @return boolean
+     */
+    public Boolean isConsignment(ExceptionCheckDTO exceptionDTO) {
+        return exceptionDTO?.CaseToCheck?.ArticleTest__r?.RecordTypeId == consignmentArticleRTId;
     }
 
     // in case if we need to send more parameters we are using this DTO
