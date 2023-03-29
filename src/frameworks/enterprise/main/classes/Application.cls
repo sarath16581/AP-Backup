@@ -9,6 +9,7 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added methods for Domain classes
+ * 2023-03-27 - Nathan Franklin - Fix bug with getting sandbox name
  */
 public with sharing class Application {
 
@@ -83,7 +84,7 @@ public with sharing class Application {
 		public OrganizationWrapper(Organization org) {
 			isSandbox = org.IsSandbox;
 			if(isSandbox == true) {
-				sandboxName = System.Url.getSalesforceBaseUrl().getHost().substringBetween('--', '.');
+				sandboxName = System.DomainParser.parse(URL.getOrgDomainUrl()).getSandboxName();
 			} else {
 				sandboxName = '';
 			}
