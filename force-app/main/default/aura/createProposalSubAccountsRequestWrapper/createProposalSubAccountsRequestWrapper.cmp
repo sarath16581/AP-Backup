@@ -3,8 +3,9 @@
   * @date         : 10/05/2021
   * @description  : Component used as wrapper for Sub Account Request invoked from Credit Assessment VF Page. It has following features
   *                 1. It invokes createProposalSubAccountsRequest LWC component.
-*********************************History*******************************************************************
-10.05.2021    Dheeraj Mandavilli   Created
+  * @changelog
+  * 2021.05.10    Dheeraj Mandavilli   Created
+  * 2023.03.30    Harry Wang   Added support for contextId
 -->
 
 <aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:availableForFlowScreens,lightning:availableForFlowActions,lightning:isUrlAddressable,forceCommunity:availableForAllPageTypes" access="global" controller="CreateSubAccountsController">
