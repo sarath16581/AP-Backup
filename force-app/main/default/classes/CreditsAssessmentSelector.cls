@@ -14,7 +14,8 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
     public enum Options {
          WITH_OWNER,
          WITH_ORGANISATION,
-         WITH_CREDIT_ASSESSMENT_NETWOKS
+         WITH_CREDIT_ASSESSMENT_NETWOKS,
+         WITH_PROPOSAL
     }
     
     public static String sortOrder ='Desc';
@@ -108,9 +109,12 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
         return new Map<Id, APT_Credit_Assessment__c>((List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString()));
     }
 
-    public List<APT_Credit_Assessment__c> selectByOpportunityIds(Set<Id> OpportunityIds){
-        QueryBuilder qb = newQueryBuilder().addRelatedFields(APT_ProposalObjectsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'APT_Proposal__r')
-                .addConditions().add(new QueryBuilder.SimpleCondition('APT_Proposal__r.Apttus_Proposal__Opportunity__c IN :OpportunityIds'))
+    public List<APT_Credit_Assessment__c> selectByProposalOpportunity(Set<Id> OpportunityIds){
+       return selectByProposalOpportunity(OpportunityIds, new Set<Object>());
+    }
+
+    public List<APT_Credit_Assessment__c> selectByProposalOpportunity(Set<Id> OpportunityIds, Set<Object> selectorOptions){
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition('APT_Proposal__r.'+ Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :OpportunityIds'))
                 .endConditions();
         return Database.query(qb.toSoqlString());
     }
@@ -138,7 +142,11 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
             canOptions.add(CreditsAssessmentNetworkSelector.Options.WITH_NETWORK);
             builder.addSubQuery(CreditsAssessmentNetworkSelector.newInstance().newQueryBuilder(canOptions), 'Credit_Assessment_Networks__r');
         }
-        
+
+        if(selectorOptions.contains(Options.WITH_PROPOSAL)) {
+            builder.addRelatedFields(APT_ProposalObjectsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'APT_Proposal__r');
+        }
+
         return builder;
     }
     

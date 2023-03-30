@@ -42,7 +42,7 @@ public with sharing class CreditAssessmentController {
 
 			Opportunity opp = OpportunitySelector.newInstance(1, OPPORTUNITY_FIELD_OVERRIDES).selectById(new Set<Id>{opportunityId}, new Set<Object>{OpportunitySelector.Options.WITH_CHILD_PROPOSALS
 			}).values()[0];
-			List<APT_Credit_Assessment__c> cas = CreditsAssessmentSelector.newInstance(fieldOverrides).selectByOpportunityIds(new Set<Id>{opportunityId});
+			List<APT_Credit_Assessment__c> cas = CreditsAssessmentSelector.newInstance(fieldOverrides).selectByProposalOpportunity(new Set<Id>{opportunityId}, new Set<Object>{CreditsAssessmentSelector.Options.WITH_PROPOSAL});
 
 			// initiate message body map with custom labels
 			Map<String, String> messageBodyMap = new Map<String, String>();

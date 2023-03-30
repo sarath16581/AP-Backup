@@ -129,7 +129,7 @@ public with sharing class CreditsAssessmentSelector_Test {
         System.assertEquals(1, results.size(), 'Result count was wrong');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
 
-        List<APT_Credit_Assessment__c> resultList = selector.selectByOpportunityIds(new Set<Id>{opportunityRecord.Id});
+        List<APT_Credit_Assessment__c> resultList = selector.selectByProposalOpportunity(new Set<Id>{opportunityRecord.Id}, new Set<Object>{CreditsAssessmentSelector.Options.WITH_PROPOSAL});
         System.assertEquals(0, resultList.size(), 'Result count was wrong');
 
         Test.stopTest();
