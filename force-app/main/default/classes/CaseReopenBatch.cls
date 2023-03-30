@@ -10,6 +10,7 @@
 * 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
 * 19/10/2022 - Thang Nguyen - DDS-13106 - Refactor the code based on the ExceptionCheckerService refactor
 * 21/11/2022 - Thang Nguyen - DDS-13756 - Add logic to filter only the LOMI form cases
+* 27/03/2023 - StephenL - DDS-15372 & DDS-15373 modified the getEligibleCases method to include WITH_ARTICLE when querying the Case
 */
 
 public class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
@@ -23,7 +24,7 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 	 */
 	public virtual Database.QueryLocator getEligibleCases(){
 		Date vReopenUpToDate = System.today().addDays(1);
-		return (Database.QueryLocator)SSSWCasesSelector.newInstance().selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{SSSWConstants.QUEUE_NAME_REOPEN_Q}).values()[0].Id}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>{SSSWCasesSelector.Options.RETURN_QUERY_LOCATOR});
+		return (Database.QueryLocator)SSSWCasesSelector.newInstance().selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{SSSWConstants.QUEUE_NAME_REOPEN_Q}).values()[0].Id}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>{SSSWCasesSelector.Options.WITH_ARTICLE, SSSWCasesSelector.Options.RETURN_QUERY_LOCATOR});
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
