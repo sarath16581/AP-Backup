@@ -168,16 +168,6 @@ public inherited sharing class ExceptionCheckerService {
         return false;
     }
 
-    /**
-     * is the case's article part of a consignment
-     * @param exceptionDTO
-     *
-     * @return boolean
-     */
-    public Boolean isConsignment(ExceptionCheckDTO exceptionDTO) {
-        return exceptionDTO?.CaseToCheck?.ArticleTest__r?.RecordTypeId == consignmentArticleRTId;
-    }
-
     // in case if we need to send more parameters we are using this DTO
     public class EventMessageDTO {
         public String eventType {
