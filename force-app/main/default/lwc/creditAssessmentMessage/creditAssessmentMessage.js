@@ -3,7 +3,7 @@
  * @date 2023-01-30
  * @group Controller
  * @tag Controller
- * @domain Sales
+ * @domain CreditAssessment
  * @description Javascript controller for creditAssessmentMessage
  * @changelog
  * 2023-01-30 - Harry Wang - Created

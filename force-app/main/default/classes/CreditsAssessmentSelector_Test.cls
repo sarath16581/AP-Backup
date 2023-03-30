@@ -162,7 +162,7 @@ public with sharing class CreditsAssessmentSelector_Test {
         qb = selector.newQueryBuilder();
         soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b.*?\\border by Name DESC\\..*?\\blimit 1\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c order by name limit 1');
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b.*?\\border by Name DESC\\b.*?\\blimit 1\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c order by name limit 1');
 
         Test.stopTest();
     }

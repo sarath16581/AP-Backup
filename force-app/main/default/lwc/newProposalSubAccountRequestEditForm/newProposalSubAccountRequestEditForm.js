@@ -3,7 +3,7 @@
  * @date 2021-05-06
  * @group Controller
  * @tag Controller
- * @domain Sales
+ * @domain CreditAssessment
  * @description This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
  *              1. It contains the sub account request creation input form.
  * @changelog

@@ -4,7 +4,7 @@
 * @group Controller
 * @tag Controller
 * @tag CSP
-* @domain Sales
+* @domain CreditAssessment
 * @description Integrate with TIBCO for credit assessment flow
 * @changelog
 * 2015-10-01 - Himanshu jain - Created

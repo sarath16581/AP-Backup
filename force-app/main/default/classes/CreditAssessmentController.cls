@@ -4,12 +4,11 @@
  * @group Controller
  * @tag Controller
  * @tag CSP
- * @domain Sales
+ * @domain CreditAssessment
  * @description Service Controller class for Credit Assessment view on Opportunity.
  * @changelog
  * 2023-02-05 - Harry Wang - Created
  */
-// TODO: Rename to SalesCreditAssessmentController
 public with sharing class CreditAssessmentController {
 	// Credit Assessment conditions on the opportunity
 	private static final String OPPORTUNITY_CLOSED_NO_CA = 'OPPORTUNITY_CLOSED_NO_CA';

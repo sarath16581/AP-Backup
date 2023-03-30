@@ -4,12 +4,13 @@
 * @group Controller
 * @tag Controller
 * @tag CSP
-* @domain Sales
+* @domain CreditAssessment
 * @description This apex class is controller for vf page - APT_SubAccountAssessment. This will manage Sub Account record for Credit Assessment process.
 * @changelog
 * 2015-12-10 - Mausam Padhiyar - Created
 * 2016-09-06 - Mausam Padhiyar - Validate State
 * 2017-04-27 - Mausam Padhiyar - Added new custom label to update State error message
+* 2023-03-30 - Harry Wang - Added support for contextId
 **/
 public with sharing class APT_SubAccountAssessmentController {
     

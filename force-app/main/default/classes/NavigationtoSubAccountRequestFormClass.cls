@@ -17,11 +17,8 @@ public with sharing class NavigationtoSubAccountRequestFormClass {
 
     public NavigationtoSubAccountRequestFormClass(ApexPages.StandardController controller){
         proposalId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID);
-        system.debug('recordId:::'+proposalId);
         contextId = ApexPages.currentPage().getParameters().get('contextId');
-        system.debug('contextId:::'+contextId);
         chargeAccountId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CHARGE_ACCOUNT_ID);
-        system.debug('chargeAccountId:::'+chargeAccountId);
         }
 
 }

@@ -4,7 +4,7 @@
  * @group Tests
  * @tag Controller
  * @tag CSP
- * @domain Sales
+ * @domain CreditAssessment
  * @description Test class for CreditAssessmentController
  * @changelog
  * 2023-02-08 - Harry Wang - Created
