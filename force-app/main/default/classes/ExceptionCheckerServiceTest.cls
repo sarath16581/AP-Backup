@@ -138,6 +138,29 @@ public class ExceptionCheckerServiceTest {
 
     }
 
+    @IsTest
+    private static void testExceptionCheckerService_Is_Consignment() {
+        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        article.RecordTypeId = ExceptionCheckerService.consignmentArticleRTId;
+
+        Case ssswCase = ApplicationTestDataFactory.getCases(1,true)[0];
+        ssswCase.ReferenceID__c = article.Id;
+        ssswCase.ArticleTest__c = article.Id;
+        ssswCase.CaseOriginator__c = ExceptionCheckerService.ORIGIN_ADDRESSEE;
+        ssswCase = (Case)ApplicationTestDataFactory.setUnwritableFields(ssswCase, new Map<String, Object>{'ArticleTest__r' => article});
+
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = ssswCase;
+
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
+
+        exceptionCheckDTOS.add(exceptionCheckDTO);
+
+        System.assertEquals(true, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'testExceptionCheckerService_Is_Consignment: When case\'s Article is consignment, should mark as exception');
+    }
+
 
     @IsTest
     private static void testCloseCases() {
