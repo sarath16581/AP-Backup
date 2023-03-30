@@ -64,7 +64,7 @@ global with sharing class ChasOIDCRegistrationHandler implements Auth.Registrati
 		
 		// TODO: Log a Salesforce case to understand why this might be empty...
 		// 			I have seen this being empty during development
-		if(tpalId == null) {
+		if(String.isEmpty(String.valueOf(tpalId))) {
 			System.debug('ThirdPartyAccountLink record id is empty!!!');
 			System.debug('Returning user id: ' + userId);
 			return userId;
