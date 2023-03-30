@@ -72,7 +72,7 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 		const selectedCA =  this.template.querySelector("lightning-datatable").getSelectedRows()[0];
 		this.chargeAccountId = selectedCA.APT_Charge_Account__c;
 		const confirmed = await LightningConfirm.open({
-			message: 'Are you sure to link the selected Credit Assessment: ' + selectedCA.Name + ' to the Primary Proposal under the Opportunity?',
+			message: 'Are you sure you want to link the selected Credit Assessment: ' + selectedCA.Name + ' to the Primary Proposal under the Opportunity?',
 			variant: 'headerless',
 			label: 'Credit Assessment Reassignment'
 		});
@@ -136,7 +136,7 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 
 	async handleCreate() {
 		const confirmed = await LightningConfirm.open({
-			message: 'Are you sure to create a new Credit Assessment?',
+			message: 'Are you sure you want to create a new Credit Assessment?',
 			variant: 'headerless',
 			label: 'New Credit Assessment Creation'
 		});
