@@ -45,7 +45,7 @@ private class CreditAssessmentController_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(oppSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(opportunityMap);
-		MockUtility.Mocks.when(caSelector.selectByOpportunityIds((Set<Id>) fflib_Match.anyObject())).thenReturn(caList);
+		MockUtility.Mocks.when(caSelector.selectByProposalOpportunity((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(caList);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException());
 
 		MockUtility.Mocks.stopStubbing();
