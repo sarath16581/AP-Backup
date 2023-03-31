@@ -8,7 +8,7 @@
  * @changelog
  * 2023-02-16 - George Nguyen - Created.
  * 2023-03-18 - Noel Lim - Updated routing logic, to directly assign the routed Queue as the Owner.
- *
+ * 2023-04-03 - Noel Lim - Updated to implement 2 registerDirty() calls
  */
 public inherited sharing class APCaseAgentWorkPreferredAgentModule extends ApplicationDomain.Module {
 	public static APCaseAgentWorkPreferredAgentModule newInstance() {
@@ -21,7 +21,13 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		processUserResponseForPreferredAgent((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);
+		try {
+			processUserResponseForPreferredAgent((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);
+			
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, APCaseAgentWorkPreferredAgentModule.class.getName(), 'onAfterUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 	
 	/*
@@ -30,10 +36,13 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	* - Decline
 	* - Decline On Push Timeout
 	* - Unavailable (when User sets their Omni Status to Offline or closes the console).
+	*
+	* 2 registerDirty calls as the fields updated are different.
 	*/
 	private void processUserResponseForPreferredAgent(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
 		List<Case> casesToUpdate = new List<Case>();
 		Set<Id> caseIdsToReroute = new Set<Id>();
+		List<Case> casesToReroute = new List<Case>();
 
 		for(AgentWork aw: records) {
 			if(aw.Status != existingRecords.get(aw.Id).Status) {
@@ -62,11 +71,15 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 
 			//Apply Case routing directly by assigning the OwnerId, instead of setting Case.AllocateToQueue__c = true. 
 			//This is necessary as there is logic in CaseCommonUtility.routeCase() that prevents routing of open Cases assigned to a User.
-			casesToUpdate.addAll(routeDeclinedCases(cases).values());
+			casesToReroute.addAll(routeDeclinedCases(cases).values());
 		}
 
 		if(casesToUpdate.isEmpty() == false) {
-			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
+			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
+		}
+
+		if(casesToReroute.isEmpty() == false) {
+			uow.registerDirty(casesToReroute, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
 		}
 	}
 
