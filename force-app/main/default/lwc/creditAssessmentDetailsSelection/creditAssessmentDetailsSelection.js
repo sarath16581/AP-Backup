@@ -13,7 +13,9 @@ import getDatatableColumns from '@salesforce/apex/CreditAssessmentController.ret
 import updateCreditAssessmentDetails from '@salesforce/apex/CreditAssessmentController.updateCreditAssessmentDetails';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import LightningConfirm from 'lightning/confirm';
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
+import PROPOSAL_NAME from '@salesforce/schema/Apttus_Proposal__Proposal__c.Name';
 import CREDIT_ASSESSMENT_STATUS from "@salesforce/schema/Apttus_Proposal__Proposal__c.APT_Credit_Assessment_Status__c";
 import NEW_ACCOUNT_TYPE from "@salesforce/schema/Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c";
 import CREDIT_ASSESSMENT from "@salesforce/schema/Apttus_Proposal__Proposal__c.APT_Credit_Assessment__c";
@@ -22,7 +24,7 @@ import CHARGE_ACCOUNT_PROPOSAL from "@salesforce/schema/APT_Charge_Account__c.AP
 import SUB_CHARGE_ACCOUNT_PROPOSAL from "@salesforce/schema/APT_Sub_Account__c.APT_Quote_Proposal__c";
 
 export default class CreditAssessmentDetailsSelection extends LightningElement {
-	bodyMessage = 'Approved credit assessments are linked to this Opportunity. Please select one of the below Approved credit assessments to continue or create a new Credit Assessment using the Create button below.';
+	bodyMessage = 'To complete credit assessment process, select below approved credit assessment or initiate a new credit assessment:';
 	@api creditAssessments;
 	columns = [];
 	@api primaryProposalId;
@@ -42,6 +44,9 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 			this.dispatchEvent(event);
 		}
 	}
+
+	@wire(getRecord, { recordId: '$primaryProposalId', fields: [PROPOSAL_NAME]})
+	primaryProposal;
 
 	@wire(getRelatedListRecords, {
 		parentRecordId: '$chargeAccountId',
@@ -72,7 +77,7 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 		const selectedCA =  this.template.querySelector("lightning-datatable").getSelectedRows()[0];
 		this.chargeAccountId = selectedCA.APT_Charge_Account__c;
 		const confirmed = await LightningConfirm.open({
-			message: 'Are you sure you want to link the selected Credit Assessment: ' + selectedCA.Name + ' to the Primary Proposal under the Opportunity?',
+			message: 'By clicking "OK" ' + selectedCA.Name + ' will be linked to Proposal ' + getFieldValue(this.primaryProposal.data, PROPOSAL_NAME) + '.',
 			variant: 'headerless',
 			label: 'Credit Assessment Reassignment'
 		});
@@ -136,7 +141,7 @@ export default class CreditAssessmentDetailsSelection extends LightningElement {
 
 	async handleCreate() {
 		const confirmed = await LightningConfirm.open({
-			message: 'Are you sure you want to create a new Credit Assessment?',
+			message: 'By clicking "OK" a new credit assessment will be initiated.',
 			variant: 'headerless',
 			label: 'New Credit Assessment Creation'
 		});
