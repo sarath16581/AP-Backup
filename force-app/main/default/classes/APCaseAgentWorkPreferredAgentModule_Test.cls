@@ -5,6 +5,7 @@
  * @changelog
  * 2023-02-16 - George Nguyen - Created
  * 2023-03-18 - Noel Lim - Updated to test routing logic which directly assigns the routed Queue as the Owner, and handle AgentWork with Unavailable status
+ * 2023-03-31 - Noel Lim - Updated processUserResponseForPreferredAgent method to test 2 registerDirty() calls
  * 							
  */
 @IsTest

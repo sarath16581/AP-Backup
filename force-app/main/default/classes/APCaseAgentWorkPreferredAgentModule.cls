@@ -8,7 +8,7 @@
  * @changelog
  * 2023-02-16 - George Nguyen - Created.
  * 2023-03-18 - Noel Lim - Updated routing logic, to directly assign the routed Queue as the Owner.
- * 2023-04-03 - Noel Lim - Updated to implement 2 registerDirty() calls
+ * 2023-03-31 - Noel Lim - Updated to implement 2 registerDirty() calls
  */
 public inherited sharing class APCaseAgentWorkPreferredAgentModule extends ApplicationDomain.Module {
 	public static APCaseAgentWorkPreferredAgentModule newInstance() {
@@ -37,7 +37,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	* - Decline On Push Timeout
 	* - Unavailable (when User sets their Omni Status to Offline or closes the console).
 	*
-	* 2 registerDirty calls as the fields updated are different.
+	* 2 registerDirty calls are needed due to different registered fields to update.
 	*/
 	private void processUserResponseForPreferredAgent(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
 		List<Case> casesToUpdate = new List<Case>();
