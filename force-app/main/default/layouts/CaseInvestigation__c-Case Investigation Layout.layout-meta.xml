@@ -55,7 +55,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Article__c</field>
+                <field>ReferenceID__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -117,7 +117,7 @@
     </layoutSections>
     <miniLayout>
         <fields>Name</fields>
-        <fields>Article__c</fields>
+        <fields>ReferenceID__c</fields>
         <fields>Status__c</fields>
         <fields>Network__c</fields>
     </miniLayout>

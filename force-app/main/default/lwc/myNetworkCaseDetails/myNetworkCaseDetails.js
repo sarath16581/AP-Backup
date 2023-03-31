@@ -8,6 +8,7 @@
  * 2022-11-08 - Dattaraj Deshmukh - Added Case Investigation fields. 
  * 2023-03-02 - Dattaraj Deshmukh - Added 'caseInvestigationActiveSections' and 'caseActiveSections' properties to toggle active sections.
  * 2023-03-10 - Dattaraj Deshmukh - Added 'OWNER_NAME_FIELD' for a case to display case's owner name.
+ * 2023-03-31 - Mahesh Parvathaneni - Added Initial contact fields under More Details for case investigation
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
@@ -48,13 +49,16 @@ import STARTRACK_DESCRIPTION_OF_CONTENT_FIELD from '@salesforce/schema/Case.Desc
 /**'More Details' section fields to be shown ONLY ON CaseInvestigation's DETAIL page */
 import RELATED_CASE from '@salesforce/schema/Case.RelatedCase__c';
 import ORIGIN_FIELD from '@salesforce/schema/Case.Origin';
-import CONTACT_FIELD from '@salesforce/schema/Case.ContactId';
 import LEGAL_ENTITY_NAME_FIELD from '@salesforce/schema/Case.Calc_Link_Account__c';
 import RELATED_BILLING_ACCOUNT_FIELD from '@salesforce/schema/Case.Related_Billing_Account__c';
 import NETWORK_FIELD from '@salesforce/schema/Case.Network__c';
 import OWNER_NAME_FIELD from '@salesforce/schema/Case.Calc_Owner_Name__c';
 import DESCRIPTION_OF_PACKAGING_FIELD from '@salesforce/schema/Case.Description_of_packaging__c';
 import WEB_EMAIL_FIELD from '@salesforce/schema/Case.SuppliedEmail';
+import INITIAL_CONTACT_FIRST_NAME_FIELD from '@salesforce/schema/Case.Initial_Caller_First_Name__c';
+import INITIAL_CONTACT_LAST_NAME_FIELD from '@salesforce/schema/Case.Initial_Caller_Last_Name__c';
+import INITIAL_CONTACT_MOBILE_FIELD from '@salesforce/schema/Case.Initial_Contact_Mobile_Number__c';
+import INITIAL_CONTACT_EMAIL_FIELD from '@salesforce/schema/Case.Initial_Caller_Email__c';
 
 
 
@@ -142,13 +146,16 @@ export default class CaseDetails extends LightningElement {
   starTrack_more_details_casefields = [
     RELATED_CASE,
     ORIGIN_FIELD,
-    CONTACT_FIELD,
     LEGAL_ENTITY_NAME_FIELD,
     RELATED_BILLING_ACCOUNT_FIELD,
     NETWORK_FIELD,
     OWNER_NAME_FIELD,
     DESCRIPTION_OF_PACKAGING_FIELD,
-    WEB_EMAIL_FIELD
+    WEB_EMAIL_FIELD,
+	INITIAL_CONTACT_FIRST_NAME_FIELD,
+	INITIAL_CONTACT_LAST_NAME_FIELD,
+	INITIAL_CONTACT_MOBILE_FIELD,
+	INITIAL_CONTACT_EMAIL_FIELD
   ];
 
   @api recordId;
