@@ -8,12 +8,14 @@
  * @changelog
  * 2020-11-18 - arjun.singh@austpost.com.au - Created
  * 2021-03-22 - avula.jansiani@auspost.com.au  added 'APT_Credit_Assessment_Status__c'
+ * 2023-02-08 - Harry Wang  added new method selectByOpportunityIds
  */
 public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
     public enum Options {
          WITH_OWNER,
          WITH_ORGANISATION,
-         WITH_CREDIT_ASSESSMENT_NETWOKS
+         WITH_CREDIT_ASSESSMENT_NETWOKS,
+         WITH_PROPOSAL
     }
     
     public static String sortOrder ='Desc';
@@ -54,6 +56,17 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
         CreditsAssessmentSelector selector = (CreditsAssessmentSelector)Application.Selectors.newInstance(CreditsAssessmentSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
         return selector;
     }
+
+    /**
+     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+     * This approach removes data consistency and prevents possible caching of results
+     */
+    //Commenting it temporarily as it is not used at present
+    public static CreditsAssessmentSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+        CreditsAssessmentSelector selector = (CreditsAssessmentSelector)Application.Selectors.newInstance(CreditsAssessmentSelector.class).setFieldOverrides(fieldOverrides);
+        return selector;
+    }
+
     /**
      * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
      * This approach removes data consistency and prevents possible caching of results
@@ -95,7 +108,17 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
         qb.addConditions().add(new QueryBuilder.CompareCondition(APT_Credit_Assessment__c.APT_Organisation_Name__c).eq(orgId)).endConditions();
         return new Map<Id, APT_Credit_Assessment__c>((List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString()));
     }
-    
+
+    public List<APT_Credit_Assessment__c> selectByProposalOpportunity(Set<Id> OpportunityIds){
+       return selectByProposalOpportunity(OpportunityIds, new Set<Object>());
+    }
+
+    public List<APT_Credit_Assessment__c> selectByProposalOpportunity(Set<Id> OpportunityIds, Set<Object> selectorOptions){
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition('APT_Proposal__r.'+ Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :OpportunityIds'))
+                .endConditions();
+        return Database.query(qb.toSoqlString());
+    }
+
     public virtual override QueryBuilder newQueryBuilder() {
         return newQueryBuilder(new Set<Object>());
     }
@@ -119,7 +142,11 @@ public with sharing class CreditsAssessmentSelector extends ApplicationSelector{
             canOptions.add(CreditsAssessmentNetworkSelector.Options.WITH_NETWORK);
             builder.addSubQuery(CreditsAssessmentNetworkSelector.newInstance().newQueryBuilder(canOptions), 'Credit_Assessment_Networks__r');
         }
-        
+
+        if(selectorOptions.contains(Options.WITH_PROPOSAL)) {
+            builder.addRelatedFields(APT_ProposalObjectsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'APT_Proposal__r');
+        }
+
         return builder;
     }
     
