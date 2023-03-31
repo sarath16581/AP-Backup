@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>PKCESigningCertAPIName__c</field>
-        <value xsi:type="xsd:string">Auspost_API_Cert</value>
+        <value xsi:type="xsd:string">PKCESigningCert</value>
     </values>
     <values>
         <field>Scope__c</field>
