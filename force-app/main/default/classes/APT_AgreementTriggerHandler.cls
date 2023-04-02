@@ -419,6 +419,9 @@ public with sharing class APT_AgreementTriggerHandler{
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c,
+																							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c                                                                           
                                                                                             FROM Apttus_Proposal__R00N70000001yUfBEAU__r)
                                                                                        FROM Apttus_Proposal__Proposal__c
@@ -565,8 +568,17 @@ public with sharing class APT_AgreementTriggerHandler{
                 //contract pricing
                 if(recordTypeMap.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT)) {
                     agreementIds.add(agrmnt.Id);
+					if(proposalsWithLineItemsMap.containskey(agrmnt.Apttus_QPComply__RelatedProposalId__c) && !proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__R00N70000001yUfBEAU__r.isEmpty()){ 
+						for(Apttus_Proposal__Proposal_Line_Item__c propLineItem : proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__R00N70000001yUfBEAU__r){
+							opSchedule = new APT_Operational_Schedule__c();
+							opSchedule.APT_Contract__c=agrmnt.Id;
+							opSchedule.APT_Minimum_Fees__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c;
+							opSchedule.APT_Payment_Method__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
+							opSchedule.APT_Annual_Volume_Review__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c;
+						}
+						listOprSchedule.add(opSchedule);
+					}
                 }
-                //contract pricing
             } 
 
             insert listOprSchedule;
