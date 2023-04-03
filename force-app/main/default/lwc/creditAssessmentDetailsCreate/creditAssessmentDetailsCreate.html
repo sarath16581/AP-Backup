@@ -1,0 +1,12 @@
+<template>
+    <lightning-radio-group label="Please Select Account Type" options={options} required type="radio" onchange={handleChange}></lightning-radio-group>
+    <div class="button-container slds-m-around_small slds-align_absolute-center" slot="footer">
+        <lightning-button data-id="next" variant="brand-outline" label="Next" onclick={handleNext} disabled={disabled} ></lightning-button>
+    </div>
+    <template if:true={isProcessing}>
+        <div class="slds-text-align_center slds-grow">
+            <lightning-spinner variant="brand" size="small" alternative-text="Loading..">
+            </lightning-spinner>
+        </div>
+    </template>
+</template>

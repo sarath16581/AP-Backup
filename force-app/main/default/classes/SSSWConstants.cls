@@ -18,6 +18,7 @@
   * 10.09.2021  hara.sahoo@auspost.com.au Added constants for Compensation statuses
   * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
+  * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
   */  
 public with sharing class SSSWConstants {
 
@@ -322,4 +323,7 @@ public with sharing class SSSWConstants {
 	public static final String OMNI_AGENTWORK_STATUS_DECLINED = 'Declined';
 	public static final String OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT = 'DeclinedOnPushTimeout';
 	public static final String OMNI_AGENTWORK_STATUS_UNAVAILABLE = 'Unavailable';
+
+    /* ExceptionCheckerService Constants*/
+    public static final String RECTYPE_ARTICLE_CONSIGNMENT = 'Consignment';
 }

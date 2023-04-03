@@ -230,6 +230,16 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>creditAssessmentWrapper</componentName>
+                <identifier>c_creditAssessmentWrapper</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-74dfcef5-567c-4411-a630-d1a8ed027916</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Opportunity.Id</value>
@@ -831,6 +841,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-74dfcef5-567c-4411-a630-d1a8ed027916</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Credit Assessment</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
