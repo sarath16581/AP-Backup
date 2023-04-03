@@ -274,7 +274,7 @@
     <apiVersion>57.0</apiVersion>
     <constants>
         <description>Email Id of MS power apps which needs to be blocked</description>
-        <name>vMSPowerAppsEmail</name>
+        <name>MSPowerAppsEmail</name>
         <dataType>String</dataType>
         <value>
             <stringValue>microsoft@powerapps.com</stringValue>
@@ -433,7 +433,7 @@
                 <leftValueReference>vCase.SuppliedEmail</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>vMSPowerAppsEmail</elementReference>
+                    <elementReference>MSPowerAppsEmail</elementReference>
                 </rightValue>
             </conditions>
             <connector>

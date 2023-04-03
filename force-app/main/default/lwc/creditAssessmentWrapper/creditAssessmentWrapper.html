@@ -1,0 +1,36 @@
+<template>
+    <div class="slds-p-around_small">
+        <div class="slds-card slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <h2 class="slds-card__header-title">Credit Assessment</h2>
+                <lightning-button
+                        label="Reload"
+                        title="Reload status of credit assessment"
+                        onclick={handleReload}
+                        icon-name="utility:refresh"
+                        class="slds-m-left_x-small"
+                        disabled={reloadDisabled}>
+                </lightning-button>
+            </header>
+        </div>
+        <template if:true={messageBody}>
+            <c-credit-assessment-message body-message={messageBody}></c-credit-assessment-message>
+        </template>
+
+        <template if:true={showCAClosedOpp}>
+            <c-credit-assessment-details-closed-opp credit-assessments={creditAssessments}></c-credit-assessment-details-closed-opp>
+        </template>
+
+        <template if:true={showProposal}>
+            <c-credit-assessment-details-primary proposal-id={primaryProposalId}></c-credit-assessment-details-primary>
+        </template>
+
+        <template if:true={showApprovedCAs}>
+            <c-credit-assessment-details-selection credit-assessments={creditAssessments} primary-proposal-id={primaryProposalId} onrelinked={creditAssessmentRelinked} oncreate={creditAssessmentCreate}></c-credit-assessment-details-selection>
+        </template>
+
+        <template if:true={showCACreate}>
+            <c-credit-assessment-details-create proposal-id={primaryProposalId} opportunity-id={recordId}></c-credit-assessment-details-create>
+        </template>
+    </div>
+</template>

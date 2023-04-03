@@ -39,11 +39,6 @@
                 <label>APPC - Pilot only</label>
             </value>
             <value>
-                <fullName>Fulfilment</fullName>
-                <default>false</default>
-                <label>Fulfilment</label>
-            </value>
-            <value>
                 <fullName>Information and Mailroom Management</fullName>
                 <default>false</default>
                 <label>Information and Mailroom Management</label>
