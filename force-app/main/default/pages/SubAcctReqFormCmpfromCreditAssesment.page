@@ -1,4 +1,5 @@
 <!--
+ * @author Dheeraj.Mandavilli
  * @date 2021-05-10
  * @group Proposals
  * @tag Proposal
@@ -7,6 +8,7 @@
  * @changelog
  * 2021-05-10 - Dheeraj.Mandavilli@auspost.com.au - Created
  * 2021-06-21 - Dheeraj.Mandavilli@auspost.com.au - Added Style tag to fix the Helptext formatting issues as per UAT Feedback.
+ * 2023-03-29 - Harry Wang - Added support for contextId
  -->
  
 <apex:page standardController="Apttus_Proposal__Proposal__c" extensions="NavigationtoSubAccountRequestFormClass">
@@ -18,7 +20,7 @@
                 <script>
                     $Lightning.use("c:createProposalSubAccountRequestApp", function() {
                         $Lightning.createComponent("c:createProposalSubAccountsRequestWrapper",
-                        {recordId:"{!proposalId}"},
+                        {recordId:"{!proposalId}", contextId:"{!contextId}"},
                             "lightning",
                         function(cmp) {
                             console.log("Component is created!");

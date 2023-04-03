@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set that has been added to the Consumer Help and Support to allow users to access the community.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Community Access: Consumer Help and Support</label>
+</PermissionSet>

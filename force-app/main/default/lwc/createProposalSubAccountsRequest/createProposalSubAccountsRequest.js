@@ -1,20 +1,23 @@
-/*
-  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
-  * @date         : 06/05/2021
-  * @description  : This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
-  *                 1. It contains logic which checks for existing sub account requests to display form or summary page based upon sub account requests.
-*********************************History*******************************************************************
-06.05.2021    Dheeraj Mandavilli   Created
-*/
-
-import { LightningElement,track, wire, api } from 'lwc';
+/**
+ * @author Dheeraj Mandavilli
+ * @date 2021-05-06
+ * @group Controller
+ * @tag Controller
+ * @domain CreditAssessment
+ * @description This lWC component is used in Sub Account Request creation from Proposal flow. It has following the features
+ * 1. It contains logic which checks for existing sub account requests to display form or summary page based upon sub account requests.
+ * @changelog
+ * 2021-05-06 - Dheeraj Mandavilli - Created
+ * 2023-03-29 - Harry Wang - Added support for contextId
+ */
+import { LightningElement, track, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import { NavigationMixin } from 'lightning/navigation';
 import getRelatedSubAccountRequestsforProposal from "@salesforce/apex/CreateSubAccountsController.getRelatedSubAccountRequestsforProposal";
-//import getBillingAccountDetails from "@salesforce/apex/CreateSubAccountsController.getBillingAccountDetails";
 
 export default class CreateProposalSubAccountsRequest extends NavigationMixin(LightningElement) {
     @api recordId;
+    @api contextId;
     @api initialLoad;
     @api isModalOpen;
     @track subAccountList = [];
@@ -29,6 +32,7 @@ export default class CreateProposalSubAccountsRequest extends NavigationMixin(Li
 
     connectedCallback() {
         console.log('recordId>>>>',this.recordId);
+        console.log('contextId>>>>',this.contextId);
         console.log('initialLoad>>>>',this.initialLoad);
         console.log('proposalRecord>>>>',this.proposalRecord);
 

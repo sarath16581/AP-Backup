@@ -1,0 +1,25 @@
+<template>
+    <div class="body-container">
+        <p class="slds-text-color_default">{bodyMessage}</p>
+    </div>
+    <div class="slds-p-top_medium" style="max-height: 380px;">
+        <lightning-datatable
+                key-field="id"
+                data={creditAssessmentsData}
+                columns={columns}
+                max-row-selection=1
+                onrowselection={handleRowAction}>
+        </lightning-datatable>
+    </div>
+    <div class="button-container slds-m-around_small slds-align_absolute-center" slot="footer">
+        <lightning-button data-id="next" variant="brand-outline" label="Move Credit Assessment" onclick={handleNext} disabled="true" ></lightning-button>
+        <lightning-button class="slds-m-left_small" variant="brand-outline" label="Create New Credit Assessment" onclick={handleCreate}></lightning-button>
+        <lightning-button class="slds-m-left_small" variant="brand-outline" label="Cancel" onclick={handleCancel}></lightning-button>
+    </div>
+    <template if:true={isProcessing}>
+        <div class="slds-text-align_center slds-grow">
+            <lightning-spinner variant="brand" size="small" alternative-text="Loading..">
+            </lightning-spinner>
+        </div>
+    </template>
+</template>
