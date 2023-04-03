@@ -6,6 +6,7 @@
  * 2022-12-12 - Mahesh Parvathaneni - added new test methods
  * 2023-01-17 - Mahesh Parvathaneni - added tests to set the StarTrack MyNetwork record type for Case Investigation
  * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated test method testGetArticlesByCase
+ * 2023-04-03 - Mahesh Parvathaneni - Added test method testGetCaseTypeBlankError
  **/
 
 @IsTest
@@ -24,6 +25,8 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		Case c = ApplicationTestDataFactory.getCases(1, true)[0];
 		c.ReferenceID__c = consignment.ArticleID__c;
 		c.ArticleTest__c = consignment.Id;
+		c.Call_Purpose__c = 'Pickup';
+		c.Enquiry_Type__c = 'Driver ETA - Pickup'; 
 		consignment = (Article__c)ApplicationTestDataFactory.setUnwritableFields(consignment, new Map<String, Object>{'RecordType.Name' => 'Consignment'});
 
 		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
@@ -313,6 +316,43 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 
 		System.assertEquals(caseInvestigations[0].RecordTypeId, starTrackRecordTypeId, 'Expected StarTrack MyNetwork record type');
 
+	}
+
+	/**
+	 * Scenario: Testing to get error message when case type is blank on case
+	 */
+	@IsTest
+	private static void testGetCaseTypeBlankError() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
+		Case c = ApplicationTestDataFactory.getCases(1, true)[0];
+		c.ReferenceID__c = consignment.ArticleID__c;
+		c.ArticleTest__c = consignment.Id;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{c.Id => c});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		MyNetworkStarTrackCaseController.ArticleResponseWrapper wrapper = MyNetworkStarTrackCaseController.getArticlesByCase(c.Id);
+
+		Test.stopTest();
+
+		Assert.areEqual(true, wrapper.hasCaseTypeBlankOnCase, 'Expected true as case type is blank on case');
+		Assert.isNull(wrapper.articleDetails, 'Expected article details as null as case type is blank');
 	}
 
 }

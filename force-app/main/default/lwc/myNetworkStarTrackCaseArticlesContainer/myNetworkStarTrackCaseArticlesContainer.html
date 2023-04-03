@@ -28,9 +28,16 @@
                 </lightning-layout-item>
             </template>
             <template if:false={hasPassedThroughAPNetwork}>
-                <lightning-layout-item size="12" class="slds-align_absolute-center slds-var-p-around_large">
-                    <p class="label-heading">{label.consignmentErrorMessage}</p>
-                </lightning-layout-item>
+				<template if:true={hasCaseTypeBlankOnCase}>
+					<lightning-layout-item size="12" class="slds-align_absolute-center slds-var-p-around_large">
+						<p class="label-heading">{label.blankCaseTypeErrorMessage}</p>
+					</lightning-layout-item>
+				</template>
+				<template if:false={hasCaseTypeBlankOnCase}>
+					<lightning-layout-item size="12" class="slds-align_absolute-center slds-var-p-around_large">
+						<p class="label-heading">{label.consignmentErrorMessage}</p>
+					</lightning-layout-item>
+				</template>
             </template>
             <template if:true={isLoading}>
                 <lightning-spinner variant="brand" size="large" alternative-text="Loading...">

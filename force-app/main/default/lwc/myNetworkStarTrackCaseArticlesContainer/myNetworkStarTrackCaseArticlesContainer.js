@@ -1,6 +1,7 @@
 /**
 * @changelog
 * 2023-03-16 - Mahesh Parvathaneni - SF-862 Added logic to refresh the primary tab after successful case investigation creation
+* 2023-04-03 - Mahesh Parvathaneni - SF-948 Added validation for case type
 */
 import {
     api,
@@ -27,6 +28,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
     recordsPerPage = 5; //records displayed per page
     totalRecords; //total records
     comments; //chatter feed
+	hasCaseTypeBlankOnCase; //flag to check the case type blank on startrack case
 
     // expose custom labels
     label = {
@@ -34,7 +36,8 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
         caseInvestigationSuccessMessage: CONSTANTS.LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
         invalidCaseInvestigationErrorMessage: CONSTANTS.LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE,
         invalidNetworkErrorMessage: CONSTANTS.LABEL_INVALID_NETWORK_ERROR_MESSAGE,
-        blankNetworkErrorMessage: CONSTANTS.LABEL_BLANK_NETWORK_ERROR_MESSAGE
+        blankNetworkErrorMessage: CONSTANTS.LABEL_BLANK_NETWORK_ERROR_MESSAGE,
+		blankCaseTypeErrorMessage: CONSTANTS.LABEL_BLANK_CASE_TYPE_ERROR_MESSAGE
     };
 
     connectedCallback() {
@@ -49,6 +52,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
         getArticles(this.recordId)
             .then(response => {
                 this.hasPassedThroughAPNetwork = response.hasPassedThroughAPNetwork;
+				this.hasCaseTypeBlankOnCase = response.hasCaseTypeBlankOnCase;
                 if (this.hasPassedThroughAPNetwork) {
                     this.articleDetails = response.articleDetails;
                     this.totalRecords = response.articleDetails.length;

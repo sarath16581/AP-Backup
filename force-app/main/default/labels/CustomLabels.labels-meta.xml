@@ -7961,4 +7961,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>MyNetwork Invalid Network Error Message</shortDescription>
         <value>Network is not available on MyNetwork Portal</value>
     </labels>
+	<labels>
+        <fullName>MyNetworkBlankCaseTypeErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Blank Case Type Error Message</shortDescription>
+        <value>Case Type is required when creating a case investigation.</value>
+    </labels>
 </CustomLabels>
