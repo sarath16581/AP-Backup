@@ -1,11 +1,12 @@
 /**
- * @File Name          : MyNetworkStarTrackCaseController.cls
- * @Description        : Controller class for StarTrack MyNetwork Console App
- * @Author             : Mahesh Parvathaneni
+ * @File Name			: MyNetworkStarTrackCaseController.cls
+ * @Description			: Controller class for StarTrack MyNetwork Console App
+ * @Author				: Mahesh Parvathaneni
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - Added getCriticalIncidents method and updates to getArticlesByCase method
  * 2023-01-17 - Mahesh Parvathaneni - Updated to set the StarTrack MyNetwork record type for Case Investigation
  * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated wrapper to get the network for event messages based on Post office code
+ * 2023-04-03 - Mahesh Parvathaneni - SF-948 - Added validation for case type
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
@@ -27,6 +28,12 @@ public with sharing class MyNetworkStarTrackCaseController {
 
 			//get consignment for the case
 			List<Case> cases = CasesSelector.newInstance().selectById(new Set<Id>{Id.valueOf(caseId)}).values();
+
+			//check call purpose and enquiry type is populated on case
+			if (cases.size() > 0 && String.isBlank(cases[0].Enquiry_Type__c) && String.isBlank(cases[0].Call_Purpose__c)) {
+				wrapper.hasCaseTypeBlankOnCase = true;
+				return wrapper;
+			}
 
 			if (cases.size() > 0 && cases[0].ArticleTest__c != null) {
 				Id consignmentId = cases[0].ArticleTest__c;
@@ -169,7 +176,7 @@ public with sharing class MyNetworkStarTrackCaseController {
 				//find the custom validation message by type.
 				if (e.getDmlType(i) == StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION) {
 					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
-				}          
+				}
 			} 
 			return result;
 		} catch (Exception e) {
@@ -284,6 +291,8 @@ public with sharing class MyNetworkStarTrackCaseController {
 		public List<ArticleDetails> articleDetails {get; set;}
 		@AuraEnabled
 		public Boolean hasPassedThroughAPNetwork {get; set;}
+		@AuraEnabled
+		public Boolean hasCaseTypeBlankOnCase {get; set;}
 	}
 
 	public class ArticleDetails {
