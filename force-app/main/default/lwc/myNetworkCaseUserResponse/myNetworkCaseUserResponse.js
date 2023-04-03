@@ -339,8 +339,8 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 		let caseToUpdate = {
 			"Id": caseRecId,
 			"Case_Update__c": CASE_UPDATE_OPERATIONS_RESPONDED,
-            "sobjectType": "Case"
-        };
+			"sobjectType": "Case"
+		};
 
 		//if SUI is not ticked, set the case status
 		if (!this.stillUnderInvestigation) {
@@ -403,5 +403,5 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 				name: 'Home'
 			}
 		});
-    }
+	}
 }

@@ -1,7 +1,7 @@
 /**
- * @File Name          : MyNetworkStarTrackCaseController_Test.cls
- * @Description        : Test class for MyNetworkStarTrackCaseController
- * @Author             : Mahesh Parvathaneni
+ * @File Name			: MyNetworkStarTrackCaseController_Test.cls
+ * @Description			: Test class for MyNetworkStarTrackCaseController
+ * @Author				: Mahesh Parvathaneni
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - added new test methods
  * 2023-01-17 - Mahesh Parvathaneni - added tests to set the StarTrack MyNetwork record type for Case Investigation

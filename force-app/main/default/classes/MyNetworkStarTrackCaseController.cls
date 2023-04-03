@@ -1,7 +1,7 @@
 /**
- * @File Name          : MyNetworkStarTrackCaseController.cls
- * @Description        : Controller class for StarTrack MyNetwork Console App
- * @Author             : Mahesh Parvathaneni
+ * @File Name			: MyNetworkStarTrackCaseController.cls
+ * @Description			: Controller class for StarTrack MyNetwork Console App
+ * @Author				: Mahesh Parvathaneni
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - Added getCriticalIncidents method and updates to getArticlesByCase method
  * 2023-01-17 - Mahesh Parvathaneni - Updated to set the StarTrack MyNetwork record type for Case Investigation
@@ -176,7 +176,7 @@ public with sharing class MyNetworkStarTrackCaseController {
 				//find the custom validation message by type.
 				if (e.getDmlType(i) == StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION) {
 					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
-				}          
+				}
 			} 
 			return result;
 		} catch (Exception e) {
