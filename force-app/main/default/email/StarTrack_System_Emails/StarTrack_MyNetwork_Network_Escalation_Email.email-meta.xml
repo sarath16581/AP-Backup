@@ -14,8 +14,8 @@ Case {!CaseInvestigation__c.CaseNumber__c} - 			{!CaseInvestigation__c.Name} has
 
 Can you please
 
-Login to 				MyNetwork and provide an update to Customer Contact Centre (CCC), or
-Forward to 				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they respond via MyNetwork.
+Login to 				MyNetwork and provide an update to the Customer Contact Centre (CCC), or
+Forward to 				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they can respond via MyNetwork.
 
 No longer the contact?
 

@@ -8,7 +8,7 @@
             <field>NetworkTierEscalationEmail__c</field>
             <type>email</type>
         </recipients>
-        <senderAddress>customerenquiry@auspost.com.au</senderAddress>
+        <senderAddress>apnetworkresponse@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>StarTrack_System_Emails/StarTrack_MyNetwork_Network_Escalation_Email</template>
     </alerts>
