@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ReferenceID__c</fullName>
     <description>The reference id for the case investigation record i.e article number</description>
+	<inlineHelpText>This is Article ID</inlineHelpText>
     <externalId>true</externalId>
     <label>Reference ID</label>
     <length>255</length>
