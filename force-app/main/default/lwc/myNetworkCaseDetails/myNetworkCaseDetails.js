@@ -1,7 +1,7 @@
 /**
- * @author       : arjun.singh@auspost.com.au
- * @date         : 23/03/2020
- * @description  : JS for Case Detail Page
+ * @author			: arjun.singh@auspost.com.au
+ * @date			: 23/03/2020
+ * @description		: JS for Case Detail Page
  * @changelog
  * 2020-03-23 - Arjun Singh - Created
  * 2021-06-15 - Ranjeewa Silva - Fixed an issue where 'selectedCaseRecordWrapper' was not getting populated from results.
@@ -83,94 +83,94 @@ import customStyle from "@salesforce/resourceUrl/MYNetworkCustomStyle";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class CaseDetails extends LightningElement {
-  @track selectedCaseRecordWrapper = [];
-  @track caseInvestigations = []; //array to pass CI records to happy parcel component.
-  @track selectecCaseRecordId;
-  @track recordFound = false;
-  fields = [
-    CASENUMBER_FIELD,
-    CASESTATUS_FIELD,
-    SUBJECT_FIELD,
-    TYPE_FIELD,
-    CASE_PRIORITY,
-    ENQUIRYSUBTYPE_FIELD,
-    ADDRESSEE_FIELD,
-    ADDRESSEEADDRESS_FIELD,
-    REFERENCE_FIELD,
-    SENDERNAME_FIELD,
-    SENDERADDRESS_FIELD,
-    CREATEDDATE_FIELD,
-    LASTMODIFIEDDATE_FIELD,
-    LASTMODIFIEDBY_FIELD,
-    CASE_ORIGINATOR,
-    SENT_TO_NETWORK,
-    DESCRIPTION_CONTENT,
-    VALUE_OF_CONTENTS
-  ];
+	@track selectedCaseRecordWrapper = [];
+	@track caseInvestigations = []; //array to pass CI records to happy parcel component.
+	@track selectecCaseRecordId;
+	@track recordFound = false;
+	fields = [
+		CASENUMBER_FIELD,
+		CASESTATUS_FIELD,
+		SUBJECT_FIELD,
+		TYPE_FIELD,
+		CASE_PRIORITY,
+		ENQUIRYSUBTYPE_FIELD,
+		ADDRESSEE_FIELD,
+		ADDRESSEEADDRESS_FIELD,
+		REFERENCE_FIELD,
+		SENDERNAME_FIELD,
+		SENDERADDRESS_FIELD,
+		CREATEDDATE_FIELD,
+		LASTMODIFIEDDATE_FIELD,
+		LASTMODIFIEDBY_FIELD,
+		CASE_ORIGINATOR,
+		SENT_TO_NETWORK,
+		DESCRIPTION_CONTENT,
+		VALUE_OF_CONTENTS
+	];
 
-  //array of CASE fields to be used ONLY for StarTrack cases.
-  //Section: Case Details 
-  caseInvestigation_casefields = [
-    CASENUMBER_FIELD,
-    CASESTATUS_FIELD,
-    SUBJECT_FIELD,
-    ENQUIRY_TYPE,
-    PURPOSE_FIELD,
-    CONSIGNMENT_ID_FIELD,
-    STARTRACK_RECEIVER_NAME_FIELD,
-    STARTRACK_RECEIVER_ADDRESS_FIELD,
-    CASE_ORIGINATOR,
-    STARTRACK_SENDER_NAME_FIELD,
-    STARTRACK_SENDER_ADDRESS_FIELD,
-    CREATED_BY_FIELD,
-    LASTMODIFIEDDATE_FIELD,
-    LASTMODIFIEDBY_FIELD,
-    STARTRACK_DESCRIPTION_OF_CONTENT_FIELD,
-    VALUE_OF_GOODS_FIELD
-  ];
+	//array of CASE fields to be used ONLY for StarTrack cases.
+	//Section: Case Details 
+	caseInvestigation_casefields = [
+		CASENUMBER_FIELD,
+		CASESTATUS_FIELD,
+		SUBJECT_FIELD,
+		ENQUIRY_TYPE,
+		PURPOSE_FIELD,
+		CONSIGNMENT_ID_FIELD,
+		STARTRACK_RECEIVER_NAME_FIELD,
+		STARTRACK_RECEIVER_ADDRESS_FIELD,
+		CASE_ORIGINATOR,
+		STARTRACK_SENDER_NAME_FIELD,
+		STARTRACK_SENDER_ADDRESS_FIELD,
+		CREATED_BY_FIELD,
+		LASTMODIFIEDDATE_FIELD,
+		LASTMODIFIEDBY_FIELD,
+		STARTRACK_DESCRIPTION_OF_CONTENT_FIELD,
+		VALUE_OF_GOODS_FIELD
+	];
 
-  //array of CASE INVESTIGATION fields to be used ONLY for StarTrack cases.
-  //Section: Case Investigation Details 
-  caseInvestigation_fields = [
-    CASEINVISTIGATION_ARTICLE_FIELD, CASEINVISTIGATION_NETWORK_FIELD,
-    CASEINVISTIGATION_NAME_FIELD,
-    CASEINVISTIGATION_PRIORITY_FIELD, 
-    CASEINVISTIGATION_STATUS_FIELD, 
-	CASEINVISTIGATION_PRODUCT_CATEGORY_FIELD,
-	CASEINVISTIGATION_PRODUCT_SUB_CATEGORY_FIELD, CASEINVISTIGATION_NETWORK_MILESSTONES_VIOLATED_FIELD, 
-    CASEINVISTIGATION_SENT_TO_NETWORK_FIELD,CASEINVISTIGATION_NETWORK_TIER_ESCALATION_EMAIL_FIELD
-  ];
+	//array of CASE INVESTIGATION fields to be used ONLY for StarTrack cases.
+	//Section: Case Investigation Details 
+	caseInvestigation_fields = [
+		CASEINVISTIGATION_ARTICLE_FIELD, CASEINVISTIGATION_NETWORK_FIELD,
+		CASEINVISTIGATION_NAME_FIELD,
+		CASEINVISTIGATION_PRIORITY_FIELD, 
+		CASEINVISTIGATION_STATUS_FIELD, 
+		CASEINVISTIGATION_PRODUCT_CATEGORY_FIELD,
+		CASEINVISTIGATION_PRODUCT_SUB_CATEGORY_FIELD, CASEINVISTIGATION_NETWORK_MILESSTONES_VIOLATED_FIELD, 
+		CASEINVISTIGATION_SENT_TO_NETWORK_FIELD,CASEINVISTIGATION_NETWORK_TIER_ESCALATION_EMAIL_FIELD
+	];
 
-  //array of CASE fields to be used ONLY for StarTrack cases.
-  //Section: More Details
-  starTrack_more_details_casefields = [
-    RELATED_CASE,
-    ORIGIN_FIELD,
-    LEGAL_ENTITY_NAME_FIELD,
-    RELATED_BILLING_ACCOUNT_FIELD,
-    NETWORK_FIELD,
-    OWNER_NAME_FIELD,
-    DESCRIPTION_OF_PACKAGING_FIELD,
-    WEB_EMAIL_FIELD,
-	INITIAL_CONTACT_FIRST_NAME_FIELD,
-	INITIAL_CONTACT_LAST_NAME_FIELD,
-	INITIAL_CONTACT_MOBILE_FIELD,
-	INITIAL_CONTACT_EMAIL_FIELD
-  ];
+	//array of CASE fields to be used ONLY for StarTrack cases.
+	//Section: More Details
+	starTrack_more_details_casefields = [
+		RELATED_CASE,
+		ORIGIN_FIELD,
+		LEGAL_ENTITY_NAME_FIELD,
+		RELATED_BILLING_ACCOUNT_FIELD,
+		NETWORK_FIELD,
+		OWNER_NAME_FIELD,
+		DESCRIPTION_OF_PACKAGING_FIELD,
+		WEB_EMAIL_FIELD,
+		INITIAL_CONTACT_FIRST_NAME_FIELD,
+		INITIAL_CONTACT_LAST_NAME_FIELD,
+		INITIAL_CONTACT_MOBILE_FIELD,
+		INITIAL_CONTACT_EMAIL_FIELD
+	];
 
-  @api recordId;
-  @track objectApiName = "Case";
-  @track caseActiveSections = ['A'];
-  @track caseInvestigationActiveSections = ['A','C'];
-  @track caseInvestigationObjectApiName = "CaseInvestigation__c";
-  @track happyParcelArticleId;
-  @track caseId;
-  sObjectTypeName;
+	@api recordId;
+	@track objectApiName = "Case";
+	@track caseActiveSections = ['A'];
+	@track caseInvestigationActiveSections = ['A','C'];
+	@track caseInvestigationObjectApiName = "CaseInvestigation__c";
+	@track happyParcelArticleId;
+	@track caseId;
+	sObjectTypeName;
 
-  /**
-   * @desc get case details based on recordId.
-   * record Id can be of Case record id or Case Investigation record ID. 	
-   */
+	/**
+	 * @desc get case details based on recordId.
+	 * record Id can be of Case record id or Case Investigation record ID. 	
+	 */
 	async getRequiredDetails(){
 		try {
 			const getCaseRecordResponse = await getCaseRecord({ recordId: this.recordId });
@@ -218,7 +218,7 @@ export default class CaseDetails extends LightningElement {
 				}
 				else {
 				cInvestigationRecord[c] = cInvestigationRec[c];
-				}   
+				}
 			}
 			tempCaseInvestigations.push(cInvestigationRecord);
 			});
@@ -244,7 +244,7 @@ export default class CaseDetails extends LightningElement {
   
 	/**
 	 * @desc: Returns true if case has any investigations. 
-	 *        Any case which have Case Investigations are considered as StarTrack cases.
+	 *		Any case which have Case Investigations are considered as StarTrack cases.
 	 */
 	get isStarTrackCase() {
 		if(this.selectedCaseRecordWrapper && this.selectedCaseRecordWrapper.StarTrack_RecordType__c) {
