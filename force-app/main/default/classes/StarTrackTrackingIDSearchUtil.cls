@@ -4,6 +4,7 @@ History:
 --------------------------------------------------
 2022-11-24 - H Liyanage - Created
 2022-12-05 - Prerna Rahangdale Added a new TransferCaseQueuable and added Transfer Case feature.
+2003-03-22 - Thang Nguyen - DDS-15333: Only Transfer Case for BSC customer
 **************************************************/
 public inherited sharing class StarTrackTrackingIDSearchUtil {
     public static StarTrackTrackingIDSearchUtil getInstance() {
@@ -182,8 +183,8 @@ public inherited sharing class StarTrackTrackingIDSearchUtil {
                         && this.cse.ReferenceID__c != null // and there's a reference ID
                         && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
                         && caseRecordTypes.contains(this.cse.RecordTypeId)  // only startrack delivery enquiry record type
-						&& STHSConstants.TRACKING_ENQUIRY_TRACK_TRACE.equalsIgnoreCase(this.cse.CHASEnquiryType__c) // Enquriy type should be only Tracking Enquiry|Track & Trace
 						&& STHSConstants.CASE_CONTYPE_SENDER.equalsIgnoreCase(this.cse.Recent_Caller_Type__c) // only Caller Type sender 					
+						&& (this.cse.Business_Solutions_Customer__c !=null ? this.cse.Business_Solutions_Customer__c : false) // only BSC customer
 					) {
                     //get transfer owner Id
                     Id transferOwnerId = transferCase(this.cse);

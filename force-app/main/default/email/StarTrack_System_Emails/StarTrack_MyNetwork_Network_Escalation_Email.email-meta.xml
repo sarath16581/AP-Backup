@@ -10,16 +10,16 @@
 
 You are listed as a point of escalation for 			{!CaseInvestigation__c.NetworkName__c}
 
-Case {!CaseInvestigation__c.CaseNumber__c} - {!CaseInvestigation__c.Name} has 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is 			waiting on a response.
+Case {!CaseInvestigation__c.CaseNumber__c} - 			{!CaseInvestigation__c.Name} has 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is 			waiting on a response.
 
 Can you please
 
-update the 				Customer Contact Centre (CCC) by either replying to this email or responding through MyNetwork, 				or
-Forward to 				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they respond to the CCC via this email 				or MyNetwork.
+Login to 				MyNetwork and provide an update to the Customer Contact Centre (CCC), or
+Forward to 				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they can respond via MyNetwork.
 
 No longer the contact?
 
-If you are no longer the appropriate contact for 			{!CaseInvestigation__c.NetworkName__c} please email MyNetworkSupport@auspost.com.au with the correct contact&apos;s 			details so we can update our records.
+If you are no longer the appropriate contact for 			{!CaseInvestigation__c.NetworkName__c} please email MyNetworkSupport@auspost.com.au with the correct 			contact&apos;s 			details so we can update our records.
 
 MyNetwork access
 

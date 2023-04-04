@@ -1,15 +1,16 @@
 /**
-Description: This apex class is controller for vf page - APT_SubAccountAssessment. This will manage Sub Account record 
-for Credit Assessment process.
-Created By - Mausam Padhiyar
-Created Date - 10th Dec, 2015
-
-Last Modified By - Mausam Padhiyar
-Last Modified Date - 6th Sept, 2016 | 940 - Validate State
-
-Last Modified By - Sheryl Crisostomo
-Last Modified Date - 27th Apr, 2017 | 1855 - Added new custom label to update State error message
-
+* @author Mausam Padhiyar
+* @date 2015-12-10
+* @group Controller
+* @tag Controller
+* @tag CSP
+* @domain CreditAssessment
+* @description This apex class is controller for vf page - APT_SubAccountAssessment. This will manage Sub Account record for Credit Assessment process.
+* @changelog
+* 2015-12-10 - Mausam Padhiyar - Created
+* 2016-09-06 - Mausam Padhiyar - Validate State
+* 2017-04-27 - Mausam Padhiyar - Added new custom label to update State error message
+* 2023-03-30 - Harry Wang - Added support for contextId
 **/
 public with sharing class APT_SubAccountAssessmentController {
     
@@ -17,10 +18,11 @@ public with sharing class APT_SubAccountAssessmentController {
     
     public boolean isExistingCustomer {get;set;}
     
-    public boolean haserrorMessages {get; set;}
+    public boolean hasErrorMessages {get; set;}
     public APT_Sub_Account__c subAccount {get; set;}
     
     String proposalId;
+    String contextId;
     String chargeAccountId;
     Apttus_Proposal__Proposal__c proposal;
     Account account;
@@ -96,7 +98,7 @@ public with sharing class APT_SubAccountAssessmentController {
         try {
           init ();
         } catch(Exception ex) {
-            haserrorMessages = true;
+            hasErrorMessages = true;
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
         }   
         if(!(isAccountFlow || isExistingCustomer)) {
@@ -108,28 +110,25 @@ public with sharing class APT_SubAccountAssessmentController {
      init method
     **/
     public void init () {
-        haserrorMessages = false;
+        hasErrorMessages = false;
         subAccount = new APT_Sub_Account__c();
         account = new Account();
-        system.Debug(isExistingCustomer);
         
         proposalId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID2);
+        contextId = ApexPages.currentPage().getParameters().get('contextId');
         chargeAccountId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CHARGE_ACCOUNT_ID);
         accountID = ApexPages.currentPage().getParameters().get(APT_Constants.URL_ACCOUNT_ID);
         
         isExistingCustomer = Boolean.valueOf(String.IsNotBlank(ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_IS_EXISTING_CUSTOMER)));
-        
-        system.Debug('**********isExistingCustomer:'+isExistingCustomer);
+
         isAccountFlow = String.IsBlank(proposalId) && String.IsNotBlank(accountID);
-        
-            System.debug('**********isAccountFlow:'+isAccountFlow);
+
         if(!isAccountFlow) {
             if(String.isNotBlank(chargeAccountId)) {
                 subAccount.APT_Charge_Account__c = chargeAccountId;
                 //chargeAcc = chargeAccountId;
             } 
-            
-            system.debug('*** proposalId ***'+proposalId);
+
             if(String.isNotBlank(proposalId)) {
                 proposal = [SELECT id, Apttus_Proposal__Account__c, APT_Credit_Assessment__c, 
                             APT_Credit_Assessment_Status__c, Apttus_Proposal__Opportunity__c,
@@ -143,11 +142,11 @@ public with sharing class APT_SubAccountAssessmentController {
                     accountID = proposal.Apttus_Proposal__Account__c;               
                     subAccount.APT_Organisation__c = proposal.Apttus_Proposal__Account__c;
                 } else {
-                    haserrorMessages = true;
+                    hasErrorMessages = true;
                     ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.MISSING_PROPOSAL));
                 }
             } else {
-                haserrorMessages = true;
+                hasErrorMessages = true;
                 ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.MISSING_PROPOSAL));
             } 
         } 
@@ -228,7 +227,7 @@ public with sharing class APT_SubAccountAssessmentController {
             }
             
         }  catch(Exception ex) {
-            haserrorMessages = true;
+            hasErrorMessages = true;
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
         } 
 
@@ -245,8 +244,6 @@ public with sharing class APT_SubAccountAssessmentController {
         if(String.IsBlank(subAccount.APT_Charge_Account__c) && String.IsBlank(subAccount.APT_Billing_Account__c)){
                 ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.MISSING_CHARGE_ACCOUNT));
         } else {
-            system.debug('*** subAccount ***'+subAccount);
-            
             subAccount.APT_Postal_Address_State__c = mailingAddress.state;
             subAccount.APT_Postal_Address_Street_Postcode__c = mailingAddress.PostCode;
             subAccount.APT_Postal_Address_Suburb__c = mailingAddress.city;
@@ -262,7 +259,6 @@ public with sharing class APT_SubAccountAssessmentController {
             subAccount.APT_Street_Address_Suburb__c = physicalAddress.City;
             subAccount.APT_Street_Address_Country_Code__c = physicalAddress.Country;
             subAccount.APT_Street_Address_Street_Name__c = String.isNotBlank(physicalAddress.Line1) ? physicalAddress.Line1.left(25) : APT_Constants.EMPTY_STRING;
-            System.debug('**subAccount:'+ subAccount);
             
             insert subAccount;
             saveFlag =  true;
@@ -317,8 +313,7 @@ public with sharing class APT_SubAccountAssessmentController {
             }
 
         }  catch(Exception ex) {
-            haserrorMessages = true;
-            System.debug('**Message:'+ ex.getMessage());
+            hasErrorMessages = true;
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
         } 
 
@@ -328,21 +323,20 @@ public with sharing class APT_SubAccountAssessmentController {
     /**
         This method will redirect user to quote/proposal detail page
      */
-    public pageReference backToProposal(){
-     PageReference redirectPage = null; 
-     try {   
-        
-         
-        if(String.isNotBlank(proposalId)) {
-            redirectPage=  new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + proposalId);
-        } else if(isAccountFlow) {
-            redirectPage =  new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + accountID);
-        } else {}
-    }  catch(Exception ex) {
-            haserrorMessages = true;
-            System.debug('**Message:'+ ex.getMessage());
+    public pageReference backToProposal() {
+        PageReference redirectPage = null;
+        try {
+            if (String.isNotBlank(contextId)) {
+                redirectPage = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + contextId);
+            } else if(String.isNotBlank(proposalId)) {
+                redirectPage = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + proposalId);
+            } else if(isAccountFlow) {
+                redirectPage = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + accountID);
+            } else {}
+        }catch(Exception ex) {
+            hasErrorMessages = true;
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
-        } 
+        }
         return redirectPage;        
     }
 }

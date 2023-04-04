@@ -16,45 +16,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>DeliveryOfficerKnowledge__c</picklist>
-        <values>
-            <fullName>Cannot recall</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Recalls - delivered</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Recalls - safe dropped</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>DeliveryOptions__c</picklist>
-        <values>
-            <fullName>BusinessCannot recall</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BusinessRecalls - delivered</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ResidentialCannot recall</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ResidentialRecalls - delivered</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ResidentialRecalls - safe dropped</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Deliveryinformation__c</picklist>
+        <picklist>DeliveryInformation__c</picklist>
         <values>
             <fullName>Accepted by apartment%2Fcomplex concierge</fullName>
             <default>false</default>
@@ -273,6 +235,44 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>DeliveryOfficerKnowledge__c</picklist>
+        <values>
+            <fullName>Cannot recall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recalls - delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recalls - safe dropped</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DeliveryOptions__c</picklist>
+        <values>
+            <fullName>BusinessCannot recall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BusinessRecalls - delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ResidentialCannot recall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ResidentialRecalls - delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ResidentialRecalls - safe dropped</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Qualityofthecase__c</picklist>
         <values>
             <fullName>Average</fullName>
@@ -298,11 +298,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Closed - Required More Information</fullName>
+            <fullName>In Progress</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>In Progress</fullName>
+            <fullName>More information required</fullName>
             <default>false</default>
         </values>
         <values>

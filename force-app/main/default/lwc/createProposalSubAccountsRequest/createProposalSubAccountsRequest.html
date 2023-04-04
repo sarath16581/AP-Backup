@@ -1,21 +1,25 @@
 <!--
-  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
-  * @date         : 06/05/2021
-  * @description  : This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
-  *                 1. It contains logic which checks for existing sub account requests to display form or summary page based upon sub account requests.
-*********************************History*******************************************************************
-06.05.2021    Dheeraj Mandavilli   Created
+  @author Dheeraj Mandavilli
+  @date 2021-05-06
+  @group Controller
+  @tag Controller
+  @domain CreditAssessment
+  @description  : This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
+                   1. It contains logic which checks for existing sub account requests to display form or summary page based upon sub account requests.
+  @Changelog
+  2021-05-06   Dheeraj Mandavilli   Created
+  2023-03-29 Harry Wang - Added support for contextId
 -->
 
 <!-- Create Sub Accounts From Proposal -->
 <template>
     <template if:true={initialLoad}>
         <template if:true={showSubAccountNewForm}>
-            <c-new-proposal-sub-account-request-edit-form record-id={recordId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newsubaccountrecordhandler} oneditsubaccount={editsubaccounthandler} ></c-new-proposal-sub-account-request-edit-form>
+            <c-new-proposal-sub-account-request-edit-form record-id={recordId} context-id={contextId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newsubaccountrecordhandler} oneditsubaccount={editsubaccounthandler} ></c-new-proposal-sub-account-request-edit-form>
         </template>
     </template>
 
     <template if:true={showSubAccountListForm}>
-        <c-new-proposal-sub-account-request-summary record-id={recordId} sub-account-list={subAccountList} onshowformevent={showformeventhandler} oneditsubaccount={editsubaccounthandler}></c-new-proposal-sub-account-request-summary>
+        <c-new-proposal-sub-account-request-summary record-id={recordId} context-id={contextId} sub-account-list={subAccountList} onshowformevent={showformeventhandler} oneditsubaccount={editsubaccounthandler}></c-new-proposal-sub-account-request-summary>
     </template>
 </template>

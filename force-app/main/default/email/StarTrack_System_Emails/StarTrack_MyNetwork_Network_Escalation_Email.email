@@ -10,22 +10,24 @@
 <body style="margin:0; padding:0;">
 	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">You are listed as a point of escalation for
 			{!CaseInvestigation__c.NetworkName__c}</span></h3>
-	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!CaseInvestigation__c.CaseNumber__c} - {!CaseInvestigation__c.Name} has
+	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!CaseInvestigation__c.CaseNumber__c} -
+			{!CaseInvestigation__c.Name} has
 			not received a final resolution from the team at {!CaseInvestigation__c.NetworkName__c} and the customer is
 			waiting on a response.</span></p>
 	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Can you please</span></h3>
 	<ul>
-		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">update the
-				Customer Contact Centre (CCC) by either replying to this email or responding through MyNetwork,
-				or</span></li>
+		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Login to
+				MyNetwork and provide an update to the Customer Contact Centre (CCC), or</span>
+		</li>
 		<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Forward to
-				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they respond to the CCC via this email
-				or MyNetwork.</span></li>
+				appropriate staff at {!CaseInvestigation__c.NetworkName__c}, so they can respond via MyNetwork.</span>
+		</li>
 	</ul>
 	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">No longer the contact?</span></h3>
 	<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">If you are no longer the appropriate contact for
 			{!CaseInvestigation__c.NetworkName__c} please email
-			<a href="mailto:MyNetworkSupport@auspost.com.au">MyNetworkSupport@auspost.com.au</a> with the correct contact's 
+			<a href="mailto:MyNetworkSupport@auspost.com.au">MyNetworkSupport@auspost.com.au</a> with the correct
+			contact's
 			details so we can update our records.</span></p>
 	<h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">MyNetwork access</span></h3>
 	<ul>

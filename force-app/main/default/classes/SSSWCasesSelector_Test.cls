@@ -64,9 +64,10 @@ public with sharing class SSSWCasesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)IssuePreviouslyReported__c.*?\\bfrom Case\\b').matcher(soql).find(), 'Resulting query does not select IssuePreviouslyReported__c field: ' + soql);
 
-		qb = selector.newQueryBuilder(new Set<Object>{SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE});
+		qb = selector.newQueryBuilder(new Set<Object>{SSSWCasesSelector.Options.WITH_NETWORK_RESPONSE, SSSWCasesSelector.Options.WITH_ARTICLE});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom network_responses1__r\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Network_Responses1__r child records: '+soql);
+		System.assertEquals(true, Pattern.compile('(?ism)ArticleTest__r\\.RecordTypeId.*?\\bfrom Case\\b').matcher(soql).find(), 'Resulting query does not select ArticleTest__r fields: ' + soql);
 
 		Test.stopTest();
 

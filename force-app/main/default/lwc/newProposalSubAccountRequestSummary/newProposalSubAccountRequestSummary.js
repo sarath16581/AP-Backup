@@ -1,20 +1,21 @@
-/*
-* @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
-* @date         : 06/05/2021
-* @description  : This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
-*                 1. It contains logic for displaying sub account request records on summary from Proposal flow
-*********************************History*******************************************************************
-06.05.2021    Dheeraj Mandavilli   Created
-04.06.2021    Dheeraj Mandavilli   Added Logic to check sub account request count to navigate to accurate landing page as part of STP-5933.
-*/
-
+/**
+ * @author Dheeraj Mandavilli
+ * @date 2021-05-06
+ * @group Controller
+ * @tag Controller
+ * @domain CreditAssessment
+ * @description This lWC component is used in Sub Account Request creation from Proposal flow. It has following features
+ *              1. It contains logic for displaying sub account request records on summary from Proposal flow
+ * @changelog
+ * 2021-05-06 - Dheeraj Mandavilli - Created
+ * 2021-06-04 - Dheeraj Mandavilli - Added Logic to check sub account request count to navigate to accurate landing page as part of STP-5933.
+ * 2023-03-29 - Harry Wang - Added support for contextId
+ */
 import { LightningElement,track,api} from 'lwc';
-import {refreshApex} from '@salesforce/apex';
 import deleteSubAccounts from '@salesforce/apex/CreateSubAccountsController.deleteSubAccounts';
 import setPendingStatus from '@salesforce/apex/CreateSubAccountsController.setPendingStatus';
 import { NavigationMixin } from 'lightning/navigation';
 import getRelatedSubAccountRequestsforProposal from "@salesforce/apex/CreateSubAccountsController.getRelatedSubAccountRequestsforProposal";
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const COLS=[
     {label:'Parent Billing Account Number',fieldName:'APT_Billing_Account_Number__c', type:'text'},
@@ -31,6 +32,7 @@ export default class NewProposalSubAccountRequestSummary extends NavigationMixin
      @track subAccounts;
      @track showForm ;
      @api recordId;
+     @api contextId;
      @track subAccountRecord;
      @track isModalOpen = false;
      @track isSubmitModalOpen = false;
@@ -161,7 +163,11 @@ export default class NewProposalSubAccountRequestSummary extends NavigationMixin
     }
 
     cancel(){
-        window.location.assign('/'+this.recordId);
+        if (this.contextId){
+            window.location.assign('/'+this.contextId);
+        } else {
+            window.location.assign('/'+this.recordId);
+        }
     }
     showformeventhandler(event){
         console.log('inside shor form handler');
@@ -203,7 +209,7 @@ export default class NewProposalSubAccountRequestSummary extends NavigationMixin
         console.log('SubAccountRequest List:::',this.subAccountRequestsList.length);
         if(this.subAccountRequestsList.length === 0){
             this.isFinalizeModalOpen = false;
-            window.location.assign('/'+this.recordId);
+            this.cancel();
         }else{
             this.isFinalizeModalOpen = false;
             window.location.reload();

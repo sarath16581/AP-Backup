@@ -181,6 +181,8 @@ public inherited sharing class ServiceAdvisorEmailMesEntitlementsModule extends 
 		if(String.isNotBlank(bccAdd)){
 			allEmailList.addAll(bccAdd.split(';'));
 		}
+		system.debug('allEmailList:');
+		system.debug(allEmailList);
 		return allEmailList;
 	}
 	

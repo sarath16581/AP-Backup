@@ -271,7 +271,15 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
+    <constants>
+        <description>Email Id of MS power apps which needs to be blocked</description>
+        <name>MSPowerAppsEmail</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>microsoft@powerapps.com</stringValue>
+        </value>
+    </constants>
     <decisions>
         <description>condition - When a CAR case is created or updated involving specific scenario (excluding created only scenarios).</description>
         <name>CAR_Scenarios</name>
@@ -419,6 +427,13 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.SuppliedEmail</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>MSPowerAppsEmail</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -811,6 +826,7 @@
         </rules>
     </decisions>
     <description>subflow for CaseDomain triggerred from CaseCommon AfterSave flow</description>
+    <environments>Default</environments>
     <formulas>
         <name>vClosedACK</name>
         <dataType>Boolean</dataType>

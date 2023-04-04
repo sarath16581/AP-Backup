@@ -4,6 +4,7 @@
  * @date 2022-11-22
  * @changelog
  * 2023-03-06 - Mahesh Parvathaneni - Added function getStarTrackFormattedDateTimeString
+ * 2023-04-03 - Mahesh Parvathaneni - Added label LABEL_BLANK_CASE_TYPE_ERROR_MESSAGE
  */
 
 // server calls
@@ -17,18 +18,20 @@ import LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE from '@salesforce/label/c.MyNetw
 import LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkInvalidCaseInvestigationErrorMessage';
 import LABEL_INVALID_NETWORK_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkInvalidNetworkErrorMessage';
 import LABEL_BLANK_NETWORK_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkBlankNetworkErrorMessage';
+import LABEL_BLANK_CASE_TYPE_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkBlankCaseTypeErrorMessage';
 
 import { get } from 'c/utils';
 
 
 export const CONSTANTS = {
-    LABEL_CONSIGNMENT_ERROR_MESSAGE: LABEL_CONSIGNMENT_ERROR_MESSAGE,
+	LABEL_CONSIGNMENT_ERROR_MESSAGE: LABEL_CONSIGNMENT_ERROR_MESSAGE,
 	LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE: LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
-    LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE: LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE,
-    LABEL_INVALID_NETWORK_ERROR_MESSAGE: LABEL_INVALID_NETWORK_ERROR_MESSAGE,
-    LABEL_BLANK_NETWORK_ERROR_MESSAGE: LABEL_BLANK_NETWORK_ERROR_MESSAGE,
+	LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE: LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE,
+	LABEL_INVALID_NETWORK_ERROR_MESSAGE: LABEL_INVALID_NETWORK_ERROR_MESSAGE,
+	LABEL_BLANK_NETWORK_ERROR_MESSAGE: LABEL_BLANK_NETWORK_ERROR_MESSAGE,
+	LABEL_BLANK_CASE_TYPE_ERROR_MESSAGE: LABEL_BLANK_CASE_TYPE_ERROR_MESSAGE,
 
-    MY_NETWORK: 'MyNetwork'
+	MY_NETWORK: 'MyNetwork'
 }
 
 
@@ -39,9 +42,9 @@ export const CONSTANTS = {
  */
  export const getArticles = async (caseId) => {
 
-    const result = await getArticlesByCase({
-        caseId: caseId
-    });
+	const result = await getArticlesByCase({
+		caseId: caseId
+	});
 	return result;
 }
 
@@ -52,10 +55,10 @@ export const CONSTANTS = {
  */
  export const submitCaseInvestigations = async (recordsToSave, comments) => {
 
-    const result = await saveCaseInvestigations({
-        recordsToSave: recordsToSave,
-        comments: comments
-    });
+	const result = await saveCaseInvestigations({
+		recordsToSave: recordsToSave,
+		comments: comments
+	});
 	return result;
 }
 
@@ -67,7 +70,7 @@ export const CONSTANTS = {
  * @returns Object
  */
 export const getValue = (record, fieldName, defaultValue) => {
-    return get(record, fieldName, defaultValue);
+	return get(record, fieldName, defaultValue);
 }
 
 /**
@@ -76,7 +79,7 @@ export const getValue = (record, fieldName, defaultValue) => {
  */
 export const getCriticalIncidents = async () => {
 
-    const result = await getCriticalIncidentsKav();
+	const result = await getCriticalIncidentsKav();
 	return result;
 }
 

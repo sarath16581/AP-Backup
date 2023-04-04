@@ -3839,6 +3839,27 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Created date:</value>
     </labels>
     <labels>
+        <fullName>CreditAssessmentRequestClosedOpp</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreditAssessmentRequestClosedOpp</shortDescription>
+        <value>Credit Assessment cannot be created against closed opportunity. To proceed, create a new opportunity record.</value>
+    </labels>
+    <labels>
+        <fullName>CreditAssessmentRequestIncompleteOPC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreditAssessmentRequestIncompleteOPC</shortDescription>
+        <value>Opportunity Classification (OPC) against Primary Proposal is required before conducting a Credit Assessment.&lt;br&gt;&lt;br&gt;Once OPC is completed, hit the Reload button to refresh this tab.</value>
+    </labels>
+    <labels>
+        <fullName>CreditAssessmentRequestPrimaryNotChecked</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreditAssessmentRequestPrimaryNotChecked</shortDescription>
+        <value>Shopping cart against primary proposal needs to be checked out before conducting a Credit Assessment.</value>
+    </labels>
+    <labels>
         <fullName>Credit_Claim_Form_Authorization_Required</fullName>
         <categories>Message</categories>
         <language>en_US</language>
@@ -6617,7 +6638,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <shortDescription>REC_TYPE_DEV_LEGALDSR</shortDescription>
         <value>Legal_Support_Request</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>REC_TYPE_DEV_SSSW_SERVICE</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7935,7 +7956,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MyNetwork Consignment Error Message</shortDescription>
-        <value>This consignment didn&apos;t go through any AusPost MyNetwork</value>
+        <value>None of the articles in this consignment have been scanned at an AusPost facility.</value>
     </labels>
     <labels>
         <fullName>MyNetworkDuplicateCaseInvestigationErrorMessage</fullName>
@@ -7960,5 +7981,13 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>MyNetwork Invalid Network Error Message</shortDescription>
         <value>Network is not available on MyNetwork Portal</value>
+    </labels>
+	<labels>
+        <fullName>MyNetworkBlankCaseTypeErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Blank Case Type Error Message</shortDescription>
+        <value>Case Type is required when creating a case investigation.</value>
     </labels>
 </CustomLabels>

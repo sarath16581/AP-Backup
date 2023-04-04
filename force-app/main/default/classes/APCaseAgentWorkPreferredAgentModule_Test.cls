@@ -5,6 +5,7 @@
  * @changelog
  * 2023-02-16 - George Nguyen - Created
  * 2023-03-18 - Noel Lim - Updated to test routing logic which directly assigns the routed Queue as the Owner, and handle AgentWork with Unavailable status
+ * 2023-03-31 - Noel Lim - Updated processUserResponseForPreferredAgent method to test 2 registerDirty() calls
  * 							
  */
 @IsTest
@@ -83,10 +84,18 @@ class APCaseAgentWorkPreferredAgentModule_Test {
 
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<Case>) fflib_Match.eq(new List<Case>{
-				new Case(Id = records[0].WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false, PreferredAgentExpiry__c = null),
-				new Case(Id = records[3].WorkItemId, OwnerId = queues.values()[0].Id, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = true),
-				new Case(Id = records[4].WorkItemId, OwnerId = queues.values()[0].Id, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = true),
-				new Case(Id = records[5].WorkItemId, OwnerId = queues.values()[0].Id, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = true)
+				new Case(Id = records[0].WorkItemId, BypassPreferredAgent__c = false, AllocateToQueue__c = false, PreferredAgentExpiry__c = null)
+			}),
+			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }),
+			fflib_Match.eqBoolean(true),
+			fflib_Match.eqString(APCaseAgentWorkPreferredAgentModule.class.getName())
+		);
+		
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
+			(List<Case>) fflib_Match.eq(new List<Case>{
+				new Case(Id = records[3].WorkItemId, OwnerId = queues.values()[0].Id, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = true, Bypass_Data_enforcement__c = true),
+				new Case(Id = records[4].WorkItemId, OwnerId = queues.values()[0].Id, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = true, Bypass_Data_enforcement__c = true),
+				new Case(Id = records[5].WorkItemId, OwnerId = queues.values()[0].Id, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = true, Bypass_Data_enforcement__c = true)
 			}),
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }),
 			fflib_Match.eqBoolean(true),
