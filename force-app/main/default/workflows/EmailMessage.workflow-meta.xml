@@ -428,7 +428,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_NCCC_UMS_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Unaddressed_Mail_Inbound</lookupValue>
+        <lookupValue>SSSW_Niche_Common_Group</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign NCCC UMS Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -464,7 +464,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_PBD_Inbound_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_PBD_Inbound_Orders_queue</lookupValue>
+        <lookupValue>SSSW_Niche_Common_Group</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign PBD Inbound Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -502,7 +502,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Test_lab</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Test_Lab</lookupValue>
+        <lookupValue>SSSW_Niche_BOH_Group</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Test lab</name>
         <notifyAssignee>false</notifyAssignee>
@@ -515,7 +515,7 @@
         <fullName>SSSW_Assign_eParcel_Damages</fullName>
         <description>Route cases from eparcelservicecentre@auspost.com.au to SSSW E-Parcel Damages Back Office</description>
         <field>OwnerId</field>
-        <lookupValue>SSSW_E_Parcel_Damages_Back_Office_Queue</lookupValue>
+        <lookupValue>SSSW_Niche_Common_Group</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign eParcel Damages</name>
         <notifyAssignee>false</notifyAssignee>
