@@ -11,14 +11,14 @@ public with sharing class NavigationtoSubAccountRequestFormClass {
 
 
     public String proposalId{get;set;}
+    public String contextId{get;set;}
     public String chargeAccountId;
     Apttus_Proposal__Proposal__c proposal;
 
     public NavigationtoSubAccountRequestFormClass(ApexPages.StandardController controller){
         proposalId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID);
-        system.debug('recordId:::'+proposalId);
+        contextId = ApexPages.currentPage().getParameters().get('contextId');
         chargeAccountId = ApexPages.currentPage().getParameters().get(APT_Constants.PARAM_CHARGE_ACCOUNT_ID);
-        system.debug('chargeAccountId:::'+chargeAccountId);
         }
 
 }

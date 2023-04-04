@@ -7,6 +7,7 @@
  * @description Test Class covering OpportunitySelector
  * @changelog
  * 2020-08-14 - Shashwat.Nath@austpost.com.au - Created
+ * 2023-03-29 - Harry Wang - Added testing for WITH_CHILD_PROPOSALS option
  */
  
 @IsTest
@@ -76,7 +77,8 @@ public with sharing class OpportunitySelector_Test {
 
   Set<SObjectField> opportunityField = new Set<SObjectField>{};
   OpportunitySelector selector2 = OpportunitySelector.newInstance(1,opportunityField);
-  Map<Id, opportunity> results2 = selector2.selectById(oppIds);
+  Map<Id, opportunity> results2 = selector2.selectById(oppIds, new Set<Object>{OpportunitySelector.Options.WITH_CHILD_PROPOSALS
+  });
   System.assertEquals(1, results2.size(), 'Expected result size of 1');
    
   Test.stopTest();

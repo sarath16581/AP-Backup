@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2020-04-10 - arjun.singh@auspost.com.au - Created
+* 2023-02-08 - Harry Wang - Added test method for selectByOpportunityIds and field overrides
 */
 @IsTest
 public with sharing class CreditsAssessmentSelector_Test {
@@ -87,7 +88,6 @@ public with sharing class CreditsAssessmentSelector_Test {
         List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, false);
         insert accountList;
         Account account = accountList[0];
-        Account chargeAccount = accountList[1];
 
         Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
         insert primaryContact;
@@ -126,11 +126,44 @@ public with sharing class CreditsAssessmentSelector_Test {
         System.assertEquals(1, results.size(), 'Result count was wrong');
 
         results = selector.selectById(mappedRecord.keySet(), new Set<Object>{CreditsAssessmentSelector.Options.WITH_OWNER});
-        
         System.assertEquals(1, results.size(), 'Result count was wrong');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
 
-        Test.stopTest();
+        List<APT_Credit_Assessment__c> resultList = selector.selectByProposalOpportunity(new Set<Id>{opportunityRecord.Id}, new Set<Object>{CreditsAssessmentSelector.Options.WITH_PROPOSAL});
+        System.assertEquals(0, resultList.size(), 'Result count was wrong');
 
+        Test.stopTest();
+    }
+
+    /**
+	* Test:
+	*  Ensures that the selectors QueryBuilder is generating the correct output
+	*/
+    @IsTest
+    public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
+        Test.startTest();
+        CreditsAssessmentSelector selector = CreditsAssessmentSelector.newInstance(new Set<SObjectField>{
+                APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.Name
+        });
+        QueryBuilder qb = selector.newQueryBuilder();
+        String soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?ism)\\bName\\b.*?\\bfrom APT_Credit_Assessment__c\\b').matcher(soql).find(), 'Resulting query does not select name from APT_Credit_Assessment__c');
+
+        selector = CreditsAssessmentSelector.newInstance(1, new Set<SObjectField>{
+                APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.Name
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?ism)\\bName\\b.*?\\bfrom APT_Credit_Assessment__c\\b.*?\\blimit 1\\b').matcher(soql).find(), 'Resulting query does not select name from APT_Credit_Assessment__c limit 1');
+
+        selector = CreditsAssessmentSelector.newInstance('Name', 'Desc', 1);
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Credit_Assessment__c\\b.*?\\border by Name DESC\\b.*?\\blimit 1\\b').matcher(soql).find(), 'Resulting query does not select from APT_Credit_Assessment__c order by name limit 1');
+
+        Test.stopTest();
     }
 }

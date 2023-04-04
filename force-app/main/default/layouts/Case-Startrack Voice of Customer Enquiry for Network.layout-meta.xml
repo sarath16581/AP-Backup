@@ -300,7 +300,7 @@
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
-        <fields>Article__c</fields>
+        <fields>ReferenceID__c</fields>
         <fields>Status__c</fields>
         <fields>Network__c</fields>
         <relatedList>CaseInvestigation__c.Case__c</relatedList>
