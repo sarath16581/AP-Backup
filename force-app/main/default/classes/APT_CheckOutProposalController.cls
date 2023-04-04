@@ -7,6 +7,7 @@
  * Modifications Log 
  * Ver   Date         Author       Modification      Description
  * 1.0   05-21-2021   Mansi Shah   Initial Version   This class will be called from APT_CheckOut_RedirectToOpportunity Page.
+ * 2023.03.30	Naveen Rajanna	INC1994315- Method redirectToOpportunity - Fixed System.ListException and added more null checks
 **/
 public class APT_CheckOutProposalController {
     public boolean isOpportunityNotPresent {get;set;}
@@ -84,37 +85,43 @@ public class APT_CheckOutProposalController {
     * @return PageReference 
     **/
     public PageReference redirectToOpportunity(){
-        finalizeProposal();
-        
-        //if(!Test.isRunningTest()) 
-        {
-        //date quoteValidityEndDate = APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}).values()[0].Apttus_QPConfig__AttributeValueId__r.Applied_PSR__r.Quote_Validity_End_Date__c;
-       // Id ProposalId=APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}).values()[0].Apttus_Proposal__Proposal__c;
-       // date proposalCreateddate=date.valueof(APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}).values()[0].Apttus_Proposal__Proposal__r.createddate);
-     
-        Apttus_Proposal__Proposal_Line_Item__c proposalLineItem = APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}, new Set<Object>{APT_ProposalLineItemSelector.Options.WITH_PROPOSAL, APT_ProposalLineItemSelector.Options.WITH_APTTUS_CONFIG_ATTRIBUTE_VALUE}).values()[0];
-        date quoteValidityEndDate = proposalLineItem.Apttus_QPConfig__AttributeValueId__r.Applied_PSR__r.Quote_Validity_End_Date__c;
-         Id ProposalId=proposalLineItem.Apttus_Proposal__Proposal__c;
-         date proposalCreateddate=date.valueof(proposalLineItem.Apttus_Proposal__Proposal__r.createddate);
-         
-        Apttus_Proposal__Proposal__c Proposal= new Apttus_Proposal__Proposal__c();
-        Proposal.id=ProposalId;
-        if(quoteValidityEndDate!=null)
-        {
-        Proposal.Apttus_Proposal__Proposal_Expiration_Date__c=quoteValidityEndDate;
-        }
-        else{
-        Proposal.Apttus_Proposal__Proposal_Expiration_Date__c=proposalCreateddate.AddDays(APT_Constants.PARAM_CONTRACT_EXP_DAYS);
-        }
-        
-        update proposal;
-        }
-         
-        PageReference pageRef;
-        if(prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c != null){
-           pageRef = new PageReference(instanceURL+'/' + prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c); 
-           pageRef.setRedirect(true);
-        }
-        return pageRef;
+		try {
+			finalizeProposal();
+			
+			// INC1994315 - Fixed System.ListException and added more null checks
+			// Update Proposal Expiration Date if Proposal Line Item exists
+			List<Apttus_Proposal__Proposal_Line_Item__c> proposalLineItemList = APT_ProposalLineItemSelector.newInstance(1)
+				.selectByConfigId(
+					new Set<Id>{configurationId}, 
+					new Set<Object>{APT_ProposalLineItemSelector.Options.WITH_PROPOSAL, APT_ProposalLineItemSelector.Options.WITH_APTTUS_CONFIG_ATTRIBUTE_VALUE})
+				.values();
+
+			if(!proposalLineItemList.isEmpty()) {
+				Date quoteValidityEndDate = proposalLineItemList[0].Apttus_QPConfig__AttributeValueId__r?.Applied_PSR__r?.Quote_Validity_End_Date__c;
+				// If Quote Validity End date doesn't exist, then add certain days to Proposal CreatedDate
+				Date proposalExpirationDate = quoteValidityEndDate != null 
+												? quoteValidityEndDate
+												: (Date.valueof(proposalLineItemList[0].Apttus_Proposal__Proposal__r?.Createddate)).AddDays(APT_Constants.PARAM_CONTRACT_EXP_DAYS);
+
+				List<Apttus_Proposal__Proposal__c> updateable = new List<Apttus_Proposal__Proposal__c>();
+				updateable.add(
+					new Apttus_Proposal__Proposal__c(
+						Id = Id.valueOf(proposalLineItemList[0].Apttus_Proposal__Proposal__c),
+						Apttus_Proposal__Proposal_Expiration_Date__c = proposalExpirationDate
+					)
+				);
+
+				ApplicationDatabase.getInstance().dmlUpdate(updateable);
+			}
+			
+			PageReference pageRef;
+			if(prodConfig.Apttus_QPConfig__Proposald__r?.Apttus_Proposal__Opportunity__c != null){ // INC1994315
+			pageRef = new PageReference(instanceURL+'/' + prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c); 
+			pageRef.setRedirect(true);
+			}
+			return pageRef;
+		} catch (Exception ex) {
+			throw new AuraHandledException(ex.getMessage());
+		}
     }
 }
