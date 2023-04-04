@@ -7,7 +7,7 @@
  * @changelog
  */
 
-public inherited sharing class FeedCommentCaseInvestigationModule {
+public inherited sharing class FeedCommentCaseInvestigationModule extends ApplicationDomain.Module {
 
 	public static FeedCommentCaseInvestigationModule newInstance() {
 		return (FeedCommentCaseInvestigationModule) Application.Utilities.newInstance(FeedCommentCaseInvestigationModule.class);
