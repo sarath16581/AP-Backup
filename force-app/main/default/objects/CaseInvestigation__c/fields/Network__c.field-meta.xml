@@ -20,7 +20,7 @@
     <relationshipName>Case_Investigations</relationshipName>
     <required>true</required>
 	<securityClassification>INTERNAL</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
+    <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
