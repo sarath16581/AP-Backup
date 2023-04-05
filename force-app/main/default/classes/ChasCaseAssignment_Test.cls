@@ -14,37 +14,7 @@ public class ChasCaseAssignment_Test {
     @testSetup
     public static void setupTestData()
     {
-        List<String> groupNames = new List<String>{
-                'SSSW High Level Complaints',
-                'SSSW Customer Recovery',
-                'SSSW Snap It Inbound',
-                'SSSW Snap It Back Office',
-                'SSSW MyPost Business Inbound',
-                'SSSW MyPost Business Back Office',
-                'SSSW Damages Back Office',
-                'SSSW Load & Go',
-                'SSSW MyPost',
-                'SSSW Consumer Back Office Disputed Del',
-                'SSSW PBD Inbound Orders queue',
-                'SSSW MyPost Digital Mailbox',
-                'SSSW Shopmate',
-                'SSSW Enterprise Inbound',
-                'SSSW Business Inbound',
-                'SSSW International Inbound Std Track',
-                'SSSW International Inbound',
-                'SSSW International ECI Back Office',
-                'SSSW International Back Office',
-                'SSSW Unaddressed Mail Inbound',
-                'SSSW Unaddressed Mail Back Office',
-                'SSSW Enterprise Back Office',
-                'SSSW Business Back Office',
-                'SSSW Consumer Inbound',
-                'SSSW Consumer Back Office Spec Del',
-                'SSSW Consumer Back Office Delivery Compl',
-                'SSSW Consumer Back Office Premium',
-                'SSSW Consumer Back Office Standard',
-                'SSSW Consumer Back Office Fin & Trav',
-                'SSSW Consumer Back Office Other',
+        List<String> groupNames = new List<String>{                
                 ChasCaseAssignment.SSSW_NETWORK_QUEUE
         };
 
