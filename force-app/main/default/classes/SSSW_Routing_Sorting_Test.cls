@@ -24,37 +24,9 @@ public with sharing class SSSW_Routing_Sorting_Test {
     private static void createTestData() {
         List<String> groupNames = new List<String>{
             'SSSW High Level Complaints',
-            'SSSW Customer Recovery',
-            'SSSW Snap It Inbound',
-            'SSSW Snap It Back Office',
-            'SSSW MyPost Business Inbound',
-            'SSSW MyPost Business Back Office',
-            'SSSW Damages Back Office',
-            'SSSW Load & Go',
-            'SSSW MyPost',
-            'SSSW Consumer Back Office Disputed Del',
-            'SSSW PBD Inbound Orders queue',
-            'SSSW MyPost Digital Mailbox',
-            'SSSW Shopmate',
-            'SSSW Enterprise Inbound',
-            'SSSW Business Inbound',
-            'SSSW International Inbound Std Track',
-            'SSSW International Inbound',
-            'SSSW International ECI Back Office',
-            'SSSW International Back Office',
-            'SSSW Unaddressed Mail Inbound',
-            'SSSW Unaddressed Mail Back Office',
-            'SSSW Enterprise Back Office',
-            'SSSW Business Back Office',
-            'SSSW Consumer Inbound',
-            'SSSW Consumer Back Office Spec Del',
-            'SSSW Consumer Back Office Delivery Compl',
-            'SSSW Consumer Back Office Premium',
-            'SSSW Consumer Back Office Standard',
-            'SSSW Consumer Back Office Fin & Trav',
-            'SSSW Consumer Back Office Other',
-            'SSSW Extra Cover',
-			'SSSW Consumer Back Office High Priority'
+			'SSSW Customer Recovery',
+			'SSSW FOH Group 2',
+			'SSSW BOH Group 2'
         };
 
         Profile adminProf = [select Id from Profile where Name = 'System Administrator'];
@@ -116,14 +88,14 @@ public with sharing class SSSW_Routing_Sorting_Test {
         //Routing rule for Prod Cat, Sub Cat, Enq type, sub Type
         routingRule = TestUtility.createSSSWRouting('International Letters','eParcel- Express','General Enquiry','Item transfer',null,null,'ALL',SSSWConstants.RECTYPEROUTING);
         routingRule.IsActive__c = True;
-        routingRule.Queue_ID__c = nameToQId.get('SSSW International Inbound');
+        routingRule.Queue_ID__c = nameToQId.get('SSSW FOH Group 2');
         routingRule.Sequence__c = 3;
         routesToInsert.add(routingRule);
 
         //Routing rule for cust type Consumer
         routingRule = TestUtility.createSSSWRouting(null,'Mail redirection',null,null,'Consumer','Internal form','ALL',SSSWConstants.RECTYPEROUTING);
         routingRule.IsActive__c = True;
-        routingRule.Queue_ID__c = nameToQId.get('SSSW Consumer Back Office High Priority');
+        routingRule.Queue_ID__c = nameToQId.get('SSSW BOH Group 2');
         routingRule.Sequence__c = 4;
         routesToInsert.add(routingRule);
 
@@ -282,13 +254,13 @@ public with sharing class SSSW_Routing_Sorting_Test {
             }
             if(cs.CustomerQueueType__c == 'Consumer' && cs.Origin == 'Internal form'){
                 System.debug('Consumer caseOwner---->'+cs.ownerId);
-                System.debug('nameToQId.get(\'SSSW Consumer Back Office High Priority\')--->'+nameToQId.get('SSSW Consumer Back Office High Priority'));
-                System.assertEquals(nameToQId.get('SSSW Consumer Back Office High Priority'), cs.ownerId, 'Expected SSSW Consumer Back Office High Priority');
+                System.debug('nameToQId.get(\'SSSW BOH Group 2\')--->'+nameToQId.get('SSSW BOH Group 2'));
+                System.assertEquals(nameToQId.get('SSSW BOH Group 2'), cs.ownerId, 'Expected SSSW BOH Group 2');
             }
             if(cs.ProductCategory__c == 'International Letters'){
                 System.debug('International caseOwner---->'+cs.ownerId);
-                System.debug('nameToQId.get(\'SSSW International Inbound\')--->'+nameToQId.get('SSSW International Inbound'));
-                System.assertEquals(nameToQId.get('SSSW International Inbound'), cs.ownerId, 'Expected SSSW International Inbound');
+                System.debug('nameToQId.get(\'SSSW FOH Group 2\')--->'+nameToQId.get('SSSW FOH Group 2'));
+                System.assertEquals(nameToQId.get('SSSW FOH Group 2'), cs.ownerId, 'Expected SSSW FOH Group 2');
             }
             if(cs.EnquirySubType__c == 'Staff Complaint' || cs.EnquirySubType__c == 'Damage to property'){
                 Boolean b1 = SSSW_Routing.checkAutoEscalate(cs);
