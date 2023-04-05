@@ -85,7 +85,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 			for(Case csRec : casesForTrackingLogic){
 				oldCasesForTrackingLogic.put(csRec.Id, new Case(
 					Id = csRec.Id, 
-					OwnerId = caseSourceOmniQueue.get(csRec.Id),
+					OwnerId = caseSourceOmniQueue?.get(csRec.Id),
 					Status = csRec.Status
 				));
 			}
