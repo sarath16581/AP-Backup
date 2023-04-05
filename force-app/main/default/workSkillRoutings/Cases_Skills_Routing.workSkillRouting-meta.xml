@@ -48,58 +48,9 @@
     <workSkillRoutingAttributes>
         <field>Case.EnquirySubType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Delivery complaint</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Item transfer</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Special_Delivery</skill>
         <skillLevel>5</skillLevel>
         <value>Redirection Failure</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Disputed delivery scan</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>All Other</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Product &amp; service information</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Tracking</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Premium Express Parcel</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>
@@ -118,44 +69,9 @@
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>eParcel- Express</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Express</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
         <skill>My_Post</skill>
         <skillLevel>5</skillLevel>
         <value>My Post ID card</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Express Post</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Registered Post</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Standard</skill>
-        <skillLevel>5</skillLevel>
-        <value>Express Platinum</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>
