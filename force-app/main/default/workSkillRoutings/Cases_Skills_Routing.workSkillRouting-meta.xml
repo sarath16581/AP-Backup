@@ -213,21 +213,21 @@
         <skillLevel>5</skillLevel>
         <value>Consumer</value>
     </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
+	<workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Enterprise</skill>
         <skillLevel>5</skillLevel>
         <value>Enterprise</value>
     </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
+	<workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>MyPost_Business</skill>
         <skillLevel>5</skillLevel>
         <value>MyPost Business</value>
     </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
+	<workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Business</skill>
@@ -290,14 +290,14 @@
         <skillLevel>5</skillLevel>
         <value>Domestic Letters</value>
     </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
+	<workSkillRoutingAttributes>
         <field>Case.ProductCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>International</skill>
         <skillLevel>5</skillLevel>
         <value>International Letters</value>
     </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
+	<workSkillRoutingAttributes>
         <field>Case.ProductCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>International</skill>
