@@ -8,7 +8,7 @@
 
  @IsTest
 private class FeedCommentCaseInvestigationModule_Test {
-    
+	
 	/**
 	 * Test: Ensure that the case investigations are updated when feed comment is created by the startrack support user
 	 */

@@ -1,12 +1,12 @@
 /**
-  * @author			: nandan.narasappa@auspost.com.au
-  * @date			: 03/07/2015
-  * @description	: Trigger on FeedComment  Object to call the Handler class to perform necessary action
-  * @change log
-  * 04/04/2023 - Mahesh Parvathaneni - Added domain based trigger framework.
-  */
+* @author			: nandan.narasappa@auspost.com.au
+* @date			: 03/07/2015
+* @description	: Trigger on FeedComment  Object to call the Handler class to perform necessary action
+* @change log
+* 04/04/2023 - Mahesh Parvathaneni - Added domain based trigger framework.
+*/
 trigger FeedCommentTrigger on FeedComment(before insert,before update,before delete,
-											after insert,after update,after delete,after undelete){    
+											after insert,after update,after delete,after undelete){
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(FeedComment.sObjectType))){	// verify if triggers are disabled
 		FeedCommentTriggerHandler.execute();  // FeedComment  handler dispatches appropriate event
 

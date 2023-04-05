@@ -22,5 +22,5 @@ private class FeedCommentTriggerHandler2_Test {
 		System.assert(FeedCommentTriggerHandler2.getUnitOfWorkSObjectTypes().contains(FeedComment.SObjectType), 'Expected valid list of sobject types to be returned');
 		System.assert(FeedCommentTriggerHandler2.getUnitOfWorkSObjectTypes().contains(CaseInvestigation__c.SObjectType), 'Expected valid list of sobject types to be returned');
 	}
-    
+	
 }

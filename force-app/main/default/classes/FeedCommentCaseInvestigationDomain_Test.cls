@@ -8,7 +8,7 @@
 
 @IsTest
 private class FeedCommentCaseInvestigationDomain_Test {
-    
+	
 	/**
 	 * @test: Ensure modules are registered with domain class.
 	 */
