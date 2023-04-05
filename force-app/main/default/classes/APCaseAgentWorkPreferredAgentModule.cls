@@ -8,7 +8,9 @@
  * @changelog
  * 2023-02-16 - George Nguyen - Created.
  * 2023-03-18 - Noel Lim - Updated routing logic, to directly assign the routed Queue as the Owner.
- * 2023-03-31 - Noel Lim - Updated to implement 2 registerDirty() calls
+ * 2023-03-31 - Noel Lim - Updated processUserResponseForPreferredAgent method to
+ 							 a) implement 2 registerDirty() calls
+							 b) generate Status Tracking records on Accept
  */
 public inherited sharing class APCaseAgentWorkPreferredAgentModule extends ApplicationDomain.Module {
 	public static APCaseAgentWorkPreferredAgentModule newInstance() {
@@ -38,21 +40,31 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	* - Unavailable (when User sets their Omni Status to Offline or closes the console).
 	*
 	* 2 registerDirty calls are needed due to different registered fields to update.
+	* Status Tracking records need to be generated manually on Accept because when Omni pushes a Case, it updates the Case Owner to an Agent but no Case triggers are fired.
 	*/
 	private void processUserResponseForPreferredAgent(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
-		List<Case> casesToUpdate = new List<Case>();
+		
+		Set<Id> caseIdsAccepted = new Set<Id>();
+		List<Case> casesAccepted = new List<Case>();
+		Map<Id,Id> caseSourceOmniQueue = new Map<Id,Id>();
+		
+		List<Case> casesForTrackingLogic = new List<Case>();
+		Map<Id,Case> oldCasesForTrackingLogic = new Map<Id,Case>();
+
 		Set<Id> caseIdsToReroute = new Set<Id>();
 		List<Case> casesToReroute = new List<Case>();
 
 		for(AgentWork aw: records) {
 			if(aw.Status != existingRecords.get(aw.Id).Status) {
 				if(SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED.equalsIgnoreCase(aw.Status)) {
-					casesToUpdate.add(new Case(
+					casesAccepted.add(new Case(
 						Id = aw.WorkItemId, 
 						BypassPreferredAgent__c = false, 
 						AllocateToQueue__c = false,
 						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
+					caseIdsAccepted.add(aw.WorkItemId);
+					caseSourceOmniQueue.put(aw.WorkItemId,aw.OriginalGroupId);
 
 				// AgentWork with a PreferredUserId (i.e. no OriginalGroupId) will remain with the User on Decline.
 				// We need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
@@ -65,6 +77,26 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 			}
 		}
 
+		if(caseIdsAccepted.isEmpty() == false){
+			
+			Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{Case.OwnerId,Case.Status,Case.RecordTypeId,Case.Network__c,Case.NetworkComments__c,Case.Network_Response__c}).selectById(caseIdsAccepted); //Case Owner will be the Agent
+			casesForTrackingLogic.addAll(cases.values());
+
+			for(Case csRec : casesForTrackingLogic){
+				oldCasesForTrackingLogic.put(csRec.Id, new Case(
+					Id = csRec.Id, 
+					OwnerId = caseSourceOmniQueue.get(csRec.Id),
+					Status = csRec.Status
+				));
+			}
+		}
+		if(casesAccepted.isEmpty() == false) {
+			uow.registerDirty(casesAccepted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
+			
+			CaseTrackingHelper trackingUtility = new CaseTrackingHelper();
+			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic, oldCasesForTrackingLogic);
+		}
+
 		if(caseIdsToReroute.isEmpty() == false){
 			
 			Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>(SSSW_Routing.caseFieldsForRouting)).selectById(caseIdsToReroute);
@@ -73,14 +105,10 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 			//This is necessary as there is logic in CaseCommonUtility.routeCase() that prevents routing of open Cases assigned to a User.
 			casesToReroute.addAll(routeDeclinedCases(cases).values());
 		}
-
-		if(casesToUpdate.isEmpty() == false) {
-			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
-		}
-
 		if(casesToReroute.isEmpty() == false) {
 			uow.registerDirty(casesToReroute, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
 		}
+		
 	}
 
 	/**
