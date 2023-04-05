@@ -32,20 +32,6 @@
         <value>Social Business</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.Origin</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>CCS_General</skill>
-        <skillLevel>5</skillLevel>
-        <value>Assisted Referrals</value>
-    </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
-        <field>Case.Origin</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>CCS_Threats</skill>
-        <skillLevel>5</skillLevel>
-        <value>Internal Specialist Threat - Email</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
         <field>Case.Status</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Compensation_Assessment</skill>
@@ -107,20 +93,6 @@
         <skill>Standard</skill>
         <skillLevel>5</skillLevel>
         <value>Tracking</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Damages</skill>
-        <skillLevel>5</skillLevel>
-        <value>Facility reported damages</value>
-    </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>CCS_General</skill>
-        <skillLevel>5</skillLevel>
-        <value>Customer Care Specialist</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>
@@ -227,41 +199,6 @@
         <skillLevel>5</skillLevel>
         <value>Online shop</value>
     </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Unaddressed_Mail</skill>
-        <skillLevel>5</skillLevel>
-        <value>Unaddressed Mail</value>
-    </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Unaddressed_Mail</skill>
-        <skillLevel>5</skillLevel>
-        <value>UMCS</value>
-    </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Unaddressed_Mail</skill>
-        <skillLevel>5</skillLevel>
-        <value>Premium Unaddressed Mail</value>
-    </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Stationery_Orders</skill>
-        <skillLevel>5</skillLevel>
-        <value>Stationery and packaging</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Firearms</skill>
-        <skillLevel>5</skillLevel>
-        <value>Secure Accept and Collect</value>
-    </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.LinkedArticleHasExtraCover__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
@@ -276,21 +213,21 @@
         <skillLevel>5</skillLevel>
         <value>Consumer</value>
     </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Enterprise</skill>
         <skillLevel>5</skillLevel>
         <value>Enterprise</value>
     </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>MyPost_Business</skill>
         <skillLevel>5</skillLevel>
         <value>MyPost Business</value>
     </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Business</skill>
@@ -353,14 +290,14 @@
         <skillLevel>5</skillLevel>
         <value>Domestic Letters</value>
     </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
         <field>Case.ProductCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>International</skill>
         <skillLevel>5</skillLevel>
         <value>International Letters</value>
     </workSkillRoutingAttributes>
-	<workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
         <field>Case.ProductCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>International</skill>
