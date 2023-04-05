@@ -7,7 +7,7 @@
     <label>Status</label>
     <required>false</required>
 	<securityClassification>INTERNAL</securityClassification>
-    <trackFeedHistory>true</trackFeedHistory>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
