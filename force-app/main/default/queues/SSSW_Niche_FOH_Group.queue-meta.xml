@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
-    <name>SSSW Unaddressed Mail Inbound</name>
-    <queueMembers>
-        <users>
-			<user>danielle.larson@auspost.com.au</user>
-        </users>
-    </queueMembers>
+    <name>SSSW Niche FOH Group</name>
+    <queueRoutingConfig>AP_SSSW_Niche_FOH_Group</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
