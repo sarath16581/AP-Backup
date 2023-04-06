@@ -5,6 +5,7 @@
     <deleteConstraint>Restrict</deleteConstraint>
 	<description>This field is used to associate a Case Investigation with the Network where the contact facility is of MyNetwork.</description>
     <externalId>false</externalId>
+	<inlineHelpText>Change the network name and 'Save Update' to re-assign this case investigation to another facility.</inlineHelpText>
     <label>Network</label>
     <lookupFilter>
         <active>true</active>
@@ -20,7 +21,7 @@
     <relationshipName>Case_Investigations</relationshipName>
     <required>true</required>
 	<securityClassification>INTERNAL</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
+    <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

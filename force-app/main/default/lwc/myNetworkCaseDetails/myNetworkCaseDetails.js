@@ -9,6 +9,7 @@
  * 2023-03-02 - Dattaraj Deshmukh - Added 'caseInvestigationActiveSections' and 'caseActiveSections' properties to toggle active sections.
  * 2023-03-10 - Dattaraj Deshmukh - Added 'OWNER_NAME_FIELD' for a case to display case's owner name.
  * 2023-03-31 - Mahesh Parvathaneni - Added Initial contact fields under More Details for case investigation
+ * 2023-04-05 - Mahesh Parvathaneni - Removed the field WEB_EMAIL_FIELD from More Details section
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
@@ -54,7 +55,6 @@ import RELATED_BILLING_ACCOUNT_FIELD from '@salesforce/schema/Case.Related_Billi
 import NETWORK_FIELD from '@salesforce/schema/Case.Network__c';
 import OWNER_NAME_FIELD from '@salesforce/schema/Case.Calc_Owner_Name__c';
 import DESCRIPTION_OF_PACKAGING_FIELD from '@salesforce/schema/Case.Description_of_packaging__c';
-import WEB_EMAIL_FIELD from '@salesforce/schema/Case.SuppliedEmail';
 import INITIAL_CONTACT_FIRST_NAME_FIELD from '@salesforce/schema/Case.Initial_Caller_First_Name__c';
 import INITIAL_CONTACT_LAST_NAME_FIELD from '@salesforce/schema/Case.Initial_Caller_Last_Name__c';
 import INITIAL_CONTACT_MOBILE_FIELD from '@salesforce/schema/Case.Initial_Contact_Mobile_Number__c';
@@ -151,7 +151,6 @@ export default class CaseDetails extends LightningElement {
 		NETWORK_FIELD,
 		OWNER_NAME_FIELD,
 		DESCRIPTION_OF_PACKAGING_FIELD,
-		WEB_EMAIL_FIELD,
 		INITIAL_CONTACT_FIRST_NAME_FIELD,
 		INITIAL_CONTACT_LAST_NAME_FIELD,
 		INITIAL_CONTACT_MOBILE_FIELD,
