@@ -5,7 +5,10 @@
  * @changelog
  */
 public inherited sharing class FeedCommentTriggerHandler2 extends ApplicationDomainTriggerHandler {
-	
+	public static FeedCommentTriggerHandler2 newInstance() {
+		return (FeedCommentTriggerHandler2) Application.Utilities.newInstance(FeedCommentTriggerHandler2.class);
+	}
+
 	public override SObjectType getSObjectType() {
 		return FeedComment.SObjectType;
 	}

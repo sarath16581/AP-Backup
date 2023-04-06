@@ -1,5 +1,5 @@
 /**
- * @description			: Test class for STCINetworkMilestoneViolationModule
+ * @description			: Test class for FeedCommentCaseInvestigationModule
  * @author				: Mahesh Parvathaneni
  * @domain				: Case Investigation
  * @changelog

@@ -12,7 +12,7 @@ trigger FeedCommentTrigger on FeedComment(before insert,before update,before del
 
 		//calling domain base trigger dispatch
 		//All future implementation should use Domain based approach to call trigger handler and its logic.
-		(new FeedCommentTriggerHandler2()).dispatch();
+		FeedCommentTriggerHandler2.newInstance().dispatch();
 	}
 												
 	if(trigger.isAfter && (trigger.isInsert || trigger.isUpdate)){
