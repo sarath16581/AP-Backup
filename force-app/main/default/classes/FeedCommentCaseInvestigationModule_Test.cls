@@ -47,12 +47,21 @@ private class FeedCommentCaseInvestigationModule_Test {
 			Test.startTest();
 
 			FeedCommentCaseInvestigationModule module = FeedCommentCaseInvestigationModule.newInstance();
+			Datetime dt = module.currentTime;
 			module.onAfterInsert(feedComments, mockUow);
 
 			Test.stopTest();
 
 			//verifying registerDirty is CALLED
-			((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<SObject>) fflib_Match.anyObject());
+			((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
+			(List<CaseInvestigation__c>) fflib_Match.eq(new List<CaseInvestigation__c>{
+				new CaseInvestigation__c(Id = caseInvestigations[0].Id, LastContactCentreUpdate__c = dt, Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, RequireMoreInformation__c = false),
+				new CaseInvestigation__c(Id = caseInvestigations[1].Id, LastContactCentreUpdate__c = dt, Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, RequireMoreInformation__c = false)
+			}),
+			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.Status__c, CaseInvestigation__c.RequireMoreInformation__c }),
+			fflib_Match.eqBoolean(true),
+			fflib_Match.eqString(FeedCommentCaseInvestigationModule.class.getName())
+		);
 
 			// PMD by-pass
 			System.assert(true, 'PMD by-pass');

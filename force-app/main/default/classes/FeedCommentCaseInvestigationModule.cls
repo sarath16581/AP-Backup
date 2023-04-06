@@ -18,6 +18,17 @@ public inherited sharing class FeedCommentCaseInvestigationModule extends Applic
 		getTriggerEvents().enableAfterInsert();
 	}
 
+	@TestVisible
+	private Datetime currentTime {
+		get{
+			if(currentTime == null){
+				currentTime = System.now();
+			}
+			return currentTime;
+		}
+		private set;
+	}
+
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
 			updateCaseInvestigations(records, uow);
@@ -44,17 +55,18 @@ public inherited sharing class FeedCommentCaseInvestigationModule extends Applic
 				caseInvestigationIds.add(fComment.ParentId);
 			}
 
+			Datetime currentTimeStamp = currentTime;
 			for (Id ciId : caseInvestigationIds) {
 				//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
 				//by users with 'StarTrack Support' profiles.
 				//update Status__c field to 'In Progress' and RequireMoreInformation__c field to false
-				caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = ciId, LastContactCentreUpdate__c = System.now(), 
+				caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = ciId, LastContactCentreUpdate__c = currentTimeStamp, 
 						Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS , RequireMoreInformation__c = false));
 			}
 
 			if(!caseInvestigationToUpdate.isEmpty()){
 				//update case investigation records.
-				uow.registerDirty(caseInvestigationToUpdate);
+				uow.registerDirty(caseInvestigationToUpdate, new List<SObjectField>{ CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.Status__c, CaseInvestigation__c.RequireMoreInformation__c}, true, FeedCommentCaseInvestigationModule.class.getName());
 			}
 		}
 	}

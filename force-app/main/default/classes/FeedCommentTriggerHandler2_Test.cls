@@ -15,9 +15,11 @@ private class FeedCommentTriggerHandler2_Test {
 	private static void test() {
 
 		FeedCommentTriggerHandler2 handler = new FeedCommentTriggerHandler2();
+		List<Type> types = handler.registerDomains();
 
 		System.assertNotEquals(null, handler.newUnitOfWork(), 'Expected a valid instance of ApplicationUnitOfWork but got null');
-		System.assertNotEquals(null, handler.registerDomains(), 'Expected valid list of domain types to be returned');
+		System.assertNotEquals(null, types, 'Expected valid list of domain types to be returned');
+		System.assertEquals(true, types.contains(FeedCommentCaseInvestigationDomain.class), 'Expected FeedCommentCaseInvestigationDomain class type returned');
 		System.assertEquals(FeedComment.SObjectType, handler.getSObjectType(), 'Expected FeedComment sobject type');
 		System.assert(FeedCommentTriggerHandler2.getUnitOfWorkSObjectTypes().contains(FeedComment.SObjectType), 'Expected valid list of sobject types to be returned');
 		System.assert(FeedCommentTriggerHandler2.getUnitOfWorkSObjectTypes().contains(CaseInvestigation__c.SObjectType), 'Expected valid list of sobject types to be returned');
