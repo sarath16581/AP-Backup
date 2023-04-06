@@ -64,6 +64,7 @@ trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before i
                                 APT_Bundle_Product_Name__c, 
                                 Apttus_Proposal__Product__r.name, 
                                 Apttus_Proposal__Product__r.APT_Product_Lines__c,
+								Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
                                 Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c 
                             FROM Apttus_Proposal__R00N70000001yUfBEAU__r) 
                         FROM Apttus_Proposal__Proposal__c
