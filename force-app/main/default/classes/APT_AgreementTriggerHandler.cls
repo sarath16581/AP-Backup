@@ -117,9 +117,36 @@ public with sharing class APT_AgreementTriggerHandler{
         Set<String>productLinesSet = new Set<String>();
         for(Apttus_Proposal__Proposal_Line_Item__c pli : pLineItems){
             //get the product record if the config type is not option and the product line items tagged on it.
-            if(!string.isBlank(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c) && pli.Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c != 'Option'){
-                productLinesSet.add(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c);
-            }
+			if (!pli.APT_Bundle_Product_Name__c.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_POST_BILLPAY)){
+				system.debug('DDDD contract APPC products');
+				if(!string.isBlank(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c) && pli.Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c != 'Option'){
+					productLinesSet.add(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c);
+				}
+		 	} else
+			{
+				// Post Billpay channel selection on cart
+				system.debug('DDDD contract Post billpay product');
+				if (!String.isBlank(pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c)) {
+					Set<String> postBillpaySet = new Set<String>();
+					String[] selectedChannels = pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c.split(';');
+
+					for (String channel : selectedChannels) {
+						if (channel.equalsIgnoreCase(APT_Constants.POST_BILLPAY_CHANNEL_OTC)) {
+							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_OTC);
+						} else if (channel.equalsIgnoreCase(APT_Constants.POST_BILLPAY_CHANNEL_PHONE)) {
+							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_PHONE);
+						} else if (channel.equalsIgnoreCase(APT_Constants.POST_BILLPAY_CHANNEL_INTERNET)) {
+							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_INTERNET);
+						} else if (channel.equalsIgnoreCase(APT_Constants.PPOST_BILLPAY_CHANNEL_SCANPAY)) {
+							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_SCANPAY);
+						}
+					}
+
+					// Add the Post Billpay values to the Set
+					productLinesSet.addAll(postBillpaySet);
+					system.debug('DDDD product lines set>>'+productLinesSet );
+				}
+			}
         }
         return productLinesSet.isEmpty() ? null : String.join(new List<String>(productLinesSet), ';');        
     }
