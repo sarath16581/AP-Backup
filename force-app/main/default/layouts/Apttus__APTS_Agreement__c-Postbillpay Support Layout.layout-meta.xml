@@ -154,6 +154,10 @@
                 <behavior>Edit</behavior>
                 <field>APT_Minimum_Trading_levels_per_month__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Operational_Schedule__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -703,6 +707,10 @@
         <relatedList>Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_CMDSign__AgreementId__c</relatedList>
         <sortField>Apttus_DocuApi__SigningOrder__c</sortField>
         <sortOrder>Asc</sortOrder>
+    </relatedLists>
+        <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>APT_Operational_Schedule__c.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
