@@ -22,7 +22,7 @@
                 <behavior>Edit</behavior>
                 <field>Apttus_Config2__Vendor__c</field>
             </layoutItems>
-                        <layoutItems>
+            <layoutItems>
 				<behavior>Readonly</behavior>
 				<field>APT_Volume_Threshold_PBP__c</field>
 			</layoutItems>
