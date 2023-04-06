@@ -15,7 +15,6 @@ export default class ChasSelectedPostOfficeAddress extends LightningElement {
     @track showListOfHrs = false;
 
     toggleHander(event){
-        console.log('eventiconName>>>',event.target.iconName);
         if(event.target.iconName === 'utility:chevrondown'){
             event.target.iconName = 'utility:chevronup' ;
             this.showListOfHrs = true;
