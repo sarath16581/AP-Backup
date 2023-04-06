@@ -25,8 +25,7 @@
                 <behavior>Required</behavior>
                 <field>Apttus_QPConfig__LineItemId__c</field>
             </layoutItems>
-        </layoutColumns>
-                    <layoutItems>
+            <layoutItems>
 				<behavior>Readonly</behavior>
 				<field>APT_Volume_Threshold_PBP__c</field>
 			</layoutItems>
@@ -50,6 +49,7 @@
 				<behavior>Readonly</behavior>
 				<field>APT_Annual_Volume_Review__c</field>
 			</layoutItems>
+        </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
