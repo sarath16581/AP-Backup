@@ -12,6 +12,48 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>body</name>
+                    <value>5a76572d-5805-4332-9da0-51ca181eb29f</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>customTab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>facet-indirection-d3571bd2-fae5-4f03-b81a-e0101b951cf7</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>recordId</name>
+                    <value>{!recordId}</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>width</name>
+                    <value>MEDIUM</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:relatedRecords</componentName>
+                <identifier>forceCommunity_relatedRecords</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>5a76572d-5805-4332-9da0-51ca181eb29f</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>recordId</name>
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
@@ -19,7 +61,28 @@
                 <identifier>myNetworkCaseDetails</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>regions</name>
+                    <value>facet-indirection-d3571bd2-fae5-4f03-b81a-e0101b951cf7</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabsetConfig</name>
+                    <value>{&quot;UUID&quot;:&quot;d3571bd2-fae5-4f03-b81a-e0101b951cf7&quot;,&quot;activeTab&quot;:&quot;&quot;,&quot;useOverflowMenu&quot;:false,&quot;tabs&quot;:[{&quot;UUID&quot;:&quot;5a76572d-5805-4332-9da0-51ca181eb29f&quot;,&quot;tabName&quot;:&quot;Related List&quot;,&quot;tabKey&quot;:&quot;1&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]}]}</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:tabset</componentName>
+                <identifier>forceCommunity_tabset</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>content</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <name>sidebar</name>
         <prependable>enabled</prependable>
         <replaceable>enabled</replaceable>
         <type>Region</type>
@@ -54,73 +117,10 @@
         <replaceable>enabled</replaceable>
         <type>Region</type>
     </flexiPageRegions>
-    <flexiPageRegions>
-        <appendable>enabled</appendable>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>1230d9d3-ff87-4e7c-8093-0a362ca9f395</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>2</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>facet-indirection-6fb7736f-83c0-41b5-a714-73102f1a4538</name>
-        <prependable>enabled</prependable>
-        <replaceable>enabled</replaceable>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <appendable>enabled</appendable>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>recordId</name>
-                    <value>{!recordId}</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>width</name>
-                    <value>MEDIUM</value>
-                </componentInstanceProperties>
-                <componentName>forceCommunity:relatedRecords</componentName>
-                <identifier>forceCommunity_relatedRecords</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>1230d9d3-ff87-4e7c-8093-0a362ca9f395</name>
-        <prependable>enabled</prependable>
-        <replaceable>enabled</replaceable>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <appendable>enabled</appendable>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>regions</name>
-                    <value>facet-indirection-6fb7736f-83c0-41b5-a714-73102f1a4538</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>tabsetConfig</name>
-                    <value>{&quot;UUID&quot;:&quot;6fb7736f-83c0-41b5-a714-73102f1a4538&quot;,&quot;activeTab&quot;:&quot;&quot;,&quot;useOverflowMenu&quot;:false,&quot;tabs&quot;:[{&quot;UUID&quot;:&quot;1230d9d3-ff87-4e7c-8093-0a362ca9f395&quot;,&quot;tabName&quot;:&quot;Related List&quot;,&quot;tabKey&quot;:&quot;2&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]}]}</value>
-                </componentInstanceProperties>
-                <componentName>forceCommunity:tabset</componentName>
-                <identifier>forceCommunity_tabset</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>sidebar</name>
-        <prependable>enabled</prependable>
-        <replaceable>enabled</replaceable>
-        <type>Region</type>
-    </flexiPageRegions>
     <masterLabel>Case Detail_StarTrackCaseDetail</masterLabel>
     <sobjectType>Case</sobjectType>
     <template>
-        <name>siteforce:sldsTwoCol66Layout</name>
+        <name>siteforce:sldsOneColLayout</name>
     </template>
     <type>CommRecordPage</type>
 </FlexiPage>
