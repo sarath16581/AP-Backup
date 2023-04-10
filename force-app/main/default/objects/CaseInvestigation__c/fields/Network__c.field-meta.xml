@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Network__c</fullName>
-	<businessStatus>Active</businessStatus>
+    <businessStatus>Active</businessStatus>
     <deleteConstraint>Restrict</deleteConstraint>
-	<description>This field is used to associate a Case Investigation with the Network where the contact facility is of MyNetwork.</description>
+    <description>This field is used to associate a Case Investigation with the Network where the contact facility is of MyNetwork.</description>
     <externalId>false</externalId>
 	<inlineHelpText>Change the network name and 'Save Update' to re-assign this case investigation to another facility.</inlineHelpText>
     <label>Network</label>
@@ -20,7 +20,7 @@
     <relationshipLabel>Case Investigations</relationshipLabel>
     <relationshipName>Case_Investigations</relationshipName>
     <required>true</required>
-	<securityClassification>INTERNAL</securityClassification>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

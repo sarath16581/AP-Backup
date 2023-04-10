@@ -321,7 +321,7 @@
         <quickActionListItems>
             <quickActionName>Case.Closed</quickActionName>
         </quickActionListItems>
-		<quickActionListItems>
+        <quickActionListItems>
             <quickActionName>Case.Email</quickActionName>
         </quickActionListItems>
     </quickActionList>
