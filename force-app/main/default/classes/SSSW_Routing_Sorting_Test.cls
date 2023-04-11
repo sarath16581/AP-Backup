@@ -459,7 +459,7 @@ public with sharing class SSSW_Routing_Sorting_Test {
 	 * @throws			NA
 	*/
 	@isTest
-	private static testMethod void testAStrategicCustomerCase() {
+	private static void testAStrategicCustomerCase() {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Account acc;
@@ -558,7 +558,7 @@ public with sharing class SSSW_Routing_Sorting_Test {
 	 * @throws			NA
 	*/
 	@isTest
-	private static testMethod void testBulkStrategicCustomerCases() {
+	private static void testBulkStrategicCustomerCases() {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Account strategicAccount, nonStrategicAccount;
@@ -685,7 +685,7 @@ public with sharing class SSSW_Routing_Sorting_Test {
 	}
 
 	@isTest
-	private static testMethod void testSSSWRoutingRuleValueMatching() {
+	private static void testSSSWRoutingRuleValueMatching() {
 
 		System.assertEquals(true, SSSW_Routing.valueMatches('Origin', 'Phone', 'PHONE'), 'Expected successful match using default matcher - exact match with ignore case.');
 		System.assertEquals(false, SSSW_Routing.valueMatches('Origin', 'Phone1', 'PHONE'), 'Expected unsuccessful match using default matcher.');
@@ -702,7 +702,7 @@ public with sharing class SSSW_Routing_Sorting_Test {
 	 * @throws			NA
 	*/
 	@isTest
-	private static testMethod void testExtraCoverCase() {
+	private static void testExtraCoverCase() {
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Account acc;
