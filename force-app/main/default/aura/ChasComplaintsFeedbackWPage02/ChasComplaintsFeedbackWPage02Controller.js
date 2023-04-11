@@ -24,26 +24,4 @@
     goBackHandler: function (component, event, helper) {
         helper.gotoPrevPage(component);
      }
-
-    // onchange: function (component, event, helper) {
-        
-    //     if(event.getParams().keyCode == 9){
-    //         console.log('Tab key pressed');
-    //     }else{
-    //         //-- Console log
-    //         if(component.get("v.debugMode")){
-    //             console.log('In onchange of ChasComplaintsFeedbackWPage02');
-    //         }      
-            
-    //         var currentId = event.getSource().get('v.name');
-
-    //         //-- Console log
-    //         if(component.get("v.debugMode")){
-    //             console.log('change currentId=='+currentId);
-    //         }
-    //         component.set('v.currentAuraId',currentId) ;       
-    //         var isValid = helper.validateFormAndShowErrors(component);
-    //     }
-        
-    // }
 })
