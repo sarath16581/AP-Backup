@@ -986,6 +986,15 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_NAME_EPARCEL = 'eParcel';
 	public static final String PRODUCT_NAME_EPARCEL_EXPRESS = 'eParcel Express';
 	
+	//Post bill pay attribute values
+	public static final String POST_BILLPAY_CHANNEL_OTC = 'OTC';
+	public static final String POST_BILLPAY_CHANNEL_PHONE = 'Phone';
+	public static final String POST_BILLPAY_CHANNEL_INTERNET = 'Internet';
+	public static final String PPOST_BILLPAY_CHANNEL_SCANPAY = 'Scan and Pay';
+	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_OTC = 'Post Billpay OTC';
+	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_PHONE = 'Post Billpay by Phone';
+	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_INTERNET = 'Post Billpay on the Internet';
+	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_SCANPAY = 'Post Billpay Scan & Pay';
 	
 	//error messages
 	public static final String ERROR_PREFIX = 'Error:';
@@ -1654,4 +1663,4 @@ public with sharing class APT_Constants {
 	public static final String RATING_MODEL_PD = 'PD';
 	
 	
-  }
+}
