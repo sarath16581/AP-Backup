@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW PBD Inbound Orders queue</name>
     <queueMembers>
         <users>
-            <user>amy.czapp@auspost.com.au</user>
-            <user>ashley.hodson@auspost.com.au</user>
-            <user>belinda.davison@auspost.com.au</user>
-            <user>irene.morton@auspost.com.au</user>
-            <user>maryanne.dickenson@auspost.com.au</user>
-            <user>rebecca.azzopardi@auspost.com.au</user>
-            <user>simon.fenton@auspost.com.au</user>
-            <user>teagan.skelton@auspost.com.au</user>
+			<user>danielle.larson@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>
