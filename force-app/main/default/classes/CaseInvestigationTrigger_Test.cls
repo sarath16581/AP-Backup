@@ -7,10 +7,10 @@
 **/
 @IsTest
 class CaseInvestigationTrigger_Test {
-    
-    @IsTest
-    static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
-        CaseInvestigationDomainTriggerHandler mock = (CaseInvestigationDomainTriggerHandler)MockUtility.mockUtility(CaseInvestigationDomainTriggerHandler.class);
+	
+	@IsTest
+	static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
+		CaseInvestigationDomainTriggerHandler mock = (CaseInvestigationDomainTriggerHandler)MockUtility.mockUtility(CaseInvestigationDomainTriggerHandler.class);
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
@@ -28,9 +28,9 @@ class CaseInvestigationTrigger_Test {
 		insert caseInvestigations;
 
 
-        ((CaseInvestigationDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
+		((CaseInvestigationDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
 
-        // PMD Warning
+		// PMD Warning
 		System.assert(true);
-    }
+	}
 }
