@@ -7,16 +7,30 @@
 **/
 @IsTest
 class CaseInvestigationTrigger_Test {
-    
-    @IsTest
-    static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
-        CaseInvestigationDomainTriggerHandler mock = (CaseInvestigationDomainTriggerHandler)MockUtility.mockUtility(CaseInvestigationDomainTriggerHandler.class);
+	
+	@IsTest
+	static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
+		CaseInvestigationDomainTriggerHandler mock = (CaseInvestigationDomainTriggerHandler)MockUtility.mockUtility(CaseInvestigationDomainTriggerHandler.class);
 
-        insert new CaseInvestigation__c();
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Org_ID__c = '1234';
+		insert networks;
 
-        ((CaseInvestigationDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+		insert cases;
 
-        // PMD Warning
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
+		insert articles;
+
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
+		insert caseInvestigations;
+
+
+		((CaseInvestigationDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
+
+		// PMD Warning
 		System.assert(true);
-    }
+	}
 }
