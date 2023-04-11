@@ -18,9 +18,10 @@ private class Auth0OIDCAuthProvider_Test {
 		// Data Preparation
 		// =====================================
 
+		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		String state = 'nothingmeangingful';
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCESigningCertAPIName__c' => 'PKCESigningCert',
+			'PKCEEncryptionKey__c' => encryptionKey,
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -75,8 +76,9 @@ private class Auth0OIDCAuthProvider_Test {
 		// Data Preparation
 		// =====================================
 
+		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCESigningCertAPIName__c' => 'PKCESigningCert',
+			'PKCEEncryptionKey__c' => encryptionKey,
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -98,7 +100,7 @@ private class Auth0OIDCAuthProvider_Test {
 		};
 		Auth.AuthProviderCallbackState callbackState = new Auth.AuthProviderCallbackState(headers, null, queryParameters);
 
-		List<String> pkceValues = (new Auth0OIDCAuthProvider()).getPKCECode(queryParameters.get('state'), customMetadataValues.get('PKCESigningCertAPIName__c'));
+		List<String> pkceValues = (new Auth0OIDCAuthProvider()).getPKCECode(queryParameters.get('state'), EncodingUtil.base64Decode(customMetadataValues.get('PKCEEncryptionKey__c')));
 
 		// =====================================
 		// Stubbing
@@ -148,8 +150,9 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCESigningCertAPIName__c' => 'PKCESigningCert',
+			'PKCEEncryptionKey__c' => encryptionKey,
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -206,8 +209,9 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCESigningCertAPIName__c' => 'PKCESigningCert',
+			'PKCEEncryptionKey__c' => encryptionKey,
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -264,8 +268,9 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCESigningCertAPIName__c' => 'PKCESigningCert',
+			'PKCEEncryptionKey__c' => encryptionKey,
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -319,8 +324,9 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCESigningCertAPIName__c' => 'PKCESigningCert',
+			'PKCEEncryptionKey__c' => encryptionKey,
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
