@@ -41,7 +41,6 @@
  * 2023-01-26 - Mahesh Parvathaneni - Added getEntitlementRules, getEscalationHierarchies method
  * 2022-02-09 - Dattaraj Deshmukh - Added 'getNetworkUsers' method.
  * 2023-03-21 - Nathan Franklin - small refactor / adding record type for consumer
- * 2023-04-04 - Mahesh Parvathaneni - Added method getFeedComments
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -112,18 +111,6 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<FeedItem>)maybeGenerateIds(populateSObjects(FeedItem.SObjectType, new Map<SObjectField, Object> {
 			FeedItem.ParentId => parentId
 				}, count), generateIds);
-	}
-
-	public static List<FeedComment> getFeedComments(Integer count, Id parentId, Id feedItemId, Boolean generateIds) {
-		List<FeedComment> output = (List<FeedComment>)maybeGenerateIds(populateSObjects(FeedComment.SObjectType, new Map<SObjectField, Object> {
-			FeedComment.FeedItemId => feedItemId
-			}, count), generateIds);
-
-		for(Integer i = 0; i < output.size(); i++) {
-			output[i] = (FeedComment)setUnwritableFields(output[i], new Map<String, Object>{'ParentId' => parentId});
-		}
-
-		return output;
 	}
 
 	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {

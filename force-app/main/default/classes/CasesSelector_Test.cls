@@ -198,13 +198,8 @@ public with sharing class CasesSelector_Test {
 		cases[2].RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId();
 		insert cases;
 
-		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
-		networks[0].Contact_Facility__c = 'MyNetwork';
-		networks[0].Org_ID__c = '1234';
-		insert networks;
-
 		//insert CaseInvestigations
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[2].Id, null, networks[0].Id, false);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[2].Id, null, null, false);
 		caseInvestigations[0].ReferenceID__c = '12314';
 		caseInvestigations[1].ReferenceID__c = '54345';
 		
