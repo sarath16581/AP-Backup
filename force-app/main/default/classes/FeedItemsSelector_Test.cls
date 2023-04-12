@@ -71,8 +71,8 @@ private class FeedItemsSelector_Test {
 		insert cases;
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		networks[0].Contact_Facility__c = 'MyNetwork';
 		networks[0].Org_ID__c = '1234';
-
 		insert networks;
 
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);

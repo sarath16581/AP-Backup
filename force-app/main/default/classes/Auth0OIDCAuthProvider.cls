@@ -17,6 +17,13 @@
 */
 global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
+	/**
+	 * In order to assure consistency of the outputted encrypted value used for PKCE, we need to specify the IV manually.
+	 * Although best practices of encryption state this should be random/unpredictable, in our case this is ok since we 
+	 * 	are not using it specifically for encryption, just to derive a hash
+	 */
+	public static final Blob CRYPTO_IV = Blob.valueOf('ghqNA8aoTUF8WIsx');
+
 	public static final String AUTH_PROVIDER_NAME = 'Auth0';
 
 	@TestVisible
@@ -67,9 +74,9 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String audience = authProviderConfiguration.get('Audience__c');
 		String scope = authProviderConfiguration.get('Scope__c');
 		String urlSuffix = authProviderConfiguration.get('URLSuffix__c');
-		String pkceCertApiName = authProviderConfiguration.get('PKCESigningCertAPIName__c');
+		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(authProviderConfiguration.get('PKCEEncryptionKey__c')));
 		String redirectUri = COMMUNITY_URL + '/services/authcallback/' + urlSuffix;
-		String pkceChallenge = getPKCECode(stateToPropagate, pkceCertApiName)[0];
+		String pkceChallenge = getPKCECode(stateToPropagate, pkceEncryptionKey)[0];
 		System.debug('PKCE Challenge: ' + pkceChallenge);
 
 		String qs = 'response_type=code' + 
@@ -96,8 +103,8 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String code = queryParams.get('code');
 		String sfdcState = queryParams.get('state');
 
-		String pkceCertApiName = authProviderConfiguration.get('PKCESigningCertAPIName__c');
-		String pkceCodeVerifier = getPKCECode(sfdcState, pkceCertApiName)[1];
+		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(authProviderConfiguration.get('PKCEEncryptionKey__c')));
+		String pkceCodeVerifier = getPKCECode(sfdcState, pkceEncryptionKey)[1];
 		System.debug('PKCE Verifier: ' + pkceCodeVerifier);
 
 		String externalCredentialName = authProviderConfiguration.get('ExternalCredentialName__c');
@@ -224,26 +231,20 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 	}
 
 	/**
-	 * Generate a hash that is used for the pkce storage key in platform cache...
-	 */
-	public String getHashFromState(String state) { 
-		// because max length can only by 50 chars, we use a sha1 hash
-		return EncodingUtil.convertToHex(Crypto.generateDigest('SHA1', Blob.valueOf(state)));
-	}
-
-	/**
 	 * Generates a new challenge/verifier code
 	 * Given the persistentStateValue should be the same in the initialise and handleCallback methods
 	 * we should be able to rely on a consistent value being generated
 	 * 
-	 * In theory, I didn't have to sign/encrypt the state... I could have just hashed the state using sha256, however, the verifier would be too predictable and possibly expose an attack vector
-	 * By encrypting/signing using a cert, the verifier is completely unpredictable
-	 * Short of just using a salt (which possibly could have been enough), encryption/signing with a cert is a pretty secure way of getting an unpredictable challeng/verifier
+	 * In theory, I didn't have to encrypt the state... I could have just hashed the state using sha256, however, the verifier would be too predictable and possibly expose an attack vector
+	 * By encrypting using a key, the verifier is completely unpredictable
+	 * Short of just using a salt (which possibly could have been enough), encryption with a key is a pretty secure way of getting an unpredictable challenge/verifier
+	 * 
+	 * @param encryptionKey Blob Use output of Crypto.generateAesKey(256). This is base64 encoded in the custom metadata.
 	 */
 	@TestVisible
-	private List<String> getPKCECode(String persistentStateValue, String certApiName) {
-		// just 128 chars is enough!
-		String codeVerifier = EncodingUtil.convertToHex(Crypto.signWithCertificate('RSA-SHA256', Blob.valueOf(persistentStateValue), certApiName)).substring(0, 128);
+	private List<String> getPKCECode(String persistentStateValue, Blob encryptionKey) {
+		Blob hashedEncryption = Crypto.generateDigest('SHA-256', Crypto.encrypt('AES256', encryptionKey, CRYPTO_IV, Blob.valueOf(persistentStateValue)));
+		String codeVerifier = EncodingUtil.base64Encode(hashedEncryption);
 		String codeChallenge = pkceBase64URLencode(Crypto.generateDigest('SHA-256', Blob.valueOf(codeVerifier)));
 		return new List<String>{codeChallenge, codeVerifier};
 	}

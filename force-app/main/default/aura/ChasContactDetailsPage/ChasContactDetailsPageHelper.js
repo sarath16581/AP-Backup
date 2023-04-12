@@ -53,8 +53,6 @@
                     // 28/08/2018 - added for global storage of wizard data
                     localStorage.setItem("cacheKey",  returnObj["cacheKey"]);
                 }
-                else
-                    console.log('Response from encryptData is null');
                 
                 //-- firing the URL for login, if encryption returns issue also navigating to login screen without wizard data in cache
                 var wizardData = cmp.get('v.wizardData');

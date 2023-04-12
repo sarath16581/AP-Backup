@@ -15,7 +15,6 @@
     },
     goForwardAsGuest: function (cmp, event, helper) {
        var isValid = helper.checkAllValidForGuest(cmp, true);
-       console.log(JSON.parse(JSON.stringify(cmp.get('v.wizardData'))));
        if(isValid){
            helper.gotoNextPage(cmp);
        }
@@ -44,20 +43,6 @@
     
     navigateToLoginMyPost: function(cmp, event, helper) {
         helper.storeEncryPtWizardDataAndNavigateToMyPost(cmp);
-        //console.log('navigateToLoginMyPost');
-        /* var wizardData = cmp.get('v.wizardData');
-        //var encodedData = window.btoa(JSON.stringify(wizardData)); // encode a string
-        //console.log('encodedData='+encodedData);
-        //var decodedData = window.atob(encodedData); // decode the string
-        //console.log('decodedData='+decodedData);
-        localStorage.setItem("preCmpWizardData",   JSON.stringify(wizardData));
-        //sessionStorage.setItem("preCmpWizardData",  JSON.stringify(wizardData));  // SETTING IN SESSION STORAGE 
-        var urlEvent = $A.get("e.force:navigateToURL");
-        urlEvent.setParams({
-            "url":cmp.get('v.authenticatedURL')
-        });
-        
-        urlEvent.fire();*/
     },
     
     onChange : function(cmp, event, helper) {

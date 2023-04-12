@@ -792,4 +792,8 @@
         <name>Conga_Scheduler</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>SeismicCanvasApp</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
 </AppMenu>
