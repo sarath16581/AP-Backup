@@ -9,8 +9,9 @@
  * 2023-02-16 - George Nguyen - Created.
  * 2023-03-18 - Noel Lim - Updated routing logic, to directly assign the routed Queue as the Owner.
  * 2023-03-31 - Noel Lim - Updated processUserResponseForPreferredAgent method to
- 							 a) implement 2 registerDirty() calls
-							 b) generate Status Tracking records on Accept
+ *							 a) implement 2 registerDirty() calls
+ *							 b) generate Status Tracking records on Accept
+ *							 c) new method populateCaseField
  */
 public inherited sharing class APCaseAgentWorkPreferredAgentModule extends ApplicationDomain.Module {
 	public static APCaseAgentWorkPreferredAgentModule newInstance() {
@@ -19,7 +20,27 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 
 	// Setup which trigger events this module should respond to
 	public APCaseAgentWorkPreferredAgentModule() {
-		getTriggerEvents().enableAfterUpdate();
+		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterUpdate();
+	}
+
+	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			populateCaseField((List<AgentWork>) records, uow);
+			
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, APCaseAgentWorkPreferredAgentModule.class.getName(), 'onBeforeInsert', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			populateCaseField((List<AgentWork>) records, uow);
+			
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, APCaseAgentWorkPreferredAgentModule.class.getName(), 'onBeforeUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
@@ -31,17 +52,36 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, APCaseAgentWorkPreferredAgentModule.class.getName(), 'onAfterUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
-	
+
 	/*
-	* This method performs logic relating to PreferredAgent based on the User's response to the Omni push. Below are the responses processed:
-	* - Accept
-	* - Decline
-	* - Decline On Push Timeout
-	* - Unavailable (when User sets their Omni Status to Offline or closes the console).
-	*
-	* 2 registerDirty calls are needed due to different registered fields to update.
-	* Status Tracking records need to be generated manually on Accept because when Omni pushes a Case, it updates the Case Owner to an Agent but no Case triggers are fired.
-	*/
+	 * This method populates the AgentWork lookup field Case if the AgentWork is for a Case record.
+	 * 
+	 * @param records the list of updated or new records from the trigger. 
+	 * @param uow instance of UnitOfWork to flag records for DML operations
+	 */
+	private void populateCaseField(List<AgentWork> records, ApplicationUnitOfWork uow){
+		for(AgentWork aw: records) {
+			if(aw.Case__r == null && aw.WorkItemId.getSobjectType() == Case.SObjectType){
+				aw.Case__c = aw.WorkItemId;
+			}
+		}
+	}
+	
+	/**
+	 * This method performs logic relating to PreferredAgent based on the User's response to the Omni push. Below are the responses processed:
+	 * - Accept
+	 * - Decline
+	 * - Decline On Push Timeout
+	 * - Unavailable (when User sets their Omni Status to Offline or closes the console).
+	 * 
+	 * The same logic is applied for Decline, Decline On Push Timeout, and Unavailable.
+	 *
+	 * 2 registerDirty calls are needed due to different registered fields to update (1 for Cases Accepted and 1 for Cases Declined)
+	 * 
+	 * OTB behaviour when Omni pushes a Case to an Agent is to change the Case Owner to the Agent, and NO Case trigger is fired.
+	 * Therefore we manually call the logic for Status Tracking records 
+	 * 
+	 */
 	private void processUserResponseForPreferredAgent(List<AgentWork> records, Map<Id, AgentWork> existingRecords, ApplicationUnitOfWork uow){
 		
 		Set<Id> caseIdsAccepted = new Set<Id>();
@@ -66,7 +106,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 					caseIdsAccepted.add(aw.WorkItemId);
 					caseSourceOmniQueue.put(aw.WorkItemId,aw.OriginalGroupId);
 
-				// AgentWork with a PreferredUserId (i.e. no OriginalGroupId) will remain with the User on Decline.
+				// On Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
 				// We need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
 				} else if(aw.PreferredUserId != null && 
 					(SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED.equalsIgnoreCase(aw.Status) 
@@ -94,7 +134,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 			uow.registerDirty(casesAccepted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
 			
 			CaseTrackingHelper trackingUtility = new CaseTrackingHelper();
-			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic, oldCasesForTrackingLogic);
+			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic, oldCasesForTrackingLogic); //manually call Status Tracking logic, because the Omni push which changed the Case Owner to the Agent did not generate a Case trigger execution.
 		}
 
 		if(caseIdsToReroute.isEmpty() == false){
