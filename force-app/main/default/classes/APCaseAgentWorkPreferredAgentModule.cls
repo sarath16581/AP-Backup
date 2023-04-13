@@ -44,13 +44,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		try {
-			processUserResponseForPreferredAgent((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);
-			
-		} catch (Exception ex) {
-			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, APCaseAgentWorkPreferredAgentModule.class.getName(), 'onAfterUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
-		}
+		processUserResponseForPreferredAgent((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);
 	}
 
 	/*
@@ -92,7 +86,6 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 		Map<Id,Case> oldCasesForTrackingLogic = new Map<Id,Case>();
 
 		Set<Id> caseIdsToReroute = new Set<Id>();
-		List<Case> casesToReroute = new List<Case>();
 
 		for(AgentWork aw: records) {
 			if(aw.Status != existingRecords.get(aw.Id).Status) {
@@ -143,7 +136,7 @@ public inherited sharing class APCaseAgentWorkPreferredAgentModule extends Appli
 
 			//Apply Case routing directly by assigning the OwnerId, instead of setting Case.AllocateToQueue__c = true. 
 			//This is necessary as there is logic in CaseCommonUtility.routeCase() that prevents routing of open Cases assigned to a User.
-			casesToReroute.addAll(routeDeclinedCases(cases).values());
+			casesToUpdate.addAll(routeDeclinedCases(cases).values());
 		}
 		if(casesToReroute.isEmpty() == false) {
 			uow.registerDirty(casesToReroute, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c }, true, APCaseAgentWorkPreferredAgentModule.class.getName());
