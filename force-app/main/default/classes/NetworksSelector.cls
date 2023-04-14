@@ -84,7 +84,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		return new Set<SObjectField> {
 			Network__c.Id, Network__c.Name, Network__c.OwnerId, Network__c.RecordTypeId, Network__c.AlwaysShown__c, Network__c.Email__c, Network__c.Contact_Facility__c, 
             Network__c.Email_1__c, Network__c.Email_2__c, Network__c.Email_3__c, Network__c.Email_4__c, Network__c.Email_5__c, Network__c.Fax_Number__c, 
-            Network__c.Org_ID__c, Network__c.Org_Unit_Type__c, Network__c.Network_Address__c,Network__c.Post_Code__c,
+            Network__c.Org_ID__c, Network__c.Org_Unit_Type__c, Network__c.Network_Address__c,Network__c.Post_Code__c,Network__c.Phone_Number__c,
             //Network__c.Id, Network__c.Name, Network__c.Org_ID__c, Network__c.Org_Unit_Type__c
             // Added by Raman for Process Builder replacement
             Network__c.Business_Hours__c
