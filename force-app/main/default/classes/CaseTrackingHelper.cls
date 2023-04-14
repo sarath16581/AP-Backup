@@ -28,6 +28,22 @@ public with sharing class CaseTrackingHelper{
                                                                                         'NetworkComments__c' => 'Network Comments',
                                                                                         'Network_Response__c' => 'Network Response'};
     
+	/*
+	 * Case fields used in logic, for overriding fields in Case Selector. 
+	 * As more Case fields are required for tracking, add them here.
+	 */
+	public static final Set<SObjectField> caseFieldsForTracking {
+		get {
+			if(caseFieldsForTracking == null) {
+				caseFieldsForTracking = new Set<SObjectField>{
+					Case.OwnerId,Case.Status,Case.RecordTypeId,Case.Network__c,Case.NetworkComments__c,Case.Network_Response__c				
+				};
+			}
+			return caseFieldsForTracking;
+		}
+		private set;
+	}
+
     // variables
     public static Boolean isSetStatusTrackRecursive = false;      // flag for status tracking 
     public static Boolean isUpdateStatusTrackRecursive = false;      // flag for update status tracking 
@@ -136,7 +152,12 @@ public with sharing class CaseTrackingHelper{
     
     /**
       * @description       This method is invoked in after update event, creates the status tracking record
-                           for status change in SSSW cases & updates the open tracking record
+      *                    for status change in SSSW cases & updates the open tracking record
+	  * 
+	  * This is called by CaseTriggerHandler.cls during normal Case trigger execution.
+	  * In addition, this is also called by AgentWorkAPCaseAutomationModule.cls. Reason is due to OTB behaviour when a Case is pushed by Omni to an Agent.
+	  * The Case Owner changes to the Agent, but no Case trigger is executed. Therefore this is manually called to generate the StatusTracking in that scenario when the Agent Accepts.
+	  *
       * @param             caseList - List<Case>, oldCaseMap - Map<Id,Case> 
       * @return            Void
       * @throws            Method might throw exception which is handled by Try-Catch block

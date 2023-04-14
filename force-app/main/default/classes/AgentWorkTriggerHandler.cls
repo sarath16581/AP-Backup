@@ -6,6 +6,7 @@
  * @domain AgentWork
  * @changelog
  * 2023-02-16 - George Nguyen - updated. This class was created a while back but does not follow the framework. I have updated to use our framework
+ * 2023-04-14 - Noel Lim - Updated of Domain class from APCaseAgentWorkDomain to AgentWorkAPCaseDomain
  */
 public class AgentWorkTriggerHandler extends ApplicationDomainTriggerHandler {
 
@@ -19,7 +20,7 @@ public class AgentWorkTriggerHandler extends ApplicationDomainTriggerHandler {
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{ 
-			APCaseAgentWorkDomain.class 
+			AgentWorkAPCaseDomain.class 
 		};
 	}
 
