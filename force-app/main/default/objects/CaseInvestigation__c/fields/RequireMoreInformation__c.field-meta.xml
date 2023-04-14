@@ -8,7 +8,7 @@
     <inlineHelpText>Please tick this checkbox if more information is required from customer service.</inlineHelpText>
     <label>Require More Information</label>
     <securityClassification>INTERNAL</securityClassification>
-    <trackFeedHistory>true</trackFeedHistory>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
