@@ -8,8 +8,8 @@
     <masterLabel>Related Delivery Cases Report</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/54.0/connection.js&quot;)} 
-{!REQUIRESCRIPT(&quot;/soap/ajax/54.0/apex.js&quot;)} 
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/57.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/57.0/apex.js&quot;)} 
 {!REQUIRESCRIPT(&quot;/support/console/32.0/integration.js&quot;)} 
 
 sforce.console.openPrimaryTab(null, &apos;/{!$Setup.StarTrack_Settings__c.StarTrack_Customer_Case_Summary_Report__c}?isdtp=vw&amp;pv1={!Billing_Account__c.Id}&amp;pv2={!Billing_Account__c.Id}&apos;, true);</url>
