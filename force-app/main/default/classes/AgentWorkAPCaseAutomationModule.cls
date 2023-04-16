@@ -116,7 +116,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
 
-					caseSourceOwnerId = aw.OriginalGroupId != null ? aw.OriginalGroupId  : aw.PreferredUserId != null ? OmniChannelService.getInstance().preferredAgentQueueId : null; //We use the SSSW Preferred Agent queue as the source because this module only handles AgentWork for SSSW Cases
+					caseSourceOwnerId = aw.OriginalGroupId != null ? aw.OriginalGroupId  : aw.PreferredUserId != null ? OmniChannelService.getInstance().preferredAgentQueueId : null; //As this module only handles AP Cases, AgentWork with Preferred User can be safely assumed to come from the SSSW Preferred Agent queue
 					
 					if(caseSourceOwnerId != null){ //AgentWork from 'Transfers to a User' will not have an OriginalGroupId
 						caseIdsForTrackingLogic.add(aw.WorkItemId); 
@@ -166,15 +166,6 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			}
 		}
 
-		if(casesAccepted.isEmpty() == false) {
-			uow.registerDirty(casesAccepted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
-		}
-
-		if(casesForTrackingLogic.isEmpty() == false && oldCasesForTrackingLogic.isEmpty() == false){
-			CaseTrackingHelper trackingUtility = new CaseTrackingHelper();
-			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic.values(), oldCasesForTrackingLogic); //manually call Status Tracking logic, as OTB Omni push behaviour changes the Case Owner to the Agent, but did not generate a Case trigger execution 
-		}		
-
 		if(caseIdsToReroute.isEmpty() == false && casesToQuery.isEmpty() == false){
 			Map<Id,Case> casesToReroute = new Map<Id,Case>();
 			for(Id csId : caseIdsToReroute){
@@ -185,6 +176,16 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 
 			casesRerouted = routeDeclinedCases(casesToReroute).values();
 		}
+
+		if(casesAccepted.isEmpty() == false) {
+			uow.registerDirty(casesAccepted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
+		}
+
+		if(casesForTrackingLogic.isEmpty() == false && oldCasesForTrackingLogic.isEmpty() == false){
+			CaseTrackingHelper trackingUtility = new CaseTrackingHelper();
+			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic.values(), oldCasesForTrackingLogic); //manually call Status Tracking logic, as OTB Omni push behaviour changes the Case Owner to the Agent, but did not generate a Case trigger execution 
+			CaseTrackingHelper.isSetStatusTrackRecursive = false; //set it back to false as the Case trigger execution from this may have e.g. Owner or Status changes that requires further Status Tracking to be generated
+		}	
 
 		if(casesRerouted.isEmpty() == false) {
 			uow.registerDirty(casesRerouted, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
