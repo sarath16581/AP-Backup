@@ -8,6 +8,7 @@
     <inlineHelpText>Display the Case&apos;s Customer Queue Type value</inlineHelpText>
     <label>Case Customer Queue Type</label>
     <required>false</required>
+	<securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

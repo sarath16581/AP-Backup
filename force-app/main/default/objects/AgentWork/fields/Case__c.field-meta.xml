@@ -7,8 +7,9 @@
     <inlineHelpText>Used by several formula fields. Populated by Apex Trigger.</inlineHelpText>
     <label>Case</label>
     <referenceTo>Case</referenceTo>
-    <relationshipLabel>Agent Work</relationshipLabel>
+    <relationshipLabel>Agent Work</relationshipLabel>	
     <relationshipName>Agent_Work</relationshipName>
     <required>false</required>
     <type>Lookup</type>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

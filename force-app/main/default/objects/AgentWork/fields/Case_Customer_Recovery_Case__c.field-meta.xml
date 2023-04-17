@@ -8,4 +8,5 @@
     <inlineHelpText>Display the Case&apos;s Customer Recovery Case value</inlineHelpText>
     <label>Case Customer Recovery Case</label>
     <type>Checkbox</type>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>
