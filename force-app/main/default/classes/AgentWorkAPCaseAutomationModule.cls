@@ -30,16 +30,14 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 		try {
 			populateCaseField((List<AgentWork>) records, uow);			
 		} catch (Exception ex) {
-			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, AgentWorkAPCaseAutomationModule.class.getName(), 'onBeforeInsert', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			populateCaseField((List<AgentWork>) records, uow);			
+			populateCaseField((List<AgentWork>) records, uow); // likely an updated AgentWork Case field is already populated from Insert, but we check anyway for future proofing			
 		} catch (Exception ex) {
-			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, AgentWorkAPCaseAutomationModule.class.getName(), 'onBeforeUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
@@ -48,7 +46,6 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 		try {
 			processUserResponseToOmniPush((List<AgentWork>) records, (Map<Id, AgentWork>) existingRecords, uow);	
 		} catch (Exception ex) {
-			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, AgentWorkAPCaseAutomationModule.class.getName(), 'onAfterUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
@@ -74,7 +71,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 	 * So we manually perform logic that otherwise will not be triggered - when Owner changes, Status Tracking records are created
 	 * 
 	 * Another OTB logic is that when an AgentWork is for a Preferred User, on Decline the Case will stay with the Agent as OriginalGroupId will be empty.
-	 * So we manually route the case back.
+	 * We need the Case to go back to Omni queues, so we manually run logic to route the case.
 	 * 
 	 * Below are the responses processed:
 	 * - Accept
@@ -116,15 +113,18 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
 
-					caseSourceOwnerId = aw.OriginalGroupId != null ? aw.OriginalGroupId  : aw.PreferredUserId != null ? OmniChannelService.getInstance().preferredAgentQueueId : null; //As this module only handles AP Cases, AgentWork with Preferred User can be safely assumed to come from the SSSW Preferred Agent queue
+					//TBC Approach B) - populate an accurate previous OwnerId value
+					// AgentWork generated from Omni queues will have a value in OriginalGroupId
+					// AgentWork from custom Preferred Agent logic and PSRs will have an PreferredUserId value
+					// Omni Transfer function has 3 types: Transfer to Skill, to Button, or to User. a) Transfer to User will have a value in both PreferredUserId and OriginalGroupId b) Transfer to Skill or Button will have an OriginalGroupId value 
+					//caseSourceOwnerId = aw.OriginalGroupId != null ? aw.OriginalGroupId  : OmniChannelService.getInstance().preferredAgentQueueId;
+					//caseSourceOwner.put(aw.WorkItemId,caseSourceOwnerId);
 					
-					if(caseSourceOwnerId != null){ //AgentWork from 'Transfers to a User' will not have an OriginalGroupId
-						caseIdsForTrackingLogic.add(aw.WorkItemId); 
-						caseSourceOwner.put(aw.WorkItemId,caseSourceOwnerId);
-					}
+					caseIdsForTrackingLogic.add(aw.WorkItemId); 
+					
 
-				// On Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
-				// We need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
+				// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
+				// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
 				} else if(aw.PreferredUserId != null && 
 					(SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED.equalsIgnoreCase(aw.Status) 
 					|| SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT.equalsIgnoreCase(aw.Status)
@@ -154,6 +154,14 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			}
 
 			for(Case csRec : casesForTrackingLogic.values()){
+				oldCasesForTrackingLogic.put(csRec.Id, new Case(
+					Id = csRec.Id, 
+					OwnerId = OmniChannelService.getInstance().preferredAgentQueueId, // purpose of setting this OwnerId is to trigger StatusTracking logic based on OwnerId difference only, i.e. StatusTracking logic does NOT use this OwnerId to set the PreviousOwnerId__c field
+					Status = csRec.Status
+				));
+				
+				//TBC Approach B) set an accurate previous Owner value
+				/*
 				if(caseSourceOwner != null && caseSourceOwner.containsKey(csRec.Id)){
 					oldCasesForTrackingLogic.put(csRec.Id, new Case(
 						Id = csRec.Id, 
@@ -162,7 +170,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 					));
 				} else {
 					casesForTrackingLogic.remove(csRec.Id);
-				}				
+				}	*/			
 			}
 		}
 
@@ -174,6 +182,8 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 				}
 			}
 
+			// we must manually call the routing engine and apply the OwnerId directly
+			// using the Case.AllocateToQueue__c = true approach is not an option, because currently the Case Owner is an Agent and there is logic that prevent routing for Open Cases owned by an Agent
 			casesRerouted = routeDeclinedCases(casesToReroute).values();
 		}
 
@@ -183,8 +193,12 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 
 		if(casesForTrackingLogic.isEmpty() == false && oldCasesForTrackingLogic.isEmpty() == false){
 			CaseTrackingHelper trackingUtility = new CaseTrackingHelper();
-			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic.values(), oldCasesForTrackingLogic); //manually call Status Tracking logic, as OTB Omni push behaviour changes the Case Owner to the Agent, but did not generate a Case trigger execution 
-			CaseTrackingHelper.isSetStatusTrackRecursive = false; //set it back to false as the Case trigger execution from this may have e.g. Owner or Status changes that requires further Status Tracking to be generated
+
+			// manually call Status Tracking logic, as OTB Omni push behaviour changes the Case Owner to the Agent, but did not generate a Case trigger execution 
+			trackingUtility.updateCaseStatusTracking(casesForTrackingLogic.values(), oldCasesForTrackingLogic); 
+			
+			// set it back to false as the Case trigger execution from this may have e.g. Owner or Status changes that requires further Status Tracking to be generated
+			CaseTrackingHelper.isSetStatusTrackRecursive = false; 
 		}	
 
 		if(casesRerouted.isEmpty() == false) {
@@ -200,9 +214,10 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 	 * @return - Map of cases that were re-routed, as new case records
 	 */
 	private Map<Id, Case> routeDeclinedCases(Map<Id, Case> cases) {
-		// NOTE The try/catch block is a fail safe, to catch this error here will ensure the routing errors do not cause the whole transaction to fail
+		
 		Map<Id, Case> casesRerouted = new Map<Id, Case>();
 
+		// NOTE The try/catch block is a fail safe, to catch this error here will ensure the routing errors do not cause the whole transaction to fail
 		try {			
 			for (Case csRec : cases.values()) {				
 				csRec.AllocateToQueue__c = true; //manually set to trigger routing logic
@@ -218,8 +233,8 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 					OwnerId = csRec.OwnerId,
 					Bypass_Data_enforcement__c = true,
 					BypassPreferredAgent__c = true, 
-					AllocateToQueue__c = false, //Unit of Work expects this to be populated
-					PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
+					AllocateToQueue__c = false, // Unit of Work expects this to be populated
+					PreferredAgentExpiry__c = null // needs to be cleared so that in the future, the routing engine can stamp a new value
 				));
 			}				
 		

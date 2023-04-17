@@ -15,7 +15,7 @@
 class AgentWorkAPCaseAutomationModule_Test {
    
 	/**
-	 * Tests the logic in method AgentWorkAPCaseAutomationModule.processUserResponseForPreferredAgent()
+	 * Tests the logic in method processUserResponseToOmniPush, except for the StatusTracking Logic
 	 * 
 	 * Scenarios:
 	 * a) AgentWork in Opened status - logic for Accepting an Omni pushed Case is fired 
@@ -24,10 +24,11 @@ class AgentWorkAPCaseAutomationModule_Test {
 	 * d) AgentWork in Declined status and has Preferred User - logic for Declining an Omni pushed Case is fired
 	 * e) AgentWork in DeclinedOnPushTimeout status and has Preferred User - logic for Declining an Omni pushed Case is fired
 	 * f) AgentWork in Unavailable status and has Preferred User - logic for Declining an Omni pushed Case is fired
-	 * 
+	 * g) AgentWork in Opened status, previous was Opened Status - no logic performed
+	 * h) AgentWork in Declined status, previous was Declined Status-  no logic performed
 	 */
 	@IsTest
-	static void processUserResponseForPreferredAgent() {
+	static void checkCaseUpdatesFromUserResponsesToOmniPush() {
 		
 		//User
 		List<User> users = ApplicationTestDataFactory.getUsers(1, true);
@@ -36,12 +37,16 @@ class AgentWorkAPCaseAutomationModule_Test {
 		
 		//Case
 		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(8, true));
+		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+		Id recTypeId = ssswRecTypes.iterator().next();
+
 		for(Case csRec : cases.values()){
 			csRec.BypassPreferredAgent__c = true;
 			csRec.PreferredAgentExpiry__c = Datetime.now();
 			csRec.OwnerId = users[0].Id;
 			csRec.Origin = 'Email';
 			csRec.Status = 'New';
+			csRec.RecordTypeId = recTypeId;
 		}
 
 		//Routing Rule
@@ -65,12 +70,6 @@ class AgentWorkAPCaseAutomationModule_Test {
 		records[5] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[5], new Map<String, Object> { 'Status' => 'Unavailable', 'PreferredUserId' => users[0].Id });
 		records[6] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[6], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => queues.values()[0].Id});
 		records[7] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[7], new Map<String, Object> { 'Status' => 'Declined', 'PreferredUserId' => users[0].Id });
-
-		Set<Id> caseIdsToRoute = new Set<Id>{records[3].WorkItemId, records[4].WorkItemId, records[5].WorkItemId};
-		List<Case> casesToRoute = new List<Case>{cases.values()[3],cases.values()[4], cases.values()[5]};
-
-		Set<Id> caseIdsAccepted = new Set<Id>{records[0].WorkItemId};
-		List<Case> casesAccepted = new List<Case>{cases.values()[0]};
 
 		Set<Id> caseIdsToQuery = new Set<Id>{records[0].WorkItemId, records[3].WorkItemId, records[4].WorkItemId, records[5].WorkItemId};
 		List<Case> casesQueried = new List<Case>{cases.values()[0],cases.values()[3],cases.values()[4], cases.values()[5]};
@@ -127,14 +126,153 @@ class AgentWorkAPCaseAutomationModule_Test {
 			fflib_Match.eqString(AgentWorkAPCaseAutomationModule.class.getName())
 		);
 
+		Test.stopTest();
+
 		// PMD Warning
 		System.assert(true);
+	}
 
+	/**
+	 * Tests the logic related to Status Tracking method in processUserResponseToOmniPush
+	 * Note the logic for Status Tracking in CaseTrackingHelper does not use the framework, so test data from database is used.
+	 * 
+	 */
+	@IsTest
+	static void checkStatusTrackingRecordsGenerated() {
+		
+		User agentUser = [Select Id FROM User WHERE IsActive = true and Profile.Name = :SSSWConstants.SSSW_AGENT_PROFILE LIMIT 1];
+		Group omniBOHQueue = [SELECT Id,DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName = 'SSSW_BOH_Group_2' LIMIT 1];
+		
+		//Case Setup - for StatusTracking
+		Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
+		Account acc = TestUtility.createBusinessAccount('Wayne Enterprises',
+														accRecTypeMap.get('Organisation').getRecordTypeId());
+		Database.insert(acc);
+
+		Contact con = TestUtility.createContact('Bruce','Wayne','bruce@wayne.com',acc.id);
+		Database.insert(con);
+		
+		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
+		Case insertedCase = TestUtility.createCase('Enquiry','In Progress','General Enquiry',acc.Id,con.Id,
+                                                caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
+		insertedCase.ownerId = agentUser.Id;
+
+		Database.insert(insertedCase);
+		CaseTrackingHelper.isUpdateStatusTrackRecursive = false;
+
+		//AgentWork
+		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true);
+		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => omniBOHQueue.Id}); 
+		records.addAll(OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true));
+		records[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object> { 'Status' => 'Opened', 'PreferredUserId' => agentUser.Id, 'OriginalGroupId' => null});
+		records.addAll(OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true));
+		records[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[2], new Map<String, Object> { 'Status' => 'Opened'}); 
+
+		//old AgentWork
+		List<AgentWork> existingRecords = records.deepClone(true, true, true);
+		existingRecords[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[0], new Map<String, Object> { 'Status' => 'Assigned'});
+		existingRecords[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[1], new Map<String, Object> { 'Status' => 'Assigned'});
+		existingRecords[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[2], new Map<String, Object> { 'Status' => 'Assigned'});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		SSSWCasesSelector mockCaseSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockCaseSelector.selectById(
+				(Set<Id>)fflib_Match.eq(new Set<Id>{insertedCase.Id})
+		)).thenReturn(new Map<Id, Case>{insertedCase.Id => insertedCase});
+
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		AgentWorkAPCaseAutomationModule.newInstance().onAfterUpdate(new List<AgentWork>{records[0]}, new Map<Id, AgentWork>{existingRecords[0].Id => existingRecords[0]}, mockUow);		
+		AgentWorkAPCaseAutomationModule.newInstance().onAfterUpdate(new List<AgentWork>{records[1]}, new Map<Id, AgentWork>{existingRecords[1].Id => existingRecords[1]}, mockUow);	
+		AgentWorkAPCaseAutomationModule.newInstance().onAfterUpdate(new List<AgentWork>{records[2]}, new Map<Id, AgentWork>{existingRecords[2].Id => existingRecords[2]}, mockUow);
+
+		Integer count = [SELECT count() FROM StatusTracking__c WHERE Case__c = :insertedCase.Id];
+		System.assertEquals(4, count, '4 StatusTracking records should exist - 1 from Case insert and 3 from the module onAfterUpdate() calls');
+		System.assertEquals(false, CaseTrackingHelper.isSetStatusTrackRecursive, 'Recursive flag in CaseTrackingHelper should be set to false after the AgentWork logic has run');
 		Test.stopTest();
 	}
 
 	/**
-	 * test the Exception handling on the module onBeforeInsert and onBeforeUpdate methods
+	 * Tests the logic related to populateCaseField method.
+	 * 
+	 */
+	@IsTest
+	static void checkCaseLookupField() {
+		
+		//User
+		List<User> users = ApplicationTestDataFactory.getUsers(1, true);
+
+		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
+		
+		//Case
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
+		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+		Id recTypeId = ssswRecTypes.iterator().next();
+
+		for(Case csRec : cases.values()){
+			csRec.BypassPreferredAgent__c = true;
+			csRec.PreferredAgentExpiry__c = Datetime.now();
+			csRec.OwnerId = users[0].Id;
+			csRec.Origin = 'Email';
+			csRec.Status = 'New';
+			csRec.RecordTypeId = recTypeId;
+		}
+
+		//AgentWork
+		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(2, UserInfo.getUserId(), cases.keySet(), true);
+		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Assigned', 'OriginalGroupId' => queues.values()[0].Id});
+		records[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object> { 'Status' => 'Assigned', 'OriginalGroupId' => queues.values()[0].Id});
+
+		Set<Id> caseIdsToQuery = new Set<Id>{records[0].WorkItemId, records[1].WorkItemId};
+		List<Case> casesQueried = new List<Case>{cases.values()[0],cases.values()[1]};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		SSSWCasesSelector mockCaseSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockCaseSelector.selectById(
+				(Set<Id>)fflib_Match.eq(caseIdsToQuery)
+		)).thenReturn(new Map<Id, Case>(casesQueried));
+
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		AgentWorkAPCaseAutomationModule.newInstance().onBeforeInsert(new List<AgentWork>{ records[0]}, mockUow);
+		AgentWorkAPCaseAutomationModule.newInstance().onBeforeUpdate(new List<AgentWork>{ records[1]}, null, mockUow);
+
+		Test.stopTest();
+
+		// PMD Warning
+		System.assertEquals(cases.values()[0].Id,records[0].Case__c,'Case Id assigned to the AgentWork record is incorrect');
+		System.assertEquals(cases.values()[1].Id,records[1].Case__c,'Case Id assigned to the AgentWork record is incorrect');
+	}
+
+
+	/**
+	 * test the Exception handling on the module onBeforeInsert, onBeforeUpdate, onAfterUpdate methods
 	 */
 	@isTest
 	static void testExceptionHandling(){
