@@ -553,7 +553,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         this.tempCase.CCUYourReference__c = this.reference;
         this.tempCase.Description = this.description;
         this.tempCase.DescriptionofContents__c = this.descriptionOfContents;
-
+        this.tempCase.DescriptionofContents__c = this.descriptionOfContents;
+        this.tempCase.EstimatedDelivery__c = this.expectedDeliveryDate;
         // set the case type definitions
         this.caseTypeAttributes();
 
@@ -561,7 +562,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         this.getAddressesFromInput();
 
         // debug what we're sending
-        //console.debug(JSON.stringify(this.tempCase));
+        console.debug(JSON.stringify(this.tempCase));
 
         createEnquiryAusPost({enq: this.tempCase,
             uploadedFiles: this.uploadedFiles}

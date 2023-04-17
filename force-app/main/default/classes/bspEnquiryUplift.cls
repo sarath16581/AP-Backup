@@ -488,6 +488,29 @@ public without sharing class bspEnquiryUplift {
         // Gunith: When a Case is created from BSP, the Case should always be routed
         enq.AllocateToQueue__c = true;
 
+        // TODO : expected delivery between? is this handled in the search, is this always come through if one of those values available?
+        // TODO: what happens if there's no EDD?
+        // TODO HANS: move this to a separate method when code cleanup, this is MVP for PTEST only
+        // TODO: unit tests
+        if(enq.EstimatedDelivery__c != null) {
+            //2023-04-24 EDD
+            //2023-05-08 EDD + business 10 days
+            Date eddPlusBusinessDays = ChasUtil.calculateNextBusinessDay(enq.EstimatedDelivery__c, nextUpdateInForLateItems);
+            //if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
+            if (eddPlusBusinessDays > Date.today()) {
+                Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
+                        SSSWConstants.QUEUE_NAME_REOPEN_Q
+                });
+                if (!vGroups.isEmpty()) {
+                    enq.OwnerId = vGroups.values()[0].Id;
+                    enq.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
+                    enq.Case_Reopen_Date__c = eddPlusBusinessDays;
+                    enq.HeldToOpenOn__c = eddPlusBusinessDays;
+                    enq.ByPassRoutingRulesOnCreation__c = true;
+                    enq.AllocateToQueue__c = false;
+                }
+            }
+        }
         enq = createEnquiryAusPostFinalise(enq, enquiryWrapper);
         if(enq != null){
             // link any files
@@ -1665,4 +1688,16 @@ public without sharing class bspEnquiryUplift {
     * */
     class ErrorException extends Exception{}
 
+
+    public static final CCUSettings__c configSetting {
+        get {
+            return CCUSettings__c.getInstance();
+        }
+    }
+
+    public static Integer nextUpdateInForLateItems {
+        get {
+            return configSetting.NextUpdateInForLateItems__c != null ? Integer.valueOf(configSetting.NextUpdateInForLateItems__c) : 0;
+        }
+    }
 }
