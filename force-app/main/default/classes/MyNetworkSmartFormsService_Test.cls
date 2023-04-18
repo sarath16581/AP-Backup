@@ -7,6 +7,7 @@
 01.06.2019    Rajesh Punjabi(Mav3rik)    Created
 07.02.2020    Gunith Devasurendra        REQ2086450: Add PhotoId field
 17.02.2020    Gunith Devasurendra        REQ2092604: Remove null when adding Address as Case Comment when Address Line 2 is null
+19.04.2023    Talib Raza				 REQ2906534: API version uplifted to 57.0
 **/
 
 @IsTest (IsParallel=true)
