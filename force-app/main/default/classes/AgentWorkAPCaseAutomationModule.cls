@@ -58,7 +58,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 	 */
 	private void populateCaseField(List<AgentWork> records, ApplicationUnitOfWork uow){
 		for(AgentWork aw: records) {
-			if(aw.Case__r == null && aw.WorkItemId.getSobjectType() == Case.SObjectType){
+			if(aw.Case__c == null && aw.WorkItemId.getSobjectType() == Case.SObjectType){
 				aw.Case__c = aw.WorkItemId;
 			}
 		}
