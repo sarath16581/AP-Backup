@@ -11,6 +11,7 @@
 22.08.2019    Gunith Devasurendra     Phone number mandatory and supporting 13XXXX format (REQ1886690)
 22.10.2019    Gunith Devasurendra     UI changes when Cases auto close for Feedback cases (REQ1982330)
 26.05.2021    Naveen Rajanna           REQ2513603 Show Print button when submitted and hide few tags upon print
+19.04.2023    Talib Raza               REQ2906534 - Add Article ID field to the form
 **/
 
 import { track } from 'lwc'
@@ -19,8 +20,9 @@ import getNetworkUsers from '@salesforce/apex/MyNetworkSmartFormsService.getList
 import getProductPickListValuesByNames from '@salesforce/apex/MyNetworkSmartFormsService.getProductPickListValuesByNames'
 import getEnquirySubTypeValues from '@salesforce/apex/MyNetworkSmartFormsService.getTypeAndProductEnqSubTypePickListValues'
 import createCase from '@salesforce/apex/MyNetworkSmartForms.createCase'
-import { get, ausPhoneNumberRegEx } from 'c/utils'
+import { get, getOrEmpty, emptySearch, ausPhoneNumberRegEx,DAMAGE_MISSING_CONTENTS_ERROR_MESSAGE } from 'c/utils'
 import getSubCatValuesToDisableCompensation from '@salesforce/apex/MyNetworkSmartFormsService.getSubCatValuesToDisableCompensation'
+import getProdCatValuesToDisableArticle from '@salesforce/apex/MyNetworkSmartFormsService.getProdCatValuesToDisableArticle'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 
 export default class myNetworkOthersForm extends LwcForm {
@@ -47,6 +49,11 @@ export default class myNetworkOthersForm extends LwcForm {
     
     categoryRenderConfig = {
         parentName: 'caseType',
+        showIfExists: true,
+    }
+  
+    enquiryLinkedArticleConfig = {
+        parentName: 'productCategory',
         showIfExists: true,
     }
     
@@ -88,6 +95,9 @@ export default class myNetworkOthersForm extends LwcForm {
 
     @track
     subCatvaluesToDisableCompensation = []
+
+    @track
+    prodvaluesToDisableArticle = []
     
     @track
     displayCategorySection = false
@@ -99,11 +109,17 @@ export default class myNetworkOthersForm extends LwcForm {
     displayCompensationSection = false
 
     @track
+    displayArticleSection = false
+    
+    @track
     enquirySubTypeValues = []
 
     @track
     customerName
 
+    @track
+    articleId
+    
     @track
     displayErrorMsg = false
 
@@ -151,6 +167,11 @@ export default class myNetworkOthersForm extends LwcForm {
         getSubCatValuesToDisableCompensation()
         .then(data => {
             this.formatToDisableCompensation(data)
+        })
+            
+        getProdCatValuesToDisableArticle()
+        .then(data => {
+            this.formatToDisableArtile(data)
         })
     }
 
@@ -200,6 +221,14 @@ export default class myNetworkOthersForm extends LwcForm {
             productSubCategory: '',
             enquirySubType: '' 
         })
+        
+        this.displayArticleSection = false
+        if(this.prodvaluesToDisableArticle.includes(event.target.value)){
+            this.displayArticleSection = false            
+        }
+        else{
+            this.displayArticleSection = true
+        }  
     }
     
     formatEnquirySubTypePickListValues(enquirySubTypePickListValues){
@@ -220,10 +249,17 @@ export default class myNetworkOthersForm extends LwcForm {
         }
     }
 
+    formatToDisableArtile(valuesToDisable){
+        let key;
+        for (key in valuesToDisable){
+            this.prodvaluesToDisableArticle.push(valuesToDisable[key]);
+        }
+    }
+    
     handleProductSubCategoryChange(event){
         let enquirySubType = [], key, keyData, scValue;
         let valueToCompare = this.values.caseType + '|' + this.values.productCategory + '|' + event.target.value;
-        console.log('valueToCompare'+valueToCompare);
+        console.log('valueToCompare'+valueToCompare)
 
         this.enquirySubTypeOptions = enquirySubType 
         for(key in this.enquirySubTypeValues){
@@ -301,8 +337,6 @@ export default class myNetworkOthersForm extends LwcForm {
     handleSubmit = () => {
         const formId = "somethingElse"
         const formJson = JSON.stringify(this.getVisibleData())
-        console.log('datatosubmit:'+ formJson)
-        console.log('formId:'+ formId)
         const allValid = this.validateInputs()
         //smartFormIdJson[formId] = formJson;
         
@@ -326,7 +360,7 @@ export default class myNetworkOthersForm extends LwcForm {
                 this.formatCreateCaseResponse(data)
             })
             .catch(error => {
-                console.log('Case creation failed...'+JSON.stringify(error));
+                console.log('Case creation failed...'+JSON.stringify(error))
                 const evt = new ShowToastEvent({
                     message : 'Case creation failed',
                     variant : 'error',
@@ -361,6 +395,7 @@ export default class myNetworkOthersForm extends LwcForm {
             senderCompany: get(record, 'articleDetails.proxyArticle.SenderCompany__c'),
             addresseeName: get(record, 'articleDetails.proxyArticle.ReceiverName__c'),
             addresseeEmail: get(record, 'articleDetails.proxyArticle.ReceiverEmail__c'),
+            articleId: get(record, 'articleDetails.proxyArticle.ArticleID__c'),
         }
     }
 
@@ -391,28 +426,14 @@ export default class myNetworkOthersForm extends LwcForm {
         this.updateValuesAndVisibilities(newValues)
     }
 
-    handleFormUpdateWithAtricleData = data => {
+    handleFormUpdateWithArticleData = data => {
         const valuesToUpdate = this.formatDataForFormUpdate(data)
-        // set address and address search terms
-        const senderAddressValidationComponent = this.template.querySelector('.sender-address')
-        const senderAddress = this.extractSenderAddress(data)
-        const senderAddressSearchTerm = this.extractSenderAddressSearchTerm(data)
-        senderAddressValidationComponent.setAddressSearchTerm(senderAddressSearchTerm)
-        senderAddressValidationComponent.setAddress(senderAddress)
-
-        const addresseeAddressValidationComponent = this.template.querySelector('.addressee-address')
-        const addresseeAddress = this.extractAddresseeAddress(data)
-        const addresseeAddressSearchTerm = this.extractAddresseeAddressSearchTerm(data)
-        addresseeAddressValidationComponent.setAddressSearchTerm(addresseeAddressSearchTerm)
-        addresseeAddressValidationComponent.setAddress(addresseeAddress)
 
         this.setFormValue({
             ...valuesToUpdate,
-            senderAddress,
-            senderAddressSearchTerm,
-            addresseeAddress,
-            addresseeAddressSearchTerm,
         })
+        if (valuesToUpdate.articleId !== undefined)
+        {this.articleId = valuesToUpdate.articleId;}
     }
 
     compensationAmountChangeHandler = compAmount => {
@@ -467,6 +488,24 @@ export default class myNetworkOthersForm extends LwcForm {
             facilityId,
             facilityName,
         })
+    }
+    
+
+    // To hold on to the Article ID value irrespective of whether the user searched for the Article
+    handleFormArticleID = data => {
+        this.articleId=data;
+    }
+    
+	handleArticleIDValueChange(event){
+        const articleid = this.articleId;
+        // Load an empty search to update the address fields with empty values
+        this.handleFormUpdateWithArticleData(emptySearch);
+
+        this.setFormValue({
+            articleId,
+        })
+        this.articleDamageStandingInstructions = null
+        this.additionalCommentsMandatory = false
     }
     
     printScreen(event){
