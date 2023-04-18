@@ -1117,6 +1117,11 @@
 
 		//Only some new 
 		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
+		Set<Id> userIds = new Set<Id>();
+		for(AgentWork aw: caseIdsVsAgentWorks.values()) {
+			userIds.add(aw.UserId);
+		}
+		Set<Id> qualifiedAsPreferredAgentUserIds = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(userIds);
 
 		if(caseIdsVsAgentWorks.isEmpty() == false) {
 
@@ -1124,7 +1129,8 @@
 			List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();	
 
 			for(Case csRec : casesPreferredAgentRouting.values()) {
-				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true) {
+				// check if there is an AgentWork record AND if the user of the agent work qualifies for Preferred Agent assignment
+				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true && qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId) == true) {
 					
 					//use the routing configuration of the Omni queue the Case was being routed to
 					QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 

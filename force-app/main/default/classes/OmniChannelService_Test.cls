@@ -416,4 +416,45 @@ public class OmniChannelService_Test {
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniHoldingQueueId) == false, 'Omni Holding Queue Id is empty');
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniDefaultQueueId) == false, 'Omni Default Queue Id is empty');
 	}
+
+	@IsTest
+	public static void getUserIdsWithSkills(){
+		//Users
+		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
+		users[0].IsActive = true;
+
+		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(1, true));
+		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
+		serviceResources.values()[0].RelatedRecordId = users[0].id;
+		List<ServiceResourceSkill> serviceResourceSkills = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ServiceResourceSkillSelector mockServiceResourceSkillSelector = (ServiceResourceSkillSelector)MockUtility.mockSelector(ServiceResourceSkillSelector.class);	 
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockServiceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIdsAndSkills(
+			(Set<Id>)fflib_Match.eq(new Set<Id> {users[0].id}), 
+			(Set<String>)fflib_Match.eq(new Set<String> { skills.values()[0].DeveloperName }), 
+			(Set<Object>)fflib_Match.eq(new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE })		
+		)).thenReturn(serviceResourceSkills);
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		
+		Set<Id> result = OmniChannelService.getInstance().getUserIdsWithSkills(new Set<Id> {users[0].id}, new Set<String> { skills.values()[0].DeveloperName });
+
+		Test.stopTest();
+
+		System.assertEquals(1, result.size(), 'result map should contain 1 record');
+		System.assertEquals(true, result.contains(users[0].id), 'It should return the same id');
+
+	}
 }

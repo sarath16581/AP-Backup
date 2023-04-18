@@ -20,6 +20,8 @@
 **/
 public inherited sharing class OmniChannelService {
 
+	
+
 	static OmniChannelService instance;
 	public static OmniChannelService getInstance() {
 		if (instance == null) {
@@ -76,6 +78,21 @@ public inherited sharing class OmniChannelService {
 				omniDefaultQueueId = QM__c.getOrgDefaults().DefaultOmniQueueId__c;
 			}
 			return omniDefaultQueueId;
+		}
+		private set;
+	}
+
+	public Set<String> preferredAgentQualifySkillDeveloperNames {
+		get {
+			if(preferredAgentQualifySkillDeveloperNames == null) {				
+				preferredAgentQualifySkillDeveloperNames = new Set<String>();
+				for(String devName: QM__c.getOrgDefaults().PreferredAgentSkillDeveloperNames__c.split(',')) {
+					if(String.isBlank(devName) == false) {
+						preferredAgentQualifySkillDeveloperNames.add(devName.trim());
+					}
+				}
+			}
+			return preferredAgentQualifySkillDeveloperNames;
 		}
 		private set;
 	}
@@ -246,6 +263,17 @@ public inherited sharing class OmniChannelService {
 		return bReturn;
 	}
 
+	/*
+	* This method returns a set of userids that have the specified skills 
+	*/
+	public Set<Id> getUserIdsWithPreferredAgentSkills(Set<Id> userIds) {
+		Set<Id> result = new Set<Id>();
+		for(ServiceResourceSkill srs: new WithoutSharingRetrieveData().getPreferredAgentServiceResourceSkills(userIds)) {
+			result.add(srs.ServiceResource.RelatedRecordId);
+		}
+		return result;
+	}
+
 	/**
 	 * Required to provide elevated privileges for guest users to query the AgentWork object 
 	 */
@@ -253,6 +281,10 @@ public inherited sharing class OmniChannelService {
 		
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
 			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
+		}
+
+		private List<ServiceResourceSkill> getPreferredAgentServiceResourceSkills(Set<Id> userIds){
+			return ServiceResourceSkillSelector.newInstance().selectByActiveServiceResourceRelatedRecordIdsAndSkills(userIds, OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames, new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE });
 		}
 	}
 
