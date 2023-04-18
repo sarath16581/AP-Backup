@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadSeekerConversionOverride__c</fullName>
+    <defaultValue>false</defaultValue>
+    <externalId>false</externalId>
+    <label>Lead Seeker Conversion Override</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+	<securityClassification>INTERNAL</securityClassification>
+    <type>Checkbox</type>
+	<description>Tick this to allow linking to an old Opportunity when converting a Lead Seeker record.</description>
+	<inlineHelpText>Tick this to allow linking to an old Opportunity when converting a Lead Seeker record.</inlineHelpText>
+</CustomField>
