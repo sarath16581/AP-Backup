@@ -187,7 +187,6 @@ public with sharing class CaseTrackingHelper{
 				isUpdateStatusTrackRecursive = true;	// set flag to true;
 				Map<Id,sObject> ownerMap = getOwnerMap(ownerIds);   // map of case id and owner (user or queue)
 				Map<Id,sObject> prevOwnerMap = getOwnerMap(prevOwnerIds);   // map of case id and owner (user or queue)
-				system.debug('***** ownerMap' + ownerMap);
 				if(!ownerMap.isEmpty()){	// verify if ownerMap got values
 					// create status tracking records for the case
 					List<StatusTracking__c> trackingRecords = createStatusTracking(casesTobeTracked.values(),ownerMap,fieldMap,prevOwnerMap,false );
@@ -580,9 +579,7 @@ public with sharing class CaseTrackingHelper{
 		}
 		public void upsertStatusTrackingStatus( List<StatusTracking__c> trackingRecords){
 			try{
-				system.debug('trackingRecords****' + trackingRecords);
 				List<Database.upsertResult> uResults = Database.upsert(trackingRecords,false);
-				system.debug('uResults****' + uResults);	
 			}
 			catch(Exception exp){
 				// Error Logged to Exception object for analysis
