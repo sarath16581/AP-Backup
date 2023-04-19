@@ -359,6 +359,10 @@
         <editHeading>true</editHeading>
         <label>System Information</label>
         <layoutColumns>
+			<layoutItems>
+                <behavior>Edit</behavior>
+                <field>LeadSeekerConversionOverride__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
