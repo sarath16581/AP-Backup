@@ -18,10 +18,13 @@ History:
 27-10-2020  Mav3rik                         - Added LPOLeadWccController.updateWCC
 05-11-2020  suman.gunaganti@auspost.com.au  - Added HVS Sales cadence code
 12-01-2022  naveen.rajanna@auspost.com.au   - REQ2656153 Added check for whether Batch/Future invoked call before making future call
+27-03-2023  Pratyush Chalasani              - (SF-621) Added LeadTriggerHandler and respective domain classes
 **************************************************/
 
 trigger LeadTrigger on Lead (after delete, after undelete, before insert, before update, after insert, after update) {
     if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
+		(new LeadTriggerHandler()).dispatch();
+		
         Set<Id> leadIds=new Set<Id>();
             if (trigger.isAfter && trigger.isDelete){
                 system.debug('***' + trigger.old);
