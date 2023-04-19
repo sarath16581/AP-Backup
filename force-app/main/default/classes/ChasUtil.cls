@@ -9,7 +9,7 @@
  * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
  * 2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved RoutingBypass, getContactId, parseInsertedCaseResultsAndCreateComment, createCaseComment and some other few minor functionalities to ChasBase
  * */
-public virtual inherited sharing class ChasUtil extends BaseUtil{
+public without sharing class ChasUtil extends BaseUtil{
 
     public static ChasUtil getInstance() {
         return (ChasUtil)Application.Utilities.getInstance(ChasUtil.class);
