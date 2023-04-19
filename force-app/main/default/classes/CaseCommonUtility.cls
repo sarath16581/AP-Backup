@@ -45,6 +45,7 @@
 	2023-02-13		Noel Lim									Add logic for Preferred Agent routing in routeCase(), and new method processPreferredAgent()
 	2023-03-08		Noel Lim									Add Release 2 TEMPORARY FIX - exclude Preferred Agent routing for cases from portals
 	2023-03-17		Noel Lim									Add criteria to routing engine, to allow routing when AllocateToQueue = true only if Owner is not a User, Owner is not the Omni Holding Queue, or Owner is a User but Case is Closed
+	2023-04-19		George Nguyen -	Added condition to check if the previous assigned agent qualifies as Preferred agent (qualifiedAsPreferredAgentUserIds)
 
 
 	************************************************/

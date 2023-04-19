@@ -17,6 +17,7 @@
 *		01/02/2023				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getCaseIdsWithLatestAcceptedAgentWorks, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 * 		10/02/2023				George Nguyen				Added rerouteCasesWithPreferredAgentByPass and Cache
 *		17/03/2023				Noel Lim					Added class variables omniClosedCaseQueueId and omniHoldingQueueId
+*		19/04/2023				George Nguyen				Added getUserIdsWithPreferredAgentSkills which gets the list of user ids that have Preferred agent skills
 **/
 public inherited sharing class OmniChannelService {
 
@@ -82,6 +83,7 @@ public inherited sharing class OmniChannelService {
 		private set;
 	}
 
+	// this stores the qualified skills for Preferred Agents
 	public Set<String> preferredAgentQualifySkillDeveloperNames {
 		get {
 			if(preferredAgentQualifySkillDeveloperNames == null) {				
