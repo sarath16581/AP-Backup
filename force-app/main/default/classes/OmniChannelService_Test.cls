@@ -418,7 +418,11 @@ public class OmniChannelService_Test {
 	}
 
 	@IsTest
-	public static void getUserIdsWithSkills(){
+	public static void getUserIdsWithPreferredAgentSkills(){
+		QM__c custSetting = QM__c.getOrgDefaults();
+		custSetting.PreferredAgentSkillDeveloperNames__c = 'BOH';
+		insert custSetting;
+
 		//Users
 		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
 		users[0].IsActive = true;
@@ -438,7 +442,7 @@ public class OmniChannelService_Test {
 		
 		MockUtility.Mocks.when(mockServiceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIdsAndSkills(
 			(Set<Id>)fflib_Match.eq(new Set<Id> {users[0].id}), 
-			(Set<String>)fflib_Match.eq(new Set<String> { skills.values()[0].DeveloperName }), 
+			(Set<String>)fflib_Match.eq(OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames), 
 			(Set<Object>)fflib_Match.eq(new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE })		
 		)).thenReturn(serviceResourceSkills);
 
@@ -449,7 +453,7 @@ public class OmniChannelService_Test {
 		// =====================================
 		Test.startTest();
 		
-		Set<Id> result = OmniChannelService.getInstance().getUserIdsWithSkills(new Set<Id> {users[0].id}, new Set<String> { skills.values()[0].DeveloperName });
+		Set<Id> result = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(new Set<Id> {users[0].id});
 
 		Test.stopTest();
 
