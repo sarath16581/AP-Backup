@@ -42,6 +42,7 @@
  * 2022-02-09 - Dattaraj Deshmukh - Added 'getNetworkUsers' method.
  * 2023-03-21 - Nathan Franklin - small refactor / adding record type for consumer
  * 2023-04-04 - Mahesh Parvathaneni - Added method getFeedComments
+ * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -1102,5 +1103,14 @@ public with sharing class ApplicationTestDataFactory {
 			return overlayContributionOverlayType;
 		}
 		private set;
+	}
+	public static Id leadBGStandardRecordType {
+		get {
+			if(leadBGStandardRecordType == null) {
+				leadBGStandardRecordType = [Select Id From RecordType Where SObjectType = 'Lead' And DeveloperName = 'BG_Standard'].Id;
+			  }
+			  return leadBGStandardRecordType;
+		 }
+		 private set;
 	}
 }
