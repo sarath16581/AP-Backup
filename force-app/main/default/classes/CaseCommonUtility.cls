@@ -724,7 +724,6 @@
 						}
 						//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 						else if(oldCase != null 
-							&& (new Set<String>{'Web','Portal','BSP','MyPost Business'}).contains(csRec.Origin) == false //Omni Release 2 TEMPORARY FIX
 							&& csRec.OwnerId != oldCase.OwnerId						
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
