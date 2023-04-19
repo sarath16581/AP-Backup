@@ -125,7 +125,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         //await searchAPAsync({searchString: this.tempCase.ReferenceID__c})
         await search({consignNumber: this.trackingId})
             .then(result=>{
-                //console.debug(result);
 
                 if(result == null || result == undefined)
                 {
@@ -148,7 +147,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
                     this.searchResult = result;
                     this.trackingIdForDeliveryStatusCmp = this.trackingId;
                     this.parseLatestEvent();
-                    //console.debug(result.singleCon);
                     if(this.searchResult.singleCon)
                         this.parseArticleDetails(this.searchResult.singleCon);
                 }
@@ -296,7 +294,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
         // sender Details
         let senderAddressCmp = this.getSenderAddressCmp();
-        //console.debug('exists:' + 'SenderAddress__c' in this.article);
 
         if('SenderAddress__c' in this.article) {
             senderAddressCmp.address = this.parseAddressAsObject(true);
@@ -482,14 +479,12 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
                 break;
         }
 
-        //console.debug(JSON.stringify(this.tempCase));
     }
 
     onUploadFinished(event)
     {
         //this.uploadedFiles = event.detail.files;
         this.uploadedFiles = event.detail;
-        //console.debug(JSON.stringify(this.uploadedFiles));
     }
 
     onDeleteUpload(event)
@@ -561,13 +556,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         // get the address stuff
         this.getAddressesFromInput();
 
-        // debug what we're sending
-        console.debug(JSON.stringify(this.tempCase));
-
         createEnquiryAusPost({enq: this.tempCase,
             uploadedFiles: this.uploadedFiles}
         ).then(result =>{
-            //console.debug(result);
             if(result.status == 'error')
             {
                 this.errorMessage = result.message;
@@ -652,7 +643,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
     }
 
     debugLog(sLog) {
-        //console.debug(sLog);
         this.logs.push(sLog);
     }
 }

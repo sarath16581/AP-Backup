@@ -51,6 +51,16 @@ public virtual inherited sharing class BusinessHoursSelector extends Application
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(BusinessHours.Name + ' in :BusinessHoursNames')).endConditions();
 		return Database.query(qb.toSoqlString());
 	}
+
+	public virtual BusinessHours selectDefault(Boolean isDefault) {
+		QueryBuilder qb = newQueryBuilder()
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(BusinessHours.IsDefault +' =: isDefault'))
+				.endConditions();
+
+		String soql = qb.toSoqlString();
+		return Database.query(soql);
+	}
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}

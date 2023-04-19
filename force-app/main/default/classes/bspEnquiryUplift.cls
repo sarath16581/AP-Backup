@@ -10,7 +10,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
 13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
 **************************************************/
-public without sharing class bspEnquiryUplift {
+public without sharing class bspEnquiryUplift extends BaseUtil{
 
     public static Case enq {get;set;}
     public static Case dummyEnq1 {get;set;}
@@ -485,31 +485,14 @@ public without sharing class bspEnquiryUplift {
 
         enq.DatePosted__c = enq.BSPLodgementDate__c;
         enq.Priority = BspConstants.CASE_PRIORITY_LOW;    //REQ0661196 changed to low
-        // Gunith: When a Case is created from BSP, the Case should always be routed
+        // Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
         enq.AllocateToQueue__c = true;
 
-        // TODO : expected delivery between? is this handled in the search, is this always come through if one of those values available?
-        // TODO: what happens if there's no EDD?
-        // TODO HANS: move this to a separate method when code cleanup, this is MVP for PTEST only
         // TODO: unit tests
         if(enq.EstimatedDelivery__c != null) {
             //2023-04-24 EDD
             //2023-05-08 EDD + business 10 days
-            Date eddPlusBusinessDays = ChasUtil.calculateNextBusinessDay(enq.EstimatedDelivery__c, nextUpdateInForLateItems);
-            //if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
-            if (eddPlusBusinessDays > Date.today()) {
-                Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
-                        SSSWConstants.QUEUE_NAME_REOPEN_Q
-                });
-                if (!vGroups.isEmpty()) {
-                    enq.OwnerId = vGroups.values()[0].Id;
-                    enq.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
-                    enq.Case_Reopen_Date__c = eddPlusBusinessDays;
-                    enq.HeldToOpenOn__c = eddPlusBusinessDays;
-                    enq.ByPassRoutingRulesOnCreation__c = true;
-                    enq.AllocateToQueue__c = false;
-                }
-            }
+            setDirectRoutingValues(enq);
         }
         enq = createEnquiryAusPostFinalise(enq, enquiryWrapper);
         if(enq != null){
@@ -1682,22 +1665,31 @@ public without sharing class bspEnquiryUplift {
             this.enqObj = enqObj;
         }
     }
-    
+
+    /**
+     * On hold the case when the case based on the EDD of the article and the configured holding periodd
+     * @param pCase
+     */
+    public static void setDirectRoutingValues(Case pCase) {
+        Date eddPlusBusinessDays = calculateNextBusinessDay(pCase.EstimatedDelivery__c, CCUSettings__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().nextUpdateInForLateItems__c) : 0);
+        //if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
+        if (eddPlusBusinessDays > Date.today()) {
+            Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
+                    SSSWConstants.QUEUE_NAME_REOPEN_Q
+            });
+            if (!vGroups.isEmpty()) {
+                pCase.OwnerId = vGroups.values()[0].Id;
+                pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
+                pCase.Case_Reopen_Date__c = eddPlusBusinessDays;
+                pCase.HeldToOpenOn__c = eddPlusBusinessDays;
+                pCase.ByPassRoutingRulesOnCreation__c = true;
+                pCase.AllocateToQueue__c = false;
+            }
+        }
+    }
+
     /** 
     * Custom Exception
     * */
     class ErrorException extends Exception{}
-
-
-    public static final CCUSettings__c configSetting {
-        get {
-            return CCUSettings__c.getInstance();
-        }
-    }
-
-    public static Integer nextUpdateInForLateItems {
-        get {
-            return configSetting.NextUpdateInForLateItems__c != null ? Integer.valueOf(configSetting.NextUpdateInForLateItems__c) : 0;
-        }
-    }
 }
