@@ -8,6 +8,7 @@
  * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
  * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
  * 2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved RoutingBypass, getContactId, parseInsertedCaseResultsAndCreateComment, createCaseComment and some other few minor functionalities to ChasBase
+ * 19/04/2023    hasantha.liyanage@auspost.com.au moved calculateNextBusinessDays() to BaseUtil class and extended BaseUtil
  * */
 public without sharing class ChasUtil extends BaseUtil{
 

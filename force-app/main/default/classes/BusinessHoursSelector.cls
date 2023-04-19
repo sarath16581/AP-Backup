@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2021-11-17 - Ashapriya Gadi - Created
+* 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day added selectDefault
 */
 
 public virtual inherited sharing class BusinessHoursSelector extends ApplicationSelector {

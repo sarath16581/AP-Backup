@@ -1,7 +1,9 @@
-/**
- * Created by hasan on 18/04/2023.
- */
-
+/**************************************************
+Type:         Commonly shared utilities for tracking related classes
+History:
+--------------------------------------------------
+19/04/2023    Created : hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
+**************************************************/
 public virtual inherited sharing class BaseUtil {
 
 	/**
@@ -37,9 +39,4 @@ public virtual inherited sharing class BaseUtil {
 		return BusinessHoursSelector.newInstance().selectDefault(true);
 	}
 
-	//-- Case Wrapper Class
-	public class CaseWrapper {
-		@AuraEnabled public String caseNumber { get; set; }
-		@AuraEnabled public String caseStatus { get; set; }
-	}
 }

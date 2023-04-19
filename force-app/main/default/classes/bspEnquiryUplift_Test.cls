@@ -1,6 +1,7 @@
 /**
  * Created by vcheng on 7/09/2020.
  * Adding changes related to ParSim -pilot -Swati Mogadala 14/10/2021
+ * 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 added test testCreateEnquiryGeneralForEDD
  */
 
 @isTest
@@ -51,7 +52,8 @@ private class bspEnquiryUplift_Test {
                 BSPCaseStatusList__c = 'In Progress,Action Required,Resolved,Closed',
                 CCUCommunityUserProfileId__c = [SELECT Id FROM Profile WHERE Name = 'BSP Community User'].Id,
                 AdminCaseSubject__c = 'Enterprise Contact Registration',
-                AttachmentSizeLimit__c = 5
+                AttachmentSizeLimit__c = 5,
+                nextUpdateInForLateItems__c = 10
         ); 
         insert setting;
 
@@ -874,6 +876,39 @@ private class bspEnquiryUplift_Test {
                 System.debug('exception -->' + e.getMessage());
                 //System.assert(e.getMessage().contains('There was an error retrieving Consignment Data'));
             }
+        }
+    }
+
+    /**
+     * Testing of cases with EDD + business days are put on hold
+     */
+    @IsTest
+    public static void testCreateEnquiryGeneralForEDD() {
+
+        Case enqGeneral = new Case();
+        enqGeneral.CCUEnquiryType__c = 'General Enquiry';
+        enqGeneral.CCUYourReference__c = 'test reference';
+        enqGeneral.Description = 'test general enquiry';
+        Date edd = Date.today().addDays(-2);
+        enqGeneral.EstimatedDelivery__c = edd;
+
+        User commUser = setupCommunityUser();
+        System.runAs(commUser)
+        {
+            Test.startTest();
+            bspEnquiryUplift.CreateEnquiryWrapper resultGeneral = bspEnquiryUplift.createEnquiryAusPost(enqGeneral, new List<Map<String, String>> ());
+            Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
+                    SSSWConstants.QUEUE_NAME_REOPEN_Q
+            });
+
+            Date eddPlusBusinessDays = BaseUtil.calculateNextBusinessDay(enqGeneral.EstimatedDelivery__c, CCUSettings__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().nextUpdateInForLateItems__c) : 0);
+            Case newCase = [SELECT Id, CaseNumber, OwnerId, Status, Case_Reopen_Date__c, HeldToOpenOn__c, ByPassRoutingRulesOnCreation__c, AllocateToQueue__c FROM Case WHERE Id =: resultGeneral.enquiry.Id LIMIT 1];
+            Test.stopTest();
+            System.assertEquals(vGroups.values()[0].Id, newCase.OwnerId, 'Create General Enquiry errored: case should be held in queue : ' + SSSWConstants.QUEUE_NAME_REOPEN_Q);
+            System.assertEquals(SSSWConstants.CASE_STATUS_INPROGRESS, newCase.Status, 'Create General Enquiry errored: case status should be : ' + SSSWConstants.CASE_STATUS_INPROGRESS);
+            System.assertEquals(eddPlusBusinessDays, newCase.Case_Reopen_Date__c, 'Create General Enquiry errored: case should re open date should be : ' + eddPlusBusinessDays);
+            System.assertEquals(eddPlusBusinessDays, newCase.HeldToOpenOn__c, 'Create General Enquiry errored: case should be held to open on : ' + eddPlusBusinessDays);
+            System.assertEquals(true, newCase.ByPassRoutingRulesOnCreation__c, 'Create General Enquiry errored: Routing rules should be bypassed ');
         }
     }
 }
