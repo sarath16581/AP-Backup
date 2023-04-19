@@ -145,7 +145,7 @@ export default class myNetworkOthersForm extends LwcForm {
             this.facilityOptions = this.formatNetworkUsersRecordsToFacilityPicklistOptions(data)
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
         }) 
 
         getProductPickListValuesByNames()
@@ -153,7 +153,7 @@ export default class myNetworkOthersForm extends LwcForm {
             this.formatProductPickListValuesByNames(data)
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
         })
 
         getEnquirySubTypeValues()
@@ -161,7 +161,7 @@ export default class myNetworkOthersForm extends LwcForm {
             this.formatEnquirySubTypePickListValues(data)
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
         })
 
         getSubCatValuesToDisableCompensation()
@@ -259,7 +259,6 @@ export default class myNetworkOthersForm extends LwcForm {
     handleProductSubCategoryChange(event){
         let enquirySubType = [], key, keyData, scValue;
         let valueToCompare = this.values.caseType + '|' + this.values.productCategory + '|' + event.target.value;
-        console.log('valueToCompare'+valueToCompare)
 
         this.enquirySubTypeOptions = enquirySubType 
         for(key in this.enquirySubTypeValues){
@@ -360,7 +359,7 @@ export default class myNetworkOthersForm extends LwcForm {
                 this.formatCreateCaseResponse(data)
             })
             .catch(error => {
-                console.log('Case creation failed...'+JSON.stringify(error))
+                console.log('Case creation failed...'+JSON.stringify(error));
                 const evt = new ShowToastEvent({
                     message : 'Case creation failed',
                     variant : 'error',
