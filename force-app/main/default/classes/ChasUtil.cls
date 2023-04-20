@@ -8,9 +8,9 @@
  * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
  * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
  * 2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved RoutingBypass, getContactId, parseInsertedCaseResultsAndCreateComment, createCaseComment and some other few minor functionalities to ChasBase
- * 19/04/2023    hasantha.liyanage@auspost.com.au moved calculateNextBusinessDays() to BaseUtil class and extended BaseUtil
+ * 19/04/2023    hasantha.liyanage@auspost.com.au moved calculateNextBusinessDays() to BusinessHoursService
  * */
-public without sharing class ChasUtil extends BaseUtil{
+public without sharing class ChasUtil{
 
     public static ChasUtil getInstance() {
         return (ChasUtil)Application.Utilities.getInstance(ChasUtil.class);
@@ -40,7 +40,7 @@ public without sharing class ChasUtil extends BaseUtil{
      * */
     public static Boolean isTheDateWithinEDDPlusBusinessdays(Date inputDate){
         Boolean isWithinEDDPlusBusinessdays = false;
-        if(Date.today() > inputDate  && Date.today() <= ChasUtil.calculateNextBusinessDay(inputDate,CHAS_SETTINGS.nextUpdateInForLateItems__c != null ? Integer.valueOf(CHAS_SETTINGS.nextUpdateInForLateItems__c): 0))
+        if(Date.today() > inputDate  && Date.today() <= BusinessHoursService.newInstance().calculateNextBusinessDay(inputDate,CHAS_SETTINGS.nextUpdateInForLateItems__c != null ? Integer.valueOf(CHAS_SETTINGS.nextUpdateInForLateItems__c): 0))
         {
             isWithinEDDPlusBusinessdays = true;
         }
@@ -51,7 +51,7 @@ public without sharing class ChasUtil extends BaseUtil{
      * */
     public static Boolean isTheDatePastEDDPlusBusinessdays(Date inputDate){
         Boolean isPastEDDPlusBusinessdays = false;
-        if(Date.today() >= ChasUtil.calculateNextBusinessDay(inputDate,CHAS_SETTINGS.nextUpdateInForLateItems__c != null ? Integer.valueOf(CHAS_SETTINGS.nextUpdateInForLateItems__c): 0))
+        if(Date.today() >= BusinessHoursService.newInstance().calculateNextBusinessDay(inputDate,CHAS_SETTINGS.nextUpdateInForLateItems__c != null ? Integer.valueOf(CHAS_SETTINGS.nextUpdateInForLateItems__c): 0))
         {
             isPastEDDPlusBusinessdays = true;
         }

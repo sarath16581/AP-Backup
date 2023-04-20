@@ -11,7 +11,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
 **************************************************/
-public without sharing class bspEnquiryUplift extends BaseUtil{
+public without sharing class bspEnquiryUplift {
 
 	public static Case enq {get;set;}
 	public static Case dummyEnq1 {get;set;}
@@ -1672,7 +1672,7 @@ public without sharing class bspEnquiryUplift extends BaseUtil{
 	 * @param pCase
 	 */
 	public static void setDirectRoutingValues(Case pCase) {
-		Date eddPlusBusinessDays = calculateNextBusinessDay(pCase.EstimatedDelivery__c, CCUSettings__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().nextUpdateInForLateItems__c) : 0);
+		Date eddPlusBusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(pCase.EstimatedDelivery__c, CCUSettings__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().nextUpdateInForLateItems__c) : 0);
 		//if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
 		if (eddPlusBusinessDays > Date.today()) {
 			Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
@@ -1688,6 +1688,7 @@ public without sharing class bspEnquiryUplift extends BaseUtil{
 			}
 		}
 	}
+
 
 	/**
 	* Custom Exception
