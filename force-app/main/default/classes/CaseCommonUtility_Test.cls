@@ -1701,12 +1701,6 @@ private with sharing class CaseCommonUtility_Test {
 		//AgentWorks
 		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(4, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id,cases[5].Id}, true);
 
-		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(1, true));
-		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
-		serviceResources.values()[0].RelatedRecordId = users[0].id;
-		ServiceResourceSkill srs = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true)[0];
-		srs = (ServiceResourceSkill)ApplicationTestDataFactory.setUnwritableFields(srs, new Map<String, Object> { 'ServiceResource' => serviceResources.values()[0] });
-
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -1719,19 +1713,17 @@ private with sharing class CaseCommonUtility_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(mockOmniChannelService.getCaseIdsWithLatestAcceptedAgentWorks(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id,cases[1].Id})
+			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id, cases[5].Id})
 		)).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+
+		MockUtility.Mocks.when(mockOmniChannelService.getUserIdsWithPreferredAgentSkills(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{ users[0].Id })
+		)).thenReturn(new Set<Id>{ users[0].Id });
 
 		MockUtility.Mocks.when(mockDatabase.dmlInsert(
 			(List<SObject>)fflib_Match.anyObject(), 
 			fflib_Match.anyBoolean()
 		)).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-
-		MockUtility.Mocks.when(mockServiceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIdsAndSkills(
-			(Set<Id>)fflib_Match.eq(new Set<Id> {users[0].id}), 
-			(Set<String>)fflib_Match.eq(OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames), 
-			(Set<Object>)fflib_Match.eq(new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE })		
-		)).thenReturn(new List<ServiceResourceSkill> { srs });
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -1741,7 +1733,6 @@ private with sharing class CaseCommonUtility_Test {
 		
 		Test.startTest();
 
-		system.debug('>>>>>>>>>>>>> running test.............. with cases: ' + cases);
 		CaseCommonUtility helper = new CaseCommonUtility();			
 		helper.routeCase(cases, new Map<Id,Case>(oldCases),false);
 

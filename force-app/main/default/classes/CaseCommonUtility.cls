@@ -1115,7 +1115,7 @@
 	@TestVisible
 	private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 
-		//Only some new 
+		system.debug('George says: casesPreferredAgentRouting.keySet(): ' + casesPreferredAgentRouting.keySet());
 		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
 		system.debug('George says: caseIdsVsAgentWorks: ' + caseIdsVsAgentWorks);
 		Set<Id> userIds = new Set<Id>();
@@ -1131,10 +1131,6 @@
 
 			for(Case csRec : casesPreferredAgentRouting.values()) {
 				// check if there is an AgentWork record AND if the user of the agent work qualifies for Preferred Agent assignment
-				system.debug('George says: caseIdsVsAgentWorks.containsKey(csRec.Id): ' + caseIdsVsAgentWorks.containsKey(csRec.Id));
-				system.debug('George says: caseIdsVsAgentWorks.get(csRec.Id).UserId: ' + caseIdsVsAgentWorks.get(csRec.Id).UserId);
-				system.debug('George says: qualifiedAsPreferredAgentUserIds: ' + qualifiedAsPreferredAgentUserIds);
-				system.debug('George says: qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId): ' + qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId));
 
 				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true && qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId) == true) {
 					
