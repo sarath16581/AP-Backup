@@ -991,7 +991,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	static testmethod void testCloseBulkTasks() {	
+	@IsTest
+	static void testCloseBulkTasks() {	
 		
 		Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId(); //Query for delivery enquiry record type
 		//Create sample delivery enquiry case.
@@ -1036,7 +1037,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	static testmethod void testNotificationAutomationModel() {	
+	@IsTest
+	static void testNotificationAutomationModel() {	
 		
 		Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
 		UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
@@ -1103,7 +1105,8 @@ private with sharing class CaseCommonUtility_Test {
 	/**
 	 * Multiple Test Cases for AllocateToQueue__c after a Case status is made 'New'
 	 */
-	static testMethod void testMarkRenewedCasesToRoute(){
+	@IsTest
+	static void testMarkRenewedCasesToRoute(){
 
 		Integer idSeed = 1;
 
@@ -1191,7 +1194,8 @@ private with sharing class CaseCommonUtility_Test {
 	*	  Populate the requestor's lookup field with current user if left empty on a case creation 
 	* with 'Customer Analytics & Reporting Request (CAR)' record type
 	****************************************************************************************************/
-	public static testmethod void populateRequestorWithCurrentUserWhenRequestorLeftEmpty(){
+	@IsTest
+	static void populateRequestorWithCurrentUserWhenRequestorLeftEmpty(){
 		Profile prof = [SELECT Id FROM Profile WHERE Name=: ADMIN_PROFILE];
 		// Create a test user with System Admin profile
 		User testuser = TestUtility.createUser('SethOrg',prof.id,null);

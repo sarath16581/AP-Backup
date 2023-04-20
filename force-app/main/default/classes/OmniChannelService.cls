@@ -21,8 +21,6 @@
 **/
 public inherited sharing class OmniChannelService {
 
-	
-
 	static OmniChannelService instance;
 	public static OmniChannelService getInstance() {
 		if (instance == null) {

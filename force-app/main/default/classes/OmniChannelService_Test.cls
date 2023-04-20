@@ -352,7 +352,6 @@ public class OmniChannelService_Test {
 		// Stubbing
 		// =====================================
 		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);	 
-		UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);	 
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -455,7 +454,6 @@ public class OmniChannelService_Test {
 		Test.startTest();
 		
 		Set<Id> result = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(new Set<Id> {users[0].id});
-		system.debug('>>>>> result: ' + result);
 
 		Test.stopTest();
 
