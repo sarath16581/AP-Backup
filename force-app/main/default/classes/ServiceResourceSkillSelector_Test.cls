@@ -33,18 +33,27 @@ public with sharing class ServiceResourceSkillSelector_Test {
 
 		ServiceResourceSkillSelector selector = ServiceResourceSkillSelector.newInstance();
 
-		QueryBuilder qa = QueryBuilder.newInstance();
-		QueryBuilder.mockFactory.put(ServiceResourceSkillSelector.class, qa); 
+		QueryBuilder qb = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(ServiceResourceSkillSelector.class, qb); 
 		selector.selectById(serviceResourceSkills.keySet());
-		String queryString = qa.toSoqlString();
+		String queryString = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\bId IN :ids\\b').matcher(queryString).find(), 'Filters by Ids in query');
 
-		qa = QueryBuilder.newInstance();
-		QueryBuilder.mockFactory.put(ServiceResourceSkillSelector.class, qa); 
+		qb = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(ServiceResourceSkillSelector.class, qb); 
 		selector.selectByActiveServiceResourceRelatedRecordIds(pendingServiceRoutings.keySet(), new Set<Object>());
-		queryString = qa.toSoqlString();
+		queryString = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\b' + ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :relatedRecordIds AND ' + ServiceResource.getsObjectType() + '.' + ServiceResource.IsActive + ' = TRUE\\b').matcher(queryString).find(), 'Filters by relatedRecordIds in query');
 
+		qb = selector.newQueryBuilder(new Set<Object>{
+			ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE
+		});
+		String soql = qb.toSoqlString();
+		System.assertEquals(
+			true,
+			Pattern.compile('(?ism)ServiceResource\\..*?\\bFROM ServiceResourceSkill\\b').matcher(soql).find(),
+			'Resulting query does select ServiceResource fields'
+		);
 	}
 
 }

@@ -352,7 +352,6 @@ public class OmniChannelService_Test {
 		// Stubbing
 		// =====================================
 		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);	 
-		UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);	 
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -415,5 +414,51 @@ public class OmniChannelService_Test {
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false, 'Omni Closed Case Queue Id is empty');
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniHoldingQueueId) == false, 'Omni Holding Queue Id is empty');
 		System.assert(String.isEmpty(OmniChannelService.getInstance().omniDefaultQueueId) == false, 'Omni Default Queue Id is empty');
+	}
+
+	@IsTest
+	public static void getUserIdsWithPreferredAgentSkills(){
+		QM__c custSetting = QM__c.getOrgDefaults();
+		custSetting.PreferredAgentSkillDeveloperNames__c = 'BOH';
+		insert custSetting;
+
+		//Users
+		List<User> users = ApplicationTestDataFactory.getUsers(1,true);
+		users[0].IsActive = true;
+
+		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(1, true));
+		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
+		serviceResources.values()[0].RelatedRecordId = users[0].id;
+		ServiceResourceSkill srs = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true)[0];
+		srs = (ServiceResourceSkill)ApplicationTestDataFactory.setUnwritableFields(srs, new Map<String, Object> { 'ServiceResource' => serviceResources.values()[0] });
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ServiceResourceSkillSelector mockServiceResourceSkillSelector = (ServiceResourceSkillSelector)MockUtility.mockSelector(ServiceResourceSkillSelector.class);	 
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockServiceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIdsAndSkills(
+			(Set<Id>)fflib_Match.eq(new Set<Id> {users[0].id}), 
+			(Set<String>)fflib_Match.eq(OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames), 
+			(Set<Object>)fflib_Match.eq(new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE })		
+		)).thenReturn(new List<ServiceResourceSkill> { srs });
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		
+		Set<Id> result = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(new Set<Id> {users[0].id});
+
+		Test.stopTest();
+
+		System.assertEquals(1, result.size(), 'result map should contain 1 record');
+		System.assertEquals(true, result.contains(users[0].id), 'It should return the same id');
+
 	}
 }
