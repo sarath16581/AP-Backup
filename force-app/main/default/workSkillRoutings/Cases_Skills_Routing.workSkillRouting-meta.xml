@@ -36,7 +36,7 @@
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>CCS_General</skill>
         <skillLevel>5</skillLevel>
-        <value>Assisted Referrals</value>
+        <value>Assisted referral</value>
     </workSkillRoutingAttributes>
 	<workSkillRoutingAttributes>
         <field>Case.Origin</field>
@@ -78,7 +78,7 @@
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>CCS_General</skill>
         <skillLevel>5</skillLevel>
-        <value>Customer Care Specialist</value>
+        <value>Customer Care Escalation</value>
 	</workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>

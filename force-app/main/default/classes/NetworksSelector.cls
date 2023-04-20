@@ -16,6 +16,7 @@
 * 2022-03-23 - Ranjeewa Silva - Added methods to select by name
 * 2022-12-05 - Mahesh Parvathaneni - Added StarTrack network record types variable
 * 2023-03-10 - Mahesh Parvathaneni - Added FILTER_AP_NETWORK options
+* 2023-04-18 - Mahesh Parvathaneni - Added Comment__c field
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
@@ -30,8 +31,8 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		StarTrack_Constants.RECORDTYPE_DEPOT_REGIONAL
 	};
 
-    public static String sortOrder ='Desc';
-    public static String sortfieldAPIName = 'CreatedDate';
+	public static String sortOrder ='Desc';
+	public static String sortfieldAPIName = 'CreatedDate';
 
 	public static NetworksSelector newInstance() {
 		return (NetworksSelector)Application.Selectors.newInstance(NetworksSelector.class);
@@ -40,12 +41,12 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		return (NetworksSelector)Application.Selectors.newInstance(NetworksSelector.class).setLimit(recordLimit);
 	}
 
-    public static NetworksSelector newInstance(String sortField, String order){
-        // store them anyway, and logic of whether or not to use them in getOrderBy()
+	public static NetworksSelector newInstance(String sortField, String order){
+		// store them anyway, and logic of whether or not to use them in getOrderBy()
 		sortfieldAPIName = sortField;
 		sortOrder = order;
-        return (NetworksSelector)Application.Selectors.newInstance(NetworksSelector.class);
-    }
+		return (NetworksSelector)Application.Selectors.newInstance(NetworksSelector.class);
+	}
 
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
@@ -66,8 +67,8 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		selector.setFieldOverrides(fieldOverrides);
 		return selector;
 	}
-    
-    /**
+
+	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 *                          This approach removes data consistency and prevents possible caching of results
 	 */
@@ -83,11 +84,11 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			Network__c.Id, Network__c.Name, Network__c.OwnerId, Network__c.RecordTypeId, Network__c.AlwaysShown__c, Network__c.Email__c, Network__c.Contact_Facility__c, 
-            Network__c.Email_1__c, Network__c.Email_2__c, Network__c.Email_3__c, Network__c.Email_4__c, Network__c.Email_5__c, Network__c.Fax_Number__c, 
-            Network__c.Org_ID__c, Network__c.Org_Unit_Type__c, Network__c.Network_Address__c,Network__c.Post_Code__c,Network__c.Phone_Number__c,
-            //Network__c.Id, Network__c.Name, Network__c.Org_ID__c, Network__c.Org_Unit_Type__c
-            // Added by Raman for Process Builder replacement
-            Network__c.Business_Hours__c
+			Network__c.Email_1__c, Network__c.Email_2__c, Network__c.Email_3__c, Network__c.Email_4__c, Network__c.Email_5__c, Network__c.Fax_Number__c, 
+			Network__c.Org_ID__c, Network__c.Org_Unit_Type__c, Network__c.Network_Address__c,Network__c.Post_Code__c,Network__c.Phone_Number__c, Network__c.Comment__c,
+			//Network__c.Id, Network__c.Name, Network__c.Org_ID__c, Network__c.Org_Unit_Type__c
+			// Added by Raman for Process Builder replacement
+			Network__c.Business_Hours__c
 		};
 	}
 	/**
@@ -101,7 +102,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public virtual Map<Id, Network__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Network__c.Id + ' in :ids')).endConditions();
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Network__c.Id + ' in :ids')).endConditions();
 		return new Map<Id, Network__c>((List<Network__c>)Database.query(qb.toSoqlString()));
 	}
 
@@ -191,10 +192,12 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 	// for overriding base class defaults
 	public virtual override List<QueryBuilder.Order> getOrderBy() {
 
-		if(!String.isEmpty(sortfieldAPIName) && !String.isEmpty(sortOrder))
+		if(!String.isEmpty(sortfieldAPIName) && !String.isEmpty(sortOrder)) {
 			return new List<QueryBuilder.Order>{new QueryBuilder.Order(sortfieldAPIName, sortOrder)};
-		else
+		}
+		else {
 			return new List<QueryBuilder.Order>();
+		}
 	}
 
 
@@ -284,7 +287,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Network__c.Name + ' in :names')).endConditions();
 		return (List<Network__c>)Database.query(qb.toSoqlString());
 	}
-	
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
