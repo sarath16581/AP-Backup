@@ -16,21 +16,14 @@ History:
 2023-02-14	 Noel Lim - added test method assignToPreferredAgent()
 2023-03-08	 Noel Lim - update test method testAssignToPreferredAgent() for Release 2 TEMPORARY FIX
 2023-03-17	 Noel Lim - update test method closedCasesToClosedQueue() to include new logic that prevents routing from AllocateToQueue = true based on Case Owner. Update existing test methods that simulate portal or Social Case creation to use the correct Profile
+2023-04-19	 George Nguyen - updated to check for qualify Preferred Agent based on skill setting in custom settings
 **************************************************/
 @isTest
 private with sharing class CaseCommonUtility_Test {
 	
-	
-	@testSetup static void testDataCreate() {
-        insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
-    }
-
-    //Added by David Catindoy - Sept 20, 2016
-    @testSetup static void createUser(){
-        Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
-        UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
-        User supportUser = new User(Alias = 'spUser', Email='user@testorg.a', EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='user@testorg.a');
-        Database.insert(supportUser);
+	@testSetup 
+	static void testDataCreate() {
+		insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
     }
 	
 	// Constants
@@ -1086,45 +1079,41 @@ private with sharing class CaseCommonUtility_Test {
 	  */
 	static testmethod void testCloseBulkTasks() {	
 		
-		User supportUser = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'spUser' LIMIT 1];
+		Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId(); //Query for delivery enquiry record type
+		//Create sample delivery enquiry case.
+		Case testCase = TestDataProvider.createTestCase();
+		testCase.RecordTypeId = deliveryRecType;
+		testCase.Call_Purpose__c = 'Late Delivery';
+		testCase.Subject = 'Sample Case';
+		testCase.Origin = 'Phone';
+		testCase.Enquiry_Type__c = StarTrack_Constants.CASE_ENQUIRY_DEF;
+		testCase.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id;
+		Database.insert(testCase);
 		
-		//System.runAs(supportUser){
-			Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId(); //Query for delivery enquiry record type
-			//Create sample delivery enquiry case.
-			Case testCase = TestDataProvider.createTestCase();
-			testCase.RecordTypeId = deliveryRecType;
-			testCase.Call_Purpose__c = 'Late Delivery';
-			testCase.Subject = 'Sample Case';
-			testCase.Origin = 'Phone';
-			testCase.Enquiry_Type__c = StarTrack_Constants.CASE_ENQUIRY_DEF;
-			testCase.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id;
-			Database.insert(testCase);
+		//Create child tasks
+		List<Task> newTasks = new List<Task>();
+		newTasks.add(new Task(RecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByName().get(StarTrack_Constants.TASK_RECTYPE_OPERATION).getRecordTypeId(), Status = StarTrack_Constants.TASK_STATUS_WAITING, WhatId = testCase.Id, Sub_Type__c = StarTrack_Constants.TASK_SUBTYPE_MASSTASKING, Priority='Low'));
+		newTasks.add(new Task(RecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByName().get(StarTrack_Constants.TASK_RECTYPE_OPERATION).getRecordTypeId(), Status = StarTrack_Constants.TASK_STATUS_WAITING, WhatId = testCase.Id, Sub_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Priority='Low'));
+		Database.insert(newTasks);
+		
+		//Create child workflow emails
+		List<workflow_Email__c> newWFs = new List<workflow_Email__c>();
+		newWFs.add(new workflow_Email__c(Status__c = StarTrack_Constants.WFE_STATUS_OPEN, Case__c = testCase.Id, Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_MASSTASKING));
+		newWFs.add(new workflow_Email__c(Status__c = StarTrack_Constants.WFE_STATUS_OPEN, Case__c = testCase.Id, Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING));
+		Database.insert(newWFs);
+		
+		Test.startTest();
+			Case caseRec = [SELECT Id,OwnerId, Status, ResolutionCode__c, Close_Bulk_Tasks__c FROM Case WHERE Id =: testCase.Id];
+			caseRec.Close_Bulk_Tasks__c = true;
+			Database.update(caseRec);
 			
-			//Create child tasks
-			List<Task> newTasks = new List<Task>();
-			newTasks.add(new Task(RecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByName().get(StarTrack_Constants.TASK_RECTYPE_OPERATION).getRecordTypeId(), Status = StarTrack_Constants.TASK_STATUS_WAITING, WhatId = testCase.Id, Sub_Type__c = StarTrack_Constants.TASK_SUBTYPE_MASSTASKING, Priority='Low'));
-			newTasks.add(new Task(RecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByName().get(StarTrack_Constants.TASK_RECTYPE_OPERATION).getRecordTypeId(), Status = StarTrack_Constants.TASK_STATUS_WAITING, WhatId = testCase.Id, Sub_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Priority='Low'));
-			Database.insert(newTasks);
-			
-			//Create child workflow emails
-			List<workflow_Email__c> newWFs = new List<workflow_Email__c>();
-			newWFs.add(new workflow_Email__c(Status__c = StarTrack_Constants.WFE_STATUS_OPEN, Case__c = testCase.Id, Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_MASSTASKING));
-			newWFs.add(new workflow_Email__c(Status__c = StarTrack_Constants.WFE_STATUS_OPEN, Case__c = testCase.Id, Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING));
-			Database.insert(newWFs);
-			
-			Test.startTest();
-				Case caseRec = [SELECT Id,OwnerId, Status, ResolutionCode__c, Close_Bulk_Tasks__c FROM Case WHERE Id =: testCase.Id];
-				caseRec.Close_Bulk_Tasks__c = true;
-				Database.update(caseRec);
-				
-				caseRec.Status = StarTrack_Constants.CASE_STAT_CLOSED;
-				caseRec.ResolutionCode__c = StarTrack_Constants.CASE_RESOLUTION_DUPLICATE;
-				Database.update(caseRec);
-			Test.stopTest();
-			
-			System.assertEquals(true, [SELECT Id, Status FROM Task WHERE Status != :StarTrack_Constants.TASK_STATUS_FINISHED AND WhatId = :testCase.Id].isEmpty());
-			System.assertEquals(true, [SELECT Id, Status__c FROM workflow_Email__c WHERE Status__c != :StarTrack_Constants.WFE_STATUS_CLOSE AND Case__c = :testCase.Id].isEmpty());
-		//}
+			caseRec.Status = StarTrack_Constants.CASE_STAT_CLOSED;
+			caseRec.ResolutionCode__c = StarTrack_Constants.CASE_RESOLUTION_DUPLICATE;
+			Database.update(caseRec);
+		Test.stopTest();
+		
+		System.assertEquals(true, [SELECT Id, Status FROM Task WHERE Status != :StarTrack_Constants.TASK_STATUS_FINISHED AND WhatId = :testCase.Id].isEmpty());
+		System.assertEquals(true, [SELECT Id, Status__c FROM workflow_Email__c WHERE Status__c != :StarTrack_Constants.WFE_STATUS_CLOSE AND Case__c = :testCase.Id].isEmpty());
 	}
 	
 	/**
@@ -1135,11 +1124,21 @@ private with sharing class CaseCommonUtility_Test {
 	  */
 	static testmethod void testNotificationAutomationModel() {	
 		
-		User supportUser = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'spUser' LIMIT 1];
+		Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
+		UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
+		User supportUser = new User(Alias = 'spUser', Email='user@testorg.a', EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='user@testorg.a');
+
+		// to avoid MIXED_DML_EXCEPTION 
+		User runAsUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
+		System.runAs(runAsUser){
+			Database.insert(supportUser);
+		}
+
 		Id notificationRT = Schema.SObjectType.StarTrack_Automation_Rule__c.getRecordTypeInfosByName().get('StarTrack Notification Automation').getRecordTypeId();
 		Database.insert(new StarTrack_Automation_Rule__c(RecordTypeId = notificationRT, Order__c = 1, Case_RecordType__c = 'Delivery Enquiry', Case_Status__c = 'Closed', Case_Action__c = 'Send Notification', SMS_Template__c = 'Sample', Email_Template__c = 'Delivered Consignment Notification - Customer Service'));
 		Article__c consignment = new Article__c(Name = 'AJSGDH1234', Consignment_Summary_Status__c = 'Delivered');
 		Database.insert(consignment);
+
 		System.runAs(supportUser){
 			Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId(); //Query for delivery enquiry record type
 			//Create sample delivery enquiry case.
@@ -1625,6 +1624,7 @@ private with sharing class CaseCommonUtility_Test {
 		QM__c custSetting = QM__c.getOrgDefaults();
 		QueueSobject preferredAgentQueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Preferred_Agent_Queue' AND SobjectType = 'Case' LIMIT 1];
 		custSetting.PreferredAgentQueueId__c = preferredAgentQueue.QueueId;
+		custSetting.PreferredAgentSkillDeveloperNames__c = 'BOH';
 		Insert custSetting;
 		Id preferredAgentQueueId = preferredAgentQueue.QueueId;
 
@@ -1701,14 +1701,19 @@ private with sharing class CaseCommonUtility_Test {
 		//AgentWorks
 		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(4, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id,cases[5].Id}, true);
 
+		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(1, true));
+		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
+		serviceResources.values()[0].RelatedRecordId = users[0].id;
+		ServiceResourceSkill srs = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true)[0];
+		srs = (ServiceResourceSkill)ApplicationTestDataFactory.setUnwritableFields(srs, new Map<String, Object> { 'ServiceResource' => serviceResources.values()[0] });
+
 		// =====================================
 		// Stubbing
 		// =====================================
 
 		OmniChannelService mockOmniChannelService = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-
-		
+		ServiceResourceSkillSelector mockServiceResourceSkillSelector = (ServiceResourceSkillSelector)MockUtility.mockSelector(ServiceResourceSkillSelector.class);	 
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -1722,6 +1727,12 @@ private with sharing class CaseCommonUtility_Test {
 			fflib_Match.anyBoolean()
 		)).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 
+		MockUtility.Mocks.when(mockServiceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIdsAndSkills(
+			(Set<Id>)fflib_Match.eq(new Set<Id> {users[0].id}), 
+			(Set<String>)fflib_Match.eq(OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames), 
+			(Set<Object>)fflib_Match.eq(new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE })		
+		)).thenReturn(new List<ServiceResourceSkill> { srs });
+
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -1730,6 +1741,7 @@ private with sharing class CaseCommonUtility_Test {
 		
 		Test.startTest();
 
+		system.debug('>>>>>>>>>>>>> running test.............. with cases: ' + cases);
 		CaseCommonUtility helper = new CaseCommonUtility();			
 		helper.routeCase(cases, new Map<Id,Case>(oldCases),false);
 

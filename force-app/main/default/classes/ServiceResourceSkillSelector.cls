@@ -61,6 +61,10 @@ public inherited sharing class ServiceResourceSkillSelector extends ApplicationS
 	}
 
 	public List<ServiceResourceSkill> selectByActiveServiceResourceRelatedRecordIdsAndSkills(Set<Id> relatedRecordIds, Set<String> skillDeveloperNames, Set<Object> selectorOptions) {
+		system.debug('>>>>>> relatedRecordIds: ' + relatedRecordIds);
+		system.debug('>>>>>> skillDeveloperNames: ' + skillDeveloperNames);
+		system.debug('>>>>>> selectorOptions: ' + selectorOptions);
+
 		QueryBuilder.ConditionsManager cm = newQueryBuilder(selectorOptions).addConditions()
 												.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :relatedRecordIds'))
 												.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.IsActive + ' = TRUE'));

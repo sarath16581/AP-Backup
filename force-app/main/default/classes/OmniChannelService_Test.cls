@@ -430,7 +430,8 @@ public class OmniChannelService_Test {
 		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(1, true));
 		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
 		serviceResources.values()[0].RelatedRecordId = users[0].id;
-		List<ServiceResourceSkill> serviceResourceSkills = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true);
+		ServiceResourceSkill srs = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true)[0];
+		srs = (ServiceResourceSkill)ApplicationTestDataFactory.setUnwritableFields(srs, new Map<String, Object> { 'ServiceResource' => serviceResources.values()[0] });
 
 		// =====================================
 		// Stubbing
@@ -444,7 +445,7 @@ public class OmniChannelService_Test {
 			(Set<Id>)fflib_Match.eq(new Set<Id> {users[0].id}), 
 			(Set<String>)fflib_Match.eq(OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames), 
 			(Set<Object>)fflib_Match.eq(new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE })		
-		)).thenReturn(serviceResourceSkills);
+		)).thenReturn(new List<ServiceResourceSkill> { srs });
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -454,6 +455,7 @@ public class OmniChannelService_Test {
 		Test.startTest();
 		
 		Set<Id> result = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(new Set<Id> {users[0].id});
+		system.debug('>>>>> result: ' + result);
 
 		Test.stopTest();
 

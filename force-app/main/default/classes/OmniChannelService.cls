@@ -223,6 +223,7 @@ public inherited sharing class OmniChannelService {
 	* This method returns a map of CaseIds and its latest AgentWork where the UserId is an active User
 	*/
 	public Map<Id,AgentWork> getCaseIdsWithLatestAcceptedAgentWorks(Set<Id> caseIds) {
+		system.debug('>>>>>>>>>>> caseIds: ' + caseIds);
 		Map<Id, AgentWork> caseIdsVsAgentWorks = new Map<Id, AgentWork>();
 		for(AgentWork aw: new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds)) {
 			if(caseIdsVsAgentWorks.containsKey(aw.WorkItemId) == false) { // The selector returns by sorting AcceptedDate DESC so we only need to take the first AW for each Case.
@@ -271,6 +272,7 @@ public inherited sharing class OmniChannelService {
 	public Set<Id> getUserIdsWithPreferredAgentSkills(Set<Id> userIds) {
 		Set<Id> result = new Set<Id>();
 		for(ServiceResourceSkill srs: new WithoutSharingRetrieveData().getPreferredAgentServiceResourceSkills(userIds)) {
+			system.debug('>>>>>>>>> srs: ' + srs);
 			result.add(srs.ServiceResource.RelatedRecordId);
 		}
 		return result;
