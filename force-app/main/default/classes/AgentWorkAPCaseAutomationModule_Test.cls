@@ -261,7 +261,6 @@ class AgentWorkAPCaseAutomationModule_Test {
 		Test.startTest();
 
 		AgentWorkAPCaseAutomationModule.newInstance().onBeforeInsert(new List<AgentWork>{ records[0]}, mockUow);
-		AgentWorkAPCaseAutomationModule.newInstance().onBeforeUpdate(new List<AgentWork>{ records[1]}, null, mockUow);
 
 		Test.stopTest();
 
@@ -296,7 +295,6 @@ class AgentWorkAPCaseAutomationModule_Test {
 
 		AgentWorkAPCaseAutomationModule module = AgentWorkAPCaseAutomationModule.newInstance();
 		module.onBeforeInsert(null,null);
-		module.onBeforeUpdate(null,null,null);
 		module.onAfterUpdate(null,null,null);
 
 		Test.stopTest();
