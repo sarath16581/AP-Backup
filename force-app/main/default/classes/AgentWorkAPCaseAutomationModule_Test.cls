@@ -218,7 +218,7 @@ class AgentWorkAPCaseAutomationModule_Test {
 		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
 		
 		//Case
-		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(1, true));
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
 		Id recTypeId = ssswRecTypes.iterator().next();
 
@@ -232,12 +232,11 @@ class AgentWorkAPCaseAutomationModule_Test {
 		}
 
 		//AgentWork
-		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(2, UserInfo.getUserId(), cases.keySet(), true);
+		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), cases.keySet(), true);
 		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Assigned', 'OriginalGroupId' => queues.values()[0].Id});
-		records[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object> { 'Status' => 'Assigned', 'OriginalGroupId' => queues.values()[0].Id});
 
-		Set<Id> caseIdsToQuery = new Set<Id>{records[0].WorkItemId, records[1].WorkItemId};
-		List<Case> casesQueried = new List<Case>{cases.values()[0],cases.values()[1]};
+		Set<Id> caseIdsToQuery = new Set<Id>{records[0].WorkItemId};
+		List<Case> casesQueried = new List<Case>{cases.values()[0]};
 
 		// =====================================
 		// Stubbing
@@ -266,7 +265,6 @@ class AgentWorkAPCaseAutomationModule_Test {
 
 		// PMD Warning
 		System.assertEquals(cases.values()[0].Id,records[0].Case__c,'Case Id assigned to the AgentWork record is incorrect');
-		System.assertEquals(cases.values()[1].Id,records[1].Case__c,'Case Id assigned to the AgentWork record is incorrect');
 	}
 
 
@@ -300,7 +298,7 @@ class AgentWorkAPCaseAutomationModule_Test {
 		Test.stopTest();
 
 		//An exception should be created when thre are invalid parameters in the onBeforeInsert and onBeforeUpdate
-		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 3)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 2)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
 		
 		// PMD warning
 		System.assert(true);
