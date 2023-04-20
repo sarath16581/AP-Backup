@@ -8,7 +8,7 @@
  * @changelog
  * 2023-02-16 - George Nguyen - Created.
  * 2023-03-18 - Noel Lim - Updated routing logic, to directly assign the routed Queue as the Owner.
- * 2023-03-31 - Noel Lim - Updated processUserResponseToOmniPush method to
+ * 2023-03-31 - Noel Lim - Updated processUserResponseToOmniPush method to:
  *							a) implement 2 registerDirty() calls
  *							b) new method populateCaseField
  * 2023-04-13 - Noel Lim - Updated:
@@ -31,14 +31,6 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			populateCaseField((List<AgentWork>) records, uow);			
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, AgentWorkAPCaseAutomationModule.class.getName(), 'onBeforeInsert', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
-		}
-	}
-
-	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		try {
-			populateCaseField((List<AgentWork>) records, uow); // likely an updated AgentWork Case field is already populated from Insert, but we check anyway for future proofing			
-		} catch (Exception ex) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, AgentWorkAPCaseAutomationModule.class.getName(), 'onBeforeUpdate', 'AgentWork', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -112,16 +104,8 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 						Bypass_Data_enforcement__c = true,
 						PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
-
-					//TBC Approach B) - populate an accurate previous OwnerId value
-					// AgentWork generated from Omni queues will have a value in OriginalGroupId
-					// AgentWork from custom Preferred Agent logic and PSRs will have an PreferredUserId value
-					// Omni Transfer function has 3 types: Transfer to Skill, to Button, or to User. a) Transfer to User will have a value in both PreferredUserId and OriginalGroupId b) Transfer to Skill or Button will have an OriginalGroupId value 
-					//caseSourceOwnerId = aw.OriginalGroupId != null ? aw.OriginalGroupId  : OmniChannelService.getInstance().preferredAgentQueueId;
-					//caseSourceOwner.put(aw.WorkItemId,caseSourceOwnerId);
 					
 					caseIdsForTrackingLogic.add(aw.WorkItemId); 
-					
 
 				// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
 				// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
@@ -156,21 +140,9 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			for(Case csRec : casesForTrackingLogic.values()){
 				oldCasesForTrackingLogic.put(csRec.Id, new Case(
 					Id = csRec.Id, 
-					OwnerId = OmniChannelService.getInstance().preferredAgentQueueId, // purpose of setting this OwnerId is to trigger StatusTracking logic based on OwnerId difference only, i.e. StatusTracking logic does NOT use this OwnerId to set the PreviousOwnerId__c field
+					OwnerId = OmniChannelService.getInstance().preferredAgentQueueId, // purpose of setting this OwnerId is ONLY to trigger StatusTracking logic that there is an Owner change. Status Tracking logic does not use this Owner Id to set the Previous_Owner_Id__c value, it references the previous Status Tracking record 
 					Status = csRec.Status
-				));
-				
-				//TBC Approach B) set an accurate previous Owner value
-				/*
-				if(caseSourceOwner != null && caseSourceOwner.containsKey(csRec.Id)){
-					oldCasesForTrackingLogic.put(csRec.Id, new Case(
-						Id = csRec.Id, 
-						OwnerId = caseSourceOwner?.get(csRec.Id),
-						Status = csRec.Status
-					));
-				} else {
-					casesForTrackingLogic.remove(csRec.Id);
-				}	*/			
+				));	
 			}
 		}
 
