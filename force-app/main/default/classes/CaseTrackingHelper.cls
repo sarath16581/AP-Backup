@@ -1,5 +1,5 @@
 /**
-  * @author	   : nandan.narasappa@auspost.com.au
+  * @author		: nandan.narasappa@auspost.com.au
   * @date		 : 21/10/2015
   * @description  : Helper class for CaseTriggers for Case Tracking related requirements
   *
@@ -14,12 +14,12 @@
 	09/12/2015		  nandan.narasappa@auspost.com.au			 updated createStatusTracking method for INC0650131 fix
 	19/09/2016		  nandan.narasappa@auspost.com.au			 updated conversion for hour difference in setStatusTracking method & removed debug methods
 
-	09/09/2016		  kalpita.talwadekar@auspost.com.au		   MWT0002177
+	09/09/2016		  kalpita.talwadekar@auspost.com.au			MWT0002177
 																	updated code to handle status tracking for Social Cases
 																	udpated code to capture the previous owner
 																	updated code to get all the time captures in AEST timezone
-	11/03/2021		  neha.mehta@auspost.com.au				   Created inner class CaseTrackingUpdate for INC1708377   
-	20/04/2023		  noel.lim7@auspost.com.au				   Added class variable caseFieldsForTracking, which is used in AgentWork trigger handler logic
+	11/03/2021		  neha.mehta@auspost.com.au					Created inner class CaseTrackingUpdate for INC1708377	
+	20/04/2023		  noel.lim7@auspost.com.au					Added class variable caseFieldsForTracking, which is used in AgentWork trigger handler logic
 																	
 *******************************  History ************************************************/
 public with sharing class CaseTrackingHelper{
@@ -55,7 +55,7 @@ public with sharing class CaseTrackingHelper{
 	private static Boolean isValid;
 	private static Id defaultBusinessHour;				  // get default business hour Id
 	private static Set<String> closedStatus;				// set of closed case statuses
-	private static Set<Id> validRecTypes;				   // type of cases for which code executes
+	private static Set<Id> validRecTypes;					// type of cases for which code executes
 	private static Map<String,Id> businessHourMap;		  // SSSW Business Hours
 	private static String userPrefix = USER.sobjecttype.getDescribe().getKeyPrefix();
 	
@@ -68,7 +68,7 @@ public with sharing class CaseTrackingHelper{
 			validRecTypes.addAll(Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),'Social'));
 			 
 			businessHourMap = Utility.getBussinessHourMap();	// get business hours for SSSW application
-			closedStatus = Utility.getCaseClosedStatus();   // set of closed case statuses
+			closedStatus = Utility.getCaseClosedStatus();	// set of closed case statuses
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -79,8 +79,8 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method is invoked in Before insert event, sets default values for 
-						   last status change and time with customer & support
+	  * @description		This method is invoked in Before insert event, sets default values for 
+							last status change and time with customer & support
 	  * @param			 caseList - List<Case> 
 	  * @return			Void
 	  * @throws			Method might throw exception which is handled by Try-Catch block
@@ -105,8 +105,8 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method is invoked in after insert event, creates the status tracking record
-						   for new SSSW cases capturing owner & status details
+	  * @description		This method is invoked in after insert event, creates the status tracking record
+							for new SSSW cases capturing owner & status details
 	  * @param			 caseList - List<Case> 
 	  * @return			Void
 	  * @throws			Method might throw exception which is handled by Try-Catch block
@@ -116,8 +116,8 @@ public with sharing class CaseTrackingHelper{
 			// set the default fields to be tracked when case is created (Owner,Status)
 			String fieldList = SSSWConstants.OWNER + SSSWConstants.WHITE_SPACE 
 								+ SSSWConstants.SEMI_COLON + SSSWConstants.WHITE_SPACE + SSSWConstants.STATUS;
-			Set<Id> ownerIds = new Set<Id>();			   // set of case owners
-			Set<Id> prevOwnerIds = new Set<Id>();		   // set of case previous owners
+			Set<Id> ownerIds = new Set<Id>();				// set of case owners
+			Set<Id> prevOwnerIds = new Set<Id>();			// set of case previous owners
 			List<Case> casesTobeTracked = new List<Case>(); // list of cases for tracking record to be created
 			Map<Id,String> fieldMap = new Map<Id,String>(); // map of case id & the fields changed during case creation
 			for(Case csRec : caseList){
@@ -129,8 +129,8 @@ public with sharing class CaseTrackingHelper{
 			}
 			
 			if(!casesTobeTracked.isEmpty()){	// verify if case list got values
-				Map<Id,sObject> ownerMap = getOwnerMap(ownerIds);   // map of case id and owner (user or queue)
-				Map<Id,sObject> pervOwnerMap = new Map<Id,sObject>(); //getOwnerMap(prevOwnerIds);   // map of case id and previous owner (user or queue)
+				Map<Id,sObject> ownerMap = getOwnerMap(ownerIds);	// map of case id and owner (user or queue)
+				Map<Id,sObject> pervOwnerMap = new Map<Id,sObject>(); //getOwnerMap(prevOwnerIds);	// map of case id and previous owner (user or queue)
 				system.debug('--pervOwnerMap '+pervOwnerMap );
 				if(!ownerMap.isEmpty()){	// verify if ownerMap got values
 					// create status tracking records for the case
@@ -154,7 +154,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method is invoked in after update event, creates the status tracking record
+	  * @description		This method is invoked in after update event, creates the status tracking record
 	  *					for status change in SSSW cases & updates the open tracking record
 	  * 
 	  * This is called by CaseTriggerHandler.cls during normal Case trigger execution.
@@ -168,8 +168,8 @@ public with sharing class CaseTrackingHelper{
 	  */
 	public void updateCaseStatusTracking(List<Case> caseList, Map<Id,Case> oldCaseMap){
 		try{
-			Set<Id> ownerIds = new Set<Id>();				   // set of case owners
-			Set<Id> prevOwnerIds = new Set<Id>();				   // set of case owners
+			Set<Id> ownerIds = new Set<Id>();					// set of case owners
+			Set<Id> prevOwnerIds = new Set<Id>();					// set of case owners
 			Map<Id,Case> casesTobeTracked = new Map<Id,Case>(); // list of cases for tracking record to be created
 			Map<Id,String> fieldMap = new Map<Id,String>();	 // map of case id & the fields changed during case creation
 			for(Case csRec : caseList){
@@ -180,7 +180,7 @@ public with sharing class CaseTrackingHelper{
 						ownerIds.add(csRec.OwnerId);
 						prevOwnerIds.add(oldCase.OwnerId);
 						casesTobeTracked.put(csRec.Id,csRec);
-						if(String.isNotBlank(fieldList)){   // check if fieldList got value
+						if(String.isNotBlank(fieldList)){	// check if fieldList got value
 							fieldMap.put(csRec.Id,fieldList);
 						}
 					}
@@ -189,8 +189,8 @@ public with sharing class CaseTrackingHelper{
 			
 			if(!casesTobeTracked.isEmpty()){	// verify if case list got values
 				isUpdateStatusTrackRecursive = true;	// set flag to true;
-				Map<Id,sObject> ownerMap = getOwnerMap(ownerIds);   // map of case id and owner (user or queue)
-				Map<Id,sObject> prevOwnerMap = getOwnerMap(prevOwnerIds);   // map of case id and owner (user or queue)
+				Map<Id,sObject> ownerMap = getOwnerMap(ownerIds);	// map of case id and owner (user or queue)
+				Map<Id,sObject> prevOwnerMap = getOwnerMap(prevOwnerIds);	// map of case id and owner (user or queue)
 				if(!ownerMap.isEmpty()){	// verify if ownerMap got values
 					// create status tracking records for the case
 					List<StatusTracking__c> trackingRecords = createStatusTracking(casesTobeTracked.values(),ownerMap,fieldMap,prevOwnerMap,false );
@@ -245,14 +245,14 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method is invoked from updateCaseStatusTracking to 
-						   check if tracking fields changed and return the changed fields.
+	  * @description		This method is invoked from updateCaseStatusTracking to 
+							check if tracking fields changed and return the changed fields.
 	  * @param			 newCase - Case, oldCase - Case 
 	  * @return			String
 	  * @throws			NA
 	  */
 	private String getFieldList(Case newCase,Case oldCase){
-		String fieldList = SSSWConstants.EMPTY_SPACE;   // variable to store fields changed, semi-colon separated
+		String fieldList = SSSWConstants.EMPTY_SPACE;	// variable to store fields changed, semi-colon separated
 		if(newCase != null && oldCase != null){ // check if newCase & oldCase are not null
 			for(String field : FIELD_CHANGE_MAP.keyset()){  
 				// check if network is changed & status is Awaiting Network Response
@@ -285,7 +285,7 @@ public with sharing class CaseTrackingHelper{
 					}
 				}
 				else{
-					if(newCase.get(field) != oldCase.get(field)){   // check if tracking field values changed
+					if(newCase.get(field) != oldCase.get(field)){	// check if tracking field values changed
 						fieldList += SSSWConstants.WHITE_SPACE + FIELD_CHANGE_MAP.get(field) 
 										+ SSSWConstants.WHITE_SPACE + SSSWConstants.SEMI_COLON ;
 						isValid = true;
@@ -297,8 +297,8 @@ public with sharing class CaseTrackingHelper{
 	}
 
 	/**
-	  * @description	   This method creates the status tracking record for status,owner & network details
-						   change in SSSW cases 
+	  * @description		This method creates the status tracking record for status,owner & network details
+							change in SSSW cases 
 	  * @param			 caseList - List<Case>, ownerMap - Map<Id,sObject> , fieldMap - Map<Id,String>
 	  * @return			List<StatusTracking__c>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -307,7 +307,7 @@ public with sharing class CaseTrackingHelper{
 																Map<Id,sObject> prevOwnerMap, Boolean isInsert){
 		Map<Id,StatusTracking__c> statusTrackingMap = new Map<Id,StatusTracking__c>();
 		for(Case csRec : caseList){
-			if(!statusTrackingMap.containsKey(csRec.Id)){   // check if map got tracking record for case
+			if(!statusTrackingMap.containsKey(csRec.Id)){	// check if map got tracking record for case
 				// get the case owner
 				sObject caseOwner = ownerMap.containsKey(csRec.OwnerId) ? ownerMap.get(csRec.OwnerId) : null;
 				system.debug('--here'+prevOwnerMap);
@@ -366,7 +366,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method returns Status tracking recordtype corresponding to Case Recordtype
+	  * @description		This method returns Status tracking recordtype corresponding to Case Recordtype
 	  * @param			 caseRecTypeId - Id 
 	  * @return			Void
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -391,7 +391,7 @@ public with sharing class CaseTrackingHelper{
 	}
 
 	/**
-	  * @description	   This method returns owner details based on the id
+	  * @description		This method returns owner details based on the id
 	  * @param			 ownerIds - Set<Id> 
 	  * @return			Map<Id,sObject>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -409,7 +409,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method returns current open status tracking records for a case
+	  * @description		This method returns current open status tracking records for a case
 	  * @param			 caseIds - Set<Id> 
 	  * @return			Map<Id,List<StatusTracking__c>>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -429,7 +429,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method returns the updated open case tracking records with duration & subsequent status value
+	  * @description		This method returns the updated open case tracking records with duration & subsequent status value
 	  * @param			 trackingMap - Map<Id,List<StatusTracking__c>>,caseMap - Map<Id,Case>, fieldMap - Map<Id,String>
 	  * @return			List<StatusTracking__c>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -459,10 +459,10 @@ public with sharing class CaseTrackingHelper{
 												BusinessHours.diff(tracking.BusinessHours__c, tracking.StartDate__c, tracking.EndDate__c)
 												: tracking.Duration__c;
 					if(tracking.Duration__c != null){
-						durationInSecs = tracking.Duration__c / 1000;   // convert milliseconds to seconds
-						tracking.DurationHours__c = (Integer) durationInSecs / 3600 ;   // convert seconds to hours
-						durationInSecs = durationInSecs - (tracking.DurationHours__c * 3600);   // get remaining seconds
-						tracking.DurationMins__c  = (Integer) durationInSecs / 60   ;   // convert seconds to hours
+						durationInSecs = tracking.Duration__c / 1000;	// convert milliseconds to seconds
+						tracking.DurationHours__c = (Integer) durationInSecs / 3600 ;	// convert seconds to hours
+						durationInSecs = durationInSecs - (tracking.DurationHours__c * 3600);	// get remaining seconds
+						tracking.DurationMins__c  = (Integer) durationInSecs / 60	;	// convert seconds to hours
 						durationInSecs = durationInSecs - (tracking.DurationMins__c * 60);  // get remaining seconds
 						tracking.DurationSeconds__c = (Integer) durationInSecs; // set remaining seconds
 					}
@@ -470,7 +470,7 @@ public with sharing class CaseTrackingHelper{
 					if(String.isBlank(tracking.SubsequentStatusValue__c) && fieldMap.containsKey(caseId) 
 						&& fieldMap.get(caseId).contains(SSSWConstants.STATUS)){
 						tracking.SubsequentStatusValue__c = caseMap.get(caseId).Status;
-					}   
+					}	
 					updatedTrackingList.add(tracking);
 				}
 			}
@@ -479,8 +479,8 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method is invoked in before update event, sets value for time spent with customer
-						   & support
+	  * @description		This method is invoked in before update event, sets value for time spent with customer
+							& support
 	  * @param			 caseList - List<Case>, oldCaseMap - Map<Id,Case> 
 	  * @return			Void
 	  * @throws			Method might throw exception which is handled by Try-Catch block
@@ -491,7 +491,7 @@ public with sharing class CaseTrackingHelper{
 				if(Utility.isValidRecordType(validRecTypes,csRec.RecordTypeId)){  // verify if its SSSW recordtype
 					Case oldCase = oldCaseMap.get(csRec.Id);	// get old values of case
 					if(oldCase != null && csRec.Status != oldCase.Status && csRec.Last_Status_Change__c != null){
-						isSetStatusTrackRecursive = true;   // set flag to true
+						isSetStatusTrackRecursive = true;	// set flag to true
 						// get case business hour if available else defaulted to Australia/Sydney
 						Id businessHourId = (csRec.BusinessHoursId != null) ? 
 												csRec.BusinessHoursId : businessHourMap.get(SSSWConstants.DEF_TZKEY);
@@ -522,8 +522,8 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description	   This method is invoked in after update event, associates the fax record of child cases
-						   to parent case & deletes the child case
+	  * @description		This method is invoked in after update event, associates the fax record of child cases
+							to parent case & deletes the child case
 	  * @param			 caseList - List<Case> 
 	  * @return			Void
 	  * @throws			Method might throw exception which is handled by Try-Catch block
@@ -564,7 +564,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	 /**
-	  * @description	   This inner class is created to update Status Tracking related list, when cases are created by Guest users.
+	  * @description		This inner class is created to update Status Tracking related list, when cases are created by Guest users.
 	  *					 As due to critical update “Secure Object Permissions for Guest Users”
 	  *					 guest users can’t have more than read access.
 	  */
