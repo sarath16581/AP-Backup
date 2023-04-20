@@ -24,7 +24,7 @@ private with sharing class CaseCommonUtility_Test {
 	@testSetup 
 	static void testDataCreate() {
 		insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
-    }
+	}
 	
 	// Constants
 	private static final String ADMIN_PROFILE = 'System Administrator';
@@ -35,7 +35,7 @@ private with sharing class CaseCommonUtility_Test {
 	 * This can be removed in JUL-2022 with a destructive change to CaseUtilityWithoutSharing
 	 */
 	@IsTest
-	private static void testNothingFromCaseUtilityWithoutSharing() {
+	static void testNothingFromCaseUtilityWithoutSharing() {
 		CaseUtilityWithoutSharing cls = new CaseUtilityWithoutSharing();
 	}
 
@@ -46,7 +46,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testContactAssignmentEmailOrigin_NoContact(){
+	@IsTest
+	static void testContactAssignmentEmailOrigin_NoContact(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			Case csRec = new Case(SuppliedEmail = 'test@test.com',Subject = 'Test',Origin = 'Email',Type = 'General Enquiry');
@@ -65,7 +66,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testContactAssignmentEmailOriginContact(){
+	@IsTest
+	static void testContactAssignmentEmailOriginContact(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			Contact con = TestUtility.createContact('Bruce','Wayne','bruce@wayne.com',null);
@@ -85,7 +87,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testContactAssignmentPortalNocontact(){
+	@IsTest
+	static void testContactAssignmentPortalNocontact(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			Case csRec = new Case(SuppliedEmail = 'test@test.com',Subject = 'Test',Origin = 'Portal',Type = 'General Enquiry'
@@ -108,7 +111,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testLinkContactShortListedCases(){
+	@IsTest
+	static void testLinkContactShortListedCases(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
@@ -141,7 +145,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testLinkBusinessContact(){
+	@IsTest
+	static void testLinkBusinessContact(){
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Account acc;
@@ -193,7 +198,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testLinkBusinessDiffContact(){
+	@IsTest
+	static void testLinkBusinessDiffContact(){
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Account acc;
@@ -243,7 +249,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testLinkBusinessNoContact(){
+	@IsTest
+	static void testLinkBusinessNoContact(){
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Account acc;
@@ -292,7 +299,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testDetectSpamCase(){
+	@IsTest
+	static void testDetectSpamCase(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			SpamEmail__c spam = TestUtility.createSpamEmail('test@test.com');
@@ -314,7 +322,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testDetectNoSpamCase(){
+	@IsTest
+	static void testDetectNoSpamCase(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			SpamEmail__c spam = TestUtility.createSpamEmail('test1@test.com');
@@ -336,7 +345,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testOnHoldCase(){
+	@IsTest
+	static void testOnHoldCase(){
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		List<User> userList = new List<User>();
@@ -362,66 +372,15 @@ private with sharing class CaseCommonUtility_Test {
 			System.assertEquals(caseOwner.Id,cs.OwnerId);
 		}
 	}
-	
-	/**
-	  * @description	   This method tests scenario of preventing duplicate case for DDC user
-	  * @param			 NA	 
-	  * @return			Void
-	  * @throws			NA
-	  */
-	/*
-	private static testMethod void testValidateCaseDDC(){
-		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
-		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
-		Profile ddcProf = [SELECT Id,Name FROM profile where Name = 'DDC Consumer Community User' LIMIT 1];
-		UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
-		Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
-		Account acc = TestUtility.createPersonAccount('Peter',accRecTypeMap.get('Consumer').getRecordTypeId());
-		acc.FirstName = 'Parker';
-		acc.PersonEmail = 'peter@wayne.com';
-		Database.insert(acc);
-		acc = [SELECT PersonContactId FROM Account WHERE Id =: acc.Id LIMIT 1];
-		User ddcUser = TestUtility.createPortalUser('Wayne',ddcProf.id,acc.PersonContactId);
 		
-		User admin = TestUtility.createUser('Peter',adminProf.id,null);
-		System.runAs(admin){
-			TestUtility.createUniqueCaseCustomSetting();
-		}
-		
-		System.runAs(ddcUser){
-			Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
-			Case csRec = TestUtility.createCase('Enquiry','In Progress','General Enquiry',null,ddcUser.ContactId,
-												caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
-			csRec.ProductCategory__c = 'International Letters';
-			csRec.ReferenceId__c = '12345';
-			csRec.Address2__c  = '111 Bourke Street';
-			Database.insert(csRec);
-			
-			Case dupeCase = TestUtility.createCase('Enquiry','In Progress','General Enquiry',null,ddcUser.ContactId,
-												caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
-			dupeCase.ProductCategory__c = 'International Letters';
-			dupeCase.ReferenceId__c = '12345';
-			dupeCase.Address2__c  = '111 Bourke Street';
-			Test.startTest();
-				try{
-					Database.insert(dupeCase);
-				}
-				catch(Exception exp){
-					 System.assertEquals('System.DmlException',exp.getTypeName());
-					 System.assert(exp.getMessage().contains(Label.DUPE_CASE_ERR_MSG));
-				}
-			Test.stopTest();
-			System.assert(dupeCase.Id != null);
-		}
-	} */
-	
 	/**
 	  * @description	   This method tests scenario of preventing duplicate case for BSP user
 	  * @param			 NA	 
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testValidateCaseBSP(){
+	@IsTest
+	static void testValidateCaseBSP(){
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Profile bspProf = [SELECT Id,Name FROM profile where Name = 'BSP Community User' LIMIT 1];
@@ -473,7 +432,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testValidateCaseAgent(){
+	@IsTest
+	static void testValidateCaseAgent(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.createUniqueCaseCustomSetting();
@@ -522,7 +482,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testLinkArticle(){
+	@IsTest
+	static void testLinkArticle(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.createUniqueCaseCustomSetting();
@@ -558,7 +519,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testAllocateToQueue(){
+	@IsTest
+	static void testAllocateToQueue(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		Case csRec;
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
@@ -584,55 +546,14 @@ private with sharing class CaseCommonUtility_Test {
 		System.assertEquals(false,csRec.AllocateToQueue__c);
 	}
 	
-//  Can be removed NOV-2020
-//	/**
-//	  * @description	   This method tests scenario of associating article to case
-//	  * @param			 NA
-//	  * @return			Void
-//	  * @throws			NA
-//	  */
-//	private static testMethod void testSubscribeArticle(){
-//		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
-//		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
-//			TestUtility.createUniqueCaseCustomSetting();
-//
-//			Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
-//			Account acc = TestUtility.createBusinessAccount('Wayne Enterprises',
-//															accRecTypeMap.get('Organisation').getRecordTypeId());
-//			Database.insert(acc);
-//
-//			Contact con = TestUtility.createContact('Bruce','Wayne','bruce@wayne.com',acc.id);
-//			Database.insert(con);
-//
-//			Article__c article = TestUtility.createArticle('12345',1,'Bruce','Peter','International Letters');
-//			Database.insert(article);
-//
-//			Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
-//			Case csRec = TestUtility.createCase('Enquiry','In Progress','General Enquiry',acc.Id,con.Id,
-//												caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
-//			csRec.ProductCategory__c = 'International Letters';
-//			csRec.ReferenceId__c = '12345';
-//			csRec.Origin = 'Email';
-//			csRec.Address2__c  = '111 Bourke Street';
-//			csRec.ArticleTest__c  = article.Id;
-//			Database.insert(csRec);
-//
-//			Test.startTest();
-//				csRec.Subscribed__c = true;
-//				Database.update(csRec);
-//			Test.stopTest();
-//			article = [SELECT Subscribed__c FROM Article__c WHERE Id =: article.Id LIMIT 1];
-//			System.assert(article.Subscribed__c);
-//		}
-//	}
-	
 	/**
 	  * @description	   This method tests scenario of detecting cases from spam email
 	  * @param			 NA	 
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testCloseChildCases(){
+	@IsTest
+	static void testCloseChildCases(){
 		Profile adminProf = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		List<User> userList = new List<User>();
@@ -696,7 +617,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testAvoidCustomerCloseCase(){
+	@IsTest
+	static void testAvoidCustomerCloseCase(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
@@ -739,7 +661,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testCaseRouting(){
+	@IsTest
+	static void testCaseRouting(){
 		Profile bspProf = [SELECT Id,Name FROM profile where Name =: SSSWConstants.SSSW_BSP_COMMUNITY_USER_PROFILE LIMIT 1]; //new cases created for routing will come from Portal
 		Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
 		Account bspAcc = TestUtility.createBusinessAccount('BSP Account',
@@ -777,7 +700,8 @@ private with sharing class CaseCommonUtility_Test {
 		System.assertEquals(Group.sObjectType,cs.OwnerId.getSObjectType());
 	}
 
-	private static testMethod void testSocialCaseRouting(){
+	@IsTest
+	static void testSocialCaseRouting(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSWConstants.SSSW_SOCIAL_INTEGRATION_PROFILE LIMIT 1];
 
 		//Setup default Omni queue
@@ -826,7 +750,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testCaseRoutingDescUpdate(){
+	@IsTest
+	static void testCaseRoutingDescUpdate(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: ADMIN_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
@@ -877,7 +802,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testCaseNoRouting(){
+	@IsTest
+	static void testCaseNoRouting(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){ 
@@ -924,7 +850,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testLinkContactExceptionScenario(){
+	@IsTest
+	static void testLinkContactExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
@@ -943,7 +870,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testValidateCaseExceptionScenario(){
+	@IsTest
+	static void testValidateCaseExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
@@ -962,7 +890,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testSpamExceptionScenario(){
+	@IsTest
+	static void testSpamExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
@@ -981,7 +910,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testCloseChildExceptionScenario(){
+	@IsTest
+	static void testCloseChildExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
@@ -1000,7 +930,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testXferCaseExceptionScenario(){
+	@IsTest
+	static void testXferCaseExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
@@ -1019,7 +950,8 @@ private with sharing class CaseCommonUtility_Test {
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testAvoidCaseCloseExceptionScenario(){
+	@IsTest
+	static void testAvoidCaseCloseExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
@@ -1032,33 +964,15 @@ private with sharing class CaseCommonUtility_Test {
 		}
 	}
 
-// Can be removed NOV-2020
-//	/**
-//	  * @description	   This method is for covering exception and not a valid business scenario
-//	  * @param			 NA
-//	  * @return			Void
-//	  * @throws			NA
-//	  */
-//	private static testMethod void testSubscribeArticleExceptionScenario(){
-//		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
-//		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
-//			TestUtility.severityLevelValue();
-//			CaseCommonUtility helper = new CaseCommonUtility();
-//			Test.startTest();
-//				helper.setArticlesSubscribed(new List<Case>{null});
-//			Test.stopTest();
-//			Integer expCount = [SELECT count() FROM ExceptionLog__c];
-//			System.assertEquals(1,expCount);
-//		}
-//	}
-	
+
 	/**
 	  * @description	   This method is for covering exception and not a valid business scenario
 	  * @param			 NA	 
 	  * @return			Void
 	  * @throws			NA
 	  */
-	private static testMethod void testRouteCaseExceptionScenario(){
+	@IsTest
+	static void testRouteCaseExceptionScenario(){
 		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
 		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
 			TestUtility.severityLevelValue();
