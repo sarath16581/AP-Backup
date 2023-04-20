@@ -2,6 +2,8 @@
   * @author	   : nandan.narasappa@auspost.com.au
   * @date		 : 21/10/2015
   * @description  : Helper class for CaseTriggers for Case Tracking related requirements
+  *
+  * @test AgentWorkAPCaseAutomationModule_Test
   */
 /*******************************  History ************************************************
 	Date				User										Comments
@@ -17,6 +19,7 @@
 																	udpated code to capture the previous owner
 																	updated code to get all the time captures in AEST timezone
 	11/03/2021		  neha.mehta@auspost.com.au				   Created inner class CaseTrackingUpdate for INC1708377   
+	20/04/2023		  noel.lim7@auspost.com.au				   Added class variable caseFieldsForTracking, which is used in AgentWork trigger handler logic
 																	
 *******************************  History ************************************************/
 public with sharing class CaseTrackingHelper{
@@ -29,8 +32,8 @@ public with sharing class CaseTrackingHelper{
 																						'Network_Response__c' => 'Network Response'};
 	
 	/*
-	 * Case fields used in logic, for overriding fields in Case Selector. 
-	 * As more Case fields are required for tracking, add them here.
+	 * All the Case fields used in this class to execute Status Tracking logic.
+	 * Used for overriding fields in Case Selector. As more Case fields are required for tracking, add them here.
 	 */
 	public static final Set<SObjectField> caseFieldsForTracking {
 		get {
@@ -155,6 +158,7 @@ public with sharing class CaseTrackingHelper{
 	  *					for status change in SSSW cases & updates the open tracking record
 	  * 
 	  * This is called by CaseTriggerHandler.cls during normal Case trigger execution.
+	  *
 	  * In addition, this is also called by AgentWorkAPCaseAutomationModule.cls. Reason is due to OTB behaviour when a Case is pushed by Omni to an Agent.
 	  * The Case Owner changes to the Agent, but no Case trigger is executed. Therefore this is manually called to generate the StatusTracking in that scenario when the Agent Accepts.
 	  *
