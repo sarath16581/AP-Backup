@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Passed_AusPost_Vetted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To determine if the S75 documentation has been reviewed internally</description>
+    <externalId>false</externalId>
+    <inlineHelpText>*To be updated upon reviewing the returned S75 documentation</inlineHelpText>
+    <label>Passed AusPost Vetted</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
