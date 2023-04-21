@@ -108,6 +108,12 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_1__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_2__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Applied_PSR__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Threshold_PBP__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c,
                                                     APT_Option_Group__c,
                                                     APT_Lodgement_Zone_Code__c,
                                                     APT_Lodgement_Zone__c,
@@ -173,6 +179,19 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     
                     mapOS.put(os.Id, os);
                 }
+				
+				//Post Bill Pay product value attribute assignmemt to agreement line items
+				if(String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && 
+				ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase('PBP') && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c)) {
+				newApav.Apttus_CMConfig__LineItemId__c = ali.id;
+				newApav.APT_Annual_Volume_Review__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c;
+				newApav.APT_Volume_Threshold_PBP__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Threshold_PBP__c;
+				newApav.APT_Minimum_Fees__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c;
+				newApav.APT_PostBillPay_Channel__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c;
+				newApav.APT_PostBillPay_Gross_Settlement_fee__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c;
+				newApav.APT_Payment_Method__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
+				mapLocalPickup.put(ali, newApav);
+				}
                 
                 //Local Pickup 
                 if((String.isBlank(ali.Apttus_CMConfig__OptionId__c) 
