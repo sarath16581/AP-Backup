@@ -8,7 +8,7 @@
  * 2023-02-16 - George Nguyen - updated. This class was created a while back but does not follow the framework. I have updated to use our framework
  * 2023-04-14 - Noel Lim - Updated of Domain class from APCaseAgentWorkDomain to AgentWorkAPCaseDomain
  */
-public with sharing class AgentWorkTriggerHandler extends ApplicationDomainTriggerHandler {
+public inherited sharing class AgentWorkTriggerHandler extends ApplicationDomainTriggerHandler {
 
 	public static AgentWorkTriggerHandler newInstance() {
 		return (AgentWorkTriggerHandler) Application.Utilities.newInstance(AgentWorkTriggerHandler.class);
