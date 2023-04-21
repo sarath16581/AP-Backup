@@ -8,6 +8,7 @@
 * @description Test class covering BusinessHoursSelector
 * @changelog
 * 2021-11-23 - Ashapriya Gadi - Created
+* 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 added test testCreateEnquiryGeneralForEDD
 */
 @IsTest
 private class BusinessHoursSelector_Test {
@@ -59,5 +60,25 @@ private class BusinessHoursSelector_Test {
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		System.assertEquals(1, resultsName.size(), 'Expected result size of 1');
 	
+	}
+
+	@IsTest
+	private static void testSelectorDefault() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+		BusinessHours stdBusinessHours = [SELECT Id,Name FROM BusinessHours WHERE IsDefault = true LIMIT 1];
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		BusinessHours result = BusinessHoursSelector.newInstance().selectDefault(true);
+
+		Test.stopTest();
+		System.assertNotEquals(null, result, 'Default business hour should return ');
+		System.assertEquals(stdBusinessHours.Id, result.Id, 'Default business hour should return as expected');
+
 	}
 }
