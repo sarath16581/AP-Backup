@@ -1115,9 +1115,7 @@
 	@TestVisible
 	private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 
-		system.debug('George says: casesPreferredAgentRouting.keySet(): ' + casesPreferredAgentRouting.keySet());
 		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
-		system.debug('George says: caseIdsVsAgentWorks: ' + caseIdsVsAgentWorks);
 		Set<Id> userIds = new Set<Id>();
 		for(AgentWork aw: caseIdsVsAgentWorks.values()) {
 			userIds.add(aw.UserId);
