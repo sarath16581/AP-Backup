@@ -3,7 +3,6 @@
   * @date		 : 21/10/2015
   * @description  : Helper class for CaseTriggers for Case Tracking related requirements
   *
-  * @test AgentWorkAPCaseAutomationModule_Test
   */
 /*******************************  History ************************************************
 	Date				User										Comments
@@ -79,7 +78,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method is invoked in Before insert event, sets default values for 
+	  * @description	This method is invoked in Before insert event, sets default values for 
 							last status change and time with customer & support
 	  * @param			 caseList - List<Case> 
 	  * @return			Void
@@ -105,7 +104,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method is invoked in after insert event, creates the status tracking record
+	  * @description	This method is invoked in after insert event, creates the status tracking record
 							for new SSSW cases capturing owner & status details
 	  * @param			 caseList - List<Case> 
 	  * @return			Void
@@ -154,7 +153,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method is invoked in after update event, creates the status tracking record
+	  * @description	This method is invoked in after update event, creates the status tracking record
 	  *					for status change in SSSW cases & updates the open tracking record
 	  * 
 	  * This is called by CaseTriggerHandler.cls during normal Case trigger execution.
@@ -245,7 +244,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method is invoked from updateCaseStatusTracking to 
+	  * @description	This method is invoked from updateCaseStatusTracking to 
 							check if tracking fields changed and return the changed fields.
 	  * @param			 newCase - Case, oldCase - Case 
 	  * @return			String
@@ -297,7 +296,7 @@ public with sharing class CaseTrackingHelper{
 	}
 
 	/**
-	  * @description		This method creates the status tracking record for status,owner & network details
+	  * @description	This method creates the status tracking record for status,owner & network details
 							change in SSSW cases 
 	  * @param			 caseList - List<Case>, ownerMap - Map<Id,sObject> , fieldMap - Map<Id,String>
 	  * @return			List<StatusTracking__c>
@@ -366,7 +365,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method returns Status tracking recordtype corresponding to Case Recordtype
+	  * @description	This method returns Status tracking recordtype corresponding to Case Recordtype
 	  * @param			 caseRecTypeId - Id 
 	  * @return			Void
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -391,7 +390,7 @@ public with sharing class CaseTrackingHelper{
 	}
 
 	/**
-	  * @description		This method returns owner details based on the id
+	  * @description	This method returns owner details based on the id
 	  * @param			 ownerIds - Set<Id> 
 	  * @return			Map<Id,sObject>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -409,7 +408,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method returns current open status tracking records for a case
+	  * @description	This method returns current open status tracking records for a case
 	  * @param			 caseIds - Set<Id> 
 	  * @return			Map<Id,List<StatusTracking__c>>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -429,7 +428,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method returns the updated open case tracking records with duration & subsequent status value
+	  * @description	This method returns the updated open case tracking records with duration & subsequent status value
 	  * @param			 trackingMap - Map<Id,List<StatusTracking__c>>,caseMap - Map<Id,Case>, fieldMap - Map<Id,String>
 	  * @return			List<StatusTracking__c>
 	  * @throws			Method might throw exception which is handled by invoked method
@@ -479,7 +478,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method is invoked in before update event, sets value for time spent with customer
+	  * @description	This method is invoked in before update event, sets value for time spent with customer
 							& support
 	  * @param			 caseList - List<Case>, oldCaseMap - Map<Id,Case> 
 	  * @return			Void
@@ -522,7 +521,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	/**
-	  * @description		This method is invoked in after update event, associates the fax record of child cases
+	  * @description	This method is invoked in after update event, associates the fax record of child cases
 							to parent case & deletes the child case
 	  * @param			 caseList - List<Case> 
 	  * @return			Void
@@ -564,7 +563,7 @@ public with sharing class CaseTrackingHelper{
 	}
 	
 	 /**
-	  * @description		This inner class is created to update Status Tracking related list, when cases are created by Guest users.
+	  * @description	This inner class is created to update Status Tracking related list, when cases are created by Guest users.
 	  *					 As due to critical update “Secure Object Permissions for Guest Users”
 	  *					 guest users can’t have more than read access.
 	  */
