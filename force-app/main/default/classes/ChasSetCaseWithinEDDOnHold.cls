@@ -27,7 +27,7 @@ public without sharing class ChasSetCaseWithinEDDOnHold implements Queueable {
                 if(updateCases.size() == 1)
                 {
                     Case updateCase = updateCases[0];
-                    Date reopenDate = ChasUtil.calculateNextBusinessDay(updateCase.EstimatedDelivery__c,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0 );
+                    Date reopenDate = BusinessHoursService.newInstance().calculateNextBusinessDay(updateCase.EstimatedDelivery__c,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0 );
                     // update the case details
                     updateCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
                     // update the case owner explicitly, this will ensure the status tracking for case status and case owner gets registred
