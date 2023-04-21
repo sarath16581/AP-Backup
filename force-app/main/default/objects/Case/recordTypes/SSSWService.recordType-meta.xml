@@ -1351,6 +1351,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal Specialist Threat - Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Phone</fullName>
             <default>true</default>
         </values>

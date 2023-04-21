@@ -4,13 +4,13 @@
  * By including the 'audience' parameter, this instructs Auth0 to generate a JWT access token and passes that back to use rather than just the simple opaque token
  * The JWT access token can subsequently be pulled into our application by calling Auth.AuthToken.getAccessToken
  * The reason we might need the JWT access token in the future is that this will allow us to send the user context into any of the downstream API's our applications may choose to invoke
- * A good use case (although not in prod right now), is the ability to pass the user context into a Track API which could allow us to automatically retrieve parcels specific to the current logged in user 
+ * A good use case (although not in prod right now), is the ability to pass the user context into a Track API which could allow us to automatically retrieve parcels specific to the current logged in user
  *
  * The custom auth provider implementation is quite lacking. Simple things like passing the OOTB URL Suffix field, or passing the auth provider id to our class here is currently not possible,
  * 		so we need to add additional attributes (some duplicated) to our custom metadata type to collect all the necessary attribute values
- * 
+ *
  * NOTE: This class makes use of ConnectApi.Communities.getCommunity(Network.getNetworkId()) which means this class is for a community only. It could be easily uplifted to support core login if needed
- * 
+ *
  * @author Nathan Franklin
  * @date 2023-02-21
  * @changelog
@@ -19,7 +19,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 	/**
 	 * In order to assure consistency of the outputted encrypted value used for PKCE, we need to specify the IV manually.
-	 * Although best practices of encryption state this should be random/unpredictable, in our case this is ok since we 
+	 * Although best practices of encryption state this should be random/unpredictable, in our case this is ok since we
 	 * 	are not using it specifically for encryption, just to derive a hash
 	 */
 	public static final Blob CRYPTO_IV = Blob.valueOf('ghqNA8aoTUF8WIsx');
@@ -66,7 +66,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 	/**
 	 * Grab the authoise url params and redirect the user to auth0 for authenitcation
-	 * NOTE: the existence of the audience parameter which will allow us to return a JWT access token 
+	 * NOTE: the existence of the audience parameter which will allow us to return a JWT access token
 	 */
 	global PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
 		String clientId = authProviderConfiguration.get('ClientId__c');
@@ -79,13 +79,13 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String pkceChallenge = getPKCECode(stateToPropagate, pkceEncryptionKey)[0];
 		System.debug('PKCE Challenge: ' + pkceChallenge);
 
-		String qs = 'response_type=code' + 
-						'&code_challenge_method=S256' + 
+		String qs = 'response_type=code' +
+						'&code_challenge_method=S256' +
 						'&code_challenge=' + pkceChallenge + // <-- does not need to be url encoded
 						'&client_id=' + EncodingUtil.urlEncode(clientId, 'UTF-8') +
 						'&scope=' + EncodingUtil.urlEncode(scope, 'UTF-8') +
 						'&audience=' + EncodingUtil.urlEncode(audience, 'UTF-8') +
-						'&redirect_uri=' + EncodingUtil.urlEncode(redirectUri, 'UTF-8') + 
+						'&redirect_uri=' + EncodingUtil.urlEncode(redirectUri, 'UTF-8') +
 						'&state=' + EncodingUtil.urlEncode(stateToPropagate, 'UTF-8');
 
 		String url = authoriseEndpointUrl + '?' + qs;
@@ -135,7 +135,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 		Http http = new Http();
 		HttpResponse res = http.send(req);
-		
+
 		Integer statusCode = res.getStatusCode();
 		String body = res.getBody();
 		System.debug(body);
@@ -177,13 +177,13 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		Http http = new Http();
 		HttpRequest req = new HttpRequest();
 		req.setMethod('GET');
-		
+
 		// This would most likely be using the callout:[named cred] format
 		// note, the external credential is not needed for the userinfo call (since we pass in the exchanged access token). however,
 		// 		it allows us the bypass the need to add a remote site setting :)
 		req.setEndpoint(userinfoEndpointUrl);
 		req.setHeader('Authorization', 'Bearer ' + response.oauthToken);
-		
+
 		HttpResponse res = http.send(req);
 		String body = res.getBody();
 		System.debug(body);
@@ -219,12 +219,12 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 			throw new OAuthException(errorMessage);
 		}
-		
+
 		Map<String, String> attributeMap = new Map<String, String>();
 		for(String key : parsedUserInfoToken.keySet()) {
 			attributeMap.put(key, String.valueOf(parsedUserInfoToken.get(key)));
 		}
-		
+
 		String fullName = attributeMap.get('given_name') + ' ' + attributeMap.get('family_name');
 		Auth.UserData userData = new Auth.UserData(attributeMap.get('sub'), attributeMap.get('given_name'), attributeMap.get('family_name'), fullName, attributeMap.get('email'), '', attributeMap.get('email'), '', AUTH_PROVIDER_NAME, communityLoginUrl, attributeMap);
 		return userData;
@@ -234,11 +234,11 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 	 * Generates a new challenge/verifier code
 	 * Given the persistentStateValue should be the same in the initialise and handleCallback methods
 	 * we should be able to rely on a consistent value being generated
-	 * 
+	 *
 	 * In theory, I didn't have to encrypt the state... I could have just hashed the state using sha256, however, the verifier would be too predictable and possibly expose an attack vector
 	 * By encrypting using a key, the verifier is completely unpredictable
 	 * Short of just using a salt (which possibly could have been enough), encryption with a key is a pretty secure way of getting an unpredictable challenge/verifier
-	 * 
+	 *
 	 * @param encryptionKey Blob Use output of Crypto.generateAesKey(256). This is base64 encoded in the custom metadata.
 	 */
 	@TestVisible
@@ -272,7 +272,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 		public String token_type;
 		public Integer expires_in;
-		
+
 		public String error;
 		public String error_description;
 	}
