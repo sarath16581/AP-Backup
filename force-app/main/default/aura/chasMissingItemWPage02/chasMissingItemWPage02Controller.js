@@ -16,11 +16,11 @@
     
     init: function(component, event, helper) {
         var statusCode = component.get('v.wizardData.trackingNumSerachStatusCode');
+        let eddStatus = component.get('v.wizardData.eddStatus');
         //show the first search section on the component
         component.set('v.displaySection','START');
         //Special handling for response code 403
-        if(statusCode == 403 || component.get('v.wizardData.skipDeflectionPage'))
-        {
+        if(statusCode == 403 || component.get('v.wizardData.skipDeflectionPage') || eddStatus === 'LATE'){
             component.set('v.displaySection','START_CASE_CREATE');
             // setting the caller type (sender/Receiver) from the previous page if a value is selected
             var recipientOrSenderCallerType = component.get('v.wizardData.recipientOrSenderCallerType');
