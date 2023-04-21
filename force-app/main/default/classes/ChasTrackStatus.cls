@@ -117,7 +117,7 @@ public without sharing class ChasTrackStatus {
                         if (eDDStr != null) {
                             articleDetailsWrapper.deliveredByDate = Date.valueOf(eDDStr);
                             // grab the custom setting value for nextUpdateInForLateItems__c, which is basically the no of business days for contact center to monitor the late item
-                            articleDetailsWrapper.deliveredByDatePlusBusinessDays = ChasUtil.calculateNextBusinessDay(Date.valueOf(eDDStr), Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
+                            articleDetailsWrapper.deliveredByDatePlusBusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(Date.valueOf(eDDStr), Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
                             // Below block can be removed after 31-12-2021. Not relevant anymore
                             // replacing the below block, with a public method which handles the isWithinEDD check.
                             /*if(Date.Today() <= deliveredByDate)
@@ -136,7 +136,7 @@ public without sharing class ChasTrackStatus {
                         if (eDDStrTo != null) {
                             articleDetailsWrapper.deliveredByDateTo = Date.valueOf(eDDStrTo);
                             // calculate the date until which contact center will monitor the track and communicate with the customer
-                            articleDetailsWrapper.deliveredByDateToUntil = ChasUtil.calculateNextBusinessDay(Date.valueOf(eDDStrTo), Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
+                            articleDetailsWrapper.deliveredByDateToUntil = BusinessHoursService.newInstance().calculateNextBusinessDay(Date.valueOf(eDDStrTo), Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
                         }
                     }
                     //Extract all the events in the response and sort it to get the latest event
