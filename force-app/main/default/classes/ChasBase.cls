@@ -172,7 +172,7 @@ public virtual inherited sharing class ChasBase {
             });
             if (!vGroups.isEmpty()) {
                 pCase.OwnerId = vGroups.values()[0].Id;
-                Date reopenDate = ChasUtil.calculateNextBusinessDay(pCase.EstimatedDelivery__c, Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
+                Date reopenDate = BusinessHoursService.newInstance().calculateNextBusinessDay(pCase.EstimatedDelivery__c, Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
                 pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
                 pCase.Case_Reopen_Date__c = reopenDate;
                 pCase.HeldToOpenOn__c = reopenDate;

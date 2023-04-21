@@ -1684,7 +1684,7 @@ deliveryIssue_Somethingelse
 	}
 	@IsTest
 	public static void calculateNextBusinessDay() {
-		System.assert(ChasUtil.calculateNextBusinessDay(Date.today(),5) != null);
+		System.assert(BusinessHoursService.newInstance().calculateNextBusinessDay(Date.today(),5) != null);
 	}
 	@IsTest
 	public static void isTheDateWithinEDDPlusBusinessdays() {

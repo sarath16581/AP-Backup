@@ -4,6 +4,7 @@
  * @group Articles
  * @tags Cases, SSSW, Articles, Safe Drop, SAP-EM
  * @domain SSSW
+ * @Test TIBCOArticleService_Test,TIBCOUtilsTest,TIBCO_Test,BSPConsignmentSearch_Test,TIBCODataVisualizerComponentCont_Test
  * @description
  * @changelog
  * 19.09.2016  Eric.Shen@auspost.com.au  modified to allow Snap It missing item enquiry type cases to have product category & subcategory
@@ -44,7 +45,9 @@ public without sharing class TIBCODataTranslator {
 	}
 
 	// Need this for proper mocking
-	public TIBCODataTranslator() {}
+	public TIBCODataTranslator() {
+		
+	}
 
 	public TIBCODataTranslator translate(List<TIBCOTrackingResultWrapper> trackingResults) {
 		this.trackingResults = trackingResults;

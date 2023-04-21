@@ -14,9 +14,9 @@
 */
 @isTest
 private class CasePDFContentGeneratorTest {
-    @testSetup
-    static void testDataSetup() {
-         // Create articles.
+	@testSetup
+	static void testDataSetup() {
+		 // Create articles.
 //        Article__c article1 = new Article__c(Name = 'a1');
 //        Article__c article2 = new Article__c(Name = 'a2');
 //        Article__c article3 = new Article__c(Name = 'a3');
@@ -61,18 +61,18 @@ private class CasePDFContentGeneratorTest {
 //                event1, event2, event3, event4
 //        };
 
-        AusPostSettings__c setting = new AusPostSettings__c();
-        setting.Name = 'AMEAddressValidation';
-        setting.Token__c = 'O63igHoZbTNBIPQFRAxbjbPaMQHyoHNR';
-        setting.URL2__c = 'https://digitalapi-stest.npe.auspost.com.au/ame/api/v1/address?text=';
-        setting.URL3__c = 'https://digitalapi-stest.npe.auspost.com.au/ame/api/v1/dpid/' + '85865442' +'?singleLine=true&semiStructured=true&structured=true&upu=true&geo=true&delivery=true';
-        insert setting;
-    }
+		AusPostSettings__c setting = new AusPostSettings__c();
+		setting.Name = 'AMEAddressValidation';
+		setting.Token__c = 'O63igHoZbTNBIPQFRAxbjbPaMQHyoHNR';
+		setting.URL2__c = 'https://digitalapi-stest.npe.auspost.com.au/ame/api/v1/address?text=';
+		setting.URL3__c = 'https://digitalapi-stest.npe.auspost.com.au/ame/api/v1/dpid/' + '85865442' +'?singleLine=true&semiStructured=true&structured=true&upu=true&geo=true&delivery=true';
+		insert setting;
+	}
   
 //    @isTest
 //    static void testCasePDFContentGenerator()
 //    {
-        // Get sample articles
+		// Get sample articles
 //        Article__c article1 = [SELECT Id, Name, ArticleID__c FROM Article__c WHERE Name = 'a1'];
 //        Article__c article2 = [SELECT Id, Name, ArticleID__c FROM Article__c WHERE Name = 'a2'];
 
@@ -84,7 +84,7 @@ private class CasePDFContentGeneratorTest {
 //
 //        insert contact;
 
-        // Form dependent cases
+		// Form dependent cases
 //        Case case1 = new Case(
 //                ContactId = contact.Id,
 //                ReferenceID__c = article1.Id,
@@ -106,14 +106,14 @@ private class CasePDFContentGeneratorTest {
 
 //        case2 = [SELECT Id, ArticleTest__r.ArticleID__c FROM Case WHERE ParentId = :case1.Id];
 
-        //Test for multiple cases, passed in the parameter string
+		//Test for multiple cases, passed in the parameter string
 //        List<String> caseList = new List<String>();
 //        caseList.add(case1.Id);
 //        caseList.add(case2.Id);
 //        String result = String.join(caseList, ',' );
 //        List<String> lstCaseIds = result.split(',');
 
-        // Create wrappers to mock test data
+		// Create wrappers to mock test data
 //        TIBCOConsignmentWrapper consignmentDetails = new TIBCOConsignmentWrapper(null, null);
 //
 //        TIBCOArticleWrapper article1Wrapper = new TIBCOArticleWrapper(null);
@@ -131,119 +131,119 @@ private class CasePDFContentGeneratorTest {
 //
 //        Test.startTest();
 //        Apexpages.currentpage().getparameters().put('selectedIds' , result);
-        //Test the landing page controller
+		//Test the landing page controller
 //        MyNetworkCasePDFController controller = new MyNetworkCasePDFController();
-        //Test the redirect page controller
+		//Test the redirect page controller
 //        CasePDFContentGenerator redirectControlller = new CasePDFContentGenerator();
 //        redirectControlller.updatePrintFlag();
 //        Test.stopTest();
 
 //    }
 
-    /**
+	/**
 	 * Test:
 	 *  Test for MyNetworkCasePDFController
 	 */
-    @IsTest
-    private static void testMyNetworkCasePDFController() {
+	@IsTest
+	private static void testMyNetworkCasePDFController() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
-        EventMessage__c event = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
-        event.Safe_Drop_GUID__c='23123-35435-gf-454';
-        Account testAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
-        Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0];
-        Case cases = ApplicationTestDataFactory.getCases(1, new List<Id>{contacts.Id}, true)[0];
-        cases.ReferenceID__c = article.Id;
-        cases.ArticleTest__c = article.Id;
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+		EventMessage__c event = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+		event.Safe_Drop_GUID__c='23123-35435-gf-454';
+		Account testAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0];
+		Case cases = ApplicationTestDataFactory.getCases(1, new List<Id>{contacts.Id}, true)[0];
+		cases.ReferenceID__c = article.Id;
+		cases.ArticleTest__c = article.Id;
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        //SSSWCasesSelector mockCasesSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		//SSSWCasesSelector mockCasesSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
-        EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
 
-        // set up our responses
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{cases.Id => cases});
-        MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{event.Id => event});
-        MockUtility.Mocks.stopStubbing();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{cases.Id => cases});
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{event.Id => event});
+		MockUtility.Mocks.stopStubbing();
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        Apexpages.currentpage().getparameters().put('selectedIds' , cases.Id);
-        //Test the landing page controller
-        MyNetworkCasePDFController controller = new MyNetworkCasePDFController();
+		Apexpages.currentpage().getparameters().put('selectedIds' , cases.Id);
+		//Test the landing page controller
+		MyNetworkCasePDFController controller = new MyNetworkCasePDFController();
 
-        Test.stopTest();
-        System.assertNotEquals('', controller.eventMessagesWithAttachments, 'Safe drop GUID not added');
-    }
+		Test.stopTest();
+		System.assertNotEquals('', controller.eventMessagesWithAttachments, 'Safe drop GUID not added');
+	}
 
-    /**
+	/**
 	 * Test:
 	 *  Test for getcasetoEventMessageMap
 	 */
-    @IsTest
-    private static void testGetcasetoEventMessageMap() {
+	@IsTest
+	private static void testGetcasetoEventMessageMap() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
-        Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
-        List<EventMessage__c> events = ApplicationTestDataFactory.getEventMessages(2, article.Id, true);
-        events[0].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
-        events[0].DriverContract__c='U8890';
-        events[0].Safe_Drop_GUID__c='23123-35435-gf-454';
-        events[0].EventGeoLocation__Latitude__s=13.0429;
-        events[0].EventGeoLocation__Longitude__s=80.2739;
-        events[1].EventType__c=eventMessageType.get('Delivered')[0].Label;
-        events[1].DriverContract__c='U8890';
-        events[1].Safe_Drop_GUID__c='23123-35435-gf-454';
-        events[1].EventGeoLocation__Latitude__s=13.0429;
-        events[1].EventGeoLocation__Longitude__s=80.2739;
-        Account testAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
-        Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0];
-        Case cases = ApplicationTestDataFactory.getCases(1, new List<Id>{contacts.Id}, true)[0];
-        cases.ReferenceID__c = article.Id;
-        cases.ArticleTest__c = article.Id;
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+		Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
+		List<EventMessage__c> events = ApplicationTestDataFactory.getEventMessages(2, article.Id, true);
+		events[0].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
+		events[0].DriverContract__c='U8890';
+		events[0].Safe_Drop_GUID__c='23123-35435-gf-454';
+		events[0].EventGeoLocation__Latitude__s=13.0429;
+		events[0].EventGeoLocation__Longitude__s=80.2739;
+		events[1].EventType__c=eventMessageType.get('Delivered')[0].Label;
+		events[1].DriverContract__c='U8890';
+		events[1].Safe_Drop_GUID__c='23123-35435-gf-454';
+		events[1].EventGeoLocation__Latitude__s=13.0429;
+		events[1].EventGeoLocation__Longitude__s=80.2739;
+		Account testAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact contacts = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0];
+		Case cases = ApplicationTestDataFactory.getCases(1, new List<Id>{contacts.Id}, true)[0];
+		cases.ReferenceID__c = article.Id;
+		cases.ArticleTest__c = article.Id;
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        CasePDFContentGenerator mockService = (CasePDFContentGenerator)MockUtility.mockUtility(CasePDFContentGenerator.class);
-        EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		CasePDFContentGenerator mockService = (CasePDFContentGenerator)MockUtility.mockUtility(CasePDFContentGenerator.class);
+		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
 
-        // set up our responses
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockService.caseArticleIds).thenReturn(new Set<Id>{article.Id});
-        MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{events[0].Id => events[0], events[1].Id => events[1]});
-        MockUtility.Mocks.stopStubbing();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockService.caseArticleIds).thenReturn(new Set<Id>{article.Id});
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>{events[0].Id => events[0], events[1].Id => events[1]});
+		MockUtility.Mocks.stopStubbing();
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-        Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
-        Apexpages.currentpage().getparameters().put('selectedIds' , cases.Id);
-        //Test the landing page controller
-        CasePDFContentGenerator controller = new CasePDFContentGenerator();
-        Map<String,EventMessage__c> eventMap = controller.getcasetoEventMessageMap();
-        Map<String,String> addressMap = controller.getcaseToDeliveredAddressMap();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
+		Apexpages.currentpage().getparameters().put('selectedIds' , cases.Id);
+		//Test the landing page controller
+		CasePDFContentGenerator controller = new CasePDFContentGenerator();
+		Map<String,EventMessage__c> eventMap = controller.getcasetoEventMessageMap();
+		Map<String,String> addressMap = controller.getcaseToDeliveredAddressMap();
 
-        Test.stopTest();
-        System.assertNotEquals(0, eventMap.size(), 'EventMessages not found');
-        System.assertNotEquals(0, addressMap.size(), 'Address not found from AME');
-    }
+		Test.stopTest();
+		System.assertNotEquals(0, eventMap.size(), 'EventMessages not found');
+		System.assertNotEquals(0, addressMap.size(), 'Address not found from AME');
+	}
 
-    @isTest
-    static void testupdatePrintFlagIntegration() {
+	@isTest
+	static void testupdatePrintFlagIntegration() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -283,8 +283,13 @@ private class CasePDFContentGeneratorTest {
 		cases[2].RecordTypeId = stCaseRecordTypeId;
 		insert cases;
 
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Org_ID__c = '1234';
+		insert networks;
+
 		//insert case investigation records
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(2, cases[2].Id, articles[0], null, false);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(2, cases[2].Id, articles[0], networks[0].Id, false);
 		insert caseInvestigations;
 
 		// =====================================
@@ -319,106 +324,106 @@ private class CasePDFContentGeneratorTest {
 		//asserting if StarTrack CaseInvestigation is updated. 
 		System.assertEquals(true, updatedCaseIvs[0].IsPrinted__c, 'Print flag for CaseINvestigation should be marked true');
 
-    }
+	}
 
-    @IsTest
-    private static void testGetCaseArticleToEventMessageAttachmentsMap() {
+	@IsTest
+	private static void testGetCaseArticleToEventMessageAttachmentsMap() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
-        Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
-        List<Attachment> attachments = ApplicationTestDataFactory.getAttachments(5, null, true);
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
+		Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
+		List<Attachment> attachments = ApplicationTestDataFactory.getAttachments(5, null, true);
 
-        // article one has 4 event messages. each with an attachment.
-        // articleOneEventMessages[0] has a SAFE_DROP_PICTURE
-        // articleOneEventMessages[1] has a CARDED_PICTURE
-        // articleOneEventMessages[2] has some attachment type not recognised for case printout
-        // articleOneEventMessages[3] has a DAMAGED_PICTURE
+		// article one has 4 event messages. each with an attachment.
+		// articleOneEventMessages[0] has a SAFE_DROP_PICTURE
+		// articleOneEventMessages[1] has a CARDED_PICTURE
+		// articleOneEventMessages[2] has some attachment type not recognised for case printout
+		// articleOneEventMessages[3] has a DAMAGED_PICTURE
 
-        List<EventMessage__c> articleOneEventMessages = ApplicationTestDataFactory.getEventMessages(4, articles[0].Id, true);
-        articleOneEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
-        articleOneEventMessages[0].Safe_Drop_GUID__c = '99999-2c7f-42bc-90e4-999999999999';
-        articleOneEventMessages[0].AttachmentGUID__c = '99999-2c7f-42bc-90e4-999999999999';
-        articleOneEventMessages[0].AttachmentType__c = 'SAFE_DROP_PICTURE';
+		List<EventMessage__c> articleOneEventMessages = ApplicationTestDataFactory.getEventMessages(4, articles[0].Id, true);
+		articleOneEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleOneEventMessages[0].Safe_Drop_GUID__c = '99999-2c7f-42bc-90e4-999999999999';
+		articleOneEventMessages[0].AttachmentGUID__c = '99999-2c7f-42bc-90e4-999999999999';
+		articleOneEventMessages[0].AttachmentType__c = 'SAFE_DROP_PICTURE';
 
-        attachments[0].Name = SafeDropUtility.SAFE_DROP_ATTACHMENT_NAME;
-        attachments[0].Body = null;
-        articleOneEventMessages[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[0], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[0]}}});
+		attachments[0].Name = SafeDropUtility.SAFE_DROP_ATTACHMENT_NAME;
+		attachments[0].Body = null;
+		articleOneEventMessages[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[0], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[0]}}});
 
-        articleOneEventMessages[1].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
-        articleOneEventMessages[1].AttachmentGUID__c='99999-2c7f-42bc-90e4-111111111111';
-        articleOneEventMessages[1].AttachmentType__c='CARDED_PICTURE';
+		articleOneEventMessages[1].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleOneEventMessages[1].AttachmentGUID__c='99999-2c7f-42bc-90e4-111111111111';
+		articleOneEventMessages[1].AttachmentType__c='CARDED_PICTURE';
 
-        attachments[1].Name = EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX + articleOneEventMessages[1].AttachmentGUID__c;
-        attachments[1].Body = null;
-        articleOneEventMessages[1] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[1], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[1]}}});
+		attachments[1].Name = EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX + articleOneEventMessages[1].AttachmentGUID__c;
+		attachments[1].Body = null;
+		articleOneEventMessages[1] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[1], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[1]}}});
 
-        articleOneEventMessages[2].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
-        articleOneEventMessages[2].AttachmentGUID__c='99999-2c7f-42bc-90e4-222222222222';
-        articleOneEventMessages[2].AttachmentType__c='UNKNOWN_TYPE';
+		articleOneEventMessages[2].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleOneEventMessages[2].AttachmentGUID__c='99999-2c7f-42bc-90e4-222222222222';
+		articleOneEventMessages[2].AttachmentType__c='UNKNOWN_TYPE';
 
-        attachments[2].Name = EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX + articleOneEventMessages[2].AttachmentGUID__c;
-        attachments[2].Body = null;
-        articleOneEventMessages[2] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[2], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[2]}}});
+		attachments[2].Name = EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX + articleOneEventMessages[2].AttachmentGUID__c;
+		attachments[2].Body = null;
+		articleOneEventMessages[2] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[2], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[2]}}});
 
-        articleOneEventMessages[3].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
-        articleOneEventMessages[3].AttachmentGUID__c='99999-2c7f-42bc-90e4-333333333333';
-        articleOneEventMessages[3].AttachmentType__c='DAMAGED_PICTURE';
+		articleOneEventMessages[3].EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleOneEventMessages[3].AttachmentGUID__c='99999-2c7f-42bc-90e4-333333333333';
+		articleOneEventMessages[3].AttachmentType__c='DAMAGED_PICTURE';
 
-        attachments[3].Name = EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX + articleOneEventMessages[3].AttachmentGUID__c;
-        attachments[3].Body = null;
-        articleOneEventMessages[3] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[3], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[3]}}});
+		attachments[3].Name = EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX + articleOneEventMessages[3].AttachmentGUID__c;
+		attachments[3].Body = null;
+		articleOneEventMessages[3] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleOneEventMessages[3], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[3]}}});
 
-        List<EventMessage__c> articleTwoEventMessages = ApplicationTestDataFactory.getEventMessages(1, articles[1].Id, true);
-        articleTwoEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
-        articleTwoEventMessages[0].Safe_Drop_GUID__c = '99999-2c7f-42bc-90e4-444444444444';
-        articleTwoEventMessages[0].AttachmentGUID__c = '99999-2c7f-42bc-90e4-444444444444';
-        articleTwoEventMessages[0].AttachmentType__c = 'SAFE_DROP_PICTURE';
+		List<EventMessage__c> articleTwoEventMessages = ApplicationTestDataFactory.getEventMessages(1, articles[1].Id, true);
+		articleTwoEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleTwoEventMessages[0].Safe_Drop_GUID__c = '99999-2c7f-42bc-90e4-444444444444';
+		articleTwoEventMessages[0].AttachmentGUID__c = '99999-2c7f-42bc-90e4-444444444444';
+		articleTwoEventMessages[0].AttachmentType__c = 'SAFE_DROP_PICTURE';
 
-        attachments[4].Name = SafeDropUtility.SAFE_DROP_ATTACHMENT_NAME;
-        attachments[4].Body = null;
-        articleTwoEventMessages[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleTwoEventMessages[0], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[4]}}});
+		attachments[4].Name = SafeDropUtility.SAFE_DROP_ATTACHMENT_NAME;
+		attachments[4].Body = null;
+		articleTwoEventMessages[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(articleTwoEventMessages[0], new Map<String, Object>{'Attachments' => new Map<String, Object>{'totalSize' => 1, 'done' => true,'records' => new List<Attachment>{attachments[4]}}});
 
-        List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
-        cases[0].ReferenceID__c = articles[0].Id;
-        cases[0].ArticleTest__c = articles[0].Id;
-        cases[1].ReferenceID__c = articles[1].Id;
-        cases[1].ArticleTest__c = articles[1].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		cases[0].ReferenceID__c = articles[0].Id;
+		cases[0].ArticleTest__c = articles[0].Id;
+		cases[1].ReferenceID__c = articles[1].Id;
+		cases[1].ArticleTest__c = articles[1].Id;
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
 
-        MockUtility.Mocks.startStubbing();
-        List<EventMessage__c> eventMessages = new List<EventMessage__c>(articleOneEventMessages);
-        eventMessages.addAll(articleTwoEventMessages);
-        MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>(eventMessages));
-        MockUtility.Mocks.stopStubbing();
+		MockUtility.Mocks.startStubbing();
+		List<EventMessage__c> eventMessages = new List<EventMessage__c>(articleOneEventMessages);
+		eventMessages.addAll(articleTwoEventMessages);
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>(eventMessages));
+		MockUtility.Mocks.stopStubbing();
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-        Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
-        Apexpages.currentpage().getparameters().put('selectedIds' , cases[0].Id + ',' + cases[1].Id);
-        //Test the landing page controller
-        CasePDFContentGenerator controller = new CasePDFContentGenerator();
-        Map<String, CasePDFContentGenerator.ArticleEventMessageAttachments> attachmentsMap = controller.getCaseArticleToEventMessageAttachmentsMap();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		Test.setMock(HttpCalloutMock.class, new AMEAddressValidationController1_Test.WebServiceMockResponseGeo());
+		Apexpages.currentpage().getparameters().put('selectedIds' , cases[0].Id + ',' + cases[1].Id);
+		//Test the landing page controller
+		CasePDFContentGenerator controller = new CasePDFContentGenerator();
+		Map<String, CasePDFContentGenerator.ArticleEventMessageAttachments> attachmentsMap = controller.getCaseArticleToEventMessageAttachmentsMap();
 
-        Test.stopTest();
+		Test.stopTest();
 
-        System.assertEquals(1, attachmentsMap.size(), 'Only articles with event message attachments to be included in Case PDF should be returned.');
-        System.assert(attachmentsMap.keySet().contains(articles[0].Id), 'Article with CARDED_PICTURE and DAMAGED_PICTURE not returned.');
+		System.assertEquals(1, attachmentsMap.size(), 'Only articles with event message attachments to be included in Case PDF should be returned.');
+		System.assert(attachmentsMap.keySet().contains(articles[0].Id), 'Article with CARDED_PICTURE and DAMAGED_PICTURE not returned.');
 
-        CasePDFContentGenerator.ArticleEventMessageAttachments emAttachmentsForCasePrintOut = attachmentsMap.get(articles[0].Id);
-        System.assertEquals(2, emAttachmentsForCasePrintOut.attachments.size(), 'Expected CARDED_PICTURE and DAMAGED_PICTURE attachments for the article.');
-        for (CasePDFContentGenerator.EventMessageAttachment emAttachmentForCasePrintOut: emAttachmentsForCasePrintOut.attachments) {
-            System.assert(emAttachmentForCasePrintOut.name.startsWith(EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX), 'Only non-safedrop event message attachments expected.');
-        }
-    }
+		CasePDFContentGenerator.ArticleEventMessageAttachments emAttachmentsForCasePrintOut = attachmentsMap.get(articles[0].Id);
+		System.assertEquals(2, emAttachmentsForCasePrintOut.attachments.size(), 'Expected CARDED_PICTURE and DAMAGED_PICTURE attachments for the article.');
+		for (CasePDFContentGenerator.EventMessageAttachment emAttachmentForCasePrintOut: emAttachmentsForCasePrintOut.attachments) {
+			System.assert(emAttachmentForCasePrintOut.name.startsWith(EventMessageUtil.EVENT_MESSAGE_ATTACHMENT_PREFIX), 'Only non-safedrop event message attachments expected.');
+		}
+	}
 
 	/**
 	 * @test: Test case investigations are printed when case investigations record Ids are passed.

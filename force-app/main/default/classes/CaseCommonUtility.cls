@@ -45,6 +45,7 @@
 	2023-02-13		Noel Lim									Add logic for Preferred Agent routing in routeCase(), and new method processPreferredAgent()
 	2023-03-08		Noel Lim									Add Release 2 TEMPORARY FIX - exclude Preferred Agent routing for cases from portals
 	2023-03-17		Noel Lim									Add criteria to routing engine, to allow routing when AllocateToQueue = true only if Owner is not a User, Owner is not the Omni Holding Queue, or Owner is a User but Case is Closed
+	2023-04-19		George Nguyen -	Added condition to check if the previous assigned agent qualifies as Preferred agent (qualifiedAsPreferredAgentUserIds)
 
 
 	************************************************/
@@ -724,7 +725,6 @@
 						}
 						//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
 						else if(oldCase != null 
-							&& (new Set<String>{'Web','Portal','BSP','MyPost Business'}).contains(csRec.Origin) == false //Omni Release 2 TEMPORARY FIX
 							&& csRec.OwnerId != oldCase.OwnerId						
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
 							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
@@ -1115,8 +1115,12 @@
 	@TestVisible
 	private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
 
-		//Only some new 
 		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
+		Set<Id> userIds = new Set<Id>();
+		for(AgentWork aw: caseIdsVsAgentWorks.values()) {
+			userIds.add(aw.UserId);
+		}
+		Set<Id> qualifiedAsPreferredAgentUserIds = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(userIds);
 
 		if(caseIdsVsAgentWorks.isEmpty() == false) {
 
@@ -1124,7 +1128,9 @@
 			List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();	
 
 			for(Case csRec : casesPreferredAgentRouting.values()) {
-				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true) {
+				// check if there is an AgentWork record AND if the user of the agent work qualifies for Preferred Agent assignment
+
+				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true && qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId) == true) {
 					
 					//use the routing configuration of the Omni queue the Case was being routed to
 					QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
