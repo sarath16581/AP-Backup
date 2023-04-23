@@ -9,7 +9,7 @@
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2020-11-26 hara.sahoo@auspost.com.au Added click tracking for adobe analytics
  * 2022-02-28 alex.volkov@auspost.com.au Added deflection page skip option
- * 2023-04-21 StephenL added logic to skip the deflection page is the EDD Status is LATE
+ * 2023-04-21 StephenL added logic to skip the deflection page when the EDD Status is LATE
  */
 
 ({
