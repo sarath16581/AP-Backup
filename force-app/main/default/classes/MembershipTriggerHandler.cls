@@ -258,10 +258,18 @@ public with sharing class MembershipTriggerHandler {
 				),
 				(new HistoryTracking.HistoryTracker()
 					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+					.setMatchingValue('New')
+					.setOverwriteExistingValue(true)
+					.setTargetField(String.valueOf(Membership__c.S75_Status_New_Date__c))
+					.setTargetValue('{TODAY}')
+				),
+				(new HistoryTracking.HistoryTracker()
+					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
 					.setFieldApiName(String.valueOf(Membership__c.Type_of_Registration__c))
 					.setMatchingValue('New Registration')
 					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.Type_Of_Registration_New_Date__c))
+					.setTargetField(String.valueOf(Membership__c.S75_Status_New_Date__c))
 					.setTargetValue('{TODAY}')
 				)
 			};
