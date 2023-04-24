@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Number_of_character_checks_required__c</fullName>
+    <description>Number of days in current S75 status. This will be wiped on each status change.</description>
     <externalId>false</externalId>
+    <inlineHelpText>The date the S75 was issued to AUSTRAC</inlineHelpText>
     <label>Number of character checks required</label>
     <precision>3</precision>
     <required>false</required>

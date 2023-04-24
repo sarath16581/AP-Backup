@@ -1,55 +1,71 @@
-// Purpose:        Framework for history tracking
-// Author:         Paul Perry @ PERRYNET PTY LTD
-// Created:        21/09/2020
+// Purpose:		Framework for history tracking
+// Author:		Paul Perry @ PERRYNET PTY LTD
+// Created:		21/09/2020
 // Description:
-//      This class can be used as is, or used as base class for extension in case there's
-//      more flexibility required (custom merging / field type conversion, etc.)
+//	  This class can be used as is, or used as base class for extension in case there's
+//	  more flexibility required (custom merging / field type conversion, etc.)
 //
 public without sharing class HistoryTracking {
-    // definition of static properties and methods
+	// definition of static properties and methods
 
-    // caching to minimise regex compilation
-    private static Map<String, Pattern> regexPatternMap;
+	// caching to minimise regex compilation
+	private static Map<String, Pattern> regexPatternMap;
 
-    // logic to find all regex occurrences within a string
-    public static List<String> findAllOccurrences(String searchStr, String regexStr) {
-        List<String> result = new List<String>();
+	// Instance related properties and methods
+	private Map<String, SObjectField> fieldMap;
+	private Map<Schema.SObjectField, Map<String, List<HistoryTracker>>> configByFieldAndValue;
+	// set this to your custom merge field encapsulation
+	public String regexDef = '\\{([A-z\\.0-9])*\\}';
+	public Boolean resumeOnError = true;
 
-        if (regexPatternMap == null) {
-            regexPatternMap = new Map<String, Pattern>();
-        }
+	// This map can be added to for custom static merging situations (in here or programmatic in consuming method)
+	public Map<String, Object> mergeValuesDefs = new Map<String, Object>{
+		'TODAY' => System.today(),
+		'NOW' => System.now(),
+		'NULL' => null,
+		'TRUE' => true,
+		'FALSE' => false
+	};
 
-        if (!regexPatternMap.containsKey(regexStr)) {
-            // Compile each regex only once
-            regexPatternMap.put(regexStr, Pattern.compile(regexStr));
-        }
+	// logic to find all regex occurrences within a string
+	public static List<String> findAllOccurrences(String searchStr, String regexStr) {
+		List<String> result = new List<String>();
 
-        Pattern p = regexPatternMap.get(regexStr);
-        Matcher m = p.matcher(searchStr);
+		if (regexPatternMap == null) {
+			regexPatternMap = new Map<String, Pattern>();
+		}
 
-        if (m.find()) {
-            do {
-                result.add(m.group());
-            } while (m.find());
-        }
+		if (!regexPatternMap.containsKey(regexStr)) {
+			// Compile each regex only once
+			regexPatternMap.put(regexStr, Pattern.compile(regexStr));
+		}
 
-        return result;
-    }
+		Pattern p = regexPatternMap.get(regexStr);
+		Matcher m = p.matcher(searchStr);
 
-    // // kick off the custom history tracking for given SObjectType using CustomMetadata Settings config
-    // //  Usages:run(Opportunity.SObjectType, Trigger.new, Trigger.oldMap)
-    // //      *This process doesn't commit any records. Use it within before insert/update
-    // //      trigger context or manually insert/update your List<SObject> newList
-    // public static void run(Schema.SObjectType sObjectType, List<SObject> newList, Map<Id, SObject> oldMap) {
-    //     HistoryTracking cht = new HistoryTracking(sObjectType);
-    //     /* Add your custom merge values in the consuming class to customise
-    //     cht.mergeValuesDefs.putAll(new Map<String,Object>{
-    //         'MERGEKEY1' => 1500,                        // Integer
-    //         'ISSUNDAY' => System.today().weekday() == 1 // Boolean
-    //     });
-    //     */
-    //     cht.process(newList, oldMap);
-    // }
+		if (m.find()) {
+			do {
+				result.add(m.group());
+			} while (m.find());
+		}
+
+		return result;
+	}
+
+	// // kick off the custom history tracking for given SObjectType using CustomMetadata Settings config
+	// //  Usages:run(Opportunity.SObjectType, Trigger.new, Trigger.oldMap)
+	// //	  *This process doesn't commit any records. Use it within before insert/update
+	// //	  trigger context or manually insert/update your List<SObject> newList
+	// public static void run(Schema.SObjectType sObjectType, List<SObject> newList, Map<Id, SObject> oldMap) {
+	//	 HistoryTracking cht = new HistoryTracking(sObjectType);
+	//	 /* Add your custom merge values in the consuming class to customise
+	//	 cht.mergeValuesDefs.putAll(new Map<String,Object>{
+	//		 'MERGEKEY1' => 1500,						// Integer
+	//		 'ISSUNDAY' => System.today().weekday() == 1 // Boolean
+	//	 });
+	//	 */
+	//	 cht.process(newList, oldMap);
+	// }
 
 	@SuppressWarnings('PMD.ExcessiveParameterList')
 	public static void run(List<HistoryTracker> trackers, SObjectType sObjType, List<SObject> newList, Map<Id, SObject> oldMap) {
@@ -57,270 +73,254 @@ public without sharing class HistoryTracking {
 			HistoryTracking cht = new HistoryTracking(sObjType, trackers);
 			cht.process(newList, oldMap);
 		}
-    }
+	}
 
-    // Instance related properties and methods
-    private Map<String, SObjectField> fieldMap;
-    private Map<Schema.SObjectField, Map<String, List<HistoryTracker>>> configByFieldAndValue;
-    // set this to your custom merge field encapsulation
-    public String regexDef = '\\{([A-z\\.0-9])*\\}';
-    public Boolean resumeOnError = true;
+	// // constructor for system based config (Custom Metadata Setting)
+	// public HistoryTracking(Schema.SObjectType sObjectType) {
+	//	 // Fetch config for given sObjectType
+	//	 List<HistoryTracker> trackingConfig = [
+	//		 SELECT Id, FieldApiName__c, MatchingValue__c, OverwriteExistingValue__c, TargetField__c, TargetValue__c
+	//		 FROM HistoryTracker
+	//		 WHERE ObjectApiName__c = :String.valueOf(sObjectType)
+	//		   AND Active__c = true
+	//	 ];
 
-    // This map can be added to for custom static merging situations (in here or programmatic in consuming method)
-    public Map<String, Object> mergeValuesDefs = new Map<String, Object>{
-        'TODAY' => System.today(),
-        'NOW' => System.now(),
-        'NULL' => null,
-        'TRUE' => true,
-        'FALSE' => false
-    };
-
-    // // constructor for system based config (Custom Metadata Setting)
-    // public HistoryTracking(Schema.SObjectType sObjectType) {
-    //     // Fetch config for given sObjectType
-    //     List<HistoryTracker> trackingConfig = [
-    //         SELECT Id, FieldApiName__c, MatchingValue__c, OverwriteExistingValue__c, TargetField__c, TargetValue__c
-    //         FROM HistoryTracker
-    //         WHERE ObjectApiName__c = :String.valueOf(sObjectType)
-    //           AND Active__c = true
-    //     ];
-
-    //     populateFieldIndex(convertHTList(tracingConfig), sObjectType);
-    // }
+	//	 populateFieldIndex(convertHTList(tracingConfig), sObjectType);
+	// }
 
 	// constructor for list of HistoryTracker records
 	public HistoryTracking(SObjectType sObjType, List<HistoryTracker> htList) {
 		populateFieldIndex(htList, sObjType);
 	}
 
-    // constructor for custom config (on the fly Custom Metadata Setting)
-    // public HistoryTracking(Schema.SObjectType sObjType, List<HistoryTracker> trackingConfig) {
-    //     populateFieldIndex(convertHTList(tracingConfig), sObjType);
-    // }
+	// constructor for custom config (on the fly Custom Metadata Setting)
+	// public HistoryTracking(Schema.SObjectType sObjType, List<HistoryTracker> trackingConfig) {
+	//	 populateFieldIndex(convertHTList(tracingConfig), sObjType);
+	// }
 
-    // override this when using custom merge field encapsulation
-    public String removeMergeFieldEncapsulation(String mergeKey) {
-        if (mergeKey.startsWith('{') && mergeKey.endsWith('}')) {
-            mergeKey = mergeKey.substringBetween('{', '}');
-        }
+	// override this when using custom merge field encapsulation
+	public String removeMergeFieldEncapsulation(String mergeKey) {
+		if (mergeKey.startsWith('{') && mergeKey.endsWith('}')) {
+			mergeKey = mergeKey.substringBetween('{', '}');
+		}
 
-        return mergeKey;
-    }
+		return mergeKey;
+	}
 
-    // override this if you need tailered processing
-    public void process(List<SObject> newList, Map<Id,SObject> oldMap) {
-        // Make sure oldMap is always initialised
-        if (oldMap == null) {
-            oldMap = new Map<Id,SObject>();
-        }
+	// override this if you need tailered processing
+	public void process(List<SObject> newList, Map<Id,SObject> oldMap) {
+		// Make sure oldMap is always initialised
+		if (oldMap == null) {
+			oldMap = new Map<Id,SObject>();
+		}
 
-        // loop through each of the tracked fields
-        for (Schema.SObjectField changedField :configByFieldAndValue.keySet()) {
-            // filter out the list of records that have this field changed
-            List<SObject> fieldUpdates = hasChanged(
-                new Set<Schema.SObjectField>{ changedField },
-                oldMap,
-                newList
-            );
+		// loop through each of the tracked fields
+		for (Schema.SObjectField changedField :configByFieldAndValue.keySet()) {
+			// filter out the list of records that have this field changed
+			List<SObject> fieldUpdates = hasChanged(
+				new Set<Schema.SObjectField>{ changedField },
+				oldMap,
+				newList
+			);
 
-            // get the stamp field by value mappings for the tracked field
-            Map<String,List<HistoryTracker>> configByValue = configByFieldAndValue.get(
-                changedField
-            );
+			// get the stamp field by value mappings for the tracked field
+			Map<String,List<HistoryTracker>> configByValue = configByFieldAndValue.get(
+				changedField
+			);
 
-            // process all filtered records
-            for (SObject record :fieldUpdates) {
-                // get the tracked fields' new value
-                String newValue = String.valueOf(record.get(changedField));
-                // see if there's a mapping for this value
-                if (configByValue.containsKey(newValue)) {
-                    // for each related config
-                    for (HistoryTracker htlConfig :configByValue.get(newValue)) {
-                        // the target field to provide the stamp date
-                        Schema.SObjectField targetField = getSchemaField(
-                            htlConfig,
-                            htlConfig.targetField
-                        );
+			// process all filtered records
+			for (SObject record :fieldUpdates) {
+				// get the tracked fields' new value
+				String newValue = String.valueOf(record.get(changedField));
+				// see if there's a mapping for this value
+				if (configByValue.containsKey(newValue)) {
+					// for each related config
+					for (HistoryTracker htlConfig :configByValue.get(newValue)) {
+						// the target field to provide the stamp date
+						Schema.SObjectField targetField = getSchemaField(
+							htlConfig,
+							htlConfig.targetField
+						);
 
-                        if (targetField != null) {
-                            // update if there's no value present or overwrite is allowed
-                            Boolean updateTargetField =
-                                record.get(targetField) == null ||
-                                record.get(targetField) == false ||
-                                htlConfig.overwriteExistingValue;
+						if (targetField != null) {
+							// update if there's no value present or overwrite is allowed
+							Boolean updateTargetField =
+								record.get(targetField) == null ||
+								record.get(targetField) == false ||
+								htlConfig.overwriteExistingValue;
 
-                            if (updateTargetField) {
-                                // get merged value
-                                Object mergedValue = getTargetValue(
-                                    htlConfig.targetValue,
-                                    record,
-                                    oldMap.get(record.Id)
-                                );
+							if (updateTargetField) {
+								// get merged value
+								Object mergedValue = getTargetValue(
+									htlConfig.targetValue,
+									record,
+									oldMap.get(record.Id)
+								);
 
-                                // put target value into target field
-                                try {
-                                    record.put(targetField, mergedValue);
-                                } catch (System.SObjectException sObjEx) {
-                                    if (!handleException(sObjEx)) {
-                                        throw sObjEx;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+								// put target value into target field
+								try {
+									record.put(targetField, mergedValue);
+								} catch (System.SObjectException sObjEx) {
+									if (!handleException(sObjEx)) {
+										throw sObjEx;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
-    // override this method in your custom class to add additional merge functionality
-    public Object getTargetValue(String mergeKey, SObject newSObject, SObject oldSObject) {
-        Map<String,Object> mergeValues = new Map<String,Object>(
-            mergeValuesDefs
-        );
+	// override this method in your custom class to add additional merge functionality
+	public Object getTargetValue(String mergeKey, SObject newSObject, SObject oldSObject) {
+		Map<String,Object> mergeValues = new Map<String,Object>(
+			mergeValuesDefs
+		);
 
-        if (oldSObject != null) {
-            mergeValues.put(
-                String.valueOf(oldSObject.getSObjectType()),
-                oldSObject.getPopulatedFieldsAsMap()
-            );
-        }
+		if (oldSObject != null) {
+			mergeValues.put(
+				String.valueOf(oldSObject.getSObjectType()),
+				oldSObject.getPopulatedFieldsAsMap()
+			);
+		}
 
-        // In case of static value
-        Object result;
+		// In case of static value
+		Object result;
 
-        // In case of merge value(s)
-        List<String> mergeKeys = findAllOccurrences(mergeKey, regexDef);
-        if (mergeKeys.size() == 1 && mergeKeys[0] == mergeKey) {
-            // single value -> keep object type
-            result = getMergeValue(mergeValues, mergeKey);
-        } else if (mergeKeys.size() > 0) {
-            // mixed text and/or merge values -> convert to string
-            String textValue = mergeKey;
+		// In case of merge value(s)
+		List<String> mergeKeys = findAllOccurrences(mergeKey, regexDef);
+		if (mergeKeys.size() == 1 && mergeKeys[0] == mergeKey) {
+			// single value -> keep object type
+			result = getMergeValue(mergeValues, mergeKey);
+		} else if (mergeKeys.size() > 0) {
+			// mixed text and/or merge values -> convert to string
+			String textValue = mergeKey;
 
-            for (String key :mergeKeys) {
-                textValue = textValue.replace(
-                    key,
-                    String.valueOf(getMergeValue(mergeValues, key))
-                );
-            }
+			for (String key :mergeKeys) {
+				textValue = textValue.replace(
+					key,
+					String.valueOf(getMergeValue(mergeValues, key))
+				);
+			}
 
-            result = textValue;
-        } else {
-            result = mergeKey;
-        }
+			result = textValue;
+		} else {
+			result = mergeKey;
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    // Override in case you need custom error handling
-    public Boolean handleException(Exception ex) {
-        final String ERR_MSG = 'Verify configuration in HistoryTracker records';
-        String errorMessage = String.format(
-            '{0}\r\n{1}',
-            new String[] { ERR_MSG, ex.getMessage() }
-        );
+	// Override in case you need custom error handling
+	public Boolean handleException(Exception ex) {
+		final String messageTemplate = 'Verify configuration in HistoryTracker records';
+		String errorMessage = String.format(
+			'{0}\r\n{1}',
+			new String[] { messageTemplate, ex.getMessage() }
+		);
 
-        System.debug(LoggingLevel.ERROR, errorMessage);
+		System.debug(LoggingLevel.ERROR, errorMessage);
 
-        if (!resumeOnError) {
-            throw ex;
-        }
+		if (!resumeOnError) {
+			throw ex;
+		}
 
-        // return whether handled or not
-        return resumeOnError;
-    }
+		// return whether handled or not
+		return resumeOnError;
+	}
 
-    // private methods
-    // populate an index based on given CustomMetadata:History Tracking records for SObjectType
-    private void populateFieldIndex(List<HistoryTracker> trackingConfig, Schema.SObjectType sObjectType) {
-        configByFieldAndValue = new Map<Schema.SObjectField, Map<String,List<HistoryTracker>>>();
+	// private methods
+	// populate an index based on given CustomMetadata:History Tracking records for SObjectType
+	private void populateFieldIndex(List<HistoryTracker> trackingConfig, Schema.SObjectType sObjectType) {
+		configByFieldAndValue = new Map<Schema.SObjectField, Map<String,List<HistoryTracker>>>();
 
-        if (!trackingConfig.isEmpty()) {
-            // get SObjectFields
-            DescribeSObjectResult objDef = sObjectType.getDescribe();
-            fieldMap = objDef.fields.getMap();
+		if (!trackingConfig.isEmpty()) {
+			// get SObjectFields
+			DescribeSObjectResult objDef = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
+			fieldMap = objDef.fields.getMap();
 
-            for (HistoryTracker ht :trackingConfig) {
-                Schema.SObjectField field = getSchemaField(
-                    ht,
-                    ht.fieldApiName
-                );
+			for (HistoryTracker ht :trackingConfig) {
+				Schema.SObjectField field = getSchemaField(
+					ht,
+					ht.fieldApiName
+				);
 
-                if (field != null) {
-                    if (!configByFieldAndValue.containsKey(field)) {
-                        configByFieldAndValue.put(
-                            field,
-                            new Map<String,List<HistoryTracker>>()
-                        );
-                    }
+				if (field != null) {
+					if (!configByFieldAndValue.containsKey(field)) {
+						configByFieldAndValue.put(
+							field,
+							new Map<String,List<HistoryTracker>>()
+						);
+					}
 
-                    if (!configByFieldAndValue.get(field).containsKey(ht.matchingValue)) {
-                        configByFieldAndValue.get(field).put(
+					if (!configByFieldAndValue.get(field).containsKey(ht.matchingValue)) {
+						configByFieldAndValue.get(field).put(
 							ht.matchingValue,
 							new List<HistoryTracker>()
 						);
-                    }
+					}
 
-                    configByFieldAndValue.get(field).get(ht.matchingValue).add(ht);
-                }
-            }
-        }
-    }
+					configByFieldAndValue.get(field).get(ht.matchingValue).add(ht);
+				}
+			}
+		}
+	}
 
-    // find SObjectField from current SObjectType
-    private Schema.SObjectField getSchemaField(HistoryTracker ht, String fieldName) {
-        Schema.SObjectField result = fieldMap.get(fieldName);
+	// find SObjectField from current SObjectType
+	private Schema.SObjectField getSchemaField(HistoryTracker ht, String fieldName) {
+		Schema.SObjectField result = fieldMap.get(fieldName);
 
-        if (result == null) {
-            final String errorMessage = String.format(
-                'Invalid configuration. Field {0} cannot be found for Record Id {1}\r\n{2}',
-                new List<String>{ fieldName, ht.htRecordId, JSON.serialize(ht) }
-            );
+		if (result == null) {
+			final String errorMessage = String.format(
+				'Invalid configuration. Field {0} cannot be found for Record Id {1}\r\n{2}',
+				new List<String>{ fieldName, ht.htRecordId, JSON.serialize(ht) }
+			);
 
-            // Log error
-            try {
-                throw new HistoryTrackingException(errorMessage);
-            } catch (System.SObjectException sObjEx) {
-                if (!handleException(sObjEx)) {
-                    throw sObjEx;
-                }
-            }
-        }
+			// Log error
+			try {
+				throw new HistoryTrackingException(errorMessage);
+			} catch (System.SObjectException sObjEx) {
+				if (!handleException(sObjEx)) {
+					throw sObjEx;
+				}
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    // find merge values within the mergemap (recursive when Map in Map)
-    private Object getMergeValue(Map<String,Object> mergeValues, String mergeKey) {
-        mergeKey = removeMergeFieldEncapsulation(mergeKey);
+	// find merge values within the mergemap (recursive when Map in Map)
+	private Object getMergeValue(Map<String,Object> mergeValues, String mergeKey) {
+		mergeKey = removeMergeFieldEncapsulation(mergeKey);
 
-        List<String> keys = mergeKey.split('\\.');
-        String key = keys[0];
-        Object mergeResult = '';
+		List<String> keys = mergeKey.split('\\.');
+		String key = keys[0];
+		Object mergeResult = '';
 
-        if (mergeValues.containsKey(key)) {
-            Object val = mergeValues.get(key);
-            if (val != null) {
-                if (keys.size() > 1) {
-                    if (val instanceof Map<String,Object>) {
-                        keys.remove(0);
-                        mergeResult = getMergeValue(
-                            (Map<String,Object>) val,
-                            String.join(keys, '.')
-                        );
-                    }
-                } else {
-                    mergeResult = val;
-                }
-            }
-        }
+		if (mergeValues.containsKey(key)) {
+			Object val = mergeValues.get(key);
+			if (val != null) {
+				if (keys.size() > 1) {
+					if (val instanceof Map<String,Object>) {
+						keys.remove(0);
+						mergeResult = getMergeValue(
+							(Map<String,Object>) val,
+							String.join(keys, '.')
+						);
+					}
+				} else {
+					mergeResult = val;
+				}
+			}
+		}
 
-        return mergeResult;
-    }
+		return mergeResult;
+	}
 
 	@TestVisible
-    private class HistoryTrackingException extends Exception { }
+	private class HistoryTrackingException extends Exception { }
 
 	public class HistoryTracker {
 		public Id htRecordId;
@@ -330,8 +330,6 @@ public without sharing class HistoryTracking {
 		public Boolean overwriteExistingValue = false;
 		public String targetField;
 		public String targetValue;
-
-		public HistoryTracker() { }
 
 		/* BEGIN: test class purposes */
 		public HistoryTracker setObjectApiName(String objectApiName) {

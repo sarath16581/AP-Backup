@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>*To be updated upon reviewing the returned S75 documentation</inlineHelpText>
     <label>Passed AusPost Vetted</label>
+	<securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
