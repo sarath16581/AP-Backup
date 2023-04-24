@@ -138,7 +138,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Section 75</label>
+        <label>AUSTRAC S75</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>

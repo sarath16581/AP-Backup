@@ -448,10 +448,6 @@
                 <identifier>RecordNumber_Of_Days_In_Current_S75_Status_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-79df7734-762e-4d51-a7cc-1bbd0a623686</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -462,6 +458,10 @@
                 <identifier>RecordS75_Issued_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-79df7734-762e-4d51-a7cc-1bbd0a623686</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -842,7 +842,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Section 75</value>
+                    <value>AUSTRAC S75</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection6</identifier>
