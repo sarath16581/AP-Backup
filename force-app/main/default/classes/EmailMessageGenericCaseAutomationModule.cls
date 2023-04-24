@@ -26,7 +26,6 @@ public inherited sharing class EmailMessageGenericCaseAutomationModule extends A
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
 			setEmailToCaseFields(records, uow);
-			setInternationalCases(records, uow);
 		} catch (Exception e) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance()
@@ -39,38 +38,6 @@ public inherited sharing class EmailMessageGenericCaseAutomationModule extends A
 					ApplicationLogger.LoggingLevel.ERROR
 				);
 		}
-	}
-
-	// This method gets all the emails (To, CC and BCC) from the email message and checks if any of them matches with the one in the custom setting InternationalEmailToCaseEmail__c. 
-	// If they do then it set the Case's product category to the custom setting's InternationalProductCategory__c
-	void setInternationalCases(List<EmailMessage> records, ApplicationUnitOfWork uow) {
-		QM__c settings = QM__c.getOrgDefaults();
-		List<Case> casesToUpdate = new List<Case>();
-		if(String.isBlank(settings.InternationalEmailToCaseEmail__c) == false && String.isBlank(settings.InternationalProductCategory__c) == false) {
-			for(EmailMessage em: records) {
-				Set<String> emails = getUniqueEmails(em.ToAddress);
-				emails.addAll(getUniqueEmails(em.CCAddress));
-				emails.addAll(getUniqueEmails(em.BCCAddress));
-
-				if(emails.contains(settings.InternationalEmailToCaseEmail__c) == true) {
-					casesToUpdate.add(new Case(Id = em.ParentId, ProductCategory__c = settings.InternationalProductCategory__c));
-				}
-			}
-		}
-
-		if(casesToUpdate.isEmpty() == false) {
-			uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.ProductCategory__c }, 'In EmailMessageGenericCaseAutomationModule trying to set the product category');
-		}
-	}
-
-	Set<String> getUniqueEmails(String emailString) {
-		Set<String> result = new Set<String>();
-		if(String.isBlank(emailString) == false) {
-			for(String email: emailString.split(';')) { // just in case there are more than one; they are separated by ';'
-				result.add(email.trim());
-			}
-		}
-		return result;
 	}
 
 	/**
