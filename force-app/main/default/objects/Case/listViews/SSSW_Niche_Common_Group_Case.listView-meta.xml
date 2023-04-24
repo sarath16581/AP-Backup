@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Niche_Common_Group_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW Niche Common Group</label>
+    <queue>SSSW_Niche_Common_Group</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

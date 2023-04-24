@@ -5,7 +5,7 @@
     <name>SSSW Unaddressed Mail Back Office</name>
     <queueMembers>
         <users>
-			<user>danielle.larson@auspost.com.au</user>
+            <user>danielle.larson@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

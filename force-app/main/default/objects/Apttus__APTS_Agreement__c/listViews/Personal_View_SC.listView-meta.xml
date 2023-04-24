@@ -17,14 +17,9 @@
     <columns>APT_Contract_Type__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Apttus__Status_Category__c</field>
+        <field>Included_Product_Lines__c</field>
         <operation>equals</operation>
-        <value>In Authoring</value>
-    </filters>
-    <filters>
-        <field>Apttus__Status__c</field>
-        <operation>equals</operation>
-        <value>Author Contract</value>
+        <value>APGL Commercial Outbound</value>
     </filters>
     <label>Personal View SC</label>
     <language>en_US</language>

@@ -19,8 +19,8 @@
         <value xsi:type="xsd:string">Auth0ConsumerUsersSecret</value>
     </values>
     <values>
-        <field>PKCESigningCertAPIName__c</field>
-        <value xsi:type="xsd:string">PKCESigningCert</value>
+        <field>PKCEEncryptionKey__c</field>
+        <value xsi:type="xsd:string">c4Wry3+wAzqZU+4k4KDf+imCcLsd+5EzrjakSnZClnc=</value>
     </values>
     <values>
         <field>Scope__c</field>

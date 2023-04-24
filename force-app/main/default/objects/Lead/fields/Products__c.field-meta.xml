@@ -89,11 +89,6 @@
                 <label>Financial transactions &amp; payments</label>
             </value>
             <value>
-                <fullName>Fulfilment</fullName>
-                <default>false</default>
-                <label>Fulfilment</label>
-            </value>
-            <value>
                 <fullName>Gateway</fullName>
                 <default>false</default>
                 <label>Gateway</label>

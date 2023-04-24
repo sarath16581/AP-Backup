@@ -20,10 +20,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>PKCESigningCertAPIName__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
                 <field>TokenEndpointUrl__c</field>
             </layoutItems>
             <layoutItems>
@@ -33,6 +29,10 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>UserInfoEndpointUrl__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>PKCEEncryptionKey__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -85,10 +85,10 @@
         <fields>AuthoriseEndpointUrl__c</fields>
         <fields>ClientId__c</fields>
         <fields>ExternalCredentialName__c</fields>
-        <fields>PKCESigningCertAPIName__c</fields>
         <fields>TokenEndpointUrl__c</fields>
         <fields>URLSuffix__c</fields>
         <fields>UserInfoEndpointUrl__c</fields>
+        <fields>PKCEEncryptionKey__c</fields>
     </miniLayout>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
