@@ -221,7 +221,7 @@
 		<readable>true</readable>
 	</fieldPermissions>
 	<fieldPermissions>
-		<editable>true</editable>
+		<editable>false</editable>
 		<field>Membership__c.Passed_AusPost_Vetted__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
@@ -241,7 +241,7 @@
 		<readable>true</readable>
 	</fieldPermissions>
 	<fieldPermissions>
-		<editable>true</editable>
+		<editable>false</editable>
 		<field>Membership__c.S75_Status__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
