@@ -64,7 +64,7 @@ private class Auth0OIDCAuthProvider_Test {
 		System.assertEquals('code', params.get('response_type'));
 		System.assertEquals('client-id-1234', params.get('client_id'));
 		System.assertEquals('nothingmeangingful', params.get('state'));
-		
+
 	}
 
 	/**
@@ -119,7 +119,7 @@ private class Auth0OIDCAuthProvider_Test {
 		authprovider.COMMUNITY_LOGIN_URL = 'https://auspost--devnathan.sandbox.my.site.com/HelpAndSupport/login';
 
 		Auth.AuthProviderTokenResponse tokenResponse = authprovider.handleCallback(customMetadataValues, callbackState);
-		
+
 		Test.stopTest();
 
 		// =====================================
@@ -195,7 +195,7 @@ private class Auth0OIDCAuthProvider_Test {
 		} catch(Exception ex) {
 			System.assert(false, 'Expected OAuthException: ' + ex.getMessage());
 		}
-		
+
 		Test.stopTest();
 
 	}
@@ -254,7 +254,7 @@ private class Auth0OIDCAuthProvider_Test {
 		} catch(Exception ex) {
 			System.assert(false, 'Expected OAuthException: ' + ex.getMessage());
 		}
-		
+
 		Test.stopTest();
 
 	}
@@ -301,7 +301,7 @@ private class Auth0OIDCAuthProvider_Test {
 		authprovider.COMMUNITY_URL = 'https://auspost--devnathan.sandbox.my.site.com/HelpAndSupport';
 		authprovider.COMMUNITY_LOGIN_URL = 'https://auspost--devnathan.sandbox.my.site.com/HelpAndSupport/login';
 		Auth.UserData userData = authprovider.getUserInfo(customMetadataValues, tokenResponse);
-		
+
 		Test.stopTest();
 
 		String requestBody = EncodingUtil.urlDecode(httpMock.requestBody, 'UTF-8');
@@ -367,7 +367,7 @@ private class Auth0OIDCAuthProvider_Test {
 		} catch(Exception ex) {
 			System.assert(false, 'Expected OAuthException: ' + ex.getMessage());
 		}
-		
+
 		Test.stopTest();
 
 	}
@@ -396,7 +396,7 @@ private class Auth0OIDCAuthProvider_Test {
 		Auth0OIDCAuthProvider authprovider = new Auth0OIDCAuthProvider();
         String actual = authprovider.getCustomMetadataType();
         System.assertEquals('Auth0OIDCAuthProvider__mdt', actual, 'Incorrect metadata returned');
-		
+
 		Test.stopTest();
 	}
 
@@ -404,7 +404,7 @@ private class Auth0OIDCAuthProvider_Test {
 		public String requestBody = '';
 		public String requestEndpoint = '';
 
-		public HTTPResponse respond(HTTPRequest req) {		
+		public HTTPResponse respond(HTTPRequest req) {
 			requestBody = req.getBody();
 			requestEndpoint = req.getEndpoint();
 
@@ -419,7 +419,7 @@ private class Auth0OIDCAuthProvider_Test {
 		public String requestBody = '';
 		public String requestEndpoint = '';
 
-		public HTTPResponse respond(HTTPRequest req) {		
+		public HTTPResponse respond(HTTPRequest req) {
 			requestBody = req.getBody();
 			requestEndpoint = req.getEndpoint();
 
@@ -436,7 +436,7 @@ private class Auth0OIDCAuthProvider_Test {
 		public String requestBody = '';
 		public String requestEndpoint = '';
 
-		public HTTPResponse respond(HTTPRequest req) {		
+		public HTTPResponse respond(HTTPRequest req) {
 			requestBody = req.getBody();
 			requestEndpoint = req.getEndpoint();
 
@@ -452,7 +452,7 @@ private class Auth0OIDCAuthProvider_Test {
 		public String requestBody = '';
 		public String requestEndpoint = '';
 
-		public HTTPResponse respond(HTTPRequest req) {		
+		public HTTPResponse respond(HTTPRequest req) {
 			requestBody = req.getBody();
 			requestEndpoint = req.getEndpoint();
 
@@ -467,7 +467,7 @@ private class Auth0OIDCAuthProvider_Test {
 		public String requestBody = '';
 		public String requestEndpoint = '';
 
-		public HTTPResponse respond(HTTPRequest req) {		
+		public HTTPResponse respond(HTTPRequest req) {
 			requestBody = req.getBody();
 			requestEndpoint = req.getEndpoint();
 

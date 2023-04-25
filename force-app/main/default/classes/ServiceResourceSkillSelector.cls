@@ -11,6 +11,23 @@
 */
 public inherited sharing class ServiceResourceSkillSelector extends ApplicationSelector {
 
+	public enum Options {
+		WITH_SERVICE_RESOURCE
+	}
+
+	/**
+	 * @description Grabs a new QueryBuilder based on the selector options passed in
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if (selectorOptions.contains(Options.WITH_SERVICE_RESOURCE)) {
+			builder.addRelatedFields(ServiceResourcesSelector.newInstance().newQueryBuilder(), 'ServiceResource');
+		}
+
+		return builder;
+	}
+
 	public static ServiceResourceSkillSelector newInstance() {
 		return (ServiceResourceSkillSelector)Application.Selectors.newInstance(ServiceResourceSkillSelector.class);
 	}
@@ -40,11 +57,23 @@ public inherited sharing class ServiceResourceSkillSelector extends ApplicationS
 	}
 
 	public List<ServiceResourceSkill> selectByActiveServiceResourceRelatedRecordIds(Set<Id> relatedRecordIds, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-							.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :relatedRecordIds'))
-							.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.IsActive + ' = TRUE'))
-							.setConditionOrder('1 AND 2')
-							.endConditions();
+		return selectByActiveServiceResourceRelatedRecordIdsAndSkills(relatedRecordIds, null, selectorOptions);
+	}
+
+	public List<ServiceResourceSkill> selectByActiveServiceResourceRelatedRecordIdsAndSkills(Set<Id> relatedRecordIds, Set<String> skillDeveloperNames, Set<Object> selectorOptions) {
+		QueryBuilder.ConditionsManager cm = newQueryBuilder(selectorOptions).addConditions()
+												.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :relatedRecordIds'))
+												.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.IsActive + ' = TRUE'));
+		
+		if(skillDeveloperNames != null && skillDeveloperNames.isEmpty() == false) {
+			cm.add(new QueryBuilder.SimpleCondition(Skill.getsObjectType() + '.' + Skill.DeveloperName + ' IN :skillDeveloperNames'));
+			cm.setConditionOrder('1 AND 2 AND 3');
+		} else {
+			cm.setConditionOrder('1 AND 2');
+		}
+							
+		QueryBuilder qb = cm.endConditions();
+
 		return (List<ServiceResourceSkill>)Database.query(qb.toSoqlString());
 	}
 

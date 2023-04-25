@@ -42,7 +42,7 @@ public with sharing class ChasEDDServiceEstimates {
                     
                     // update the from and to dates if there is a range available
                     if(eddEstimates.estimatedOnDate !=null) {
-                        trackingNumDetailsWrapperObj.deliveredByDatePlusBusinessDays = ChasUtil.calculateNextBusinessDay(eddEstimates.estimatedOnDate,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0 );
+                        trackingNumDetailsWrapperObj.deliveredByDatePlusBusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(eddEstimates.estimatedOnDate,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0 );
                         // set the track status to EDD ESTIMATED
                         trackingNumDetailsWrapperObj.isEDDEstimated = true;
                         trackingNumDetailsWrapperObj.isNoEddReturned = false;
@@ -52,7 +52,7 @@ public with sharing class ChasEDDServiceEstimates {
 
                     }
                     if(eddEstimates.toDate != null) {
-                        trackingNumDetailsWrapperObj.deliveredByDateToUntil = ChasUtil.calculateNextBusinessDay(eddEstimates.toDate,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0 );
+                        trackingNumDetailsWrapperObj.deliveredByDateToUntil = BusinessHoursService.newInstance().calculateNextBusinessDay(eddEstimates.toDate,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0 );
                         if (ChasUtil.isTheDateIsBefore(Date.valueOf(eddEstimates.toDate))) {
                             trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERING_ON_TIME;
                         }

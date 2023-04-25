@@ -7990,7 +7990,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>MyNetwork Blank Case Type Error Message</shortDescription>
         <value>Case Type is required when creating a case investigation.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>leadSeakerIntoExistingOpportunity</fullName>
         <categories>label</categories>
         <language>en_US</language>
