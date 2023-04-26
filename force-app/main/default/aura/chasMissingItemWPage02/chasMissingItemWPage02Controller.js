@@ -9,6 +9,7 @@
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2020-11-26 hara.sahoo@auspost.com.au Added click tracking for adobe analytics
  * 2022-02-28 alex.volkov@auspost.com.au Added deflection page skip option
+ * 2023-04-21 StephenL added logic to skip the deflection page when the EDD Status is LATE
  */
 
 ({
@@ -16,11 +17,11 @@
     
     init: function(component, event, helper) {
         var statusCode = component.get('v.wizardData.trackingNumSerachStatusCode');
+        let eddStatus = component.get('v.wizardData.eddStatus');
         //show the first search section on the component
         component.set('v.displaySection','START');
         //Special handling for response code 403
-        if(statusCode == 403 || component.get('v.wizardData.skipDeflectionPage'))
-        {
+        if(statusCode == 403 || component.get('v.wizardData.skipDeflectionPage') || eddStatus === 'LATE'){
             component.set('v.displaySection','START_CASE_CREATE');
             // setting the caller type (sender/Receiver) from the previous page if a value is selected
             var recipientOrSenderCallerType = component.get('v.wizardData.recipientOrSenderCallerType');
