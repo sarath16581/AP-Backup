@@ -3996,6 +3996,11 @@
 		<field>APT_Operational_Schedule__c.APT_Post_Billpay_Biller_Branded_Phone__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_PostBillPay_Channel__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Print_Post_AP_Contact__c</field>

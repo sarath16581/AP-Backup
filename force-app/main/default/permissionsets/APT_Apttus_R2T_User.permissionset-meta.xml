@@ -4890,6 +4890,11 @@
         <field>APT_Operational_Schedule__c.APT_Pick_Up_Address_and_CA__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_PostBillPay_Channel__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Premium__c</field>
