@@ -703,6 +703,11 @@
 		<sortOrder>Asc</sortOrder>
 	</relatedLists>
 	<relatedLists>
+        <fields>NAME</fields>
+        <fields>APT_PostBillPay_Channel__c</fields>
+        <relatedList>APT_Operational_Schedule__c.APT_Contract__c</relatedList>
+    </relatedLists>
+	<relatedLists>
 		<excludeButtons>MassChangeOwner</excludeButtons>
 		<excludeButtons>New</excludeButtons>
 		<fields>NAME</fields>

@@ -708,8 +708,9 @@
         <sortField>Apttus_DocuApi__SigningOrder__c</sortField>
         <sortOrder>Asc</sortOrder>
     </relatedLists>
-        <relatedLists>
+    <relatedLists>
         <fields>NAME</fields>
+        <fields>APT_PostBillPay_Channel__c</fields>
         <relatedList>APT_Operational_Schedule__c.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
