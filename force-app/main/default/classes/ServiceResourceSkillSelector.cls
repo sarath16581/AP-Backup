@@ -22,7 +22,7 @@ public inherited sharing class ServiceResourceSkillSelector extends ApplicationS
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if (selectorOptions.contains(Options.WITH_SERVICE_RESOURCE)) {
-			builder.addRelatedFields(ServiceResourcesSelector.newInstance().newQueryBuilder(), 'ServiceResource');
+			builder.addRelatedFields(ServiceResourcesSelector.newInstance(fieldOverrides).newQueryBuilder(), 'ServiceResource');
 		}
 
 		return builder;
