@@ -1,7 +1,7 @@
 <!--2021.09.30 Change made by seth.heang@auspost.com.au Uplift SF API version to 52 -->
 <apex:page standardController="Pain_Point__c" extensions="PainPointExCon" id="page" title="New Pain Chain" tabStyle="Relationship_Power_Map__c">
-<script src="/soap/ajax/22.0/connection.js" type="text/javascript"></script>
-<script src="/soap/ajax/22.0/apex.js" type="text/javascript"></script>
+<script src="/soap/ajax/57.0/connection.js" type="text/javascript"></script>
+<script src="/soap/ajax/57.0/apex.js" type="text/javascript"></script>
 <script>sforce.connection.sessionId = '{!$Api.Session_ID}'; </script>
 <style>
 .errorMsg { color: red; font-weight: strong;}
