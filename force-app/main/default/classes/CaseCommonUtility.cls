@@ -46,6 +46,7 @@
 	2023-03-08		Noel Lim									Add Release 2 TEMPORARY FIX - exclude Preferred Agent routing for cases from portals
 	2023-03-17		Noel Lim									Add criteria to routing engine, to allow routing when AllocateToQueue = true only if Owner is not a User, Owner is not the Omni Holding Queue, or Owner is a User but Case is Closed
 	2023-04-19		George Nguyen -	Added condition to check if the previous assigned agent qualifies as Preferred agent (qualifiedAsPreferredAgentUserIds)
+	2023-04-24		Noel Lim									Add method insertPendingServiceRoutings, to perform PSR DML in without sharing context
 
 
 	************************************************/
@@ -1155,33 +1156,8 @@
 			}
 
 			if(newPSRs.isEmpty() == false) {
-
-				//Allow partial success for the insert, as some PSR insert may fail if a Case has an existing PSR already e.g. another inserted PSR has not been deleted
-				List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlInsert(newPSRs, false);
-				
-				if(srList.isEmpty() == false){
-					for(Integer i=0;i<srList.size();i++){
-						Database.SaveResult sr = srList.get(i);
-
-						//Assign the Case of successful PSRs to the Preferred Agent queue
-						if (sr.isSuccess()){
-							for(PendingServiceRouting newPSR : newPSRs){ 
-								if(newPSR.Id != null && newPSR.Id == sr.getId()){
-									casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = OmniChannelService.getInstance().preferredAgentQueueId; 
-									m_processedPreferredAgentCaseIds.add(newPSR.WorkItemId);
-								}							
-							}
-						} else {
-							for (Database.Error err : sr.getErrors()) {	
-								System.debug('The following error has occurred on the DML Retry.');
-								System.debug(err.getStatusCode() + ': ' + err.getMessage());
-							}
-						}					
-					}		
-					
-					// log any failed inserts to ensure we can monitor save errors (especially for checking routing failures)
-					ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, CaseCommonUtility.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
-				}			
+				WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
+				innerClassWithoutSharing.insertPendingServiceRoutings(newPSRs, casesPreferredAgentRouting); // execute DMLs for system objects in without sharing context						
 			}
 		}
 	}
@@ -1261,7 +1237,7 @@
 		}
 
 	/**
-	 * Private inner class that elevates access privileges of the current user to query data without being limited by
+	 * Private inner class that elevates access privileges of the current user to query data and perform DMLs without being limited by
 	 * sharing settings.
 	 *
 	 * IMPORTANT: Not intended for general use. Only for handling special scenarios where it is necessary to query data beyond
@@ -1303,5 +1279,44 @@
 			//Query previously in CaseCommonUtiltiy.linkNewContacts(). Moved here to allow it to run without sharing.
 			return new Map<Id, Account>([SELECT PersonContactId FROM Account WHERE Id IN:accounts LIMIT :rowLimit]);
 		}
+
+		/**
+		 * Insert PendingServiceRouting in a without sharing context - it is best practice to perform DML on system objects in this context 
+		 *
+		 * @param newPSRs list of PendingServiceRouting records to insert
+		 * @param casesPreferredAgentRouting map of Case Ids and Case object that the PendingServiceRouting records are related to 
+		 *
+		 * @return Void
+		 */
+		private void insertPendingServiceRoutings(List<PendingServiceRouting> newPSRs, Map<Id,Case> casesPreferredAgentRouting){
+
+			// allow partial success for the insert, as some PSR insert may fail if a Case has an existing PSR already e.g. another inserted PSR has not been deleted
+			List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlInsert(newPSRs, false);
+				
+			if(srList.isEmpty() == false){
+				for(Integer i=0;i<srList.size();i++){
+					Database.SaveResult sr = srList.get(i);
+
+					// assign the Case of successful PSRs to the Preferred Agent queue
+					if (sr.isSuccess()){
+						for(PendingServiceRouting newPSR : newPSRs){ 
+							if(newPSR.Id != null && newPSR.Id == sr.getId()){
+								casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = OmniChannelService.getInstance().preferredAgentQueueId; 
+								CaseCommonUtility.m_processedPreferredAgentCaseIds.add(newPSR.WorkItemId);
+							}							
+						}
+					} else {
+						for (Database.Error err : sr.getErrors()) {	
+							System.debug('The following error has occurred on the DML Retry.');
+							System.debug(err.getStatusCode() + ': ' + err.getMessage());
+						}
+					}					
+				}		
+				
+				// log any failed inserts to ensure we can monitor save errors (especially for checking routing failures)
+				ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, CaseCommonUtility.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
+			}	
+		}
 	}
+
 }
