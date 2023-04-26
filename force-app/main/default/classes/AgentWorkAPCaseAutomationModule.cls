@@ -23,7 +23,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 
 	// Setup which trigger events this module should respond to
 	public AgentWorkAPCaseAutomationModule() {
-		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterUpdate();
+		getTriggerEvents().enableBeforeInsert().enableAfterUpdate();
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -50,7 +50,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 	 */
 	private void populateCaseField(List<AgentWork> records, ApplicationUnitOfWork uow){
 		for(AgentWork aw: records) {
-			if(aw.Case__c == null && aw.WorkItemId.getSobjectType() == Case.SObjectType){
+			if(aw.WorkItemId.getSobjectType() == Case.SObjectType){
 				aw.Case__c = aw.WorkItemId;
 			}
 		}
@@ -92,11 +92,9 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 		Map<Id, Case> casesToQuery = new Map<Id, Case>();
 
 		for(AgentWork aw: records) {
-			if(aw.Status != existingRecords.get(aw.Id).Status) {
+			if(existingRecords == null || (existingRecords != null && aw.Status != existingRecords.get(aw.Id).Status)) {
 
-				if( SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED.equalsIgnoreCase(aw.Status) &&
-					(existingRecords == null || ( existingRecords != null && aw.Status != existingRecords.get(aw.Id).Status)) 
-				) { 
+				if( SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED.equalsIgnoreCase(aw.Status)) { 
 					casesAccepted.add(new Case(
 						Id = aw.WorkItemId, 
 						BypassPreferredAgent__c = false, 
@@ -112,14 +110,18 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 				} else if(aw.PreferredUserId != null && 
 					(SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED.equalsIgnoreCase(aw.Status) 
 					|| SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT.equalsIgnoreCase(aw.Status)
-					|| SSSWConstants.OMNI_AGENTWORK_STATUS_UNAVAILABLE.equalsIgnoreCase(aw.Status) ) &&
-					(existingRecords == null || ( existingRecords != null && aw.Status != existingRecords.get(aw.Id).Status))
+					|| SSSWConstants.OMNI_AGENTWORK_STATUS_UNAVAILABLE.equalsIgnoreCase(aw.Status) )
 				) { 
 					caseIdsToReroute.add(aw.WorkItemId);
 				}
 			}
 		}
 
+		if(casesAccepted.isEmpty() == false) {
+			uow.registerDirty(casesAccepted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
+		}
+
+		// parsing both Sets together for 1 Case Selector call
 		if(caseIdsForTrackingLogic.isEmpty() == false || caseIdsToReroute.isEmpty() == false){
 			Set<Id> casesIdsToQuery = new Set<Id>(caseIdsForTrackingLogic);
 			casesIdsToQuery.addAll(caseIdsToReroute);
@@ -130,6 +132,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			casesToQuery = SSSWCasesSelector.newInstance(caseFieldsToQuery).selectById(casesIdsToQuery); 
 		}
 
+		// Cases to generate Status Tracking
 		if(caseIdsForTrackingLogic.isEmpty() == false && casesToQuery.isEmpty() == false){	
 			for(Id csId : caseIdsForTrackingLogic){
 				if(casesToQuery.containsKey(csId)){
@@ -140,28 +143,11 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			for(Case csRec : casesForTrackingLogic.values()){
 				oldCasesForTrackingLogic.put(csRec.Id, new Case(
 					Id = csRec.Id, 
-					OwnerId = OmniChannelService.getInstance().preferredAgentQueueId, // purpose of setting this OwnerId is ONLY to trigger StatusTracking logic that there is an Owner change. Status Tracking logic does not use this Owner Id to set the Previous_Owner_Id__c value, it references the previous Status Tracking record 
+					OwnerId = null, // purpose of setting this OwnerId is ONLY to trigger StatusTracking logic that there is an Owner change. Status Tracking logic does not use this Owner Id to set the Previous_Owner_Id__c value, it references the previous Status Tracking record 
 					Status = csRec.Status
 				));	
 			}
-		}
-
-		if(caseIdsToReroute.isEmpty() == false && casesToQuery.isEmpty() == false){
-			Map<Id,Case> casesToReroute = new Map<Id,Case>();
-			for(Id csId : caseIdsToReroute){
-				if(casesToQuery.containsKey(csId)){
-					casesToReroute.put(csId, casesToQuery.get(csId));
-				}
-			}
-
-			// we must manually call the routing engine and apply the OwnerId directly
-			// using the Case.AllocateToQueue__c = true approach is not an option, because currently the Case Owner is an Agent and there is logic that prevent routing for Open Cases owned by an Agent
-			casesRerouted = routeDeclinedCases(casesToReroute).values();
-		}
-
-		if(casesAccepted.isEmpty() == false) {
-			uow.registerDirty(casesAccepted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
-		}
+		}		
 
 		if(casesForTrackingLogic.isEmpty() == false && oldCasesForTrackingLogic.isEmpty() == false){
 			CaseTrackingHelper trackingUtility = new CaseTrackingHelper();
@@ -173,8 +159,19 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			CaseTrackingHelper.isSetStatusTrackRecursive = false; 
 		}	
 
-		if(casesRerouted.isEmpty() == false) {
-			uow.registerDirty(casesRerouted, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
+
+		// Cases to Reroute
+		if(caseIdsToReroute.isEmpty() == false && casesToQuery.isEmpty() == false){
+			Map<Id,Case> casesToReroute = new Map<Id,Case>();
+			for(Id csId : caseIdsToReroute){
+				if(casesToQuery.containsKey(csId)){
+					casesToReroute.put(csId, casesToQuery.get(csId));
+				}
+			}
+
+			// we must manually call the routing engine and apply the OwnerId directly
+			// using the Case.AllocateToQueue__c = true approach is not an option, because currently the Case Owner is an Agent and there is logic that prevent routing for Open Cases owned by an Agent
+			routeDeclinedCases(casesToReroute, uow);
 		}
 		
 	}
@@ -185,9 +182,9 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 	 * @param - Map of all cases
 	 * @return - Map of cases that were re-routed, as new case records
 	 */
-	private Map<Id, Case> routeDeclinedCases(Map<Id, Case> cases) {
+	private void routeDeclinedCases(Map<Id, Case> cases, ApplicationUnitOfWork uow) {
 		
-		Map<Id, Case> casesRerouted = new Map<Id, Case>();
+		List<Case> casesRerouted = new List<Case>();
 
 		// NOTE The try/catch block is a fail safe, to catch this error here will ensure the routing errors do not cause the whole transaction to fail
 		try {			
@@ -200,7 +197,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 			// the routing rules have been rerun and the newly set owner id will be added to the case
 			for(Case csRec : cases.values()) {
 
-				casesRerouted.put(csRec.Id,new Case(
+				casesRerouted.add(new Case(
 					Id = csRec.Id, 
 					OwnerId = csRec.OwnerId,
 					Bypass_Data_enforcement__c = true,
@@ -208,13 +205,13 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 					AllocateToQueue__c = false, // Unit of Work expects this to be populated
 					PreferredAgentExpiry__c = null // needs to be cleared so that in the future, the routing engine can stamp a new value
 				));
-			}				
+			}
+			
+			uow.registerDirty(casesRerouted, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
 		
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, AgentWorkAPCaseAutomationModule.class.getName(), 'rerouteCases', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
 		}
-
-		return casesRerouted;
 	}
 }

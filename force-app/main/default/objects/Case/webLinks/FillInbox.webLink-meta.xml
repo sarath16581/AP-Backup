@@ -8,8 +8,8 @@
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
     <requireRowSelection>false</requireRowSelection>
-    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/28.0/connection.js&quot;)}
-{!REQUIRESCRIPT(&quot;/soap/ajax/28.0/apex.js&quot;)}
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/57.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/57.0/apex.js&quot;)}
 
 var s = document.getElementsByName(&apos;fcf&apos;)[0];
 var selectId = s.id.split(&apos;_&apos;)[0];
