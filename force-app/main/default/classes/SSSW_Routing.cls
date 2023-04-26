@@ -424,7 +424,7 @@ public class SSSW_Routing {
 						//
 						// Modified 25/6/2021 to use RuleRequiresArticleAttributes__c ( true when either IsStrategic OR HasExtraCover is true)
 						// cases follow default logic if it is not either of these.
-						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null)) {
+						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
 							if (processAny(cs, rule, routingFields)) {
 								routingOwner = rule.Queue_ID__c;
 
@@ -465,7 +465,7 @@ public class SSSW_Routing {
 						//TODO: have to set AllocateToQueue = false for portal cases
 						// Network cases to be skipped from routing in Insert context
 						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
-							if (processAll(cs, rule, routingFields) && rule.recordtype.developerName == SSSWConstants.RECTYPEROUTING) {
+							if (processAll(cs, rule, routingFields)) {
 
 								routingOwner = rule.Queue_ID__c;
 								system.debug(LoggingLevel.ERROR,'Rule Routing Owner Id: ' + routingOwner);
