@@ -116,37 +116,9 @@ public with sharing class APT_AgreementTriggerHandler{
     public static String getRelevantProductLinesString(List<Apttus_Proposal__Proposal_Line_Item__c> pLineItems) {
         Set<String>productLinesSet = new Set<String>();
         for(Apttus_Proposal__Proposal_Line_Item__c pli : pLineItems){
-            //get the product record if the config type is not option and the product line items tagged on it.
-			if (!pli.APT_Bundle_Product_Name__c.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_POST_BILLPAY)){
-				system.debug('DDDD contract APPC products');
 				if(!string.isBlank(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c) && pli.Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c != 'Option'){
 					productLinesSet.add(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c);
 				}
-		 	} else
-			{
-				// Post Billpay channel selection on cart
-				system.debug('DDDD contract Post billpay product');
-				if (!String.isBlank(pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c)) {
-					Set<String> postBillpaySet = new Set<String>();
-					String[] selectedChannels = pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c.split(';');
-
-					for (String channel : selectedChannels) {
-						if (channel.equalsIgnoreCase(APT_Constants.POST_BILLPAY_CHANNEL_OTC)) {
-							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_OTC);
-						} else if (channel.equalsIgnoreCase(APT_Constants.POST_BILLPAY_CHANNEL_PHONE)) {
-							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_PHONE);
-						} else if (channel.equalsIgnoreCase(APT_Constants.POST_BILLPAY_CHANNEL_INTERNET)) {
-							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_INTERNET);
-						} else if (channel.equalsIgnoreCase(APT_Constants.PPOST_BILLPAY_CHANNEL_SCANPAY)) {
-							postBillpaySet.add(APT_Constants.POST_BILLPAY_INCLUDED_PRODUCTLINE_SCANPAY);
-						}
-					}
-
-					// Add the Post Billpay values to the Set
-					productLinesSet.addAll(postBillpaySet);
-					system.debug('DDDD product lines set>>'+productLinesSet );
-				}
-			}
         }
         return productLinesSet.isEmpty() ? null : String.join(new List<String>(productLinesSet), ';');        
     }
@@ -449,6 +421,7 @@ public with sharing class APT_AgreementTriggerHandler{
 																							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c,
+																							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c                                                                           
                                                                                             FROM Apttus_Proposal__R00N70000001yUfBEAU__r)
                                                                                        FROM Apttus_Proposal__Proposal__c
@@ -592,16 +565,18 @@ public with sharing class APT_AgreementTriggerHandler{
                 }
                 
 
-                //contract pricing
+               //Create Operation Schedule for Post Bill Pay product agreement
                 if(recordTypeMap.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT)) {
                     agreementIds.add(agrmnt.Id);
 					if(proposalsWithLineItemsMap.containskey(agrmnt.Apttus_QPComply__RelatedProposalId__c) && !proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__R00N70000001yUfBEAU__r.isEmpty()){ 
 						for(Apttus_Proposal__Proposal_Line_Item__c propLineItem : proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__R00N70000001yUfBEAU__r){
 							opSchedule = new APT_Operational_Schedule__c();
+							opSchedule.RecordTypeId = (RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_POST_BILLPAY_OS})).values()?.get(0)?.Id;
 							opSchedule.APT_Contract__c=agrmnt.Id;
 							opSchedule.APT_Minimum_Fees__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c;
 							opSchedule.APT_Payment_Method__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
 							opSchedule.APT_Annual_Volume_Review__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c;
+							opSchedule.APT_PostBillPay_Channel__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c;
 						}
 						listOprSchedule.add(opSchedule);
 					}

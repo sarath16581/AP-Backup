@@ -986,16 +986,6 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_NAME_EPARCEL = 'eParcel';
 	public static final String PRODUCT_NAME_EPARCEL_EXPRESS = 'eParcel Express';
 	
-	//Post bill pay attribute values
-	public static final String POST_BILLPAY_CHANNEL_OTC = 'OTC';
-	public static final String POST_BILLPAY_CHANNEL_PHONE = 'Phone';
-	public static final String POST_BILLPAY_CHANNEL_INTERNET = 'Internet';
-	public static final String PPOST_BILLPAY_CHANNEL_SCANPAY = 'Scan and Pay';
-	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_OTC = 'Post Billpay OTC';
-	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_PHONE = 'Post Billpay by Phone';
-	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_INTERNET = 'Post Billpay on the Internet';
-	public static final String POST_BILLPAY_INCLUDED_PRODUCTLINE_SCANPAY = 'Post Billpay Scan & Pay';
-	
 	//error messages
 	public static final String ERROR_PREFIX = 'Error:';
 	public static final String ERROR_CANNOT_ADD_MORE_THAN = 'You cannot add more than ';
@@ -1505,7 +1495,9 @@ public with sharing class APT_Constants {
 	 public static final String PARMA_ID = '?id=';
 	 public static final String PARMA_O_ID = '&oid=';
 	 
+	 //Post BillPay Minor Works Records Types
 	 public static final String RECORD_TYPE_POST_BILLPAY_CONTRACT = 'Post Billpay Contract';
+	 public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
 	 
 	 public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
 	 public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
