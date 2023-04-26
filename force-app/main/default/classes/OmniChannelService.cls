@@ -17,6 +17,7 @@
 *		01/02/2023				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getCaseIdsWithLatestAcceptedAgentWorks, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 * 		10/02/2023				George Nguyen				Added rerouteCasesWithPreferredAgentByPass and Cache
 *		17/03/2023				Noel Lim					Added class variables omniClosedCaseQueueId and omniHoldingQueueId
+*		19/04/2023				George Nguyen				Added getUserIdsWithPreferredAgentSkills which gets the list of user ids that have Preferred agent skills
 **/
 public inherited sharing class OmniChannelService {
 
@@ -76,6 +77,22 @@ public inherited sharing class OmniChannelService {
 				omniDefaultQueueId = QM__c.getOrgDefaults().DefaultOmniQueueId__c;
 			}
 			return omniDefaultQueueId;
+		}
+		private set;
+	}
+
+	// this stores the qualified skills for Preferred Agents
+	public Set<String> preferredAgentQualifySkillDeveloperNames {
+		get {
+			if(preferredAgentQualifySkillDeveloperNames == null) {				
+				preferredAgentQualifySkillDeveloperNames = new Set<String>();
+				for(String devName: QM__c.getOrgDefaults().PreferredAgentSkillDeveloperNames__c.split(',')) {
+					if(String.isBlank(devName) == false) {
+						preferredAgentQualifySkillDeveloperNames.add(devName.trim());
+					}
+				}
+			}
+			return preferredAgentQualifySkillDeveloperNames;
 		}
 		private set;
 	}
@@ -246,6 +263,17 @@ public inherited sharing class OmniChannelService {
 		return bReturn;
 	}
 
+	/*
+	* This method returns a set of userids that have the specified skills 
+	*/
+	public Set<Id> getUserIdsWithPreferredAgentSkills(Set<Id> userIds) {
+		Set<Id> result = new Set<Id>();
+		for(ServiceResourceSkill srs: new WithoutSharingRetrieveData().getPreferredAgentServiceResourceSkills(userIds)) {
+			result.add(srs.ServiceResource.RelatedRecordId);
+		}
+		return result;
+	}
+
 	/**
 	 * Required to provide elevated privileges for guest users to query the AgentWork object 
 	 */
@@ -253,6 +281,10 @@ public inherited sharing class OmniChannelService {
 		
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
 			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
+		}
+
+		private List<ServiceResourceSkill> getPreferredAgentServiceResourceSkills(Set<Id> userIds){
+			return ServiceResourceSkillSelector.newInstance().selectByActiveServiceResourceRelatedRecordIdsAndSkills(userIds, OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames, new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE });
 		}
 	}
 
