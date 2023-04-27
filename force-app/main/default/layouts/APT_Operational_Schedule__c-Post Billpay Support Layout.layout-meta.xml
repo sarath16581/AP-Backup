@@ -32,7 +32,7 @@
                 <field>APT_Annual_Volume_Review__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>APT_PostBillPay_Channel__c</field>
             </layoutItems>
         </layoutColumns>
