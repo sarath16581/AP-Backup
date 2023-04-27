@@ -19,7 +19,7 @@ public with sharing class APT_ProposalLineItemTriggerHandler {
             for(Apttus_Proposal__Proposal_Line_Item__c proLineItem : listProposalLineItem){
                 if(proLineItem.Apttus_Proposal__Product__c != null)
                     productOptionIds.add(proLineItem.Apttus_Proposal__Product__c);
-					prolineItem.Product_Name_Text__c = prolineItem.APT_Product_Name__c;
+                    prolineItem.Product_Name_Text__c = prolineItem.APT_Product_Name__c;
 
                 if(proLineItem.Apttus_QPConfig__OptionId__c != null)
                     productOptionIds.add(proLineItem.Apttus_QPConfig__OptionId__c);

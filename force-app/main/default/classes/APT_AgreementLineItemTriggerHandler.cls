@@ -192,7 +192,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     newApav.APT_PostBillPay_Gross_Settlement_fee__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c;
                     newApav.APT_Payment_Method__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
                     mapLocalPickup.put(ali, newApav);
-				}
+                }
                 
                 //Local Pickup 
                 if((String.isBlank(ali.Apttus_CMConfig__OptionId__c) 

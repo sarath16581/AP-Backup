@@ -116,9 +116,10 @@ public with sharing class APT_AgreementTriggerHandler{
     public static String getRelevantProductLinesString(List<Apttus_Proposal__Proposal_Line_Item__c> pLineItems) {
         Set<String>productLinesSet = new Set<String>();
         for(Apttus_Proposal__Proposal_Line_Item__c pli : pLineItems){
-				if(!string.isBlank(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c) && pli.Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c != 'Option'){
-					productLinesSet.add(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c);
-				}
+			//get the product record if the config type is not option and the product line items tagged on it.
+            if(!string.isBlank(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c) && pli.Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c != 'Option'){
+                productLinesSet.add(pli.Apttus_Proposal__Product__r.APT_Product_Lines__c);
+            }
         }
         return productLinesSet.isEmpty() ? null : String.join(new List<String>(productLinesSet), ';');        
     }
@@ -418,10 +419,10 @@ public with sharing class APT_AgreementTriggerHandler{
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c,
-																							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c,
-																							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c                                                                           
                                                                                             FROM Apttus_Proposal__R00N70000001yUfBEAU__r)
                                                                                        FROM Apttus_Proposal__Proposal__c
