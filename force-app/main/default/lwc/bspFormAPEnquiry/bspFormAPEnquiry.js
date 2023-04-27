@@ -548,7 +548,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.tempCase.CCUYourReference__c = this.reference;
 		this.tempCase.Description = this.description;
 		this.tempCase.DescriptionofContents__c = this.descriptionOfContents;
-		this.tempCase.EstimatedDelivery__c = this.expectedDeliveryDate;
+		this.tempCase.EstimatedDelivery__c = this.article.ExpectedDeliveryDate__c;
 		// set the case type definitions
 		this.caseTypeAttributes();
 
