@@ -5,10 +5,11 @@
  * @domain AgentWork
  * @changelog
  * 2023-02-16	George	- created
+ * 2023-04-14 - Noel Lim - Updated class name from APCaseAgentWorkDomain to AgentWorkAPCaseDomain
  */
-public inherited sharing class APCaseAgentWorkDomain extends ApplicationDomain {
-	public static APCaseAgentWorkDomain newInstance(List<SObject> sObjectList) {
-		return (APCaseAgentWorkDomain) ApplicationDomain.newInstance(APCaseAgentWorkDomain.class, sObjectList);
+public inherited sharing class AgentWorkAPCaseDomain extends ApplicationDomain {
+	public static AgentWorkAPCaseDomain newInstance(List<SObject> sObjectList) {
+		return (AgentWorkAPCaseDomain) ApplicationDomain.newInstance(AgentWorkAPCaseDomain.class, sObjectList);
 	}
 
 	/**
@@ -36,7 +37,7 @@ public inherited sharing class APCaseAgentWorkDomain extends ApplicationDomain {
 	 * These are the modules that the domain may use for triggers or method execution
 	 */
 	public override void registerModules() {
-		registerModule(APCaseAgentWorkPreferredAgentModule.class);
+		registerModule(AgentWorkAPCaseAutomationModule.class);
 	}
 
 	/**
@@ -44,7 +45,7 @@ public inherited sharing class APCaseAgentWorkDomain extends ApplicationDomain {
 	 */
 	public virtual class Constructor implements ApplicationDomain.IConstructable {
 		public ApplicationDomain construct(List<SObject> sObjectList) {
-			return APCaseAgentWorkDomain.newInstance(sObjectList);
+			return AgentWorkAPCaseDomain.newInstance(sObjectList);
 		}
 	}
 }
