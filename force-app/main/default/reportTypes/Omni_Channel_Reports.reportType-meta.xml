@@ -183,6 +183,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>User.Manager_Email__c</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>User.Manager</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy.Manager__c</field>
             <table>AgentWork</table>
         </columns>
