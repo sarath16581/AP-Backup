@@ -1,4 +1,14 @@
 /** set max-height: 700px to display up to 15 rows in the table */
+/** Added text for the spinner */
 .displayMaxRow{
 	max-height: 700px;
+}
+.spins::after {
+	position: relative;
+	width: 320px;
+    text-align: center;
+    font-size: 18px;
+	top: 1rem;
+    left:15rem;
+    content: 'Waiting for Agreement Line items to be generated.....';
 }

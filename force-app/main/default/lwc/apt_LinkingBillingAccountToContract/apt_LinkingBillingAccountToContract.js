@@ -7,12 +7,15 @@
  * 				by inserting a junction object called agreement lodgement point
  * @changelog
  * 2022-06-01 - Seth Heang - Created
- * 01.08.2022    Prerna Rahangdale     - Added the the validation for lodgement point records to be same as Proposal.
+ * 01.08.2022   Prerna Rahangdale - Added the the validation for lodgement point records to be same as Proposal.
+ * 2023-04-12 - Sarath Burra - CI-880 Added the Logic to poll for a certian time, until the contract line items are generated
+ * 								Polling is done every second for 12 secs and the page is loaded automatically once the refreshed data is available
  */
 import { LightningElement, api, wire, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
+import {checkUndefinedOrNull,refreshPageWithPoll} from 'c/utils';
 import retrieveAgreementLodgementPoints from "@salesforce/apex/APT_LinkingBillAccToContractController.retrieveAgreementLodgementPoints";
 import retrieveProductsFromCLI from "@salesforce/apex/APT_LinkingBillAccToContractController.retrieveProductsFromCLI";
 import retrieveBillingAcc from "@salesforce/apex/APT_LinkingBillAccToContractController.retrieveBillingAcc";
@@ -85,6 +88,7 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	@api recordId;
 	error = '';
 	displayRateActions = false;
+	noAgreementLineItems=false;
 	displayProducts = false;
 	productNamelist = [];
 	selectedProduct = {};
@@ -113,6 +117,10 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	bilingAccList = [];
 	aLPList = [];
 	wiredALPList = [];
+	@track cliData=[];
+	hasPollingError=false;
+	showSpinner=false;
+	recordsData=[];
 
 	selectRateAction = '';
 	proposalAccountType = '';
@@ -132,7 +140,6 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 
 	@track lodgementPointVar;
 	@track lodgementPointList;
-
 
 	// PRERNA 25/07/2022
 	selectedHandler(event){
@@ -264,45 +271,59 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	 * @param {contractId}
 	 */
 	@wire(retrieveProductsFromCLI, {contractId: '$recordId'})
-	wireProduct({data,error}){
-		if(data){
-			/**
-			 * Add below check to fix a hard-to-reproduced intermittent issue where 'data[0].Apttus__AgreementId__r' is undefined while processing below code, even though there is already a prior 'if(data)' check at the outer layer.
-			 * This fix is based on observation that @wire fires multiple times, and in its first attempt, the assumption is that the returned data has some values which passed 'if(data)' check but Apttus__AgreementId__r property was still undefined
-			 */
-			if(data[0].hasOwnProperty('Apttus__AgreementId__r')){
+	wireProduct(result){
+		this.cliData=result;
+		if(result.data){
+			this.recordsData=result.data;
+			//Added the Logic to poll for a certian time, until the contract line items are generated
+  			//Polling is done every second for 12 secs and the page is loaded automatically once the refreshed data is available
+			//Also Display a message for the user to indicate Agreement line item creation is in progress
+			if(checkUndefinedOrNull(this.recordsData[0])){
+				this.noAgreementLineItems=true;
+				this.showSpinner=true;
+				const poll = refreshPageWithPoll(this.cliData,1000,20000).then((message) => {console.log(message);})
+				.catch((error) => {
+					this.showSpinner=false;
+					this.hasPollingError=true;
+				});
+			}else{
+				this.noAgreementLineItems=false;
+				this.showSpinner=false;
+				this.hasPollingError=false;
 				// get contract's organisation Id
-				this.contractAccId = data[0].Apttus__AgreementId__r.Apttus__Account__c;
+				this.contractAccId = this.recordsData[0].Apttus__AgreementId__r.Apttus__Account__c;
 				// get proposal's new account type
-				this.proposalAccountType = data[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c;
+				this.proposalAccountType = this.recordsData[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c;
 				// get proposal Id
-				this.proposalId = data[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c;
-			}
-			// save product name to display on UI
-			data.forEach(product => {
+				this.proposalId = this.recordsData[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c;
+				// save product name to display on UI
+				this.recordsData.forEach(product => {
 				this.productNamelist.push(product);
-			})
+				})
 
-			/**
-			 * Capture flag to display "Apply rates to specific Billing Accounts" radio option under below condition:
-			 * -Proposal.New Account Type is BLANK
-			 *  */
-			if(this.isUndefinedOrNull(this.proposalAccountType)){
-				this.isExistingCustomerFlow = true;
-				this.displayBillingAccRateRatioBtn = true;
+				/**
+				 * Capture flag to display "Apply rates to specific Billing Accounts" radio option under below condition:
+				 * -Proposal.New Account Type is BLANK
+				 *  */
+				if(this.isUndefinedOrNull(this.proposalAccountType)){
+					this.isExistingCustomerFlow = true;
+					this.displayBillingAccRateRatioBtn = true;
+				}
+
+				/**
+				 * Capture flag to display "Apply rates only to new Charge Accounts/Sub Accounts" radio option under below condition:
+				 * -Proposal.New Account Type is 'Charge Account' OR 'Charge + Sub Account'
+				 *  */
+				else if(this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_ACCOUNT
+						|| this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_SUB_ACCOUNT){
+					this.isNewCustomerFlow = true;
+					this.displayCarSarRateRatioBtn = true;
+				}
+
 			}
-			
-			/**
-			 * Capture flag to display "Apply rates only to new Charge Accounts/Sub Accounts" radio option under below condition:
-			 * -Proposal.New Account Type is 'Charge Account' OR 'Charge + Sub Account'
-			 *  */
-			else if(this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_ACCOUNT
-					|| this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_SUB_ACCOUNT){
-				this.isNewCustomerFlow = true;
-				this.displayCarSarRateRatioBtn = true;
-			}
-		}else if(error){
-			this.error = error;
+
+		}else if(result.error){
+			this.error = result.error;
 		}
 	}
 
@@ -540,7 +561,7 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 		// clear product and rate option selected
 		this.selectedProduct = void 0;
 		this.selectRateAction = void 0;
-		
+
 		this.disableProdSpecificBillAccBtn = false;
 		this.disableContractRelationshipBtn = true;
 		event.preventDefault();
@@ -600,7 +621,7 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 			});
 			this.dispatchEvent(evt);
 			return false;
-		} else if(this.isNewCustomerFlow === true && (this.selectRateAction === 'carSarRate' || this.selectRateAction === 'allRate') 
+		} else if(this.isNewCustomerFlow === true && (this.selectRateAction === 'carSarRate' || this.selectRateAction === 'allRate')
 			&& this.lodgementPointVar.length > 1){
 			this.isLoading = false;
 			const evt = new ShowToastEvent({
@@ -823,7 +844,7 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	 * @param  field
 	 * @returns boolean
 	 */
-	 isUndefinedOrNull(field) {
+	isUndefinedOrNull(field) {
 		return (typeof field === 'undefined' || field === null);
 	}
 }

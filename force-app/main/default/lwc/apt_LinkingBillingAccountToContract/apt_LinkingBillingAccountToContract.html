@@ -5,7 +5,7 @@
 		<template if:true={isLoading}>
 				<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
 		</template>
-		
+
 		<!-- Error Banner -->
 		<template if:true={error}>
 			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
@@ -18,191 +18,205 @@
 			</div>
 		</template>
 		<!-- header -->
-		<lightning-card title="Manage Contract Relationships">
-			<div class="slds-box slds-border_bottom">
-				<div class="slds-grid slds-wrap">
-					<div class="slds-col slds-size_1-of-1">
-						<div class="slds-align_absolute-center slds-p-bottom_small slds-text-heading_small">
-							Please select one of the options below
+		<template if:false={noAgreementLineItems}>
+			<lightning-card title="Manage Contract Relationships">
+				<div class="slds-box slds-border_bottom">
+					<div class="slds-grid slds-wrap">
+						<div class="slds-col slds-size_1-of-1">
+							<div class="slds-align_absolute-center slds-p-bottom_small slds-text-heading_small">
+								Please select one of the options below
+							</div>
+						</div>
+						<!-- display two buttons to add billing accounts -->
+						<div class="slds-col slds-size_1-of-2 slds-text-align_right slds-p-right_xx-small">
+							<lightning-button variant="brand" label="Add Contract Relationship" title="Add Contract Relationship" disabled={disableContractRelationshipBtn} onclick={handleContractRelationshipbutton}></lightning-button>
+						</div>
+						<div class="slds-col slds-size_1-of-2 slds-text-align_left slds-p-left_xx-small">
+							<lightning-button variant="brand" label="Add Product specific Billing Account" title="Add Product specific Billing Account" disabled={disableProdSpecificBillAccBtn} onclick={handleProductSpecificBillingAccbutton}></lightning-button>
 						</div>
 					</div>
-					<!-- display two buttons to add billing accounts -->
-					<div class="slds-col slds-size_1-of-2 slds-text-align_right slds-p-right_xx-small">
-						<lightning-button variant="brand" label="Add Contract Relationship" title="Add Contract Relationship" disabled={disableContractRelationshipBtn} onclick={handleContractRelationshipbutton}></lightning-button>
-					</div>
-					<div class="slds-col slds-size_1-of-2 slds-text-align_left slds-p-left_xx-small">
-						<lightning-button variant="brand" label="Add Product specific Billing Account" title="Add Product specific Billing Account" disabled={disableProdSpecificBillAccBtn} onclick={handleProductSpecificBillingAccbutton}></lightning-button>
-					</div>
 				</div>
-			</div>
-			<!-- display product table if 'Add Product specific Billing Account' button is clicked above -->
-			<template if:true={displayProducts}>
-				<div class="slds-card__header slds-grid">
-					<header class="slds-media slds-media_center slds-has-flexi-truncate">
-						<div class="slds-media__body">
-							<h2 class="slds-card__header-title" aria-level="2">
-								<span class="slds-text-heading_small slds-truncate">
-									Select Product for which you want to add Billing Account
-								</span>
-							</h2>
+				<!-- display product table if 'Add Product specific Billing Account' button is clicked above -->
+				<template if:true={displayProducts}>
+					<div class="slds-card__header slds-grid">
+						<header class="slds-media slds-media_center slds-has-flexi-truncate">
+							<div class="slds-media__body">
+								<h2 class="slds-card__header-title" aria-level="2">
+									<span class="slds-text-heading_small slds-truncate">
+										Select Product for which you want to add Billing Account
+									</span>
+								</h2>
+							</div>
+						</header>
+					</div>
+					<div class="slds-grid slds-wrap">
+						<div class="slds-col slds-size_1-of-3">
+							<lightning-datatable
+								key-field="id"
+								data={productNamelist}
+								columns={displayProdCols}
+								max-row-selection="1"
+								resize-column-disabled
+								onrowselection={handleSelectedProduct}
+								>
+							</lightning-datatable>
 						</div>
-					</header>
-				</div>
-				<div class="slds-grid slds-wrap">
-					<div class="slds-col slds-size_1-of-3">
+					</div>
+				</template>
+				<!-- display radio button group -->
+				<template if:true={displayRateActions}>
+					<article class="slds-card slds-card slds-box slds-col slds-size_1-of-3">
+						<div class="slds-card__body slds-card__body_inner slds-box">
+							<div class="slds-media__body">
+								<lightning-radio-group name="radioGroup"
+									options={rateActions}
+									value={selectRateAction}
+									type="radio"
+									onchange={handleSelectedRateAction}>
+								</lightning-radio-group>
+							</div>
+						</div>
+					</article>
+					<template if:true={displayLPTable}>
+						<article class="slds-card slds-card slds-box slds-col slds-size_2-of-3">
+							<div class="slds-media__body">
+								<h3 class="slds-card__header-title" aria-level="2">
+									<span class="slds-text-heading_small slds-truncate">
+										Add Charge Account Lodgement Point
+									</span>
+								</h3>
+							</div>
+							<div class="slds-card__body slds-card__body_inner slds-box">
+								<!-- PRERNA 25-07-2022 Ability to be able to select the lodgement Zone for Charge Account and Sub Account-->
+								<c-add-lodgement-points-1 record-id={recordId} onselected={selectedHandler}></c-add-lodgement-points-1>
+							</div>
+						</article>
+					</template>
+				</template>
+
+				<!-- display charge account req table -->
+				<template if:true={displayCARTable}>
+					<div class="slds-border_top slds-p-horizontal_medium">
+						<div class="slds-card__header slds-grid">
+							<header class="slds-media slds-media_center slds-has-flexi-truncate">
+								<div class="slds-media__body">
+									<h3 class="slds-card__header-title" aria-level="2">
+										<span class="slds-text-heading_small slds-truncate">
+											Charge Account Requests
+										</span>
+									</h3>
+								</div>
+							</header>
+						</div>
 						<lightning-datatable
 							key-field="id"
-							data={productNamelist}
-							columns={displayProdCols}
-							max-row-selection="1"
-							resize-column-disabled
-							onrowselection={handleSelectedProduct}
+							data={carList}
+							columns={displayCARCols}
+							onrowselection={handleSelectedCAR}
 							>
 						</lightning-datatable>
 					</div>
-				</div>
-			</template>
-			<!-- display radio button group -->
-			<template if:true={displayRateActions}>
-				<article class="slds-card slds-card slds-box slds-col slds-size_1-of-3">
-					<div class="slds-card__body slds-card__body_inner slds-box">
-						<div class="slds-media__body">
-							<lightning-radio-group name="radioGroup"
-								options={rateActions}
-								value={selectRateAction}
-								type="radio"
-								onchange={handleSelectedRateAction}>
-							</lightning-radio-group>
-						</div>
-					</div>
-				</article>
-				<template if:true={displayLPTable}>
-					<article class="slds-card slds-card slds-box slds-col slds-size_2-of-3">
-						<div class="slds-media__body">
-							<h3 class="slds-card__header-title" aria-level="2">
-								<span class="slds-text-heading_small slds-truncate">
-									Add Charge Account Lodgement Point
-								</span>
-							</h3>
-						</div>
-						<div class="slds-card__body slds-card__body_inner slds-box">
-							<!-- PRERNA 25-07-2022 Ability to be able to select the lodgement Zone for Charge Account and Sub Account-->
-							<c-add-lodgement-points-1 record-id={recordId} onselected={selectedHandler}></c-add-lodgement-points-1>
-						</div>
-					</article>
 				</template>
-			</template>
-			
-			<!-- display charge account req table -->
-			<template if:true={displayCARTable}>
-				<div class="slds-border_top slds-p-horizontal_medium">
-					<div class="slds-card__header slds-grid">
-						<header class="slds-media slds-media_center slds-has-flexi-truncate">
-							<div class="slds-media__body">
-								<h3 class="slds-card__header-title" aria-level="2">
-									<span class="slds-text-heading_small slds-truncate">
-										Charge Account Requests
-									</span>
-								</h3>
-							</div>
-						</header>
-					</div>
-					<lightning-datatable
-						key-field="id"
-						data={carList}
-						columns={displayCARCols}
-						onrowselection={handleSelectedCAR}
-						>
-					</lightning-datatable>
-				</div>
-			</template>
 
-			<!-- display sub account req table -->
-			<template if:true={displaySARTable}>
-				<br/>
-				<div class="slds-border_top slds-p-horizontal_medium">
-					<div class="slds-card__header slds-grid">
-						<header class="slds-media slds-media_center slds-has-flexi-truncate">
-							<div class="slds-media__body">
-								<h3 class="slds-card__header-title" aria-level="2">
-									<span class="slds-text-heading_small slds-truncate">
-										Please select the sub account(s) you would like to apply the same rates to:
-									</span>
-								</h3>
-							</div>
-						</header>
+				<!-- display sub account req table -->
+				<template if:true={displaySARTable}>
+					<br/>
+					<div class="slds-border_top slds-p-horizontal_medium">
+						<div class="slds-card__header slds-grid">
+							<header class="slds-media slds-media_center slds-has-flexi-truncate">
+								<div class="slds-media__body">
+									<h3 class="slds-card__header-title" aria-level="2">
+										<span class="slds-text-heading_small slds-truncate">
+											Please select the sub account(s) you would like to apply the same rates to:
+										</span>
+									</h3>
+								</div>
+							</header>
+						</div>
+						<lightning-datatable
+							key-field="id"
+							data={sarList}
+							columns={displaySARCols}
+							onrowselection={handleSelectedSAR}
+							>
+						</lightning-datatable>
 					</div>
-					<lightning-datatable
-						key-field="id"
-						data={sarList}
-						columns={displaySARCols}
-						onrowselection={handleSelectedSAR}
-						>
-					</lightning-datatable>
-				</div>
-			</template>
+				</template>
 
-			<!-- display billing account table -->
-			<template if:true={displayBATable}>
-				<br/>
-				<!-- display up to 15 rows in the table, while the remaining is scrollable vertically -->
-				<div class="slds-border_top slds-p-horizontal_medium slds-scrollable_y displayMaxRow">
-					<div class="slds-card__header slds-grid">
-						<header class="slds-media slds-media_center slds-has-flexi-truncate">
-							<div class="slds-media__body">
-								<h3 class="slds-card__header-title" aria-level="2">
-									<span class="slds-text-heading_small slds-truncate">
-										Billing Account
-									</span>
-								</h3>
-							</div>
-						</header>
+				<!-- display billing account table -->
+				<template if:true={displayBATable}>
+					<br/>
+					<!-- display up to 15 rows in the table, while the remaining is scrollable vertically -->
+					<div class="slds-border_top slds-p-horizontal_medium slds-scrollable_y displayMaxRow">
+						<div class="slds-card__header slds-grid">
+							<header class="slds-media slds-media_center slds-has-flexi-truncate">
+								<div class="slds-media__body">
+									<h3 class="slds-card__header-title" aria-level="2">
+										<span class="slds-text-heading_small slds-truncate">
+											Billing Account
+										</span>
+									</h3>
+								</div>
+							</header>
+						</div>
+						<lightning-datatable
+							key-field="id"
+							data={bilingAccList}
+							columns={displayBACols}
+							onrowselection={handleSelectedBillingAcc}
+							>
+						</lightning-datatable>
 					</div>
-					<lightning-datatable
-						key-field="id"
-						data={bilingAccList}
-						columns={displayBACols}
-						onrowselection={handleSelectedBillingAcc}
-						>
-					</lightning-datatable>
-				</div>
-			</template>
+				</template>
 
-			<!-- display agreement line item for already linked accounts table -->
-			<template if:true={displayALPTable}>
-				<br/>
-				<div class="slds-border_top slds-p-horizontal_medium">
-					<div class="slds-card__header slds-grid">
-						<header class="slds-media slds-media_center slds-has-flexi-truncate">
-							<div class="slds-media__body">
-								<h3 class="slds-card__header-title" aria-level="2">
-									<span class="slds-text-heading_small slds-truncate">
-										Added Billing Accounts
-									</span>
-								</h3>
-							</div>
-						</header>
+				<!-- display agreement line item for already linked accounts table -->
+				<template if:true={displayALPTable}>
+					<br/>
+					<div class="slds-border_top slds-p-horizontal_medium">
+						<div class="slds-card__header slds-grid">
+							<header class="slds-media slds-media_center slds-has-flexi-truncate">
+								<div class="slds-media__body">
+									<h3 class="slds-card__header-title" aria-level="2">
+										<span class="slds-text-heading_small slds-truncate">
+											Added Billing Accounts
+										</span>
+									</h3>
+								</div>
+							</header>
+						</div>
+						<lightning-datatable
+							key-field="id"
+							data={aLPList}
+							columns={displayALPCols}
+							hide-checkbox-column
+							>
+						</lightning-datatable>
 					</div>
-					<lightning-datatable
-						key-field="id"
-						data={aLPList}
-						columns={displayALPCols}
-						hide-checkbox-column
-						>
-					</lightning-datatable>
+				</template>
+
+				<br/>
+				<!-- footer button for linking billing account action and action to navigate back to apttus contract -->
+				<div class="slds-grid slds-wrap">
+					<div class="slds-col slds-size_1-of-2 slds-text-align_right slds-p-right_xx-small">
+						<lightning-button variant="brand" label="Apply Relationship" title="Apply Relationship" disabled={lockLinkAccountBtn} onclick={handleLinkingBillingAccount}></lightning-button>
+					</div>
+					<div class="slds-col slds-size_1-of-2 slds-text-align_left slds-p-left_xx-small">
+						<lightning-button variant="brand" label="Back to Apttus Contract" title="Back to Apttus Contract" onclick={redirectBackToContract}></lightning-button>
+					</div>
+				</div>
+			</lightning-card>
+		</template>
+		<lightning-card>
+			<template if:true={showSpinner}>
+				<div class="slds-align_absolute-center slds-p-bottom_small slds-text-heading_small">
+					<lightning-spinner class="spins" variant="brand" size="medium"></lightning-spinner>
 				</div>
 			</template>
-			
-			<br/>
-			<!-- footer button for linking billing account action and action to navigate back to apttus contract -->
-			<div class="slds-grid slds-wrap">
-				<div class="slds-col slds-size_1-of-2 slds-text-align_right slds-p-right_xx-small">
-					<lightning-button variant="brand" label="Apply Relationship" title="Apply Relationship" disabled={lockLinkAccountBtn} onclick={handleLinkingBillingAccount}></lightning-button>
+			<template if:true={hasPollingError}>
+				<div class="slds-align_absolute-center slds-p-bottom_small slds-text-heading_small">
+					No Agreement Line items for this Agreement. Please contact your System Administrator.
 				</div>
-				<div class="slds-col slds-size_1-of-2 slds-text-align_left slds-p-left_xx-small">
-					<lightning-button variant="brand" label="Back to Apttus Contract" title="Back to Apttus Contract" onclick={redirectBackToContract}></lightning-button>
-				</div>
-			</div>
+			</template>
 		</lightning-card>
 	</div>
 </template>
