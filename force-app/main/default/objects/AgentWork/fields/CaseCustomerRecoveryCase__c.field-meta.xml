@@ -7,6 +7,6 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Display the Case&apos;s Customer Recovery Case value</inlineHelpText>
     <label>Case Customer Recovery Case</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
-	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

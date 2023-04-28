@@ -8,7 +8,7 @@
     <inlineHelpText>Display the Case&apos;s Product Sub Category value</inlineHelpText>
     <label>Case Product Sub Category</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
-	<securityClassification>INTERNAL</securityClassification>
     <unique>false</unique>
 </CustomField>
