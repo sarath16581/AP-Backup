@@ -1497,6 +1497,8 @@ public with sharing class APT_Constants {
 	 public static final String PARMA_O_ID = '&oid=';
 
 	 public static final String RECORD_TYPE_POST_BILLPAY_CONTRACT = 'Post Billpay Contract';
+	 public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
+	 public static final String PRODUCT_CODE_POSTBILLPAY ='PBP';
 
 	 public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
 	 public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
