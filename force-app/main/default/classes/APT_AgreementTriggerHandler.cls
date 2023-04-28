@@ -567,7 +567,7 @@ public with sharing class APT_AgreementTriggerHandler{
                 
 
                //Create Operation Schedule for Post Bill Pay product agreement
-                if(recordTypeMap.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT)) {
+                if(recordTypeMap.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT) && (agrmnt.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_NEW_CONTRACT))) {
                     agreementIds.add(agrmnt.Id);
 					if(proposalsWithLineItemsMap.containskey(agrmnt.Apttus_QPComply__RelatedProposalId__c) && !proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__R00N70000001yUfBEAU__r.isEmpty()){ 
 						for(Apttus_Proposal__Proposal_Line_Item__c propLineItem : proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__R00N70000001yUfBEAU__r){
