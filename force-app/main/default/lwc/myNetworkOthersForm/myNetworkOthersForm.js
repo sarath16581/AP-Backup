@@ -496,15 +496,13 @@ export default class myNetworkOthersForm extends LwcForm {
     }
     
 	handleArticleIDValueChange(event){
-        const articleid = this.articleId;
+        const articleId = this.articleId;
         // Load an empty search to update the address fields with empty values
         this.handleFormUpdateWithArticleData(emptySearch);
 
         this.setFormValue({
             articleId,
-        })
-        this.articleDamageStandingInstructions = null
-        this.additionalCommentsMandatory = false
+        });
     }
     
     printScreen(event){
