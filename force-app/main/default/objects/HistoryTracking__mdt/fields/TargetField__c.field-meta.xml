@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TargetField__c</fullName>
+    <description>The Target Field Name which will be populated with the configured Target Value upon matching</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>The Target Field Name which will be populated with the configured Target Value upon matching</inlineHelpText>
+    <label>Target Field</label>
+    <metadataRelationshipControllingField>HistoryTracking__mdt.ObjectName__c</metadataRelationshipControllingField>
+    <referenceTo>FieldDefinition</referenceTo>
+    <relationshipLabel>HistoryTrackingTarget</relationshipLabel>
+    <relationshipName>HistoryTrackingTarget</relationshipName>
+    <required>true</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

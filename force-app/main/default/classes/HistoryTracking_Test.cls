@@ -20,37 +20,65 @@ public class HistoryTracking_Test {
 	}
 
 	private static void positiveTests(Opportunity oldOpp) {
-		/* Custom Metadata:
-		List<HistoryTracking__mdt> testConfig> = new List<HistoryTracking__mdt>{
-			new HistoryTracking__mdt(
-				Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
-				FieldApiName__c = String.valueOf(Opportunity.StageName),
-				MatchingValue__c = 'Closed Won',
-				OverwriteExistingValue__c = true,
-				TargetField__c = String.valueOf(Opportunity.Description),
-				TargetValue__c = 'Old value: {Opportunity.AccountId} - {Opportunity.StageName}'
-			)
-		};
-		*/
+		// =====================================
+        // Stubbing
+        // =====================================
+		HistoryTrackingSelector mockHTSelector = (HistoryTrackingSelector)MockUtility.mockSelector(HistoryTrackingSelector.class);
 
-		List<HistoryTracking.HistoryTracker> testConfig = new List<HistoryTracking.HistoryTracker>{
-			(new HistoryTracking.HistoryTracker()
-				.setObjectApiName(String.valueOf(Opportunity.SObjectType))
-				.setFieldApiName(String.valueOf(Opportunity.StageName))
-				.setMatchingValue('Closed Won')
-				// .setOverwriteExistingValue(overwriteExistingValue) // defaults to false
-				.setTargetField(String.valueOf(Opportunity.CloseDate))
-				.setTargetValue('{TOMORROW}')
-			),
-			(new HistoryTracking.HistoryTracker()
-				.setObjectApiName(String.valueOf(Opportunity.SObjectType))
-				.setFieldApiName(String.valueOf(Opportunity.StageName))
-				.setMatchingValue('Closed Won')
-				.setOverwriteExistingValue(true)
-				.setTargetField(String.valueOf(Opportunity.Description))
-				.setTargetValue('Old value: {Opportunity.AccountId} - {Opportunity.StageName}')
-			)
-		};
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+		List<HistoryTracking__mdt> mockedHTConfig = (List<HistoryTracking__mdt>)JSON.deserialize(
+			String.join(new String[] {
+				'[{',
+				'	"attributes": { "type": "HistoryTracking__mdt" },',
+				'	"Id": "m1T0k000000CaXAEA0",',
+				'	"MatchingValue__c": "Closed Won",',
+				'	"TargetValue__c": "Old value: {Opportunity.AccountId} - {Opportunity.StageName}",',
+				'   "OverwriteExistingValue__c": false,',
+				'	"ObjectName__r": {',
+				'		"attributes": { "type": "EntityDefinition" },',
+				'		"QualifiedApiName": "Membership__c"',
+				'	},',
+				'	"TrackedFieldName__r": {',
+				'		"attributes": { "type": "FieldDefinition" },',
+				'		"QualifiedApiName": "StageName"',
+				'	},',
+				'	"TargetField__r": {',
+				'		"attributes": { "type": "FieldDefinition" },',
+				'		"QualifiedApiName": "Description"',
+				'	}',
+				'},{',
+				'	"attributes": { "type": "HistoryTracking__mdt" },',
+				'	"Id": "m1T0k000000CaWvEAK",',
+				'	"MatchingValue__c": "Closed Won",',
+				'	"TargetValue__c": "{TOMORROW}",',
+				'   "OverwriteExistingValue__c": true,',
+				'	"ObjectName__r": {',
+				'		"attributes": { "type": "EntityDefinition" },',
+				'		"QualifiedApiName": "Opportunity"',
+				'	},',
+				'	"TrackedFieldName__r": {',
+				'		"attributes": { "type": "FieldDefinition" },',
+				'		"QualifiedApiName": "StageName"',
+				'	},',
+				'	"TargetField__r": {',
+				'		"attributes": { "type": "FieldDefinition" },',
+				'		"QualifiedApiName": "CloseDate"',
+				'	}',
+				'}]'
+			}, '\r\n'),
+			List<HistoryTracking__mdt>.class
+		);
+
+        Map<Id,HistoryTracking__mdt> mockedHistoryTrackingConfig = new Map<Id,HistoryTracking__mdt>(mockedHTConfig);
+
+        MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames(new Set<String>{ String.valueOf(Membership__c.SObjectType) })).thenReturn(mockedHistoryTrackingConfig);
+        MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames(new Set<String>{ String.valueOf(PermissionSet.SObjectType) })).thenReturn(new Map<Id,HistoryTracking__mdt>());
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
 
 		Opportunity newOpp = (Opportunity) JSON.deserialize(
 			JSON.serialize(oldOpp),
@@ -60,32 +88,43 @@ public class HistoryTracking_Test {
 		newOpp.StageName = 'Closed Won';
 
 		// coverage for main constructor / nothing has changed / default config
-		/* Custom Metadata solution
+		/* Custom Metadata solution */
 		HistoryTracking.run(
 			PermissionSet.SObjectType,	  // Use this SObjectType for testing as it will never have a Trigger
 			new List<SObject>(),
 			new Map<Id,SObject>()
 		);
-		*/
 	
 		// Coverage for constructor
-		HistoryTracking oppHistoryTracking = new HistoryTracking(
-			Opportunity.SObjectType,
-			testConfig
+		HistoryTracking instanceHistoryTracking = new HistoryTracking(
+			PermissionSet.SObjectType,
+			new List<HistoryTracking.HistoryTracker>{
+				new HistoryTracking.HistoryTracker()
+					.setFieldApiName('Name')
+					.setMatchingValue('Test')
+					.setOverwriteExistingValue(false)
+					.setTargetField('Name')
+					.setTargetValue('Test')
+					.setObjectApiName(String.valueOf(PermissionSet.SObjectType))
+			}
 		);
 
 		// Simulate insert trigger: no oldMap
-		oppHistoryTracking.process(new List<Opportunity>{ newOpp }, null);
+		HistoryTracking.run(
+			Opportunity.SObjectType,
+			new List<SObject>{ newOpp },
+			null
+		);
 			
 		// Testing rules as defined above
 		HistoryTracking.run(
-			testConfig,
 			Opportunity.SObjectType,
 			new List<Opportunity>{ newOpp },
 			new Map<Id, Opportunity>{ oldOpp.Id => oldOpp }
 		);
 
-		// add the merge value for TODAY with date for tomorrow
+		HistoryTracking oppHistoryTracking = new HistoryTracking(Opportunity.SObjectType);
+		// add the merge value for TOMORROW with date for tomorrow
 		oppHistoryTracking.mergeValuesDefs.put(
 			'TOMORROW',
 			System.today().addDays(1)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ObjectName__c</fullName>
+    <description>The Object Api Name being tracked for changes and field updates</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>The Object Api Name being tracked for changes and field updates</inlineHelpText>
+    <label>Object Name</label>
+    <referenceTo>EntityDefinition</referenceTo>
+    <relationshipLabel>HistoryTracking</relationshipLabel>
+    <relationshipName>HistoryTracking</relationshipName>
+    <required>true</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

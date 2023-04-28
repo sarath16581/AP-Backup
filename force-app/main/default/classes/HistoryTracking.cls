@@ -13,7 +13,9 @@ public without sharing class HistoryTracking {
 
 	// Instance related properties and methods
 	private Map<String, SObjectField> fieldMap;
-	private Map<Schema.SObjectField, Map<String, List<HistoryTracker>>> configByFieldAndValue;
+
+	// Map<"fieldName", Map<"matchingValue", List<HistoryTracking>>>
+	private Map<String, Map<String, List<HistoryTracker>>> configByFieldAndValue;
 	// set this to your custom merge field encapsulation
 	public String regexDef = '\\{([A-z\\.0-9])*\\}';
 	public Boolean resumeOnError = true;
@@ -52,20 +54,20 @@ public without sharing class HistoryTracking {
 		return result;
 	}
 
-	// // kick off the custom history tracking for given SObjectType using CustomMetadata Settings config
-	// //  Usages:run(Opportunity.SObjectType, Trigger.new, Trigger.oldMap)
-	// //	  *This process doesn't commit any records. Use it within before insert/update
-	// //	  trigger context or manually insert/update your List<SObject> newList
-	// public static void run(Schema.SObjectType sObjectType, List<SObject> newList, Map<Id, SObject> oldMap) {
-	//	 HistoryTracking cht = new HistoryTracking(sObjectType);
-	//	 /* Add your custom merge values in the consuming class to customise
-	//	 cht.mergeValuesDefs.putAll(new Map<String,Object>{
-	//		 'MERGEKEY1' => 1500,						// Integer
-	//		 'ISSUNDAY' => System.today().weekday() == 1 // Boolean
-	//	 });
-	//	 */
-	//	 cht.process(newList, oldMap);
-	// }
+	// kick off the custom history tracking for given SObjectType using CustomMetadata Settings config
+	//  Usages:run(Opportunity.SObjectType, Trigger.new, Trigger.oldMap)
+	//	  *This process doesn't commit any records. Use it within before insert/update
+	//	  trigger context or manually insert/update your List<SObject> newList
+	public static void run(Schema.SObjectType sObjectType, List<SObject> newList, Map<Id, SObject> oldMap) {
+		 HistoryTracking cht = new HistoryTracking(sObjectType);
+		 /* Add your custom merge values in the consuming class to customise
+		 cht.mergeValuesDefs.putAll(new Map<String,Object>{
+			 'MERGEKEY1' => 1500,						// Integer
+			 'ISSUNDAY' => System.today().weekday() == 1 // Boolean
+		 });
+		 */
+		 cht.process(newList, oldMap);
+	}
 
 	@SuppressWarnings('PMD.ExcessiveParameterList')
 	public static void run(List<HistoryTracker> trackers, SObjectType sObjType, List<SObject> newList, Map<Id, SObject> oldMap) {
@@ -75,18 +77,16 @@ public without sharing class HistoryTracking {
 		}
 	}
 
-	// // constructor for system based config (Custom Metadata Setting)
-	// public HistoryTracking(Schema.SObjectType sObjectType) {
-	//	 // Fetch config for given sObjectType
-	//	 List<HistoryTracker> trackingConfig = [
-	//		 SELECT Id, FieldApiName__c, MatchingValue__c, OverwriteExistingValue__c, TargetField__c, TargetValue__c
-	//		 FROM HistoryTracker
-	//		 WHERE ObjectApiName__c = :String.valueOf(sObjectType)
-	//		   AND Active__c = true
-	//	 ];
+	// constructor for system based config (Custom Metadata Setting)
+	public HistoryTracking(Schema.SObjectType sObjectType) {
+		 // Fetch config for given sObjectType
+		HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance();
+		List<HistoryTracking__mdt> config = selector.selectByObjectApiNames(new Set<String>{
+			String.valueOf(sObjectType)
+		}).values();
 
-	//	 populateFieldIndex(convertHTList(tracingConfig), sObjectType);
-	// }
+		populateFieldIndex(convertHTList(config), sObjectType);
+	}
 
 	// constructor for list of HistoryTracker records
 	public HistoryTracking(SObjectType sObjType, List<HistoryTracker> htList) {
@@ -115,10 +115,10 @@ public without sharing class HistoryTracking {
 		}
 
 		// loop through each of the tracked fields
-		for (Schema.SObjectField changedField :configByFieldAndValue.keySet()) {
+		for (String changedField :configByFieldAndValue.keySet()) {
 			// filter out the list of records that have this field changed
 			List<SObject> fieldUpdates = hasChanged(
-				new Set<Schema.SObjectField>{ changedField },
+				new Set<String>{ changedField },
 				oldMap,
 				newList
 			);
@@ -137,10 +137,7 @@ public without sharing class HistoryTracking {
 					// for each related config
 					for (HistoryTracker htlConfig :configByValue.get(newValue)) {
 						// the target field to provide the stamp date
-						Schema.SObjectField targetField = getSchemaField(
-							htlConfig,
-							htlConfig.targetField
-						);
+						String targetField = htlConfig.targetField;
 
 						if (targetField != null) {
 							// update if there's no value present or overwrite is allowed
@@ -234,18 +231,12 @@ public without sharing class HistoryTracking {
 	// private methods
 	// populate an index based on given CustomMetadata:History Tracking records for SObjectType
 	private void populateFieldIndex(List<HistoryTracker> trackingConfig, Schema.SObjectType sObjectType) {
-		configByFieldAndValue = new Map<Schema.SObjectField, Map<String,List<HistoryTracker>>>();
+		configByFieldAndValue = new Map<String, Map<String,List<HistoryTracker>>>();
 
 		if (!trackingConfig.isEmpty()) {
 			// get SObjectFields
-			DescribeSObjectResult objDef = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
-			fieldMap = objDef.fields.getMap();
-
 			for (HistoryTracker ht :trackingConfig) {
-				Schema.SObjectField field = getSchemaField(
-					ht,
-					ht.fieldApiName
-				);
+				String field = ht.fieldApiName;
 
 				if (field != null) {
 					if (!configByFieldAndValue.containsKey(field)) {
@@ -364,27 +355,27 @@ public without sharing class HistoryTracking {
 		/* END: for test class purposes only */	
 	}
 
-	// private static HistoryTracker newInstance(HistoryTracker htRecord) {
-	// 	HistoryTracker result = new HistoryTracker();
-	// 	result.htRecordId = htRecord.Id;
-	// 	result.objectApiName = htRecord.ObjectApiName__c;
-	// 	result.fieldApiName = htRecord.FieldApiName__c;
-	// 	result.matchingValue = htRecord.MatchingValue__c;
-	// 	result.overwriteExistingValue = htRecord.OverwriteExistingValue__c;
-	// 	result.targetField = htRecord.TargetField__c;
-	// 	result.targetValue = htRecord.TargetValue__c;
-	// 	return result;
-	// }
+	private static HistoryTracker newInstance(HistoryTracking__mdt htRecord) {
+		HistoryTracker result = new HistoryTracker();
+		result.htRecordId = htRecord.Id;
+		result.objectApiName = htRecord.ObjectName__r.QualifiedApiName;
+		result.fieldApiName = htRecord.TrackedFieldName__r.QualifiedApiName;
+		result.matchingValue = htRecord.MatchingValue__c;
+		result.overwriteExistingValue = htRecord.OverwriteExistingValue__c;
+		result.targetField = htRecord.TargetField__r.QualifiedApiName;
+		result.targetValue = htRecord.TargetValue__c;
+		return result;
+	}
 
-	// private static List<HistoryTracker> convertHTList(List<HistoryTracker> records) {
-	// 	List<HistoryTracker> result = new List<HistoryTracker>();
+	private static List<HistoryTracker> convertHTList(List<HistoryTracking__mdt> records) {
+		List<HistoryTracker> result = new List<HistoryTracker>();
 
-	// 	for (HistoryTracker record :records) {
-	// 		result.add(newInstance(record));
-	// 	}
+		for (HistoryTracking__mdt record :records) {
+			result.add(newInstance(record));
+		}
 
-	// 	return result;
-	// }
+		return result;
+	}
 
 	/**
 	 * Analyse provided list of SObjects passed in and compare these with the oldMap of SObjects
@@ -396,7 +387,7 @@ public without sharing class HistoryTracking {
 	 *
 	 * @return true if at least one field from the interested field set is different. false otherwise.
 	 */
-	private List<SObject> hasChanged(Set<Schema.SObjectField> comparisonFields, Map<Id,SObject> oldMap, List<SObject> newList) {
+	private List<SObject> hasChanged(Set<String> comparisonFields, Map<Id,SObject> oldMap, List<SObject> newList) {
 		List<SObject> result = new List<SObject>();
 		for (SObject record :newList) {
 			Boolean isDirty = true;
@@ -424,11 +415,11 @@ public without sharing class HistoryTracking {
 	 *
 	 * @return true if at least one field from the interested field set is different. false otherwise.
 	 */
-	private Boolean hasChanged(SObject newRecord, SObject existingRecord, Set<SObjectField> comparisonFields) {
+	private Boolean hasChanged(SObject newRecord, SObject existingRecord, Set<String> comparisonFields) {
 		Boolean result = false;
 
 		if (newRecord != null && existingRecord != null) {
-			for (SObjectField field : comparisonFields) {
+			for (String field : comparisonFields) {
 				if(newRecord.get(field) != existingRecord.get(field)) {
 					result = true;
 					break;

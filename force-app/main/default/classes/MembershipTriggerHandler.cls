@@ -207,78 +207,86 @@ public with sharing class MembershipTriggerHandler {
 		 */
 		public static void applyHistoryTracking(List<Membership__c> triggerNewList, Map<Id, Membership__c> oldMap) {
 			// Consider moving this into Custom Metadata
-			List<HistoryTracking.HistoryTracker> trackerConfig = new List<HistoryTracking.HistoryTracker>{
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('Missing Information')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.S75_Missing_Information_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('AUSTRAC Issued')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.AUSTRAC_Issued_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('Submitted to AUSTRAC')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.Submitted_To_AUSTRAC_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('Returned')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.S75_Returned_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('Issued')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.S75_Issued_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('Submitted to WU')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.S75_Submitted_To_WU_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
-					.setMatchingValue('New')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.S75_Status_New_Date__c))
-					.setTargetValue('{TODAY}')
-				),
-				(new HistoryTracking.HistoryTracker()
-					.setObjectApiName(String.valueOf(Membership__c.SObjectType))
-					.setFieldApiName(String.valueOf(Membership__c.Type_of_Registration__c))
-					.setMatchingValue('New Registration')
-					.setOverwriteExistingValue(true)
-					.setTargetField(String.valueOf(Membership__c.S75_Status_New_Date__c))
-					.setTargetValue('{TODAY}')
-				)
-			};
+			// List<HistoryTracking.HistoryTracker> trackerConfig = new List<HistoryTracking.HistoryTracker>{
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('Missing Information')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.S75_Missing_Information_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('AUSTRAC Issued')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.AUSTRAC_Issued_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('Submitted to AUSTRAC')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.Submitted_To_AUSTRAC_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('Returned')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.S75_Returned_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('Issued')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.S75_Issued_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('Submitted to WU')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.S75_Submitted_To_WU_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.S75_Status__c))
+			// 		.setMatchingValue('New')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.S75_Status_New_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	),
+			// 	(new HistoryTracking.HistoryTracker()
+			// 		.setObjectApiName(String.valueOf(Membership__c.SObjectType))
+			// 		.setFieldApiName(String.valueOf(Membership__c.Type_of_Registration__c))
+			// 		.setMatchingValue('New Registration')
+			// 		.setOverwriteExistingValue(true)
+			// 		.setTargetField(String.valueOf(Membership__c.S75_Status_New_Date__c))
+			// 		.setTargetValue('{TODAY}')
+			// 	)
+			// };
+			
+			// HistoryTracking.run(
+			// 	trackerConfig,
+			// 	Membership__c.SObjectType,
+			// 	triggerNewList,
+			// 	oldMap
+			// );
+			//HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance();
+			HistoryTracking.run(Membership__c.SObjectType, triggerNewList, oldMap);
 
-			HistoryTracking.run(
-				trackerConfig,
-				Membership__c.SObjectType,
-				triggerNewList,
-				oldMap
-			);
+			// Map<String, Object> params = new Map<String, Object>();
+            // params.put('EmailAddress', cont.Email);
+            // params.put('LegalEntityId', cont.AccountId);
+            // Flow.Interview.Partner_Info_Nominated_Contact_Check fl = new Flow.Interview.Partner_Info_Nominated_Contact_Check(params);
+            // fl.start();
 		}
 	}

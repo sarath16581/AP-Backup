@@ -25,6 +25,7 @@ public virtual inherited sharing class HistoryTrackingSelector extends Applicati
 			HistoryTracking__mdt.Id,
 			HistoryTracking__mdt.DeveloperName,
 			HistoryTracking__mdt.ObjectName__c,
+			HistoryTracking__mdt.OverwriteExistingValue__c,
 			HistoryTracking__mdt.MatchingValue__c,
 			HistoryTracking__mdt.TargetField__c,
 			HistoryTracking__mdt.TargetValue__c
