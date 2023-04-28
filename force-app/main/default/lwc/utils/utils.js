@@ -8,9 +8,11 @@
 13.08.2019    Gunith Devasurendra     Added getOrEmpty(..)
 21.07.2022    Mahesh Parvathaneni     Added validateInputComponents
 29.08.2022    Hasantha Liyanage       Added validatePhone
+17.04.2023    Sarath Burra			  Added Delay
+20.04.2023    Sarath Burra			  Added logic for Polling using refreshApex
 **/
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-
+import { refreshApex } from '@salesforce/apex';
 /**
  * Common Regular Expression for Australian Phone numbers.
  * Valid ones include: +61 455 562 400, (02) 4371 3164, 433-245-898, 13 13 13. See https://regex101.com/r/eiufOH/18
@@ -23,24 +25,31 @@ export const ausPhoneNumberRegEx = '(^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8
 export const emptySearch = {
     isEmpty: true,
 }
+/**
+ * Create a delay
+ */
+export const delay = (ms) => {
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
 
-/*  takes in a param and if the param is an array, it returns the param unchanged, 
-    if it's null or undefined, an empty array is returned, otherwise the param is 
+/*  takes in a param and if the param is an array, it returns the param unchanged,
+    if it's null or undefined, an empty array is returned, otherwise the param is
     returned wrapped in an array
     */
 export const ensureArray = thing => {
     return Array.isArray(thing) ? thing : thing !== undefined && thing != null ? [thing] : []; // eslint-disable-line no-undef
 }
 
-/*  A higher-order function that returns another function, that, as long as it 
-    continues to be invoked, will not be triggered. The function will be called 
-    after it stops being called for N milliseconds. If `immediate` is passed, 
-    trigger the function on the leading edge, instead of the trailing. 
-    
-    This is used as a performance optimization for functions that make server 
+/*  A higher-order function that returns another function, that, as long as it
+    continues to be invoked, will not be triggered. The function will be called
+    after it stops being called for N milliseconds. If `immediate` is passed,
+    trigger the function on the leading edge, instead of the trailing.
+
+    This is used as a performance optimization for functions that make server
     calls and are invoked continuoustly times, for instance, from user input.
-    By debouncing such a function, we ensure it will only be called once after 
-    the last time it was invoked after waiting for the specified wait period. 
+    By debouncing such a function, we ensure it will only be called once after
+    the last time it was invoked after waiting for the specified wait period.
     If the function is called again, within this wait period, it's delayed again.
     */
 export function debounce(func, wait, immediate) {
@@ -59,11 +68,11 @@ export function debounce(func, wait, immediate) {
     };
 }
 
-/*  takes an array, an index and an element (or a list of elements) to insert 
+/*  takes an array, an index and an element (or a list of elements) to insert
     in the array and inserts the element(s) at that index
 
-    Basically, it's more readable than performing a null check on the elements 
-    and then calling splice on the array whenever we need to insert an element 
+    Basically, it's more readable than performing a null check on the elements
+    and then calling splice on the array whenever we need to insert an element
     at a specific index.
 */
 export function insertAtIndex(array, index, elems) {
@@ -72,7 +81,7 @@ export function insertAtIndex(array, index, elems) {
     }
 }
 
-/*  Shows a notification in the form of a toast in salesforce. The variant 
+/*  Shows a notification in the form of a toast in salesforce. The variant
     options can be error, info, success and warning.
 
     This function mothod partially applies message, variant and title to create a
@@ -93,7 +102,7 @@ export const showNotification = (message, variant = 'info', title, mode) => {
 
 /*  implementation of lodash get
 
-    Gets the value at path of object. If the resolved value is undefined, 
+    Gets the value at path of object. If the resolved value is undefined,
     the defaultValue is returned in its place.
 */
 export const get = (object, path, defaultVal) => {
@@ -171,3 +180,51 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
      }
      return isValid;
  };
+
+/* function checks if field is undefined or null
+ * @param  field
+ * @returns boolean
+ */
+export const checkUndefinedOrNull = (field) => {
+	return (typeof field === 'undefined' || field === null);
+}
+
+// Function to refresh a page with a poll
+//Executes poll based on the preset interval and uses refreshApex to reload the data
+//data if its passed from a wire method needs to be the result from Wire without destructuring
+//Example to poll for every 20secs for one hour it should be async (fn, interval = 20000, timeout = 3600000)
+export const refreshPageWithPoll =  (refreshData,interval,timeout) => {
+	return poll(reloadData, interval, timeout, refreshData);
+
+}
+//Using refreshApex to reloadData
+export const reloadData=(refreshData) =>{
+	return refreshApex(refreshData);
+
+}
+// Polling function that excutes the function passed into it after every interval until a timeout it reached
+// the first execution of the polled function is done after an initial delay of the interval
+// the function the executes will not return a value.
+// by default we pass the interval and timeout from the parent
+export const poll = async (fn,interval,timeout,refreshData) => {
+	let timer;
+	const endTime = Number(new Date()) + timeout;
+	const polledFunction = (resolve, reject) => {
+		if (timer) {
+			clearTimeout(timer);
+		}
+		if (Number(new Date()) < endTime) {
+			// eslint-disable-next-line @lwc/lwc/no-async-operation
+			setTimeout(polledFunction, interval, resolve, reject);
+		}else {
+            reject(new Error(`timed out for ${fn}`));
+        }
+		fn(refreshData);
+	}
+	await delay(interval)
+    return new Promise(polledFunction)
+	/*promise.then((message) => {console.log(message);})
+	.catch((error) => {
+		return error;
+	});*/
+}
