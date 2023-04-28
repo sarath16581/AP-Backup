@@ -183,7 +183,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 				
                 //Post Bill Pay product value attribute assignmemt to agreement line items
                 if(String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && 
-                    ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase('PBP') && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c)) {
+                    ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_POSTBILLPAY) && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c)) {
                     newApav.Apttus_CMConfig__LineItemId__c = ali.id;
                     newApav.APT_Annual_Volume_Review__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c;
                     newApav.APT_Volume_Threshold_PBP__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Threshold_PBP__c;
