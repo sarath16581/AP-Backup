@@ -14,7 +14,6 @@ History:
 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
 2022-11-18	 Noel Lim - added test method routeReopenedCases()
 2023-02-14	 Noel Lim - added test method assignToPreferredAgent()
-2023-03-08	 Noel Lim - update test method testAssignToPreferredAgent() for Release 2 TEMPORARY FIX
 2023-03-17	 Noel Lim - update test method closedCasesToClosedQueue() to include new logic that prevents routing from AllocateToQueue = true based on Case Owner. Update existing test methods that simulate portal or Social Case creation to use the correct Profile
 2023-04-19	 George Nguyen - updated to check for qualify Preferred Agent based on skill setting in custom settings
 **************************************************/
@@ -1559,7 +1558,7 @@ private with sharing class CaseCommonUtility_Test {
 		DateTime oneHourFromNow = DateTime.now().addHours(1);
 
 		//Cases
-		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);	
+		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);	
 		Map<Id,Case> casesMap = new Map<Id,Case>(cases);
 
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
@@ -1598,20 +1597,13 @@ private with sharing class CaseCommonUtility_Test {
 		cases[4].PreferredAgentExpiry__c = oneHourFromNow;
 		cases[4].Origin = 'Email';		
 
-		cases[5].OwnerId = omniQueue.Id; // part of Release 2 TEMPORARY FIX
-		cases[5].Priority = 'Low';
-		cases[5].BypassPreferredAgent__c = false;
-		cases[5].PreferredAgentExpiry__c = oneHourFromNow;
-		cases[5].Origin = 'Portal';	
-
 		//Clone to simulate existing Case records to test Case Update 
 		List<Case> oldCases = new List<Case>{
 			cases[0].clone(true),
 			cases[1].clone(true),
 			cases[2].clone(true),
 			cases[3].clone(true),
-			cases[4].clone(true),
-			cases[5].clone(true)
+			cases[4].clone(true)
 		};
 
 		for(Case tempCase : oldCases){
@@ -1620,7 +1612,7 @@ private with sharing class CaseCommonUtility_Test {
 		oldCases[4].OwnerId = omniQueue.Id;
 
 		//AgentWorks
-		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(4, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id,cases[5].Id}, true);
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(4, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id}, true);
 
 		// =====================================
 		// Stubbing
@@ -1634,7 +1626,7 @@ private with sharing class CaseCommonUtility_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(mockOmniChannelService.getCaseIdsWithLatestAcceptedAgentWorks(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id, cases[5].Id})
+			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id})
 		)).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
 
 		MockUtility.Mocks.when(mockOmniChannelService.getUserIdsWithPreferredAgentSkills(
@@ -1664,7 +1656,6 @@ private with sharing class CaseCommonUtility_Test {
 		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case with BypassPreferredAgent = true should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[3].OwnerId, 'Case with blank PreferredAgentExpiry should be in Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[4].OwnerId, 'Case that is coming from an Omni Queue should be in new Omni Queue');
-		System.assertEquals(omniQueue.Id, cases[5].OwnerId, 'Case with portal-related Origin should be in Omni Queue'); // part of Release 2 TEMPORARY FIX
 	}
 
 }
