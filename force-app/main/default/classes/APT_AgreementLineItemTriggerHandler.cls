@@ -64,7 +64,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             Apttus_CMConfig__AgreementProductAttributeValue__c newApav;
             Boolean steCleared = false;
             // map used for 'Local Pickup and Delivery Services' Product that associate Agreement Line Item and Agreement Product Attribute Value
-            map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapLocalPickup = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
+            map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapAgreementLineItemToPav = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
              for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
                                                     Apttus_CMConfig__ChargeType__c, Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c,
                                                     Apttus_CMConfig__OptionId__c, Apttus_CMConfig__OptionId__r.Name, Apttus_CMConfig__OptionId__r.ProductCode,
@@ -139,8 +139,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                 }
 
                 // initialise agreement product attribute value if empty, else skip
-                if(mapLocalPickup.get(ali) != null){
-                    newApav = mapLocalPickup.get(ali);
+                if(mapAgreementLineItemToPav.get(ali) != null){
+                    newApav = mapAgreementLineItemToPav.get(ali);
                 }else{
                     newApav = new Apttus_CMConfig__AgreementProductAttributeValue__c();
                 }
@@ -191,7 +191,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     newApav.APT_PostBillPay_Channel__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c;
                     newApav.APT_PostBillPay_Gross_Settlement_fee__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c;
                     newApav.APT_Payment_Method__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
-                    mapLocalPickup.put(ali, newApav);
+                    mapAgreementLineItemToPav.put(ali, newApav);
                 }
                 
                 //Local Pickup 
@@ -296,7 +296,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                         os.APT_Courier__c = false;
                     }
                     // Associate agreement line item with relevant  agreement product attribute value using a map
-                    mapLocalPickup.put(ali, newApav);
+                    mapAgreementLineItemToPav.put(ali, newApav);
                     mapOS.put(os.Id, os);
                 }
                 //eparcel
@@ -688,12 +688,12 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             //process builder to trigger
 
             // Create New Agreement Product Attribute Value on Agreement Line Item object from Line Item's Attribute Value fields
-            if(!mapLocalPickup.isEmpty()){
-                insert mapLocalPickup.values();
+            if(!mapAgreementLineItemToPav.isEmpty()){
+                insert mapAgreementLineItemToPav.values();
                 List<Apttus__AgreementLineItem__c> listAli = new List<Apttus__AgreementLineItem__c>();
                 // Update Agreement line item to attach associated agreement product attribute object from the map
-                for(Apttus__AgreementLineItem__c newALI : mapLocalPickup.keySet()){
-                    newALI.Apttus_CMConfig__AttributeValueId__c = mapLocalPickup.get(newALI).id;
+                for(Apttus__AgreementLineItem__c newALI : mapAgreementLineItemToPav.keySet()){
+                    newALI.Apttus_CMConfig__AttributeValueId__c = mapAgreementLineItemToPav.get(newALI).id;
                     listAli.add(newALI);
                 }
                 ApplicationDatabase.getInstance().dmlUpdate(listAli);

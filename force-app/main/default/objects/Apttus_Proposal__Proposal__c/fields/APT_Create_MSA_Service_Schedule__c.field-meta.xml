@@ -2,13 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Create_MSA_Service_Schedule__c</fullName>
     <externalId>false</externalId>
-    <formula>/*IF (ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
-RecordType.Name != &apos;Renewal Quote&apos; &amp;&amp;
-RecordType.Name != &apos;Amendment Quote&apos; &amp;&amp;
-APT_Contracted_Product_Count__c &gt; 0 &amp;&amp;
-(NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c,&quot;Pending Approval&quot;)) &amp;&amp; NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c,&quot;Rejected&quot;)) &amp;&amp; NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Rejected&quot;)) &amp;&amp; NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Pending Approval&quot;))), HYPERLINK(&quot;/apex/Apttus_QPComply__ProposalAgreementCreate?id=&quot; &amp;Id + &quot;&amp;recordTypeId=&quot;+$Label.APT_MSARecordTypeID , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL )*/
-
-IF (ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
+    <formula>IF(
+ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
 RecordType.Name != &apos;Renewal Quote&apos; &amp;&amp;
 RecordType.Name != &apos;Amendment Quote&apos; &amp;&amp;
 APT_Contracted_Product_Count__c &gt; 0 &amp;&amp;
@@ -16,8 +11,15 @@ APT_Contracted_Product_Count__c &gt; 0 &amp;&amp;
 NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c,&quot;Rejected&quot;)) &amp;&amp;
 NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Rejected&quot;)) &amp;&amp;
 NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Pending Approval&quot;))) &amp;&amp;
-OR(NOT(APT_ACIC_Request_required_for_Contract__c), AND(APT_ACIC_Request_required_for_Contract__c, ACIC_Request_Approved__c)),
-HYPERLINK(&quot;/apex/Apttus_QPComply__proposalagreementnew?id=&quot; &amp;Id&amp;&apos;&amp;copyLineItems=No&apos;&amp;&apos;&amp;recordTypeId=&apos;&amp; $Label.APT_MSARecordTypeID, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
+OR(NOT(APT_ACIC_Request_required_for_Contract__c), AND(APT_ACIC_Request_required_for_Contract__c, ACIC_Request_Approved__c))
+,
+IF(
+APT_Postbillpay_Included__c &gt; 0,
+HYPERLINK(&quot;/apex/Apttus_QPComply__proposalagreementnew?id=&quot; &amp;Id&amp;&apos;&amp;copyLineItems=No&apos;&amp;&apos;&amp;recordTypeId=&apos;&amp; $Label.APT_PBPRecordTypeID, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;),
+HYPERLINK(&quot;/apex/Apttus_QPComply__proposalagreementnew?id=&quot; &amp;Id&amp;&apos;&amp;copyLineItems=No&apos;&amp;&apos;&amp;recordTypeId=&apos;&amp; $Label.APT_MSARecordTypeID, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;)
+),
+NULL
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Create Contract / Service Schedule</label>
     <required>false</required>
