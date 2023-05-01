@@ -342,10 +342,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>APR__c.ST_Courier</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>APR__c.StarTrack</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

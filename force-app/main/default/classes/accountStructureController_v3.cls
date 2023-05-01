@@ -13,30 +13,45 @@ public class accountStructureController_v3 {
 		currentId = ApexPages.currentPage().getParameters().get('aId');
 		
 		// SOQL - retrieve rootId (TopLevel AccountId) from the current Id
-		// Account currentAccount = [SELECT Id, Root_Id__c FROM Account WHERE Id = :currentId LIMIT 1];
-		// Id rootId = currentAccount.Root_Id__c == null ? currentId : currentAccount.Root_Id__c;
 		Id rootId = getTopLevelAccountId(currentId);
 
 		// SOQL - retrieve all account records in the hierarchy
-		// Set<Id> accountsInScope = new Map<Id, Account>([SELECT Id FROM Account WHERE Root_Id__c = :rootId]).keySet();
 		Map<Id, Integer> accountIdWithLevel = new Map<Id, Integer>();
 		accountIdWithLevel.put(rootId, 0); // add rootId at level 0
-		accountIdWithLevel.putAll(getChildAccountsInHierarchyWithLevel(rootId));
+		accountIdWithLevel.putAll(getChildAccountsInHierarchyWithLevel(rootId)); // retrieve all childAccountIds and their level
 		
-		// SOQL - retrieve all the account records having selected ParentId
+		// SOQL - retrieve all the account records
+		// Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+		// 	Account.SObjectType => new Set<SObjectField>{ 
+		// 		Account.Id, Account.Name, Parent.Name, Account.Organisation_Trading_Name__c, Account.AccountNumber, Owner.Name, ABN__c,
+		// 		ACN__c, Holding_Role_Reference__r.Name, Sales_Director__r.Name, ParentId
+		// 	},
+		// 	Billing_Accounts__c.SObjectType =>  new Set<SObjectField>{ 
+		// 		User.Id, User.Name 
+		// 	},
+		// 	User.SObjectType => new Set<SObjectField>{ User.Id, User.Name }
+		// };
+		// Map<Id, Account> accountMap = AccountsSelector.newInstance(0, fieldOverrides)
+		// 	.selectById(
+		// 		accountIdWithLevel.keySet(),
+		// 		new Set<Object>{ 
+
+		// 		}
+		// 	);
+		
 		Map<Id, Account> accountMap = new Map<Id, Account>(
-			[
-				SELECT Id, Name, Parent.Name, Organisation_Trading_Name__c, AccountNumber, Owner.Name, ABN__c, 
-					ACN__c, Holding_Role_Reference__r.Name, Sales_Director__r.Name, ParentId,
-					(
-						SELECT Id, Name, Payer_Account_Legacy_Id__c, Type__c, SAP_marked_for_deletion__c,
-							ABN__c,  ACN__c, LEGACY_ID__c, Payer_Account_ID__r.Name, Organisation__r.Name
-						FROM Billing_Accounts__r
-						ORDER BY Name ASC NULLS LAST
-					)
-				FROM Account
-				WHERE Id IN :accountIdWithLevel.keySet()
-			]
+		[
+			SELECT Id, Name, Parent.Name, Organisation_Trading_Name__c, AccountNumber, Owner.Name, ABN__c, 
+			ACN__c, Holding_Role_Reference__r.Name, Sales_Director__r.Name, ParentId,
+			(
+				SELECT Id, Name, Payer_Account_Legacy_Id__c, Type__c, SAP_marked_for_deletion__c,
+				ABN__c,  ACN__c, LEGACY_ID__c, Payer_Account_ID__r.Name, Organisation__r.Name
+				FROM Billing_Accounts__r
+				ORDER BY Name ASC NULLS LAST
+			)
+			FROM Account
+			WHERE Id IN :accountIdWithLevel.keySet()
+		]
 		);
 	
 		Set<Id> billingAccountIdWithAuthRuleSet = new Set<Id>(); // BillingAccountIds which has Authorization Rules
@@ -114,8 +129,19 @@ public class accountStructureController_v3 {
 		return accountWrapperList;
 	}
 
+	/**
+	* Get the top level AccountId from the current AccountId
+	* @param currentId 
+	* @return  `Id`
+	*/	
 	private Id getTopLevelAccountId(Id currentId) {
-		Boolean isTopLevelAccount = false;
+		Map<Id, Account> accountMap = AccountsSelector.newInstance(
+			1,
+			new Set<SObjectField>{ Account.Id, Account.Root_Id__c }
+		).selectById(new Set<Id>{ currentId });
+		
+		return accountMap.isEmpty() ? currentId : accountMap.values()[0].Root_Id__c;
+		/* Boolean isTopLevelAccount = false;
 		while (!isTopLevelAccount) {
 			Account a = [SELECT Id, ParentId FROM Account WHERE Id = :currentId LIMIT 1];
 			if (a.ParentId != null) {
@@ -124,19 +150,24 @@ public class accountStructureController_v3 {
 				isTopLevelAccount = true;
 			}
 		}
-		return currentId;
+		return currentId; */
 	}
 
-	private Map<Id, Integer> getChildAccountsInHierarchyWithLevel(Id parentAcctId) {
-		Set<Id> loopSet = new Set<Id>{parentAcctId};
-        Map<Id, Integer> childAccountMap = new Map<Id, Integer>();
-		Map<Id, Account> accountMap = new Map<Id, Account>();
-		Integer level = 1;
+	/**
+ 	* Get all the child Account Ids and their level (ex: 1=Child, 2=GrandChild and so on) from provided top level AccountId
+	* @param rootId 
+	* @return  `Map<Id, Integer>`
+	*/
+	private Map<Id, Integer> getChildAccountsInHierarchyWithLevel(Id rootId) {
+		Integer level = 1; // set initial level to 1
+		Set<Id> loopSet = new Set<Id>{ rootId }; // initialise with top level AccountId
+        Map<Id, Account> accountMap = new Map<Id, Account>();
+		Map<Id, Integer> childAccountMap = new Map<Id, Integer>();
 		
 		while (loopSet.size()>0) {
 			accountMap = new Map<Id, Account>([SELECT Id, ParentId FROM Account WHERE ParentId IN :loopSet ORDER BY Name ASC]);
 			if(accountMap.isEmpty()) {
-				break;
+				break; // if no more child accounts found then break
 			}
 			loopSet.clear(); // purge for a rebuild
             for(Account acc : accountMap.values()) {

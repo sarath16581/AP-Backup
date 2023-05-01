@@ -8,7 +8,7 @@
     <inlineHelpText>Used in reporting</inlineHelpText>
     <label>L2 Manager</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
-	<securityClassification>INTERNAL</securityClassification>
     <unique>false</unique>
 </CustomField>

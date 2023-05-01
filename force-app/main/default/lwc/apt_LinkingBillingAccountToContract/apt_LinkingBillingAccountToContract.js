@@ -9,7 +9,7 @@
  * 2022-06-01 - Seth Heang - Created
  * 01.08.2022   Prerna Rahangdale - Added the the validation for lodgement point records to be same as Proposal.
  * 2023-04-12 - Sarath Burra - CI-880 Added the Logic to poll for a certian time, until the contract line items are generated
- * 								Polling is done every second for 12 secs and the page is loaded automatically once the refreshed data is available
+ * 								Polling is done every second for 60 secs and the page is loaded automatically once the refreshed data is available
  */
 import { LightningElement, api, wire, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
@@ -276,15 +276,15 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 		if(result.data){
 			this.recordsData=result.data;
 			//Added the Logic to poll for a certian time, until the contract line items are generated
-  			//Polling is done every second for 12 secs and the page is loaded automatically once the refreshed data is available
+  			//Polling is done every second for 60 secs and the page is loaded automatically once the refreshed data is available
 			//Also Display a message for the user to indicate Agreement line item creation is in progress
 			if(checkUndefinedOrNull(this.recordsData[0])){
 				this.noAgreementLineItems=true;
 				this.showSpinner=true;
-				const poll = refreshPageWithPoll(this.cliData,1000,20000).then((message) => {console.log(message);})
+				const poll = refreshPageWithPoll(this.cliData,1000,60000).then((message) => {console.log(message);})
 				.catch((error) => {
 					this.showSpinner=false;
-					this.hasPollingError=true;
+					if(this.noAgreementLineItems) this.hasPollingError=true;
 				});
 			}else{
 				this.noAgreementLineItems=false;

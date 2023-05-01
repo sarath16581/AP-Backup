@@ -236,7 +236,7 @@
             <field>CaseProductCategory__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CaseProductSubCategory__c</field>
             <table>AgentWork</table>
@@ -250,28 +250,28 @@
             <checkedByDefault>false</checkedByDefault>
             <field>CaseLinkedArticleHasExtraCover__c</field>
             <table>AgentWork</table>
-        </columns>      
-		<columns>
+        </columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CaseStatus__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IsCurrentUser__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>L1Manager__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>L2Manager__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>L3Manager__c</field>
             <table>AgentWork</table>

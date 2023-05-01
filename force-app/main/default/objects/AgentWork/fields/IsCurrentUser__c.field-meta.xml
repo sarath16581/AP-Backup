@@ -7,6 +7,6 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Value is true if the current user matches the Agent Work owner</inlineHelpText>
     <label>Is Current User</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
-	<securityClassification>INTERNAL</securityClassification>
 </CustomField>
