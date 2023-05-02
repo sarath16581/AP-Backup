@@ -175,7 +175,21 @@ public with sharing class APT_TestUtils {
         product.IsActive = true;     
         return product; 
     }
-    
+	
+	/**
+	create Post Billpay product
+    **/
+    //Minor works Post Billpay product build
+    @TestVisible private static Product2 createPBPProduct( String productName, String productCode, String productFamily) {
+        Product2 product = new Product2();
+        product.Name = productName;
+        product.ProductCode = productCode;
+        product.Family = productFamily;
+        product.APT_Apttus_Product_Classification__c = productFamily;
+        product.IsActive = true;     
+        return product; 
+    }
+	
     /**
     create Domestic product
     **/
