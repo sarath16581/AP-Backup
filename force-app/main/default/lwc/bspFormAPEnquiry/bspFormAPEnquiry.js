@@ -62,9 +62,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track expectedDeliveryDate = '';
 	@track searchResult;
 
-	// TODO hans: - Yes, No should not be high lighted
-	// TODO hans: mandatory error message on radio button and red highlight
-	// TODO hans: send field values to backend, need to evaluate and set the correct values to backend fields
 	/**
 	 * Initialize the lwc, waits for the page url to be available first. This is to avoid order of execution
 	 * issues between loading the static picklist data and preloaded consignment ID for search (if any)
