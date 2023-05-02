@@ -7,6 +7,6 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Display the Case&apos;s Linked Article Has Extra Cover value</inlineHelpText>
     <label>Case Linked Article Has Extra Cover</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
-	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

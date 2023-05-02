@@ -17,6 +17,7 @@
 09.06.2021    Naveen Rajanna             REQ2525818 -Updated case comments method to include Cust Ref only in case of eparcel damages
 16.06.2021    SaiSwetha Pingali			 REQ2866516 -Introduced a new metadata to store product sub category to disable compensation and updated the logic here to utilise the metadata.
 18.10.2022    Talib Raza                 REQ2866516 - getAll() only return 255 char, replace it with SOQL 
+19.04.2023    Talib Raza                 REQ2906534 - Added new method getProdCatValuesToDisableArticle to get the list of product categories to disable article
 **/
 
 public with sharing class MyNetworkSmartFormsService {
@@ -159,6 +160,13 @@ public with sharing class MyNetworkSmartFormsService {
         mapOfValuesToDisableCompensation.put('International Parcels',new List<String> {'Airmail over 2kg','Airmail under 2kg','ECI','ECI Platinum','Economy Air under 2kg','Economy Sea over 2kg','Express Post International','Global Logistics','International Courier','International Express','International Standard','Pack and Track International','Registered Post International','Sea Mail','StarTrack International'});
  		*/
         return mapOfValuesToDisableCompensation;
+    }
+
+    // REQ2906534: added to get the list of product categories to disable article
+    @auraEnabled(cacheable=true)
+    public static List<String> getProdCatValuesToDisableArticle(){
+        List<String> listOfProdCat = new List<String> {'Money & Insurance','Post Office & Business Hub Services','Travel & ID','Web & Apps'};
+        return listOfProdCat;
     }
     
     @auraEnabled(cacheable=true)
