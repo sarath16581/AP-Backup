@@ -13,6 +13,11 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>APPC</fullName>
+                <default>false</default>
+                <label>APPC</label>
+            </value>
+            <value>
                 <fullName>eParcel</fullName>
                 <default>false</default>
                 <label>eParcel</label>

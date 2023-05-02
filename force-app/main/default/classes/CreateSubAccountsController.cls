@@ -1,27 +1,57 @@
-/*
-* @date 2021-05-12
-* @group BillingAccounts
-* @tag BillingAccount
-* @domain Core
-* @description Controller for createSubAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
-* @changelog
-* 2021-05-12 - seth.heang@auspost.com.au - created
-* 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
-* 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
-* 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
-*                                                 the lodegement zones of proposals.
-* 01/08/2022 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
-* 27/01/2023 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
-* 								Lines Removed 125-129
-* 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
-*/
-public with sharing class CreateSubAccountsController {
+	/*
+	* @date 2021-05-12
+	* @group BillingAccounts
+	* @tag BillingAccount
+	* @domain Core
+	* @description Controller for createSubAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
+	* @changelog
+	* 2021-05-12 - seth.heang@auspost.com.au - created
+	* 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
+	* 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
+	* 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
+	*                                                 the lodegement zones of proposals.
+	* 01/08/2022 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
+	* 27/01/2023 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
+	* 								Lines Removed 125-129
+	* 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
+	* 01/03/2023 - Deepak Kemidi - CI-703 Add Method checkAPPCContracts to check if atleast one related APPC contracts have Contract Relationship as Billing Account
+	*/
+	public with sharing class CreateSubAccountsController {
 
 	@TestVisible private static stateInfo stateInfoVar;
 	@AuraEnabled
 	public static Billing_Account__c getBillingAccountDetails(String billingAccountRecord){
 		System.debug('billingAccountRecord>>>'+billingAccountRecord);
 		return [Select Id , LEGACY_ID__c, Name, Organisation__r.Name, SAP_marked_for_deletion__c, Source_System__c, Type__c, PAYER_ACCOUNT_ID__c From Billing_Account__c Where Id=: billingAccountRecord];
+	}
+
+	//CI-703 Method to check if all the APPC contracts have Contract Relationship as Billing Account
+	//If all the contracts associated with the Parent Account of the Billing Account have Contract Relationship as Billing Account, we will display a message for the user
+	@AuraEnabled
+	public static Boolean checkAPPCContracts(Id billingAccRecId){
+		Boolean showMsg = false;
+		Integer billingAccRecsCount = 0;
+		Integer orgRecsCount = 0;
+
+		// Query Billing Account details and its related Account details by Billing Account Id
+		Billing_Account__c billingAccountRec = BillingAccountsSelector.newInstance().selectById(new set<Id>{billingAccRecId}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION}).values()[0];
+		system.debug('DDD billing account record::' + billingAccountRec);
+		Set<Id> accIds = new set<Id>{billingAccountRec.Organisation__c};
+		for(Apttus__APTS_Agreement__c contract : ApttusContractsSelector.newInstance().search(new Map<String, Object>{'accountIds' => accIds},true)) {
+			if(contract.APT_APPC_Count__c >0 && contract.Apttus__Status__c == 'Activated' && contract.Apttus__Status_Category__c == 'In Effect') {
+				if(contract.Contract_Relationship__c.equalsIgnoreCase('Billing Account')) {
+					billingAccRecsCount = billingAccRecsCount + 1;
+				} else if(contract.Contract_Relationship__c.equalsIgnoreCase('Organisation')) {
+					OrgRecsCount = OrgRecsCount + 1;
+				}
+			}
+		}
+
+		if(billingAccRecsCount > 0 && orgRecsCount == 0) {
+			showMsg = true;
+		}
+
+		return showMsg;
 	}
 
 	@AuraEnabled
@@ -110,7 +140,7 @@ public with sharing class CreateSubAccountsController {
 
 		//if(lodgementPointWCCs!=null && existingLodgementPoints == null){
 			if(lodgementPointWCCs!=null ){
-			// deserialise the JSON and convert to the custom Sboject
+			// deseria	e the JSON and convert to the custom Sboject
 			List<SObjectResult> responseDetail = (List<SObjectResult>)System.JSON.deserialize(lodgementPointWCCs, List<SObjectResult>.class);
 			system.debug('Lodgement Points after conversion :::'+responseDetail);
 			// track the count of lodgement point added and stored in 'Lodgement_Point_Counter__c' backend field
@@ -252,6 +282,20 @@ public with sharing class CreateSubAccountsController {
 					curChildAccContactComm.email = curSubAcc?.SubAccountContact__r?.Email;
 					curChildAccContact.communicationInfo = curChildAccContactComm;
 
+
+					// CI-703 mapping the APPC products
+					List<BillingAccountWrapper.ProductDetail> curChildAccProdList;
+					if(!String.isEmpty(curSubAcc.Product__c) && curSubAcc.Product__c.containsIgnorecase('APPC')){
+						curChildAccProdList= new List<BillingAccountWrapper.ProductDetail>();
+						BillingAccountWrapper.ProductDetail curChildAccProd= new BillingAccountWrapper.ProductDetail();
+						curChildAccProd.ratingModel='PD';
+						curChildAccProdList.add(curChildAccProd);
+						curChildAcc.products = new List<BillingAccountWrapper.ProductDetail>();
+						if(!curChildAccProdList.isEmpty()){
+							curChildAcc.products.addAll(curChildAccProdList);
+						}
+					}
+
 					// Mapping Lodgement Point
 					List<BillingAccountWrapper.lodgementPointsDetail> curChildAccLPList;
 					/**
@@ -282,7 +326,6 @@ public with sharing class CreateSubAccountsController {
 					curChildAcc.name2 = curSubAcc?.APT_Account_Name_2__c;
 					curChildAcc.objectId = curSubAcc.Id;
 					curChildAcc.objectType = 'Sub Account';
-
 					childAccList.add(curChildAcc);
 				}
 				// Populate other informations

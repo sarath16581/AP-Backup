@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2020-04-10 - arjun.singh@auspost.com.au - Created
+* 2023-03-23 - sarath.burra@auspost.com.au - CI-703 added test for Search Method
 */
 @IsTest
 public with sharing class ApttusContractsSelector_Test {
@@ -118,7 +119,7 @@ public with sharing class ApttusContractsSelector_Test {
         soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
         System.assertEquals(true, Pattern.compile('(?ism)Owner\\..*?\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
-        
+
         qb = selector.newQueryBuilder(new Set<Object>{ApttusContractsSelector.Options.WITH_ORGANISATION});
 		soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?is)Apttus__Account__r\\..*?\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
@@ -134,7 +135,7 @@ public with sharing class ApttusContractsSelector_Test {
         qb = selector.newQueryBuilder(new Set<Object>{ApttusContractsSelector.Options.WITH_PROPOSAL});
 		soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?is)Apttus_QPComply__RelatedProposalId__r\\..*?\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select related proposal fields');
-        
+
         Test.stopTest();
 
     }
@@ -158,18 +159,22 @@ public with sharing class ApttusContractsSelector_Test {
         insert primaryContact;
 
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
-        insert opportunityRecord;      
+        insert opportunityRecord;
 
         Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, false)[0];
         apttusContracts.Apttus__Account__c = account.Id;
+		apttusContracts.Apttus__Agreement_Number__c='1234567';
+		apttusContracts.Apttus__Version_Number__c=123;
+		apttusContracts.APT_Pricing_Category__c='Standard';
+		apttusContracts.Apttus__Status__c='Request';
         insert apttusContracts;
-        
+
         Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, false)[0];
         insert dealSupportRequest;
 
         BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', false)[0];
         insert externalOnboardingRecord;
-              
+
 
         Map<Id, Apttus__APTS_Agreement__c> mappedContracts = new Map<Id, Apttus__APTS_Agreement__c>(new List<Apttus__APTS_Agreement__c>{apttusContracts});
 
@@ -182,13 +187,13 @@ public with sharing class ApttusContractsSelector_Test {
         // Testing
         // =====================================
         Test.startTest();
-        
+
         ApttusContractsSelector selector = ApttusContractsSelector.newInstance(1);
         Map<Id, Apttus__APTS_Agreement__c> results = selector.selectById(mappedContracts.keySet());
         System.assertEquals(1, results.size(), 'Result count was wrong');
 
         results = selector.selectById(mappedContracts.keySet(), new Set<Object>{ApttusContractsSelector.Options.WITH_RECORDTYPE, ApttusContractsSelector.Options.WITH_OWNER});
-        
+
         System.assertEquals(1, results.size(), 'Result count was wrong');
         System.assertNotEquals(null, results.values()[0].RecordType, 'Expected RecordType object');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
@@ -197,6 +202,9 @@ public with sharing class ApttusContractsSelector_Test {
         List<Apttus__APTS_Agreement__c> resultsList = (List<Apttus__APTS_Agreement__c>) Database.query(queryLocator.getQuery());
         System.assertEquals(1, resultsList.size(), 'Expected to return Apttus contracts related to any account when account id is not specified');
 
+		//CI-703 test for Search Method
+		List<Apttus__APTS_Agreement__c> cons = ApttusContractsSelector.newInstance().Search(new Map<String, Object>{'accountIds' => new Set<Id>{account.id},'pricingCategories'=>new Set<String>{'Standard'},'status'=>new Set<String>{'Request'}},true);
+		System.assertEquals(1, cons.size(), 'Expected to return Apttus contracts related to any account');
         Test.stopTest();
 
     }
