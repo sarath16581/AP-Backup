@@ -4,13 +4,14 @@
  * @date 26/01/2023
  * @changelog
  * 2023-02-23	Mahesh Parvathaneni	- Changed logic to calculate the violation datetime based on hours
+ * 2023-04-28	Mahesh Parvathaneni - Updated violation date time calculation logic
  */
 
 public inherited sharing class MilestoneService {
 
 	//constants
 	private static final Set<String> STRING_TYPES = new Set<String>{'string', 'picklist', 'email', 'phone', 'textarea', 'multipicklist', 'reference', 'url', 'id'};
-    private static final Set<String> NUMERIC_TYPES = new Set<String>{'double', 'currency'};
+	private static final Set<String> NUMERIC_TYPES = new Set<String>{'double', 'currency'};
 	private static final String SSSW_SYDNEY = 'SSSWSydney';
 	private static Map<String, List<String>> ruleIdRuleUnitsMap;
 	private static Map<Id, Entitlement_Rule__c> entitlementRuleMap;
@@ -72,11 +73,11 @@ public inherited sharing class MilestoneService {
 
 	//get the business for the SSSWSydney
 	private static Id getSSSWSydneyBusinessHour(){
-        if(businessHourId == null){
-            businessHourId = BusinessHoursSelector.newInstance().selectByName(new Set<String> {'SSSWSydney'})[0].Id;
-        }
-        return businessHourId;
-    }
+		if(businessHourId == null){
+			businessHourId = BusinessHoursSelector.newInstance().selectByName(new Set<String> {'SSSWSydney'})[0].Id;
+		}
+		return businessHourId;
+	}
 
 	/**
 	 * This method calculates and returns the next violation date based on the matching entitlement rules configured passed records for CaseInvestigation SobjectType
@@ -90,10 +91,10 @@ public inherited sharing class MilestoneService {
 
 		//get active entitlement rules configured in Entitlement_Rule__c object based on the record type
 		entitlementRuleMap = getActiveEntitlementRulesByRecordType(entitlementRuleRecTypeDevName);
-        ruleIdRuleUnitsMap = getActiveEntitlementRuleUnitByRecordType(entitlementRuleRecTypeDevName);
+		ruleIdRuleUnitsMap = getActiveEntitlementRuleUnitByRecordType(entitlementRuleRecTypeDevName);
 
 		//determine the distinct fields referenced in active entitlement rules
-        Set<String> entitlementRuleFields = getFieldsReferencedInEntitlementRules(ruleIdRuleUnitsMap);
+		Set<String> entitlementRuleFields = getFieldsReferencedInEntitlementRules(ruleIdRuleUnitsMap);
 
 		//get the case investigation records
 		if (recIds.size() > 0) {
@@ -101,8 +102,8 @@ public inherited sharing class MilestoneService {
 		}
 
 		//Field Types map for fields referenced in entitlement rules
-        //key = field name, value = field type
-        ciFieldTypeMap = getCaseInvestigationFieldTypeMap(entitlementRuleFields);
+		//key = field name, value = field type
+		ciFieldTypeMap = getCaseInvestigationFieldTypeMap(entitlementRuleFields);
 
 		//map to store the case investigation to the matching entitlement rule
 		Map<Id, String> ciEntitlementRuleMatchingMap = getMatchingEntitlementRule(caseInvestigations);
@@ -115,27 +116,27 @@ public inherited sharing class MilestoneService {
 	}
 
 	/**
-     * Determine the set of fields referenced in active entitlement rules passed in.
-     * @param entitlementRules Entitlement rule units by rule id.
-     * @return a Set of field names referenced in entitlement rules.
-     */
-    @TestVisible
-    private Set<String> getFieldsReferencedInEntitlementRules(Map<String, List<String>> ruleIdRuleUnitsMap) {
+	 * Determine the set of fields referenced in active entitlement rules passed in.
+	 * @param entitlementRules Entitlement rule units by rule id.
+	 * @return a Set of field names referenced in entitlement rules.
+	 */
+	@TestVisible
+	private Set<String> getFieldsReferencedInEntitlementRules(Map<String, List<String>> ruleIdRuleUnitsMap) {
 
-        Set<String> fieldNames = new Set<String>();
+		Set<String> fieldNames = new Set<String>();
 		fieldNames.add('id');
 
-        for (List<String> ruleUnits: ruleIdRuleUnitsMap.values()) {
-            for (String ruleUnit : ruleUnits) {
-                if (ruleUnit.contains('=') || ruleUnit.contains('<') || ruleUnit.contains('>')) {
-                    String fieldName = ruleUnit.split('[=<>]')[0];
-                    fieldNames.add(fieldName.toLowerCase().trim());
-                }
-            }
-        }
+		for (List<String> ruleUnits: ruleIdRuleUnitsMap.values()) {
+			for (String ruleUnit : ruleUnits) {
+				if (ruleUnit.contains('=') || ruleUnit.contains('<') || ruleUnit.contains('>')) {
+					String fieldName = ruleUnit.split('[=<>]')[0];
+					fieldNames.add(fieldName.toLowerCase().trim());
+				}
+			}
+		}
 
-        return fieldNames;
-    }
+		return fieldNames;
+	}
 
 	@TestVisible
 	private Map<Id, String> getMatchingEntitlementRule(Map<Id, CaseInvestigation__c> caseInvestigations) {
@@ -251,8 +252,8 @@ public inherited sharing class MilestoneService {
 	// convert string to Boolean
 	@TestVisible
 	private Boolean stringToBoolean(String yesNo) {
-        return yesNo.toLowerCase() == 'yes';
-    }
+		return yesNo.toLowerCase() == 'yes';
+	}
 
 	/**
 	 * function that sets the next violation date based on the configuration from Escalation Hierarchy
@@ -273,13 +274,13 @@ public inherited sharing class MilestoneService {
 				//checks the tier has value in escalation hierarchy config
 				if (eh.get(formattedMilestoneTierTypeField) != null) {
 					Integer configuredMins = Integer.valueOf(eh.get(formattedMilestoneTierTypeField));
-					Integer hours = configuredMins/60 ;
+					Long timeinMilliseconds = configuredMins * 60 * 1000;
 					if (ci.NetworkMilestoneNextViolationDatetime__c == null && ci.MilestoneTimeStartDatetime__c != null) {
-						//Check if new date is within working days
-						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c, hours);
+						// add business hours to milestone start datetime (when CI is created)
+						violationDatetime = BusinessHours.add(getSSSWSydneyBusinessHour(), ci.MilestoneTimeStartDatetime__c, timeinMilliseconds);
 					} else {
-						//Check if new date is within working days
-						violationDatetime = checkWithinBusinessHours(ci.NetworkMilestoneNextViolationDatetime__c, hours);
+						// add business hours to next violation datetime (when CI is violated)
+						violationDatetime = BusinessHours.add(getSSSWSydneyBusinessHour(), ci.NetworkMilestoneNextViolationDatetime__c, timeinMilliseconds);
 					}
 					result.put(ci.Id, violationDatetime);
 				}
@@ -287,27 +288,6 @@ public inherited sharing class MilestoneService {
 		}
 
 		return result;
-	}
-
-	//function to check the target date is within business hours
-	private Datetime checkWithinBusinessHours(Datetime violationDatetime, Integer hours) {
-		Integer hour = violationDatetime.hour();
-		Integer minute = violationDatetime.minute();
-		Integer second = violationDatetime.second();
-
-		for (Integer elapsed = 0; elapsed < hours; elapsed++) {
-			//Add 1 hour
-			violationDatetime = violationDatetime.addHours(1);
-
-			//check if new date is within business hours
-			if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
-				//If new date is not within working days, get new working day
-				violationDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
-			}	
-		}
-
-		violationDatetime = Datetime.newInstance(violationDatetime.year(), violationDatetime.month(), violationDatetime.day(), hour, minute, second);
-		return violationDatetime;
 	}
 
 	//function to return the business hours diff in minutes by using BusinessHours class
