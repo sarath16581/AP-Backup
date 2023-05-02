@@ -44,7 +44,7 @@ const checkAllValidity = (inputComponents, isGenInputCmp = true) => {
     const inputsArray = inputComponents ? [...inputComponents] : [];
     return inputsArray.reduce((validSoFar, inputCmp) => {
         if (isGenInputCmp)
-            checkCustomValidity(inputCmp);
+            checkCustomValidity(inputCmp, inputCmp.messageWhenValueMissing);
         else
             inputCmp.reportValidity();
         return validSoFar && inputCmp.checkValidity();
@@ -63,7 +63,7 @@ const checkCustomValidity = (inputCmp, valMissingErrorMsg = valueMissingErrorMsg
         }
     }
     inputCmp.reportValidity();
-
+    inputCmp.showHelpMessageIfInvalid();
 }
 
 const reloadPage = (isLoadWithCache) => {

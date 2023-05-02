@@ -37,7 +37,7 @@
                             <div class="slds-grid slds-grid_vertical-align-start slds-is-relative">
                                 <div class="slds-col slds-size_1-of-1">
                                     <span onkeyup={checkSearchEnter}>
-                                        <lightning-input label="Tracking Number" name="trackingNumber"
+                                        <lightning-input label="Tracking number" name="trackingNumber"
                                             data-id="trackingNumber" class="brand-form-input slds-p-bottom_x-large"
                                             type="text" value={trackingId} placeholder="Enter tracking number here"
                                             onchange={onChangeField} onfocusout={handleFocusOut} 
@@ -71,17 +71,17 @@
                             </template>
                             <!-- Item Details HEADING -->
                             <div>
-                                <h3 class="slds-p-vertical_large">Item Details</h3>
+                                <h3 class="slds-p-vertical_large">Item details</h3>
                             </div>
 
                             <!-- parcel lodgement date -->
-                            <lightning-input label="Item Lodgement date" type="Date" data-id="lodgementDate"
+                            <lightning-input label="Item lodgement date" type="Date" data-id="lodgementDate"
                                 value={lodgementDate} onchange={onChangeField} onfocusout={handleFocusOut} required
                                 class="brand-form-input slds-p-bottom_x-large">
                             </lightning-input>
 
                             <!-- reference -->
-                            <lightning-input label="Your reference" value={reference} data-id="yourReference"
+                            <lightning-input label="Your reference (optional)" value={reference} data-id="yourReference"
                                 onchange={onChangeField} name="reference" type="text"
                                 placeholder="A name or number for your records"
                                 class="brand-form-input slds-p-bottom_x-large" max-length="40">
@@ -99,30 +99,86 @@
                                 onfocusout={handleFocusOut} required class="brand-form-input slds-p-bottom_x-large">
                             </lightning-combobox>
 
+                            <!-- is Contains Medication-->
+                            <lightning-radio-group label="Does the item contain essential medication?" data-id="isContainsMedication"
+                                                   name="isContainsMedication" onchange={onChangeField} value={isContainsMedication}
+                                                   options={containsMedicationOptions} type="radio" onfocusout={handleFocusOut}
+                                                   message-when-value-missing="Please indicate if the item contains essential medication"
+                                                   required class="brand-form-input slds-p-bottom_x-large">
+                            </lightning-radio-group>
+
+                            <!-- is Contains Medication -->
+                            <div class="slds-grid slds-gutters slds-var-p-vertical_medium">
+                                <div class="slds-col slds-grid">
+                                    <lightning-radio-group label="Is the item urgent, sentimental or high value?" data-id="isSentimental"
+                                                           name="isSentimental" onchange={onChangeField} value={isSentimental}
+                                                           options={sentimentalOptions} type="radio" onfocusout={handleFocusOut}
+                                                           message-when-value-missing="Please indicate if the item is urgent, sentimental or high value"
+                                                           required class="brand-form-input slds-p-bottom_x-large">
+                                    </lightning-radio-group>
+                                    <lightning-helptext content="For example, a passport or legal document, foreign currency for urgent travel, clothing and jewellery for a wedding or funeral, or an item unable to be replaced."></lightning-helptext>
+                                </div>
+                            </div>
                             <!-- enquiry about -->
-                            <lightning-textarea label="Tell us what your enquiry is about" data-id="description"
+                            <lightning-textarea label="Your enquiry" data-id="description"
                                 type="text" value={description} onchange={onChangeField} onfocusout={handleFocusOut}
                                 required class="brand-form-input slds-p-bottom_x-large" max-length="4000">
                             </lightning-textarea>
 
-
                             <!-- description -->
-                            <lightning-textarea label="Description of parcel contents" data-id="descriptionOfContents"
-                                type="text" value={descriptionOfContents} onchange={onChangeField} required
-                                message-when-value-missing="Please describe the parcel contents"
-                                field-level-help="e.g. 1 pair of size 7 brown shoes, worth $100"
-                                placeholder="(e.g. 1 pair of size 7 brown shoes, worth $100)"
-                                class="brand-form-input slds-p-bottom_x-large" max-length="255">
+                            <div class="slds-form-element__label">
+                                <label for="input-38">
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                    Description of parcel contents (For example, 1 pair of size 7 brown shoes)
+                                </label>
+                                <lightning-helptext class="slds-p-left_medium" content="e.g. 1 pair of size 7 brown shoes, worth $100">
+                                </lightning-helptext>
+                            </div>
+                            <lightning-textarea
+                                    class="brand-form-input slds-p-bottom_x-large slds-form-element  "
+                                    data-id="descriptionOfContents" lightning-textarea_textarea-host=""
+                                    message-when-value-missing="Please describe the parcel contents"
+                                    required
+                                    variant="label-hidden"
+                                    onfocusout={handleFocusOut}
+                                    value={descriptionOfContents}
+                                    onchange={onChangeField}
+                                    placeholder="(e.g. 1 pair of size 7 brown shoes, worth $100)">
+                                <div class="slds-form-element__control slds-grow textarea-container">
+                                    <textarea lightning-textarea_textarea="" data-id="descriptionOfContents"
+                                              class="slds-textarea" id="input-38" data-value-missing ="Please describe the parcel contents"
+                                              maxlength="255"  value={descriptionOfContents} onfocusout={handleFocusOut}   ></textarea>
+                                </div>
                             </lightning-textarea>
+
+
+
+                            <!-- Item value -->
+                            <lightning-input label="Item value" value={itemValue}
+                                             data-id="itemValue"
+                                             onchange={onChangeField}
+                                             name="itemValue"
+                                             type="number"
+                                             formatter="currency"
+                                             placeholder="Please enter Item value"
+                                             onfocusout={handleFocusOut}
+                                             required
+                                             message-when-value-missing="Please enter Item value"
+                                             message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
+                                             min=".01"
+                                             max="1000000"
+                                             step=".01"
+                                             class="brand-form-input slds-p-bottom_x-large" max-length="20">
+                            </lightning-input>
 
                             <!--  Files upload -->
                             <c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
 
                             <!-- Addresses -->
                             <c-bsp-address-input data-id="senderAddress" data-validate='doAddressValidate'
-                                title-text="Sender Details" address-title="Sender Address"></c-bsp-address-input>
+                                title-text="Sender details" address-title="Sender address"></c-bsp-address-input>
                             <c-bsp-address-input data-id="receiverAddress" data-validate='doAddressValidate'
-                                title-text="Receiver Details" address-title="Receiver Address"></c-bsp-address-input>
+                                title-text="Receiver details" address-title="Receiver address"></c-bsp-address-input>
 
                             <!-- Buttons -->
                             <div class="slds-p-top_x-large">
