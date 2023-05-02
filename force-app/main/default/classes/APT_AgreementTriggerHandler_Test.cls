@@ -106,6 +106,13 @@ private class APT_AgreementTriggerHandler_Test{
 		Product2 product9 =APT_TestUtils.createInternationalProduct('International Bundle','26940998','Postal Services');
 		product9.APT_Product_Type__c = 'Workforce Verification';//add product type to product
 		productList.add(product9);
+		
+		//Create Post Billpay Product
+		Product2 product10 = APT_TestUtils.createPBPProduct('Post Billpay','PBP','Postal Services');
+		product10.APT_Product_Type__c = 'Post Billpay';
+		product10.APT_Product_Lines__c = 'Post Billpay';
+		product10.APT_Contracting_Entity__c = 'Australian Postal Corporation';
+		productList.add(product10);
 
 		insert productList;
 
@@ -219,6 +226,13 @@ private class APT_AgreementTriggerHandler_Test{
 		false,false,22.00,24.00,'',34.00,23.00,33.50,'');
 
 		lineItemList.add(lineItem5);
+		
+		//CREATE Post Billpay Line Item
+		Apttus_Config2__LineItem__c lineItem6 = APT_TestUtils.getConfigLineItem(config.id,summaryGroup.id , 1, true, 2, '', product10.id, false,prodOptionComponent.id,
+		product10.id,classHierarchy.id,'',2.3,false,'',2,priceList.id,priceListItem.Id,'','','','',
+		false,false,22.00,24.00,'',34.00,23.00,33.50,'');
+
+		lineItemList.add(lineItem6);
 
 		insert lineItemList;
 
@@ -1128,5 +1142,67 @@ private class APT_AgreementTriggerHandler_Test{
 		//APT_AgreementTriggerHandler.addPostBillPayLineItemsToChild(agreementList);
 		Test.stopTest();
 	}
+	
+	public static testMethod void createOperationalSchedulePostBillPay() {
+        Contact con = [Select Id from Contact Limit 1];
+        Account legacyacct = [Select Id from Account where Name = 'legacyacct' Limit 1];
+        Account tempacct = [Select Id from Account where Name = 'tempacct' Limit 1];
 
+        Product2 product = [Select Id from Product2 where Name = 'Post Billpay' Limit 1];
+        Opportunity opp1 = [Select Id, AccountId from Opportunity where AccountId = :legacyacct.Id Limit 1];
+        Billing_Account__c billacc = [Select Id, Organisation__c from Billing_Account__c where Organisation__c =:legacyacct.Id Limit 1];
+        Apttus_Config2__LineItem__c lineItem = [Select Id from Apttus_Config2__LineItem__c where Apttus_Config2__ProductId__c =:product.Id Limit 1];
+        User u1 = [SELECT Id,ManagerId,Seller_Manager__c,Sales_General_Manager__c from User where Profile.Name ='System Administrator' and ID != :UserInfo.getUserId()  limit 1];
+        Apttus_Proposal__Proposal__c proposal = [Select Id from Apttus_Proposal__Proposal__c where Apttus_Proposal__Account__c =:legacyacct.Id Limit 1];
+        //APT_Lodgement_Zone__c LZ = [Select Id from APT_Lodgement_Zone__c Limit 1];
+
+        List<Apttus__APTS_Agreement__c> agreementList = new List<Apttus__APTS_Agreement__c>();
+        //CREATE Contract for Post Billpay
+        Apttus__APTS_Agreement__c aptContractParent = APT_TestUtils.createAgreement(con.Id);
+        aptContractParent.APT_Product__c= 'Post Billpay';
+        aptContractParent.Apttus__Related_Opportunity__c = opp1.Id;
+        aptContractParent.Apttus__Account__c= legacyacct.Id;
+        aptContractParent.RecordTypeID = Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT).getRecordTypeId();
+        aptContractParent.Apttus_QPComply__RelatedProposalId__c = proposal.Id;
+        aptContractParent.APT_New_Rate_Card_Download__c = true;
+        aptContractParent.OwnerId = u1.ID;
+        aptContractParent.Apttus__Status_Category__c = 'Request';
+        aptContractParent.Apttus__Status__c = 'Request';
+        aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_CODE_POST_BILLPAY;
+        aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
+        aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
+        aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+        aptContractParent.APT_System_User__c = con.Id;// should be contact Id
+        aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
+        aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
+        aptContractParent.APT_Trading_As__c = 'test';// text area
+        aptContractParent.Billing_Account__c = billacc.Id; // billing accont Id
+        aptContractParent.Billing_Account__c = billacc.Id; 
+        aptContractParent.Apttus__Version_Number__c = 1;
+        agreementList.add(aptContractParent);
+
+        Test.startTest();
+        insert agreementList;
+
+        Apttus__AgreementLineItem__c ali = new Apttus__AgreementLineItem__c();
+        // ali2.Apttus_CMConfig__DerivedFromId__c = lineItem.ID;
+        ali.Apttus__ProductId__c = product.Id;
+        ali.Apttus_CMConfig__LineNumber__c = 1;
+        ali.Apttus_CMConfig__ItemSequence__c = 1;
+        ali.Apttus_CMConfig__LineType__c = APT_Constants.LINE_TYPE_PRODUCT_SERVICE;
+        ali.Apttus_CMConfig__IsPrimaryLine__c = true;
+        ali.Apttus__AgreementId__c = aptContractParent.ID;
+        insert ali;
+
+
+        //Create Related Agreement
+        //Apttus__APTS_Related_Agreement__c relatedAgreement = new Apttus__APTS_Related_Agreement__c();
+        //relatedAgreement.Apttus__APTS_Contract_To__c = aptContractParent.Id;
+        //insert relatedAgreement;
+        //String resultString = APT_AgreementTriggerHandler.createOperationalSchedule(agreementList);
+        //
+        String resultString = APT_AgreementTriggerHandler.createOperationalSchedule(agreementList);
+        System.AssertEquals(resultString , APT_Constants.SUCCESS_LABEL);
+        Test.stopTest();
+    }
 }
