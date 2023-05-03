@@ -7,6 +7,7 @@
  * 2021-08-02 - Mathew Jose - Created
  * 2022-05-16 - Prerna Rahangdale - Modified to show the Campaign Contact Assginment records to the CCA owner user field
  *              value from the CCA record.
+ * 2023-05-04 - Talib Raza - INC2125102: introduced for loop to fix the "Aggregate query has too many rows for direct assignment" error.
 */
 public with sharing class CampaignAssignmentController {
 	
@@ -29,9 +30,16 @@ public with sharing class CampaignAssignmentController {
 						CampaignMembersSelector.Options.WITH_CONTACT
 				}
 		)[0];
-
-		List<CampaignContactAssignment__c> campaignConAssignments = campaignWithContactAssignmentsAndMembers?.Campaign_Contact_Assignments__r;
-		List<CampaignMember> campaignMembers = campaignWithContactAssignmentsAndMembers?.CampaignMembers;
+		// INC2125102: Introduced for loop to fix the "Aggregate query has too many rows for direct assignment" error.
+		List<CampaignContactAssignment__c> campaignConAssignments = new List<CampaignContactAssignment__c>();
+		for (Campaign_Contact_Assignment__c assignment : campaignWithContactAssignmentsAndMembers.Campaign_Contact_Assignments__r) {
+			campaignConAssignments.add(assignment);
+		}
+		
+		List<CampaignMember> campaignMembers = new List<CampaignMember>();
+		for (CampaignMember member : campaignWithContactAssignmentsAndMembers.CampaignMembers) {
+			campaignMembers.add(member);
+		}
 
 		Map<Id, CampaignMember> contactCampaignMemberMap = new Map<Id, CampaignMember>();
 		if(campaignMembers != null){
