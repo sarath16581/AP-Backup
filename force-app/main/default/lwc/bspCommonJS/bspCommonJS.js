@@ -5,6 +5,7 @@
  * --------------------------------------- History --------------------------------------------------
     24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
     11/01/2021      swati.mogadala@auspost.com.au   REQ2370764 Adding PNG as an accepted format for file uploads in bsp
+    03/05/2022      hasantha.lyanage@auspost.com.au   DDS-15804 LOMI for ui changes added new fields
 */
 
 
@@ -44,7 +45,7 @@ const checkAllValidity = (inputComponents, isGenInputCmp = true) => {
     const inputsArray = inputComponents ? [...inputComponents] : [];
     return inputsArray.reduce((validSoFar, inputCmp) => {
         if (isGenInputCmp)
-            checkCustomValidity(inputCmp);
+            checkCustomValidity(inputCmp, inputCmp.messageWhenValueMissing);
         else
             inputCmp.reportValidity();
         return validSoFar && inputCmp.checkValidity();
@@ -63,7 +64,7 @@ const checkCustomValidity = (inputCmp, valMissingErrorMsg = valueMissingErrorMsg
         }
     }
     inputCmp.reportValidity();
-
+    inputCmp.showHelpMessageIfInvalid();
 }
 
 const reloadPage = (isLoadWithCache) => {
