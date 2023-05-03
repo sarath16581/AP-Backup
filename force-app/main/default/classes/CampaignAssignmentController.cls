@@ -32,7 +32,7 @@ public with sharing class CampaignAssignmentController {
 		)[0];
 		// INC2125102: Introduced for loop to fix the "Aggregate query has too many rows for direct assignment" error.
 		List<CampaignContactAssignment__c> campaignConAssignments = new List<CampaignContactAssignment__c>();
-		for (Campaign_Contact_Assignment__c assignment : campaignWithContactAssignmentsAndMembers.Campaign_Contact_Assignments__r) {
+		for (CampaignContactAssignment__c assignment : campaignWithContactAssignmentsAndMembers.Campaign_Contact_Assignments__r) {
 			campaignConAssignments.add(assignment);
 		}
 		
