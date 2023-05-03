@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RNP_Reporting_Access__c</fullName>
+    <externalId>false</externalId>
+    <formula>OR(RNP_Network_Manager__c = $User.Id, RNP_Network_Manager__r.RNP_Reporting_Manager__c = $User.Id, RNP_Network_Manager__r.RNP_Reporting_Manager__r.RNP_Reporting_Manager__c = $User.Id, RNP_Network_Manager__r.RNP_Reporting_Manager__r.RNP_Reporting_Manager__r.RNP_Reporting_Manager__c = $User.Id, RNP_Network_Manager__r.RNP_Reporting_Manager__r.RNP_Reporting_Manager__r.RNP_Reporting_Manager__r.RNP_Reporting_Manager__c = $User.Id)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>RNP Reporting Access</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+	<description>Used only for reporting purposes. Checks whether the current logged in user is part of the RNP hierarchy</description>
+    <inlineHelpText/>
+    <type>Checkbox</type>
+</CustomField>

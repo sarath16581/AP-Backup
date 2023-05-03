@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>RNP_Network_Manager__c</fullName>
+    <type>Lookup</type>
+    <description>Network Manager - used only for reporting purposes</description>
+    <inlineHelpText/>
+    <securityClassification>Internal</securityClassification>
+    <label>RNP Network Manager</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Networks</relationshipLabel>
+    <relationshipName>Networks</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+</CustomField>
