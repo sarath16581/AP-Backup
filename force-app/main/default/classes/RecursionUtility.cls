@@ -15,9 +15,17 @@ public inherited sharing class RecursionUtility {
 
 	/**
 	 * Stores the context and a Map of Record Id and joined string values for hashing (if necessary)
+	 * 
+	 * Map<String> -- the context name
+	 * Map<String, Map<Id>> -- the sobject record id
+	 * Map<String, Map<Id, Map<SObjectField>>> -- the name of the field
+	 * Map<String, Map<Id, Map<SObjectField, Object>>> -- the value of the field
+	 * NOTE we store this in a basic MAP for 2 reasons:
+	 * 1. We only want to store the comparison fields
+	 * 2. Since we only want to store the comparison fields, we would need to create a sobject instance. If a comparison field is 'not writeable' then an error will occur while trying to add the value to the new sobject (I didn't want to use JSON hacks)
 	 */
 	@TestVisible
-	private Map<String, Map<Id, String>> stateStore = new Map<String, Map<Id, String>>();
+	private Map<String, Map<Id, Map<SObjectField, Object>>> stateStore = new Map<String, Map<Id, Map<SObjectField, Object>>>();
 
 	public static RecursionUtility getInstance() {
 		return (RecursionUtility)Application.Utilities.getInstance(RecursionUtility.class);
@@ -43,48 +51,71 @@ public inherited sharing class RecursionUtility {
 	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction.... This parameter will be ignore in subsequent iterations of this method for the same context
 	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
 	 */
-	public Map<Id, SObject> getProcessableRecords(String context, Map<Id, SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
+	public Map<Id, Record> getProcessableRecords(String context, Map<Id, SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
 		Long t1 = System.currentTimeMillis();
 		
 		// check whether the records already processed should be reprocessed
-		Map<Id, SObject> processableRecords = new Map<Id, SObject>();
-		Map<Id, String> currentState = stateStore.get(context);
+		Map<Id, Record> processableRecords = new Map<Id, Record>();
+
+		// see definition of stateStore for breakdown/reasons of variable structure
+		Map<Id, Map<SObjectField, Object>> currentState = stateStore.get(context);
 		if(currentState == null) {
-			currentState = new Map<Id, String>();
+			currentState = new Map<Id, Map<SObjectField, Object>>();
 		}
 	
 		// iterate through the records passed in... if the record has not previously been processed previously, then we use the oldMap vallues to compare against
 		// 	if the record has previously been processed then we use the previous values at the time the last method was called
-		for(SObject record : allRecords.values()) {
-			if(currentState.get(record.Id) == null && allRecordsOld.get(record.Id) == null) {
+		for(SObject sObjectRecord : allRecords.values()) {
+			if(currentState.get(sObjectRecord.Id) == null && allRecordsOld.get(sObjectRecord.Id) == null) {
 				// what the actual....
 				continue;
 			}
 
-			// concatenate the tracked fields together so we can compare it against the values passed in originally
-			String newJoinedValues = concatFieldValues(record, comparisonFields);
-
-			if(currentState.get(record.Id) == null) {
+			if(currentState.get(sObjectRecord.Id) == null) {
 				// this is the first time this specific record has been passed into the method (even though this method has been called previously with the same context)
 				// we do a comparison on the oldMap records in this scenario 
+				SObject oldRecord = allRecordsOld.get(sObjectRecord.Id);
 
-				// concatenate the tracked fields together so we can compare it against the current values of the record
-				String oldJoinedValues = concatFieldValues(allRecordsOld.get(record.Id), comparisonFields);
+				// grab the changed values between current state and previous state
+				Set<SObjectField> changedFields = new Set<SObjectField>();
+				for(SObjectField comparisonField : comparisonFields) {
+					if(sObjectRecord.get(comparisonField) != oldRecord.get(comparisonField)) {
+						changedFields.add(comparisonField);
+					}
+				}
 
-				if(!newJoinedValues.equals(oldJoinedValues)) {
-					processableRecords.put(record.Id, record);
+				// grab the old state as a map so that the original values can be passed back to caller
+				Map<SObjectField, Object> oldStateAsMap = new Map<SObjectField, Object>();
+				for(SObjectField comparisonField : comparisonFields) {
+					oldStateAsMap.put(comparisonField, oldRecord.get(comparisonField));
+				}
+
+				if(!changedFields.isEmpty()) {
+					processableRecords.put(sObjectRecord.Id, new Record(sObjectRecord, oldStateAsMap, changedFields));
 				}
 			} else {
 				// this record already exists in the state from a previous call
 				// we compare the current values of the record against the values that were previously seen to determine whether the calling method should reprocess the record
+				Map<SObjectField, Object> oldRecord = currentState.get(sObjectRecord.Id);
 
-				if(!newJoinedValues.equals(currentState.get(record.Id))) {
-					processableRecords.put(record.Id, record);
+				// grab the changed values between current state and previous state
+				Set<SObjectField> changedFields = new Set<SObjectField>();
+				for(SObjectField comparisonField : comparisonFields) {
+					if(sObjectRecord.get(comparisonField) != oldRecord.get(comparisonField)) {
+						changedFields.add(comparisonField);
+					}
 				}
 
+				if(!changedFields.isEmpty()) {
+					processableRecords.put(sObjectRecord.Id, new Record(sObjectRecord, oldRecord, changedFields));
+				}
 			}
 
-			currentState.put(record.Id, newJoinedValues);
+			Map<SObjectField, Object> newState = new Map<SObjectField, Object>();
+			for(SObjectField comparisonField : comparisonFields) {
+				newState.put(comparisonField, sObjectRecord.get(comparisonField));
+			}
+			currentState.put(sObjectRecord.Id, newState);
 		}
 
 		// remove all the processed entries
@@ -95,14 +126,6 @@ public inherited sharing class RecursionUtility {
 		System.debug('RecursionUtility: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
 
 		return processableRecords;
-	}
-
-	private String concatFieldValues(SObject record, Set<SObjectField> comparisonFields) {
-		String output = '';
-		for (SObjectField comparisonField : comparisonFields) {
-			output += String.valueOf(record.get(comparisonField));
-		}
-		return output;
 	}
 
 	/**
@@ -169,4 +192,15 @@ public inherited sharing class RecursionUtility {
 
 	}
 
+	public class Record {
+		public Set<SObjectField> changedFields = new Set<SObjectField>();
+		Map<SObjectField, Object> previousState = new Map<SObjectField, Object>();
+		public SObject record;
+
+		public Record(SObject record, Map<SObjectField, Object> previousState, Set<SObjectField> changedFields) {
+			this.record = record;
+			this.previousState = previousState;
+			this.changedFields = changedFields;
+		}
+	}
 }
