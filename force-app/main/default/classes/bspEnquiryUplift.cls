@@ -371,8 +371,15 @@ public without sharing class bspEnquiryUplift {
 	 * Case Details.
 	 */
 	@AuraEnabled
-	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles)
+	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles) {
+		return createEnquiryAusPost(enq, uploadedFiles, 'no', 'no');
+	}
+
+	@AuraEnabled
+	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, String containsEssentialMedicine, String isSentimental)
 	{
+		containsEssentialMedicine = containsEssentialMedicine == null ? 'no' : containsEssentialMedicine;
+		isSentimental = isSentimental == null ? 'no' : isSentimental;
 		// return object
 		CreateEnquiryWrapper enquiryWrapper = new CreateEnquiryWrapper();
 
@@ -485,17 +492,16 @@ public without sharing class bspEnquiryUplift {
 		}
 
 		enq.DatePosted__c = enq.BSPLodgementDate__c;
-		enq.Priority = BspConstants.CASE_PRIORITY_LOW;    //REQ0661196 changed to low
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 
 		// TODO: unit tests
-		if(enq.EstimatedDelivery__c != null) {
+		if(enq.EstimatedDelivery__c != null && containsEssentialMedicine.equalsIgnoreCase('no') && isSentimental.equalsIgnoreCase('no')) {
 			//2023-04-24 EDD
 			//2023-05-08 EDD + business 10 days
 			setDirectRoutingValues(enq);
 		}
-		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper);
+		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, containsEssentialMedicine);
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
@@ -520,7 +526,7 @@ public without sharing class bspEnquiryUplift {
 	 *
 	 * @return the Case passed in, or null if there was an error
 	 */
-	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper) {
+	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper, String containsEssentialMedicine) {
 		SavePoint sp = Database.setSavepoint();
 		Boolean isDmlError = false;
 
@@ -528,7 +534,11 @@ public without sharing class bspEnquiryUplift {
 			insert enq;
 
 			if(!String.isEmpty(enq.Description)) {
-				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=enq.Description,  IsPublished=true);
+				String commentBody = enq.Description;
+				if (containsEssentialMedicine.trim() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + containsEssentialMedicine;
+				}
+				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=commentBody,  IsPublished=true);
 				insert myComment;
 			}
 
