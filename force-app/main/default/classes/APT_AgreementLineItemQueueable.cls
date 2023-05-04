@@ -135,7 +135,11 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                                         Apttus__ProductId__r.Name,Apttus__ProductId__r.ProductCode, Apttus__AgreementId__r.Included_Product_Lines__c, 
                                         Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c,
                                         Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Transit_cover__c,
-                                        Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c                                        
+                                        Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c,
+										Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
+										Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c,
+										Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c,
+										Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c                                   
                                         from Apttus__AgreementLineItem__c 
                                         where Apttus__AgreementId__c =: agreementID 
                                         and Apttus_CMConfig__OptionId__c = null
@@ -182,7 +186,15 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                             Decimal umsMinQuantity = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c;
                                         
                             dos.APT_UMS_Minimum_Quantity__c = umsMinQuantity;
-                        } else {
+                        }
+						//Changes to update operational schedule record for post billpay product on cart update during renewal/dov
+						else if (APT_Constants.PRODUCT_CODE_POSTBILLPAY.equalsIgnoreCase(ali.Apttus__ProductId__r.ProductCode)){
+							dos.APT_PostBillPay_Channel__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c;
+							dos.APT_Payment_Method__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
+							dos.APT_Minimum_Fees__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Fees__c;
+							dos.APT_Annual_Volume_Review__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Annual_Volume_Review__c;
+						}
+						else {
                             
                         }
                         
