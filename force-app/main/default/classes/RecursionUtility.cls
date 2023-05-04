@@ -1,5 +1,5 @@
 /**
- * @description 
+ * @description Determines which records should be processed during a trigger iteration
  * @author Nathan Franklin
  * @date 2019-02-20
  * @changelog
@@ -95,7 +95,7 @@ public inherited sharing class RecursionUtility {
 		// 	if the record has previously been processed then we use the previous values at the time the last method was called
 		for(SObject sObjectRecord : allRecords.values()) {
 			if(currentState.get(sObjectRecord.Id) == null && allRecordsOld.get(sObjectRecord.Id) == null) {
-				// what the actual....
+				// what the....
 				continue;
 			}
 
@@ -223,7 +223,7 @@ public inherited sharing class RecursionUtility {
 
 	public class RecordState {
 		public Set<String> changedFields = new Set<String>();
-		Map<String, Object> previousState = new Map<String, Object>();
+		public Map<String, Object> previousState = new Map<String, Object>();
 		public SObject record;
 
 		public RecordState(SObject record, Map<String, Object> previousState, Set<String> changedFields) {
