@@ -44,7 +44,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>RNP_Reporting_Manager__c</field>
+                <field>RNPReportingManager__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

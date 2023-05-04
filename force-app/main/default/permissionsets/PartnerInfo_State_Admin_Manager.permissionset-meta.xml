@@ -628,12 +628,12 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>false</editable>
-        <field>Network__c.RNP_Network_Manager__c</field>
+        <field>Network__c.RNPNetworkManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
         <editable>false</editable>
-        <field>Network__c.RNP_Reporting_Access__c</field>
+        <field>Network__c.RNPReportingAccess__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1033,7 +1033,7 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>false</editable>
-        <field>User.RNP_Reporting_Manager__c</field>
+        <field>User.RNPReportingManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

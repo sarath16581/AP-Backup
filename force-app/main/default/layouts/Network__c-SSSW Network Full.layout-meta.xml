@@ -212,7 +212,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>RNP_Network_Manager__c</field>
+                <field>RNPNetworkManager__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
