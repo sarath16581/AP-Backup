@@ -534,8 +534,8 @@ public without sharing class bspEnquiryUplift {
 			insert enq;
 
 			if(!String.isEmpty(enq.Description)) {
-				String commentBody = enq.Description;
-				if (containsEssentialMedicine.trim() != '') {
+				String commentBody = '---Enquiry Details---' + SSSWConstants.NEW_LINE + enq.Description;
+				if (containsEssentialMedicine != null && containsEssentialMedicine.deleteWhitespace() != '') {
 					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + containsEssentialMedicine;
 				}
 				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=commentBody,  IsPublished=true);
