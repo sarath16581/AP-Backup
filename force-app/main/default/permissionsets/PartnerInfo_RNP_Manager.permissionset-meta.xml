@@ -451,6 +451,16 @@
         <field>Network__c.Parent_Network__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.RNP_Network_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.RNP_Reporting_Access__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Partner_Acheivement_Award__c.Award_Date__c</field>
@@ -494,6 +504,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Partner_Info_Change__c.Subjected_To_GST__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>User.RNP_Reporting_Manager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
