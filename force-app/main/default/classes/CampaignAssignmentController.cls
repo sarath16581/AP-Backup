@@ -10,10 +10,10 @@
  * 2023-05-04 - Talib Raza - INC2125102: introduced for loop to fix the "Aggregate query has too many rows for direct assignment" error.
 */
 public with sharing class CampaignAssignmentController {
-	
+
 	/**
 	 * To retrieve all accounts owned by the current user (Accout Manager)
-	 * 
+	 *
 	 * @param campaign record Id.
 	 * @return List of AccountCampaignContactWrappers relevant to the campaign
 	 */
@@ -35,7 +35,7 @@ public with sharing class CampaignAssignmentController {
 		for (CampaignContactAssignment__c assignment : campaignWithContactAssignmentsAndMembers.Campaign_Contact_Assignments__r) {
 			campaignConAssignments.add(assignment);
 		}
-		
+
 		List<CampaignMember> campaignMembers = new List<CampaignMember>();
 		for (CampaignMember member : campaignWithContactAssignmentsAndMembers.CampaignMembers) {
 			campaignMembers.add(member);
@@ -45,7 +45,7 @@ public with sharing class CampaignAssignmentController {
 		if(campaignMembers != null){
 			for(CampaignMember cm : campaignMembers){
 				contactCampaignMemberMap.put(cm.ContactId,cm);
-			}	
+			}
 		}
 
 		//Set the CampaignContactAssignment wrapper to be displayed on the datatable.
@@ -78,12 +78,12 @@ public with sharing class CampaignAssignmentController {
 
 	/**
 	 * To update the campaign contact assignments provided the contacts are populated / removed.
-	 * 
+	 *
 	 * @param assignments List of AccountCampaignContactWrapper updated with contact lookup values.
 	 * @return String value which specifies successful execution of updates to the assignments.
-	 */  
+	 */
 	@AuraEnabled
-	public static void updateCampaignContactAssignments(List<AccountCampaignContactWrapper> assignments){ 
+	public static void updateCampaignContactAssignments(List<AccountCampaignContactWrapper> assignments){
 		List<CampaignContactAssignment__c> campaignContactAssignmentsToUpdate = new List<CampaignContactAssignment__c>();
 		try {
 			//Loop through the list of wrapper to identify the records to be updated.
@@ -106,11 +106,11 @@ public with sharing class CampaignAssignmentController {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new AuraHandledException(e.getMessage());
 		}
-		
+
 	}
 	/**
 	 * Wrapper class to facilitate the presentation of contact assignments in the datatable.
-	 */  
+	 */
 	public class AccountCampaignContactWrapper {
 		@AuraEnabled public String assignmentId {get;set;}
 		@AuraEnabled public String assignmentDefaultStatus {get;set;}
