@@ -47,21 +47,26 @@ public inherited sharing class RecursionUtility {
 		Long t1 = System.currentTimeMillis();
 		
 		// check whether the records already processed should be reprocessed
-		Map<Id, SObject> processableRecords = new Map<Id, SObject>(allRecords);
+		Map<Id, SObject> processableRecords = new Map<Id, SObject>();
 		Map<Id, String> currentState = stateStore.get(context);
-
 		if(currentState == null) {
-			// this is the first time this context has been passed in for this transaction
 			currentState = new Map<Id, String>();
+		}
+	
+		// iterate through the records passed in... if the record has not previously been processed previously, then we use the oldMap vallues to compare against
+		// 	if the record has previously been processed then we use the previous values at the time the last method was called
+		for(SObject record : allRecords.values()) {
+			if(currentState.get(record.Id) == null && allRecordsOld.get(record.Id) == null) {
+				// what the actual....
+				continue;
+			}
 
-			for(SObject record : allRecords.values()) {
-				if(allRecordsOld.get(record.Id) == null) {
-					// what the actual....
-					continue;
-				}
+			// concatenate the tracked fields together so we can compare it against the values passed in originally
+			String newJoinedValues = concatFieldValues(record, comparisonFields);
 
-				// concatenate the tracked fields together so we can compare it against the values passed in originally
-				String newJoinedValues = concatFieldValues(record, comparisonFields);
+			if(currentState.get(record.Id) == null) {
+				// this is the first time this specific record has been passed into the method (even though this method has been called previously with the same context)
+				// we do a comparison on the oldMap records in this scenario 
 
 				// concatenate the tracked fields together so we can compare it against the current values of the record
 				String oldJoinedValues = concatFieldValues(allRecordsOld.get(record.Id), comparisonFields);
@@ -69,55 +74,30 @@ public inherited sharing class RecursionUtility {
 				if(!newJoinedValues.equals(oldJoinedValues)) {
 					processableRecords.put(record.Id, record);
 				}
+			} else {
+				// this record already exists in the state from a previous call
+				// we compare the current values of the record against the values that were previously seen to determine whether the calling method should reprocess the record
 
-				currentState.put(record.Id, newJoinedValues);
-			}
-		} else {
-			// this context has been passed in previously for this transaction
-			for(SObject record : allRecords.values()) {
-				if(currentState.get(record.Id) == null && allRecordsOld.get(record.Id) == null) {
-					// what the actual....
-					continue;
+				if(!newJoinedValues.equals(currentState.get(record.Id))) {
+					processableRecords.put(record.Id, record);
 				}
 
-				// concatenate the tracked fields together so we can compare it against the values passed in originally
-				String newJoinedValues = concatFieldValues(record, comparisonFields);
-
-				if(currentState.get(record.Id) == null) {
-					// this is the first time this specific record has been passed into the method (even though this method has been called previously with the same context)
-					// we do a comparison on the oldMap records in this scenario 
-
-					// concatenate the tracked fields together so we can compare it against the current values of the record
-					String oldJoinedValues = concatFieldValues(allRecordsOld.get(record.Id), comparisonFields);
-
-					if(!newJoinedValues.equals(oldJoinedValues)) {
-						processableRecords.put(record.Id, record);
-					}
-				} else {
-					// this record already exists in the state from a previous call
-					// we compare the current values of the record against the values that were previously seen to determine whether the calling method should reprocess the record
-
-					if(!newJoinedValues.equals(currentState.get(record.Id))) {
-						processableRecords.put(record.Id, record);
-					}
-
-				}
-
-				currentState.put(record.Id, newJoinedValues);
 			}
+
+			currentState.put(record.Id, newJoinedValues);
 		}
 
 		// remove all the processed entries
-		System.debug('>> Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
+		System.debug('RecursionUtility: Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
 
-		Long t2 = System.currentTimeMillis();
+		stateStore.put(context, currentState);
 
-		System.debug('| RecursionUtility: Time to retrieve unprocessed record: ' + (t2 - t1));
+		System.debug('RecursionUtility: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
 
 		return processableRecords;
 	}
 
-	private String concatFieldValues(SObject record, Set<SObject> comparisonFields) {
+	private String concatFieldValues(SObject record, Set<SObjectField> comparisonFields) {
 		String output = '';
 		for (SObjectField comparisonField : comparisonFields) {
 			output += String.valueOf(record.get(comparisonField));
