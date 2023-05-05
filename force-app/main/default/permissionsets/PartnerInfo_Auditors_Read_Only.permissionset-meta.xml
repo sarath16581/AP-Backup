@@ -2506,6 +2506,11 @@
         <field>Membership__c.hidden_LPO_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
+        <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.Western_Union_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Network__c.AMLCTF_Area__c</field>

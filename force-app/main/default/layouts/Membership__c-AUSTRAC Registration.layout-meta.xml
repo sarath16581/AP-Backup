@@ -85,6 +85,10 @@
                 <behavior>Readonly</behavior>
                 <field>Days_Off_Line__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Western_Union_Category__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

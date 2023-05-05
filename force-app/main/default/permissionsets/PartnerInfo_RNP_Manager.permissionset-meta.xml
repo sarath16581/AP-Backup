@@ -417,6 +417,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Membership__c.Western_Union_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Network__c.LBP_Retail_relationship_network__c</field>
         <readable>true</readable>
