@@ -29,7 +29,7 @@ private class ApplicationRecursion_Test {
 			c2Old.Id => c2Old
 		};
 
-		Map<Id, ApplicationRecursion.RecordState> output1 = ApplicationRecursion.getInstance().getProcessableRecords('n', newMap, oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		Map<Id, ApplicationRecursion.RecordState> output1 = ApplicationRecursion.getInstance().getProcessableRecords('n', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(1, output1.size());
 		System.assertEquals(new Set<Id>{'500000000000001'}, output1.keySet());
 		System.assert(output1.get('500000000000001').changedFields.contains('Description'));
@@ -38,13 +38,13 @@ private class ApplicationRecursion_Test {
 		System.assertEquals(c1.get('Description'), output1.get('500000000000001').record.get('Description'));
 		System.assertEquals(c1.get('Subject'), output1.get('500000000000001').record.get('Subject'));
 
-		Map<Id, ApplicationRecursion.RecordState> output2 = ApplicationRecursion.getInstance().getProcessableRecords('n', newMap, oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		Map<Id, ApplicationRecursion.RecordState> output2 = ApplicationRecursion.getInstance().getProcessableRecords('n', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(0, output2.size());
 
 		c1.put('Subject', 'changed');
 		c1.put('Description', 'changed');
 
-		Map<Id, ApplicationRecursion.RecordState> output3 = ApplicationRecursion.getInstance().getProcessableRecords('n', newMap, oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		Map<Id, ApplicationRecursion.RecordState> output3 = ApplicationRecursion.getInstance().getProcessableRecords('n', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(1, output3.size());
 		System.assertEquals(new Set<Id>{'500000000000001'}, output3.keySet());
 		System.assert(output3.get('500000000000001').changedFields.contains('Description'));

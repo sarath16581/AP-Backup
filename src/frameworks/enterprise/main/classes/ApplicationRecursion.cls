@@ -30,6 +30,7 @@ public inherited sharing class ApplicationRecursion {
 	 * Subsequent calls to this method (per single context) will only compare the previous state (the comparison of when this method was last called) vs the newMap.
 	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
 	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
+	 * NOTE: onBeforeInsert is NOT supported!
 	 *  
 	 * Example... 
 	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
@@ -44,7 +45,7 @@ public inherited sharing class ApplicationRecursion {
 	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction.... This parameter will be ignore in subsequent iterations of this method for the same context
 	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
 	 */
-	public Map<Id, RecordState> getProcessableRecords(String context, Map<Id, SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
+	public Map<Id, RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
 		Set<String> comparisonFieldsAsString = new Set<String>();
 		for(SObjectField comparisonField : comparisonFields) {
 			comparisonFieldsAsString.add(String.valueOf(comparisonField));
@@ -58,6 +59,7 @@ public inherited sharing class ApplicationRecursion {
 	 * Subsequent calls to this method (per single context) will only compare the previous state (the comparison of when this method was last called) vs the newMap.
 	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
 	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
+	 * NOTE: onBeforeInsert is NOT supported!
 	 *  
 	 * Example... 
 	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
@@ -69,10 +71,10 @@ public inherited sharing class ApplicationRecursion {
 	 *
 	 * @param context Any name that is unique to where you are calling this from. The context is needed to store a snapshot of any values at the same point in the code where it was previously invoked
 	 * @param allRecords the Trigger.newMap objects
-	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction.... This parameter will be ignore in subsequent iterations of this method for the same context
+	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction....
 	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
 	 */
-	private Map<Id, RecordState> getProcessableRecords(String context, Map<Id, SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<String> comparisonFields) {
+	private Map<Id, RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<String> comparisonFields) {
 		Long t1 = System.currentTimeMillis();
 		
 		// check whether the records already processed should be reprocessed
@@ -86,7 +88,7 @@ public inherited sharing class ApplicationRecursion {
 	
 		// iterate through the records passed in... if the record has not previously been processed previously, then we use the oldMap vallues to compare against
 		// 	if the record has previously been processed then we use the previous values at the time the last method was called
-		for(SObject sObjectRecord : allRecords.values()) {
+		for(SObject sObjectRecord : allRecords) {
 			if(currentState.get(sObjectRecord.Id) == null && allRecordsOld.get(sObjectRecord.Id) == null) {
 				// what the....
 				continue;
