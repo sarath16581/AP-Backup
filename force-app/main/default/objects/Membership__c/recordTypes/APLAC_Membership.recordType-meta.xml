@@ -98,4 +98,19 @@
             <default>false</default>
         </values>
     </picklistValues>
+    <picklistValues>
+        <picklist>Western_Union_Category__c</picklist>
+        <values>
+            <fullName>Category A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Category B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Category C</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

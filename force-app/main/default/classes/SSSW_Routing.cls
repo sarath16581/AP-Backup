@@ -365,6 +365,11 @@ public class SSSW_Routing {
 	 *
 	 */
 	public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
+		system.debug('>>>> SSSW_Routing.assignCasesAndDescription() method called...');
+		system.debug('>>>> isInsert: ' + isInsert);
+		system.debug('>>>> skipDescriptionRules: ' + skipDescriptionRules);
+		system.debug('>>>> isFinalPass: ' + isFinalPass);
+
 		String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
 
 		//Replacing it with GetRulesForAllProfiles
@@ -405,6 +410,14 @@ public class SSSW_Routing {
 			// 2. If a reroute is triggered by setting allocatetoqueue__c = true)
 			//
 			// There are some fringe scenarios where routing should be excluded and due to the mess in workflows a new attribute was introduced to achieve this  (ByPassRoutingRulesOnCreation__c)
+
+			system.debug('>>>> Looping through cases......................................');
+			system.debug('cs.AllocateToQueue__c = ' + cs.AllocateToQueue__c);
+			system.debug('reassignNoCheckOwnerQueue = ' + reassignNoCheckOwnerQueue);
+			system.debug('isInsert = ' + isInsert);
+			system.debug('cs.ByPassRoutingRulesOnCreation__c = ' + cs.ByPassRoutingRulesOnCreation__c);
+			system.debug('cs.OwnerId = ' + cs.OwnerId);
+
 			if((reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) && !(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
 
 				for (SSSWRouting__c rule : routeRule) {			
@@ -440,6 +453,7 @@ public class SSSW_Routing {
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
 							} else {
+								system.debug('>>> .........................no rules: using default queue id = ' + OmniChannelService.getInstance().omniDefaultQueueId);
 								setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniDefaultQueueId);
 							}
 
@@ -448,6 +462,7 @@ public class SSSW_Routing {
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
+							system.debug('>>> .........................for H&S using default queue id = ' + OmniChannelService.getInstance().omniHoldingQueueId);
 							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
 
 							break;
@@ -480,6 +495,7 @@ public class SSSW_Routing {
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
 								break;
 							} else {
+								system.debug('>>> .........................no rules: using default queue id = ' + OmniChannelService.getInstance().omniDefaultQueueId);
 								setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniDefaultQueueId);
 							}
 
@@ -488,6 +504,7 @@ public class SSSW_Routing {
 						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
+							system.debug('>>> .........................for H&S using default queue id = ' + OmniChannelService.getInstance().omniHoldingQueueId);
 							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
 
 
@@ -532,8 +549,10 @@ public class SSSW_Routing {
 		//if(cs.AllocateToQueue__c != null && cs.AllocateToQueue__c){
 			String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(cs.CaseLocality__c) ?
 								LOC_INTERNATIONAL : cs.Customer_Type__c;
+
 			cs.OwnerId = (routingOwner != null) ? routingOwner : (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey))) ?
 																		groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id : cs.OwnerId;
+												
 			cs.AllocateToQueue__c = false;	 // disable case queue allocation
 
 			return true;
