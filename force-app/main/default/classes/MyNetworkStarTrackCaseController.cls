@@ -66,6 +66,8 @@ public with sharing class MyNetworkStarTrackCaseController {
 						Map<Id, Network__c> eventMessageToNetworkMap = getEventMessageToNetworkMap(articleList);
 
 						for (Article__c a : articleList) {
+							ArticleDetails ad = new ArticleDetails();
+							ad.article = a;
 							List<EventMessage> emList = new List<EventMessage>();
 							//add the articles if related event messages passed through AP network
 							for (EventMessage__c em : a.Event_Messages__r) {
@@ -81,11 +83,9 @@ public with sharing class MyNetworkStarTrackCaseController {
 							}
 							//if there are event messages add to article details
 							if (emList.size() > 0) {
-								ArticleDetails ad = new ArticleDetails();
-								ad.article = a;
 								ad.eventMessages = emList;
-								articleDetails.add(ad);
 							}
+							articleDetails.add(ad);
 						}
 					}
 				}

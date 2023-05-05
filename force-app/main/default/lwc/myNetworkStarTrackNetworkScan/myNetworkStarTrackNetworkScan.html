@@ -13,70 +13,76 @@
             </header>
             <!-- Modal body -->
             <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
-                <lightning-button variant="brand" label="Select" title="Select" onclick={handleSelectBtnClick}
-                    class="slds-align_absolute-center"></lightning-button>
-                <lightning-accordion allow-multiple-sections-open class="events-accordion">
-                    <template iterator:it={eventMessagesList}>
-                        <lightning-layout key={it.value.eventMessage.Id} multiple-rows>
-                            <lightning-layout-item size="1" class="checkbox-el">
-                                <lightning-input type="checkbox" variant="label-hidden"
-                                    data-event-message-id={it.value.eventMessage.Id} onchange={handleCheckboxChange}
-                                    name={it.value.eventMessage.Id} disabled={it.value.isDisabled}>
-                                </lightning-input>
-                            </lightning-layout-item>
-                            <lightning-layout-item size="11">
-                                <lightning-accordion-section name={it.value.eventMessage.Id} label={it.value.title}>
-                                    <lightning-layout multiple-rows>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
-                                            <span>Network Name:</span>
-                                            <span class="slds-var-p-left_x-small">
-                                                <a data-url={it.value.network.Id}
-                                                    onclick={handleUrlClick}>{it.value.network.Name}</a>
-                                            </span>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
-                                            <span>Contact Method:</span>
-                                            <span class="slds-var-p-left_x-small">
-                                                {it.value.network.Contact_Facility__c}
-                                            </span>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
-                                            <span>Contact Number:</span>
-                                            <span class="slds-var-p-left_x-small">
-                                                {it.value.network.Phone_Number__c}
-                                            </span>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
-                                            <span>Network Address:</span>
-                                            <span class="slds-var-p-left_x-small">
-                                                {it.value.network.Network_Address__c}
-                                            </span>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
-                                            <span>Comment:</span>
-                                            <span class="slds-var-p-left_x-small">
-                                                {it.value.network.Comment__c}
-                                            </span>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
-                                            <span>Critical Incidents:</span>
-                                            <span class="ci-list">
-                                                <template iterator:ci={it.value.criticalIncidents}>
-                                                    <span class="slds-var-p-left_x-small" key={ci.value.Id}>
-                                                        <p>
-                                                            <a data-url={ci.value.knowledgeArticleId}
-                                                                onclick={handleUrlClick}>{ci.value.urlName}</a>
-                                                        </p>
-                                                    </span>
-                                                </template>
-                                            </span>
-                                        </lightning-layout-item>
-                                    </lightning-layout>
-                                </lightning-accordion-section>
-                            </lightning-layout-item>
-                        </lightning-layout>
-                    </template>
-                </lightning-accordion>
+				<lightning-tabset> 
+					<lightning-tab label="Networks with Scan Events">
+						<lightning-accordion allow-multiple-sections-open class="events-accordion">
+							<template iterator:it={eventMessagesList}>
+								<lightning-layout key={it.value.eventMessage.Id} multiple-rows>
+									<lightning-layout-item size="1" class="checkbox-el">
+										<lightning-input type="checkbox" variant="label-hidden"
+											data-event-message-id={it.value.eventMessage.Id} onchange={handleCheckboxChange}
+											name={it.value.eventMessage.Id} disabled={it.value.isDisabled}>
+										</lightning-input>
+									</lightning-layout-item>
+									<lightning-layout-item size="11">
+										<lightning-accordion-section name={it.value.eventMessage.Id} label={it.value.title}>
+											<lightning-layout multiple-rows>
+												<lightning-layout-item size="6" class="slds-var-p-around_xx-small">
+													<span>Network Name:</span>
+													<span class="slds-var-p-left_x-small">
+														<a data-url={it.value.network.Id}
+															onclick={handleUrlClick}>{it.value.network.Name}</a>
+													</span>
+												</lightning-layout-item>
+												<lightning-layout-item size="6" class="slds-var-p-around_xx-small">
+													<span>Contact Method:</span>
+													<span class="slds-var-p-left_x-small">
+														{it.value.network.Contact_Facility__c}
+													</span>
+												</lightning-layout-item>
+												<lightning-layout-item size="6" class="slds-var-p-around_xx-small">
+													<span>Contact Number:</span>
+													<span class="slds-var-p-left_x-small">
+														{it.value.network.Phone_Number__c}
+													</span>
+												</lightning-layout-item>
+												<lightning-layout-item size="6" class="slds-var-p-around_xx-small">
+													<span>Network Address:</span>
+													<span class="slds-var-p-left_x-small">
+														{it.value.network.Network_Address__c}
+													</span>
+												</lightning-layout-item>
+												<lightning-layout-item size="6" class="slds-var-p-around_xx-small">
+													<span>Comment:</span>
+													<span class="slds-var-p-left_x-small">
+														{it.value.network.Comment__c}
+													</span>
+												</lightning-layout-item>
+												<lightning-layout-item size="6" class="slds-var-p-around_xx-small">
+													<span>Critical Incidents:</span>
+													<span class="ci-list">
+														<template iterator:ci={it.value.criticalIncidents}>
+															<span class="slds-var-p-left_x-small" key={ci.value.Id}>
+																<p>
+																	<a data-url={ci.value.knowledgeArticleId}
+																		onclick={handleUrlClick}>{ci.value.urlName}</a>
+																</p>
+															</span>
+														</template>
+													</span>
+												</lightning-layout-item>
+											</lightning-layout>
+										</lightning-accordion-section>
+									</lightning-layout-item>
+								</lightning-layout>
+							</template>
+						</lightning-accordion>
+					</lightning-tab> 
+					<lightning-tab label="Network Search"> 
+					</lightning-tab>
+				</lightning-tabset>
+				<lightning-button variant="brand" label="Select" title="Select" onclick={handleSelectBtnClick}
+                    class=""></lightning-button>
             </div>
         </div>
     </section>

@@ -106,6 +106,9 @@ export const showNotification = (message, variant = 'info', title, mode) => {
     the defaultValue is returned in its place.
 */
 export const get = (object, path, defaultVal) => {
+	if (object === undefined) {
+		return defaultVal;
+	}
     path = Array.isArray(path) ? path : path.split('.');
     object = object[path[0]];
     if (object && path.length > 1) {

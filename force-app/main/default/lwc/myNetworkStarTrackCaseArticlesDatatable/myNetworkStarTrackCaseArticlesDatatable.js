@@ -76,11 +76,11 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
             let rowData = this.tableColumns.map(column => {
                 let row = {
                     ...column,
-                    fieldValue: column.objName === 'Article__c' ? getValue(item.article, column.fieldName, null) : getValue(item.eventMessages[0]?.eventMessage ?? null, column.fieldName, null),
+                    fieldValue: column.objName === 'Article__c' ? getValue(item.article, column.fieldName, null) : getValue(item.eventMessages?.[0].eventMessage, column.fieldName, null),
                     key: item.article.Id,
-                    networkPillItems: this.getNeworkPillItems(item, item.eventMessages[0]?.eventMessage ?? null, item.eventMessages[0]?.network ?? null, column),
+                    networkPillItems: this.getNeworkPillItems(item, item.eventMessages?.[0].eventMessage ?? null, item.eventMessages?.[0].network ?? null, column),
                     fieldUrl: this.getFieldUrl(item, column),
-                    eventMessageId: item.eventMessages[0] !== null || item.eventMessages[0] !== undefined ? item.eventMessages[0].eventMessage.Id : null
+                    eventMessageId: item.eventMessages?.[0]?.eventMessage.Id ?? null
                 };
                 return row;
             });
@@ -88,7 +88,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
             return {
                 ...item,
                 isArticleSelected: this.isArticleSelected(item.article.Id),
-				isDisabled: this.isRowDisabled(item.eventMessages[0]?.network),
+				isDisabled: this.isRowDisabled(item.eventMessages?.[0].network),
                 rowData: rowData
             }
         })
@@ -170,7 +170,9 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
             } else {
                 //for initial render when no networks selected from modal
                 //set the network as per the latest event message record
-                networkPillItems = this.getLatestNetworkPillItems(eventMessage, network);
+				if (eventMessage !== null && network !== null) {
+					networkPillItems = this.getLatestNetworkPillItems(eventMessage, network);
+				}
             }
         } else if (column.fieldType === 'PILL' && eventMessage !== null && network !== null) {
             //for initial render when no networks selected from modal
