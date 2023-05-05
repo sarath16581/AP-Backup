@@ -119,7 +119,7 @@ public class MembershipTriggerHandler_Test {
         SObject accWithRelationships = ((List<SObject>)fflib_ApexMocksUtils.makeRelationship('Account', 'Membership__c', new List<Account>{licenceAccount}, 'account__c', new List<List<SObject>> { new List<SObject> {  }}))[0];
         Map<Id, Account> mockAccountMap = new Map<Id, Account>{accWithRelationships.Id => (Account)accWithRelationships};
         MockUtility.Mocks.when(mockAccoutsSelector.selectById(new Set<Id>{member.Account__c}, new Set<Object>{AccountsSelector.Options.WITH_ACTIVE_MEMBERSHIPS})).thenReturn(mockAccountMap);
-		MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames(new Set<String>{ String.valueOf(Membership__c.SObjectType) })).thenReturn(new Map<Id,HistoryTracking__mdt>());
+		MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Membership__c.SObjectType)))).thenReturn(new Map<Id,HistoryTracking__mdt>());
 		MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -246,7 +246,7 @@ public class MembershipTriggerHandler_Test {
         SObject accWithRelationships = ((List<SObject>)fflib_ApexMocksUtils.makeRelationship('Account', 'Membership__c', new List<Account>{licenceAccount}, 'account__c', new List<List<SObject>> { new List<SObject> { member }}))[0];
         Map<Id, Account> mockAccountMap = new Map<Id, Account>{accWithRelationships.Id => (Account)accWithRelationships};
         MockUtility.Mocks.when(mockAccoutsSelector.selectById(new Set<Id>{member.Account__c}, new Set<Object>{AccountsSelector.Options.WITH_ACTIVE_MEMBERSHIPS})).thenReturn(mockAccountMap);
-		MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames(new Set<String>{ String.valueOf(Membership__c.SObjectType) })).thenReturn(new Map<Id,HistoryTracking__mdt>());
+		MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Membership__c.SObjectType)))).thenReturn(new Map<Id,HistoryTracking__mdt>());
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -414,7 +414,7 @@ public class MembershipTriggerHandler_Test {
 			}
 		);
 
-        MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames(new Set<String>{ String.valueOf(Membership__c.SObjectType) })).thenReturn(mockedHistoryTrackingConfig);
+        MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Membership__c.SObjectType)))).thenReturn(mockedHistoryTrackingConfig);
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -426,7 +426,7 @@ public class MembershipTriggerHandler_Test {
 		//  - Type_of_Registration__c: blank => New Registration
 		member.S75_Status__c = 'New';
 		member.Type_of_Registration__c = 'New Registration';
-        MembershipTriggerHandler.applyHistoryTracking(
+        MembershipTriggerHandler.austracHistoryTracking(
 			new List<Membership__c>{ member }, 
 			null
 		);
@@ -440,7 +440,7 @@ public class MembershipTriggerHandler_Test {
 		member1.S75_Status__c = 'Issued';
 		
 		// test #2 update: S75_Status__c: New => Issued
-		MembershipTriggerHandler.applyHistoryTracking(
+		MembershipTriggerHandler.austracHistoryTracking(
 			new List<Membership__c>{ member1 }, 
 			new Map<Id,Membership__c>{ member.Id => member }			
 		);
@@ -453,7 +453,7 @@ public class MembershipTriggerHandler_Test {
 		member.S75_Issued_Date__c = System.today().addDays(-2);
 
 		// test #3 update: S75_Status__c: Issued => New
-		MembershipTriggerHandler.applyHistoryTracking(
+		MembershipTriggerHandler.austracHistoryTracking(
 			new List<Membership__c>{ member }, 
 			new Map<Id,Membership__c>{ member1.Id => member1 }			
 		);

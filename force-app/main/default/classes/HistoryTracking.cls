@@ -81,7 +81,7 @@ public without sharing class HistoryTracking {
 	public HistoryTracking(Schema.SObjectType sObjectType) {
 		 // Fetch config for given sObjectType
 		HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance();
-		List<HistoryTracking__mdt> config = selector.selectByObjectApiNames(new Set<String>{
+		List<HistoryTracking__mdt> config = selector.selectByObjectApiNames(new List<String>{
 			String.valueOf(sObjectType)
 		}).values();
 
@@ -141,10 +141,12 @@ public without sharing class HistoryTracking {
 
 						if (targetField != null) {
 							// update if there's no value present or overwrite is allowed
+							Object targetValue = record.get(targetField);
 							Boolean updateTargetField =
-								record.get(targetField) == null ||
-								record.get(targetField) == false ||
-								htlConfig.overwriteExistingValue;
+								htlConfig.overwriteExistingValue ||
+								targetValue == null ||
+								targetValue == false ||
+								(targetValue instanceOf String) && String.isBlank((String)targetValue);
 
 							if (updateTargetField) {
 								// get merged value
@@ -153,6 +155,10 @@ public without sharing class HistoryTracking {
 									record,
 									oldMap.get(record.Id)
 								);
+
+								if (mergedValue instanceOf String && String.isBlank((String)mergedValue)) {
+									mergedValue = null;
+								}
 
 								// put target value into target field
 								try {
@@ -257,29 +263,6 @@ public without sharing class HistoryTracking {
 				}
 			}
 		}
-	}
-
-	// find SObjectField from current SObjectType
-	private Schema.SObjectField getSchemaField(HistoryTracker ht, String fieldName) {
-		Schema.SObjectField result = fieldMap.get(fieldName);
-
-		if (result == null) {
-			final String errorMessage = String.format(
-				'Invalid configuration. Field {0} cannot be found for Record Id {1}\r\n{2}',
-				new List<String>{ fieldName, ht.htRecordId, JSON.serialize(ht) }
-			);
-
-			// Log error
-			try {
-				throw new HistoryTrackingException(errorMessage);
-			} catch (System.SObjectException sObjEx) {
-				if (!handleException(sObjEx)) {
-					throw sObjEx;
-				}
-			}
-		}
-
-		return result;
 	}
 
 	// find merge values within the mergemap (recursive when Map in Map)

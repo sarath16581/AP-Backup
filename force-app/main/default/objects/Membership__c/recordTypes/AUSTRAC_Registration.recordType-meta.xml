@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>AUSTRAC_Layout</fullName>
+    <fullName>AUSTRAC_Registration</fullName>
     <active>true</active>
     <compactLayoutAssignment>AUSTRAC_Layout</compactLayoutAssignment>
     <description>AUSTRAC Registration membership</description>

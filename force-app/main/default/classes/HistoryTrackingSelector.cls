@@ -8,10 +8,21 @@
  * @description A very simple selector class that sits in the base domain
  */
 public virtual inherited sharing class HistoryTrackingSelector extends ApplicationSelector {
+	private static HistoryTrackingSelector instance {
+		get {
+			if (instance == null) {
+				instance = (HistoryTrackingSelector)Application.Selectors.newInstance(HistoryTrackingSelector.class);
+			}
+
+			return instance;
+		}
+		set;
+	}
 
 	public static HistoryTrackingSelector newInstance() {
-		return (HistoryTrackingSelector)Application.Selectors.newInstance(HistoryTrackingSelector.class);
+		return instance;
 	}
+
 	public static HistoryTrackingSelector newInstance(Integer recordLimit) {
 		return (HistoryTrackingSelector)Application.Selectors.newInstance(HistoryTrackingSelector.class).setLimit(recordLimit);
 	}
@@ -37,8 +48,8 @@ public virtual inherited sharing class HistoryTrackingSelector extends Applicati
 	 * @param objectApiNames If supplied, only select HistoryTracking for the ObjectApiNames names passed in. 
 	 * @return matching active HistoryTracking records
 	 */
-	public virtual Map<Id, HistoryTracking__mdt> selectByObjectApiNames(Set<String> objectApiNames) {
-		QueryBuilder qb = newQueryBuilder(objectApiNames);
+	public virtual Map<Id, HistoryTracking__mdt> selectByObjectApiNames(List<String> objectApiNames) {
+		QueryBuilder qb = newQueryBuilder(new Set<String>(objectApiNames));
 
 		// Order as created/released
 		qb.setOrder(new QueryBuilder.Order(HistoryTracking__mdt.Id).setSortingOrderAsc());

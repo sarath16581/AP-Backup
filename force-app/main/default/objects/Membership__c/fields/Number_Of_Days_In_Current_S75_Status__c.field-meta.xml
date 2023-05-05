@@ -6,6 +6,7 @@
     <formula>IF(
   OR(
     ISPICKVAL(Status__c, &quot;AUSTRAC Registered&quot;),
+    ISPICKVAL(Status__c, &quot;Cancelled&quot;),
     !ISPICKVAL(Type_of_Registration__c, &quot;New Registration&quot;)
   )
 ,
