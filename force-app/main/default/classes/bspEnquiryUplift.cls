@@ -10,6 +10,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
 13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
+04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -375,6 +376,21 @@ public without sharing class bspEnquiryUplift {
 		return createEnquiryAusPost(enq, uploadedFiles, 'no', 'no');
 	}
 
+
+	/**
+	 * What it is: method called by the bspFormAPEnquiry LWC to create a Case on submit
+	 * What it does:
+	 *  - Creates a Case record with the details passed in from the 'enq' parameter
+	 *  - Relates the Files to the Case with ContentDocumentLinks
+	 * Why: Create an AusPost Enquiry from the BSP community
+	 * @param enq a Case object passed in from bspFormAPEnquiry lwc
+	 * @param uploadedFiles a list of uploaded Files for this enquiry
+	 * @param containsEssentialMedicine a string value of 'yes' or 'no' passed from the bspFormAPEnquiry LWC
+	 * @param isSentimental a string value of 'yes' or 'no' passed from the bspFormAPEnquiry LWC
+	 *
+	 * @return an enquiryWrapper with the newly created Case Id and Number. The LWC can then display a link to the
+	 * Case Details.
+	 */
 	@AuraEnabled
 	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, String containsEssentialMedicine, String isSentimental)
 	{
