@@ -7,6 +7,12 @@
 public inherited sharing class ApplicationRecursion {
 
 	/**
+	 * Usually when a record is inserted, subsequent config based automation such as workflows, process builders etc... will fire an iteration of the update trigger cycles
+	 * This will usually mean that the insert triggers and the update triggers will fire in the same transaction.
+	 * For consistency ApplicationRecursion class can still be used in an after insert context, however we need to 
+	 */
+
+	/**
 	 * Stores the context and a Map of Record Id and joined string values for hashing (if necessary)
 	 * 
 	 * Map<String> -- the context name
@@ -31,6 +37,7 @@ public inherited sharing class ApplicationRecursion {
 	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
 	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
 	 * NOTE: onBeforeInsert is NOT supported!
+	 * NOTE: For consistency ApplicationRecursion class can still be used in an after insert context, however take special note that all records will be returned and all monitored fields will be flagged as changed
 	 *  
 	 * Example... 
 	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
@@ -60,6 +67,7 @@ public inherited sharing class ApplicationRecursion {
 	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
 	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
 	 * NOTE: onBeforeInsert is NOT supported!
+	 * NOTE: For consistency ApplicationRecursion class can still be used in an after insert context, however take special note that all records will be returned and all monitored fields will be flagged as changed
 	 *  
 	 * Example... 
 	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
@@ -89,12 +97,25 @@ public inherited sharing class ApplicationRecursion {
 		// iterate through the records passed in... if the record has not previously been processed previously, then we use the oldMap vallues to compare against
 		// 	if the record has previously been processed then we use the previous values at the time the last method was called
 		for(SObject sObjectRecord : allRecords) {
-			if(currentState.get(sObjectRecord.Id) == null && allRecordsOld.get(sObjectRecord.Id) == null) {
-				// what the....
+			if(sObjectRecord.Id == null) {
+				// records without an id are not support (on onBeforeInsert)
 				continue;
 			}
 
-			if(currentState.get(sObjectRecord.Id) == null) {
+			if(allRecordsOld == null) {
+				// this implies that we are calling this method onAfterInsert
+				// the unique behaviour of onAfterInsert is to prime the state and return all the records flagging each monitored field as changed
+				// this is so this method can be used consistently rather than having separate logic for insert vs update
+
+				// grab the old state as a map so that the original values can be passed back to caller
+				Map<String, Object> oldStateAsMap = new Map<String, Object>();
+				for(String comparisonField : comparisonFields) {
+					oldStateAsMap.put(comparisonField, sObjectRecord.get(comparisonField));
+				}
+
+				processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldStateAsMap, comparisonFields));
+
+			} else if(currentState.get(sObjectRecord.Id) == null) {
 				// this is the first time this specific record has been passed into the method (even though this method has been called previously with the same context)
 				// we do a comparison on the oldMap records in this scenario 
 				SObject oldRecord = allRecordsOld.get(sObjectRecord.Id);
