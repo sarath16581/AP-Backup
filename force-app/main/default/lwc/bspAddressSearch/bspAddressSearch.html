@@ -12,7 +12,7 @@
         <lightning-layout-item size="12">
             <lightning-input type="search" class={searchboxClass} label={label} name="enter-search" data-id="searchbox" onkeyup={search} required={required} 
                 placeholder={placeholder} value={searchAddressTerm} variant={variant} onfocusout={handleSearchBoxFocusOut}
-                onblur={closeSearchResultsList} field-level-help={fieldLevelHelp} message-when-value-missing={requiredValMissingErrorMsg}></lightning-input>
+                onblur={closeSearchResultsList} field-level-help={fieldLevelHelp} message-when-value-missing={missingValueMessageAddressSelect}></lightning-input>
         </lightning-layout-item>
         <template if:true={isSearchingAddressDetails}>
             <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
