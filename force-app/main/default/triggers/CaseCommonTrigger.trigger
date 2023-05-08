@@ -9,6 +9,12 @@ trigger CaseCommonTrigger on Case(before insert,before update,before delete,
                                     after insert,after update,after delete,after undelete){
 
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(Case.sObjectType))){     // verify if triggers are disabled
+
+
+		if(trigger.isUpdate) {
+		system.debug('>>>> CaseCommonTrigger.new[0].AllocateToQueue__c = ' + trigger.new[0].AllocateToQueue__c);
+		}
+		
         // New domain based trigger dispatch
         // IMPORTANT for this to be at the top to work for SSSW Strategic routing
         (new CaseTriggerHandler2()).dispatch();

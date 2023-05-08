@@ -651,6 +651,9 @@
 		 * @throws			Method might throw exception which is handled by Try-Catch block
 		 */
 		public void routeCase(List<Case> caseList, Map<Id,Case> oldMap, Boolean isInsert){
+			system.debug('>>>> CaseCommonUtility.routeCase() method called...');
+			system.debug('>>>> isInsert: ' + isInsert);
+
 			try{
 				List<Case> casesTobeRouted = new List<Case>();
 				Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
@@ -1103,6 +1106,7 @@
 					&& String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false && newCase.OwnerId == OmniChannelService.getInstance().omniClosedCaseQueueId)
 				){
 
+					system.debug('>>>> setting newCase.AllocateToQueue__c = true in markRenewedCasesToRoute.....');
 				newCase.AllocateToQueue__c = true; // Flag to re-route cases again
 			}
 		}
