@@ -579,7 +579,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		createEnquiryAusPost({
 		    enq: this.tempCase,
 			uploadedFiles: this.uploadedFiles,
-			additionalData: {this.isContainsMedication, this.isSentimental}
+			additionalData: {containsEssentialMedicine: this.isContainsMedication, isSentimental: this.isSentimental}
         }).then(result =>{
 			if(result.status == 'error'){
 				this.errorMessage = result.message;
