@@ -576,24 +576,22 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		// get the address stuff
 		this.getAddressesFromInput();
 
-		createEnquiryAusPost({enq: this.tempCase,
-			uploadedFiles: this.uploadedFiles}
-		).then(result =>{
-			if(result.status == 'error')
-			{
+		createEnquiryAusPost({
+		    enq: this.tempCase,
+			uploadedFiles: this.uploadedFiles,
+			additionalData: {this.isContainsMedication, this.isSentimental}
+        }).then(result =>{
+			if(result.status == 'error'){
 				this.errorMessage = result.message;
-			}
-			else
-			{
+			} else {
 				this.tempCase = result.enquiry;
 				this.successCreation = true;
 			}
 			this.showSpinner = false;
-		})
-			.catch(error => {
-				console.error('error occured');
-				console.error(error);
-				this.showSpinner = false;
+		}).catch(error => {
+            console.error('error occured');
+            console.error(error);
+            this.showSpinner = false;
 		});
 
 	}
