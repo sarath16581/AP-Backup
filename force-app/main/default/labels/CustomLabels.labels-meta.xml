@@ -6406,6 +6406,102 @@ Also, the package has changed the setting to prevent the creation of Contacts an
         <value>Never Set</value>
     </labels>
     <labels>
+        <fullName>PartnerInfoActionButtonDisabledMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoActionButtonDisabledMessage</shortDescription>
+        <value>Due to validation errors Next button is disabled.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoActivationSuccessMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoActivationSuccessMessage</shortDescription>
+        <value>Success! The Licence record has been successfully activated.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoAssignmentDateInvalidErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoAssignmentDateInvalidErrorMessage</shortDescription>
+        <value>Assignment Effective From Date is to be Today&apos;s date.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoFacilityNotFoundMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoFacilityNotFoundMessage</shortDescription>
+        <value>No Facility Found.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoFacilityWCCMissingErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoFacilityWCCMissingErrorMessage</shortDescription>
+        <value>Facility WCC is to be populated.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoGenericErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoGenericErrorMessage</shortDescription>
+        <value>Something went wrong. Please contact the RNP Admin Support team.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoLicenceStatusInvalidErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoLicenceStatusInvalidErrorMessage</shortDescription>
+        <value>The Licence record is not in an Approved status.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoOutgoingLicenceNotFoundMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoOutgoingLicenceNotFoundMessage</shortDescription>
+        <value>No Active Outgoing Licence Found.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoSAPVendorIdParentABNMissingErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoSAPVendorIdParentABNMissingErrorMessage</shortDescription>
+        <value>SAP Vendor ID and Parent ABN are to be populated.</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoActivationConfirmLabel</fullName>
+        <categories>Partner Info Manual ABN Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoActivationConfirmLabel</shortDescription>
+        <value>Licence - LICENCE_NAME_PLACEHOLDER</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoActivationConfirmMessage</fullName>
+        <categories>Partner Info Manual ABN Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoActivationConfirmMessage</shortDescription>
+        <value>Licence activation for LICENCEE_NAME_PLACEHOLDER is irreversible. Are you sure you want to proceed for FACILITY_NAME_PLACEHOLDER ?</value>
+    </labels>
+    <labels>
+        <fullName>PartnerInfoInfoBannerMessage</fullName>
+        <categories>Partner Info Manual ABN Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoInfoBannerMessage</shortDescription>
+        <value>Make sure all the Outgoing Licence Partner Agreement Documents are uploaded.</value>
+    </labels>
+    <labels>
         <fullName>PopularSorting</fullName>
         <language>en_US</language>
         <protected>false</protected>

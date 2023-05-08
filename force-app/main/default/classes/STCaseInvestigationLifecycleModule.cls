@@ -1,11 +1,11 @@
 /**
- * @description       : This module handles all operations related to Case Investigation Life Cycle
- * @author            : Dattaraj Deshmukh
- * @domain            : Case Investigation
+ * @description			: This module handles all operations related to Case Investigation Life Cycle
+ * @author				: Dattaraj Deshmukh
+ * @domain				: Case Investigation
  * @changelog
  * 2022-12-15 - Dattaraj Deshmukh - created
  * 2023-02-14 - Mahesh Parvathaneni - Added method setCaseInvestigationClosureDate
- * 2022-02-22 - Dattaraj Deshmukh 	- Added recordTypeIds to 'selectOpenCaseInvestigationsByCaseIds' method call. 
+ * 2022-02-22 - Dattaraj Deshmukh 	- Added recordTypeIds to 'selectOpenCaseInvestigationsByCaseIds' method call.
  **/
 public inherited sharing class STCaseInvestigationLifecycleModule extends ApplicationDomain.Module {
 	public static STCaseInvestigationLifecycleModule newInstance() {
@@ -92,5 +92,4 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 			}
 		}
 	}
-
 }

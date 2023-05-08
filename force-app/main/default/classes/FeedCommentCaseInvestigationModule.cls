@@ -5,6 +5,7 @@
  * @author Mahesh Parvathaneni
  * @date 03/04/2023
  * @changelog
+ * 03/05/2023 - Mahesh Parvathaneni - Updated - SF-942 - Set the Sent to Network Date field on case investigation
  */
 
 public inherited sharing class FeedCommentCaseInvestigationModule extends ApplicationDomain.Module {
@@ -16,17 +17,6 @@ public inherited sharing class FeedCommentCaseInvestigationModule extends Applic
 	// Setup which trigger events this module should respond to
 	public FeedCommentCaseInvestigationModule() {
 		getTriggerEvents().enableAfterInsert();
-	}
-
-	@TestVisible
-	private Datetime currentTime {
-		get{
-			if(currentTime == null){
-				currentTime = System.now();
-			}
-			return currentTime;
-		}
-		private set;
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -45,28 +35,19 @@ public inherited sharing class FeedCommentCaseInvestigationModule extends Applic
 	*/
 	@TestVisible
 	private void updateCaseInvestigations(List<SObject> feedComments, ApplicationUnitOfWork uow) {
-		//get profile id for star track support user
+		Set<Id> ciIds = new Set<Id>();
 		Id profileId = Application.Cache.profileIds.get('StarTrack Support');
-		List<CaseInvestigation__c> caseInvestigationToUpdate = new List<CaseInvestigation__c>();
-		Set<Id> caseInvestigationIds = new Set<Id>();
 
-		if (UserInfo.getProfileId() == profileId) {
+		//update case investigations only by 'StarTrack Support' profile users
+		if(UserInfo.getProfileId() == profileId){
+			//get the case investigation ids
 			for (FeedComment fComment : (List<FeedComment>) feedComments) {
-				caseInvestigationIds.add(fComment.ParentId);
+				ciIds.add(fComment.ParentId);
 			}
-
-			Datetime currentTimeStamp = currentTime;
-			for (Id ciId : caseInvestigationIds) {
-				//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
-				//by users with 'StarTrack Support' profiles.
-				//update Status__c field to 'In Progress' and RequireMoreInformation__c field to false
-				caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = ciId, LastContactCentreUpdate__c = currentTimeStamp, 
-						Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS , RequireMoreInformation__c = false));
-			}
-
-			if(!caseInvestigationToUpdate.isEmpty()){
-				//update case investigation records.
-				uow.registerDirty(caseInvestigationToUpdate, new List<SObjectField>{ CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.Status__c, CaseInvestigation__c.RequireMoreInformation__c}, true, FeedCommentCaseInvestigationModule.class.getName());
+	
+			if(!ciIds.isEmpty()){
+				//call to STCaseInvestigationFeedService to update case investigation records 
+				STCaseInvestigationFeedService.getInstance().updateCaseInvestigationsRelatedToFeed(ciIds, uow);
 			}
 		}
 	}
