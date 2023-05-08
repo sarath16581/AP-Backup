@@ -628,6 +628,31 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>false</editable>
+        <field>Network__c.RNPLevel1Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.RNPLevel2Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.RNPLevel3Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.RNPLevel4Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Network__c.RNPLevel5Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
         <field>Network__c.RNPNetworkManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
