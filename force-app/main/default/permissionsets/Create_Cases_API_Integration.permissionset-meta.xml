@@ -3739,10 +3739,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Case.OPC_Exception</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.Retail_Dispute_Enquiry</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
