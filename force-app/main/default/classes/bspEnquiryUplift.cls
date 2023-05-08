@@ -1691,8 +1691,8 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	public class BSPFormAdditionalData {
-		@AuraEnabled String containsEssentialMedicine {get; set;}
-		@AuraEnabled String isSentimental {get; set;}
+		@AuraEnabled public String containsEssentialMedicine {get; set;}
+		@AuraEnabled public String isSentimental {get; set;}
 	}
 
 	/**
