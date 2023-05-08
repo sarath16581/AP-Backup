@@ -4,6 +4,7 @@
  * @date 09/02/2023
  * @changelog
  * 2023-02-28	Mahesh Parvathaneni	- Added test method for getBusinessHoursDiffInMinutes
+ * 2023-04-28	Mahesh Parvathaneni - Updated tests for testCalculateNextViolationDateForCaseInvestigation to include the business/non-business hours
  */
 
 @IsTest
@@ -39,12 +40,15 @@ private class MilestoneService_Test {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
 		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[1].Id, true));
-		records[0].MilestoneTimeStartDatetime__c = Datetime.now();
+		//create start date time Feb 21, 2023 at 11:00:00 AM in the local timezone.
+		records[0].MilestoneTimeStartDatetime__c = DateTime.newInstance(2023, 2, 21, 11, 0, 0);
 		records[0].NetworkMilestoneCurrentTier__c = 1;
 		records[0].NetworkMilestoneNextViolationDatetime__c = null;
-		records[1].MilestoneTimeStartDatetime__c = Datetime.now().addDays(-1);
+		//create start date time Feb 20, 2023 at 11:00:00 AM in the local timezone.
+		records[1].MilestoneTimeStartDatetime__c = DateTime.newInstance(2023, 2, 20, 11, 0, 0);
 		records[1].NetworkMilestoneCurrentTier__c = 2;
-		records[0].NetworkMilestoneNextViolationDatetime__c = Datetime.now();
+		//create violation date time at Feb 20, 2023 at 7:00:00 AM in the local timezone (outside business hours).
+		records[1].NetworkMilestoneNextViolationDatetime__c = DateTime.newInstance(2023, 2, 20, 7, 0, 0);
 		records[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object>{'RecordType__c' => 'StarTrack MyNetwork'});
 		records[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object>{'RecordType__c' => 'StarTrack MyNetwork'});
 
@@ -151,5 +155,4 @@ private class MilestoneService_Test {
 		Test.stopTest();
 
 	}
-    
 }

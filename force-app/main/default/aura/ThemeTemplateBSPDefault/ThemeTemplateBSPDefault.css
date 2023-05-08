@@ -99,6 +99,16 @@
   border-radius: 6px;
 }
 
+.THIS .brand-form-input fieldset[lightning-radiogroup_radiogroup] .slds-form-element__control .slds-radio__label .slds-form-element__label,
+.THIS .brand-form-input .form-dropdown .slds-input_faux {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .THIS .brand-form-input textarea {
   border-width: 2px;
   border-color: #919194;

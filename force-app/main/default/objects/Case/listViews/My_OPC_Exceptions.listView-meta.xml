@@ -12,7 +12,7 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.OPC_Exception</value>
+        <value>01290000000WPmf</value>
     </filters>
     <filters>
         <field>CASES.CLOSED</field>

@@ -6,25 +6,25 @@
 <template>
     <h3 class="slds-p-bottom_large slds-p-top_xx-large">{titleText}</h3>
 
-    <lightning-input label="First Name" data-id="firstName"
+    <lightning-input label="First name" data-id="firstName"
                      type="text" value={firstName}
                      onchange={onChangeField}
                      onfocusout={handleFocusOut} 
-                     message-when-value-missing={missingValueMessage}
+                     message-when-value-missing={missingValueMessageFirstName}
                      required max-length="80"
                      class="brand-form-input slds-p-bottom_x-large"></lightning-input>
-    <lightning-input label="Last Name" data-id="lastName"
+    <lightning-input label="Last name" data-id="lastName"
                      type="text" value={lastName}
                      onchange={onChangeField}
                      onfocusout={handleFocusOut} 
-                     message-when-value-missing={missingValueMessage}
+                     message-when-value-missing={missingValueMessageLastName}
                      required max-length="80"
                      class="brand-form-input slds-p-bottom_x-large"></lightning-input>
-    <lightning-input label="Business Name" data-id="businessName"
+    <lightning-input label="Business name" data-id="businessName"
                      type="text" value={businessName}
                      onchange={onChangeField}
                      onfocusout={handleFocusOut} 
-                     message-when-value-missing={missingValueMessage}
+                     message-when-value-missing={missingValueMessageBusinessName}
                      required={businessNameRequired} max-length="255"
                      class="brand-form-input slds-p-bottom_x-large"></lightning-input>
 
@@ -33,7 +33,8 @@
     <c-bsp-address-search label={addressTitle}
                           data-validate='doAddressValidate'
                           field-level-help='If address not found, please expand and manually override the address'
-                          placeholder='Search for address' required 
+                          placeholder='Search for address' required
+                          missing-value-message-address-select={missingValueMessageAddressSelect}
                           class="brand-form-input slds-p-bottom_x-large">
     </c-bsp-address-search>
 </template>

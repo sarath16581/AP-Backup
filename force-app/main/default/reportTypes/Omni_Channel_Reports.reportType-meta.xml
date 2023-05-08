@@ -211,6 +211,9 @@
             <field>SecondaryRoutingPriority</field>
             <table>AgentWork</table>
         </columns>
+        <masterLabel>Agent Work</masterLabel>
+    </sections>
+    <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Case__c</field>
@@ -218,64 +221,67 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CaseOrigin__c</field>
+            <field>Case__c.Origin</field>
             <table>AgentWork</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CaseCustomerQueueType__c</field>
+            <field>Case__c.CustomerQueueType__c</field>
             <table>AgentWork</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CaseCustomerRecoveryCase__c</field>
+            <field>Case__c.IsCR__c</field>
             <table>AgentWork</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CaseProductCategory__c</field>
-            <table>AgentWork</table>
-        </columns>
-		<columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaseProductSubCategory__c</field>
+            <field>Case__c.ProductCategory__c</field>
             <table>AgentWork</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CaseEnquirySubType__c</field>
+            <field>Case__c.ProductSubCategory__c</field>
             <table>AgentWork</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CaseLinkedArticleHasExtraCover__c</field>
-            <table>AgentWork</table>
-        </columns>      
-		<columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaseStatus__c</field>
+            <field>Case__c.LinkedArticleHasExtraCover__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IsCurrentUser__c</field>
+            <field>Case__c.EnquirySubType__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case__c.Status</field>
+            <table>AgentWork</table>
+        </columns>
+        <masterLabel>Case</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>User.IsCurrentUser__c</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>L1Manager__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>L2Manager__c</field>
             <table>AgentWork</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>L3Manager__c</field>
             <table>AgentWork</table>
         </columns>
-        <masterLabel>Agent Work</masterLabel>
+        <masterLabel>User</masterLabel>
     </sections>
 </ReportType>

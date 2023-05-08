@@ -673,46 +673,8 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
-            </value>
-        </processMetadataValues>
-        <name>formula_10_myRule_7_A1_6902260661</name>
-        <dataType>String</dataType>
-        <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
-    </formulas>
-    <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
-                <stringValue>IF(
-ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c, &quot;Charge Account&quot;), 
-&quot;New Charge Account Requested&quot;, 
-
-IF(
-ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c, &quot;Charge Account + Sub Account&quot;), 
-&quot;New Charge Account + Sub Account Requested&quot;, &quot;&quot;
-
-))</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>formula_3_myRule_1_A1_0258430728</name>
-        <dataType>String</dataType>
-        <expression>IF(
-ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
-&quot;New Charge Account Requested&quot;, 
-
-IF(
-ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account + Sub Account&quot;), 
-&quot;New Charge Account + Sub Account Requested&quot;, &quot;&quot;
-
-))</expression>
-    </formulas>
-    <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
                 <stringValue>IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
-IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
@@ -733,10 +695,10 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_3666136030</name>
+        <name>formula_10_myRule_7_A1_6711674927</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
-IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
@@ -763,7 +725,215 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_1_A1_1491974332</name>
+        <name>formula_11_myRule_7_A1_8145175696</name>
+        <dataType>String</dataType>
+        <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;UMS&quot;), &quot;UMS&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Workforce Verification&quot;), &quot;Workforce Verification&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Print Post&quot;), &quot;Print Post&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(OR(
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;BPA - RETURNS&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;BPA - REPLY+RETURNS&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail&quot;)
+),
+&quot;Other&quot;, NULL)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_15_myRule_13_A1_1922875617</name>
+        <dataType>String</dataType>
+        <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;UMS&quot;), &quot;UMS&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Workforce Verification&quot;), &quot;Workforce Verification&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Print Post&quot;), &quot;Print Post&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(OR(
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;BPA - RETURNS&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;BPA - REPLY+RETURNS&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;)
+),
+&quot;Other&quot;, NULL)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c 
+</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_16_myRule_13_A1_2541983580</name>
+        <dataType>String</dataType>
+        <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;UMS&quot;), &quot;UMS&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Workforce Verification&quot;), &quot;Workforce Verification&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Print Post&quot;), &quot;Print Post&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(OR(
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;BPA - RETURNS&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;BPA - REPLY+RETURNS&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail&quot;)
+),
+&quot;Other&quot;, NULL)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_20_myRule_18_A1_6408107112</name>
+        <dataType>String</dataType>
+        <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;UMS&quot;), &quot;UMS&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Workforce Verification&quot;), &quot;Workforce Verification&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Print Post&quot;), &quot;Print Post&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(OR(
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;BPA - RETURNS&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;BPA - REPLY+RETURNS&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;)
+),
+&quot;Other&quot;, NULL)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_21_myRule_18_A1_6541478052</name>
+        <dataType>String</dataType>
+        <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(
+ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c, &quot;Charge Account&quot;), 
+&quot;New Charge Account Requested&quot;, 
+
+IF(
+ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c, &quot;Charge Account + Sub Account&quot;), 
+&quot;New Charge Account + Sub Account Requested&quot;, &quot;&quot;
+
+))</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_3_myRule_1_A1_2741381399</name>
+        <dataType>String</dataType>
+        <expression>IF(
+ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
+&quot;New Charge Account Requested&quot;, 
+
+IF(
+ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account + Sub Account&quot;), 
+&quot;New Charge Account + Sub Account Requested&quot;, &quot;&quot;
+
+))</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;UMS&quot;), &quot;UMS&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Workforce Verification&quot;), &quot;Workforce Verification&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Print Post&quot;), &quot;Print Post&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(OR(
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;BPA - RETURNS&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;BPA - REPLY+RETURNS&quot;),
+INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail&quot;)
+),
+&quot;Other&quot;, NULL)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_4_myRule_1_A1_5311733992</name>
+        <dataType>String</dataType>
+        <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;APGL Commercial Outbound&quot;), &quot;APGL Commercial Outbound&quot;, NULL) + &apos;;&apos; +
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;StarTrack&quot;), &quot;StarTrack&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Local Pickup and Delivery Services&quot;), &quot;Local Pickup and Delivery Services&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;UMS&quot;), &quot;UMS&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Workforce Verification&quot;), &quot;Workforce Verification&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Print Post&quot;), &quot;Print Post&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(OR(
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;BPA - RETURNS&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;BPA - REPLY+RETURNS&quot;),
+INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;)
+),
+&quot;Other&quot;, NULL)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_5_myRule_1_A1_6213192846</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -793,7 +963,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_9_myRule_7_A1_5030875480</name>
+        <name>formula_9_myRule_7_A1_1027089490</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -816,7 +986,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
 ),
 &quot;Other&quot;, NULL)</expression>
     </formulas>
-    <interviewLabel>APT_Contract_DSR_Creation-9_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Contract_DSR_Creation-8_InterviewLabel</interviewLabel>
     <label>APT Contract DSR Creation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -844,12 +1014,12 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
     </processMetadataValues>
     <processType>Workflow</processType>
     <recordCreates>
-        <name>myRule_1_A1</name>
-        <label>Create DSR with Work Type as New Account</label>
-        <locationX>100</locationX>
+        <name>myRule_13_A1</name>
+        <label>Create DRS Express</label>
+        <locationX>1300</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myRule_1_A2</targetReference>
+            <targetReference>myRule_13_A2</targetReference>
         </connector>
         <inputAssignments>
             <processMetadataValues>
@@ -999,42 +1169,6 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             <processMetadataValues>
                 <name>dataType</name>
                 <value>
-                    <stringValue>ID</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Customer Contact</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideReferenceTo</name>
-                <value>
-                    <stringValue>Contact</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Reference</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>CustomerContact1__c</field>
-            <value>
-                <elementReference>myVariable_current.Apttus__Primary_Contact__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
                     <stringValue>Date</stringValue>
                 </value>
             </processMetadataValues>
@@ -1095,12 +1229,12 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             <processMetadataValues>
                 <name>rightHandSideType</name>
                 <value>
-                    <stringValue>Formula</stringValue>
+                    <stringValue>String</stringValue>
                 </value>
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_0258430728</elementReference>
+                <stringValue>Contract Provisioning Requested</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1322,7 +1456,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_3666136030</elementReference>
+                <elementReference>formula_15_myRule_13_A1_1922875617</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1358,7 +1492,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_5_myRule_1_A1_1491974332</elementReference>
+                <elementReference>formula_16_myRule_13_A1_2541983580</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1502,7 +1636,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Support_Work_Type__c</field>
             <value>
-                <stringValue>Deal Processing</stringValue>
+                <stringValue>Deal Enablement Support</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1538,18 +1672,18 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Work_Type__c</field>
             <value>
-                <stringValue>New Account</stringValue>
+                <stringValue>Existing Account</stringValue>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
     </recordCreates>
     <recordCreates>
-        <name>myRule_7_A1</name>
+        <name>myRule_18_A1</name>
         <label>Create DSR with Work Type as Existing Account</label>
-        <locationX>700</locationX>
+        <locationX>1800</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myRule_7_A2</targetReference>
+            <targetReference>myRule_18_A2</targetReference>
         </connector>
         <inputAssignments>
             <processMetadataValues>
@@ -2022,7 +2156,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_9_myRule_7_A1_5030875480</elementReference>
+                <elementReference>formula_20_myRule_18_A1_6408107112</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2058,7 +2192,1407 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_10_myRule_7_A1_6902260661</elementReference>
+                <elementReference>formula_21_myRule_18_A1_6541478052</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Requestor Name</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Requestor__c</field>
+            <value>
+                <elementReference>myVariable_current.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Stage</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Stage__c</field>
+            <value>
+                <stringValue>Submitted</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Status</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Submitted</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Support Work Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Support_Work_Type__c</field>
+            <value>
+                <stringValue>Deal Processing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Work Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Work_Type__c</field>
+            <value>
+                <stringValue>Existing Account</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Deal_Support_Request__c</object>
+    </recordCreates>
+    <recordCreates>
+        <name>myRule_1_A1</name>
+        <label>Create DSR with Work Type as New Account</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myRule_1_A2</targetReference>
+        </connector>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contract Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>APT_Contract_Type__c</field>
+            <value>
+                <elementReference>myVariable_current.APT_Contract_Type__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contract</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Apttus__APTS_Agreement__c</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>APT_Contract__c</field>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Billing Account Number</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Billing_Number__c</field>
+            <value>
+                <elementReference>myVariable_current.APT_Associated_Billing_Accounts__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contract Owner</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Contract_Owner__c</field>
+            <value>
+                <elementReference>myVariable_current.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Customer Contact</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Contact</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>CustomerContact1__c</field>
+            <value>
+                <elementReference>myVariable_current.Apttus__Primary_Contact__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Date</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Date Opened</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>DateOpened__c</field>
+            <value>
+                <elementReference>myVariable_current.CreatedDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Description</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Description__c</field>
+            <value>
+                <elementReference>formula_3_myRule_1_A1_2741381399</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>{Hidden} Automated DSR</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Hidden_Automated_DSR__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Opportunity</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Opportunity</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Opportunity__c</field>
+            <value>
+                <elementReference>myVariable_current.Apttus__Related_Opportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Legal Entity Name</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Account</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Organisation__c</field>
+            <value>
+                <elementReference>myVariable_current.Apttus__Account__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Owner ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Group;User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideLabel</name>
+                <value>
+                    <stringValue>Deal_Enablement_Centre_Queue</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Queue</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00G2v000005RttmEAC</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Priority</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Priority__c</field>
+            <value>
+                <stringValue>3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>MultiPicklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Product</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Product__c</field>
+            <value>
+                <elementReference>formula_4_myRule_1_A1_5311733992</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Record Type ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>RecordType</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>formula_5_myRule_1_A1_6213192846</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Requestor Name</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Requestor__c</field>
+            <value>
+                <elementReference>myVariable_current.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Stage</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Stage__c</field>
+            <value>
+                <stringValue>Submitted</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Status</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Submitted</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Support Work Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Support_Work_Type__c</field>
+            <value>
+                <stringValue>Deal Processing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Work Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Work_Type__c</field>
+            <value>
+                <stringValue>New Account</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Deal_Support_Request__c</object>
+    </recordCreates>
+    <recordCreates>
+        <name>myRule_7_A1</name>
+        <label>Create DSR with Work Type as Existing Account</label>
+        <locationX>700</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myRule_7_A2</targetReference>
+        </connector>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contract Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>APT_Contract_Type__c</field>
+            <value>
+                <elementReference>myVariable_current.APT_Contract_Type__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contract</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Apttus__APTS_Agreement__c</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>APT_Contract__c</field>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Billing Account Number</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Billing_Number__c</field>
+            <value>
+                <elementReference>myVariable_current.APT_Associated_Billing_Accounts__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Contract Owner</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Contract_Owner__c</field>
+            <value>
+                <elementReference>myVariable_current.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Customer Contact</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Contact</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>CustomerContact1__c</field>
+            <value>
+                <elementReference>myVariable_current.Apttus__Primary_Contact__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Date</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Date Opened</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>DateOpened__c</field>
+            <value>
+                <elementReference>myVariable_current.CreatedDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Description</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Description__c</field>
+            <value>
+                <elementReference>formula_9_myRule_7_A1_1027089490</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>{Hidden} Automated DSR</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Hidden_Automated_DSR__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Opportunity</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Opportunity</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Opportunity__c</field>
+            <value>
+                <elementReference>myVariable_current.Apttus__Related_Opportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Legal Entity Name</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Account</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Organisation__c</field>
+            <value>
+                <elementReference>myVariable_current.Apttus__Account__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Owner ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>Group;User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideLabel</name>
+                <value>
+                    <stringValue>Deal_Enablement_Centre_Queue</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Queue</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00G2v000005RttmEAC</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Priority</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Priority__c</field>
+            <value>
+                <stringValue>3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>MultiPicklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Product</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Product__c</field>
+            <value>
+                <elementReference>formula_10_myRule_7_A1_6711674927</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Record Type ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>RecordType</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>formula_11_myRule_7_A1_8145175696</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

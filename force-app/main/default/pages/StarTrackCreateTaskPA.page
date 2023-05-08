@@ -11,7 +11,7 @@
 	FEB.27.2023 Mahesh Parvathaneni  - SF-856 Added recordtype check to render StarTrackCreateTask component
 	MAR.16.2023 Mahesh Parvathaneni	 - SF-862 Added event listener to refresh the primary tab
 -->
-<apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
+<apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="true"
     sidebar="false">
     <c:ScriptLoader jsLibraries="integration,jquery" />
     

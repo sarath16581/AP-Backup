@@ -1,5 +1,7 @@
 /**
+ * History:
  * Created by vcheng on 14/08/2020.
+ * Modified by hasantha.liyanage@auspost.com.au on 08/05/2023 DDS-15969 : BSP LOMI form error messages handling for individual fields
  */
 
 import {LightningElement, track, api} from 'lwc';
@@ -17,7 +19,10 @@ export default class BspAddressInput extends LightningElement {
     @api businessName;
 
     @api businessNameRequired;
-
+    @api missingValueMessageFirstName = valueMissingErrorMsg;
+    @api missingValueMessageLastName = valueMissingErrorMsg;
+    @api missingValueMessageBusinessName = valueMissingErrorMsg;
+    @api missingValueMessageAddressSelect = valueMissingErrorMsg;
     @track selectedSearchTerm = '';
 
     onChangeField(event) {
@@ -80,7 +85,7 @@ export default class BspAddressInput extends LightningElement {
         const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
         //--Checking the custom validation on change of a field value
         if (inputCmp != undefined && inputCmp.length > 0) {
-            checkCustomValidity(inputCmp[0]);
+            checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
         }
     }
 

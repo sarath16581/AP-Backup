@@ -28,6 +28,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	// ui options
 	@track articleTypes = [{label:1,value:'one'}];
 	@track serviceTypes = [];
+	containsMedicationOptions = [{label:'Yes',value:'Yes'}, {label:'No',value:'No'}];
+	sentimentalOptions = [{label:'Yes',value:'Yes'}, {label:'No',value:'No'}];
 
 	@track formTitle = '';
 	// spinner control
@@ -49,6 +51,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track reference;
 	@track description;
 	@track descriptionOfContents;
+	isContainsMedication;
+	itemValue;
 	@track articleType;
 	@track serviceUsed;
 	@track showEvent = false;
@@ -57,7 +61,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track showNoEvents = false;
 	@track expectedDeliveryDate = '';
 	@track searchResult;
-
 
 	/**
 	 * Initialize the lwc, waits for the page url to be available first. This is to avoid order of execution
@@ -429,6 +432,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 		//console.log(this.latestEvent);
 	}
+	handleFocus(event) {
+		const inputCmp = this.template.querySelectorAll('[data-id="' + event.target.dataset.id + '"]');
+		inputCmp[0].setCustomValidity('');
+	}
 
 	handleFocusOut(event) {
 		this.checkValidationOfField(event.target.dataset.id);
@@ -438,7 +445,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
 		//--Checking the custom validation on change of a field value
 		if (inputCmp != undefined && inputCmp.length > 0) {
-			checkCustomValidity(inputCmp[0]);
+			checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
 		}
 	}
 
@@ -473,6 +480,15 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			case 'descriptionOfContents':
 				this.descriptionOfContents = event.detail.value;
 				//this.tempCase.Description_of_contents__c = event.detail.value;
+				break;
+			case 'isContainsMedication':
+				this.isContainsMedication = event.detail.value;
+				break;
+			case 'isSentimental':
+				this.isSentimental = event.detail.value;
+				break;
+			case 'itemValue':
+				this.itemValue = event.detail.value;
 				break;
 			default:
 				console.error('unhandled field change:' + field);
@@ -531,7 +547,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.submitClicked = true;
 		this.errorMessage = '';
 
-		const inputComponents = this.template.querySelectorAll('lightning-input, lightning-textarea, lightning-combobox');
+		const inputComponents = this.template.querySelectorAll('lightning-input, lightning-textarea, lightning-combobox, lightning-radio-group');
 		const addressCmp = this.template.querySelectorAll('[data-validate="doAddressValidate"]');
 		const allValid = checkAllValidity(inputComponents) & checkAllValidity(addressCmp, false);
 
@@ -548,7 +564,12 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.tempCase.CCUYourReference__c = this.reference;
 		this.tempCase.Description = this.description;
 		this.tempCase.DescriptionofContents__c = this.descriptionOfContents;
+		this.tempCase.ValueofContents__c  = this.itemValue;
 		this.tempCase.EstimatedDelivery__c = this.article.ExpectedDeliveryDate__c;
+
+		this.setCasePriority(this.isContainsMedication);
+		this.setCasePriority(this.isSentimental);
+
 		// set the case type definitions
 		this.caseTypeAttributes();
 
@@ -577,6 +598,26 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 	}
 
+	/**
+	 * Setting the case priority based on the questions;
+	 * Does the item contain essential medication?
+	 * Is the item urgent, sentimental or high value?
+	 * IF either of questions set to high we do not set it back to low
+	 * @param value
+	 */
+	setCasePriority(value){
+		switch (value.toLowerCase())
+		{
+			case 'yes':
+				this.tempCase.Priority = 'High';
+				break;
+			case 'no':
+				if(this.tempCase.Priority != 'High') {
+					this.tempCase.Priority = 'Low';
+				}
+				break;
+		}
+	}
 	caseTypeAttributes()
 	{
 

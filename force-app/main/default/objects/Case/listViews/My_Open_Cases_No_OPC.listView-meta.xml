@@ -18,7 +18,7 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>notEqual</operation>
-        <value>Case.OPC_Exception</value>
+        <value>01290000000WPmf</value>
     </filters>
     <label>My Open Cases (Excl. OPC Cases)</label>
     <language>en_US</language>
