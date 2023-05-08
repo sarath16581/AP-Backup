@@ -13,6 +13,7 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-07-19 - Sreenish Krishnan - Adding test methods to support search
  * 2022-08-16 - Kamil Szyc - Added test for post office assigned selector option
+ * 2023-03-17 - Naveen Rajanna - SMWD-397 - Modified to use Assert class for assertion, Added test for following enums - WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
  */
 @IsTest
 public with sharing class AccountsSelector_Test {
@@ -30,8 +31,8 @@ public with sharing class AccountsSelector_Test {
 		insert accounts;
 
 		Map<Id, Account> actual = AccountsSelector.newInstance().selectByPostOfficeAssigned(new Set<String>{postOfficeOrgId}, new Set<Object>());
-		System.assert(actual.size() == 1, 'Should only return one record');
-		System.assertEquals(accounts[0].Id, actual.values()[0].Id, 'Should match on the result');
+		System.Assert.isTrue(actual.size() == 1, 'Should only return one record');
+		System.Assert.areEqual(accounts[0].Id, actual.values()[0].Id, 'Should match on the result');
 	}
 
 
@@ -60,8 +61,7 @@ public with sharing class AccountsSelector_Test {
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
 
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select from Account'
 		);
@@ -73,7 +73,7 @@ public with sharing class AccountsSelector_Test {
 		QueryBuilder qb1 = selector1.newQueryBuilder();
 		String soql1 = qb1.toSoqlString();
 
-		System.assertEquals(true, Pattern.compile('(?ism)\\blimit 1\\b').matcher(soql1).find(), 'Resulting query does not have limit');
+		System.Assert.isTrue(Pattern.compile('(?ism)\\blimit 1\\b').matcher(soql1).find(), 'Resulting query does not have limit');
 
 		Map<SObjectType, Set<SObjectField>> fieldOverridesMap = new Map<SObjectType, Set<SObjectField>>{
 			Account.getSObjectType() => new Set<SObjectField>{
@@ -83,8 +83,7 @@ public with sharing class AccountsSelector_Test {
 		AccountsSelector selector2 = AccountsSelector.newInstance(1, fieldOverridesMap);
 		QueryBuilder qb2 = selector2.newQueryBuilder();
 		String soql2 = qb2.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)\\bName\\b').matcher(soql2).find(),
 			'Resulting query does not have fieldoverrides'
 		);
@@ -118,8 +117,7 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_RECORDTYPE
 		});
 		String soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)RecordType\\..*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select RecordType fields'
 		);
@@ -128,8 +126,7 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_OWNER
 		});
 		soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)Owner\\..*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select Owner fields'
 		);
@@ -138,13 +135,11 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_RECORDTYPE, AccountsSelector.Options.WITH_OWNER
 		});
 		soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)RecordType\\..*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select RecordType fields'
 		);
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)Owner\\..*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select Owner fields'
 		);
@@ -153,8 +148,7 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_ACTIVE_MEMBERSHIPS
 		});
 		soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom memberships__r\\b.*?\\).*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select Articles__r child records: ' + soql
 		);
@@ -163,8 +157,7 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_ORGANISATION_ROLES
 		});
 		soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Organisation_Roles__r\\b.*?\\).*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not Organisation_Roles__r child records: ' + soql
 		);
@@ -173,8 +166,7 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_ORGANISATION_ROLES_PROSPECT_KNOWN
 		});
 		soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Organisation_Roles__r\\b.*?\\).*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not Organisation_Roles__r child records: ' + soql
 		);
@@ -183,8 +175,7 @@ public with sharing class AccountsSelector_Test {
 			AccountsSelector.Options.WITH_HOLDINGROLE
 		});
 		soql = qb.toSoqlString();
-		System.assertEquals(
-			true,
+		System.Assert.isTrue(
 			Pattern.compile('(?is)Holding_Role_Reference__r\\..*?\\bfrom account\\b').matcher(soql).find(),
 			'Resulting query does not select Owner fields'
 		);
@@ -274,10 +265,10 @@ public with sharing class AccountsSelector_Test {
 		AccountsSelector selector = AccountsSelector.newInstance(1);
 		AccountsSelector selector1 = AccountsSelector.newInstance(2);
 		Map<Id, Account> results = selector.selectById(mappedAccounts.keySet());
-		System.assertEquals(1, results.size(), 'Result count was wrong');
+		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
 
 		results = selector.selectByAccountNumber(accountnumbers);
-		System.assertEquals(1, results.size(), 'Result count  was wrong');
+		System.Assert.areEqual(1, results.size(), 'Result count  was wrong');
 
 		results = selector.selectById(
 			mappedAccounts.keySet(),
@@ -285,38 +276,53 @@ public with sharing class AccountsSelector_Test {
 				AccountsSelector.Options.WITH_RECORDTYPE, AccountsSelector.Options.WITH_OWNER
 			}
 		);
-		System.assertEquals(1, results.size(), 'Result count was wrong');
-		System.assertNotEquals(null, results.values()[0].RecordType, 'Expected RecordType object');
-		System.assertNotEquals(null, results.values()[0].Owner, 'Expected Owner object');
+		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
+		System.Assert.isNotNull(results.values()[0].RecordType, 'Expected RecordType object');
+		System.Assert.isNotNull(results.values()[0].Owner, 'Expected Owner object');
 
 		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
 			AccountsSelector.Options.WITH_ACTIVE_MEMBERSHIPS
 		});
 
-		System.assertNotEquals(null, results.values()[0].Memberships__r, 'Expected membership object');
+		System.Assert.isNotNull(results.values()[0].Memberships__r, 'Expected membership object');
 
 		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_POSTOFFICEASSIGNED
 		});
-		System.assertNotEquals(null, results.values()[0].Post_Office_Assigned__r, 'Expected network record in Post Office Assigned field');
+		System.Assert.isNotNull(results.values()[0].Post_Office_Assigned__r, 'Expected network record in Post Office Assigned field');
 
 		results = selector.selectById(new Set<Id>{facilityAccount.Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_NETWORK
 		});
-		System.assertNotEquals(null, results.values()[0].Network_Facility__r, 'Expected network record in Network Facility field');
+		System.Assert.isNotNull(results.values()[0].Network_Facility__r, 'Expected network record in Network Facility field');
 
 		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_PARENT
 		});
-		System.assertNotEquals(null, results.values()[0].ParentId, 'Expected parent account Id field');
+		System.Assert.isNotNull(results.values()[0].ParentId, 'Expected parent account Id field');
 
 		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_GRANDPARENT
 		});
-		System.assertNotEquals(null, results.values()[0].Parent.ParentId, 'Expected grandparent account Id field');
+		System.Assert.isNotNull(results.values()[0].Parent.ParentId, 'Expected grandparent account Id field');
+
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
+			AccountsSelector.Options.WITH_CREATEDBY_USER
+		});
+		System.Assert.isNotNull(results.values()[0].CreatedBy.Name, 'Expected Created By Name field');
+
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
+			AccountsSelector.Options.WITH_LASTMODIFIEDBY_USER
+		});
+		System.Assert.isNotNull(results.values()[0].LastModifiedBy.Name, 'Expected LastModified By Name field');
+
+		results = selector.selectById(new Set<Id> {accounts[0].Id}, new Set<Object>{
+			AccountsSelector.Options.WITH_FACILITY
+		});
+		System.Assert.isNotNull(results.values()[0].Facility__r.Name, 'Expected related Facility Name field');
 
 		results = selector.selectByLikedNameAndPersonAccountOrderByName('Seth', true);
-		System.assertEquals(1, results.size(), 'Result count was wrong');
+		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
 
 		Map<String, Object> searchParams = new Map<String, Object>{
 			'apcn' => new Set<String>{
@@ -330,7 +336,7 @@ public with sharing class AccountsSelector_Test {
 		String searchConditions = '(1 OR 2) AND 3';
 		Schema.SObjectField orderByField = Account.Integration_Service_Mod_Date__c;
 		List<Account> results1 = selector1.selectByAPCNAndIdAndPersonAccount(searchParams, searchConditions, orderByField);
-		System.assertEquals(2, results1.size(), 'Result count returned by selectByAPCNAndIdAndPersonAccount was wrong');
+		System.Assert.areEqual(2, results1.size(), 'Result count returned by selectByAPCNAndIdAndPersonAccount was wrong');
 
 		Test.stopTest();
 	}
