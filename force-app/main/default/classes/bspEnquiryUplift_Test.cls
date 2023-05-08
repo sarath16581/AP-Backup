@@ -367,7 +367,7 @@ private class bspEnquiryUplift_Test {
             Test.stopTest();
         }
     }
-@IsTest
+    @IsTest
     public static void testCreateEnquiryDomesticPremiumExpress()
     {
         User commUser = setupCommunityUser();
@@ -874,6 +874,31 @@ private class bspEnquiryUplift_Test {
                 System.debug('exception -->' + e.getMessage());
                 //System.assert(e.getMessage().contains('There was an error retrieving Consignment Data'));
             }
+        }
+    }
+
+    @IsTest
+    private static void testCreateEnquiry_EssentialMedicine_SentimentalValue() {
+        User commUser = setupCommunityUser();
+        System.runAs(commUser) {
+            Test.startTest();
+            Case enq = new Case();
+            enq.ReferenceID__c = ARTICLE_NAME2;
+            enq.CCUYourReference__c = 'test reference2';
+            enq.Description = 'test enquiry';
+            enq.Description_of_contents__c = 'test items';
+            enq.CCUEnquiryType__c = DELIVERY_ISSUE;
+            enq.ArticleType__c = PARCEL;
+            enq.CCUServiceUsed__c = PARCEL_DOMESTIC;
+            enq.BSP_Addressee_Company__c = 'test receiver company';
+            enq.BSP_Addressee_Name__c = 'testfname testlname';
+            bspEnquiryUplift.CreateEnquiryWrapper result = bspEnquiryUplift.createEnquiryAusPost(enq, new List<Map<String, String>> (), 'yes', 'yes');
+            Test.stopTest();
+            List<CaseComment> comments = [SELECT Id,CommentBody FROM CaseComment WHERE ParentId = :enq.Id];
+            System.assertEquals(1, comments.size());
+            CaseComment comment = comments[0];
+            System.assert(comment.CommentBody.containsIgnoreCase('essential medication') && comment.CommentBody.containsIgnoreCase('yes'), 'Essential Medicine should be written to the Case Comment');
+            System.assert(comment.CommentBody.containsIgnoreCase('Enquiry Details'), 'BSP case should have Enquiry Details written to the Comment');
         }
     }
 }

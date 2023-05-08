@@ -73,6 +73,7 @@ public with sharing class RecursionUtility {
 
         // remove all the processed entries
         System.debug('>> Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
+		system.debug('>>>> processableRecords: ' + processableRecords);
 
         Long t2 = System.currentTimeMillis();
 

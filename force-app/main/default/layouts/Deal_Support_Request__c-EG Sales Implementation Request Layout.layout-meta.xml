@@ -232,11 +232,6 @@
             <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Deal_Support_Request__c.Additional_Information_Required_AllRequest</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>6</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Deal_Support_Request__c.Submit</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
@@ -250,6 +245,11 @@
             <actionName>Deal_Support_Request__c.Close</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>5</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Deal_Support_Request__c.Additional_Information_Required_AllRequest</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Deal_Support_Request__c.Complete</actionName>

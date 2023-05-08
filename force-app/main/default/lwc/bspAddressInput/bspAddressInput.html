@@ -6,21 +6,21 @@
 <template>
     <h3 class="slds-p-bottom_large slds-p-top_xx-large">{titleText}</h3>
 
-    <lightning-input label="First Name" data-id="firstName"
+    <lightning-input label="First name" data-id="firstName"
                      type="text" value={firstName}
                      onchange={onChangeField}
                      onfocusout={handleFocusOut} 
                      message-when-value-missing={missingValueMessage}
                      required max-length="80"
                      class="brand-form-input slds-p-bottom_x-large"></lightning-input>
-    <lightning-input label="Last Name" data-id="lastName"
+    <lightning-input label="Last name" data-id="lastName"
                      type="text" value={lastName}
                      onchange={onChangeField}
                      onfocusout={handleFocusOut} 
                      message-when-value-missing={missingValueMessage}
                      required max-length="80"
                      class="brand-form-input slds-p-bottom_x-large"></lightning-input>
-    <lightning-input label="Business Name" data-id="businessName"
+    <lightning-input label="Business name" data-id="businessName"
                      type="text" value={businessName}
                      onchange={onChangeField}
                      onfocusout={handleFocusOut} 

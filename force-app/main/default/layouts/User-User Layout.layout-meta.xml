@@ -42,6 +42,10 @@
                 <behavior>Edit</behavior>
                 <field>Compensation_Limit__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>RNPReportingManager__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
