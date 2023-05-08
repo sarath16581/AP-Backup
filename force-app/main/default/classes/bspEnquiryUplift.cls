@@ -372,9 +372,8 @@ public without sharing class bspEnquiryUplift {
 	 * Case Details.
 	 */
 	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles) {
-		return createEnquiryAusPost(enq, uploadedFiles, 'no', 'no');
+		return createEnquiryAusPost(enq, uploadedFiles, null);
 	}
-
 
 	/**
 	 * What it is: method called by the bspFormAPEnquiry LWC to create a Case on submit
@@ -384,17 +383,21 @@ public without sharing class bspEnquiryUplift {
 	 * Why: Create an AusPost Enquiry from the BSP community
 	 * @param enq a Case object passed in from bspFormAPEnquiry lwc
 	 * @param uploadedFiles a list of uploaded Files for this enquiry
-	 * @param containsEssentialMedicine a string value of 'yes' or 'no' passed from the bspFormAPEnquiry LWC
-	 * @param isSentimental a string value of 'yes' or 'no' passed from the bspFormAPEnquiry LWC
+	 * @param additionalData a wrapper object what contains containsEssentialMedicine and isSentimental value of 'yes' or 'no' passed from the bspFormAPEnquiry LWC
 	 *
 	 * @return an enquiryWrapper with the newly created Case Id and Number. The LWC can then display a link to the
 	 * Case Details.
 	 */
 	@AuraEnabled
-	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, String containsEssentialMedicine, String isSentimental)
-	{
-		containsEssentialMedicine = containsEssentialMedicine == null ? 'no' : containsEssentialMedicine;
-		isSentimental = isSentimental == null ? 'no' : isSentimental;
+	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, BSPFormAdditionalData additionalData) {
+		if (additionalData == null) {
+			additionalData = new BSPFormAdditionalData();
+			additionalData.containsEssentialMedicine = 'no';
+			additionalData.isSentimental = 'no';
+		}
+		additionalData.containsEssentialMedicine = additionalData.containsEssentialMedicine == null ? 'no' : additionalData.containsEssentialMedicine;
+		additionalData.isSentimental = additionalData.isSentimental == null ? 'no' : additionalData.isSentimental;
+
 		// return object
 		CreateEnquiryWrapper enquiryWrapper = new CreateEnquiryWrapper();
 
@@ -511,12 +514,12 @@ public without sharing class bspEnquiryUplift {
 		enq.AllocateToQueue__c = true;
 
 		// TODO: unit tests
-		if(enq.EstimatedDelivery__c != null && containsEssentialMedicine.equalsIgnoreCase('no') && isSentimental.equalsIgnoreCase('no')) {
+		if(enq.EstimatedDelivery__c != null && additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
 			//2023-04-24 EDD
 			//2023-05-08 EDD + business 10 days
 			setDirectRoutingValues(enq);
 		}
-		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, containsEssentialMedicine);
+		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData.containsEssentialMedicine);
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
@@ -538,6 +541,7 @@ public without sharing class bspEnquiryUplift {
 	 * Why: Separates the Case Comment insertion
 	 * @param enq The created Case from BSP community
 	 * @param enqWrapper the wrapper to store any status and messages
+	 * @param containsEssentialMedicine a string value of 'yes' or 'no from the BSP LWC form'
 	 *
 	 * @return the Case passed in, or null if there was an error
 	 */
@@ -1689,6 +1693,16 @@ public without sharing class bspEnquiryUplift {
 			this.response = response;
 			this.consignmentNumber = cNumber;
 			this.enqObj = enqObj;
+		}
+	}
+
+	public class BSPFormAdditionalData {
+		@AuraEnabled public String containsEssentialMedicine {get; set;}
+		@AuraEnabled public String isSentimental {get; set;}
+
+		public BSPFormAdditionalData() {
+			this.containsEssentialMedicine = 'no';
+			this.isSentimental = 'no';
 		}
 	}
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LicenceManualActivationDate__c</fullName>
+    <description>The date/time that the Licence was manually activated.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The date/time that the Licence was manually activated.</inlineHelpText>
+    <label>Licence Manual Activation Date</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

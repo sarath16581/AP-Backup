@@ -33,6 +33,7 @@ History
 25.01.2020  SaiSwetha Pingali                   Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
 03.02.2021  SaiSwetha Pingali                  INC1727549 - Moved the logic to create customer role to a inner class without sharing as guest users doesn't have access to accounts.
 22.02.2021  L. Serafico (Mav3rik)               Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
+17.03.2023  Naveen Rajanna						Correct formatting error
 ------------------------------------------------------------**/ 
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
@@ -151,14 +152,9 @@ public with sharing class AccountTriggerUtility {
         }
     }
     
-    /*spingali - Moved this class to an inner class without sharing 'AccessHoldingRoleandUser' to give access to guest users .
-     /**
-      * @description       method called for creating org role for filtered accounts
-      * @param             NA
-      * @return            NA
-      * @throws            NA
-      
-       public void createCustomerRole (List<Id> OrgIds){
+/*spingali - Moved this class to an inner class without sharing 'AccessHoldingRoleandUser' to give access to guest users .      
+	//method called for creating org role for filtered accounts
+	public void createCustomerRole (List<Id> OrgIds){
         //List<Account> OrgList = [SELECT Id FROM Account WHERE Id in : OrgIds];
         List<Organisation_Role__c> OrgRoleList = new List<Organisation_Role__c>();
         try{
@@ -179,7 +175,7 @@ public with sharing class AccountTriggerUtility {
     }
     
     */
-    
+
      /**
       * @description    method to populate account root id.
                         root id value:

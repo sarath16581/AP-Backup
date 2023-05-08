@@ -8,6 +8,7 @@
  * 2022-12-08 - Dattaraj Deshmukh - Created
  * 2022-02-21 - Dattaraj Deshmukh - Fixed 'testEndToEndTriggerIntegrationForInsert' method.
  * 2023-03-21 - Mahesh Parvathaneni - Updated tests for 'testEndToEndTriggerIntegrationForInsert' method.
+ * 2023-05-03 - Mahesh Parvathaneni - updated tests to use the service class
 */
 @IsTest
  private class FeedItemCaseInvestigationModule_Test {
@@ -23,8 +24,6 @@
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(FeedItemTriggerHandler2.getUnitOfWorkSObjectTypes());
-
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
@@ -35,8 +34,10 @@
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		STCaseInvestigationFeedService mockService = (STCaseInvestigationFeedService)MockUtility.mockUtility(STCaseInvestigationFeedService.class);
 
 		MockUtility.Mocks.startStubbing();
+		((STCaseInvestigationFeedService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).updateCaseInvestigationsRelatedToFeed((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -46,12 +47,12 @@
 
 		FeedItemCaseInvestigationModule module = FeedItemCaseInvestigationModule.newInstance();
 
-		module.onAfterInsert(new List<FeedItem>{feedItems[0]}, uow);
+		module.onAfterInsert(new List<FeedItem>{feedItems[0]}, mockUow);
 
 		Test.stopTest();
 
-		//verifying registerDirty is NOT CALLED as criteria of updating case investigations will not meet.
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDirty((List<CaseInvestigation__c>)fflib_Match.eqList(new List<CaseInvestigation__c>{caseInvestigations[0]}));
+		// should not have called STCaseInvestigationFeedService methods
+		((STCaseInvestigationFeedService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(0))).updateCaseInvestigationsRelatedToFeed((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');
@@ -83,10 +84,12 @@
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		STCaseInvestigationFeedService mockService = (STCaseInvestigationFeedService)MockUtility.mockUtility(STCaseInvestigationFeedService.class);
 
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
+		((STCaseInvestigationFeedService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).updateCaseInvestigationsRelatedToFeed((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -100,13 +103,12 @@
 
 		Test.stopTest();
 
-		// NOTE: Following arguments cannnot be matched as logic assigns timestamps to field. 
-		// When fflib_Match executes it cannot match to timestamp executed by module logic and hence it fails to verify registerDirty() method call.
-		// ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<CaseInvestigation__c>) fflib_Match.eqList(new List<CaseInvestigation__c>{new CaseInvestigation__c(Id = feedItems[0].ParentId, LastContactCentreUpdate__c = System.now())}));
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<SObject>) fflib_Match.anyObject());
-	
-		// PMD by-pass
-		System.assert(true, 'PMD by-pass');
+		// should have called STCaseInvestigationFeedService methods
+		fflib_ArgumentCaptor sobjectIdCapture = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((STCaseInvestigationFeedService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).updateCaseInvestigationsRelatedToFeed((Set<Id>)sobjectIdCapture.capture(), (ApplicationUnitOfWork)fflib_Match.eq(mockUow));
+
+		Set<Id> sobjectIds = (Set<Id>)sobjectIdCapture.getValue();
+		System.assertEquals(1, sobjectIds.size(), 'Expected one case investigation to be updated');
 	}
 	
 
@@ -165,10 +167,9 @@
 			//asserting CaseInvestigation record is updated upon insertion of feeditem by Contact Centre users.
 			List<CaseInvestigation__c> cIRecords = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{createdFeedItems[0].ParentId}).values();
 			system.assertNotEquals(null, cIRecords[0].LastContactCentreUpdate__c);
-			System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, cIRecords[0].Status__c, 'Expected case investigation status to be In Progress');
+			System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_NEW_STATUS, cIRecords[0].Status__c, 'Expected case investigation status to be New');
 			System.assertEquals(false, cIRecords[0].RequireMoreInformation__c, 'Expected Require More Information value to be false');
 
 		}
 	}
-	
  }
