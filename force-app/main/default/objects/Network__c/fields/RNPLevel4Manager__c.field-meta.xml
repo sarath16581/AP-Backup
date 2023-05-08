@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RNPLevel4Manager__c</fullName>
+    <externalId>false</externalId>
+    <formula>RNPNetworkManager__r.RNPReportingManager__r.RNPReportingManager__r.RNPReportingManager__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>RNP Level 4 Manager</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+	<description>Level 4 RNP Manager for reporting purposes</description>
+    <inlineHelpText>Level 4 RNP Manager for reporting purposes</inlineHelpText>
+    <type>Text</type>
+</CustomField>

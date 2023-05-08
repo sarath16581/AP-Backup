@@ -41,7 +41,8 @@
                                         <lightning-input label="Tracking number" name="trackingNumber"
                                             data-id="trackingNumber" class="brand-form-input slds-p-bottom_x-large"
                                             type="text" value={trackingId} placeholder="Enter tracking number here"
-                                            onchange={onChangeField} onfocusout={handleFocusOut} 
+                                            onchange={onChangeField} message-when-value-missing="Please enter the tracking number"
+                                                         onfocus={handleFocus}
                                             max-length="40" required>
                                         </lightning-input>
                                     </span>
@@ -77,8 +78,8 @@
 
                             <!-- parcel lodgement date -->
                             <lightning-input label="Item lodgement date" type="Date" data-id="lodgementDate"
-                                value={lodgementDate} onchange={onChangeField} onfocusout={handleFocusOut} required
-                                class="brand-form-input slds-p-bottom_x-large">
+                                value={lodgementDate} onchange={onChangeField} message-when-value-missing="Please enter the item lodgement date" required
+                                onfocus={handleFocus} class="brand-form-input slds-p-bottom_x-large">
                             </lightning-input>
 
                             <!-- reference -->
@@ -90,21 +91,22 @@
 
                             <!-- item type -->
                             <lightning-combobox label="Item type" data-id="itemType" value={articleType}
-                                placeholder="Please select" options={articleTypes} onchange={onChangeField}
-                                onfocusout={handleFocusOut} required class="brand-form-input slds-p-bottom_x-large">
+                                placeholder="Please select" options={articleTypes} onchange={onChangeField} onfocus={handleFocus}
+                                message-when-value-missing="Please select the item type" required class="brand-form-input slds-p-bottom_x-large">
                             </lightning-combobox>
 
                             <!-- service used -->
                             <lightning-combobox label="Service used" data-id="serviceUsed" value={serviceUsed}
-                                options={serviceTypes} placeholder="Please select" onchange={onChangeField}
-                                onfocusout={handleFocusOut} required class="brand-form-input slds-p-bottom_x-large">
+                                options={serviceTypes} placeholder="Please select" onchange={onChangeField} onfocus={handleFocus}
+                                message-when-value-missing="Please select the service used" required class="brand-form-input slds-p-bottom_x-large">
                             </lightning-combobox>
 
                             <!-- is Contains Medication-->
                             <lightning-radio-group label="Does the item contain essential medication?" data-id="isContainsMedication"
                                                    name="isContainsMedication" onchange={onChangeField} value={isContainsMedication}
-                                                   options={containsMedicationOptions} type="radio" onfocusout={handleFocusOut}
+                                                   options={containsMedicationOptions} type="radio"
                                                    message-when-value-missing="Please indicate if the item contains essential medication"
+                                                   onfocus={handleFocus}
                                                    required class="brand-form-input slds-p-bottom_x-large">
                             </lightning-radio-group>
 
@@ -113,8 +115,9 @@
                                 <div class="slds-col slds-grid">
                                     <lightning-radio-group label="Is the item urgent, sentimental or high value?" data-id="isSentimental"
                                                            name="isSentimental" onchange={onChangeField} value={isSentimental}
-                                                           options={sentimentalOptions} type="radio" onfocusout={handleFocusOut}
+                                                           options={sentimentalOptions} type="radio"
                                                            message-when-value-missing="Please indicate if the item is urgent, sentimental or high value"
+                                                           onfocus={handleFocus}
                                                            required class="brand-form-input slds-p-bottom_x-large">
                                     </lightning-radio-group>
                                     <lightning-helptext content="For example, a passport or legal document, foreign currency for urgent travel, clothing and jewellery for a wedding or funeral, or an item unable to be replaced."></lightning-helptext>
@@ -122,7 +125,7 @@
                             </div>
                             <!-- enquiry about -->
                             <lightning-textarea label="Your enquiry" data-id="description"
-                                type="text" value={description} onchange={onChangeField} onfocusout={handleFocusOut}
+                                type="text" value={description} onchange={onChangeField} message-when-value-missing="Please enter your enquiry" onfocus={handleFocus}
                                 required class="brand-form-input slds-p-bottom_x-large" max-length="4000">
                             </lightning-textarea>
 
@@ -138,17 +141,17 @@
                             <lightning-textarea
                                     class="brand-form-input slds-p-bottom_x-large slds-form-element  "
                                     data-id="descriptionOfContents" lightning-textarea_textarea-host=""
-                                    message-when-value-missing="Please describe the parcel contents"
+                                    message-when-value-missing="Please enter description of parcel contents"
                                     required
                                     variant="label-hidden"
-                                    onfocusout={handleFocusOut}
+                                    onfocus={handleFocus}
                                     value={descriptionOfContents}
                                     onchange={onChangeField}
                                     placeholder="(e.g. 1 pair of size 7 brown shoes, worth $100)">
                                 <div class="slds-form-element__control slds-grow textarea-container">
                                     <textarea lightning-textarea_textarea="" data-id="descriptionOfContents"
                                               class="slds-textarea" id="input-38" data-value-missing ="Please describe the parcel contents"
-                                              maxlength="255"  value={descriptionOfContents} onfocusout={handleFocusOut}   ></textarea>
+                                              maxlength="255"  value={descriptionOfContents} onfocus={handleFocus}   ></textarea>
                                 </div>
                             </lightning-textarea>
 
@@ -162,13 +165,15 @@
                                              type="number"
                                              formatter="currency"
                                              placeholder="Please enter Item value"
-                                             onfocusout={handleFocusOut}
                                              required
+                                             onfocus={handleFocus}
                                              message-when-value-missing="Please enter Item value"
                                              message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
+                                             message-when-range-underflow="Item value cannot be a negative value"
                                              min=".01"
                                              max="1000000"
                                              step=".01"
+
                                              class="brand-form-input slds-p-bottom_x-large" max-length="20">
                             </lightning-input>
 
@@ -177,8 +182,18 @@
 
                             <!-- Addresses -->
                             <c-bsp-address-input data-id="senderAddress" data-validate='doAddressValidate'
+                                                 missing-value-message-first-name="Please enter sender’s first name"
+                                                 missing-value-message-last-name="Please enter sender’s last name"
+                                                 missing-value-message-business-name="Please enter sender’s business name"
+                                                 missing-value-message-address-select="Please enter sender address"
+                                                 business-name-required="true"
                                 title-text="Sender details" address-title="Sender address"></c-bsp-address-input>
                             <c-bsp-address-input data-id="receiverAddress" data-validate='doAddressValidate'
+                                                 missing-value-message-first-name="Please enter receiver’s first name"
+                                                 missing-value-message-last-name="Please enter receiver’s last name"
+                                                 missing-value-message-business-name="Please enter receiver’s business name"
+                                                 missing-value-message-address-select="Please enter receiver address"
+                                                 business-name-required="true"
                                 title-text="Receiver details" address-title="Receiver address"></c-bsp-address-input>
 
                             <!-- Buttons -->

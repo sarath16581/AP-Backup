@@ -87,7 +87,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>SentToNetworkDate__c</field>
+                <field>SentToNetworkDatetime__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

@@ -10198,7 +10198,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>CaseInvestigation__c.SentToNetworkDate__c</field>
+        <field>CaseInvestigation__c.SentToNetworkDatetime__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

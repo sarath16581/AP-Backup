@@ -371,7 +371,6 @@ public without sharing class bspEnquiryUplift {
 	 * @return an enquiryWrapper with the newly created Case Id and Number. The LWC can then display a link to the
 	 * Case Details.
 	 */
-	@AuraEnabled
 	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles) {
 		return createEnquiryAusPost(enq, uploadedFiles, 'no', 'no');
 	}

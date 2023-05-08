@@ -432,6 +432,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 		//console.log(this.latestEvent);
 	}
+	handleFocus(event) {
+		const inputCmp = this.template.querySelectorAll('[data-id="' + event.target.dataset.id + '"]');
+		inputCmp[0].setCustomValidity('');
+	}
 
 	handleFocusOut(event) {
 		this.checkValidationOfField(event.target.dataset.id);
@@ -441,7 +445,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
 		//--Checking the custom validation on change of a field value
 		if (inputCmp != undefined && inputCmp.length > 0) {
-			checkCustomValidity(inputCmp[0]);
+			checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
 		}
 	}
 
@@ -572,12 +576,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		// get the address stuff
 		this.getAddressesFromInput();
 
-		createEnquiryAusPost({
-		    enq: this.tempCase,
-			uploadedFiles: this.uploadedFiles,
-			containsEssentialMedicine: this.isContainsMedication,
-			isSentimental: this.isSentimental
-        }).then(result =>{
+		createEnquiryAusPost({enq: this.tempCase,
+			uploadedFiles: this.uploadedFiles}
+		).then(result =>{
 			if(result.status == 'error')
 			{
 				this.errorMessage = result.message;
