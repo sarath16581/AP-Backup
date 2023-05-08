@@ -371,11 +371,9 @@ public without sharing class bspEnquiryUplift {
 	 * @return an enquiryWrapper with the newly created Case Id and Number. The LWC can then display a link to the
 	 * Case Details.
 	 */
-	@AuraEnabled
 	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles) {
 		return createEnquiryAusPost(enq, uploadedFiles, 'no', 'no');
 	}
-
 
 	/**
 	 * What it is: method called by the bspFormAPEnquiry LWC to create a Case on submit
@@ -392,8 +390,7 @@ public without sharing class bspEnquiryUplift {
 	 * Case Details.
 	 */
 	@AuraEnabled
-	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, String containsEssentialMedicine, String isSentimental)
-	{
+	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, String containsEssentialMedicine, String isSentimental) {
 		containsEssentialMedicine = containsEssentialMedicine == null ? 'no' : containsEssentialMedicine;
 		isSentimental = isSentimental == null ? 'no' : isSentimental;
 		// return object
@@ -1691,6 +1688,11 @@ public without sharing class bspEnquiryUplift {
 			this.consignmentNumber = cNumber;
 			this.enqObj = enqObj;
 		}
+	}
+
+	public class BSPFormAdditionalData {
+		@AuraEnabled String containsEssentialMedicine {get; set;}
+		@AuraEnabled String isSentimental {get; set;}
 	}
 
 	/**
