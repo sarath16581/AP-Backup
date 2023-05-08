@@ -773,7 +773,7 @@ public static List<Apttus__AgreementLineItem__c> getAgreementLineItemsCloned(Set
 
 		System.Debug(logginglevel.error,'query-->' + query);
 
-		List<Apttus__AgreementLineItem__c> agreementLineItemsList = database.query(query);
+		List<Apttus__AgreementLineItem__c> agreementLineItemsList = database.query(String.escapeSingleQuotes(query));
 
 		return agreementLineItemsList;
 	} catch(system.exception ex) {
