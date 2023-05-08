@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ParentABN__c</fullName>
+    <description>The Parent Organisation&apos;s ABN which is referenced in the outbound message for Licence Activation button on the Licence record type.</description>
+    <externalId>false</externalId>
+    <formula>Parent.ABN__c</formula>
+    <inlineHelpText>ABN of the Parent Organisation</inlineHelpText>
+    <label>Parent ABN</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

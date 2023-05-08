@@ -63,8 +63,12 @@ const checkCustomValidity = (inputCmp, valMissingErrorMsg = valueMissingErrorMsg
             inputCmp.setCustomValidity('');
         }
     }
+
+    if (inputCmp.validity.valueMissing) {
+
+        inputCmp.showHelpMessageIfInvalid();
+    }
     inputCmp.reportValidity();
-    inputCmp.showHelpMessageIfInvalid();
 }
 
 const reloadPage = (isLoadWithCache) => {

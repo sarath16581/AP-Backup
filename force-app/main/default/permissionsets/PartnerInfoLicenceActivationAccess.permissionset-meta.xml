@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>PartnerInfoLicenceActivationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>PartnerInfoLicenceActivationAccess</name>
+    </customPermissions>
+    <description>Enables user to carry out PartnerInfo Licence Activation</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>PartnerInfo Licence Activation Access</label>
+    <license>Salesforce</license>
+    <pageAccesses>
+        <apexPage>PartnerInfoLicenceActivationWrapper</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+</PermissionSet>

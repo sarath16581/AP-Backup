@@ -18,11 +18,12 @@
  * 2022-09-05 - Kamil / Nathan Franklin - Add new method and uplifted to 55
  * 2022-09-28 - Noel Lim - added new SObject Field, removed 3 debug statements
  * 2023-02-07 - Deepak Kemidi - remove minimum spend field reference from account object
+ * 2023-03-17 - Naveen Rajanna - SMWD-397 - Added enums WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS, WITH_ORGANISATION_ROLES, WITH_ORGANISATION_ROLES_PROSPECT_KNOWN, WITH_HOLDINGROLE,
-		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT, WITH_GRANDPARENT
+		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT, WITH_GRANDPARENT, WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
 	}
 
 	public static AccountsSelector newInstance() {
@@ -42,7 +43,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 *						  This approach removes data consistency and prevents possible caching of results
 	 */
 	public static AccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		AccountsSelector selector = (AccountsSelector) Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -82,8 +83,8 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	}
 
 	/**
-     * @description Run a simple query to get records based on Legacy Id's
-     */
+	 * @description Run a simple query to get records based on Legacy Id's
+	 */
 	public Map<Id, Account> selectByAccountNumber(Set<String> accountNumbers) {
 		return selectByAccountNumber(accountNumbers, new Set<Object>());
 	}
@@ -97,15 +98,15 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	}
 
 	/**
-     * @description Run a simple query to get records based on 
-     */
+	 * @description Run a simple query to get records based on 
+	 */
 	public Map<Id, Account> selectByLikedNameAndPersonAccountOrderByName(string name, boolean isPersonAccount) {
 		return selectByLikedNameAndPersonAccountOrderByName(name, isPersonAccount, new Set<Object>());
 	}
 
 	/**
-     * @description Run a simple query to get records based on
-     */
+	 * @description Run a simple query to get records based on
+	 */
 	public Map<Id, Account> selectByLikedNameAndPersonAccountOrderByName(string name, boolean isPersonAccount, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
 				.add(new QueryBuilder.LikeCondition(Account.Name).likeAnyBoth(name))
@@ -279,8 +280,20 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		}
 		if (selectorOptions.contains(Options.WITH_GRANDPARENT)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{
-					Options.WITH_PARENT
+				Options.WITH_PARENT
 			}), 'Parent');
+		}
+		if (selectorOptions.contains(Options.WITH_CREATEDBY_USER)) {
+			builder.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'CreatedBy');
+		}
+		if (selectorOptions.contains(Options.WITH_LASTMODIFIEDBY_USER)) {
+			builder.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'LastModifiedBy');
+		}
+		if (selectorOptions.contains(Options.WITH_FACILITY)) {
+			//PREVENT RECURSION
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_FACILITY);
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(clonedOptions), 'Facility__r');
 		}
 
 		return builder;

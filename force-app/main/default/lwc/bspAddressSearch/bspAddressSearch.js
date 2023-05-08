@@ -4,6 +4,7 @@
  * @description Address Search component
  * --------------------------------------- History --------------------------------------------------
 	13/08/2020		ankur.gandhi@auspost.com.au	 Initial updation to lightning uplift
+ *  08/05/2023      hasantha.liyanage@auspost.com.au BSP LOMI form error messages handling for individual fields
 */
 
 import { LightningElement, track, api, wire } from 'lwc'
@@ -27,6 +28,7 @@ export default class BspAddressSearch extends LightningElement {
     @api fieldLevelHelp = ''
     @api address = {}
     @api addressOnLoad;
+    @api missingValueMessageAddressSelect;
     
     @track showAddressDetails = false
     @track selectedRecord
