@@ -1,7 +1,7 @@
 /**
- * @description       : Test class for STCaseInvestigationLifecycleModule
- * @author            : Dattaraj Deshmukh
- * @domain            : Case
+ * @description			: Test class for STCaseInvestigationLifecycleModule
+ * @author				: Dattaraj Deshmukh
+ * @domain				: Case
  * @changelog
  * 2023-01-18 - Dattaraj Deshmukh- created
  * 2023-02-14 - Mahesh Parvathaneni - updated tests for setCaseInvestigationClosureDate method

@@ -11,6 +11,7 @@
 01.11.2022		Dattaraj Deshmukh - Updated to show case investigations for StarTrack cases. 
 31.01.2023		Dattaraj Deshmukh - Updated to show number of case numbers.
 01.05.2023		Mahesh Parvathaneni - Updated the case link and case investigation link to use the base path of community
+03.05.2023		Mahesh Parvathaneni - Updated SentToNetworkDatetime__c field for case investigation
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
@@ -320,7 +321,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 			//setting caseInvestigations to blank
 			caseRecord.caseInvestigation = '';
 			caseRecord.caseInvestigation = cInvestigationRecord.Name;
-			caseRecord.Case_sentToNetworkDate = cInvestigationRecord.CreatedDate;
+			caseRecord.Case_sentToNetworkDate = cInvestigationRecord.SentToNetworkDatetime__c;
 			caseRecord.Case_RefereceId = cInvestigationRecord.Article__r ? cInvestigationRecord.Article__r.Name : '';
 			caseRecord.caseInvestigationId = cInvestigationRecord.Id;
 
