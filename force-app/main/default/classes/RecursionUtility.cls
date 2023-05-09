@@ -76,16 +76,4 @@ public inherited sharing class RecursionUtility {
 		return processableRecords.values();
 
 	}
-
-	public class RecordState {
-		public Set<String> changedFields = new Set<String>();
-		public Map<String, Object> previousState = new Map<String, Object>();
-		public SObject record;
-
-		public RecordState(SObject record, Map<String, Object> previousState, Set<String> changedFields) {
-			this.record = record;
-			this.previousState = previousState;
-			this.changedFields = changedFields;
-		}
-	}
 }
