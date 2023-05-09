@@ -403,4 +403,4 @@
 		@AuraEnabled
 		public string onboardingRequestId;
 	}
-	}
+}

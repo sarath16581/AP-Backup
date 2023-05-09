@@ -1054,4 +1054,4 @@
 			APT_Credit_Assessment__c.APT_Legal_Entity_Name__c
 		};
 	}
-	}
+}
