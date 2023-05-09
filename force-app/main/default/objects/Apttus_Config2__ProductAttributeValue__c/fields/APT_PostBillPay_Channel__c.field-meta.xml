@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_PostBillPay_Channel__c</fullName>
-    <externalId>false</externalId>
-	<description>Mean the particular Post Billpay service(s) selected by the Principal to be
+    <description>Mean the particular Post Billpay service(s) selected by the Principal to be
 		provided by Australia Post under this Agreement, as set out in Schedule 1.</description>
-	<inlineHelpText>mean the particular Post Billpay service(s) selected by the Principal to be
+    <externalId>false</externalId>
+    <inlineHelpText>mean the particular Post Billpay service(s) selected by the Principal to be
 		provided by Australia Post under this Agreement, as set out in Schedule 1.</inlineHelpText>
     <label>Channel</label>
     <required>false</required>

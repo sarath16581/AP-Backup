@@ -4,8 +4,8 @@
     <description>If the Principal elects to gross settle, the Principal agrees to pay the Fees no
 		later than 14 days by electronic funds transfer, or 21 days by direct debit  from the date
 		of issue of the tax invoice or adjustment note in the amounts set out therein.</description>
-	<externalId>false</externalId>
-	<inlineHelpText>If the Principal elects to gross settle, the Principal agrees to pay the Fees no
+    <externalId>false</externalId>
+    <inlineHelpText>If the Principal elects to gross settle, the Principal agrees to pay the Fees no
 		later than 14 days by electronic funds transfer, or 21 days by direct debit  from the date
 		of issue of the tax invoice or adjustment note in the amounts set out therein.</inlineHelpText>
     <label>Gross Settlement Fee</label>
