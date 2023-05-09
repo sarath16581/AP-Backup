@@ -96,16 +96,12 @@ private class SSSWRoutingController_Test {
                 FROM SSSWRouting__c
                 LIMIT 1
         ];
+		routing.SocialPostTags__c = 'w2423423asdfsadfsa'; // making it unique
+		update routing;
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(routing);
         SSSWRoutingController ext = new SSSWRoutingController(stdCtl);
 
         // link the routing attributes to SSWRoutingController
-        /*
-        ext.productCategory = routing.ProductCategory__c;
-        ext.productSubCategory = routing.ProductSubCategory__c;
-        //ext.caseType = routing.CaseType__c;
-        ext.customerQueueType = routing.CustomerQueueType__c;
-        ext.enquirySubType = routing.EnquirySubType__c; */
         ext.productCategory = routing.ProductCategory__c.split(SSSWRoutingController.MULTI_SELECT_DELIM);
         ext.productSubCategory = routing.ProductSubCategory__c.split(SSSWRoutingController.MULTI_SELECT_DELIM);
         ext.customerQueueType = routing.CustomerQueueType__c.split(SSSWRoutingController.MULTI_SELECT_DELIM);
@@ -116,23 +112,7 @@ private class SSSWRoutingController_Test {
 
         // get the existing routings after call checkExisting method and verify the result
         List<SSSWRouting__c> routings = ext.existingRoutings;
-        System.assertEquals(false, routings.isEmpty(),
-                'SSSWRoutingController_Test_checkExisting_notExist: the routing of the SSSWRoutingController has already existed');
-
-        // the result of showExisting is expected as the same as above: no existing routing
-        // System.assertEquals(false, ext.showExisting,
-        //         'SSSWRoutingController_Test_checkExisting_notExist: the routing of the SSSWRoutingController has already existed');
-
-        // get the proxy case after call checkExisting method and verify its category and type
-        // Case proxyCase = ext.proxyCase;
-        // System.assertEquals('test', proxyCase.ProductCategory__c,
-        //         'SSSWRoutingController_Test_checkExisting_notExist: fails to get the right product category of the generated proxy case');
-
-        // System.assertEquals('sub test', proxyCase.ProductSubCategory__c,
-        //         'SSSWRoutingController_Test_checkExisting_notExist: fails to get the right product subcategory of the generated proxy case');
-
-        // System.assertEquals('CRM Query', proxyCase.Type,
-        //         'SSSWRoutingController_Test_checkExisting_notExist: fails to get the right case type of the generated proxy case');
+        System.assertEquals(true, routings.isEmpty(), 'SSSWRouting__c should not exist');
 
         Test.stopTest();
     }
