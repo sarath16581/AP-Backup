@@ -102,7 +102,7 @@ public inherited sharing class ApplicationRecursion {
 				continue;
 			}
 
-			if(allRecordsOld == null) {
+			if(currentState.get(sObjectRecord.Id) == null && allRecordsOld == null) {
 				// this implies that we are calling this method onAfterInsert
 				// the unique behaviour of onAfterInsert is to prime the state and return all the records flagging each monitored field as changed
 				// this is so this method can be used consistently rather than having separate logic for insert vs update
@@ -110,7 +110,7 @@ public inherited sharing class ApplicationRecursion {
 				// grab the old state as a map so that the original values can be passed back to caller
 				Map<String, Object> oldStateAsMap = new Map<String, Object>();
 				for(String comparisonField : comparisonFields) {
-					oldStateAsMap.put(comparisonField, sObjectRecord.get(comparisonField));
+					oldStateAsMap.put(comparisonField, null); // these values technically went from null to having a value
 				}
 
 				processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldStateAsMap, comparisonFields));
@@ -164,11 +164,11 @@ public inherited sharing class ApplicationRecursion {
 		}
 
 		// remove all the processed entries
-		System.debug('RecursionUtility: Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
+		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
 
 		stateStore.put(context, currentState);
 
-		System.debug('RecursionUtility: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
+		System.debug('ApplicationRecursion: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
 
 		return processableRecords;
 	}
