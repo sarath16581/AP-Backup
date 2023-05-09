@@ -676,6 +676,22 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
         <protected>false</protected>
     </flowActions>
     <outboundMessages>
+        <fullName>PartnerInfoLicenceActivation</fullName>
+        <apiVersion>57.0</apiVersion>
+        <description>Notify POST+ system upon Licence Activation.</description>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/aws.cce.auspost/abns</endpointUrl>
+        <fields>Assignment_Effective_From_Date__c</fields>
+        <fields>Id</fields>
+        <fields>ParentABN__c</fields>
+        <fields>SystemModstamp</fields>
+        <fields>WCC__c</fields>
+        <includeSessionId>false</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>Partner Info Licence Activation</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
         <fullName>SAP_Sync_Customer</fullName>
         <apiVersion>55.0</apiVersion>
         <description>SSSW</description>
@@ -938,6 +954,15 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
             <field>Account.Approval_Status__c</field>
             <operation>equals</operation>
             <value>Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Assignment_Effective_From_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Licence_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Active</value>
         </criteriaItems>
         <description>If the Licence is approved, then schedule its activation to be triggered after 18 hours on its start date.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>

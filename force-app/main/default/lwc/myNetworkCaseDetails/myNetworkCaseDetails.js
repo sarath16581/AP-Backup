@@ -10,6 +10,7 @@
  * 2023-03-10 - Dattaraj Deshmukh - Added 'OWNER_NAME_FIELD' for a case to display case's owner name.
  * 2023-03-31 - Mahesh Parvathaneni - Added Initial contact fields under More Details for case investigation
  * 2023-04-05 - Mahesh Parvathaneni - Removed the field WEB_EMAIL_FIELD from More Details section
+ * 2023-05-03 - Mahesh Parvathaneni - Updated SentToNetworkDatetime__c field for case investigation
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
@@ -66,7 +67,7 @@ import CASEINVISTIGATION_ARTICLE_FIELD from "@salesforce/schema/CaseInvestigatio
 import CASEINVISTIGATION_NAME_FIELD from "@salesforce/schema/CaseInvestigation__c.Name";
 import CASEINVISTIGATION_PRIORITY_FIELD from "@salesforce/schema/CaseInvestigation__c.Priority__c";
 import CASEINVISTIGATION_STATUS_FIELD from "@salesforce/schema/CaseInvestigation__c.Status__c";
-import CASEINVISTIGATION_SENT_TO_NETWORK_FIELD from "@salesforce/schema/CaseInvestigation__c.SentToNetworkDate__c";
+import CASEINVISTIGATION_SENT_TO_NETWORK_FIELD from "@salesforce/schema/CaseInvestigation__c.SentToNetworkDatetime__c";
 
 import CASEINVISTIGATION_NETWORK_MILESSTONES_VIOLATED_FIELD from "@salesforce/schema/CaseInvestigation__c.NetworkMilestonesViolated__c";
 

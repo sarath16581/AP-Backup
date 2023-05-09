@@ -1,0 +1,38 @@
+/* icon custom colors */
+:host {
+	--sds-c-icon-color-foreground-default: white;
+	--sds-c-icon-color-foreground: white;
+}
+
+.pageHeadingIcon,
+.pageSubHeadingIcon {
+	--sds-c-icon-color-background: #0176d3;
+}
+
+/* error section and error message styles */
+.errorSection {
+	border: 1px solid #ba0517;
+	border-radius: 5px;
+}
+
+.errorSectionTitle {
+	padding: 10px;
+	background: #ba0517;
+	color: white;
+}
+
+.errorMessage {
+	color: #c00;
+	padding-top: 5px;
+	padding-left: 10px;
+}
+
+.errorMessage:last-child {
+	padding-bottom: 5px;
+}
+
+/* action button text style */
+.actionButtonText {
+	color: #c00;
+	font-weight: 500;
+}

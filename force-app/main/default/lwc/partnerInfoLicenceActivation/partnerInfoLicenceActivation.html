@@ -1,0 +1,290 @@
+<!--
+@author Naveen Rajanna
+@date 2023-03-17
+@description SMWD-397 - lwc to display incomingLicence, facility and outgoingLicence details,
+ 				carry out validations prior to activating incomingLicence
+				Invoked from PartnerInfoLicenceActivationWrapper visualforce page using lgtng:out
+-->
+<template>
+	<!-- Page Title Card -->
+	<div class="slds-page-header slds-m-bottom_medium">
+		<div class="slds-page-header__row">
+			<div class="slds-page-header__col-title">
+				<div class="slds-media">
+					<div class="slds-media__figure">
+						<lightning-icon icon-name="standard:sort" alternative-text="Activation" size="large"
+							class="pageHeadingIcon"></lightning-icon>
+					</div>
+					<div class="slds-media__body" style="align-self: center">
+						<div class="slds-page-header__name">
+							<div class="slds-page-header__name-title">
+								<h1>
+									<span class="slds-page-header__title slds-truncate"
+										title="Licence Activation">Manual Licence Activation</span>
+								</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<!-- Show spinner when the page is loading -->
+		<template if:true={isLoading}>
+			<lightning-spinner variant="brand" size="large" alternative-text="Loading..."></lightning-spinner>
+		</template>
+		<!-- Show page content when it is ready -->
+		<template if:false={isLoading}>
+
+			<!-- Custom Toast Message -->
+			<template if:true={toastMessage.show}>
+				<div class="slds-notify_container slds-is-absolute">
+					<div class={toastMessageClass} role="status">
+						<span class="slds-assistive-text">{toastMessage.type}</span>
+						<div class="slds-notify__content">
+							<h2 class="slds-text-heading_small ">{toastMessage.message}</h2>
+						</div>
+					</div>
+				</div>
+			</template>
+
+			<!-- Info Banner -->
+			<template if:true={showInfoBanner}>
+				<div class="slds-m-bottom_medium slds-notify slds-notify_alert" role="alert">
+					<lightning-icon icon-name="utility:info" alternative-text="Info" size="small" title="Info"
+						class="slds-p-right_xx-small"></lightning-icon>
+					<h2>{infoBannerText}</h2>
+				</div>
+			</template>
+
+			<!-- Validation Error Messages -->
+			<template if:true={showErrorMessages}>
+				<div class="slds-m-bottom_medium errorSection">
+					<div class="slds-text-heading_small errorSectionTitle">
+						<lightning-icon icon-name="utility:error" alternative-text="Error" size="small" title="Error"
+							class="slds-p-right_x-small">
+						</lightning-icon>Errors
+					</div>
+					<!-- Individual Error Messages -->
+					<template for:each={errorMessages} for:item="message">
+						<div key={message} class="errorMessage">{message}</div>
+					</template>
+				</div>
+			</template>
+
+			<div class="slds-m-bottom_medium slds-grid slds-gutters">
+				<div class="slds-col slds-size_1-of-1">
+					<!-- display Facility details -->
+					<lightning-card icon-name="standard:store" title="Facility Details" class="pageSubHeadingIcon">
+						<div class="slds-var-m-around_medium">
+							<template if:false={showFacilityNotFoundError}>
+								<div class="slds-grid slds-gutters_small slds-m-horizontal_large">
+									<div class="slds-col slds-size_2-of-12 slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Legal Entity Name</legend>
+										<lightning-formatted-url class="slds-form-element__static"
+											value={facilityNameURL} label={data.facility.Name}
+											target="_blank"></lightning-formatted-url>
+									</div>
+									<div class="slds-col slds-size_2-of-12 slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">WCC</legend>
+										<lightning-formatted-text class="slds-form-element__static"
+											value={data.facility.WCIS_Code__c}></lightning-formatted-text>
+									</div>
+									<div class="slds-col slds-size_2-of-12 slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">State</legend>
+										<lightning-formatted-text class="slds-form-element__static"
+											value={facilityState}></lightning-formatted-text>
+									</div>
+								</div>
+							</template>
+							<template if:true={showFacilityNotFoundError}> {showFacilityNotFoundError} </template>
+						</div>
+					</lightning-card>
+				</div>
+			</div>
+
+			<div class="slds-m-bottom_medium slds-grid slds-gutters">
+				<div class="slds-col slds-size_1-of-2">
+					<!-- display Incoming Licence details -->
+					<lightning-card icon-name="standard:product_consumed" title="Incoming Licence Details"
+						class="pageSubHeadingIcon">
+						<div class="slds-var-m-around_medium">
+							<!-- Row 1 -->
+							<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">Legal Entity Name</legend>
+									<lightning-formatted-url class="slds-form-element__static slds-border_bottom"
+										value={incomingLicenceNameURL} label={data.incomingLicence.Name}
+										target="_blank"></lightning-formatted-url>
+								</div>
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">Licence Status</legend>
+									<lightning-formatted-text class="slds-form-element__static slds-border_bottom"
+										value={data.incomingLicence.Licence_Status__c}></lightning-formatted-text>
+								</div>
+							</div>
+							<!-- Row 2 -->
+							<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">Assignment Effective From Date</legend>
+									<lightning-formatted-date-time class="slds-form-element__static slds-border_bottom"
+										value={data.incomingLicence.Assignment_Effective_From_Date__c} year="numeric"
+										month="numeric" day="numeric"></lightning-formatted-date-time>
+								</div>
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">Assignment Effective To Date</legend>
+									<lightning-formatted-date-time class="slds-form-element__static slds-border_bottom"
+										value={data.incomingLicence.Assignment_Effective_To_Date__c} year="numeric"
+										month="numeric" day="numeric"></lightning-formatted-date-time>
+								</div>
+							</div>
+							<!-- Row 3 -->
+							<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">SAP Vendor ID</legend>
+									<lightning-formatted-text class="slds-form-element__static slds-border_bottom"
+										value={data.incomingLicence.SAP_Vendor_ID__c}></lightning-formatted-text>
+								</div>
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">Parent ABN</legend>
+									<lightning-formatted-text class="slds-form-element__static slds-border_bottom"
+										value={data.incomingLicence.ParentABN__c}></lightning-formatted-text>
+								</div>
+							</div>
+							<!-- Row 4 -->
+							<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<legend class="slds-form-element__label">Created By</legend>
+									<div class="slds-border_bottom">
+										<lightning-formatted-url value={incomingLicenceCreatedByURL}
+											label={data.incomingLicence.CreatedBy.Name}
+											target="_blank"></lightning-formatted-url>
+										,
+										<lightning-formatted-date-time value={data.incomingLicence.CreatedDate}
+											year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+											hour12="false"
+											class="slds-p-left_xxx-small"></lightning-formatted-date-time>
+									</div>
+								</div>
+								<div class="slds-col slds-form-element slds-has-flexi-truncate">
+									<div class="slds-border_bottom">
+										<legend class="slds-form-element__label">Last Modified By</legend>
+										<lightning-formatted-url value={incomingLicenceLastModifiedByURL}
+											label={data.incomingLicence.LastModifiedBy.Name}
+											target="_blank"></lightning-formatted-url>
+										,
+										<lightning-formatted-date-time value={data.incomingLicence.LastModifiedDate}
+											year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+											hour12="false"
+											class="slds-p-left_xxx-small"></lightning-formatted-date-time>
+									</div>
+								</div>
+							</div>
+						</div>
+					</lightning-card>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<!-- display Outgoing Licence details -->
+					<lightning-card icon-name="standard:logging" title="Outgoing Licence Details"
+						class="pageSubHeadingIcon">
+						<div class="slds-var-m-around_medium">
+							<template if:false={showOutgoingLicenceNotFoundError}>
+								<!-- Row 1 -->
+								<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Legal Entity Name</legend>
+										<lightning-formatted-url class="slds-form-element__static slds-border_bottom"
+											value={outgoingLicenceNameURL} label={data.outgoingLicence.Name}
+											target="_blank"></lightning-formatted-url>
+									</div>
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Licence Status</legend>
+										<lightning-formatted-text class="slds-form-element__static slds-border_bottom"
+											value={data.outgoingLicence.Licence_Status__c}></lightning-formatted-text>
+									</div>
+								</div>
+								<!-- Row 2 -->
+								<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Assignment Effective From Date</legend>
+										<lightning-formatted-date-time
+											class="slds-form-element__static slds-border_bottom"
+											value={data.outgoingLicence.Assignment_Effective_From_Date__c}
+											year="numeric" month="numeric"
+											day="numeric"></lightning-formatted-date-time>
+									</div>
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Assignment Effective To Date</legend>
+										<lightning-formatted-date-time
+											class="slds-form-element__static slds-border_bottom"
+											value={data.outgoingLicence.Assignment_Effective_To_Date__c} year="numeric"
+											month="numeric" day="numeric"></lightning-formatted-date-time>
+									</div>
+								</div>
+								<!-- Row 3 -->
+								<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">SAP Vendor ID</legend>
+										<lightning-formatted-text class="slds-form-element__static slds-border_bottom"
+											value={data.outgoingLicence.SAP_Vendor_ID__c}></lightning-formatted-text>
+									</div>
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Parent ABN</legend>
+										<lightning-formatted-text class="slds-form-element__static slds-border_bottom"
+											value={data.outgoingLicence.ParentABN__c}></lightning-formatted-text>
+									</div>
+								</div>
+								<!-- Row 4 -->
+								<div class="slds-grid slds-gutters_small slds-p-bottom_x-small slds-m-horizontal_large">
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<legend class="slds-form-element__label">Created By</legend>
+										<div class="slds-border_bottom">
+											<lightning-formatted-url value={outgoingLicenceCreatedByURL}
+												label={data.outgoingLicence.CreatedBy.Name}
+												target="_blank"></lightning-formatted-url>
+											,
+											<lightning-formatted-date-time value={data.outgoingLicence.CreatedDate}
+												year="numeric" month="numeric" day="numeric" hour="2-digit"
+												minute="2-digit" hour12="false"
+												class="slds-p-left_xxx-small"></lightning-formatted-date-time>
+										</div>
+									</div>
+									<div class="slds-col slds-form-element slds-has-flexi-truncate">
+										<div class="slds-border_bottom">
+											<legend class="slds-form-element__label">Last Modified By</legend>
+											<lightning-formatted-url value={outgoingLicenceLastModifiedByURL}
+												label={data.outgoingLicence.LastModifiedBy.Name}
+												target="_blank"></lightning-formatted-url>
+											,
+											<lightning-formatted-date-time value={data.outgoingLicence.LastModifiedDate}
+												year="numeric" month="numeric" day="numeric" hour="2-digit"
+												minute="2-digit" hour12="false"
+												class="slds-p-left_xxx-small"></lightning-formatted-date-time>
+										</div>
+									</div>
+								</div>
+							</template>
+							<template if:true={showOutgoingLicenceNotFoundError}> {showOutgoingLicenceNotFoundError}
+							</template>
+						</div>
+					</lightning-card>
+				</div>
+			</div>
+
+			<div class="slds-m-top_medium">
+				<template if:true={actionButtonDisabled}>
+					<lightning-formatted-text class="actionButtonText slds-p-bottom_x-small slds-align_absolute-center"
+						value={actionButtonDisabledText}></lightning-formatted-text>
+				</template>
+				<div class="slds-align_absolute-center">
+					<!-- Display Action buttons -->
+					<lightning-button type="submit" variant="brand" label="Next" disabled={actionButtonDisabled}
+						onclick={handleNext} class="slds-m-left_small"></lightning-button>
+					<lightning-button type="cancel" variant="brand-outline" label="Cancel" onclick={handleCancel}
+						class="slds-m-left_small"></lightning-button>
+				</div>
+			</div>
+		</template>
+	</div>
+</template>
