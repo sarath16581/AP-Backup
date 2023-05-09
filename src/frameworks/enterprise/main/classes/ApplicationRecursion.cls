@@ -23,8 +23,20 @@ public inherited sharing class ApplicationRecursion {
 	 * 1. We only want to store the comparison fields
 	 * 2. Since we only want to store the comparison fields, we would need to create a sobject instance. If a comparison field is 'not writeable' then an error will occur while trying to add the value to the new sobject (I didn't want to use JSON hacks)
 	 */
-	@TestVisible
 	private Map<String, Map<Id, Map<String, Object>>> stateStore = new Map<String, Map<Id, Map<String, Object>>>();
+
+	/**
+	 * Used to temporarily store sobject in the event a record is passed in without an id
+	 * This sobject is used as the 'oldState' up until the same record is passed back in with an id.
+	 * After this, the oldState will be transferred to 'stateStore' variable.
+	 * This is used in on before insert scenarios
+	 * 
+	 * Map<String> -- the context name
+	 * Map<String, Map<SObject>> -- the sobject instance
+	 * Map<String, Map<Id, Map<String>>> -- the name of the field
+	 * Map<String, Map<Id, Map<String, Object>>> -- the value of the field (stored as a static value since the sobject instance will change from execution cycle to cycle)
+	 */
+	private Map<String, Map<SObject, Map<String, Object>>> sobjectStateStore = new Map<String, Map<SObject, Map<String, Object>>>();
 
 	public static ApplicationRecursion getInstance() {
 		return (ApplicationRecursion)Application.Utilities.getInstance(ApplicationRecursion.class);
@@ -36,8 +48,6 @@ public inherited sharing class ApplicationRecursion {
 	 * Subsequent calls to this method (per single context) will only compare the previous state (the comparison of when this method was last called) vs the newMap.
 	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
 	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
-	 * NOTE: onBeforeInsert is NOT supported!
-	 * NOTE: For consistency ApplicationRecursion class can still be used in an after insert context, however take special note that all records will be returned and all monitored fields will be flagged as changed
 	 *  
 	 * Example... 
 	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
@@ -66,8 +76,6 @@ public inherited sharing class ApplicationRecursion {
 	 * Subsequent calls to this method (per single context) will only compare the previous state (the comparison of when this method was last called) vs the newMap.
 	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
 	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
-	 * NOTE: onBeforeInsert is NOT supported!
-	 * NOTE: For consistency ApplicationRecursion class can still be used in an after insert context, however take special note that all records will be returned and all monitored fields will be flagged as changed
 	 *  
 	 * Example... 
 	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
@@ -93,80 +101,90 @@ public inherited sharing class ApplicationRecursion {
 		if(currentState == null) {
 			currentState = new Map<Id, Map<String, Object>>();
 		}
+
+		// stores sobjects temporarily when the record passed in has no Id yet (on before insert scenario)
+		Map<SObject, Map<String, Object>> sobjectCurrentState = sobjectStateStore.get(context);
+		if(sobjectCurrentState == null) {
+			sobjectCurrentState = new Map<SObject, Map<String, Object>>();
+		}
 	
-		// iterate through the records passed in... if the record has not previously been processed previously, then we use the oldMap vallues to compare against
-		// 	if the record has previously been processed then we use the previous values at the time the last method was called
+		// iterate through the records passed in to determine which records have been changed
 		for(SObject sObjectRecord : allRecords) {
-			if(sObjectRecord.Id == null) {
-				// records without an id are not support (on onBeforeInsert)
-				continue;
-			}
 
-			if(currentState.get(sObjectRecord.Id) == null && allRecordsOld == null) {
-				// this implies that we are calling this method onAfterInsert
-				// the unique behaviour of onAfterInsert is to prime the state and return all the records flagging each monitored field as changed
-				// this is so this method can be used consistently rather than having separate logic for insert vs update
+			// grab the index of the sobject which is used to grab the current record's position and also to remove the current record once it has an id (only relevant if it exists)
+			Map<String, Object> sobjectStorePreviousValues = sobjectCurrentState.get(sObjectRecord);
 
-				// grab the old state as a map so that the original values can be passed back to caller
-				Map<String, Object> oldStateAsMap = new Map<String, Object>();
+			// determine the old values
+			Map<String, Object> oldStateAsMap = new Map<String, Object>();
+			if(sobjectStorePreviousValues != null) {
+				// use the values stored in the current sobject instance since in the previous call a record Id did not exist
+				// NOTE: this block may be entered into in any scenario (on before/after insert/update if the previous call to this method did not clear the sobject from the sobject instance list)
 				for(String comparisonField : comparisonFields) {
-					oldStateAsMap.put(comparisonField, null); // these values technically went from null to having a value
+					oldStateAsMap.put(comparisonField, sobjectStorePreviousValues.get(comparisonField));
 				}
 
-				processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldStateAsMap, comparisonFields));
-
-			} else if(currentState.get(sObjectRecord.Id) == null) {
-				// this is the first time this specific record has been passed into the method (even though this method has been called previously with the same context)
-				// we do a comparison on the oldMap records in this scenario 
-				SObject oldRecord = allRecordsOld.get(sObjectRecord.Id);
-
-				// grab the changed values between current state and previous state
-				Set<String> changedFields = new Set<String>();
+			} else if(sObjectRecord.Id == null) {
+				// the record has no id yet, so we are in an on before insert scenario
 				for(String comparisonField : comparisonFields) {
-					if(sObjectRecord.get(comparisonField) != oldRecord.get(comparisonField)) {
-						changedFields.add(comparisonField);
-					}
+					oldStateAsMap.put(comparisonField, null); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
 				}
 
-				// grab the old state as a map so that the original values can be passed back to caller
-				Map<String, Object> oldStateAsMap = new Map<String, Object>();
+			} else if(currentState.get(sObjectRecord.Id) == null && allRecordsOld == null) {
+				// the record has an id, however, allRecordsOld is null which implies this is an on after insert scenario
+				// NOTE: if the method was called in an on before insert scenario then subsequently on after insert, this block will only be hit after the sobject instance is removed from the list!
 				for(String comparisonField : comparisonFields) {
-					oldStateAsMap.put(comparisonField, oldRecord.get(comparisonField));
+					oldStateAsMap.put(comparisonField, null); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
 				}
 
-				if(!changedFields.isEmpty()) {
-					processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldStateAsMap, changedFields));
-				}
-			} else {
-				// this record already exists in the state from a previous call
-				// we compare the current values of the record against the values that were previously seen to determine whether the calling method should reprocess the record
-				Map<String, Object> oldRecord = currentState.get(sObjectRecord.Id);
-
-				// grab the changed values between current state and previous state
-				Set<String> changedFields = new Set<String>();
+			} else if(currentState.get(sObjectRecord.Id) == null && allRecordsOld != null) {
+				// since allRecordsOld is NOT null, this implies we are in either an on before update or on after update scenario
+				// NOTE: if the method was called in an on before insert scenario then subsequently on before/after update next, this block will only be hit after the sobject instance is removed from the list!
+				SObject previousSObject = allRecordsOld.get(sObjectRecord.Id);
 				for(String comparisonField : comparisonFields) {
-					if(sObjectRecord.get(comparisonField) != oldRecord.get(comparisonField)) {
-						changedFields.add(comparisonField);
-					}
+					oldStateAsMap.put(comparisonField, previousSObject.get(comparisonField)); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
 				}
 
-				if(!changedFields.isEmpty()) {
-					processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldRecord, changedFields));
+			} else { // currentState.get(sObjectRecord.Id) != null
+				// currentState has been populated from a previous call to this method
+				// grab the old values from the currentState
+				Map<String, Object> currentValues = currentState.get(sObjectRecord.Id);
+				for(String comparisonField : comparisonFields) {
+					oldStateAsMap.put(comparisonField, currentValues.get(comparisonField));
 				}
+				
 			}
 
 			Map<String, Object> newState = new Map<String, Object>();
+			Set<String> changedFields = new Set<String>();
+
 			for(String comparisonField : comparisonFields) {
+				if(sObjectRecord.get(comparisonField) != oldStateAsMap.get(comparisonField)) {
+					changedFields.add(comparisonField);
+				}
 				newState.put(comparisonField, sObjectRecord.get(comparisonField));
 			}
 
-			currentState.put(sObjectRecord.Id, newState);
+			// confirm whether the old state duffers from the current values of the sobject
+			if(!changedFields.isEmpty()) {
+				processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldStateAsMap, changedFields));
+			}
+
+			if(sObjectRecord.Id != null) {
+				currentState.put(sObjectRecord.Id, newState);
+
+				if(sobjectStorePreviousValues != null) {
+					sobjectCurrentState.remove(sObjectRecord);
+				}
+			} else {
+				sobjectCurrentState.put(sObjectRecord, newState);
+			}
 		}
 
 		// remove all the processed entries
 		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
 
 		stateStore.put(context, currentState);
+		sobjectStateStore.put(context, sobjectCurrentState);
 
 		System.debug('ApplicationRecursion: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
 
