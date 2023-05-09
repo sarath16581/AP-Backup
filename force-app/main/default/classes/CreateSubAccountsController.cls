@@ -140,7 +140,7 @@
 
 		//if(lodgementPointWCCs!=null && existingLodgementPoints == null){
 			if(lodgementPointWCCs!=null ){
-			// deseria	e the JSON and convert to the custom Sboject
+			// deserialise the JSON and convert to the custom Sboject
 			List<SObjectResult> responseDetail = (List<SObjectResult>)System.JSON.deserialize(lodgementPointWCCs, List<SObjectResult>.class);
 			system.debug('Lodgement Points after conversion :::'+responseDetail);
 			// track the count of lodgement point added and stored in 'Lodgement_Point_Counter__c' backend field
