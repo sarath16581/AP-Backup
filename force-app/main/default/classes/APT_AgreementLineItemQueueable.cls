@@ -1,25 +1,25 @@
-/**
- Description: 
-Created By: Himanshu jain
-Created Date: 25th Jun, 2016
-**/
-public with sharing class APT_AgreementLineItemQueueable implements Queueable {
-
-
-public String configurationID;
-public ID agreementID;
-public final static string ORDER_BY_LINENUMBER = ' Order By Apttus_QPConfig__LineNumber__c, Apttus_QPConfig__ItemSequence__c';
 	/**
- Constructor
-**/
-public APT_AgreementLineItemQueueable(String configurationId ,ID agreementID){
+	 Description: 
+	Created By: Himanshu jain
+	Created Date: 25th Jun, 2016
+	**/
+	public with sharing class APT_AgreementLineItemQueueable implements Queueable {
+
+
+	public String configurationID;
+	public ID agreementID;
+	public final static string ORDER_BY_LINENUMBER = ' Order By Apttus_QPConfig__LineNumber__c, Apttus_QPConfig__ItemSequence__c';
+	/**
+	 Constructor
+	**/
+	public APT_AgreementLineItemQueueable(String configurationId ,ID agreementID){
 	this.agreementID = agreementID;
 	this.configurationId = configurationId;
-}
+	}
 	/**
 	 Execute Method
-**/
-public void execute(QueueableContext context) {
+	**/
+	public void execute(QueueableContext context) {
 	try {
 		
 		if(String.IsBlank(agreementID)){
@@ -217,13 +217,13 @@ public void execute(QueueableContext context) {
 		system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
 		throw ex;
 	}
-}
+	}
 
-public static final String VOLUME_THERESHOLD_0 = '0 - 250K';
-public static final String VOLUME_THERESHOLD_250K = '250K - 499K';
-public static final String VOLUME_THERESHOLD_500K = '500K - 999K';
-public static final String VOLUME_THERESHOLD_1M = '1M - 2.5M';
-public static final String VOLUME_THERESHOLD_2M = 'Above 2.5M';
+	public static final String VOLUME_THERESHOLD_0 = '0 - 250K';
+	public static final String VOLUME_THERESHOLD_250K = '250K - 499K';
+	public static final String VOLUME_THERESHOLD_500K = '500K - 999K';
+	public static final String VOLUME_THERESHOLD_1M = '1M - 2.5M';
+	public static final String VOLUME_THERESHOLD_2M = 'Above 2.5M';
 
 
-}
+	}
