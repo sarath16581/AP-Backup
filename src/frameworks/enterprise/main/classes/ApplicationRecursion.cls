@@ -55,26 +55,13 @@ public inherited sharing class ApplicationRecursion {
 	 * @param comparisonFields A list of fields the calling method is tracking. Keep this list short and consistent.
 	 */
 	public List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
-		Set<String> comparisonFieldsAsString = new Set<String>();
-		for(SObjectField comparisonField : comparisonFields) {
-			comparisonFieldsAsString.add(String.valueOf(comparisonField));
-		}
-		return getProcessableRecords(context, allRecords, allRecordsOld, comparisonFieldsAsString);
-	}
-
-	/**
-	 * This will filter the records passed in and remove all the records that have already been processed for the current context
-	 * This will track the current state of the record and on subsequent calls will only return records that have changed since last execution
-	 * A combination of Trigger oldMap, and tracking the values in the sobject itself are all used to determine which records should be returned for reprocessing
-	 * NOTE: comparisonFields must remain the same (per single context) for each call into this method to avoid unexpected results
-	 *
-	 * @param context Any name that is unique to where you are calling this from. The context is needed to store a snapshot of any values at the same point in the code where it was previously invoked
-	 * @param allRecords the Trigger.new objects
-	 * @param allRecordsOld the Trigger.oldMap objects. Used when necessary to determine if records are returned. Sometimes it's used, other times it's not.
-	 * @param comparisonFields A list of fields the calling method is tracking. Keep this list short and consistent.
-	 */
-	private List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<String> comparisonFields) {
 		Long t1 = System.currentTimeMillis();
+
+		Map<String, SObjectField> comparisonFieldsAsString = new Map<String, SObjectField>();
+		for(SObjectField comparisonField : comparisonFields) {
+			comparisonFieldsAsString.put(String.valueOf(comparisonField), comparisonField);
+		}
+		Set<String> comparisonFieldsKeySet = comparisonFieldsAsString.keySet();
 		
 		// check whether the records already processed should be reprocessed
 		List<RecordState> processableRecords = new List<RecordState>();
@@ -119,20 +106,20 @@ public inherited sharing class ApplicationRecursion {
 				// Note that at the end of the on before insert call, salesforce copies the id to all the instances of the sobject we have created. No other fields are updated
 				// NOTE: this block may be entered into in any scenario (on before/after insert/update if the previous call to this method did not clear the sobject from the sobject instance list)
 
-				for(String comparisonField : comparisonFields) {
+				for(String comparisonField : comparisonFieldsKeySet) {
 					oldStateAsMap.put(comparisonField, previousSObjectState.get(comparisonField));
 				}
 
 			} else if(sObjectRecord.Id == null) {
 				// the record has no id yet, so we are in an on before insert scenario
-				for(String comparisonField : comparisonFields) {
+				for(String comparisonField : comparisonFieldsKeySet) {
 					oldStateAsMap.put(comparisonField, null); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
 				}
 
 			} else if(currentState.get(sObjectRecord.Id) == null && allRecordsOld == null) {
 				// the record has an id, however, allRecordsOld is null which implies this is an on after insert scenario
 				// NOTE: if the method was called in an on before insert scenario then subsequently on after insert, this block will only be hit after the sobject instance is removed from the list!
-				for(String comparisonField : comparisonFields) {
+				for(String comparisonField : comparisonFieldsKeySet) {
 					oldStateAsMap.put(comparisonField, null); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
 				}
 
@@ -140,7 +127,7 @@ public inherited sharing class ApplicationRecursion {
 				// since allRecordsOld is NOT null, this implies we are in either an on before update or on after update scenario
 				// NOTE: if the method was called in an on before insert scenario then subsequently on before/after update next, this block will only be hit after the sobject instance is removed from the list!
 				SObject previousSObject = allRecordsOld.get(sObjectRecord.Id);
-				for(String comparisonField : comparisonFields) {
+				for(String comparisonField : comparisonFieldsKeySet) {
 					oldStateAsMap.put(comparisonField, previousSObject.get(comparisonField)); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
 				}
 
@@ -148,18 +135,18 @@ public inherited sharing class ApplicationRecursion {
 				// currentState has been populated from a previous call to this method
 				// grab the old values from the currentState
 				Map<String, Object> currentValues = currentState.get(sObjectRecord.Id);
-				for(String comparisonField : comparisonFields) {
+				for(String comparisonField : comparisonFieldsKeySet) {
 					oldStateAsMap.put(comparisonField, currentValues.get(comparisonField));
 				}
 				
 			}
 
 			Map<String, Object> newState = new Map<String, Object>();
-			Set<String> changedFields = new Set<String>();
+			Set<SObjectField> changedFields = new Set<SObjectField>();
 
-			for(String comparisonField : comparisonFields) {
+			for(String comparisonField : comparisonFieldsKeySet) {
 				if(sObjectRecord.get(comparisonField) != oldStateAsMap.get(comparisonField)) {
-					changedFields.add(comparisonField);
+					changedFields.add(comparisonFieldsAsString.get(comparisonField));
 				}
 				newState.put(comparisonField, sObjectRecord.get(comparisonField));
 			}
@@ -200,11 +187,11 @@ public inherited sharing class ApplicationRecursion {
 	}
 
 	public class RecordState {
-		public Set<String> changedFields = new Set<String>();
+		public Set<SObjectField> changedFields = new Set<SObjectField>();
 		public Map<String, Object> previousState = new Map<String, Object>();
 		public SObject record;
 
-		public RecordState(SObject record, Map<String, Object> previousState, Set<String> changedFields) {
+		public RecordState(SObject record, Map<String, Object> previousState, Set<SObjectField> changedFields) {
 			this.record = record;
 			this.previousState = previousState;
 			this.changedFields = changedFields;
