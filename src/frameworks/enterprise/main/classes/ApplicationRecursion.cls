@@ -30,13 +30,13 @@ public inherited sharing class ApplicationRecursion {
 	 * This sobject is used as the 'oldState' up until the same record is passed back in with an id.
 	 * After this, the oldState will be transferred to 'stateStore' variable.
 	 * This is used in on before insert scenarios
+	 * NOTE: after the on before insert call any sObjects we are temporarily storing will have their Id populated by internal Salesforce functionality. By the time on after insert is called on a trigger these temporary SObjects stored here will have an Id
+				no other field is updated, just the objects Id which is what we need
 	 * 
 	 * Map<String> -- the context name
-	 * Map<String, Map<SObject>> -- the sobject instance
-	 * Map<String, Map<Id, Map<String>>> -- the name of the field
-	 * Map<String, Map<Id, Map<String, Object>>> -- the value of the field (stored as a static value since the sobject instance will change from execution cycle to cycle)
+	 * Map<String, List<SObject>> -- the sobject instance
 	 */
-	private Map<String, Map<SObject, Map<String, Object>>> sobjectStateStore = new Map<String, Map<SObject, Map<String, Object>>>();
+	private Map<String, List<SObject>> sobjectStateStore = new Map<String, List<SObject>>();
 
 	public static ApplicationRecursion getInstance() {
 		return (ApplicationRecursion)Application.Utilities.getInstance(ApplicationRecursion.class);
@@ -62,7 +62,7 @@ public inherited sharing class ApplicationRecursion {
 	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction.... This parameter will be ignore in subsequent iterations of this method for the same context
 	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
 	 */
-	public Map<Id, RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
+	public List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
 		Set<String> comparisonFieldsAsString = new Set<String>();
 		for(SObjectField comparisonField : comparisonFields) {
 			comparisonFieldsAsString.add(String.valueOf(comparisonField));
@@ -90,11 +90,12 @@ public inherited sharing class ApplicationRecursion {
 	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction....
 	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
 	 */
-	private Map<Id, RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<String> comparisonFields) {
+	private List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<String> comparisonFields) {
 		Long t1 = System.currentTimeMillis();
 		
 		// check whether the records already processed should be reprocessed
-		Map<Id, RecordState> processableRecords = new Map<Id, RecordState>();
+		List<RecordState> processableRecords = new List<RecordState>();
+		Set<Id> processableIds = new Set<Id>();
 
 		// see definition of stateStore for breakdown/reasons of variable structure
 		Map<Id, Map<String, Object>> currentState = stateStore.get(context);
@@ -103,24 +104,40 @@ public inherited sharing class ApplicationRecursion {
 		}
 
 		// stores sobjects temporarily when the record passed in has no Id yet (on before insert scenario)
-		Map<SObject, Map<String, Object>> sobjectCurrentState = sobjectStateStore.get(context);
+		Map<Id, Integer> sobjectIdListPositionMappings = new Map<Id, Integer>();
+		List<SObject> sobjectCurrentState = sobjectStateStore.get(context);
 		if(sobjectCurrentState == null) {
-			sobjectCurrentState = new Map<SObject, Map<String, Object>>();
+			sobjectCurrentState = new List<SObject>();
 		}
-	
+		
+		// after the on before insert call any sObjects we are temporarily storing will have their Id populated by internal Salesforce
+		// no other field is updated, just the objects Id which is what we need
+		// in the event the temporary stored objects now have an Id we add them to a map for easy retrieval
+		for(Integer i=0;i<sobjectCurrentState.size();i++) {
+			if(sobjectCurrentState[i].Id != null) {
+				sobjectIdListPositionMappings.put(sobjectCurrentState[i].Id, i);
+			}
+		}
+
 		// iterate through the records passed in to determine which records have been changed
 		for(SObject sObjectRecord : allRecords) {
 
 			// grab the index of the sobject which is used to grab the current record's position and also to remove the current record once it has an id (only relevant if it exists)
-			Map<String, Object> sobjectStorePreviousValues = sobjectCurrentState.get(sObjectRecord);
+			Integer sobjectIndexPosition = sobjectIdListPositionMappings.get(sObjectRecord.Id);
+			SObject previousSObjectState = null;
+			if(sobjectIndexPosition != null) {
+				previousSObjectState = sobjectCurrentState[sobjectIndexPosition];
+			}
 
 			// determine the old values
 			Map<String, Object> oldStateAsMap = new Map<String, Object>();
-			if(sobjectStorePreviousValues != null) {
-				// use the values stored in the current sobject instance since in the previous call a record Id did not exist
+			if(sObjectRecord.Id != null && previousSObjectState != null) {
+				// this block should called subsequent to a call to this method in on before insert where a copy of the sobject record is stored without an id
+				// Note that at the end of the on before insert call, salesforce copies the id to all the instances of the sobject we have created. No other fields are updated
 				// NOTE: this block may be entered into in any scenario (on before/after insert/update if the previous call to this method did not clear the sobject from the sobject instance list)
+
 				for(String comparisonField : comparisonFields) {
-					oldStateAsMap.put(comparisonField, sobjectStorePreviousValues.get(comparisonField));
+					oldStateAsMap.put(comparisonField, previousSObjectState.get(comparisonField));
 				}
 
 			} else if(sObjectRecord.Id == null) {
@@ -166,22 +183,22 @@ public inherited sharing class ApplicationRecursion {
 
 			// confirm whether the old state duffers from the current values of the sobject
 			if(!changedFields.isEmpty()) {
-				processableRecords.put(sObjectRecord.Id, new RecordState(sObjectRecord, oldStateAsMap, changedFields));
+				processableRecords.add(new RecordState(sObjectRecord, oldStateAsMap, changedFields));
 			}
 
 			if(sObjectRecord.Id != null) {
 				currentState.put(sObjectRecord.Id, newState);
 
-				if(sobjectStorePreviousValues != null) {
-					sobjectCurrentState.remove(sObjectRecord);
+				if(previousSObjectState != null) {
+					sobjectCurrentState.remove(sobjectIndexPosition);
 				}
 			} else {
-				sobjectCurrentState.put(sObjectRecord, newState);
+				sobjectCurrentState.add(sObjectRecord);
 			}
 		}
 
 		// remove all the processed entries
-		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - ' + processableRecords.keySet());
+		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - Count: ' + processableRecords.size());
 
 		stateStore.put(context, currentState);
 		sobjectStateStore.put(context, sobjectCurrentState);

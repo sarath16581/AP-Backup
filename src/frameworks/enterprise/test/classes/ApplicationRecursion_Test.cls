@@ -43,16 +43,16 @@ private class ApplicationRecursion_Test {
 		// =====================================
 
 		// Testing first pass
-		Map<Id, ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(1, changedRecords.size());
-		System.assertEquals(new Set<Id>{case1.Id}, changedRecords.keySet());
-		System.assertEquals(new Set<String>{'Description'}, changedRecords.get(case1.Id).changedFields);
+		System.assertEquals(case1.Id, changedRecords[0].record.Id);
+		System.assertEquals(new Set<String>{'Description'}, changedRecords[0].changedFields);
 
-		System.assertEquals(case1OldState.Description, changedRecords.get(case1.Id).previousState.get('Description'));
-		System.assertEquals(case1OldState.Subject, changedRecords.get(case1.Id).previousState.get('Subject'));
+		System.assertEquals(case1OldState.Description, changedRecords[0].previousState.get('Description'));
+		System.assertEquals(case1OldState.Subject, changedRecords[0].previousState.get('Subject'));
 		
-		System.assertEquals(case1.Description, ((Case)changedRecords.get(case1.Id).record).Description);
-		System.assertEquals(case1.Subject, ((Case)changedRecords.get(case1.Id).record).Subject);
+		System.assertEquals(case1.Description, ((Case)changedRecords[0].record).Description);
+		System.assertEquals(case1.Subject, ((Case)changedRecords[0].record).Subject);
 
 		// Testing second pass - no changes means, no record returned
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
@@ -67,27 +67,27 @@ private class ApplicationRecursion_Test {
 
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{thirdPassCase1, thirdPassCase2}, oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(2, changedRecords.size());
-		System.assert(changedRecords.keySet().contains(case1.Id));
-		System.assert(changedRecords.keySet().contains(case2.Id));
+		System.assertEquals(case1.Id, changedRecords[0].record.Id);
+		System.assertEquals(case2.Id, changedRecords[1].record.Id);
 
 		// verifying case1
-		System.assertEquals(2, changedRecords.get(case1.Id).changedFields.size());
-		System.assert(changedRecords.get(case1.Id).changedFields.contains('Description'));
-		System.assert(changedRecords.get(case1.Id).changedFields.contains('Subject'));
+		System.assertEquals(2, changedRecords[0].changedFields.size());
+		System.assert(changedRecords[0].changedFields.contains('Description'));
+		System.assert(changedRecords[0].changedFields.contains('Subject'));
 
-		System.assertEquals(case1.Description, changedRecords.get(case1.Id).previousState.get('Description'));
-		System.assertEquals(case1.Subject, changedRecords.get(case1.Id).previousState.get('Subject'));
+		System.assertEquals(case1.Description, changedRecords[0].previousState.get('Description'));
+		System.assertEquals(case1.Subject, changedRecords[0].previousState.get('Subject'));
 		
-		System.assertEquals(thirdPassCase1.Description, ((Case)changedRecords.get(case1.Id).record).Description);
-		System.assertEquals(thirdPassCase1.Subject, ((Case)changedRecords.get(case1.Id).record).Subject);
+		System.assertEquals(thirdPassCase1.Description, ((Case)changedRecords[0].record).Description);
+		System.assertEquals(thirdPassCase1.Subject, ((Case)changedRecords[0].record).Subject);
 
 		// verifying case2
-		System.assertEquals(1, changedRecords.get(case2.Id).changedFields.size());
-		System.assert(changedRecords.get(case2.Id).changedFields.contains('Subject'));
+		System.assertEquals(1, changedRecords[1].changedFields.size());
+		System.assert(changedRecords[1].changedFields.contains('Subject'));
 
-		System.assertEquals(case2.Subject, changedRecords.get(case2.Id).previousState.get('Subject'));
+		System.assertEquals(case2.Subject, changedRecords[1].previousState.get('Subject'));
 	
-		System.assertEquals(thirdPassCase2.Subject, ((Case)changedRecords.get(case2.Id).record).Subject);
+		System.assertEquals(thirdPassCase2.Subject, ((Case)changedRecords[1].record).Subject);
 
 	}
 
@@ -128,26 +128,26 @@ private class ApplicationRecursion_Test {
 		// =====================================
 
 		// Testing first pass - onAfterInsert (note the NULL for oldMap)
-		Map<Id, ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), null, new Set<SObjectField>{Case.Subject, Case.Description});
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), null, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(2, changedRecords.size());
-		System.assert(changedRecords.keySet().contains(case1.Id));
-		System.assert(changedRecords.keySet().contains(case2.Id));
+		System.assertEquals(case1.Id, changedRecords[0].record.Id);
+		System.assertEquals(case2.Id, changedRecords[1].record.Id);
 
 		// case1
 		// the previous state should contain null since it's an on after insert scenario
-		System.assertEquals(null, changedRecords.get(case1.Id).previousState.get('Description'));
-		System.assertEquals(null, changedRecords.get(case1.Id).previousState.get('Subject'));
+		System.assertEquals(null, changedRecords[0].previousState.get('Description'));
+		System.assertEquals(null, changedRecords[0].previousState.get('Subject'));
 		
-		System.assertEquals(case1.Description, ((Case)changedRecords.get(case1.Id).record).Description);
-		System.assertEquals(case1.Subject, ((Case)changedRecords.get(case1.Id).record).Subject);
+		System.assertEquals(case1.Description, ((Case)changedRecords[0].record).Description);
+		System.assertEquals(case1.Subject, ((Case)changedRecords[0].record).Subject);
 
 		// case2
 		// the previous state should contain null since it's an on after insert scenario
-		System.assertEquals(null, changedRecords.get(case2.Id).previousState.get('Description'));
-		System.assertEquals(null, changedRecords.get(case2.Id).previousState.get('Subject'));
+		System.assertEquals(null, changedRecords[1].previousState.get('Description'));
+		System.assertEquals(null, changedRecords[1].previousState.get('Subject'));
 		
-		System.assertEquals(case2.Description, ((Case)changedRecords.get(case2.Id).record).Description);
-		System.assertEquals(case2.Subject, ((Case)changedRecords.get(case2.Id).record).Subject);
+		System.assertEquals(case2.Description, ((Case)changedRecords[1].record).Description);
+		System.assertEquals(case2.Subject, ((Case)changedRecords[1].record).Subject);
 
 		// Second pass - making changes to one record passed in
 		Case thirdPassCase1 = case1.clone(true);
@@ -156,18 +156,18 @@ private class ApplicationRecursion_Test {
 
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{thirdPassCase1, case2}, oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(1, changedRecords.size());
-		System.assert(changedRecords.keySet().contains(case1.Id));
+		System.assertEquals(case1.Id, changedRecords[0].record.Id);
 
 		// verifying case1
-		System.assertEquals(2, changedRecords.get(case1.Id).changedFields.size());
-		System.assert(changedRecords.get(case1.Id).changedFields.contains('Description'));
-		System.assert(changedRecords.get(case1.Id).changedFields.contains('Subject'));
+		System.assertEquals(2, changedRecords[0].changedFields.size());
+		System.assert(changedRecords[0].changedFields.contains('Description'));
+		System.assert(changedRecords[0].changedFields.contains('Subject'));
 
-		System.assertEquals(case1.Description, changedRecords.get(case1.Id).previousState.get('Description'));
-		System.assertEquals(case1.Subject, changedRecords.get(case1.Id).previousState.get('Subject'));
+		System.assertEquals(case1.Description, changedRecords[0].previousState.get('Description'));
+		System.assertEquals(case1.Subject, changedRecords[0].previousState.get('Subject'));
 		
-		System.assertEquals(thirdPassCase1.Description, ((Case)changedRecords.get(case1.Id).record).Description);
-		System.assertEquals(thirdPassCase1.Subject, ((Case)changedRecords.get(case1.Id).record).Subject);
+		System.assertEquals(thirdPassCase1.Description, ((Case)changedRecords[0].record).Description);
+		System.assertEquals(thirdPassCase1.Subject, ((Case)changedRecords[0].record).Subject);
 
 	}
 
@@ -208,7 +208,7 @@ private class ApplicationRecursion_Test {
 		// =====================================
 
 		// Testing first pass
-		Map<Id, ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(0, changedRecords.size());
 
 		// Second pass - making changes to one record passed in
