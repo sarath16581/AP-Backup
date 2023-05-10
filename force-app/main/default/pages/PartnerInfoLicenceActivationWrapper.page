@@ -1,0 +1,20 @@
+<!--
+@author Naveen Rajanna
+@date 2023-03-17
+@description SMWD-397 - Visualforce wrapper for the PartnerInfoLicenceActivationWrapperApp
+-->
+<apex:page id="PartnerInfoLicenceActivationWrapper" title="Licence Activation" lightningStylesheets="true" standardController="Account"
+ showHeader="true" sidebar="false">
+	<html>
+
+	<head></head>
+
+	<body class="slds-scope">
+		<div id="wrapper" style="margin: 1rem">
+			<c:LightningWrapper lightningApp="c:PartnerInfoLicenceActivationWrapperApp" lightningComponent="c:partnerInfoLicenceActivation"
+			 crossOriginLwcEvents="false" componentAttributes="{&quot;recordId&quot;:&quot;{!$CurrentPage.parameters.id}&quot;}" />
+		</div>
+	</body>
+
+	</html>
+</apex:page>

@@ -10,6 +10,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
 13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
+04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -370,9 +371,33 @@ public without sharing class bspEnquiryUplift {
 	 * @return an enquiryWrapper with the newly created Case Id and Number. The LWC can then display a link to the
 	 * Case Details.
 	 */
+	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles) {
+		return createEnquiryAusPost(enq, uploadedFiles, null);
+	}
+
+	/**
+	 * What it is: method called by the bspFormAPEnquiry LWC to create a Case on submit
+	 * What it does:
+	 *  - Creates a Case record with the details passed in from the 'enq' parameter
+	 *  - Relates the Files to the Case with ContentDocumentLinks
+	 * Why: Create an AusPost Enquiry from the BSP community
+	 * @param enq a Case object passed in from bspFormAPEnquiry lwc
+	 * @param uploadedFiles a list of uploaded Files for this enquiry
+	 * @param additionalData a wrapper object what contains containsEssentialMedicine and isSentimental value of 'yes' or 'no' passed from the bspFormAPEnquiry LWC
+	 *
+	 * @return an enquiryWrapper with the newly created Case Id and Number. The LWC can then display a link to the
+	 * Case Details.
+	 */
 	@AuraEnabled
-	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles)
-	{
+	public static CreateEnquiryWrapper createEnquiryAusPost(Case enq, List<Map<String, String>> uploadedFiles, BSPFormAdditionalData additionalData) {
+		if (additionalData == null) {
+			additionalData = new BSPFormAdditionalData();
+			additionalData.containsEssentialMedicine = 'no';
+			additionalData.isSentimental = 'no';
+		}
+		additionalData.containsEssentialMedicine = additionalData.containsEssentialMedicine == null ? 'no' : additionalData.containsEssentialMedicine;
+		additionalData.isSentimental = additionalData.isSentimental == null ? 'no' : additionalData.isSentimental;
+
 		// return object
 		CreateEnquiryWrapper enquiryWrapper = new CreateEnquiryWrapper();
 
@@ -485,17 +510,16 @@ public without sharing class bspEnquiryUplift {
 		}
 
 		enq.DatePosted__c = enq.BSPLodgementDate__c;
-		enq.Priority = BspConstants.CASE_PRIORITY_LOW;    //REQ0661196 changed to low
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 
 		// TODO: unit tests
-		if(enq.EstimatedDelivery__c != null) {
+		if(enq.EstimatedDelivery__c != null && additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
 			//2023-04-24 EDD
 			//2023-05-08 EDD + business 10 days
 			setDirectRoutingValues(enq);
 		}
-		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper);
+		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
@@ -517,10 +541,11 @@ public without sharing class bspEnquiryUplift {
 	 * Why: Separates the Case Comment insertion
 	 * @param enq The created Case from BSP community
 	 * @param enqWrapper the wrapper to store any status and messages
+	 * @param containsEssentialMedicine a string value of 'yes' or 'no from the BSP LWC form'
 	 *
 	 * @return the Case passed in, or null if there was an error
 	 */
-	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper) {
+	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper, BSPFormAdditionalData additionalData) {
 		SavePoint sp = Database.setSavepoint();
 		Boolean isDmlError = false;
 
@@ -528,7 +553,14 @@ public without sharing class bspEnquiryUplift {
 			insert enq;
 
 			if(!String.isEmpty(enq.Description)) {
-				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=enq.Description,  IsPublished=true);
+				String commentBody = '---Enquiry Details---' + SSSWConstants.NEW_LINE + enq.Description;
+				if (additionalData.containsEssentialMedicine != null && additionalData.containsEssentialMedicine.deleteWhitespace() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + additionalData.containsEssentialMedicine;
+				}
+				if (additionalData.isSentimental != null && additionalData.isSentimental.deleteWhitespace() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Is the item urgent, sentimental or high value? : ' + additionalData.isSentimental;
+				}
+				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=commentBody,  IsPublished=true);
 				insert myComment;
 			}
 
@@ -1664,6 +1696,16 @@ public without sharing class bspEnquiryUplift {
 			this.response = response;
 			this.consignmentNumber = cNumber;
 			this.enqObj = enqObj;
+		}
+	}
+
+	public class BSPFormAdditionalData {
+		@AuraEnabled public String containsEssentialMedicine {get; set;}
+		@AuraEnabled public String isSentimental {get; set;}
+
+		public BSPFormAdditionalData() {
+			this.containsEssentialMedicine = 'no';
+			this.isSentimental = 'no';
 		}
 	}
 
