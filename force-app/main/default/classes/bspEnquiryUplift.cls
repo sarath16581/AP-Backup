@@ -519,7 +519,7 @@ public without sharing class bspEnquiryUplift {
 			//2023-05-08 EDD + business 10 days
 			setDirectRoutingValues(enq);
 		}
-		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData.containsEssentialMedicine);
+		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
@@ -545,7 +545,7 @@ public without sharing class bspEnquiryUplift {
 	 *
 	 * @return the Case passed in, or null if there was an error
 	 */
-	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper, String containsEssentialMedicine) {
+	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper, BSPFormAdditionalData additionalData) {
 		SavePoint sp = Database.setSavepoint();
 		Boolean isDmlError = false;
 
@@ -554,8 +554,11 @@ public without sharing class bspEnquiryUplift {
 
 			if(!String.isEmpty(enq.Description)) {
 				String commentBody = '---Enquiry Details---' + SSSWConstants.NEW_LINE + enq.Description;
-				if (containsEssentialMedicine != null && containsEssentialMedicine.deleteWhitespace() != '') {
-					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + containsEssentialMedicine;
+				if (additionalData.containsEssentialMedicine != null && additionalData.containsEssentialMedicine.deleteWhitespace() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + additionalData.containsEssentialMedicine;
+				}
+				if (additionalData.isSentimental != null && additionalData.isSentimental.deleteWhitespace() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Is the item urgent, sentimental or high value? : ' + additionalData.isSentimental;
 				}
 				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=commentBody,  IsPublished=true);
 				insert myComment;
