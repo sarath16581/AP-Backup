@@ -1,17 +1,17 @@
-	/* @author
-	* @date 2020-11-18
-	* @group Tests
-	* @tag Selector
-	* @tag BillingAccount
-	* @domain Core
-	* @description test class for BillingAccountCreationEventHelper
-	* @changelog
-	* 2020-11-18 - Shashwat.Nath@austpost.com.au - Created
-	* 2022-08-08 - Seth Heang - Added test method to cover Rating Plan Activation changes
-	* 2023-03-23 - Sarath.burra@auspost.com.au - CI-703 Added new test logic to cover DSR creation for non APPC products and skip DSR creation for exclusive APPC product during Sub Account creation process
-	*/
-	@IsTest
-	public with sharing class BillingAccountCreationEventHelperTest {
+/* @author
+* @date 2020-11-18
+* @group Tests
+* @tag Selector
+* @tag BillingAccount
+* @domain Core
+* @description test class for BillingAccountCreationEventHelper
+* @changelog
+* 2020-11-18 - Shashwat.Nath@austpost.com.au - Created
+* 2022-08-08 - Seth Heang - Added test method to cover Rating Plan Activation changes
+* 2023-03-23 - Sarath.burra@auspost.com.au - CI-703 Added new test logic to cover DSR creation for non APPC products and skip DSR creation for exclusive APPC product during Sub Account creation process
+*/
+@IsTest
+public with sharing class BillingAccountCreationEventHelperTest {
 	@IsTest
 	private static void testBillingAccountCreationSuccessScenario() {
 	// =====================================
@@ -42,13 +42,9 @@
 	apttusContracts.Apttus__Account__c = account.Id;
 	dealSupportRequest.APT_Contract__c = apttusContracts.Id;
 	product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
-
-
 	Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 	APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
 	alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
-
-
 	//Code start
 	Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
 	apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
@@ -175,8 +171,6 @@
 	// =====================================
 	List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
 	Account account = accountList[0];
-
-
 	Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
 	Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 	APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,true)[0];
@@ -202,13 +196,9 @@
 	apttusContracts.Apttus__Account__c = account.Id;
 	dealSupportRequest.APT_Contract__c = apttusContracts.Id;
 	product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
-
-
 	Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 	APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
 	alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
-
-
 	//Code start
 	Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
 	apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
@@ -216,7 +206,6 @@
 	apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
 	apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';
 	apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
-
 	apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
 			new Map<String, Object>{
 				'Apttus__AgreementId__c' =>	apttusContracts.id
@@ -315,7 +304,7 @@
 	((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<APT_Sub_Account__c>) updateableAccountCaptor.capture());
 	Map<Id, APT_Sub_Account__c> updateableAccounts = new Map<Id, APT_Sub_Account__c>((List<APT_Sub_Account__c>) updateableAccountCaptor.getValue());
 	System.assertEquals(newsEvent1.Status__c, updateableAccounts.get(subAccountRequest.Id).APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
-	}
+}
 
 	@IsTest
 	private static void testBillingAccountCreationErrorScenario() {
@@ -634,8 +623,6 @@
 	// =====================================
 	List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
 	Account account = accountList[0];
-
-
 	Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
 	Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 	APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,true)[0];
@@ -753,8 +740,6 @@
 	// =====================================
 	List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
 	Account account = accountList[0];
-
-
 	Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
 	Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 	APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,true)[0];
@@ -977,8 +962,6 @@
 	// =====================================
 	List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
 	Account account = accountList[0];
-
-
 	Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
 	Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 	APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,true)[0];
