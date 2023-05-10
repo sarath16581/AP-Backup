@@ -10,7 +10,7 @@ History
 @IsTest
 public class MembershipTriggerHandler_Test {
 
-    /***************************************************************
+	/***************************************************************
      * Initialize Lookups
      **************************************************************/
     
@@ -133,10 +133,10 @@ public class MembershipTriggerHandler_Test {
 
         memberRecList.addAll(ApplicationTestDataFactory.getMembership(1, 'Active', 'Update Membership', licenceAccount.Id, personContact.Id,  false));
         try{
-            insert memberRecList;
+			insert memberRecList;
         }
         catch(System.Exception e){
-            errMessage = e.getMessage();
+			errMessage = e.getMessage();
         }
         Test.stopTest();
 
@@ -258,10 +258,10 @@ public class MembershipTriggerHandler_Test {
 
         memberRecList.addAll(ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  false));
         try{
-            insert memberRecList;
+			insert memberRecList;
         }
         catch(System.DmlException e){
-            errMessage = e.getMessage();
+			errMessage = e.getMessage();
         }
         Test.stopTest();
         System.assertNotEquals('', errMessage, 'Validation did not run');

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Western Union Licence Registration – S75 Further Information Required</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Western_Union_Missing_Information</letterhead>
+    <name>Western Union Licence Registration - S75 Further Information Required</name>
+    <style>freeForm</style>
+    <subject>{!Membership__c.Name} Western Union Licence Registration – S75 Further Information Required</subject>
+    <textOnly>Organisation Name: {!Membership__c.Account__c} {!Membership__c.Name}
+
+Dear Licensee,
+
+Thank you for returning your S75 Notice. We have reviewed your response and are unable to submit the application to Western Union due to the following issue/s:
+
+Please review your responses using the guidelines below:
+
+PAYMENT RISK – Payment method offered in relation to Q6, the risks associated with each and how the payment methods can be used to facilitate ML/TF. Are these payment methods risky? If yes, why? Please share actual scenarios that you have encountered related to payment risks in your business (or share situations that are likely to occur).
+
+JURISDICTION RISK – Countries mentioned in relation to Q9. Mention why country is considered high risk and the obligation of the Agent should customer want to transact with higher risk jurisdictions.  Where is your business located? Describe the location. Do you think your location is prone to risks? If yes, what are some scenarios you consider risky (or you may share risky situations you think are likely to occur).
+
+CUSTOMER RISK – Describe your customers – are they retirees, students, migrants, professionals, seasonal workers, tourists, etc.? Where are they from? How often do you think they will transact? How much do you think they will send? To whom will they most likely send funds to? And for what reason. What do you think their sending pattern will be? Are these current customers risky? What should you do if you encounter any red flags during a transaction or if you notice something suspicious with their transaction pattern? What are the risks associated with each? What are the risk with new customers that will be coming to your location, what risks can you foresee that can happen? Please share situations that are likely to occur.
+
+TRANSACTION ACTIVITY – Provide examples/scenarios of cash structuring, transaction patterns, volumes of funds remitted and frequency of transactions. Briefly add obligation to lodge UAR.
+
+Once all information has been refreshed, please email confirmation to aml.dataentry@auspost.com.au and we will be able to continue your application.
+
+Kind regards,
+
+Workforce Due Diligence
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please email aml.dataentry@auspost.com.au. Visit ourpost.com.au for further information on our online security.
+
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
