@@ -22,6 +22,7 @@ public inherited sharing class ApplicationRecursion {
 	 * 1. We only want to store the comparison fields
 	 * 2. Since we only want to store the comparison fields, we would need to create a sobject instance. If a comparison field is 'not writeable' then an error will occur while trying to add the value to the new sobject (I didn't want to use JSON hacks)
 	 */
+	@TestVisible
 	private Map<String, Map<Id, Map<String, Object>>> stateStore = new Map<String, Map<Id, Map<String, Object>>>();
 
 	/**
@@ -35,6 +36,7 @@ public inherited sharing class ApplicationRecursion {
 	 * Map<String> -- the context name
 	 * Map<String, List<SObject>> -- the sobject instance
 	 */
+	@TestVisible
 	private Map<String, List<SObject>> sobjectStateStore = new Map<String, List<SObject>>();
 
 	public static ApplicationRecursion getInstance() {
