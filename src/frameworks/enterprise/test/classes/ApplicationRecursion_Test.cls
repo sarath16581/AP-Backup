@@ -211,12 +211,28 @@ private class ApplicationRecursion_Test {
 		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(0, changedRecords.size());
 
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Subject'));
+
 		// Second pass - making changes to one record passed in
 		Case thirdPassCase1 = case1.clone(true);
 		thirdPassCase1.put('Origin', 'Chat');
 
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{thirdPassCase1, case2}, oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(0, changedRecords.size());
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Subject'));
 
 	}
 
@@ -250,6 +266,14 @@ private class ApplicationRecursion_Test {
 		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', cases, null, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(2, changedRecords.size());
 
+		// check the internal state of our variables inside the class
+		System.assertEquals(2, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Subject'));
+		System.assertEquals(0, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+
 		// case1
 		// the previous state should contain null since it's an on after insert scenario
 		System.assertEquals(null, changedRecords[0].previousState.get('Description'));
@@ -277,6 +301,15 @@ private class ApplicationRecursion_Test {
 		secondPassCase1.put('Description', 'changed');
 
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{secondPassCase1, case2}, null, new Set<SObjectField>{Case.Subject, Case.Description});
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+		System.assertEquals(secondPassCase1.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(secondPassCase1.Id).get('Description'));
+		System.assertEquals(secondPassCase1.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(secondPassCase1.Id).get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Subject'));
+
 		System.assertEquals(1, changedRecords.size());
 		System.assertEquals(case1.Id, changedRecords[0].record.Id);
 
@@ -297,6 +330,15 @@ private class ApplicationRecursion_Test {
 		thirdPassCase2.put('Description', 'changed');
 
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{secondPassCase1, thirdPassCase2}, null, new Set<SObjectField>{Case.Subject, Case.Description});
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+		System.assertEquals(secondPassCase1.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(secondPassCase1.Id).get('Description'));
+		System.assertEquals(secondPassCase1.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(secondPassCase1.Id).get('Subject'));
+		System.assertEquals(thirdPassCase2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(thirdPassCase2.Id).get('Description'));
+		System.assertEquals(thirdPassCase2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(thirdPassCase2.Id).get('Subject'));
+
 		System.assertEquals(1, changedRecords.size());
 		System.assertEquals(case2.Id, changedRecords[0].record.Id);
 
@@ -339,6 +381,15 @@ private class ApplicationRecursion_Test {
 
 		// Testing first pass - onAfterInsert (note the NULL for oldMap)
 		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', cases, null, new Set<SObjectField>{Case.Subject, Case.Description});
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(2, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Subject'));
+		System.assertEquals(0, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+
 		System.assertEquals(2, changedRecords.size());
 
 		// case1
@@ -367,6 +418,14 @@ private class ApplicationRecursion_Test {
 
 		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{case1, case2}, new Map<Id, Case>{case1Old.Id => case1Old, case2Old.Id => case2Old}, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(0, changedRecords.size());
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Subject'));
 
 	}
 
