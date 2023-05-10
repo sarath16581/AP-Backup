@@ -143,13 +143,9 @@ global with sharing class SSSWRoutingController {
 		//listPickvals.add(new SelectOption('', '--None--'));//Add in a default value of empty string for first entry
 		// sort alphabetically
 		pick_list_values = sortPickListEntriesByLabel(pick_list_values);
-		System.debug('pick_list_values--->'+pick_list_values);
 		for (Schema.PicklistEntry a : pick_list_values) { //for all values in the picklist list
-			System.debug('a.getValue()--->'+a.getValue());
-			System.debug('a.getLabel()--->'+a.getLabel());
 			listPickvals.add(new SelectOption(a.getValue(), a.getLabel()));//add the value  to our final list
 		}
-		System.debug('listPickvals--->'+listPickvals);
 		return listPickvals;
 	}
 	public void reloadPicklists(){
@@ -195,7 +191,8 @@ global with sharing class SSSWRoutingController {
 				IsStrategic__c = :selRouting.IsStrategic__c and
 				HasExtraCover__c = :selRouting.HasExtraCover__c and
 				Sequence__c != :seq and 
-				RecordType.name = :recordType
+				RecordType.name = :recordType and 
+				IsActive__c = true
 		]);
 
 		existingRoutings = new List<SSSWRouting__c>();
