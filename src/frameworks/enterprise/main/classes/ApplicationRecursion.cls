@@ -95,7 +95,7 @@ public inherited sharing class ApplicationRecursion {
 		
 		// check whether the records already processed should be reprocessed
 		List<RecordState> processableRecords = new List<RecordState>();
-		Set<Id> processableIds = new Set<Id>();
+		Set<Integer> sobjectIndexesToRemove = new Set<Integer>();
 
 		// see definition of stateStore for breakdown/reasons of variable structure
 		Map<Id, Map<String, Object>> currentState = stateStore.get(context);
@@ -190,7 +190,7 @@ public inherited sharing class ApplicationRecursion {
 				currentState.put(sObjectRecord.Id, newState);
 
 				if(previousSObjectState != null) {
-					sobjectCurrentState.remove(sobjectIndexPosition);
+					sobjectIndexesToRemove.add(sobjectIndexPosition);
 				}
 			} else {
 				sobjectCurrentState.add(sObjectRecord);
@@ -200,8 +200,16 @@ public inherited sharing class ApplicationRecursion {
 		// remove all the processed entries
 		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - Count: ' + processableRecords.size());
 
+		// 'purge' the sobjects that we no longer need to track
+		List<SObject> newSObjectCurrentState = new List<SObject>();
+		for(Integer i=0;i<sobjectCurrentState.size();i++) {
+			if(!sobjectIndexesToRemove.contains(i)) {
+				newSObjectCurrentState.add(sobjectCurrentState[i]);
+			}
+		}
+
 		stateStore.put(context, currentState);
-		sobjectStateStore.put(context, sobjectCurrentState);
+		sobjectStateStore.put(context, newSObjectCurrentState);
 
 		System.debug('ApplicationRecursion: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
 
