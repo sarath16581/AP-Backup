@@ -1,16 +1,15 @@
 /**
  * @description Determines which records should be processed during a trigger iteration
+ * 				Usually when a record is inserted or updated, subsequent config based automation such as workflows, process builders etc... may trigger recursion which restarts the trigger iterations again
+ * 				This class is responsible for only allowing calling methods to re-process records if their values have changed since the last time they were used in that calling method.
+ * 				Other concepts like Boolean flags and only checking the oldMap are inadequate ways of limiting recursive processing.
+ * 				See this page: https://australiapost.jira.com/wiki/spaces/SF/pages/2797764773/Triggers+and+Recursion
+ * 
  * @author Nathan Franklin
  * @date 2023-05-05
  * @changelog
  */
 public inherited sharing class ApplicationRecursion {
-
-	/**
-	 * Usually when a record is inserted, subsequent config based automation such as workflows, process builders etc... will fire an iteration of the update trigger cycles
-	 * This will usually mean that the insert triggers and the update triggers will fire in the same transaction.
-	 * For consistency ApplicationRecursion class can still be used in an after insert context, however we need to 
-	 */
 
 	/**
 	 * Stores the context and a Map of Record Id and joined string values for hashing (if necessary)
@@ -44,23 +43,14 @@ public inherited sharing class ApplicationRecursion {
 
 	/**
 	 * This will filter the records passed in and remove all the records that have already been processed for the current context
-	 * An initial call to this method (per single context) will compare the oldMap records vs the newMap records.
-	 * Subsequent calls to this method (per single context) will only compare the previous state (the comparison of when this method was last called) vs the newMap.
-	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
-	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
-	 *  
-	 * Example... 
-	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
-	 * 2. At the end of the update cycle, workflow, flow, etc... are processed and then another iteration of update fires
-	 * 3. The second iteration of your method is fired, You compare oldMap vs newMap again and realised oldMap holds the same values as they were right at the start of the transaction and your method then proceeds to do the same work again as it did in the initial update iteration
-	 * Applying a call to this method will prevent a subsequent iteration
-	 * 
+	 * This will track the current state of the record and on subsequent calls will only return records that have changed since last execution
+	 * A combination of Trigger oldMap, and tracking the values in the sobject itself are all used to determine which records should be returned for reprocessing
 	 * NOTE: comparisonFields must remain the same (per single context) for each call into this method to avoid unexpected results
 	 *
 	 * @param context Any name that is unique to where you are calling this from. The context is needed to store a snapshot of any values at the same point in the code where it was previously invoked
-	 * @param allRecords the Trigger.newMap objects
-	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction.... This parameter will be ignore in subsequent iterations of this method for the same context
-	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
+	 * @param allRecords the Trigger.new objects
+	 * @param allRecordsOld the Trigger.oldMap objects. Used when necessary to determine if records are returned. Sometimes it's used, other times it's not.
+	 * @param comparisonFields A list of fields the calling method is tracking. Keep this list short and consistent.
 	 */
 	public List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
 		Set<String> comparisonFieldsAsString = new Set<String>();
@@ -72,23 +62,14 @@ public inherited sharing class ApplicationRecursion {
 
 	/**
 	 * This will filter the records passed in and remove all the records that have already been processed for the current context
-	 * An initial call to this method (per single context) will compare the oldMap records vs the newMap records.
-	 * Subsequent calls to this method (per single context) will only compare the previous state (the comparison of when this method was last called) vs the newMap.
-	 * The reason why this method exists is the prevent unnecessary reexecution of code when key field values have not been changed between the different stages of recursion execution throughout a single transaction
-	 * NOTE: the oldMap values are ignored in subsequent iterations after the initial call
-	 *  
-	 * Example... 
-	 * 1. An update trigger is fired, your method is called. You compare oldMap vs newMap and find out you have work to do
-	 * 2. At the end of the update cycle, workflow, flow, etc... are processed and then another iteration of update fires
-	 * 3. The second iteration of your method is fired, You compare oldMap vs newMap again and realised oldMap holds the same values as they were right at the start of the transaction and your method then proceeds to do the same work again as it did in the initial update iteration
-	 * Applying a call to this method will prevent a subsequent iteration
-	 * 
+	 * This will track the current state of the record and on subsequent calls will only return records that have changed since last execution
+	 * A combination of Trigger oldMap, and tracking the values in the sobject itself are all used to determine which records should be returned for reprocessing
 	 * NOTE: comparisonFields must remain the same (per single context) for each call into this method to avoid unexpected results
 	 *
 	 * @param context Any name that is unique to where you are calling this from. The context is needed to store a snapshot of any values at the same point in the code where it was previously invoked
-	 * @param allRecords the Trigger.newMap objects
-	 * @param allRecordsOld the Trigger.oldMap objects. NOTE: This is used to capture the initial state of a record's values where this is method is invoked for the first time within a transaction....
-	 * @param comparisonFields Any records where the values have changed in comparisonFields will cause the record to reappear in the processable records list.
+	 * @param allRecords the Trigger.new objects
+	 * @param allRecordsOld the Trigger.oldMap objects. Used when necessary to determine if records are returned. Sometimes it's used, other times it's not.
+	 * @param comparisonFields A list of fields the calling method is tracking. Keep this list short and consistent.
 	 */
 	private List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<String> comparisonFields) {
 		Long t1 = System.currentTimeMillis();
