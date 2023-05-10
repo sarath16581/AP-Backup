@@ -2302,6 +2302,11 @@
             <field>Owner.UserRole</field>
             <table>Account.Opportunities</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.UserRole.Name</field>
+            <table>Account.Opportunities</table>
+        </columns>
         <masterLabel>Opportunities</masterLabel>
     </sections>
     <sections>
@@ -2488,6 +2493,21 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>TotalPrice</field>
+            <table>Account.Opportunities.OpportunityLineItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Annualised_Value__c</field>
+            <table>Account.Opportunities.OpportunityLineItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>PricebookEntry.Product2</field>
+            <table>Account.Opportunities.OpportunityLineItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>PricebookEntry.Product2.Name</field>
             <table>Account.Opportunities.OpportunityLineItems</table>
         </columns>
         <masterLabel>Products</masterLabel>
