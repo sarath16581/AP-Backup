@@ -63,6 +63,7 @@ public static String afterInsertOrDeleteEvent(List<Apttus__AgreementLineItem__c>
 		APT_Operational_Schedule__c os;
 		Apttus_CMConfig__AgreementProductAttributeValue__c newApav;
 		Boolean steCleared = false;
+		List<Priority_Product_Name__mdt> priorityProdNames = [SELECT MasterLabel, QualifiedApiName FROM Priority_Product_Name__mdt];
 		// map used for 'Local Pickup and Delivery Services' Product that associate Agreement Line Item and Agreement Product Attribute Value
 		map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapAgreementLineItemToPav = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
 			for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
@@ -561,7 +562,6 @@ public static String afterInsertOrDeleteEvent(List<Apttus__AgreementLineItem__c>
 
 			//31052019- fetch priority product codes from the custom metadata 'Priority_Product_Name__mdt'
 			Set <String> priorityProdCodes = new  Set <String>();
-			List<Priority_Product_Name__mdt> priorityProdNames = [SELECT MasterLabel, QualifiedApiName FROM Priority_Product_Name__mdt];
 			for (Priority_Product_Name__mdt ppName : priorityProdNames) {
 				priorityProdCodes.add(ppName.QualifiedApiName);
 			}
