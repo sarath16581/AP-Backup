@@ -313,4 +313,61 @@ private class ApplicationRecursion_Test {
 
 	}
 
+	/**
+	 * Scenario: Handles the usage of on before insert scenario where the recursion method is called from on before insert then subsequently from on before update (with an old state set with no changes)
+	 */
+	@isTest
+	public static void testEnsureOnBeforeInsertOnBeforeUpdateTriggerCallReturnsRecordsForProcessing() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case case1 = new Case(Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+		Case case2 = new Case(Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+
+		List<Case> cases = new List<Case>{case1, case2};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+
+		// =====================================
+		// Testing
+		// =====================================
+
+		// Testing first pass - onAfterInsert (note the NULL for oldMap)
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', cases, null, new Set<SObjectField>{Case.Subject, Case.Description});
+		System.assertEquals(2, changedRecords.size());
+
+		// case1
+		// the previous state should contain null since it's an on after insert scenario
+		System.assertEquals(null, changedRecords[0].previousState.get('Description'));
+		System.assertEquals(null, changedRecords[0].previousState.get('Subject'));
+		
+		System.assertEquals(case1.Description, ((Case)changedRecords[0].record).Description);
+		System.assertEquals(case1.Subject, ((Case)changedRecords[0].record).Subject);
+
+		// case2
+		// the previous state should contain null since it's an on after insert scenario
+		System.assertEquals(null, changedRecords[1].previousState.get('Description'));
+		System.assertEquals(null, changedRecords[1].previousState.get('Subject'));
+		
+		System.assertEquals(case2.Description, ((Case)changedRecords[1].record).Description);
+		System.assertEquals(case2.Subject, ((Case)changedRecords[1].record).Subject);
+
+		// in between before insert and after insert, Salesforce internal processes will update any of the instances of the SObjects we are storing from the on before insert iteration
+		// here we mimic this process by setting an id for these records, updating these should also update the stored values stored by the recursion method
+		case1.Id = '500000000000001';
+		case2.Id = '500000000000002';
+		
+		Case case1Old = case1.clone(true);
+		Case case2Old = case2.clone(true);
+
+		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{case1, case2}, new Map<Id, Case>{case1Old.Id => case1Old, case2Old.Id => case2Old}, new Set<SObjectField>{Case.Subject, Case.Description});
+		System.assertEquals(0, changedRecords.size());
+
+	}
+
 }
