@@ -99,6 +99,9 @@ public inherited sharing class ApplicationRecursion {
 				previousSObjectState = sobjectCurrentState[sobjectIndexPosition];
 			}
 
+			Map<String, Object> newState = new Map<String, Object>();
+			Set<SObjectField> changedFields = new Set<SObjectField>();
+
 			// determine the old values
 			Map<String, Object> oldStateAsMap = new Map<String, Object>();
 			if(sObjectRecord.Id != null && previousSObjectState != null) {
@@ -107,20 +110,39 @@ public inherited sharing class ApplicationRecursion {
 				// NOTE: this block may be entered into in any scenario (on before/after insert/update if the previous call to this method did not clear the sobject from the sobject instance list)
 
 				for(String comparisonField : comparisonFieldsKeySet) {
-					oldStateAsMap.put(comparisonField, previousSObjectState.get(comparisonField));
+					Object oldValue = previousSObjectState.get(comparisonField);
+					Object newValue = sObjectRecord.get(comparisonField);
+
+					if(newValue != oldValue) {
+						changedFields.add(comparisonFieldsAsString.get(comparisonField));
+					}
+					newState.put(comparisonField, newValue);
+					oldStateAsMap.put(comparisonField, oldValue);
 				}
 
 			} else if(sObjectRecord.Id == null) {
 				// the record has no id yet, so we are in an on before insert scenario
 				for(String comparisonField : comparisonFieldsKeySet) {
-					oldStateAsMap.put(comparisonField, null); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
+					Object newValue = sObjectRecord.get(comparisonField);
+
+					if(newValue != null) { // the previous state is null since the previous record state was nothing since it didn't exist at all previously
+						changedFields.add(comparisonFieldsAsString.get(comparisonField));
+					}
+					newState.put(comparisonField, newValue);
+					oldStateAsMap.put(comparisonField, null);
 				}
 
 			} else if(currentState.get(sObjectRecord.Id) == null && allRecordsOld == null) {
 				// the record has an id, however, allRecordsOld is null which implies this is an on after insert scenario
 				// NOTE: if the method was called in an on before insert scenario then subsequently on after insert, this block will only be hit after the sobject instance is removed from the list!
 				for(String comparisonField : comparisonFieldsKeySet) {
-					oldStateAsMap.put(comparisonField, null); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
+					Object newValue = sObjectRecord.get(comparisonField);
+
+					if(newValue != null) { // the previous state is null since the previous record state was nothing since it didn't exist at all previously
+						changedFields.add(comparisonFieldsAsString.get(comparisonField));
+					}
+					newState.put(comparisonField, newValue);
+					oldStateAsMap.put(comparisonField, null);
 				}
 
 			} else if(currentState.get(sObjectRecord.Id) == null && allRecordsOld != null) {
@@ -128,7 +150,15 @@ public inherited sharing class ApplicationRecursion {
 				// NOTE: if the method was called in an on before insert scenario then subsequently on before/after update next, this block will only be hit after the sobject instance is removed from the list!
 				SObject previousSObject = allRecordsOld.get(sObjectRecord.Id);
 				for(String comparisonField : comparisonFieldsKeySet) {
-					oldStateAsMap.put(comparisonField, previousSObject.get(comparisonField)); // the previous state is null since the previous record state was nothing since it didn't exist at all previously
+					Object oldValue = previousSObject.get(comparisonField);
+					Object newValue = sObjectRecord.get(comparisonField);
+
+					if(newValue != oldValue) {
+						changedFields.add(comparisonFieldsAsString.get(comparisonField));
+					}
+					newState.put(comparisonField, newValue);
+					oldStateAsMap.put(comparisonField, oldValue);
+
 				}
 
 			} else { // currentState.get(sObjectRecord.Id) != null
@@ -136,19 +166,16 @@ public inherited sharing class ApplicationRecursion {
 				// grab the old values from the currentState
 				Map<String, Object> currentValues = currentState.get(sObjectRecord.Id);
 				for(String comparisonField : comparisonFieldsKeySet) {
-					oldStateAsMap.put(comparisonField, currentValues.get(comparisonField));
+					Object oldValue = currentValues.get(comparisonField);
+					Object newValue = sObjectRecord.get(comparisonField);
+
+					if(newValue != oldValue) {
+						changedFields.add(comparisonFieldsAsString.get(comparisonField));
+					}
+					newState.put(comparisonField, newValue);
+					oldStateAsMap.put(comparisonField, oldValue);
 				}
 				
-			}
-
-			Map<String, Object> newState = new Map<String, Object>();
-			Set<SObjectField> changedFields = new Set<SObjectField>();
-
-			for(String comparisonField : comparisonFieldsKeySet) {
-				if(sObjectRecord.get(comparisonField) != oldStateAsMap.get(comparisonField)) {
-					changedFields.add(comparisonFieldsAsString.get(comparisonField));
-				}
-				newState.put(comparisonField, sObjectRecord.get(comparisonField));
 			}
 
 			// confirm whether the old state duffers from the current values of the sobject
