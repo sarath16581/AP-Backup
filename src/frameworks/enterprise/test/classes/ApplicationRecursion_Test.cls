@@ -296,7 +296,7 @@ private class ApplicationRecursion_Test {
 		thirdPassCase2.put('Subject', 'changed');
 		thirdPassCase2.put('Description', 'changed');
 
-		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{case1, thirdPassCase2}, null, new Set<SObjectField>{Case.Subject, Case.Description});
+		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{secondPassCase1, thirdPassCase2}, null, new Set<SObjectField>{Case.Subject, Case.Description});
 		System.assertEquals(1, changedRecords.size());
 		System.assertEquals(case2.Id, changedRecords[0].record.Id);
 
