@@ -53,6 +53,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Citizenship_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Clears_Street_Posting_Boxes__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -74,6 +79,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.DDA_Compliant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Disclosure_Consent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
