@@ -63,6 +63,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 			APT_Operational_Schedule__c os;
 			Apttus_CMConfig__AgreementProductAttributeValue__c newApav;
 			Boolean steCleared = false;
+			List<Priority_Product_Name__mdt> priorityProdNames = [SELECT MasterLabel, QualifiedApiName FROM Priority_Product_Name__mdt];
 			
 			// map used for 'Local Pickup and Delivery Services' Product that associate Agreement Line Item and Agreement Product Attribute Value
 			map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapAgreementLineItemToPav = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();

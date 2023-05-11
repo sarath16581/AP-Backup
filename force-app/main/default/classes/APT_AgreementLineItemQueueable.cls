@@ -5,7 +5,6 @@ Created Date: 25th Jun, 2016
 **/
 public with sharing class APT_AgreementLineItemQueueable implements Queueable {
 
-
 public String configurationID;
 public ID agreementID;
 public final static string ORDER_BY_LINENUMBER = ' Order By Apttus_QPConfig__LineNumber__c, Apttus_QPConfig__ItemSequence__c';
@@ -198,13 +197,6 @@ try {
 				update dos;
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 } catch (System.Exception ex) {            
