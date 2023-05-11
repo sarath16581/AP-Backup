@@ -239,8 +239,8 @@ public with sharing class APT_PricingBatchUtility
             //get charge type criteria fields
             if(chargeTypeCriterias != null && chargeTypeCriterias.size() > 0){
                 List<Map<String,String>> criteriaFields = getConfigCriteriaFieldsMap(chargeTypeCriterias, null, pricingDataFieldToValueMap);
-				//CI-859 Added code changes to create Charge Criteria  for only Transit Cover (Adhoc and Always On) and not other FSR products based on Pricing Key Constituents and data in custom tables (APT_Pricing_Data__c,APT_Pricing_Data_Mapping__c)
-				// We will only generate the JSONString (Criteria) if there is value on APT_Pricing_Data__c table for APT_Pricing_Value_5__c
+				//CI-859 Added code changes to create Criteria() in PLI for only Transit Cover (Adhoc and Always On) and not other FSR products based on Pricing Key Constituents and data in custom tables (APT_Pricing_Data__c,APT_Pricing_Data_Mapping__c)
+				//Will only generate the JSONString (Criteria) if there is value on APT_Pricing_Data__c table for APT_Pricing_Value_5__c
 				//This can be applied to other FSR products which may need additional criteria going forward by creating a Custom metadata record in Apttus_Charge_Type_Criteria__mdt
 				for(Map<String, String> criteriaField: criteriaFields)
 				{
