@@ -188,7 +188,7 @@
     <picklistValues>
         <picklist>Type__c</picklist>
         <values>
-            <fullName>StarTrack APR</fullName>
+            <fullName>ST Courier</fullName>
             <default>true</default>
         </values>
     </picklistValues>
