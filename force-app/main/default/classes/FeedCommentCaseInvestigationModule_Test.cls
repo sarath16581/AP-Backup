@@ -4,6 +4,7 @@
  * @domain				: Case Investigation
  * @changelog
  * 2023-04-04 - Mahesh Parvathaneni - created
+ * 2023-05-03 - Mahesh Parvathaneni - updated tests to use the service class
  **/
 
  @IsTest
@@ -22,6 +23,10 @@ private class FeedCommentCaseInvestigationModule_Test {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		caseInvestigations.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, cases[1].Id, articles[1], networks[1].Id, true));
+		caseInvestigations[0] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[0], new Map<String, Object>{'Status__c' => MyNetworkConstants.CASE_INVESTIGATION_RESPONDED_STATUS});
+		caseInvestigations[1] = (CaseInvestigation__c)ApplicationTestDataFactory.setUnwritableFields(caseInvestigations[1], new Map<String, Object>{'Status__c' => MyNetworkConstants.CASE_INVESTIGATION_RESPONDED_STATUS});
+		caseInvestigations[0].SentToNetworkDatetime__c = System.now();
+		caseInvestigations[1].SentToNetworkDatetime__c = System.now();
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(1, caseInvestigations[0].Id, true);
 		feedItems.addAll(ApplicationTestDataFactory.getChatterFeeds(1, caseInvestigations[1].Id, true));
 		List<FeedComment> feedComments = ApplicationTestDataFactory.getFeedComments(1, caseInvestigations[0].Id, feedItems[0].Id, true);
@@ -35,8 +40,10 @@ private class FeedCommentCaseInvestigationModule_Test {
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		STCaseInvestigationFeedService mockService = (STCaseInvestigationFeedService)MockUtility.mockUtility(STCaseInvestigationFeedService.class);
 
 		MockUtility.Mocks.startStubbing();
+		((STCaseInvestigationFeedService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).updateCaseInvestigationsRelatedToFeed((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -47,24 +54,16 @@ private class FeedCommentCaseInvestigationModule_Test {
 			Test.startTest();
 
 			FeedCommentCaseInvestigationModule module = FeedCommentCaseInvestigationModule.newInstance();
-			Datetime dt = module.currentTime;
 			module.onAfterInsert(feedComments, mockUow);
 
 			Test.stopTest();
 
-			//verifying registerDirty is CALLED
-			((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
-			(List<CaseInvestigation__c>) fflib_Match.eq(new List<CaseInvestigation__c>{
-				new CaseInvestigation__c(Id = caseInvestigations[0].Id, LastContactCentreUpdate__c = dt, Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, RequireMoreInformation__c = false),
-				new CaseInvestigation__c(Id = caseInvestigations[1].Id, LastContactCentreUpdate__c = dt, Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, RequireMoreInformation__c = false)
-			}),
-			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ CaseInvestigation__c.LastContactCentreUpdate__c, CaseInvestigation__c.Status__c, CaseInvestigation__c.RequireMoreInformation__c }),
-			fflib_Match.eqBoolean(true),
-			fflib_Match.eqString(FeedCommentCaseInvestigationModule.class.getName())
-		);
+			// should have called STCaseInvestigationFeedService methods
+			fflib_ArgumentCaptor sobjectIdCapture = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+			((STCaseInvestigationFeedService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).updateCaseInvestigationsRelatedToFeed((Set<Id>)sobjectIdCapture.capture(), (ApplicationUnitOfWork)fflib_Match.eq(mockUow));
 
-			// PMD by-pass
-			System.assert(true, 'PMD by-pass');
+			Set<Id> sobjectIds = (Set<Id>)sobjectIdCapture.getValue();
+			System.assertEquals(2, sobjectIds.size(), 'Expected two case investigation records to be updated');
 		}
 	}
 
@@ -130,7 +129,7 @@ private class FeedCommentCaseInvestigationModule_Test {
 		//asserting CaseInvestigation record is updated upon insertion of FeedComment by Contact Centre users.
 		List<CaseInvestigation__c> cIRecords = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{feedComments[0].ParentId}).values();
 		System.assertNotEquals(null, cIRecords[0].LastContactCentreUpdate__c, 'Expected LastContactCentreUpdate__c to be populated but returned null');
-		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS, cIRecords[0].Status__c, 'Expected case investigation status to be In Progress');
+		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_NEW_STATUS, cIRecords[0].Status__c, 'Expected case investigation status to be New');
 		System.assertEquals(false, cIRecords[0].RequireMoreInformation__c, 'Expected Require More Information value to be false');
 	}
 }

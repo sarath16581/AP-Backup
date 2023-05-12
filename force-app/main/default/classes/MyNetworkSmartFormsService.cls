@@ -161,14 +161,14 @@ public with sharing class MyNetworkSmartFormsService {
  		*/
         return mapOfValuesToDisableCompensation;
     }
-
+    
     // REQ2906534: added to get the list of product categories to disable article
     @auraEnabled(cacheable=true)
     public static List<String> getProdCatValuesToDisableArticle(){
         List<String> listOfProdCat = new List<String> {'Money & Insurance','Post Office & Business Hub Services','Travel & ID','Web & Apps'};
         return listOfProdCat;
     }
-    
+
     @auraEnabled(cacheable=true)
     public static List<String> getTypeOfDamageValuesToDisableCompensation(){
         // Discuss and move to metedata.

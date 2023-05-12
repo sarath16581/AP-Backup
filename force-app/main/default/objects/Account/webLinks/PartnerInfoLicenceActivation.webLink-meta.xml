@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfoLicenceActivation</fullName>
+    <availability>online</availability>
+    <description>Enables user to carry out Licence Activation for Partner Info Licence</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Licence Activation</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/PartnerInfoLicenceActivationWrapper?id={!Account.Id}</url>
+</WebLink>
