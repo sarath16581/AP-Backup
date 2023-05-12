@@ -72,6 +72,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Membership__c.Western_Union_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Partner_Addendum__c.End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>

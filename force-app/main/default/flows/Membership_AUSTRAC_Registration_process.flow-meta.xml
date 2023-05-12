@@ -192,7 +192,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <assignments>
         <name>myWaitAssignment_myWait_myRule_13</name>
         <label>myWaitAssignment_myWait_myRule_13</label>
@@ -2130,7 +2130,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_10_myRule_1_A2_5202889775</name>
+        <name>formula_10_myRule_1_A2_3787850489</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2141,7 +2141,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_1_A1_6746368925</name>
+        <name>formula_11_myRule_1_A1_9862486432</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2152,7 +2152,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_14_myWaitEvent_myWait_myRule_13_event_0_SA2_3042366298</name>
+        <name>formula_14_myWaitEvent_myWait_myRule_13_event_0_SA2_1855983244</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2163,7 +2163,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myWaitEvent_myWait_myRule_13_event_2_SA2_3686619935</name>
+        <name>formula_15_myWaitEvent_myWait_myRule_13_event_2_SA2_0644520604</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2174,7 +2174,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myWaitEvent_myWait_myRule_19_event_0_SA2_0455841924</name>
+        <name>formula_20_myWaitEvent_myWait_myRule_19_event_0_SA2_6438615103</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2185,7 +2185,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_21_myWaitEvent_myWait_myRule_19_event_2_SA2_3356031391</name>
+        <name>formula_21_myWaitEvent_myWait_myRule_19_event_2_SA2_9896173228</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2196,7 +2196,7 @@
                 <stringValue>TODAY ()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_24_myRule_23_A2_4476624158</name>
+        <name>formula_24_myRule_23_A2_6578102910</name>
         <dataType>Date</dataType>
         <expression>TODAY ()</expression>
     </formulas>
@@ -2207,7 +2207,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_27_myWaitEvent_myWait_myRule_26_event_0_SA2_1512844107</name>
+        <name>formula_27_myWaitEvent_myWait_myRule_26_event_0_SA2_3068179613</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2218,7 +2218,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_28_myWaitEvent_myWait_myRule_26_event_2_SA2_5840514268</name>
+        <name>formula_28_myWaitEvent_myWait_myRule_26_event_2_SA2_7681855507</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2229,7 +2229,7 @@
                 <stringValue>TODAY ()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_31_myRule_30_A2_2659303132</name>
+        <name>formula_31_myRule_30_A2_7018975433</name>
         <dataType>Date</dataType>
         <expression>TODAY ()</expression>
     </formulas>
@@ -2240,7 +2240,7 @@
                 <stringValue>[Membership__c].AUSTRAC_registration_date__c  + 730</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_34_myRule_33_A1_8389022302</name>
+        <name>formula_34_myRule_33_A1_4381648680</name>
         <dataType>Date</dataType>
         <expression>{!myVariable_current.AUSTRAC_registration_date__c}  + 730</expression>
     </formulas>
@@ -2251,7 +2251,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A9_3014957543</name>
+        <name>formula_3_myRule_1_A9_5900694615</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2262,7 +2262,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A8_8009508517</name>
+        <name>formula_4_myRule_1_A8_1118695806</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2273,7 +2273,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_1_A7_9199389970</name>
+        <name>formula_5_myRule_1_A7_6313583733</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2284,7 +2284,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_6_myRule_1_A6_8964908094</name>
+        <name>formula_6_myRule_1_A6_3988884873</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2295,7 +2295,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_7_myRule_1_A5_6553712603</name>
+        <name>formula_7_myRule_1_A5_0952492639</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2306,7 +2306,7 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_1_A4_5051940548</name>
+        <name>formula_8_myRule_1_A4_3971186727</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -2317,11 +2317,11 @@
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_9_myRule_1_A3_2374473801</name>
+        <name>formula_9_myRule_1_A3_0729269760</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
-    <interviewLabel>Membership_AUSTRAC_Registration_process-6_InterviewLabel</interviewLabel>
+    <interviewLabel>Membership_AUSTRAC_Registration_process-7_InterviewLabel</interviewLabel>
     <label>Membership/AUSTRAC Registration process</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -4908,6 +4908,42 @@
                 <stringValue>Reregistration</stringValue>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Western Union Category</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Western_Union_Category__c</field>
+            <value>
+                <elementReference>myVariable_current.Western_Union_Category__c</elementReference>
+            </value>
+        </inputAssignments>
         <object>Membership__c</object>
     </recordCreates>
     <recordUpdates>
@@ -5038,7 +5074,7 @@
             </processMetadataValues>
             <field>Sent_to_LPO_date2__c</field>
             <value>
-                <elementReference>formula_11_myRule_1_A1_6746368925</elementReference>
+                <elementReference>formula_11_myRule_1_A1_9862486432</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5171,7 +5207,7 @@
             </processMetadataValues>
             <field>Received_from_LPO_date2__c</field>
             <value>
-                <elementReference>formula_10_myRule_1_A2_5202889775</elementReference>
+                <elementReference>formula_10_myRule_1_A2_3787850489</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5304,7 +5340,7 @@
             </processMetadataValues>
             <field>Missing_Information_Date2__c</field>
             <value>
-                <elementReference>formula_9_myRule_1_A3_2374473801</elementReference>
+                <elementReference>formula_9_myRule_1_A3_0729269760</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5437,7 +5473,7 @@
             </processMetadataValues>
             <field>Received_Missing_Info_date2__c</field>
             <value>
-                <elementReference>formula_8_myRule_1_A4_5051940548</elementReference>
+                <elementReference>formula_8_myRule_1_A4_3971186727</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5570,7 +5606,7 @@
             </processMetadataValues>
             <field>Submitted_to_WU_date2__c</field>
             <value>
-                <elementReference>formula_7_myRule_1_A5_6553712603</elementReference>
+                <elementReference>formula_7_myRule_1_A5_0952492639</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5703,7 +5739,7 @@
             </processMetadataValues>
             <field>Returned_from_WU_Date2__c</field>
             <value>
-                <elementReference>formula_6_myRule_1_A6_8964908094</elementReference>
+                <elementReference>formula_6_myRule_1_A6_3988884873</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5836,7 +5872,7 @@
             </processMetadataValues>
             <field>Resubmitted_to_WU_date2__c</field>
             <value>
-                <elementReference>formula_5_myRule_1_A7_9199389970</elementReference>
+                <elementReference>formula_5_myRule_1_A7_6313583733</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -5969,7 +6005,7 @@
             </processMetadataValues>
             <field>Awaiting_Workforce_Verification_Date__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A8_8009508517</elementReference>
+                <elementReference>formula_4_myRule_1_A8_1118695806</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -6102,7 +6138,7 @@
             </processMetadataValues>
             <field>Review_WU_Return_Date__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A9_3014957543</elementReference>
+                <elementReference>formula_3_myRule_1_A9_5900694615</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -6183,7 +6219,7 @@
             </processMetadataValues>
             <field>Last_Confirmation_email_date__c</field>
             <value>
-                <elementReference>formula_24_myRule_23_A2_4476624158</elementReference>
+                <elementReference>formula_24_myRule_23_A2_6578102910</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -6300,7 +6336,7 @@
             </processMetadataValues>
             <field>Last_Confirmation_email_date__c</field>
             <value>
-                <elementReference>formula_31_myRule_30_A2_2659303132</elementReference>
+                <elementReference>formula_31_myRule_30_A2_7018975433</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -6469,7 +6505,7 @@
             </processMetadataValues>
             <field>Re_reg_record_should_create__c</field>
             <value>
-                <elementReference>formula_34_myRule_33_A1_8389022302</elementReference>
+                <elementReference>formula_34_myRule_33_A1_4381648680</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -6589,7 +6625,7 @@
             </processMetadataValues>
             <field>Last_reminder_email_sent__c</field>
             <value>
-                <elementReference>formula_14_myWaitEvent_myWait_myRule_13_event_0_SA2_3042366298</elementReference>
+                <elementReference>formula_14_myWaitEvent_myWait_myRule_13_event_0_SA2_1855983244</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -6709,7 +6745,7 @@
             </processMetadataValues>
             <field>Last_reminder_email_sent__c</field>
             <value>
-                <elementReference>formula_15_myWaitEvent_myWait_myRule_13_event_2_SA2_3686619935</elementReference>
+                <elementReference>formula_15_myWaitEvent_myWait_myRule_13_event_2_SA2_0644520604</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -6829,7 +6865,7 @@
             </processMetadataValues>
             <field>Last_reminder_email_sent__c</field>
             <value>
-                <elementReference>formula_20_myWaitEvent_myWait_myRule_19_event_0_SA2_0455841924</elementReference>
+                <elementReference>formula_20_myWaitEvent_myWait_myRule_19_event_0_SA2_6438615103</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -6949,7 +6985,7 @@
             </processMetadataValues>
             <field>Last_reminder_email_sent__c</field>
             <value>
-                <elementReference>formula_21_myWaitEvent_myWait_myRule_19_event_2_SA2_3356031391</elementReference>
+                <elementReference>formula_21_myWaitEvent_myWait_myRule_19_event_2_SA2_9896173228</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -7069,7 +7105,7 @@
             </processMetadataValues>
             <field>Last_reminder_email_sent__c</field>
             <value>
-                <elementReference>formula_27_myWaitEvent_myWait_myRule_26_event_0_SA2_1512844107</elementReference>
+                <elementReference>formula_27_myWaitEvent_myWait_myRule_26_event_0_SA2_3068179613</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
@@ -7189,7 +7225,7 @@
             </processMetadataValues>
             <field>Last_reminder_email_sent__c</field>
             <value>
-                <elementReference>formula_28_myWaitEvent_myWait_myRule_26_event_2_SA2_5840514268</elementReference>
+                <elementReference>formula_28_myWaitEvent_myWait_myRule_26_event_2_SA2_7681855507</elementReference>
             </value>
         </inputAssignments>
         <object>Membership__c</object>
