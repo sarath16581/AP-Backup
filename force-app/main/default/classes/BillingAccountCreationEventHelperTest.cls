@@ -8,7 +8,7 @@
 * @changelog
 * 2020-11-18 - Shashwat.Nath@austpost.com.au - Created
 * 2022-08-08 - Seth Heang - Added test method to cover Rating Plan Activation changes
-* 2023-03-23 - Sarath.burra@auspost.com.au - CI-703 Added new test logic to cover DSR creation for non APPC products and skip DSR creation for exclusive APPC product during Sub Account creation process
+* 2023-03-23 - Sarath.burra@auspost.com.au - CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
 */
 @IsTest
 public with sharing class BillingAccountCreationEventHelperTest {
@@ -164,6 +164,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
 		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,2);
 		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
 		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
@@ -276,6 +277,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
 		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
 		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
 		System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected failure on DSR Record creation');
@@ -360,6 +362,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Test.stopTest();
 		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
 			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
+			//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
 			List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
 			Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
 			Deal_Support_Request__c dsr =(Deal_Support_Request__c)updateRecsMap.get(dealSupportRequest.Id);
@@ -475,6 +478,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Test.stopTest();
 		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
 			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
+			//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
 			List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
 			Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
 			APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
@@ -592,7 +596,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
 		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
 		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
 		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
