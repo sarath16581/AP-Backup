@@ -246,7 +246,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
 			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 
@@ -276,14 +276,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
-			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
-		//((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
-		// ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
-
-		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
-			and instead using the below statement to confirm the Mock insert is not happening in Error scenario */
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(0))).dmlInsert((List<SObject>)fflib_Match.anyObject());
+		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
+		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
+		System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected failure on DSR Record creation');
 	}
 
 	@IsTest
@@ -344,7 +339,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
 		MockUtility.Mocks.when(holdingRoleSelector.selectByName((String)fflib_Match.anyObject())).thenReturn(holdingRoleMap);
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 
@@ -365,8 +360,12 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Test.stopTest();
 		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
 			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+			List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
+			Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
+			Deal_Support_Request__c dsr =(Deal_Support_Request__c)updateRecsMap.get(dealSupportRequest.Id);
+			Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
+			System.assertEquals(newsEvent.Status__c, dsr.Integration_Status__c, 'Expected Success on DSR Record update');
+			System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
 		}
 
 		@IsTest
@@ -444,7 +443,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
 			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 
@@ -476,8 +475,12 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Test.stopTest();
 		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
 			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+			List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
+			Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
+			APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
+			Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
+			System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
+			System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
 	}
 
 	@IsTest
@@ -589,12 +592,12 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-		fflib_ArgumentCaptor updateableAccountCaptor = fflib_ArgumentCaptor.forClass(List<APT_Sub_Account__c>.class);
-		fflib_ArgumentCaptor insertDSRCaptor = fflib_ArgumentCaptor.forClass(List<Deal_Support_Request__c>.class);
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<Deal_Support_Request__c>) insertDSRCaptor.capture());
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<APT_Sub_Account__c>) updateableAccountCaptor.capture());
-		Map<Id, APT_Sub_Account__c> updateableAccounts = new Map<Id, APT_Sub_Account__c>((List<APT_Sub_Account__c>) updateableAccountCaptor.getValue());
-		System.assertEquals(newsEvent1.Status__c, updateableAccounts.get(subAccountRequest.Id).APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
+
+		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
+		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
+		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
+		System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
+
 	}
 
 	@IsTest
