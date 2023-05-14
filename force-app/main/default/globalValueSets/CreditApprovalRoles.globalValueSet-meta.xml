@@ -80,6 +80,11 @@
         <default>false</default>
         <label>DCFO</label>
     </customValue>
+    <customValue>
+        <fullName>Head of Intermediaries</fullName>
+        <default>false</default>
+        <label>Head of Intermediaries</label>
+    </customValue>
     <description>Roles that has authority to approve/reject credit.</description>
     <masterLabel>Credit Approval Roles</masterLabel>
     <sorted>false</sorted>

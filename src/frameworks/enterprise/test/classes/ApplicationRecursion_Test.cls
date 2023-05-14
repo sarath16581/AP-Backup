@@ -268,10 +268,10 @@ private class ApplicationRecursion_Test {
 
 		// check the internal state of our variables inside the class
 		System.assertEquals(2, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
-		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Description'));
-		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Subject'));
-		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Description'));
-		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Subject'));
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[0].get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[0].get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[1].get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[1].get('Subject'));
 		System.assertEquals(0, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
 
 		// case1
@@ -384,10 +384,10 @@ private class ApplicationRecursion_Test {
 
 		// check the internal state of our variables inside the class
 		System.assertEquals(2, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
-		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Description'));
-		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[0].get('Subject'));
-		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Description'));
-		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1')[1].get('Subject'));
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[0].get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[0].get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[1].get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[1].get('Subject'));
 		System.assertEquals(0, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
 
 		System.assertEquals(2, changedRecords.size());
@@ -427,6 +427,117 @@ private class ApplicationRecursion_Test {
 		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Description'));
 		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Subject'));
 
+	}
+
+	/**
+	 * Scenario: When a method is modifying values it's modifying, sometimes the tracked state needs to be update to prevent subsequent processing on next recursion iteration
+	 * 				Test to make sure record state can be updated and no further processing will happen when the getprocessable records method is invoked again
+	 */
+	@isTest
+	public static void testEnsureWhenStateIsManuallyModifiedOnUpdateDuplicateProcessingIsPrevented() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case case1 = new Case(Id = '500000000000001', Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+		Case case1OldState = new Case(Id = '500000000000001', Subject = 'Nathan', Description = 'Nathan2', Origin = 'Web');
+
+		Case case2 = new Case(Id = '500000000000002', Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+		Case case2OldState = new Case(Id = '500000000000002', Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+
+		Map<Id, SObject> newMap = new Map<Id,SObject>{
+			case1.Id => case1,
+			case2.Id => case2
+		};
+
+		Map<Id, SObject> oldMap = new Map<Id,SObject>{
+			case1OldState.Id => case1OldState,
+			case2OldState.Id => case2OldState
+		};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+
+		// =====================================
+		// Testing
+		// =====================================
+
+		// Testing first pass
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		System.assertEquals(1, changedRecords.size());
+		
+		((Case)changedRecords[0].record).Subject = '1'; // this will also set case1.Subject, since it's a reference
+
+		ApplicationRecursion.getInstance().updateRecordState('mycontext1', changedRecords, new Set<SObjectField>{Case.Subject, Case.Description});
+
+		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', newMap.values(), oldMap, new Set<SObjectField>{Case.Subject, Case.Description});
+		System.assertEquals(0, changedRecords.size());
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
+		System.assertEquals(case1.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Description'));
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case1.Id).get('Subject'));
+		System.assertEquals(case2.Description, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Description'));
+		System.assertEquals(case2.Subject, ApplicationRecursion.getInstance().stateStore.get('mycontext1').get(case2.Id).get('Subject'));
+
+	}
+
+	/**
+	 * Scenario: When a method is modifying values it's modifying, sometimes the tracked state needs to be update to prevent subsequent processing on next recursion iteration
+	 * 				Test to make sure record state can be updated and no further processing will happen when the getprocessable records method is invoked again
+	 */
+	@isTest
+	public static void testEnsureWhenStateIsManuallyModifiedOnBeforeInsertDuplicateProcessingIsPrevented() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case case1 = new Case(Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+		Case case2 = new Case(Subject = 'Nathan', Description = 'Nathan1', Origin = 'Web');
+
+		List<Case> cases = new List<Case>{case1, case2};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+
+		// =====================================
+		// Testing
+		// =====================================
+
+		// Testing first pass - onAfterInsert (note the NULL for oldMap)
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', cases, null, new Set<SObjectField>{Case.Subject, Case.Description});
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(2, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1').size());
+		System.assertEquals(2, changedRecords.size());
+
+		((Case)changedRecords[0].record).Subject = '1'; // will also update case1 variable
+
+		ApplicationRecursion.getInstance().updateRecordState('mycontext1', changedRecords, new Set<SObjectField>{Case.Subject, Case.Description});
+
+		System.assertEquals(case1.Subject, ApplicationRecursion.getInstance().sobjectStateStoreStaticValuesMapStore.get('mycontext1')[0].get('Subject'));
+
+		// in between before insert and after insert, Salesforce internal processes will update any of the instances of the SObjects we are storing from the on before insert iteration
+		// here we mimic this process by setting an id for these records, updating these should also update the stored values stored by the recursion method
+		case1.Id = '500000000000001';
+		case2.Id = '500000000000002';
+		
+		Case nextPassCase1 = case1.clone(true);
+		Case nextPassCase2 = case2.clone(true);
+
+		changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('mycontext1', new List<SObject>{nextPassCase1, nextPassCase2}, null, new Set<SObjectField>{Case.Subject, Case.Description});
+		System.assertEquals(0, changedRecords.size());
+
+		// check the internal state of our variables inside the class
+		System.assertEquals(0, ApplicationRecursion.getInstance().sobjectStateStore.get('mycontext1').size());
+		System.assertEquals(2, ApplicationRecursion.getInstance().stateStore.get('mycontext1').size());
 	}
 
 }
