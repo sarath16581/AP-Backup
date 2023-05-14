@@ -139,12 +139,14 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			List<Case> casesToLinkReferencesTo = new List<Case>();
 			List<Case> casesToLinkArticlesTo = new List<Case>();
 
-			Map<Id, Set<SObjectField>> changedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{Case.ReferenceID__c, Case.ArticleTest__c, Case.Subscribed__c});
+			String context = 'mycustomercasearticlesmodule';
+			Set<SObjectField> monitoredFields = new Set<SObjectField>{Case.ReferenceID__c, Case.ArticleTest__c, Case.Subscribed__c};
+			List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields);
 			
 			// loop through our records to figure out what actions need to be taken
-			for(Case c : (List<Case>)records) {
-				Set<SObjectField> changed = changedRecords.get(c.Id);
-				if(changed == null) changed = new Set<SObjectField>();
+			for(ApplicationRecursion.RecordState recordState : changedRecords) {
+				Case c = (Case)recordState.record;
+				Set<SObjectField> changed = recordState.changedFields;
 
 				// process any changed records
 				//	  OR any scenario where the articleTest field is empty (and hasn't already been queued for processing)...
@@ -224,6 +226,10 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				// ensure all articles linked to these case are marked as subscribed
 				setArticlesSubscribed(subscribedArticleIds, uow);
 			}
+
+			// reset the recordset state to the current values so any changes made in this method will not retrigger the records to be processed again
+			ApplicationRecursion.getInstance().updateRecordState(context, changedRecords, monitoredFields);
+
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis			
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onBeforeUpdate', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);

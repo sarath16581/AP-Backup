@@ -4,32 +4,6 @@
   * @description  : Utility Class for Case Triggers
   * @changelog
 	Date				User										Comments
-	28/09/2015		nandan.narasappa@auspost.com.au			 Added validateCase method
-	29/09/2015		nandan.narasappa@auspost.com.au			 Added detectPermanentSpam, closeChildCases, avoidCustomerClose
-																	setOwnerToCurrentUser , setArticlesSubscribed & linkCaseToArticles methods
-	17/11/2015		nandan.narasappa@auspost.com.au			 Added routeCase method
-	20/01/2016		nandan.narasappa@auspost.com.au			 updated linkCaseToArticles to skip API call for unknown articles
-	14/04/2016		cliew@salesforce.com						Added entry to CUST_TYPE_QUEUE_MAP for supporting new Customer Type (Case)
-																	/ Service SLA (Account) introduced as part of MyPost Business Portal implementation
-	25/08/2016		david.e.catindoy@accenture.com			  Added closeRelatedTasksAndWFEmails method to cater additional processes on StarTrack closed cases.
-	29/08/2016		eric.shen@auspost.com.au					Add the logic in routeCase that DefaultCaseDetails fields will be appended to case description when case description is empty or a new case, bug fix for INC0699609
-	06/09/2016		eric.shen@auspost.com.au					Create a new method to call linkCaseToArticles method to be used in Snap It case for Missing Item enquiry.
-	12/10/2016		david.e.catindoy@accenture.com			  Added notificationAutomationModel method to cater StarTrack automated sending of email and SMS notification.
-	08/03/2017		david.e.catindoy@accenture.com			  Transferred closeRelatedTasksAndWFEmails method into StarTrackUtil class to let user close the tasks that they don't own when the parent case record was closed.
-	18/04/2017		ajudd@salesforce.com						Minor update to notificationAutomationModel to remove SELECT statement
-	12/05/2017		scherukuwada@salesforce.com				 If BSP User created Case, then search for the Article in Salesforce first
-	15/05/2017		angelo.rivera@auspost.com.au				Added API for handling SNAP IT cases
-	08/09/2017		maumita.bandyopadhyay@auspost.com.au		Added logic to consider only Closed cases for NPS
-	2017-10-05		nathan.franklin@auspost.com.au			  Commented out linkCaseToArticles, processSnapitMissingItem and invokeTibcoService as they are no longer required.
-																	This functionality is now in CaseArticleUtility
-	2017-11-13		maumita.bandyopadhyay@auspost.com.au		Modified to Fix the error INC1035423
-	2018-07-05		disha.kariya@auspost.com.au		 Modified checkOriginChangeForNPS method
-	2018-07-12		nathan.franklin@auspost.com.au	  Removed checkOriginChangeForNPS and checkNPS method 
-	2019-02-18		swati.mogadala@auspost.com.au				Modified Cloasechildcase() to popultaechildcase 'Resolution Result' when closing REQ1692813
-	2019-03-18		gunith.devasurendra@auspost.com.au		  Added RecursionUtils to identify if AllocateToQueue__c is modified.
-	2019-05-06		gunith.devasurendra@auspost.com.au		  Convert Workflow logic to route Cases when state is 'new'ed
-	2019-05-06		Edmarco - Mav3rik						   Added logic to allow defined profiles to close case (validateCase Method)
-	2019-05-08		seth.p.heang@accenture.com				  Added logic to populate requestor field with current user in 'CAR' case if it's left empty
 	2020-04-18		Nathan Franklin - Changed a BSP Profile check to a permission check
 	2020-08-20		Nathan Franklin - Refactored
 	2020-10-15		naseer.abbasi@auspost.com.au				Updated routeCase() with isInsert parameter
@@ -47,10 +21,9 @@
 	2023-03-17		Noel Lim									Add criteria to routing engine, to allow routing when AllocateToQueue = true only if Owner is not a User, Owner is not the Omni Holding Queue, or Owner is a User but Case is Closed
 	2023-04-19		George Nguyen -	Added condition to check if the previous assigned agent qualifies as Preferred agent (qualifiedAsPreferredAgentUserIds)
 	2023-04-24		Noel Lim									Add method insertPendingServiceRoutings, to perform PSR DML in without sharing context
-
-
-	************************************************/
-	public with sharing class CaseCommonUtility{
+	2023-05-15 - Nathan Franklin - rejigging routing engine code (and trimming down header comments)
+************************************************/
+public with sharing class CaseCommonUtility{
 
 	// Constants
 	private static final String EMAIL_ORIGIN = 'Email';
@@ -656,43 +629,61 @@
 				Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
 				Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();	// map of case id and case key without origin
 
-				for(Case csRec : caseList){
+				OmniChannelService omniService = OmniChannelService.getInstance();
+				String routingContext = 'ssswroutecase';
+				Set<SObjectField> routingMonitoredFields = new Set<SObjectField>{Case.Status, Case.Network__c, Case.Description, Case.AllocateToQueue__c};
+				List<ApplicationRecursion.RecordState> routingChangedRecords = ApplicationRecursion.getInstance().getProcessableRecords(routingContext, caseList, oldMap, routingMonitoredFields);
+
+				for(ApplicationRecursion.RecordState recordState : routingChangedRecords){
+					Case csRec = (Case)recordState.record;
+					Set<SObjectField> changedFields = recordState.changedFields;
+					Map<String, Object> previousState = recordState.previousState;	// get old values of case
+
+					System.debug('Routing Case');
+					System.debug(csRec);
+					System.debug(changedFields);
+					System.debug(previousState);
+
 					// Check if it is SSSW record type or Social record type.
 					if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
-						System.debug(LoggingLevel.ERROR,'**Case is SSSW Record Type');
-
-						Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	
 						// verify if network or description is null & case is set for queue allocation
-						System.debug(LoggingLevel.ERROR,'**csRec.Network__c: ' + csRec.Network__c);
-						System.debug(LoggingLevel.ERROR,'**csRec.Description: ' + csRec.Description);
-						System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
 
+						// if the case is already in the preferred agent queue and the queue timeout hasn't been reached then we do not allow the case to be reallocated (unless BypassPreferredAgent__c is set)
+						if(csRec.AllocateToQueue__c && csRec.OwnerId == omniService.preferredAgentQueueId && 
+								csRec.PreferredAgentExpiry__c != null && csRec.PreferredAgentExpiry__c > Datetime.now() &&
+								csRec.BypassPreferredAgent__c == false) {
 
-						//Prevent routing of the Case in the following scenarios:
-						// 1. An Open Case that is assigned to an Agent, to prevent case theft where an Agent is working on a case and e.g. a customer response triggers the case to route and assigning the case away from the agent. Note that Closed cases with an agent should be allowed to route.
-						// 2. Cases that are permantently closed 
-						// 3. Cases in the process of routing and are in the Omni Holding Queue. NOTE: async logic in the MyCustomerCaseArticlesModule class is responsible for routing the case out of the holding queue 
-						if(csRec.AllocateToQueue__c &&
-							(
-								(csRec.OwnerId != null 
-									&& csRec.OwnerId.getSobjectType() == User.getSObjectType() 
-									&& csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE //This logic relies on User Profile and needs to be assessed at a future date and refactored. 1 refactor option is to prevent case routing if i) User's License is not a Guest User (for cases created from Portals) ii) User is not System Support (cases created from email-to-case)
-									&& Utility.getCaseClosedStatus().contains(csRec.Status) == false 
-									&& (oldCase != null && Utility.getCaseClosedStatus().contains(oldCase.Status) == false)) //Closed Cases assigned to an Agent that receives a Customer or Network email needs to route. However Workflow Rules updates the Status from Closed before this logic runs, so we also need to check oldCase value was not Closed
-								|| csRec.Permanent_Close__c == true 
-								|| csRec.OwnerId == OmniChannelService.getInstance().omniHoldingQueueId 
-							)
-						){
 							csRec.AllocateToQueue__c = false;
 						}
 
-						if( (csRec.Network__c == null && (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
-							||
-							(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
-							||
-							(csRec.AllocateToQueue__c && (oldCase == null || (oldCase != null && (oldCase.AllocateToQueue__c != csRec.AllocateToQueue__c))))
-						){
-							System.debug(LoggingLevel.ERROR,'**Case meets evaluation to go to routing method');
+						// do not reallocate permanent closed cases
+						if(csRec.Permanent_Close__c) {
+							csRec.AllocateToQueue__c = false;
+						}
+
+						// do not reallocate cases waiting for routing to resolve
+						// this would be because the routing engine needs attributes from integration callouts (like article) in order to resolve
+						// in this scenario the routing rules are manually applied after the integration has completed its callout
+						// look at MyCustomerCaseArticlesModule
+						if(csRec.OwnerId == omniService.omniHoldingQueueId) {
+							csRec.AllocateToQueue__c = false;
+						}
+
+						// do not reassign if the agent is already working on the case
+						// this would occur when, for example, a customer response triggers the case to route and assigning the case away from the agent. 
+						// >> Note that Closed cases with an agent should be allowed to route. <<
+						if(csRec.AllocateToQueue__c &&
+								csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == User.getSObjectType() &&
+								csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE && //This logic relies on User Profile and needs to be assessed at a future date and refactored. 1 refactor option is to prevent case routing if i) User's License is not a Guest User (for cases created from Portals) ii) User is not System Support (cases created from email-to-case)
+								!Utility.getCaseClosedStatus().contains(csRec.Status) && // case is not currently closed
+								(/*oldCase != null && */ !Utility.getCaseClosedStatus().contains(String.valueOf(previousState.get('Status')))) //Closed Cases assigned to an Agent that receives a Customer or Network email needs to route. However Workflow Rules updates the Status from Closed before this logic runs, so we also need to check oldCase value was not Closed
+								) {
+							csRec.AllocateToQueue__c = false;
+						}
+
+						if( (csRec.Network__c == null && changedFields.contains(Case.Network__c)) ||
+								(String.isBlank(csRec.Description) && changedFields.contains(Case.Description)) ||
+								(csRec.AllocateToQueue__c && changedFields.contains(Case.AllocateToQueue__c))) {
 							
 							setCaseKeyMap(csRec,caseOriginKeyMap,caseNoOriginKeyMap);   // set case key maps
 
@@ -706,40 +697,57 @@
 					SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
 				}
 
+				// reset the recursion state to ensure changes we have made in the routing engine won't retrigger on next pass (if there is one)
+				ApplicationRecursion.getInstance().updateRecordState(routingContext, routingChangedRecords, routingMonitoredFields);
+
 
 				//The logic below is positioned here instead of in a Domain Module to keep all logic related Case Owner in one place and in the same sequence in Apex execution
 				//Placed after the routing engine to ensure the to-be Queue is available for the logic below
 				Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
-				for(Case csRec : caseList){
+				String preferredAgentRoutingContext = 'ssswpreferredagentroutingcases';
+				Set<SObjectField> preferredAgentRoutingMonitoredFields = new Set<SObjectField>{Case.OwnerId, Case.Status, Case.AllocateToQueue__c};
+				List<ApplicationRecursion.RecordState> preferredAgentRoutingChangedRecords = ApplicationRecursion.getInstance().getProcessableRecords(preferredAgentRoutingContext, caseList, oldMap, preferredAgentRoutingMonitoredFields);
+				
+				for(ApplicationRecursion.RecordState recordState : preferredAgentRoutingChangedRecords){
+					Case csRec = (Case)recordState.record;
+					Set<SObjectField> changedFields = recordState.changedFields;
+
+					// get previous state of record from last run
+					Map<String, Object> previousState = recordState.previousState;
+
+					System.debug('Preferred Case');
+					System.debug(csRec);
+					System.debug(changedFields);
+					System.debug(previousState);
+
 					// Check if it is SSSW record type or Social record type.
-					if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
+					if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)) {
 						
 						Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case		
 
-						//Move eligible Closed Cases to the SSSW Closed Omni Queue					
-						if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
-							&& String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false 
-							&& Utility.getCaseClosedStatus().contains(csRec.Status) 
-							&& omniGroups.containsKey(csRec.OwnerId) 			
-						){	
-							csRec.OwnerId = OmniChannelService.getInstance().omniClosedCaseQueueId; 
-						}
-						//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
-						else if(oldCase != null 
-							&& csRec.OwnerId != oldCase.OwnerId						
-							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
-							&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
-							&& csRec.BypassPreferredAgent__c == false 
-							&& csRec.PreferredAgentExpiry__c != null // avoids Cases being stuck in the Preferred Agent queue					
-							&& String.isEmpty(OmniChannelService.getInstance().preferredAgentQueueId) == false) {
-								if(oldCase.OwnerId == OmniChannelService.getInstance().preferredAgentQueueId || m_processedPreferredAgentCaseIds.contains(csRec.Id) ){ 
-									// 2 scenarios where the Case already has a manual PSR and so we should not attempt to generate another one, and ensure the queue is in the Preferred Agent queue:
-									// a) Case being moved out of Preferred Agent queue without the Bypass flag set, OR 
-									// b) Case has already been processed by Preferred Agent in the same transaction
-									csRec.OwnerId = OmniChannelService.getInstance().preferredAgentQueueId; 
-								} else {
-									casesPreferredAgentRouting.put(csRec.Id, csRec); 
-								}
+						//Move eligible Closed Cases to the SSSW Closed Omni Queue
+						if ((changedFields.contains(Case.Status) || changedFields.contains(Case.OwnerId)) && 
+								String.isEmpty(omniService.omniClosedCaseQueueId) == false && 
+								Utility.getCaseClosedStatus().contains(csRec.Status) && 
+								omniGroups.containsKey(csRec.OwnerId)) {
+							csRec.OwnerId = omniService.omniClosedCaseQueueId;
+						} else if(oldCase != null && //mean this is not an insert scenario
+								changedFields.contains(Case.OwnerId) && 
+								OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) && 
+								!OmniChannelService.Cache.queuesWithRoutingConfig.containsKey((Id)previousState.get('OwnerId')) && // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
+								csRec.BypassPreferredAgent__c == false &&
+								csRec.PreferredAgentExpiry__c != null && // avoids Cases being stuck in the Preferred Agent queue					
+								String.isEmpty(omniService.preferredAgentQueueId) == false) {
+								
+							//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
+							if(previousState.get('OwnerId') == omniService.preferredAgentQueueId || m_processedPreferredAgentCaseIds.contains(csRec.Id) ){ 
+								// 2 scenarios where the Case already has a manual PSR and so we should not attempt to generate another one, and ensure the queue is in the Preferred Agent queue:
+								// a) Case being moved out of Preferred Agent queue without the Bypass flag set, OR 
+								// b) Case has already been processed by Preferred Agent in the same transaction
+								csRec.OwnerId = omniService.preferredAgentQueueId; 
+							} else {
+								casesPreferredAgentRouting.put(csRec.Id, csRec); 
+							}
 						}
 					}
 				}
@@ -747,6 +755,9 @@
 				if(casesPreferredAgentRouting.isEmpty() == false) {
 					processPreferredAgent(casesPreferredAgentRouting); 
 				}
+
+				// reset the recursion state to ensure changes we have made in the routing engine won't retrigger on next pass (if there is one)
+				ApplicationRecursion.getInstance().updateRecordState(preferredAgentRoutingContext, preferredAgentRoutingChangedRecords, preferredAgentRoutingMonitoredFields);
 
 			}
 			catch(Exception exp){
