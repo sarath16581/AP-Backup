@@ -160,6 +160,15 @@
 	//calling the method to update the records for custom pricing
 	@AuraEnabled
 	public static String updateCartForCustomPricing(SObject objDSR, string configId, string selectedLineItemId, string cartTier) {
+            System.debug('@@@Limits.getHeapSizeBefore - '+ Limits.getHeapSize());
+            System.debug('@@@Limits.getLimitHeapSizeBefore - '+ Limits.getLimitHeapSize());
+            system.debug('@@@Limits.getLimitQueryRows()Before: '+Limits.getLimitQueryRows());
+            system.debug('@@@Limits.getQueryRows()Before: '+Limits.getQueryRows());
+            system.debug('@@@Limits.getQueries()Before: '+Limits.getQueries());
+			System.debug('@@@Limits.getCpuTime()Before '+ Limits.getCpuTime());
+            system.debug('@@@Limits.getLimitQueries()Before: '+Limits.getLimitQueries());
+			System.debug('@@@Limits.getDMLRowsBefore'+ Limits.getDMLRows());
+			Long startTime = DateTime.now().getTime();
 
 		ID conID=(String) configId;
 		Apttus_Config2__ProductAttributeValue__c pavRec;
@@ -169,6 +178,17 @@
 		if(selectedPSR.Approved_Event__c == APT_Constants.PSR_APPC_CUSTOM_PRICING) {
 			updateRecordForCustomPricing(conID,selectedPSR);
 		}
+		Long stopTime = DateTime.now().getTime();
+		long time1=stopTime-startTime;
+		system.debug('@@@time '+time1);
+		System.debug('@@@Limits.getHeapSizeAfter - '+ Limits.getHeapSize());
+            System.debug('@@@Limits.getLimitHeapSizeAfter - '+ Limits.getLimitHeapSize());
+            system.debug('@@@Limits.getLimitQueryRows()After: '+Limits.getLimitQueryRows());
+            system.debug('@@@Limits.getQueryRows()After: '+Limits.getQueryRows());
+            system.debug('@@@Limits.getQueries()After: '+Limits.getQueries());
+            system.debug('@@@Limits.getLimitQueries()After: '+Limits.getLimitQueries());
+			System.debug('@@@Limits.getCpuTime()After '+ Limits.getCpuTime());
+			System.debug('@@@Limits.getDMLRowsAfter'+ Limits.getDMLRows());
 		return System.Label.APT_LinkPSRSuccess;
 	}
 
@@ -193,11 +213,16 @@
 		HttpResponse responseCustomPricing ;
 
 		try{
-
+			Long startTime = DateTime.now().getTime();
 
 			HttpRequestWrapper reqWrap= new HttpRequestWrapper(selectedPSR.Compass_Quote_Reference__c,selectedPSR.Organisation__r.LEGACY_ID__c,APT_Constants.RATING_MODEL_PD);
 
 			responseCustomPricing = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
+
+			Long stopTime = DateTime.now().getTime();
+			long time2=stopTime-startTime;
+			system.debug('@@@time1 '+time2);
+
 
 			if(responseCustomPricing.getStatusCode() == 200){
 				compassPriceResponse  = (CompassWrapper.CompassPriceWrapper)JSON.deserialize(responseCustomPricing.getBody(), CompassWrapper.CompassPriceWrapper.class);
@@ -322,6 +347,7 @@
 			if(rateCardResponseList != null && rateCardResponseList.size() > 0 && responseCustomPricing.getStatusCode() == 200){
 				updateProdConfigAndPricingForCart(quoteConfigurationId,selectedPSR,compassPriceResponse,key1List,keyServiceMap,keyFRSMap, true,customRefMap);
 			}
+
 
 		}catch(Exception e){
 			throw new AuraHandledException(e.getMessage());

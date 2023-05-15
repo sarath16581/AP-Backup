@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Disclosure_Consent__c</fullName>
-    <businessOwnerUser>emmalys.hardie@auspost.com.au.devtalib</businessOwnerUser>
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Capture disclosure consent within license record in Salesforce</description>

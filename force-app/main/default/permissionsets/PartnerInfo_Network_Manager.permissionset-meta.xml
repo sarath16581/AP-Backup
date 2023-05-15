@@ -60,12 +60,12 @@
         <field>Membership__c.hidden_LPO_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Network__c.RNPNetworkManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Network__c.RNPReportingAccess__c</field>
         <readable>true</readable>
@@ -90,7 +90,7 @@
         <field>Partner_Info_Change__c.Termination_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>User.RNPReportingManager__c</field>
         <readable>true</readable>

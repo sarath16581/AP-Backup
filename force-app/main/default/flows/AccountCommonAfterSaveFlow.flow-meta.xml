@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-	<actionCalls>
-		<description>Intiate outbound message workflow</description>
-		<name>Licence_Activation_Outbound_Message</name>
-		<label>Licence Activation Outbound Message</label>
-		<locationX>50</locationX>
-		<locationY>575</locationY>
-		<actionName>Account.PartnerInfoLicenceActivation</actionName>
-		<actionType>outboundMessage</actionType>
-		<flowTransactionModel>CurrentTransaction</flowTransactionModel>
-	</actionCalls>
-	<apiVersion>57.0</apiVersion>
-	<decisions>
-		<name>Check_RecordType</name>
-		<label>Check RecordType</label>
-		<locationX>380</locationX>
-		<locationY>335</locationY>
-		<defaultConnectorLabel>Other RecordTypes</defaultConnectorLabel>
-		<rules>
-			<name>Licence</name>
-			<conditionLogic>and</conditionLogic>
-			<conditions>
-				<leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
-				<operator>EqualTo</operator>
-				<rightValue>
-					<stringValue>Licence</stringValue>
-				</rightValue>
-			</conditions>
-			<connector>
-				<targetReference>Partner_Info_Send_Outbound_Message</targetReference>
-			</connector>
-			<label>Licence</label>
-		</rules>
-	</decisions>
-	<decisions>
-		<description>perform checks to see if certain fields are populated on the licence record; if populated, then sends an outbound message.</description>
-		<name>Partner_Info_Send_Outbound_Message</name>
-		<label>Partner Info Send Outbound Message</label>
-		<locationX>182</locationX>
-		<locationY>455</locationY>
-		<defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-		<rules>
-			<name>Request_fields_valid</name>
-			<conditionLogic>and</conditionLogic>
-			<conditions>
-				<leftValueReference>isRequestFieldsValid</leftValueReference>
-				<operator>EqualTo</operator>
-				<rightValue>
-					<booleanValue>true</booleanValue>
-				</rightValue>
-			</conditions>
-			<connector>
-				<targetReference>Licence_Activation_Outbound_Message</targetReference>
-			</connector>
-			<doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-			<label>Request fields valid</label>
-		</rules>
-	</decisions>
-	<description>record triggered flow upon After save on Account</description>
-	<environments>Default</environments>
-	<formulas>
-		<name>isRequestFieldsValid</name>
-		<dataType>Boolean</dataType>
-		<expression>AND (
+    <actionCalls>
+        <description>Intiate outbound message workflow</description>
+        <name>Licence_Activation_Outbound_Message</name>
+        <label>Licence Activation Outbound Message</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <actionName>Account.PartnerInfoLicenceActivation</actionName>
+        <actionType>outboundMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Check_RecordType</name>
+        <label>Check RecordType</label>
+        <locationX>380</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Other RecordTypes</defaultConnectorLabel>
+        <rules>
+            <name>Licence</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Licence</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Partner_Info_Send_Outbound_Message</targetReference>
+            </connector>
+            <label>Licence</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>perform checks to see if certain fields are populated on the licence record; if populated, then sends an outbound message.</description>
+        <name>Partner_Info_Send_Outbound_Message</name>
+        <label>Partner Info Send Outbound Message</label>
+        <locationX>182</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Request_fields_valid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isRequestFieldsValid</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Licence_Activation_Outbound_Message</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Request fields valid</label>
+        </rules>
+    </decisions>
+    <description>record triggered flow upon After save on Account</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>isRequestFieldsValid</name>
+        <dataType>Boolean</dataType>
+        <expression>AND (
  {!$Record.RecordType.Name}=&apos;Licence&apos;,
  ISCHANGED({!$Record.Licence_Status__c}),
  ISPICKVAL({!$Record.Licence_Status__c}, &apos;Active&apos;)
 )</expression>
-	</formulas>
-	<interviewLabel>AccountCommonAfterSaveFlow {!$Flow.CurrentDateTime}</interviewLabel>
-	<label>Account Common AfterSave Flow</label>
-	<processMetadataValues>
-		<name>BuilderType</name>
-		<value>
-			<stringValue>LightningFlowBuilder</stringValue>
-		</value>
-	</processMetadataValues>
-	<processMetadataValues>
-		<name>CanvasMode</name>
-		<value>
-			<stringValue>AUTO_LAYOUT_CANVAS</stringValue>
-		</value>
-	</processMetadataValues>
-	<processMetadataValues>
-		<name>OriginBuilderType</name>
-		<value>
-			<stringValue>LightningFlowBuilder</stringValue>
-		</value>
-	</processMetadataValues>
-	<processType>AutoLaunchedFlow</processType>
-	<start>
-		<locationX>254</locationX>
-		<locationY>0</locationY>
-		<connector>
-			<targetReference>Check_RecordType</targetReference>
-		</connector>
-		<object>Account</object>
-		<recordTriggerType>CreateAndUpdate</recordTriggerType>
-		<triggerType>RecordAfterSave</triggerType>
-	</start>
-	<status>Active</status>
+    </formulas>
+    <interviewLabel>AccountCommonAfterSaveFlow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account Common AfterSave Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_RecordType</targetReference>
+        </connector>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
 </Flow>

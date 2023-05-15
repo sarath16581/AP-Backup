@@ -679,7 +679,7 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
         <fullName>PartnerInfoLicenceActivation</fullName>
         <apiVersion>57.0</apiVersion>
         <description>Notify POST+ system upon Licence Activation.</description>
-        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/aws.cce.auspost/abns</endpointUrl>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/stest/aws.cce.auspost/abns</endpointUrl>
         <fields>Assignment_Effective_From_Date__c</fields>
         <fields>Id</fields>
         <fields>ParentABN__c</fields>

@@ -421,7 +421,7 @@
         <field>Membership__c.Parent_Organisation_ABN__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Membership__c.Western_Union_Category__c</field>
         <readable>true</readable>
@@ -466,12 +466,12 @@
         <field>Network__c.Parent_Network__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Network__c.RNPNetworkManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Network__c.RNPReportingAccess__c</field>
         <readable>true</readable>
@@ -521,7 +521,7 @@
         <field>Partner_Info_Change__c.Subjected_To_GST__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>User.RNPReportingManager__c</field>
         <readable>true</readable>
