@@ -984,8 +984,8 @@
 				//CI-703 For Is_Parcel_Send_Login_Required__c =='Yes' populate product in DSR with product from sub account
 				//If Is_Parcel_Send_Login_Required__c =='No' and Product in SubAccount contains APPC along with other products, just populate the other products
 				//If Is_Parcel_Send_Login_Required__c =='No' and Product in SubAccount='APPC'
-				if(subAcc.Is_Parcel_Send_Login_Required__c =='Yes') dsrRecord.Product__c=subAcc.Product__c;
-				If(subAcc.Is_Parcel_Send_Login_Required__c =='No') {
+				if(subAcc.Is_Parcel_Send_Login_Required__c.equalsIgnoreCase('Yes')) dsrRecord.Product__c=subAcc.Product__c;
+				If(subAcc.Is_Parcel_Send_Login_Required__c .equalsIgnoreCase('No')) {
 					If(!subAcc.Product__c.equalsIgnoreCase('APPC')){
 						if(subAcc.Product__c.containsIgnoreCase('APPC')) {
 							List<String> products = subAcc.Product__c.split(';');
