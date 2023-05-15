@@ -330,7 +330,7 @@
                 <leftValueReference>myVariable_current.Record_Type_Name__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>APT_Postbillpay_Contract</stringValue>
+                    <stringValue>Post Billpay Contract</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -602,7 +602,7 @@
                 <leftValueReference>myVariable_current.Record_Type_Name__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>APT_Postbillpay_Contract</stringValue>
+                    <stringValue>Post Billpay Contract</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
