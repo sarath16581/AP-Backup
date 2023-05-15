@@ -14,8 +14,8 @@ public class HistoryTracking_Test {
 		);
 
 		// =====================================
-        // Stubbing
-        // =====================================
+		// Stubbing
+		// =====================================
 		HistoryTrackingSelector mockHTSelector = (HistoryTrackingSelector)MockUtility.mockSelector(HistoryTrackingSelector.class);
 
 		List<HistoryTracking__mdt> mockedHTConfig = (List<HistoryTracking__mdt>)JSON.deserialize(
@@ -61,23 +61,23 @@ public class HistoryTracking_Test {
 			List<HistoryTracking__mdt>.class
 		);
 
-        Map<Id,HistoryTracking__mdt> mockedHistoryTrackingConfig = new Map<Id,HistoryTracking__mdt>(mockedHTConfig);
-        // set up our responses
-        MockUtility.Mocks.startStubbing();
+		Map<Id,HistoryTracking__mdt> mockedHistoryTrackingConfig = new Map<Id,HistoryTracking__mdt>(mockedHTConfig);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
 
-        MockUtility.Mocks.when(
+		MockUtility.Mocks.when(
 			mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Opportunity.SObjectType)))
 		).thenReturn(mockedHistoryTrackingConfig);
 
-        MockUtility.Mocks.when(
+		MockUtility.Mocks.when(
 			mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(PermissionSet.SObjectType)))
 		).thenReturn(new Map<Id,HistoryTracking__mdt>());
 
-        MockUtility.Mocks.stopStubbing();
+		MockUtility.Mocks.stopStubbing();
 
-        // =====================================
-        // Testing
-        // =====================================
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 
 		Opportunity processedOpp = positiveTests(opp);

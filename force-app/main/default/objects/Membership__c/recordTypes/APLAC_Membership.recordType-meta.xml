@@ -57,37 +57,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>S75_Status__c</picklist>
-        <values>
-            <fullName>AUSTRAC Issued</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Issued</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Missing Information</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>Returned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Submitted to AUSTRAC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Submitted to WU</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Status__c</picklist>
         <values>
             <fullName>Active</fullName>
