@@ -735,9 +735,9 @@ Public static final String ORGID = UserInfo.getOrganizationId();
 
 			String agreementRateCardString;
 			if(String.isNotBlank(agreementRatecardFields)) {
-				agreementRateCardString = APT_Constants.SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER + String.escapeSingleQuotes(agreementRatecardFields) + SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF;
+				agreementRateCardString = APT_Constants.SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER + agreementRatecardFields + SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF;
 			} else {
-				agreementRateCardString = SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER_WITHOUT_COMMA + String.escapeSingleQuotes(agreementRatecardFields) + SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF;
+				agreementRateCardString = SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER_WITHOUT_COMMA + agreementRatecardFields + SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF;
 			}
 
 			system.debug(logginglevel.error,'*** APT_Constants.SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER***'+APT_Constants.SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER);

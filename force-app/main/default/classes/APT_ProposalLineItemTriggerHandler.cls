@@ -108,7 +108,7 @@ public with sharing class APT_ProposalLineItemTriggerHandler {
 			}
 
 			if(setLineItemId.size() > 0) {
-				list<APT_Quote_Rate_Card__c> listQuoteRateCard = database.query(APT_Constants.SOQL_SELECT + APT_AmendRenewUtility.getAllAgrFields(String.escapeSingleQuotes(APT_Constants.SOQL_QUOTE_RATE_CARD_OBJECT))  + String.escapeSingleQuotes(APT_Constants.SOQL_QUOTE_RATE_CARD_QUERY));
+				list<APT_Quote_Rate_Card__c> listQuoteRateCard = database.query(APT_Constants.SOQL_SELECT + APT_AmendRenewUtility.getAllAgrFields(APT_Constants.SOQL_QUOTE_RATE_CARD_OBJECT)  + APT_Constants.SOQL_QUOTE_RATE_CARD_QUERY);
 				list<APT_Line_Item_Rate_Card__c> listLineItemRateCard = new list<APT_Line_Item_Rate_Card__c>();
 				set<String> setIgnoreFields = new set<String>{APT_Constants.SOQL_LINE_ITEM_OBJECT};
 				if(listQuoteRateCard != null && listQuoteRateCard.size() > 0) {
