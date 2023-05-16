@@ -8,6 +8,7 @@ History
 4/5/2018      Adrian Recio (adrian.recio@auspost.com.au)         Added parent account license activation
 11/7/2018	  Chester Borbon (conrad.c.v.borbon@accenture.com)   Added code to validate and change the APLAC Member checkbox in the related Account/License. Added the checkAPLACMember method.
 05/05/2020    Disha Kariya      Added record Type check
+15/05/2020    Paul Perry		Austrac S75 process, tracking status updates in date fields
 ------------------------------------------------------------*/
 
 

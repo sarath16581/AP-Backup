@@ -65,12 +65,12 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <description>Send out an email alert after 7 days of Missing Information</description>
-        <name>X7_Days_of_Missing_Information_Alert</name>
-        <label>7 Days of Missing Information Alert</label>
+        <description>Send out a reminder after 7 days of Missing Information</description>
+        <name>X7_Days_of_Missing_Information</name>
+        <label>7 Days of Missing Information</label>
         <locationX>50</locationX>
         <locationY>384</locationY>
-        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Completion_1st_Reminder</actionName>
+        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_1st_Reminder</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -221,7 +221,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>X7_Days_of_Missing_Information_Alert</targetReference>
+                <targetReference>X7_Days_of_Missing_Information</targetReference>
             </connector>
             <label>7 Days - S75 Status equals Missing Information</label>
         </rules>
@@ -232,7 +232,7 @@
         <description>7 days from todays date</description>
         <name>Formula_TaskDueDate</name>
         <dataType>Date</dataType>
-        <expression>TODAY() + 7</expression>
+        <expression>TODAY()</expression>
     </formulas>
     <interviewLabel>MembershipScheduled AUSTRAC Followup {!$Flow.CurrentDateTime} {!$Record.Id}</interviewLabel>
     <label>MembershipScheduled AUSTRAC Followup</label>
@@ -268,21 +268,33 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Category__c</field>
+            <value>
+                <stringValue>Service</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <stringValue>00G2v000005RxR3EAK</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Priority</field>
             <value>
-                <stringValue>High</stringValue>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <stringValue>Call: Follow-up call to LPO</stringValue>
+                <stringValue>Call: S75N Follow-up call to LPO</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -319,21 +331,33 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Category__c</field>
+            <value>
+                <stringValue>Service</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <stringValue>00G2v000005RxR3EAK</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Priority</field>
             <value>
-                <stringValue>High</stringValue>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <stringValue>Call: Follow-up call to LPO</stringValue>
+                <stringValue>Call: S75N Follow-up call to LPO</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -368,9 +392,9 @@
                 <targetReference>X7_Days_S75_Status</targetReference>
             </connector>
             <label>After 7 Days</label>
-            <offsetNumber>7</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
-            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <offsetNumber>174</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -379,9 +403,9 @@
                 <targetReference>X14_Days_S75_Status</targetReference>
             </connector>
             <label>After 14 Days</label>
-            <offsetNumber>14</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
-            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <offsetNumber>342</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -390,9 +414,9 @@
                 <targetReference>X21_Days_S75_Status</targetReference>
             </connector>
             <label>After 21 Days</label>
-            <offsetNumber>21</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
-            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <offsetNumber>510</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -401,9 +425,9 @@
                 <targetReference>X28_Days_S75_Status</targetReference>
             </connector>
             <label>After 28 Days</label>
-            <offsetNumber>28</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
-            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <offsetNumber>678</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
