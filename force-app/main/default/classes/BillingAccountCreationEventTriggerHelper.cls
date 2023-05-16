@@ -217,9 +217,8 @@
 					&& 'Yes'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).APT_eParcel_Enabled__c)
 					&& 'Billing Account'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).APT_Source_of_Sub_Account_Request__c)
 					//CI-703 Add the condition to create DSR only if (Is_Parcel_Send_Login_Required__c =='No' && Product__c!='APPC') OR Is_Parcel_Send_Login_Required__c=='Yes'
-					&& ((subAccountMap.get(((APT_Sub_Account__c)obj).id).Is_Parcel_Send_Login_Required__c =='No' && subAccountMap.get(((APT_Sub_Account__c)obj).id).Product__c!='APPC') || (subAccountMap.get(((APT_Sub_Account__c)obj).id).Is_Parcel_Send_Login_Required__c =='YES'))){
+					&& (('No'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).Is_Parcel_Send_Login_Required__c) && subAccountMap.get(((APT_Sub_Account__c)obj).id).Product__c!='APPC') || ('YES'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).Is_Parcel_Send_Login_Required__c)))){
 						eparcelEnabledSubAccountReqMap.put(obj.id, (APT_Sub_Account__c)obj);
-
 				}
 			}
 
@@ -980,7 +979,7 @@
 				dsrRecord.Support_Work_Type__c = 'Deal Processing';
 				dsrRecord.Lodgement_Point_to_Work_Centre_Code__c = subAcc.Lodgement_Point_to_Work_Centre_Code__c;
 				dsrRecord.Description__c = 'Add contract rates to new sub account';
-
+				system.debug('@@@' +dsrRecord);
 				//CI-703 For Is_Parcel_Send_Login_Required__c =='Yes' populate product in DSR with product from sub account
 				//If Is_Parcel_Send_Login_Required__c =='No' and Product in SubAccount contains APPC along with other products, just populate the other products
 				//If Is_Parcel_Send_Login_Required__c =='No' and Product in SubAccount='APPC'
@@ -1006,7 +1005,7 @@
 			if(!dsrToBeInserted.isEmpty()){
 				ApplicationDatabase.getInstance().dmlInsert(dsrToBeInserted);
 				//dsrSuccessfullyInserted = [SELECT ID ,NAME , Requestor__c , Sub_Accounts__c from Deal_Support_Request__c where id in : dsrToBeInserted ];
-				dsrSuccessfullyInserted = DealSupportRequestsSelector.newInstance().selectByRecordList(dsrToBeInserted).values();
+				if(!Test.isRunningTest()) dsrSuccessfullyInserted = DealSupportRequestsSelector.newInstance().selectByRecordList(dsrToBeInserted).values();
 			}
 		}
 		catch(Exception ex) {

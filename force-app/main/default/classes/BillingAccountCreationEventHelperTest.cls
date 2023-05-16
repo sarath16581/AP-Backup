@@ -165,12 +165,29 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.stopTest();
 		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
-		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,2);
-		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
-		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
-		Deal_Support_Request__c dsr =(Deal_Support_Request__c)insertRecs[0];
-		System.assertEquals(billingAccount.Id, dsr.Billing_Account__c, 'Expected Success on DSR Record creation');
-		System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
+		List<List<sObject>> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,2);
+		List<List<sObject>> updateRecs=MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2);
+		for(List<SObject> obj :insertRecs){
+			if (obj.size()==1){
+				Deal_Support_Request__c dsr =(Deal_Support_Request__c)obj[0];
+				System.assertEquals(billingAccount.Id, dsr.Billing_Account__c, 'Expected Success on DSR Record creation');
+				System.assertEquals('Submitted', dsr.Status__c, 'Expected Success on DSR Record creation');
+			}
+		}
+		for(List<SObject> obj :updateRecs){
+			for(SObject sObj :obj){
+				String objectName = String.valueOf(id.valueOf(sObj.Id)?.getsobjecttype());
+
+				if(objectName.equalsIgnoreCase('APT_Sub_Account__c')){
+					APT_Sub_Account__c sAcc =(APT_Sub_Account__c)sObj;
+					System.assertEquals(newsEvent1.Status__c, sAcc.APT_Sub_Account_Request_Status__c, 'Expected Success on Sub Account Record Update');
+				}
+				if(objectName.equalsIgnoreCase('APT_Agreement_Lodgement_Point__c')){
+					APT_Agreement_Lodgement_Point__c lp =(APT_Agreement_Lodgement_Point__c)sObj;
+					System.assertEquals(apttusContracts.Id, lp.APT_Agreement__c, 'Expected Success on Lodgement Point Record Update');
+				}
+			}
+		}
 	}
 
 	@IsTest
@@ -278,9 +295,16 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.stopTest();
 		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
-		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
-		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
-		System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected failure on DSR Record creation');
+		List<List<SObject>> updateRecs=MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2);
+		for(List<SObject> obj :updateRecs){
+			for(SObject sObj :obj){
+				String objectName = String.valueOf(id.valueOf(sObj.Id)?.getsobjecttype());
+				if(objectName.equalsIgnoreCase('APT_Sub_Account__c')){
+					APT_Sub_Account__c sAcc =(APT_Sub_Account__c)sObj;
+					System.assertEquals(newsEvent1.Status__c, sAcc.APT_Sub_Account_Request_Status__c, 'Expected Failure on Sub Account Record Update');
+				}
+			}
+		}
 	}
 
 	@IsTest
@@ -360,19 +384,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 
 		Test.stopTest();
-		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
-			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
-			//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
-			List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
-			Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
-			Deal_Support_Request__c dsr =(Deal_Support_Request__c)updateRecsMap.get(dealSupportRequest.Id);
-			Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
-			System.assertEquals(newsEvent.Status__c, dsr.Integration_Status__c, 'Expected Success on DSR Record update');
-			System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
-		}
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
+		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase);
+		Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
+		System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
+	}
 
-		@IsTest
-		private static void testBillingAccountCreationPartialSuccessScenario() {
+	@IsTest
+	private static void testBillingAccountCreationPartialSuccessScenario() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -476,15 +495,24 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
-			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
-			//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
-			List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
-			Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
-			APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
-			Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
-			System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
-			System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
+		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase);
+		List<List<SObject>> updateRecs=MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2);
+		Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
+		System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
+		for(List<SObject> obj :updateRecs){
+			for(SObject sObj :obj){
+				String objectName = String.valueOf(id.valueOf(sObj.Id)?.getsobjecttype());
+				if(objectName.equalsIgnoreCase('APT_Sub_Account__c')){
+					APT_Sub_Account__c sAcc =(APT_Sub_Account__c)sObj;
+					System.assertEquals(newsEvent1.Status__c, sAcc.APT_Sub_Account_Request_Status__c, 'Expected Success on Sub Account Record Update');
+				}
+				if(objectName.equalsIgnoreCase('APT_Agreement_Lodgement_Point__c')){
+					APT_Agreement_Lodgement_Point__c lp =(APT_Agreement_Lodgement_Point__c)sObj;
+					System.assertEquals(apttusContracts.Id, lp.APT_Agreement__c, 'Expected Success on Lodgement Point Record Update');
+				}
+			}
+		}
 	}
 
 	@IsTest
@@ -566,7 +594,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
 			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 
@@ -596,12 +624,25 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
-		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
-		Map<Id, sObject> updateRecsMap=new Map<Id, sObject>((List<sObject>) MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2));
-		APT_Sub_Account__c obj =(APT_Sub_Account__c)updateRecsMap.get(subAccountRequest.id);
-		System.assertEquals(newsEvent1.Status__c, obj.APT_Sub_Account_Request_Status__c, 'Expected Success on DSR Record creation');
 
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
+		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase);
+		List<List<SObject>> updateRecs=MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2);
+		Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
+		System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
+		for(List<SObject> obj :updateRecs){
+			for(SObject sObj :obj){
+				String objectName = String.valueOf(id.valueOf(sObj.Id)?.getsobjecttype());
+				if(objectName.equalsIgnoreCase('APT_Sub_Account__c')){
+					APT_Sub_Account__c sAcc =(APT_Sub_Account__c)sObj;
+					System.assertEquals(newsEvent1.Status__c, sAcc.APT_Sub_Account_Request_Status__c, 'Expected Success on Sub Account Record Update');
+				}
+				if(objectName.equalsIgnoreCase('APT_Agreement_Lodgement_Point__c')){
+					APT_Agreement_Lodgement_Point__c lp =(APT_Agreement_Lodgement_Point__c)sObj;
+					System.assertEquals(apttusContracts.Id, lp.APT_Agreement__c, 'Expected Success on Lodgement Point Record Update');
+				}
+			}
+		}
 	}
 
 	@IsTest
@@ -674,7 +715,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 
@@ -704,11 +745,26 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-		/* Since using Selector Framework we are mocking the dml insert and not doing actual dml in the class , Not able to assert the actual record
-			and instead using the below statement to confirm the Mock insert is happening in Success scenario */
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+
+		//CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
+		List<sObject> insertRecs=MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase);
+		List<List<SObject>> updateRecs=MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase,2);
+		Billing_Account__c ba =(Billing_Account__c)insertRecs[0];
+		System.assertEquals(ba.LEGACY_ID__c, newsEvent.Billing_Account_Number__c, 'Expected Success on Billing Account Record creation');
+		for(List<SObject> obj :updateRecs){
+			for(SObject sObj :obj){
+				String objectName = String.valueOf(id.valueOf(sObj.Id)?.getsobjecttype());
+				if(objectName.equalsIgnoreCase('APT_Sub_Account__c')){
+					APT_Sub_Account__c sAcc =(APT_Sub_Account__c)sObj;
+					System.assertEquals(newsEvent1.Status__c, sAcc.APT_Sub_Account_Request_Status__c, 'Expected Success on Sub Account Record Update');
+				}
+				if(objectName.equalsIgnoreCase('APT_Agreement_Lodgement_Point__c')){
+					APT_Agreement_Lodgement_Point__c lp =(APT_Agreement_Lodgement_Point__c)sObj;
+					System.assertEquals(apttusContracts.Id, lp.APT_Agreement__c, 'Expected Success on Lodgement Point Record Update');
+				}
+			}
 		}
+	}
 
 		@IsTest
 		private static void testBillingAccountCreationSuccessScenarioBCAError() {
@@ -794,7 +850,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 

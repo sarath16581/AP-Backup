@@ -9,6 +9,7 @@
  * 2021-10-15 - Nathan Franklin - Add new AnswerVoid class
  * 2022-07-28 - Sreenish Krishnan - Added DMLUpsert logic
  * 2023-03-21 - Nathan Franklin - Added some DML insert/update captor helper methods
+ * 2023-05-16 - Sarath Burra - Added a method Method to typecast the List<Object> into List<List<SObject>> returned from the fflib_ArgumentCaptor.getAllValues()
  */
 @IsTest
 public class MockUtility {
@@ -117,16 +118,16 @@ public class MockUtility {
 		return (List<SObject>)recordCaptor.getValue();
 	}
 
-	public static List<SObject> verifyAndCaptureInsertedDmlRecords(ApplicationDatabase mockDatabase, Integer timesExecuted) {
+	public static List<List<SObject>> verifyAndCaptureInsertedDmlRecords(ApplicationDatabase mockDatabase, Integer timesExecuted) {
 		fflib_ArgumentCaptor recordCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(timesExecuted))).dmlInsert((List<SObject>)recordCaptor.capture());
-		return (List<SObject>)recordCaptor.getValue();
+		return typeCastObject(recordCaptor.getAllValues());
 	}
 
 	public static List<List<SObject>> verifyAndCaptureInsertedDmlRecords(ApplicationDatabase mockDatabase, Boolean allOrNothing, Integer timesExecuted) {
 		fflib_ArgumentCaptor recordCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(timesExecuted))).dmlInsert((List<SObject>)recordCaptor.capture(), fflib_Match.eqBoolean(allOrNothing));
-		return (List<List<SObject>>)recordCaptor.getAllValues();
+		return typeCastObject(recordCaptor.getAllValues());
 	}
 	// ======================================================
 
@@ -144,19 +145,26 @@ public class MockUtility {
 		return (List<SObject>)recordCaptor.getValue();
 	}
 
-	public static List<SObject> verifyAndCaptureUpdatedDmlRecords(ApplicationDatabase mockDatabase, Integer timesExecuted) {
+	public static List<List<SObject>> verifyAndCaptureUpdatedDmlRecords(ApplicationDatabase mockDatabase, Integer timesExecuted) {
 		fflib_ArgumentCaptor recordCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(timesExecuted))).dmlUpdate((List<SObject>)recordCaptor.capture());
-		return (List<SObject>)recordCaptor.getValue();
+		return typeCastObject(recordCaptor.getAllValues());
 	}
 
 	public static List<List<SObject>> verifyAndCaptureUpdatedDmlRecords(ApplicationDatabase mockDatabase, Boolean allOrNothing, Integer timesExecuted) {
 		fflib_ArgumentCaptor recordCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(timesExecuted))).dmlUpdate((List<SObject>)recordCaptor.capture(), fflib_Match.eqBoolean(allOrNothing));
-		return (List<List<SObject>>)recordCaptor.getAllValues();
+		return typeCastObject(recordCaptor.getAllValues());
 	}
 	// ======================================================
-
+	// Method to typecast the List<Object> into List<List<SObject>> returned from the fflib_ArgumentCaptor.getAllValues()
+	public static List<List<SObject>> typeCastObject(List<Object> values){
+		List<List<SObject>> retValues = new List<List<SObject>>();
+		for(Object obj :values){
+			retValues.add((List<SObject>)obj);
+		}
+		return retValues;
+	}
 	/**
 	 * A simple Answer class to set an Id on the record to simulate a DML insert operation
 	 */
