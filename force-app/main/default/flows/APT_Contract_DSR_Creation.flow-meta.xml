@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>55.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <decisions>
         <name>isChangedDecision14_myRule_13_Apttus_Status_c</name>
         <label>isChangedDecision14_myRule_13_Apttus_Status_c</label>
@@ -330,7 +330,7 @@
                 <leftValueReference>myVariable_current.Record_Type_Name__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>APT_Postbillpay_Contract</stringValue>
+                    <stringValue>Post Billpay Contract</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -602,7 +602,7 @@
                 <leftValueReference>myVariable_current.Record_Type_Name__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>APT_Postbillpay_Contract</stringValue>
+                    <stringValue>Post Billpay Contract</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -687,7 +687,7 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_18</name>
-            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8 OR 9 OR 10)</conditionLogic>
+            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND (6 OR 7 OR 8 OR 9)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -810,37 +810,6 @@
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>APT_Letter_of_Intent</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>APT_Postbillpay_Contract</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1021,7 +990,7 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_7</name>
-            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8 OR 9 OR 10) AND 11</conditionLogic>
+            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND (6 OR 7 OR 8 OR 9) AND 10</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -1144,37 +1113,6 @@
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>APT_Letter_of_Intent</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>APT_Postbillpay_Contract</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1386,6 +1324,7 @@ IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Dema
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Post Billpay&quot;), &quot;Post Billpay&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
@@ -1396,7 +1335,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_10_myRule_7_A1_6711674927</name>
+        <name>formula_10_myRule_7_A1_0953468123</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1410,6 +1349,7 @@ IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quo
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Post Billpay&quot;), &quot;Post Billpay&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
@@ -1426,7 +1366,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_7_A1_8145175696</name>
+        <name>formula_11_myRule_7_A1_2852075697</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1456,7 +1396,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myRule_13_A1_1922875617</name>
+        <name>formula_15_myRule_13_A1_1938999720</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1487,7 +1427,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
 </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_13_A1_2541983580</name>
+        <name>formula_16_myRule_13_A1_4489439930</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1507,6 +1447,7 @@ IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Dema
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Post Billpay&quot;), &quot;Post Billpay&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
@@ -1517,7 +1458,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_18_A1_6408107112</name>
+        <name>formula_20_myRule_18_A1_5459228886</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1531,6 +1472,7 @@ IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quo
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Post Billpay&quot;), &quot;Post Billpay&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
@@ -1547,7 +1489,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_21_myRule_18_A1_6541478052</name>
+        <name>formula_21_myRule_18_A1_5914553309</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1566,7 +1508,7 @@ ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_
 ))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_2741381399</name>
+        <name>formula_3_myRule_1_A1_4426144976</name>
         <dataType>String</dataType>
         <expression>IF(
 ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
@@ -1604,7 +1546,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_5311733992</name>
+        <name>formula_4_myRule_1_A1_0429079524</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1634,7 +1576,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_1_A1_6213192846</name>
+        <name>formula_5_myRule_1_A1_8109584385</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1653,7 +1595,7 @@ ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_
 ))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_9_myRule_7_A1_1027089490</name>
+        <name>formula_9_myRule_7_A1_2736594432</name>
         <dataType>String</dataType>
         <expression>IF(
 ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
@@ -1665,7 +1607,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
 
 ))</expression>
     </formulas>
-    <interviewLabel>APT_Contract_DSR_Creation-8_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Contract_DSR_Creation-14_InterviewLabel</interviewLabel>
     <label>APT Contract DSR Creation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -2135,7 +2077,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_15_myRule_13_A1_1922875617</elementReference>
+                <elementReference>formula_15_myRule_13_A1_1938999720</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2171,7 +2113,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_16_myRule_13_A1_2541983580</elementReference>
+                <elementReference>formula_16_myRule_13_A1_4489439930</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2835,7 +2777,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_20_myRule_18_A1_6408107112</elementReference>
+                <elementReference>formula_20_myRule_18_A1_5459228886</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2871,7 +2813,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_21_myRule_18_A1_6541478052</elementReference>
+                <elementReference>formula_21_myRule_18_A1_5914553309</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3313,7 +3255,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_2741381399</elementReference>
+                <elementReference>formula_3_myRule_1_A1_4426144976</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3535,7 +3477,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_5311733992</elementReference>
+                <elementReference>formula_4_myRule_1_A1_0429079524</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3571,7 +3513,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_5_myRule_1_A1_6213192846</elementReference>
+                <elementReference>formula_5_myRule_1_A1_8109584385</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4013,7 +3955,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_9_myRule_7_A1_1027089490</elementReference>
+                <elementReference>formula_9_myRule_7_A1_2736594432</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4235,7 +4177,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_10_myRule_7_A1_6711674927</elementReference>
+                <elementReference>formula_10_myRule_7_A1_0953468123</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4271,7 +4213,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_11_myRule_7_A1_8145175696</elementReference>
+                <elementReference>formula_11_myRule_7_A1_2852075697</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

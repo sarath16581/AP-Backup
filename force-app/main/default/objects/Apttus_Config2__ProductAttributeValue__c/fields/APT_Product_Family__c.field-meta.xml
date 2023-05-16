@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>APT_Product_Family__c</fullName>
-    <externalId>false</externalId>
-    <formula>TEXT(Apttus_Config2__LineItemId__r.Apttus_Config2__OptionId__r.Family)</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Product Family</label>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+	<fullName>APT_Product_Family__c</fullName>
+	<description>Displays the product’s family.</description>
+	<externalId>false</externalId>
+	<inlineHelpText>Displays the product’s family.</inlineHelpText>
+	<formula>TEXT(Apttus_Config2__LineItemId__r.Apttus_Config2__OptionId__r.Family)</formula>
+	<formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+	<label>Product Family</label>
+	<required>false</required>
+	<trackHistory>false</trackHistory>
+	<trackTrending>false</trackTrending>
+	<type>Text</type>
+	<unique>false</unique>
 </CustomField>

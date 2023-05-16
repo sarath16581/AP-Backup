@@ -25,6 +25,30 @@
                 <behavior>Required</behavior>
                 <field>Apttus_QPConfig__LineItemId__c</field>
             </layoutItems>
+            <layoutItems>
+				<behavior>Readonly</behavior>
+				<field>APT_Volume_Threshold_PBP__c</field>
+			</layoutItems>
+			<layoutItems>
+				<behavior>Readonly</behavior>
+				<field>APT_Minimum_Fees__c</field>
+			</layoutItems>
+			<layoutItems>
+				<behavior>Readonly</behavior>
+				<field>APT_PostBillPay_Channel__c</field>
+			</layoutItems>
+			<layoutItems>
+				<behavior>Readonly</behavior>
+				<field>APT_Payment_Method__c</field>
+			</layoutItems>
+			<layoutItems>
+				<behavior>Readonly</behavior>
+				<field>APT_PostBillPay_Gross_Settlement_fee__c</field>
+			</layoutItems>
+			<layoutItems>
+				<behavior>Readonly</behavior>
+				<field>APT_Annual_Volume_Review__c</field>
+			</layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
