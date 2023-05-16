@@ -13,9 +13,29 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
-        <restricted>true</restricted>
-        <valueSetName>PostBillPayChannel</valueSetName>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OTC</fullName>
+                <default>false</default>
+                <label>OTC</label>
+            </value>
+            <value>
+                <fullName>Phone</fullName>
+                <default>false</default>
+                <label>Phone</label>
+            </value>
+            <value>
+                <fullName>Internet</fullName>
+                <default>false</default>
+                <label>Internet</label>
+            </value>
+            <value>
+                <fullName>Scan and Pay</fullName>
+                <default>false</default>
+                <label>Scan and Pay</label>
+            </value>
+        </valueSetDefinition>
     </valueSet>
-    <visibleLines>3</visibleLines>
     <visibleLines>3</visibleLines>
 </CustomField>
