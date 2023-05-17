@@ -8,6 +8,7 @@
  * @changelog
  * 2021-04-05 - seth.heang@auspost.com.au - Created
  * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
+ * 2023-03-21 - CI-703 Sarath Burra Added new field Is_Parcel_Send_Login_Required__c
  */
 public with sharing class SubAccountRequestsSelector extends ApplicationSelector{
 	public enum Options {
@@ -22,7 +23,7 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	* This approach removes data consistency and prevents possible caching of results
-	*/  
+	*/
 	public static SubAccountRequestsSelector  newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		SubAccountRequestsSelector  selector = (SubAccountRequestsSelector)Application.Selectors.newInstance(SubAccountRequestsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
@@ -40,10 +41,10 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 			APT_Sub_Account__c.Sub_Account_Name__c, APT_Sub_Account__c.Sub_Account_Number__c, APT_Sub_Account__c.Transaction_Id__c,
 			APT_Sub_Account__c.APT_Sub_Account_Request_Status__c, APT_Sub_Account__c.Sub_Account_Request_Status_Description__c,
 			APT_Sub_Account__c.Lodgement_Point_to_Work_Centre_Code__c,APT_Sub_Account__c.APT_eLMS_Enabled__c, APT_Sub_Account__c.APT_eParcel_Enabled__c,
-			APT_Sub_Account__c.APT_Postal_Address_Street_Name__c, APT_Sub_Account__c.APT_Postal_Address_Suburb__c, 
+			APT_Sub_Account__c.APT_Postal_Address_Street_Name__c, APT_Sub_Account__c.APT_Postal_Address_Suburb__c,
 			APT_Sub_Account__c.APT_Postal_Address_State__c, APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c,
-			APT_Sub_Account__c.APT_Billing_Account__c, APT_Sub_Account__c.APT_Postal_Address_Country_Code__c, APT_Sub_Account__c.OwnerId, 
-			APT_Sub_Account__c.Product__c, APT_Sub_Account__c.SubAccountContact__c
+			APT_Sub_Account__c.APT_Billing_Account__c, APT_Sub_Account__c.APT_Postal_Address_Country_Code__c, APT_Sub_Account__c.OwnerId,
+			APT_Sub_Account__c.Product__c, APT_Sub_Account__c.SubAccountContact__c,APT_Sub_Account__c.Is_Parcel_Send_Login_Required__c
 		};
 	}
 
@@ -105,7 +106,7 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
-	
+
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 

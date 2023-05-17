@@ -7,8 +7,9 @@
  * @changelog
  * 2020-11-23 - arjun.singh@auspost.com.au - Created
  * 2021-04-12 - seth.heang@auspost.com.au - updated wrapper class to reflect the latest request payload structure
- * 2021-05-2021 - avula.jansirani@auspost.com.au - added 'bankAccounts', 'industryId','entityType' in 'CustomerDetail' class 
+ * 2021-05-2021 - avula.jansirani@auspost.com.au - added 'bankAccounts', 'industryId','entityType' in 'CustomerDetail' class
  * 2022-08-04 - Seth Heang - Update wrapper with additional rating plan payload definition
+ * 2023-03-01 - Deepak Kemidi - CI-703 Update wrapper with products payload definition
  */
 public with sharing class BillingAccountWrapper {
 
@@ -17,9 +18,9 @@ public with sharing class BillingAccountWrapper {
     @AuraEnabled
     public String requestObjId;
     @AuraEnabled
-    public String transactionId; 
+    public String transactionId;
     @AuraEnabled
-    public String processType; 
+    public String processType;
     @AuraEnabled
     public String processTypeDesc;
     @AuraEnabled
@@ -40,6 +41,12 @@ public with sharing class BillingAccountWrapper {
         public String phone;
     }
 
+	//CI-703 product Details Array
+	public class ProductDetail{
+		@AuraEnabled
+		public String ratingModel;
+	}
+
     public class lodgementPointsDetail{
         @AuraEnabled
         public String lodgementPointId;
@@ -57,9 +64,8 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public String creditRepName;
     }
- 
     //Characteristics Details
-    public class CharacteristicsDetail{        
+    public class CharacteristicsDetail{
         @AuraEnabled
         public Boolean elmsFlag;
         @AuraEnabled
@@ -71,7 +77,6 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public Boolean pcmsMerchBarcode;
     }
-    
     public class childAccountDetail{
         @AuraEnabled
         public String name1;
@@ -89,6 +94,9 @@ public with sharing class BillingAccountWrapper {
         public communicationInfoDetail communicationInfo;
         @AuraEnabled
         public List<lodgementPointsDetail> lodgementPoints;
+		@AuraEnabled
+		//CI-703 product Details Array
+		public List<ProductDetail> products;
         @AuraEnabled
         public List<ContactDetail> contactPersons;
     }
@@ -104,7 +112,7 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public String lastName;
     }
-    
+
     public class addressInfoDetail{
         @AuraEnabled
         public String city;
@@ -119,7 +127,7 @@ public with sharing class BillingAccountWrapper {
     }
 
     public class CustomerDetail {
-        @AuraEnabled    
+        @AuraEnabled
         public String abn;
         @AuraEnabled
         public String accountGroup;
@@ -141,6 +149,9 @@ public with sharing class BillingAccountWrapper {
         public creditControlsDetail creditControls;
         @AuraEnabled
         public List<lodgementPointsDetail> lodgementPoints;
+		//CI-703 product Details Array
+		@AuraEnabled
+		public List<ProductDetail> products;
         @AuraEnabled
         public List<ContactDetail> contactPersons;
         @AuraEnabled
@@ -155,16 +166,16 @@ public with sharing class BillingAccountWrapper {
         public String objectId;
         @AuraEnabled
         public String objectType;
-        @AuraEnabled                              
+        @AuraEnabled
         public List<BankAccount> bankAccounts;
-        @AuraEnabled   
+        @AuraEnabled
         public String industryId;
-        @AuraEnabled   
+        @AuraEnabled
         public String entityType;
     }
-    
-    public class BankAccount{    
-        public String accountHolderName; 
+
+    public class BankAccount{
+        public String accountHolderName;
         public String bankAccountNo;
         public String bankStateBranch;
     }
