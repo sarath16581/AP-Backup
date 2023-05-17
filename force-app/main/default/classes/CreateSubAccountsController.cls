@@ -38,10 +38,11 @@
 		system.debug('DDD billing account record::' + billingAccountRec);
 		Set<Id> accIds = new set<Id>{billingAccountRec.Organisation__c};
 		for(Apttus__APTS_Agreement__c contract : ApttusContractsSelector.newInstance().search(new Map<String, Object>{'accountIds' => accIds},true)) {
-			if(contract.APT_APPC_Count__c >0 && contract.Apttus__Status__c.equalsIgnoreCase('Activated') && contract.Apttus__Status_Category__c.equalsIgnoreCase('In Effect')) {
-				if(contract.Contract_Relationship__c.equalsIgnoreCase('Billing Account')) {
+			if(contract.APT_APPC_Count__c != null && contract.APT_APPC_Count__c >0 &&  'Activated'.equalsIgnoreCase(contract.Apttus__Status__c) && 'In Effect'.equalsIgnoreCase(contract.Apttus__Status_Category__c)) {
+
+				if('Billing Account'.equalsIgnoreCase(contract.Contract_Relationship__c)) {
 					billingAccRecsCount = billingAccRecsCount + 1;
-				} else if(contract.Contract_Relationship__c.equalsIgnoreCase('Organisation')) {
+				} else if('Organisation'.equalsIgnoreCase(contract.Contract_Relationship__c)) {
 					OrgRecsCount = OrgRecsCount + 1;
 				}
 			}
