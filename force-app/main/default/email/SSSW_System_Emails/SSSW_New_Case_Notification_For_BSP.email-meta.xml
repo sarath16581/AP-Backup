@@ -12,21 +12,24 @@ Help &amp; Support
 
 Reference number {!Case.CaseNumber}
 
+Thanks, we’ve received your enquiry
 
 Hi {!Contact.FirstName},
 
+Thanks for your enquiry about parcel {!IF(ISNULL(Case.ReferenceID__c)), &apos;&apos;,Case.ReferenceID__c}. Your reference number is {!Case.CaseNumber}.
 
-Thanks for contacting us{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; regarding &apos; + IF(LEN(Case.ReferenceID__c)&gt;9, &apos;article &apos;, &apos;customer reference &apos;) + Case.ReferenceID__c + &apos;.&apos;)} The reference number for your case is {!Case.CaseNumber}.
+What happens next
 
-Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+As this parcel is delayed, our customer support team will review your enquiry. We’ll review the tracking history, and try to locate the parcel.
+
+We’ll keep you updated
+
+After the team has completed their investigation, we’ll contact you - usually within 2 business days.
+
+
+If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.
 
 CLOSE MY CASE
-
-If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes.
-
-We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
-
-We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
 
 
 

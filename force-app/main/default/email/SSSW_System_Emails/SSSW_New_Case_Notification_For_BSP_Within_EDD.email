@@ -92,21 +92,22 @@
 					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
-							</tr>				
-													<tr>
-								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;"><br/>Thanks for contacting us{!IF(ISNULL(Case.ReferenceID__c), '.', ' regarding ' + IF(LEN(Case.ReferenceID__c)>9, 'article ', 'customer reference ') + Case.ReferenceID__c + '.')} The reference number for your case is {!Case.CaseNumber}.
-</p>
+								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;">
+								    <p style="font:24px/16px Arial">Thanks, we’ve received your enquiry</p>
+								    <br/>
+<p>Hi {!Contact.FirstName},</p>
+<p>Thanks for your enquiry about parcel {!IF(ISNULL(Case.ReferenceID__c)), '',Case.ReferenceID__c} '.' Your reference number is {!Case.CaseNumber}.</p>
 
-<p><b>Sometimes enquiries can be resolved before we've completed our investigation. If that happens, let us know here:</b></p>
+<p>This parcel is expected on {!IF(ISNULL(Case.EstimatedDelivery__c)), '',Case.EstimatedDelivery__c}.</p>
 
+<p style="padding:0 0 0px; font:20px/16px Arial, Helvetica, sans-serif; color:#807370;">What happens next</p>
+<p><b>We’ll monitor this parcel until {!IF(ISNULL(Case.HeldToOpenOn__c)), '',Case.HeldToOpenOn__c}.</b></p>
+<p>If it hasn’t been delivered by then, we’ll begin investigating. No need to submit another enquiry.</p
+
+<p style="padding:0 0 0px; font:20px/16px Arial, Helvetica, sans-serif; color:#807370;">We’ll keep you updated</p>
+<p>You’ll hear back from us after we review your enquiry on {!IF(ISNULL(Case.HeldToOpenOn__c)), '',Case.HeldToOpenOn__c - usually within 2 business days - or if this parcel is delivered.</p><br/>
+<p>If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.</p>
 <a href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!Case.CaseNumber}%20can%20be%20closed%20{!Case.Thread_Id}">CLOSE MY CASE</a>
-
-<p>If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes. </p>
- 
-<p>We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks. </p>
- 
-<p>We thank you for your cooperation. We'll be in touch as soon as we can.</p>
 
 <p></p><br/></td>
 							</tr>	

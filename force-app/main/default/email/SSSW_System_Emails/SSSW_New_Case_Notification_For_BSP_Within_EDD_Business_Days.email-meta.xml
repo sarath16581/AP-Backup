@@ -12,21 +12,27 @@ Help &amp; Support
 
 Reference number {!Case.CaseNumber}
 
+Thanks, we’ve received your enquiry
+
 
 Hi {!Contact.FirstName},
 
+Thanks for your enquiry about parcel {!IF(ISNULL(Case.ReferenceID__c)), &apos;&apos;,Case.ReferenceID__c} &apos;.&apos; Your reference number is {!Case.CaseNumber}.
 
-Thanks for contacting us{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; regarding &apos; + IF(LEN(Case.ReferenceID__c)&gt;9, &apos;article &apos;, &apos;customer reference &apos;) + Case.ReferenceID__c + &apos;.&apos;)} The reference number for your case is {!Case.CaseNumber}.
+What happens next
 
-Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+Most late parcels arrive within 5 days of the expected delivery date.  If this parcel is delivered, we’ll let you know and close your enquiry.
+
+We’ll monitor this parcel until {!IF(ISNULL(Case.HeldToOpenOn__c)), &apos;&apos;,Case.HeldToOpenOn__c}.
+It it hasn’t been delivered by then, we’ll begin investigating. No need to submit another enquiry.
+
+We’ll keep you updated
+
+You’ll hear back from us after we review your enquiry on {!IF(ISNULL(Case.HeldToOpenOn__c)), &apos;&apos;,Case.HeldToOpenOn__c - usually within 2 business days - or if this parcel is delivered.
+
+If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.
 
 CLOSE MY CASE
-
-If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes.
-
-We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
-
-We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
 
 
 
