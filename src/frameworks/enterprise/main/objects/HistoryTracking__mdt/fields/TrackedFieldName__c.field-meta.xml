@@ -6,11 +6,8 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The field that gets observed for changes in order to perform field updates</inlineHelpText>
     <label>Tracked Field Name</label>
-    <metadataRelationshipControllingField>HistoryTracking__mdt.ObjectName__c</metadataRelationshipControllingField>
-    <referenceTo>FieldDefinition</referenceTo>
-    <relationshipLabel>HistoryTracking</relationshipLabel>
-    <relationshipName>HistoryTracking</relationshipName>
+	<length>255</length>
     <required>true</required>
-    <type>MetadataRelationship</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

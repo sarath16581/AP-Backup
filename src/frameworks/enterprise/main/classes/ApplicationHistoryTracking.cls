@@ -5,7 +5,7 @@
 //	  This class can be used as is, or used as base class for extension in case there's
 //	  more flexibility required (custom merging / field type conversion, etc.)
 //
-public without sharing class HistoryTracking {
+public without sharing class ApplicationHistoryTracking {
 	// definition of static properties and methods
 
 	// caching to minimise regex compilation
@@ -59,42 +59,60 @@ public without sharing class HistoryTracking {
 	//	  *This process doesn't commit any records. Use it within before insert/update
 	//	  trigger context or manually insert/update your List<SObject> newList
 	public static void run(Schema.SObjectType sObjectType, List<SObject> newList, Map<Id, SObject> oldMap) {
-		 HistoryTracking cht = new HistoryTracking(sObjectType);
-		 /* Add your custom merge values in the consuming class to customise
-		 cht.mergeValuesDefs.putAll(new Map<String,Object>{
-			 'MERGEKEY1' => 1500,						// Integer
-			 'ISSUNDAY' => System.today().weekday() == 1 // Boolean
-		 });
-		 */
-		 cht.process(newList, oldMap);
+		ApplicationHistoryTracking cht = new ApplicationHistoryTracking(sObjectType);
+		/* Add your custom merge values in the consuming class to customise
+		cht.mergeValuesDefs.putAll(new Map<String,Object>{
+			'MERGEKEY1' => 1500,						// Integer
+			'ISSUNDAY' => System.today().weekday() == 1 // Boolean
+		});
+		*/
+		cht.process(newList, oldMap);
 	}
 
 	@SuppressWarnings('PMD.ExcessiveParameterList')
 	public static void run(List<HistoryTracker> trackers, SObjectType sObjType, List<SObject> newList, Map<Id, SObject> oldMap) {
 		if (!trackers.isEmpty() && !newList.isEmpty()) {
-			HistoryTracking cht = new HistoryTracking(sObjType, trackers);
+			ApplicationHistoryTracking cht = new ApplicationHistoryTracking(sObjType, trackers);
 			cht.process(newList, oldMap);
 		}
 	}
 
 	// constructor for system based config (Custom Metadata Setting)
-	public HistoryTracking(Schema.SObjectType sObjectType) {
+	public ApplicationHistoryTracking(Schema.SObjectType sObjectType) {
 		 // Fetch config for given sObjectType
-		HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance();
-		List<HistoryTracking__mdt> config = selector.selectByObjectApiNames(new List<String>{
-			String.valueOf(sObjectType)
-		}).values();
+		List<HistoryTracking__mdt> config = selectConfiguration(sObjectType);
 
 		populateFieldIndex(convertHTList(config), sObjectType);
 	}
 
 	// constructor for list of HistoryTracker records
-	public HistoryTracking(SObjectType sObjType, List<HistoryTracker> htList) {
+	public ApplicationHistoryTracking(SObjectType sObjType, List<HistoryTracker> htList) {
 		populateFieldIndex(htList, sObjType);
 	}
 
+	private static Map<String,List<HistoryTracking__mdt>> selectorCacheMap;
+	public static List<HistoryTracking__mdt> selectConfiguration(SObjectType sObjType) {
+		if (selectorCacheMap == null) {
+			selectorCacheMap = new Map<String,List<HistoryTracking__mdt>>();
+		}
+
+		String sObjTypeName = String.valueOf(sObjType);
+		if (!selectorCacheMap.containsKey(sObjTypeName)) {
+			HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance();
+			
+			selectorCacheMap.put(
+				sObjTypeName,
+				selector.selectByObjectApiNames(
+					new List<String>{ sObjTypeName }
+				).values()
+			);
+		}
+
+		return selectorCacheMap.get(sObjTypeName);
+	}
+
 	// constructor for custom config (on the fly Custom Metadata Setting)
-	// public HistoryTracking(Schema.SObjectType sObjType, List<HistoryTracker> trackingConfig) {
+	// public ApplicationHistoryTracking(Schema.SObjectType sObjType, List<HistoryTracker> trackingConfig) {
 	//	 populateFieldIndex(convertHTList(tracingConfig), sObjType);
 	// }
 
@@ -341,11 +359,11 @@ public without sharing class HistoryTracking {
 	private static HistoryTracker newInstance(HistoryTracking__mdt htRecord) {
 		HistoryTracker result = new HistoryTracker();
 		result.htRecordId = htRecord.Id;
-		result.objectApiName = htRecord.ObjectName__r.QualifiedApiName;
-		result.fieldApiName = htRecord.TrackedFieldName__r.QualifiedApiName;
+		result.objectApiName = htRecord.ObjectName__c;
+		result.fieldApiName = htRecord.TrackedFieldName__c;
 		result.matchingValue = htRecord.MatchingValue__c;
 		result.overwriteExistingValue = htRecord.OverwriteExistingValue__c;
-		result.targetField = htRecord.TargetField__r.QualifiedApiName;
+		result.targetField = htRecord.TargetField__c;
 		result.targetValue = htRecord.TargetValue__c;
 		return result;
 	}

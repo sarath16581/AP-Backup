@@ -39,7 +39,8 @@ public virtual inherited sharing class HistoryTrackingSelector extends Applicati
 			HistoryTracking__mdt.OverwriteExistingValue__c,
 			HistoryTracking__mdt.MatchingValue__c,
 			HistoryTracking__mdt.TargetField__c,
-			HistoryTracking__mdt.TargetValue__c
+			HistoryTracking__mdt.TargetValue__c,
+			HistoryTracking__mdt.TrackedFieldName__c
 		};
 	}
 
@@ -58,18 +59,18 @@ public virtual inherited sharing class HistoryTrackingSelector extends Applicati
 		return new Map<Id, HistoryTracking__mdt>((List<HistoryTracking__mdt>)Database.query(soql));
 	}
 
-	public virtual override QueryBuilder newQueryBuilder() {
-		QueryBuilder qb = super.newQueryBuilder();
+	// public virtual override QueryBuilder newQueryBuilder() {
+	// 	QueryBuilder qb = super.newQueryBuilder();
 
-		// add referenced fields
-		qb.addFields(new Set<String>{
-			'ObjectName__r.QualifiedApiName',
-			'TrackedFieldName__r.QualifiedApiName',
-			'TargetField__r.QualifiedApiName'
-		});
+	// 	// add referenced fields
+	// 	qb.addFields(new Set<String>{
+	// 		'ObjectName__r.QualifiedApiName',
+	// 		'TrackedFieldName__r.QualifiedApiName',
+	// 		'TargetField__r.QualifiedApiName'
+	// 	});
 		
-		return qb;
-	}
+	// 	return qb;
+	// }
 
 	public virtual QueryBuilder newQueryBuilder(Set<String> objectApiNames) {
 		QueryBuilder qb = this.newQueryBuilder();
@@ -83,7 +84,7 @@ public virtual inherited sharing class HistoryTrackingSelector extends Applicati
 		// Filter provided objectApiNames
 		if (objectApiNames != null && !objectApiNames.isEmpty()) {
 			conditions.add(
-				new QueryBuilder.SimpleCondition('ObjectName__r.QualifiedApiName IN :objectApiNames')
+				new QueryBuilder.SimpleCondition('ObjectName__c IN :objectApiNames')
 			);
 		}
 

@@ -6,11 +6,8 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The Target Field Name which will be populated with the configured Target Value upon matching</inlineHelpText>
     <label>Target Field</label>
-    <metadataRelationshipControllingField>HistoryTracking__mdt.ObjectName__c</metadataRelationshipControllingField>
-    <referenceTo>FieldDefinition</referenceTo>
-    <relationshipLabel>HistoryTrackingTarget</relationshipLabel>
-    <relationshipName>HistoryTrackingTarget</relationshipName>
+	<length>255</length>
     <required>true</required>
-    <type>MetadataRelationship</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

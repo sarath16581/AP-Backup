@@ -3,7 +3,7 @@
  * Author	   : Paul Perry
  **/
 @isTest
-public class HistoryTracking_Test {
+public class ApplicationHistoryTracking_Test {
 
 	@isTest private static void runTest() {
 		Opportunity opp = new Opportunity(
@@ -106,8 +106,8 @@ public class HistoryTracking_Test {
 			Opportunity.class
 		);
 
-		List<HistoryTracking.HistoryTracker> psTrackingConfig = new List<HistoryTracking.HistoryTracker>{
-			new HistoryTracking.HistoryTracker()
+		List<ApplicationHistoryTracking.HistoryTracker> psTrackingConfig = new List<ApplicationHistoryTracking.HistoryTracker>{
+			new ApplicationHistoryTracking.HistoryTracker()
 				.setFieldApiName('Name')
 				.setMatchingValue('Test')
 				.setOverwriteExistingValue(false)
@@ -120,13 +120,13 @@ public class HistoryTracking_Test {
 
 		// coverage for main constructor / nothing has changed / default config
 		/* Custom Metadata solution */
-		HistoryTracking.run(
+		ApplicationHistoryTracking.run(
 			PermissionSet.SObjectType,	  // Use this SObjectType for testing as it will never have a Trigger
 			new List<SObject>(),
 			null
 		);
 
-		HistoryTracking.run(
+		ApplicationHistoryTracking.run(
 			psTrackingConfig,
 			PermissionSet.SObjectType,
 			new List<PermissionSet>{ new PermissionSet(Name = 'Non Matching PermissionSet')},
@@ -134,20 +134,20 @@ public class HistoryTracking_Test {
 		);
 
 		// Simulate insert trigger: no oldMap
-		HistoryTracking.run(
+		ApplicationHistoryTracking.run(
 			Opportunity.SObjectType,
 			new List<SObject>{ newOpp },
 			null
 		);
 			
 		// Testing rules as defined above
-		HistoryTracking.run(
+		ApplicationHistoryTracking.run(
 			Opportunity.SObjectType,
 			new List<Opportunity>{ newOpp },
 			new Map<Id, Opportunity>{ oldOpp.Id => oldOpp }
 		);
 
-		HistoryTracking oppHistoryTracking = new HistoryTracking(Opportunity.SObjectType);
+		ApplicationHistoryTracking oppHistoryTracking = new ApplicationHistoryTracking(Opportunity.SObjectType);
 		// add the merge value for TOMORROW with date for tomorrow
 		oppHistoryTracking.mergeValuesDefs.put(
 			'TOMORROW',
@@ -167,8 +167,8 @@ public class HistoryTracking_Test {
 	}
 
 	private static Opportunity negativeTests(Opportunity oldOpp) {
-		List<HistoryTracking.HistoryTracker> incorrectConfigs = new List<HistoryTracking.HistoryTracker>{
-			new HistoryTracking.HistoryTracker()
+		List<ApplicationHistoryTracking.HistoryTracker> incorrectConfigs = new List<ApplicationHistoryTracking.HistoryTracker>{
+			new ApplicationHistoryTracking.HistoryTracker()
 				.setObjectApiName(String.valueOf(Opportunity.SObjectType))
 				.setFieldApiName(String.valueOf(Opportunity.StageName))
 				.setMatchingValue('Closed Won')
@@ -176,7 +176,7 @@ public class HistoryTracking_Test {
 				.setTargetField(String.valueOf(Opportunity.CloseDate))  // Date field
 				.setTargetValue('text test message') 					// Mismatching type / Text value
 			,
-			new HistoryTracking.HistoryTracker()
+			new ApplicationHistoryTracking.HistoryTracker()
 				.setObjectApiName(String.valueOf(Opportunity.SObjectType))
 				.setFieldApiName('NonExistingField__x')
 				.setMatchingValue('Closed Won')
@@ -193,13 +193,13 @@ public class HistoryTracking_Test {
 
 		Type exceptionType;
 		
-		for (HistoryTracking.HistoryTracker config :incorrectConfigs) {
+		for (ApplicationHistoryTracking.HistoryTracker config :incorrectConfigs) {
 			try {
-				exceptionType = HistoryTracking.HistoryTrackingException.class;
+				exceptionType = ApplicationHistoryTracking.HistoryTrackingException.class;
 				// throws HistoryTrackingException if tracked field doesn't exists
-				HistoryTracking oppHistoryTracking = new HistoryTracking(
+				ApplicationHistoryTracking oppHistoryTracking = new ApplicationHistoryTracking(
 					Opportunity.SObjectType,
-					new List<HistoryTracking.HistoryTracker>{ config }
+					new List<ApplicationHistoryTracking.HistoryTracker>{ config }
 				);
 
 				oppHistoryTracking.resumeOnError = false;

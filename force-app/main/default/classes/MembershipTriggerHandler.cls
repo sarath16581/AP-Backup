@@ -206,6 +206,8 @@ public with sharing class MembershipTriggerHandler {
 		 * Capture update Date upon S75 Status field updates (Jira: SMWD-405)
 		 */
 		public static void austracHistoryTracking(List<Membership__c> triggerNewList, Map<Id, Membership__c> oldMap) {
-			HistoryTracking.run(Membership__c.SObjectType, triggerNewList, oldMap);
+			Long trackDuration = DateTime.now().getTime();
+			ApplicationHistoryTracking.run(Membership__c.SObjectType, triggerNewList, oldMap);
+			System.debug(DateTime.now().getTime() - trackDuration);
 		}
 	}

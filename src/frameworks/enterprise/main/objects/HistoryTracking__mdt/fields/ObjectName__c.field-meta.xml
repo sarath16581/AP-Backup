@@ -6,10 +6,8 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The Object Api Name being tracked for changes and field updates</inlineHelpText>
     <label>Object Name</label>
-    <referenceTo>EntityDefinition</referenceTo>
-    <relationshipLabel>HistoryTracking</relationshipLabel>
-    <relationshipName>HistoryTracking</relationshipName>
+	<length>255</length>
     <required>true</required>
-    <type>MetadataRelationship</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>
