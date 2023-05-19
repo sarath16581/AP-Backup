@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Send a Email when New Case For BSP Within EDD</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW New Case Notification For BSP Within EDD</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+Thanks, we’ve received your enquiry
+
+
+Hi {!Contact.FirstName},
+
+Thanks for your enquiry about parcel {!IF(ISNULL(Case.ReferenceID__c)), &apos;&apos;,Case.ReferenceID__c} &apos;.&apos; Your reference number is {!Case.CaseNumber}.
+
+This parcel is expected on {!IF(ISNULL(Case.EstimatedDelivery__c)), &apos;&apos;,Case.EstimatedDelivery__c}.
+
+What happens next
+
+We’ll monitor this parcel until {!IF(ISNULL(Case.HeldToOpenOn__c)), &apos;&apos;,Case.HeldToOpenOn__c}.
+
+If it hasn’t been delivered by then, we’ll begin investigating. No need to submit another enquiry.
+
+We’ll keep you updated
+
+You’ll hear back from us after we review your enquiry on {!IF(ISNULL(Case.HeldToOpenOn__c)), &apos;&apos;,Case.HeldToOpenOn__c - usually within 2 business days - or if this parcel is delivered.
+
+
+If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.
+
+CLOSE MY CASE
+
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
