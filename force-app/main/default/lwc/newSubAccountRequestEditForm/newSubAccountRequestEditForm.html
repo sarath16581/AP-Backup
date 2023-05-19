@@ -171,7 +171,15 @@
             </template>
             <lightning-button class="slds-button" label="Close" variant="Neutral"  onclick={cancel}></lightning-button>
         </div>
-
+		<div>
+			<c-modal title="Create an Opportunity" show-modal={showModal}  close-modal-callback={closeModalAndRedirect}>
+                <p align="left" style="font-size:16px"><b>{displayMessage}</b></p>
+                <lightning-button class="slds-m-left_x-small" label="OK" slot="footer"
+                                    variant="brand"
+                                    onclick={closeModalAndRedirect}>
+                </lightning-button>
+            </c-modal>
+		</div>
         <div>
             <template if:true={showValidationErr}>
                 <b><p class="slds-text-color_error" style="font-size: medium;">Error Messages:Please fill required fields listed below:</p></b>

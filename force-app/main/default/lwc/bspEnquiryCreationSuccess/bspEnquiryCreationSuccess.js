@@ -8,6 +8,7 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     @api enquiyType;
     @api caseNumber;
     @api edd;
+    dateDisplayOption = {weekday:'long',month:'long',day:'numeric'};
     currentDate = new Date().toJSON().slice(0, 10);
     stBodyText;
     communityURL = '';
@@ -81,10 +82,10 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
 
     aPHeaderContent() {
         let beforeEdd = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>' +
-        '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString() +'</b>.</p>';
+        '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
          let beforeEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>' +
-         '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString() +'</b>.</p>';
+         '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
         let afterEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>';
 
@@ -92,12 +93,12 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     }
 
     aPBodyContent() {
-        let beforeEdd = '<h3>We’ll monitor this parcel until <b>'+ new Date(this.eddPlusBusinessDays).toLocaleDateString() +'</b>.</h3>' +
+        let beforeEdd = '<h3>We’ll monitor this parcel until <b>'+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</h3>' +
                 '<p>If it hasn’t been delivered by then, we’ll begin investigating. No need to submit another enquiry.</p>';
 
         let beforeEddPlus = '<h3>Most late parcels arrive within 5 business days of the expected delivery date.</h3>' +
                 '<p>If this parcel is delivered, we’ll let you know and close your enquiry.</p>' + '<br>' +
-                '<h3>To allow for delayed delivery, we’ll monitor this parcel until '+ new Date(this.eddPlusBusinessDays).toLocaleDateString() +'.</h3>' +
+                '<h3>To allow for delayed delivery, we’ll monitor this parcel until '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'.</h3>' +
                 '<p>If it hasn’t been delivered by then, we’ll begin investigating. No need to submit another enquiry.</p>';
 
         let afterEddPlus = '<h3>We’ll review your enquiry</h3>' +
@@ -111,8 +112,8 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     }
 
     aPNoteContent() {
-        let beforeEdd =  '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString() +' - usually within 2 business days - or if this parcel is delivered.</p>';
-        let beforeEddPlus = '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString() +' - usually within 2 business days - or if this parcel is delivered.</p>';
+        let beforeEdd =  '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +' - usually within 2 business days - or if this parcel is delivered.</p>';
+        let beforeEddPlus = '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +' - usually within 2 business days - or if this parcel is delivered.</p>';
         let afterEddPlus = '';
 
         return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus);
