@@ -6,3 +6,17 @@
     width: fit-content;
     padding-top: 0.75rem;
 }
+
+.postcode-label {
+	vertical-align: sub;
+}
+
+.or-padding {
+	padding-top: 2rem;
+	color: rgb(1, 68, 134);
+}
+
+:host .input-label {
+    --lwc-formLabelFontSize: .9rem;
+	--lwc-colorTextLabel: rgb(1, 68, 134);
+}

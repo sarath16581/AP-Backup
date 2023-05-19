@@ -17,11 +17,12 @@
 * 2022-12-05 - Mahesh Parvathaneni - Added StarTrack network record types variable
 * 2023-03-10 - Mahesh Parvathaneni - Added FILTER_AP_NETWORK options
 * 2023-04-18 - Mahesh Parvathaneni - Added Comment__c field
+* 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList and FILTER_MYNETWORK, FILTER_IS_PARCEL, FILTER_STATUS_NOT_CLOSED options
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, FILTER_AP_NETWORK
+		WITH_RECORDTYPE, WITH_OWNER, FILTER_AP_NETWORK, FILTER_MYNETWORK, FILTER_IS_PARCEL, FILTER_STATUS_NOT_CLOSED
 	}
 
 	public static final Set<String> ST_NETWORK_RECORD_TYPES = new Set<String>{
@@ -88,7 +89,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 			Network__c.Org_ID__c, Network__c.Org_Unit_Type__c, Network__c.Network_Address__c,Network__c.Post_Code__c,Network__c.Phone_Number__c, Network__c.Comment__c,
 			//Network__c.Id, Network__c.Name, Network__c.Org_ID__c, Network__c.Org_Unit_Type__c
 			// Added by Raman for Process Builder replacement
-			Network__c.Business_Hours__c
+			Network__c.Business_Hours__c, Network__c.Parcel__c, Network__c.Status__c
 		};
 	}
 	/**
@@ -305,6 +306,18 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 
 		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
 			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(ST_NETWORK_RECORD_TYPES)).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_MYNETWORK)) {
+			builder.addConditions().add((new QueryBuilder.CompareCondition(Network__c.Contact_Facility__c)).eq('MyNetwork')).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_IS_PARCEL)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Network__c.Parcel__c).eq(true)).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_STATUS_NOT_CLOSED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Network__c.Status__c).ne('Closed')).endConditions();
 		}
 
 		return builder;

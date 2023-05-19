@@ -7,6 +7,7 @@
  * 2023-01-17 - Mahesh Parvathaneni - added tests to set the StarTrack MyNetwork record type for Case Investigation
  * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated test method testGetArticlesByCase
  * 2023-04-03 - Mahesh Parvathaneni - Added test method testGetCaseTypeBlankError
+ * 2023-05-12 - Mahesh Parvathaneni - SF-946 - Added tests to submit case investigations when no AP network scans
  **/
 
 @IsTest
@@ -353,6 +354,173 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 
 		Assert.areEqual(true, wrapper.hasCaseTypeBlankOnCase, 'Expected true as case type is blank on case');
 		Assert.isNull(wrapper.articleDetails, 'Expected article details as null as case type is blank');
+	}
+
+	/**
+	 * Scenario: Testing to get networks related to postcode/suburb/locality
+	 */
+	@IsTest
+	private static void testGetNetworksRelatedToPostcodeSuburb() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(3, true);
+		networks[0].Org_ID__c = '1234';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
+		networks[0] = (Network__c)ApplicationTestDataFactory.setUnwritableFields(networks[0], new Map<String, Object>{'RecordType.DeveloperName' => 'Delivery'});
+		networks[1].Org_ID__c = '4567';
+		networks[1].Contact_Facility__c = 'MyNetwork';
+		networks[1].Status__c = 'NULL';
+		networks[1].Parcel__c = true;
+		networks[1] = (Network__c)ApplicationTestDataFactory.setUnwritableFields(networks[1], new Map<String, Object>{'RecordType.DeveloperName' => 'Delivery'});
+		networks[2].Org_ID__c = '1234';
+		networks[2].Contact_Facility__c = 'MyNetwork';
+		networks[2].Status__c = 'NULL';
+		networks[2].Parcel__c = true;
+
+		List<Postcode__c> postcodes = ApplicationTestDataFactory.getPostcodes(1, true);
+		postcodes[0].Locality_Postcode_ID__c = '1234';
+
+		List<PostcodeMapping__c> postcodeMappings = ApplicationTestDataFactory.getPostcodeMappings(1, postcodes[0].Id, networks[0].Id, true);
+		postcodeMappings.addAll(ApplicationTestDataFactory.getPostcodeMappings(1, postcodes[0].Id, networks[1].Id, true));
+		postcodeMappings[0] = (PostcodeMapping__c)ApplicationTestDataFactory.setUnwritableFields(postcodeMappings[0], new Map<String, Object>{'Network__r' => networks[0]});
+		postcodeMappings[1] = (PostcodeMapping__c)ApplicationTestDataFactory.setUnwritableFields(postcodeMappings[1], new Map<String, Object>{'Network__r' => networks[1]});
+		
+		//associating postcode mappings with postcode.
+		postcodes[0] = (Postcode__c)ApplicationTestDataFactory.setChildRelationships(postcodes[0], new Map<String, List<SObject>>{'Postcode_Mappings__r' => postcodeMappings}); 
+
+		List<FacilityByPass__c> networkBypasses = ApplicationTestDataFactory.getNetworkBypasses(1, networks[0].Id, networks[2].Id, false);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		PostcodesSelector mockPostcodesSelector = (PostcodesSelector)MockUtility.mockSelector(PostcodesSelector.class);
+		NetworksSelector mockNetworksSelector = (NetworksSelector)MockUtility.mockSelector(NetworksSelector.class);
+		NetworkBypassesSelector mockNetworkBypasssesSelector = (NetworkBypassesSelector)MockUtility.mockSelector(NetworkBypassesSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPostcodesSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(postcodes);
+		MockUtility.Mocks.when(mockNetworkBypasssesSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(networkBypasses);
+		MockUtility.Mocks.when(mockNetworksSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Network__c>{networks[1].Id => networks[1], networks[2].Id => networks[2]});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<MyNetworkStarTrackCaseController.NetworkWrapper> wrapper = MyNetworkStarTrackCaseController.getNetworksRelatedToPostcodeSuburbLocality('Melbourne', '3000', '12345');
+
+		Test.stopTest();
+
+		// make sure that our search method was called
+		fflib_ArgumentCaptor searchParamsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((PostcodesSelector)MockUtility.Mocks.verify(mockPostcodesSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)searchParamsCaptor.capture(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.eqBoolean(true));
+
+		Map<String, Object> searchParams = (Map<String, Object>)searchParamsCaptor.getValue();
+		Assert.areEqual('3000', searchParams.get('postcodes'), 'Expected 3000 as postcodes searchParms');
+		Assert.areEqual('Melbourne', searchParams.get('suburbs'), 'Expected Melbourne as suburbs searchParms');
+		Assert.areEqual('12345', searchParams.get('localityIds'), 'Expected 12345 as localityIds searchParms');
+
+		// verify Networks selector was called
+		fflib_ArgumentCaptor networkIdsCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((NetworksSelector)MockUtility.Mocks.verify(mockNetworksSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)networkIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+
+		Set<Id> networkIdParams = (Set<Id>)networkIdsCaptor.getValue();
+		Assert.areEqual(networks[0].Id, new List<Id>(networkIdParams)[0], 'Incorrect network id returned');
+		Assert.areEqual(networks[2].Id, new List<Id>(networkIdParams)[2], 'Bypass network not added to the search selector');
+		Assert.areEqual(2, wrapper.size(), 'Expected two network records to be returned');
+	}
+
+	/**
+	 * Scenario: Testing to get Postcode record related to postcode/suburb
+	 */
+	@IsTest
+	private static void testGetPostcode() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Postcode__c> postcodes = ApplicationTestDataFactory.getPostcodes(1, true);
+		postcodes[0].Locality_Postcode_ID__c = '1234'; 
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		PostcodesSelector mockPostcodesSelector = (PostcodesSelector)MockUtility.mockSelector(PostcodesSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPostcodesSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(postcodes);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Postcode__c postcode = MyNetworkStarTrackCaseController.getPostcode('3000', 'Melbourne');
+
+		Test.stopTest();
+
+		// make sure that our search method was called
+		fflib_ArgumentCaptor searchParamsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((PostcodesSelector)MockUtility.Mocks.verify(mockPostcodesSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)searchParamsCaptor.capture(), fflib_Match.eqBoolean(true));
+
+		Map<String, Object> searchParams = (Map<String, Object>)searchParamsCaptor.getValue();
+		Assert.areEqual('3000', searchParams.get('postcodes'), 'Expected 3000 as postcodes searchParms');
+		Assert.areEqual('Melbourne', searchParams.get('suburbs'), 'Expected Melbourne as suburbs searchParms');
+
+		Assert.isNotNull(postcode, 'Expected postcode record to be returned');
+		Assert.isNotNull(postcode.Locality_Postcode_ID__c, 'Expected Locality Id to be returned');
+	}
+
+	/**
+	 * Scenario: Testing to get networks related to facility name
+	 */
+	@IsTest
+	private static void testGetNetworksRelatedToFacilityName() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		networks[0].Org_ID__c = '1234';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
+		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Name = 'Donnybrook DC';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		NetworksSelector mockNetworksSelector = (NetworksSelector)MockUtility.mockSelector(NetworksSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockNetworksSelector.selectByName((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(networks);
+		MockUtility.Mocks.when(mockNetworksSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Network__c>{networks[0].Id => networks[0]});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<MyNetworkStarTrackCaseController.NetworkWrapper> wrapper = MyNetworkStarTrackCaseController.getNetworksRelatedToFacilityName('Donnybrook DC');
+
+		Test.stopTest();
+
+		// verify Networks selector was called
+		fflib_ArgumentCaptor networkIdsCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((NetworksSelector)MockUtility.Mocks.verify(mockNetworksSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)networkIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+
+		Set<Id> networkIdParams = (Set<Id>)networkIdsCaptor.getValue();
+		Assert.areEqual(networks[0].Id, new List<Id>(networkIdParams)[0], 'Incorrect network id returned');
+		Assert.areEqual(1, wrapper.size(), 'Expected one network record to be returned');
+
 	}
 
 }

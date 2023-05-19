@@ -14,6 +14,11 @@
             <operation>equals</operation>
             <value>MyNetwork</value>
         </filterItems>
+        <filterItems>
+            <field>Network__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
     <referenceTo>Network__c</referenceTo>

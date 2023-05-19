@@ -2,6 +2,7 @@
 * @changelog
 * 2023-03-06 - Mahesh Parvathaneni - SF-874 Used ActualDateTime_TimeStamp__c field
 * 2023-03-10 - Mahesh Parvathaneni - SF-889 Updated the logic to check the contact facility from the network
+* 2023-05-10 - Mahesh Parvathaneni - SF-946 Updated the logic for AP no network scan
 */
 import {
     api,
@@ -17,6 +18,8 @@ import {
 export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningElement {
 
     @api articleDetails; //article details received from parent
+	@api receiverPostcode; //receiver post code on case
+	@api receiverSuburb; //receiver suburb on case
     @track selectedRows = []; //selected rows
     @track tableData; //data to be rendered in table
     showNetworkScanModal = false; //flag to show/hide the network scan modal
@@ -24,6 +27,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
     eventMessagesNetworkWrapper = {}; //event messages wrapper to send to network scan component
     selectedNetworkRows = []; //selected network rows from the child
     removedNetworkRows = []; //removed network rows from the child
+	articleId; //articleid to pass to network scan events modal
 
     tableColumns = [{
             label: 'Article',
@@ -210,6 +214,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
     //handler for networksearch event from the child
     handleNetworkSearch(event) {
         let articleId = event.detail.articleId;
+		this.articleId = articleId;
         this.eventMessagesNetworkWrapper = {
             eventMessages: this.articleDetails.find(data => data.article.Id === articleId).eventMessages,
             selectedNetworks: event.detail.selectedNetworks

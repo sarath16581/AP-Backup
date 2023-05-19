@@ -1,3 +1,7 @@
+/**
+ *  @changelog
+ * 2023-05-10 - Mahesh Parvathaneni - Added @AuraEnabled tags to reuse in lwc (myNetworkStarTrackCaseArticlesService)
+ */
 global with sharing class PostcodeSuburbLookupController {
 
     global class AutoCompleteData{
@@ -10,16 +14,23 @@ global with sharing class PostcodeSuburbLookupController {
             this.localityId = localityId;
         }
         
+		@AuraEnabled
         public string label {get;set;}
+		@AuraEnabled
         public string value {get;set;}
+		@AuraEnabled
         public string postcode {get;set;}
+		@AuraEnabled
         public string suburb {get;set;}
+		@AuraEnabled
         public string state {get;set;}
         
         // added by shengpeng.xiao@bluewolf.com at 2014.7.21
+		@AuraEnabled
         public string localityId {get;set;}
     }
     
+	@AuraEnabled(cacheable=true)
     @RemoteAction
     global static List<AutoCompleteData> getData(string display, string term){
         term = term.trim();
