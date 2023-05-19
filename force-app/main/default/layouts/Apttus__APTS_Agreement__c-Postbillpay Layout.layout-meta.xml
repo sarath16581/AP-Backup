@@ -668,7 +668,7 @@
 		<fields>APT_Sub_Account__c</fields>
 		<fields>APT_Status__c</fields>
 		<relatedList>APT_Agreement_Lodgement_Point__c.APT_Agreement__c</relatedList>
-	</relatedLists>s
+	</relatedLists>
 	<relatedLists>
 		<excludeButtons>MassChangeOwner</excludeButtons>
 		<fields>NAME</fields>
