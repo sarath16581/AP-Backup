@@ -3,7 +3,7 @@
     <actionCalls>
         <name>SSSW_Article_Damage_Action_Taken_Notification</name>
         <label>SSSW Article Damage Action Taken Notification</label>
-        <locationX>1106</locationX>
+        <locationX>1898</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_eParcel_Article_Damage_Action_Taken</actionName>
         <actionType>emailAlert</actionType>
@@ -21,7 +21,7 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</name>
         <label>SSSW - Closed Case - Email for BSP Bulk Upload</label>
-        <locationX>1920</locationX>
+        <locationX>2514</locationX>
         <locationY>830</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</actionName>
         <actionType>emailAlert</actionType>
@@ -36,7 +36,7 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_Exception_Checker</name>
         <label>SSSW - Closed Case - Email for Exception Checker</label>
-        <locationX>2184</locationX>
+        <locationX>2778</locationX>
         <locationY>830</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</actionName>
         <actionType>emailAlert</actionType>
@@ -85,9 +85,66 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
+        <description>vNewCaseForBSPAfterEDDBusinessDays</description>
+        <name>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</name>
+        <label>SSSW - Email on Creation For BSP After EDD Business Days</label>
+        <locationX>842</locationX>
+        <locationY>398</locationY>
+        <actionName>Case.SSSW_Send_a_Email_when_a_New_Case_For_BSP</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>MyCustomer_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>vNewCaseForBSPBeforeEDDBusinessDays</description>
+        <name>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</name>
+        <label>SSSW - Email on Creation For BSP Before EDD Business Days</label>
+        <locationX>1106</locationX>
+        <locationY>398</locationY>
+        <actionName>Case.SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD_Business_Days</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>MyCustomer_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>vNewCaseForBSPBeforeEDD</description>
+        <name>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</name>
+        <label>SSSW - Email on Creation New Case For BSP Before EDD</label>
+        <locationX>578</locationX>
+        <locationY>398</locationY>
+        <actionName>Case.SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>MyCustomer_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
         <name>SSSW_Email_on_Creation_Web_Portal</name>
         <label>SSSW - Email on Creation Web/Portal</label>
-        <locationX>578</locationX>
+        <locationX>1370</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_Send_a_Email_when_a_new_Case_has_been_created_Web_Portal</actionName>
         <actionType>emailAlert</actionType>
@@ -105,7 +162,7 @@
     <actionCalls>
         <name>SSSW_Email_when_Case_Permanently_Closed</name>
         <label>SSSW - Email when Case Permanently Closed</label>
-        <locationX>1656</locationX>
+        <locationX>2250</locationX>
         <locationY>830</locationY>
         <actionName>Case.Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</actionName>
         <actionType>emailAlert</actionType>
@@ -120,7 +177,7 @@
     <actionCalls>
         <name>SSSW_New_Case_Notification_for_automatic_network_assignment</name>
         <label>SSSW New Case Notification for automatic network assignment</label>
-        <locationX>842</locationX>
+        <locationX>1634</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_New_Case_Notification_for_Delivery_Issue_automatic_network_assignment</actionName>
         <actionType>emailAlert</actionType>
@@ -138,7 +195,7 @@
     <actionCalls>
         <name>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</name>
         <label>SSSW - New Case Notification for Delete Account Web Portal</label>
-        <locationX>2162</locationX>
+        <locationX>2954</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</actionName>
         <actionType>emailAlert</actionType>
@@ -156,7 +213,7 @@
     <actionCalls>
         <name>SSSW_New_Case_Notification_for_Transfer_to_PO</name>
         <label>SSSW New Case Notification for Transfer to PO</label>
-        <locationX>1370</locationX>
+        <locationX>2162</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_New_Case_Notification_for_Transfer_to_PO</actionName>
         <actionType>emailAlert</actionType>
@@ -174,7 +231,7 @@
     <actionCalls>
         <name>SSSW_Send_Within_EDD_Email</name>
         <label>SSSW Send Within EDD Email</label>
-        <locationX>1634</locationX>
+        <locationX>2426</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_Email_on_within_EDD_case_created_Web_Portal</actionName>
         <actionType>emailAlert</actionType>
@@ -192,7 +249,7 @@
     <actionCalls>
         <name>SSSW_Send_Within_EDD_Plus_Business_Days_Email</name>
         <label>SSSW Send Within EDD Plus Business Days Email</label>
-        <locationX>1898</locationX>
+        <locationX>2690</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_Email_on_within_EDD_plus_business_days_case_created_Web_Portal</actionName>
         <actionType>emailAlert</actionType>
@@ -211,7 +268,7 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>1920</locationX>
+        <locationX>2514</locationX>
         <locationY>158</locationY>
         <defaultConnector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -236,7 +293,7 @@
     <decisions>
         <name>MyCustomer_create_only_scenarios</name>
         <label>MyCustomer create only scenarios</label>
-        <locationX>1238</locationX>
+        <locationX>1634</locationX>
         <locationY>278</locationY>
         <defaultConnector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -271,6 +328,51 @@
                 <targetReference>SSSW_Email_on_Creation_Email</targetReference>
             </connector>
             <label>New Case Email</label>
+        </rules>
+        <rules>
+            <name>New_Case_For_BSP_Before_EDD</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseForBSPBeforeEDD</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</targetReference>
+            </connector>
+            <label>New Case For BSP Before EDD</label>
+        </rules>
+        <rules>
+            <name>New_Case_For_BSP_After_EDD_Business_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseForBSPAfterEDDBusinessDays</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</targetReference>
+            </connector>
+            <label>New Case For BSP After EDD Business Days</label>
+        </rules>
+        <rules>
+            <name>New_Case_For_BSP_Before_EDD_Business_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseForBSPBeforeEDDBusinessDays</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</targetReference>
+            </connector>
+            <label>New Case For BSP Before EDD Business Days</label>
         </rules>
         <rules>
             <name>New_Case_Web_Portal</name>
@@ -381,7 +483,7 @@
     <decisions>
         <name>MyCustomer_scenarios</name>
         <label>MyCustomer scenarios</label>
-        <locationX>1920</locationX>
+        <locationX>2514</locationX>
         <locationY>710</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -509,6 +611,7 @@
         </rules>
     </decisions>
     <description>subflow for MyCustomerDomain triggerred from CaseCommon AfterSave flow</description>
+    <environments>Default</environments>
     <formulas>
         <name>vCaseClosed</name>
         <dataType>Boolean</dataType>
@@ -556,9 +659,27 @@
         <expression>(TEXT({!vCase.Origin}) = &apos;Email&apos; || TEXT({!vCase.Origin}) = &apos;Internal Specialist Threat - Email&apos; || TEXT({!vCase.Origin}) = &apos;Assisted referral&apos; || TEXT({!vCase.Origin}) = &apos;CN08 - Email&apos;) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; NOT(ISBLANK({!vCase.SuppliedEmail})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; (ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c}) ||(NOT(ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c})) &amp;&amp; NOT(CONTAINS({!$Setup.QM__c.NoAutoreplyQueue__c},RIGHT({!vCase.SuppliedEmail},(LEN({!vCase.SuppliedEmail})-FIND(&quot;@&quot;,{!vCase.SuppliedEmail})-1))))))</expression>
     </formulas>
     <formulas>
+        <description>AFTER EDD + 10</description>
+        <name>vNewCaseForBSPAfterEDDBusinessDays</name>
+        <dataType>Boolean</dataType>
+        <expression>(TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; DATEVALUE({!vCase.HeldToOpenOn__c}) &lt; TODAY() &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+    </formulas>
+    <formulas>
+        <description>BEFORE EDD</description>
+        <name>vNewCaseForBSPBeforeEDD</name>
+        <dataType>Boolean</dataType>
+        <expression>(TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c} ))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; ({!vCase.EstimatedDelivery__c} &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+    </formulas>
+    <formulas>
+        <description>BEFORE EDD + 10</description>
+        <name>vNewCaseForBSPBeforeEDDBusinessDays</name>
+        <dataType>Boolean</dataType>
+        <expression>    (TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp;  ({!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; (DATEVALUE({!vCase.HeldToOpenOn__c}) &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+    </formulas>
+    <formulas>
         <name>vNewCaseGeneric</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; || (TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; TEXT({!vCase.Origin}) = &apos;MyPost Business&apos;) || TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Web&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Portal&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Snap It&apos;&amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})&amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;))&amp;&amp; NOT({!vCase.TypeofDamage__c} = &apos;Wine Damage&apos; &amp;&amp; ISPICKVAL({!vCase.EnquirySubType__c},&apos;Facility reported damages&apos;))</expression>
+        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; || (TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; TEXT({!vCase.Origin}) = &apos;MyPost Business&apos;) || (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; ISBLANK({!vCase.EstimatedDelivery__c} )) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Web&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Portal&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Snap It&apos;&amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})&amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;))&amp;&amp; NOT({!vCase.TypeofDamage__c} = &apos;Wine Damage&apos; &amp;&amp; ISPICKVAL({!vCase.EnquirySubType__c},&apos;Facility reported damages&apos;))</expression>
     </formulas>
     <formulas>
         <name>vNewCaseNWAssignment</name>
@@ -607,7 +728,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1794</locationX>
+        <locationX>2388</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>
@@ -617,7 +738,7 @@
     <subflows>
         <name>CaseMyCustomer_CardedCaseModule</name>
         <label>Carded Case module</label>
-        <locationX>1392</locationX>
+        <locationX>1986</locationX>
         <locationY>830</locationY>
         <flowName>CaseMyCustomer_CardedCaseModule</flowName>
         <inputAssignments>
