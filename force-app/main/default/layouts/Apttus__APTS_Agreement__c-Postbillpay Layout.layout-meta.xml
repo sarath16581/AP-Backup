@@ -671,21 +671,6 @@
 	</relatedLists>
 	<relatedLists>
 		<excludeButtons>MassChangeOwner</excludeButtons>
-		<excludeButtons>New</excludeButtons>
-		<fields>RECORDTYPE</fields>
-		<fields>Fee_Type__c</fields>
-		<fields>APT_Fee__c</fields>
-		<fields>APT_Description__c</fields>
-		<fields>APT_Guidance__c</fields>
-		<fields>APT_In_Person__c</fields>
-		<fields>APT_By_Phone__c</fields>
-		<fields>APT_Internet__c</fields>
-		<fields>APT_Scan_Pay_if_different_to_Internet__c</fields>
-		<fields>Approval_Status__c</fields>
-		<relatedList>APT_Contract_Fee__c.Contract__c</relatedList>
-	</relatedLists>
-	<relatedLists>
-		<excludeButtons>MassChangeOwner</excludeButtons>
 		<fields>NAME</fields>
 		<fields>Apttus_DocuApi__ReadOnlyFirstName__c</fields>
 		<fields>Apttus_DocuApi__ReadOnlyLastName__c</fields>
