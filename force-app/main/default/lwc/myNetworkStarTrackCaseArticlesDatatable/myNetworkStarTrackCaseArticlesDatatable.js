@@ -290,7 +290,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
 					for (let i = 0; i < this.removedNetworkRows.length; i++) {
 						if (this.removedNetworkRows[i].articleId === sr.articleId && this.removedNetworkRows[i].network === sr.network) {
 							this.removedNetworkRows.splice(i, 1);
-						}                
+						}
 					}
 				}
 			})
@@ -314,7 +314,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
 			for (let i = 0; i < this.selectedNetworkRows.length; i++) {
 				if (this.selectedNetworkRows[i].articleId === event.detail.articleId && this.selectedNetworkRows[i].network === event.detail.network) {
 					this.selectedNetworkRows.splice(i, 1);
-				}                
+				}
 			}
 		}
 		//remove the network pills from table data
