@@ -3651,6 +3651,11 @@
         <field>APT_Operational_Schedule__c.APT_ALSS_Customer_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Annual_Volume_Review__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_APPC_Minimum_spend__c</field>
@@ -3791,6 +3796,11 @@
         <field>APT_Operational_Schedule__c.APT_Interstate_Distribution__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Minimum_Fees__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_MPLR_Customer_Contact__c</field>
@@ -3971,6 +3981,26 @@
         <field>APT_Operational_Schedule__c.APT_Parcl_Servcs_eParcl_Identity_on_Deli__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Payment_Method__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Post_Billpay_Biller_Branded_Internet__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_Post_Billpay_Biller_Branded_Phone__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.APT_PostBillPay_Channel__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Print_Post_AP_Contact__c</field>
@@ -5241,6 +5271,11 @@
         <field>Apttus_Approval__SearchFilter__c.Apttus_Approval__BusinessObject__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Annual_Volume_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APTS_Price_Structure__c</field>
@@ -5346,6 +5381,11 @@
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Lodgement_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Min_Quantity__c</field>
@@ -5359,6 +5399,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Minimum_Quantity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Payment_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_PostBillPay_Gross_Settlement_fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5424,6 +5479,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5586,6 +5646,11 @@
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Additional_Lodgement_Zone_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Annual_Volume_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Cubic_Factor__c</field>
@@ -5601,6 +5666,26 @@
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Customer_Tier__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Payment_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_PostBillPay_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_PostBillPay_Gross_Settlement_fee__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Price_Point__c</field>
@@ -5614,6 +5699,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Subsequent_Parcel_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6991,6 +7081,11 @@
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Additional_Lodgement_Zone_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Annual_Volume_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Cubic_Factor__c</field>
@@ -6999,6 +7094,26 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Customer_Tier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Payment_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_PostBillPay_Gross_Settlement_fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7019,6 +7134,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7179,6 +7299,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APTS_Weight__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Annual_Volume_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7586,6 +7711,11 @@
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Method_of_Payment_postbillpay__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Minimum_Fees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Min_Transit_Cover_Amount_Per_Article__c</field>
@@ -7634,6 +7764,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_PackNTrackInternationalAnnualVolume__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Payment_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7899,6 +8034,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Volume_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10856,6 +10996,11 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Additional_Lodgement_Zone_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Annual_Volume_Review__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_AirmailSmallParcelGT2kgAVGWeightKG__c</field>
@@ -11111,6 +11256,11 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Lodgment_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Minimum_Fees__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Min_Transit_Cover_Amount_Per_Article__c</field>
@@ -11136,16 +11286,31 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PackNTrackInternationalAnnualVolume__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Payment_Method__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Per_Kg_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PostBillPay_Channel__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PostBillPay_Customer_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_PostBillPay_Gross_Settlement_fee__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Postcode__c</field>
@@ -11299,6 +11464,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Volume_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Volume_Threshold_PBP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

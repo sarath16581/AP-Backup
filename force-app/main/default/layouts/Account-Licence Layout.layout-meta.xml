@@ -121,6 +121,10 @@
                 <behavior>Readonly</behavior>
                 <field>WCC__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Disclosure_Consent__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -272,6 +276,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Manager_s_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Citizenship_Status__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

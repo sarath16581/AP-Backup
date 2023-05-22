@@ -36,8 +36,19 @@
                              {'label':'Receiver', image:'','id':'Receiver'}
                              ]"
                     description='The radio button label and its image URL to display'/>
-    <!--Autoprogress this form if the url parameters are passed, for rest of every other scenario continue allow user to enter the tracking id-->
-    <aura:if isTrue="{!or(v.isFromBackButton, or(empty(v.dpidFromUrl) ,and(not(empty(v.dpidFromUrl)),empty(v.trackingIdFromUrl))))}">
+    <!--Autoprogress this form if the url parameters are passed, for rest of every other scenario continue to allow user to enter the tracking id-->
+    <!--Due to the limitation of Aura:if OR operator only evaluates first two parameters, needed to nest OR operator below -->
+    <aura:if isTrue="{!or(
+                            v.isFromBackButton,
+                            or (
+                                empty(v.dpidFromUrl),
+                                or (
+                                    and(not(empty(v.dpidFromUrl)),empty(v.trackingIdFromUrl)),
+                                    and(not(empty(v.dpidFromUrl)),not(empty(v.trackingIdFromUrl)))
+                                )
+                            )
+                        )
+                    }">
         <aura:if isTrue="{!(v.isMultipleArticles)}">
             <div class="left-padding">
                 <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>

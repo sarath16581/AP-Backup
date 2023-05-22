@@ -892,7 +892,10 @@ private class bspEnquiryUplift_Test {
             enq.CCUServiceUsed__c = PARCEL_DOMESTIC;
             enq.BSP_Addressee_Company__c = 'test receiver company';
             enq.BSP_Addressee_Name__c = 'testfname testlname';
-            bspEnquiryUplift.CreateEnquiryWrapper result = bspEnquiryUplift.createEnquiryAusPost(enq, new List<Map<String, String>> (), 'yes', 'yes');
+            bspEnquiryUplift.BSPFormAdditionalData additionalData = new bspEnquiryUplift.BSPFormAdditionalData();
+            additionalData.containsEssentialMedicine = 'yes';
+            additionalData.isSentimental = 'yes';
+            bspEnquiryUplift.CreateEnquiryWrapper result = bspEnquiryUplift.createEnquiryAusPost(enq, new List<Map<String, String>> (), additionalData);
             Test.stopTest();
             List<CaseComment> comments = [SELECT Id,CommentBody FROM CaseComment WHERE ParentId = :enq.Id];
             System.assertEquals(1, comments.size());

@@ -41,7 +41,7 @@ public with sharing class OmniPreferredAgentBatch_Test {
 		// Testing
 		// =====================================
 
-		OmniPreferredAgentBatch batch = new OmniPreferredAgentBatch();
+		OmniPreferredAgentBatch batch = new OmniPreferredAgentBatch(10);
 		String expectedQuery = 'SELECT WorkItemId FROM PendingServiceRouting WHERE IsPushed = FALSE AND WorkItem.PreferredAgentExpiry__c < :now AND Workitem.OwnerId = :preferredAgentRoutingQueueId';
 		System.assertEquals(expectedQuery, batch.query, 'Ensuring if there are changes in the query it is being captured');
 
