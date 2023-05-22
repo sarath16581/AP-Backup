@@ -1,7 +1,7 @@
 /**
-  * @author	   : Sameed Khan<sameed.khan@mav3rik.com>
-  * @date		 : 01/05/2019
-  * @description  : Utility component that provides some helper functions
+ * @author		: Sameed Khan<sameed.khan@mav3rik.com>
+ * @date		: 01/05/2019
+ * @description	: Utility component that provides some helper functions
 --------------------------------------- History --------------------------------------------------
 01.04.2019	Sameed Khan(Mav3rik)	Created
 22.08.2019	Gunith Devasurendra	 Added ausPhoneNumberRegEx (REQ1886690)
@@ -160,7 +160,7 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
  export const validatePhone  = (phNumber) => {
 	var isValid = false;
 	if (phNumber) {
-		var valTrimmed = phNumber.replace(/[\s\)\(-]+/g, '');
+		let valTrimmed = phNumber.replace(/[\s\)\(-]+/g, '');
 		if (
 			valTrimmed.match(/^0\d{9}$/) ||	 // 10 character number starting with 0
 			valTrimmed.match(/^\+?61\d{9}$/) || // 12 character number starting with +61
@@ -173,18 +173,18 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
 	return isValid;
  };
 
- /**
-  * validating email fields according to the help and support UI standards
-  * @param {string} email
-  * @returns {boolean}
-  */
+/**
+ * validating email fields according to the help and support UI standards
+ * @param {string} email
+ * @returns {boolean}
+ */
  export const validateEmail  = (email) => {
-	 let isValid = false;
-	 const regExpEmailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	 if (email && email.match(regExpEmailformat)) {
-		 isValid = true;
-	 }
-	 return isValid;
+	let isValid = false;
+	const regExpEmailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	if (email && email.match(regExpEmailformat)) {
+		isValid = true;
+	}
+	return isValid;
  };
 
 /* function checks if field is undefined or null
@@ -235,14 +235,14 @@ export const poll = async (fn,interval,timeout,refreshData) => {
 	});*/
 }
 
- /**
-  * function checks if field is undefined or null
-  */
+/**
+ * function checks if field is undefined or null
+ */
  export const isUndefinedOrNull = field => typeof field === 'undefined' || field === null;
 
- /**
-  * format Date to locale
-  */ 
+/**
+ * format Date to locale
+ */ 
  export const formatDate = (dateToFormat) => {
 	let dateTimeFormat = new Intl.DateTimeFormat(LOCALE);
 	let date = new Date(dateToFormat);

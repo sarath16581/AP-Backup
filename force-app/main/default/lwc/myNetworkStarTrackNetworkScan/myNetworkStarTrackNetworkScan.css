@@ -1,10 +1,10 @@
 .ci-list {
-    display: inline-grid;
+	display: inline-grid;
 }
 
 .checkbox-el {
-    width: fit-content;
-    padding-top: 0.75rem;
+	width: fit-content;
+	padding-top: 0.75rem;
 }
 
 .postcode-label {
@@ -17,6 +17,6 @@
 }
 
 :host .input-label {
-    --lwc-formLabelFontSize: .9rem;
+	--lwc-formLabelFontSize: .9rem;
 	--lwc-colorTextLabel: rgb(1, 68, 134);
 }

@@ -71,7 +71,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static NetworksSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		NetworksSelector selector = (NetworksSelector)Application.Selectors.newInstance(NetworksSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);

@@ -19,6 +19,11 @@
             <operation>notEqual</operation>
             <value>Closed</value>
         </filterItems>
+        <filterItems>
+            <field>Network__c.Parcel__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
     <referenceTo>Network__c</referenceTo>

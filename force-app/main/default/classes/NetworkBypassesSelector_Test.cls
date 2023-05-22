@@ -132,7 +132,7 @@ private class NetworkBypassesSelector_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		// None!
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(3, true);
 
 		// =====================================
 		// Stubbing
@@ -149,8 +149,8 @@ private class NetworkBypassesSelector_Test {
 		NetworkBypassesSelector selector = NetworkBypassesSelector.newInstance(1);
 
 		searchParams = new Map<String, Object>{
-			'bypassFromIds' => new Set<Id>{'a2KN00000067wCN'},
-			'bypassToIds' => new Set<Id>{'a2KN00000067wCM'}
+			'bypassFromIds' => new Set<Id>{networks[0].Id},
+			'bypassToIds' => new Set<Id>{networks[1].Id}
 		};
 
 		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
@@ -162,7 +162,7 @@ private class NetworkBypassesSelector_Test {
 		selector.search(searchParams, true);
 
 		searchParams = new Map<String, Object>{
-			'bypassFromIds' => new Set<Id>{'a2KN00000067wCN'}
+			'bypassFromIds' => new Set<Id>{networks[2].Id}
 		};
 
 		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
@@ -170,8 +170,8 @@ private class NetworkBypassesSelector_Test {
 		System.assertEquals(false, Pattern.compile('(?ism)\\s+from FacilityByPass__c\\s+where\\b.*?\\bFacility_By_Pass_To__c\\s+In\\b').matcher(soql).find(), 'Resulting query limits Facility_By_Pass_To__c... it should not:' + soql);
 
 		searchParams = new Map<String, Object>{
-			'bypassFromIds' => new Set<Id>{'a2KN00000067wCN'},
-			'bypassToIds' => new Set<Id>{'a2KN00000067wCM'}
+			'bypassFromIds' => new Set<Id>{networks[0].Id},
+			'bypassToIds' => new Set<Id>{networks[2].Id}
 		};
 
 		soql = selector.getSearchSoql(searchParams, new Set<Object>(), false);
