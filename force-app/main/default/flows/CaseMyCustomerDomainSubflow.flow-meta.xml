@@ -662,19 +662,19 @@
         <description>AFTER EDD + 10</description>
         <name>vNewCaseForBSPAfterEDDBusinessDays</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; DATEVALUE({!vCase.HeldToOpenOn__c}) &lt; TODAY() &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; DATEVALUE({!vCase.HeldToOpenOn__c}) &lt; TODAY() &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <description>BEFORE EDD</description>
         <name>vNewCaseForBSPBeforeEDD</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c} ))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; ({!vCase.EstimatedDelivery__c} &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c} ))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; ({!vCase.EstimatedDelivery__c} &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <description>BEFORE EDD + 10</description>
         <name>vNewCaseForBSPBeforeEDDBusinessDays</name>
         <dataType>Boolean</dataType>
-        <expression>    (TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp;  ({!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; (DATEVALUE({!vCase.HeldToOpenOn__c}) &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>    (TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp;  ({!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; (DATEVALUE({!vCase.HeldToOpenOn__c}) &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <name>vNewCaseGeneric</name>
