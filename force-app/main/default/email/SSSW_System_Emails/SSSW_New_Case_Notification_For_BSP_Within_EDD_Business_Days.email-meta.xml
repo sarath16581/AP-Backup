@@ -12,23 +12,23 @@ Help &amp; Support
 
 Reference number {!Case.CaseNumber}
 
-Thanks, we’ve received your enquiry
+Thanks, we&apos;ve received your enquiry
 
 
 Hi {!Contact.FirstName},
 
-Thanks for your enquiry about parcel {!IF(ISNULL(Case.ReferenceID__c)), &apos;&apos;,Case.ReferenceID__c} &apos;.&apos; Your reference number is {!Case.CaseNumber}.
+Thanks for your enquiry about parcel {!Case.ReferenceID__c}. Your reference number is {!Case.CaseNumber}.
 
 What happens next
 
-Most late parcels arrive within 5 days of the expected delivery date.  If this parcel is delivered, we’ll let you know and close your enquiry.
+Most late parcels arrive within 5 days of the expected delivery date.  If this parcel is delivered, we&apos;ll let you know and close your enquiry.
 
-We’ll monitor this parcel until {!IF(ISNULL(Case.HeldToOpenOn__c)), &apos;&apos;,Case.HeldToOpenOn__c}.
-It it hasn’t been delivered by then, we’ll begin investigating. No need to submit another enquiry.
+We&apos;ll monitor this parcel until {!CASE(WEEKDAY(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Sunday&quot;, 2, &quot;Monday&quot;, 3, &quot;Tuesday&quot;, 4, &quot;Wednesday&quot;, 5, &quot;Thursday&quot;, 6, &quot;Friday&quot;, &quot;Saturday&quot;)} 												{!DAY(DATEVALUE(Case.HeldToOpenOn__c))} 												{!CASE(MONTH(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)}.
+It hasn&apos;t been delivered by then, we&apos;ll begin investigating. No need to submit another enquiry.
 
-We’ll keep you updated
+We&apos;ll keep you updated
 
-You’ll hear back from us after we review your enquiry on {!IF(ISNULL(Case.HeldToOpenOn__c)), &apos;&apos;,Case.HeldToOpenOn__c - usually within 2 business days - or if this parcel is delivered.
+You&apos;ll hear back from us after we review your enquiry on {!CASE(WEEKDAY(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Sunday&quot;, 2, &quot;Monday&quot;, 3, &quot;Tuesday&quot;, 4, &quot;Wednesday&quot;, 5, &quot;Thursday&quot;, 6, &quot;Friday&quot;, &quot;Saturday&quot;)} 												{!DAY(DATEVALUE(Case.HeldToOpenOn__c))} 												{!CASE(MONTH(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)} - usually within 2 business days - or if this parcel is delivered.
 
 If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.
 
