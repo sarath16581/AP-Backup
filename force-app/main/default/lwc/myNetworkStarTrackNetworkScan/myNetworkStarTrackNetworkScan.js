@@ -349,7 +349,7 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
 	handleSearchByNameBtnClick(event) {
 		this.networkResults = [];
 		this.showNetworkError = false;
-		if (!checkUndefinedOrNull(this.facilityName)) {
+		if (!checkUndefinedOrNull(this.facilityName) && this.facilityName.length > 2) {
 			this.isLoading = true;
 			//get network related to facility name
 			getNetworkResultsByName(this.facilityName.trim())

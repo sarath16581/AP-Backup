@@ -157,6 +157,10 @@ public with sharing class NetworksSelector_Test {
 		Map<Id, Network__c> filterNetworkResults = selector.selectById(new Set<Id>{networks[0].Id, networks[1].Id, networks[2].Id}, new Set<Object>{NetworksSelector.Options.FILTER_MYNETWORK, NetworksSelector.Options.FILTER_IS_PARCEL});
 		System.assertEquals(1, filterNetworkResults.size(), 'Expected result size of 1');
 
+		List<Network__c> filteredNetworks = selector.selectByNetworkNamePartial('Mel');
+		System.assertEquals(2, filteredNetworks.size(), 'Expected result size of 2 for partial match based on name');
+
+
 		Test.stopTest();
 
 	}

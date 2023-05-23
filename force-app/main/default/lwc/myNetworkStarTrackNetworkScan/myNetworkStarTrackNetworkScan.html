@@ -98,7 +98,9 @@
 						<!-- Postcode/Suburb Search -->
 						<lightning-layout-item size="5" class="slds-var-p-around_small">
 							<lightning-input type="search" value={postcodeSuburb} onchange={populatePostcodeSuburb}
-								label="Postcode/Suburb" class="input-label"></lightning-input>
+								label="Postcode/Suburb" class="input-label"
+								field-level-help="Finds the AP facility that delivers to this postcode/suburb">
+							</lightning-input>
 							<template if:true={showSearchResults}>
 								<div class="slds-box">
 									<template iterator:it={searchResults} for:index="index">
@@ -118,7 +120,8 @@
 						<!-- MyNetwork Facility Name Search -->
 						<lightning-layout-item size="5" class="slds-var-p-around_small">
 							<lightning-input class="input-label" type="text" value={facilityName}
-								onchange={handleFacilityNameChange} label="MyNetwork Facility Name"></lightning-input>
+								onchange={handleFacilityNameChange} label="MyNetwork Facility Name"
+								field-level-help="Search all AP MyNetwork facilities by name"></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item size="7" class="slds-var-p-left_small slds-var-p-top_medium">
 							<lightning-button variant="brand" label="Search by Postcode/Suburb"

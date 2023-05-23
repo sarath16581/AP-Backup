@@ -193,6 +193,8 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		insert cases;
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		caseInvestigations[0].RecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get('StarTrack_MyNetwork').getRecordTypeId();
@@ -500,7 +502,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockNetworksSelector.selectByName((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(networks);
+		MockUtility.Mocks.when(mockNetworksSelector.selectByNetworkNamePartial((String)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(networks);
 		MockUtility.Mocks.when(mockNetworksSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Network__c>{networks[0].Id => networks[0]});
 		MockUtility.Mocks.stopStubbing();
 
@@ -509,7 +511,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// =====================================
 		Test.startTest();
 
-		List<MyNetworkStarTrackCaseController.NetworkWrapper> wrapper = MyNetworkStarTrackCaseController.getNetworksRelatedToFacilityName('Donnybrook DC');
+		List<MyNetworkStarTrackCaseController.NetworkWrapper> wrapper = MyNetworkStarTrackCaseController.getNetworksRelatedToFacilityName('Don');
 
 		Test.stopTest();
 

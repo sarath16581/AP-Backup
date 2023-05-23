@@ -11,6 +11,7 @@
 29/06/2021 - Ranjeewa Silva - Updated for changes to include event message attachments in the PDF.
 01/10/2021 - Seth Heang - Uplift SF API Version to 52
 01/02/2023 - Dattaraj Deshmukh - Added test methods 'testGetCaseInvestigationArticleMapAndAddCaseArticleIds' & 'testCasePDFContentGenerator_starTrackCaseInvestigations'.
+22/05/2023 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
 */
 @isTest
 private class CasePDFContentGeneratorTest {
@@ -286,6 +287,8 @@ private class CasePDFContentGeneratorTest {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
 		networks[0].Org_ID__c = '1234';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 
 		//insert case investigation records

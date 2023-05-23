@@ -18,6 +18,7 @@
 * 2023-03-10 - Mahesh Parvathaneni - Added FILTER_AP_NETWORK options
 * 2023-04-18 - Mahesh Parvathaneni - Added Comment__c field
 * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList and FILTER_MYNETWORK, FILTER_IS_PARCEL, FILTER_STATUS_NOT_CLOSED options
+* 2023-05-22 - Mahesh Parvathaneni - Added method selectByNetworkNamePartial
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
@@ -286,6 +287,21 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 	 */
 	public List<Network__c> selectByName(Set<String> names, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Network__c.Name + ' in :names')).endConditions();
+		return (List<Network__c>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on a partial match of Network name
+	 */
+	public List<Network__c> selectByNetworkNamePartial(String name) {
+		return selectByNetworkNamePartial(name, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on a partial match of ReferenceID__c
+	 */
+	public List<Network__c> selectByNetworkNamePartial(String name, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.LikeCondition(Network__c.Name).likeAnyRight(name)).endConditions();
 		return (List<Network__c>)Database.query(qb.toSoqlString());
 	}
 

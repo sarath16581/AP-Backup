@@ -308,7 +308,7 @@ public with sharing class MyNetworkStarTrackCaseController {
 			Set<Id> networkIds = new Set<Id>();
 			if (String.isNotBlank(facilityName)) {
 				//get AP networks related to facility name
-				for (Network__c network : NetworksSelector.newInstance().selectByName(new Set<String>{facilityName}, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK, 
+				for (Network__c network : NetworksSelector.newInstance().selectByNetworkNamePartial(facilityName, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK, 
 											NetworksSelector.Options.FILTER_IS_PARCEL, NetworksSelector.Options.FILTER_STATUS_NOT_CLOSED})) {
 					networkIds.add(network.Id);
 				}
