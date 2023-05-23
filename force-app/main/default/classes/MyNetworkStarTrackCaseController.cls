@@ -309,12 +309,12 @@ public with sharing class MyNetworkStarTrackCaseController {
 			if (String.isNotBlank(facilityName)) {
 				//get AP networks related to facility name
 				for (Network__c network : NetworksSelector.newInstance().selectByNetworkNamePartial(facilityName, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK, 
-											NetworksSelector.Options.FILTER_IS_PARCEL, NetworksSelector.Options.FILTER_STATUS_NOT_CLOSED})) {
-					networkIds.add(network.Id);
-				}
-
-				if (networkIds.size() > 0) {
-					networkList = getNetworkWrapperResults(networkIds);
+											NetworksSelector.Options.FILTER_IS_PARCEL, NetworksSelector.Options.FILTER_STATUS_NOT_CLOSED, NetworksSelector.Options.FILTER_MYNETWORK})) {
+					NetworkWrapper nw = new NetworkWrapper();
+					nw.networkId = network.Id;
+					nw.network = network;
+					nw.isBypassNetwork = false;
+					networkList.add(nw);
 				}
 			}
 			return networkList;

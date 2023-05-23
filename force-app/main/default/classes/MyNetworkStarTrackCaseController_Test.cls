@@ -503,7 +503,6 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockNetworksSelector.selectByNetworkNamePartial((String)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(networks);
-		MockUtility.Mocks.when(mockNetworksSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Network__c>{networks[0].Id => networks[0]});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -516,11 +515,11 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		Test.stopTest();
 
 		// verify Networks selector was called
-		fflib_ArgumentCaptor networkIdsCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
-		((NetworksSelector)MockUtility.Mocks.verify(mockNetworksSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)networkIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+		fflib_ArgumentCaptor networkNameCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((NetworksSelector)MockUtility.Mocks.verify(mockNetworksSelector, MockUtility.Mocks.times(1))).selectByNetworkNamePartial((String)networkNameCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 
-		Set<Id> networkIdParams = (Set<Id>)networkIdsCaptor.getValue();
-		Assert.areEqual(networks[0].Id, new List<Id>(networkIdParams)[0], 'Incorrect network id returned');
+		String networkNameCaptured = (String) networkNameCaptor.getValue();
+		Assert.areEqual('Don', networkNameCaptured, 'Incorrect network name returned');
 		Assert.areEqual(1, wrapper.size(), 'Expected one network record to be returned');
 
 	}
