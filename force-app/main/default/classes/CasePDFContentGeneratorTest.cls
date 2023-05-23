@@ -292,7 +292,7 @@ private class CasePDFContentGeneratorTest {
 		insert networks;
 
 		//insert case investigation records
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(2, cases[2].Id, articles[0], networks[0].Id, false);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(1, cases[2].Id, articles[0], networks[0].Id, false);
 		insert caseInvestigations;
 
 		// =====================================
