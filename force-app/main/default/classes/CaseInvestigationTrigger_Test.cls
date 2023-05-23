@@ -1,7 +1,7 @@
 /**
- * @description       : This is a test class for the CaseInvestigationTrigger
- * @author            : George Nguyen
- * @domain            : Case
+ * @description			: This is a test class for the CaseInvestigationTrigger
+ * @author				: George Nguyen
+ * @domain				: Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
  * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field

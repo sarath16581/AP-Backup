@@ -1,7 +1,7 @@
 /**
- * @description       : Test class for STCINetworkMilestoneViolationModule
- * @author            : Mahesh Parvathaneni
- * @domain            : Case Investigation
+ * @description		: Test class for STCINetworkMilestoneViolationModule
+ * @author			: Mahesh Parvathaneni
+ * @domain			: Case Investigation
  * @changelog
  * 2022-02-08 - Mahesh Parvathaneni - created
  * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
