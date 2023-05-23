@@ -1,19 +1,20 @@
-/* @author
-* @date 2021-05-12
-* @group Tests
-* @tag Selector
-* @tag BillingAccount
-* @domain Core
-* @description test class for CreateSubAccountsController
-* @changelog
-* 2021-05-12 - seth.heang@auspost.com.au - created
-* 2021-05-13 - dheeraj.mandavilli@auspost.com.au - Updated the test class to include test methods dealing with SubAccountRequest creation/edit,deletion and finalization.
-* 2022-08-04 - Nasir Jawed - added test method for validate lodgement point search
-* * 27/01/2023 - Sarath Burra -Removed the method validateSearchLodgementZone in the main class as part of https://australiapost.jira.com/browse/CI-828 so removed the test menthod validateSearchLodgementZoneTest()
-* 								Lines Removed 554-632
-*/
+	/* @author
+	* @date 2021-05-12
+	* @group Tests
+	* @tag Selector
+	* @tag BillingAccount
+	* @domain Core
+	* @description test class for CreateSubAccountsController
+	* @changelog
+	* 2021-05-12 - seth.heang@auspost.com.au - created
+	* 2021-05-13 - dheeraj.mandavilli@auspost.com.au - Updated the test class to include test methods dealing with SubAccountRequest creation/edit,deletion and finalization.
+	* 2022-08-04 - Nasir Jawed - added test method for validate lodgement point search
+	* 2023-01-27 - Sarath Burra -Removed the method validateSearchLodgementZone in the main class as part of https://australiapost.jira.com/browse/CI-828 so removed the test menthod validateSearchLodgementZoneTest()
+	* 								Lines Removed 554-632
+	* 2023-03-23 - sarath burra CI-703 Added new test method to cover the check APPC contracts logic. This logic is added in the class to check for existing APPC contracts and display message to user
+	*/
 	@IsTest
-public with sharing class CreateSubAccountsControllerTest {
+	public with sharing class CreateSubAccountsControllerTest {
 	@TestSetup
 	private static void setup() {
 		AusPostSettings__c setting = new AusPostSettings__c(Name = 'CreateBillingAccountCredentials', ApplicationName__c = 'Camunda', URL2__c = 'callout:LAYER7_CERT/csp/customer/v1/billingaccounts');
@@ -22,7 +23,43 @@ public with sharing class CreateSubAccountsControllerTest {
 	public static void setMetadata(String query, List<SObject> records){
 		CreateSubAccountHelper.MetadataCoverageRecordsMap.put(query, records);
 	}
+	//CI-703 Added new test method to cover the check APPC contracts logic.
+	@IsTest
+	private static void checkAPPCContractsTest() {
+		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
+		Account account = accountList[0];
+		Billing_Account__c billingAcc = ApplicationTestDataFactory.getBillingAccounts(1,account.Id,'SAP',true)[0];
+		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus__APTS_Agreement__c contract = ApplicationTestDataFactory.getApttusContracts(1,contact.Id,opportunityRecord.id,true)[0];
+		contract.Apttus__Account__c=account.Id;
+		contract.Contract_Relationship__c='Billing Account';
+		contract.Apttus__Status__c = 'Activated';
+		contract.Apttus__Status_Category__c = 'In Effect';
+		contract = (Apttus__APTS_Agreement__c)ApplicationTestDataFactory.setUnwritableFields(contract,
+		new Map<String, Object>{
+			'APT_APPC_Count__c' =>1.00
+		});
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		BillingAccountsSelector billingSelector = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);
+		ApttusContractsSelector conReqSelector = (ApttusContractsSelector)MockUtility.mockSelector(ApttusContractsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
 
+		Map<Id, Billing_Account__c> mockBillingAccMap = new Map<Id, Billing_Account__c>{billingAcc.Id => billingAcc};
+		MockUtility.Mocks.when(billingSelector.selectById(new Set<Id>{billingAcc.Id},new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION})).thenReturn(mockBillingAccMap);
+
+		List<Apttus__APTS_Agreement__c> mockConList = new List<Apttus__APTS_Agreement__c>{contract};
+		MockUtility.Mocks.when(conReqSelector.Search(new Map<String, Object>{'accountIds' => new Set<Id>{billingAcc.Organisation__c}},true)).thenReturn(mockConList);
+
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		Boolean showMsg=CreateSubAccountsController.checkAPPCContracts(billingAcc.Id);
+		System.assertEquals(true, showMsg, 'Message should not be displayed for the user');
+		Test.stopTest();
+
+	}
 	@IsTest
 	private static void generateExternalOnboardingRecordTest() {
 		setMetadata(
@@ -106,6 +143,7 @@ public with sharing class CreateSubAccountsControllerTest {
 		subAccountRequest.Is_Parcel_Send_Login_Required__c = 'No';
 		subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
 		subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
+		subAccountRequest.Product__c = 'eParcel;APPC';
 		subAccountRequest.SubAccountContact__c = contact.id;
 		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
 		subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
@@ -549,4 +587,4 @@ public with sharing class CreateSubAccountsControllerTest {
 		Test.stopTest();
 
 	}
-	}
+}
