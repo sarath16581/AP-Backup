@@ -17,6 +17,7 @@
  *					b) case re-route now uses the latest case values, and cases in holding queue are the ones to be re-routed. Previously there was a specified list of cases to reroute, and the rerouting was based on original case values during the syncronous process
  * 16.02.2023	Noel Lim - Added updates for Preferred Agent Expiry
  * 02.03.2023	Noel Lim - Added AsyncLinkArticlesToCasesWorker that mirrors logic in the current Queueable AsyncLinkArticlesToCasesQueueable. This new Async Worker is registered instead of the Queueable when in Batch context
+ * 2023-05-18 - Nathan Franklin - adding some routing debug message capture
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
 
@@ -562,29 +563,29 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		
 		System.debug('>> Processing IDs: ' + caseIds);
 
-				if(!referenceIds.isEmpty()) {
-					// trigger a search into SAP-EM
-					// for any found articles, the article service will populate the Article__c table
-					// TODO: Revisit the TIBCO Search service....
-					TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
+		if(!referenceIds.isEmpty()) {
+			// trigger a search into SAP-EM
+			// for any found articles, the article service will populate the Article__c table
+			// TODO: Revisit the TIBCO Search service....
+			TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
 
-					Set<SObjectField> caseFieldsForOverride = new Set<SObjectField>{
-						Case.Related_Billing_Account__c, Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
-						Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
-						Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
-						Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
-						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, 
-						Case.ParentId, Case.LastRoutingRuleIsStrategic__c						
-					};
-					caseFieldsForOverride.addAll(SSSW_Routing.caseFieldsForRouting);
+			Set<SObjectField> caseFieldsForOverride = new Set<SObjectField>{
+				Case.Related_Billing_Account__c, Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
+				Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
+				Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
+				Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
+				Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, 
+				Case.ParentId, Case.LastRoutingRuleIsStrategic__c, Case.Comment__c					
+			};
+			caseFieldsForOverride.addAll(SSSW_Routing.caseFieldsForRouting);
 
-					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
-					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
-					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
-					Map<Id, Case> cases = SSSWCasesSelector.newInstance(caseFieldsForOverride).selectById(caseIds);
+			// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
+			//	  (Integration callout could take 5 or 10 seconds or sometimes more).
+			//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
+			Map<Id, Case> cases = SSSWCasesSelector.newInstance(caseFieldsForOverride).selectById(caseIds);
 
-					// TODO: This should be routed via the Domain class rather than invoked directly
-					MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
+			// TODO: This should be routed via the Domain class rather than invoked directly
+			MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
 
 			// grab a list of existing articles to see if we can match them up to the cases that have been passed in
 			// this will also populate m_trackingReferenceIdMappings cache which we use here
@@ -682,7 +683,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				// the routing rules have been rerun and the newly set owner id will be added to the case
 				// NOTE: we only want certain fields such as owner id and not any othe fields as they might be out of date or irrelevant. Preferred Agent Expiry is set by the routing rule, so we also need to manually set it.
 				for (Case reroutedCase : reroutableCases) {
-					casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c, PreferredAgentExpiry__c = reroutedCase.PreferredAgentExpiry__c)); 						
+					casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, Comment__c = reroutedCase.Comment__c, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c, PreferredAgentExpiry__c = reroutedCase.PreferredAgentExpiry__c)); 						
 				}				
 		
 		} catch(Exception ex) {

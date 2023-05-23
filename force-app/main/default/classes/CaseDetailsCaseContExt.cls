@@ -509,7 +509,8 @@ global class CaseDetailsCaseContExt  {
                     CaseLocality__c,  // INC1852893 - SOQL query bug
                     PreferredAgentExpiry__c, 
 					BusinessHoursId ,
-					AllocateToQueue__c
+					AllocateToQueue__c,
+					Rework_Reason__c
             from Case
             where Id = :caseId
             limit 1];

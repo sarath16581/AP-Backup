@@ -22,14 +22,13 @@
 	2023-04-19		George Nguyen -	Added condition to check if the previous assigned agent qualifies as Preferred agent (qualifiedAsPreferredAgentUserIds)
 	2023-04-24		Noel Lim									Add method insertPendingServiceRoutings, to perform PSR DML in without sharing context
 	2023-05-15 - Nathan Franklin - rejigging routing engine code (and trimming down header comments)
+	2023-05-15 - Nathan Franklin - refactoring routing - moving updateParentForRouting, markRenewedCasesToRoute, routeCase, processPreferredAgent into CaseRoutingService
 ************************************************/
 public with sharing class CaseCommonUtility{
 
 	// Constants
 	private static final String EMAIL_ORIGIN = 'Email';
 	private static final String SOCIAL_ORIGIN = 'Social';
-	private static final String ROUTING_TRUE = 'true';
-	private static final String ROUTING_FALSE = 'false';
 	private static final String LOC_INTERNATIONAL = 'International';
 	private static final Set<String> SKIP_CASE_ORIGIN = new Set<String>{'Portal','Email'};  // set of case origins to ignore
 	private static final Set<String> SKIP_LINK_ARTICLE_ORIGIN = new Set<String>{'Phone','AP Retail (PM26)'};  // set of case origins to ignore'
@@ -53,7 +52,6 @@ public with sharing class CaseCommonUtility{
 	public static Boolean isXferCaseRecursive = false;	  // flag to prevent transfer case recursively
 	public static Boolean isCustCloseRecursive = false;	  // flag to prevent recursive customer close invoke
 	public static Boolean isArticleSubscribeRecursive = false;	  // flag to prevent recursive article subscription
-	public static Boolean isParentCaseUpdateRecursive = false;
 	public static Boolean isReferenceIDUpdateRecursive = false;
 
 	public static Boolean isNotifyAutoRecursive = false;
@@ -63,31 +61,10 @@ public with sharing class CaseCommonUtility{
 	private static Set<Id> validRecTypes;
 	private static Set<Id> socialAndSsswRecordTypeIds;
 
-	/**
-	 * List of cases that have already been processed for Preferred Agent in this transaction.
-	 * There are exception cases where the routing engine will be triggered 2x, such as when a customer responds to a case via Email-to-Case.
-	 * In this situation, preferred Agent logic can fire twice and attempt to generate a 2nd PSR for the same Case, which will encounter an Exception and negate the Preferred Agent logic applied in the 1st run.
-	 */
-	private static Set<Id> m_processedPreferredAgentCaseIds = new Set<Id>();
-
 	private static Map<Id,Group> groupIdMap = new Map<Id,Group>();
 	private static Map<String,Group> groupNameMap = new Map<String,Group>();
 	//MW004540 Added for determining if user has Autoclosure permission
 	private static Boolean isAutoCloseEnabled = false;
-
-		static Map<Id, Group> omniGroups {
-			get {
-				if(omniGroups == null) {
-					omniGroups = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
-
-					// The Preferred Agent Queue is a "simulated" Omni queue used by the Preferred Agent logic. If there is a preferred agent for the case, then a PSR is created and the case is assigned to this queue
-					// We need to include that queue here so that if the Case is Closed whilst in this queue, it should also move to the graveyard. 
-					omniGroups.put(OmniChannelService.getInstance().preferredAgentQueueId, new Group(Id = OmniChannelService.getInstance().preferredAgentQueueId));
-				}
-				return omniGroups;
-			}
-			private set;
-		}
 			
 		static{
 			try{
@@ -614,239 +591,6 @@ public with sharing class CaseCommonUtility{
 	//		}
 	//	}
 
-		/**
-		 * @description	   This method is fetch routing keys based on case key and assigns case to queue. 
-		 * From all the updated Cases, we need to identify which Cases need routing. Within the same Tx, some Cases have AllocateToQueue__c been updated (ex: child cases). Those will have to be re-routed.
-		 * 
-		 * @param			 caseList - Changed Cases
-		 * @param			 oldMap - Older Case objects. NULL if it is caused by an insert
-		 * @return			Void
-		 * @throws			Method might throw exception which is handled by Try-Catch block
-		 */
-		public void routeCase(List<Case> caseList, Map<Id,Case> oldMap, Boolean isInsert){
-			try{
-				List<Case> casesTobeRouted = new List<Case>();
-				Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
-				Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();	// map of case id and case key without origin
-
-				OmniChannelService omniService = OmniChannelService.getInstance();
-				String routingContext = 'ssswroutecase';
-				Set<SObjectField> routingMonitoredFields = new Set<SObjectField>{Case.Status, Case.Network__c, Case.Description, Case.AllocateToQueue__c};
-				List<ApplicationRecursion.RecordState> routingChangedRecords = ApplicationRecursion.getInstance().getProcessableRecords(routingContext, caseList, oldMap, routingMonitoredFields);
-
-				for(ApplicationRecursion.RecordState recordState : routingChangedRecords){
-					Case csRec = (Case)recordState.record;
-					Set<SObjectField> changedFields = recordState.changedFields;
-					Map<String, Object> previousState = recordState.previousState;	// get old values of case
-
-					System.debug('Routing Case');
-					System.debug(csRec);
-					System.debug(changedFields);
-					System.debug(previousState);
-
-					// Check if it is SSSW record type or Social record type.
-					if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
-						// verify if network or description is null & case is set for queue allocation
-
-						// if the case is already in the preferred agent queue and the queue timeout hasn't been reached then we do not allow the case to be reallocated (unless BypassPreferredAgent__c is set)
-						if(csRec.AllocateToQueue__c && csRec.OwnerId == omniService.preferredAgentQueueId && 
-								csRec.PreferredAgentExpiry__c != null && csRec.PreferredAgentExpiry__c > Datetime.now() &&
-								csRec.BypassPreferredAgent__c == false) {
-
-							csRec.AllocateToQueue__c = false;
-						}
-
-						// do not reallocate permanent closed cases
-						if(csRec.Permanent_Close__c) {
-							csRec.AllocateToQueue__c = false;
-						}
-
-						// do not reallocate cases waiting for routing to resolve
-						// this would be because the routing engine needs attributes from integration callouts (like article) in order to resolve
-						// in this scenario the routing rules are manually applied after the integration has completed its callout
-						// look at MyCustomerCaseArticlesModule
-						if(csRec.OwnerId == omniService.omniHoldingQueueId) {
-							csRec.AllocateToQueue__c = false;
-						}
-
-						// do not reassign if the agent is already working on the case
-						// this would occur when, for example, a customer response triggers the case to route and assigning the case away from the agent. 
-						// >> Note that Closed cases with an agent should be allowed to route. <<
-						if(csRec.AllocateToQueue__c &&
-								csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == User.getSObjectType() &&
-								csRec.Case_Owner_User_Profile_Name__c == SSSWConstants.SSSW_AGENT_PROFILE && //This logic relies on User Profile and needs to be assessed at a future date and refactored. 1 refactor option is to prevent case routing if i) User's License is not a Guest User (for cases created from Portals) ii) User is not System Support (cases created from email-to-case)
-								!Utility.getCaseClosedStatus().contains(csRec.Status) && // case is not currently closed
-								(/*oldCase != null && */ !Utility.getCaseClosedStatus().contains(String.valueOf(previousState.get('Status')))) //Closed Cases assigned to an Agent that receives a Customer or Network email needs to route. However Workflow Rules updates the Status from Closed before this logic runs, so we also need to check oldCase value was not Closed
-								) {
-							csRec.AllocateToQueue__c = false;
-						}
-
-						if( (csRec.Network__c == null && changedFields.contains(Case.Network__c)) ||
-								(String.isBlank(csRec.Description) && changedFields.contains(Case.Description)) ||
-								(csRec.AllocateToQueue__c && changedFields.contains(Case.AllocateToQueue__c))) {
-							
-							setCaseKeyMap(csRec,caseOriginKeyMap,caseNoOriginKeyMap);   // set case key maps
-
-							casesTobeRouted.add(csRec);
-						}
-					}
-				}
-
-				if(!casesTobeRouted.isEmpty()){
-					System.debug('casesTobeRouted--->'+casesTobeRouted+'<--oldMap-->'+oldMap);
-					SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
-				}
-
-				// reset the recursion state to ensure changes we have made in the routing engine won't retrigger on next pass (if there is one)
-				ApplicationRecursion.getInstance().updateRecordState(routingContext, routingChangedRecords, routingMonitoredFields);
-
-
-				//The logic below is positioned here instead of in a Domain Module to keep all logic related Case Owner in one place and in the same sequence in Apex execution
-				//Placed after the routing engine to ensure the to-be Queue is available for the logic below
-				Map<Id,Case> casesPreferredAgentRouting = new Map<Id,Case>();
-				String preferredAgentRoutingContext = 'ssswpreferredagentroutingcases';
-				Set<SObjectField> preferredAgentRoutingMonitoredFields = new Set<SObjectField>{Case.OwnerId, Case.Status, Case.AllocateToQueue__c};
-				List<ApplicationRecursion.RecordState> preferredAgentRoutingChangedRecords = ApplicationRecursion.getInstance().getProcessableRecords(preferredAgentRoutingContext, caseList, oldMap, preferredAgentRoutingMonitoredFields);
-				
-				for(ApplicationRecursion.RecordState recordState : preferredAgentRoutingChangedRecords){
-					Case csRec = (Case)recordState.record;
-					Set<SObjectField> changedFields = recordState.changedFields;
-
-					// get previous state of record from last run
-					Map<String, Object> previousState = recordState.previousState;
-
-					System.debug('Preferred Case');
-					System.debug(csRec);
-					System.debug(changedFields);
-					System.debug(previousState);
-
-					// Check if it is SSSW record type or Social record type.
-					if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)) {
-						
-						Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case		
-
-						//Move eligible Closed Cases to the SSSW Closed Omni Queue
-						if ((changedFields.contains(Case.Status) || changedFields.contains(Case.OwnerId)) && 
-								String.isEmpty(omniService.omniClosedCaseQueueId) == false && 
-								Utility.getCaseClosedStatus().contains(csRec.Status) && 
-								omniGroups.containsKey(csRec.OwnerId)) {
-							csRec.OwnerId = omniService.omniClosedCaseQueueId;
-						} else if(oldCase != null && //mean this is not an insert scenario
-								changedFields.contains(Case.OwnerId) && 
-								OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) && 
-								!OmniChannelService.Cache.queuesWithRoutingConfig.containsKey((Id)previousState.get('OwnerId')) && // only consider if previous owner is not omni, as the case has already been determined as not requiring Preferred Agent in the previous omni queue
-								csRec.BypassPreferredAgent__c == false &&
-								csRec.PreferredAgentExpiry__c != null && // avoids Cases being stuck in the Preferred Agent queue					
-								String.isEmpty(omniService.preferredAgentQueueId) == false) {
-								
-							//Preferred Agent logic, applied for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue).
-							if(previousState.get('OwnerId') == omniService.preferredAgentQueueId || m_processedPreferredAgentCaseIds.contains(csRec.Id) ){ 
-								// 2 scenarios where the Case already has a manual PSR and so we should not attempt to generate another one, and ensure the queue is in the Preferred Agent queue:
-								// a) Case being moved out of Preferred Agent queue without the Bypass flag set, OR 
-								// b) Case has already been processed by Preferred Agent in the same transaction
-								csRec.OwnerId = omniService.preferredAgentQueueId; 
-							} else {
-								casesPreferredAgentRouting.put(csRec.Id, csRec); 
-							}
-						}
-					}
-				}
-
-				if(casesPreferredAgentRouting.isEmpty() == false) {
-					processPreferredAgent(casesPreferredAgentRouting); 
-				}
-
-				// reset the recursion state to ensure changes we have made in the routing engine won't retrigger on next pass (if there is one)
-				ApplicationRecursion.getInstance().updateRecordState(preferredAgentRoutingContext, preferredAgentRoutingChangedRecords, preferredAgentRoutingMonitoredFields);
-
-			}
-			catch(Exception exp){
-				// Error Logged to Exception object for analysis
-				UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
-														CaseCommonUtility.class.getName(), SSSWConstants.METH_INSERT_MILESTONES,
-														SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-			}
-		}
-
-	/**
-	 * @description	   This method sets key value pair of case & routing key
-	* @param			 csRec - Case, caseOriginKeyMap - Map<Id,String>, caseNoOriginKeyMap - Map<Id,String>
-	* @return			void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
-	private static void setCaseKeyMap(Case csRec,Map<Id,String> caseOriginKeyMap,Map<Id,String> caseNoOriginKeyMap){
-		String keyWithOrigin = SSSWConstants.EMPTY_SPACE ;
-		String keyWithOutOrigin = SSSWConstants.EMPTY_SPACE ;
-		keyWithOrigin = String.isNotBlank(csRec.ProductCategory__c) ? (keyWithOrigin + csRec.ProductCategory__c) : keyWithOrigin;
-		keyWithOrigin = String.isNotBlank(csRec.ProductSubCategory__c) ? (keyWithOrigin + csRec.ProductSubCategory__c) : keyWithOrigin;
-		keyWithOrigin = String.isNotBlank(csRec.Type) ? (keyWithOrigin + csRec.Type) : keyWithOrigin;
-		keyWithOrigin = String.isNotBlank(csRec.EnquirySubType__c) ? (keyWithOrigin + csRec.EnquirySubType__c) : keyWithOrigin;
-		keyWithOrigin = String.isNotBlank(csRec.Customer_Type__c) ? (keyWithOrigin + csRec.Customer_Type__c) : keyWithOrigin;
-		keyWithOrigin = (csRec.IsNewForRouting__c != null && csRec.IsNewForRouting__c) ?
-							(keyWithOrigin + ROUTING_TRUE) : (keyWithOrigin + ROUTING_FALSE);
-
-		keyWithOutOrigin = keyWithOrigin ;
-
-		keyWithOrigin = String.isNotBlank(csRec.Origin) ? (keyWithOrigin + csRec.Origin) : keyWithOrigin;
-
-		caseOriginKeyMap.put(csRec.Id,keyWithOrigin);
-		caseNoOriginKeyMap.put(csRec.Id,keyWithOutOrigin);
-	}
-
-	/**
-	 * @description	   This method returns the sssw routing records for the case combination
-	* @param			 caseKeys - Set<String>
-	* @return			Map<String,SSSWRouting__c>
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
-	//  private static Map<String,SSSWRouting__c> getSSSWRoutings(Set<String> caseKeys){
-	//	 Map<String,SSSWRouting__c> routingMap = new Map<String,SSSWRouting__c>();
-	//	 Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());	// get dynamic query row limit
-	//	 for(SSSWRouting__c routing : [SELECT Network__c,CaseKey__c,ExcludeFromNPS__c,DefaultCaseDetails__c,Queue_ID__c,AutoEscalate__c
-	//									 FROM SSSWRouting__c WHERE CaseKey__c IN: caseKeys ORDER BY CaseKey__c LIMIT : rowLimit]){
-	//		 routingMap.put(routing.CaseKey__c,routing);
-	//	 }
-	//	 return routingMap;
-	// } 
-
-	/**
-	 * @description	   This method checked the child case for 'Network Responded' and 'Customer Responded' and updated the
-						parent status to 'child case updated' and again runs it to route - set 'allocate to queue' flag
-	* @param			 (List<Case> childCases
-	* @return			NA
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
-	public void updateParentForRouting(List<Case> childCases, Map<Id,Case> oldMapCases){
-		try {
-			List<Case> parentCaseUpd = new List<Case>();
-			//loop through all cases updated and check if they are child
-			for(Case cse: childCases) {
-				//check if is child, and the network or customer has responded
-				if(cse.parentId != null &&
-					((!SSSWConstants.STAT_NETWORK_RESPONDED.equalsIgnoreCase(oldMapCases.get(cse.Id).Status) &&
-						SSSWConstants.STAT_NETWORK_RESPONDED.equalsIgnoreCase(cse.Status)) ||
-					(!SSSWConstants.STAT_CUSTOMER_RESPONDED.equalsIgnoreCase(oldMapCases.get(cse.Id).Status) &&
-						SSSWConstants.STAT_CUSTOMER_RESPONDED.equalsIgnoreCase(cse.Status)) )) {
-					//if yes, update the parent and send for routing
-					parentCaseUpd.add(new Case(Id = cse.parentId, Status = SSSWConstants.STAT_CHILD_CASE_UPDATE , AllocateToQueue__c = true));
-				}
-			}
-
-			if(!parentCaseUpd.isEmpty()) {
-				isParentCaseUpdateRecursive = true;			 // set recursive flag to true
-				//if any parent cases avaialable, update them.
-				Database.update(parentCaseUpd);
-			}
-
-		}
-		catch(Exception exp) {
-			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
-													CaseCommonUtility.class.getName(), SSSWConstants.METH_PARENT_ROUTING,
-													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-		}
-	}
-
 	/**
 	 * @description	   This method when a case is created, updates the hierarchy manager fields in the Case object
 	* @param			 caseList - List<Case>
@@ -1070,182 +814,40 @@ public with sharing class CaseCommonUtility{
 	}
 
 	/**
-	 * If a Case status is changed to New, those cases are flagged to be re-routed (AllocateToQueue__c = true).
-	 * This behaviour is applicable only if,
-	 *  Types and Product Category values are populated,
-	 *  not a High Level Complaints Case and neither a Customer Recovery Case
-	 *  SSSW* or Social RecordType
-	 * This was initially done with the now deprecated Workflows
-	 * ('SSSW - Status Change to NEW - Send to Queue' and 'SSSW - Status change to update queue')
-	 * and now moved to Triggers
+	 * Populate requestor field with current user if left empty upon new case creation
+	 * 
+	 * @param caseTobeUpdated - Updated Case coming to Trigger
 	 *
-	 * @param newCases Updated cases List coming to Trigger
-	 * @param oldMap Older Case value Map coming into Trigger
+	 * @return void
 	 */
-	public static void markRenewedCasesToRoute(List<Case> newCases, Map<Id,Case> oldMap){
-
-		if (oldMap == null){
-			return;
-		}
-
-		// Listing of the variables we're monitoring for change
-		List<Case> casesNeedToRoute =
-				RecursionUtility.getUnprocessedRecords(
-								'CaseRenewalTriggerContext',
-								newCases,
-								new Set<String>{
-									'AllocateToQueue__c','Status',
-									'ProductCategory__c', 'ProductSubCategory__c', 'EnquirySubType__c', 'Type',
-									'IsHLC__c', 'IsCR__c'
-								});
-
-			for (Case newCase : casesNeedToRoute){
-
-				Case oldCase = oldMap != null ? oldMap.get(newCase.Id) : null;  // get old values of case
-
-				if ((isStatusChangedToNew(oldCase, newCase)
-					&& !newCase.AllocateToQueue__c
-					&& ((isCategoriesAndTypesPopulated(newCase) || 
-								(isNotHlcAndCr(newCase) && Utility.isValidRecordType(socialAndSsswRecordTypeIds, newCase.RecordTypeId))))
-				) || 
-				(oldCase != null 
-					&& Utility.getCaseClosedStatus().contains(newCase.Status) == false
-					&& newCase.Status != oldCase.Status 
-					&& String.isEmpty(OmniChannelService.getInstance().omniClosedCaseQueueId) == false && newCase.OwnerId == OmniChannelService.getInstance().omniClosedCaseQueueId)
-				){
-
-				newCase.AllocateToQueue__c = true; // Flag to re-route cases again
-			}
-		}
-	}
-
-	/*
-	* Generate a PendingServiceRouting record with the PreferredUserId value set to a previous User, based on the Case's existing AgentWork records.
-	* The Case's AgentWork record must have been accepted and have an active User as a final criteria before PSRs are generated
-	* Cases are assigned to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.
-	*/
-	@TestVisible
-	private void processPreferredAgent(Map<Id,Case> casesPreferredAgentRouting) {
-
-		Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
-		Set<Id> userIds = new Set<Id>();
-		for(AgentWork aw: caseIdsVsAgentWorks.values()) {
-			userIds.add(aw.UserId);
-		}
-		Set<Id> qualifiedAsPreferredAgentUserIds = OmniChannelService.getInstance().getUserIdsWithPreferredAgentSkills(userIds);
-
-		if(caseIdsVsAgentWorks.isEmpty() == false) {
-
-			ServiceChannel sc = OmniChannelService.Cache.serviceChannels.get('Case_Channel');
-			List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();	
-
-			for(Case csRec : casesPreferredAgentRouting.values()) {
-				// check if there is an AgentWork record AND if the user of the agent work qualifies for Preferred Agent assignment
-
-				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true && qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId) == true) {
-					
-					//use the routing configuration of the Omni queue the Case was being routed to
-					QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
-
-					//PushTimeout cannot be set when IsPreferredUserRequired is set
-					newPSRs.add(new PendingServiceRouting(
-						PreferredUserId = caseIdsVsAgentWorks.get(csRec.Id).UserId,
-						IsPreferredUserRequired = true,
-						CapacityPercentage = routingConfiguration.CapacityPercentage, 
-						CapacityWeight = routingConfiguration.CapacityWeight, 
-						DropAdditionalSkillsTimeout = routingConfiguration.DropAdditionalSkillsTimeout,
-						RoutingModel = routingConfiguration.RoutingModel, 
-						RoutingPriority = routingConfiguration.RoutingPriority, 
-						CustomRequestedDateTime = csRec.CreatedDate, 
-						WorkItemId = csRec.Id,
-						IsReadyForRouting = true,
-						RoutingType = 'SkillsBased', 
-						ServiceChannelId = sc.Id,
-						SecondaryRoutingPriority = OmniChannelService.getInstance().calculateSecondaryPriority(csRec.Priority, csRec.CreatedDate) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
-					));
+	public void populateRequestorWithCurrentUser(List<Case> caseTobeUpdated){
+		try{
+			// list to capture cases with 'null' requestor
+			List<Case> nullRequestorCases = new List<Case>();
+			for(Case newCase : caseTobeUpdated){
+				// Null Requestor Cases that is not from Email2Case
+				if(newCase.requestor__c == null && newCase.SuppliedEmail == null){
+					nullRequestorCases.add(newCase);
 				}
 			}
-
-			if(newPSRs.isEmpty() == false) {
-				WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
-				innerClassWithoutSharing.insertPendingServiceRoutings(newPSRs, casesPreferredAgentRouting); // execute DMLs for system objects in without sharing context						
-			}
-		}
-	}
-
-	/**
-	 * If Case.Status is changed to New from other value
-	 *
-	 * @param oldCase Older Case coming into Trigger
-	 * @param newCase Updated Case coming to Trigger
-	 *
-	 * @return true if changed to New
-	 */
-	private static Boolean isStatusChangedToNew(Case oldCase, Case newCase){
-		return oldCase.Status != newCase.Status && newCase.Status == 'New';
-	}
-
-	/**
-	 * Checks if Case ProductCategory__c, ProductSubCategory__c, EnquirySubType__c, Type are populated
-	 *
-	 * @param newCase Updated Case coming to Trigger
-	 *
-	 * @return if ALL of them have a value
-	 */
-	private static Boolean isCategoriesAndTypesPopulated(Case newCase){
-		return (!(newCase.ProductCategory__c == '' || newCase.ProductCategory__c == null ) &&
-				!(newCase.ProductSubCategory__c == '' || newCase.ProductSubCategory__c == null) &&
-				!(newCase.EnquirySubType__c == '' || newCase.EnquirySubType__c == null) &&
-				!(newCase.Type == '' || newCase.Type == null));
-	}
-
-	/**
-	 * Checks if not a High Level Complaints Case and neither a Customer Recovery Case
-	 *
-	 * @param newCase Updated Case coming to Trigger
-	 *
-	 * @return if ALL of them are false
-	 */
-	private static Boolean isNotHlcAndCr(Case newCase){
-		return ((!newCase.IsHLC__c || newCase.IsHLC__c == null) &&
-				(!newCase.IsCR__c || newCase.IsCR__c == null));
-	}
-
-		/**
-		 * Populate requestor field with current user if left empty upon new case creation
-		 * 
-		 * @param caseTobeUpdated - Updated Case coming to Trigger
-		 *
-		 * @return void
-		 */
-		public void populateRequestorWithCurrentUser(List<Case> caseTobeUpdated){
-			try{
-				// list to capture cases with 'null' requestor
-				List<Case> nullRequestorCases = new List<Case>();
-				for(Case newCase : caseTobeUpdated){
-					// Null Requestor Cases that is not from Email2Case
-					if(newCase.requestor__c == null && newCase.SuppliedEmail == null){
-						nullRequestorCases.add(newCase);
+			// send case with 'null' requestor to the handler class
+			if(!nullRequestorCases.isEmpty()){
+				// query and get 'CAR' case record type id
+				Id caseCAR_RecordTypeId = [Select id, DeveloperName from RecordType where DeveloperName = 'CAR_Request'].id;
+				for(Case cCAR: nullRequestorCases){
+					// populate requestor's field with current user after confirm that the case is 'CAR' record type
+					if(cCAR.recordTypeId.equals(caseCAR_RecordTypeId)){
+						cCAR.requestor__c = UserInfo.getUserId();
 					}
 				}
-				// send case with 'null' requestor to the handler class
-				if(!nullRequestorCases.isEmpty()){
-					// query and get 'CAR' case record type id
-					Id caseCAR_RecordTypeId = [Select id, DeveloperName from RecordType where DeveloperName = 'CAR_Request'].id;
-					for(Case cCAR: nullRequestorCases){
-						// populate requestor's field with current user after confirm that the case is 'CAR' record type
-						if(cCAR.recordTypeId.equals(caseCAR_RecordTypeId)){
-							cCAR.requestor__c = UserInfo.getUserId();
-						}
-					}
-				} 
-			}catch(Exception ex){
-				// logging details upon exception occurs
-				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'NewCaseCreation',
-														'CaseCommonUtility', 'populateRequestorWithCurrentUser',
-														'CaseTriggerHandler', LoggingLevel.ERROR);
-			}
+			} 
+		}catch(Exception ex){
+			// logging details upon exception occurs
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'NewCaseCreation',
+													'CaseCommonUtility', 'populateRequestorWithCurrentUser',
+													'CaseTriggerHandler', LoggingLevel.ERROR);
 		}
+	}
 
 	/**
 	 * Private inner class that elevates access privileges of the current user to query data and perform DMLs without being limited by
@@ -1289,44 +891,6 @@ public with sharing class CaseCommonUtility{
 
 			//Query previously in CaseCommonUtiltiy.linkNewContacts(). Moved here to allow it to run without sharing.
 			return new Map<Id, Account>([SELECT PersonContactId FROM Account WHERE Id IN:accounts LIMIT :rowLimit]);
-		}
-
-		/**
-		 * Insert PendingServiceRouting in a without sharing context - it is best practice to perform DML on system objects in this context 
-		 *
-		 * @param newPSRs list of PendingServiceRouting records to insert
-		 * @param casesPreferredAgentRouting map of Case Ids and Case object that the PendingServiceRouting records are related to 
-		 *
-		 * @return Void
-		 */
-		private void insertPendingServiceRoutings(List<PendingServiceRouting> newPSRs, Map<Id,Case> casesPreferredAgentRouting){
-
-			// allow partial success for the insert, as some PSR insert may fail if a Case has an existing PSR already e.g. another inserted PSR has not been deleted
-			List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlInsert(newPSRs, false);
-				
-			if(srList.isEmpty() == false){
-				for(Integer i=0;i<srList.size();i++){
-					Database.SaveResult sr = srList.get(i);
-
-					// assign the Case of successful PSRs to the Preferred Agent queue
-					if (sr.isSuccess()){
-						for(PendingServiceRouting newPSR : newPSRs){ 
-							if(newPSR.Id != null && newPSR.Id == sr.getId()){
-								casesPreferredAgentRouting.get(newPSR.WorkItemId).OwnerId = OmniChannelService.getInstance().preferredAgentQueueId; 
-								CaseCommonUtility.m_processedPreferredAgentCaseIds.add(newPSR.WorkItemId);
-							}							
-						}
-					} else {
-						for (Database.Error err : sr.getErrors()) {	
-							System.debug('The following error has occurred on the DML Retry.');
-							System.debug(err.getStatusCode() + ': ' + err.getMessage());
-						}
-					}					
-				}		
-				
-				// log any failed inserts to ensure we can monitor save errors (especially for checking routing failures)
-				ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, CaseCommonUtility.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
-			}	
 		}
 	}
 
