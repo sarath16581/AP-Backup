@@ -305,7 +305,6 @@ public with sharing class MyNetworkStarTrackCaseController {
 	public static List<NetworkWrapper> getNetworksRelatedToFacilityName(String facilityName) {
 		try {
 			List<NetworkWrapper> networkList = new List<NetworkWrapper>();
-			Set<Id> networkIds = new Set<Id>();
 			if (String.isNotBlank(facilityName)) {
 				//get AP networks related to facility name
 				for (Network__c network : NetworksSelector.newInstance().selectByNetworkNamePartial(facilityName, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK, 

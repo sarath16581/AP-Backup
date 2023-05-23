@@ -19,7 +19,8 @@ import {
 	getNetworkResultsByName
 } from 'c/myNetworkStarTrackCaseArticlesService';
 import {
-	checkUndefinedOrNull
+	checkUndefinedOrNull,
+	debounce
 } from 'c/utils';
 
 export default class MyNetworkStarTrackNetworkScan extends LightningElement {
@@ -223,22 +224,30 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
 		}
 
 		if (searchTerm.length > 1) {
-			this.searchResults = [];
-			//get postcode/suburb auto results
-			getPostcodeSuburbResults(null, searchTerm)
-				.then(response => {
-					response.forEach(rec => {
-						this.searchResults.push(rec);
-					});
-
-					if (this.searchResults.length > 0) {
-						this.showSearchResults = true;
-					}
-				})
-				.catch(error => {
-					console.error('getPostcodeSuburbResults call failed: ' + error);
-				})
+			this.debouncedSearchHandler(searchTerm);
 		}
+	}
+
+	//debounce function with delay
+	debouncedSearchHandler = debounce(this.handlePostcodeSuburbSearch, 200);
+
+	//get the postcode/suburb results from server side
+	handlePostcodeSuburbSearch(searchAddressTerm) {
+		//get postcode/suburb auto results
+		getPostcodeSuburbResults(null, searchAddressTerm)
+		.then(response => {
+			this.searchResults = [];
+			response.forEach(rec => {
+				this.searchResults.push(rec);
+			});
+
+			if (this.searchResults.length > 0) {
+				this.showSearchResults = true;
+			}
+		})
+		.catch(error => {
+			console.error('getPostcodeSuburbResults call failed: ' + error);
+		})
 	}
 
 	//function to reset the search results
