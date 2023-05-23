@@ -116,6 +116,8 @@ public inherited sharing class CaseRoutingService {
 			//Application.Profiler.stop('maybeMoveClosedOmniCases');
 
 			///////////////////// Remove preferred PSR if case goes back to omni queue
+			// NOTE: It's possible this could be refactored to only delete a PAR PSR if the case will not return to PAR PSR
+			//			For now, we delete (if needed) as it gives us the opportunity to recreate with updated settings (again, if needed)
 			//Application.Profiler.start('maybeRemovePendingServiceRoutingPreferredAgentRecords');
 			maybeRemovePendingServiceRoutingPreferredAgentRecords(possibleProcessableRecords, oldMap, isInsert);
 			//Application.Profiler.stop('maybeRemovePendingServiceRoutingPreferredAgentRecords');
