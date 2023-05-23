@@ -89,13 +89,8 @@ public inherited sharing class CaseRoutingService {
 	}
 
 	/**
-	 * @description	   This method is fetch routing keys based on case key and assigns case to queue. 
-	 * From all the updated Cases, we need to identify which Cases need routing. Within the same Tx, some Cases have AllocateToQueue__c been updated (ex: child cases). Those will have to be re-routed.
-	 * 
-	 * @param			 caseList - Changed Cases
-	 * @param			 oldMap - Older Case objects. NULL if it is caused by an insert
-	 * @return			Void
-	 * @throws			Method might throw exception which is handled by Try-Catch block
+	 * Handles all case routing logic for AP CC cases (omni, preferred agent routing, routing eligibility, omni priority etc...)
+	 * NOTE: This method also handles secondary routing priority calculation for ST cases too
 	 */
 	public void routeCase(List<Case> caseList, Map<Id,Case> oldMap, Boolean isInsert){
 		try{
@@ -110,48 +105,36 @@ public inherited sharing class CaseRoutingService {
 				}
 			}
 
-			/////////////////////
 			///////////////////// Check whether cases need routing
-			/////////////////////
-			Application.Profiler.start('maybeRouteCase');
+			//Application.Profiler.start('maybeRouteCase');
 			maybeRouteCase(possibleProcessableRecords, oldMap, isInsert);
-			Application.Profiler.stop('maybeRouteCase');
+			//Application.Profiler.stop('maybeRouteCase');
 
-			/////////////////////
 			///////////////////// If case is closed and in omni queue, we need to move it
-			/////////////////////
-			Application.Profiler.start('maybeMoveClosedOmniCases');
+			//Application.Profiler.start('maybeMoveClosedOmniCases');
 			maybeMoveClosedOmniCases(possibleProcessableRecords, oldMap);
-			Application.Profiler.stop('maybeMoveClosedOmniCases');
+			//Application.Profiler.stop('maybeMoveClosedOmniCases');
 
-			/////////////////////
 			///////////////////// Remove preferred PSR if case goes back to omni queue
-			/////////////////////
-			Application.Profiler.start('maybeRemovePendingServiceRoutingPreferredAgentRecords');
+			//Application.Profiler.start('maybeRemovePendingServiceRoutingPreferredAgentRecords');
 			maybeRemovePendingServiceRoutingPreferredAgentRecords(possibleProcessableRecords, oldMap, isInsert);
-			Application.Profiler.stop('maybeRemovePendingServiceRoutingPreferredAgentRecords');
+			//Application.Profiler.stop('maybeRemovePendingServiceRoutingPreferredAgentRecords');
 
-			/////////////////////
 			///////////////////// Check whether secondary routing priority needs to be recalculated (if owner/priorty fields have changed)
 			///////////////////// NOTE: This is applicable for both AP and ST cases
-			/////////////////////
-			Application.Profiler.start('maybeRecalculateSecondaryRoutingPriority');
+			//Application.Profiler.start('maybeRecalculateSecondaryRoutingPriority');
 			maybeRecalculateSecondaryRoutingPriority(caseList, oldMap);
-			Application.Profiler.stop('maybeRecalculateSecondaryRoutingPriority');
+			//Application.Profiler.stop('maybeRecalculateSecondaryRoutingPriority');
 
-			/////////////////////
 			///////////////////// Check whether there are actions to be taken for preferred agent routing
-			/////////////////////
-			Application.Profiler.start('maybeOverrideWithPreferredAgentRouting');
+			//Application.Profiler.start('maybeOverrideWithPreferredAgentRouting');
 			maybeOverrideWithPreferredAgentRouting(possibleProcessableRecords, oldMap);
-			Application.Profiler.stop('maybeOverrideWithPreferredAgentRouting');
+			//Application.Profiler.stop('maybeOverrideWithPreferredAgentRouting');
 
-			/////////////////////
 			///////////////////// Anytime an case is assigned to a user we reset all of the preferred agent bypasses
-			/////////////////////
-			Application.Profiler.start('maybeResetPreferredAgentBypasses');
+			//Application.Profiler.start('maybeResetPreferredAgentBypasses');
 			maybeResetPreferredAgentBypasses(possibleProcessableRecords, oldMap);
-			Application.Profiler.stop('maybeResetPreferredAgentBypasses');
+			//Application.Profiler.stop('maybeResetPreferredAgentBypasses');
 
 			Application.Profiler.stop('routing');
 		}
@@ -679,19 +662,14 @@ public inherited sharing class CaseRoutingService {
 
 		OmniChannelService omniService = OmniChannelService.getInstance();
 
-		Application.Profiler.start('processPreferredAgent.getCaseIdsWithLatestAcceptedAgentWorks');
 		Map<Id, AgentWork> caseIdsVsAgentWorks = omniService.getCaseIdsWithLatestAcceptedAgentWorks(casesPreferredAgentRouting.keySet());
 		Set<Id> userIds = new Set<Id>();
 		for(AgentWork aw: caseIdsVsAgentWorks.values()) {
 			userIds.add(aw.UserId);
 		}
-		Application.Profiler.stop('processPreferredAgent.getCaseIdsWithLatestAcceptedAgentWorks');
 
-		Application.Profiler.start('processPreferredAgent.getUserIdsWithPreferredAgentSkills');
 		Set<Id> qualifiedAsPreferredAgentUserIds = omniService.getUserIdsWithPreferredAgentSkills(userIds);
-		Application.Profiler.stop('processPreferredAgent.getUserIdsWithPreferredAgentSkills');
 
-		Application.Profiler.start('processPreferredAgent.PendingServiceRoutingSelector');
 		// loop through to get all the eligible cases and check whether there is an existing PSR record 
 		// we may need to delete it since there can only ever be a single PSR record
 		Map<Id, Id> casesWithPSRRecord = new Map<Id, Id>();
@@ -699,13 +677,10 @@ public inherited sharing class CaseRoutingService {
 		for(PendingServiceRouting psrRecord : existingPSRRecords) {
 			casesWithPSRRecord.put(psrRecord.WorkItemId, psrRecord.Id);
 		}
-		Application.Profiler.stop('processPreferredAgent.PendingServiceRoutingSelector');
 
 		if(caseIdsVsAgentWorks.isEmpty() == false) {
 
-			Application.Profiler.start('processPreferredAgent.service_channel');
 			ServiceChannel sc = OmniChannelService.Cache.serviceChannels.get('Case_Channel');
-			Application.Profiler.stop('processPreferredAgent.service_channel');
 			List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();
 			List<PendingServiceRouting> deletablePSRs = new List<PendingServiceRouting>();
 
@@ -715,9 +690,7 @@ public inherited sharing class CaseRoutingService {
 				if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true && qualifiedAsPreferredAgentUserIds.contains(caseIdsVsAgentWorks.get(csRec.Id).UserId) == true) {
 					
 					//use the routing configuration of the Omni queue the Case was being routed to
-					Application.Profiler.start('processPreferredAgent.routingconfig');
 					QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
-					Application.Profiler.stop('processPreferredAgent.routingconfig');
 
 					//PushTimeout cannot be set when IsPreferredUserRequired is set
 					newPSRs.add(new PendingServiceRouting(
@@ -744,10 +717,8 @@ public inherited sharing class CaseRoutingService {
 			}
 
 			if(newPSRs.isEmpty() == false) {
-				Application.Profiler.start('processPreferredAgent.WithoutSharingDataAccessHelper');
 				WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
 				innerClassWithoutSharing.processPendingServiceRoutingRecords(newPSRs, deletablePSRs, casesPreferredAgentRouting); // execute DMLs for system objects in without sharing context	
-				Application.Profiler.stop('processPreferredAgent.WithoutSharingDataAccessHelper');
 			}
 		}
 	}

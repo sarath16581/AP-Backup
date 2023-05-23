@@ -14,7 +14,7 @@
  * 2023-04-13 - Noel Lim - Updated:
  * 							a) class name from APCaseAgentWorkPreferredAgentModule to AgentWorkAPCaseAutomationModule
  * 							b) generate Status Tracking records on Accept
- * 
+ * 2023-05-24 - Nathan Franklin - Change rerouting of declined cases logic
  */
 public inherited sharing class AgentWorkAPCaseAutomationModule extends ApplicationDomain.Module {
 	public static AgentWorkAPCaseAutomationModule newInstance() {
