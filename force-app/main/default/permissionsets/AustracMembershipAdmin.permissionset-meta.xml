@@ -351,11 +351,6 @@
         <field>Membership__c.Submitted_To_AUSTRAC_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.Type_Of_Registration_New_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Membership__c.WCC__c</field>
