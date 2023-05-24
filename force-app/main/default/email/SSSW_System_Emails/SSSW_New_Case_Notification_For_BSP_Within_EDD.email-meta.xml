@@ -29,7 +29,7 @@ If it hasn&apos;t been delivered by then, we&apos;ll begin investigating. No nee
 
 We&apos;ll keep you updated
 
-You&apos;ll hear back from us after we review your enquiry on This parcel is expected on {!CASE(WEEKDAY(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Sunday&quot;, 2, &quot;Monday&quot;, 3, &quot;Tuesday&quot;, 4, &quot;Wednesday&quot;, 5, &quot;Thursday&quot;, 6, &quot;Friday&quot;, &quot;Saturday&quot;)} 												{!DAY(DATEVALUE(Case.HeldToOpenOn__c))} 												{!CASE(MONTH(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)} - usually within 2 business days - or if this parcel is delivered.
+You&apos;ll hear back from us after we review your enquiry on {!CASE(WEEKDAY(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Sunday&quot;, 2, &quot;Monday&quot;, 3, &quot;Tuesday&quot;, 4, &quot;Wednesday&quot;, 5, &quot;Thursday&quot;, 6, &quot;Friday&quot;, &quot;Saturday&quot;)} 												{!DAY(DATEVALUE(Case.HeldToOpenOn__c))} 												{!CASE(MONTH(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)} - usually within 2 business days - or if this parcel is delivered.
 
 
 If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.
