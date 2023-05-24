@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
-    <description>Western Union Licence Registration – S75 Completion 2nd Reminder</description>
+    <description>Western Union Licence Registration - S75 Completion 2nd Reminder</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <letterhead>Western_Union_Registration_Reminder</letterhead>
     <name>Western Union Licence Registration - S75 Completion 2nd Reminder</name>
     <style>freeForm</style>
-    <subject>{!Membership__c.Name} Western Union Licence Registration – S75 Completion 2nd Reminder</subject>
+    <subject>{!Membership__c.Name} Western Union Licence Registration - S75 Completion 2nd Reminder</subject>
     <textOnly>Organisation Name: {!Membership__c.Account__c} {!Membership__c.Name}
 
 Dear Licensee,
