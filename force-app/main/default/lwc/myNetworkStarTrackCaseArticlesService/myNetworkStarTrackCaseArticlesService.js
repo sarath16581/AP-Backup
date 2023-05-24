@@ -5,12 +5,17 @@
  * @changelog
  * 2023-03-06 - Mahesh Parvathaneni - Added function getStarTrackFormattedDateTimeString
  * 2023-04-03 - Mahesh Parvathaneni - Added label LABEL_BLANK_CASE_TYPE_ERROR_MESSAGE
+ * 2023-05-10 - Mahesh Parvathaneni - SF-946 - Added apex method calls
  */
 
 // server calls
 import getArticlesByCase from '@salesforce/apex/MyNetworkStarTrackCaseController.getArticlesByCase';
 import saveCaseInvestigations from '@salesforce/apex/MyNetworkStarTrackCaseController.saveCaseInvestigations';
 import getCriticalIncidentsKav from '@salesforce/apex/MyNetworkStarTrackCaseController.getCriticalIncidents';
+import getPostcodeSuburbData from '@salesforce/apex/PostcodeSuburbLookupController.getData';
+import getNetworksRelatedToPostcodeSuburbLocality from '@salesforce/apex/MyNetworkStarTrackCaseController.getNetworksRelatedToPostcodeSuburbLocality';
+import getPostcode from '@salesforce/apex/MyNetworkStarTrackCaseController.getPostcode';
+import getNetworksRelatedToFacilityName from '@salesforce/apex/MyNetworkStarTrackCaseController.getNetworksRelatedToFacilityName';
 
 // custom labels
 import LABEL_CONSIGNMENT_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkConsignmentErrorMessage';
@@ -101,4 +106,64 @@ export const getStarTrackFormattedDateTimeString = (dateTimeString) => {
 			tempArray[2].substring(0, 4) + (tempArray[2].substring(4) ? (' ' + tempArray[2].substring(4)) : '');
 	}
 	return formattedDatetime;
+}
+
+/**
+ * Retrieve postcode/suburb data for the given display code and search term
+ * @param {String} display 
+ * @param {String} term
+ * @returns postcode/suburb data
+ */
+export const getPostcodeSuburbResults = async (display, searchTerm) => {
+
+	const result = await getPostcodeSuburbData({
+		display: display,
+		term: searchTerm
+	});
+	return result;
+}
+
+/**
+ * Retrieve network details related to postcode/suburb/locality id
+ * @param {String} suburb 
+ * @param {String} postcode
+ * @param {String} localityId
+ * @returns networks
+ */
+export const getNetworksResults = async (suburb, postcode, localityId) => {
+
+	const result = await getNetworksRelatedToPostcodeSuburbLocality({
+		suburb: suburb,
+		postcode: postcode,
+		localityId: localityId
+	});
+	return result;
+}
+
+/**
+ * Retrieve postcode record related to postcode/suburb
+ * @param {String} postcode 
+ * @param {String} suburb
+ * @returns postcode record
+ */
+export const getPostcodeResults = async (postcode, suburb) => {
+
+	const result = await getPostcode({
+		postcode: postcode,
+		suburb: suburb
+	});
+	return result;
+}
+
+/**
+ * Retrieve network details related to facility name
+ * @param {String} facilityName 
+ * @returns network
+ */
+export const getNetworkResultsByName = async (facilityName) => {
+
+	const result = await getNetworksRelatedToFacilityName({
+		facilityName: facilityName
+	});
+	return result;
 }
