@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <description>Send out an Email Alert after 14 days of S75 Status Issued</description>
+        <description>Send Email alert after 14 days of S75 Status as Issued</description>
         <name>X14_Days_of_Issued</name>
         <label>14 Days of Issued</label>
         <locationX>578</locationX>
@@ -17,7 +17,7 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <description>Send out an Email Alert after 21 days of S75 Status equal to Missin Information</description>
+        <description>Send out an Email Alert after 21 days of S75 Status equal to Missing Information</description>
         <name>X21_Days_of_Missing_Information</name>
         <label>21 Days of Missing Information</label>
         <locationX>1634</locationX>
@@ -394,7 +394,7 @@
             <label>After 7 Days</label>
             <offsetNumber>174</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -405,7 +405,7 @@
             <label>After 14 Days</label>
             <offsetNumber>342</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -416,7 +416,7 @@
             <label>After 21 Days</label>
             <offsetNumber>510</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -427,7 +427,7 @@
             <label>After 28 Days</label>
             <offsetNumber>678</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
