@@ -810,6 +810,46 @@
         <template>SSSW_System_Emails/SSSW_New_Case_Notification</template>
     </alerts>
     <alerts>
+        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation For BSP After EDD Business Days</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP_Within_EDD</template>
+    </alerts>
+    <alerts>
+        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD_Business_Days</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation For BSP Before EDD Business Days</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP_Within_EDD_Business_Days</template>
+    </alerts>
+    <alerts>
+        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation New Case For BSP Before EDD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP</template>
+    </alerts>
+
+    <alerts>
         <fullName>SSSW_Snap_It_Send_a_Email_when_a_new_Case_has_been_created_to_customer</fullName>
         <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - Send a Email when a new Case has been created to customer</description>

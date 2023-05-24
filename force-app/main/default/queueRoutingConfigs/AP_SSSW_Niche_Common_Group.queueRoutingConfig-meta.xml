@@ -5,5 +5,5 @@
     <label>AP SSSW Niche Common Group</label>
     <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
-    <routingPriority>15</routingPriority>
+    <routingPriority>18</routingPriority>
 </QueueRoutingConfig>

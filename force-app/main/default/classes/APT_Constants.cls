@@ -60,7 +60,7 @@ public with sharing class APT_Constants {
 	public static final String OPPORTUNITY_NEXTSTEP_NEGOTIATE_TO_ACHIEVE_ALIGNMENT = 'Negotiate to achieve alignment';
 	public static final String OPPORTUNITY_NEXTSTEP_PRESENT_FINAL_CONTRACT_TO_CUSTOMER = 'Present final contract to customer';
 
-	 // SEPERATORS
+	// SEPERATORS
 	public static final String SEPERATOR_BACKWARD_SLASH = '/';
 	public static final String SEPERATOR_SIMILARITY = '~';
 	public static final String SEPERATOR_COMMA_SPACE = ', ';
@@ -304,15 +304,15 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_CODE_UNADDRESSED_MAIL_SERVICES = 'Unaddressed Mail Services';
 
 	//New Optional Products for new bundles
-  public static final String PRODUCT_CODE_NEW_EXPRESS_DOCT = 'EXPRESS_DOCT';
-  public static final String PRODUCT_CODE_NEW_EXPRESS_MERCH = 'EXPRESS_MERCH';
-  public static final String PRODUCT_CODE_NEW_STANDARD = 'STANDARD';
-  public static final String PRODUCT_CODE_NEW_ECONOMY = 'ECONOMY';
-  public static final String PRODUCT_CODE_NEW_RETURNS_EXPRESS = 'RETURNS_EXPRESS';
-  public static final String PRODUCT_CODE_NEW_RETURNS_STANDARD = 'RETURNS_STANDARD';
-  public static final String PRODUCT_CODE_NEW_STANDARD_SIGN = 'STANDARD_SIG';
-  public static final String PRODUCT_CODE_NEW_ECONOMY_SIGN = 'ECONOMY_SIG';
-  public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
+public static final String PRODUCT_CODE_NEW_EXPRESS_DOCT = 'EXPRESS_DOCT';
+public static final String PRODUCT_CODE_NEW_EXPRESS_MERCH = 'EXPRESS_MERCH';
+public static final String PRODUCT_CODE_NEW_STANDARD = 'STANDARD';
+public static final String PRODUCT_CODE_NEW_ECONOMY = 'ECONOMY';
+public static final String PRODUCT_CODE_NEW_RETURNS_EXPRESS = 'RETURNS_EXPRESS';
+public static final String PRODUCT_CODE_NEW_RETURNS_STANDARD = 'RETURNS_STANDARD';
+public static final String PRODUCT_CODE_NEW_STANDARD_SIGN = 'STANDARD_SIG';
+public static final String PRODUCT_CODE_NEW_ECONOMY_SIGN = 'ECONOMY_SIG';
+public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 
 
 	public static final String PRODUCT_CODE_ePARCEL_STANDARD = 'eParcelStandard';
@@ -345,104 +345,104 @@ public with sharing class APT_Constants {
 	public static final String STRING_LODGEMENT_POINT = 'Lodgement Point';
 	public static final String STRING_RANDOM_STRING = 'dagydddheu';
 
-	 //document types
-	 public static final String DOCUMENT_TYPE_DOC = 'DOC';
-	 public static final String DOCUMENT_TYPE_DOCX = 'DOCX';
-	 public static final String DOCUMENT_TYPE_PDF = 'PDF';
-	 public static final String DOCUMENT_TYPE_RTF = 'RTF';
-	 public static final String DOCUMENT_TYPE_DOCX_LOWER = 'docx';
-	 public static final String DOCUMENT_TYPE_PDF_LOWER = 'pdf';
-	 public static final String DOCUMENT_TYPE_RTF_LOWER = 'rtf';
+	//document types
+	public static final String DOCUMENT_TYPE_DOC = 'DOC';
+	public static final String DOCUMENT_TYPE_DOCX = 'DOCX';
+	public static final String DOCUMENT_TYPE_PDF = 'PDF';
+	public static final String DOCUMENT_TYPE_RTF = 'RTF';
+	public static final String DOCUMENT_TYPE_DOCX_LOWER = 'docx';
+	public static final String DOCUMENT_TYPE_PDF_LOWER = 'pdf';
+	public static final String DOCUMENT_TYPE_RTF_LOWER = 'rtf';
 
-	 //Access levels
-	 public static final String ACCESS_LEVEL_EDIT = 'Full Access';
-	 public static final String ACCESS_FULL = 'Full';
+	//Access levels
+	public static final String ACCESS_LEVEL_EDIT = 'Full Access';
+	public static final String ACCESS_FULL = 'Full';
 
-	 //approval stage
-	 public static final String APPROVAL_STAGE_DRAFT = 'Draft';
-	 public static final String APPROVAL_STAGE_APPROVED = 'Approved';
-	 public static final String APPROVAL_STAGE_DENIED = 'Denied';
-	 public static final String APPROVAL_STAGE_GENERATED = 'Generated';
-	 public static final String APPROVAL_STAGE_PRESENTED = 'Presented';
-	 public static final String APPROVAL_STAGE_ACCEPTED = 'Accepted';
+	//approval stage
+	public static final String APPROVAL_STAGE_DRAFT = 'Draft';
+	public static final String APPROVAL_STAGE_APPROVED = 'Approved';
+	public static final String APPROVAL_STAGE_DENIED = 'Denied';
+	public static final String APPROVAL_STAGE_GENERATED = 'Generated';
+	public static final String APPROVAL_STAGE_PRESENTED = 'Presented';
+	public static final String APPROVAL_STAGE_ACCEPTED = 'Accepted';
 
-	 //action label
-	 public static final String ACTION_LABEL_CALCULATE_ESTIMATED_REVENUE = 'APT_CalculateEstimatedRevenue';
-	 public static final String ACTION_LABEL_SEARCH_LODGEMENT_ZONE = 'APT_SearchLodgementZone';
+	//action label
+	public static final String ACTION_LABEL_CALCULATE_ESTIMATED_REVENUE = 'APT_CalculateEstimatedRevenue';
+	public static final String ACTION_LABEL_SEARCH_LODGEMENT_ZONE = 'APT_SearchLodgementZone';
 
-	 //weight measure
-	 public static final String WEIGHT_MEASURE_DEADWEIGHT = 'DEADWEIGHT';
-	 public static final String WEIGHT_MEASURE_CUBIC = 'CUBIC';
-	 public static final String STRING_SAMPLE_ATTACHMENT = 'Sample Attachment';
+	//weight measure
+	public static final String WEIGHT_MEASURE_DEADWEIGHT = 'DEADWEIGHT';
+	public static final String WEIGHT_MEASURE_CUBIC = 'CUBIC';
+	public static final String STRING_SAMPLE_ATTACHMENT = 'Sample Attachment';
 
-	 //action name
-	 public static final String ACTION_NAME_RENEW = 'Renew';
-	 public static final String ACTION_NAME_AMEND = 'Amend';
-	 public static final String ACTION_NAME_DoV = 'DoV';
-	 public static final String ACTION_NAME_DoV_Increase = 'DoV Increase';
-	 public static final String ACTION_NAME_DoV_Decrease = 'DoV Decrease';
-	 public static final String OPPORTUNITY_SUBTYPE_DoV_Increase = 'DoV Increase';
-	 public static final String OPPORTUNITY_SUBTYPE_RENEWAL = 'Re-Contract';
+	//action name
+	public static final String ACTION_NAME_RENEW = 'Renew';
+	public static final String ACTION_NAME_AMEND = 'Amend';
+	public static final String ACTION_NAME_DoV = 'DoV';
+	public static final String ACTION_NAME_DoV_Increase = 'DoV Increase';
+	public static final String ACTION_NAME_DoV_Decrease = 'DoV Decrease';
+	public static final String OPPORTUNITY_SUBTYPE_DoV_Increase = 'DoV Increase';
+	public static final String OPPORTUNITY_SUBTYPE_RENEWAL = 'Re-Contract';
 
-	 //action type
-	 public static final String ACTION_TYPE_RENEWAL = 'Renewal';
+	//action type
+	public static final String ACTION_TYPE_RENEWAL = 'Renewal';
 
-	 //Stage Name
-	 public static final String STAGE_NAME_IDENTIFY = 'Identify';
+	//Stage Name
+	public static final String STAGE_NAME_IDENTIFY = 'Identify';
 
-	 //opportunity type
-	 //public static final String OPPORTUNITY_TYPE_EXISTING_CUSTOMER = 'Existing Customer';
+	//opportunity type
+	//public static final String OPPORTUNITY_TYPE_EXISTING_CUSTOMER = 'Existing Customer';
 
-	 //lead source
-	 public static final String LEAD_SOURCE_CONTRACT_RENEWAL = 'Contract Renewal';
+	//lead source
+	public static final String LEAD_SOURCE_CONTRACT_RENEWAL = 'Contract Renewal';
 
-	 //classification
-	 public static final String CLASSIFICATION_RENEWAL = 'Renewal';
-	 public static final String CLASSIFICATION_GROWTH = 'Growth';
-	 public static final String STRING_UP_SELL = 'Up Sell';
-	 public static final String STRING_TEST1 = 'Test';
-	 public static final String STRING_SAMPLE = 'Sample';
-	 public static final String SAMPLE_EMAIL = 'xyz@abc.com';
-	 public static final String STRING_AGREEMENT = 'Agreement';
+	//classification
+	public static final String CLASSIFICATION_RENEWAL = 'Renewal';
+	public static final String CLASSIFICATION_GROWTH = 'Growth';
+	public static final String STRING_UP_SELL = 'Up Sell';
+	public static final String STRING_TEST1 = 'Test';
+	public static final String STRING_SAMPLE = 'Sample';
+	public static final String SAMPLE_EMAIL = 'xyz@abc.com';
+	public static final String STRING_AGREEMENT = 'Agreement';
 
-	 //record type
+	//record type
 	public static final String RECORD_TYPE_PROPOSAL = 'Proposal';
-	 public static final String RECORD_TYPE_RENEWAL_QUOTE = 'Renewal Quote';
-	 public static final String RECORD_TYPE_AMENDMENT_QUOTE = 'Amendment Quote';
-	 public static final String RECORD_TYPE_RENEWAL_CONTRACT = 'Renewal Contract';
-	 public static final String RECORD_TYPE_DOV_CONTRACT = 'DoV Contract';
-	 public static final String RECORD_TYPE_CONTRACT_MANAGEMENT_ENQUIRY = 'Contract Management Enquiry';
+	public static final String RECORD_TYPE_RENEWAL_QUOTE = 'Renewal Quote';
+	public static final String RECORD_TYPE_AMENDMENT_QUOTE = 'Amendment Quote';
+	public static final String RECORD_TYPE_RENEWAL_CONTRACT = 'Renewal Contract';
+	public static final String RECORD_TYPE_DOV_CONTRACT = 'DoV Contract';
+	public static final String RECORD_TYPE_CONTRACT_MANAGEMENT_ENQUIRY = 'Contract Management Enquiry';
 
-	 //Configuration status
-	 public static final String CONFIGURATION_STATUS_FINALIZED = 'Finalized';
+	//Configuration status
+	public static final String CONFIGURATION_STATUS_FINALIZED = 'Finalized';
 
-	 //case
-	 public static final String CASE_STATUS_NEW = 'New';
-	 public static final String CASE_ORIGIN_SALESFORCE = 'Salesforce';
-	 public static final String CASE_INITIATING_AREA_SALESFORCE = 'Salesforce';
-	 public static final String CASE_TYPE_SALES_CONTRACT_CONSULTING = 'Sales Contract Consulting';
-	 public static final String CASE_WORK_TYPE_ADDENDUM_DOV = 'Addendum/DOV';
-	 public static final String CASE_SUPPORT_WORK_TYPE_DEAL_ENABLEMENT = 'Deal Enablement Support';
+	//case
+	public static final String CASE_STATUS_NEW = 'New';
+	public static final String CASE_ORIGIN_SALESFORCE = 'Salesforce';
+	public static final String CASE_INITIATING_AREA_SALESFORCE = 'Salesforce';
+	public static final String CASE_TYPE_SALES_CONTRACT_CONSULTING = 'Sales Contract Consulting';
+	public static final String CASE_WORK_TYPE_ADDENDUM_DOV = 'Addendum/DOV';
+	public static final String CASE_SUPPORT_WORK_TYPE_DEAL_ENABLEMENT = 'Deal Enablement Support';
 
-	 //Namespace
-	 public static final String NAMESPACE_APTTUS_CMCONFIG = 'Apttus_CMConfig__';
-	 public static final String NAMESPACE_APTTUS = 'Apttus__';
+	//Namespace
+	public static final String NAMESPACE_APTTUS_CMCONFIG = 'Apttus_CMConfig__';
+	public static final String NAMESPACE_APTTUS = 'Apttus__';
 
-	 //pricing system properties
-	 public static final String R2T_INTERNATIONAL_PRICING_PROPERTIES = 'R2T International Pricing Properties';
-	 public static final String R2T_DOMESTIC_PRICING_PROPERTIES = 'R2T Domestic Pricing Properties';
+	//pricing system properties
+	public static final String R2T_INTERNATIONAL_PRICING_PROPERTIES = 'R2T International Pricing Properties';
+	public static final String R2T_DOMESTIC_PRICING_PROPERTIES = 'R2T Domestic Pricing Properties';
 
-	 //account Type
-	 public static final String ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT = 'Charge Account + Sub Account';
+	//account Type
+	public static final String ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT = 'Charge Account + Sub Account';
 
-	 //Error Messsage
-	 public static final String ERROR_MESSAGE_CONSTRAINT_RULES = System.Label.APT_Constraint_Rule_Error_Message;
-	 public static final String ERROR_MESSAGE_INVALID_PROPOSAL = 'Missing Quote/Proposal. Can not update Quote/Porposal.';
-	 public static final String ERROR_MESSAGE_MALFORMED_URL = 'Malformed URL Parameters';
-	 public static final String ERROR_MESSAGE_CANNOT_ACCEPT_PROPOSAL = 'Cannot accept the expired proposal. To accept this proposal please update the proposal expiration date.';
-	 public static final String ERROR_MESSAGE_CANNOT_PRESENT_PROPOSAL = 'Cannot present the expired proposal. To present this proposal please update the proposal expiration date.';
-	 public static final string ERROR_MESSAGE_CANNOT_CREATE_CONTRACT ='Cannot Create a Contract document for an expired Contract.Please Create a new contract to continue.';
-	 public static final string ERROR_MESSAGE_CANNOT_SEND_CONTRACT='Cannot send a contract out for signature for an expired Contract. Please Create a new contract to continue.';
+	//Error Messsage
+	public static final String ERROR_MESSAGE_CONSTRAINT_RULES = System.Label.APT_Constraint_Rule_Error_Message;
+	public static final String ERROR_MESSAGE_INVALID_PROPOSAL = 'Missing Quote/Proposal. Can not update Quote/Porposal.';
+	public static final String ERROR_MESSAGE_MALFORMED_URL = 'Malformed URL Parameters';
+	public static final String ERROR_MESSAGE_CANNOT_ACCEPT_PROPOSAL = 'Cannot accept the expired proposal. To accept this proposal please update the proposal expiration date.';
+	public static final String ERROR_MESSAGE_CANNOT_PRESENT_PROPOSAL = 'Cannot present the expired proposal. To present this proposal please update the proposal expiration date.';
+	public static final string ERROR_MESSAGE_CANNOT_CREATE_CONTRACT ='Cannot Create a Contract document for an expired Contract.Please Create a new contract to continue.';
+	public static final string ERROR_MESSAGE_CANNOT_SEND_CONTRACT='Cannot send a contract out for signature for an expired Contract. Please Create a new contract to continue.';
 	//Approval Rejection comments mandotory
 	public static final String APPROVAL_REJECTION_COMMENTS_MANDOTORY = 'Please provide Rejection commnets';
 	public static final String APPROVAL_STATUS_REJECTED = 'Rejected';
@@ -963,19 +963,19 @@ public with sharing class APT_Constants {
 	public static final String RECORD_TYPE_MSA_SERVICE_SCHEDULE = 'MSA & Service Schedule';
 	public static final String RECORD_TYPE_SECURE_PAY_ONLINE_PAYMENTS = 'SecurePay Online Payments';
 
-	 //Error Messsage
-	 //public static final String ERROR_MESSAGE_INVALID_PROPOSAL = 'Missing Quote/Proposal. Can not update Quote/Porposal.';
-	 public static final String ERROR_MESSAGE_NO_PRODUCTS_THAT_CAN_BE_CLASSIFIED = 'There are no Products that can be classified';
-	 public static final String ERROR_MESSAGE_CLASSIFICATION_IS_MANDATORY = 'Clasification is mandatory';
-	 public static final String ERROR_MESSAGE_QUANTITY_IS_MANDATORY = 'Quantity is mandatory';
-	 public static final String ERROR_MESSAGE_UNIT_SALES_PRICE_MANDATORY = 'Unit Sales Price is mandatory';
-	 public static final String ERROR_MESSAGE_REVENUE_START_DATE_MANDATORY = 'Revenue Start Date is mandatory';
-	 public static final String ERROR_MESSAGE_REVENUE_END_DATE_MANDATORY = 'Revenue End Date is mandatory';
-	 public static final String ERROR_MESSAGE_MULTIPLE_ENTRIES_SAME_CLASSIFICATION = 'We can\'t have multiple entries with same clasification for a Product';
-	 public static final String ERROR_MESSAGE_GROWTH_LINE_MANDATORY = 'For every renewal line there has to be a growth line';
-	 public static final String ERROR_MESSAGE_MISSING_DEFAULT_PRICELIST_ID = 'Missing Default Price List Id in R2T System Properties.';
-	 public static final String ERROR_MESSAGE_MISSING_CLASSIFICATION_ID = 'Missing Classification Id in R2T System Properties.';
-	 public static final String ERROR_MESSAGE_MISSING_INTERVIEW_NAME = 'Missing Interview Name in R2T System Properties.';
+	//Error Messsage
+	//public static final String ERROR_MESSAGE_INVALID_PROPOSAL = 'Missing Quote/Proposal. Can not update Quote/Porposal.';
+	public static final String ERROR_MESSAGE_NO_PRODUCTS_THAT_CAN_BE_CLASSIFIED = 'There are no Products that can be classified';
+	public static final String ERROR_MESSAGE_CLASSIFICATION_IS_MANDATORY = 'Clasification is mandatory';
+	public static final String ERROR_MESSAGE_QUANTITY_IS_MANDATORY = 'Quantity is mandatory';
+	public static final String ERROR_MESSAGE_UNIT_SALES_PRICE_MANDATORY = 'Unit Sales Price is mandatory';
+	public static final String ERROR_MESSAGE_REVENUE_START_DATE_MANDATORY = 'Revenue Start Date is mandatory';
+	public static final String ERROR_MESSAGE_REVENUE_END_DATE_MANDATORY = 'Revenue End Date is mandatory';
+	public static final String ERROR_MESSAGE_MULTIPLE_ENTRIES_SAME_CLASSIFICATION = 'We can\'t have multiple entries with same clasification for a Product';
+	public static final String ERROR_MESSAGE_GROWTH_LINE_MANDATORY = 'For every renewal line there has to be a growth line';
+	public static final String ERROR_MESSAGE_MISSING_DEFAULT_PRICELIST_ID = 'Missing Default Price List Id in R2T System Properties.';
+	public static final String ERROR_MESSAGE_MISSING_CLASSIFICATION_ID = 'Missing Classification Id in R2T System Properties.';
+	public static final String ERROR_MESSAGE_MISSING_INTERVIEW_NAME = 'Missing Interview Name in R2T System Properties.';
 
 	public static final String OPPORTUNITY_TYPE_NEW_OPPORTUNITY_TYPE = 'New Opportunity Type';
 	public static final String OPPORTUNITY_TYPE_NEW_BUSINESS = 'New Business';
@@ -1410,7 +1410,7 @@ public with sharing class APT_Constants {
 	public static final String Ready_For_Finalization = 'Ready For Finalization';
 	public static final String eParcelExpress = 'eParcelExpress';
 	public static final String account_query = 'select id from account where Role_Type_Roll_Up__c=: cust AND (';
-   // public static final String account_query = 'select id from account where (';
+// public static final String account_query = 'select id from account where (';
 	public static final String Customer = 'Customer';
 	/* Start: Meet Desai: Updated Apttus Merge Service's API Version from 29 to 38 */
 	public static final String services_Soap_u_38_0 = '/services/Soap/u/38.0/';
@@ -1450,138 +1450,140 @@ public with sharing class APT_Constants {
 	public static final string WHERECLAUSE_AGMTLP = ' where APT_Charge_Account__c IN:allIdSet OR APT_Cash_Account__c IN:allIdSet  OR APT_Sub_Account__c  IN:allIdSet';
 
 	//***Test Class Constant Created By Jetha ***********//
-	  public static final String  TEST_ACCOUNT_TYPE = 'Charge Account + Sub Account';
-	 public static final String  TEST_ACCOUNT_ACN = '123456789';
-	 public static final String  TEST_ACCOUNT_ABN = '12345678910';
-	 public static final String  TEST_ACCOUNT_LEGACY_ID = '60000000';
-	 public static final String  TEST_Cust_NAME = 'Test Customer';
-	 public static final String  TEST_Cust_STATE = 'ACT';
-	 public static final String  TEST_BUSINESS_NAME = 'Test Business Name';
-	 public static final String  TEST_BRANCH = 'State Branch';
-	 public static final String  TEST_COUNTRY_CODE = 'AU';
-	 public static final String  TEST_STATUS_OPEN = 'Open';
-	 public static final Integer  NUMBER_1 = 1;
-	 public static final Integer  NUMBER_10 = 10;
-	 public static final String  APPROVAL_STATUS_SUBMITTED  = 'Submitted';
-	 public static final Integer  NUMBER_9999 = 9999;
-	 public static final String  DEVELOPER_NAME_DELIVERY_1 = 'Delivery_1';
-	 public static final String  NETWORK_SOBJECT_TYPE = 'Network__c';
-	 public static final String  STRING_LOGGEMENT = 'Lodgement';
+	public static final String  TEST_ACCOUNT_TYPE = 'Charge Account + Sub Account';
+	public static final String  TEST_ACCOUNT_ACN = '123456789';
+	public static final String  TEST_ACCOUNT_ABN = '12345678910';
+	public static final String  TEST_ACCOUNT_LEGACY_ID = '60000000';
+	public static final String  TEST_Cust_NAME = 'Test Customer';
+	public static final String  TEST_Cust_STATE = 'ACT';
+	public static final String  TEST_BUSINESS_NAME = 'Test Business Name';
+	public static final String  TEST_BRANCH = 'State Branch';
+	public static final String  TEST_COUNTRY_CODE = 'AU';
+	public static final String  TEST_STATUS_OPEN = 'Open';
+	public static final Integer  NUMBER_1 = 1;
+	public static final Integer  NUMBER_10 = 10;
+	public static final String  APPROVAL_STATUS_SUBMITTED  = 'Submitted';
+	public static final Integer  NUMBER_9999 = 9999;
+	public static final String  DEVELOPER_NAME_DELIVERY_1 = 'Delivery_1';
+	public static final String  NETWORK_SOBJECT_TYPE = 'Network__c';
+	public static final String  STRING_LOGGEMENT = 'Lodgement';
 
-	 // Constants added for international CO
-	 public static final String STRING_XLS ='xls';
-	 public static final String IS_CALL_FROM_RC = 'isCallFromRC';
-	 public static final String MAIL_SUBJECT_RC = '*** View Rate Calculators***';
-	 public static final String STRING_RATE_CALC_BATCH_JOB = 'Rate Calculator Batch job has processed ';
-	 public static final String STRING_YOUR_RATE_CARD_HAS_BEEN_GENERATED = '</p><p> Your Rate Calculators have been generated. Click this <a href="';
-	 public static final String FILE_DIGITALCODE = 'Digital';
-	 public static final String FILE_NDIGITALCODE = 'Non_Digital';
-	 public static final String FILENAME_CODE_INT = '_International_';
-	 public static final String FILENAME_CODE_RATE ='_Rate_Calculator.xlsx';
-	 public static final String STRING_AND_GO_TO_NOTES_AND_ATTACHMENTS_RC = 'and go to Notes and Attachments Section to view the Rate Calculator.</p>';
-	 public static final String PRODUCT_NAME_INTERNATIONAL_BUNDLE = 'International Bundle';
-	 public static final String OFFER_HIGHER_BAND = 'Offer Higher Band';
+	// Constants added for international CO
+	public static final String STRING_XLS ='xls';
+	public static final String IS_CALL_FROM_RC = 'isCallFromRC';
+	public static final String MAIL_SUBJECT_RC = '*** View Rate Calculators***';
+	public static final String STRING_RATE_CALC_BATCH_JOB = 'Rate Calculator Batch job has processed ';
+	public static final String STRING_YOUR_RATE_CARD_HAS_BEEN_GENERATED = '</p><p> Your Rate Calculators have been generated. Click this <a href="';
+	public static final String FILE_DIGITALCODE = 'Digital';
+	public static final String FILE_NDIGITALCODE = 'Non_Digital';
+	public static final String FILENAME_CODE_INT = '_International_';
+	public static final String FILENAME_CODE_RATE ='_Rate_Calculator.xlsx';
+	public static final String STRING_AND_GO_TO_NOTES_AND_ATTACHMENTS_RC = 'and go to Notes and Attachments Section to view the Rate Calculator.</p>';
+	public static final String PRODUCT_NAME_INTERNATIONAL_BUNDLE = 'International Bundle';
+	public static final String OFFER_HIGHER_BAND = 'Offer Higher Band';
 
-	 public static final String PRICING_SCHEDULE = 'Pricing Schedule';
+	public static final String PRICING_SCHEDULE = 'Pricing Schedule';
 
-	 public static final String CREATE_AMENDMENT_CONTRACT = 'Create Contract Amendment';
+	public static final String CREATE_AMENDMENT_CONTRACT = 'Create Contract Amendment';
 
-	 public static final String RATE = 'Rate';
-	 public static final String DETAILED_RATE = 'Detailed Rate';
+	public static final String RATE = 'Rate';
+	public static final String DETAILED_RATE = 'Detailed Rate';
 
-	 public static final String CONTRACT_NUMBER_PARM = 'cntrNbr_1';
+	public static final String CONTRACT_NUMBER_PARM = 'cntrNbr_1';
 
-	 public static final String R2T_CONTRACT_LETTER_HEAD = 'R2T Contract Letterhead';
-	 public static final String R2T_QUOTE_LETTER_HEAD_FOOTER = 'R2T_Quote_LetterHead_Footer';
-	 public static final String PARMA_ID = '?id=';
-	 public static final String PARMA_O_ID = '&oid=';
+	public static final String R2T_CONTRACT_LETTER_HEAD = 'R2T Contract Letterhead';
+	public static final String R2T_QUOTE_LETTER_HEAD_FOOTER = 'R2T_Quote_LetterHead_Footer';
+	public static final String PARMA_ID = '?id=';
+	public static final String PARMA_O_ID = '&oid=';
 
-	 public static final String RECORD_TYPE_POST_BILLPAY_CONTRACT = 'Post Billpay Contract';
+	public static final String RECORD_TYPE_POST_BILLPAY_CONTRACT = 'Post Billpay Contract';
+	public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
+	public static final String PRODUCT_CODE_POSTBILLPAY ='PBP';
 
-	 public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
-	 public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
-	 public static final String FROM_WHERE_SAP_CONTRACT_STATUS = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId and SAP_Contract_Status__c != \'Inactive\' ';
-
-
-	 public static final String ADMIN_LARGE_CART_THRESHOLD = 'APTS_LargeCartThreshold';
-	 public static final String PRICE_STRUCTURE_WINE_Z30 = 'WINE {Z30}';
-
-	 public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED_OR_REFERRED = 'Credit Assessment has been already approved or rejected.';
-	 //public static final String CREDIT_ASSESSMENT_ALREADY_REFERRED = 'The Credit Assessment has been already referred.';
-	 public static final String CREDIT_ASSESSMENT_ALREADY_REFERRED = 'The Credit Assessment is pending.';
-	 public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED  = 'Approved Credit Assessment exists and the request will be referred to Credit Management.';
-	 public static final String CREDIT_ASSESSMENT_ALREADY_DECLINE  = 'Declined Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
-	 public static final String CREDIT_ASSESSMENT_ALREADY_REJECTED  = 'Rejected Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
-
-	 public static final String ENTITY_TYPE_FPT = 'FPT';
-	 public static final String ENTITY_TYPE_PTR = 'PTR';
-	 public static final String ENTITY_TYPE_LTP = 'LTP';
-	 public static final String ENTITY_TYPE_LTDP = 'LTDP';
-	 public static final String ENTITY_TYPE_PARTNERSHIP = 'Partnership';
-
-	 public static final String OBJECT_CONTRACT = 'APT_Apttus_Contract__c';
-	 public static final String MIN_DATE = 'minDate';
-	 public static final String OFFLINE_RATES = 'Offline Rates';
-	 public static final String OFFLINE = 'Offline';
-
-	 public static final String CREDIT_ASSESSMENT_STATUS_CANCELLED = 'Cancelled';
-	 public static final String CREDIT_ASSESSMENT_STATUS_COMPLETED = 'Completed';
-
-	 public static final String SOBJECT_OPPORTUNITY_PRODUCT_LINE_ITEM = 'APT_Opportunity_Product_Line_Item__c';
-	 public static final String OPPORTUNITY_RECORD_TYPE_NEW_OPPORTUNITY_TYPE = 'APT_New_Opportunity_Type';
-	 public static final String OPPORTUNITY_RECORD_TYPE_EXISTING_OPPORTUNITY_TYPE = 'APT_Existing_Opportunity_Type';
-
-	 //Added By HA
-	 public static final string PRODUCT_AIRMAILLETTER='AIRMAIL_LETTERS';
-	 public static final string PRODUCT_EXTRACOVER='ExtraCover';
-	 public static final string PRODUCT_INTERNATIONALECONOMYWITHSIGNATURE='ECONOMY_SIG';
-	 public static final string PRODUCT_INTERNATIONALSTANDARDWITHSIGNATURE='STANDARD_SIG';
-	 public static final string PRODUCT_INTERNATIONALDIGITALPCMSBUNDLE='InternationalDigitalPCMSBundle';
-	 public static final string PRODUCT_InternationalExpressDocuments='EXPRESS_DOCT';
-	 public static final string PRODUCT_InternationalExpressMerchandise='EXPRESS_MERCH';
-	 public static final string PRODUCT_InternationalStandard='STANDARD';
-	 public static final string PRODUCT_InternationalEconomy='ECONOMY';
-	 public static final string PRODUCT_INTERNATIONALRETURNSINTERTIONALEXPRESS='RETURNS_EXPRESS';
-	 public static final string PRODUCT_INTERNATIONALRETURNSINTERNATIONALSTANDARD='RETURNS_STANDARD';
-	  public static final string PRODUCT_MinimumCollectionValue='COLLECTION_FEE';
-	 public static final string PRODUCT_MissingManifestFee='MISSING_MANIFEST_FEE';
-	 public static final string PRODUCT_AdministrativeFee='ADMINISTRATIVE_FEE';
-	 public static final string PRODUCT_InternationalExtraCover='InternationalExtraCover';
-
-	 //Added for weight Range and Weight Codes
-	 public static final string Weight_0_5='0.5';
-	 public static final string Weight_1='1.0';
-	 public static final string Weight_2='2.0';
-	 public static final string Weight_20='20.0';
+	public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
+	public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
+	public static final String FROM_WHERE_SAP_CONTRACT_STATUS = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId and SAP_Contract_Status__c != \'Inactive\' ';
 
 
-	 public static final string Weight_Upto500g='up to 500g';
-	 public static final string Weight_Over500gupto1kg='over 500g up to 1kg';
-	 public static final string Weight_Over1kgupto2kg='over 1kg up to 2kg';
-	 public static final string Weight_Upto2kg='up to 2kg';
-	 public static final string Weight_Over2kgupto20kg='over 2kg up to 20kg';
+	public static final String ADMIN_LARGE_CART_THRESHOLD = 'APTS_LargeCartThreshold';
+	public static final String PRICE_STRUCTURE_WINE_Z30 = 'WINE {Z30}';
+
+	public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED_OR_REFERRED = 'Credit Assessment has been already approved or rejected.';
+	//public static final String CREDIT_ASSESSMENT_ALREADY_REFERRED = 'The Credit Assessment has been already referred.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_REFERRED = 'The Credit Assessment is pending.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED  = 'Approved Credit Assessment exists and the request will be referred to Credit Management.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_DECLINE  = 'Declined Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_REJECTED  = 'Rejected Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
+
+	public static final String ENTITY_TYPE_FPT = 'FPT';
+	public static final String ENTITY_TYPE_PTR = 'PTR';
+	public static final String ENTITY_TYPE_LTP = 'LTP';
+	public static final String ENTITY_TYPE_LTDP = 'LTDP';
+	public static final String ENTITY_TYPE_PARTNERSHIP = 'Partnership';
+
+	public static final String OBJECT_CONTRACT = 'APT_Apttus_Contract__c';
+	public static final String MIN_DATE = 'minDate';
+	public static final String OFFLINE_RATES = 'Offline Rates';
+	public static final String OFFLINE = 'Offline';
+
+	public static final String CREDIT_ASSESSMENT_STATUS_CANCELLED = 'Cancelled';
+	public static final String CREDIT_ASSESSMENT_STATUS_COMPLETED = 'Completed';
+
+	public static final String SOBJECT_OPPORTUNITY_PRODUCT_LINE_ITEM = 'APT_Opportunity_Product_Line_Item__c';
+	public static final String OPPORTUNITY_RECORD_TYPE_NEW_OPPORTUNITY_TYPE = 'APT_New_Opportunity_Type';
+	public static final String OPPORTUNITY_RECORD_TYPE_EXISTING_OPPORTUNITY_TYPE = 'APT_Existing_Opportunity_Type';
+
+	//Added By HA
+	public static final string PRODUCT_AIRMAILLETTER='AIRMAIL_LETTERS';
+	public static final string PRODUCT_EXTRACOVER='ExtraCover';
+	public static final string PRODUCT_INTERNATIONALECONOMYWITHSIGNATURE='ECONOMY_SIG';
+	public static final string PRODUCT_INTERNATIONALSTANDARDWITHSIGNATURE='STANDARD_SIG';
+	public static final string PRODUCT_INTERNATIONALDIGITALPCMSBUNDLE='InternationalDigitalPCMSBundle';
+	public static final string PRODUCT_InternationalExpressDocuments='EXPRESS_DOCT';
+	public static final string PRODUCT_InternationalExpressMerchandise='EXPRESS_MERCH';
+	public static final string PRODUCT_InternationalStandard='STANDARD';
+	public static final string PRODUCT_InternationalEconomy='ECONOMY';
+	public static final string PRODUCT_INTERNATIONALRETURNSINTERTIONALEXPRESS='RETURNS_EXPRESS';
+	public static final string PRODUCT_INTERNATIONALRETURNSINTERNATIONALSTANDARD='RETURNS_STANDARD';
+	public static final string PRODUCT_MinimumCollectionValue='COLLECTION_FEE';
+	public static final string PRODUCT_MissingManifestFee='MISSING_MANIFEST_FEE';
+	public static final string PRODUCT_AdministrativeFee='ADMINISTRATIVE_FEE';
+	public static final string PRODUCT_InternationalExtraCover='InternationalExtraCover';
+
+	//Added for weight Range and Weight Codes
+	public static final string Weight_0_5='0.5';
+	public static final string Weight_1='1.0';
+	public static final string Weight_2='2.0';
+	public static final string Weight_20='20.0';
 
 
-	 public static final string NEW_INT_BUNDLE='INTERNATIONAL_NEW_DIGITAL';
-	 public static final string NEW_INT_BUNDLE_RENEW='INTERNATIONAL_RENEWAL_DIGITAL';
-	 public static final string INT_YES='YES';
-	 public static final string INT_NO='NO';
-	 public static final string INT_Y='Y';
-	 public static final string INT_N='N';
+	public static final string Weight_Upto500g='up to 500g';
+	public static final string Weight_Over500gupto1kg='over 500g up to 1kg';
+	public static final string Weight_Over1kgupto2kg='over 1kg up to 2kg';
+	public static final string Weight_Upto2kg='up to 2kg';
+	public static final string Weight_Over2kgupto20kg='over 2kg up to 20kg';
 
-	 public static final string INTERNATIONAL_AIRMAIL_LETTERS='International Airmail Letters';
-	 public static final string CONFIGID ='ConfigId';
-	 public static final string BUNDLELINENO ='BundleLineNo';
-	 public static final string PROPOSALID ='ProposalId';
 
-	 public static final string OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE = 'Startrack';
-	 public static final string OPERATIONAL_SCHEDULE_WORKFORCE_VERIFICATION_RECORDTYPE = 'Workforce Verification';
-	 public static final string OPERATIONAL_SCHEDULE_STARTRACK_PRODUCT_TYPE = 'StarTrack';
-	 public static final string OPERATIONAL_SCHEDULE_EXPRESS_ROAD_PRODUCT= 'Road Express - STE';
-	 public static final string OPERATIONAL_SCHEDULE_SPECIAL_SERVICES_PRODUCT = 'Special Services - STE';
-	 public static final string OPERATIONAL_SCHEDULE_PRIORITY_AIR_SERVICES_PRODUCT = 'Premium - STE';
-	 public static final string OPERATIONAL_SCHEDULE_SECURITY_SERVICES_PRODUCT = 'Security Express - STE';
-	 public static final string OPERATIONAL_SCHEDULE_NEXT_FLIGHT_PRODUCT = 'Next Flight - STE';
+	public static final string NEW_INT_BUNDLE='INTERNATIONAL_NEW_DIGITAL';
+	public static final string NEW_INT_BUNDLE_RENEW='INTERNATIONAL_RENEWAL_DIGITAL';
+	public static final string INT_YES='YES';
+	public static final string INT_NO='NO';
+	public static final string INT_Y='Y';
+	public static final string INT_N='N';
+
+	public static final string INTERNATIONAL_AIRMAIL_LETTERS='International Airmail Letters';
+	public static final string CONFIGID ='ConfigId';
+	public static final string BUNDLELINENO ='BundleLineNo';
+	public static final string PROPOSALID ='ProposalId';
+
+	public static final string OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE = 'Startrack';
+	public static final string OPERATIONAL_SCHEDULE_WORKFORCE_VERIFICATION_RECORDTYPE = 'Workforce Verification';
+	public static final string OPERATIONAL_SCHEDULE_STARTRACK_PRODUCT_TYPE = 'StarTrack';
+	public static final string OPERATIONAL_SCHEDULE_EXPRESS_ROAD_PRODUCT= 'Road Express - STE';
+	public static final string OPERATIONAL_SCHEDULE_SPECIAL_SERVICES_PRODUCT = 'Special Services - STE';
+	public static final string OPERATIONAL_SCHEDULE_PRIORITY_AIR_SERVICES_PRODUCT = 'Premium - STE';
+	public static final string OPERATIONAL_SCHEDULE_SECURITY_SERVICES_PRODUCT = 'Security Express - STE';
+	public static final string OPERATIONAL_SCHEDULE_NEXT_FLIGHT_PRODUCT = 'Next Flight - STE';
 
 	//ST Pricing
 	public static final String ST_PRICING_PROPERTIES = 'ST Pricing Properties';
@@ -1653,4 +1655,4 @@ public with sharing class APT_Constants {
 	public static final String APT_Basic_Rate = '_BR';
 	public static final String RATING_MODEL_PD = 'PD';
 
-  }
+}

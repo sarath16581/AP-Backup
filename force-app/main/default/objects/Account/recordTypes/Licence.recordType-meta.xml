@@ -533,6 +533,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Citizenship_Status__c</picklist>
+        <values>
+            <fullName>Australian Citizen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perm Resident</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Cluster__c</picklist>
         <values>
             <fullName>1</fullName>

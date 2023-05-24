@@ -519,7 +519,7 @@ public without sharing class bspEnquiryUplift {
 			//2023-05-08 EDD + business 10 days
 			setDirectRoutingValues(enq);
 		}
-		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData.containsEssentialMedicine);
+		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
@@ -545,7 +545,7 @@ public without sharing class bspEnquiryUplift {
 	 *
 	 * @return the Case passed in, or null if there was an error
 	 */
-	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper, String containsEssentialMedicine) {
+	public static Case createEnquiryAusPostFinalise(Case enq, bspEnquiryUplift.CreateEnquiryWrapper enqWrapper, BSPFormAdditionalData additionalData) {
 		SavePoint sp = Database.setSavepoint();
 		Boolean isDmlError = false;
 
@@ -554,8 +554,11 @@ public without sharing class bspEnquiryUplift {
 
 			if(!String.isEmpty(enq.Description)) {
 				String commentBody = '---Enquiry Details---' + SSSWConstants.NEW_LINE + enq.Description;
-				if (containsEssentialMedicine != null && containsEssentialMedicine.deleteWhitespace() != '') {
-					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + containsEssentialMedicine;
+				if (additionalData.containsEssentialMedicine != null && additionalData.containsEssentialMedicine.deleteWhitespace() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Does the item contain essential medication : ' + additionalData.containsEssentialMedicine;
+				}
+				if (additionalData.isSentimental != null && additionalData.isSentimental.deleteWhitespace() != '') {
+					commentBody += SSSWConstants.NEW_LINE + 'Is the item urgent, sentimental or high value? : ' + additionalData.isSentimental;
 				}
 				CaseComment myComment = new CaseComment(ParentId=enq.Id, CommentBody=commentBody,  IsPublished=true);
 				insert myComment;
@@ -1707,11 +1710,11 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/**
-	 * On hold the case when the case based on the EDD of the article and the configured holding periodd
-	 * @param pCase
+	 * On hold the case when the case based on the EDD of the article and the configured holding period
+	 * @param pCase the case SObject record that contains fields to determine routing
 	 */
 	public static void setDirectRoutingValues(Case pCase) {
-		Date eddPlusBusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(pCase.EstimatedDelivery__c, CCUSettings__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().nextUpdateInForLateItems__c) : 0);
+		Date eddPlusBusinessDays = getEDDPlusBusinessDays(pCase.EstimatedDelivery__c);
 		//if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
 		if (eddPlusBusinessDays > Date.today()) {
 			Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
@@ -1726,6 +1729,16 @@ public without sharing class bspEnquiryUplift {
 				pCase.AllocateToQueue__c = false;
 			}
 		}
+	}
+
+	/**
+	 * @param edd a Date value for Estimated Delivery Date
+	 *
+	 * @return the date value that is the EDD + the number of days defined in CCUSettings__c
+	 */
+	@AuraEnabled
+	public static Date getEDDPlusBusinessDays (Date edd) {
+		return edd == null ? null : BusinessHoursService.newInstance().calculateNextBusinessDay(edd, CCUSettings__c.getInstance().NextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().NextUpdateInForLateItems__c) : 0);
 	}
 
 
