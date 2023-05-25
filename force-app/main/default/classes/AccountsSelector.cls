@@ -1,8 +1,11 @@
 /***
  * @author Nathan Franklin
  * @date 2020-04-10
- * @group Tests
- * @description Test Class covering AccountsSelector
+ * @group Selector
+ * @tag Selector
+ * @tag Accounts
+ * @domain Core
+ * @description Selector class for Account
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId Method
@@ -19,11 +22,14 @@
  * 2022-09-28 - Noel Lim - added new SObject Field, removed 3 debug statements
  * 2023-02-07 - Deepak Kemidi - remove minimum spend field reference from account object
  * 2023-03-17 - Naveen Rajanna - SMWD-397 - Added enums WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
+ * 2023-05-01 - Naveen Rajanna - REQ2916371 - Changes to search function and Added enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS, WITH_ORGANISATION_ROLES, WITH_ORGANISATION_ROLES_PROSPECT_KNOWN, WITH_HOLDINGROLE,
-		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT, WITH_GRANDPARENT, WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
+		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT, 
+		WITH_GRANDPARENT, WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY, WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, 
+		WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
 	}
 
 	public static AccountsSelector newInstance() {
@@ -129,36 +135,73 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	}
 
 	public List<Account> search(
-			Map<String, Object> searchParams,
-			Set<Object> selectorOptions,
-			String searchConditions,
-			Schema.SobjectField orderByField
+		Map<String, Object> searchParams,
+		Set<Object> selectorOptions,
+		String searchConditions,
+		Schema.SobjectField orderByField
+	) {
+		return search(searchParams, selectorOptions, searchConditions, orderByField, 'DESC');
+	}
+
+	/**
+	* Run a SOQL based on the search parameters passed in
+	* @param searchParams A map containing searchable values
+							parentIds refers to Account.ParentId
+							parentIdsLevel2 refers to Parent.ParentId (1st level Parent's parentIds)
+							parentIdsLevel3 refers to Parent.Parent.ParentId (2nd level Parent's parentIds) and so on
+	* @param selectorOptions Selector Options
+	* @param searchConditions String containing condition order ex: (1 AND 2) OR 3 
+	* @param orderByField Account Field
+	* @param sortDirection ASC or DESC
+	* @return  `List<Account>`
+	*/
+	public List<Account> search(
+		Map<String, Object> searchParams,
+		Set<Object> selectorOptions,
+		String searchConditions,
+		Schema.SobjectField orderByField,
+		String sortDirection
 	) {
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
-		Set<String> apcns = (Set<String>) (searchParams.get('apcn') == null
-				? new Set<String>()
-				: (searchParams.get('apcn') instanceof Set<String> ? searchParams.get('apcn') : new Set<Id>{
-						(Id) searchParams.get('apcn')
-				}));
-		Set<Id> accIds = (Set<Id>) (searchParams.get('accId') == null
-				? new Set<Id>()
-				: (searchParams.get('accId') instanceof Set<Id> ? searchParams.get('accId') : new Set<Id>{
-						(Id) searchParams.get('accId')
-				}));
-		Boolean isPersonAccount = (Boolean) (searchParams.get('isPersonAccount') == null
-				? null
-				: (searchParams.get('isPersonAccount') instanceof Boolean
-						? searchParams.get('isPersonAccount')
-						: (Boolean) (searchParams.get('isPersonAccount'))));
-
-		conditions.add(new QueryBuilder.SimpleCondition(Account.apcn__pc + ' IN :apcns'));
-		conditions.add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds'));
-
+		Set<String> apcns = (Set<String>) (searchParams.get('apcn') == null ? new Set<String>() : (searchParams.get('apcn') instanceof Set<String> ? searchParams.get('apcn') : new Set<Id>{(Id) searchParams.get('apcn')}));
+		Set<Id> accIds = (Set<Id>) (searchParams.get('accId') == null ? new Set<Id>() : (searchParams.get('accId') instanceof Set<Id> ? searchParams.get('accId') : new Set<Id>{(Id) searchParams.get('accId')}));
+		Boolean isPersonAccount = (Boolean) (searchParams.get('isPersonAccount') == null ? null : (searchParams.get('isPersonAccount') instanceof Boolean ? searchParams.get('isPersonAccount') : (Boolean) (searchParams.get('isPersonAccount'))));
+		Set<Id> parentIds = (Set<Id>)(searchParams.get('parentIds') == null ? new Set<Id>() : (searchParams.get('parentIds') instanceof Set<Id> ? searchParams.get('parentIds') : new Set<Id>{(Id)searchParams.get('parentIds')}));
+		Set<Id> parentIdsLevel2 = (Set<Id>)(searchParams.get('parentIdsLevel2') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel2') instanceof Set<Id> ? searchParams.get('parentIdsLevel2') : new Set<Id>{(Id)searchParams.get('parentIdsLevel2')}));
+		Set<Id> parentIdsLevel3 = (Set<Id>)(searchParams.get('parentIdsLevel3') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel3') instanceof Set<Id> ? searchParams.get('parentIdsLevel3') : new Set<Id>{(Id)searchParams.get('parentIdsLevel3')}));
+		Set<Id> parentIdsLevel4 = (Set<Id>)(searchParams.get('parentIdsLevel4') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel4') instanceof Set<Id> ? searchParams.get('parentIdsLevel4') : new Set<Id>{(Id)searchParams.get('parentIdsLevel4')}));
+		Set<Id> parentIdsLevel5 = (Set<Id>)(searchParams.get('parentIdsLevel5') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel5') instanceof Set<Id> ? searchParams.get('parentIdsLevel5') : new Set<Id>{(Id)searchParams.get('parentIdsLevel5')}));
+		Set<Id> parentIdsLevel6 = (Set<Id>)(searchParams.get('parentIdsLevel6') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel6') instanceof Set<Id> ? searchParams.get('parentIdsLevel6') : new Set<Id>{(Id)searchParams.get('parentIdsLevel6')}));
+		
+		if (!apcns.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Account.apcn__pc + ' IN :apcns'));
+		}
+		if (!accIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds'));
+		}
 		if (isPersonAccount != null) {
 			conditions.add(new QueryBuilder.CompareCondition(Account.isPersonAccount).eq(isPersonAccount));
+		}
+		if(!parentIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Account.ParentId + ' IN :parentIds'));
+		}
+		if(!parentIdsLevel2.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('Parent.ParentId IN :parentIdsLevel2'));
+		}
+		if(!parentIdsLevel3.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('Parent.Parent.ParentId IN :parentIdsLevel3'));
+		}
+		if(!parentIdsLevel4.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('Parent.Parent.Parent.ParentId IN :parentIdsLevel4'));
+		}
+		if(!parentIdsLevel5.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('Parent.Parent.Parent.Parent.ParentId IN :parentIdsLevel5'));
+		}
+		if(!parentIdsLevel6.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('Parent.Parent.Parent.Parent.Parent.ParentId IN :parentIdsLevel6'));
 		}
 
 		// ensure that the conditions order is the same as specified in Query Builder framework
@@ -166,10 +209,12 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		if (!String.isEmpty(searchConditions)) {
 			conditions.setConditionOrder(searchConditions);
 		}
-		//note that this only caters to desc at the moment, if you need to use asc, then this method will need to be enhanced
-		if (orderByField != null) {
-			builder.addOrderDesc(orderByField);
-		}
+
+		// these will override the sorting parameters when they are requested from the getOrderBy method
+		String sortingFieldOverride = orderByField != null ? String.valueOf(orderByField) : this.getOrderBy()[0].getSortingField();
+		String sortingOrderOverride = (sortDirection != null && !String.isEmpty(sortDirection)) ? String.valueOf(sortDirection) : this.getOrderBy()[0].getSortingOrder();
+		QueryBuilder.Order qbOrderBy = new QueryBuilder.Order(sortingFieldOverride, sortingOrderOverride);
+		builder.setOrder(qbOrderBy); // override the default sorting
 
 		String soql = conditions.endConditions().toSoqlString();
 		return (List<Account>) Database.query(soql);
@@ -278,6 +323,30 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		if (selectorOptions.contains(Options.WITH_PARENT)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Parent');
 		}
+		if (selectorOptions.contains(Options.WITH_PARENT_2LEVELS)) {
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_PARENT_2LEVELS);
+			clonedOptions.add(Options.WITH_PARENT);
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(clonedOptions), 'Parent');
+		}
+		if (selectorOptions.contains(Options.WITH_PARENT_3LEVELS)) {
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_PARENT_3LEVELS);
+			clonedOptions.add(Options.WITH_PARENT_2LEVELS);
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(clonedOptions), 'Parent');
+		}
+		if (selectorOptions.contains(Options.WITH_PARENT_4LEVELS)) {
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_PARENT_4LEVELS);
+			clonedOptions.add(Options.WITH_PARENT_3LEVELS);
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(clonedOptions), 'Parent');
+		}
+		if (selectorOptions.contains(Options.WITH_PARENT_5LEVELS)) {
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_PARENT_5LEVELS);
+			clonedOptions.add(Options.WITH_PARENT_4LEVELS);
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(clonedOptions), 'Parent');
+		}
 		if (selectorOptions.contains(Options.WITH_GRANDPARENT)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{
 				Options.WITH_PARENT
@@ -295,7 +364,6 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 			clonedOptions.remove(Options.WITH_FACILITY);
 			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(clonedOptions), 'Facility__r');
 		}
-
 		return builder;
 	}
 }
