@@ -155,7 +155,8 @@
                                 </div>
                             </lightning-textarea>
 
-
+                            <!--  Files upload -->
+                            <c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
 
                             <!-- Item value -->
                             <lightning-input label="Item value" value={itemValue}
@@ -164,7 +165,6 @@
                                              name="itemValue"
                                              type="number"
                                              formatter="currency"
-                                             placeholder="Please enter Item value"
                                              required
                                              onfocus={handleFocus}
                                              message-when-value-missing="Please enter Item value"
@@ -174,11 +174,8 @@
                                              max="1000000"
                                              step=".01"
 
-                                             class="brand-form-input slds-p-bottom_x-large" max-length="20">
+                                             class="brand-form-input slds-p-bottom_x-large slds-size_2-of-5" max-length="20">
                             </lightning-input>
-
-                            <!--  Files upload -->
-                            <c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
 
                             <!-- Addresses -->
                             <c-bsp-address-input data-id="senderAddress" data-validate='doAddressValidate'

@@ -1,51 +1,52 @@
 <template>
-    <div>
-        <table class="slds-table slds-table_bordered" role="grid">
-            <thead>
-                <tr class="slds-line-height_reset">
-                    <th scope="col">
-                    </th>
-                    <!-- Iterating columns-->
-                    <template for:each={tableColumns} for:item="col">
-                        <th key={col.fieldName} data-id={col.fieldName} onclick={handleSort}>
-                            <a class={col.headerCssClass} data-id={col.fieldName}>
-                                <div class="slds-truncate slds-text-align_left" data-id={col.fieldName}>
-                                    {col.label}
-                                </div>
-                            </a>
-                        </th>
-                    </template>
-                </tr>
-            </thead>
-            <tbody class="brand-table">
-                <!-- Iterating articles-->
-                <template for:each={formattedArticles} for:item="articleData">
-                    <tr class="slds-hint-parent" key={articleData.article.Id}>
-                        <td scope="row">
-                            <lightning-input type="checkbox" label="" variant="label-hidden" onchange={handleRowChange}
-                                data-id={articleData.article.Id} data-reference-id={articleData.article.Name}
-                                checked={articleData.isArticleSelected} disabled={articleData.isDisabled}>
-                            </lightning-input>
-                        </td>
-                        <template for:each={articleData.rowData} for:item="row">
-                            <td key={row.key} role="gridcell" data-id={row.key}>
-                                <c-my-network-star-track-case-articles-table-cell article-id={row.key}
-                                    event-message-id={row.eventMessageId} label={row.label} type={row.fieldType}
-                                    name={row.fieldName} value={row.fieldValue} url={row.fieldUrl}
-                                    pill-items={row.networkPillItems} onnetworksearch={handleNetworkSearch}
-                                    onnetworkremoved={handleNetworkRemoved}>
-                                </c-my-network-star-track-case-articles-table-cell>
-                            </td>
-                        </template>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
-        <template if:true={showNetworkScanModal}>
-            <!-- NETWORK SEARCH MODAL -->
-            <c-my-network-star-track-network-scan event-messages-network-wrapper={eventMessagesNetworkWrapper}
-                critical-incidents={criticalIncidents} onmodalclose={handleModalclose} onrowselect={handleRowSelect}>
-            </c-my-network-star-track-network-scan>
-        </template>
-    </div>
+	<div>
+		<table class="slds-table slds-table_bordered" role="grid">
+			<thead>
+				<tr class="slds-line-height_reset">
+					<th scope="col">
+					</th>
+					<!-- Iterating columns-->
+					<template for:each={tableColumns} for:item="col">
+						<th key={col.fieldName} data-id={col.fieldName} onclick={handleSort}>
+							<a class={col.headerCssClass} data-id={col.fieldName}>
+								<div class="slds-truncate slds-text-align_left" data-id={col.fieldName}>
+									{col.label}
+								</div>
+							</a>
+						</th>
+					</template>
+				</tr>
+			</thead>
+			<tbody class="brand-table">
+				<!-- Iterating articles-->
+				<template for:each={formattedArticles} for:item="articleData">
+					<tr class="slds-hint-parent" key={articleData.article.Id}>
+						<td scope="row">
+							<lightning-input type="checkbox" label="" variant="label-hidden" onchange={handleRowChange}
+								data-id={articleData.article.Id} data-reference-id={articleData.article.Name}
+								checked={articleData.isArticleSelected} disabled={articleData.isDisabled}>
+							</lightning-input>
+						</td>
+						<template for:each={articleData.rowData} for:item="row">
+							<td key={row.key} role="gridcell" data-id={row.key}>
+								<c-my-network-star-track-case-articles-table-cell article-id={row.key}
+									event-message-id={row.eventMessageId} label={row.label} type={row.fieldType}
+									name={row.fieldName} value={row.fieldValue} url={row.fieldUrl}
+									pill-items={row.networkPillItems} onnetworksearch={handleNetworkSearch}
+									onnetworkremoved={handleNetworkRemoved}>
+								</c-my-network-star-track-case-articles-table-cell>
+							</td>
+						</template>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+		<template if:true={showNetworkScanModal}>
+			<!-- NETWORK SEARCH MODAL -->
+			<c-my-network-star-track-network-scan article-id={articleId}
+				event-messages-network-wrapper={eventMessagesNetworkWrapper} critical-incidents={criticalIncidents}
+				receiver-postcode={receiverPostcode} receiver-suburb={receiverSuburb}  onmodalclose={handleModalclose} onrowselect={handleRowSelect}>
+			</c-my-network-star-track-network-scan>
+		</template>
+	</div>
 </template>

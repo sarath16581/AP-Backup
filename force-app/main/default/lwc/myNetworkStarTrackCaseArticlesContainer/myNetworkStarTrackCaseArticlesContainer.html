@@ -8,7 +8,7 @@
 			<template if:true={hasPassedThroughAPNetwork}>
 				<lightning-layout-item size="12" class="slds-var-p-horizontal_medium slds-var-p-vertical_large">
 					<c-my-network-star-track-case-articles-datatable article-details={articleDetailsToDisplay}
-						onrowselect={handleRowSelect}>
+					receiver-postcode={receiverPostcode} receiver-suburb={receiverSuburb} onrowselect={handleRowSelect}>
 					</c-my-network-star-track-case-articles-datatable>
 				</lightning-layout-item>
 				<lightning-layout-item size="8" class="slds-var-p-top_medium flex-el">

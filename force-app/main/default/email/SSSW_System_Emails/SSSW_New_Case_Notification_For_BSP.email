@@ -111,19 +111,19 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;">
-                                        <p style="font:24px/16px Arial">Thanks, we’ve received your enquiry</p>
+                                        <p style="font:24px/16px Arial">Thanks, we've received your enquiry</p>
 
                                         <p>Hi {!Contact.FirstName},</p>
 
-                                        <p>Thanks for your enquiry about parcel {!IF(ISNULL(Case.ReferenceID__c)), '',Case.ReferenceID__c}. Your reference number is {!Case.CaseNumber}.</p>
+                                        <p>Thanks for your enquiry about parcel {!Case.ReferenceID__c}. Your reference number is {!Case.CaseNumber}.</p>
 
 
                                         <p style="padding:0 0 0px; font:20px/16px Arial, Helvetica, sans-serif; color:#807370;">What happens next</p>
-                                        <p>As this parcel is delayed, our customer support team will review your enquiry. We’ll review the tracking history, and try to locate the parcel.</p>
-                                        <p style="padding:0 0 0px; font:20px/16px Arial, Helvetica, sans-serif; color:#807370;">We’ll keep you updated</p>
-                                        <p>After the team has completed their investigation, we’ll contact you - usually within 2 business days.</p><br/>
+                                        <p>As this parcel is delayed, our customer support team will review your enquiry. We'll review the tracking history, and try to locate the parcel.</p>
+                                        <p style="padding:0 0 0px; font:20px/16px Arial, Helvetica, sans-serif; color:#807370;">We'll keep you updated</p>
+                                        <p>After the team has completed their investigation, we'll contact you - usually within 2 business days.</p><br/>
                                         <p>If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.</p>
-                                        <a href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!Case.CaseNumber}%20can%20be%20closed%20{!Case.Thread_Id}">CLOSE MY CASE</a>
+<a href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!Case.CaseNumber}%20can%20be%20closed%20{!Case.Thread_Id}">CLOSE MY CASE</a>
 
                                         <p></p><br/></td>
                                 </tr>

@@ -29,6 +29,8 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
 	totalRecords; //total records
 	comments; //chatter feed
 	hasCaseTypeBlankOnCase; //flag to check the case type blank on startrack case
+	receiverPostcode; //receiver post code on case
+	receiverSuburb; //receiver suburb on case
 
 	// expose custom labels
 	label = {
@@ -53,6 +55,8 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
 			.then(response => {
 				this.hasPassedThroughAPNetwork = response.hasPassedThroughAPNetwork;
 				this.hasCaseTypeBlankOnCase = response.hasCaseTypeBlankOnCase;
+				this.receiverPostcode = response.receiverPostcode;
+				this.receiverSuburb = response.receiverSuburb;
 				if (this.hasPassedThroughAPNetwork) {
 					this.articleDetails = response.articleDetails;
 					this.totalRecords = response.articleDetails.length;

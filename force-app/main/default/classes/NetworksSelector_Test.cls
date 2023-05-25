@@ -14,6 +14,7 @@
  * 2021-07-27 - naveen.rajanna@auspost.com.au - Add code coverage for selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING_OR_WORKCENTRE()
  * 2022-03-23 - Ranjeewa Silva - Added tests for select by name
  * 2023-03-10 - Mahesh Parvathaneni - Added test for WITH_EVENTMESSAGES_DESC_ORDER options
+ * 2023-05-11 - Mahesh Parvathaneni - Added tests for FILTER_MYNETWORK, FILTER_IS_PARCEL, FILTER_STATUS_NOT_CLOSED
  */
 @IsTest
 public with sharing class NetworksSelector_Test {
@@ -79,6 +80,13 @@ public with sharing class NetworksSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Network_Manager__c.*?\\bfrom Network__c\\b').matcher(soql).find(), 'Resulting query does not select Network_Manager__c field: ' + soql);
 
+		selector = NetworksSelector.newInstance();
+		qb = selector.newQueryBuilder(new Set<Object>{NetworksSelector.Options.FILTER_MYNETWORK, NetworksSelector.Options.FILTER_IS_PARCEL, NetworksSelector.Options.FILTER_STATUS_NOT_CLOSED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Network__c\\b.*Contact_Facility__c\\s*=\\s*\'MyNetwork\'').matcher(soql).find(), 'Resulting query does not limit Contact facility of MyNetwork');
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Network__c\\b.*Parcel__c\\s*=\\s*true').matcher(soql).find(), 'Resulting query does not limit Is Parcel is true records');
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Network__c\\b.*Status__c\\s*!=\\s*\'Closed\'').matcher(soql).find(), 'Resulting query does not limit Status of Not Closed networks');
+
 		Test.stopTest();
 
 	}
@@ -103,6 +111,8 @@ public with sharing class NetworksSelector_Test {
 		networks[1].Org_ID__c = '55555';
 		networks[1].Org_Unit_Type__c = 'ABC';
 		networks[1].Name = 'Melbourne DWS';
+		networks[1].Contact_Facility__c = 'MyNetwork';
+		networks[1].Parcel__c = true;
 
 		insert networks;
 
@@ -143,6 +153,13 @@ public with sharing class NetworksSelector_Test {
 
 		Map<Id, Network__c> resultsAPNetwork = selector.selectById(new Set<Id>{networks[0].Id, networks[1].Id, networks[2].Id}, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK});
 		System.assertEquals(3, resultsAPNetwork.size(), 'Expected result size of 3');
+
+		Map<Id, Network__c> filterNetworkResults = selector.selectById(new Set<Id>{networks[0].Id, networks[1].Id, networks[2].Id}, new Set<Object>{NetworksSelector.Options.FILTER_MYNETWORK, NetworksSelector.Options.FILTER_IS_PARCEL});
+		System.assertEquals(1, filterNetworkResults.size(), 'Expected result size of 1');
+
+		List<Network__c> filteredNetworks = selector.selectByNetworkNamePartial('Mel');
+		System.assertEquals(2, filteredNetworks.size(), 'Expected result size of 2 for partial match based on name');
+
 
 		Test.stopTest();
 

@@ -43,6 +43,7 @@
  * 2023-03-21 - Nathan Franklin - small refactor / adding record type for consumer
  * 2023-04-04 - Mahesh Parvathaneni - Added method getFeedComments
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
+ * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -808,6 +809,27 @@ public with sharing class ApplicationTestDataFactory {
 			output[i] = (CaseMilestone)setUnwritableFields(output[i], new Map<String, Object>{'MilestoneTypeId' => milestoneTypeId, 'CaseId' => caseId, 'StartDate' => Date.Today(), 'TargetDate' => Date.Today() + 365, 'IsViolated' => isViolated, 'IsCompleted' => isCompleted, 'CompletionDate' => (isCompleted ? Date.Today() + 10 : null)});
 		}
 		return output;
+	}
+
+	public static List<Postcode__c> getPostcodes(Integer count, Boolean generateIds) {
+		return (List<Postcode__c>)maybeGenerateIds(populateSObjects(Postcode__c.SObjectType, new Map<SObjectField, Object> {
+			Postcode__c.Name => 'Postcode %count%',
+			Postcode__c.Suburb__c => 'Suburb %count%'
+		}, count), generateIds);
+	}
+
+	public static List<PostcodeMapping__c> getPostcodeMappings(Integer count, Id postcodeId, Id networkId, Boolean generateIds) {
+		return (List<PostcodeMapping__c>)maybeGenerateIds(populateSObjects(PostcodeMapping__c.SObjectType, new Map<SObjectField, Object> {
+				PostcodeMapping__c.Postcode__c => postcodeId,
+				PostcodeMapping__c.Network__c => networkId
+		}, count), generateIds);
+	}
+
+	public static List<FacilityByPass__c> getNetworkBypasses(Integer count, Id fromNetworkId, Id toNetworkId, Boolean generateIds) {
+		return (List<FacilityByPass__c>)maybeGenerateIds(populateSObjects(FacilityByPass__c.SObjectType, new Map<SObjectField, Object> {
+				FacilityByPass__c.Facility_By_Pass_From__c => fromNetworkId,
+				FacilityByPass__c.Facility_By_Pass_To__c => toNetworkId
+		}, count), generateIds);
 	}
 
 	public static void generateRecordIds(List<SObject> records) {
