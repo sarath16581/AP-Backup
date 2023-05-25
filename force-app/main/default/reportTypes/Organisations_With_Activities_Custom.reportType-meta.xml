@@ -3,12 +3,12 @@
     <baseObject>Account</baseObject>
     <category>accounts</category>
     <deployed>true</deployed>
-    <description>Used for Network State Managers reports</description>
+    <description>Organisations with Activities for the Network and Area Managers</description>
     <join>
         <outerJoin>false</outerJoin>
-        <relationship>Budget_and_Revenue_2__r</relationship>
+        <relationship>Activities</relationship>
     </join>
-    <label>Organisations With Customer Revenue - Custom</label>
+    <label>Organisations With Activities Custom</label>
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -567,6 +567,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Citizenship_Status__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Clears_Street_Posting_Boxes__c</field>
             <table>Account</table>
         </columns>
@@ -863,6 +868,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Direct_Mail_Email__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Disclosure_Consent__c</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -2642,12 +2652,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RNPNetworkManager__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RNPReportingAccess__c</field>
+            <field>Post_Office_Assigned__c.Id</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -2657,27 +2662,17 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.Id</field>
+            <field>Post_Office_Assigned__c.Network_Manager__c</field>
             <table>Account</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.Record_Type_Id__c</field>
+            <field>Post_Office_Assigned__c.RNPReportingAccess__c</field>
             <table>Account</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RecordType</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RecordType.Id</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RecordType.DeveloperName</field>
+            <field>Post_Office_Assigned__c.RNPNetworkManager__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>
@@ -2685,709 +2680,694 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Revenue_in_last_3_months__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>DMAPP__ThirdPartyName__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Revenue_in_last_6_months__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Acknowledged_Date__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Revenue_In_Previous_Month__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>kfsell__ActionPlanId__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Apr_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Apr_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Apr_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Apr_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Apr_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Aug_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Aug_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Aug_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Aug_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Aug_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Budget_and_Revenue_Auto_No__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Check_Duplicate__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Current_Last_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Total_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Actual__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QTD_Actual__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QTD_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QTD_Actual_Last_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QTD_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Current_User_Belongs_to_Assigned_LPO__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Current_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CustomerNumber__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Count__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Dec_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Address_Capture_Details__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Dec_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Agent__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Dec_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>IsAllDayEvent</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Dec_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Assigned_Role_Group__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Dec_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Owner</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Feb_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>mh_Associated_Green_Sheet__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Feb_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Bulk__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Feb_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Bulk_Close__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Feb_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Bulk_SMS__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Feb_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Call_Disposition__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TM1_Revised_Budget_Comment1__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CallDurationInSeconds</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TM1_Revised_Budget_Comment2__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CallDuration__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TM1_Revised_Budget_Comment3__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Call_Log_Number__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TM1_Original_Budget_Comment__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CallObject</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Financial_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CallDisposition</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Financial_Year_YTD_Actual_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CallType</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Hidden_18Cha_ID__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jan_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CaseObject__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jan_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Address_Line__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jan_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Address_Postcode__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jan_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Address_State__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jan_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Address_Suburb__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jul_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_ATL_Instructions__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jul_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Authorization_Origin__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jul_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Business_Name__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jul_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Delivery_Collection_Date__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jul_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Delivery_Instructions__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jun_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Other_ATL_Instructions__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jun_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Override_Customer_Restriction__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jun_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CaseOwnerId__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jun_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Case_Phone__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Jun_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>CaseStatus__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CaseType__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Category__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ClientGuid</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsClosed</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Description</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CompletedDateTime</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Consignment__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Contact__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Created_Date__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Create_to_Finished_Time__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CTIInteractionID__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Customer_Response__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ActivityDate</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Days_Since_Last_Acty__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DB_Activity_Type__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Depot_Role__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Depot_Filter__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Direction__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ActivityTimeOnly</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DurationInMinutes</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Email__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Enquiry_Sub_Type__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Enquiry_Type__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>EventSubtype</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Article_ExpectedDeliveryDate__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Finished_Date__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>GroupEventType</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Handling_Time__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Interaction_Type__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Is_Bulk_Task__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsChild</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsClientManaged</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsCreatorLoggedIn__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsGroupEvent</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsChannelManager__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsTeamManager__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IWS_CallUUID__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IWS_CaseUid__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Last_Activity_Date__c</field>
+            <table>Account.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Last_Activity_Days__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedDate</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Mar_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>mh_Last_Updated_Green_Sheet__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Mar_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Location</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Mar_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Primary_Capture_Details__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Mar_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Calculate_Run_Dock_and_Depot_Area__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Mar_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Manager__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>May_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ManagerLevel1__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>May_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ManagerLevel2__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>May_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ManagerLevel3__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>May_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>MH_Action__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>May_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Who</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Variance_Actual_to_Revised_MTD__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Network__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MTDActual__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Operations_Outcome__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Actual_Last_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Operations_Outcome_Comment__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Actual_Last_Year_R__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Operations_to_Acknowledged_Time__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Original_Budget_R__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Operations_to_Finished_Time__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MTD_Variance_Actual_to_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Outcome__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Nov_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Phone__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Nov_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Pref_Method_of_Contact__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Nov_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Preferred_Method_of_Tasking__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Nov_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>DMAPP__TTG_Prime_Action_Type__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Nov_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Priority</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Oct_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>IsPrivate</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Oct_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Product_Category__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Oct_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Product_Sub_Category__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Oct_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>IsVisibleInSelfService</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Oct_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Queue__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Total_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ReferenceID__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Original_Budget_Last_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>What</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Planned_YTD_revenue__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ReminderDateTime</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Product__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>IsReminderSet</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Product_Level_1__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>RecurrenceRegeneratedType</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Product_Level_2__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Resolution_Code__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Product_Level_3__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Run_Dock__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Product_Level_4__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Segment__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q1_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ServiceType__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q1_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ShowAs</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q1_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>SMSDateSent__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q1_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>SMSError__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q1_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>SMSMessage__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q2_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>State__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q2_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Status</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Q2_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Status__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q2_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q2_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q3_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q3_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q3_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q3_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q3_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q4_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q4_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q4_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q4_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Q4_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Variance_Actual_to_Revised_QTD__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QTD_Variance_Actual_to_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Revised_Budget_Last_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Sales_Rep_Comment__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Int_Last_Upd_Date__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Sep_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Sep_Revised_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Sep_Original_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Sep_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Sep_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Subject</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Total_Credit_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Sub_Type__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Total_Rebate_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Target_Call_Cycle_Met__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Not_Traded_for_3_Months__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Target_Skill__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Not_Traded_In_Past_6_Months__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>IsTask</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Traded_In_Previous_Month__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>RecordType</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Total_Revenue_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>TaskSubtype</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Transaction_Type__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>TaskUpdate__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Unique_Id__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>DMAPP__ThirdPartyId__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>YTD_Actual_Last_Year__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>ActivityDateTime</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Variance_Actual_Budget_YTD_Percent__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Waiting_for_Operations_Date__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>YTD_Actual_Amount__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>Work_Day_Adjustments__c</field>
+            <table>Account.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>YTD_Variance_Actual_to_Budget__c</field>
-            <table>Account.Budget_and_Revenue_2__r</table>
+            <field>WrapTime__c</field>
+            <table>Account.Activities</table>
         </columns>
-        <masterLabel>Customer Revenue</masterLabel>
+        <masterLabel>Activities</masterLabel>
     </sections>
 </ReportType>
