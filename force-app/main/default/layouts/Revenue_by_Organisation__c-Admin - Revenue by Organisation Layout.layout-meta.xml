@@ -23,11 +23,11 @@
                 <field>Financial_Year__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Current_Year__c</field>
+                <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
-                <emptySpace>true</emptySpace>
+                <behavior>Readonly</behavior>
+                <field>CurrentYear__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
