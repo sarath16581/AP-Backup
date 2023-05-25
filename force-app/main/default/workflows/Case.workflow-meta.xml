@@ -815,7 +815,7 @@
         <description>SSSW - Email on Creation For BSP After EDD Business Days</description>
         <protected>false</protected>
         <recipients>
-            <field>SuppliedEmail</field>
+            <field>ContactEmail</field>
             <type>email</type>
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
@@ -828,7 +828,7 @@
         <description>SSSW - Email on Creation For BSP Before EDD Business Days</description>
         <protected>false</protected>
         <recipients>
-            <field>SuppliedEmail</field>
+            <field>ContactEmail</field>
             <type>email</type>
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
@@ -841,7 +841,7 @@
         <description>SSSW - Email on Creation New Case For BSP Before EDD</description>
         <protected>false</protected>
         <recipients>
-            <field>SuppliedEmail</field>
+            <field>ContactEmail</field>
             <type>email</type>
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>

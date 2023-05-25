@@ -4,6 +4,7 @@
 * @description Test class for STCIMilestoneViolationCheckerBatch job
 * @changelog
 * 24-03-2023 - Mahesh Parvathaneni - SF-916 - Removed logic to assign to case owner if there is no email on network
+* 22-05-2023 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
 */
 
 @IsTest
@@ -129,6 +130,10 @@ private class STCIMilestoneViolationCheckerBatch_Test {
 		networks[0].Contact_Facility__c = 'MyNetwork';
 		networks[1].Contact_Facility__c = 'MyNetwork';
 		networks[0].Email_1__c = 'test.test@test.com';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
+		networks[1].Status__c = 'NULL';
+		networks[1].Parcel__c = true;
 		insert networks;
 
 		List<CaseInvestigation__c> caseInvestigations = new List<CaseInvestigation__c>();

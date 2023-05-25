@@ -7,6 +7,7 @@
  * 2023-01-17 - Mahesh Parvathaneni - Updated to set the StarTrack MyNetwork record type for Case Investigation
  * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated wrapper to get the network for event messages based on Post office code
  * 2023-04-03 - Mahesh Parvathaneni - SF-948 - Added validation for case type
+ * 2023-05-10 - Mahesh Parvathaneni - SF-946 - Added logic to submit case investigations when no AP network scans
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
@@ -36,6 +37,8 @@ public with sharing class MyNetworkStarTrackCaseController {
 			}
 
 			if (cases.size() > 0 && cases[0].ArticleTest__c != null) {
+				wrapper.receiverPostcode = cases[0].Article_Receiver_Postcode__c;
+				wrapper.receiverSuburb = cases[0].Article_Receiver_Suburb__c;
 				Id consignmentId = cases[0].ArticleTest__c;
 				//get child articles for the consignments
 				List<Article__c> articles = ArticlesSelector.newInstance().selectById(new Set<Id>{consignmentId}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES}).values();
@@ -66,6 +69,8 @@ public with sharing class MyNetworkStarTrackCaseController {
 						Map<Id, Network__c> eventMessageToNetworkMap = getEventMessageToNetworkMap(articleList);
 
 						for (Article__c a : articleList) {
+							ArticleDetails ad = new ArticleDetails();
+							ad.article = a;
 							List<EventMessage> emList = new List<EventMessage>();
 							//add the articles if related event messages passed through AP network
 							for (EventMessage__c em : a.Event_Messages__r) {
@@ -81,11 +86,9 @@ public with sharing class MyNetworkStarTrackCaseController {
 							}
 							//if there are event messages add to article details
 							if (emList.size() > 0) {
-								ArticleDetails ad = new ArticleDetails();
-								ad.article = a;
 								ad.eventMessages = emList;
-								articleDetails.add(ad);
 							}
+							articleDetails.add(ad);
 						}
 					}
 				}
@@ -257,6 +260,154 @@ public with sharing class MyNetworkStarTrackCaseController {
 		return wrapperList;
 	}
 
+	/**
+	 * Function to return the networks based on the postcode suburb and locality id
+	 */
+	@AuraEnabled
+	public static List<NetworkWrapper> getNetworksRelatedToPostcodeSuburbLocality(String suburb, String postcode, String localityId) {
+		try {
+			List<NetworkWrapper> networkList = new List<NetworkWrapper>();
+			Set<Id> networkIds = new Set<Id>();
+			if (String.isNotBlank(suburb) || String.isNotBlank(postcode) || String.isNotBlank(localityId)) {
+				//get the postcodes with postcode mappings
+				Map<String, Object> params = new Map<String, Object>{
+					'postcodes' => postcode,
+					'suburbs' => suburb,
+					'localityIds' => localityId
+				};
+
+				for (Postcode__c pc : PostcodesSelector.newInstance().search(params, new Set<Object>{PostcodesSelector.Options.WITH_POSTCODE_MAPPING, 
+												PostcodeMappingsSelector.Options.WITH_NETWORK}, true)) {
+					if(pc.Postcode_Mappings__r != null && pc.Postcode_Mappings__r.size() > 0) {
+						for (PostcodeMapping__c pcm : pc.Postcode_Mappings__r) {
+							//get AP network ids where parcel is true and status is not closed
+							if(!NetworksSelector.ST_NETWORK_RECORD_TYPES.contains(pcm.Network__r.RecordType.DeveloperName) && pcm.Network__r.Parcel__c && pcm.Network__r.Status__c != 'Closed') {
+								networkIds.add(pcm.Network__c);
+							}
+						}
+					}
+				}
+
+				if (networkIds.size() > 0) {
+					networkList = getNetworkWrapperResults(networkIds);
+				}
+			}
+			return networkList;
+		} catch (Exception ex) {
+			throw new AuraHandledException(ex.getMessage());
+		}
+	}
+
+	/**
+	 * Function to return the networks based on the name
+	 */
+	@AuraEnabled
+	public static List<NetworkWrapper> getNetworksRelatedToFacilityName(String facilityName) {
+		try {
+			List<NetworkWrapper> networkList = new List<NetworkWrapper>();
+			if (String.isNotBlank(facilityName)) {
+				//get AP networks related to facility name
+				for (Network__c network : NetworksSelector.newInstance().selectByNetworkNamePartial(facilityName, new Set<Object>{NetworksSelector.Options.FILTER_AP_NETWORK, 
+											NetworksSelector.Options.FILTER_IS_PARCEL, NetworksSelector.Options.FILTER_STATUS_NOT_CLOSED, NetworksSelector.Options.FILTER_MYNETWORK})) {
+					NetworkWrapper nw = new NetworkWrapper();
+					nw.networkId = network.Id;
+					nw.network = network;
+					nw.isBypassNetwork = false;
+					networkList.add(nw);
+				}
+			}
+			return networkList;
+		} catch (Exception ex) {
+			throw new AuraHandledException(ex.getMessage());
+		}
+	}
+
+	//funciton to check if any bypass facilities for the networks
+	//if bypass facilities found, return the bypass facilities which of MyNetwork otherwise return the MyNetwork facilities.
+	private static List<NetworkWrapper> getNetworkWrapperResults(Set<Id> networkIds) {
+		List<NetworkWrapper> networkWrapperList = new List<NetworkWrapper>();
+
+		if (networkIds.size() > 0) {
+			// get bypass facilities if any
+			List<FacilityByPass__c> bypassFacilityList = getBypassFacilitiesForNetworks(networkIds);
+			Map<Id, List<FacilityByPass__c>> byPassNetworkToFacilityListMap = new Map<Id, List<FacilityByPass__c>>();
+
+			for (FacilityByPass__c fb : bypassFacilityList) {
+				networkIds.add(fb.Facility_By_Pass_To__c);
+				//create map with bypass facility to as key and list of facility by pass records
+				if(!byPassNetworkToFacilityListMap.containsKey(fb.Facility_By_Pass_To__c)) {
+					byPassNetworkToFacilityListMap.put(fb.Facility_By_Pass_To__c, new List<FacilityByPass__c>());
+				}
+				byPassNetworkToFacilityListMap.get(fb.Facility_By_Pass_To__c).add(fb);
+			}
+
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Network__c.Id, Network__c.Org_ID__c, Network__c.Name, 
+				Network__c.Contact_Facility__c, Network__c.Phone_Number__c, Network__c.Comment__c, Network__c.Network_Address__c};
+			
+			//get AP networks where contact facility is of MyNetwork
+			Map<Id, Network__c> networkMap = NetworksSelector.newInstance(fieldOverrides).selectById(networkIds, new Set<Object> {NetworksSelector.Options.FILTER_MYNETWORK});
+			
+			for (Network__c network : networkMap.values()) {
+				//if there is bypassnetwork, add the bypass facilities to wrapper
+				if (byPassNetworkToFacilityListMap.containsKey(network.Id)) {
+					for (FacilityByPass__c fbp : byPassNetworkToFacilityListMap.get(network.Id)) {
+						NetworkWrapper nw = new NetworkWrapper();
+						nw.networkId = network.Id;
+						nw.network = network;
+						nw.isBypassNetwork = true;
+						nw.bypassNetwork = fbp;
+						networkWrapperList.add(nw);
+					}
+				} else {
+					NetworkWrapper nw = new NetworkWrapper();
+					nw.networkId = network.Id;
+					nw.network = network;
+					nw.isBypassNetwork = false;
+					networkWrapperList.add(nw);
+				}
+			}
+		}
+		return networkWrapperList;
+	}
+
+	/**
+	 * Function to get the bypass facilites related to network
+	 */
+	private static List<FacilityByPass__c> getBypassFacilitiesForNetworks(Set<Id> networkIds) {
+		List<FacilityByPass__c> networkBypassList = new  List<FacilityByPass__c>();
+		if(networkIds.size() > 0) {
+			//get bypass facilities related to networkIds
+			Map<String, Object> params = new Map<String, Object>{
+				'bypassFromIds' => networkIds
+			};
+			networkBypassList = NetworkBypassesSelector.newInstance().search(params, true);
+		}
+		return networkBypassList;
+	}
+
+	/**
+	 * Function to return the postcode record based on postcode and suburb
+	 */
+	@AuraEnabled
+	public static Postcode__c getPostcode(String postcode, String suburb){
+		try {
+			Postcode__c pc = null;
+			if (String.isNotBlank(postcode) || String.isNotBlank(suburb)) {
+				Map<String, Object> params = new Map<String, Object>{
+					'postcodes' => postcode,
+					'suburbs' => suburb
+				};
+				List<Postcode__c> postcodes = PostcodesSelector.newInstance(1).search(params, true);
+				if (postcodes.size() > 0) {
+					pc = postcodes[0];
+				}
+			}
+			return pc;
+		} catch (Exception ex) {
+			throw new AuraHandledException(ex.getMessage());
+		}
+	}
+
 	public class CriticalIncidentWrapper {
 		@AuraEnabled
 		public String networkOrgId {get;set;}
@@ -293,6 +444,10 @@ public with sharing class MyNetworkStarTrackCaseController {
 		public Boolean hasPassedThroughAPNetwork {get; set;}
 		@AuraEnabled
 		public Boolean hasCaseTypeBlankOnCase {get; set;}
+		@AuraEnabled
+		public String receiverPostcode {get; set;}
+		@AuraEnabled
+		public String receiverSuburb {get; set;}
 	}
 
 	public class ArticleDetails {
@@ -307,6 +462,17 @@ public with sharing class MyNetworkStarTrackCaseController {
 		public EventMessage__c eventMessage {get; set;}
 		@AuraEnabled
 		public Network__c network {get; set;}
+	}
+
+	public class NetworkWrapper {
+		@AuraEnabled
+		public Id networkId {get;set;}
+		@AuraEnabled
+		public Network__c network {get;set;}
+		@AuraEnabled
+		public Boolean isBypassNetwork {get;set;}
+		@AuraEnabled
+		public FacilityByPass__c bypassNetwork {get;set;}
 	}
 
 }
