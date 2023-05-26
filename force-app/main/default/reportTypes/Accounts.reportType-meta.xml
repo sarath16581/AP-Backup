@@ -1216,6 +1216,11 @@
             <field>Post_Office_Assigned__c.Name</field>
             <table>Account</table>
         </columns>
+		<columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Region__c</field>
+            <table>Account</table>
+        </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>NewLastActivityDate__c</field>
