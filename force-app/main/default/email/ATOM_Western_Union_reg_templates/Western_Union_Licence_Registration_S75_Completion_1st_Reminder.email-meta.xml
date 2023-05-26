@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Western Union Licence Registration - S75 Completion 1st Reminder</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Western_Union_Registration_Reminder</letterhead>
+    <name>Western Union Licence Registration - S75 Completion 1st Reminder</name>
+    <style>freeForm</style>
+    <subject>{!Membership__c.Name} Western Union Licence Registration - S75 Completion 1st Reminder</subject>
+    <textOnly>Organisation Name: {!Membership__c.Account__c} {!Membership__c.Name}
+
+Dear Licensee,
+
+We recently contacted you on the {!Membership__c.S75_Issued_Date__c} requesting completion of the S75 notice regarding your Western Union registration. We are yet to receive a reply.
+
+Please forward originally requested missing information as we are unable to continue processing your application until this is received.
+
+If you require more information, please contact Workforce Due Diligence at aml.dataentry@auspost.com.au or 03 9322 0621
+
+Kind regards,
+
+Workforce Due Diligence
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please email aml.dataentry@auspost.com.au. Visit ourpost.com.au for further information on our online security.
+
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

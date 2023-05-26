@@ -2713,6 +2713,66 @@
             <field>Review_WU_Return_Date__c</field>
             <table>Account.Memberships__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Status__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Passed_AusPost_Vetted__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>AUSTRAC_Issued_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Missing_Information_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Submitted_To_AUSTRAC_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Number_Of_Days_In_Current_S75_Status__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Issued_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Returned_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Submitted_To_WU_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Status_New_Date__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Last_Status_Update__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>S75_Last_Status_Update_test__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
         <masterLabel>Memberships</masterLabel>
     </sections>
 </ReportType>

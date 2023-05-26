@@ -59,6 +59,71 @@
         <template>ATOM_Western_Union_reg_templates/Confirmation_email_to_LPO</template>
     </alerts>
     <alerts>
+        <fullName>Western_Union_Licence_Registration_S75_Completion_1st_Reminder</fullName>
+        <ccEmails>AML.dataentry@auspost.com.au</ccEmails>
+        <description>Western Union Licence Registration - S75 Completion 1st Reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Licensee__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>aml.dataentry@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATOM_Western_Union_reg_templates/Western_Union_Licence_Registration_S75_Completion_1st_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Western_Union_Licence_Registration_S75_Completion_2nd_Reminder</fullName>
+        <ccEmails>AML.dataentry@auspost.com.au</ccEmails>
+        <description>Western Union Licence Registration - S75 Completion 2nd Reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Licensee__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>aml.dataentry@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATOM_Western_Union_reg_templates/Western_Union_Licence_Registration_S75_Completion_2nd_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Western_Union_Licence_Registration_S75_Further_Info_Required_1st_Reminder</fullName>
+        <ccEmails>AML.dataentry@auspost.com.au</ccEmails>
+        <description>Western Union Licence Registration - S75 Further Info Required (1st Reminder)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Licensee__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>aml.dataentry@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATOM_Western_Union_reg_templates/Western_Union_Licence_Registration_S75_Further_Info_Required_1st_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Western_Union_Licence_Registration_S75_Further_Info_Required_2nd_Reminder</fullName>
+        <ccEmails>AML.dataentry@auspost.com.au</ccEmails>
+        <description>Western Union Licence Registration - S75 Further Info Required (2nd Reminder)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Licensee__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>aml.dataentry@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATOM_Western_Union_reg_templates/Western_Union_Licence_Registration_S75_Further_Info_Required_2nd_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Western_Union_Licence_Registration_S75_Further_Info_Required_3rd_Reminder</fullName>
+        <ccEmails>AML.dataentry@auspost.com.au</ccEmails>
+        <description>Western Union Licence Registration - S75 Further Info Required (3rd Reminder)</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Licensee__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>aml.dataentry@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ATOM_Western_Union_reg_templates/Western_Union_Licence_Registration_S75_Further_Info_Required_3rd_Reminder</template>
+    </alerts>
+    <alerts>
         <fullName>X21_day_reminder_email_Missing_Information</fullName>
         <ccEmails>aml.dataentry@auspost.com.au</ccEmails>
         <description>21 day reminder email - Missing Information</description>

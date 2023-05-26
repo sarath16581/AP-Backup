@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Membership_S75Status_SubmittedToAUSTRAC</label>
+    <protected>false</protected>
+    <values>
+        <field>IsActive__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>MatchingValue__c</field>
+        <value xsi:type="xsd:string">Submitted to AUSTRAC</value>
+    </values>
+    <values>
+        <field>ObjectName__c</field>
+        <value xsi:type="xsd:string">Membership__c</value>
+    </values>
+    <values>
+        <field>OverwriteExistingValue__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>TargetField__c</field>
+        <value xsi:type="xsd:string">Submitted_To_AUSTRAC_Date__c</value>
+    </values>
+    <values>
+        <field>TargetValue__c</field>
+        <value xsi:type="xsd:string">{TODAY}</value>
+    </values>
+    <values>
+        <field>TrackedFieldName__c</field>
+        <value xsi:type="xsd:string">S75_Status__c</value>
+    </values>
+</CustomMetadata>

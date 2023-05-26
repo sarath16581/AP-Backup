@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send Email alert after 14 days of S75 Status as Issued</description>
+        <name>X14_Days_of_Issued</name>
+        <label>14 Days of Issued</label>
+        <locationX>578</locationX>
+        <locationY>384</locationY>
+        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Completion_1st_Reminder</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Send out an Email Alert after 21 days of S75 Status equal to Missing Information</description>
+        <name>X21_Days_of_Missing_Information</name>
+        <label>21 Days of Missing Information</label>
+        <locationX>1634</locationX>
+        <locationY>384</locationY>
+        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_2nd_Reminder</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Send an Email Alert after 28 days of S75 Status equal fo Issued</description>
+        <name>X28_Days_Issued</name>
+        <label>28 Days Issued</label>
+        <locationX>2162</locationX>
+        <locationY>384</locationY>
+        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Completion_2nd_Reminder</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Send an Email Alert after 28 days of S75 Status equal to Missing Information</description>
+        <name>X28_Days_of_Missing_Information</name>
+        <label>28 Days of Missing Information</label>
+        <locationX>2426</locationX>
+        <locationY>384</locationY>
+        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_3rd_Reminder</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Send out a reminder after 7 days of Missing Information</description>
+        <name>X7_Days_of_Missing_Information</name>
+        <label>7 Days of Missing Information</label>
+        <locationX>50</locationX>
+        <locationY>384</locationY>
+        <actionName>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_1st_Reminder</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <constants>
+        <description>Contains the Record Id for the sender of the email which is an OrgWideEmailAddress</description>
+        <name>Const_OrgWideEmailAddress</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>aml.dataentry@auspost.com.au</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <description>7 Day action based on the current S75 Status</description>
+        <name>X14_Days_S75_Status</name>
+        <label>14 Days - S75 Status</label>
+        <locationX>842</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X14_Days_S75_Status_equals_Issued</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Issued</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X14_Days_of_Issued</targetReference>
+            </connector>
+            <label>14 Days - S75 Status equals Issued</label>
+        </rules>
+        <rules>
+            <name>X14_Days_S75_Status_equals_Missing_Information</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Missing Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X14_Day_Missing_Information_follow_up_task</targetReference>
+            </connector>
+            <label>14 Days - S75 Status equals Missing Information</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>21 Day action based on the current S75 Status</description>
+        <name>X21_Days_S75_Status</name>
+        <label>21 Days - S75 Status</label>
+        <locationX>1634</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X21_Days_S75_Status_equals_Issued</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Issued</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X21_Day_Issued_follow_up_task</targetReference>
+            </connector>
+            <label>21 Days - S75 Status equals Issued</label>
+        </rules>
+        <rules>
+            <name>X21_Days_S75_Status_equals_Missing_Information</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Missing Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X21_Days_of_Missing_Information</targetReference>
+            </connector>
+            <label>21 Days - S75 Status equals Missing Information</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>28 Day action based on the current S75 Status</description>
+        <name>X28_Days_S75_Status</name>
+        <label>28 Days - S75 Status</label>
+        <locationX>2426</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X28_Days_S75_Status_equals_Issued</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Issued</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X28_Days_Issued</targetReference>
+            </connector>
+            <label>28 Days - S75 Status equals Issued</label>
+        </rules>
+        <rules>
+            <name>X28_Days_S75_Status_equals_Missing_Information</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Missing Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X28_Days_of_Missing_Information</targetReference>
+            </connector>
+            <label>28 Days - S75 Status equals Missing Information</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>7 Day action based on the current S75 Status</description>
+        <name>X7_Days_S75_Status</name>
+        <label>7 Days - S75 Status</label>
+        <locationX>182</locationX>
+        <locationY>276</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X7_Days_S75_Status_equals_Missing_Information</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.S75_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Missing Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>X7_Days_of_Missing_Information</targetReference>
+            </connector>
+            <label>7 Days - S75 Status equals Missing Information</label>
+        </rules>
+    </decisions>
+    <description>AUSTRACK Registration Follow up process. Sends out email notifications and task creation along the process</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>7 days from todays date</description>
+        <name>Formula_TaskDueDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>MembershipScheduled AUSTRAC Followup {!$Flow.CurrentDateTime} {!$Record.Id}</interviewLabel>
+    <label>MembershipScheduled AUSTRAC Followup</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Create a followup task after 14 days of Missing Information</description>
+        <name>X14_Day_Missing_Information_follow_up_task</name>
+        <label>14 Day Missing Information - follow up task</label>
+        <locationX>842</locationX>
+        <locationY>384</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>Formula_TaskDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Category__c</field>
+            <value>
+                <stringValue>Service</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00G2v000005RxR3EAK</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Call: S75N Follow-up call to LPO</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Phone Call</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.Licensee__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create a followup task after 14 days of Missing Information</description>
+        <name>X21_Day_Issued_follow_up_task</name>
+        <label>21 Day Issued - follow up task</label>
+        <locationX>1370</locationX>
+        <locationY>384</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>Formula_TaskDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Category__c</field>
+            <value>
+                <stringValue>Service</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00G2v000005RxR3EAK</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Call: S75N Follow-up call to LPO</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Phone Call</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.Licensee__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>980</locationX>
+        <locationY>0</locationY>
+        <object>Membership__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>After_7_Days</name>
+            <connector>
+                <targetReference>X7_Days_S75_Status</targetReference>
+            </connector>
+            <label>After 7 Days</label>
+            <offsetNumber>174</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>After_14_Days</name>
+            <connector>
+                <targetReference>X14_Days_S75_Status</targetReference>
+            </connector>
+            <label>After 14 Days</label>
+            <offsetNumber>342</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>After_21_Days</name>
+            <connector>
+                <targetReference>X21_Days_S75_Status</targetReference>
+            </connector>
+            <label>After 21 Days</label>
+            <offsetNumber>510</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>After_28_Days</name>
+            <connector>
+                <targetReference>X28_Days_S75_Status</targetReference>
+            </connector>
+            <label>After 28 Days</label>
+            <offsetNumber>678</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Variable to capture EmailMessageId after record creation</description>
+        <name>Var_EmailMessageId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Var_EmailTemplateDeveloperName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

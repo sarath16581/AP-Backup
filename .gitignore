@@ -14,6 +14,9 @@ sfdx-project.json
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
 
+# IDE Plugins
+.history/
+
 # LWC Jest coverage reports
 coverage/
 
