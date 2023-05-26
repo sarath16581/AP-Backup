@@ -206,36 +206,11 @@ public with sharing class MembershipTriggerHandler {
 	 * Capture update Date upon S75 Status field updates (Jira: SMWD-405)
 	 */
 	public static void austracHistoryTracking(List<Membership__c> triggerNewList, Map<Id, Membership__c> oldMap) {
-		// Leveraging AppRecursion framework
-		final String APP_RECURSION_ID = 'AustracHistoryTracking';
-		ApplicationRecursion arInstance = ApplicationRecursion.getInstance();
-		Set<SObjectField> monitoredFieldSet = new Set<SObjectField>{
-			Membership__c.S75_Status__c,
-			Membership__c.Type_of_Registration__c
-		};
-
-		// Filter out all records that have been previously processed
-		List<ApplicationRecursion.RecordState> changedRecords = arInstance.getProcessableRecords(
-			APP_RECURSION_ID,
-			triggerNewList,
-			oldMap,
-			monitoredFieldSet
-		);
-
-		List<SObject> processRecords = new List<SObject>();
-		for(ApplicationRecursion.RecordState recordState :changedRecords) {
-			if (!recordState.changedFields.isEmpty()) {
-				processRecords.add(recordState.record);
-			}
-		}
-
+		// Apply history tracking as per Custom Metadata Configuration for Membership object
 		ApplicationHistoryTracking.run(
 			Membership__c.SObjectType,
-			processRecords,
+			triggerNewList,
 			oldMap
 		);
-
-		// Save state to prevent recursive processing
-		arInstance.updateRecordState(APP_RECURSION_ID, processRecords, monitoredFieldSet);
 	}
 }

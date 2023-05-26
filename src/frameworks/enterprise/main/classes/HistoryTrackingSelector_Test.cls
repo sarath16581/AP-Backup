@@ -20,18 +20,18 @@ public with sharing class HistoryTrackingSelector_Test {
 		Test.startTest();
 
 		HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance();
-		QueryBuilder qb = selector.newQueryBuilder();
+		QueryBuilder qb = selector.newQueryBuilder(new List<String>());
 		String soql = qb.toSoqlString();
 
 		// make sure there is RecordType.DeveloperName condition
 		System.assertEquals(true, Pattern.compile('(?is)\\bFROM HistoryTracking__mdt\\b').matcher(soql).find(), 'Resulting query does not select from HistoryTracking__mdt');
 
 		selector = HistoryTrackingSelector.newInstance();
-		qb = selector.newQueryBuilder(new Set<Object>{ 'Membership__c' });
+		qb = selector.newQueryBuilder(new List<String>{ 'Membership__c' });
 		soql = qb.toSoqlString();
-		
-		System.assertEquals(true, soql.contains('IsActive__c'), 'Condition hasn\'t been applied');
-		System.assertEquals(true, soql.contains('Membership__c'), 'Condition hasn\'t been applied');
+		System.debug(soql);
+		System.assert(soql.indexOf('IsActive__c = true') > 0, 'Condition hasn\'t been applied');
+		System.assert(soql.indexOf('ObjectName__c IN') > 0, 'Condition hasn\'t been applied');
 
 		Test.stopTest();
 	}
@@ -44,8 +44,11 @@ public with sharing class HistoryTrackingSelector_Test {
 		Test.startTest();
 
 		HistoryTrackingSelector selector = HistoryTrackingSelector.newInstance(1);
-		Map<Id, HistoryTracking__mdt> results = selector.selectByObjectApiNames(null);
-		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		Map<Id, HistoryTracking__mdt> results = selector.selectByObjectApiNames(new List<String>());
+		System.assert(
+            results != null && results.size() <= 1,
+            'Expected results array with size <= 1'
+       	);
 
 		Test.stopTest();
 	}

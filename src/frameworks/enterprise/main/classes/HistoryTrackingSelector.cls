@@ -50,44 +50,17 @@ public virtual inherited sharing class HistoryTrackingSelector extends Applicati
 	 * @return matching active HistoryTracking records
 	 */
 	public virtual Map<Id, HistoryTracking__mdt> selectByObjectApiNames(List<String> objectApiNames) {
-		QueryBuilder qb = newQueryBuilder(new Set<String>(objectApiNames));
-
-		// Order as created/released
-		qb.setOrder(new QueryBuilder.Order(HistoryTracking__mdt.Id).setSortingOrderAsc());
+		QueryBuilder qb = newQueryBuilder(objectApiNames);
 
 		String soql = qb.toSoqlString();
 		return new Map<Id, HistoryTracking__mdt>((List<HistoryTracking__mdt>)Database.query(soql));
 	}
 
-	// public virtual override QueryBuilder newQueryBuilder() {
-	// 	QueryBuilder qb = super.newQueryBuilder();
-
-	// 	// add referenced fields
-	// 	qb.addFields(new Set<String>{
-	// 		'ObjectName__r.QualifiedApiName',
-	// 		'TrackedFieldName__r.QualifiedApiName',
-	// 		'TargetField__r.QualifiedApiName'
-	// 	});
-		
-	// 	return qb;
-	// }
-
-	public virtual QueryBuilder newQueryBuilder(Set<String> objectApiNames) {
-		QueryBuilder qb = this.newQueryBuilder();
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-
-		// Ignore inactive tracking configurations
-		conditions.add(
-			new QueryBuilder.CompareCondition(HistoryTracking__mdt.IsActive__c).eq(true)
-		);
-
-		// Filter provided objectApiNames
-		if (objectApiNames != null && !objectApiNames.isEmpty()) {
-			conditions.add(
-				new QueryBuilder.SimpleCondition('ObjectName__c IN :objectApiNames')
-			);
-		}
-
-		return qb.conditionsManager.endConditions();
+	public virtual QueryBuilder newQueryBuilder(List<String> objectApiNames) {
+        return newQueryBuilder().addConditions()
+            .add(new QueryBuilder.CompareCondition(HistoryTracking__mdt.IsActive__c).eq(true))
+            .add(new QueryBuilder.SimpleCondition('ObjectName__c IN :objectApiNames'))                        
+            .endConditions()
+            .setOrder(new QueryBuilder.Order(HistoryTracking__mdt.Id));        
 	}
 }

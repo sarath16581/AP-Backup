@@ -67,6 +67,7 @@ public class MembershipTriggerHandler_Test {
         // =====================================
         MockUtility.disableTriggerExecution();
         Account orgAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		orgAccount.ABN__c = '12345678910';
         insert orgAccount;
         Network__c networkFacility = ApplicationTestDataFactory.getLPONetwork(1,false)[0];
         insert networkFacility;
@@ -83,7 +84,11 @@ public class MembershipTriggerHandler_Test {
         SystemSettings__c settings = SystemSettings__c.getInstance();
         settings.Disable_Triggers__c = false;
         upsert settings;
-        insert ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  false);
+
+        Membership__c membership = ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  false)[0];
+		membership.Member_Type__c = 'Partner';
+		membership.ABN__c = orgAccount.ABN__c;
+		insert membership;
 
         Test.stopTest();
 
@@ -173,6 +178,7 @@ public class MembershipTriggerHandler_Test {
         // =====================================
         MockUtility.disableTriggerExecution();
         Account orgAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		orgAccount.ABN__c = '12345678910';
         insert orgAccount;
         Network__c networkFacility = ApplicationTestDataFactory.getLPONetwork(1,false)[0];
         insert networkFacility;
@@ -187,6 +193,10 @@ public class MembershipTriggerHandler_Test {
         membershipList.add(member1);
         Membership__c member2 = ApplicationTestDataFactory.getMembership(1, 'Pending', 'New Membership', licenceAccount.Id, personContact.Id,  false)[0];
         membershipList.add(member2);
+		for (Membership__c m :membershipList) {
+			m.Member_Type__c = 'Partner';
+			m.ABN__c = orgAccount.ABN__c;
+		}
         insert membershipList;
         System.debug('member--->'+membershipList);
         Account acc = [SELECT Id, (SELECT Id, Licensee_Type__c FROM Memberships__r) FROM Account where Id=:licenceAccount.Id];
@@ -309,56 +319,32 @@ public class MembershipTriggerHandler_Test {
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
-		HistoryTracking__mdt newRegistration = (HistoryTracking__mdt)JSON.deserialize(
-			String.join(new String[] {
-				'{',
-				'	"attributes": {',
-				'		"type": "HistoryTracking__mdt"',
-				'	},',
-				'	"Id": "m1T0k000000CaX5EAK",',
-				'	"MatchingValue__c": "New Registration",',
-				'	"TargetValue__c": "{TODAY}",',
-				'   "OverwriteExistingValue__c": true,',
-				'	"ObjectName__c": "EntityDefinition",',
-				'	"TrackedFieldName__c": "FieldDefinition",',
-				'	"TargetField__c": "S75_Status_New_Date__c"',
-				'}'
-			}, '\r\n'),
-			HistoryTracking__mdt.class
+		HistoryTracking__mdt newRegistration = new HistoryTracking__mdt(
+			Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+			MatchingValue__c = 'New Registration',
+			TargetValue__c = '{TODAY}',
+			OverwriteExistingValue__c = true,
+			ObjectName__c = 'Membership__c',
+			TrackedFieldName__c = 'Type_of_Registration__c',
+			TargetField__c = 'S75_Status_New_Date__c'
+		);		
+		HistoryTracking__mdt statusNew = new HistoryTracking__mdt(
+			Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+			MatchingValue__c = 'New',
+			TargetValue__c = '{TODAY}',
+			OverwriteExistingValue__c = true,
+			ObjectName__c = 'Membership__c',
+			TrackedFieldName__c = 'S75_Status__c',
+			TargetField__c = 'S75_Status_New_Date__c'
 		);
-		HistoryTracking__mdt statusNew = (HistoryTracking__mdt)JSON.deserialize(
-			String.join(new String[] {
-				'{',
-				'	"attributes": {',
-				'		"type": "HistoryTracking__mdt"',
-				'	},',
-				'	"Id": "m1T0k000000CaXAEA0",',
-				'	"MatchingValue__c": "New",',
-				'	"TargetValue__c": "{TODAY}",',
-				'   "OverwriteExistingValue__c": true,',
-				'	"ObjectName__c": "Membership__c",',
-				'	"TrackedFieldName__c": "S75_Status__c"',
-				'	"TargetField__c": "S75_Status_New_Date__c"',
-				'}'
-			}, '\r\n'),
-			HistoryTracking__mdt.class
-		);
-		HistoryTracking__mdt statusIssued = (HistoryTracking__mdt)JSON.deserialize(
-			String.join(new String[] {
-				'{',
-				'	"attributes": {',
-				'		"type": "HistoryTracking__mdt"',
-				'	},',
-				'	"Id": "m1T0k000000CaWvEAK",',
-				'	"MatchingValue__c": "Issued",',
-				'	"TargetValue__c": "{TODAY}",',
-				'   "OverwriteExistingValue__c": true,',
-				'	"ObjectName__c": "Membership__c",',
-				'	"TrackedFieldName__c": "S75_Status__c"',
-				'	"TargetField__c": "S75_Issued_Date__c"',
-				'}'
-			}, '\r\n'),
-			HistoryTracking__mdt.class
+		HistoryTracking__mdt statusIssued = new HistoryTracking__mdt(
+			Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+			MatchingValue__c = 'Issued',
+			TargetValue__c = '{TODAY}',
+			OverwriteExistingValue__c = true,
+			ObjectName__c = 'Membership__c',
+			TrackedFieldName__c = 'S75_Status__c',
+			TargetField__c = 'S75_Issued_Date__c'
 		);
 
         Map<Id,HistoryTracking__mdt> mockedHistoryTrackingConfig = new Map<Id,HistoryTracking__mdt>(
