@@ -6,7 +6,7 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The field that gets observed for changes in order to perform field updates</inlineHelpText>
     <label>Tracked Field Name</label>
-	<length>255</length>
+    <length>255</length>
     <required>true</required>
     <type>Text</type>
     <unique>false</unique>

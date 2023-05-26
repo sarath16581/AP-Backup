@@ -17,7 +17,7 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <description>Send out an Email Alert after 21 days of S75 Status equal to Missing Information</description>
+        <description>Send out an Email Alert after 21 days of S75 Status equal to Missin Information</description>
         <name>X21_Days_of_Missing_Information</name>
         <label>21 Days of Missing Information</label>
         <locationX>1634</locationX>

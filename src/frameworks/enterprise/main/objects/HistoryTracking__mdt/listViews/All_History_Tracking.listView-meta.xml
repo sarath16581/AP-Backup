@@ -3,11 +3,9 @@
     <fullName>All_History_Tracking</fullName>
     <columns>MasterLabel</columns>
     <columns>DeveloperName</columns>
-    <columns>ObjectName__c</columns>
-    <columns>TrackedFieldName__c</columns>
     <columns>MatchingValue__c</columns>
-    <columns>TargetField__c</columns>
     <columns>TargetValue__c</columns>
+    <columns>TrackedFieldName__c</columns>
     <filterScope>Everything</filterScope>
     <label>All History Tracking</label>
     <language>en_US</language>

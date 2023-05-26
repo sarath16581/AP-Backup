@@ -6,7 +6,7 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The Target Field Name which will be populated with the configured Target Value upon matching</inlineHelpText>
     <label>Target Field</label>
-	<length>255</length>
+    <length>255</length>
     <required>true</required>
     <type>Text</type>
     <unique>false</unique>

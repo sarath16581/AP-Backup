@@ -26,5 +26,10 @@
         <minorNumber>52</minorNumber>
         <namespace>Apttus_QPComply</namespace>
     </packageVersions>
+    <packageVersions>
+        <majorNumber>14</majorNumber>
+        <minorNumber>394</minorNumber>
+        <namespace>Apttus_QPConfig</namespace>
+    </packageVersions>
     <status>Active</status>
 </ApexTrigger>

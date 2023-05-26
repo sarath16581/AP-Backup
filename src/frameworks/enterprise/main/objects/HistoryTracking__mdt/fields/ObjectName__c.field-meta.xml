@@ -6,7 +6,7 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The Object Api Name being tracked for changes and field updates</inlineHelpText>
     <label>Object Name</label>
-	<length>255</length>
+    <length>255</length>
     <required>true</required>
     <type>Text</type>
     <unique>false</unique>

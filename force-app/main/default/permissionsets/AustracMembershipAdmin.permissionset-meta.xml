@@ -156,7 +156,12 @@
         <field>Membership__c.AUSTRAC_Expiry_Date_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.AUSTRAC_Issued_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Membership__c.AUSTRAC_registration_date__c</field>
         <readable>true</readable>
@@ -237,6 +242,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.Number_Of_Days_In_Current_S75_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Membership__c.Number_of_character_checks_cleared__c</field>
         <readable>true</readable>
@@ -249,6 +259,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Membership__c.Original_record_no__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Membership__c.Passed_AusPost_Vetted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -283,12 +298,47 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Membership__c.S75_Issued_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.S75_Missing_Information_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.S75_Returned_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.S75_Status_New_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Membership__c.S75_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.S75_Submitted_To_WU_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Membership__c.Sent_to_LPO_date2__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Membership__c.State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Membership__c.Submitted_To_AUSTRAC_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -304,51 +354,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Membership__c.Type_of_Registration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.AUSTRAC_Issued_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.Number_Of_Days_In_Current_S75_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Membership__c.Passed_AusPost_Vetted__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.S75_Issued_Date__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.S75_Missing_Information_Date__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.S75_Returned_Date__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Membership__c.S75_Status__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.S75_Submitted_To_WU_Date__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Membership__c.Submitted_To_AUSTRAC_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

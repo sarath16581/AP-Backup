@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Removed send to excel button (IT security policy blocks feature) and added line about how to copy and paste to excel.</description>
+    <label>buildHierarchyView_v2</label>
+</ApexPage>

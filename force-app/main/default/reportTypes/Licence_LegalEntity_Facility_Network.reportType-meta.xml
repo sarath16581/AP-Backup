@@ -269,6 +269,16 @@
             <field>Not_Activated_Reason__c</field>
             <table>Account</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Citizenship_Status__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Disclosure_Consent__c</field>
+            <table>Account</table>
+        </columns>
         <masterLabel>Licence</masterLabel>
     </sections>
     <sections>
