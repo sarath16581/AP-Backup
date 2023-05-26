@@ -17,31 +17,26 @@ public class ApplicationHistoryTracking_Test {
 		// Stubbing
 		// =====================================
 		HistoryTrackingSelector mockHTSelector = (HistoryTrackingSelector)MockUtility.mockSelector(HistoryTrackingSelector.class);
-
-		List<HistoryTracking__mdt> mockedHTConfig = (List<HistoryTracking__mdt>)JSON.deserialize(
-			String.join(new String[] {
-				'[{',
-				'	"attributes": { "type": "HistoryTracking__mdt" },',
-				'	"Id": "m1T0k000000CaXAEA0",',
-				'	"MatchingValue__c": "Closed Won",',
-				'	"TargetValue__c": "Old value: {Opportunity.AccountId} - {Opportunity.StageName}",',
-				'   "OverwriteExistingValue__c": false,',
-				'	"ObjectName__c": "Opportunity",',
-				'	"TrackedFieldName__c": "StageName",',
-				'	"TargetField__c": "Description"',
-				'},{',
-				'	"attributes": { "type": "HistoryTracking__mdt" },',
-				'	"Id": "m1T0k000000CaWvEAK",',
-				'	"MatchingValue__c": "Closed Won",',
-				'	"TargetValue__c": "{TOMORROW}",',
-				'   "OverwriteExistingValue__c": true,',
-				'	"ObjectName__c": "Opportunity",',
-				'	"TrackedFieldName__c": "StageName",',
-				'	"TargetField__c": "CloseDate"',
-				'}]'
-			}, '\r\n'),
-			List<HistoryTracking__mdt>.class
-		);
+		List<HistoryTracking__mdt> mockedHTConfig = new List<HistoryTracking__mdt>{
+			new HistoryTracking__mdt(
+				Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+				MatchingValue__c = 'Closed Won',
+				TargetValue__c = 'Old value: {Opportunity.AccountId} - {Opportunity.StageName}',
+				OverwriteExistingValue__c = false,
+				ObjectName__c = 'Opportunity',
+				TrackedFieldName__c = 'StageName',
+				TargetField__c = 'Description'
+			),
+			new HistoryTracking__mdt(
+				Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+				MatchingValue__c = 'Closed Won',
+				TargetValue__c = '{TOMORROW}',
+				OverwriteExistingValue__c = true,
+				ObjectName__c = 'Opportunity',
+				TrackedFieldName__c = 'StageName',
+				TargetField__c = 'CloseDate'
+			)
+		};
 
 		Map<Id,HistoryTracking__mdt> mockedHistoryTrackingConfig = new Map<Id,HistoryTracking__mdt>(mockedHTConfig);
 		// set up our responses
