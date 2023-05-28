@@ -338,7 +338,6 @@
 												List<String> key1List,Map<String,CompassWrapper.serviceSpeeds> keyServiceMap,Map<String,CompassWrapper.frsWrapper> keyFRSMap, Boolean isCustomPrice, map<string,string> customRefMap,CompassWrapper.features tcCoverFeature) {
 			try{
 				String pavTierCheck ;
-				List<Apttus_Config2__LineItem__c> lineItemListUPT;
 				List<ID> pavList= new List<ID>();
 				List<Apttus_Config2__ProductAttributeValue__c> pavListQuery;
 				List<Apttus_Proposal__Proposal__c > proposalListUpdate= new List<Apttus_Proposal__Proposal__c >();
@@ -370,9 +369,9 @@
             	}
 
 				//Fetch all the Product Attribute value records and update all the records with Tier and Price structure
-				if(pavList != null && pavList.size() > 0 ){
+				if(!pavList.isEmpty()){
 					pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByPavID(pavList);
-					if(pavListQuery.size() > 0){
+					if(!pavListQuery.isEmpty()){
 						pavTierCheck = pavListQuery[0].APT_Customer_Tier__c;
 					}
 					UpdateProductAttributeValues(pavListQuery,selectedPSR,compassPriceResponse, quoteConfigurationId,tcCoverFeature);
@@ -380,7 +379,7 @@
 				/*CI-834 Changes to accomodate Custom pricing for Transit Cover and consolidate LienItem Updates for Custom/Delegated Pricing scenarios
 				Provided below is the flow for Custom/Delegated Pricing
 				Custom Pricing: 1.  Update PAV
-								2.  Update LineItem.Apttus_Config2__PricingStatus__c to 'Pending' (This Will make sure the LineItem Record is picked up for Repricing)
+								2.  Update LineItem.Apttus_Config2__PricingStatus__c to 'Pending' (This Will make sure the LineItem Record is picked up for Recalculation based on PAV)
 								3.  Update LineItems
 								4.  Update Price for the cart with LineItem.Apttus_Config2__IsCustomPricing__c = false(This will ensure that Pricing is calculated based on PAV update).
 									This Step helps would help in identifiying correct PLI, Compass_LineItem_Identifier__c for Transit Cover
@@ -400,7 +399,7 @@
 						lineItemUpdtList.add(li);
 					}
 
-					if(lineItemUpdtList.size() > 0){
+					if(!lineItemUpdtList.isEmpty()){
 						ApplicationDatabase.getInstance().dmlUpdate(lineItemUpdtList);
 					}
 
@@ -410,6 +409,7 @@
 						list<Apttus_Config2__LineItem__c>lineItemList = new list<Apttus_Config2__LineItem__c>();
 						for(Apttus_Config2__LineItem__c li :LineItemsSelector.newInstance().selectByProdConfId(new Set<Id>{quoteConfigurationId})){
 							li.Apttus_Config2__IsCustomPricing__c = true;
+							li.SAP_Custom_Reference__c = customRefMap.get(li.Compass_LineItem_Identifier__c);
 							if(compassPriceResponse != null && !keyFRSMap.isEmpty()){
 								if(li.Apttus_Config2__LineType__c == APT_Constants.LABEL_LINE_TYPE_OPTION && keyFRSMap.containsKey(li.Compass_LineItem_Identifier__c)){
 									Decimal priceValue = keyFRSMap.get(li.Compass_LineItem_Identifier__c).price;
@@ -422,7 +422,7 @@
 									li.Apttus_Config2__NetUnitPrice__c = priceValue;
 								}
 							}
-							if(key1List != null && key1List.size() > 0 && compassPriceResponse != null){
+							if(!key1List.isEmpty() && compassPriceResponse != null){
 								if(li.Apttus_Config2__LineType__c == APT_Constants.LABEL_LINE_TYPE_OPTION && key1List.contains(li.Compass_LineItem_Identifier__c)){
 
 									lineItemCustom.add(li.id);
@@ -455,7 +455,7 @@
 							}
 						}
 
-						if(uptList.size() > 0){
+						if(!uptList.isEmpty()){
 							ApplicationDatabase.getInstance().dmlUpdate(uptList);
 						}
 					}
@@ -637,21 +637,16 @@
 			*/
 		public static void UpdateProductAttributeValues(List<Apttus_Config2__ProductAttributeValue__c> productAttributeValuesListToUpdate,Deal_Support_Request__c selectedPSR, CompassWrapper.CompassPriceWrapper compassPriceResponse, Id quoteConfigurationId,CompassWrapper.features tcCoverFeature){
 			List<Apttus_Config2__ProductAttributeValue__c> pavListUpdate= new List<Apttus_Config2__ProductAttributeValue__c>();
-			Boolean liUpdateRequired = false;
 
 			// updating all the product Attribute values for the proposal
 			for(Apttus_Config2__ProductAttributeValue__c pav: productAttributeValuesListToUpdate){
-				if(pav.APT_Customer_Tier__c == selectedPSR.Approved_Tier__c && liUpdateRequired == false)
-				{
-					liUpdateRequired = true;
-				}
 				pav.APT_Customer_Tier__c = selectedPSR.Approved_Tier__c;
 				pav.Applied_PSR__c =  selectedPSR.id;
 				if( pav.APTS_Price_Structure__c != APT_Constants.ANYWHERE_PRICE_STRUCTURE) {
 					pav.APTS_Price_Structure__c = compassPriceResponse == null? selectedPSR.Approved_Pricing_Structure__c: compassPriceResponse.priceStructure;
 				}
 				pav.APT_RK_Code_AppliedYN__c=APT_Constants.OPTION_YES;
-				if(selectedPSR.Approved_Event__c == APT_Constants.PSR_APPC_CUSTOM_PRICING) {
+				if(APT_Constants.PSR_APPC_CUSTOM_PRICING.equalsIgnoreCase(selectedPSR.Approved_Event__c)) {
 				//CI-772 Populate Product Attribute Value evaluated spend for delegated pricing and custom pricing scenario
 				//Custom Pricing--Value comes from Compass I2 interface
 					pav.APT_Min_Spend_Per_Annum__c = compassPriceResponse == null? selectedPSR.APT_Evaluated_Spend_per_annum__c:compassPriceResponse.evaluatedSpend;//New Logic to populate pav evaluated spend for custom pricing scenario
@@ -662,13 +657,13 @@
 					if(tcCoverFeature!=null){
 						Decimal amount=Decimal.valueOf(tcCoverFeature.totDeclaredCover);
 						pav.APT_Min_Transit_Cover_Amount_Per_Article__c=amount;
-						if(tcCoverFeature.pricePoint==APT_Constants.TC_PRICEPOINT_ALWAYS_ON) pav.APT_Transit_Cover_Type__c=APT_Constants.TC_COVER_TYPE_ALWAYS_ON;
+						if(APT_Constants.TC_PRICEPOINT_ALWAYS_ON.equalsIgnoreCase(tcCoverFeature.pricePoint)) pav.APT_Transit_Cover_Type__c=APT_Constants.TC_COVER_TYPE_ALWAYS_ON;
 						else pav.APT_Transit_Cover_Type__c=APT_Constants.TC_COVER_TYPE_ADHOC;
 					}
 				}
 				//CI-772 Populate Product Attribute Value evaluated spend for delegated pricing and custom pricing scenario
 				//Delegated Pricing--Value comes from PSR Evaluated Spend
-				else if(selectedPSR.Approved_Event__c == APT_Constants.PSR_APPC_STANDARD_DELEGATED_PRICING){
+				else if(APT_Constants.PSR_APPC_STANDARD_DELEGATED_PRICING.equalsIgnoreCase(selectedPSR.Approved_Event__c)){
 					pav.APT_Min_Spend_Per_Annum__c = selectedPSR.APT_Evaluated_Spend_per_annum__c;
 					//CI-834 Make the following change to populate the Minimun Transit cover Amount in the cart from PSR for Delegated pricing scenario
 					pav.APT_Min_Transit_Cover_Amount_Per_Article__c=selectedPSR.Min_Transit_Cover_Amount_Per_Article__c;
@@ -678,7 +673,7 @@
 				pavListUpdate.add(pav);
 			}
 
-			if(pavListUpdate.size() > 0){
+			if(!pavListUpdate.isEmpty()){
 				ApplicationDatabase.getInstance().dmlUpdate(pavListUpdate);
 			}
 		}
