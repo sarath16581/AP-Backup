@@ -34,6 +34,7 @@
  * 2020-10-15 - Naseer Abbasi						Modified calls to routeCase(), additional parameter added
  * 2021-10-04 - Nathan Franklin - Deprecated shareUtility.createSignatureAttachments
  * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
+ * 2023-05-25 - Nathan Franklin - Refactoring routing code
  */
 public with sharing class CaseTriggerHandler{
 

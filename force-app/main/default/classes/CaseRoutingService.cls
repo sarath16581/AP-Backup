@@ -152,6 +152,7 @@ public inherited sharing class CaseRoutingService {
 	 * Checks whether the case can be routed
 	 * Even if its been marked for routing we still may prevent it based on the logic here
 	 */
+	@TestVisible
 	private void maybeRouteCase(List<Case> caseList, Map<Id, Case> oldMap, Boolean isInsert) {
 		Set<String> closedStatuses = Utility.getCaseClosedStatus();
 		OmniChannelService omniService = OmniChannelService.getInstance();
@@ -291,7 +292,7 @@ public inherited sharing class CaseRoutingService {
 
 			if( (csRec.Network__c == null && changedFields.contains(Case.Network__c)) ||
 					(String.isBlank(csRec.Description) && changedFields.contains(Case.Description)) ||
-					(csRec.AllocateToQueue__c && changedFields.contains(Case.AllocateToQueue__c))) {
+					csRec.AllocateToQueue__c) { // && changedFields.contains(Case.AllocateToQueue__c) // HMM? Checking for changedFields for AllocateToQueue will not take into account changes to the field above
 				
 				setCaseKeyMap(csRec,caseOriginKeyMap,caseNoOriginKeyMap);   // set case key maps
 
@@ -313,6 +314,7 @@ public inherited sharing class CaseRoutingService {
 	 * This could happen anywhere, either a manual update to the ownerid field, workflow, or the result of the routing engine
 	 * We put this logic outside the routing engine since we don't know where an update might occur
 	 */
+	@TestVisible
 	private void maybeMoveClosedOmniCases(List<Case> caseList, Map<Id, Case> oldMap) {
 		OmniChannelService omniService = OmniChannelService.getInstance();
 		Set<String> closedStatuses = Utility.getCaseClosedStatus();
@@ -349,6 +351,7 @@ public inherited sharing class CaseRoutingService {
 	 * We need to make sure there are no preferred agent psr records that still exist
 	 * This scenario could be either where a case may have been sitting in the preferred agent queue and expired and moved back into an omni queue or its simply just been updated to closed
 	 */
+	@TestVisible
 	private void maybeRemovePendingServiceRoutingPreferredAgentRecords(List<Case> caseList, Map<Id, Case> oldMap, Boolean isInsert) {
 		if(!isInsert) {
 			OmniChannelService omniService = OmniChannelService.getInstance();
@@ -408,10 +411,10 @@ public inherited sharing class CaseRoutingService {
 		}
 	}
 
-
 	/**
 	 * If the case belongs to an omni queue after routing has finished, then we need to calculate the secondary priroty to ensure Omni handles the prioritisation properly
 	 */
+	@TestVisible
 	private void maybeRecalculateSecondaryRoutingPriority(List<Case> caseList, Map<Id, Case> oldMap) {
 		List<Case> recalcPriorityCases = new List<Case>();
 		String priorityContext = 'ssswroutecasepriority';
@@ -441,6 +444,7 @@ public inherited sharing class CaseRoutingService {
 	 * Checks to see if we need to override the current owner with preferred agent routing
 	 * This would be if the current owner that was just assigned was an omni queue and we aren't bypassing preferred agent routing
 	 */
+	@TestVisible
 	private void maybeOverrideWithPreferredAgentRouting(List<Case> caseList, Map<Id, Case> oldMap) {
 		Set<String> closedStatuses = Utility.getCaseClosedStatus();
 
@@ -494,6 +498,7 @@ public inherited sharing class CaseRoutingService {
 	 * When case moves to agent, we need to reset the preferred agent settings to get it ready for next time it might be needed
 	 * Additionally, when a case is closed we also remove the bypass settings
 	 */
+	@TestVisible
 	private void maybeResetPreferredAgentBypasses(List<Case> caseList, Map<Id, Case> oldMap) {
 		OmniChannelService omniService = OmniChannelService.getInstance();
 		Set<String> closedCaseStatuses = Utility.getCaseClosedStatus();
@@ -546,6 +551,7 @@ public inherited sharing class CaseRoutingService {
 	* @return			NA
 	* @throws			Method might throw exception which is handled by Try-Catch block
 	*/
+	@TestVisible
 	public void updateParentForRouting(List<Case> childCases, Map<Id,Case> oldMapCases){
 		try {
 			// Listing of the variables we're monitoring for change

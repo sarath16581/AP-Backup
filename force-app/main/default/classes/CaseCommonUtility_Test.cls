@@ -966,26 +966,6 @@ private with sharing class CaseCommonUtility_Test {
 		}
 	}
 
-
-	/**
-	  * @description	   This method is for covering exception and not a valid business scenario
-	  * @param			 NA	 
-	  * @return			Void
-	  * @throws			NA
-	  */
-	@IsTest
-	static void testRouteCaseExceptionScenario(){
-		Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
-		System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
-			TestUtility.severityLevelValue();
-			CaseCommonUtility helper = new CaseCommonUtility();
-			Test.startTest();
-				helper.routeCase(new List<Case>{null},new Map<Id,Case>{null => null}, false);
-			Test.stopTest();
-			Integer expCount = [SELECT count() FROM ExceptionLog__c];
-			System.assertEquals(1,expCount);
-		}
-	}
    // StarTrack R4.0 and R4.1 Test methods
 	/**
 	  * @description	   StarTrack - this method is to test closing of tasks and workflow emails after closing Case

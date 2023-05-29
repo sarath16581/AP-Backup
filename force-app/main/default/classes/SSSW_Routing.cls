@@ -541,7 +541,7 @@ public class SSSW_Routing {
 		cs.AllocateToQueue__c = false;	 // disable case queue allocation
 
 		// debug messaging to inform admin of routing path
-		CaseRoutingService.getInstance().populateRoutingDebug(cs, 'routed: ' + cs.OwnerId + ' rule id: ' + ruleId);
+		CaseRoutingService.getInstance().populateRoutingDebug(cs, 'routed: ' + cs.OwnerId + ' rule id: ' + ruleId + (reassignNoCheckOwnerQueue ? ' (reassignment)' : ''));
 
 		return true;
 	}
