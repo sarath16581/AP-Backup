@@ -17,7 +17,14 @@ History:
 18.01.2019      John.Mapanao@auspost.com.au     Added logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
 2020-08-02 - Nathan Franklin - Refactored some logic around updateOwnerEmployeeNumber on this extremely dodgy trigger
 2021-02-22 - arjun.singh@auspost.com.au - Modified to update Direct Contribution details on closed opportunity owner change
+2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
 **************************************************/
+
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){
+		// domain based trigger dispatch
+		(new OpportunityTriggerHandler()).dispatch();
+	}
+
 
     if (Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
         System.debug('***** BEFORE INSERT/BEFORE UPDATE *****');

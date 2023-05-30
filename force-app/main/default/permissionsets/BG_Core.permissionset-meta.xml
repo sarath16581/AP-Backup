@@ -2736,7 +2736,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.Profile_Name_in_Text__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.RoleDisplayName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
