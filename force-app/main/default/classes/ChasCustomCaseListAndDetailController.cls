@@ -94,21 +94,17 @@ public with sharing class ChasCustomCaseListAndDetailController {
     
     @AuraEnabled 
     public static List<Case> getLoggedInUserCaseList(){
-        System.debug('----- getLoggedInUserCaseList ----- START'); 
-        List<Case> caseList = null;
-        try{
-            String loggedInUserId=UserInfo.getUserId();
-            if(loggedInUserId !=null){
-                //caseList = [SELECT Id,  CHASEnquiryType__c, CaseNumber, LastModifiedDate,Enquiry_Status__c FROM Case WHERE OwnerId=:loggedInUserId ORDER BY LastModifiedDate DESC  LIMIT 2000];
-                // We need to show all the cases that this user has created, the owner will be set a case queue.
-                caseList = [SELECT Id,  CHASEnquiryType__c, CaseNumber, LastModifiedDate,Enquiry_Status__c FROM Case WHERE CreatedById=:loggedInUserId ORDER BY LastModifiedDate DESC  LIMIT 2000];
-            }
-            System.debug('caseList='+caseList);
-        }catch(Exception ex){
-            System.debug(LoggingLevel.ERROR,'Error occoured getLoggedInUserCaseList ==>'+ex);
+        try {
+            User runningUser = [SELECT Id,APCN__c,Contact.APCN__c FROM User WHERE Id = :UserInfo.getUserId()];
+            return [SELECT Id,CHASEnquiryType__c,CaseNumber,LastModifiedDate,Enquiry_Status__c
+                        FROM Case
+                        WHERE CreatedById = :runningUser.Id OR Contact.APCN__c = :runningUser.Contact.APCN__c
+                        ORDER BY LastModifiedDate DESC
+                        LIMIT 2000];
+        } catch(Exception ex) {
+            System.debug(LoggingLevel.ERROR,'Error occurred getLoggedInUserCaseList ==>'+ex);
+            return null;
         }
-        System.debug('----- getLoggedInUserCaseList ----- END'); 
-        return caseList;
     }
     
 }
