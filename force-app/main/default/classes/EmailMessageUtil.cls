@@ -12,6 +12,7 @@ History:
 2022-05-03  saiswetha.pingali@auspost.com.au - Removed parseEmailbodySnapIT as it is no more used.
 2022-11-04  Naveen Rajanna - REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
 2023-02-09  Swati.mogadala@auspost.com.au - Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
+2023-05-29  mahesh.parvathaneni@auspost.com.au - Added record type check for Transport Enquiry record type to not to update the EmailToCaseAddress__c
 **************************************************/
 public class EmailMessageUtil {
 
@@ -23,6 +24,7 @@ public class EmailMessageUtil {
     public static final String STATUS_SENT = '3';
     public static final String STATUS_FORWARDED = '4';
     public static final String STATUS_DRAFT = '5';
+	private static final String CASE_TRANSPORT_ENQUIRY_RT = 'Transport_Enquiry';
 
     /**
      * This is used to set the source email to case address on a case when it's first received
@@ -36,11 +38,14 @@ public class EmailMessageUtil {
         SecurePost__c securePostSetting = SecurePost__c.getInstance();
         // Get Product for Secure Post.
         List<Product2> productList = [SELECT id, name from Product2 where name = :securePostSetting.ProductName__c limit 1];
-        for (EmailMessage em : [select parentId, headers, Incoming, createdById, ToAddress, ccAddress, fromAddress, parent.EmailToCaseAddress__c, parent.RoutingKey__c, parent.Bypass_Data_enforcement__c from EmailMessage where id in :newEmails.keySet()]) {
+		for (EmailMessage em : EmailMessagesSelector.newInstance().selectById(newEmails.keySet(), new Set<Object>{EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE})) {
             if (em.Incoming && !String.isBlank(em.headers)) {
                 if ((em.headers).startsWith('Return-Path:')) {
                     string[] headerSplits = em.headers.split('\\r?\\n');
-                    em.parent.EmailToCaseAddress__c = headerSplits[0].substring(12);
+					//ignore for Transport Enquiry record type as it is being set in the TransportEnquiryEmailMessagesModule
+					if(!CASE_TRANSPORT_ENQUIRY_RT.equals(em.Parent.RecordType.DeveloperName)) {
+						em.parent.EmailToCaseAddress__c = headerSplits[0].substring(12);
+					}
                     em.parent.Email_Bypass_Data_enforcement__c = true;
                     caseMap.put(em.ParentId, em.Parent);
                 }
