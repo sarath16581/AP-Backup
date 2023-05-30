@@ -160,16 +160,6 @@
                         </lightning-combobox>
                     </c-lwc-form-element>
                 </lightning-layout-item>
-                <template if:true={displayArticleSection}>
-                    <lightning-layout-item size="6"></lightning-layout-item>
-                    <lightning-layout-item size="6" padding="horizontal-small">
-                        <c-lwc-form-element visibility-state={visibilities} name="articlesearch" render-config={enquiryLinkedArticleConfig}>
-                            <c-article-search label="Article ID" name="articleId" get-only-articles
-                                form-update-callback={handleFormUpdateWithArticleData} form-update-articleid={handleFormArticleID} onchange={handleArticleIDValueChange}>
-                            </c-article-search>
-                        </c-lwc-form-element>  
-                    </lightning-layout-item>
-                </template>
                 <lightning-layout-item size="12"></lightning-layout-item>
                 <lightning-layout-item size="6" padding="horizontal-small">
                     <c-lwc-form-element visibility-state={visibilities} name="comments" render-config={categoryRenderConfig}>
@@ -178,6 +168,7 @@
                                 class="form-input"
                                 name="comments"
                                 value={values.comments}
+								placeholder="If this enquiry concerns a tracked article, please include the article ID here."
                                 label="What is the enquiry about?">
                         </lightning-textarea>
                         </c-lwc-form-element>

@@ -4,6 +4,17 @@
     <active>true</active>
     <label>Workforce Verification</label>
     <picklistValues>
+        <picklist>APT_Annual_Volume_Review__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>APT_LPD_Frequency__c</picklist>
         <values>
             <fullName>Ad hoc</fullName>
@@ -69,6 +80,52 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>APT_Minimum_Fees__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Payment_Method__c</picklist>
+        <values>
+            <fullName>AMEX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mastercard Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mastercard Debit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PayPal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Union Pay Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Union Pay Debit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Visa Card Debit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Visa Credit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
         <values>
             <fullName>14 days</fullName>
@@ -76,6 +133,25 @@
         </values>
         <values>
             <fullName>21 days</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_PostBillPay_Channel__c</picklist>
+        <values>
+            <fullName>Internet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scan and Pay</fullName>
             <default>false</default>
         </values>
     </picklistValues>

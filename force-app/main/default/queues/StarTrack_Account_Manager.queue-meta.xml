@@ -3,15 +3,6 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@startrack.com.au</email>
     <name>Account Manager</name>
-    <queueMembers>
-        <publicGroups>
-            <publicGroup>StarTrack_Account_Manager</publicGroup>
-        </publicGroups>
-        <users>
-            <user>karthickaccmger@auspost.com.prod</user>
-            <user>yojanaaccmger@auspost.com.prod</user>
-        </users>
-    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

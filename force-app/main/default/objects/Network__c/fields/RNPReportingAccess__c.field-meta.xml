@@ -6,7 +6,7 @@
     <formula>OR(RNPNetworkManager__c = $User.Id, RNPNetworkManager__r.RNPReportingManager__c = $User.Id, RNPNetworkManager__r.RNPReportingManager__r.RNPReportingManager__c = $User.Id, RNPNetworkManager__r.RNPReportingManager__r.RNPReportingManager__r.RNPReportingManager__c = $User.Id)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Determines whether the current logged in user is part of the RNP hierarchy for reporting purposes</inlineHelpText>
-    <label>RNP Reporting Access</label>
+    <label>Network Manager Reporting Access</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
