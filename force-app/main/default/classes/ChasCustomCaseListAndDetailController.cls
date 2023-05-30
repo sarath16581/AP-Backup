@@ -91,16 +91,19 @@ public with sharing class ChasCustomCaseListAndDetailController {
         System.debug('----- getCaseStatus ----- END'); 
         return caseStatus;
     }
-    
+
+    /**
+     * @return a list of Cases based on the UserId or User's Contact's APCN
+     * @description: Using the SSSWCasesSelector to soql the cases based on the UserId or User's Contact's APCN
+     */
     @AuraEnabled 
     public static List<Case> getLoggedInUserCaseList(){
         try {
-            User runningUser = [SELECT Id,APCN__c,Contact.APCN__c FROM User WHERE Id = :UserInfo.getUserId()];
-            return [SELECT Id,CHASEnquiryType__c,CaseNumber,LastModifiedDate,Enquiry_Status__c
-                        FROM Case
-                        WHERE CreatedById = :runningUser.Id OR Contact.APCN__c = :runningUser.Contact.APCN__c
-                        ORDER BY LastModifiedDate DESC
-                        LIMIT 2000];
+            User runningUser = [SELECT Id,APCN__c,Contact.APCN__c,CreatedById FROM User WHERE Id = :UserInfo.getUserId()];
+
+            return SSSWCasesSelector.newInstance(2000,new Set<SObjectField>{Case.Id,Case.CHASEnquiryType__c,Case.CaseNumber,Case.LastModifiedDate,Case.CreatedById})
+                    .selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),runningUser.Contact.APCN__c, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}).values();
+
         } catch(Exception ex) {
             System.debug(LoggingLevel.ERROR,'Error occurred getLoggedInUserCaseList ==>'+ex);
             return null;
