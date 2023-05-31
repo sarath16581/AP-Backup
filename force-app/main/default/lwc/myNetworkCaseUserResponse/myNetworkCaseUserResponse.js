@@ -16,6 +16,7 @@
  * 2023-03-20 - Dattaraj Deshmukh - SF-900 Navigated to 'Home' page after Network Response is added.
  * 2023-03-23 - Dattaraj Deshmukh - SF-892 Made Network response mandatory when SUI/RequireMoreInfo checkbox is changed and response is NOT added.
  * 2023-03-24 - Mahesh Parvathaneni - SF-921 Restrict the network response to save when SUI and Require More Information is checked. 
+ * 2023-05-25 - jacob.isaac@auspost.com.au - REQ3111278: Changing Quality Of Case Label to Flag Case for Review, changing picklist and labels
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -42,6 +43,15 @@ import INTERNAL_FACILITY_NOTES_FIELD from '@salesforce/schema/CaseInvestigation_
 import CASE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__c';
 import IS_CASE_CLOSED from '@salesforce/schema/CaseInvestigation__c.Case__r.IsClosed';
 
+import LABEL_MANIFESTADDRESS from '@salesforce/label/c.GPS_SDI_match_manifest_address';
+import LABEL_INCORRECTFACILITY from '@salesforce/label/c.Incorrect_facility';
+import LABEL_INVALIDDATA from '@salesforce/label/c.Invalid_Incorrect_Missing_data';
+import LABEL_MANIFESTONLY from '@salesforce/label/c.Manifest_only';
+import LABEL_OTHER from '@salesforce/label/c.Other';
+import LABEL_REQOUTSIDESERVICE from '@salesforce/label/c.Request_outside_service_offering';
+import LABEL_UNABLETOFULFILREQ from '@salesforce/label/c.Unable_to_fulfil_request';
+import LABEL_WITHINEDD from '@salesforce/label/c.Within_EDD';
+import LABEL_TWOWEEKPASTDELIVERY from '@salesforce/label/c.X2_weeks_past_delivered_date';
 
 import CASE_INVESTIGATION_RECORD_ID from '@salesforce/schema/CaseInvestigation__c.Id';
 
@@ -64,7 +74,7 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	caseInvestigationRecord;
 	@track isComponentVisible = false;
 	@track isLoaded = false;
-	
+	flagCaseReviewLabel = '';
 	isCaseUpdatedRequired = false;
 	addressType = '';
 	comments= '';
@@ -135,6 +145,39 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 	handleQualityOfCaseChange(event) {
 		this.qualityOfCase = event.target.value;
 		this.isCaseUpdatedRequired = true;
+
+		switch(this.qualityOfCase){
+			case 'GPS_SDI_match_manifest_address':
+				this.flagCaseReviewLabel=LABEL_MANIFESTADDRESS;
+				break;
+			case 'Incorrect_facility':
+				this.flagCaseReviewLabel=LABEL_INCORRECTFACILITY;
+				break;
+			case 'Invalid_Incorrect_Missing_data':
+				this.flagCaseReviewLabel=LABEL_INVALIDDATA;
+				break;
+			case 'Manifest_only':
+				this.flagCaseReviewLabel=LABEL_MANIFESTONLY;
+				break;
+			case 'Other':
+				this.flagCaseReviewLabel=LABEL_OTHER;
+				break;
+			case 'Request_outside_service_offering':
+				this.flagCaseReviewLabel=LABEL_REQOUTSIDESERVICE;
+				break;
+			case 'Unable_to_fulfil_request':
+				this.flagCaseReviewLabel=LABEL_UNABLETOFULFILREQ;
+				break;
+			case 'Within_EDD':
+				this.flagCaseReviewLabel=LABEL_WITHINEDD;
+				break;
+			case 'X2_weeks_past_delivered_date':
+				this.flagCaseReviewLabel=LABEL_TWOWEEKPASTDELIVERY;
+				break;
+			default:
+				this.flagCaseReviewLabel='';
+
+		}
 	}
 	handleDeliveryInformationChange(event) {
 		this.deliveryInformation = event.target.value;
