@@ -60,6 +60,10 @@
         <fields>Red_Tubs__c</fields>
         <fields>Regular_Product__c</fields>
         <fields>Revenue_Check__c</fields>
+        <fields>RouteEndTime__c</fields>
+        <fields>RouteName__c</fields>
+        <fields>RouteStartTime__c</fields>
+        <fields>RouteType__c</fields>
         <fields>Route_Start_Time__c</fields>
         <fields>Site_Instructions__c</fields>
         <fields>Small_Letter_Trays__c</fields>
