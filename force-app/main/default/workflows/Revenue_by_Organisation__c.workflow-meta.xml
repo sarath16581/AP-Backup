@@ -26,7 +26,7 @@
             <name>Update_Current_year</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Revenue_by_Organisation__c.CreatedById</field>
             <operation>notEqual</operation>
@@ -45,7 +45,7 @@
             <name>Uncheck_current_year</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Revenue_by_Organisation__c.Current_Last_Year__c</field>
             <operation>notEqual</operation>
