@@ -508,7 +508,8 @@ global class CaseDetailsCaseContExt  {
                     SocialPostTags__c, // INC1852893 - SOQL query bug
                     CaseLocality__c,  // INC1852893 - SOQL query bug
                     PreferredAgentExpiry__c, 
-					BusinessHoursId 
+					BusinessHoursId ,
+					AllocateToQueue__c
             from Case
             where Id = :caseId
             limit 1];

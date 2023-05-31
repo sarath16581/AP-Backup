@@ -1,7 +1,7 @@
 /**
-* @author       : haraprasad.sahoo@auspost.com.au
-* @date         : 26/05/2020
-* @description  : Test class for MyNetworkCasePDFController(landing page) and CasePDFContentGenerator(redirect page)
+* @author		: haraprasad.sahoo@auspost.com.au
+* @date			: 26/05/2020
+* @description	: Test class for MyNetworkCasePDFController(landing page) and CasePDFContentGenerator(redirect page)
 * History
 --------------------------------------------------
 26/05/2020 - Hara Sahoo Created
@@ -11,55 +11,56 @@
 29/06/2021 - Ranjeewa Silva - Updated for changes to include event message attachments in the PDF.
 01/10/2021 - Seth Heang - Uplift SF API Version to 52
 01/02/2023 - Dattaraj Deshmukh - Added test methods 'testGetCaseInvestigationArticleMapAndAddCaseArticleIds' & 'testCasePDFContentGenerator_starTrackCaseInvestigations'.
+22/05/2023 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
 */
 @isTest
 private class CasePDFContentGeneratorTest {
 	@testSetup
 	static void testDataSetup() {
 		 // Create articles.
-//        Article__c article1 = new Article__c(Name = 'a1');
-//        Article__c article2 = new Article__c(Name = 'a2');
-//        Article__c article3 = new Article__c(Name = 'a3');
-//        Article__c article4 = new Article__c(Name = 'a4');
-//        insert new Article__c[]{
-//                article1, article2,article3,article4
-//        };
-//        RecordType articleRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Article__c', new Set<String>{'Article'}).values()[0];
-//        RecordType consignmentRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Article__c', new Set<String>{'Consignment'}).values()[0];
-////        Id article_recordTypeId = Schema.SObjectType.Article__c.getRecordTypeInfosByName()
-////                  .get('Article').getRecordTypeId();
-////        Id consignment_recordTypeId = Schema.SObjectType.Article__c.getRecordTypeInfosByName()
-////                  .get('Consignment').getRecordTypeId();
-//         //Assign article ref id
-//        article1.TrackingID__c = article2.Id;
-//        article1.ArticleID__c = article1.Id;
-//        article1.RecordTypeId=articleRecordType.Id;
-//        update article1;
-//
-//        article2.Consignment__c = article3.Id;
-//        article2.ArticleID__c = article2.Id;
-//        article2.recordtypeId=consignmentRecordType.Id;
-//        update article2;
-//
-//        article3.ArticleID__c = article3.Id;
-//        update article3;
-//
-//        article4.Consignment__c = article3.Id;
-//        article4.ArticleID__c = article4.Id;
-//        update article4;
-//
-//        //Get attempted delivery code
-//        Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
-//
-//        // Create event messages for articles. These messages will form articleDetails and consignmentDetails.
-//        EventMessage__c event1 = new EventMessage__c(Article__c = article1.Id,EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label,DriverContract__c='U8890',Safe_Drop_GUID__c='23123-35435-gf-454',EventGeoLocation__Latitude__s=13.0429,EventGeoLocation__Longitude__s=80.2739);
-//        EventMessage__c event2 = new EventMessage__c(Article__c = article1.Id,EventType__c='DD-ER11',DriverContract__c='U8890',Safe_Drop_GUID__c='23123-35435-gf-454',EventGeoLocation__Latitude__s=13.0429,EventGeoLocation__Longitude__s=80.2739);
-//        EventMessage__c event3 = new EventMessage__c(Article__c = article2.Id, EventType__c=eventMessageType.get('Delivered')[0].Label ,EventGeoLocation__Latitude__s=13.0429,EventGeoLocation__Longitude__s=80.273);
-//        EventMessage__c event4 = new EventMessage__c(Article__c = article3.Id);
-//
-//        insert new EventMessage__c[]{
-//                event1, event2, event3, event4
-//        };
+		// 	Article__c article1 = new Article__c(Name = 'a1');
+		// 	Article__c article2 = new Article__c(Name = 'a2');
+		// 	Article__c article3 = new Article__c(Name = 'a3');
+		// 	Article__c article4 = new Article__c(Name = 'a4');
+		// 	insert new Article__c[]{
+		// 			article1, article2,article3,article4
+		// 	};
+		// 	RecordType articleRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Article__c', new Set<String>{'Article'}).values()[0];
+		// 	RecordType consignmentRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Article__c', new Set<String>{'Consignment'}).values()[0];
+		// //		Id article_recordTypeId = Schema.SObjectType.Article__c.getRecordTypeInfosByName()
+		// //				.get('Article').getRecordTypeId();
+		// //		Id consignment_recordTypeId = Schema.SObjectType.Article__c.getRecordTypeInfosByName()
+		// //				.get('Consignment').getRecordTypeId();
+		// 	//Assign article ref id
+		// 	article1.TrackingID__c = article2.Id;
+		// 	article1.ArticleID__c = article1.Id;
+		// 	article1.RecordTypeId=articleRecordType.Id;
+		// 	update article1;
+
+		// 	article2.Consignment__c = article3.Id;
+		// 	article2.ArticleID__c = article2.Id;
+		// 	article2.recordtypeId=consignmentRecordType.Id;
+		// 	update article2;
+
+		// 	article3.ArticleID__c = article3.Id;
+		// 	update article3;
+
+		// 	article4.Consignment__c = article3.Id;
+		// 	article4.ArticleID__c = article4.Id;
+		// 	update article4;
+
+		// 	//Get attempted delivery code
+		// 	Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
+
+		// 	// Create event messages for articles. These messages will form articleDetails and consignmentDetails.
+		// 	EventMessage__c event1 = new EventMessage__c(Article__c = article1.Id,EventType__c=eventMessageType.get('AttemptedDelivery')[0].Label,DriverContract__c='U8890',Safe_Drop_GUID__c='23123-35435-gf-454',EventGeoLocation__Latitude__s=13.0429,EventGeoLocation__Longitude__s=80.2739);
+		// 	EventMessage__c event2 = new EventMessage__c(Article__c = article1.Id,EventType__c='DD-ER11',DriverContract__c='U8890',Safe_Drop_GUID__c='23123-35435-gf-454',EventGeoLocation__Latitude__s=13.0429,EventGeoLocation__Longitude__s=80.2739);
+		// 	EventMessage__c event3 = new EventMessage__c(Article__c = article2.Id, EventType__c=eventMessageType.get('Delivered')[0].Label ,EventGeoLocation__Latitude__s=13.0429,EventGeoLocation__Longitude__s=80.273);
+		// 	EventMessage__c event4 = new EventMessage__c(Article__c = article3.Id);
+
+		// 	insert new EventMessage__c[]{
+		// 			event1, event2, event3, event4
+		// 	};
 
 		AusPostSettings__c setting = new AusPostSettings__c();
 		setting.Name = 'AMEAddressValidation';
@@ -68,77 +69,77 @@ private class CasePDFContentGeneratorTest {
 		setting.URL3__c = 'https://digitalapi-stest.npe.auspost.com.au/ame/api/v1/dpid/' + '85865442' +'?singleLine=true&semiStructured=true&structured=true&upu=true&geo=true&delivery=true';
 		insert setting;
 	}
-  
-//    @isTest
-//    static void testCasePDFContentGenerator()
-//    {
-		// Get sample articles
-//        Article__c article1 = [SELECT Id, Name, ArticleID__c FROM Article__c WHERE Name = 'a1'];
-//        Article__c article2 = [SELECT Id, Name, ArticleID__c FROM Article__c WHERE Name = 'a2'];
 
-//        Contact contact = new Contact(
-//                LastName = 'King',
-//                FirstName = 'Inthenorth',
-//                Phone = '12345'
-//        );
-//
-//        insert contact;
+	// @isTest
+	// static void testCasePDFContentGenerator()
+	// {
+	// 	Get sample articles
+	// 	Article__c article1 = [SELECT Id, Name, ArticleID__c FROM Article__c WHERE Name = 'a1'];
+	// 	Article__c article2 = [SELECT Id, Name, ArticleID__c FROM Article__c WHERE Name = 'a2'];
 
-		// Form dependent cases
-//        Case case1 = new Case(
-//                ContactId = contact.Id,
-//                ReferenceID__c = article1.Id,
-//                ArticleTest__c = article1.Id,
-//                Address2__c = 'Test address'
-//        );
-//
-//        insert case1;
+	// 	Contact contact = new Contact(
+	// 			LastName = 'King',
+	// 			FirstName = 'Inthenorth',
+	// 			Phone = '12345'
+	// 	);
 
-//        Case case2 = new Case(
-//                ContactId = contact.Id,
-//                ParentId = case1.Id,
-//                ArticleTest__c = article2.Id,
-//                ReferenceID__c = article2.Id,
-//                Address2__c = 'Test address'
-//        );
+	// 	insert contact;
 
-//        insert case2;
+	// 	Form dependent cases
+	// 	Case case1 = new Case(
+	// 			ContactId = contact.Id,
+	// 			ReferenceID__c = article1.Id,
+	// 			ArticleTest__c = article1.Id,
+	// 			Address2__c = 'Test address'
+	// 	);
 
-//        case2 = [SELECT Id, ArticleTest__r.ArticleID__c FROM Case WHERE ParentId = :case1.Id];
+	// 	insert case1;
 
-		//Test for multiple cases, passed in the parameter string
-//        List<String> caseList = new List<String>();
-//        caseList.add(case1.Id);
-//        caseList.add(case2.Id);
-//        String result = String.join(caseList, ',' );
-//        List<String> lstCaseIds = result.split(',');
+	// 	Case case2 = new Case(
+	// 			ContactId = contact.Id,
+	// 			ParentId = case1.Id,
+	// 			ArticleTest__c = article2.Id,
+	// 			ReferenceID__c = article2.Id,
+	// 			Address2__c = 'Test address'
+	// 	);
 
-		// Create wrappers to mock test data
-//        TIBCOConsignmentWrapper consignmentDetails = new TIBCOConsignmentWrapper(null, null);
-//
-//        TIBCOArticleWrapper article1Wrapper = new TIBCOArticleWrapper(null);
-//        article1Wrapper.selected = true;
-//        article1Wrapper.proxyArticle = articles[0];
-//
-//        TIBCOArticleWrapper article2Wrapper = new TIBCOArticleWrapper(null);
-//        article2Wrapper.selected = true;
-//        article2Wrapper.proxyArticle = article2;
-//
-//        // Now the details.articles contains two article wrappers
-//        consignmentDetails.articles = new TIBCOArticleWrapper[]{
-//                article1Wrapper, article2Wrapper
-//        };
-//
-//        Test.startTest();
-//        Apexpages.currentpage().getparameters().put('selectedIds' , result);
-		//Test the landing page controller
-//        MyNetworkCasePDFController controller = new MyNetworkCasePDFController();
-		//Test the redirect page controller
-//        CasePDFContentGenerator redirectControlller = new CasePDFContentGenerator();
-//        redirectControlller.updatePrintFlag();
-//        Test.stopTest();
+	// 	insert case2;
 
-//    }
+	// 	case2 = [SELECT Id, ArticleTest__r.ArticleID__c FROM Case WHERE ParentId = :case1.Id];
+
+	// 	Test for multiple cases, passed in the parameter string
+	// 	List<String> caseList = new List<String>();
+	// 	caseList.add(case1.Id);
+	// 	caseList.add(case2.Id);
+	// 	String result = String.join(caseList, ',' );
+	// 	List<String> lstCaseIds = result.split(',');
+
+	// 	Create wrappers to mock test data
+	// 	TIBCOConsignmentWrapper consignmentDetails = new TIBCOConsignmentWrapper(null, null);
+
+	// 	TIBCOArticleWrapper article1Wrapper = new TIBCOArticleWrapper(null);
+	// 	article1Wrapper.selected = true;
+	// 	article1Wrapper.proxyArticle = articles[0];
+
+	// 	TIBCOArticleWrapper article2Wrapper = new TIBCOArticleWrapper(null);
+	// 	article2Wrapper.selected = true;
+	// 	article2Wrapper.proxyArticle = article2;
+
+	// 	// Now the details.articles contains two article wrappers
+	// 	consignmentDetails.articles = new TIBCOArticleWrapper[]{
+	// 			article1Wrapper, article2Wrapper
+	// 	};
+
+	// 	Test.startTest();
+	// 	Apexpages.currentpage().getparameters().put('selectedIds' , result);
+	// 	Test the landing page controller
+	// 	MyNetworkCasePDFController controller = new MyNetworkCasePDFController();
+	// 	Test the redirect page controller
+	// 	CasePDFContentGenerator redirectControlller = new CasePDFContentGenerator();
+	// 	redirectControlller.updatePrintFlag();
+	// 	Test.stopTest();
+
+	// }
 
 	/**
 	 * Test:
@@ -286,10 +287,12 @@ private class CasePDFContentGeneratorTest {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
 		networks[0].Org_ID__c = '1234';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 
 		//insert case investigation records
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(2, cases[2].Id, articles[0], networks[0].Id, false);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseinvestigations(1, cases[2].Id, articles[0], networks[0].Id, false);
 		insert caseInvestigations;
 
 		// =====================================

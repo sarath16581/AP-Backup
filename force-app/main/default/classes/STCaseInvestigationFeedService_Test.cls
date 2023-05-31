@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 02/05/2023
  * @changelog
+ * 22-05-2023 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  */
 
 @IsTest
@@ -91,6 +92,8 @@ private class STCaseInvestigationFeedService_Test {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
 		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 
 

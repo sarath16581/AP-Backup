@@ -8,6 +8,7 @@
 20.05.2021    Dheeraj Mandavilli   Added elms Enabled Lodgement Points Hyperlink on the form.
 01.06.2021    Dheeraj Mandavilli   Updated Validation rules for Lodgement Points based upon elMs and Add Contract Rates fields.
 30.07.2021    Naveen Rajanna       REQ2570608 - Fix value for this.isEParcel on Edit and commented console log statements
+01.03.2023    Deepak Kemidi        CI-703 - Changes to display a message when APPC product is selected by the user. Message is displayed if the product selected contains APPC and if all the APPC contracts have Contract Relationship as Billing Account
 */
 
 import { LightningElement ,track, wire, api} from 'lwc';
@@ -17,6 +18,7 @@ import createSubAccountRequests from '@salesforce/apex/CreateSubAccountsControll
 import { NavigationMixin } from 'lightning/navigation';
 import { reduceErrors } from 'c/ldsUtils';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import checkAPPCContracts from '@salesforce/apex/CreateSubAccountsController.checkAPPCContracts';
 
 export default class newSubAccountRequestEditForm extends NavigationMixin(LightningElement) {
 @api recordId;
@@ -33,10 +35,13 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
     @track isParcelSendLoginReq;
     @track showContact = false;
     @track eParcelEnabled = false;
+	@track showModal = false;
+	@track displayMessage='';
     @track addContractRates = false;
     @track eLMSEnabled = false;
     @track sourceOfSubAccountRequest = 'Billing Account';
     @track subAccountRequestStatus = 'Draft';
+	@track newBillingRequestRecordJson='';
     @track result;
     @track resultDetails;
     @track disableSaveRequestBtn = true;
@@ -73,28 +78,20 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
     @track errField = '';
 
 
-    connectedCallback() {
-        // console.log('inside connectedCallback');
-        // console.log('subAccountRecord inside form>>>>>',this.subAccountRecord);
 
+    connectedCallback() {
         getBillingAccountDetails({ billingAccountRecord: this.recordId })
             .then(result =>{
-            // console.log('result>>',result);
         this.billingAccountRecord = result;
-        // console.log('this.billingAccountRecord>>>',this.billingAccountRecord);
-        // console.log('Org Id::',this.billingAccountRecord.Organisation__r.Name);
         this.orgId=this.billingAccountRecord.Organisation__c;
-        // console.log('Org Id::',this.orgId);
+        console.log('Org Id::',this.orgId);
         this.isloading = false;
-    })
-    .catch(error =>{
+		})
+		.catch(error =>{
 
-        })
+		})
 
         if(this.subAccountRecord){
-
-            // console.log('capturing the Edit Form value',this.subAccountRecord);
-            // console.log('capturing the Edit Form value boolean',this.isEdit);
             this.isEdit= true;
             this.isSenderAddressRequired = false;
             this.disableSaveRequestBtn = false;
@@ -113,17 +110,12 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
             this.state = this.subAccountRecord.APT_Postal_Address_State__c;
             this.postcode = this.subAccountRecord.APT_Postal_Address_Street_Postcode__c;
             this.address = this.street +' '+this.city+' '+this.state+' '+this.postcode;
-            // console.log('addresss::',this.address);
             this.subAccountId = this.subAccountRecord.Id;
-            // console.log('record Id ',this.subAccountId);
             this.contactId = this.subAccountRecord.SubAccountContact__c;
-            // console.log('contact Id ',this.contactId);
             this.productSelected = this.subAccountRecord.Product__c;
             //REQ2570608
-            this.isEParcel = this.productSelected.includes("eParcel") || this.productSelected.includes("Fulfilio") || this.productSelected.includes("International");
-            // console.log('Products Selected ',this.productSelected);
+            this.isEParcel = this.productSelected && (this.productSelected.includes("eParcel") || this.productSelected.includes("Fulfilio") || this.productSelected.includes("International"));
             this.isParcelSendLoginReq = this.subAccountRecord.Is_Parcel_Send_Login_Required__c;
-            // console.log('isParcelSendLoginReq Selected ',this.isParcelSendLoginReq);
             if(this.isParcelSendLoginReq === 'Yes'){
                 this.showContact = true;
             }
@@ -135,12 +127,11 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
 
     }
     onsubmitHandler(event){
-        // console.log('inside onsubmitHandler>>>1');
+        //console.log('inside onsubmitHandler>>>1');
         this.fieldList = [];
        // let errField = '' ;
         this.showValidationErr = false;
         if(this.subAccountName === undefined || this.subAccountName === ''){
-            // console.log('subAccountName:::',this.subAccountName);
             this.errField = 'Sub Account Name cannot be Blank';
             this.fieldList.push(this.errField);
             this.showValidationErr = true;
@@ -201,8 +192,6 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
             this.showValidationErr = true;
         }
         if(this.billingAccountRecord.Name === this.subAccountName){
-            // console.log('subAccountName:::',this.subAccountName);
-            // console.log('Billing Account Name:::',this.billingAccountRecord.Name);
             this.errField = 'Sub Account Name cannot be same as Parent Billing Account Name.Please Enter Unique Value';
             this.fieldList.push(this.errField);
             this.showValidationErr = true;
@@ -217,6 +206,7 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
             this.fieldList.push(this.errField);
             this.showValidationErr = true;
         }
+
         let idVar = null;
         if(this.subAccountRecord){
             if(this.subAccountRecord.Id){
@@ -250,72 +240,83 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
                 Is_Parcel_Send_Login_Required__c:this.isParcelSendLoginReq
             }
 
-            // console.log('newBillingRequestRecord>>>>',this.newBillingRequestRecord);
-            // console.log('Lodgement Point Records>>>>',this.lodgementPointList);
             createSubAccountRequests({ subAccountRec: this.newBillingRequestRecord,lodgementPointWCCs: this.lodgementPointList})
                 .then(result =>{
-                // console.log('Record Created>>',result);
-            if(result != null){
-                let newBillingRequestRecordJson = JSON.stringify(result);
-                // console.log('newBillingRequestRecord>>>>',newBillingRequestRecordJson);
-                this.dispatchEvent(
-                    new CustomEvent("newsubaccountrecord", {
-                        detail: newBillingRequestRecordJson
-                    })
-                );
-            }
+					console.log('Record Created>>',result);
+					if(result != null){
+						this.newBillingRequestRecordJson = JSON.stringify(result);
+						//CI-703 Display message to the user if atleast one APPC contracts have Contract Relationship as Billing Account and if the Product selected includes APPC
+						//This is just an informational message and a timeout has been set for 5 seconds before we move the subaccount record creation event
+						if(result.Product__c.includes('APPC')){
+							checkAPPCContracts({billingAccRecId: this.recordId})
+							.then(showMessage =>{
+							if (showMessage) {
+								this.showModal=true;
+								this.displayMessage='To apply rates at a billing account for APPC, please create an opportunity post successful sub account creation.';
+							}
+							else{
+								this.dispatchEvent(
+									new CustomEvent("newsubaccountrecord", {detail: this.newBillingRequestRecordJson})
+								)
+							}
+							})
+							.catch(error =>{
+								console.log(error)
+							})
+						}else{
+							this.dispatchEvent(
+								new CustomEvent("newsubaccountrecord", {detail: this.newBillingRequestRecordJson})
+							)
+						}
 
-        })
-        .catch(error =>{
-                if (error.body.message) {
-                this.message = error.body.message;
-                // console.log('Message ::::',this.message);
-                if(this.message.includes("FIELD_CUSTOM_VALIDATION_EXCEPTION")){
-                    this.message ='The selected Sub Account Contact Organisation (Legal Entity) does not match the Billing Account Organisation (Legal Entity). Please select a Contact that is linked to the same Organisation (Legal Entity) as the associated Billing Account.';
-                    alert(this.message);
-                }else if(this.message.includes("DUPLICATE_VALUE")){
-                    this.message ='Sub-account name already exists. Enter unique value';
-                    alert(this.message);
-                }else if(this.message.includes("FIELD_FILTER_VALIDATION_EXCEPTION")){
-                    this.message ='Email field on created contact record is blank.Please update contact record with valid email value.';
-                    alert(this.message);
-                }else{
-                    alert(this.message);
-                }
-            }
-        })
+
+					}
+				})
+				.catch(error =>{
+						if (error.body.message) {
+						this.message = error.body.message;
+						if(this.message.includes("FIELD_CUSTOM_VALIDATION_EXCEPTION")){
+							this.message ='The selected Sub Account Contact Organisation (Legal Entity) does not match the Billing Account Organisation (Legal Entity). Please select a Contact that is linked to the same Organisation (Legal Entity) as the associated Billing Account.';
+							alert(this.message);
+						}else if(this.message.includes("DUPLICATE_VALUE")){
+							this.message ='Sub-account name already exists. Enter unique value';
+							alert(this.message);
+						}else if(this.message.includes("FIELD_FILTER_VALIDATION_EXCEPTION")){
+							this.message ='Email field on created contact record is blank.Please update contact record with valid email value.';
+							alert(this.message);
+						}else{
+							alert(this.message);
+						}
+					}
+       		})
 
         }
     }
-
+	//CI-703 funtion to close modal and redirect to summary page
+	closeModalAndRedirect = () => {
+        this.showModal = false;
+		this.dispatchEvent(
+			new CustomEvent("newsubaccountrecord", {detail: this.newBillingRequestRecordJson})
+		)
+    }
 
     onchangehandler(event){
-        // console.log('on change handler2');
-        // console.log('eventName1>>',event.target.name);
-        // console.log('Coming here');
         this.showValidationErr = false;
         this.errfield = '';
         this.fieldList = [];
         this.fieldList.push(this.errField);
         if(event.target.name === "subAccountName1") {
             this.subAccountName = event.target.value;
-            // console.log('Sub Account Name:::',this.subAccountName);
         }
         else if(event.target.name === "subAccountContact") {
             this.contactId = event.target.value;
-            // console.log('Contact Org Id:::',event.target.value.AccountId);
-            // console.log('Contact Id:::',this.contactId);
-            // console.log('Contact Org Id:::',this.contactId.AccountId);
         }else if(event.target.name === "productSelected"){
             this.productSelected = event.target.value;
-            // console.log('productSelected :::',this.productSelected);
-            this.isEParcel = this.productSelected.includes("eParcel") || this.productSelected.includes("Fulfilio") || this.productSelected.includes("International");
-            // console.log('Eparcel found :::',this.isEParcel);
+            this.isEParcel = this.productSelected && (this.productSelected.includes("eParcel") || this.productSelected.includes("Fulfilio") || this.productSelected.includes("International"));
         } else if(event.target.name === "subAccountName2"){
             this.subAccountName2 = event.target.value;
         }else if(event.target.name === "addContractRates"){
             this.addContractRates = event.target.value;
-            // console.log("Add Contract Rates value::",this.addContractRates);
             if(this.addContractRates === 'Yes') {
                 this.showProducts = true;
                 this.isParcelSendLoginReq = '';
@@ -327,7 +328,6 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
             }
         }else if(event.target.name === "isParcelSendLoginReq"){
             this.isParcelSendLoginReq =event.target.value;
-            // console.log('Parcel Login Req::',this.isParcelSendLoginReq);
             if(this.isParcelSendLoginReq === "Yes"){
                 this.showContact = true;
             }else{
@@ -336,7 +336,6 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
             }
         } else if(event.target.name === "eLMSEnabled"){
             this.eLMSEnabled = event.target.value;
-            // console.log("Add emls value::",this.eLMSEnabled);
         }else if(event.target.name === "sourceOfSubAccountRequest"){
             this.sourceOfSubAccountRequest = event.target.value;
         }
@@ -350,8 +349,6 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
         const openSections = event.detail.openSections;
     }
     handleConfirmedSenderAddress(event) {
-        // console.log('Inside confirm 3');
-        // console.log('event.detail>>>',event.detail);
         this.showValidationErr = false;
         this.errfield = '';
         this.fieldList = [];
@@ -359,7 +356,6 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
         if (event.detail) {
             this.senderAddressVar = event.detail;
             this.disableSaveRequestBtn = false;
-            // console.log("Address Line2::",this.senderAddressVar.addressLine2);
             if(this.senderAddressVar.addressLine1 !== undefined && this.senderAddressVar.addressLine2 !== undefined){
                 this.street = this.senderAddressVar.addressLine1+' '+this.senderAddressVar.addressLine2;
             }else{
@@ -370,11 +366,9 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
             }
             if(this.senderAddressVar.state  !== null){
                 this.state = this.senderAddressVar.state;
-                // console.log("State Value::",this.state);
             }
             if(this.senderAddressVar.postcode  !== null){
                 this.postcode = this.senderAddressVar.postcode;
-                // console.log("Postcode Value::",this.postcode);
             }
         }
         event.preventDefault();
@@ -385,12 +379,9 @@ export default class newSubAccountRequestEditForm extends NavigationMixin(Lightn
         this.errfield = '';
         this.fieldList = [];
         this.fieldList.push(this.errField);
-        // console.log('event sel record>>>>',event.detail.selRecords);
         if( event.detail.selRecords !== undefined){
             this.lodgementPointVar = event.detail.selRecords;
-            // console.log("The size of the array is::",this.lodgementPointVar.length);
             this.lodgementPointList = JSON.stringify(event.detail.selRecords);
-            // console.log('The lodgement List',this.lodgementPointList);
         }
         event.preventDefault();
         return false;

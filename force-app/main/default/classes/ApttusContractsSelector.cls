@@ -10,6 +10,7 @@
  * 2020-12-09 - Shashwat.Nath@Auspost.com - Added WITH_PROPOSAL option
  * 2022-08-04 - Seth Heang - Added APT_APPC_Count__c, Apttus__FF_Agreement_Number__c in the query
  * 2022-11-26 - Harry Wang - added selector method for sales intermediary
+ * 2023-03-01 - Deepak Kemidi - CI-703 Added search method and additional selector options and field overrides
  */
 public with sharing class ApttusContractsSelector extends ApplicationSelector{
     public enum Options {
@@ -51,11 +52,13 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
         return Apttus__APTS_Agreement__c.getSObjectType();
     }
     public virtual override Set<SObjectField> getSObjectFieldList() {
+	//CI-703 Added new fields Apttus__APTS_Agreement__c.Contract_Relationship__c,Apttus__APTS_Agreement__c.Apttus__Status__c,Apttus__APTS_Agreement__c.Apttus__Status_Category__c
         return new Set<SObjectField> {
             Apttus__APTS_Agreement__c.Id,Apttus__APTS_Agreement__c.Name, Apttus__APTS_Agreement__c.Apttus__Account__c,
                 Apttus__APTS_Agreement__c.APT_Review_Date__c,Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c,
                 Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c, Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c,
-                Apttus__APTS_Agreement__c.Term__c, Apttus__APTS_Agreement__c.APT_APPC_Count__c, Apttus__APTS_Agreement__c.Apttus__FF_Agreement_Number__c
+                Apttus__APTS_Agreement__c.Term__c, Apttus__APTS_Agreement__c.APT_APPC_Count__c, Apttus__APTS_Agreement__c.Apttus__FF_Agreement_Number__c,Apttus__APTS_Agreement__c.Contract_Relationship__c,
+                Apttus__APTS_Agreement__c.Apttus__Status__c,Apttus__APTS_Agreement__c.Apttus__Status_Category__c
         };
     }
     /**
@@ -101,6 +104,89 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
         qb = conditions.endConditions().addOrderDesc(Apttus__APTS_Agreement__c.Apttus__Account__c);
         return Database.getQueryLocator(qb.toSoqlString());
     }
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *                          agreementId / agreementId: maps to Apttus__FF_Agreement_Number__c
+	 *                          accountId / accountIds: maps to Apttus__Account__c
+	 *                          pricingCategory / pricingCategories: maps to APT_Pricing_Category__c
+	 *                          status / status: maps to Apttus__Status__c
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 * @return list<Apttus__APTS_Agreement__c>
+	 */
+	public list<Apttus__APTS_Agreement__c> search(Map<String, Object> searchParams, Boolean matchAll) {
+		return search(searchParams, new Set<Object>{}, matchAll);
+	}
+
+	/*
+	* Run a SOQL based on the search parameters passed in
+	*
+	* @param searchParams A map containing searchable values:
+	*                          agreementNum / agreementNums: maps to Apttus__FF_Agreement_Number__c
+	*                          accountId / accountIds: maps to Apttus__Account__c
+	*                          pricingCategory / pricingCategories: maps to APT_Pricing_Category__c
+	*                          status / status: maps to Apttus__Status__c
+	*						   orderBy: set the order by field (SObjectField)
+	*						   sortOrder: set the sort direction (asc,desc)
+	* @param matchAll If true will search based on AND, else search based on OR
+	* @return list<Apttus__APTS_Agreement__c>
+	*/
+	public list<Apttus__APTS_Agreement__c> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+
+		System.debug('searchParams: ' + searchParams);
+
+		Set<String> agreementNums = (Set<String>)(searchParams.get('agreementNums') == null ? new Set<String>() : (searchParams.get('agreementNums') instanceof Set<String> ? searchParams.get('agreementNums') : new Set<String>{(String)searchParams.get('agreementNums')}));
+		Set<Id> accountIds = (Set<Id>)(searchParams.get('accountIds') == null ? new Set<Id>() : (searchParams.get('accountIds') instanceof Set<Id> ? searchParams.get('accountIds') : new Set<Id>{(Id)searchParams.get('accountIds')}));
+		Set<String> pricingCategories = (Set<String>)(searchParams.get('pricingCategories') == null ? new Set<String>() : (searchParams.get('pricingCategories') instanceof Set<String> ? searchParams.get('pricingCategories') : new Set<String>{String.valueOf(searchParams.get('pricingCategories'))}));
+		Set<String> status = (Set<String>)(searchParams.get('status') == null ? new Set<String>() : (searchParams.get('status') instanceof Set<String> ? searchParams.get('status') : new Set<String>{String.valueOf(searchParams.get('status'))}));
+		SObjectField orderBy = searchParams.get('orderBy') == null ? null : (SObjectField)searchParams.get('orderBy');
+		String sortOrder = searchParams.get('sortOrder') == null ? '' : String.valueOf(searchParams.get('sortOrder'));
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+
+		// these will override the sorting parameters when they are requested from the getOrderBy method
+		String sortingFieldOverride = (orderBy != null ? String.valueOf(orderBy) : this.getOrderBy()[0].getSortingField());
+		String sortingOrderOverride = (orderBy != null ? String.valueOf(sortOrder) : this.getOrderBy()[0].getSortingOrder());
+		QueryBuilder.Order qbOrderBy = new QueryBuilder.Order(sortingFieldOverride, sortingOrderOverride);
+		builder.setOrder(qbOrderBy); // override the default sorting
+
+		// add our tracking query
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+
+		Integer conditionCount = 0;
+
+		// this is a cheeky hack to limit to cases since WorkItem.Type = 'Case' does not work for whatever reason
+		if(!agreementNums.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Apttus__FF_Agreement_Number__c + ' In :agreementNums'));
+			conditionCount++;
+		}
+		if(!accountIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Apttus__Account__c + ' In :accountIds'));
+			conditionCount++;
+		}
+		if(!pricingCategories.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.APT_Pricing_Category__c + ' In :pricingCategories'));
+			conditionCount++;
+		}
+		if(!status.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Apttus__Status__c + ' In :status'));
+			conditionCount++;
+		}
+
+		// build our condition string which would end up being something liek the following:
+		// 1 AND 2 AND 3
+		// 1 OR 2 OR 3
+		String conditionOrder = '';
+		for(Integer i=0;i<conditionCount;i++) {
+			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
+		}
+		conditions.setConditionOrder(conditionOrder);
+
+		String soql = conditions.endConditions().toSoqlString();
+		return (List<Apttus__APTS_Agreement__c>)Database.query(soql);
+	}
+
+
 
     public virtual override QueryBuilder newQueryBuilder() {
         return newQueryBuilder(new Set<Object>());

@@ -3,6 +3,7 @@
     <fullName>APT_Product_Lines__c</fullName>
     <description>This is used to automate the determination of all the included product lines in an Agreement based on the products associated as proposal line items on a quote proposal.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Decides the included product lines in Apttus Contract record.</inlineHelpText>
     <label>Product Lines</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -171,6 +172,11 @@
                 <fullName>APGL Commercial Outbound</fullName>
                 <default>false</default>
                 <label>APGL Commercial Outbound</label>
+            </value>
+            <value>
+                <fullName>Post Billpay</fullName>
+                <default>false</default>
+                <label>Post Billpay</label>
             </value>
         </valueSetDefinition>
     </valueSet>

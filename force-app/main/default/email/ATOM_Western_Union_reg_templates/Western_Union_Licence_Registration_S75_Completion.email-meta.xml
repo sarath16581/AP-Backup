@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Western Union Licence Registration - S75 Completion</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Western_Union_Registration</letterhead>
+    <name>Western Union Licence Registration - S75 Completion</name>
+    <style>freeForm</style>
+    <subject>{!Membership__c.Name} Western Union Licence Registration - S75 Completion</subject>
+    <textOnly>Organisation Name: {!Membership__c.Account__c} {!Membership__c.Name}
+
+Dear Licensee,
+
+Please be advised that AUSTRAC have requested the attached Section 75 Notice be completed and returned to support your application to be registered as a remittance services provider on the Remittance Service Register (RSR).  This change is requested under subsection 75N(1) of the Anti-Money Laundering and Counter-Terrorism Financing Act 2006.
+
+AUSTRAC require you to:
+
+Complete the online training that your RNP has enrolled you in called: AML/CTF for Compliance Officers
+Complete Questions 1 - 35 in your own words (AUSTRAC will not approve copy/paste, scripted or paraphrased responses)
+
+Please Note: Australia Post will lodge your National Police Check Certificates directly to AUSTRAC
+
+Your Checklist: Ensure the following information is returned to the Workforce Due Diligence Team Complete:
+
+Answer all questions and demonstrate an understanding of AML/CTF obligations and practical application of these obligations in your LPO
+Provide your Signature using the electronic signature instruction
+Email the complete S75N Questionnaire and all documents to aml.dataentry@auspost.com.au
+
+If you require more information, please contact Workforce Due Diligence at aml.dataentry@auspost.com.au or 03 9322 0621
+
+Kind Regards
+
+Workforce Due Diligence Team
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please email aml.dataentry@auspost.com.au. Visit ourpost.com.au for further information on our online security.
+
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

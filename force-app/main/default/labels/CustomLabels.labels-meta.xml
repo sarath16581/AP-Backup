@@ -1293,6 +1293,14 @@ Compass quote end date has passed, please request re-activation</value>
         <value>Approval Request for Overweight Items has been submitted for your approval.</value>
     </labels>
     <labels>
+        <fullName>APT_PBPRecordTypeID</fullName>
+        <categories>Record Type ID of Post Bill Pay Record Type (Agreement)</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_PBPRecordTypeID</shortDescription>
+        <value>01290000001UPgu</value>
+    </labels>
+    <labels>
         <fullName>APT_Physical_Residential_Address</fullName>
         <language>en_US</language>
         <protected>false</protected>

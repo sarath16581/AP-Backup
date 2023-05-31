@@ -1,48 +1,51 @@
 <!--
-    Description: This page is used to support a custom Tasking Publisher Action for StarTrack. On completion redirects
-    to a blank Publisher Action (Closed) as there is currently no way to have a custom VF PA adhere to auto-close feed setting.
-    History:  AUG.23.2015 PAUL FAYLE Modified
-    AUG.20.2015 DAVID CATINDOY(CloudSherpas) Created
-    AUG.28.2015 Patrick James Franco - Added validation before closing the publisher action
-    NOV.05.2015 Patrick James Franco - Added rendered filter to Is Bulk Task to hide it for Pickup Booking Enquiry Cases
-    NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
-    NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
-    NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
+	Description: This page is used to support a custom Tasking Publisher Action for StarTrack. On completion redirects
+	to a blank Publisher Action (Closed) as there is currently no way to have a custom VF PA adhere to auto-close feed setting.
+	History:  AUG.23.2015 PAUL FAYLE Modified
+	AUG.20.2015 DAVID CATINDOY(CloudSherpas) Created
+	AUG.28.2015 Patrick James Franco - Added validation before closing the publisher action
+	NOV.05.2015 Patrick James Franco - Added rendered filter to Is Bulk Task to hide it for Pickup Booking Enquiry Cases
+	NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
+	NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
+	NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
 	FEB.27.2023 Mahesh Parvathaneni  - SF-856 Added recordtype check to render StarTrackCreateTask component
 	MAR.16.2023 Mahesh Parvathaneni	 - SF-862 Added event listener to refresh the primary tab
+	MAY.22.2023 Mahesh Parvathaneni  - SF-946 Added slds-scope class to the document body
 -->
-<apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
-    sidebar="false">
-    <c:ScriptLoader jsLibraries="integration,jquery" />
-    
-    <div id="main">
-        <div id="VFCmp" style="{!IF(Case.RecordType.DeveloperName != 'StarTrack_Voice_of_Customer', 'display:inline-block', 'display:none')}">
-            <c:StarTrackCreateTask case="{!Case}" />
-        </div>
+<apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false" sidebar="false">
+<c:ScriptLoader jsLibraries="integration,jquery" />
+
+	<div id="main">
+		<div id="VFCmp" style="{!IF(Case.RecordType.DeveloperName != 'StarTrack_Voice_of_Customer', 'display:inline-block', 'display:none')}">
+			<c:StarTrackCreateTask case="{!Case}" />
+		</div>
 		<div id="wrapper">
 			<c:LightningWrapper lightningApp="c:myNetworkStarTrackApp"
-			                    lightningComponent="c:myNetworkStarTrackCaseArticlesContainer"
-			                    crossOriginLwcEvents="false"
+								lightningComponent="c:myNetworkStarTrackCaseArticlesContainer"
+								crossOriginLwcEvents="false"
 								componentAttributes="{&quot;recordId&quot;:&quot;{!$CurrentPage.parameters.id}&quot;}"	/>
 		</div>
 
-        <script>
-            // listen for the custom dom event subtab so we can handle anytime when a user click a record 
+		<script>
+			//To make lightning-helptext work without building a custom component/applying css
+			document.body.className += ' slds-scope';
+
+			// listen for the custom dom event subtab so we can handle anytime when a user click a record 
 			document.getElementById('wrapper').addEventListener('subtab', handleMyNetworkStarTrackLightningEvent);
 			// listen for the custom dom event for primary tab refresh
 			document.getElementById('wrapper').addEventListener('refreshprimarytab', handleMyNetworkStarTrackRefreshPrimaryTabEvent);
 
-            /**
-             * This is the callback for anytime a lightning event is generated from MyNetwork StarTrack container
-             */
-            function handleMyNetworkStarTrackLightningEvent(e) {
-                if(e && e.detail && e.type === 'subtab' && e.detail.recordId) {
-                    // this occurs if a link is clicked in MyNetwork StarTrack container that requires a record page to be opened in subtab
-                    sforce.console.getEnclosingPrimaryTabId(function(result) {  
-            		sforce.console.openSubtab(result.id, '/' + e.detail.recordId, true, '', null);
-        		    });
-                }
-            }
+			/**
+			 * This is the callback for anytime a lightning event is generated from MyNetwork StarTrack container
+			 */
+			function handleMyNetworkStarTrackLightningEvent(e) {
+				if(e && e.detail && e.type === 'subtab' && e.detail.recordId) {
+					// this occurs if a link is clicked in MyNetwork StarTrack container that requires a record page to be opened in subtab
+					sforce.console.getEnclosingPrimaryTabId(function(result) {  
+					sforce.console.openSubtab(result.id, '/' + e.detail.recordId, true, '', null);
+					});
+				}
+			}
 
 			/**
 			 * This is the callback for anytime a primary tab refresh lightning event is generated from MyNetwork StarTrack container
@@ -54,19 +57,19 @@
 					});
 				});
 			}
-        </script>
+		</script>
 
-        <style>
-            div#VFCmp {
-                display: inline-block;
-                padding: 1rem;
-                border-radius: 0.25rem;
-                border: 1px solid rgb(201, 201, 201);
-            }
+		<style>
+			div#VFCmp {
+				display: inline-block;
+				padding: 1rem;
+				border-radius: 0.25rem;
+				border: 1px solid rgb(201, 201, 201);
+			}
 
-            div#wrapper {
-                margin-top: 1rem;
-            }
-        </style>
-    </div>
+			div#wrapper {
+				margin-top: 1rem;
+			}
+		</style>
+	</div>
 </apex:page>

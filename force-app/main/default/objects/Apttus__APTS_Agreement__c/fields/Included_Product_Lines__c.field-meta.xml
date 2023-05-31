@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Included_Product_Lines__c</fullName>
+    <description>Displays the products included in the contract.</description>
     <externalId>false</externalId>
     <inlineHelpText>Please select all of the product lines that will be covered by this contract</inlineHelpText>
     <label>Included Product Lines</label>
@@ -79,26 +80,6 @@
                 <label>BPA - REPLY+RETURNS</label>
             </value>
             <value>
-                <fullName>Post Billpay OTC</fullName>
-                <default>false</default>
-                <label>Post Billpay OTC</label>
-            </value>
-            <value>
-                <fullName>Post Billpay by Phone</fullName>
-                <default>false</default>
-                <label>Post Billpay by Phone</label>
-            </value>
-            <value>
-                <fullName>Post Billpay on the Internet</fullName>
-                <default>false</default>
-                <label>Post Billpay on the Internet</label>
-            </value>
-            <value>
-                <fullName>Post Billpay Scan &amp; Pay</fullName>
-                <default>false</default>
-                <label>Post Billpay Scan &amp; Pay</label>
-            </value>
-            <value>
                 <fullName>Clean Mail</fullName>
                 <default>false</default>
                 <label>Clean Mail</label>
@@ -167,6 +148,11 @@
                 <fullName>APGL Commercial Outbound</fullName>
                 <default>false</default>
                 <label>APGL Commercial Outbound</label>
+            </value>
+            <value>
+                <fullName>Post Billpay</fullName>
+                <default>true</default>
+                <label>Post Billpay</label>
             </value>
         </valueSetDefinition>
     </valueSet>

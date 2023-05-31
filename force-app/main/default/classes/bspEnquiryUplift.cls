@@ -512,7 +512,9 @@ public without sharing class bspEnquiryUplift {
 		enq.DatePosted__c = enq.BSPLodgementDate__c;
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
-
+		system.debug('HASANTHA DE 1 enq.EstimatedDelivery__c '+enq.EstimatedDelivery__c);
+		system.debug('HASANTHA DE 1 additionalData.containsEssentialMedicine '+additionalData.containsEssentialMedicine);
+		system.debug('HASANTHA DE 1 additionalData.isSentimental '+additionalData.isSentimental);
 		// TODO: unit tests
 		if(enq.EstimatedDelivery__c != null && additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
 			//2023-04-24 EDD
@@ -1710,17 +1712,19 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/**
-	 * On hold the case when the case based on the EDD of the article and the configured holding periodd
-	 * @param pCase
+	 * On hold the case when the case based on the EDD of the article and the configured holding period
+	 * @param pCase the case SObject record that contains fields to determine routing
 	 */
 	public static void setDirectRoutingValues(Case pCase) {
-		Date eddPlusBusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(pCase.EstimatedDelivery__c, CCUSettings__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().nextUpdateInForLateItems__c) : 0);
+		Date eddPlusBusinessDays = getEDDPlusBusinessDays(pCase.EstimatedDelivery__c);
+		system.debug('HASANTHA DE '+eddPlusBusinessDays);
 		//if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
 		if (eddPlusBusinessDays > Date.today()) {
 			Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
 					SSSWConstants.QUEUE_NAME_REOPEN_Q
 			});
 			if (!vGroups.isEmpty()) {
+				system.debug('HASANTHA DE 1'+eddPlusBusinessDays);
 				pCase.OwnerId = vGroups.values()[0].Id;
 				pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
 				pCase.Case_Reopen_Date__c = eddPlusBusinessDays;
@@ -1729,6 +1733,16 @@ public without sharing class bspEnquiryUplift {
 				pCase.AllocateToQueue__c = false;
 			}
 		}
+	}
+
+	/**
+	 * @param edd a Date value for Estimated Delivery Date
+	 *
+	 * @return the date value that is the EDD + the number of days defined in CCUSettings__c
+	 */
+	@AuraEnabled
+	public static Date getEDDPlusBusinessDays (Date edd) {
+		return edd == null ? null : BusinessHoursService.newInstance().calculateNextBusinessDay(edd, CCUSettings__c.getInstance().NextUpdateInForLateItems__c != null ? Integer.valueOf(CCUSettings__c.getInstance().NextUpdateInForLateItems__c) : 0);
 	}
 
 
