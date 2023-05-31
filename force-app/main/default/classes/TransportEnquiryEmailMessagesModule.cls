@@ -83,7 +83,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			// Grab the cases and their associated first incoming email message to check whether the incoming email messages are the first one attached to the case
 			//  If it is, then we treat this as a new case and therefore the EmailToCaseAddress__c and other related fields needs to be updated on the case
 
-			for (Case cs : CasesSelector.newInstance(new Set<SObjectField>{Case.Id, Case.Status, Case.Network__c}).selectById(caseIds, 
+			for (Case cs : CasesSelector.newInstance(new Set<SObjectField>{Case.Id, Case.Status, Case.Network__c, Case.Priority, Case.Call_Purpose__c}).selectById(caseIds, 
 							new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER}).values()) {
 				casesMap.put(cs.Id, cs);
 				if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
@@ -114,7 +114,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 
 			if (!casesToUpdate.isEmpty()) {
 				//update cases
-				uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.Status, Case.Network__c, Case.EmailToCaseAddress__c}, true, TransportEnquiryEmailMessagesModule.class.getName());
+				uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.Status, Case.Priority, Case.Network__c, Case.EmailToCaseAddress__c, Case.Call_Purpose__c}, true, TransportEnquiryEmailMessagesModule.class.getName());
 			}
 		}
 	}
@@ -159,9 +159,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	private Case getCaseToUpdate(Case parentCase, EmailToCaseMapping__mdt emailToCaseMapping) {
 		return new Case(
 			Id = parentCase.Id,
-			Status = String.isBlank(parentCase.Status) ? emailToCaseMapping.CaseStatus__c : parentCase.Status,
-			Network__c = String.isBlank(parentCase.Network__c) ? emailToCaseMapping.AssignNetwork__c : parentCase.Network__c,
-			EmailToCaseAddress__c = emailToCaseMapping.EmailToCaseAddress__c
+			Status = String.isNotBlank(emailToCaseMapping.CaseStatus__c) ? emailToCaseMapping.CaseStatus__c : parentCase.Status,
+			Priority = String.isNotBlank(emailToCaseMapping.CasePriority__c) ? emailToCaseMapping.CasePriority__c : parentCase.Priority,
+			Network__c = String.isNotBlank(emailToCaseMapping.AssignNetwork__c) ? emailToCaseMapping.AssignNetwork__c : parentCase.Network__c,
+			EmailToCaseAddress__c = emailToCaseMapping.EmailToCaseAddress__c,
+			Call_Purpose__c = String.isNotBlank(emailToCaseMapping.CasePurpose__c) ? emailToCaseMapping.CasePurpose__c : parentCase.Call_Purpose__c
 		);
 	}
 }
