@@ -93,7 +93,7 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
             return noEdd;
         }
 
-        if (this.containsEssentialMedicine || this.hasSentimentalValue) { // return the after edd+business days content regardless of edd if it contains essential medicine
+        if (this.containsEssentialMedicine === 'yes' || this.hasSentimentalValue === 'yes') { // return the after edd+business days content regardless of edd if it contains essential medicine
             return afterEddPlus;
         }
 
