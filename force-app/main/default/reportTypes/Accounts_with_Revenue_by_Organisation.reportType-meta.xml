@@ -1418,6 +1418,11 @@
             <field>hidden_OrgRevenue_in_last_6_months__c</field>
             <table>Account.Revenue_by_Organisation__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CurrentYear__c</field>
+            <table>Account.Revenue_by_Organisation__r</table>
+        </columns>
         <masterLabel>Revenue by Organisation</masterLabel>
     </sections>
 </ReportType>
