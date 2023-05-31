@@ -771,6 +771,45 @@
         <template>SSSW_System_Emails/SSSW_Case_Closed_Warning</template>
     </alerts>
     <alerts>
+        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation New Case For BSP Before EDD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP</template>
+    </alerts>
+    <alerts>
+        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation For BSP After EDD Business Days</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP_Within_EDD</template>
+    </alerts>
+    <alerts>
+        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD_Business_Days</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation For BSP Before EDD Business Days</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP_Within_EDD_Business_Days</template>
+    </alerts>
+    <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created</fullName>
         <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created,</description>
@@ -2344,9 +2383,20 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>SSSW_Set_to_Social_Back_Office</fullName>
+        <field>OwnerId</field>
+        <lookupValue>SSSW_BOH_Group_4</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>SSSW - Set to Social Back Office</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SSSW_Set_to_Unaddressed_Mail_Inbound</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Unaddressed_Mail_Inbound</lookupValue>
+        <lookupValue>SSSW_Niche_Common_Group</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Unaddressed Mail Inbound</name>
         <notifyAssignee>false</notifyAssignee>
@@ -4152,6 +4202,41 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
+        <fullName>SSSW - Consumer Portal Route to Social Back Office</fullName>
+        <actions>
+            <name>SSSW_Set_to_Social_Back_Office</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
+        <criteriaItems>
+            <field>Case.ProductSubCategory__c</field>
+            <operation>equals</operation>
+            <value>eBay Store</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>contains</operation>
+            <value>SSSW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Portal,Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.LastRoutingRuleIsStrategic__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.ByPassRoutingRulesOnCreation__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
         <fullName>SSSW - Consumer Portal Route to Unaddressed Mail Inbound</fullName>
         <actions>
             <name>SSSW_Set_to_Unaddressed_Mail_Inbound</name>
@@ -4381,7 +4466,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <criteriaItems>
+		<criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4504,7 +4589,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <criteriaItems>
+		<criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4514,7 +4599,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>Web,Portal</value>
         </criteriaItems>
-        <description>Snigdha : 19.05.2020 - Removed Article Codes DD-ER38, INT-2070</description>
+        <description>Snigdha : Updated for INC2147403</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4589,7 +4674,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <criteriaItems>
+		<criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4599,8 +4684,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>Web,Portal</value>
         </criteriaItems>
-        <description>Workflow when case has a article event code DD-ER15, DD-ER38, INT-2070
-19.05.2020 - Snigdha : Added Event Codes DD-ER38, INT-2070</description>
+        <description>Snigdha: Updated for INC2147403</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -4671,7 +4755,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <criteriaItems>
+		<criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
