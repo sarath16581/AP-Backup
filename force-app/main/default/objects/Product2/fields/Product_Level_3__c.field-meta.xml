@@ -26,6 +26,11 @@
                 <label>AP Global Solutions L3</label>
             </value>
             <value>
+                <fullName>Billpay Services</fullName>
+                <default>false</default>
+                <label>Billpay Services</label>
+            </value>
+            <value>
                 <fullName>Boxes &amp; Bags</fullName>
                 <default>false</default>
                 <label>Boxes &amp; Bags</label>
@@ -399,6 +404,11 @@
                 <fullName>International Parcel Post</fullName>
                 <default>false</default>
                 <label>International Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Metro</fullName>
+                <default>false</default>
+                <label>Metro</label>
             </value>
         </valueSetDefinition>
     </valueSet>
