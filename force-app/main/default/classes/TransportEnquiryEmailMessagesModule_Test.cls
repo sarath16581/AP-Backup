@@ -82,10 +82,10 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		//asserting case records updated with correct data
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<Case>) fflib_Match.eq(new List<Case>{
-				new Case(Id = cases[0].Id, Status = 'New', Priority = 'Low', Network__c = '0DB000000000000001', EmailToCaseAddress__c = 'melbournevanoperations@test.com', Call_Purpose__c = null),
-				new Case(Id = cases[1].Id, Status = 'New', Priority = 'Medium', Network__c = '0DB000000000000002', EmailToCaseAddress__c = 'sydneyvanoperations@test.com', Call_Purpose__c = null)
+				new Case(Id = cases[0].Id, Priority = 'Low', Network__c = '0DB000000000000001', EmailToCaseAddress__c = 'melbournevanoperations@test.com', Call_Purpose__c = null),
+				new Case(Id = cases[1].Id, Priority = 'Medium', Network__c = '0DB000000000000002', EmailToCaseAddress__c = 'sydneyvanoperations@test.com', Call_Purpose__c = null)
 			}),
-			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.Status, Case.Priority, Case.Network__c, Case.EmailToCaseAddress__c, Case.Call_Purpose__c }),
+			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.Priority, Case.Network__c, Case.EmailToCaseAddress__c, Case.Call_Purpose__c }),
 			fflib_Match.eqBoolean(true),
 			fflib_Match.eqString(TransportEnquiryEmailMessagesModule.class.getName())
 		);

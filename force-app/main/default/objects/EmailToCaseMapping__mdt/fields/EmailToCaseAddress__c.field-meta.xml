@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EmailToCaseAddress__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>Email address of Email-to-case that was originally sent.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Email address of Email-to-case that was originally sent.</inlineHelpText>
+    <label>Email To Case Address</label>
+    <required>true</required>
+    <type>Email</type>
+    <unique>true</unique>
+</CustomField>
