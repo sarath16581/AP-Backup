@@ -52,6 +52,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track description;
 	@track descriptionOfContents;
 	isContainsMedication;
+	isSentimental;
 	itemValue;
 	@track articleType;
 	@track serviceUsed;
