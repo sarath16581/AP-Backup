@@ -134,6 +134,13 @@ public with sharing class ApplicationTestDataFactoryCase {
 		return output;
 	}
 
+	public static List<AgentWork> getAgentWorks(Integer count, Object /*List<Id>*/ userIds, Object /*List<Id>*/ workitemIds, Boolean generateIds) {
+		return (List<AgentWork>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(AgentWork.SObjectType, new Map<SObjectField, Object> {
+			AgentWork.UserId => userIds,
+			AgentWork.WorkItemId => workitemIds
+		}, count), generateIds);
+	}	
+
 	public static Id caseSSSWGeneralEnquiryRecordType {
 		get {
 			if(caseSSSWGeneralEnquiryRecordType == null) {

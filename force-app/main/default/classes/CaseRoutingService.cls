@@ -303,6 +303,7 @@ public inherited sharing class CaseRoutingService {
 		if(!casesTobeRouted.isEmpty()){
 			System.debug('casesTobeRouted--->'+casesTobeRouted+'<--oldMap-->'+oldMap);
 			SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
+			System.debug('casesRouted--->'+casesTobeRouted+'<--oldMap-->'+oldMap);
 		}
 
 		// reset the recursion state to ensure changes we have made in the routing engine won't retrigger on next pass (if there is one)
@@ -391,7 +392,6 @@ public inherited sharing class CaseRoutingService {
 					'workItemIds' => processableCases.keySet(),
 					'isPreferredUserRequired' => true
 				}, true);
-				System.debug('preferredAgentPSRs: ' + preferredAgentPSRs);
 
 				if(!preferredAgentPSRs.isEmpty()) {
 					WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
@@ -752,7 +752,10 @@ public inherited sharing class CaseRoutingService {
 		private void processPendingServiceRoutingRecords(List<PendingServiceRouting> newPSRs, List<PendingServiceRouting> deletablePSRs, Map<Id,Case> casesPreferredAgentRouting){
 
 			// we need to first delete 
-			List<Database.DeleteResult> deletedList = ApplicationDatabase.getInstance().dmlDelete(deletablePSRs, false);
+			List<Database.DeleteResult> deletedList;
+			if(!deletablePSRs.isEmpty()) {
+				deletedList = ApplicationDatabase.getInstance().dmlDelete(deletablePSRs, false);	
+			}
 
 			// allow partial success for the insert, as some PSR insert may fail if a Case has an existing PSR already e.g. another inserted PSR has not been deleted
 			List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlInsert(newPSRs, false);
@@ -781,8 +784,10 @@ public inherited sharing class CaseRoutingService {
 					}					
 				}		
 				
-				// log any failed deleted to ensure we can monitor save errors (especially for checking routing failures)
-				ApplicationLogger.getInstance().logFailedDatabaseResults(deletedList, SSSWConstants.SSSW_APP, CaseRoutingService.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
+				if(!deletablePSRs.isEmpty()) {
+					// log any failed deleted to ensure we can monitor save errors (especially for checking routing failures)
+					ApplicationLogger.getInstance().logFailedDatabaseResults(deletedList, SSSWConstants.SSSW_APP, CaseRoutingService.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);
+				}
 
 				// log any failed inserts to ensure we can monitor save errors (especially for checking routing failures)
 				ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, CaseRoutingService.class.getName(), 'processPreferredAgent', '', ApplicationLogger.LoggingLevel.ERROR);

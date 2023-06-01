@@ -2,7 +2,7 @@
   * @author	   :
   * @date		 :
   * @description  : AP Routing service class
-  * @test SSSW_Routing_Test, CaseCommonUtility_Test, ChasBaseTest
+  * @test SSSW_Routing_Test, CaseRoutingService_Test, ChasBaseTest
 --------------------------------------- History ------------------------------------------------------------------------------------
 * 10.28.2020			 naseer.abbasi@auspost.com.au			Updated to cater for Strategic cases
 * 2020-10-28 - Ranjeewa Silva - Refactored 'assignCasesAndDescription' to move population of description into it's own method.

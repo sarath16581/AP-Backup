@@ -30,6 +30,7 @@
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
 */
+@IsTest
 public with sharing class ApplicationTestDataFactory {
 
 	public static List<Account> getAccounts(Integer count, Boolean generateIds) {
