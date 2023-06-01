@@ -82,6 +82,11 @@
                 <default>false</default>
                 <label>Z1</label>
             </value>
+            <value>
+                <fullName>Banded Z2</fullName>
+                <default>false</default>
+                <label>Banded Z2</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

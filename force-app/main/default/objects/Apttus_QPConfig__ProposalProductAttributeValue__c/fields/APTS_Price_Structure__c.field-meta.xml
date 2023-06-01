@@ -41,6 +41,11 @@
                 <default>false</default>
                 <label>BASE+PER_KG {Z40}</label>
             </value>
+			<value>
+                <fullName>Banded Z2</fullName>
+                <default>false</default>
+                <label>Banded Z2</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
