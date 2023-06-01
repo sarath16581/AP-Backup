@@ -1,493 +1,498 @@
 <!--
-    @Author      :  kalpita.talwadekar@auspost.com.au
-    @Date        :  25/07/2016
-    @Description :  Visualforce page for network users to update the network comments/resolution
+	@Author	  :  kalpita.talwadekar@auspost.com.au
+	@Date		:  25/07/2016
+	@Description :  Visualforce page for network users to update the network comments/resolution
 
-    * 04/10/2018 - Nanda Kothamasu - REQ1550351 - Request to add on screen text when specific option selected.  Added help text based on picklist val Function showHelp()
-      2019-09-30 - saiswetha.pingali@auspost.com.au - Fix for INC1456828- Duplicate network response on Feedback cases 
-      2020-04-01 - haraprasad.sahoo@auspost.com.au - Added html header at line 282 - Split the SUI and Further CCC action required? into two, for separate handling
-      2020-04-20 - haraprasad.sahoo@auspost.com.au - Added the onclick event to the apex:commandButtons
-      2020-05-20 - haraprasad.sahoo@auspost.com.au - Added requestoHold variable for the onclick event on the apex:commandButtons
-      2020-08-19 - neha.mehta@auspost.com.au - Added function showMessage() to display a message if  "Further CCC action required" value is true.
-      2021-07-06 - naveen.rajanna@auspost.com.au - Added confirm message as per REQ2554118
-      2022-09-09 - naveen.rajanna@auspost.com.au - REQ2963906: domain check to populate prefix myNetwork if required
+	* 04/10/2018 - Nanda Kothamasu - REQ1550351 - Request to add on screen text when specific option selected.  Added help text based on picklist val Function showHelp()
+	  2019-09-30 - saiswetha.pingali@auspost.com.au - Fix for INC1456828- Duplicate network response on Feedback cases 
+	  2020-04-01 - haraprasad.sahoo@auspost.com.au - Added html header at line 282 - Split the SUI and Further CCC action required? into two, for separate handling
+	  2020-04-20 - haraprasad.sahoo@auspost.com.au - Added the onclick event to the apex:commandButtons
+	  2020-05-20 - haraprasad.sahoo@auspost.com.au - Added requestoHold variable for the onclick event on the apex:commandButtons
+	  2020-08-19 - neha.mehta@auspost.com.au - Added function showMessage() to display a message if  "Further CCC action required" value is true.
+	  2021-07-06 - naveen.rajanna@auspost.com.au - Added confirm message as per REQ2554118
+	  2022-09-09 - naveen.rajanna@auspost.com.au - REQ2963906: domain check to populate prefix myNetwork if required
+	  2023-05-25 - jacob.isaac@auspost.com.au - REQ3111278: Changing Quality Of Case Label to Flag Case for Review, changing picklist and labels
 -->
-<apex:page standardController="Case" extensions="SSSW_MyNetworkResponsePageContr" action="{!initialize}" showHeader="false" applyHtmlTag="true" applyBodyTag="false" lightningStyleSheets="true">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- Import the Design System style sheet -->
-        <apex:slds />
-        <apex:includeScript value="{!$Resource.bootstrapJS}" />
-        <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
-        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
-        <apex:stylesheet value="{!$Resource.SSSWCSS}" />
-        <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}" />
-        <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}" />
-        <apex:includeScript value="{!$Resource.SSSWJS}" />
-        <apex:includeScript value="/support/console/31.0/integration.js" />
-        <apex:includeScript value="/canvas/sdk/js/publisher.js" />
-        <apex:includeScript value="/jslibrary/1440733404000/sfdc/main.js" />
-        <apex:includeScript value="/soap/ajax/57.0/connection.js" />
-        <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
-    </head>
-    <div class="slds-scope"> 
-    <apex:pageBlock id="pbl"> 
-        <apex:outputPanel id="jsFunctions">
-            <script type="text/javascript">
-                function checkOnComplete() {
-                    if (({!nresp.Request_Hold_Case__c
-                        } || {!nResp.Send_Case_To_Customer_Service__c
-                        } || {!refreshPage
-                        }) && {!NOT(hasCaseStatusChanged)
-                        }) {
-                        RefreshPrimaryTabById();
-                    } else {
-                        if ({!hasCaseStatusChanged
-                            }) {
-                            if (confirm('The status of this case has changed, please refresh the case to review the changes')) {
-                                RefreshPrimaryTabById();
-                            }
-                        }
-                    }
-                }
+<apex:page standardController="Case" extensions="SSSW_MyNetworkResponsePageContr" action="{!initialize}" showHeader="true" applyHtmlTag="true" applyBodyTag="false" lightningStyleSheets="true">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Import the Design System style sheet -->
+		<apex:slds />
+		<apex:includeScript value="{!$Resource.bootstrapJS}" />
+		<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+		<apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+		<apex:stylesheet value="{!$Resource.SSSWCSS}" />
+		<apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}" />
+		<apex:includeScript value="{!$Resource.SSSWJS}" />
+		<apex:includeScript value="/support/console/31.0/integration.js" />
+		<apex:includeScript value="/canvas/sdk/js/publisher.js" />
+		<apex:includeScript value="/jslibrary/1440733404000/sfdc/main.js" />
+		<apex:includeScript value="/soap/ajax/57.0/connection.js" />
+		<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+	</head>
+	<div class="slds-scope"> 
+	<apex:pageBlock id="pbl"> 
+		<apex:outputPanel id="jsFunctions">
+			<script type="text/javascript">
+				function checkOnComplete() {
+					if (({!nresp.Request_Hold_Case__c
+						} || {!nResp.Send_Case_To_Customer_Service__c
+						} || {!refreshPage
+						}) && {!NOT(hasCaseStatusChanged)
+						}) {
+						RefreshPrimaryTabById();
+					} else {
+						if ({!hasCaseStatusChanged
+							}) {
+							if (confirm('The status of this case has changed, please refresh the case to review the changes')) {
+								RefreshPrimaryTabById();
+							}
+						}
+					}
+				}
 
-                function RefreshPrimaryTabById() {
-                    refreshCurrentTab();
-                }
+				function RefreshPrimaryTabById() {
+					refreshCurrentTab();
+				}
 
-                function refreshIfReq() {
-                    var bool = '{!nResp.Send_Case_To_Customer_Service__c}';
-                    var bool2 = '{!nresp.Request_Hold_Case__c}';
-                    if (bool == true) {
-                        refreshCurrentTab();
-                    }
+				function refreshIfReq() {
+					var bool = '{!nResp.Send_Case_To_Customer_Service__c}';
+					var bool2 = '{!nresp.Request_Hold_Case__c}';
+					if (bool == true) {
+						refreshCurrentTab();
+					}
 
-                }
+				}
 
-                var refreshCurrentTab = function refreshCurrentTab() {
-                    alert('Record has been saved successfully');
-                    var baseURL = window.location.origin;
-                    var pathPrefix = '/s/';
-                    if(baseURL.includes("auspostbusiness")) {
-                        pathPrefix = '/{!$Label.MYNETWORK_LABEL}/s/';
-                    }
+				var refreshCurrentTab = function refreshCurrentTab() {
+					alert('Record has been saved successfully');
+					var baseURL = window.location.origin;
+					var pathPrefix = '/s/';
+					if(baseURL.includes("auspostbusiness")) {
+						pathPrefix = '/{!$Label.MYNETWORK_LABEL}/s/';
+					}
 
-                    if ('{!$User.UITheme}' != undefined) {
-                        if ('{!$User.UITheme}' == 'Theme4t' || '{!$User.UITheme}' == 'Theme4d') {
-                            console.log('VF in S1 or LEX');
-                            window.top.location.href = document.location.origin + pathPrefix;
-                        } else if (sforce.console.isInConsole()) {
-                            sforce.console.getEnclosingPrimaryTabId(function(result) {
-                                sforce.console.getFocusedPrimaryTabObjectId(function(res) {
-                                    if ('{!cseId}'.indexOf(res.id) == 0) {
-                                        //case is opened in primary tab
-                                        window.top.location.href = document.location.origin + pathPrefix;
-                                    } else {
-                                        //case is opened in sub tab
-                                        sforce.console.getFocusedSubtabId(function(r) {
-                                            window.top.location.href = document.location.origin + pathPrefix;
-                                        });
-                                    }
-                                });
-                            });
+					if ('{!$User.UITheme}' != undefined) {
+						if ('{!$User.UITheme}' == 'Theme4t' || '{!$User.UITheme}' == 'Theme4d') {
+							console.log('VF in S1 or LEX');
+							window.top.location.href = document.location.origin + pathPrefix;
+						} else if (sforce.console.isInConsole()) {
+							sforce.console.getEnclosingPrimaryTabId(function(result) {
+								sforce.console.getFocusedPrimaryTabObjectId(function(res) {
+									if ('{!cseId}'.indexOf(res.id) == 0) {
+										//case is opened in primary tab
+										window.top.location.href = document.location.origin + pathPrefix;
+									} else {
+										//case is opened in sub tab
+										sforce.console.getFocusedSubtabId(function(r) {
+											window.top.location.href = document.location.origin + pathPrefix;
+										});
+									}
+								});
+							});
 
-                        } else {
-                            console.log('VF in Classic');
-                            window.top.location.href = document.location.origin + pathPrefix;
+						} else {
+							console.log('VF in Classic');
+							window.top.location.href = document.location.origin + pathPrefix;
 
-                        }
-                    }
+						}
+					}
 
 
-                }
+				}
 
-                var refreshSuccess = function refreshSuccess(result) {
-                    if (result.success == true) {
-                        sforce.console.fireEvent('CaseID', '{"objectId":"{!cseId}", "objectName":""}');
-                        window.console && console.log('Primary tab refreshed successfully');
-                        alert('Record Saved Successfully!');
-                    } else {
-                        window.console && console.log('Primary tab did not refresh');
-                        alert('Something went wrong!');
-                    }
-                };
+				var refreshSuccess = function refreshSuccess(result) {
+					if (result.success == true) {
+						sforce.console.fireEvent('CaseID', '{"objectId":"{!cseId}", "objectName":""}');
+						window.console && console.log('Primary tab refreshed successfully');
+						alert('Record Saved Successfully!');
+					} else {
+						window.console && console.log('Primary tab did not refresh');
+						alert('Something went wrong!');
+					}
+				};
 
-                function updateRecords() {
-                    
-                    updateRecs();
-                }
-                           
-                /**
-                  * Summary : Purpose of this showMessage function is to check the value of the checkbox "Further CCC action required"
-                  * Date: 20/08/2020
-                  * By: Neha Mehta
-                  **/
-                  
-                function showMessage(check,message) {              
-                   var checkField = document.getElementById(check).checked;
-                   var message = document.getElementById(message);
-                   if (checkField){
-                      message.style.display = "block";
-                   } else {
-                      message.style.display = "none";
-                   }
-                }
-            </script>
-        </apex:outputPanel>
-        <style type="text/css">
+				function updateRecords() {
+					
+					updateRecs();
+				}
+						   
+				/**
+				  * Summary : Purpose of this showMessage function is to check the value of the checkbox "Further CCC action required"
+				  * Date: 20/08/2020
+				  * By: Neha Mehta
+				  **/
+				  
+				function showMessage(check,message) {			  
+				   var checkField = document.getElementById(check).checked;
+				   var message = document.getElementById(message);
+				   if (checkField){
+					  message.style.display = "block";
+				   } else {
+					  message.style.display = "none";
+				   }
+				}
+			</script>
+		</apex:outputPanel>
+		<style type="text/css">
 
-             body .bPageBlock {
-               border-top-width: 1px;
-               border-radius: 0.25rem !important;
-               margin-bottom: 0px !important;
-               border-bottom: 1px solid #d4d4d4 !important;
-               border-left: 1px solid #d4d4d4 !important;
-               border-right: 1px solid #d4d4d4 !important;
-            }
-            .caseTab .secondaryPalette, .individualPalette .caseBlock .secondaryPalette {
-               border-color:  #d4d4d4;
-            }
-            html body.sfdcBody {
-                background: white !important;
-            }
+			 body .bPageBlock {
+			   border-top-width: 1px;
+			   border-radius: 0.25rem !important;
+			   margin-bottom: 0px !important;
+			   border-bottom: 1px solid #d4d4d4 !important;
+			   border-left: 1px solid #d4d4d4 !important;
+			   border-right: 1px solid #d4d4d4 !important;
+			}
+			.caseTab .secondaryPalette, .individualPalette .caseBlock .secondaryPalette {
+			   border-color:  #d4d4d4;
+			}
+			html body.sfdcBody {
+				background: white !important;
+			}
 
-            textarea:disabled {
-                background-color: #f3f1ee;
-            }
+			textarea:disabled {
+				background-color: #f3f1ee;
+			}
 
-            body input.btn {
-                font-family: Arial;
-                font-size: 1.08em;
-                background-color: #ed0446;
-                border: 1px solid #ed0446;
-                background-image: -ms-linear-gradient(top, #d20000 0, #d20000 100%);
-                background-image: -moz-linear-gradient(top, #d20000 0, #d20000 100%);
-                background-image: -webkit-linear-gradient(top, #d20000 0, #d20000 100%);
-                background-image: linear-gradient(top, #8AB529 0, #87AC31 100%);
-                display: inline-block;
-                padding-top: 0;
-                padding-bottom: 1px;
-                padding-left: 10px;
-                padding-right: 10px;
-                height: 30px;
-                color: #fff;
-                -moz-border-radius: 3px;
-                border-radius: 2px;
-                -moz-box-shadow: 0 1px 2px 0 #adadad;
-                -webkit-box-shadow: 0 1px 2px 0 #adadad;
-                box-shadow: 0 1px 2px 0 #adadad;
-                margin: 0;
-            }
+			body input.btn {
+				font-family: Arial;
+				font-size: 1.08em;
+				background-color: #ed0446;
+				border: 1px solid #ed0446;
+				background-image: -ms-linear-gradient(top, #d20000 0, #d20000 100%);
+				background-image: -moz-linear-gradient(top, #d20000 0, #d20000 100%);
+				background-image: -webkit-linear-gradient(top, #d20000 0, #d20000 100%);
+				background-image: linear-gradient(top, #8AB529 0, #87AC31 100%);
+				display: inline-block;
+				padding-top: 0;
+				padding-bottom: 1px;
+				padding-left: 10px;
+				padding-right: 10px;
+				height: 30px;
+				color: #fff;
+				-moz-border-radius: 3px;
+				border-radius: 2px;
+				-moz-box-shadow: 0 1px 2px 0 #adadad;
+				-webkit-box-shadow: 0 1px 2px 0 #adadad;
+				box-shadow: 0 1px 2px 0 #adadad;
+				margin: 0;
+			}
 
-            html .brandSecondaryBrd {
-                background: white !important;
-            }
+			html .brandSecondaryBrd {
+				background: white !important;
+			}
 
-            .slds .slds-page-header {
-                background: white !important;
-            }
+			.slds .slds-page-header {
+				background: white !important;
+			}
 
-            .cl1 {
-                width: 30%;
-            }
+			.cl1 {
+				width: 30%;
+			}
 
-            .cl2 {
-                width: 50%;
-            }
-            #tableId tr td{
-                border-bottom: 0px;
-            }
-            #tableId tr th{
-                border-bottom: 0px;
-            }
-            #tableId tr{
-                border-bottom: 0px;
-            }
-        </style>
-        
-        <apex:form id="pg" styleClass="slds">
-            <apex:pageMessage severity="Warning" detail="{!updMsgString}" rendered="{!(relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
-                    (relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') &&
-                    relatedCse.Type == 'Investigation' }">
-        </apex:pageMessage>
-            <!-- Response Panel -->
-            <apex:outputPanel id="PONPanel">
+			.cl2 {
+				width: 50%;
+			}
+			#tableId tr td{
+				border-bottom: 0px;
+			}
+			#tableId tr th{
+				border-bottom: 0px;
+			}
+			#tableId tr{
+				border-bottom: 0px;
+			}
+		</style>
+		
+		<apex:form id="pg" styleClass="slds">
+			<apex:pageMessage severity="Warning" detail="{!updMsgString}" rendered="{!(relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
+					(relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') &&
+					relatedCse.Type == 'Investigation' }">
+		</apex:pageMessage>
+			<!-- Response Panel -->
+			<apex:outputPanel id="PONPanel">
 
-                <apex:outputPanel rendered="{!doNotShowEmail && NOT(showCaseDetails )}">
-                    <div id="overlay" class="slds-spinner_container" style="min-height: 140vh;display:none;">
-                        <div class="slds-spinner--brand slds-spinner slds-spinner--large" aria-hidden="true" role="alert">
-                            <div class="slds-spinner__dot-a"></div>
-                            <div class="slds-spinner__dot-b"></div>
-                        </div>
-                    </div>
-                    <table width="100%" style="border-collapse: collapse;" id="tableId">
-                        <tr> 
-                            <th styleClass="slds-truncate slds-text-title--caps slds-line-height--reset" style="color:#c90000;">
-                                <center> Customer Contact Centre Comments <br/><br/> </center>
-                            </th>
-                            <th styleClass="slds-truncate slds-text-title--caps slds-line-height--reset" style="color:#c90000;">
-                                <center> Network Response <br/><br/></center>
-                            </th>
-                        </tr>
-                        <tr valign="top">
-                            <td style="padding-left:10px; width:40%">
-                                <apex:outputPanel >
-                                    <apex:outputLabel value="Case Description" /><br/>
-                                    <apex:inputtextarea value="{!relatedCse.Description}" disabled="true" readonly="true" style="width:90%;height:400px;" />
-                                </apex:outputPanel><br/><br/>
-                            </td>
-                            <td width="60%" style="padding-left:10px;border-left:1px dashed grey;">
-                                <apex:pageBlockSection columns="1" showHeader="false" id="PONPanel1">
-                                    <apex:repeat value="{!fieldMap}" var="field">
-                                        
-                                        <apex:pageBlockSectionItem helpText="{!$ObjectType.Network_Response__c.fields[field].inlineHelpText}">
-                                           <apex:outputPanel >
-                                              
-                                                <apex:outputLabel value="{!fieldMap[field]}" rendered="{!field =='Id'}" /> 
-                                                <apex:outputLabel value="{!fieldMap[field]}" rendered="{!field!='DeliveryOptions__c' && field!='to_CCC_action__c' && field!='to_Reassign_Network__c' }" />
-                                                <apex:outputLabel value="{!fieldMap[field]}" rendered="{!field=='to_CCC_action__c' && relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10)) && field!='to_Reassign_Network__c'}" />
-                                                <apex:outputLabel value="{!fieldMap[field]}" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
-                                              
-                                            </apex:outputPanel> 
-                                            <apex:outputPanel >
-                                                <apex:inputField value="{!nresp[field]}"
-                                                                 style="width:90%;text-align:left;"
-                                                                 label="{!fieldMap[field]}"
-                                                                 rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c' || field=='Request_Hold_Case__c' || field=='to_CCC_action__c' ) && field!='to_Reassign_Network__c'}"
-                                                                 onchange="showHelp(this)">
-                                                    <apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt" />
-                                                </apex:inputField>
-                                                 <div id='{!field}_dsp' style="{!IF((field == 'More_Delivery_Information__c' && nresp[field] == 'Other - back to CCC for resolution*') , '','display:none;')}" >
-                                                    <font color="red" size="2px;">Explanations may be required if selecting this option, please only select if absolutely necessary.</font>
-                                                </div>
-                                                <apex:inputField value="{!nresp[field]}" style="float:left;width:10%" label="{!fieldMap[field]}" 
-                                                                 rendered="{!field=='Request_Hold_Case__c' || (field=='to_CCC_action__c' && relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))) && field!='to_Reassign_Network__c'}"/>
+				<apex:outputPanel rendered="{!doNotShowEmail && NOT(showCaseDetails )}">
+					<div id="overlay" class="slds-spinner_container" style="min-height: 140vh;display:none;">
+						<div class="slds-spinner--brand slds-spinner slds-spinner--large" aria-hidden="true" role="alert">
+							<div class="slds-spinner__dot-a"></div>
+							<div class="slds-spinner__dot-b"></div>
+						</div>
+					</div>
+					<table width="100%" style="border-collapse: collapse;" id="tableId">
+						<tr> 
+							<th styleClass="slds-truncate slds-text-title--caps slds-line-height--reset" style="color:#c90000;">
+								<center> Customer Contact Centre Comments <br/><br/> </center>
+							</th>
+							<th styleClass="slds-truncate slds-text-title--caps slds-line-height--reset" style="color:#c90000;">
+								<center> Network Response <br/><br/></center>
+							</th>
+						</tr>
+						<tr valign="top">
+							<td style="padding-left:10px; width:40%">
+								<apex:outputPanel >
+									<apex:outputLabel value="Case Description" /><br/>
+									<apex:inputtextarea value="{!relatedCse.Description}" disabled="true" readonly="true" style="width:90%;height:400px;" />
+								</apex:outputPanel><br/><br/>
+							</td>
+							<td width="60%" style="padding-left:10px;border-left:1px dashed grey;">
+								<apex:pageBlockSection columns="1" showHeader="false" id="PONPanel1">
+									<apex:repeat value="{!fieldMap}" var="field">
+										
+										<apex:pageBlockSectionItem helpText="{!$ObjectType.Network_Response__c.fields[field].inlineHelpText}">
+										   <apex:outputPanel >
+											  
+												<apex:outputLabel value="{!fieldMap[field]}" rendered="{!field =='Id'}" /> 
+												<apex:outputLabel value="{!fieldMap[field]}" rendered="{!field!='DeliveryOptions__c' && field!='to_CCC_action__c' && field!='to_Reassign_Network__c' }" />
+												<apex:outputLabel value="{!fieldMap[field]}" rendered="{!field=='to_CCC_action__c' && relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10)) && field!='to_Reassign_Network__c'}" />
+												<apex:outputLabel value="{!fieldMap[field]}" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
+											  
+											</apex:outputPanel> 
+											<apex:outputPanel >
+												<apex:inputField value="{!nresp[field]}"
+																 style="width:90%;text-align:left;"
+																 label="{!fieldMap[field]}"
+																 rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c' || field=='Request_Hold_Case__c' || field=='to_CCC_action__c' ) && field!='to_Reassign_Network__c'}"
+																 onchange="showHelp(this)">
+													<apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt" />
+												</apex:inputField>
+												 <div id='{!field}_dsp' style="{!IF((field == 'More_Delivery_Information__c' && nresp[field] == 'Other - back to CCC for resolution*') , '','display:none;')}" >
+													<font color="red" size="2px;">Explanations may be required if selecting this option, please only select if absolutely necessary.</font>
+												</div>
+												<apex:inputField value="{!nresp[field]}" style="float:left;width:10%" label="{!fieldMap[field]}" 
+																 rendered="{!field=='Request_Hold_Case__c' || (field=='to_CCC_action__c' && relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))) && field!='to_Reassign_Network__c'}"/>
 
-                                                <apex:inputField value="{!nresp.Delivery_officer_knowledge__c}" label="{!fieldMap[field]}" style="width:90%;" rendered="{!field=='Delivery_officer_knowledge__c' && field!='to_Reassign_Network__c'}">
-                                                    <apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt" />
-                                                </apex:inputField> 
-                                                <apex:inputField value="{!nresp.DeliveryOptions__c}" label="{!fieldMap[field]}" id="delOpt" style="width:90%;display:none;" rendered="{!field=='DeliveryOptions__c'}" />
-                                                <apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c !='Disputed delivery scan' && field!='to_Reassign_Network__c'}">
-                                                    <font color="red" size="4px;">&nbsp;*</font>
-                                                </apex:outputText> 
-                                                <apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c =='Disputed delivery scan' && field!='to_Reassign_Network__c'}"/>
-                                                <apex:inputField value="{!nresp[field]}" label="{!fieldMap[field]}" id="ress" style="width:90%;" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
+												<apex:inputField value="{!nresp.Delivery_officer_knowledge__c}" label="{!fieldMap[field]}" style="width:90%;" rendered="{!field=='Delivery_officer_knowledge__c' && field!='to_Reassign_Network__c'}">
+													<apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt" />
+												</apex:inputField> 
+												<apex:inputField value="{!nresp.DeliveryOptions__c}" label="{!fieldMap[field]}" id="delOpt" style="width:90%;display:none;" rendered="{!field=='DeliveryOptions__c'}" />
+												<apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c !='Disputed delivery scan' && field!='to_Reassign_Network__c'}">
+													<font color="red" size="4px;">&nbsp;*</font>
+												</apex:outputText> 
+												<apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c =='Disputed delivery scan' && field!='to_Reassign_Network__c'}"/>
+												<apex:inputField value="{!nresp[field]}" label="{!fieldMap[field]}" id="ress" style="width:90%;" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
 
-                                            </apex:outputPanel>
+											</apex:outputPanel>
 
-                                        </apex:pageBlockSectionItem>
-                                    </apex:repeat>
-                                </apex:pageBlockSection>
-                                <apex:outputtext value="Network Comments" style="display: inline-block; margin-bottom: 5px;margin-left: 25px;" />
-                                <apex:inputField value="{!nresp.Network_Comments__c}"  style="width:60%;text-align:left;margin-left: 10px;"   label="Network Comments"  />
-                                <apex:outputText >
-                                    <font color="red" size="4px;">&nbsp;*</font>
-                                </apex:outputText>
-                                                
-                                <apex:pageBlockSection columns="1" showHeader="false" id="PONPanelN" rendered="{!NOT((relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
-                                                (relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation')}">
-                                    <apex:repeat value="{!fieldMap2}" var="field">
-                                        <apex:pageBlockSectionItem helpText="{!$ObjectType.Network_Response__c.fields[field].inlineHelpText}">
-                                            <apex:outputPanel >
-                                                <apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field =='Id'}" />
-                                                <apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field!='DeliveryOptions__c' && field!='to_CCC_action__c' && field!='to_Reassign_Network__c' }" />
-                                                <apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field=='to_CCC_action__c' && relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10)) && field!='to_Reassign_Network__c'}" />
-                                                <apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
-                                            </apex:outputPanel>
-                                            <apex:outputPanel id="fieldvalues">
-                                                <apex:inputField value="{!nresp[field]}" style="width:90%;text-align:left;" label="{!fieldMap2[field]}" rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c' || field=='Request_Hold_Case__c' || field=='to_CCC_action__c' ) && field!='to_Reassign_Network__c'}">
-                                                    <apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt,PONPanel" />
-                                                </apex:inputField>
-                                                <!-- Start -Split the 2 fields SUI and CCC Action-->
-                                                <apex:inputField id="cccAction" value="{!nresp[field]}" label="{!fieldMap2[field]}" style="float:left;width:10%" rendered="{!(field=='to_CCC_action__c' && 
-                                                         relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))) && field!='to_Reassign_Network__c'}" onclick="showMessage(this.id,'message')">
-                                                    <br/>    
-                                                    <p id="message" style="display:none;color:#c90000;">Please only select if CCC should contact the customer for further advice/info</p>
-                                                </apex:inputField>
-                                              
-                                                 <apex:inputField id="investigation" value="{!nresp[field]}" label="{!fieldMap2[field]}"  style="float:left;width:10%" 
-                                                rendered="{!field=='Request_Hold_Case__c' && field!='to_Reassign_Network__c'}" onchange="checkCaseStatus('{!$Component.investigation}')"/>
-                                                
-                                                <!-- End -Split the 2 fields SUI and CCC Action-->
-                                                <apex:inputField value="{!nresp.Delivery_officer_knowledge__c}" label="{!fieldMap2[field]}" style="width:90%;" rendered="{!field=='Delivery_officer_knowledge__c' && field!='to_Reassign_Network__c'}">
-                                                    <apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt,PONPanel" />
-                                                </apex:inputField>
-                                                
-                                                <apex:inputField value="{!nresp.DeliveryOptions__c}" label="{!fieldMap2[field]}" id="delOpt" style="width:90%;display:none;" rendered="{!field=='DeliveryOptions__c'}" />
-                                                <apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c !='Disputed delivery scan' && field!='to_Reassign_Network__c'}">
-                                                    <font color="red" size="4px;">&nbsp;*</font>
-                                                </apex:outputText>
-                                                
-                                                <apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c =='Disputed delivery scan' && field!='to_Reassign_Network__c'}"/>
-                                                <apex:inputField value="{!nresp[field]}" label="{!fieldMap2[field]}" id="ress" style="width:90%;" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
+										</apex:pageBlockSectionItem>
+									</apex:repeat>
+								</apex:pageBlockSection>
+								<apex:outputtext value="Network Comments" style="display: inline-block; margin-bottom: 5px;margin-left: 25px;" />
+								<apex:inputField value="{!nresp.Network_Comments__c}"  style="width:60%;text-align:left;margin-left: 10px;"   label="Network Comments"  />
+								<apex:outputText >
+									<font color="red" size="4px;">&nbsp;*</font>
+								</apex:outputText>
+												
+								<apex:pageBlockSection columns="1" showHeader="false" id="PONPanelN" rendered="{!NOT((relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
+												(relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation')}">
+									<apex:repeat value="{!fieldMap2}" var="field">
+										<apex:pageBlockSectionItem helpText="{!$ObjectType.Network_Response__c.fields[field].inlineHelpText}">
+											<apex:outputPanel >
+												<apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field =='Id'}" />
+												<apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field!='DeliveryOptions__c' && field!='to_CCC_action__c' && field!='to_Reassign_Network__c' }" />
+												<apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field=='to_CCC_action__c' && relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10)) && field!='to_Reassign_Network__c'}" />
+												<apex:outputLabel value="{!fieldMap2[field]}" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
+											</apex:outputPanel>
+											<apex:outputPanel id="fieldvalues">
+												<apex:inputField value="{!nresp[field]}" style="width:90%;text-align:left;" label="{!fieldMap2[field]}" rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c' || field=='Request_Hold_Case__c' || field=='to_CCC_action__c' ) && field!='to_Reassign_Network__c'}">
+													<apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt,PONPanel" />
+												</apex:inputField>
 
-                                            </apex:outputPanel>
+												<div id='{!field}_dsp2' style="{!IF((field == 'Quality_of_the_case__c') && (nresp[field] != ''), '','display:none;')}" >
+													<font color="red" size="2px;">{!$Label[nresp.Quality_of_the_case__c]}</font>
+												</div>
+												<!-- Start -Split the 2 fields SUI and CCC Action-->
+												<apex:inputField id="cccAction" value="{!nresp[field]}" label="{!fieldMap2[field]}" style="float:left;width:10%" rendered="{!(field=='to_CCC_action__c' && 
+														 relatedCse.Type == 'Feedback' && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))) && field!='to_Reassign_Network__c'}" onclick="showMessage(this.id,'message')">
+													<br/>	
+													<p id="message" style="display:none;color:#c90000;">Please only select if CCC should contact the customer for further advice/info</p>
+												</apex:inputField>
+											  
+												 <apex:inputField id="investigation" value="{!nresp[field]}" label="{!fieldMap2[field]}"  style="float:left;width:10%" 
+												rendered="{!field=='Request_Hold_Case__c' && field!='to_Reassign_Network__c'}" onchange="checkCaseStatus('{!$Component.investigation}')"/>
+												
+												<!-- End -Split the 2 fields SUI and CCC Action-->
+												<apex:inputField value="{!nresp.Delivery_officer_knowledge__c}" label="{!fieldMap2[field]}" style="width:90%;" rendered="{!field=='Delivery_officer_knowledge__c' && field!='to_Reassign_Network__c'}">
+													<apex:actionSupport event="onchange" action="{!setDeliveryOptions}"  reRender="PONPanel1,delOpt,PONPanel" />
+												</apex:inputField>
+												
+												<apex:inputField value="{!nresp.DeliveryOptions__c}" label="{!fieldMap2[field]}" id="delOpt" style="width:90%;display:none;" rendered="{!field=='DeliveryOptions__c'}" />
+												<apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c !='Disputed delivery scan' && field!='to_Reassign_Network__c'}">
+													<font color="red" size="4px;">&nbsp;*</font>
+												</apex:outputText>
+												
+												<apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c =='Disputed delivery scan' && field!='to_Reassign_Network__c'}"/>
+												<apex:inputField value="{!nresp[field]}" label="{!fieldMap2[field]}" id="ress" style="width:90%;" rendered="{!field == 'to_Reassign_Network__c' &&  relatedCse.Owner.Name == 'SSSW Network Queue'  && IF(ISNULL(relatedCse.ClosedDate), true ,relatedCse.ClosedDate > (NOW() - 10))}" />
 
-                                        </apex:pageBlockSectionItem>
-                                    </apex:repeat>
-                                </apex:pageBlockSection>
-                                <br/><br/><br/>
-                                <center>
-                                    <apex:commandButton value="Save Update" onclick="if((checkField == false && requesttoHoldCase == false) && !confirm('Are you sure you want to proceed?')){return false;}"
-                                        action="{!showEmailTemplate}" 
-                                        rendered="{!doNotShowEmail && NOT(relatedCse.Type ='Feedback' ) && NOT((relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
-                                                (relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation') }" 
-                                        id="btn1" 
-                                        styleClass="btn" 
-                                         status="showload"
-                                        rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" 
-                                        oncomplete="
-                                        if({!hasError}) { return false; } 
-                                        if({!nresp.Request_Hold_Case__c} || {!nResp.Send_Case_To_Customer_Service__c} || {!refreshPage} || {!reassignRefresh}){
-                                            if({!hasCaseStatusChanged}){ 
-                                                if(confirm('The status of this case has changed, please refresh the case to review the changes')) RefreshPrimaryTabById(); 
-                                            }
-                                            if({!relatedCse.Status = 'Closed'}){ 
-                                                if(!confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) { return false; }
-                                            }
-                                            RefreshPrimaryTabById();
-                                        }"/>
-                                    <apex:commandButton value="Save Update" onclick="if((checkField == false && requesttoHoldCase == false) && !confirm('Are you sure you want to proceed?')){return false;}"
-                                        action="{!showEmailTemplate}" 
-                                        rendered="{!relatedCse.Type ='Feedback' && doNotShowEmail  && NOT((relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
-                                                (relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation') }" 
-                                        id="bt" 
-                                        styleClass="btn" 
-                                         status="showload"
-                                        rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3"   
-                                        oncomplete="
-                                        if({!hasError}){ 
-                                            return false; 
-                                        } else { 
-                                            if({!reassignRefresh} || {!nresp.to_CCC_action__c} || {!reassignRefresh} ) {
-                                                RefreshPrimaryTabById();
-                                            } else {
-                                                if({!relatedCse.Status = 'Closed'}){ 
-                                                    if(confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) {
-                                                        RefreshPrimaryTabById();
-                                                    } else {
-                                                        return false;
-                                                    }
-                                                } else {
-                                                    RefreshPrimaryTabById();
-                                                }
-                                            }
-                                        }" />
-                                    
-                                    <apex:commandButton value="Acknowledge" action="{!acknowledge}"  status="showload" rendered="{!(relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
-                                                (relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation'}" id="btnn" styleClass="btn"  rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" oncomplete="if({!hasError}){ 
-                                            return false;} else {RefreshPrimaryTabById();} " /> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <apex:commandButton onclick="if(checkField == false && requesttoHoldCase == false && !confirm('Are you sure you want to proceed?')){return false;}" value="Acknowledge and Respond"  status="showload" action="{!acknowledgeAndSave}" rendered="{!(relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
-                                                (relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation'}" id="btnn2" styleClass="btn"  rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" 
-                                            oncomplete="if({!hasError}){ 
-                                            return false;} 
-                                            else {
-                                                if({!relatedCse.Status = 'Closed'}){ 
-                                                    if(!confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) { return false; }
-                                                }
-                                                RefreshPrimaryTabById();
-                                            } " />
-                                   
+											</apex:outputPanel>
 
-                                </center>
-                            </td>
-                        </tr>
-                    </table>
-                </apex:outputPanel>
-                <br/>
-                <!-- button onclick checks enquiry sub type and decides on action to continue or send email and close case -->
+										</apex:pageBlockSectionItem>
+									</apex:repeat>
+								</apex:pageBlockSection>
+								<br/><br/><br/>
+								<center>
+									<apex:commandButton value="Save Update" onclick="if((checkField == false && requesttoHoldCase == false) && !confirm('Are you sure you want to proceed?')){return false;}"
+										action="{!showEmailTemplate}" 
+										rendered="{!doNotShowEmail && NOT(relatedCse.Type ='Feedback' ) && NOT((relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
+												(relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation') }" 
+										id="btn1" 
+										styleClass="btn" 
+										 status="showload"
+										rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" 
+										oncomplete="
+										if({!hasError}) { return false; } 
+										if({!nresp.Request_Hold_Case__c} || {!nResp.Send_Case_To_Customer_Service__c} || {!refreshPage} || {!reassignRefresh}){
+											if({!hasCaseStatusChanged}){ 
+												if(confirm('The status of this case has changed, please refresh the case to review the changes')) RefreshPrimaryTabById(); 
+											}
+											if({!relatedCse.Status = 'Closed'}){ 
+												if(!confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) { return false; }
+											}
+											RefreshPrimaryTabById();
+										}"/>
+									<apex:commandButton value="Save Update" onclick="if((checkField == false && requesttoHoldCase == false) && !confirm('Are you sure you want to proceed?')){return false;}"
+										action="{!showEmailTemplate}" 
+										rendered="{!relatedCse.Type ='Feedback' && doNotShowEmail  && NOT((relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
+												(relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation') }" 
+										id="bt" 
+										styleClass="btn" 
+										 status="showload"
+										rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3"   
+										oncomplete="
+										if({!hasError}){ 
+											return false; 
+										} else { 
+											if({!reassignRefresh} || {!nresp.to_CCC_action__c} || {!reassignRefresh} ) {
+												RefreshPrimaryTabById();
+											} else {
+												if({!relatedCse.Status = 'Closed'}){ 
+													if(confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) {
+														RefreshPrimaryTabById();
+													} else {
+														return false;
+													}
+												} else {
+													RefreshPrimaryTabById();
+												}
+											}
+										}" />
+									
+									<apex:commandButton value="Acknowledge" action="{!acknowledge}"  status="showload" rendered="{!(relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
+												(relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation'}" id="btnn" styleClass="btn"  rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" oncomplete="if({!hasError}){ 
+											return false;} else {RefreshPrimaryTabById();} " /> &nbsp;&nbsp;&nbsp;&nbsp;
+									<apex:commandButton onclick="if(checkField == false && requesttoHoldCase == false && !confirm('Are you sure you want to proceed?')){return false;}" value="Acknowledge and Respond"  status="showload" action="{!acknowledgeAndSave}" rendered="{!(relatedCse.Owner.Name != 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response') ||
+												(relatedCse.Owner.Name == 'SSSW Network Queue' && relatedCse.Root_cause__c == 'Awaiting Network Response' && relatedCse.Status!='Awaiting Network Response') && relatedCse.Type == 'Investigation'}" id="btnn2" styleClass="btn"  rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" 
+											oncomplete="if({!hasError}){ 
+											return false;} 
+											else {
+												if({!relatedCse.Status = 'Closed'}){ 
+													if(!confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) { return false; }
+												}
+												RefreshPrimaryTabById();
+											} " />
+								   
 
-                <apex:outputPanel id="emailPanel" rendered="{!NOT(doNotShowEmail)}">
-                    <br/>
-                    <div style="border:1px solid #000;align-text:10px;height:auto;"><b/>
-                        <font color="red"> <i><h5>NOTE: Email in below format will be sent to Customer</h5></i> </font> <br/><br/>
-                        <apex:outputText > <b>To: &nbsp;&nbsp;&nbsp; {!relatedCse.Contact.email} </b> </apex:outputText><br/><br/>
-                        <apex:inputTextArea value="{!templateBody2}" disabled="true" readonly="true" style="width:100%;height:350px;" /><br/>
-                    </div>
-                    <br/>
-                    <apex:commandButton value="Change Selections" action="{!goBack}" id="btn2" styleClass="btn"  rerender="pbl,PONPanel,emailPanel,myEmailPublisher,pg" /> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <apex:commandButton value="Send Email and Update Response" status="showload" id="btn3" rendered="{!NOT(doNotShowEmail)}" styleClass="btn"  onclick="if(confirm('Email will be sent to customer. Are you sure?')) { updateRecs();} return false;" rerender="pbl,pg,PONPanel,emailPanel,myEmailPublisher,pg" oncomplete="if({!hasCaseStatusChanged}){ if(confirm('The status of this case has changed, please refresh the case to review the changes')) { RefreshPrimaryTabById();} }RefreshPrimaryTabById();" />
-                </apex:outputPanel>
-                <center>
-                    <apex:actionStatus id="showload" style="align:center;" onstart="openOverlay();" onstop="closeOverlay();" />
-                </center>
-            </apex:outputPanel>
-            
-            <apex:actionFunction name="updateRecs" 
-                action="{!updateRespoTemp}" 
-                id="updateRecs" 
-                oncomplete="
-                if({!hasCaseStatusChanged}){ 
-                    if(confirm('The status of this case has changed, please refresh the case to review the changes')) {
-                        RefreshPrimaryTabById();
-                    } 
-                }RefreshPrimaryTabById();" 
-                />
+								</center>
+							</td>
+						</tr>
+					</table>
+				</apex:outputPanel>
+				<br/>
+				<!-- button onclick checks enquiry sub type and decides on action to continue or send email and close case -->
 
-        </apex:form>
+				<apex:outputPanel id="emailPanel" rendered="{!NOT(doNotShowEmail)}">
+					<br/>
+					<div style="border:1px solid #000;align-text:10px;height:auto;"><b/>
+						<font color="red"> <i><h5>NOTE: Email in below format will be sent to Customer</h5></i> </font> <br/><br/>
+						<apex:outputText > <b>To: &nbsp;&nbsp;&nbsp; {!relatedCse.Contact.email} </b> </apex:outputText><br/><br/>
+						<apex:inputTextArea value="{!templateBody2}" disabled="true" readonly="true" style="width:100%;height:350px;" /><br/>
+					</div>
+					<br/>
+					<apex:commandButton value="Change Selections" action="{!goBack}" id="btn2" styleClass="btn"  rerender="pbl,PONPanel,emailPanel,myEmailPublisher,pg" /> &nbsp;&nbsp;&nbsp;&nbsp;
+					<apex:commandButton value="Send Email and Update Response" status="showload" id="btn3" rendered="{!NOT(doNotShowEmail)}" styleClass="btn"  onclick="if(confirm('Email will be sent to customer. Are you sure?')) { updateRecs();} return false;" rerender="pbl,pg,PONPanel,emailPanel,myEmailPublisher,pg" oncomplete="if({!hasCaseStatusChanged}){ if(confirm('The status of this case has changed, please refresh the case to review the changes')) { RefreshPrimaryTabById();} }RefreshPrimaryTabById();" />
+				</apex:outputPanel>
+				<center>
+					<apex:actionStatus id="showload" style="align:center;" onstart="openOverlay();" onstop="closeOverlay();" />
+				</center>
+			</apex:outputPanel>
+			
+			<apex:actionFunction name="updateRecs" 
+				action="{!updateRespoTemp}" 
+				id="updateRecs" 
+				oncomplete="
+				if({!hasCaseStatusChanged}){ 
+					if(confirm('The status of this case has changed, please refresh the case to review the changes')) {
+						RefreshPrimaryTabById();
+					} 
+				}RefreshPrimaryTabById();" 
+				/>
 
-    </apex:pageBlock>
+		</apex:form>
+
+	</apex:pageBlock>
 </div>
-    <script>
-    /** Variable for SUI checkbox from the UI**/
-    var checkField = true;
-    /** Variable for SUI checkbox value from the controller**/
-    var requesttoHoldCase = {!requesttoHold};
-    
-    //Special handling when the database value is false and there is no user interaction
-    if(checkField == true && requesttoHoldCase == false)
-        {
-            checkField=false;
-            requesttoHoldCase=false;
-        }
-    
-    /**
-     * Sumary : Purpose of this checkCaseStatus function is to check the value of the checkbox "Still under investigation"
-     * Date: 20/04/2020
-     * By: Hara Sahoo
-    **/
-    function checkCaseStatus(check){
-       checkField =  document.getElementById(check).checked;
-       requesttoHoldCase = false;
-    }
-    
-    j$ = jQuery.noConflict();
-    
-    // TODO: change this to a jquery selector
-    // open and close overlay to prevent user to intefere with the screen while a request in progress
-    function openOverlay() {
-        document.getElementById("overlay").style.display = "block";
-    }
-    
-    function closeOverlay() {
-        document.getElementById("overlay").style.display = "none";
-    }
-    
-    function clearLookup() {
-        j$("[id*='ress']").val('');
-    }
+	<script>
+	/** Variable for SUI checkbox from the UI**/
+	var checkField = true;
+	/** Variable for SUI checkbox value from the controller**/
+	var requesttoHoldCase = {!requesttoHold};
+	
+	//Special handling when the database value is false and there is no user interaction
+	if(checkField == true && requesttoHoldCase == false)
+		{
+			checkField=false;
+			requesttoHoldCase=false;
+		}
+	
+	/**
+	 * Sumary : Purpose of this checkCaseStatus function is to check the value of the checkbox "Still under investigation"
+	 * Date: 20/04/2020
+	 * By: Hara Sahoo
+	**/
+	function checkCaseStatus(check){
+	   checkField =  document.getElementById(check).checked;
+	   requesttoHoldCase = false;
+	}
+	
+	j$ = jQuery.noConflict();
+	
+	// TODO: change this to a jquery selector
+	// open and close overlay to prevent user to intefere with the screen while a request in progress
+	function openOverlay() {
+		document.getElementById("overlay").style.display = "block";
+	}
+	
+	function closeOverlay() {
+		document.getElementById("overlay").style.display = "none";
+	}
+	
+	function clearLookup() {
+		j$("[id*='ress']").val('');
+	}
 
  /**
-     * Sumary : Purpose of this function is to display help test on More_Delivery_Information__c_dsp div tag.
-     * param: Field object.
-     * On: 11th Sep 2018
-     * By: Nanda Kothamasu
-    **/
-    function showHelp(selectVal){ 
-        if(j$(selectVal).val()==null || j$(selectVal).val()==''){
-                 j$('[id$="More_Delivery_Information__c_dsp"]').hide();
-        }else{ 
-           if(j$(selectVal).val() == 'Other - back to CCC for resolution*') {
-                j$('[id$="More_Delivery_Information__c_dsp"]').show();
-            }else{
-                j$('[id$="More_Delivery_Information__c_dsp"]').hide();
-            }
-        } 
-    }    
-    closeOverlay();
+	 * Sumary : Purpose of this function is to display help test on More_Delivery_Information__c_dsp div tag.
+	 * param: Field object.
+	 * On: 11th Sep 2018
+	 * By: Nanda Kothamasu
+	**/
+	function showHelp(selectVal){ 
+		if(j$(selectVal).val()==null || j$(selectVal).val()==''){
+				 j$('[id$="More_Delivery_Information__c_dsp"]').hide();
+		}else{ 
+		   if(j$(selectVal).val() == 'Other - back to CCC for resolution*') {
+				j$('[id$="More_Delivery_Information__c_dsp"]').show();
+			}else{
+				j$('[id$="More_Delivery_Information__c_dsp"]').hide();
+			}
+		} 
+	}	
+	closeOverlay();
 
-    </script>
-    
+	</script>
+	
 </apex:page>
