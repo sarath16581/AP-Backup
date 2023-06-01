@@ -20,6 +20,7 @@
  * 2022-01-23 - Dattaraj Deshmukh - Added tests for 'CaseInvestigations__r' child records query.
  * 2022-02-13 - Dattaraj Deshmukh - Added test for StarTrack cases and case investigations in testSelectorIntegration method.
  * 2022-02-28 - Dattaraj Deshmukh - Added test for WITH_NETWORK_RESPONSE in 'testEnsureQueryBuilderProducesCorrectStringWithRelatedFields' method.
+ * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -201,6 +202,8 @@ public with sharing class CasesSelector_Test {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
 		networks[0].Org_ID__c = '1234';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 
 		//insert CaseInvestigations

@@ -1315,25 +1315,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Included_Product_Lines__c</picklist>
-        <values>
-            <fullName>Post Billpay OTC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Post Billpay Scan %26 Pay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Post Billpay by Phone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Post Billpay on the Internet</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>International_Merchant_Service_Fee__c</picklist>
         <values>
             <fullName>1%2E90%25</fullName>

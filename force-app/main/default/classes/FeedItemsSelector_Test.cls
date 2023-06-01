@@ -9,6 +9,7 @@
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
  * 2023-02-28 - Dattaraj Deshmukh - Added 'TEXTPOST_ONLY' in testEnsureQueryBuilderProducesCorrectString method.
+ * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  */
 @IsTest
 private class FeedItemsSelector_Test {
@@ -72,6 +73,8 @@ private class FeedItemsSelector_Test {
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		networks[0].Org_ID__c = '1234';
 		insert networks;
 

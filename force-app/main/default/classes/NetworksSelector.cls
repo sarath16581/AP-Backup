@@ -17,11 +17,13 @@
 * 2022-12-05 - Mahesh Parvathaneni - Added StarTrack network record types variable
 * 2023-03-10 - Mahesh Parvathaneni - Added FILTER_AP_NETWORK options
 * 2023-04-18 - Mahesh Parvathaneni - Added Comment__c field
+* 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList and FILTER_MYNETWORK, FILTER_IS_PARCEL, FILTER_STATUS_NOT_CLOSED options
+* 2023-05-22 - Mahesh Parvathaneni - Added method selectByNetworkNamePartial
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, FILTER_AP_NETWORK
+		WITH_RECORDTYPE, WITH_OWNER, FILTER_AP_NETWORK, FILTER_MYNETWORK, FILTER_IS_PARCEL, FILTER_STATUS_NOT_CLOSED
 	}
 
 	public static final Set<String> ST_NETWORK_RECORD_TYPES = new Set<String>{
@@ -70,7 +72,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static NetworksSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		NetworksSelector selector = (NetworksSelector)Application.Selectors.newInstance(NetworksSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -88,7 +90,7 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 			Network__c.Org_ID__c, Network__c.Org_Unit_Type__c, Network__c.Network_Address__c,Network__c.Post_Code__c,Network__c.Phone_Number__c, Network__c.Comment__c,
 			//Network__c.Id, Network__c.Name, Network__c.Org_ID__c, Network__c.Org_Unit_Type__c
 			// Added by Raman for Process Builder replacement
-			Network__c.Business_Hours__c
+			Network__c.Business_Hours__c, Network__c.Parcel__c, Network__c.Status__c
 		};
 	}
 	/**
@@ -288,6 +290,21 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		return (List<Network__c>)Database.query(qb.toSoqlString());
 	}
 
+	/**
+	 * @description Run a simple query to get records based on a partial match of Network name
+	 */
+	public List<Network__c> selectByNetworkNamePartial(String name) {
+		return selectByNetworkNamePartial(name, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on a partial match of ReferenceID__c
+	 */
+	public List<Network__c> selectByNetworkNamePartial(String name, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.LikeCondition(Network__c.Name).likeAnyRight(name)).endConditions();
+		return (List<Network__c>)Database.query(qb.toSoqlString());
+	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -305,6 +322,18 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 
 		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
 			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(ST_NETWORK_RECORD_TYPES)).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_MYNETWORK)) {
+			builder.addConditions().add((new QueryBuilder.CompareCondition(Network__c.Contact_Facility__c)).eq('MyNetwork')).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_IS_PARCEL)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Network__c.Parcel__c).eq(true)).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_STATUS_NOT_CLOSED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Network__c.Status__c).ne('Closed')).endConditions();
 		}
 
 		return builder;

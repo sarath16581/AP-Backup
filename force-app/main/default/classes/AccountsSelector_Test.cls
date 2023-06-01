@@ -14,6 +14,7 @@
  * 2022-07-19 - Sreenish Krishnan - Adding test methods to support search
  * 2022-08-16 - Kamil Szyc - Added test for post office assigned selector option
  * 2023-03-17 - Naveen Rajanna - SMWD-397 - Modified to use Assert class for assertion, Added test for following enums - WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
+ * 2023-05-01 - Naveen Rajanna - REQ2916371 - coverage for search() and new enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
  */
 @IsTest
 public with sharing class AccountsSelector_Test {
@@ -180,6 +181,96 @@ public with sharing class AccountsSelector_Test {
 			'Resulting query does not select Owner fields'
 		);
 
+		/* Parent relation SOQL compile check - start */
+		AccountsSelector selector1 = AccountsSelector.newInstance(
+			0, new Set<SObjectField>{ Account.Id }
+		);
+		qb = selector1.newQueryBuilder(new Set<Object>{
+			AccountsSelector.Options.WITH_PARENT_5LEVELS
+		});
+		soql = qb.toSoqlString();
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Parent.Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'5th level Parent fields not retrieved in WITH_PARENT_5LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'4th level Parent fields not retrieved in WITH_PARENT_5LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'3rd level Parent fields not retrieved in WITH_PARENT_5LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'2nd level Parent fields not retrieved in WITH_PARENT_5LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Id')+'\\b').matcher(soql).find(),
+			'1st level Parent fields not retrieved in WITH_PARENT_5LEVELS'
+		);
+
+		qb = selector1.newQueryBuilder(new Set<Object>{
+			AccountsSelector.Options.WITH_PARENT_4LEVELS
+		});
+		soql = qb.toSoqlString();
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'4th level Parent fields not retrieved in WITH_PARENT_4LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'3rd level Parent fields not retrieved in WITH_PARENT_4LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'2nd level Parent fields not retrieved in WITH_PARENT_4LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Id')+'\\b').matcher(soql).find(),
+			'1st level Parent fields not retrieved in WITH_PARENT_4LEVELS'
+		);
+
+		qb = selector1.newQueryBuilder(new Set<Object>{
+			AccountsSelector.Options.WITH_PARENT_3LEVELS
+		});
+		soql = qb.toSoqlString();
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'3rd level Parent fields not retrieved in WITH_PARENT_3LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'2nd level Parent fields not retrieved in WITH_PARENT_3LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Id')+'\\b').matcher(soql).find(),
+			'1st level Parent fields not retrieved in WITH_PARENT_3LEVELS'
+		);
+
+		qb = selector1.newQueryBuilder(new Set<Object>{
+			AccountsSelector.Options.WITH_PARENT_2LEVELS
+		});
+		soql = qb.toSoqlString();
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Parent.Id')+'\\b').matcher(soql).find(),
+			'2nd level Parent fields not retrieved in WITH_PARENT_2LEVELS'
+		);
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Id')+'\\b').matcher(soql).find(),
+			'1st level Parent fields not retrieved in WITH_PARENT_2LEVELS'
+		);
+
+		qb = selector1.newQueryBuilder(new Set<Object>{
+			AccountsSelector.Options.WITH_PARENT
+		});
+		soql = qb.toSoqlString();
+		System.Assert.isTrue(
+			Pattern.compile('\\b' +String.valueOf('Parent.Id')+'\\b').matcher(soql).find(),
+			'1st level Parent fields not retrieved in WITH_PARENT'
+		);
+		/* Parent relation SOQL compile check - end */
+
 		Test.stopTest();
 	}
 
@@ -197,17 +288,19 @@ public with sharing class AccountsSelector_Test {
 		networkFacility.Org_ID__c = 'test';
 		insert networkFacility;
 
-		Account grandparent = new Account(Name = 'Grandparent');
-		insert grandparent;
-		Account parent = new Account(Name = 'Parent', ParentId = grandparent.Id);
-		insert parent;
-
-		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(2, false));
+		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(6, false));
 		orgAaccounts[0].LEGACY_ID__c = '6000000';
 		orgAaccounts[0].ABN__c = '1234';
 		orgAaccounts[0].Post_Office_Assigned__c = networkFacility.Id;
-		orgAaccounts[0].ParentId = parent.Id;
 		insert orgAaccounts;
+
+		// Add Parent, GrandParent and so on
+		orgAaccounts[0].ParentId = orgAaccounts[1].Id;
+		orgAaccounts[1].ParentId = orgAaccounts[2].Id;
+		orgAaccounts[2].ParentId = orgAaccounts[3].Id;
+		orgAaccounts[3].ParentId = orgAaccounts[4].Id;
+		orgAaccounts[4].ParentId = orgAaccounts[5].Id;
+		update orgAaccounts;
 
 		Account facilityAccount = ApplicationTestDataFactory.getFacilityAccounts(1, networkFacility.Id, false)[0];
 		insert facilityAccount;
@@ -216,17 +309,6 @@ public with sharing class AccountsSelector_Test {
 			ApplicationTestDataFactory.getLPOAccounts(2, orgAaccounts[0].Id, facilityAccount.Id, false)
 		);
 		insert accounts;
-
-		List<Account> consumers = new List<Account>(ApplicationTestDataFactory.getPersonAccounts(2, false));
-		consumers[0].FirstName = 'Seth';
-		consumers[0].APCN__c = '123456789';
-		consumers[0].APCN__pc = '123456789';
-
-		consumers[1].FirstName = 'Green';
-		consumers[1].APCN__c = '987654321';
-		consumers[1].APCN__pc = '987654321';
-
-		insert consumers;
 
 		Contact personContact = ApplicationTestDataFactory.getContacts(1, orgAaccounts[0].Id, false)[0];
 		insert personContact;
@@ -263,7 +345,6 @@ public with sharing class AccountsSelector_Test {
 		Test.startTest();
 
 		AccountsSelector selector = AccountsSelector.newInstance(1);
-		AccountsSelector selector1 = AccountsSelector.newInstance(2);
 		Map<Id, Account> results = selector.selectById(mappedAccounts.keySet());
 		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
 
@@ -321,22 +402,64 @@ public with sharing class AccountsSelector_Test {
 		});
 		System.Assert.isNotNull(results.values()[0].Facility__r.Name, 'Expected related Facility Name field');
 
-		results = selector.selectByLikedNameAndPersonAccountOrderByName('Seth', true);
-		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
+		Set<Id> parentIdSet = new Set<Id>{orgAaccounts[5].Id};
+		List<Account> searchResults = AccountsSelector.newInstance(
+			0, new Set<SObjectField>{ Account.Id, Account.ParentId }
+		).search(
+			new Map<String, Object>{
+				'parentIds' => parentIdSet, 'parentIdsLevel2' => parentIdSet, 'parentIdsLevel3' => parentIdSet, 
+				'parentIdsLevel4' => parentIdSet, 'parentIdsLevel5' => parentIdSet, 'parentIdsLevel6' => parentIdSet
+			},
+			new Set<Object>{AccountsSelector.Options.WITH_PARENT_5LEVELS}, '1 OR 2 OR 3 OR 4 OR 5 OR 6', Account.Name, 'ASC'
+		);
+		System.Assert.isTrue(searchResults.size() > 0, 'Expected searchResults size');
+
+		Test.stopTest();
+	}
+
+	@isTest
+	public static void testSearchAPCN() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+		
+		AccountsSelector selector = AccountsSelector.newInstance(0);
+		List<Account> consumers = new List<Account>(ApplicationTestDataFactory.getPersonAccounts(2, false));
+		consumers[0].FirstName = 'Seth';
+		consumers[0].APCN__c = '123456789';
+		consumers[0].APCN__pc = '123456789';
+		consumers[0].Integration_Service_Mod_Date__c = System.Today().addDays(-1);
+		consumers[1].FirstName = 'Green';
+		consumers[1].APCN__c = '987654321';
+		consumers[1].APCN__pc = '987654321';
+		consumers[1].Integration_Service_Mod_Date__c = System.Today();
+		insert consumers;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
 		Map<String, Object> searchParams = new Map<String, Object>{
-			'apcn' => new Set<String>{
-				consumers[0].APCN__c, consumers[1].APCN__c
-			},
-			'accId' => new Set<Id>{
-				consumers[0].Id, consumers[1].Id
-			},
+			'apcn' => new Set<String>{consumers[0].APCN__c, consumers[1].APCN__c},
+			'accId' => new Set<Id>{consumers[0].Id, consumers[1].Id},
 			'isPersonAccount' => true
 		};
 		String searchConditions = '(1 OR 2) AND 3';
 		Schema.SObjectField orderByField = Account.Integration_Service_Mod_Date__c;
-		List<Account> results1 = selector1.selectByAPCNAndIdAndPersonAccount(searchParams, searchConditions, orderByField);
-		System.Assert.areEqual(2, results1.size(), 'Result count returned by selectByAPCNAndIdAndPersonAccount was wrong');
+		
+		List<Account> results = selector.selectByAPCNAndIdAndPersonAccount(searchParams, searchConditions, orderByField);
+		System.Assert.areEqual(2, results.size(), 'Result count returned by selectByAPCNAndIdAndPersonAccount was wrong');
+		System.Assert.areEqual(consumers[1].Id, results[0].Id, 'Result is not sorted as expected');
+
+		results = selector.selectByLikedNameAndPersonAccountOrderByName('Seth', true).values();
+		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
 
 		Test.stopTest();
 	}

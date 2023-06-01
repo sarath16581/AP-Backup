@@ -123,7 +123,7 @@
                                                 <b>We'll monitor this parcel until {!CASE(WEEKDAY(DATEVALUE(Case.HeldToOpenOn__c)), 1, "Sunday", 2, "Monday", 3, "Tuesday", 4, "Wednesday", 5, "Thursday", 6, "Friday", "Saturday")} 
 												{!DAY(DATEVALUE(Case.HeldToOpenOn__c))} 
 												{!CASE(MONTH(DATEVALUE(Case.HeldToOpenOn__c)), 1, "Jan", 2, "Feb", 3, "Mar", 4, "Apr", 5, "May", 6, "Jun", 7, "Jul", 8, "Aug", 9, "Sep", 10, "Oct", 11, "Nov", "Dec")}.</b>
-                                                <br/> It hasn't been delivered by then, we'll begin investigating. No need to submit another enquiry.
+                                                <br/> If it hasn't been delivered by then, we'll begin investigating. No need to submit another enquiry.
                                             </p>
                                             <p style="padding:0 0 0px; font:20px/16px Arial, Helvetica, sans-serif; color:#807370;">
                                                 We'll keep you updated

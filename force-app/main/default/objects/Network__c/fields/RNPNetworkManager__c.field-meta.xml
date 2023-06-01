@@ -5,7 +5,7 @@
     <description>Network Manager Hierarchy - used only for reporting purposes</description>
     <externalId>false</externalId>
     <inlineHelpText>Network Manager Hierarchy - used only for reporting purposes</inlineHelpText>
-    <label>RNP Network Manager</label>
+    <label>Network Manager</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>Networks</relationshipLabel>
     <relationshipName>RelatedNetworks</relationshipName>

@@ -3,7 +3,7 @@
     <available>true</available>
     <description>SSSW - Send a Email when New Case For BSP</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>SSSW New Case Notification For BSP</name>
+    <name>SSSW - Email on Creation New Case For BSP Before EDD</name>
     <style>none</style>
     <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
     <textOnly>Australia Post

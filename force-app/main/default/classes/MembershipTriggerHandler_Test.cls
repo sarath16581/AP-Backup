@@ -10,7 +10,7 @@ History
 @IsTest
 public class MembershipTriggerHandler_Test {
 
-    /***************************************************************
+	/***************************************************************
      * Initialize Lookups
      **************************************************************/
     
@@ -67,6 +67,7 @@ public class MembershipTriggerHandler_Test {
         // =====================================
         MockUtility.disableTriggerExecution();
         Account orgAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		orgAccount.ABN__c = '12345678910';
         insert orgAccount;
         Network__c networkFacility = ApplicationTestDataFactory.getLPONetwork(1,false)[0];
         insert networkFacility;
@@ -83,7 +84,11 @@ public class MembershipTriggerHandler_Test {
         SystemSettings__c settings = SystemSettings__c.getInstance();
         settings.Disable_Triggers__c = false;
         upsert settings;
-        insert ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  false);
+
+        Membership__c membership = ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  false)[0];
+		membership.Member_Type__c = 'Partner';
+		membership.ABN__c = orgAccount.ABN__c;
+		insert membership;
 
         Test.stopTest();
 
@@ -112,13 +117,15 @@ public class MembershipTriggerHandler_Test {
         // Stubbing
         // =====================================
         AccountsSelector mockAccoutsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		HistoryTrackingSelector mockHTSelector = (HistoryTrackingSelector)MockUtility.mockSelector(HistoryTrackingSelector.class);
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
         SObject accWithRelationships = ((List<SObject>)fflib_ApexMocksUtils.makeRelationship('Account', 'Membership__c', new List<Account>{licenceAccount}, 'account__c', new List<List<SObject>> { new List<SObject> {  }}))[0];
         Map<Id, Account> mockAccountMap = new Map<Id, Account>{accWithRelationships.Id => (Account)accWithRelationships};
         MockUtility.Mocks.when(mockAccoutsSelector.selectById(new Set<Id>{member.Account__c}, new Set<Object>{AccountsSelector.Options.WITH_ACTIVE_MEMBERSHIPS})).thenReturn(mockAccountMap);
-        MockUtility.Mocks.stopStubbing();
+		MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Membership__c.SObjectType)))).thenReturn(new Map<Id,HistoryTracking__mdt>());
+		MockUtility.Mocks.stopStubbing();
 
         // =====================================
         // Testing
@@ -131,10 +138,10 @@ public class MembershipTriggerHandler_Test {
 
         memberRecList.addAll(ApplicationTestDataFactory.getMembership(1, 'Active', 'Update Membership', licenceAccount.Id, personContact.Id,  false));
         try{
-            insert memberRecList;
+			insert memberRecList;
         }
         catch(System.Exception e){
-            errMessage = e.getMessage();
+			errMessage = e.getMessage();
         }
         Test.stopTest();
 
@@ -171,6 +178,7 @@ public class MembershipTriggerHandler_Test {
         // =====================================
         MockUtility.disableTriggerExecution();
         Account orgAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		orgAccount.ABN__c = '12345678910';
         insert orgAccount;
         Network__c networkFacility = ApplicationTestDataFactory.getLPONetwork(1,false)[0];
         insert networkFacility;
@@ -185,6 +193,10 @@ public class MembershipTriggerHandler_Test {
         membershipList.add(member1);
         Membership__c member2 = ApplicationTestDataFactory.getMembership(1, 'Pending', 'New Membership', licenceAccount.Id, personContact.Id,  false)[0];
         membershipList.add(member2);
+		for (Membership__c m :membershipList) {
+			m.Member_Type__c = 'Partner';
+			m.ABN__c = orgAccount.ABN__c;
+		}
         insert membershipList;
         System.debug('member--->'+membershipList);
         Account acc = [SELECT Id, (SELECT Id, Licensee_Type__c FROM Memberships__r) FROM Account where Id=:licenceAccount.Id];
@@ -237,12 +249,14 @@ public class MembershipTriggerHandler_Test {
         // Stubbing
         // =====================================
         AccountsSelector mockAccoutsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		HistoryTrackingSelector mockHTSelector = (HistoryTrackingSelector)MockUtility.mockSelector(HistoryTrackingSelector.class);
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
         SObject accWithRelationships = ((List<SObject>)fflib_ApexMocksUtils.makeRelationship('Account', 'Membership__c', new List<Account>{licenceAccount}, 'account__c', new List<List<SObject>> { new List<SObject> { member }}))[0];
         Map<Id, Account> mockAccountMap = new Map<Id, Account>{accWithRelationships.Id => (Account)accWithRelationships};
         MockUtility.Mocks.when(mockAccoutsSelector.selectById(new Set<Id>{member.Account__c}, new Set<Object>{AccountsSelector.Options.WITH_ACTIVE_MEMBERSHIPS})).thenReturn(mockAccountMap);
+		MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Membership__c.SObjectType)))).thenReturn(new Map<Id,HistoryTracking__mdt>());
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -254,10 +268,10 @@ public class MembershipTriggerHandler_Test {
 
         memberRecList.addAll(ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  false));
         try{
-            insert memberRecList;
+			insert memberRecList;
         }
         catch(System.DmlException e){
-            errMessage = e.getMessage();
+			errMessage = e.getMessage();
         }
         Test.stopTest();
         System.assertNotEquals('', errMessage, 'Validation did not run');
@@ -280,4 +294,112 @@ public class MembershipTriggerHandler_Test {
 //    public static Boolean isForceException(){
 //        return Test.isRunningTest() && MembershipTriggerHandler_Test.isForceExceptionError;
 //    }
+
+	@IsTest static void austracSection75() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        MockUtility.disableTriggerExecution();
+        Account orgAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+
+        Network__c networkFacility = ApplicationTestDataFactory.getLPONetwork(1,true)[0];
+
+        Account facilityAccount = ApplicationTestDataFactory.getFacilityAccounts(1,networkFacility.Id,true)[0];
+
+        Account licenceAccount = ApplicationTestDataFactory.getLPOAccounts(1,orgAccount.Id, facilityAccount.Id,true)[0];
+
+        Contact personContact = ApplicationTestDataFactory.getContacts(1, orgAccount.Id, true)[0];
+
+        Membership__c member = ApplicationTestDataFactory.getMembership(1, 'Active', 'New Membership', licenceAccount.Id, personContact.Id,  true)[0];
+
+        // =====================================
+        // Stubbing
+        // =====================================
+		HistoryTrackingSelector mockHTSelector = (HistoryTrackingSelector)MockUtility.mockSelector(HistoryTrackingSelector.class);
+
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+		HistoryTracking__mdt newRegistration = new HistoryTracking__mdt(
+			Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+			MatchingValue__c = 'New Registration',
+			TargetValue__c = '{TODAY}',
+			OverwriteExistingValue__c = true,
+			ObjectName__c = 'Membership__c',
+			TrackedFieldName__c = 'Type_of_Registration__c',
+			TargetField__c = 'S75_Status_New_Date__c'
+		);		
+		HistoryTracking__mdt statusNew = new HistoryTracking__mdt(
+			Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+			MatchingValue__c = 'New',
+			TargetValue__c = '{TODAY}',
+			OverwriteExistingValue__c = true,
+			ObjectName__c = 'Membership__c',
+			TrackedFieldName__c = 'S75_Status__c',
+			TargetField__c = 'S75_Status_New_Date__c'
+		);
+		HistoryTracking__mdt statusIssued = new HistoryTracking__mdt(
+			Id = fflib_IDGenerator.generate(HistoryTracking__mdt.SObjectType),
+			MatchingValue__c = 'Issued',
+			TargetValue__c = '{TODAY}',
+			OverwriteExistingValue__c = true,
+			ObjectName__c = 'Membership__c',
+			TrackedFieldName__c = 'S75_Status__c',
+			TargetField__c = 'S75_Issued_Date__c'
+		);
+
+        Map<Id,HistoryTracking__mdt> mockedHistoryTrackingConfig = new Map<Id,HistoryTracking__mdt>(
+			new List<HistoryTracking__mdt>{
+				newRegistration,
+				statusNew,
+				statusIssued
+			}
+		);
+
+        MockUtility.Mocks.when(mockHTSelector.selectByObjectApiNames((List<String>)fflib_Match.listContains(String.valueOf(Membership__c.SObjectType)))).thenReturn(mockedHistoryTrackingConfig);
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+
+		// test #1 insert: 
+		//  - S75_Status__c: blank => New
+		//  - Type_of_Registration__c: blank => New Registration
+		member.S75_Status__c = 'New';
+		member.Type_of_Registration__c = 'New Registration';
+        MembershipTriggerHandler.austracHistoryTracking(
+			new List<Membership__c>{ member }, 
+			null
+		);
+
+		System.assertEquals(System.today(), member.S75_Status_New_Date__c, 'Should\'ve todays date populated');
+		System.assertEquals(null, member.S75_Issued_Date__c, 'Shouldn\'t have been populated');
+
+		// clone record
+		member.S75_Status_New_Date__c = null;
+		Membership__c member1 = (Membership__c)JSON.deserialize(JSON.serialize(member), Membership__c.class);
+		member1.S75_Status__c = 'Issued';
+		
+		// test #2 update: S75_Status__c: New => Issued
+		MembershipTriggerHandler.austracHistoryTracking(
+			new List<Membership__c>{ member1 }, 
+			new Map<Id,Membership__c>{ member.Id => member }			
+		);
+
+		System.assertEquals(null, member1.S75_Status_New_Date__c, 'Shouldn\'t have been populated');
+		System.assertEquals(System.today(), member1.S75_Issued_Date__c, 'Should\'ve todays date populated');
+
+		member.S75_Status__c = 'New';
+		member.S75_Status_New_Date__c = System.today().addDays(-2);
+		member.S75_Issued_Date__c = System.today().addDays(-2);
+
+		// test #3 update: S75_Status__c: Issued => New
+		MembershipTriggerHandler.austracHistoryTracking(
+			new List<Membership__c>{ member }, 
+			new Map<Id,Membership__c>{ member1.Id => member1 }			
+		);
+
+		System.assertEquals(System.today(), member.S75_Status_New_Date__c, 'Should\'ve been overwritten with todays date');
+		System.assertEquals(System.today().addDays(-2), member.S75_Issued_Date__c, 'Shouldn\'t have been updated');
+	}
 }
