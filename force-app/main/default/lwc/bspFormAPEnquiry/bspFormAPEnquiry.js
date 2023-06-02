@@ -191,9 +191,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		// hide previous details
 		this.showEvent = false;
 		this.errorMessage = '';
-		this.isDisplayDeliveryStatus = false;
 		const trackingComp = this.template.querySelectorAll('[data-id="trackingNumber"]'); //".address-input"
 		if(this.enteredTrackingNumber != this.trackingId){
+			this.isDisplayDeliveryStatus = false;
 			this.showSpinner = true;
 			if(!checkAllValidity(trackingComp))
 			{
