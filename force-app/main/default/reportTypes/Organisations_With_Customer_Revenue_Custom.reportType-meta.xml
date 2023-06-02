@@ -2660,6 +2660,11 @@
             <field>Post_Office_Assigned__c.RecordType.DeveloperName</field>
             <table>Account</table>
         </columns>
+		<columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Region__c</field>
+            <table>Account</table>
+        </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
     <sections>
