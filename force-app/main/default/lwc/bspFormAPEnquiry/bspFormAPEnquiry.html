@@ -42,6 +42,7 @@
                                             data-id="trackingNumber" class="brand-form-input slds-p-bottom_x-large"
                                             type="text" value={trackingId} placeholder="Enter tracking number here"
                                             onchange={onChangeField} message-when-value-missing="Please enter the tracking number"
+                                                         onblur={onClickSearchTracking}
                                                          onfocus={handleFocus}
                                             max-length="40" required>
                                         </lightning-input>
