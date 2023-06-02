@@ -4748,7 +4748,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_to_Admin_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>False</active>
         <criteriaItems>
             <field>Case.Subject</field>
             <operation>equals</operation>
