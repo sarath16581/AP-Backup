@@ -5,6 +5,7 @@
  * @group Domains
  * @changelog
  * 2022-10-12	Naveen Rajanna - created - REQ2859152
+ * 2023-05-29	Mahesh Parvathaneni - Added module TransportEnquiryEmailMessagesModule
  */
 public inherited sharing class EmailMessageCasesDomain extends ApplicationDomain {
 	public static EmailMessageCasesDomain newInstance(List<SObject> sObjectList) {
@@ -27,6 +28,9 @@ public inherited sharing class EmailMessageCasesDomain extends ApplicationDomain
 
 		// Generic Case modules
 		registerModule(EmailMessageGenericCaseAutomationModule.class);
+
+		// Transport Enquiry modules
+		registerModule(TransportEnquiryEmailMessagesModule.class);
 
 		// StarTrack modules
 		registerModule(StarTrackEmailMessagesModule.class);

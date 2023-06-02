@@ -11,6 +11,7 @@
  * 2022-02-04 Ashapriya Gadi - Added  EmailMessage.CcAddress, EmailMessage.BccAddress
  * 2022-02-16 - Nathan Franklin - Added option to filter email by INCOMING/OUTGOING only
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added method selectByIdsWithParentStarTrackCase, new WITH_CASE enum and fields to getSObjectFieldList
+ * 2023-05-26 - Mahesh Parvathaneni - Added method selectByIdsAndParentRecordTypeId
  */
 public virtual inherited sharing class EmailMessagesSelector extends ApplicationSelector {
 
@@ -38,7 +39,8 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			EmailMessage.Id, EmailMessage.ToAddress, EmailMessage.CcAddress, EmailMessage.BccAddress, EmailMessage.Incoming, EmailMessage.Status, EmailMessage.Subject, EmailMessage.CreatedDate, EmailMessage.FromAddress
+			EmailMessage.Id, EmailMessage.ToAddress, EmailMessage.CcAddress, EmailMessage.BccAddress, EmailMessage.Incoming, EmailMessage.Status, EmailMessage.Subject, EmailMessage.CreatedDate, EmailMessage.FromAddress, 
+			EmailMessage.Headers, EmailMessage.ParentId
 		};
 	}
 
@@ -90,6 +92,18 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 			.addConditions()
 			.add(new QueryBuilder.SimpleCondition(EmailMessage.Id + ' in :ids'))
 			.add(new QueryBuilder.CompareCondition('Parent.StarTrack_RecordType__c').eq(true))
+			.endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+	
+	/**
+	 * @description Run a simple query to get records based on Id's and parent record type ids
+	 */
+	public virtual List<EmailMessage> selectByIdsAndParentRecordTypeId(Set<Id> ids, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+			.add(new QueryBuilder.SimpleCondition(EmailMessage.Id + ' in :ids'))
+			.add(new QueryBuilder.SimpleCondition('Parent.RecordTypeId in :recordTypeIds'))
 			.endConditions();
 		return Database.query(qb.toSoqlString());
 	}

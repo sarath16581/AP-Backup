@@ -4,6 +4,7 @@
  * @group Tests
  * @description Test class covering EmailMessageCasesDomain
  * @changelog
+ * 2023-05-30 Mahesh Parvathaneni - Updated tests to verify TransportEnquiryEmailMessagesModule has been called
  */
 @IsTest
 private class EmailMessageCasesDomain_Test {
@@ -34,5 +35,8 @@ private class EmailMessageCasesDomain_Test {
 		// Verify if records have been filtered based on ParentId
 		System.assertEquals(1, domain.records.size(), 'Records should have been filtered in call to newInstance');
 		System.assertEquals(caseRec.Id, ((EmailMessage) domain.records[0]).ParentId, 'Expected ParentId to be populated');
+
+		// Verify if modules are registered
+		((ApplicationDomain) MockUtility.Mocks.verify(domain, MockUtility.Mocks.times(1))).registerModule(TransportEnquiryEmailMessagesModule.class);
 	}
 }
