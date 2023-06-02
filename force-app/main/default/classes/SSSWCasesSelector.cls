@@ -14,12 +14,15 @@
 * 2021-12-02 - Alex Volkov - Added selectCasesEligibleForReopenByOwnerAndDate method
 * 2022-11-21 - Thang Nguyen - DDS-13756 Added CHASEnquiryType__c field
 * 2023-03-23 - StephenL - Modified this selector to include the WITH_ARTICLE option
+* 2023-05-30 - StephenL - Modified this selector to include the WITH_CONTACT option
+* 2023-05-30 - StephenL - Introduced a new selector method to select Cases based on UserId or User's Contact's APCN
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {
 		WITH_NETWORK_RESPONSE,
 		RETURN_QUERY_LOCATOR,
-		WITH_ARTICLE
+		WITH_ARTICLE,
+		WITH_CONTACT
 	}
 	private static final Set<String> SSSW_CASE_RECORD_TYPES = new Set<String>{
 			'SSSWDelivery',
@@ -157,6 +160,18 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	}
 
 	/**
+	 * @param runningUserId a user Id
+	 * @param runningUserAPCN an APCN value
+	 * @param selectorOptions selectorOptions
+	 * @description Return a map based on the runningUserid or an APCN value
+	 *
+	 * @return ap<Id, Case>
+	 */
+	public virtual Map<Id, Case> selectCasesByCreatedByUserOrAPCN(Id runningUserId, String runningUserAPCN, Set<Object> selectorOptions) {
+		return new Map<Id, Case>((List<Case>)Database.query(getCasesByCreatedByUserOrAPCN(runningUserId, runningUserAPCN, selectorOptions).toSoqlString()));
+	}
+
+	/**
 	 * @description Return cases eligible for reopen before specified reopen date
 	 * @param pOwnerIds Filter by owner
 	 * @param pReopenDate Cutoff date (method will return cases eligible for reopen before, but not including this date)
@@ -191,6 +206,29 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 		return vResult;
 	}
 
+	/**
+	 * @param runningUserId a user Id
+	 * @param runningUserAPCN an APCN value
+	 * @param selectorOptions selectorOptions
+	 * @description Return a map based on the runningUserid or an APCN value
+	 *
+	 * @return QueryBuilder
+	 */
+	public virtual QueryBuilder getCasesByCreatedByUserOrAPCN (Id runningUserId, String runningUserAPCN, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		String conditionOrder = '1';
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.CompareCondition(Case.CreatedById).eq(runningUserId));
+		if (!String.isBlank(runningUserAPCN)) {
+			conditions.add(new QueryBuilder.CompareCondition('Contact.APCN__c').eq(runningUserAPCN));
+			conditionOrder = '1 OR 2';
+		}
+		conditions.setConditionOrder(conditionOrder).endConditions();
+		qb.addOrderDesc('LastModifiedDate');
+
+		return qb;
+	}
+
 	private virtual QueryBuilder getOpenCasesByReferenceIdQueryBuilder(Set<String> referenceIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
@@ -219,6 +257,10 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 
 		if(selectorOptions.contains(Options.WITH_ARTICLE)) {
 			builder.addRelatedFields(ArticlesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE}), 'ArticleTest__r');
+		}
+
+		if(selectorOptions.contains(Options.WITH_CONTACT)) {
+			builder.addRelatedFields(ContactsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}), 'Contact');
 		}
 
 		return builder;
