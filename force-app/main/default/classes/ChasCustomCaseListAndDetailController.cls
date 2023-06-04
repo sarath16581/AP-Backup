@@ -91,24 +91,23 @@ public with sharing class ChasCustomCaseListAndDetailController {
         System.debug('----- getCaseStatus ----- END'); 
         return caseStatus;
     }
-    
+
+    /**
+     * @return a list of Cases based on the UserId or User's Contact's APCN
+     * @description: Using the SSSWCasesSelector to soql the cases based on the UserId or User's Contact's APCN
+     */
     @AuraEnabled 
     public static List<Case> getLoggedInUserCaseList(){
-        System.debug('----- getLoggedInUserCaseList ----- START'); 
-        List<Case> caseList = null;
-        try{
-            String loggedInUserId=UserInfo.getUserId();
-            if(loggedInUserId !=null){
-                //caseList = [SELECT Id,  CHASEnquiryType__c, CaseNumber, LastModifiedDate,Enquiry_Status__c FROM Case WHERE OwnerId=:loggedInUserId ORDER BY LastModifiedDate DESC  LIMIT 2000];
-                // We need to show all the cases that this user has created, the owner will be set a case queue.
-                caseList = [SELECT Id,  CHASEnquiryType__c, CaseNumber, LastModifiedDate,Enquiry_Status__c FROM Case WHERE CreatedById=:loggedInUserId ORDER BY LastModifiedDate DESC  LIMIT 2000];
-            }
-            System.debug('caseList='+caseList);
-        }catch(Exception ex){
-            System.debug(LoggingLevel.ERROR,'Error occoured getLoggedInUserCaseList ==>'+ex);
+        try {
+            User runningUser = [SELECT Id,APCN__c,Contact.APCN__c,CreatedById FROM User WHERE Id = :UserInfo.getUserId()];
+
+            return SSSWCasesSelector.newInstance(2000,new Set<SObjectField>{Case.Id,Case.CHASEnquiryType__c,Case.CaseNumber,Case.LastModifiedDate,Case.CreatedById})
+                    .selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),runningUser.Contact.APCN__c, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}).values();
+
+        } catch(Exception ex) {
+            System.debug(LoggingLevel.ERROR,'Error occurred getLoggedInUserCaseList ==>'+ex);
+            return null;
         }
-        System.debug('----- getLoggedInUserCaseList ----- END'); 
-        return caseList;
     }
     
 }

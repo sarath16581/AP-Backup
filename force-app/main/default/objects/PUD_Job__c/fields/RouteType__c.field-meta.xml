@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RouteType__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Field to store the route type to use in the outbound message for dispatch system</description>
+    <externalId>false</externalId>
+    <formula>Route_Lookup__r.Type__c</formula>
+    <inlineHelpText>Route type</inlineHelpText>
+    <label>Route Type</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

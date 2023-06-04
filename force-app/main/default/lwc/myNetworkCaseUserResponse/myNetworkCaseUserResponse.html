@@ -8,6 +8,7 @@
  * 2023-03-20 - Dattaraj Deshmukh - SF-900. Rearranged 'DeliveryOptions__c' field.
  * 2023-03-23 - Dattaraj Deshmukh - SF-892. Removed 'required' property from Network Response.
  * 2023-03-31 - Mahesh Parvathaneni - SF-947 - Changed the Poster Notes from text area to input field to get the inline helptext from the field.
+ * 2023-05-25 - jacob.isaac@auspost.com.au - REQ3111278: Changing Quality Of Case Label to Flag Case for Review, changing picklist and labels
  */
 -->
 <template>
@@ -40,6 +41,7 @@
 									</template>
 									<lightning-textarea data-id="networkRes" value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
 									<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
+									<p class="au_post_color">{flagCaseReviewLabel}</p>
 									<lightning-input-field field-name="StillUnderInvestigation__c" name="sui" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
 									<lightning-input-field field-name="RequireMoreInformation__c" name="requireinfo" onchange={handleRequireMoreInfoChange}></lightning-input-field>
 									<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
