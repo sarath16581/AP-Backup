@@ -42,6 +42,7 @@
                                             data-id="trackingNumber" class="brand-form-input slds-p-bottom_x-large"
                                             type="text" value={trackingId} placeholder="Enter tracking number here"
                                             onchange={onChangeField} message-when-value-missing="Please enter the tracking number"
+                                                         onblur={onClickSearchTracking}
                                                          onfocus={handleFocus}
                                             max-length="40" required>
                                         </lightning-input>
@@ -215,7 +216,7 @@
 
                 <!--Case creation Success-->
                 <template if:true={successCreation}>
-                    <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} edd={searchResult.APConsignmentExpDeliveryDate}>
+                    <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} edd={searchResult.APConsignmentExpDeliveryDate} contains-essential-medicine={isContainsMedication} has-sentimental-value={isSentimental}>
                     </c-bsp-enquiry-creation-success>
                 </template>
             </div>
