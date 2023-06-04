@@ -8102,4 +8102,76 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Flag to allow linking of old Opportunity when converting Lead Seeker lead</shortDescription>
         <value>You’ve attempted to convert a Lead Seeker lead into an existing opportunity. To proceed with this conversion, please email the Lead Seeker inbox for help (seekerrewards@seeker.auspost.com.au).</value>
     </labels>
+    	<labels>
+        <fullName>GPS_SDI_match_manifest_address</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GPS &amp; SDI match manifest address</shortDescription>
+        <value>Please flag when delivery GPS and Safe Drop Image match manifest address and there is not an issue with the safe drop location</value>
+    </labels>
+	<labels>
+        <fullName>Incorrect_facility</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Incorrect facility</shortDescription>
+        <value>Please advise in Network Response correct facility if known, and re-assign</value>
+    </labels>
+    <labels>
+        <fullName>Invalid_Incorrect_Missing_data</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid/Incorrect/Missing data</shortDescription>
+        <value>Please provide details on missing data in Network Response</value>
+    </labels>
+	<labels>
+        <fullName>Manifest_only</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manifest only</shortDescription>
+        <value>Please flag when there are no physical scans for the parcel</value>
+    </labels>
+	<labels>
+        <fullName>Other</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other</shortDescription>
+        <value>Please provide further details in Network Response</value>
+    </labels>
+	<labels>
+        <fullName>Request_outside_service_offering</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request outside service offering</shortDescription>
+        <value>Please specify request - address change without redirection in place, redelivery request, etc</value>
+    </labels>
+	<labels>
+        <fullName>Unable_to_fulfil_request</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unable to fulfil request</shortDescription>
+        <value>Please include reason in Network Response</value>
+    </labels>
+	<labels>
+        <fullName>Within_EDD</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Within EDD</shortDescription>
+        <value>Please flag when there is a query about a non-urgent parcel when it is within EDD</value>
+    </labels>
+    <labels>
+        <fullName>X2_weeks_past_delivered_date</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>2+ weeks past delivered date</shortDescription>
+        <value>Please flag when an investigation is sent through more than 10 days after the delivery date and the contents are not high priority - medication, items with high resale value, etc</value>
+    </labels>
 </CustomLabels>
