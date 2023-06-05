@@ -2,7 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Average_Chargeable_Weight_Kg__c</fullName>
     <defaultValue>3.5</defaultValue>
+    <description>Please enter the Average Chargeable Weight if known.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please enter the Average Chargeable Weight if known.</inlineHelpText>
     <label>Average Chargeable Weight (Kg)</label>
     <precision>18</precision>
     <required>false</required>
