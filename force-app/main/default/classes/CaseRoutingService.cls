@@ -5,6 +5,7 @@
  * 
  * @author Nathan Franklin
  * @date 2023-05-17
+ * @test CaseRoutingService_Test, AgentWorkAPCaseAutomationModule_Test
  * @changelog
  */
 public inherited sharing class CaseRoutingService {
@@ -569,11 +570,11 @@ public inherited sharing class CaseRoutingService {
 				// get previous state of record from last run
 				Map<String, Object> previousState = recordState.previousState;
 
-				if(csRec.parentId != null && (changedFields.contains(Case.Status) && (SSSWConstants.STAT_NETWORK_RESPONDED.equalsIgnoreCase(csRec.Status) || 
+				if(csRec.ParentId != null && (changedFields.contains(Case.Status) && (SSSWConstants.STAT_NETWORK_RESPONDED.equalsIgnoreCase(csRec.Status) || 
 																						SSSWConstants.STAT_CUSTOMER_RESPONDED.equalsIgnoreCase(csRec.Status)))) {
 					
 					//if yes, update the parent and send for routing
-					parentCaseUpd.add(new Case(Id = csRec.parentId, Status = SSSWConstants.STAT_CHILD_CASE_UPDATE, AllocateToQueue__c = true));
+					parentCaseUpd.add(new Case(Id = csRec.ParentId, Status = SSSWConstants.STAT_CHILD_CASE_UPDATE, AllocateToQueue__c = true));
 
 				}
 			}

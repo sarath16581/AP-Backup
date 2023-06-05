@@ -1007,4 +1007,70 @@ private class CaseRoutingService_Test {
 		
 	}
 
+	/**
+	 * Scenario: Makes sure that routing is triggered for a parent case when the child case receives an update
+	 */
+	@isTest
+	public static void testEnsureParentCaseIsUpdatedWhenChildCaseIsUpdated() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case parentCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		cases[0].OwnerId = UserInfo.getUserId();
+		cases[0].ParentId = parentCase.Id;
+		cases[0].Status = SSSWConstants.STAT_NETWORK_RESPONDED;
+		cases[0].Type = 'Investigation';
+		cases[0].Origin = 'Email';
+		cases[0].Comment__c = '';
+		cases[0].RecordTypeId = ApplicationTestDataFactory.caseSSSWDeliveryRecordType;
+		cases[0].AllocateToQueue__c = false;
+
+		cases[1].OwnerId = UserInfo.getUserId();
+		cases[1].Status = SSSWConstants.STAT_NETWORK_RESPONDED;
+		cases[1].Type = 'Investigation';
+		cases[1].Origin = 'Phone';
+		cases[1].Comment__c = '';
+		cases[1].RecordTypeId = ApplicationTestDataFactory.caseSSSWDeliveryRecordType;
+		cases[1].AllocateToQueue__c = false;
+
+		List<Case> casesOld = new List<Case>{cases[0].clone(true), cases[1].clone(true)};
+		Map<Id, Case> casesOldMap = new Map<Id, Case>(casesOld);
+
+		casesOld[0].Status = 'New';
+		casesOld[1].Status = 'New';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseRoutingService.getInstance().updateParentForRouting(cases, casesOldMap);
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor updateRecordsCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)updateRecordsCaptor.capture());
+		List<SObject> updatedRecords = (List<SObject>)updateRecordsCaptor.getValue();
+		
+		System.assertEquals(1, updatedRecords.size());
+
+		Case updatedParentCase = (Case)updatedRecords[0];
+		System.assertEquals(parentCase.Id, updatedParentCase.Id);
+		System.assertEquals(SSSWConstants.STAT_CHILD_CASE_UPDATE, updatedParentCase.Status);
+		System.assertEquals(true, updatedParentCase.AllocateToQueue__c);
+		
+	}
+
 }
