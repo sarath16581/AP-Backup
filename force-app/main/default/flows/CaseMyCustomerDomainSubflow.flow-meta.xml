@@ -51,7 +51,7 @@
     <actionCalls>
         <name>SSSW_Email_on_Creation</name>
         <label>SSSW - Email on Creation</label>
-        <locationX>50</locationX>
+        <locationX>842</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Send_a_Email_when_a_new_Case_has_been_created</actionName>
         <actionType>emailAlert</actionType>
@@ -69,7 +69,7 @@
     <actionCalls>
         <name>SSSW_Email_on_Creation_Email</name>
         <label>SSSW - Email on Creation Email</label>
-        <locationX>314</locationX>
+        <locationX>1106</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Send_a_Email_when_a_new_Email_to_Case_has_been_created</actionName>
         <actionType>emailAlert</actionType>
@@ -90,7 +90,7 @@ formula: vNewCaseForBSPAfterEDDBusinessDays
 email template : SSSW - Email on Creation For BSP After EDD Business Days</description>
         <name>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</name>
         <label>SSSW - Email on Creation For BSP After EDD Business Days</label>
-        <locationX>1106</locationX>
+        <locationX>578</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</actionName>
         <actionType>emailAlert</actionType>
@@ -111,7 +111,7 @@ formula: vNewCaseForBSPBeforeEDDBusinessDays
 email template : SSSW - Email on Creation For BSP Before EDD Business Days</description>
         <name>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</name>
         <label>SSSW - Email on Creation For BSP Before EDD Business Days</label>
-        <locationX>842</locationX>
+        <locationX>50</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</actionName>
         <actionType>emailAlert</actionType>
@@ -132,7 +132,7 @@ formula : vNewCaseForBSPBeforeEDD
 email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         <name>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</name>
         <label>SSSW - Email on Creation New Case For BSP Before EDD</label>
-        <locationX>578</locationX>
+        <locationX>314</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</actionName>
         <actionType>emailAlert</actionType>
@@ -306,6 +306,51 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
+            <name>New_Case_For_BSP_Before_EDD_Business_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseForBSPBeforeEDDBusinessDays</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</targetReference>
+            </connector>
+            <label>New Case For BSP Before EDD Business Days</label>
+        </rules>
+        <rules>
+            <name>New_Case_For_BSP_Before_EDD</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseForBSPBeforeEDD</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</targetReference>
+            </connector>
+            <label>New Case For BSP Before EDD</label>
+        </rules>
+        <rules>
+            <name>New_Case_For_BSP_After_EDD_Business_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseForBSPAfterEDDBusinessDays</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</targetReference>
+            </connector>
+            <label>New Case For BSP After EDD Business Days</label>
+        </rules>
+        <rules>
             <name>New_Case_Generic</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -334,51 +379,6 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <targetReference>SSSW_Email_on_Creation_Email</targetReference>
             </connector>
             <label>New Case Email</label>
-        </rules>
-        <rules>
-            <name>New_Case_For_BSP_Before_EDD</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>vNewCaseForBSPBeforeEDD</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</targetReference>
-            </connector>
-            <label>New Case For BSP Before EDD</label>
-        </rules>
-        <rules>
-            <name>New_Case_For_BSP_Before_EDD_Business_Days</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>vNewCaseForBSPBeforeEDDBusinessDays</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</targetReference>
-            </connector>
-            <label>New Case For BSP Before EDD Business Days</label>
-        </rules>
-        <rules>
-            <name>New_Case_For_BSP_After_EDD_Business_Days</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>vNewCaseForBSPAfterEDDBusinessDays</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</targetReference>
-            </connector>
-            <label>New Case For BSP After EDD Business Days</label>
         </rules>
         <rules>
             <name>New_Case_Web_Portal</name>
@@ -668,24 +668,24 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         <description>AFTER EDD + 10</description>
         <name>vNewCaseForBSPAfterEDDBusinessDays</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; )) &amp;&amp; (ISBLANK({!vCase.HeldToOpenOn__c}) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>(TEXT({!vCase.CCUEnquiryType__c}) = &apos;Missing Item&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; )) &amp;&amp; (ISBLANK({!vCase.HeldToOpenOn__c}) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <description>BEFORE EDD</description>
         <name>vNewCaseForBSPBeforeEDD</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c} ))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; ({!vCase.EstimatedDelivery__c} &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>(TEXT({!vCase.CCUEnquiryType__c}) = &apos;Missing Item&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c} ))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; ({!vCase.EstimatedDelivery__c} &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <description>BEFORE EDD + 10</description>
         <name>vNewCaseForBSPBeforeEDDBusinessDays</name>
         <dataType>Boolean</dataType>
-        <expression>    (TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp;  ({!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; (DATEVALUE({!vCase.HeldToOpenOn__c}) &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>    (TEXT({!vCase.CCUEnquiryType__c}) = &apos;Missing Item&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp;  ({!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; (DATEVALUE({!vCase.HeldToOpenOn__c}) &gt;= TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <name>vNewCaseGeneric</name>
         <dataType>Boolean</dataType>
-        <expression>((TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; TEXT({!vCase.Origin}) != &apos;BSP&apos;) || (TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; TEXT({!vCase.Origin}) = &apos;MyPost Business&apos;) || (TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; TEXT({!vCase.Origin}) = &apos;BSP&apos;  &amp;&amp; ISBLANK({!vCase.EstimatedDelivery__c} )) ) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Web&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Portal&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Snap It&apos;&amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})&amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;))&amp;&amp; NOT({!vCase.TypeofDamage__c} = &apos;Wine Damage&apos; &amp;&amp; ISPICKVAL({!vCase.EnquirySubType__c},&apos;Facility reported damages&apos;))</expression>
+        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; || (TEXT({!vCase.Type}) = &apos;General Enquiry&apos; &amp;&amp; TEXT({!vCase.Origin}) = &apos;MyPost Business&apos;) || TEXT({!vCase.Origin}) = &apos;BSP&apos;) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Web&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Portal&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Snap It&apos;&amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})&amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;))&amp;&amp; NOT({!vCase.TypeofDamage__c} = &apos;Wine Damage&apos; &amp;&amp; ISPICKVAL({!vCase.EnquirySubType__c},&apos;Facility reported damages&apos;))</expression>
     </formulas>
     <formulas>
         <name>vNewCaseNWAssignment</name>
