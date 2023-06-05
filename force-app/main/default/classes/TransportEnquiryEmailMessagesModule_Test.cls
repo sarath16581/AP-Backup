@@ -52,6 +52,7 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
+		TransportEnquiryCaseService mockService = (TransportEnquiryCaseService)MockUtility.mockUtility(TransportEnquiryCaseService.class);
 		EmailMessagesSelector mockEmailMessagesSelector = (EmailMessagesSelector)MockUtility.mockSelector(EmailMessagesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 		EmailToCaseMappingsSelector mockEmailToCaseMappingsSelector = (EmailToCaseMappingsSelector)MockUtility.mockSelector(EmailToCaseMappingsSelector.class);
@@ -60,6 +61,7 @@ private class TransportEnquiryEmailMessagesModule_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockService.getTransportEnquiryRecordTypeId()).thenReturn(transportEnquiryRecordType.Id);
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByIdsAndParentRecordTypeId(new Set<Id>{records[0].Id, records[1].Id, records[2].Id}, new Set<Id>{transportEnquiryRecordType.Id}, 
 			new Set<Object>{EmailMessagesSelector.Options.FILTER_INCOMING, EmailMessagesSelector.Options.WITH_CASE})).thenReturn(records);
 		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id}, new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER}))
@@ -89,6 +91,8 @@ private class TransportEnquiryEmailMessagesModule_Test {
 			fflib_Match.eqBoolean(true),
 			fflib_Match.eqString(TransportEnquiryEmailMessagesModule.class.getName())
 		);
+
+		((TransportEnquiryCaseService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getTransportEnquiryRecordTypeId();
 
 		Assert.areEqual(2, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected 2 case records to be updated');
 		Assert.areEqual('0DB000000000000001', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Network__c, 'Expected network field to be updated');
