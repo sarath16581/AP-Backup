@@ -11,6 +11,7 @@
  * 2020-04-30 - Dheeraj Mandavilli - Updated - Removed Mockdatabase stubbing logic.
  * 2020-08-24 - Disha Kariya - Updated with test for field override
  * 2022-02-10 - Alex Volkov - Added test for selectCasesEligibleForReopenByOwnerAndDate method
+ * 2023-05-30 - StephenL - Added test for getCasesByCreatedByUserOrAPCN
  */
 @IsTest
 public with sharing class SSSWCasesSelector_Test {
@@ -144,6 +145,9 @@ public with sharing class SSSWCasesSelector_Test {
 		//Test query locator mode
 		selector = SSSWCasesSelector.newInstance();
 		System.assertNotEquals(null, (Database.QueryLocator)selector.selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{vHoldQueueId}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>{SSSWCasesSelector.Options.RETURN_QUERY_LOCATOR}), 'Invalid query locator');
+
+		selector = SSSWCasesSelector.newInstance();
+		System.assertNotEquals(null, selector.selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}), 'Invalid query locator');
 		Test.stopTest();
 
 	}

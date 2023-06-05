@@ -6,6 +6,7 @@
     <columns>Stage__c</columns>
     <columns>RECORDTYPE</columns>
     <columns>OWNER.ALIAS</columns>
+    <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Support_Work_Type__c</field>

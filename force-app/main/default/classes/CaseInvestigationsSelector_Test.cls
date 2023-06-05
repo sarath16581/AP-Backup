@@ -14,6 +14,7 @@
  * 2023-02-28 - Dattaraj Deshmukh 	- Added tests for 'WITH_FEEDS' options.
  * 2023-03-10 - Dattaraj Deshmukh   - Added tests for 'selectOpenCaseInvestigationsByNetworkIdOwnerId' and 'selectOpenCaseInvestigationsByNetworkIdAndCaseSLA'.
  * 2023-03-16 - Dattaraj Deshmukh   - Added tests for 'selectOpenCaseInvestigationsByNetworkIdAndClosedCases'.
+ * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  */
 
  @IsTest
@@ -112,6 +113,8 @@
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
 		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 
 		List<Facility_User__c> networkUsers = ApplicationTestDataFactory.getNetworkUsers(1, networks[0].Id, UserInfo.getUserId(), false);

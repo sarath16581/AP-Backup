@@ -1,160 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>Included_Product_Lines__c</fullName>
-	<description>Displays the products included in the contract.</description>
-	<externalId>false</externalId>
-	<inlineHelpText>Please select all of the product lines that will be covered by this contract</inlineHelpText>
-	<label>Included Product Lines</label>
-	<required>false</required>
-	<securityClassification>INTERNAL</securityClassification>
-	<trackFeedHistory>true</trackFeedHistory>
-	<trackHistory>true</trackHistory>
-	<trackTrending>false</trackTrending>
-	<type>MultiselectPicklist</type>
-	<valueSet>
-		<valueSetDefinition>
-			<sorted>false</sorted>
-			<value>
-				<fullName>eParcels Domestic</fullName>
-				<default>false</default>
-				<label>eParcels Domestic</label>
-			</value>
-			<value>
-				<fullName>International</fullName>
-				<default>false</default>
-				<label>International</label>
-			</value>
-			<value>
-				<fullName>StarTrack</fullName>
-				<default>false</default>
-				<label>StarTrack</label>
-			</value>
-			<value>
-				<fullName>Local Pickup and Delivery Services</fullName>
-				<default>false</default>
-				<label>Local Pickup and Delivery Services</label>
-			</value>
-			<value>
-				<fullName>UMS</fullName>
-				<default>false</default>
-				<label>UMS</label>
-			</value>
-			<value>
-				<fullName>Workforce Verification</fullName>
-				<default>false</default>
-				<label>Workforce Verification</label>
-			</value>
-			<value>
-				<fullName>Print Post</fullName>
-				<default>false</default>
-				<label>Print Post</label>
-			</value>
-			<value>
-				<fullName>On Demand</fullName>
-				<default>false</default>
-				<label>On Demand</label>
-			</value>
-			<value>
-				<fullName>Decipha</fullName>
-				<default>false</default>
-				<label>Decipha</label>
-			</value>
-			<value>
-				<fullName>Legacy Products</fullName>
-				<default>false</default>
-				<label>Legacy Products</label>
-			</value>
-			<value>
-				<fullName>Courier</fullName>
-				<default>false</default>
-				<label>Courier</label>
-			</value>
-			<value>
-				<fullName>BPA - RETURNS</fullName>
-				<default>false</default>
-				<label>BPA - RETURNS</label>
-			</value>
-			<value>
-				<fullName>BPA - REPLY+RETURNS</fullName>
-				<default>false</default>
-				<label>BPA - REPLY+RETURNS</label>
-			</value>
-			<value>
-				<fullName>Clean Mail</fullName>
-				<default>false</default>
-				<label>Clean Mail</label>
-			</value>
-			<value>
-				<fullName>Impact/Metered</fullName>
-				<default>false</default>
-				<label>Impact/Metered</label>
-			</value>
-			<value>
-				<fullName>Local Country Letters</fullName>
-				<default>false</default>
-				<label>Local Country Letters</label>
-			</value>
-			<value>
-				<fullName>Pre-Sort</fullName>
-				<default>false</default>
-				<label>Pre-Sort</label>
-			</value>
-			<value>
-				<fullName>Competition</fullName>
-				<default>false</default>
-				<label>Competition</label>
-			</value>
-			<value>
-				<fullName>SecurePay Online Payments</fullName>
-				<default>false</default>
-				<label>SecurePay Online Payments</label>
-			</value>
-			<value>
-				<fullName>Community Update</fullName>
-				<default>false</default>
-				<label>Community Update</label>
-			</value>
-			<value>
-				<fullName>Priority Product</fullName>
-				<default>false</default>
-				<label>Priority Product</label>
-			</value>
-			<value>
-				<fullName>Track Mail</fullName>
-				<default>false</default>
-				<label>Track Mail</label>
-			</value>
-			<value>
-				<fullName>Parcel Contract</fullName>
-				<default>false</default>
-				<label>Parcel Contract</label>
-			</value>
-			<value>
-				<fullName>Parcel Contract-Feature</fullName>
-				<default>false</default>
-				<label>Parcel Contract-Feature</label>
-			</value>
-			<value>
-				<fullName>Parcel Contract-Surcharge</fullName>
-				<default>false</default>
-				<label>Parcel Contract-Surcharge</label>
-			</value>
-			<value>
-				<fullName>Parcel Contract-Return</fullName>
-				<default>false</default>
-				<label>Parcel Contract-Return</label>
-			</value>
-			<value>
-				<fullName>APGL Commercial Outbound</fullName>
-				<default>false</default>
-				<label>APGL Commercial Outbound</label>
-			</value>
-			<value>
-				<fullName>Post Billpay</fullName>
-				<default>true</default>
-				<label>Post Billpay</label>
-			</value>
-		</valueSetDefinition>
-	</valueSet>
-	<visibleLines>6</visibleLines>
+    <fullName>Included_Product_Lines__c</fullName>
+    <description>Displays the products included in the contract.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please select all of the product lines that will be covered by this contract</inlineHelpText>
+    <label>Included Product Lines</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>eParcels Domestic</fullName>
+                <default>false</default>
+                <label>eParcels Domestic</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Legacy Products</fullName>
+                <default>false</default>
+                <label>Legacy Products</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>BPA - RETURNS</fullName>
+                <default>false</default>
+                <label>BPA - RETURNS</label>
+            </value>
+            <value>
+                <fullName>BPA - REPLY+RETURNS</fullName>
+                <default>false</default>
+                <label>BPA - REPLY+RETURNS</label>
+            </value>
+            <value>
+                <fullName>Clean Mail</fullName>
+                <default>false</default>
+                <label>Clean Mail</label>
+            </value>
+            <value>
+                <fullName>Impact/Metered</fullName>
+                <default>false</default>
+                <label>Impact/Metered</label>
+            </value>
+            <value>
+                <fullName>Local Country Letters</fullName>
+                <default>false</default>
+                <label>Local Country Letters</label>
+            </value>
+            <value>
+                <fullName>Pre-Sort</fullName>
+                <default>false</default>
+                <label>Pre-Sort</label>
+            </value>
+            <value>
+                <fullName>Competition</fullName>
+                <default>false</default>
+                <label>Competition</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments</label>
+            </value>
+            <value>
+                <fullName>Community Update</fullName>
+                <default>false</default>
+                <label>Community Update</label>
+            </value>
+            <value>
+                <fullName>Priority Product</fullName>
+                <default>false</default>
+                <label>Priority Product</label>
+            </value>
+            <value>
+                <fullName>Track Mail</fullName>
+                <default>false</default>
+                <label>Track Mail</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract</fullName>
+                <default>false</default>
+                <label>Parcel Contract</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Feature</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Feature</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Surcharge</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Surcharge</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Return</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Return</label>
+            </value>
+            <value>
+                <fullName>APGL Commercial Outbound</fullName>
+                <default>false</default>
+                <label>APGL Commercial Outbound</label>
+            </value>
+            <value>
+                <fullName>Post Billpay</fullName>
+                <default>true</default>
+                <label>Post Billpay</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
 </CustomField>

@@ -29,6 +29,7 @@
  * 2023-04-04 - Mahesh Parvathaneni - Added method getFeedComments
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
+ * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -822,6 +823,27 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	public static List<Postcode__c> getPostcodes(Integer count, Boolean generateIds) {
+		return (List<Postcode__c>)maybeGenerateIds(populateSObjects(Postcode__c.SObjectType, new Map<SObjectField, Object> {
+			Postcode__c.Name => 'Postcode %count%',
+			Postcode__c.Suburb__c => 'Suburb %count%'
+		}, count), generateIds);
+	}
+
+	public static List<PostcodeMapping__c> getPostcodeMappings(Integer count, Id postcodeId, Id networkId, Boolean generateIds) {
+		return (List<PostcodeMapping__c>)maybeGenerateIds(populateSObjects(PostcodeMapping__c.SObjectType, new Map<SObjectField, Object> {
+				PostcodeMapping__c.Postcode__c => postcodeId,
+				PostcodeMapping__c.Network__c => networkId
+		}, count), generateIds);
+	}
+
+	public static List<FacilityByPass__c> getNetworkBypasses(Integer count, Id fromNetworkId, Id toNetworkId, Boolean generateIds) {
+		return (List<FacilityByPass__c>)maybeGenerateIds(populateSObjects(FacilityByPass__c.SObjectType, new Map<SObjectField, Object> {
+				FacilityByPass__c.Facility_By_Pass_From__c => fromNetworkId,
+				FacilityByPass__c.Facility_By_Pass_To__c => toNetworkId
+		}, count), generateIds);
+	}
+
 	public static void generateRecordIds(List<SObject> records) {
 		for(SObject record : records) {
 			record.Id = fflib_IDGenerator.generate(record.getSObjectType());
@@ -841,17 +863,9 @@ public with sharing class ApplicationTestDataFactory {
 		for(String key : relationshipFields.keySet()) {
 			recordAsMap.put(key, relationshipFields.get(key));
 		}
-		return (SObject)JSON.deserialize(JSON.serialize(recordAsMap), SObject.class);
-	}
 
-	/**
-	 * Attaches field values 
-	 */
-	public static List<SObject> applyFieldValues(List<SObject> records, Map<String, Object> fieldValues) {
-		for(Integer i=0;i<records.size();i++) {
-			records[i] = setUnwritableFields(records[i], fieldValues);
-		}
-		return records;
+		System.debug(recordAsMap);
+		return (SObject)JSON.deserialize(JSON.serialize(recordAsMap), SObject.class);
 	}
 
 	/**
@@ -881,6 +895,16 @@ public with sharing class ApplicationTestDataFactory {
 			generateRecordIds(records);
 		}
 
+		return records;
+	}
+
+	/**
+	 * Attaches field values 
+	 */
+	public static List<SObject> applyFieldValues(List<SObject> records, Map<String, Object> fieldValues) {
+		for(Integer i=0;i<records.size();i++) {
+			records[i] = setUnwritableFields(records[i], fieldValues);
+		}
 		return records;
 	}
 

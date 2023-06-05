@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Up_to_500g_Rate__c</fullName>
-    <description>REQ2931039 - pricing update - updated from 7.2, 9.92</description>
+    <description>May 23 - REQ3186685 - pricing update - updated from 7.78, 10.71
+Aug 22 - REQ2931039 - pricing update - updated from 7.2, 9.92</description>
     <externalId>false</externalId>
-    <formula>IF( Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;eParcelStandard&apos;, 7.78, 10.71)</formula>
+    <formula>IF( Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;eParcelStandard&apos;, 8.40, 11.56)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Up to 500g Rate</label>
     <precision>18</precision>

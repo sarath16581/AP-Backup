@@ -1,9 +1,10 @@
 /**
- * @description       : This is a test class for the CaseInvestigationTrigger
- * @author            : George Nguyen
- * @domain            : Case
+ * @description			: This is a test class for the CaseInvestigationTrigger
+ * @author				: George Nguyen
+ * @domain				: Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
+ * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
 **/
 @IsTest
 class CaseInvestigationTrigger_Test {
@@ -15,6 +16,8 @@ class CaseInvestigationTrigger_Test {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Contact_Facility__c = 'MyNetwork';
 		networks[0].Org_ID__c = '1234';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 		insert networks;
 
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);

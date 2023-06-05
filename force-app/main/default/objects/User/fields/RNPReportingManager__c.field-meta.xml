@@ -4,7 +4,7 @@
     <description>RNP Reporting Hierarchy for State Network Teams</description>
     <externalId>false</externalId>
     <inlineHelpText>RNP Reporting Hierarchy for State Network Teams</inlineHelpText>
-    <label>RNP Reporting Manager</label>
+    <label>Reporting Manager</label>
     <relationshipName>RNPRelatedReportingUsers</relationshipName>
     <restrictedAdminField>false</restrictedAdminField>
     <securityClassification>INTERNAL</securityClassification>

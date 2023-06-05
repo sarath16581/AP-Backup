@@ -512,11 +512,9 @@ public without sharing class bspEnquiryUplift {
 		enq.DatePosted__c = enq.BSPLodgementDate__c;
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
-
-		// TODO: unit tests
-		if(enq.EstimatedDelivery__c != null && additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-			//2023-04-24 EDD
-			//2023-05-08 EDD + business 10 days
+		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
+			&& enq.EstimatedDelivery__c != null 
+			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
 			setDirectRoutingValues(enq);
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
@@ -1715,12 +1713,14 @@ public without sharing class bspEnquiryUplift {
 	 */
 	public static void setDirectRoutingValues(Case pCase) {
 		Date eddPlusBusinessDays = getEDDPlusBusinessDays(pCase.EstimatedDelivery__c);
+		system.debug('HASANTHA DE '+eddPlusBusinessDays);
 		//if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
 		if (eddPlusBusinessDays > Date.today()) {
 			Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
 					SSSWConstants.QUEUE_NAME_REOPEN_Q
 			});
 			if (!vGroups.isEmpty()) {
+				system.debug('HASANTHA DE 1'+eddPlusBusinessDays);
 				pCase.OwnerId = vGroups.values()[0].Id;
 				pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
 				pCase.Case_Reopen_Date__c = eddPlusBusinessDays;

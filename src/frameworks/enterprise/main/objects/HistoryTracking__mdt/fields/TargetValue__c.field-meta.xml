@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TargetValue__c</fullName>
+    <description>The Target Value that gets populated within the Target Field upon matching</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>The Target Value that gets populated within the Target Field upon matching. Provide a hard-coded value or use merge values like &quot;{TODAY}&quot;, &quot;{NOW}&quot;, &quot;{TRUE}&quot;, &quot;{FALSE}&quot;, &quot;{NULL}&quot;, or merge names for fields: &quot;{Opportunity.AccountId} - {Opportunity.StageName}&quot;. Provided without quotes</inlineHelpText>
+    <label>Target Value</label>
+    <length>255</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

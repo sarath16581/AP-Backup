@@ -3,7 +3,7 @@
     <available>true</available>
     <description>SSSW - Send a Email when New Case For BSP Within EDD Business Days</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>SSSW New Case Notification For BSP Within EDD Business Days</name>
+    <name>SSSW - Email on Creation For BSP Before EDD Business Days</name>
     <style>none</style>
     <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
     <textOnly>Australia Post
@@ -24,7 +24,7 @@ What happens next
 Most late parcels arrive within 5 days of the expected delivery date.  If this parcel is delivered, we&apos;ll let you know and close your enquiry.
 
 We&apos;ll monitor this parcel until {!CASE(WEEKDAY(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Sunday&quot;, 2, &quot;Monday&quot;, 3, &quot;Tuesday&quot;, 4, &quot;Wednesday&quot;, 5, &quot;Thursday&quot;, 6, &quot;Friday&quot;, &quot;Saturday&quot;)} 												{!DAY(DATEVALUE(Case.HeldToOpenOn__c))} 												{!CASE(MONTH(DATEVALUE(Case.HeldToOpenOn__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)}.
-It hasn&apos;t been delivered by then, we&apos;ll begin investigating. No need to submit another enquiry.
+If it hasn&apos;t been delivered by then, we&apos;ll begin investigating. No need to submit another enquiry.
 
 We&apos;ll keep you updated
 

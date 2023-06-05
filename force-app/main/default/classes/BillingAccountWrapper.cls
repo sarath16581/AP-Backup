@@ -64,6 +64,7 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public String creditRepName;
     }
+
     //Characteristics Details
     public class CharacteristicsDetail{
         @AuraEnabled
@@ -77,6 +78,7 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public Boolean pcmsMerchBarcode;
     }
+
     public class childAccountDetail{
         @AuraEnabled
         public String name1;
@@ -95,7 +97,6 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public List<lodgementPointsDetail> lodgementPoints;
 		@AuraEnabled
-		//CI-703 product Details Array
 		public List<ProductDetail> products;
         @AuraEnabled
         public List<ContactDetail> contactPersons;
@@ -149,7 +150,6 @@ public with sharing class BillingAccountWrapper {
         public creditControlsDetail creditControls;
         @AuraEnabled
         public List<lodgementPointsDetail> lodgementPoints;
-		//CI-703 product Details Array
 		@AuraEnabled
 		public List<ProductDetail> products;
         @AuraEnabled
@@ -185,6 +185,7 @@ public with sharing class BillingAccountWrapper {
         @AuraEnabled
         public CustomerDetail customer;
     }
+
 
     public BillingAccountWrapper(){
         sap = new SAPsystem();

@@ -5,6 +5,7 @@
  * @changelog
  * 2023-04-04 - Mahesh Parvathaneni - created
  * 2023-05-03 - Mahesh Parvathaneni - updated tests to use the service class
+ * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  **/
 
  @IsTest
@@ -83,6 +84,8 @@ private class FeedCommentCaseInvestigationModule_Test {
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
 		networks[0].Contact_Facility__c = 'MyNetwork';
+		networks[0].Status__c = 'NULL';
+		networks[0].Parcel__c = true;
 
 		insert networks;
 

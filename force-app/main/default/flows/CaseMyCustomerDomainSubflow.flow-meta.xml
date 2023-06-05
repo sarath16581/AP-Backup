@@ -85,12 +85,14 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <description>vNewCaseForBSPAfterEDDBusinessDays</description>
+        <description>After EDD+ business days;
+formula: vNewCaseForBSPAfterEDDBusinessDays
+email template : SSSW - Email on Creation For BSP After EDD Business Days</description>
         <name>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</name>
         <label>SSSW - Email on Creation For BSP After EDD Business Days</label>
         <locationX>842</locationX>
         <locationY>398</locationY>
-        <actionName>Case.SSSW_Send_a_Email_when_a_New_Case_For_BSP</actionName>
+        <actionName>Case.SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</actionName>
         <actionType>emailAlert</actionType>
         <connector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -104,12 +106,14 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <description>vNewCaseForBSPBeforeEDDBusinessDays</description>
+        <description>Before EDD+ business days;
+formula: vNewCaseForBSPBeforeEDDBusinessDays
+email template : SSSW - Email on Creation For BSP Before EDD Business Days</description>
         <name>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</name>
         <label>SSSW - Email on Creation For BSP Before EDD Business Days</label>
         <locationX>1106</locationX>
         <locationY>398</locationY>
-        <actionName>Case.SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD_Business_Days</actionName>
+        <actionName>Case.SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</actionName>
         <actionType>emailAlert</actionType>
         <connector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -123,12 +127,14 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <description>vNewCaseForBSPBeforeEDD</description>
+        <description>Before EDD scenario ;
+formula : vNewCaseForBSPBeforeEDD
+email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         <name>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</name>
         <label>SSSW - Email on Creation New Case For BSP Before EDD</label>
         <locationX>578</locationX>
         <locationY>398</locationY>
-        <actionName>Case.SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD</actionName>
+        <actionName>Case.SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</actionName>
         <actionType>emailAlert</actionType>
         <connector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -662,7 +668,7 @@
         <description>AFTER EDD + 10</description>
         <name>vNewCaseForBSPAfterEDDBusinessDays</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; ) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; DATEVALUE({!vCase.HeldToOpenOn__c}) &lt; TODAY() &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
+        <expression>(TEXT({!vCase.Type}) = &apos;Investigation&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;BSP&apos; )) &amp;&amp; (ISBLANK({!vCase.HeldToOpenOn__c}) &amp;&amp; NOT(ISBLANK({!vCase.EstimatedDelivery__c}))  &amp;&amp; {!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; {!vCase.Subject} &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId})</expression>
     </formulas>
     <formulas>
         <description>BEFORE EDD</description>
