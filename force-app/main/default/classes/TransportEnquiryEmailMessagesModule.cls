@@ -13,20 +13,8 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
 	private static Set<String> emailHeaders = new Set<String>{'Delivered-To'};
-	private static final String CASE_TRANSPORT_ENQUIRY_RT = 'Transport_Enquiry';
 
-	// Get record type for Transport enquiry case record type
-	private static Id transportEnquiryCaseRecordTypeId {
-		get {
-			if (transportEnquiryCaseRecordTypeId == null) {
-				transportEnquiryCaseRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{ CASE_TRANSPORT_ENQUIRY_RT }).values()[0].Id;
-			}
-			return transportEnquiryCaseRecordTypeId;
-		}
-		private set;
-	}
-
-	//get the map of email address to email to case mapping metadataa
+	//get the map of email address to email to case mapping metadata
 	@TestVisible
 	private static Map<String, EmailToCaseMapping__mdt> getEmailToCaseMappingMetadata() {
 		if (emailToCaseMappingMap == null) {
@@ -72,8 +60,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		Map<Id, Case> casesMap = new Map<Id, Case>();
 		List<Case> casesToUpdate = new List<Case>();
 
+		//get record type for transport enquiry case
+		Id recordTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
+
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Transport enquiry
-		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{transportEnquiryCaseRecordTypeId}, 
+		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
 										new Set<Object>{EmailMessagesSelector.Options.FILTER_INCOMING, EmailMessagesSelector.Options.WITH_CASE})) {
 			filteredMessages.put(em.Id, em);
 			caseIds.add(em.ParentId);

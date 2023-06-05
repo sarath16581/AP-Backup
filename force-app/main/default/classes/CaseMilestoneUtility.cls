@@ -18,6 +18,7 @@
   * 12/01/2022		  naveen.rajanna@auspost.com.au			   REQ2656153 Added check for whether Batch invoked call before making future call
   * 17/01/2022		  ashapriya.gadi@auspost.com.au			   SMWD-312 - MW0004779 - defaulting all the manual service delivery cases' entitlement to VIC
   * 2022-02-16 - Nathan Franklin - Uplifted BGS entitlement to limit scope of entitlement selection
+  * 2023-06-02 - Mahesh Parvathaneni - Added logic to assign entitlement to transport enquiry record type cases
   */
 public with sharing class CaseMilestoneUtility{
 	   
@@ -29,6 +30,8 @@ public with sharing class CaseMilestoneUtility{
 	private static Set<Id> ssswRecTypes;	// SSSW record types
 	private static Set<String> closedStatus;				// set of closed case statuses
 	private static Id STD_ENTITLEMENT;  // sssw entitlement to be linked with case
+	private static Id transportEnquiryEntitlementId; //transport enquiry entitlement to be linked with case
+	private static Id transportEnquiryRecTypeId;
 
 	// Added for BGS Case Milestones
 	private static Set<Id> bgsRecTypes;  // the BGS Case Record Type "Service Delivery/Sales_Ops_Delivery"
@@ -48,6 +51,10 @@ public with sharing class CaseMilestoneUtility{
 
 			// Get the Record Type Id for BGS Service Delivery Cases
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), BGSConstants.SERVICE_DELIVERY_NAME);
+			// Get the transport enquiry entitlement record id
+			transportEnquiryEntitlementId = TransportEnquiryCaseService.getInstance().getTransportEnquiryEntitlementId();
+			// Get the Record Type Id for Transport Enquiry Cases
+			transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -91,6 +98,10 @@ public with sharing class CaseMilestoneUtility{
 					// Add a new BGS Case (NOT created from Email to Case) to the bgsCases,
 					// which will Assign BGS entitlements based on the contact's mailing state
 					bgsCases.add(csRec);
+				}
+				else if(Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, csRec.RecordTypeId) && transportEnquiryEntitlementId != null) {
+					//assign transport enquiry entitlement record for transport enquiry record type cases
+					csRec.EntitlementId = transportEnquiryEntitlementId;
 				}
 
 				// check if case is assigned to agent to set escalation mail
