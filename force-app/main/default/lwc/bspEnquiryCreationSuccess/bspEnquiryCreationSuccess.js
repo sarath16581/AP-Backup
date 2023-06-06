@@ -10,6 +10,7 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     @api edd;
     @api containsEssentialMedicine;
     @api hasSentimentalValue;
+    @api pageType;
     dateDisplayOption = {weekday:'long',month:'long',day:'numeric'};
     currentDate = new Date().toJSON().slice(0, 10);
     stBodyText;
@@ -41,7 +42,7 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
 
     get apHeaderHeading() {
         if (this.isAPType) {
-            if (this.edd) {
+            if (this.displayEDDVariation) {
                 return 'Thanks, we\'ve received your enquiry';
             } else {
                 return 'Thank you, your enquiry has been sent.'
@@ -51,7 +52,7 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
 
     get apBodyHeading() {
         if (this.isAPType) {
-            if (this.edd) {
+            if (this.displayEDDVariation) {
                 return 'What happens next';
             }
         }
@@ -88,8 +89,16 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
         }
     }
 
+    get displayEDDVariation() {
+        return this.edd && this.pageType?.toLowerCase() === 'missing item';
+    }
+
+    get parcelTense() {
+        return this.edd < this.currentDate ? 'was' : 'is';
+    }
+
     eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd) {
-        if (!this.edd) { // no edd provided
+        if (!this.displayEDDVariation) { // no edd provided, or this is being passed from the BSP LOMI form
             return noEdd;
         }
 
@@ -114,10 +123,10 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
                     ' A Business Customer Representative will be in touch shortly, usually within one to two business days.';
 
         let beforeEdd = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>' +
-        '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
+        '<br><p>This parcel ' + this.parcelTense + ' expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
          let beforeEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>' +
-         '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
+         '<br><p>This parcel ' + this.parcelTense + ' expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
         let afterEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>';
 
