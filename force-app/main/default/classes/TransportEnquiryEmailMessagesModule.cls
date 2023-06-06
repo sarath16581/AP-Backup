@@ -13,20 +13,8 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
 	private static Set<String> emailHeaders = new Set<String>{'Delivered-To'};
-	private static final String CASE_TRANSPORT_ENQUIRY_RT = 'Transport_Enquiry';
 
-	// Get record type for Transport enquiry case record type
-	private static Id transportEnquiryCaseRecordTypeId {
-		get {
-			if (transportEnquiryCaseRecordTypeId == null) {
-				transportEnquiryCaseRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{ CASE_TRANSPORT_ENQUIRY_RT }).values()[0].Id;
-			}
-			return transportEnquiryCaseRecordTypeId;
-		}
-		private set;
-	}
-
-	//get the map of email address to email to case mapping metadataa
+	//get the map of email address to email to case mapping metadata
 	@TestVisible
 	private static Map<String, EmailToCaseMapping__mdt> getEmailToCaseMappingMetadata() {
 		if (emailToCaseMappingMap == null) {
@@ -72,8 +60,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		Map<Id, Case> casesMap = new Map<Id, Case>();
 		List<Case> casesToUpdate = new List<Case>();
 
+		//get record type for transport enquiry case
+		Id recordTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
+
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Transport enquiry
-		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{transportEnquiryCaseRecordTypeId}, 
+		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
 										new Set<Object>{EmailMessagesSelector.Options.FILTER_INCOMING, EmailMessagesSelector.Options.WITH_CASE})) {
 			filteredMessages.put(em.Id, em);
 			caseIds.add(em.ParentId);
@@ -84,7 +75,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			//  If it is, then we treat this as a new case and therefore the EmailToCaseAddress__c and other related fields needs to be updated on the case
 
 			for (Case cs : CasesSelector.newInstance(new Set<SObjectField>{Case.Id, Case.Network__c, Case.Priority, Case.Call_Purpose__c}).selectById(caseIds, 
-							new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER}).values()) {
+							new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, EmailMessagesSelector.Options.FILTER_INCOMING}).values()) {
 				casesMap.put(cs.Id, cs);
 				if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));
