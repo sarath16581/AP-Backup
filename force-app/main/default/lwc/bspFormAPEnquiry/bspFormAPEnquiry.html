@@ -216,7 +216,7 @@
 
                 <!--Case creation Success-->
                 <template if:true={successCreation}>
-                    <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} edd={searchResult.APConsignmentExpDeliveryDate} contains-essential-medicine={isContainsMedication} has-sentimental-value={isSentimental}>
+                    <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} edd={searchResult.APConsignmentExpDeliveryDate} contains-essential-medicine={isContainsMedication} has-sentimental-value={isSentimental} page-type={enquiryType}>
                     </c-bsp-enquiry-creation-success>
                 </template>
             </div>
