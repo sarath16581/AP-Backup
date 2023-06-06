@@ -75,7 +75,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			//  If it is, then we treat this as a new case and therefore the EmailToCaseAddress__c and other related fields needs to be updated on the case
 
 			for (Case cs : CasesSelector.newInstance(new Set<SObjectField>{Case.Id, Case.Network__c, Case.Priority, Case.Call_Purpose__c}).selectById(caseIds, 
-							new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER}).values()) {
+							new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, EmailMessagesSelector.Options.FILTER_INCOMING}).values()) {
 				casesMap.put(cs.Id, cs);
 				if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));

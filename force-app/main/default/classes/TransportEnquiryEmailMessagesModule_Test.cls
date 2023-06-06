@@ -64,7 +64,7 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		MockUtility.Mocks.when(mockService.getTransportEnquiryRecordTypeId()).thenReturn(transportEnquiryRecordType.Id);
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByIdsAndParentRecordTypeId(new Set<Id>{records[0].Id, records[1].Id, records[2].Id}, new Set<Id>{transportEnquiryRecordType.Id}, 
 			new Set<Object>{EmailMessagesSelector.Options.FILTER_INCOMING, EmailMessagesSelector.Options.WITH_CASE})).thenReturn(records);
-		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id}, new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER}))
+		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id}, new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, EmailMessagesSelector.Options.FILTER_INCOMING}))
 			.thenReturn(new Map<Id, Case>{cases[0].Id => cases[0], cases[1].Id => cases[1], cases[2].Id => cases[2]});
 		MockUtility.Mocks.when(mockEmailToCaseMappingsSelector.selectAll(new Set<Object>{ EmailToCaseMappingsSelector.Options.FILTER_ACTIVE })).thenReturn(emailToCaseMappings);
 		MockUtility.Mocks.when(mockRecordTypesSelector.selectByDeveloperName(fflib_Match.eqString('Case'), (Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id, RecordType>{transportEnquiryRecordType.Id => transportEnquiryRecordType});

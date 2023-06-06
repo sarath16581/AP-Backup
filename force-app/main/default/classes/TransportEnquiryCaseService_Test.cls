@@ -26,7 +26,7 @@ private class TransportEnquiryCaseService_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockEntitlementsSelector.selectByNameAndAccountName(new Set<String>{TransportEnquiryCaseService.TRANSPORT_ENQUIRY_ENTITLEMENT}, new Set<String>{SSSWConstants.ENTITLEMENT_ACC})).thenReturn(entitlements);
+		MockUtility.Mocks.when(mockEntitlementsSelector.selectByNameAndAccountName(new Set<String>{TransportEnquiryCaseService.TRANSPORT_ENQUIRY_ENTITLEMENT}, new Set<String>{TransportEnquiryCaseService.TRANSPORT_ENQUIRY_ENTITLEMENT_ACCOUNT})).thenReturn(entitlements);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================

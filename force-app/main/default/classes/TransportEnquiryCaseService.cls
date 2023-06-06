@@ -9,6 +9,7 @@ public inherited sharing class TransportEnquiryCaseService {
 	//constants
 	public static final String TRANSPORT_ENQUIRY_ENTITLEMENT = 'Transport Enquiry Standard Entitlement';
 	public static final String CASE_TRANSPORT_ENQUIRY_RT = 'Transport_Enquiry';
+	public static final String TRANSPORT_ENQUIRY_ENTITLEMENT_ACCOUNT = 'Transport Enquiry Entitlements';
 
 	private static Id transportEnquiryEntitlementId;
 	private static Id transportEnquiryRecordTypeId;
@@ -25,7 +26,7 @@ public inherited sharing class TransportEnquiryCaseService {
 	// Funtion to get the transport enquiry entitlement record id
 	public Id getTransportEnquiryEntitlementId() {
 		if (transportEnquiryEntitlementId == null) {
-			Entitlement entitlement = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT}, new Set<String>{SSSWConstants.ENTITLEMENT_ACC})[0];
+			Entitlement entitlement = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT}, new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT_ACCOUNT})[0];
 			if (entitlement != null) {
 				transportEnquiryEntitlementId = entitlement.Id;
 			}
