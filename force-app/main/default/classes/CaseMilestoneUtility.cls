@@ -380,8 +380,8 @@ public with sharing class CaseMilestoneUtility{
 			List<Case> completeCharterCases = new List<Case>();
 
 			for(Case csRec : caseList){
+				Case oldCase = oldMap.get(csRec.Id);	// get old values of case
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId)){  // verify if its SSSW recordtype
-					Case oldCase = oldMap.get(csRec.Id);	// get old values of case
 					// check if owner is changed and an agent (user)
 					if(oldCase != null && csRec.OwnerId != oldCase.OwnerId 
 						&& csRec.OwnerId.getSObjectType() == User.sObjectType){
@@ -389,7 +389,10 @@ public with sharing class CaseMilestoneUtility{
 						ownerIds.add(csRec.OwnerId);
 						ownerChangedCases.add(csRec);
 					}
-					
+				} 
+				
+				// verify if its SSSW recordtype or transport enquiry case recordtype
+				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) || Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, csRec.RecordTypeId)) {
 					// check if case is closed
 					if((csRec.IsClosed && !oldCase.IsClosed) || (
 							closedStatus.contains(csRec.Status) && csRec.Status != oldCase.Status)){

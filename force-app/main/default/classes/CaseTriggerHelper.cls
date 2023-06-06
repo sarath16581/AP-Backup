@@ -185,8 +185,7 @@ public with sharing class CaseTriggerHelper{
 		Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());	// get dynamic query row limit
 		List<CaseMilestone> updateMilestones = new List<CaseMilestone>();	   // milestones to be updated
 		List<Case> compMilestoneCases = new List<Case>();   // cases to be processed
-		List<Case> bgsMilestoneCases = new List<Case>();   // BGS cases to be processed, these need violated milestones to be completed too
-		List<Case> transportEnquiryMilestoneCases = new List<Case>();
+		List<Case> milestoneCasesToProcess = new List<Case>();
 		isCompleteMilestonRecursive = true; // -- kalpita 4.11.17 - moved recursion flag up
 		try{
 			Case oldCase = null;
@@ -206,25 +205,16 @@ public with sharing class CaseTriggerHelper{
 						compMilestoneCases.add(caseRec);
 					}
 				}
-				else if(Utility.isValidRecordType(bgsRecTypes, caseRec.RecordTypeId) && caseRec.IsClosed == true)
+				else if((Utility.isValidRecordType(bgsRecTypes, caseRec.RecordTypeId) && caseRec.IsClosed == true) || 
+					Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, caseRec.RecordTypeId))
 				{
-					// only complete milestones if the BGS Case is moving to closed
+					// only complete milestones if the BGS Case is moving to closed (or) case is of transport enquiry
 					// compare with existing fields to confirm that we need to action, anti-recursion guard
 					oldCase = oldCaseMap.get(caseRec.Id);
 					if(oldCase.Status != caseRec.Status)
 					{
-						//complete all the milestones for BGS if the case has been newly closed
-						bgsMilestoneCases.add(caseRec);
-					}
-				}
-				else if(Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, caseRec.RecordTypeId)) {
-					// only complete milestones when status changes
-					// compare with existing fields to confirm that we need to action, anti-recursion guard
-					oldCase = oldCaseMap.get(caseRec.Id);
-					if(oldCase.Status != caseRec.Status)
-					{
-						//complete all the milestones for transport enquiry cases
-						transportEnquiryMilestoneCases.add(caseRec);
+						//complete all the milestones for BGS/Transport enquiry cases
+						milestoneCasesToProcess.add(caseRec);
 					}
 				}
 			}
@@ -235,15 +225,9 @@ public with sharing class CaseTriggerHelper{
 				Utility.completeCaseMilestones(compMilestoneCases,nonCharterMileStones,false);
 			}
 
-			if(!bgsMilestoneCases.isEmpty())
+			if(!milestoneCasesToProcess.isEmpty())
 			{
-				System.debug('CaseTriggerHelper:: completing BGS Milestones');
-				Utility.completeCaseMilestones(bgsMilestoneCases, nonCharterMileStones, true);
-			}
-
-			if(!transportEnquiryMilestoneCases.isEmpty())
-			{
-				Utility.completeCaseMilestones(transportEnquiryMilestoneCases, nonCharterMileStones, true);
+				Utility.completeCaseMilestones(milestoneCasesToProcess, nonCharterMileStones, true);
 			}
 		}
 		catch(Exception exp){
