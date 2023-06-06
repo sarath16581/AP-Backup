@@ -117,6 +117,11 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c,
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c,
+													//Adding Metro attribute values
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Category__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Apply_Round_Off__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Average_Chargeable_Weight_Kg__c,
 													APT_Option_Group__c,
 													APT_Lodgement_Zone_Code__c,
 													APT_Lodgement_Zone__c,
@@ -194,6 +199,21 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					newApav.APT_PostBillPay_Gross_Settlement_fee__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c;
 					newApav.APT_Payment_Method__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Payment_Method__c;
 					mapAgreementLineItemToPav.put(ali, newApav);
+				}
+				
+				//Metro product value attribute assignmemt to agreement line items
+				if(String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && 
+				ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_METRO) && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c)) {
+				newApav.Apttus_CMConfig__LineItemId__c = ali.id;
+				newApav.Category__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Category__c;
+				newApav.APT_Minimum_Quantity__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c;
+				newApav.APT_Apply_Round_Off__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Apply_Round_Off__c;
+				newApav.APT_Average_Chargeable_Weight_Kg__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Average_Chargeable_Weight_Kg__c;
+				newApav.APTS_Price_Structure__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c;
+				newApav.APT_Cubic_Status__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Status__c;
+				newApav.APT_Cubic_Factor__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Factor__c;
+				newApav.APT_Min_Transit_Cover_Amount_Per_Article__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
+				mapAgreementLineItemToPav.put(ali, newApav);
 				}
 				
 				//Local Pickup 
@@ -691,7 +711,9 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 
 			// Create New Agreement Product Attribute Value on Agreement Line Item object from Line Item's Attribute Value fields
 			if(!mapAgreementLineItemToPav.isEmpty()){
+				system.debug('DDDD agreement line item to pav map'+mapAgreementLineItemToPav.values());
 				insert mapAgreementLineItemToPav.values();
+				system.debug('DDDD agreement line item to pav map inserted');
 				List<Apttus__AgreementLineItem__c> listAli = new List<Apttus__AgreementLineItem__c>();
 				// Update Agreement line item to attach associated agreement product attribute object from the map
 				for(Apttus__AgreementLineItem__c newALI : mapAgreementLineItemToPav.keySet()){
