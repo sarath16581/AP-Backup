@@ -35,7 +35,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 		} catch(system.exception ex) {
 			return ex.getMessage();
 		}
-	}    
+	}
 	/**
 	 * after insert agreement line item
 	 */
@@ -529,7 +529,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					mapOS.put(os.Id, os);
 				}
 				
-					//US-379               
+					//US-379
 					//International Returns 
 				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_RETURNS) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
