@@ -1,6 +1,7 @@
 /**
  * Date            Version          Owner               Desription
  * 28-Mar-17        1.0             Adrian A            Main Adjustment Trigger Handler Class
+ * 02-Jun-23        1.1             Pratyush Chalasani  Carry-over Is_APPC__c from related Disputed Item
  */
 public without sharing class AdjustmentTriggerHandler {
 
@@ -59,12 +60,13 @@ public without sharing class AdjustmentTriggerHandler {
         	Map<Id, Case> pCaseMap = new Map<Id, Case>([Select Id, Related_Billing_Account__r.Source_System__c, 
                                                                     (Select Id, Type__c, Adjustment__c 
                                                                         from Credit_Adjustments__r where Status__c = 'Approved'), 
-        															(Select Id, Type__c, Adjustment__c, ERP_Status__c 
+        															(Select Id, Type__c, Adjustment__c, ERP_Status__c, Is_APPC__c
                                                                         from Disputed_Items__r where Status__c = 'Verified Claim')
         															from Case where Id IN :caseIdSet]);
 
         	List<Credit_Approval__c> caUpdateList = new List<Credit_Approval__c>();
         	List<Disputed_Item__c> diUpdateList = new List<Disputed_Item__c>();
+			List<Adjustment__c> adUpdateList = new List<Adjustment__c>();
 
         	for(Adjustment__c adVar: adjustmentList){
 
@@ -102,6 +104,8 @@ public without sharing class AdjustmentTriggerHandler {
     	    					diVar.Adjustment__c = adVar.Id;
                                 //diVar.ERP_Status__c = adVar.Status__c;
     	    					diUpdateList.add(diVar);
+
+								adUpdateList.add(new Adjustment__c(Id = adVar.Id, Is_APPC__c = (diVar.Is_APPC__c == 'Yes')));
     	    				}
     	    			}
         			}
@@ -115,6 +119,17 @@ public without sharing class AdjustmentTriggerHandler {
         	system.debug('recursivehit');
         	adjRecursiveFlag = true;
         	adjustmentLink = true;
+
+			if (adUpdateList.size()>0) {
+                try {
+                    update adUpdateList; 
+                } catch(exception e){ 
+                    system.debug('AdjustmentUpdateError:' + e.getStackTraceString());
+                    for(Adjustment__c adVar: adjustmentList){
+                      adVar.addError('Adjustment creation failed. Please contact your administrator.'); 
+                    }
+                }
+    		}
         	
         	if(diUpdateList.size()>0){
                 try{

@@ -7,8 +7,9 @@ Values:
 &quot;Z9&quot; - Credit
 Z9 may not work in all cases, however it is recommend value by Business Systems Team&quot;</description>
     <externalId>false</externalId>
-    <formula>IF(ISPICKVAL( Adjustment_Type__c , &quot;CREDIT&quot;) , &quot;Z9&quot;, 
-IF(ISPICKVAL( Adjustment_Type__c , &quot;DEBIT&quot;), &quot;Z0&quot;, &quot;ERROR&quot;))</formula>
+    <formula>IF(AND(ISPICKVAL( Adjustment_Type__c , &quot;CREDIT&quot;),Is_APPC__c), &quot;ZP02&quot;,
+IF(ISPICKVAL( Adjustment_Type__c , &quot;CREDIT&quot;) , &quot;Z9&quot;, 
+IF(ISPICKVAL( Adjustment_Type__c , &quot;DEBIT&quot;), &quot;Z0&quot;, &quot;ERROR&quot;)))</formula>
     <label>SAP Order Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

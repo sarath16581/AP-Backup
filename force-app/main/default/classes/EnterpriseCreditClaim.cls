@@ -6,6 +6,7 @@
  * 29-Mar-17        1.3             Bharat P            Added functionality for using reCAPTCHA before form submission
  * 06-Jul-17        1.4             AP Rivera           Added functionality for multiple file attachments
  * 02-Dec-2020      1.5             SaiSwetha Pingali   INC1699783 - Fix to address the issue raised after the activation of critical update 'Assign Records Created by Guest Users to a Default Owner'.  
+ * 02-Jun-23        1.1             Pratyush Chalasani  Added getter for dispute reasons list
 */
 public without sharing class EnterpriseCreditClaim {
     public Id recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Enterprise Credit Dispute Claim').getRecordTypeId();
@@ -394,6 +395,21 @@ public without sharing class EnterpriseCreditClaim {
     }
     /* END - APRIVERA - Resolved view state Error. Added Input file functionality */
 
+	// Query and generate map of credit dispute reasons to their descriptions
+	public String getCreditClaimReasonDescriptions() {
+		Map<String, String> reasonDescriptionMap = new Map<String, String>();
+
+		List<Picklist_Entry_Helptext__mdt> helptextEntries = PicklistEntryHelptextSelector.newInstance().selectByObjectAndField(Case.SObjectType, Case.ReasonforCreditClaim__c);
+
+		for (Picklist_Entry_Helptext__mdt reason: helptextEntries) {
+			Component.Apex.OutputText description = new Component.Apex.OutputText();
+			description.expressions.value = '{!$Label.' + reason.DeveloperName + '}';
+			
+			reasonDescriptionMap.put(reason.Label.toLowerCase(), String.valueOf(description.value));
+		}
+
+		return JSON.serialize(reasonDescriptionMap);
+	}
     
     /* Setting Page Headers */
     private void setPageHeaders(){
