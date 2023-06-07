@@ -14,6 +14,7 @@ History:
 2022-07-15 Nasir Jawed CI-552 Populating the Agreement Line Item fields when its FSR product for lodgement fields.
 2022-09-01 Nasir Jawed CI-288 commenting the code which populate the Agreement Product Attributes values fields as this is done Out of the Box product.
 2022-11-04 Harry Wang MW0004978 Adding logic to populating DOS for Startrack products
+2023-06-07 Deepak Kemidi Adding logic to populate the Agreement Product Attributes values fields on the contract line items for Metro product.
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -711,9 +712,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 
 			// Create New Agreement Product Attribute Value on Agreement Line Item object from Line Item's Attribute Value fields
 			if(!mapAgreementLineItemToPav.isEmpty()){
-				system.debug('DDDD agreement line item to pav map'+mapAgreementLineItemToPav.values());
 				insert mapAgreementLineItemToPav.values();
-				system.debug('DDDD agreement line item to pav map inserted');
 				List<Apttus__AgreementLineItem__c> listAli = new List<Apttus__AgreementLineItem__c>();
 				// Update Agreement line item to attach associated agreement product attribute object from the map
 				for(Apttus__AgreementLineItem__c newALI : mapAgreementLineItemToPav.keySet()){
