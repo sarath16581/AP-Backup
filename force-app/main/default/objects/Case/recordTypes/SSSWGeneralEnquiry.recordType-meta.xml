@@ -1805,6 +1805,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Metro</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Mobile apps</fullName>
             <default>false</default>
         </values>
