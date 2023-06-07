@@ -87,6 +87,10 @@
                 <behavior>Edit</behavior>
                 <field>Apttus__Total_Contract_Value__c</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Edit</behavior>
+                <field>Contract_Expiration_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
