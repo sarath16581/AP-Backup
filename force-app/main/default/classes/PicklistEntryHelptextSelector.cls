@@ -9,7 +9,7 @@
  * 2023-06-02 - Pratyush Chalasani - Created
  */
 public without sharing class PicklistEntryHelptextSelector  extends ApplicationSelector {
-    public static PicklistEntryHelptextSelector newInstance() {
+	public static PicklistEntryHelptextSelector newInstance() {
 		return (PicklistEntryHelptextSelector)Application.Selectors.newInstance(PicklistEntryHelptextSelector.class);
 	}
 	
@@ -32,8 +32,6 @@ public without sharing class PicklistEntryHelptextSelector  extends ApplicationS
 							.add(new QueryBuilder.SimpleCondition(Picklist_Entry_Helptext__mdt.Object_Field_Name__c + ' = \'' + String.escapeSingleQuotes(key) + '\''))
 							.endConditions();
 
-		System.debug('[PLEHTS] ' + qb.toSoqlString());
-
-        return (List<Picklist_Entry_Helptext__mdt>)Database.query(qb.toSoqlString());
+		return (List<Picklist_Entry_Helptext__mdt>)Database.query(qb.toSoqlString());
 	}
 }

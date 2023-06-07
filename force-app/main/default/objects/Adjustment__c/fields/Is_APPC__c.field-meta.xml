@@ -4,6 +4,9 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Is APPC</label>
+	<description>Is this related to an APPC product?</description>
+	<inlineHelpText>Is this related to an APPC product?</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

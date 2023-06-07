@@ -16,7 +16,7 @@ private class PicklistEntryHelptextSelector_Test {
 		and call the selectByObjectAndField function using the result.
 		At the end we check that the selector returns a non-empty list.
 	*/
-    @isTest
+	@isTest
 	static void test_selectByObjectAndField() {
 		Picklist_Entry_Helptext__mdt directlyQueried = [SELECT Object_Field_Name__c FROM Picklist_Entry_Helptext__mdt LIMIT 1];
 
@@ -37,5 +37,5 @@ private class PicklistEntryHelptextSelector_Test {
 		Test.stopTest();
 
 		Assert.isTrue(entries.size() > 0, 'List should not be empty');
-    }
+	}
 }
