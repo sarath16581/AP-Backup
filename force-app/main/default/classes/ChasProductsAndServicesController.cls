@@ -12,6 +12,7 @@
  * 2022-06-28 - Thang Nguyen - modified: DDS-11430: add Bypass Workflow Rules On Creation flag to true
  * 2022-07-08 - Mahesh Parvathaneni - modified: DDS-11191 Network name on transfer requests
  * 2022-07-15 - Hasantha Liyanage - DDS-11324 added support for unit test mocking
+ * 2023-06-07 - Talib Raza - REQ3209253: set priority to high for all Accessibility and disability cases
  */
 public with sharing class ChasProductsAndServicesController extends ChasBase {
 	//constants
@@ -320,6 +321,11 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 			// DDS-11103 adding complaint
 			toBeCreateCase.complaint__c = complaint;
 			if (isContainsPharma) {
+				toBeCreateCase.Priority = 'High';
+			}
+
+			//REQ3209253: set priority to high for all Accessibility and disability cases
+			if (issueDetailsType == 'Accessibility and disability') {
 				toBeCreateCase.Priority = 'High';
 			}
 
