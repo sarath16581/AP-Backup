@@ -4421,7 +4421,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4465,6 +4465,16 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.CHASEnquiryType__c</field>
             <operation>equals</operation>
             <value>Missing or lost item</value>
+        </criteriaItems>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -4534,7 +4544,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4579,7 +4589,17 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <description>Snigdha : 19.05.2020 - Removed Article Codes DD-ER38, INT-2070</description>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <description>Snigdha : Updated for INC2147403</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4609,7 +4629,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4654,8 +4674,17 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <description>Workflow when case has a article event code DD-ER15, DD-ER38, INT-2070
-19.05.2020 - Snigdha : Added Event Codes DD-ER38, INT-2070</description>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <description>Snigdha: Updated for INC2147403</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -4681,7 +4710,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4726,6 +4755,16 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4748,7 +4787,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_to_Admin_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>False</active>
         <criteriaItems>
             <field>Case.Subject</field>
             <operation>equals</operation>
