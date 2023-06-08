@@ -1,14 +1,14 @@
 /*************************************************************************************
-Description:    Test class to cover CaseDetailsCaseContExt functionality
+Description:	Test class to cover CaseDetailsCaseContExt functionality
 History:
 --------------------------------------------------------------------------------------
 2014-06-24  di.chen@bluewolf.com  Created
 2015-12-01  Kalpita T  Updated to add method to cover new case reassign functionality
 2017-04-21  dion.gunn@auspost.com.au  Only 30% test coverage. System.assert(true) was
-            used to fake tests. Ditched the whole class and started from scratch.
+			used to fake tests. Ditched the whole class and started from scratch.
 2018-06-20  TDO-64 rahul.kapoor@coroma.com.au  Refactored comments and indentation,
-            added tests for success/error PageMessages, added new callType to test the
-            maxDateString condition.
+			added tests for success/error PageMessages, added new callType to test the
+			maxDateString condition.
 2020-06-19 - Dheeraj - Added Test Method to Check Duplicates Method
 2020-08-20 - Nathan Franklin - Fixed test class failure due to refactoring
 2021-09-06 - seth.heang@auspost.com.au - Uplift SF API version to 52
@@ -215,7 +215,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to call remote action method to get the recordTypeId.
+	*	  Test to call remote action method to get the recordTypeId.
 	******************************************************************************************/
 	static testmethod void testGetRecordTypeId() {
 		//Create Person Account
@@ -248,7 +248,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to return the child case id if it exists.
+	*	  Test to return the child case id if it exists.
 	******************************************************************************************/
 	static testmethod void testGetChildCaseId() {
 		//Fetch a Case
@@ -266,7 +266,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to clone the case and redirect to cloned case.
+	*	  Test to clone the case and redirect to cloned case.
 	******************************************************************************************/
 	static testmethod void testGetClonedCaseId() {
 		//Fetch a Case
@@ -284,7 +284,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to call on page load to set the values and to save the case record.
+	*	  Test to call on page load to set the values and to save the case record.
 	******************************************************************************************/
 	static testmethod void testInitAndSavePage() {
 		//Fetch a Case
@@ -350,7 +350,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to call on page load to set the values and to save the case record.
+	*	  Test to call on page load to set the values and to save the case record.
 	******************************************************************************************/
 	static testmethod void testInitAndSavePageMessages() {
 		//Fetch a Case
@@ -393,7 +393,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to call on page load to set the values and to save the case record.
+	*	  Test to call on page load to set the values and to save the case record.
 	******************************************************************************************/
 	static testmethod void testInitAndSaveInvalidPageMessages() {
 		//Fetch a Case
@@ -446,7 +446,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to call on page load to set the values and test the Consignment Validation.
+	*	  Test to call on page load to set the values and test the Consignment Validation.
 	******************************************************************************************/
 	static testmethod void testConsignmentValidation() {
 		//Fetch a Case
@@ -527,7 +527,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
    *  Scenario:
-   *      Test to test the Consignment Validation.
+   *	  Test to test the Consignment Validation.
    ******************************************************************************************/
 	static testmethod void testConsignmentValidation1() {
 
@@ -564,7 +564,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
 	*  Scenario:
-	*      Test to check if it's a working day.
+	*	  Test to check if it's a working day.
 	******************************************************************************************/
 	static testmethod void testCheckWorkingDay() {
 		//Fetch a Case
@@ -604,7 +604,7 @@ global class CaseDetailsCaseContExt_Test {
 	}
 
 	/***********************************************************************************************
-	*      InitPageMock is a mock class to get the fake response for testing CaseDetailsCaseContExt.
+	*	  InitPageMock is a mock class to get the fake response for testing CaseDetailsCaseContExt.
 	************************************************************************************************/
 	public class InitPageMock implements HttpCalloutMock {
 		private string endpoint;
@@ -663,7 +663,7 @@ global class CaseDetailsCaseContExt_Test {
 
 	/*****************************************************************************************
    *  Scenario:
-   *      Test to validate Check duplicates method
+   *	  Test to validate Check duplicates method
    ******************************************************************************************/
 	static testmethod void testcheckDuplicates() {
 		//Fetch a Case
