@@ -534,6 +534,8 @@ public class SSSW_Routing {
 	@TestVisible
 	private static Boolean setRoutingCaseOwner(case cs, Id routingOwner, Id ruleId) {
 
+		Boolean isHoldingQueue = OmniChannelService.getInstance().omniHoldingQueueId == routingOwner;
+
 		String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(cs.CaseLocality__c) ?
 							LOC_INTERNATIONAL : cs.Customer_Type__c;
 		cs.OwnerId = (routingOwner != null) ? routingOwner : (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey))) ?
@@ -541,7 +543,7 @@ public class SSSW_Routing {
 		cs.AllocateToQueue__c = false;	 // disable case queue allocation
 
 		// debug messaging to inform admin of routing path
-		CaseRoutingService.getInstance().populateRoutingDebug(cs, 'routed: ' + cs.OwnerId + ' rule id: ' + ruleId + (reassignNoCheckOwnerQueue ? ' (reassignment)' : ''));
+		CaseRoutingService.getInstance().populateRoutingDebug(cs, (isHoldingQueue ? 'routing deferred: rule id: ' + ruleId : 'routed: ' + cs.OwnerId + ' rule id: ' + ruleId) + (reassignNoCheckOwnerQueue ? ' (reassignment)' : ''));
 
 		return true;
 	}

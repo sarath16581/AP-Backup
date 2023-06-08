@@ -12,9 +12,29 @@ History:
 2020-06-19 - Dheeraj - Added Test Method to Check Duplicates Method
 2020-08-20 - Nathan Franklin - Fixed test class failure due to refactoring
 2021-09-06 - seth.heang@auspost.com.au - Uplift SF API version to 52
+2023-06-07 - Nathan Franklin - Slightly modify a test to cover assignCase - a little bit dodgy.. TODO: need to refactor and cover the method fully
 **************************************************************************************/
 @isTest
 global class CaseDetailsCaseContExt_Test {
+
+	private static Map<String, Id> queues {
+		get {
+			if(queues == null) {
+				queues = new Map<String, Id>();
+				Set<String> queueNames = new Set<String>{
+					'SSSW_BOH_Group_4', 'SSSW_Routing_Holding_Queue', 'SSSW_Closed_Omnichannel_Cases', 'APCCReassignmentHoldingQueue',
+					'SSSW_Routing_Preferred_Agent_Queue', 'SSSW_FOH_Group_1', 'SSSW_BOH_Group_1', 'SSSW_BOH_Group_2', 'SSSW_BOH_Group_4', 'SSSW_BOH_Group_3'
+				};
+
+				List<QueueSObject> records = [SELECT QueueId, Queue.DeveloperName FROM QueueSobject WHERE Queue.DeveloperName IN :queueNames AND SobjectType = 'Case'];
+				for(QueueSObject record : records) {
+					queues.put(record.Queue.DeveloperName, record.QueueId);
+				}
+			}
+			return queues;
+		}
+		private set;
+	}
 
 	@testSetup
 	static void createTestData() {
@@ -106,6 +126,17 @@ global class CaseDetailsCaseContExt_Test {
 
 	@IsTest
 	static void ensureAssignCaseChecksForSkills() {
+		QM__c custSetting = QM__c.getOrgDefaults();
+
+		custSetting.HoldingQueueId__c = queues.get('SSSW_Routing_Holding_Queue');
+		custSetting.DefaultOmniQueueId__c = queues.get('SSSW_BOH_Group_4');
+		custSetting.ClosedQueueId__c = queues.get('SSSW_Closed_Omnichannel_Cases');
+		custSetting.PreferredAgentQueueId__c = queues.get('SSSW_Routing_Preferred_Agent_Queue');
+		custSetting.PreferredAgentSkillDeveloperNames__c = 'BOH';
+		custSetting.TemporaryReassignmentQueue__c = queues.get('APCCReassignmentHoldingQueue');
+		insert custSetting;
+
+
 		Map<String, Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		MockUtility.disableTriggerExecution();
 		List<User> agents = ApplicationTestDataFactory.getUsers(1, true);
@@ -123,8 +154,9 @@ global class CaseDetailsCaseContExt_Test {
 
 
 		//Update SSSWRouting from TestSetup to Omni Queue
+		Id omniQueue = OmniChannelService.Cache.queuesWithRoutingConfig.keySet().iterator().next();
 		SSSWRouting__c testRouting = [SELECT Id,Queue_ID__c FROM SSSWRouting__c LIMIT 1];
-		testRouting.Queue_ID__c = OmniChannelService.Cache.queuesWithRoutingConfig.keySet().iterator().next(); 
+		testRouting.Queue_ID__c = omniQueue; 
 		Database.update(testRouting);
 
 		List<ServiceChannel> serviceChannels = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true);
@@ -151,7 +183,7 @@ global class CaseDetailsCaseContExt_Test {
 
 		MockUtility.Mocks.when(skillRequirementSelector.selectByRelatedRecordIds(
 									(Set<Id>) fflib_Match.eq(psrs.keySet()),
-									(Set<Object>) fflib_Match.eq(new Set<Object>())
+									(Set<Object>) fflib_Match.anyObject()
 								)).thenReturn(skillsRequirements);
 		
 		MockUtility.Mocks.when(serviceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIds(
@@ -159,7 +191,7 @@ global class CaseDetailsCaseContExt_Test {
 									(Set<Object>) fflib_Match.eq(new Set<Object>())
 								)).thenReturn(serviceResourceSkills);
 
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.when(mockDatabase.dmlRollback((Savepoint)fflib_Match.anyObject())).thenReturn(true);
 						
 		MockUtility.Mocks.stopStubbing();
@@ -170,9 +202,15 @@ global class CaseDetailsCaseContExt_Test {
 		controller.assignCase();
 
 		Test.stopTest();
+		
+		List<List<SObject>> capturedUpdates = MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase, 1);
+		List<Case> cases1 = (List<Case>)capturedUpdates[0];
 
-		System.assertEquals(true, controller.myCase.BypassPreferredAgent__c, 'Should flag Bypass Preferred Agent if reassigning to an Omni queue');
-		System.assertEquals(true, controller.notAllowedToReassign, 'Should not allow user to reassign case');
+		// should be rolled back though
+		System.assertEquals(omniQueue, cases1[0].OwnerId);
+		System.assertEquals(true, cases1[0].BypassPreferredAgent__c);
+
+		System.assertEquals(true, controller.noAssignmentSameSkillsError, 'Should not allow user to reassign case');
 	}
 
 	/*****************************************************************************************

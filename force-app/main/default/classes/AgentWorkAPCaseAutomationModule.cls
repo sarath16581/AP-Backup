@@ -105,13 +105,13 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 					
 					caseIdsForTrackingLogic.add(aw.WorkItemId); 
 
-				// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
-				// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
 				} else if(aw.PreferredUserId != null && 
 					(SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED.equalsIgnoreCase(aw.Status) 
 					|| SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT.equalsIgnoreCase(aw.Status)
 					|| SSSWConstants.OMNI_AGENTWORK_STATUS_UNAVAILABLE.equalsIgnoreCase(aw.Status) )
 				) { 
+					// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
+					// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
 					caseIdsToReroute.add(aw.WorkItemId);
 				}
 			}

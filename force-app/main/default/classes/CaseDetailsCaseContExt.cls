@@ -27,6 +27,7 @@
  2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
  2022-11-18 George Nguyen - Added logic to check against the target ownerId: If it is omni and the skills are matching the previous owner's skills then do not allow the case to be Reassigned. 
  2023-02-06 Noel Lim - Added Preferred Agent logic, which sets BypassPreferredAgent to true if the case is being routed to an omni queue.
+ 2023-06-06 - Nathan Franklin - Refactored case reassignment
 ***********************************/
 global class CaseDetailsCaseContExt  {
 
@@ -95,6 +96,8 @@ global class CaseDetailsCaseContExt  {
     private static final String AWAITING_NETWORK_RESPONSE = 'Awaiting Network Response';
     public Boolean showOwnerPanel {get;set;}
     public Boolean itemHeld {get;set;}
+
+	public Boolean sameMemberAssignment {get;set;}
 
     /**
       * @name: CaseDetailsCaseContExt
@@ -510,7 +513,9 @@ global class CaseDetailsCaseContExt  {
                     PreferredAgentExpiry__c, 
 					BusinessHoursId ,
 					AllocateToQueue__c,
-					Rework_Reason__c
+					Rework_Reason__c,
+					Comment__c,
+					IsClosed
             from Case
             where Id = :caseId
             limit 1];
@@ -981,20 +986,29 @@ global class CaseDetailsCaseContExt  {
     'Gold' => 'SSSW_BOH_Group_2'};
 
     private static final String REOPEN_QUEUE_NAME = 'SSSW Awaiting Reopen';
+	private static final String TEMPORARY_REASSIGNMENT_QUEUE = 'APCCReassignmentHoldingQueue';
     private static final String DAMAGES_IN_TRANSIT = 'Damages in transit';
     private static final String ROUTING_FALSE = 'false';
     private static final String LOC_INTERNATIONAL = 'International';
     private static final String SOCIAL_ORIGIN = 'Social';
     private static final String ROUTING_TRUE = 'true';
     private static Map<Id,Group> groupIdMap = new Map<Id,Group>();
-    private static Map<String,Group> groupNameMap = new Map<String,Group>();
-    public static Map<String,String> groupNameMapUI {get;set;}
-    private static Set<String> NON_CLOSED_STATUSES = new Set<String>();
-    public Boolean sameOwner {get;set;}
-    public Boolean doUpdate {get;set;}
-    public Boolean isAssign {get;set;}
     public String assignedQueueName {get;set;}
+	public String skillsList { get; set; }
+
+	/////////////////////// Can be removed after next deployment
+	public Boolean isAssign {get;set;}
 	public Boolean notAllowedToReassign {get;set;}
+	public Boolean sameOwner {get;set;}
+	public Boolean doUpdate {get;set;}
+	private static Set<String> NON_CLOSED_STATUSES = new Set<String>();
+	private static Map<String,Group> groupNameMap = new Map<String,Group>();
+    public static Map<String,String> groupNameMapUI {get;set;}
+	/////////////////////// Can be removed after next deployment
+
+	public Boolean noAssignmentSameMembershipError { get; set; }
+	public Boolean noAssignmentSameSkillsError { get; set; }
+	public Boolean noAssignmentCaseClosedError { get; set; }
 
     /**
       * @description       This method will check the new case assign logic and based on routing rules, assign case to respective owner
@@ -1012,168 +1026,135 @@ global class CaseDetailsCaseContExt  {
         }
 
         try{
-            String custType = String.isNotBlank(reassignCase.Account.ServiceSLA__c) ? reassignCase.Account.ServiceSLA__c :
-                    reassignCase.Account.Role_Type_Roll_Up__c == 'Customer' ? 'Silver' : 'Consumer';
-            String reOpenQId = [Select Id from Group where Name = :REOPEN_QUEUE_NAME limit 1].Id;
 
-            isAssign = false;
-            sameOwner = false;
-
-			groupNameMapUI = new Map<String,String>();
-
-			Boolean hasChild = false;
-            String previousOwnerId = myCase.Ownerid;
-            Boolean doUpdate = false;
-            List<Case> childNWRespCaseList = new List<Case>();
-            List<Case> childCustRespCaseList = new List<Case>();
+			QM__c queueSettings = QM__c.getInstance();
+			Id temporaryReassignmentQueue = queueSettings.TemporaryReassignmentQueue__c;
+            String awaitingReopenQueueId = [Select Id from Group where Name = :REOPEN_QUEUE_NAME limit 1].Id;
+			
+			skillsList = '';
+			noAssignmentSameMembershipError = false;
+			noAssignmentSameSkillsError = false;
+			noAssignmentCaseClosedError = false;
             
             //check if case has child cases
             //check if case has child cases of status - awaiting n/w response
-            for(Case cse: [Select Id, Status from Case where parentId =: mycase.id]) {
-                if(SSSWConstants.STAT_AWAITING_NTWRK_RESPONSE.equalsIgnoreCase(cse.status) ) {
-                    myCase.ownerId  = !groupIds.contains(reOpenQId) ? reOpenQId : myCase.ownerId ;
-                    childNWRespCaseList.add(myCase);
-                    assignedQueueName  = REOPEN_QUEUE_NAME ;
-                    isAssign = true;
-                    doUpdate = true;
+			Boolean setParentCaseToAwaitingReopen = false;
+            for(Case childCaseRecord: [Select Id, Status from Case where parentId =: mycase.id]) {
+                if(SSSWConstants.STAT_AWAITING_NTWRK_RESPONSE.equalsIgnoreCase(childCaseRecord.Status)) {
+					setParentCaseToAwaitingReopen = true;
                 }
-                if(SSSWConstants.STAT_AWAITING_CUST_RESPONSE.equalsIgnoreCase(cse.status) ) {
-                    myCase.ownerId  = !groupIds.contains(reOpenQId) ? reOpenQId : myCase.ownerId ;
-                    isAssign = true;
-                    doUpdate = true;
-                    assignedQueueName  = REOPEN_QUEUE_NAME ;
-                    childCustRespCaseList.add(myCase);
+                if(SSSWConstants.STAT_AWAITING_CUST_RESPONSE.equalsIgnoreCase(childCaseRecord.Status) && DAMAGES_IN_TRANSIT.equalsIgnoreCase(myCase.EnquirySubType__c )) {
+                    setParentCaseToAwaitingReopen = true;
                 }
-                hasChild = true;
-                if( myCase.ownerId == previousOwnerId) {
-                    sameOwner = true;
-                    isAssign = true;
-                    assignedQueueName  = REOPEN_QUEUE_NAME ;
-                }
-            }
-            boolean flag = true;
-            //if yes assign parent case to 'Reopen queue'
-            if(!childNWRespCaseList.isEmpty() && !sameOwner ) {
-                flag = false;
-                database.update(childNWRespCaseList);
-            
-			} else if(hasChild && DAMAGES_IN_TRANSIT.equalsIgnoreCase(myCase.EnquirySubType__c )) {
-                if(!childCustRespCaseList.isEmpty() && !sameOwner ) {
-                    flag = false;
-                    database.update(childCustRespCaseList);
-                }
+				if(setParentCaseToAwaitingReopen) {
+					break;
+				}
             }
 
-            if(flag){
-				notAllowedToReassign = false;
-                sameOwner = false;
-                // fetch all non-closed status values of case
-                if(NON_CLOSED_STATUSES.isEmpty()){
-                    for(Schema.PicklistEntry pickList : Case.Status.getDescribe().getPicklistValues()){
-                        if(!SSSWConstants.STAT_CLOSED.equalsIgnoreCase(pickList.getValue())){   // check if status is not closed
-                            NON_CLOSED_STATUSES.add(pickList.getValue());
-                        }
-                    }
-                }
-                // fetch All Queue Name Id Map
-                groupIdMap = Utility.getGroups(SSSWConstants.QUEUE);
-                if(!groupIdMap.isEmpty()){
-                    for(Group grp : groupIdMap.values()){   // fetch queues to create group map
-                        groupNameMap.put(grp.DeveloperName,grp);
-                        groupNameMapUI.put(grp.Id,grp.Name);
-                    }
-                }
-                //01/06/2017 - dion.gunn@auspostcom.au - Moved existing logic to determine if case is suitable for
-                //routing.
-                List<Case> casesTobeRouted = new List<Case>();
-                Case routedCase = new Case();
-                Id routingOwner;
-                if(Utility.isValidRecordType(Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP),reassignCase.RecordTypeId)){  // verify if its SSSW recordtype
-                    // verify if network or description is null & case is set for queue allocation
-                    //setCaseKeyMap(myCase,caseOriginKeyMap,caseNoOriginKeyMap, custType);   // set case key maps
-                    casesTobeRouted.add(reassignCase);
-                    if(!String.isBlank(reassignCase.Description))
-                        SSSW_Routing.FlipReassignDescription();
-                    SSSW_Routing.reassignNoCheckOwnerQueue = True;
-                    SSSW_Routing.assignCasesAndDescription(new List<Case>{reassignCase}, null, false, false, true);
-                    routedCase = reassignCase;
-                }
+			if(setParentCaseToAwaitingReopen) {
+				ApplicationDatabase.getInstance().dmlUpdate(new List<Case>{new Case(Id = mycase.Id, OwnerId = awaitingReopenQueueId)});
+				return;
+			}
 
-                if(!casesTobeRouted.isEmpty()){
-                    for(Case caseRec : casesTobeRouted) {
-                        if(routedCase != null){
-                            routingOwner = routedCase.OwnerId;
-                            caseRec.Description = String.isBlank(caseRec.Description) ? routedCase.Description : caseRec.Description;
-                            isAssign = true;
-                            String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(caseRec.CaseLocality__c) ?
-                                    LOC_INTERNATIONAL : custType ;
-                            caseRec.OwnerId = routingOwner != null && !groupIds.contains(routingOwner) ? routingOwner :
-                                    groupIds.contains(routingOwner)  ? caseRec.OwnerId :
-                                            (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey)) &&
-                                                    !groupIds.contains(groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id)) ?
-                                                    groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id :
-                                                    caseRec.OwnerId;
-                            if(groupIds.contains(caseRec.OwnerId)) {
-                                caseRec.OwnerId = userinfo.getUserId();
-                            }
-                            doUpdate = true;
+			//routing.
 
-                            assignedQueueName = routingOwner != null && groupIds.contains(routingOwner) ?
-                                    groupNameMapUI.get(routingOwner) :
-                                    groupNameMapUI.get(groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id); //groupNameMapUI.get(CUST_TYPE_QUEUE_MAP.get(queueKey));
-                            //System.Debug('assignedQueueName--->'+assignedQueueName);
-                            if(caseRec.OwnerId == previousOwnerId && caseRec.OwnerId==userinfo.getUserId()) {
-                                sameOwner = true;
-                            }
-                            caseRec.AllocateToQueue__c = false;     // disable case queue allocation
+			Case caseToBeRouted = reassignCase.clone(true);
+			Id previousOwnerId = caseToBeRouted.OwnerId;
 
-                            if(OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseRec.OwnerId)){ //Bypass preferred agent logic if Case is being reassigned to an omni queue
-                                caseRec.BypassPreferredAgent__c = true;
-                            }
-                        }
-                    }
+			if(caseToBeRouted.IsClosed) {
+				noAssignmentCaseClosedError = true;
+				return;
+			}
 
+			System.debug('caseToBeRouted: ' + caseToBeRouted);
+
+			// force rerouting to occur
+			SSSW_Routing.reassignNoCheckOwnerQueue = True;
+			caseToBeRouted.AllocateToQueue__c = true;
+
+			if(!String.isBlank(caseToBeRouted.Description)) {
+				SSSW_Routing.FlipReassignDescription();
+			}
+
+			// simulate the new owner but do not update the record yet!
+			SSSW_Routing.assignCasesAndDescription(new List<Case>{caseToBeRouted}, null, false, false, true);
+
+			System.debug('current owner: ' + previousOwnerId);
+			System.debug('new simulated owner: ' + caseToBeRouted.OwnerId);
+			
+			// check to see if the user is a part of queue membership of the assigned queue
+			// if they are then we do not let routing proceceed
+			Boolean simulatedQueueIsServicedByCurrentUser = groupIds.contains(caseToBeRouted.OwnerId);
+			if(!simulatedQueueIsServicedByCurrentUser) {
+				Boolean simulatedQueueIsOmniQueue = OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseToBeRouted.OwnerId);
+
+				if(simulatedQueueIsOmniQueue) {
 					// set save point so we can revert the update to omni queue (if applicable). We need the PSR in order to compare the target skills vs the skills of the current agent. 
 					// If they are the same then the whole process should be reverted and show an error message to the user. 
 					Savepoint sp = Database.setSavepoint();
-					
-					if(!sameOwner && doUpdate) {
-						ApplicationDatabase.getInstance().dmlUpdate(casesTobeRouted);
 
-						Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{this.myCase.Id}, new Set<Object>()));
-						// If PSR was created then the new owner is an Omni queue
-						if(psrs.isEmpty() == false) {
-
-							List<SkillRequirement> skillsRequirements = SkillRequirementSelector.newInstance().selectByRelatedRecordIds(psrs.keySet(), new Set<Object>());
-							
-							if(skillsRequirements.isEmpty() == false) {
-
-								Map<Id, Decimal> userSkillIdVsSkillLevel = new Map<Id, Decimal>();
-								for(ServiceResourceSkill srs: ServiceResourceSkillSelector.newInstance().selectByActiveServiceResourceRelatedRecordIds(new Set<Id>{ previousOwnerId }, new Set<Object>())) {
-									userSkillIdVsSkillLevel.put(srs.SkillId, srs.SkillLevel);
-								}
-
-								Boolean hasAllSkills = true;
-								for(SkillRequirement sr: skillsRequirements) {
-									// if previous owner does not have the same skill or does have the same skill but lower level then it is a mis-match. 
-									if(userSkillIdVsSkillLevel.containsKey(sr.SkillId) == false || (userSkillIdVsSkillLevel.get(sr.SkillId) != null && userSkillIdVsSkillLevel.get(sr.SkillId) < sr.SkillLevel)) {
-										hasAllSkills = false;
-										break;
-									}
-								}
-
-								// user has all the required skills so we should revert the update and show the error to the user. 
-								if(hasAllSkills == true) {
-									ApplicationDatabase.getInstance().dmlRollback(sp);
-									notAllowedToReassign = true; // showing the error to the user. 
-								}								
-							}
-						}
+					// check to see if we need to move the case to a temporary queue if the new owner is the same as the previous
+					// just because the new owner is the same, down 't mean the updated skills will be the same
+					if(caseToBeRouted.OwnerId == previousOwnerId) {
+						ApplicationDatabase.getInstance().dmlUpdate(new List<Case>{new Case(Id = caseToBeRouted.Id, OwnerId = temporaryReassignmentQueue)});
 					}
-                }
-            }
-        }
-        catch(Exception exp){
+
+					// trigger an update to the owner which will generate a PSR and a set of skill requirements
+					ApplicationDatabase.getInstance().dmlUpdate(new List<Case>{new Case(Id = caseToBeRouted.Id, OwnerId = caseToBeRouted.OwnerId, BypassPreferredAgent__c = true, Comment__c = caseToBeRouted.Comment__c)});
+
+					Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{caseToBeRouted.Id}, new Set<Object>()));
+					System.debug('psrs: ' + psrs);
+					if(!psrs.isEmpty()) {
+
+						List<SkillRequirement> skillsRequirements = SkillRequirementSelector.newInstance().selectByRelatedRecordIds(psrs.keySet(), new Set<Object>{SkillRequirementSelector.Options.WITH_SKILLS});
+						System.debug('skillsRequirements: ' + skillsRequirements);
+						for(SkillRequirement sr : skillsRequirements) {
+							System.debug('sr.Skill: ' + sr.Skill);
+						}
+						if(!skillsRequirements.isEmpty()) {
+
+							Map<Id, Decimal> userSkillIdVsSkillLevel = new Map<Id, Decimal>();
+							for(ServiceResourceSkill srs: ServiceResourceSkillSelector.newInstance().selectByActiveServiceResourceRelatedRecordIds(new Set<Id>{ previousOwnerId }, new Set<Object>())) {
+								userSkillIdVsSkillLevel.put(srs.SkillId, srs.SkillLevel);
+
+							}
+
+							Boolean hasAllSkills = true;
+							for(SkillRequirement sr: skillsRequirements) {
+								// if previous owner does not have the same skill or does have the same skill but lower level then it is a mis-match. 
+								if(!userSkillIdVsSkillLevel.containsKey(sr.SkillId) || userSkillIdVsSkillLevel.get(sr.SkillId) < sr.SkillLevel) {
+									hasAllSkills = false;
+									break;
+								}
+							}
+
+							for(SkillRequirement sr: skillsRequirements) {
+								skillsList += (!String.isEmpty(skillsList) ? ', ' : '') + sr.Skill.MasterLabel;
+							}
+
+							// user has all the required skills so we should revert the update and show the error to the user. 
+							if(hasAllSkills == true) {
+								ApplicationDatabase.getInstance().dmlRollback(sp);
+								noAssignmentSameSkillsError = true;
+							}								
+						} else {
+							// no skills which could mean its a queue based assignment or there were no skills mapped
+							// either way we allow the update to occur
+						}
+					} else {
+						// something went wrong
+						ApplicationDatabase.getInstance().dmlRollback(sp);
+						noAssignmentSameSkillsError = true;
+					}
+				} else {
+					// trigger an update to the owner to reassign the case
+					ApplicationDatabase.getInstance().dmlUpdate(new List<Case>{new Case(Id = caseToBeRouted.Id, OwnerId = caseToBeRouted.OwnerId, Comment__c = caseToBeRouted.Comment__c)});
+				}
+			} else {
+				// Case can not be reassigned since user is in the queue membership of the assigned queue
+				noAssignmentSameMembershipError = true;
+			}
+        } catch(Exception exp){
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
                     CaseDetailsCaseContExt.class.getName(), 'assignCase',
