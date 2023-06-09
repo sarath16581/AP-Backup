@@ -764,4 +764,15 @@
             <default>false</default>
         </values>
     </picklistValues>
+	<picklistValues>
+        <picklist>Is_APPC__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>
