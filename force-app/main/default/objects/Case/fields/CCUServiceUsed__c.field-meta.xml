@@ -78,6 +78,11 @@
                 <label>Letter Service</label>
             </value>
             <value>
+                <fullName>Metro</fullName>
+                <default>false</default>
+                <label>Metro</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>

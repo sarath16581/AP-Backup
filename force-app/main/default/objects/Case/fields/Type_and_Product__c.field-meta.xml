@@ -1562,6 +1562,21 @@
                 <default>false</default>
                 <label>General Enquiry|Web &amp; Apps|MyPost Business</label>
             </value>
+            <value>
+                <fullName>General Enquiry|Domestic Parcels|Metro</fullName>
+                <default>false</default>
+                <label>General Enquiry|Domestic Parcels|Metro</label>
+            </value>
+            <value>
+                <fullName>Feedback|Domestic Parcels|Metro</fullName>
+                <default>false</default>
+                <label>Feedback|Domestic Parcels|Metro</label>
+            </value>
+            <value>
+                <fullName>Investigation|Domestic Parcels|Metro</fullName>
+                <default>false</default>
+                <label>Investigation|Domestic Parcels|Metro</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
