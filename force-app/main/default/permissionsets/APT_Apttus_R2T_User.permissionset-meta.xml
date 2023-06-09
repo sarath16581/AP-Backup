@@ -17635,6 +17635,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>APT_Operational_Schedule__c.Post_BillPay</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>APT_Operational_Schedule__c.Startrack</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
