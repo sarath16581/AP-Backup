@@ -17620,7 +17620,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <default>false</default>
         <recordType>APT_Operational_Schedule__c.Post_BillPay</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
