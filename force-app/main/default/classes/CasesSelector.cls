@@ -23,13 +23,13 @@
  * 2023-02-08 - Dattaraj Deshmukh - Added fields in getSObjectFieldList.
  * 2023-02-28 - Dattaraj Deshmukh - Added 'WITH_NETWORK_RESPONSE' options for SSSW MyNetwork Cases.
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
- * 2023-05-29 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
+ * 2023-05-29 - Mahesh Parvathaneni - Added fields in getSObjectFieldList and WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT, 
-		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE
+		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
 	}
 
 	public static CasesSelector newInstance() {
@@ -89,7 +89,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
 			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Network__c, Case.EmailToCaseAddress__c,
-			Case.Bypass_Data_enforcement__c 
+			Case.Bypass_Data_enforcement__c, Case.Permanent_Close__c 
 
 		};
 	}
@@ -271,6 +271,9 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_NETWORK_RESPONSE)) {
 			builder.addSubQuery(NetworkResponsesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Network_Responses1__r');
+		}
+		if(selectorOptions.contains(Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER)) {
+			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 0).setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'EmailMessages');
 		}				
 		return builder;
 	}

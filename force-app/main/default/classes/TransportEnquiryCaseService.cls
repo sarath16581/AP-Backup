@@ -10,6 +10,9 @@ public inherited sharing class TransportEnquiryCaseService {
 	public static final String TRANSPORT_ENQUIRY_ENTITLEMENT = 'Transport Enquiry Standard Entitlement';
 	public static final String CASE_TRANSPORT_ENQUIRY_RT = 'Transport_Enquiry';
 	public static final String TRANSPORT_ENQUIRY_ENTITLEMENT_ACCOUNT = 'Transport Enquiry Entitlements';
+	public static final String NEW_EMAIL_RECEIVED = 'New Email Received';
+	public static final String CLOSED_STATUS = 'Closed';
+	public static final String NEW_STATUS = 'New';
 
 	private static Id transportEnquiryEntitlementId;
 	private static Id transportEnquiryRecordTypeId;

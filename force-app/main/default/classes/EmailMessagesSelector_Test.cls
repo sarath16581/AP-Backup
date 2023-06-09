@@ -53,6 +53,14 @@ private class EmailMessagesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)\\bParent.\\b').matcher(soql).find(), 'Resulting query did not contain related Parent field');
 
+		//Test field override
+		selector = EmailMessagesSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
+			EmailMessage.SObjectType => new Set<SObjectField>{EmailMessage.ToAddress, EmailMessage.Id}
+		});
+		qb = selector.newQueryBuilder();
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)ToAddress.*?\\bfrom EmailMessage\\b').matcher(soql).find(), 'Resulting query does not select ToAddress field: ' + soql);
+
 		Test.stopTest();
 
 	}
