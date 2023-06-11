@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the OmniDomain
 * @changelog
 * 2023-04-18 - George Nguyen - Created 
+* 2023-05-21 - Nathan Franklin - Added new constructors
 */
 public inherited sharing class ServiceResourcesSelector extends ApplicationSelector {
 
@@ -19,10 +20,6 @@ public inherited sharing class ServiceResourcesSelector extends ApplicationSelec
 		return (ServiceResourcesSelector)Application.Selectors.newInstance(ServiceResourcesSelector.class).setLimit(recordLimit);
 	}
 
-	/**
-	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 * This approach removes data consistency and prevents possible caching of results
-	 */
 	public static ServiceResourcesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		ServiceResourcesSelector selector = (ServiceResourcesSelector)Application.Selectors.newInstance(ServiceResourcesSelector.class);
 		selector.setFieldOverrides(fieldOverrides);

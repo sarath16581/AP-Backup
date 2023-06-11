@@ -280,11 +280,15 @@ public inherited sharing class OmniChannelService {
 	public without sharing class WithoutSharingRetrieveData{
 		
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
-			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
+			return AgentWorkSelector.newInstance(0, new Set<SObjectField>{AgentWork.Id, AgentWork.WorkItemId, AgentWork.UserId}).selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
 		}
 
 		private List<ServiceResourceSkill> getPreferredAgentServiceResourceSkills(Set<Id> userIds){
-			return ServiceResourceSkillSelector.newInstance().selectByActiveServiceResourceRelatedRecordIdsAndSkills(userIds, OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames, new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE });
+			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				ServiceResourceSkill.SObjectType => new Set<SObjectField>{ServiceResourceSkill.Id, ServiceResourceSkill.ServiceResourceId},
+				ServiceResource.SObjectType => new Set<SObjectField>{ServiceResource.RelatedRecordId}
+			};
+			return ServiceResourceSkillSelector.newInstance(0, fieldOverrides).selectByActiveServiceResourceRelatedRecordIdsAndSkills(userIds, OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames, new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE });
 		}
 	}
 

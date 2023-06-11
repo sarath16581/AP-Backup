@@ -63,7 +63,7 @@ public inherited sharing class ApplicationRecursion {
 	 * @param allRecordsOld the Trigger.oldMap objects. Used when necessary to determine if records are returned. Sometimes it's used, other times it's not.
 	 * @param comparisonFields A list of fields the calling method is tracking. Keep this list short and consistent.
 	 */
-	public List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) {
+	public List<RecordState> getProcessableRecords(String context, List<SObject> allRecords, Map<Id, SObject> allRecordsOld, Set<SObjectField> comparisonFields) { /*Map<SObjectField, Object> recordFilters*/
 		Long t1 = System.currentTimeMillis();
 
 		Map<String, SObjectField> comparisonFieldsAsString = new Map<String, SObjectField>();
@@ -106,6 +106,26 @@ public inherited sharing class ApplicationRecursion {
 
 		// iterate through the records passed in to determine which records have been changed
 		for(SObject sObjectRecord : allRecords) {
+
+			// // filter records if there is filter logic passed in
+			// Boolean canContinue = true;
+			// for(SObjectField field : recordFilters.keySet()) {
+			// 	Object value = recordFilters.get(field);
+			// 	if(value instanceof Set<Id> && !((Set<Id>)value).contains((Id)sObjectRecord.get(field))) {
+			// 		canContinue = false;
+			// 		break;
+			// 	} else if(value instanceof Set<String> && !((Set<String>)value).contains(String.valueOf(sObjectRecord.get(field)))) {
+			// 		canContinue = false;
+			// 		break;
+			// 	} else if(!String.valueOf(value).equalsIgnoreCase(String.valueOf(sObjectRecord.get(field)))) {
+			// 		canContinue = false;
+			// 		break;
+			// 	}
+			// }
+			// if(!canContinue) {
+			// 	continue;
+			// }
+			
 
 			// grab the index of the sobject which is used to grab the current record's position and also to remove the current record once it has an id (only relevant if it exists)
 			Integer sobjectIndexPosition = sobjectIdListPositionMappings.get(sObjectRecord.Id);
@@ -214,8 +234,6 @@ public inherited sharing class ApplicationRecursion {
 		}
 
 		// remove all the processed entries
-		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - Count: ' + processableRecords.size());
-
 		// 'purge' the sobjects that we no longer need to track
 		List<SObject> currentContextNewSObjectStateStore = new List<SObject>();
 		List<Map<String, Object>> currentContextNewSObjectStaticValuesMapStore = new List<Map<String, Object>>();
@@ -230,7 +248,7 @@ public inherited sharing class ApplicationRecursion {
 		sobjectStateStore.put(context, currentContextNewSObjectStateStore);
 		sobjectStateStoreStaticValuesMapStore.put(context, currentContextNewSObjectStaticValuesMapStore);
 
-		System.debug('ApplicationRecursion: Time to retrieve processable records: ' + (System.currentTimeMillis() - t1));
+		System.debug('ApplicationRecursion: Found Unprocessed Records: ' + context + ' - Count: ' + processableRecords.size() + ' (' + (System.currentTimeMillis() - t1) + 'ms)');
 
 		return processableRecords;
 	}

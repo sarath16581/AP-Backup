@@ -14,7 +14,7 @@
  * 2023-04-13 - Noel Lim - Updated:
  * 							a) class name from APCaseAgentWorkPreferredAgentModule to AgentWorkAPCaseAutomationModule
  * 							b) generate Status Tracking records on Accept
- * 
+ * 2023-05-24 - Nathan Franklin - Change rerouting of declined cases logic
  */
 public inherited sharing class AgentWorkAPCaseAutomationModule extends ApplicationDomain.Module {
 	public static AgentWorkAPCaseAutomationModule newInstance() {
@@ -105,13 +105,13 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 					
 					caseIdsForTrackingLogic.add(aw.WorkItemId); 
 
-				// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
-				// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
 				} else if(aw.PreferredUserId != null && 
 					(SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED.equalsIgnoreCase(aw.Status) 
 					|| SSSWConstants.OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT.equalsIgnoreCase(aw.Status)
 					|| SSSWConstants.OMNI_AGENTWORK_STATUS_UNAVAILABLE.equalsIgnoreCase(aw.Status) )
 				) { 
+					// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
+					// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
 					caseIdsToReroute.add(aw.WorkItemId);
 				}
 			}
@@ -128,6 +128,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 
 			Set<SObjectField> caseFieldsToQuery = new Set<SObjectField>(SSSW_Routing.caseFieldsForRouting);
 			caseFieldsToQuery.addAll(CaseTrackingHelper.caseFieldsForTracking);
+			caseFieldsToQuery.add(Case.Comment__c); // for routing debugging
 
 			casesToQuery = SSSWCasesSelector.newInstance(caseFieldsToQuery).selectById(casesIdsToQuery); 
 		}
@@ -177,10 +178,7 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 	}
 
 	/**
-	 * Apply routing logic to Cases directly by assigning the OwnerId, and set Case values to bypass Preferred Agent Routing 
-	 * 
-	 * @param - Map of all cases
-	 * @return - Map of cases that were re-routed, as new case records
+	 * Mark the declined cases for allocation (just for preferred agent routing)
 	 */
 	private void routeDeclinedCases(Map<Id, Case> cases, ApplicationUnitOfWork uow) {
 		
@@ -188,26 +186,24 @@ public inherited sharing class AgentWorkAPCaseAutomationModule extends Applicati
 
 		// NOTE The try/catch block is a fail safe, to catch this error here will ensure the routing errors do not cause the whole transaction to fail
 		try {			
-			for (Case csRec : cases.values()) {				
-				csRec.AllocateToQueue__c = true; //manually set to trigger routing logic
-			}
 			
-			SSSW_Routing.assignCasesAndDescription(cases.values(), null, false, true, true);
-
 			// the routing rules have been rerun and the newly set owner id will be added to the case
 			for(Case csRec : cases.values()) {
 
 				casesRerouted.add(new Case(
 					Id = csRec.Id, 
-					OwnerId = csRec.OwnerId,
 					Bypass_Data_enforcement__c = true,
 					BypassPreferredAgent__c = true, 
-					AllocateToQueue__c = false, // Unit of Work expects this to be populated
+					AllocateToQueue__c = true, // Unit of Work expects this to be populated
 					PreferredAgentExpiry__c = null // needs to be cleared so that in the future, the routing engine can stamp a new value
 				));
 			}
+
+			// flag the declined cases to bypass eligibility checks when rerouting cases in the trigger
+			// this only works if the routing is triggered in the same transaction as this
+			CaseRoutingService.getInstance().addCaseBypassToRoutingEligibility(cases.keySet(), 'agent work declined by user: ' + UserInfo.getUserId());
 			
-			uow.registerDirty(casesRerouted, new List<SObjectField>{ Case.OwnerId, Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
+			uow.registerDirty(casesRerouted, new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }, AgentWorkAPCaseAutomationModule.class.getName());
 		
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
