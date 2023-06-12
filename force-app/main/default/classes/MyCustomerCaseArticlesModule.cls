@@ -18,6 +18,7 @@
  * 16.02.2023	Noel Lim - Added updates for Preferred Agent Expiry
  * 02.03.2023	Noel Lim - Added AsyncLinkArticlesToCasesWorker that mirrors logic in the current Queueable AsyncLinkArticlesToCasesQueueable. This new Async Worker is registered instead of the Queueable when in Batch context
  * 2023-05-18 - Nathan Franklin - adding some routing debug message capture
+ * 2023-06-09 - Nathan Franklin - add the apply default values call on update (in addition to the existing on insert and async methods)
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
 
@@ -218,6 +219,12 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				// apply a reference id to cases that require it
 				// m_trackingArticleIdMappingsCache was populated in selectArticles calls
 				populateCaseReferences(casesToLinkReferencesTo, m_trackingArticleIdMappingsCache);
+
+				// apply default values to case fields based on any articles linked to cases
+				List<Case> casesToDefault = new List<Case>();
+				casesToDefault.addAll(casesToLinkArticlesTo);
+				casesToDefault.addAll(casesToLinkReferencesTo);
+				applyCaseArticleDefaults(casesToDefault, articles);
 
 			}
 

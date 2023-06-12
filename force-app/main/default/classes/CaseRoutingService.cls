@@ -480,7 +480,7 @@ public inherited sharing class CaseRoutingService {
 				} else if(csRec.BypassPreferredAgent__c == false && csRec.PreferredAgentExpiry__c != null && csRec.PreferredAgentExpiry__c > Datetime.now()) {
 					// only allow a case to be overrriden since it's still open, and the preferred agent timeout hasn't expired
 					casesPreferredAgentRouting.put(csRec.Id, csRec); 
-				} else {
+				} else if(csRec.BypassPreferredAgent__c == true || (csRec.PreferredAgentExpiry__c != null && csRec.PreferredAgentExpiry__c < Datetime.now())) {
 					// debug messaging to inform admin of routing path
 					populateRoutingDebug(csRec, 'preferred agent bypassed: bypass: ' + String.valueOf(csRec.BypassPreferredAgent__c) + ': expired: ' + String.valueOf(csRec.PreferredAgentExpiry__c < Datetime.now()));
 				}
