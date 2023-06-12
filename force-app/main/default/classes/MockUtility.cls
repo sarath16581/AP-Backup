@@ -71,6 +71,15 @@ public class MockUtility {
         return domain;
     }
 
+	/**
+     * Use this to mock Module classes in unit tests
+     */
+    public static Object mockModule(Type moduleType) {
+        AutomationModule module = (AutomationModule)Mocks.mock(moduleType);
+        Application.Modules.setMock(moduleType, module);
+        return module;
+    }
+
     /**
      * Use this to return a stubbed ApplicationDatabase instance
      */
