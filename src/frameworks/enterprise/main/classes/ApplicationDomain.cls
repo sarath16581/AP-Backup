@@ -4,6 +4,8 @@
  * This class has been modelled after the work of fflib.
  * It's cut down and doesn't include the overhead of using describes whicher are problematic to use in this org.
  *
+ * @deprecated use AutomationModule
+ * 
  * @author Nathan Franklin
  * @date 2020-07-27
  * @group Core
@@ -13,6 +15,7 @@
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-07-18 - Sreenish Krishnan - added support for onAfterDelete
  * 2023-02-14 - Ranjeewa Silva - added support for after undelete trigger event
+ * 2023-06-12 - Nathan Franklin - deprecated in favor of AutomationModule framework
  */
 public virtual inherited sharing class ApplicationDomain {
 	/**
