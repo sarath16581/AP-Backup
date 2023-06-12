@@ -1,3 +1,9 @@
+/**
+ * @description Trigger handler to execute all the registered AutomationModule's
+ * @author Nathan Franklin
+ * @date 2023-06-12
+ * @changelog
+ */
 public inherited sharing class CaseAutomationTriggerHandler extends AutomationTriggerHandler {
     
 	public override SObjectType getSObjectType() {

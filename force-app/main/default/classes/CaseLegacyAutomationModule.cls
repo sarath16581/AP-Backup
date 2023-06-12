@@ -1,3 +1,9 @@
+/**
+ * @description Module that wraps all of the Case legacy code which hasn't been uplifted yet
+ * @author Nathan Franklin
+ * @date 2023-06-12
+ * @changelog
+ */
 public inherited sharing class CaseLegacyAutomationModule extends AutomationModule {
     
 	// Setup which triggers this module should respond to
