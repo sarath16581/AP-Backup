@@ -1,6 +1,6 @@
 /***
  * @description
- * Another take at a framework with domainless architecture. Domains can be controlled by naming conventions with AutomationModule
+ * Another take at a framework with domainless architecture. Domains can be controlled by naming conventions with ApplicationModule
  * 
  * @author Nathan Franklin
  * @date 2023-06-12
@@ -8,7 +8,7 @@
  * @domain Core
  * @changelog
  */
-public inherited sharing abstract class AutomationModule {
+public inherited sharing abstract class ApplicationModule {
 
 	@TestVisible
 	private TriggerEvent triggerEvents;

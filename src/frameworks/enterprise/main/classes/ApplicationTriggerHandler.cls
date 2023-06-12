@@ -1,6 +1,6 @@
 /***
  * @description
- * Another take at a framework with domainless architecture. Domains can be controlled by naming conventions with AutomationModule
+ * Another take at a framework with domainless architecture. Domains can be controlled by naming conventions with ApplicationModule
  * 
  * @author Nathan Franklin
  * @date 2023-06-12
@@ -8,7 +8,7 @@
  * @domain Core
  * @changelog
  */
-public inherited sharing abstract class AutomationTriggerHandler {
+public inherited sharing abstract class ApplicationTriggerHandler {
 
 	/**
 	 * Derived from the records provided during construction, provides the native describe for the standard or custom object
@@ -18,7 +18,7 @@ public inherited sharing abstract class AutomationTriggerHandler {
 	/**
 	 * Stores a cached copy of the domain modules to minimise the need to continually instantiating new instances
 	 */
-	private static Map<String, Map<Type, AutomationModule>> cachedModules;
+	private static Map<String, Map<Type, ApplicationModule>> cachedModules;
 
 	public enum TriggerState {
 		BEFORE,
@@ -28,11 +28,11 @@ public inherited sharing abstract class AutomationTriggerHandler {
 	private List<Type> modules = new List<Type>();
 
 	static {
-		cachedModules = new Map<String, Map<Type, AutomationModule>>();
+		cachedModules = new Map<String, Map<Type, ApplicationModule>>();
 	}
 
 	/**
-	 * A list of AutomationModule types that are used within this trigger handler
+	 * A list of ApplicationModule types that are used within this trigger handler
 	 * Each of these modules will be executed when the trigger is fired (if not disabled using ApplicationFeatures)
 	 */
 	public abstract List<Type> registerModules();
@@ -75,7 +75,7 @@ public inherited sharing abstract class AutomationTriggerHandler {
 		private set;
 	}
 
-	public AutomationTriggerHandler() {
+	public ApplicationTriggerHandler() {
 		modules = registerModules();
 
 		// remove any modules which are not 'active'
@@ -100,13 +100,13 @@ public inherited sharing abstract class AutomationTriggerHandler {
 		System.debug('Dispatch: ' + getSObjectType() + ', isAfter:  ' + isAfter + ', isBefore: ' + isBefore + ', isInsert: ' + isInsert + ', isUpdate: ' + isUpdate + ', isDelete: ' + isDelete + ', isUnDelete: ' + isUndelete);
 
 		// grab instances of the modules
-		List<AutomationModule> instances = getModuleInstances();
+		List<ApplicationModule> instances = getModuleInstances();
 
 		// grab a new unit of work to be passed throughout the different domains
 		ApplicationUnitOfWork unitOfWork = newUnitOfWork();
 
-		for (AutomationModule instance : instances) {
-			AutomationModule.TriggerEvent events = instance.getTriggerEvents();
+		for (ApplicationModule instance : instances) {
+			ApplicationModule.TriggerEvent events = instance.getTriggerEvents();
 
 			// Invoke the applicable handler
 			if(isBefore) {
@@ -138,11 +138,11 @@ public inherited sharing abstract class AutomationTriggerHandler {
 		unitOfWork.commitWork();
 	}
 
-	public List<AutomationModule> getModuleInstances() {
+	public List<ApplicationModule> getModuleInstances() {
 		
 		String thisClass = className;
 		if (cachedModules.get(thisClass) == null) {
-			cachedModules.put(thisClass, new Map<Type, AutomationModule>());
+			cachedModules.put(thisClass, new Map<Type, ApplicationModule>());
 		}
 
 		return cachedModules.get(thisClass).values();
@@ -159,7 +159,7 @@ public inherited sharing abstract class AutomationTriggerHandler {
 		// store this module in transaction cache
 		String thisClass = className;
 		if (cachedModules.get(thisClass) == null) {
-			cachedModules.put(thisClass, new Map<Type, AutomationModule>());
+			cachedModules.put(thisClass, new Map<Type, ApplicationModule>());
 		}
 		if (cachedModules.get(thisClass).get(moduleType) == null) {
 			cachedModules.get(thisClass).put(moduleType, Application.Modules.newInstance(moduleType));

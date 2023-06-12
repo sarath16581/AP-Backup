@@ -10,7 +10,7 @@
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added methods for Domain classes
  * 2023-03-27 - Nathan Franklin - Fix bug with getting sandbox name
- * 2023-06-12 - Nathan Franklin - Added 'AutomationModule' capability and deprecated ApplicationDomain capability
+ * 2023-06-12 - Nathan Franklin - Added 'ApplicationModule' capability and deprecated ApplicationDomain capability
  */
 public with sharing class Application {
 
@@ -18,7 +18,7 @@ public with sharing class Application {
 	public static SelectorFactory Selectors;
 
 	/**
-	 * @deprecated use AutomationModule
+	 * @deprecated use ApplicationModule
 	 */
 	public static DomainFactory Domains;
 
@@ -30,7 +30,7 @@ public with sharing class Application {
 		Selectors = new SelectorFactory();
 
 		/**
-		 * @deprecated use AutomationModule
+		 * @deprecated use ApplicationModule
 		 */
 		Domains = new DomainFactory();
 
@@ -172,7 +172,7 @@ public with sharing class Application {
 	}
 
 	/**
-	 * @deprecated use AutomationModule
+	 * @deprecated use ApplicationModule
 	 */
 	public class DomainFactory {
 
@@ -203,14 +203,14 @@ public with sharing class Application {
 
 	public class ModuleFactory {
 
-		Map<Type, AutomationModule> mockModules = new Map<Type, AutomationModule>();
+		Map<Type, ApplicationModule> mockModules = new Map<Type, ApplicationModule>();
 
 		/**
 		 * Store a list of type instance mappings to be able grab the correct instance when needed
 		 * This is used to we can provide mocks in test classes to override default functionality where we don't care about the results
 		 */
 		@TestVisible
-		private void setMock(Type moduleType, AutomationModule moduleInstance) {
+		private void setMock(Type moduleType, ApplicationModule moduleInstance) {
 			mockModules.put(moduleType, moduleInstance);
 		}
 
@@ -218,12 +218,12 @@ public with sharing class Application {
 		 * Used to inject mocking class for writing isolated unit tests
 		 * When not running tests, the method simply returns the normal instance
 		 */
-		public AutomationModule newInstance(Type moduleType) {
+		public ApplicationModule newInstance(Type moduleType) {
 			if(Test.isRunningTest() && mockModules.get(moduleType) != null) {
-				AutomationModule module = mockModules.get(moduleType);
+				ApplicationModule module = mockModules.get(moduleType);
 				return module;
 			} else {
-				return (AutomationModule)moduleType.newInstance();
+				return (ApplicationModule)moduleType.newInstance();
 			}
 		}
 	}

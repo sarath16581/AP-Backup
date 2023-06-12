@@ -75,7 +75,7 @@ public class MockUtility {
      * Use this to mock Module classes in unit tests
      */
     public static Object mockModule(Type moduleType) {
-        AutomationModule module = (AutomationModule)Mocks.mock(moduleType);
+        ApplicationModule module = (ApplicationModule)Mocks.mock(moduleType);
         Application.Modules.setMock(moduleType, module);
         return module;
     }

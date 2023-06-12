@@ -4,7 +4,7 @@
  * @date 2023-06-12
  * @changelog
  */
-public inherited sharing class CaseLegacyAutomationModule extends AutomationModule {
+public inherited sharing class CaseLegacyAutomationModule extends ApplicationModule {
     
 	// Setup which triggers this module should respond to
 	public CaseLegacyAutomationModule() {
