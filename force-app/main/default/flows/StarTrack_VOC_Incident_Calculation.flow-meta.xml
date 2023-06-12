@@ -338,7 +338,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <decisions>
         <name>isChangedDecision12_myRule_11_Nominated_Advocate_Email_c</name>
         <label>isChangedDecision12_myRule_11_Nominated_Advocate_Email_c</label>
