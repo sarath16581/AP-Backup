@@ -986,7 +986,6 @@ global class CaseDetailsCaseContExt  {
 	'Gold' => 'SSSW_BOH_Group_2'};
 
 	private static final String REOPEN_QUEUE_NAME = 'SSSW Awaiting Reopen';
-	private static final String TEMPORARY_REASSIGNMENT_QUEUE = 'APCCReassignmentHoldingQueue';
 	private static final String DAMAGES_IN_TRANSIT = 'Damages in transit';
 	private static final String ROUTING_FALSE = 'false';
 	private static final String LOC_INTERNATIONAL = 'International';
