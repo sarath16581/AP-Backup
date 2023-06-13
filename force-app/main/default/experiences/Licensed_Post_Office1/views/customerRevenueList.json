@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "3b6c5a62-db51-46cf-adbe-d6ff32a817a1",
   "label" : "Customer Revenue List",
   "regions" : [ {

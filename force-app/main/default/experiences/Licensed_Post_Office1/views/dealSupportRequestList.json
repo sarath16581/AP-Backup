@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "76b8a9bb-120b-46f2-b25c-5177e3363a03",
   "label" : "Deal Support Request List",
   "regions" : [ {

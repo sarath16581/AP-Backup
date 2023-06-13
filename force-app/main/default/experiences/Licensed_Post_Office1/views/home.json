@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsTwoCol84Layout",
+  "dataProviders" : [ ],
   "id" : "c642ee9a-bbc0-450f-9fc6-37c8b993cc47",
   "label" : "Home",
   "regions" : [ {
@@ -38,7 +39,7 @@
     "components" : [ {
       "componentAttributes" : {
         "enableInlineEdit" : true,
-        "filterName" : "00B30000008Idc8EAC",
+        "filterName" : "RecentlyViewedLeads",
         "layout" : "COMPACT",
         "pageSize" : 5,
         "scope" : "Lead",
@@ -54,6 +55,28 @@
       },
       "componentName" : "forceCommunity:objectHome",
       "id" : "8611d0ff-cfe2-4915-8bd1-c8ad6ce7b0c6",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "enableInlineEdit" : true,
+        "filterName" : "OpenTasks",
+        "layout" : "COMPACT",
+        "pageSize" : 5,
+        "scope" : "Task",
+        "showActionBar" : true,
+        "showChartsPanel" : true,
+        "showDisplay" : "showall",
+        "showFilterPanel" : true,
+        "showImageIcon" : true,
+        "showManualRefreshButton" : true,
+        "showObjectName" : true,
+        "showPinnedList" : true,
+        "showSearchBar" : true
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "a496898b-e6c7-4c8d-a78b-471c1d6ac40a",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
