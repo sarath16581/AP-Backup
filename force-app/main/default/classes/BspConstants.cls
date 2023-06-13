@@ -43,6 +43,8 @@ public class BspConstants{
     public static final String ENQUIRY_TYPE_RTS = 'rts';
     public static final String ENQUIRY_TYPE_POD_REQUEST = 'pod request';
     public static final String ENQUIRY_TYPE_GENERAL_ENQUIRY = 'general enquiry';
+    public static final String ENQUIRY_TYPE_FEEDBACK = 'feedback';
+    public static final String ENQUIRY_TYPE_INVESTIGATION = 'investigation';
     public static final String ENQUIRY_TYPE_BULK_UPLOAD = 'bulk upload';
     public static final String ENQUIRY_TYPE_MAIL_REDIRECTION_HOLD = 'mail redirection/hold';
     public static final String ENQUIRY_TYPE_ADVICE_ON_SENDING_PARCELS = 'advice on sending parcels';
