@@ -80,6 +80,7 @@
                             cmp.set('v.wizardData.latestDeliveredScanWcid', lArticle["latestDeliveredScanWcid"]!= null?lArticle["latestDeliveredScanWcid"]:lArticle["previousDeliveredScanWcid"] );
                             cmp.set('v.wizardData.isNoEddReturned', lArticle["isNoEddReturned"]);
                             cmp.set('v.wizardData.isEDDEstimated', lArticle["isEDDEstimated"]);
+                            cmp.set('v.wizardData.isVodv', lArticle["isVodv"]);
                         } else {
                             cmp.set('v.wizardData.trackingNumSerachStatusCode', returnObj["trackingNumSerachStatusCode"]);
                         }

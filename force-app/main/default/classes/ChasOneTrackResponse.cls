@@ -167,7 +167,8 @@ public with sharing class ChasOneTrackResponse {
         public String code {get;set;} 
         public String consignmentId {get;set;} 
         public String consignmentCode {get;set;} 
-        public String fullBarcode {get;set;} 
+        public Boolean isVodv {get;set;}
+        public String fullBarcode {get;set;}
         public String shortBarcode {get;set;} 
         public Boolean isRegisteredByAP {get;set;} 
         public Boolean isReceivedByAP {get;set;} 
@@ -189,6 +190,7 @@ public with sharing class ChasOneTrackResponse {
         
         public Articles(JSONParser parser) {
             while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+                System.debug('HASANTHA VODV - '+parser.getCurrentToken());
                 if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
                     String text = parser.getText();
                     if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
@@ -202,6 +204,8 @@ public with sharing class ChasOneTrackResponse {
                             consignmentId = parser.getText();
                         } else if (text == 'consignmentCode') {
                             consignmentCode = parser.getText();
+                        } else if (text == 'isVodv') {
+                            isVodv = parser.getBooleanValue();
                         } else if (text == 'fullBarcode') {
                             fullBarcode = parser.getText();
                         } else if (text == 'shortBarcode') {

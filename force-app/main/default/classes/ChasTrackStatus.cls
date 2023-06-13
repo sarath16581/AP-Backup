@@ -77,6 +77,7 @@ public without sharing class ChasTrackStatus {
                     articleDetailsWrapper.articleId = article.Id;
                     articleDetailsWrapper.destinationAddress = article.destinationAddress;
                     articleDetailsWrapper.deliverySummary = article.deliverySummary;
+                    articleDetailsWrapper.isVodv = article.isVodv;
 
                     // grab the safedrop delivered datetime
                     if (articleDetailsWrapper.deliverySummary != null) {
@@ -98,6 +99,11 @@ public without sharing class ChasTrackStatus {
                         articleDetailsWrapper.articleType = String.valueOf(article.service.productType);
 
                     }
+                    if (article.isVodv != null) {
+                        articleDetailsWrapper.articleType = String.valueOf(article.service.productType);
+
+                    }
+
                     // grab the subProductId from the service
                     if (article.service != null) {
                         articleDetailsWrapper.subProductId = String.valueOf(article.service.subProductId);
@@ -432,6 +438,17 @@ public without sharing class ChasTrackStatus {
             }
             set;
         }
+
+        public Boolean isVodv {
+            get {
+                if (isVodv == null) {
+                    return false;
+                }
+                return isVodv;
+            }
+            set;
+        }
+
 
         public String duplicateCase {
             get {
