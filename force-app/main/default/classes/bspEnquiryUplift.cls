@@ -11,6 +11,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
 04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
+13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -428,6 +429,14 @@ public without sharing class bspEnquiryUplift {
 		if(!bspMappings.isEmpty()){
 			enq.EnquirySubType__c = bspMappings.get(enq.CCUEnquiryType__c.toLowerCase()).CaseEnquirySubType__c;
 			enq.Type = bspMappings.get(enq.CCUEnquiryType__c.toLowerCase()).CaseType__c;
+			if (enq.Type.equalsIgnoreCase(BspConstants.ENQUIRY_TYPE_GENERAL_ENQUIRY)) { // set the Type_and_Product__c field according to the enq.Type
+				enq.Type_and_Product__c = ChasConstants.GENERAL_ENQUIRY_PLUS_DOMESTIC_PARCELS_PLUS_METRO;
+			} else if (enq.Type.equalsIgnoreCase(BspConstants.ENQUIRY_TYPE_FEEDBACK)) {
+				enq.Type_and_Product__c = ChasConstants.FEEDBACK_AND_DOMESTIC_PARCELS_AND_METRO;
+			} else if (enq.Type.equalsIgnoreCase(BspConstants.ENQUIRY_TYPE_INVESTIGATION)) {
+				enq.Type_and_Product__c = ChasConstants.INVESTIGATION_AND_DOMESTIC_PARCELS_METRO;
+			}
+
 			if(enqType == BspConstants.ENQUIRY_TYPE_GENERAL_ENQUIRY || enqType == BspConstants.ENQUIRY_TYPE_BULK_UPLOAD || enqType == BspConstants.ENQUIRY_TYPE_MAIL_REDIRECTION_HOLD){
 				enq.ProductCategory__c = bspMappings.get(enq.CCUEnquiryType__c.toLowerCase()).CaseProductCategory__c; // INC0609073 ref Product Category to custom setting
 				enq.ProductSubCategory__c = bspMappings.get(enq.CCUEnquiryType__c.toLowerCase()).caseProductSubCategory__c; // INC0609073 ref Product Sub Category to custom setting
@@ -436,7 +445,7 @@ public without sharing class bspEnquiryUplift {
 
 		enq.ContactId = bspBaseUplift.loginContactId;
 
-		// If user searched for COnsignment and tried to created General Enquiry, then null the Artilce and Type
+		// If user searched for Consignment and tried to created General Enquiry, then null the Article and Type
 		if(enqType == BspConstants.ENQUIRY_TYPE_GENERAL_ENQUIRY) {
 			enq.ArticleType__c = null;
 			enq.ArticleTest__c = null;
