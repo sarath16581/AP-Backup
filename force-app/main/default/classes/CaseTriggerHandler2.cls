@@ -2,11 +2,10 @@
  * @description Domain wrapper class for Case
  * @author Nathan Franklin
  * @date 2020-07-30
- * @group Domain
- * @domain Case
  * @changelog
  * Madhusudhan - 7th June 2021, Added StarTrackSupportCasesDomain - PBRP
  * Madhusudhan - 23rd June 2021, Added SObjectTypes(Task,CaseMilestone,AuthorisedContacts__c) in getUnitOfWorkSObjectTypes - PBRP
+ * 2023-06-13 - Nathan Franklin - Removed MyCustomerCasesDomain
  */
 
 public inherited sharing class CaseTriggerHandler2 extends ApplicationDomainTriggerHandler {
@@ -17,9 +16,10 @@ public inherited sharing class CaseTriggerHandler2 extends ApplicationDomainTrig
 
     public override List<Type> registerDomains() {
         return new List<Type>{
-            MyCustomerCasesDomain.class,
-            //Added by madhusudhan | PBRP
+           
+			//Added by madhusudhan | PBRP
            StarTrackSupportCasesDomain.class
+
         };
     }
 

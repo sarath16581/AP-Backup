@@ -1,18 +1,19 @@
 /**
- * @description Module that wraps all of the Case legacy code which hasn't been uplifted yet
+ * @description Module that wraps all of the Case legacy code which hasn't been uplifted yet for the Case Object
+ * 
+ * NOTE: Because this is wrapping legacy code, filters should NOT be used here as they won't work 
+ * 
  * @author Nathan Franklin
  * @date 2023-06-12
  * @changelog
  */
 public inherited sharing class CaseLegacyAutomationModule extends ApplicationModule {
-    
+	
 	// Setup which triggers this module should respond to
 	public CaseLegacyAutomationModule() {
-		getTriggerEvents().enableBeforeInsert().enableAfterInsert()
-							.enableBeforeUpdate().enableAfterUpdate()
-							.enableBeforeDelete().enableAfterDelete()
-							.enableAfterUndelete();
+		getTriggerEvents().enableAll();
 	}
+
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		CaseTriggerHandler.execute();

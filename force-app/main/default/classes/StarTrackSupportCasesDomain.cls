@@ -4,6 +4,7 @@
 * @date 2020-06-08
 * @group Domains
 * @changelog
+* 2023-06-13 - Nathan Franklin - Refactoring - moved StarTrackCalculateCaseDepotModule into CaseAutomationTriggerHandler
 */
 public virtual inherited sharing class StarTrackSupportCasesDomain extends ApplicationDomain {
     
@@ -18,7 +19,6 @@ public virtual inherited sharing class StarTrackSupportCasesDomain extends Appli
         // these module will be available for domain operations and trigger execution
         // each module will register their trigger entry points
         // additionally, each module will specify a list of fields that it monitors changes for.
-        registerModule(StarTrackCalculateCaseDepotModule.class);
         registerModule(StarTrackSupportCaseContactsModule.class);
         registerModule(StarTrackSupportCasePriorityModule.class);
         registerModule(StarTrackSupportCaseAutomationModule.class);

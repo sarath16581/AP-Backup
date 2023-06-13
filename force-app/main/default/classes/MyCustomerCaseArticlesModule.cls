@@ -20,7 +20,7 @@
  * 2023-05-18 - Nathan Franklin - adding some routing debug message capture
  * 2023-06-09 - Nathan Franklin - add the apply default values call on update (in addition to the existing on insert and async methods)
  */
-public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
+public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationModule {
 
 	public static MyCustomerCaseArticlesModule newInstance() {
 		return (MyCustomerCaseArticlesModule)Application.Utilities.newInstance(MyCustomerCaseArticlesModule.class);
@@ -63,9 +63,9 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
-	//	public override Set<SObjectField> getTriggerMonitoredFields() {
-	//		return new Set<SObjectField>{Case.RecordTypeId, Case.ArticleTest__c, Case.ReferenceID__c};
-	//	}
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterSSSW(records);
+	}
 
 	/**
 	 * Called when a new Case is being inserted.

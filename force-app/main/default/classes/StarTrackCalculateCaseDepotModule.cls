@@ -20,8 +20,9 @@
 * @domain StarTrack
 * @changelog
 * 2021-08-26    Steve Judd  Modified calculateCaseDepot for MW0004540 to exclude Depot Collection when case is closed
+* 2023-06-13 - Nathan Franklin - Refactored into new ApplicationModule framework
 */
-public inherited sharing class StarTrackCalculateCaseDepotModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackCalculateCaseDepotModule extends ApplicationModule {
     
     public static StarTrackCalculateCaseDepotModule newInstance() {
         return (StarTrackCalculateCaseDepotModule)Application.Utilities.newInstance(StarTrackCalculateCaseDepotModule.class);
@@ -31,6 +32,10 @@ public inherited sharing class StarTrackCalculateCaseDepotModule extends Applica
     public StarTrackCalculateCaseDepotModule() {
         getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
     }
+
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
+	}
     
     /**
 	* Grab the Voice of Customer Incident recordTypeId
@@ -249,15 +254,6 @@ public inherited sharing class StarTrackCalculateCaseDepotModule extends Applica
     public Map<Id, Network__c> selectNetworks(Set<Id> casesNetworkIds) {
         Map<Id, Network__c> networks = NetworksSelector.newInstance(0, new Set<SObjectField>{Network__c.Id,Network__c.Business_Hours__c}).selectById(casesNetworkIds);
         return networks;
-    }
-    
-    /**
-	* Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	*/
-    public class Constructor implements ApplicationDomain.IConstructableModule {
-        public ApplicationDomain.Module construct() {
-            return (ApplicationDomain.Module)StarTrackCalculateCaseDepotModule.newInstance();
-        }
     }
     
 }

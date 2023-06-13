@@ -4,8 +4,6 @@
  * 
  * @author Nathan Franklin
  * @date 2023-06-12
- * @group Core
- * @domain Core
  * @changelog
  */
 public inherited sharing abstract class ApplicationModule {
@@ -15,27 +13,28 @@ public inherited sharing abstract class ApplicationModule {
 
 	public virtual TriggerEvent getTriggerEvents() {
 		if (triggerEvents == null) {
-			triggerEvents = new TriggerEvent().disableAll();
+			triggerEvents = new TriggerEvent();
 		}
 		return triggerEvents;
 	}
 
-	public virtual void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
-	public virtual void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
-
-	public virtual void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}
-	public virtual void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}
-
-	public virtual void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {}
-	public virtual void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {}
-
-	public virtual void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {}
-
-	// returns an empty string
 	protected String nullToString(String nullString) {
 		String emptyString = nullString == null ? '' : nullString;
 		return emptyString;
 	}
+
+	/**
+	 * Ability to pre-filter records prior to passing them into the module
+	 */
+	public virtual List<SObject> filter(List<SObject> records) { return records; }
+
+	public virtual void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
+	public virtual void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
+	public virtual void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}
+	public virtual void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}
+	public virtual void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {}
+	public virtual void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {}
+	public virtual void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {}
 
 	public class TriggerEvent {
 		public Boolean beforeInsertEnabled { get; private set; }
@@ -48,7 +47,13 @@ public inherited sharing abstract class ApplicationModule {
 		public Boolean afterUndeleteEnabled { get; private set; }
 
 		public TriggerEvent() {
-			this.disableAll();
+			beforeInsertEnabled = false;
+			beforeUpdateEnabled = false;
+			beforeDeleteEnabled = false;
+			afterInsertEnabled = false;
+			afterUpdateEnabled = false;
+			afterDeleteEnabled = false;
+			afterUndeleteEnabled = false;
 		}
 
 		// befores
@@ -62,19 +67,6 @@ public inherited sharing abstract class ApplicationModule {
 		}
 		public TriggerEvent enableBeforeDelete() {
 			beforeDeleteEnabled = true;
-			return this;
-		}
-
-		public TriggerEvent disableBeforeInsert() {
-			beforeInsertEnabled = false;
-			return this;
-		}
-		public TriggerEvent disableBeforeUpdate() {
-			beforeUpdateEnabled = false;
-			return this;
-		}
-		public TriggerEvent disableBeforeDelete() {
-			beforeDeleteEnabled = false;
 			return this;
 		}
 
@@ -96,45 +88,16 @@ public inherited sharing abstract class ApplicationModule {
 			return this;
 		}
 
-		public TriggerEvent disableAfterInsert() {
-			afterInsertEnabled = false;
-			return this;
-		}
-		public TriggerEvent disableAfterUpdate() {
-			afterUpdateEnabled = false;
-			return this;
-		}
-		public TriggerEvent disableAfterDelete() {
-			afterDeleteEnabled = false;
-			return this;
-		}
-		public TriggerEvent disableAfterUndelete() {
-			afterUndeleteEnabled = false;
-			return this;
-		}
-
 		public TriggerEvent enableAll() {
 			return this.enableAllBefore().enableAllAfter();
-		}
-
-		public TriggerEvent disableAll() {
-			return this.disableAllBefore().disableAllAfter();
 		}
 
 		public TriggerEvent enableAllBefore() {
 			return this.enableBeforeInsert().enableBeforeUpdate().enableBeforeDelete();
 		}
 
-		public TriggerEvent disableAllBefore() {
-			return this.disableBeforeInsert().disableBeforeUpdate().disableBeforeDelete();
-		}
-
 		public TriggerEvent enableAllAfter() {
 			return this.enableAfterInsert().enableAfterUpdate().enableAfterDelete().enableAfterUndelete();
-		}
-
-		public TriggerEvent disableAllAfter() {
-			return this.disableAfterInsert().disableAfterUpdate().disableAfterDelete().disableAfterUndelete();
 		}
 	}
 }

@@ -4,8 +4,6 @@
  * 
  * @author Nathan Franklin
  * @date 2023-06-12
- * @group Core
- * @domain Core
  * @changelog
  */
 public inherited sharing abstract class ApplicationTriggerHandler {
@@ -35,7 +33,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 	 * A list of ApplicationModule types that are used within this trigger handler
 	 * Each of these modules will be executed when the trigger is fired (if not disabled using ApplicationFeatures)
 	 */
-	public abstract List<Type> registerModules();
+	public abstract void registerModules();
 
 	/**
 	 * The unit of work to be used for the SObject in question
@@ -76,15 +74,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 	}
 
 	public ApplicationTriggerHandler() {
-		modules = registerModules();
-
-		// remove any modules which are not 'active'
-		for(Integer i=modules.size()-1;i>=0;i--) {
-			if(!ApplicationFeatures.getInstance().isModuleActive(modules[i])) {
-				System.debug('Skipping Module: ' + modules[i]);
-				modules.remove(i);
-			}
-		}
+		registerModules();
 	}
 
 	public void dispatch() {
@@ -97,7 +87,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 	private void dispatch(Boolean isBefore, Boolean isAfter, Boolean isInsert, Boolean isUpdate, Boolean isDelete, Boolean isUndelete,
 							List<SObject> newRecords, Map<Id, SObject> oldRecordsMap) {
 
-		System.debug('Dispatch: ' + getSObjectType() + ', isAfter:  ' + isAfter + ', isBefore: ' + isBefore + ', isInsert: ' + isInsert + ', isUpdate: ' + isUpdate + ', isDelete: ' + isDelete + ', isUnDelete: ' + isUndelete);
+		System.debug('Dispatch: ' + getSObjectType() + ' ' + className + ', isAfter:  ' + isAfter + ', isBefore: ' + isBefore + ', isInsert: ' + isInsert + ', isUpdate: ' + isUpdate + ', isDelete: ' + isDelete + ', isUnDelete: ' + isUndelete);
 
 		// grab instances of the modules
 		List<ApplicationModule> instances = getModuleInstances();
@@ -138,7 +128,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		unitOfWork.commitWork();
 	}
 
-	public List<ApplicationModule> getModuleInstances() {
+	private List<ApplicationModule> getModuleInstances() {
 		
 		String thisClass = className;
 		if (cachedModules.get(thisClass) == null) {
@@ -149,7 +139,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 	}
 
 	@TestVisible
-	private void registerModule(Type moduleType) {
+	protected void registerModule(Type moduleType) {
 		// remove any modules which are not 'active'
 		if(!ApplicationFeatures.getInstance().isModuleActive(moduleType)) {
 			System.debug('Skipping Module: ' + moduleType);
@@ -164,6 +154,16 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		if (cachedModules.get(thisClass).get(moduleType) == null) {
 			cachedModules.get(thisClass).put(moduleType, Application.Modules.newInstance(moduleType));
 		}
+	}
+
+	public static List<SObject> filterByRecordType(List<SObject> records, Set<Id> recordTypeIds) {
+		List<SObject> output = new List<SObject>();
+		for(SObject record : records) {
+			if(recordTypeIds.contains((Id)record.get('RecordTypeId'))) {
+				output.add(record);
+			}
+		}
+		return output;
 	}
 
 }
