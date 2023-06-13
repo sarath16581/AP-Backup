@@ -1222,7 +1222,7 @@
         </recipients>
         <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>Transport_Enquiry_Case_Template/TransportEnquiry_Generic_email_to_Customer</template>
+        <template>Transport_Enquiry_Case_Template/TransportEnquiry_bounce_back_email</template>
     </alerts>
     <alerts>
         <fullName>VL_First_email</fullName>

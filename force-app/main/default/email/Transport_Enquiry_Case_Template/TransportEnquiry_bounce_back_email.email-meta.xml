@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is bounce back email temlate when customer email the consolidated transport enquiry email address</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Transport Enquiry - bounce back email</name>
+    <style>none</style>
+    <subject>Australia Post - Transport Enquiry Case Bounce Back Email</subject>
+    <textOnly>Transport Enquiry
+
+
+Hi,
+
+Thanks for getting in touch.
+
+Please contact your local hub/transport facility if you require assistance with collections or equipment.
+
+
+
+
+Kind regards,
+Australia Post
+
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you 							may have under the Australian Consumer Law.
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 							guarantee that the integrity of this email communication has been maintained nor that the 							communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
