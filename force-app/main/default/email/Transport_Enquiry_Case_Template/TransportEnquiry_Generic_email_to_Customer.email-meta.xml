@@ -6,7 +6,7 @@
     <name>Transport Enquiry - Generic email to Customer</name>
     <style>none</style>
     <subject>Australia Post - Transport Enquiry Case: {!Case.CaseNumber}</subject>
-    <textOnly>Help &amp; Support
+    <textOnly>Transport Enquiry
 
 Reference number {!Case.CaseNumber}
 
@@ -20,10 +20,11 @@ Kind regards,
 Australia Post
 {!Case.Thread_Id}
 
+
 Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
-Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+Terms &amp; conditions  |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
