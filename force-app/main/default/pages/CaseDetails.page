@@ -1,26 +1,27 @@
 <!--
-        @Author      :
-        @Date        :
-        @Description :  Visualforce page to display case details and allow users to make updates to case
-        history 
-        kalpita.talwadekar@aupost.com.au updated code for pop-up handing
-        kalpita.talwadekar@aupost.com.au updated code for edd details display
-        dion.gunn@auspost.com.au        Modifications to display MLS Remediation Address fields
-        nanda.kothamasu@auspost.com.au (NK)     Modified code to capture ProductSubCategory__c data in hidden field to lookup EnquirySubType_c drop down list.
-                                                This fix is done based on Incidents (INC0929902, INC0874076, & INC0843700)
-        nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page after selecting dependent drop down list values (INC0952078)
-        06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
-        2017-09-25 nathan.franklin@auspost.com.au - Added script loader and general formatting changes
-        06.11.2017 kalpita.talwadekar@auspost.com.au    updated refreshCurrentTab for no tab re-open but just refresh the current case tab.
-        09-04-2018 nanda.kothamasu@auspost.com.au      Commented "Delivery Date Details" section as per REQ1386788
-        07-09-2018 saiswetha.pingali@auspost.com.au Added new function 'SetPortalDetails' to set the sender and receiver address for portal cases as per requirement from REQ1535433
-        2017-09-20 nathan.franklin@auspost.com.au Added a new event that fires after Case Details is saved for catching changes to the record for CTI functionality.
-        2018-10-22 swati.mogadala@auspost.com.au Changed Description label to 'Message to Network' as per REQ1561758
-        2018-10-22 disha.kariya@auspost.com.au Moved showErrorDialog() inside form tag to display error message when agent is part of the queue when reassigning.
-        2020-05-22 dheeraj.mandavilli@auspost.com.au Invoking the checkduplicates and generatetatchments from seperate action functions.
-        2020-06-19 dheeraj.mandavilli@auspost.com.au Removed generateattatchments method from Case details page and kept in Faxtrigger
-	2021-06-28 talib.raza@auspost.com.au Swap position of cancel and clone button
-	2021-09-09 - seth.heang@auspost.com.au - Uplift SF API version to 52
+@Author      :
+@Date        :
+@Description :  Visualforce page to display case details and allow users to make updates to case
+history 
+kalpita.talwadekar@aupost.com.au updated code for pop-up handing
+kalpita.talwadekar@aupost.com.au updated code for edd details display
+dion.gunn@auspost.com.au        Modifications to display MLS Remediation Address fields
+nanda.kothamasu@auspost.com.au (NK)     Modified code to capture ProductSubCategory__c data in hidden field to lookup EnquirySubType_c drop down list.
+										This fix is done based on Incidents (INC0929902, INC0874076, & INC0843700)
+nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page after selecting dependent drop down list values (INC0952078)
+06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
+2017-09-25 nathan.franklin@auspost.com.au - Added script loader and general formatting changes
+06.11.2017 kalpita.talwadekar@auspost.com.au    updated refreshCurrentTab for no tab re-open but just refresh the current case tab.
+09-04-2018 nanda.kothamasu@auspost.com.au      Commented "Delivery Date Details" section as per REQ1386788
+07-09-2018 saiswetha.pingali@auspost.com.au Added new function 'SetPortalDetails' to set the sender and receiver address for portal cases as per requirement from REQ1535433
+2017-09-20 nathan.franklin@auspost.com.au Added a new event that fires after Case Details is saved for catching changes to the record for CTI functionality.
+2018-10-22 swati.mogadala@auspost.com.au Changed Description label to 'Message to Network' as per REQ1561758
+2018-10-22 disha.kariya@auspost.com.au Moved showErrorDialog() inside form tag to display error message when agent is part of the queue when reassigning.
+2020-05-22 dheeraj.mandavilli@auspost.com.au Invoking the checkduplicates and generatetatchments from seperate action functions.
+2020-06-19 dheeraj.mandavilli@auspost.com.au Removed generateattatchments method from Case details page and kept in Faxtrigger
+2021-06-28 talib.raza@auspost.com.au Swap position of cancel and clone button
+2021-09-09 - seth.heang@auspost.com.au - Uplift SF API version to 52
+2023-06-07 - Nathan Franklin - minor updates to messaging on reassignment
     -->
     <apex:page standardController="Case" extensions="CaseDetailsCaseContExt,TIBCOArticleComponentCont"
                id="pageId" standardStylesheets="true" action="{!initializePage}" >
@@ -224,7 +225,7 @@
 
             <!-- error dialog for reassign button -->
             <div id="error-dialog" class="hide">
-                <apex:outputPanel rendered="{!(isAssign && sameOwner)}">
+                <apex:outputPanel rendered="{!(noAssignmentSameMembershipError)}">
                     <img src="/img/msg_icons/error16.png" class="saved-img"/>
                     <div class="error-msg-content">
                         <div class="error-msg-title">Error!</div>
@@ -234,13 +235,21 @@
                         </div>
                     </div>
                 </apex:outputPanel>
-				<apex:outputPanel rendered="{!notAllowedToReassign}">
+				<apex:outputPanel rendered="{!noAssignmentSameSkillsError}">
                     <img src="/img/msg_icons/error16.png" class="saved-img"/>
                     <div class="error-msg-content">
                         <div class="error-msg-title">Error!</div>
-                        <div class="error-msg-text">The case has not been reassigned as you are assigned to skills to manage this type of case.
+                        <div class="error-msg-text">This case has not been reassigned as you are assigned the necessary skills to manage this type of case.&nbsp;(Case Skills = {!skillsList})
                         </div>
                         <div class="error-msg-text">Refer to Knowledge for information on how to manage this case, or ask a manager for assistance.
+                        </div>
+                    </div>
+                </apex:outputPanel>
+				<apex:outputPanel rendered="{!noAssignmentCaseClosedError}">
+                    <img src="/img/msg_icons/error16.png" class="saved-img"/>
+                    <div class="error-msg-content">
+                        <div class="error-msg-title">Error!</div>
+                        <div class="error-msg-text">Closed cases can not be reassigned.
                         </div>
                     </div>
                 </apex:outputPanel>
@@ -287,9 +296,7 @@
             <script>
                 //Moved showErrorDialog() inside form tag to display error message when agent is part of the queue when reassigning.
                 function showErrorDialog() {
-                    console.log('SameOwner--->'+{!sameOwner});
-                    console.log('isAssign--->'+{!isAssign});
-                    if({!sameOwner} || {!notAllowedToReassign}) {
+                    if({!noAssignmentCaseClosedError} || {!noAssignmentSameMembershipError} || {!noAssignmentSameSkillsError}) {
                         var element1 = document.getElementById('error-dialog');
                         element1.className = "show";
                     }
@@ -701,19 +708,6 @@
                     }
                 }
             }
-
-            //function showErrorDialog() {
-            //   console.log('SameOwner--->'+{!sameOwner});
-            //    console.log('isAssign--->'+{!isAssign});
-            //    if({!sameOwner}) {
-            //        var element1 = document.getElementById('error-dialog');
-            //        element1.className = "show";
-            //    }
-            //    else {
-            //        RefreshPrimaryTabById();
-            //    }
-
-            //}
 
             var refreshCurrentTab = function refreshCurrentTab() {
                 sforce.console.getEnclosingPrimaryTabId(function(result){

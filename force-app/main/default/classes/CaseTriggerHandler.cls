@@ -34,6 +34,7 @@
  * 2020-10-15 - Naseer Abbasi						Modified calls to routeCase(), additional parameter added
  * 2021-10-04 - Nathan Franklin - Deprecated shareUtility.createSignatureAttachments
  * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
+ * 2023-05-25 - Nathan Franklin - Refactoring routing code
  */
 public with sharing class CaseTriggerHandler{
 
@@ -93,7 +94,7 @@ public with sharing class CaseTriggerHandler{
 			caseUtility.validateCase(Trigger.new);  // assigns case locality to international & checks for duplicate for BSP & DDC
 			oppUtility.updateOpportunityDriver(Trigger.new);	// sets opportunity driver for case to opportunity owner
 			trackingUtility.setLastStatusChange(Trigger.new);   // set default values for last status change
-			caseUtility.routeCase(Trigger.new, null, true);   // route the case based on the SSSW routing or default mapping
+			CaseRoutingService.getInstance().routeCase(Trigger.new, null, true);   // route the case based on the SSSW routing or default mapping
 			milestoneUtility.insertMilestones(Trigger.new);	 // link case to Entitlement to trigger milestones & set escalation if assigned to agent
 			caseUtility.detectPermanentSpam(Trigger.new);   // checks if incoming case is from spam email and sets prevent email
 			caseUtility.updateHierarchyManager(Trigger.new); //Update Manager Hierarchy
@@ -114,9 +115,7 @@ public with sharing class CaseTriggerHandler{
 				helper.updateParentCase((Map<Id,Case>)Trigger.newMap);// reallocates parent case when child case is set for queue allocation
 			}
 
-			CaseCommonUtility.markRenewedCasesToRoute(Trigger.new, (Map<Id,Case>)Trigger.oldMap); // If a Case status is changed to New, or Case is in the Closed Omni queue and Status changes to an non-Closed Status, those cases are re-routed.
-
-			caseUtility.routeCase(Trigger.new, (Map<Id,Case>)Trigger.oldMap, false);   // route the case based on the SSSW routing or default mapping
+			CaseRoutingService.getInstance().routeCase(Trigger.new, (Map<Id,Case>)Trigger.oldMap, false);   // route the case based on the SSSW routing or default mapping
 
 			if(!CaseTrackingHelper.isSetStatusTrackRecursive) {
 				trackingUtility.setStatusTracking(Trigger.new,(Map<Id,Case>)Trigger.oldMap);// calculates time spent with support & customer for case
@@ -229,9 +228,8 @@ public with sharing class CaseTriggerHandler{
 			if(!CaseCommonUtility.isCloseChildCaseRecursive) {
 				caseUtility.closeChildCases(Trigger.new,(Map<Id,Case>)Trigger.oldMap);   // closes child cases if parent case is closed
 			}
-			if(!CaseCommonUtility.isParentCaseUpdateRecursive) {
-				caseUtility.updateParentForRouting(Trigger.new,(Map<Id,Case>)Trigger.oldMap); //check child cases and send parent for re-routing
-			}
+			
+			CaseRoutingService.getInstance().updateParentForRouting(Trigger.new,(Map<Id,Case>)Trigger.oldMap); //check child cases and send parent for re-routing
 
 			//StarTrack method to close tasks and Workflow emails after closing Case
 			//Call method to close all related tasks and workflow email records when the case was closed/bulk close was triggered in the case.

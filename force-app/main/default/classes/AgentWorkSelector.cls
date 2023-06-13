@@ -1,13 +1,9 @@
 /**
 * @author George Nguyen
-* @date 2020-10-18
-* @group Selector
-* @tag Selector
-* @tag AgentWork SObject
-* @domain OmniDomain
-* @description A very simple selector class that sits in the OmniDomain
+* @date 2022-10-18
 * @changelog
-* 2020-10-18 - George Nguyen - Created 
+* 2022-10-18 - George Nguyen - Created 
+* 2023-05-21 - Nathan Franklin - Added new constructors
 */
 public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
@@ -24,10 +20,11 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (AgentWorkSelector)Application.Selectors.newInstance(AgentWorkSelector.class).setLimit(recordLimit);
 	}
 
-	/**
-	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
-	 */
+	public static AgentWorkSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		AgentWorkSelector selector = (AgentWorkSelector) Application.Selectors.newInstance(AgentWorkSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 	public static AgentWorkSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		AgentWorkSelector selector = (AgentWorkSelector) Application.Selectors.newInstance(AgentWorkSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
