@@ -68,7 +68,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 
 			// map used for 'Local Pickup and Delivery Services' Product that associate Agreement Line Item and Agreement Product Attribute Value
 			map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapAgreementLineItemToPav = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
-				for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
+			for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
 													Apttus_CMConfig__ChargeType__c, Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c,
 													Apttus_CMConfig__OptionId__c, Apttus_CMConfig__OptionId__r.Name, Apttus_CMConfig__OptionId__r.ProductCode,
 													Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c,Apttus_CMConfig__OptionId__r.Lodgement_zone__c,
@@ -400,26 +400,6 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					mapOS.put(os.Id, os);
 				}
 
-				/**
-				//defect 1512
-				//Identity on Delivery Service
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_IDENTITY_ON_DELIVERY_SERVICE)
-					&& String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_OPTION)
-					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
-					&& String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
-					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
-						os.APT_Parcl_Servcs_eParcl_Identity_on_Deli__c = true;
-					}
-
-					if(isDelete) {
-						os.APT_Parcl_Servcs_eParcl_Identity_on_Deli__c = false;
-					}
-
-					mapOS.put(os.Id, os);
-				}
-				**/
 
 				//eparcel express
 				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)
@@ -613,95 +593,95 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					mapOS.put(os.Id, os);
 				}
 
-					// Populating Startrack fields on DOS
-					if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode)
-							&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
-							&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-						// Clear existing product tick on OS
-						if (isInsert && !steCleared) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							os.Fixed_Price_Premium__c = false;
-							os.Premium_Priority_Air_Services__c = false;
-							os.APT_Express_Road__c = false;
-							os.APT_Special_Services_Tailgate__c = false;
-							os.APT_Next_Flight__c = false;
-							os.APT_Security_Services__c = false;
-							mapOS.put(os.Id, os);
-							steCleared = true;
-						}
-						// Minimum Monthly Spend
-						if (String.isNotBlank(ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c) && os.APT_Minimum_Monthly_Revenue__c != ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							os.APT_Minimum_Monthly_Revenue__c = ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c;
-							mapOS.put(os.Id, os);
-						}
-						// Road Express
-						if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('ExpressRoad')) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							if(isInsert) {
-								os.APT_Express_Road__c = true;
-							}
-							if(isDelete) {
-								os.APT_Express_Road__c = false;
-							}
-							mapOS.put(os.Id, os);
-						}
-						// FPP Premium
-						if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('PremiumFPP')) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							if(isInsert) {
-								os.Fixed_Price_Premium__c = true;
-							}
-							if(isDelete) {
-								os.Fixed_Price_Premium__c = false;
-							}
-							mapOS.put(os.Id, os);
-						}
-						// PRM Premium
-						if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('PremiumPRM')) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							if(isInsert) {
-								os.Premium_Priority_Air_Services__c = true;
-							}
-							if(isDelete) {
-								os.Premium_Priority_Air_Services__c = false;
-							}
-							mapOS.put(os.Id, os);
-						}
-						// Special Services/Tailgate
-						if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('SpecialServices')) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							if(isInsert) {
-								os.APT_Special_Services_Tailgate__c = true;
-							}
-							if(isDelete) {
-								os.APT_Special_Services_Tailgate__c = false;
-							}
-							mapOS.put(os.Id, os);
-						}
-						// Security Express
-						if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('SecurityExpress')) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							if(isInsert) {
-								os.APT_Security_Services__c = true;
-							}
-							if(isDelete) {
-								os.APT_Security_Services__c = false;
-							}
-							mapOS.put(os.Id, os);
-						}
-						// Next Flight
-						if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('NextFlight')) {
-							os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-							if(isInsert) {
-								os.APT_Next_Flight__c = true;
-							}
-							if(isDelete) {
-								os.APT_Next_Flight__c = false;
-							}
-							mapOS.put(os.Id, os);
-						}
+				// Populating Startrack fields on DOS
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode)
+						&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
+						&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
+					// Clear existing product tick on OS
+					if (isInsert && !steCleared) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						os.Fixed_Price_Premium__c = false;
+						os.Premium_Priority_Air_Services__c = false;
+						os.APT_Express_Road__c = false;
+						os.APT_Special_Services_Tailgate__c = false;
+						os.APT_Next_Flight__c = false;
+						os.APT_Security_Services__c = false;
+						mapOS.put(os.Id, os);
+						steCleared = true;
 					}
+					// Minimum Monthly Spend
+					if (String.isNotBlank(ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c) && os.APT_Minimum_Monthly_Revenue__c != ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						os.APT_Minimum_Monthly_Revenue__c = ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c;
+						mapOS.put(os.Id, os);
+					}
+					// Road Express
+					if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('ExpressRoad')) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						if(isInsert) {
+							os.APT_Express_Road__c = true;
+						}
+						if(isDelete) {
+							os.APT_Express_Road__c = false;
+						}
+						mapOS.put(os.Id, os);
+					}
+					// FPP Premium
+					if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('PremiumFPP')) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						if(isInsert) {
+							os.Fixed_Price_Premium__c = true;
+						}
+						if(isDelete) {
+							os.Fixed_Price_Premium__c = false;
+						}
+						mapOS.put(os.Id, os);
+					}
+					// PRM Premium
+					if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('PremiumPRM')) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						if(isInsert) {
+							os.Premium_Priority_Air_Services__c = true;
+						}
+						if(isDelete) {
+							os.Premium_Priority_Air_Services__c = false;
+						}
+						mapOS.put(os.Id, os);
+					}
+					// Special Services/Tailgate
+					if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('SpecialServices')) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						if(isInsert) {
+							os.APT_Special_Services_Tailgate__c = true;
+						}
+						if(isDelete) {
+							os.APT_Special_Services_Tailgate__c = false;
+						}
+						mapOS.put(os.Id, os);
+					}
+					// Security Express
+					if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('SecurityExpress')) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						if(isInsert) {
+							os.APT_Security_Services__c = true;
+						}
+						if(isDelete) {
+							os.APT_Security_Services__c = false;
+						}
+						mapOS.put(os.Id, os);
+					}
+					// Next Flight
+					if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains('NextFlight')) {
+						os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+						if(isInsert) {
+							os.APT_Next_Flight__c = true;
+						}
+						if(isDelete) {
+							os.APT_Next_Flight__c = false;
+						}
+						mapOS.put(os.Id, os);
+					}
+				}
 			}
 
 			if(mapOS != null && mapOS.values().size() > 0) {
