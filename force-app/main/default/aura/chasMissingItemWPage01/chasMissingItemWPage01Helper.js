@@ -4,6 +4,7 @@
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
  * 2022-09-12 mahesh.parvathaneni@auspost.com.au DDS-12166: Added analytics for invalid tracking number error
+ * 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing
  */
  ({
     callTrackingNumberService : function(cmp, event, helper) {

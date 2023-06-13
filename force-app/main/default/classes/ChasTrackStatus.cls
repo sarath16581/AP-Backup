@@ -19,6 +19,7 @@
 * 2022-01-24 alex.volkov@auspost.com.au: Updated isEligibleForMyNetworkAssignment flag to consider all consignment articles statuses
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the constructor ChasTrackStatus(ChasOneTrackResponse,trackingId) to handle multiple articles
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 added ChasTrackStatus.ArticleDetailsWrapper.events
+* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing
 */
 
 public without sharing class ChasTrackStatus {

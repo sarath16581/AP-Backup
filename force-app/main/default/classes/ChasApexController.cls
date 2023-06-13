@@ -57,6 +57,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
+* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -1874,7 +1875,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                         //set RTS scan flag if any
                         trackingNumDetailsWrapperObj.isReturnToSender = article.isReturnToSender;
                         // is victim of violence
-                        System.debug('HASANTHA VODV'+article.isVodv);
                         trackingNumDetailsWrapperObj.isVodv = article.isVodv;
                         //set signature flag if any
                         trackingNumDetailsWrapperObj.hasSignature = article.hasSignature;
