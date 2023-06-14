@@ -27,6 +27,17 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		return emailToCaseMappingMap;
 	}
 
+	@TestVisible
+	private Datetime currentTime {
+		get{
+			if(currentTime == null){
+				currentTime = System.now();
+			}
+			return currentTime;
+		}
+		private set;
+	}
+
 	public static TransportEnquiryEmailMessagesModule newInstance() {
 		return (TransportEnquiryEmailMessagesModule) Application.Utilities.newInstance(TransportEnquiryEmailMessagesModule.class);
 	}
@@ -71,42 +82,53 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		}
 
 		if (!caseIds.isEmpty()) {
-			// Grab the cases and their associated first incoming email message to check whether the incoming email messages are the first one attached to the case
+			// Grab the cases and their associated incoming email messages to check whether the incoming email messages are the first one attached to the case
 			//  If it is, then we treat this as a new case and therefore the EmailToCaseAddress__c and other related fields needs to be updated on the case
+			//  If the case is closed, then re-open the case 
 
-			for (Case cs : CasesSelector.newInstance(new Set<SObjectField>{Case.Id, Case.Network__c, Case.Priority, Case.Call_Purpose__c}).selectById(caseIds, 
-							new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, EmailMessagesSelector.Options.FILTER_INCOMING}).values()) {
+			Datetime currentTimeStamp = currentTime;
+			for (Case cs : CasesSelector.newInstance().selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER}).values()) {
 				casesMap.put(cs.Id, cs);
-				if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
+				if(!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && cs.EmailMessages.size() > 1 && String.isNotBlank(cs.EmailToCaseAddress__c)) {
+					//re-open the case if there is incoming email message to closed case
+					if (cs.Status == TransportEnquiryCaseService.CLOSED_STATUS) {
+						casesToUpdate.add(new Case(Id = cs.Id, Status = TransportEnquiryCaseService.NEW_STATUS, 
+							Case_Update__c = TransportEnquiryCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp));
+					} else {
+						//update the Case update field as new email received
+						casesToUpdate.add(new Case(Id = cs.Id, Case_Update__c = TransportEnquiryCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp));
+					}
+				} else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
+					//update the case fields if it is new case created from email-to-case
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));
+				} 
+			}
+
+			if (!emailsToProcess.isEmpty()) {
+				//get the configured metadata
+				emailToCaseMappingMap = getEmailToCaseMappingMetadata();
+				//get the email to case address from the email message
+				for (EmailMessage em : emailsToProcess.values()) {
+					emailIdToCaseEmailValueMap.put(em.Id, getEmailToCaseAddressFromHeader(em));
+				}
+	
+				// Remove all messages that don't have a matching Email to case address
+				for (Id messageId :emailsToProcess.keySet()) {
+					if (!emailToCaseMappingMap.containsKey(emailIdToCaseEmailValueMap.get(messageId))) {
+						emailsToProcess.remove(messageId);
+					}
+				}
+	
+				// update the cases with the configured metadata for the emails to process
+				for (EmailMessage eMessage : emailsToProcess.values()) {
+					casesToUpdate.add(getCaseToUpdate(casesMap.get(eMessage.ParentId), emailToCaseMappingMap.get(emailIdToCaseEmailValueMap.get(eMessage.Id))));
 				}
 			}
 		}
 
-		if (!emailsToProcess.isEmpty()) {
-			//get the configured metadata
-			emailToCaseMappingMap = getEmailToCaseMappingMetadata();
-			//get the email to case address from the email message
-			for (EmailMessage em : emailsToProcess.values()) {
-				emailIdToCaseEmailValueMap.put(em.Id, getEmailToCaseAddressFromHeader(em));
-			}
-
-			// Remove all messages that don't have a matching Email to case address
-			for (Id messageId :emailsToProcess.keySet()) {
-				if (!emailToCaseMappingMap.containsKey(emailIdToCaseEmailValueMap.get(messageId))) {
-					emailsToProcess.remove(messageId);
-				}
-			}
-
-			// update the cases with the configured metadata for the emails to process
-			for (EmailMessage eMessage : emailsToProcess.values()) {
-				casesToUpdate.add(getCaseToUpdate(casesMap.get(eMessage.ParentId), emailToCaseMappingMap.get(emailIdToCaseEmailValueMap.get(eMessage.Id))));
-			}
-
-			if (!casesToUpdate.isEmpty()) {
-				//update cases
-				uow.registerDirty(casesToUpdate, new List<SObjectField>{ Case.Priority, Case.Network__c, Case.EmailToCaseAddress__c, Case.Call_Purpose__c}, true, TransportEnquiryEmailMessagesModule.class.getName());
-			}
+		if (!casesToUpdate.isEmpty()) {
+			//update cases
+			uow.registerDirty(casesToUpdate, true, TransportEnquiryEmailMessagesModule.class.getName());
 		}
 	}
 
