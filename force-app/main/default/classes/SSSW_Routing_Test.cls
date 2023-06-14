@@ -69,10 +69,8 @@ private class SSSW_Routing_Test {
 		// =====================================
 		Test.startTest();
 
-		CaseCommonUtility caseUtility = new CaseCommonUtility();
-
 		//Attempt to route the case with an Article that is not in the database, which will assign it to the SSSW Routing Holding Queue
-		caseUtility.routeCase(cases, null, true); 
+		CaseRoutingService.getInstance().routeCase(cases, null, true); 
 
 		Test.stopTest();
 

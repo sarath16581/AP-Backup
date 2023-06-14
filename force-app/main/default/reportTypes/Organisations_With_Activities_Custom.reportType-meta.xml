@@ -2645,6 +2645,11 @@
             <field>Post_Office_Assigned__c.Network_Manager__c</field>
             <table>Account</table>
         </columns>
+		<columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Region__c</field>
+            <table>Account</table>
+        </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.RNPReportingAccess__c</field>
