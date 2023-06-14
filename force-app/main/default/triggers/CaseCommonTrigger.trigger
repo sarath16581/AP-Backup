@@ -10,14 +10,9 @@ trigger CaseCommonTrigger on Case(before insert,before update,before delete,
 									after insert,after update,after delete,after undelete){
 
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Case.sObjectType))){	 // verify if triggers are disabled
-		
-		// @deprecated move to ApplicationModule framework
-		(new CaseTriggerHandler2()).dispatch();
-		
-		(new CaseAutomationTriggerHandler()).dispatch();
 
-		// @deprecated move to ApplicationModule framework
-		(new CaseTriggerHandler3()).dispatch();
+		(new CaseAutomationTriggerHandler()).dispatch();
+		
 	}
 
 	// Added by : Adrian Recio

@@ -24,6 +24,29 @@ public inherited sharing abstract class ApplicationModule {
 	}
 
 	/**
+	 * Grabs a list of record ids where the values in the monitored fields have changed. This is just a bulkified helper method.
+	 * @deprecated
+	 */
+	protected Map<Id, Set<SObjectField>> getIsChanged(
+		List<SObject> records,
+		Map<Id, SObject> oldRecords,
+		Set<SObjectField> comparisonFields
+	) {
+		Map<Id, Set<SObjectField>> output = new Map<Id, Set<SObjectField>>();
+		for (SObject record : records) {
+			for (SObjectField field : comparisonFields) {
+				if (record.get(field) != oldRecords.get(record.Id).get(field)) {
+					if (output.get(record.Id) == null) {
+						output.put(record.Id, new Set<SObjectField>());
+					}
+					output.get(record.Id).add(field);
+				}
+			}
+		}
+		return output;
+	}
+
+	/**
 	 * Ability to pre-filter records prior to passing them into the module
 	 */
 	public virtual List<SObject> filter(List<SObject> records) { return records; }

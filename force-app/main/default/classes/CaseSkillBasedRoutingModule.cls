@@ -12,15 +12,17 @@
  * @changelog
  * 2022-09-20 - Noel Lim		Created
  * 2022-12-06	Noel Lim		Added method populateAgentType
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
+public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationModule  {
 	
 	public static final String SERVICESLA_CONSUMER = 'Consumer';
 
 	/*
 	 * Creates a new instance of the utility to facilitate dependency injection for mocking
 	 * @return the new instance
+	 * @deprecated
 	 */
 	public static CaseSkillBasedRoutingModule newInstance() {
 		return (CaseSkillBasedRoutingModule)Application.Utilities.newInstance(CaseSkillBasedRoutingModule.class);
@@ -162,15 +164,6 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 				}
 				
 			}			
-		}
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) CaseSkillBasedRoutingModule.newInstance();
 		}
 	}
 

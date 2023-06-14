@@ -13,9 +13,14 @@
  * @changelog
  * 2021-11-09 Naveen Rajanna REQ2656153 - Added null check to avoid null pointer exception
  * 2022-08-25 Mahesh Parvathaneni DDS-11558 - Added logic for STHS tracking form to not to update the case status
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class StarTrackSupportCaseOwnerModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackSupportCaseOwnerModule extends ApplicationModule {
+	
+	/**
+	 * @deprecated
+	 */
 	public static StarTrackSupportCaseOwnerModule newInstance() {
 		return (StarTrackSupportCaseOwnerModule) Application.Utilities.newInstance(
 			StarTrackSupportCaseOwnerModule.class
@@ -25,6 +30,10 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 	// Setup which triggers this module should respond to
 	public StarTrackSupportCaseOwnerModule() {
 		getTriggerEvents().enableBeforeUpdate();
+	}
+
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
 	}
 
 	// Grab the investigatorResponse from custom settings.
@@ -154,14 +163,5 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 			return AP_INTEGRATION_USER_ID;
 		}
 		private set;
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) StarTrackSupportCaseOwnerModule.newInstance();
-		}
 	}
 }

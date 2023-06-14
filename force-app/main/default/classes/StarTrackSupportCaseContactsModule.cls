@@ -11,9 +11,14 @@
  * @channel Domain
  * @domain StarTrack
  * @changelog
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class StarTrackSupportCaseContactsModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackSupportCaseContactsModule extends ApplicationModule {
+
+	/**
+	 * @deprecated
+	 */
     public static StarTrackSupportCaseContactsModule newInstance() {
         return (StarTrackSupportCaseContactsModule) Application.Utilities.newInstance(
             StarTrackSupportCaseContactsModule.class
@@ -23,6 +28,10 @@ public inherited sharing class StarTrackSupportCaseContactsModule extends Applic
     public StarTrackSupportCaseContactsModule() {
         getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate();
     }
+
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
+	}
     
     // Record type id for autherised contact record to be created
     public static Id relatedContactRecordTypeId {
@@ -274,12 +283,5 @@ public inherited sharing class StarTrackSupportCaseContactsModule extends Applic
         caseRec.Initial_Contact_Mobile_Number__c = caseRec.Recent_Contact_Mobile_Number__c;
         caseRec.Initial_Caller_Type__c = caseRec.Recent_Caller_Type__c;
         caseRec.Initical_CallPreferred_method_of_contact__c = caseRec.Recent_Caller_Pref_Method_of_Contact__c;
-    }
-    
-    // Define constructor
-    public class Constructor implements ApplicationDomain.IConstructableModule {
-        public ApplicationDomain.Module construct() {
-            return (ApplicationDomain.Module) StarTrackSupportCaseContactsModule.newInstance();
-        }
     }
 }

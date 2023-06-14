@@ -9,9 +9,14 @@
  * @channel Module
  * @domain StarTrack
  * @changelog
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class StarTrackSupportCasePriorityModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackSupportCasePriorityModule extends ApplicationModule {
+
+	/**
+	 * @deprecated
+	 */
 	public static StarTrackSupportCasePriorityModule newInstance() {
 		return (StarTrackSupportCasePriorityModule) Application.Utilities.newInstance(
 			StarTrackSupportCasePriorityModule.class
@@ -21,6 +26,10 @@ public inherited sharing class StarTrackSupportCasePriorityModule extends Applic
 	// Setup which triggers this module should respond to
 	public StarTrackSupportCasePriorityModule() {
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
+	}
+
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
 	}
 
 	// Get record type if for *Delivery Enquiry* record type on case
@@ -227,12 +236,6 @@ public inherited sharing class StarTrackSupportCasePriorityModule extends Applic
 			}
 
 			uow.registerDirty(tasksUpdated);
-		}
-	}
-
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) StarTrackSupportCasePriorityModule.newInstance();
 		}
 	}
 }

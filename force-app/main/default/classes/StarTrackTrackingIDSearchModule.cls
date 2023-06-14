@@ -5,27 +5,26 @@ this is developed only to support single case record.
 History:
 --------------------------------------------------
 2022-11-07 - H Liyanage - Created
+* 2023-06-14 - Nathan Franklin - uplift to domainless architecture
 **************************************************/
 
-public inherited sharing class StarTrackTrackingIDSearchModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackTrackingIDSearchModule extends ApplicationModule {
 
+	/**
+	 * @deprecated
+	 */
     public static StarTrackTrackingIDSearchModule newInstance() {
         return (StarTrackTrackingIDSearchModule)Application.Utilities.newInstance(StarTrackTrackingIDSearchModule.class);
-    }
-
-    /**
-    * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-    */
-    public class Constructor implements ApplicationDomain.IConstructableModule {
-        public ApplicationDomain.Module construct() {
-            return (ApplicationDomain.Module)StarTrackTrackingIDSearchModule.newInstance();
-        }
     }
 
     // Setup which triggers this module should respond to
     public StarTrackTrackingIDSearchModule() {
         getTriggerEvents().enableAfterInsert();
     }
+
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
+	}
 
     /**
     * Called after a case is inserted.

@@ -9,9 +9,14 @@
  * @domain EmailMessage
  * @changelog
  * 02-02-2022 Ashapriya Gadi The closing owner user role field will be populated with the Role display name of the user that closes the case. Originally it was populated with the role name, but was requested by the BGS team to have this populated with the Role display name, so that it adheres to all their existing reporting.
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class CaseOwnerMetricsModule extends ApplicationDomain.Module  {
+public inherited sharing class CaseOwnerMetricsModule extends ApplicationModule  {
+
+	/**
+	 * @deprecated
+	 */
 	public static CaseOwnerMetricsModule newInstance() {
 		return (CaseOwnerMetricsModule)Application.Utilities.newInstance(CaseOwnerMetricsModule.class);
 	}
@@ -119,14 +124,6 @@ public inherited sharing class CaseOwnerMetricsModule extends ApplicationDomain.
 				//If the status is changed to anything other than Closed, then we clear out the ClosureOwnerRole__c field
 				else c.ClosureOwnerRole__c = '';
 			}
-		}
-	}
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) CaseOwnerMetricsModule.newInstance();
 		}
 	}
 

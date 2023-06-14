@@ -3,12 +3,14 @@
  * @date 2022-04-26
  * @description Send Surveys out to a Case that has meet survey entry criteria.  
  * @changelog
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 public inherited sharing  class CaseSurveyInvitationModule extends ApplicationDomain.Module {
 	
     /*
 	 * Creates a new instance of the utility to facilitate dependency injection for mocking
 	 * @return the new instance
+	 * @deprecated
 	 */
 	public static CaseSurveyInvitationModule newInstance() {
 		return (CaseSurveyInvitationModule)Application.Utilities.newInstance(CaseSurveyInvitationModule.class);
@@ -71,14 +73,5 @@ public inherited sharing  class CaseSurveyInvitationModule extends ApplicationDo
 			caseSurveyService.sendInvitations(enquedRecordUpdates);
 		}
         Application.Profiler.stop('CaseSurveyInvitationModule.sendSurveyInvitations');
-	}
-	
-	/*
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	*/
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)CaseSurveyInvitationModule.newInstance();
-		}
 	}
 }

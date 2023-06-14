@@ -9,9 +9,14 @@
  * @Test StarTrackSupCaseAutomationModule_Test
  * 
  * @changelog
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationModule {
+	
+	/**
+	 * @deprecated
+	 */
 	public static StarTrackSupportCaseAutomationModule newInstance() {
 		return (StarTrackSupportCaseAutomationModule) Application.Utilities.newInstance(
 			StarTrackSupportCaseAutomationModule.class
@@ -21,6 +26,10 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 	// Setup which triggers this module should respond to
 	public StarTrackSupportCaseAutomationModule() {
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
+	}
+
+	public override List<SObject> filter(List<SObject> records) {
+		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
 	}
 
 	// Get Applicable record types for cases
@@ -137,15 +146,6 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 					c.Subject = c.Call_Purpose__c + ':' + c.Pickup_Booking_Reference__c;
 				}
 			}
-		}
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) StarTrackSupportCaseAutomationModule.newInstance();
 		}
 	}
 }
