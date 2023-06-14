@@ -45,6 +45,15 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 	}
 
 	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static EmailMessagesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		EmailMessagesSelector selector = (EmailMessagesSelector)Application.Selectors.newInstance(EmailMessagesSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public List<EmailMessage> selectById(Set<Id> ids) {

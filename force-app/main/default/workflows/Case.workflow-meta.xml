@@ -1212,6 +1212,18 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>StarTrack_System_Emails/StarTrack_VOC_Incident_System_User_Notification</template>
     </alerts>
+	<alerts>
+        <fullName>Transport_Enquiry_Case_bounce_back_email_alert</fullName>
+        <description>Transport Enquiry Case - bounce back email alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Transport_Enquiry_Case_Template/TransportEnquiry_bounce_back_email</template>
+    </alerts>
     <alerts>
         <fullName>VL_First_email</fullName>
         <description>VL - First email</description>
