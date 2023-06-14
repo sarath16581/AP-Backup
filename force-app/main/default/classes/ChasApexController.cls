@@ -290,7 +290,6 @@ public with sharing class ChasApexController extends ChasBase{
              }
 
              Boolean isEligibleForMyNetwork = false;
-             System.debug('HASANTHA VODV'+isVodv);
              if(!isVodv) {
                  // DDS-8586 allow network for single delivery centers : more than one tracking id and tracking ids are all delivered from same delivery centre (non medication/medication priority set above in existing logic)
                  if (isEligibleForMultipleArticleSelection) {
