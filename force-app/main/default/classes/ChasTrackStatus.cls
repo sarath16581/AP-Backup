@@ -19,6 +19,7 @@
 * 2022-01-24 alex.volkov@auspost.com.au: Updated isEligibleForMyNetworkAssignment flag to consider all consignment articles statuses
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the constructor ChasTrackStatus(ChasOneTrackResponse,trackingId) to handle multiple articles
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 added ChasTrackStatus.ArticleDetailsWrapper.events
+* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing
 */
 
 public without sharing class ChasTrackStatus {
@@ -77,6 +78,7 @@ public without sharing class ChasTrackStatus {
                     articleDetailsWrapper.articleId = article.Id;
                     articleDetailsWrapper.destinationAddress = article.destinationAddress;
                     articleDetailsWrapper.deliverySummary = article.deliverySummary;
+                    articleDetailsWrapper.isVodv = article.isVodv;
 
                     // grab the safedrop delivered datetime
                     if (articleDetailsWrapper.deliverySummary != null) {
@@ -98,6 +100,11 @@ public without sharing class ChasTrackStatus {
                         articleDetailsWrapper.articleType = String.valueOf(article.service.productType);
 
                     }
+                    if (article.isVodv != null) {
+                        articleDetailsWrapper.articleType = String.valueOf(article.service.productType);
+
+                    }
+
                     // grab the subProductId from the service
                     if (article.service != null) {
                         articleDetailsWrapper.subProductId = String.valueOf(article.service.subProductId);
@@ -432,6 +439,17 @@ public without sharing class ChasTrackStatus {
             }
             set;
         }
+
+        public Boolean isVodv {
+            get {
+                if (isVodv == null) {
+                    return false;
+                }
+                return isVodv;
+            }
+            set;
+        }
+
 
         public String duplicateCase {
             get {

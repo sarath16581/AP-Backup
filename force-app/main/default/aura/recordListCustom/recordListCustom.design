@@ -1,0 +1,9 @@
+<design:component label="Record List">
+	<design:attribute name="objectAPIName" label="Object API Name" />
+	<design:attribute name="listViewAPIName" label="List View API Name" />
+	<design:attribute name="rows" label="Rows" />
+	<design:attribute name="showSearchBar" label="Show Search Box" />
+    <design:attribute name="showActionBar" label="Show Action Bar" />
+    <design:attribute name="enableInlineEdit" label="Enable Inline Edit" />
+	<design:attribute name="showRowLevelActions" label="Show Row Level Actions" />
+</design:component>
