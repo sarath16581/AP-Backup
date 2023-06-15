@@ -6,6 +6,9 @@
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
+	/**
+	 * These record types are using a part of pre-filtering records prior to module execution.
+	 */
 	private static Map<String, Set<Id>> recordTypesByKey {
 		get {
 			if(recordTypesByKey == null) {
@@ -45,6 +48,7 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 	/**
 	 * Pre filter records to minimise repetitive looping inside the modules
 	 * This creates a type of index of records which are passed into the modules based on the 'filterKey' used when the module is registered
+	 * This replicates Domain specific filtering logic and allows a module to execution with the record scope it needs
 	 */
 	public override Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
 		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
@@ -107,6 +111,10 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 
 	}
 
+	/**
+	 * This defines a list of objects that may be 'touched' during module execution. 
+	 * It also defines the order in which the work will be committed
+	 */
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
 			Case.SObjectType,
