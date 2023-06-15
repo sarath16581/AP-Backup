@@ -1537,6 +1537,10 @@
             <fullName>Mail Collection</fullName>
             <default>false</default>
         </values>
+		<values>
+            <fullName>Metro</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>On Demand</fullName>
             <default>false</default>

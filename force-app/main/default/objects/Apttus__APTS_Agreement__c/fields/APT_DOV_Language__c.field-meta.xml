@@ -313,6 +313,26 @@
                 <default>false</default>
                 <label>ST Additional Charges - Add New Product</label>
             </value>
+            <value>
+                <fullName>Metro - Add</fullName>
+                <default>false</default>
+                <label>Metro - Add</label>
+            </value>
+            <value>
+                <fullName>Metro - Replace</fullName>
+                <default>false</default>
+                <label>Metro - Replace</label>
+            </value>
+            <value>
+                <fullName>Metro - Delete</fullName>
+                <default>false</default>
+                <label>Metro - Delete</label>
+            </value>
+            <value>
+                <fullName>Metro - Add New Product</fullName>
+                <default>false</default>
+                <label>Metro - Add New Product</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
