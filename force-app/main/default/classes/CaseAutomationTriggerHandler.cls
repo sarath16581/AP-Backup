@@ -5,11 +5,35 @@
  * @changelog
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
-	
-	private static Set<Id> ssswRecordTypes = null;
-	private static Set<Id> ssswRecordTypesWithSocial = null;
-	private static Set<Id> starTrackRecordTypes = null;
 
+	private static Map<String, Set<Id>> recordTypesByKey {
+		get {
+			if(recordTypesByKey == null) {
+				recordTypesByKey = new Map<String, Set<Id>>{
+					'SSSW' => new Set<Id>(),
+					'SSSWWithSocial' => new Set<Id>(),
+					'StarTrack' => new Set<Id>()
+				};
+				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack'}).values();
+
+				for(RecordType rt : recordTypes) {
+					if(rt.DeveloperName.startsWithIgnoreCase('SSSW')) {
+						recordTypesByKey.get('SSSW').add(rt.Id);
+						recordTypesByKey.get('SSSWWithSocial').add(rt.Id);
+					}
+					if(rt.DeveloperName.startsWithIgnoreCase('Social')) {
+						recordTypesByKey.get('SSSWWithSocial').add(rt.Id);
+					}
+					if(rt.DeveloperName.startsWithIgnoreCase('StarTrack')) {
+						recordTypesByKey.get('StarTrack').add(rt.Id);
+					}
+				}
+			}
+			return recordTypesByKey;
+		}
+		private set;
+	}
+	
 	public override SObjectType getSObjectType() {
 		return Case.SObjectType;
 	}
@@ -18,19 +42,46 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
 	}
 
+	/**
+	 * Pre filter records to minimise repetitive looping inside the modules
+	 * This creates a type of index of records which are passed into the modules based on the 'filterKey' used when the module is registered
+	 */
+	public override Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
+		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
+			'filterSSSW' => new List<SObject>(),
+			'filterSSSWWithSocial' => new List<SObject>(),
+			'filterStarTrack' => new List<SObject>()
+		};
+		for(SObject record : records) {
+			Id recordTypeId = (Id)record.get('RecordTypeId');
+			if(recordTypesByKey.get('SSSW').contains(recordTypeId)) {
+				filteredRecords.get('filterSSSW').add(record);
+			}
+			if(recordTypesByKey.get('SSSWWithSocial').contains(recordTypeId)) {
+				filteredRecords.get('filterSSSWWithSocial').add(record);
+			}
+			if(recordTypesByKey.get('StarTrack').contains(recordTypeId)) {
+				filteredRecords.get('filterStarTrack').add(record);
+			}
+
+		}
+		return filteredRecords;
+	}
+
 	public override void registerModules() {
 		
 		// APCC - SAP-EM Case articles for linking articles to cases and querying articles on the fly
-		registerModule(MyCustomerCaseArticlesModule.class);
+		// NOTE: the 'SSSW' if the filter key which passes records set in the primeRecordFilters method
+		registerModule(MyCustomerCaseArticlesModule.class, 'filterSSSW');
 
-		registerModule(StarTrackCalculateCaseDepotModule.class);
-		registerModule(StarTrackSupportCaseContactsModule.class);
-		registerModule(StarTrackSupportCasePriorityModule.class);
-		registerModule(StarTrackSupportCaseAutomationModule.class);
-		registerModule(StarTrackSupportCaseOwnerModule.class);
-		registerModule(StarTrackSupportCaseCustomerModule.class); 
-		registerModule(StarTrackDeliveryEnquiryProcessModule.class);
-		registerModule(StarTrackTrackingIDSearchModule.class);
+		registerModule(StarTrackCalculateCaseDepotModule.class, 'filterStarTrack');
+		registerModule(StarTrackSupportCaseContactsModule.class, 'filterStarTrack');
+		registerModule(StarTrackSupportCasePriorityModule.class, 'filterStarTrack');
+		registerModule(StarTrackSupportCaseAutomationModule.class, 'filterStarTrack');
+		registerModule(StarTrackSupportCaseOwnerModule.class, 'filterStarTrack');
+		registerModule(StarTrackSupportCaseCustomerModule.class, 'filterStarTrack'); 
+		registerModule(StarTrackDeliveryEnquiryProcessModule.class, 'filterStarTrack');
+		registerModule(StarTrackTrackingIDSearchModule.class, 'filterStarTrack');
 
 		// all of the old case execution logic which hasn't been uplifted yet
 		registerModule(CaseLegacyAutomationModule.class);
@@ -50,35 +101,11 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		// a) Populate Case attributes used in Skills routing rules
 		// b) AgentType field for Omni skill assignment
 		//
-		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId AND must execute after the routing engine - SSSW_Routing.assignCasesAndDescription()
+		// NOTE: must run after the legacy code in CaseLegacyAutomationModule. It has logic that depends on Case.AccountId AND must execute after the routing engine - SSSW_Routing.assignCasesAndDescription()
 		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
-		registerModule(CaseSkillBasedRoutingModule.class);
+		registerModule(CaseSkillBasedRoutingModule.class, 'filterSSSW');
 
 	}
-
-	//=================================== CUSTOM FILTERS FOR MODULES
-	public static List<SObject> filterSSSW(List<SObject> records) {
-		if(ssswRecordTypes == null) {
-			ssswRecordTypes = new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet();
-		}
-		return ApplicationTriggerHandler.filterByRecordType(records, ssswRecordTypes);
-	}
-
-	public static List<SObject> filterSSSWWithSocial(List<SObject> records) {
-		if(ssswRecordTypesWithSocial == null) {
-			Set<String> developerNames = new Set<String>{'SSSW', 'Social'};
-			ssswRecordTypesWithSocial = new RecordTypesSelector().selectByDeveloperNamesLike('Case', developerNames).keySet();
-		}
-		return ApplicationTriggerHandler.filterByRecordType(records, ssswRecordTypesWithSocial);
-	}
-
-	public static List<SObject> filterStarTrackCases(List<SObject> records) {
-		if(starTrackRecordTypes == null) {
-			starTrackRecordTypes = new RecordTypesSelector().selectByDeveloperNameLike('Case', 'StarTrack').keySet();
-		}
-		return ApplicationTriggerHandler.filterByRecordType(records, starTrackRecordTypes);
-	}
-	//=================================== CUSTOM FILTERS FOR MODULES
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{

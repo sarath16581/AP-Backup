@@ -6,12 +6,10 @@
  * 2. Populate Case Subject - Update case subject if article or Pickup_Booking_Reference__c is not null
  * 3. Reopen Case - Update FCR__c to false when case status is changed
  * 
- * @Test StarTrackSupCaseAutomationModule_Test
- * 
+ * @test StarTrackSupCaseAutomationModule_Test
  * @changelog
  * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
-
 public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationModule {
 	
 	/**
@@ -26,10 +24,6 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 	// Setup which triggers this module should respond to
 	public StarTrackSupportCaseAutomationModule() {
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
-	}
-
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
 	}
 
 	// Get Applicable record types for cases

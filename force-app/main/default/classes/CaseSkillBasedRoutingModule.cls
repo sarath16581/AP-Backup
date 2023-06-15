@@ -34,44 +34,14 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationMo
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();		
 	}
 
-	private static Set<Id> allValidRecordTypes{
-		get {
-			if(allValidRecordTypes == null){
-				allValidRecordTypes = new Set<Id>();
-				allValidRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet());
-			}
-			return allValidRecordTypes;
-		}
-		private set;
-	}
-	
-	/*
-	 * This method returns a list of Case records that are related to SSSW
-	 * NOTE: Ideally this should be in MyCustomerCasesDomain where it gets filtered. However, we need to do it here because MyCustomerCasesDomain is in the CaseTriggerHandler2. 
-	 * Order of execution: CaseTriggerHandler2 >> CaseTriggerHandler (legacy code) >> CaseTriggerHandler3
-	 * 
-	 * @param caseRecords the list of Cases to filter to SSSW only
-	 */
-	private List<Case> filterToApplicableCases(List<Case> caseRecords){
-		List<Case> filteredCases = new List<Case>();		
-		
-		for (Case c : caseRecords) {
-			if(allValidRecordTypes.contains(c.RecordTypeId)){
-				filteredCases.add(c);		
-			}				
-		}
-
-		return filteredCases;
-	}
 
 	/**
 	 * Called when a new Case is being inserted
 	 */
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			List<Case> ssswCasesOnly = filterToApplicableCases((List<Case>)records);
-			populateCustomerQueueType(ssswCasesOnly, null , uow);
-			populateAgentType(ssswCasesOnly, null , uow);
+			populateCustomerQueueType((List<Case>)records, null , uow);
+			populateAgentType((List<Case>)records, null , uow);
 			
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
@@ -84,9 +54,8 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationMo
 	 */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			List<Case> ssswCasesOnly = filterToApplicableCases((List<Case>)records);
-			populateCustomerQueueType(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);			
-			populateAgentType(ssswCasesOnly, (Map<Id, Case>)existingRecords , uow);
+			populateCustomerQueueType((List<Case>)records, (Map<Id, Case>)existingRecords, uow);			
+			populateAgentType((List<Case>)records, (Map<Id, Case>)existingRecords , uow);
 
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis

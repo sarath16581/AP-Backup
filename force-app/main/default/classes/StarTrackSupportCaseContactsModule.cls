@@ -28,10 +28,6 @@ public inherited sharing class StarTrackSupportCaseContactsModule extends Applic
     public StarTrackSupportCaseContactsModule() {
         getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate();
     }
-
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
     
     // Record type id for autherised contact record to be created
     public static Id relatedContactRecordTypeId {

@@ -34,10 +34,6 @@ public inherited sharing class StarTrackSupportCaseCustomerModule extends Applic
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
 	}
 
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
-
 	// Grab the credit claim dispute record type to determine which cases should be updated with the correct default values
 	public static Id creditClaimRecordTypeId {
 		get {

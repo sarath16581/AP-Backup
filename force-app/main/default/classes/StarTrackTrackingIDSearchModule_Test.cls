@@ -26,8 +26,7 @@ public class StarTrackTrackingIDSearchModule_Test {
         StarTrackTrackingIDSearchModule module = StarTrackTrackingIDSearchModule.newInstance();
         module.onAfterInsert( (List<SObject>)cases, uow);
 
-        StarTrackTrackingIDSearchModule.Constructor constructor = new StarTrackTrackingIDSearchModule.Constructor();
-        constructor.construct();
+        
         Test.stopTest();
 
     }

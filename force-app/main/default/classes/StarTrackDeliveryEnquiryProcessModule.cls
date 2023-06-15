@@ -16,6 +16,7 @@
 * @date 2021-06-30
 * @group Domain
 * @domain StarTrack
+* @test StarTrackDeliveryEnquiryModule_Test
 * @changelog
 * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
 */
@@ -36,10 +37,6 @@ public inherited sharing class StarTrackDeliveryEnquiryProcessModule extends App
     public StarTrackDeliveryEnquiryProcessModule() {
         getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate().enableAfterUpdate();
     }
-
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
     
     /**
     * Grab Delivery Enquiry RecordTypeId

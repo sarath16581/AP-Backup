@@ -32,10 +32,6 @@ public inherited sharing class StarTrackCalculateCaseDepotModule extends Applica
     public StarTrackCalculateCaseDepotModule() {
         getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
     }
-
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
     
     /**
 	* Grab the Voice of Customer Incident recordTypeId

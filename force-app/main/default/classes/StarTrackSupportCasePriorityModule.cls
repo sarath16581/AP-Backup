@@ -28,10 +28,6 @@ public inherited sharing class StarTrackSupportCasePriorityModule extends Applic
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
-
 	// Get record type if for *Delivery Enquiry* record type on case
 	public static Id deliveryEnquiryRecordTypeId {
 		get {

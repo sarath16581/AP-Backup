@@ -32,10 +32,6 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 		getTriggerEvents().enableBeforeUpdate();
 	}
 
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
-
 	// Grab the investigatorResponse from custom settings.
 	public static Id investigatorResponse {
 		get {

@@ -17,6 +17,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 	 * Stores a cached copy of the domain modules to minimise the need to continually instantiating new instances
 	 */
 	private static Map<String, Map<Type, ApplicationModule>> cachedModules;
+	private static Map<String, Map<Type, String>> recordFilterIndexes;
 
 	public enum TriggerState {
 		BEFORE,
@@ -27,6 +28,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 
 	static {
 		cachedModules = new Map<String, Map<Type, ApplicationModule>>();
+		recordFilterIndexes = new Map<String, Map<Type, String>>();
 	}
 
 	/**
@@ -77,6 +79,14 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		registerModules();
 	}
 
+	/**
+	 * At the start of each execution cycle, this method allows us to prepopulate records based on the filters the trigger handler needs
+	 * This cuts down on repetitive looping in each module to filter out only the records relevent to the module
+	 */
+	public virtual Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
+		return new Map<String, List<SObject>>();
+	}
+
 	public void dispatch() {
 		// Process the runtime Apex Trigger context
 		dispatch(Trigger.isBefore, Trigger.isAfter, Trigger.isInsert, Trigger.isUpdate, Trigger.isDelete, Trigger.isUndelete, Trigger.new, Trigger.oldMap);
@@ -90,32 +100,50 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		System.debug('Dispatch: ' + getSObjectType() + ' ' + className + ', isAfter:  ' + isAfter + ', isBefore: ' + isBefore + ', isInsert: ' + isInsert + ', isUpdate: ' + isUpdate + ', isDelete: ' + isDelete + ', isUnDelete: ' + isUndelete);
 
 		// grab instances of the modules
-		List<ApplicationModule> instances = getModuleInstances();
+		Map<Type, ApplicationModule> instances = cachedModules.get(className);
+		if(instances == null) {
+			instances = new Map<Type, ApplicationModule>();
+		}
+
+		Map<Type, String> recordFilterIndexKeys = recordFilterIndexes.get(className);
+		if(recordFilterIndexKeys == null) {
+			recordFilterIndexKeys = new Map<Type, String>();
+		}
 
 		// grab a new unit of work to be passed throughout the different domains
 		ApplicationUnitOfWork unitOfWork = newUnitOfWork();
 
-		for (ApplicationModule instance : instances) {
+		// these can be used to pass into modules to reduce repetive looping in each module
+		Map<String, List<SObject>> filteredRecords = primeRecordFilters((isDelete ? oldRecordsMap.values() : newRecords));
+
+		for (Type instanceType : instances.keySet()) {
+			ApplicationModule instance = instances.get(instanceType);
 			ApplicationModule.TriggerEvent events = instance.getTriggerEvents();
+			String filterIndexKey = recordFilterIndexKeys.get(instanceType);
+			
+			List<SObject> records = (isDelete ? oldRecordsMap.values() : newRecords);
+			if(!String.isEmpty(filterIndexKey) && filteredRecords.get(filterIndexKey) != null) {
+				records = filteredRecords.get(filterIndexKey);
+			}
 
 			// Invoke the applicable handler
 			if(isBefore) {
 				if(isInsert && events.beforeInsertEnabled) {
-					instance.onBeforeInsert(newRecords, unitOfWork);
+					instance.onBeforeInsert(records, unitOfWork);
 				} else if (isUpdate && events.beforeUpdateEnabled) {
-					instance.onBeforeUpdate(newRecords, oldRecordsMap, unitOfWork);
+					instance.onBeforeUpdate(records, oldRecordsMap, unitOfWork);
 				} else if(isDelete && events.beforeDeleteEnabled) {
-					instance.onBeforeDelete(oldRecordsMap.values(), unitOfWork); // NOTE: Trigger.new / Trigger.newMap are not available in delete triggers
+					instance.onBeforeDelete(records, unitOfWork); // NOTE: Trigger.new / Trigger.newMap are not available in delete triggers
 				}
 			} else {
 				if(isInsert && events.afterInsertEnabled) {
-					instance.onAfterInsert(newRecords, unitOfWork);
+					instance.onAfterInsert(records, unitOfWork);
 				} else if(isUpdate && events.afterUpdateEnabled) {
-					instance.onAfterUpdate(newRecords, oldRecordsMap, unitOfWork);
+					instance.onAfterUpdate(records, oldRecordsMap, unitOfWork);
 				} else if (isDelete && events.afterDeleteEnabled) {
-					instance.onAfterDelete(oldRecordsMap.values(), unitOfWork); // NOTE: Trigger.new / Trigger.newMap are not available in delete triggers
+					instance.onAfterDelete(records, unitOfWork); // NOTE: Trigger.new / Trigger.newMap are not available in delete triggers
 				} else if (isUndelete && events.afterUndeleteEnabled) {
-					instance.onAfterUndelete(newRecords, unitOfWork);
+					instance.onAfterUndelete(records, unitOfWork);
 				}
 			}
 		}
@@ -128,18 +156,12 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		unitOfWork.commitWork();
 	}
 
-	private List<ApplicationModule> getModuleInstances() {
-		
-		String thisClass = className;
-		if (cachedModules.get(thisClass) == null) {
-			cachedModules.put(thisClass, new Map<Type, ApplicationModule>());
-		}
-
-		return cachedModules.get(thisClass).values();
-	}
-
 	@TestVisible
 	protected void registerModule(Type moduleType) {
+		registerModule(moduleType, null);
+	}
+
+	protected void registerModule(Type moduleType, String filterKey) {
 		// remove any modules which are not 'active'
 		if(!ApplicationFeatures.getInstance().isModuleActive(moduleType)) {
 			System.debug('Skipping Module: ' + moduleType);
@@ -150,9 +172,11 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		String thisClass = className;
 		if (cachedModules.get(thisClass) == null) {
 			cachedModules.put(thisClass, new Map<Type, ApplicationModule>());
+			recordFilterIndexes.put(thisClass, new Map<Type, String>());
 		}
 		if (cachedModules.get(thisClass).get(moduleType) == null) {
 			cachedModules.get(thisClass).put(moduleType, Application.Modules.newInstance(moduleType));
+			recordFilterIndexes.get(thisClass).put(moduleType, filterKey);
 		}
 	}
 

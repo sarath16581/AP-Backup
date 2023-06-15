@@ -63,10 +63,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationM
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterSSSW(records);
-	}
-
 	/**
 	 * Called when a new Case is being inserted.
 	 */

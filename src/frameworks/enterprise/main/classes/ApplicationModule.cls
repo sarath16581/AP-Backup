@@ -46,11 +46,6 @@ public inherited sharing abstract class ApplicationModule {
 		return output;
 	}
 
-	/**
-	 * Ability to pre-filter records prior to passing them into the module
-	 */
-	public virtual List<SObject> filter(List<SObject> records) { return records; }
-
 	public virtual void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
 	public virtual void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
 	public virtual void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}

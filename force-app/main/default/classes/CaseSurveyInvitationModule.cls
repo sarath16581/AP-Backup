@@ -5,7 +5,7 @@
  * @changelog
  * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
-public inherited sharing  class CaseSurveyInvitationModule extends ApplicationDomain.Module {
+public inherited sharing  class CaseSurveyInvitationModule extends ApplicationModule {
 	
     /*
 	 * Creates a new instance of the utility to facilitate dependency injection for mocking

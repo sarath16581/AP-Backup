@@ -22,10 +22,6 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
         getTriggerEvents().enableAfterInsert();
     }
 
-	public override List<SObject> filter(List<SObject> records) {
-		return CaseAutomationTriggerHandler.filterStarTrackCases(records);
-	}
-
     /**
     * Called after a case is inserted.
     * Performs below operations
