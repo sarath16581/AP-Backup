@@ -347,7 +347,7 @@
           "components" : [ {
             "componentAttributes" : {
               "navAlignment" : "center",
-              "navItemThreshold" : 10,
+              "navItemThreshold" : 8,
               "navigationMenuEditorRefresh" : "LPO_Default_Navigation"
             },
             "componentName" : "forceCommunity:themeNav",
