@@ -39,31 +39,9 @@
     "components" : [ {
       "componentAttributes" : {
         "enableInlineEdit" : true,
-        "filterName" : "RecentlyViewedLeads",
-        "layout" : "COMPACT",
-        "pageSize" : 5,
-        "scope" : "Lead",
-        "showActionBar" : true,
-        "showChartsPanel" : true,
-        "showDisplay" : "showall",
-        "showFilterPanel" : true,
-        "showImageIcon" : true,
-        "showManualRefreshButton" : true,
-        "showObjectName" : true,
-        "showPinnedList" : true,
-        "showSearchBar" : true
-      },
-      "componentName" : "forceCommunity:objectHome",
-      "id" : "8611d0ff-cfe2-4915-8bd1-c8ad6ce7b0c6",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "enableInlineEdit" : true,
         "filterName" : "OpenTasks",
         "layout" : "COMPACT",
-        "pageSize" : 5,
+        "pageSize" : 10,
         "scope" : "Task",
         "showActionBar" : true,
         "showChartsPanel" : true,
