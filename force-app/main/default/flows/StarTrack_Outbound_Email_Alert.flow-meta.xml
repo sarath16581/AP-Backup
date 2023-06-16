@@ -149,7 +149,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <assignments>
         <name>myVariable_waitStartTimeAssignment</name>
         <label>myVariable_waitStartTimeAssignment</label>
@@ -668,7 +668,9 @@
               ISPICKVAL([Case].Origin, &apos;Web&apos;)),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),  
+		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),       
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -690,7 +692,9 @@
               ISPICKVAL({!myVariable_current.Origin}, &apos;Web&apos;)),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)), 
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -710,7 +714,9 @@
         ISPICKVAL([Case].Origin, &apos;Web&apos;),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),          
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -728,7 +734,9 @@
         ISPICKVAL({!myVariable_current.Origin}, &apos;Web&apos;),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -748,7 +756,9 @@
         OR(ISPICKVAL([Case].Origin, &apos;Email&apos;),ISPICKVAL([Case].Origin, &apos;Web&apos;)),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -767,7 +777,9 @@
         OR(ISPICKVAL({!myVariable_current.Origin}, &apos;Email&apos;),ISPICKVAL({!myVariable_current.Origin}, &apos;Web&apos;)),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -814,7 +826,9 @@
               ISPICKVAL([Case].Origin, &apos;Web&apos;)),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -836,7 +850,9 @@
               ISPICKVAL({!myVariable_current.Origin}, &apos;Web&apos;)),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER({!myVariable_current.SuppliedEmail}))),
