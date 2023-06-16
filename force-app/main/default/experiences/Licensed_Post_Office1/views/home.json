@@ -39,7 +39,7 @@
     "components" : [ {
       "componentAttributes" : {
         "enableInlineEdit" : true,
-        "filterName" : "OpenTasks",
+        "filterName" : "LBP_Open_Tasks",
         "layout" : "COMPACT",
         "pageSize" : 10,
         "scope" : "Task",
