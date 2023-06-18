@@ -75,7 +75,6 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 	public override void registerModules() {
 		
 		// APCC - SAP-EM Case articles for linking articles to cases and querying articles on the fly
-		// NOTE: the 'SSSW' if the filter key which passes records set in the primeRecordFilters method
 		registerModule(MyCustomerCaseArticlesModule.class, 'filterSSSW');
 
 		registerModule(StarTrackCalculateCaseDepotModule.class, 'filterStarTrack');

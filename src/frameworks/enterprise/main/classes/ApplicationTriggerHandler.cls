@@ -113,7 +113,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 		// grab a new unit of work to be passed throughout the different domains
 		ApplicationUnitOfWork unitOfWork = newUnitOfWork();
 
-		// these can be used to pass into modules to reduce repetive looping in each module
+		// these can be used to pass into modules to reduce repetitive looping in each module
 		Map<String, List<SObject>> filteredRecords = primeRecordFilters((isDelete ? oldRecordsMap.values() : newRecords));
 
 		for (Type instanceType : instances.keySet()) {
@@ -178,16 +178,6 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 			cachedModules.get(thisClass).put(moduleType, Application.Modules.newInstance(moduleType));
 			recordFilterIndexes.get(thisClass).put(moduleType, filterKey);
 		}
-	}
-
-	public static List<SObject> filterByRecordType(List<SObject> records, Set<Id> recordTypeIds) {
-		List<SObject> output = new List<SObject>();
-		for(SObject record : records) {
-			if(recordTypeIds.contains((Id)record.get('RecordTypeId'))) {
-				output.add(record);
-			}
-		}
-		return output;
 	}
 
 }

@@ -2,6 +2,7 @@
  * @description
  * Another take at a framework with domainless architecture. Domains can be controlled by naming conventions with ApplicationModule
  * 
+ * @test ApplicationTriggerHandler_Test
  * @author Nathan Franklin
  * @date 2023-06-12
  * @changelog
@@ -27,11 +28,7 @@ public inherited sharing abstract class ApplicationModule {
 	 * Grabs a list of record ids where the values in the monitored fields have changed. This is just a bulkified helper method.
 	 * @deprecated
 	 */
-	protected Map<Id, Set<SObjectField>> getIsChanged(
-		List<SObject> records,
-		Map<Id, SObject> oldRecords,
-		Set<SObjectField> comparisonFields
-	) {
+	protected Map<Id, Set<SObjectField>> getIsChanged(List<SObject> records, Map<Id, SObject> oldRecords, Set<SObjectField> comparisonFields) {
 		Map<Id, Set<SObjectField>> output = new Map<Id, Set<SObjectField>>();
 		for (SObject record : records) {
 			for (SObjectField field : comparisonFields) {
