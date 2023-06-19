@@ -49,7 +49,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>55.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <decisions>
         <name>Generic_Notify_Owner</name>
         <label>Generic Notify Owner</label>

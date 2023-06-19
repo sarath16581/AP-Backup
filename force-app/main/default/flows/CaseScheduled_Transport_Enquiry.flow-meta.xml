@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>58.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <description>Scheduled trigger flow that runs for a transport enquiry case.</description>
     <environments>Default</environments>
     <interviewLabel>CaseScheduled Transport Enquiry {!$Flow.CurrentDateTime}</interviewLabel>
