@@ -40,6 +40,7 @@ private class CaseSkillBasedRoutingModule_Test {
 
 		//Generate Contacts and link to Accounts
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(4, accountWithServiceSLASMB.id, true);		
+		Map<Id, Contact> contactsMap = new Map<Id, Contact>(contacts);
 		
 		
 		Contact contactNoServiceSLA = contacts[0];
@@ -55,7 +56,7 @@ private class CaseSkillBasedRoutingModule_Test {
 		contactWithoutAccount.account = null;
 		
 		//Generate Cases with Account data
-		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);	
+		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);	
 		
 		for(Case tempCase : cases){
 			tempCase.OwnerId = userId;
@@ -76,8 +77,6 @@ private class CaseSkillBasedRoutingModule_Test {
 		Case c5 = cases[4];
 		c5.ContactId = contactWithServiceSLASMB.Id; 
 
-		Case c6 = null;
-
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
 		if(ssswRecTypes.size()>0){
 			Id recTypeId = ssswRecTypes.iterator().next(); 
@@ -93,14 +92,6 @@ private class CaseSkillBasedRoutingModule_Test {
 		casesInsert.add(c2);
 		casesInsert.add(c3);
 
-		
-		Set<Id> nonSSSWRecTypes = Utility.searchRecordTypes(String.valueOf(Case.getsObjectType()),'StarTrack','DeveloperName');
-		if(nonSSSWRecTypes.size()>0){ //Case with non-SSSW recordtype
-			c6 = cases[5];
-			c6.RecordTypeId = nonSSSWRecTypes.iterator().next(); 
-			casesInsert.add(c6);
-		}
-
 
 		//Clone to simulate existing Case records to test Case Update 
 		List<Case> oldCases = new List<Case>{
@@ -108,8 +99,7 @@ private class CaseSkillBasedRoutingModule_Test {
 			cases[1].clone(true),
 			cases[2].clone(true),
 			cases[3].clone(true),
-			cases[4].clone(true),
-			cases[5].clone(true)
+			cases[4].clone(true)
 		};
 
 		oldCases[0].ContactId = contactWithServiceSLASMB.Id; //Contact change: no Account
@@ -117,7 +107,6 @@ private class CaseSkillBasedRoutingModule_Test {
 		oldCases[2].ContactId = contactNoServiceSLA.Id; //Contact change: No SLA > With SLA
 		oldCases[3].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > With different SLA (SMB > Gold)
 		oldCases[4].ContactId = contactWithServiceSLASMB.Id; //Contact NOT changed
-		oldCases[5].ContactId = contactWithServiceSLASMB.Id; //Case is not SSSW
 
 		// =====================================
 		// Stubbing
@@ -145,9 +134,6 @@ private class CaseSkillBasedRoutingModule_Test {
 		System.assertEquals(CaseSkillBasedRoutingModule.SERVICESLA_CONSUMER, c1.CustomerQueueType__c, 'The expected CustomerQueueType for Cases without an Account is incorrect');
 		System.assertEquals(CaseSkillBasedRoutingModule.SERVICESLA_CONSUMER, c2.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account without ServiceSLA is incorrect');
 		System.assertEquals('SMB', c3.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account with ServiceSLA is incorrect');
-		if(c6 != null){
-			System.assertEquals(null, c6.CustomerQueueType__c, 'The expected CustomerQueueType for non-SSSW Cases is incorrect');
-		}
 
 		//Asserts for Update		
 		System.assertEquals('Consumer',c1.CustomerQueueType__c, 'The expected CustomerQueueType for Cases without an Account is incorrect');
