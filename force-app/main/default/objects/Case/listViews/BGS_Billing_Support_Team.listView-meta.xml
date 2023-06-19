@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGS_Billing_Support_Team</fullName>
+    <booleanFilter>1 AND 2 and (3 or 4)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Calc_Link_Account__c</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>OWNER_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Sales_Ops_Delivery</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Case_Owner_Profile__c</field>
+        <operation>equals</operation>
+        <value>Customer Support Billing - Service Manager</value>
+    </filters>
+    <filters>
+        <field>Case_Owner_Profile__c</field>
+        <operation>equals</operation>
+        <value>Customer Support Billing - Service Advisor</value>
+    </filters>
+    <label>BGS Billing Support Team</label>
+    <sharedTo>
+        <roleAndSubordinatesInternal>Customer_Support_Billing_Service_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Service_Business_Service_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Service_Enterprise_Service_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Service_Government_Head_of_Service</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Service_Government_Service_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

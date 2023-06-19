@@ -338,7 +338,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <decisions>
         <name>isChangedDecision12_myRule_11_Nominated_Advocate_Email_c</name>
         <label>isChangedDecision12_myRule_11_Nominated_Advocate_Email_c</label>
@@ -1000,7 +1000,9 @@
                        NOT([Case].Auto_Email_Response_sent__c))),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -1024,7 +1026,9 @@
                        NOT({!myVariable_current.Auto_Email_Response_sent__c}))),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
         NOT(CONTAINS(
         LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),

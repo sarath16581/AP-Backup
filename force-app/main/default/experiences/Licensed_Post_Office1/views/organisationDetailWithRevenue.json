@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsTwoCol84Layout",
+  "dataProviders" : [ ],
   "id" : "a0cf1563-7c4b-45b7-b058-9fe73c0f84f6",
   "label" : "Organisation Detail With Revenue",
   "regions" : [ {
