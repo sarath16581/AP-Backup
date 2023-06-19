@@ -542,6 +542,41 @@
                 <default>false</default>
                 <label>Voucher Incorrect</label>
             </value>
+            <value>
+                <fullName>Rebooked</fullName>
+                <default>false</default>
+                <label>Rebooked</label>
+            </value>
+            <value>
+                <fullName>Information provided</fullName>
+                <default>false</default>
+                <label>Information provided</label>
+            </value>
+            <value>
+                <fullName>Actioned</fullName>
+                <default>false</default>
+                <label>Actioned</label>
+            </value>
+            <value>
+                <fullName>Refused</fullName>
+                <default>false</default>
+                <label>Refused</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Unable to service</fullName>
+                <default>false</default>
+                <label>Unable to service</label>
+            </value>
+            <value>
+                <fullName>Referred to others</fullName>
+                <default>false</default>
+                <label>Referred to others</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

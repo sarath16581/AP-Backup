@@ -3,8 +3,8 @@
     <actionCalls>
         <name>ACIC_Send_Case_Status_Notification</name>
         <label>ACIC - Send Case Status Notification</label>
-        <locationX>2041</locationX>
-        <locationY>1046</locationY>
+        <locationX>1810</locationX>
+        <locationY>926</locationY>
         <actionName>Case.ACIC_Send_Case_Status_Notification</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -18,8 +18,8 @@
     <actionCalls>
         <name>ASH_Email_Alert_on_new_case_creation</name>
         <label>ASH - Email Alert on new case creation</label>
-        <locationX>1282</locationX>
-        <locationY>398</locationY>
+        <locationX>1447</locationX>
+        <locationY>350</locationY>
         <actionName>Case.ASH_Email_Alert_on_new_case_creation</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -36,8 +36,8 @@
     <actionCalls>
         <name>CAR_Auto_Email_response_for_Queue_Owner</name>
         <label>CAR Auto Email response for Queue Owner</label>
-        <locationX>1018</locationX>
-        <locationY>398</locationY>
+        <locationX>1183</locationX>
+        <locationY>350</locationY>
         <actionName>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -55,8 +55,8 @@
         <description>Send Email to the CAR case requestor when the associated Case is closed/resolved</description>
         <name>CAR_Send_Email_Closed_Alert</name>
         <label>CAR Send Email Closed Alert</label>
-        <locationX>1249</locationX>
-        <locationY>1166</locationY>
+        <locationX>1018</locationX>
+        <locationY>1034</locationY>
         <actionName>Case.CAR_Send_Email_Closed_Alert</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -70,8 +70,8 @@
     <actionCalls>
         <name>CAR_Send_Email_Closed_Bounce_Back_Alert</name>
         <label>CAR Send Email Closed Bounce Back Alert</label>
-        <locationX>1513</locationX>
-        <locationY>1166</locationY>
+        <locationX>1282</locationX>
+        <locationY>1034</locationY>
         <actionName>Case.CAR_Send_Email_Closed_Bounce_Back_Alert</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -85,8 +85,8 @@
     <actionCalls>
         <name>Dispute_Case_Approved</name>
         <label>Dispute Case Approved</label>
-        <locationX>281</locationX>
-        <locationY>1166</locationY>
+        <locationX>50</locationX>
+        <locationY>1034</locationY>
         <actionName>Case.Dispute_Case_Approved</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -103,8 +103,8 @@
     <actionCalls>
         <name>Dispute_Case_Approved_StarTrack</name>
         <label>Dispute Case Approved StarTrack</label>
-        <locationX>809</locationX>
-        <locationY>1166</locationY>
+        <locationX>578</locationX>
+        <locationY>1034</locationY>
         <actionName>Case.Dispute_Case_Approved_StarTrack</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -121,8 +121,8 @@
     <actionCalls>
         <name>Email_non_compliance_case</name>
         <label>Email non compliance case</label>
-        <locationX>2305</locationX>
-        <locationY>1046</locationY>
+        <locationX>2074</locationX>
+        <locationY>926</locationY>
         <actionName>Case.email_non_compliance_case</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -136,8 +136,8 @@
     <actionCalls>
         <name>Late_Payment_Dispute_Case_Approved</name>
         <label>Late Payment Dispute Case Approved</label>
-        <locationX>545</locationX>
-        <locationY>1166</locationY>
+        <locationX>314</locationX>
+        <locationY>1034</locationY>
         <actionName>Case.Late_Payment_Dispute_Case_Approved</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -154,8 +154,8 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created</name>
         <label>New Dispute Claim Case Created</label>
-        <locationX>50</locationX>
-        <locationY>518</locationY>
+        <locationX>215</locationX>
+        <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -172,8 +172,8 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack</name>
         <label>New Dispute Claim Case Created StarTrack</label>
-        <locationX>578</locationX>
-        <locationY>518</locationY>
+        <locationX>743</locationX>
+        <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -190,8 +190,8 @@
     <actionCalls>
         <name>New_Late_Payment_Dispute_Claim_Case_Created</name>
         <label>New Late Payment Dispute Claim Case Created</label>
-        <locationX>314</locationX>
-        <locationY>518</locationY>
+        <locationX>479</locationX>
+        <locationY>458</locationY>
         <actionName>Case.New_Late_Payment_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -208,8 +208,8 @@
     <actionCalls>
         <name>Notify_Account_Manager_Dispute_Case_Result</name>
         <label>Notify Account Manager Dispute Case Result</label>
-        <locationX>545</locationX>
-        <locationY>1502</locationY>
+        <locationX>314</locationX>
+        <locationY>1334</locationY>
         <actionName>Case.Notify_Account_Manager_Dispute_Case_Result</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -223,8 +223,8 @@
     <actionCalls>
         <name>Sales_Coordinator_Case_Created_Notification</name>
         <label>Sales Coordinator Case Created Notification</label>
-        <locationX>1546</locationX>
-        <locationY>398</locationY>
+        <locationX>1711</locationX>
+        <locationY>350</locationY>
         <actionName>Case.Sales_Coordinator_Case_Created_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -241,8 +241,8 @@
     <actionCalls>
         <name>Security_Express_Case_Creation_Email_Alert</name>
         <label>Security Express Case Creation Email Alert</label>
-        <locationX>1810</locationX>
-        <locationY>398</locationY>
+        <locationX>1975</locationX>
+        <locationY>350</locationY>
         <actionName>Case.Security_Express_Case_Creation_Email_Alert</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -257,10 +257,42 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
+        <description>Sends an email to customer when new email is created via email-to-case</description>
+        <name>Send_an_email_when_case_is_created</name>
+        <label>Send an email when case is created</label>
+        <locationX>2866</locationX>
+        <locationY>1034</locationY>
+        <actionName>Case.Transport_Enquiry_Send_a_Email_when_a_new_Email_to_Case_has_been_created</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends the bounce back email to customer when an email is sent to consolidated email box for transport enquiry cases</description>
+        <name>Send_bounce_back_email</name>
+        <label>Send bounce back email</label>
+        <locationX>2602</locationX>
+        <locationY>1034</locationY>
+        <actionName>Case.Transport_Enquiry_Case_bounce_back_email_alert</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
         <name>Special_Services_Case_Creation_Email_Alert</name>
         <label>Special Services Case Creation Email Alert</label>
-        <locationX>2569</locationX>
-        <locationY>1046</locationY>
+        <locationX>2338</locationX>
+        <locationY>926</locationY>
         <actionName>Case.Special_Services_Case_Creation_Email_Alert</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -284,8 +316,8 @@
         <description>condition - When a CAR case is created or updated involving specific scenario (excluding created only scenarios).</description>
         <name>CAR_Scenarios</name>
         <label>CAR Scenarios</label>
-        <locationX>1513</locationX>
-        <locationY>1046</locationY>
+        <locationX>1282</locationX>
+        <locationY>926</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Status_closed_resolved</name>
@@ -391,8 +423,8 @@
     <decisions>
         <name>CaseDomain_create_only_scenarios</name>
         <label>CaseDomain create only scenarios</label>
-        <locationX>1260</locationX>
-        <locationY>278</locationY>
+        <locationX>1425</locationX>
+        <locationY>242</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
         </defaultConnector>
@@ -525,8 +557,8 @@
     <decisions>
         <name>CaseDomain_scenarios</name>
         <label>CaseDomain scenarios</label>
-        <locationX>1755</locationX>
-        <locationY>926</locationY>
+        <locationX>1920</locationX>
+        <locationY>818</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Dispute_Claim_Case</name>
@@ -652,13 +684,28 @@
             </connector>
             <label>Special Services Case</label>
         </rules>
+        <rules>
+            <name>Transport_Enquiry_Case</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_TRANSPORT_ENQUIRY</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Transport_Enquiry_Scenarios</targetReference>
+            </connector>
+            <label>Transport Enquiry Case</label>
+        </rules>
     </decisions>
     <decisions>
         <description>Condition - When a Dispute Claim case is created or updated involving specific scenario (excluding created only scenarios).</description>
         <name>Dispute_Claim_scenarios</name>
         <label>Dispute Claim scenarios</label>
-        <locationX>677</locationX>
-        <locationY>1046</locationY>
+        <locationX>446</locationX>
+        <locationY>926</locationY>
         <defaultConnector>
             <targetReference>Dispute_Claim_status_check</targetReference>
         </defaultConnector>
@@ -712,8 +759,8 @@
     <decisions>
         <name>Dispute_Claim_status_check</name>
         <label>Status Check</label>
-        <locationX>677</locationX>
-        <locationY>1382</locationY>
+        <locationX>446</locationX>
+        <locationY>1226</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Notify_Account_Manager</name>
@@ -748,8 +795,8 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>1755</locationX>
-        <locationY>158</locationY>
+        <locationX>1920</locationX>
+        <locationY>134</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
         </defaultConnector>
@@ -773,8 +820,8 @@
     <decisions>
         <name>New_Dispute_Claim_Scenarios</name>
         <label>New Dispute Claim Scenarios</label>
-        <locationX>446</locationX>
-        <locationY>398</locationY>
+        <locationX>611</locationX>
+        <locationY>350</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
         </defaultConnector>
@@ -823,6 +870,92 @@
                 <targetReference>New_Dispute_Claim_Case_Created_StarTrack</targetReference>
             </connector>
             <label>New ACK StarTrack</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Transport_Enquiry_Scenarios</name>
+        <label>Transport Enquiry Scenarios</label>
+        <locationX>2866</locationX>
+        <locationY>926</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Case_closed_and_Email_to_case_address_is_blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCase.Origin</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.EmailToCaseAddress__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vOldCase.Status</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_bounce_back_email</targetReference>
+            </connector>
+            <label>Case closed and Email to case address is blank</label>
+        </rules>
+        <rules>
+            <name>Case_created_and_Email_to_case_address_is_populated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCase.Origin</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.EmailToCaseAddress__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vOldCase.EmailToCaseAddress__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.EmailToCaseAddress__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.Owner_is_Queue__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.IsClosed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_an_email_when_case_is_created</targetReference>
+            </connector>
+            <label>Case created and Email to case address is populated</label>
         </rules>
     </decisions>
     <description>subflow for CaseDomain triggerred from CaseCommon AfterSave flow</description>
@@ -954,7 +1087,7 @@ NOT({!vCase.Owner_is_Queue__c}) )</expression>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1629</locationX>
+        <locationX>1794</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>
