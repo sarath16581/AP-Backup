@@ -9,6 +9,7 @@
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added new test methods for domains
  * 2022-12-07 - Noel Lim 		- Added test methods for new Cache variables queuesWithRoutingConfig, queueIdVsRoutingConfig
+ * 2023-06-19 - Nathan Franklin - Covering modules
  */
 @IsTest
 private with sharing class Application_Test {
@@ -67,6 +68,7 @@ private with sharing class Application_Test {
 		MyClassMock mockUtility = new MyClassMock();
 		MySelectorMock mockSelector = new MySelectorMock();
 		ApplicationTestDomain1_Test mockDomain = new ApplicationTestDomain1_Test();
+		AccountModule1 mockModule = new AccountModule1();
 
 		Object output = Application.Utilities.getInstance(MyClass.class);
 		System.assert(output instanceof MyClass, 'getInstance expected an instance of MyClass');
@@ -91,6 +93,10 @@ private with sharing class Application_Test {
 		Application.Domains.setMock(ApplicationTestDomain1_Test.class, mockDomain);
 		output = Application.Domains.newInstance(ApplicationTestDomain1_Test.class, new List<SObject>{});
 		System.assert(output == mockDomain, 'newInstance expected an instance of ApplicationTestDomain1_Test');
+
+		Application.Modules.setMock(AccountModule1.class, mockModule);
+		output = Application.Modules.newInstance(AccountModule1.class);
+		System.assert(output == mockModule, 'newInstance expected an instance of AccountModule1');
 
 		// test profiler
 		Application.Profiler.start('test');
@@ -125,6 +131,14 @@ private with sharing class Application_Test {
 
 		public virtual override Set<SObjectField> getSObjectFieldList() {
 			return new Set<SObjectField> {Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Account.OwnerId};
+		}
+
+	}
+
+	public class AccountModule1 extends ApplicationModule {
+
+		public AccountModule1() {
+			getTriggerEvents().enableAll();
 		}
 
 	}
