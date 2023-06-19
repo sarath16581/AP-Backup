@@ -7,6 +7,7 @@
  * @changelog
  * 2022-09-23 - Noel Lim - Created
  * 2022-02-08 - Noel Lim - Updated checkCaseSLABasedOnAccount() to assign case.OwnerIds, added method checkCaseAgentType 
+ * 2022-02-08 - Nathan Franklin - Fix test class failure due to domainless architecture uplift
  */
 @IsTest
 private class CaseSkillBasedRoutingModule_Test {
