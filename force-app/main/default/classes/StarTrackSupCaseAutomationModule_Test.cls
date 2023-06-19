@@ -6,6 +6,7 @@
  * @group Tests
  * @domain StarTrack
  * @changelog
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
 @IsTest
 private class StarTrackSupCaseAutomationModule_Test {
@@ -19,7 +20,7 @@ private class StarTrackSupCaseAutomationModule_Test {
 	private static void testEnsureBeforeInsertPopulatesCaseSubject() {
 		// =====================================
 		// Data Preparation
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		Map<Id, RecordType> validCaseRecordTypes = new RecordTypesSelector()
@@ -58,7 +59,7 @@ private class StarTrackSupCaseAutomationModule_Test {
 	private static void testEnsureBeforeUpdatePopulatesCaseSubject() {
 		// =====================================
 		// Data Preparation
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		Map<Id, RecordType> validCaseRecordTypes = new RecordTypesSelector()
 			.selectByDeveloperName('Case', new Set<String>{ 'StarTrack_Pickup_Booking_Enquiry' });
@@ -97,7 +98,7 @@ private class StarTrackSupCaseAutomationModule_Test {
 	private static void testEnsureBeforeUpdateUpdateCaseUpdateTime() {
 		// =====================================
 		// Data Preparation
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true) };
 		Map<Id, RecordType> validCaseRecordTypes = new RecordTypesSelector()
@@ -137,7 +138,7 @@ private class StarTrackSupCaseAutomationModule_Test {
 	private static void testEnsureBeforeUpdateUpdateReopenCase() {
 		// =====================================
 		// Data Preparation
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true) };
 		Map<Id, RecordType> validCaseRecordTypes = new RecordTypesSelector()
@@ -181,7 +182,7 @@ private class StarTrackSupCaseAutomationModule_Test {
 	private static void testEnsureBeforeInsertPopulatesCaseSubjectIntegration() {
 		// =====================================
 		// Data Preparation
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 		Map<Id, RecordType> validCaseRecordTypes = new RecordTypesSelector()
@@ -220,7 +221,7 @@ private class StarTrackSupCaseAutomationModule_Test {
 	private static void testEnsureBeforeUpdatePopulatesCaseSubjectIntegration() {
 		// =====================================
 		// Data Preparation
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 		Map<Id, RecordType> validCaseRecordTypes = new RecordTypesSelector()
 			.selectByDeveloperName('Case', new Set<String>{ 'StarTrack_Pickup_Booking_Enquiry' });
