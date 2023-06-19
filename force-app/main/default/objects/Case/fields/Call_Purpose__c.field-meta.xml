@@ -237,6 +237,26 @@
                 <default>false</default>
                 <label>Westpac Bookings</label>
             </value>
+            <value>
+                <fullName>Collection</fullName>
+                <default>false</default>
+                <label>Collection</label>
+            </value>
+            <value>
+                <fullName>Delivery</fullName>
+                <default>false</default>
+                <label>Delivery</label>
+            </value>
+            <value>
+                <fullName>Site inspection</fullName>
+                <default>false</default>
+                <label>Site Inspection</label>
+            </value>
+            <value>
+                <fullName>Other Enquiry</fullName>
+                <default>false</default>
+                <label>Other Enquiry</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
