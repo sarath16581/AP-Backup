@@ -6,8 +6,8 @@
  * @group Tests
  * @domain Startrack
  * @changelog
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
-
 @IsTest
 private class StarTrackSupportCaseCustomerModule_Test {
     /**
@@ -20,7 +20,7 @@ private class StarTrackSupportCaseCustomerModule_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
         List<Account> accountList = ApplicationTestDataFactory.getAccounts(1, true);
         List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
         List<Billing_Account__c> billingAccountList = ApplicationTestDataFactory.getBillingAccounts(1,accountList[0].Id,'TEAM', true);
@@ -83,7 +83,7 @@ private class StarTrackSupportCaseCustomerModule_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
         Set<Id> accId = new Set<Id>();
         List<User> userList = ApplicationTestDataFactory.getUsers(1, true);
         List<Account> accountList = ApplicationTestDataFactory.getAccounts(1, true);

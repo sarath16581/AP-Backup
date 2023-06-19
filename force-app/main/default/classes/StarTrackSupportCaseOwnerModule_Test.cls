@@ -8,6 +8,7 @@
  * @changelog
  * 2021-11-09 Naveen Rajanna REQ2656153 - Fix failing test class
  * 2022-08-25 Mahesh Parvathaneni DDS-11558 - Added test method testEnsureCaseStatusNotPopulatedSTHSTrackingForm
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
 @IsTest
 private class StarTrackSupportCaseOwnerModule_Test {
@@ -62,7 +63,7 @@ private class StarTrackSupportCaseOwnerModule_Test {
         // Data Preparation
         // =====================================
 
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
         List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
         List<Case> oldCases = new List<Case>{ cases[0].clone(true), cases[1].clone(true) };
         List<CaseMilestone> relatedMilestones = new List<CaseMilestone>();
@@ -165,7 +166,7 @@ private class StarTrackSupportCaseOwnerModule_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
         cases[0].Status = 'New';
         cases[0].Origin = 'Web';
