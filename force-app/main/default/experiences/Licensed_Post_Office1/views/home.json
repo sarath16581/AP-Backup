@@ -41,7 +41,7 @@
         "enableInlineEdit" : true,
         "filterName" : "LBP_Open_Tasks",
         "layout" : "COMPACT",
-        "pageSize" : 10,
+        "pageSize" : 5,
         "scope" : "Task",
         "showActionBar" : true,
         "showChartsPanel" : true,
