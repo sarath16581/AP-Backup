@@ -10,6 +10,7 @@
  * 2022-10-31	Noel Lim - Updated tests relating to strategic rules, as case re-routing logic during the async call need to be in the holding Queue to be re-routed
  * 2023-02-16	Noel Lim - Update testEnsureStrategicCaseIsReroutedInQueueable method to assert Case.PreferredAgentExpiry is set
  * 2023-03-02	Noel Lim - Add testAsyncLinkArticlesToCasesWorker method
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
 @IsTest
 private class MyCustomerCaseArticlesModule_Test {
@@ -24,7 +25,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
@@ -86,7 +87,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, null, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 
 		// this is our test data where 1 record has a reference ID and another article has the Id
@@ -144,7 +145,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(4, null, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);
 		List<Case> oldCases = new List<Case>{cases[0].clone(true),cases[1].clone(true), cases[2].clone(true), cases[3].clone(true), cases[4].clone(true)};
 
@@ -212,7 +213,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, null, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		List<Case> oldCases = new List<Case>{cases[0].clone(true)};
 
@@ -266,7 +267,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, null, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 
 		// this is our test data where 1 record has a reference ID and another article has the Id
@@ -407,7 +408,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
 		module.queueAsyncArticleToCases(cases, uow);
@@ -504,7 +505,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
 		module.queueAsyncArticleToCases(cases, uow);
@@ -533,7 +534,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
@@ -616,7 +617,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, null, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 
 		// this is our test data where 1 record has a reference ID and another article has the Id

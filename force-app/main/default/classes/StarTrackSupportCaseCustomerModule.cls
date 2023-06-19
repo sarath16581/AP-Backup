@@ -15,9 +15,14 @@
  * @channel Domain
  * @domain StartracK
  * @changelog
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
 
-public inherited sharing class StarTrackSupportCaseCustomerModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackSupportCaseCustomerModule extends ApplicationModule {
+
+	/**
+	 * @deprecated
+	 */
 	public static StarTrackSupportCaseCustomerModule newInstance() {
 		return (StarTrackSupportCaseCustomerModule) Application.Utilities.newInstance(
 			StarTrackSupportCaseCustomerModule.class
@@ -243,15 +248,6 @@ public inherited sharing class StarTrackSupportCaseCustomerModule extends Applic
 					}
 				}
 			}
-		}
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) StarTrackSupportCaseCustomerModule.newInstance();
 		}
 	}
 }
