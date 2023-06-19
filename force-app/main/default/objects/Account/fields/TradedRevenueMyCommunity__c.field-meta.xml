@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TradedRevenueMyCommunity__c</fullName>
-    <description>Traded YTD/FY Revenue which is only visible on organistion records that are assigned to networks that the partner community users are linked to</description>
+    <description>Traded YTD/FY Revenue which is only visible on organistion records that are assigned to networks that the Local Business Partner and My Community users are linked to</description>
 	<inlineHelpText>Traded Revenue YTD</inlineHelpText>
     <externalId>false</externalId>
     <formula>IF(Current_User_Belongs_to_Assigned_LPO__c, "$" + TEXT(Total_Actual_Revenue__c), "")</formula>
