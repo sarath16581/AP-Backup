@@ -26,19 +26,6 @@
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
-        "reportId" : "00O2v00000MN8x3",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "d64fb3d2-c91c-4d73-8c23-216ebc869cdc",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
         "reportId" : "00O2v00000MIc6T",
         "showRefreshButton" : true,
         "showTitle" : true
@@ -57,12 +44,12 @@
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
-        "reportId" : "00O2v00000MIc6R",
+        "reportId" : "00O2v00000MN8x3",
         "showRefreshButton" : true,
         "showTitle" : true
       },
       "componentName" : "forceCommunity:reportChart",
-      "id" : "3c492cc3-808e-4dac-b204-7dead031e847",
+      "id" : "d64fb3d2-c91c-4d73-8c23-216ebc869cdc",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
