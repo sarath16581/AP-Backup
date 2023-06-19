@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "f54100e1-78c6-454c-bc53-5dc39877fbe2",
   "label" : "Seismic",
   "regions" : [ {

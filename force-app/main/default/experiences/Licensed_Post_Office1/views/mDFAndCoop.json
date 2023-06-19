@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "82b01328-8a08-4a90-b753-daa3521066ce",
   "label" : "MDF and Coop",
   "regions" : [ {

@@ -1,6 +1,7 @@
 {
   "appPageId" : "c6b7f4a5-f763-4342-b468-e2db1efea64a",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "e09d0fa4-ba1a-4856-8de5-6f06602ac398",
   "label" : "Login",
   "regions" : [ {
@@ -34,7 +35,7 @@
         "useCommunityDomainSso" : false
       },
       "componentName" : "salesforceIdentity:socialLogin2",
-      "id" : "4f62dd6b-d080-478c-94d8-1ad94ed7e75e",
+      "id" : "16a3cd25-0070-45d2-b756-734098e13137",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

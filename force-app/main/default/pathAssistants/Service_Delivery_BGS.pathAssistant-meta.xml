@@ -7,8 +7,7 @@
     <pathAssistantSteps>
         <fieldNames>Status</fieldNames>
         <fieldNames>Type</fieldNames>
-        <fieldNames>ProductCategory__c</fieldNames>
-        <fieldNames>ProductSubCategory__c</fieldNames>
+        <fieldNames>Type_and_Product__c</fieldNames>
         <fieldNames>EnquirySubType__c</fieldNames>
         <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Awaiting Customer Response</picklistValueName>
@@ -16,8 +15,7 @@
     <pathAssistantSteps>
         <fieldNames>Status</fieldNames>
         <fieldNames>Type</fieldNames>
-        <fieldNames>ProductCategory__c</fieldNames>
-        <fieldNames>ProductSubCategory__c</fieldNames>
+        <fieldNames>Type_and_Product__c</fieldNames>
         <fieldNames>EnquirySubType__c</fieldNames>
         <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>Awaiting Internal Response</picklistValueName>
@@ -33,14 +31,15 @@
     <pathAssistantSteps>
         <fieldNames>Status</fieldNames>
         <fieldNames>ResolutionCode__c</fieldNames>
+        <fieldNames>ProductCategory__c</fieldNames>
+        <fieldNames>ProductSubCategory__c</fieldNames>
         <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Please enter the resolution code&lt;/span&gt;&lt;/p&gt;</info>
         <picklistValueName>Closed</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Status</fieldNames>
         <fieldNames>Type</fieldNames>
-        <fieldNames>ProductCategory__c</fieldNames>
-        <fieldNames>ProductSubCategory__c</fieldNames>
+        <fieldNames>Type_and_Product__c</fieldNames>
         <fieldNames>EnquirySubType__c</fieldNames>
         <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>In Progress</picklistValueName>
@@ -48,8 +47,7 @@
     <pathAssistantSteps>
         <fieldNames>Status</fieldNames>
         <fieldNames>Type</fieldNames>
-        <fieldNames>ProductCategory__c</fieldNames>
-        <fieldNames>ProductSubCategory__c</fieldNames>
+        <fieldNames>Type_and_Product__c</fieldNames>
         <fieldNames>EnquirySubType__c</fieldNames>
         <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
         <picklistValueName>New</picklistValueName>
