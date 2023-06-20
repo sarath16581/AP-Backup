@@ -16,10 +16,15 @@
 * @date 2021-06-30
 * @group Domain
 * @domain StarTrack
+* @test StarTrackDeliveryEnquiryModule_Test
 * @changelog
+* 2023-06-14 - Nathan Franklin - uplift to domainless architecture
 */
-public inherited sharing class StarTrackDeliveryEnquiryProcessModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackDeliveryEnquiryProcessModule extends ApplicationModule {
     
+	/**
+	 * @deprecated
+	 */
     public static StarTrackDeliveryEnquiryProcessModule newInstance() {
         return (StarTrackDeliveryEnquiryProcessModule)Application.Utilities.newInstance(StarTrackDeliveryEnquiryProcessModule.class);
     }
@@ -246,13 +251,4 @@ public inherited sharing class StarTrackDeliveryEnquiryProcessModule extends App
         // Reset list after operation
         casesToCreateActivity.clear();
     }
-        
-    /**
-    * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-    */
-    public class Constructor implements ApplicationDomain.IConstructableModule {
-        public ApplicationDomain.Module construct() {
-            return (ApplicationDomain.Module)StarTrackDeliveryEnquiryProcessModule.newInstance();
-        }
-    }  
 }

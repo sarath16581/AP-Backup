@@ -5,6 +5,7 @@
  * @changelog
  * 2022-12-05 - George Nguyen - created
  * 2022-12-13 - Mahesh Parvathaneni - Added test methods for beforeInsert events
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  **/
 @IsTest
 private class STCaseInvestigationArticleModule_Test {
@@ -45,7 +46,7 @@ private class STCaseInvestigationArticleModule_Test {
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 		ArticlesSelector mockArticleSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -111,7 +112,7 @@ private class STCaseInvestigationArticleModule_Test {
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 		ArticlesSelector mockArticleSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -153,7 +154,7 @@ private class STCaseInvestigationArticleModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
 		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(3, consignment.Id, true);
@@ -219,7 +220,7 @@ private class STCaseInvestigationArticleModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
 		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(3, consignment.Id, true);

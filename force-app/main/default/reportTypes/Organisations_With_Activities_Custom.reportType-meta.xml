@@ -1352,16 +1352,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>LicenceManualActivationDate__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LicenceManualDeactivationDate__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Licence_Status__c</field>
             <table>Account</table>
         </columns>
@@ -1793,11 +1783,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>eParcelDamagesDelegate__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ParentABN__c</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -2602,11 +2587,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>WCC__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>WCIS_Code__c</field>
             <table>Account</table>
         </columns>
@@ -2663,6 +2643,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.Network_Manager__c</field>
+            <table>Account</table>
+        </columns>
+		<columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Region__c</field>
             <table>Account</table>
         </columns>
         <columns>

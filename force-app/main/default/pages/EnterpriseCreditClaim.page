@@ -8,6 +8,7 @@
  * 28-Jul-17        1.5             AP Rivera           Replaced all hard coded values by Custom Labels
  * 25-Aug-17        1.6             Jean Duque          Added validation for 'Late Payment Charges (LPC)' required fields
  * 10-Aug-18		1.7				Nanda Kothamasu	Added numeric data validation on Business Account Number field - REQ1506818
+ * 02-Jun-23        1.8             Pratyush Chalasani  Added helptext display to show description for selected credit claim reason
 -->
 <apex:page standardController="Case" extensions="EnterpriseCreditClaim"
     id="ccPage"    
@@ -85,6 +86,9 @@
                                         fireJSForPopup();
                                     }
                                 }                            
+
+								// Mapping from credit claim reason to it's description
+								const creditClaimReasonDecriptionMap = {!CreditClaimReasonDescriptions};
                                 
                                 function validatePage(){                                    
                                     var functionReturn = true;
@@ -264,6 +268,28 @@
                                     hdnDT.value = document.getElementById('{!$Component.ccForm:ipDisputeType}').value;
                                     hdnRCC.value = document.getElementById('{!$Component.ccForm:ipReasonCC}').value;
                                     $("ccForm:ipReasonCC").removeAttr('disabled');
+									
+									// If a credit claim reason was selected and a description is mapped for it
+									// then display the reason under the picklist.
+									// If no value is selected, or a description is not found, then don't display any description text.
+									if (hdnRCC.value) {
+										const creditClaimReason = creditClaimReasonDescriptionMap[hdnRCC.value.toLowerCase()];
+
+										if (creditClaimReason) {
+											document.getElementById("reasonCC").innerHTML = `${creditClaimReason}<br/>`;
+										} else {
+											// If there's not specific mapping for the selected reason, then look for a generic description
+											const genericReason = creditClaimReasonDescriptionMap['generic'];
+
+											if (genericReason) {
+												document.getElementById("reasonCC").innerHTML = `${genericReason}<br/>`;
+											} else {
+												document.getElementById("reasonCC").innerHTML = '';
+											}
+										}
+									} else {
+										document.getElementById("reasonCC").innerHTML = '';
+									}
                                     
                                     if(hdnBU.value == "Australia Post"){
                                         document.getElementById("panel3").style.display = "block";

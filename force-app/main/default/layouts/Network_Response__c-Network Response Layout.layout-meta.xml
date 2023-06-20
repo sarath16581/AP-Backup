@@ -25,6 +25,10 @@
                 <behavior>Edit</behavior>
                 <field>Network_Comments__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Quality_of_the_case__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

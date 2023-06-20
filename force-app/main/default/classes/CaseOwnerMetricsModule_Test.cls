@@ -8,6 +8,7 @@
 * @description Test class covering CaseOwnerMetricsModule
 * @changelog
 * 2021-12-08 - Ashapriya Gadi - Created
+* 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
 */
 @IsTest
 Private class CaseOwnerMetricsModule_Test {
@@ -21,7 +22,7 @@ Private class CaseOwnerMetricsModule_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		//get a queue
 		List<Group> queues = ApplicationTestDataFactory.getGroups(1,true);
 		queues[0].Name = 'BGS Amazon';
@@ -53,7 +54,7 @@ Private class CaseOwnerMetricsModule_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		//get a queue that is not in custom metadata
 		List<Group> queues = ApplicationTestDataFactory.getGroups(1,true);
 		queues[0].Name = 'BAU Users';
@@ -100,7 +101,7 @@ Private class CaseOwnerMetricsModule_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		//get a queue that is not in custom metadata
 		List<Group> queues = ApplicationTestDataFactory.getGroups(1,true);
 		queues[0].Name = 'BAU Users';

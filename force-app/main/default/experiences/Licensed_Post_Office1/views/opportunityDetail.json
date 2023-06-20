@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsTwoCol84Layout",
+  "dataProviders" : [ ],
   "id" : "360d4cf6-aa98-44a8-adb5-b9ada6d5d909",
   "label" : "Opportunity Detail",
   "regions" : [ {

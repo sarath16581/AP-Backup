@@ -1,13 +1,9 @@
 /**
 * @author George Nguyen
-* @date 2020-10-18
-* @group Selector
-* @tag Selector
-* @tag ServiceResourceSkill SObject
-* @domain OmniDomain
-* @description A very simple selector class that sits in the OmniDomain
+* @date 2022-10-18
 * @changelog
-* 2020-11-18 - George Nguyen - Created 
+* 2022-11-18 - George Nguyen - Created 
+* 2023-05-21 - Nathan Franklin - Added new constructors
 */
 public inherited sharing class ServiceResourceSkillSelector extends ApplicationSelector {
 
@@ -34,6 +30,16 @@ public inherited sharing class ServiceResourceSkillSelector extends ApplicationS
 
 	public static ServiceResourceSkillSelector newInstance(Integer recordLimit) {
 		return (ServiceResourceSkillSelector)Application.Selectors.newInstance(ServiceResourceSkillSelector.class).setLimit(recordLimit);
+	}
+
+	public static ServiceResourceSkillSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		ServiceResourceSkillSelector selector = (ServiceResourceSkillSelector) Application.Selectors.newInstance(ServiceResourceSkillSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	public static ServiceResourceSkillSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		ServiceResourceSkillSelector selector = (ServiceResourceSkillSelector) Application.Selectors.newInstance(ServiceResourceSkillSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
 	}
 
 	public virtual override SObjectType getSObjectType() {

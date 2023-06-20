@@ -11,6 +11,7 @@
 * 2023-02-06 - Nathan Franklin - Added search method and additional selector options and field overrides
 * 2023-02-08 - Noel Lim - Added method selectByLastModifiedDateLessThanEqualNDaysAgo
 * 2023-02-16 - Nathan Franklin - Modified search parameters
+* 2023-05-22 - Nathan Franklin - Modified search parameters
 */
 public inherited sharing class PendingServiceRoutingSelector extends ApplicationSelector {
 
@@ -125,7 +126,9 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 *
 	 * @param searchParams A map containing searchable values:
 	 *						  limitToCaseOnly: boolean to add a Case limiter to ensure only Cases are returned (Boolean)
-	 *						  queueIds: grab the records specific to the queues passed in
+	 *						  isPreferredUserRequiredOnly: boolean only select preferred agent PSR records (Boolean)
+	 *						  queueIds: grab the records specific to the queues passed in (Set<Id>)
+	 *						  workItemIds: grab the records specific to the WorkItemId's passed in (Set<Id>)
 	 *						  idGreaterThan: return records greater than the id passed in (Id)
 	 *						  orderBy: set the order by field (SObjectField)
 	 *						  sortOrder: set the sort direction (asc,desc)
@@ -144,7 +147,9 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 	 *
 	 * @param searchParams A map containing searchable values:
 	 *						  limitToCaseOnly: boolean to add a Case limiter to ensure only Cases are returned (Boolean)
-	 *						  queueIds: grab the records specific to the queues passed in
+	 *						  isPreferredUserRequiredOnly: boolean only select preferred agent PSR records (Boolean)
+	 *						  queueIds: grab the records specific to the queues passed in (Set<Id>)
+	 *						  workItemIds: grab the records specific to the WorkItemId's passed in (Set<Id>)
 	 *						  idGreaterThan: return records greater than the id passed in (Id)
 	 *						  orderBy: set the order by field (SObjectField)
 	 *						  sortOrder: set the sort direction (asc,desc)
@@ -156,7 +161,9 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 		System.debug('searchParams: ' + searchParams);
 
 		Boolean limitToCaseOnly = (searchParams.get('limitToCaseOnly') == null || searchParams.get('limitToCaseOnly') == false ? false : true);
+		Boolean isPreferredUserRequiredOnly = (searchParams.get('isPreferredUserRequiredOnly') == null || searchParams.get('isPreferredUserRequiredOnly') == false ? false : true);
 		Set<Id> queueIds = (Set<Id>)(searchParams.get('queueIds') == null ? new Set<Id>() : (searchParams.get('queueIds') instanceof Set<Id> ? searchParams.get('queueIds') : new Set<Id>{(Id)searchParams.get('queueIds')}));
+		Set<Id> workItemIds = (Set<Id>)(searchParams.get('workItemIds') == null ? new Set<Id>() : (searchParams.get('workItemIds') instanceof Set<Id> ? searchParams.get('workItemIds') : new Set<Id>{(Id)searchParams.get('workItemIds')}));
 		Id idGreaterThan = searchParams.get('idGreaterThan') == null ? null : (Id)searchParams.get('idGreaterThan');
 		SObjectField orderBy = searchParams.get('orderBy') == null ? null : (SObjectField)searchParams.get('orderBy');
 		String sortOrder = searchParams.get('sortOrder') == null ? '' : String.valueOf(searchParams.get('sortOrder'));
@@ -179,8 +186,16 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 			conditions.add(new QueryBuilder.SimpleCondition('ServiceChannel.RelatedEntity = \'Case\''));
 			conditionCount++;
 		}
+		if(isPreferredUserRequiredOnly) {
+			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.IsPreferredUserRequired + ' = :isPreferredUserRequiredOnly'));
+			conditionCount++;
+		}
 		if(!queueIds.isEmpty()) {
 			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.QueueId + ' In :queueIds'));
+			conditionCount++;
+		}
+		if(!workItemIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(PendingServiceRouting.WorkItemId + ' In :workItemIds'));
 			conditionCount++;
 		}
 		if(idGreaterThan != null) {

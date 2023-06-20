@@ -9,6 +9,7 @@
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
  * 2022-07-15 - Hasantha Liyanage - DDS-11324 added mocking basics as a part of refactor phase 2
+ * 2023-06-07 - Talib Raza - REQ3209253: API version uplifted to v57.0
  */
 @IsTest(IsParallel=true)
 public with sharing class ChasProductsAndServicesControllerTest {

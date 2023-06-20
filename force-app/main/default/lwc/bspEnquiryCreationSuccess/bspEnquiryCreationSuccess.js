@@ -8,13 +8,14 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     @api enquiyType;
     @api caseNumber;
     @api edd;
+    @api containsEssentialMedicine;
+    @api hasSentimentalValue;
+    @api pageType;
     dateDisplayOption = {weekday:'long',month:'long',day:'numeric'};
     currentDate = new Date().toJSON().slice(0, 10);
     stBodyText;
     communityURL = '';
-    eddPlusBusinessDays
-    apHeaderHeading = 'Thanks, we\'ve received your enquiry';
-    apBodyHeading = 'What happens next';
+    eddPlusBusinessDays;
 
     @wire(getSTEnquiryCreationSuccessBodyText) wiredSTSuccessText({ data, error }) {
         if (data) {
@@ -37,6 +38,24 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
 
     get isSType() {
         return this.enquiyType ? (this.enquiyType == 'Startrack' ? true : false) : false;
+    }
+
+    get apHeaderHeading() {
+        if (this.isAPType) {
+            if (this.displayEDDVariation) {
+                return 'Thanks, we\'ve received your enquiry';
+            } else {
+                return 'Thank you, your enquiry has been sent.'
+            }
+        }
+    }
+
+    get apBodyHeading() {
+        if (this.isAPType) {
+            if (this.displayEDDVariation) {
+                return 'What happens next';
+            }
+        }
     }
 
     get headerContent() {
@@ -70,7 +89,23 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
         }
     }
 
-    eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus) {
+    get displayEDDVariation() {
+        return this.edd && this.pageType?.toLowerCase() === 'missing item';
+    }
+
+    get parcelTense() {
+        return this.edd < this.currentDate ? 'was' : 'is';
+    }
+
+    eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd) {
+        if (!this.displayEDDVariation) { // no edd provided, or this is being passed from the BSP LOMI form
+            return noEdd;
+        }
+
+        if (this.containsEssentialMedicine?.toLowerCase() === 'yes' || this.hasSentimentalValue?.toLowerCase() === 'yes') { // return the after edd+business days content regardless of edd if it contains essential medicine
+            return afterEddPlus;
+        }
+
         if (this.currentDate <= this.edd ) { // before edd
             return beforeEdd;
         } else if (this.currentDate <= this.eddPlusBusinessDays) { // before edd+business days
@@ -81,15 +116,21 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     }
 
     aPHeaderContent() {
+        let noEdd = 'Your reference number is ' +
+                    '<a href="' + this.communityURL + '/s/EnquiryDetail?enquiryNumber=' + this.caseNumber + '" target="_blank" ><b>' + this.caseNumber + ' </b></a>' +
+                    ' and we’ve' +
+                    ' emailed you a copy for your records.' +
+                    ' A Business Customer Representative will be in touch shortly, usually within one to two business days.';
+
         let beforeEdd = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>' +
-        '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
+        '<br><p>This parcel ' + this.parcelTense + ' expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
          let beforeEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>' +
-         '<br><p>This parcel is expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
+         '<br><p>This parcel ' + this.parcelTense + ' expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
         let afterEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>';
 
-        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus);
+        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd);
     }
 
     aPBodyContent() {
@@ -112,11 +153,12 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     }
 
     aPNoteContent() {
+        let noEdd = 'Please note: This excludes weekends and national public holidays.';
         let beforeEdd =  '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +' - usually within 2 business days - or if this parcel is delivered.</p>';
         let beforeEddPlus = '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +' - usually within 2 business days - or if this parcel is delivered.</p>';
         let afterEddPlus = '';
 
-        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus);
+        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd);
     }
 
     onClickCancel() {

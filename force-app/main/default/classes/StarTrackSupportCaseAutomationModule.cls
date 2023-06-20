@@ -6,12 +6,15 @@
  * 2. Populate Case Subject - Update case subject if article or Pickup_Booking_Reference__c is not null
  * 3. Reopen Case - Update FCR__c to false when case status is changed
  * 
- * @Test StarTrackSupCaseAutomationModule_Test
- * 
+ * @test StarTrackSupCaseAutomationModule_Test
  * @changelog
+ * 2023-06-14 - Nathan Franklin - uplift to domainless architecture
  */
-
-public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationModule {
+	
+	/**
+	 * @deprecated
+	 */
 	public static StarTrackSupportCaseAutomationModule newInstance() {
 		return (StarTrackSupportCaseAutomationModule) Application.Utilities.newInstance(
 			StarTrackSupportCaseAutomationModule.class
@@ -137,15 +140,6 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 					c.Subject = c.Call_Purpose__c + ':' + c.Pickup_Booking_Reference__c;
 				}
 			}
-		}
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) StarTrackSupportCaseAutomationModule.newInstance();
 		}
 	}
 }
