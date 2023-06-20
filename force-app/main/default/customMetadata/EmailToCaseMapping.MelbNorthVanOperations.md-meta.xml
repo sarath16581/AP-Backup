@@ -3,7 +3,7 @@
     <label>Melb North Van Operations</label>
     <protected>false</protected>
     <values>
-        <field>AssignNetwork__c</field>
+        <field>AssignNetworkWCIS__c</field>
         <value xsi:nil="true"/>
     </values>
     <values>

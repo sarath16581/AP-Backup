@@ -173,7 +173,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		return new Case(
 			Id = parentCase.Id,
 			Priority = String.isNotBlank(emailToCaseMapping.CasePriority__c) ? emailToCaseMapping.CasePriority__c : parentCase.Priority,
-			Network__c = String.isNotBlank(emailToCaseMapping.AssignNetwork__c) ? emailToCaseMapping.AssignNetwork__c : parentCase.Network__c,
+			Network__r = String.isNotBlank(emailToCaseMapping.AssignNetworkWCIS__c) ? new Network__c(Org_ID__c = emailToCaseMapping.AssignNetworkWCIS__c)  : new Network__c(Id = parentCase.Network__c),
 			EmailToCaseAddress__c = emailToCaseMapping.EmailToCaseAddress__c,
 			Call_Purpose__c = String.isNotBlank(emailToCaseMapping.CasePurpose__c) ? emailToCaseMapping.CasePurpose__c : parentCase.Call_Purpose__c
 		);

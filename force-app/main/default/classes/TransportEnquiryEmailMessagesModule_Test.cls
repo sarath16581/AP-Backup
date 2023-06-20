@@ -45,8 +45,8 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		//get EmailToCase Mapping custom metadata
 		List<EmailToCaseMapping__mdt> emailToCaseMappings = ApplicationTestDataFactory.getEmailToCaseMappings(1, 'melbournevanoperations@test.com', true);
 		emailToCaseMappings.addAll(ApplicationTestDataFactory.getEmailToCaseMappings(1, 'sydneyvanoperations@test.com', true));
-		emailToCaseMappings[0].AssignNetwork__c = '0DB000000000000001';
-		emailToCaseMappings[1].AssignNetwork__c = '0DB000000000000002';
+		emailToCaseMappings[0].AssignNetworkWCIS__c = '1234';
+		emailToCaseMappings[1].AssignNetworkWCIS__c = '3456';
 		emailToCaseMappings[1].CasePriority__c = 'Medium';
 
 		// =====================================
@@ -82,8 +82,8 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		//asserting case records updated with correct data
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<Case>) fflib_Match.eq(new List<Case>{
-				new Case(Id = cases[0].Id, Priority = 'Low', Network__c = '0DB000000000000001', EmailToCaseAddress__c = 'melbournevanoperations@test.com', Call_Purpose__c = null),
-				new Case(Id = cases[1].Id, Priority = 'Medium', Network__c = '0DB000000000000002', EmailToCaseAddress__c = 'sydneyvanoperations@test.com', Call_Purpose__c = null)
+				new Case(Id = cases[0].Id, Priority = 'Low', Network__r = new Network__c(Org_ID__c ='1234'), EmailToCaseAddress__c = 'melbournevanoperations@test.com', Call_Purpose__c = null),
+				new Case(Id = cases[1].Id, Priority = 'Medium', Network__r = new Network__c(Org_ID__c ='3456'), EmailToCaseAddress__c = 'sydneyvanoperations@test.com', Call_Purpose__c = null)
 			}),
 			fflib_Match.eqBoolean(true),
 			fflib_Match.eqString(TransportEnquiryEmailMessagesModule.class.getName())
@@ -92,8 +92,8 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		((TransportEnquiryCaseService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getTransportEnquiryRecordTypeId();
 
 		Assert.areEqual(2, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected 2 case records to be updated');
-		Assert.areEqual('0DB000000000000001', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Network__c, 'Expected network field to be updated');
-		Assert.areEqual('0DB000000000000002', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).Network__c, 'Expected network field to be updated');
+		Assert.areEqual('1234', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Network__r.Org_ID__c, 'Expected network field to be updated');
+		Assert.areEqual('3456', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).Network__r.Org_ID__c, 'Expected network field to be updated');
 		Assert.areEqual('melbournevanoperations@test.com', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).EmailToCaseAddress__c, 'Expected email to case address field to be updated');
 		Assert.areEqual('sydneyvanoperations@test.com', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).EmailToCaseAddress__c, 'Expected email to case address field to be updated');
 		Assert.areEqual('Medium', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).Priority, 'Expected priority field to be updated');
