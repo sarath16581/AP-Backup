@@ -1,6 +1,7 @@
 {
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "componentName" : "siteforce:sldsTwoCol66Layout",
+  "dataProviders" : [ ],
   "id" : "38708e78-1037-4a73-988c-4a2acc7e18a9",
   "label" : "Partner Dashboard",
   "regions" : [ {
@@ -9,58 +10,6 @@
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
-        "reportId" : "00O2v00000MIc6T",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "0e749708-f0d6-4a68-a585-36f781e1382d",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
-        "reportId" : "00O2v00000MIc6U",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "c3e9de2c-7280-4284-9dfd-6a9c1c582284",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
-        "reportId" : "00O2v00000MIc6Q",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "d9db5f35-f66a-4ece-9b8a-4238472b43b8",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
-        "reportId" : "00O2v00000MN8x4",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "586028f9-8026-41e4-8591-8443e04ca305",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
@@ -73,38 +22,25 @@
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "cacheAge" : 1440,
+        "filterName" : "",
+        "reportId" : "00O2v00000MIc6T",
+        "showRefreshButton" : true,
+        "showTitle" : true
+      },
+      "componentName" : "forceCommunity:reportChart",
+      "id" : "0e749708-f0d6-4a68-a585-36f781e1382d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
     } ],
     "id" : "f99c0aab-843d-48b2-96a7-f7552d78bf74",
     "regionName" : "content",
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
-        "reportId" : "00O2v00000MIc6V",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "df56b282-b42e-4e44-8751-38b35af04724",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "cacheAge" : 1440,
-        "filterName" : "",
-        "reportId" : "00O2v00000MIc6R",
-        "showRefreshButton" : true,
-        "showTitle" : true
-      },
-      "componentName" : "forceCommunity:reportChart",
-      "id" : "3c492cc3-808e-4dac-b204-7dead031e847",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
@@ -121,12 +57,12 @@
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
-        "reportId" : "00O2v00000MN8x2",
+        "reportId" : "00O2v00000MN8x4",
         "showRefreshButton" : true,
         "showTitle" : true
       },
       "componentName" : "forceCommunity:reportChart",
-      "id" : "35643d73-3af1-474d-a8cc-189c750e49a2",
+      "id" : "586028f9-8026-41e4-8591-8443e04ca305",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

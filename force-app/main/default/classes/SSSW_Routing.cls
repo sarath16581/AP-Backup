@@ -2,7 +2,7 @@
   * @author	   :
   * @date		 :
   * @description  : AP Routing service class
-  * @test SSSW_Routing_Test, CaseCommonUtility_Test, ChasBaseTest
+  * @test SSSW_Routing_Test, CaseRoutingService_Test, ChasBaseTest
 --------------------------------------- History ------------------------------------------------------------------------------------
 * 10.28.2020			 naseer.abbasi@auspost.com.au			Updated to cater for Strategic cases
 * 2020-10-28 - Ranjeewa Silva - Refactored 'assignCasesAndDescription' to move population of description into it's own method.
@@ -18,6 +18,7 @@
 *				d) change of existing boolean parameter's logic and label in assignCasesAndDescription(). Parameter is now 'isFinalPass' and prevents a rerouted Case from being put in the holding queue
 * 2022-12-16 - George Nguyen - added processPreferredAgentExpiry
 * 2023-03-02 - Noel Lim - added logic to assign cases without a matched routing rule to a default Omni queue
+* 2023-05-15 - Nathan Franklin - rejigging routing engine code and debug message tidyup
 **/
 
 public class SSSW_Routing {
@@ -251,11 +252,7 @@ public class SSSW_Routing {
 				}
 			}
 		}
-		System.debug(LoggingLevel.ERROR, 'Against Rule ' + rule.Sequence__c + ':  ' + rule);
-
-		if(ruleMatched){
-			System.debug(LoggingLevel.ERROR, 'Match identified with rule at Sequence: ' + rule.Sequence__c);
-		}
+		
 		return ruleMatched;
 	}
 
@@ -298,8 +295,6 @@ public class SSSW_Routing {
 			}
 		}
 
-		System.debug(LoggingLevel.ERROR, 'Against Rule ' + rule.Sequence__c + ':  ' + rule);
-
 		Boolean ruleMatched = false;
 		if(valueMatches.values().size() > 0) {
 			ruleMatched = true;
@@ -310,9 +305,7 @@ public class SSSW_Routing {
 				}
 			}
 		}
-		if(ruleMatched) {
-			System.debug(LoggingLevel.ERROR, 'Match identified with rule at Sequence: ' + rule.Sequence__c);
-		}
+		
 		return ruleMatched;
 	}
 
@@ -396,21 +389,22 @@ public class SSSW_Routing {
 			getArticleAttributesMap(referenceIds);		 
 		}
 
+		OmniChannelService omniService = OmniChannelService.getInstance();
+
 		for (Case cs : cases) {
 			Id routingOwner; 
 			Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;
-
+			
 			// we only want to process the routing rules in these scenarios:
 			// 1. if the case is being reassigned (through the ui) - CaseDetails page
 			// 2. If a reroute is triggered by setting allocatetoqueue__c = true)
-			//
-			// There are some fringe scenarios where routing should be excluded and due to the mess in workflows a new attribute was introduced to achieve this  (ByPassRoutingRulesOnCreation__c)
-			if((reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) && !(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
+			// 3. routing rules are not being bypassed on creation (when the caller already knows the queue the case should be assigned to... there is automation in the system that still seems to set allocatetoqueue__c so we use ByPassRoutingRulesOnCreation__c to override it)
+			if(reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) {
+				Boolean routingRuleMatched = false;
 
 				for (SSSWRouting__c rule : routeRule) {			
 					
 					if (rule.Match_Rules_On__c.equals('ANY')) {
-						System.debug(LoggingLevel.ERROR, '**Processing ANY rule');
 
 						// Ensuring cases follow the default routing logic if rule is not Strategic
 						// Also ensuring incase of a Strategic rule (ordered by sequence__c and ArticleID isn't present),
@@ -421,39 +415,35 @@ public class SSSW_Routing {
 						// if found in SAP-EM, explicit call to assignCasesAndDescription() to find the queue
 						//TODO: have to set AllocateToQueue = false for portal cases
 						// Network cases to be skipped from routing in Insert Context
-						//
-						// Modified 25/6/2021 to use RuleRequiresArticleAttributes__c ( true when either IsStrategic OR HasExtraCover is true)
-						// cases follow default logic if it is not either of these.
-						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
+						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null)) {
 							if (processAny(cs, rule, routingFields)) {
 								routingOwner = rule.Queue_ID__c;
 
-								system.debug(LoggingLevel.ERROR,'Rule Routing Owner Id: ' + routingOwner);
-
 								// set the new owner
-								setRoutingCaseOwner(cs, routingOwner);
+								setRoutingCaseOwner(cs, routingOwner, rule.Id);
 
 								// setting flag on case since selected routing rule is a strategic one
 								// its required to avoid triggering the specific workflow rules that might reset the case owner
 								cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
 
+								// this is set here since the value is derived from the routing rule
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
+
+								routingRuleMatched = true;
+
 								break;
-							} else {
-								setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniDefaultQueueId);
 							}
 
-							// Cases being created from H&S can be routed direct to network (currently via a queueable)
-							// In this scenario we ignore any strategic routing checks
-						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
+						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && !String.isEmpty(cs.ReferenceID__c)) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
+							setRoutingCaseOwner(cs, omniService.omniHoldingQueueId, rule.Id);
+
+							routingRuleMatched = true;
 
 							break;
 						}
 					} else if (Rule.Match_Rules_On__c.equals('ALL')) {
-						System.debug(LoggingLevel.ERROR, '**Processing ALL rule');
 
 						// Ensuring cases follow the default routing logic if rule is not Strategic
 						// Also ensuring incase of a Strategic rule (ordered by sequence__c and ArticleID isn't present),
@@ -464,37 +454,48 @@ public class SSSW_Routing {
 						// if found in SAP-EM, explicit call to assignCasesAndDescription() to find the queue
 						//TODO: have to set AllocateToQueue = false for portal cases
 						// Network cases to be skipped from routing in Insert context
-						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
+						if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null)) {
 							if (processAll(cs, rule, routingFields)) {
 
 								routingOwner = rule.Queue_ID__c;
-								system.debug(LoggingLevel.ERROR,'Rule Routing Owner Id: ' + routingOwner);
 
 								// set the new owner
-								setRoutingCaseOwner(cs, routingOwner);
+								setRoutingCaseOwner(cs, routingOwner, rule.Id);
 
 								// setting flag on case since selected routing rule is a strategic one
 								// its required to avoid triggering the specific workflow rules that might reset the case owner
 								cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
 
+								// this is set here since the value is derived from the routing rule
 								processPreferredAgentExpiry(cs, oldCase, rule, isFinalPass);
+
+								routingRuleMatched = true;
+
 								break;
-							} else {
-								setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniDefaultQueueId);
 							}
 
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)
 							// In this scenario we ignore any strategic routing checks
-						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
+						} else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && !String.isEmpty(cs.ReferenceID__c)) {
 
 							//Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-							setRoutingCaseOwner(cs, OmniChannelService.getInstance().omniHoldingQueueId);
+							setRoutingCaseOwner(cs, omniService.omniHoldingQueueId, rule.Id);
 
+							routingRuleMatched = true;
 
 							break;
 						}
 					}
 				}
+
+				if(!routingRuleMatched) {
+					System.debug('DEFAULT ROUTING RULE TRIGGERED!');
+					setRoutingCaseOwner(cs, omniService.omniDefaultQueueId, null);
+
+					// debug messaging to inform admin of routing path
+					CaseRoutingService.getInstance().populateRoutingDebug(cs, 'default routing rule hit!');
+				}
+
 			}
 
 			// skipDescriptionRules is false for cases in the normal context
@@ -518,29 +519,35 @@ public class SSSW_Routing {
 	@TestVisible
 	private static void processPreferredAgentExpiry(Case cs, Case oldCase, SSSWRouting__c rule, Boolean isFinalPass) {
 		if(cs.PreferredAgentExpiry__c == null && 
-			(isFinalPass || 
-			 oldCase != null && oldCase.PreferredAgentExpiry__c == null) && 
-			 cs.BusinessHoursId != null &&
-			 rule.PreferredAgentExpiry__c != null) {
+				(isFinalPass || (oldCase != null && oldCase.PreferredAgentExpiry__c == null)) && 
+				cs.BusinessHoursId != null &&
+				rule.PreferredAgentExpiry__c != null) {
 			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), rule.PreferredAgentExpiry__c.longValue() * 3600000);
 		}
 	}
 
-
 	@TestVisible
 	private static Boolean setRoutingCaseOwner(case cs, Id routingOwner){
-		//if(cs.AllocateToQueue__c != null && cs.AllocateToQueue__c){
-			String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(cs.CaseLocality__c) ?
-								LOC_INTERNATIONAL : cs.Customer_Type__c;
-			cs.OwnerId = (routingOwner != null) ? routingOwner : (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey))) ?
-																		groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id : cs.OwnerId;
-			cs.AllocateToQueue__c = false;	 // disable case queue allocation
-
-			return true;
-		//}
-
-		//return false;
+		return setRoutingCaseOwner(cs, routingOwner, null);
 	}
+
+	@TestVisible
+	private static Boolean setRoutingCaseOwner(case cs, Id routingOwner, Id ruleId) {
+
+		Boolean isHoldingQueue = OmniChannelService.getInstance().omniHoldingQueueId == routingOwner;
+
+		String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(cs.CaseLocality__c) ?
+							LOC_INTERNATIONAL : cs.Customer_Type__c;
+		cs.OwnerId = (routingOwner != null) ? routingOwner : (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey))) ?
+																	groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id : cs.OwnerId;
+		cs.AllocateToQueue__c = false;	 // disable case queue allocation
+
+		// debug messaging to inform admin of routing path
+		CaseRoutingService.getInstance().populateRoutingDebug(cs, (isHoldingQueue ? 'routing deferred: rule id: ' + ruleId : 'routed: ' + cs.OwnerId + ' rule id: ' + ruleId) + (reassignNoCheckOwnerQueue ? ' (reassignment)' : ''));
+
+		return true;
+	}
+
 	public static void applyNPSRules(List<Case> cases) {
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(SSSWConstants.RECTYPENPS);

@@ -6,6 +6,7 @@
  * @group Tests
  * @domain StarTrack
  * @changelog
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
 @IsTest
 private class StarTrackCalculateCaseDepotModule_Test {
@@ -20,7 +21,7 @@ private class StarTrackCalculateCaseDepotModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
@@ -108,7 +109,7 @@ private class StarTrackCalculateCaseDepotModule_Test {
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(3, null, true);
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(3, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true), cases[1].clone(true) };
 

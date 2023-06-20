@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values>
         <field>Product_Type__c</field>
-        <value xsi:type="xsd:string">eParcels Domestic,International,UMS,Courier,Print Post, Legacy Products, StarTrack, Unidentified, Securepay, On Demand,Local Pickup and Delivery Services,Track Mail, AP Global Solutions,Workforce Verification,Parcel Contract,Parcel Contract-Feature</value>
+        <value xsi:type="xsd:string">eParcels Domestic,International,UMS,Courier,Print Post, Legacy Products, StarTrack, Unidentified, Securepay, On Demand,Local Pickup and Delivery Services,Track Mail, AP Global Solutions,Workforce Verification,Parcel Contract,Parcel Contract-Feature,Metro</value>
     </values>
 </CustomMetadata>

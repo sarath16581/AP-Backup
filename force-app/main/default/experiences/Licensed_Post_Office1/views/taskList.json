@@ -1,0 +1,39 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "f0ea5dd3-ef75-4f38-8a13-6ee038e59758",
+  "label" : "Task List",
+  "regions" : [ {
+    "id" : "8f6fe936-8145-4e9d-b579-c7aa593836e4",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "enableInlineEdit" : false,
+        "listViewAPIName" : "LBP_Open_Tasks",
+        "objectAPIName" : "Task",
+        "rows" : "25",
+        "showActionBar" : false,
+        "showRowLevelActions" : false,
+        "showSearchBar" : true
+      },
+      "componentName" : "c:recordListCustom",
+      "id" : "e70727fa-0293-48b5-a103-c47e2321545d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "9b5d6511-64ee-439a-b190-991ccdf6f7ff",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "9669fb00-a430-4aca-a984-915cc6438153",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "list-00T"
+}

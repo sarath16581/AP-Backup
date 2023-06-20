@@ -1,7 +1,10 @@
 /**
- * Created by hasan on 22/03/2023.
+ * @description
+ * @author Hasantha
+ * @date 2022
+ * @changelog
+ * 2023-06-17 - Nathan Franklin - update for use with ApplicationModule
  */
-
 @IsTest
 public class StarTrackTrackingIDSearchModule_Test {
 
@@ -10,7 +13,7 @@ public class StarTrackTrackingIDSearchModule_Test {
         // Data Preparation
         // =====================================
         MockUtility.disableTriggerExecution();
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
         //insert case with queue as owner
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 
@@ -26,8 +29,7 @@ public class StarTrackTrackingIDSearchModule_Test {
         StarTrackTrackingIDSearchModule module = StarTrackTrackingIDSearchModule.newInstance();
         module.onAfterInsert( (List<SObject>)cases, uow);
 
-        StarTrackTrackingIDSearchModule.Constructor constructor = new StarTrackTrackingIDSearchModule.Constructor();
-        constructor.construct();
+        
         Test.stopTest();
 
     }

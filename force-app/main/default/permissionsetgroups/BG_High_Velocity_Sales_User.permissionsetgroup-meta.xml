@@ -10,6 +10,6 @@
     <permissionSets>KFSell_TempPerm_AMLCTF_Audit_Program_c</permissionSets>
     <permissionSets>MaritzCX__MaritzCX_User</permissionSets>
     <permissionSets>Marketing_Feedback_Account_Contact_Assignment</permissionSets>
-    <permissionSets>force__HighVelocitySalesUser</permissionSets>
+    <permissionSets>force__HighVelocitySalesUserIncluded</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

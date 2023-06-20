@@ -6,8 +6,8 @@
  * @group Tests
  * @domain Startrack
  * @changelog
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
-
 @IsTest
 private class StarTrackSupportCaseContactsModule_Test {
 	/**
@@ -20,7 +20,7 @@ private class StarTrackSupportCaseContactsModule_Test {
 		// Data Preparation
 		// =====================================
 
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> caseList = ApplicationTestDataFactory.getCases(7, false);
 
 		// Update the recordtype , suppliedemail and origin
@@ -69,7 +69,7 @@ private class StarTrackSupportCaseContactsModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> caseList = ApplicationTestDataFactory.getCases(7, true);
 
 		// Update the recordtype , suppliedemail and origin
@@ -108,7 +108,7 @@ private class StarTrackSupportCaseContactsModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> caseList = ApplicationTestDataFactory.getCases(1, true);
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 		Map<Id, Case> oldCaseList = new Map<Id, Case>();

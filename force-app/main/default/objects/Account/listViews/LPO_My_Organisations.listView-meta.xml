@@ -3,12 +3,11 @@
     <fullName>LPO_My_Organisations</fullName>
     <columns>ACCOUNT.ACCOUNT_NUMBER</columns>
     <columns>ACCOUNT.NAME</columns>
-    <columns>Role_Type_Roll_Up__c</columns>
+    <columns>Total_Actual_Revenue__c</columns>
+    <columns>Call_Cycle_Indicator__c</columns>
+    <columns>DaysSinceLastActivity__c</columns>
     <columns>ACCOUNT.ADDRESS2_CITY</columns>
     <columns>ACCOUNT.ADDRESS2_STATE</columns>
-    <columns>ABN__c</columns>
-    <columns>ACCOUNT.TYPE</columns>
-    <columns>PARENT_NAME</columns>
     <filterScope>Team</filterScope>
     <filters>
         <field>ACCOUNT.RECORDTYPE</field>

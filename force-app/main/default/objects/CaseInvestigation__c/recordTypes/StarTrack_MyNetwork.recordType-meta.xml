@@ -275,19 +275,39 @@
     <picklistValues>
         <picklist>Qualityofthecase__c</picklist>
         <values>
-            <fullName>Average</fullName>
+            <fullName>GPS_SDI_match_manifest_address</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Excellent</fullName>
+            <fullName>Incorrect_facility</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Good</fullName>
+            <fullName>Invalid_Incorrect_Missing_data</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Poor</fullName>
+            <fullName>Manifest_only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request_outside_service_offering</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable_to_fulfil_request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Within_EDD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>X2_weeks_past_delivered_date</fullName>
             <default>false</default>
         </values>
     </picklistValues>

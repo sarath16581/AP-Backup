@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Traded_In_Previous_Month__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(hidden_OrgRevenue_In_Previous_Month__c != 0 &amp;&amp; Current_Year__c, /* Green flag if Traded in Previous Month Current FY */
+    <formula>IF(hidden_OrgRevenue_In_Previous_Month__c != 0 &amp;&amp; CurrentYear__c, /* Green flag if Traded in Previous Month Current FY */
 IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;Traded&quot;),
-IF(NOT(Current_Year__c),
+IF(NOT(CurrentYear__c),
 &quot;NA&quot;, /* If not in Current Year = show &quot;NA&quot; message */
 IMAGE(&quot;/img/samples/flag_red.gif&quot;,&quot;Did Not Trade&quot;))) /* otherwise Red flag */</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

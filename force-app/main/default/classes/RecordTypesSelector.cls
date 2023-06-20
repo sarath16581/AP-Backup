@@ -12,8 +12,11 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-07-31 - Nathan Franklin - Added new method selectByName and transactional cache to minimise the need for platform cache
+ * 2023-06-13 - Nathan Franklin - Added selectByDeveloperNamesLike and small performance gain with not hitting app cache all the time
  */
 public inherited sharing class RecordTypesSelector extends ApplicationSelector {
+
+	public static Map<String, Map<Id, RecordType>> transactionRecordTypes = new Map<String, Map<Id, RecordType>>();
 
 	public static RecordTypesSelector newInstance() {
 		return (RecordTypesSelector)Application.Selectors.newInstance(RecordTypesSelector.class);
@@ -87,6 +90,24 @@ public inherited sharing class RecordTypesSelector extends ApplicationSelector {
 	}
 
 	/**
+	 * @description Retrieve record types by a partial match of a developer name
+	 * @param developerNames List of strings contained (doesn't need to be a full recordtype value) in the record types retrieved (Example: SSSW, or, SSSWDeliveryEnquiry etc..)
+	 */
+	public Map<Id, RecordType> selectByDeveloperNamesLike(String primaryObjectName, Set<String> developerNames) {
+		Map<Id, RecordType> output = new Map<Id, RecordType>();
+		Map<Id, RecordType> recordTypes = selectBySObject(primaryObjectName);
+		for(RecordType rt : recordTypes.values()) {
+			for(String developerName : developerNames) {
+				if(rt.DeveloperName.startsWith(developerName)) {
+					output.put(rt.Id, rt);
+					break;
+				}
+			}
+		}
+		return output;
+	}
+
+	/**
      * @description Returns a list of record types for a particular object and then caches the result
      * This is because the getGlobalDescribe can be very expensive in such a large org
      * All other Record type methods in this class should call this method
@@ -95,6 +116,10 @@ public inherited sharing class RecordTypesSelector extends ApplicationSelector {
 		Map<Id, RecordType> output;
 
 		if(String.isNotBlank(objName)) {
+
+			if(transactionRecordTypes.get(objName) != null) {
+				return transactionRecordTypes.get(objName);
+			}
 
 			// check platform cache
 			output = (Map<Id, RecordType>)CacheManager.get('UTILITY_RECORD_TYPES', objName);
@@ -107,6 +132,8 @@ public inherited sharing class RecordTypesSelector extends ApplicationSelector {
 			for(Schema.RecordTypeInfo result : Schema.getGlobalDescribe().get(objName).getDescribe().getRecordTypeInfos()) {
 				output.put(result.getRecordTypeId(), new RecordType(Id = result.getRecordTypeId(), Name = result.getName(), DeveloperName = result.getDeveloperName()));
 			}
+
+			transactionRecordTypes.put(objName, output);
 
 			CacheManager.put('UTILITY_RECORD_TYPES', objName, output);
 		}

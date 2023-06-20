@@ -1056,6 +1056,80 @@
             <valueName>Incorrect Cubic Data</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
+            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
+            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>Contract Expired - Charged Full Rate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
+            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
+            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>Manifest Not Posted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
+            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
+            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>Delivery Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
+            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
+            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>Incorrect service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
+            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
+            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>Duplicate Billing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
+            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
+            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>Incorrect Bill</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Security surcharge</controllingFieldValue>
             <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
             <valueName>Fee Refund Applied</valueName>
@@ -1065,14 +1139,17 @@
             <valueName>International Linehaul Surcharge</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
-            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
-            <valueName>Operator Error</valueName>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>No Proof Of Delivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <valueName>Incorrect service</valueName>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>Operator Error</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
@@ -1080,9 +1157,14 @@
             <valueName>Customer Claim Met</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Duplicate Billing</valueName>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Product Data Provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Product Return</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Accounting adjustment</controllingFieldValue>
@@ -1150,10 +1232,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Incorrect Bill</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
             <valueName>Incorrect Miscellaneous Charge</valueName>
         </valueSettings>
         <valueSettings>
@@ -1199,14 +1277,6 @@
         <valueSettings>
             <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
             <valueName>BML - Operator Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <valueName>Contract Expired - Charged Full Rate</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <valueName>Incorrect Product Data Provided</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
@@ -1269,18 +1339,6 @@
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
             <valueName>Manifest Correction Fee Credit</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Issue</controllingFieldValue>
-            <valueName>Manifest Not Posted</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Issue</controllingFieldValue>
-            <valueName>Delivery Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Issue</controllingFieldValue>
-            <valueName>No Proof Of Delivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Delivery Issue</controllingFieldValue>
@@ -1353,10 +1411,6 @@
         <valueSettings>
             <controllingFieldValue>Order Processing Error</controllingFieldValue>
             <valueName>Incorrect Weight</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Processing Error</controllingFieldValue>
-            <valueName>Product Return</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Order Processing Error</controllingFieldValue>
