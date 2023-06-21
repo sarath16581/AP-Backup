@@ -37,7 +37,7 @@ private class MyPost_CustomerMerge_Test{
         database.insert(accLoose);
         
         // set the schedule execution time
-        MyPost_CustomerMerge_Schedulable msc = new MyPost_CustomerMerge_Schedulable();
+        MyPost_CustomerMerge_Schedulable msc = new MyPost_CustomerMerge_Schedulable(10);
         String sch = '20 30 8 10 2 ?'; // base this on mode or whatever your params are
         
         Test.startTest();
@@ -135,7 +135,7 @@ private class MyPost_CustomerMerge_Test{
         test.startTest(); 
             
             // set the schedule execution time
-            MyPost_CustomerMerge_Schedulable msc = new MyPost_CustomerMerge_Schedulable();
+            MyPost_CustomerMerge_Schedulable msc = new MyPost_CustomerMerge_Schedulable(10);
             String sch = '20 30 8 10 2 ?'; // base this on mode or whatever your params are
             
             
@@ -234,7 +234,7 @@ private class MyPost_CustomerMerge_Test{
         test.startTest(); 
             
             // set the schedule execution time
-            MyPost_CustomerMerge_Schedulable msc = new MyPost_CustomerMerge_Schedulable();
+            MyPost_CustomerMerge_Schedulable msc = new MyPost_CustomerMerge_Schedulable(10);
             String sch = '20 30 8 10 2 ?'; // base this on mode or whatever your params are
             
             
