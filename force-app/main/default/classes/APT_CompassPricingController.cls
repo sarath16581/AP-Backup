@@ -224,7 +224,6 @@
 										keyServiceMap.put(keyService,ss);
 									}
 								}
-
 							}
 							//making key for FRS products
 							if(rcr.features!=null){
@@ -238,7 +237,7 @@
 										keyFRSMap.put(keyFeat,totalFields);
 									}
 									//CI-834 Add changes to Populate the Min Transit cover amount for Custom and Delegated Pricing Scenarios, Pass the parameter to update the PAV
-									if(fea.name.containsIgnoreCase('Transit Cover')) {
+									if('Transit Cover'.containsIgnoreCase(fea.name)) {
 										tcCoverFeature=fea;
 									}
 								}
@@ -303,7 +302,6 @@
 						exceptionHandler.setMessage(System.Label.INVALID_RATING_MODEL);
 						throw exceptionHandler;
 					}
-
 				}
 
 				else if(responseCustomPricing.getStatusCode() == 404){
@@ -317,7 +315,6 @@
 					exceptionHandler.setMessage(System.Label.SYSTEM_ERROR);
 					throw exceptionHandler;
 				}
-
 
 				if(rateCardResponseList != null && rateCardResponseList.size() > 0 && responseCustomPricing.getStatusCode() == 200){
 					updateProdConfigAndPricingForCart(quoteConfigurationId,selectedPSR,compassPriceResponse,key1List,keyServiceMap,keyFRSMap, true,customRefMap,tcCoverFeature);
@@ -411,7 +408,7 @@
 							li.Apttus_Config2__IsCustomPricing__c = true;
 							li.SAP_Custom_Reference__c = customRefMap.get(li.Compass_LineItem_Identifier__c);
 							if(compassPriceResponse != null && !keyFRSMap.isEmpty()){
-								if(li.Apttus_Config2__LineType__c == APT_Constants.LABEL_LINE_TYPE_OPTION && keyFRSMap.containsKey(li.Compass_LineItem_Identifier__c)){
+								if(APT_Constants.LABEL_LINE_TYPE_OPTION.equalsIgnoreCase(li.Apttus_Config2__LineType__c)  && keyFRSMap.containsKey(li.Compass_LineItem_Identifier__c)){
 									Decimal priceValue = keyFRSMap.get(li.Compass_LineItem_Identifier__c).price;
 									li.Apttus_Config2__BasePrice__c = priceValue;
 									li.Apttus_Config2__NetPrice__c = priceValue;
@@ -423,7 +420,7 @@
 								}
 							}
 							if(!key1List.isEmpty() && compassPriceResponse != null){
-								if(li.Apttus_Config2__LineType__c == APT_Constants.LABEL_LINE_TYPE_OPTION && key1List.contains(li.Compass_LineItem_Identifier__c)){
+								if(APT_Constants.LABEL_LINE_TYPE_OPTION.equalsIgnoreCase(li.Apttus_Config2__LineType__c) && key1List.contains(li.Compass_LineItem_Identifier__c)){
 
 									lineItemCustom.add(li.id);
 								}
