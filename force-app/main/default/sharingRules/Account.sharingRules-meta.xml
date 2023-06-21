@@ -259,24 +259,24 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_Edit_Organisations_to_LBPs</fullName>
-        <accessLevel>Edit</accessLevel>
+        <fullName>Share_Read_Organisations_to_LBPs</fullName>
+        <accessLevel>Read</accessLevel>
         <accountSettings>
             <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Edit</contactAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Share Edit access to Role of PartnerInfo National RNP Manager and its Internal Subordinates, when the Account Record Type is Organisation</description>
-        <label>Share Edit Organisations to LBPs</label>
+        <description>Share Read access to Role of PartnerInfo National RNP Manager and its Internal and Portal Subordinates, when the Account Record Type is Organisation</description>
+        <label>Share Read Organisations to LBPs</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>PartnerInfo_National_RNP_Manager</roleAndSubordinatesInternal>
+            <roleAndSubordinates>PartnerInfo_National_RNP_Manager</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Account_Access</fullName>
