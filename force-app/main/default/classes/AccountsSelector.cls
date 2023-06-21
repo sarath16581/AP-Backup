@@ -23,6 +23,7 @@
  * 2023-02-07 - Deepak Kemidi - remove minimum spend field reference from account object
  * 2023-03-17 - Naveen Rajanna - SMWD-397 - Added enums WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
  * 2023-05-01 - Naveen Rajanna - REQ2916371 - Changes to search function and Added enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
+ * 2023-06-21 - Naveen Rajanna - REQ2916371 - Modified selectByAPCNAndIdAndPersonAccount to have it's own logic instead of using search
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
@@ -130,8 +131,44 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 			String searchConditions,
 			Schema.SobjectField orderByField
 	) {
-		return search(searchParams, new Set<Object>{
-		}, searchConditions, orderByField);
+		QueryBuilder builder = newQueryBuilder();
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+
+		Set<String> apcns = (Set<String>) (searchParams.get('apcn') == null
+			? new Set<String>()
+			: (searchParams.get('apcn') instanceof Set<String> ? searchParams.get('apcn') : new Set<Id>{
+				(Id) searchParams.get('apcn')
+			}));
+		Set<Id> accIds = (Set<Id>) (searchParams.get('accId') == null
+			? new Set<Id>()
+			: (searchParams.get('accId') instanceof Set<Id> ? searchParams.get('accId') : new Set<Id>{
+				(Id) searchParams.get('accId')
+			}));
+		Boolean isPersonAccount = (Boolean) (searchParams.get('isPersonAccount') == null
+			? null
+			: (searchParams.get('isPersonAccount') instanceof Boolean
+				? searchParams.get('isPersonAccount')
+				: (Boolean) (searchParams.get('isPersonAccount'))));
+
+		conditions.add(new QueryBuilder.SimpleCondition(Account.apcn__pc + ' IN :apcns'));
+		conditions.add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds'));
+
+		if (isPersonAccount != null) {
+			conditions.add(new QueryBuilder.CompareCondition(Account.isPersonAccount).eq(isPersonAccount));
+		}
+
+		// ensure that the conditions order is the same as specified in Query Builder framework
+		//an example: (1 OR 2) AND 3
+		if (!String.isEmpty(searchConditions)) {
+			conditions.setConditionOrder(searchConditions);
+		}
+		//note that this only caters to desc at the moment, if you need to use asc, then this method will need to be enhanced
+		if (orderByField != null) {
+			builder.addOrderDesc(orderByField);
+		}
+
+		String soql = conditions.endConditions().toSoqlString();
+		return (List<Account>) Database.query(soql);
 	}
 
 	public List<Account> search(
