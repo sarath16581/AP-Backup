@@ -746,7 +746,6 @@ public with sharing class APT_PricingBatchUtility_Test {
 				}
 				pricingKeyToDataMap.put(pricingKey,pricingDataSet);
 			}
-			Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_STARTRACK_PRODUCT_TYPE);
 			for(String dpId : pricingDataWithMapping.keySet()){
 				lodgementZoneCodeToDescriptionMap.put(pricingDataWithMapping.get(dpId).get('Pickup Zone Code'), pricingDataWithMapping.get(dpId).get('Lodgement Zone'));
 			}
@@ -810,7 +809,6 @@ public with sharing class APT_PricingBatchUtility_Test {
 			set<APT_Pricing_Data__c> pricingDataSet = new set<APT_Pricing_Data__c> (priceDataList);
 			String pricingKey = priceDataList[0].APT_Product__c;
 			pricingKeyToDataMap.put(pricingKey,pricingDataSet);
-			Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_STARTRACK_PRODUCT_TYPE);
 			for(String dpId : pricingDataWithMapping.keySet()){
 				lodgementZoneCodeToDescriptionMap.put(pricingDataWithMapping.get(dpId).get('Pickup Zone Code'), pricingDataWithMapping.get(dpId).get('Lodgement Zone'));
 			}
@@ -1103,6 +1101,7 @@ public with sharing class APT_PricingBatchUtility_Test {
 		System.runAs(testuser) {
 			Apttus_Pricing_Data_Config__mdt pricingConfigMdt1 = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_STARTRACK_PRODUCT_TYPE);
 			Map<String, set<String>> networkTypeToZoneTypesMap = APT_PricingBatchUtility.createNetworkTypeToZoneTypesMap(pricingConfigMdt1);
+			system.assertEquals(networkTypeToZoneTypesMap.size()>0, true);
 		}
 	}
 
@@ -1112,7 +1111,6 @@ public with sharing class APT_PricingBatchUtility_Test {
 
 	@isTest static void getConfigCriteriaFieldsMapTest(){
 
-			Map<String, Apttus_Config2__PriceListItem__c> mapExistingKeyToPli = new map<String, Apttus_Config2__PriceListItem__c>();
 			List<APT_Pricing_Data__c> priceDataList = new List<APT_Pricing_Data__c>();
 			Map<String, Set<APT_Pricing_Data__c>> pricingKeyToDataMap = new Map<String, Set<APT_Pricing_Data__c>>();
 			Map<String,Map<String,String>> pricingDataWithMapping = new Map<String,Map<String,String>>();
@@ -1131,17 +1129,8 @@ public with sharing class APT_PricingBatchUtility_Test {
 							FROM APT_Pricing_Data__c
 							WHERE APT_Product__r.ProductCode = 'AIRLET'];
 		pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);
-			LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>(
-																	[SELECT Id, Apttus_Config2__ProductId__c,
-																		Apttus_Config2__ProductId__r.ProductCode,
-																		APT_Pricing_Key__c, APT_Zone_Type__c,
-																		APT_Zone_Combination__c
-																	FROM Apttus_Config2__PriceListItem__c
-																	Where Apttus_Config2__ProductId__r.ProductCode = 'AIRLET']);
 
 		Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_International_PRODUCT_TYPE);
-		Map<String, set<String>> networkTypeToZoneTypesMap = APT_PricingBatchUtility.createNetworkTypeToZoneTypesMap(pricingConfigMdt);
-
 		List<Apttus_Charge_Type_Criteria__mdt> chargeTypeCriterias = new List<Apttus_Charge_Type_Criteria__mdt>(
 				[Select Field_Expression__c, Field_Label__c,
 				Field_Name__c, Field_Type__c, Apttus_Pricing_Data_Config__c
@@ -1154,7 +1143,8 @@ public with sharing class APT_PricingBatchUtility_Test {
 			APT_Pricing_Data__c pd = new List<APT_Pricing_Data__c>(pricingKeyToDataMap.get(pk))[0];
 			pricingDataFieldToValueMap = pricingDataWithMapping.get(pd.Id);
 		}
-		APT_PricingBatchUtility.getConfigCriteriaFieldsMap(chargeTypeCriterias, null,pricingDataFieldToValueMap);
+		List<Map<String,String>>  plList=APT_PricingBatchUtility.getConfigCriteriaFieldsMap(chargeTypeCriterias, null,pricingDataFieldToValueMap);
+		system.assertEquals(plList.size()>0, true);
 	}
 
 	@isTest static void createPriceMatrixGenericTest(){
@@ -1198,7 +1188,8 @@ public with sharing class APT_PricingBatchUtility_Test {
 			for(String nationalRateNetworkType: listNationalRateNetworkTypes){
 				setNationalRateNetworkTypes.add(nationalRateNetworkType.trim());
 			}
-			APT_PricingBatchUtility.getSTZoneGroupMapping(setNationalRateNetworkTypes);
+			Map<String, Map<String, String>> stMap=APT_PricingBatchUtility.getSTZoneGroupMapping(setNationalRateNetworkTypes);
+			system.assertEquals(stMap.size()>0, true);
 	}
 
 	//Test PME creation for domestic product CAT1 STD
@@ -1223,7 +1214,6 @@ public with sharing class APT_PricingBatchUtility_Test {
 								APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
 							FROM APT_Pricing_Data__c
 							WHERE APT_Product__r.ProductCode = 'CAT1Standard'];
-		Map<Id,APT_Pricing_Data__c> pricingDataMap = new Map<Id,APT_Pricing_Data__c>(pricingDataList);
 		String pricingKey = pricingDataList[0].APT_Product__c+ '~' +'BANDED {Z6}' + '~' + 'CB';
 		Map<String,Map<String,String>> pricingDataWithMapping = new Map<String,Map<String,String>>();
 		pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(pricingDataList);
