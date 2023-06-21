@@ -30,6 +30,7 @@
             <value>
                 <fullName>Transit cover</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Transit cover</label>
             </value>
         </valueSetDefinition>
