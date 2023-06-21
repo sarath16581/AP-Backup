@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_LPO_Account_Name_Change</fullName>
+    <active>true</active>
+    <description>Restrict the change of Account Name for LPO Partner Community users</description>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp;
+ISCHANGED(Name) &amp;&amp;
+$Profile.Name == &apos;LPO Partner Community User&apos;</errorConditionFormula>
+    <errorMessage>Legal Entity Name cannot be edited.</errorMessage>
+</ValidationRule>
