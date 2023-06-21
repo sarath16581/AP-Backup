@@ -1118,6 +1118,10 @@
             <fullName>Transit cover</fullName>
             <default>false</default>
         </values>
+		 <values>
+            <fullName>Wine and Alcohol</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Go_No_Go__c</picklist>
