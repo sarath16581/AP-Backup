@@ -16,6 +16,7 @@
 * 2023-01-20 - Sarath.burra@auspost.com.au - Added APT_Evaluated_Spend_per_annum__c field in the getSObjectFieldList() to pick up the field during query.
 * 											 APT_Evaluated_Spend_per_annum__c is a new field added to PSR to capture the Evaluated spend of the customer as part of the story https://australiapost.jira.com/browse/CI-772
 * 2023-02-13- sarath.burra@auspost.com.au - Removed Deal_Support_Request__c.Compass_Quote_Reference__c duplicate field from getSObjectFieldList()
+* 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
 */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
 	public enum Options {
