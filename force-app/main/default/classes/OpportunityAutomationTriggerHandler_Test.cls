@@ -9,12 +9,9 @@ private class OpportunityAutomationTriggerHandler_Test {
 	
 	@IsTest
 	private static void testForCoverage() {
-
 		OpportunityAutomationTriggerHandler handler = new OpportunityAutomationTriggerHandler();
-		ApplicationUnitOfWork uow = handler.newUnitOfWork();
-
 		handler.registerModules();
-
+		
 		System.Assert(Opportunity.SObjectType == handler.getSObjectType());
 	}
 }
