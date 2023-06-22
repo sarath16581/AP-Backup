@@ -58,7 +58,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 		return new Set<SObjectField> {
 				User.Id,User.Name, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.UserRoleId, User.UserPermissionsLiveAgentUser,
 				User.OID_ID__c, User.UserType, User.Current_Owner_Role__c, User.LocaleSidKey, User.LanguageLocaleKey, User.TimeZoneSidKey, User.TimeZoneSidKey, User.Alias, User.IsActive,
-				User.ContactId, User.APCN__c, User.EmployeeNumber, User.IsPortalEnabled
+				User.ContactId, User.APCN__c, User.EmployeeNumber, User.IsPortalEnabled, User.APSNumber__c
 		};
 	}
 
