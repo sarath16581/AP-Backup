@@ -7,7 +7,8 @@
 @IsTest
 private class OpportunityLeadSeekerModule_Test {
 	/**
-	 * 
+	 * Test:
+	 * When a lead is inserted and the running user is a partner portal user with APS number, default the Lead Seeker checkbox and the Lead Source
 	 */
 	@isTest
 	static void testLeadSeeker() {
@@ -54,5 +55,40 @@ private class OpportunityLeadSeekerModule_Test {
 
 		System.Assert(oppties[0].LeadSource == OpportunityLeadSeekerModule.LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE, 'Expected opportunity record Lead Source to be ' + OpportunityLeadSeekerModule.LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE + '. Received ' + oppties[0].LeadSource);
 		System.Assert(oppties[0].Lead_Seeker__c == true, 'Expected opportunity record Lead Seeker to be true.');
+	}
+
+	/**
+	 * test the Exception handling on the module onBeforeInsert method
+	 */
+	@isTest
+	static void testExceptionHandling(){
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
+
+		 // =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		OpportunityLeadSeekerModule module = new OpportunityLeadSeekerModule();
+		module.onBeforeInsert(null, null);
+
+		Test.stopTest();
+
+		//An exception should be created when thre are invalid parameters in the onBeforeInsert
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
+		
+		// PMD warning
+		System.assert(true);
 	}
 }

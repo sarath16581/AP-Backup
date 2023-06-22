@@ -7,18 +7,17 @@
  * @changelog
  */
 public inherited sharing class OpportunityLeadSeekerModule extends ApplicationModule {
-
-	// Setup which triggers this module should respond to
-	public OpportunityLeadSeekerModule() {
-		getTriggerEvents().enableBeforeInsert();
-	}
-
 	// Make testing mocks easier
 	@TestVisible 
 	private Id currentUserId = System.UserInfo.getUserId();
 	@TestVisible
 	private static final String LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE = 'MyCommunity';
 	private static final String APP = 'Sales';
+	
+	// Setup which triggers this module should respond to
+	public OpportunityLeadSeekerModule() {
+		getTriggerEvents().enableBeforeInsert();
+	}
 
 	// Get the Facility record type id, used to determine whether an accout is a CPO
 	private Id facilityRTId {
