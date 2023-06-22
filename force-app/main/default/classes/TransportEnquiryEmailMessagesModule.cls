@@ -12,7 +12,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 
 	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
-	private static Set<String> emailHeaders = new Set<String>{'Delivered-To'};
+	private static Set<String> emailHeaders = new Set<String>{'Return-Path','Delivered-To'};
 
 	//get the map of email address to email to case mapping metadata
 	@TestVisible
@@ -137,8 +137,8 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		String emailAddress;
 		Map<String, List<String>> headerToEmailsMap = new Map<String, List<String>>();
 		
-		// Loop through the email headers and get the emails mapped to Delivered-To header.
-		// If an email is sent (either To, Cc or Bcc) to any of the configured email to case address in our metadata, it will be captured in Delivered-To header.
+		// Loop through the email headers and get the emails mapped to Return-Path and Delivered-To header.
+		// If an email is sent (either To, Cc or Bcc) to any of the configured email to case address in our metadata, it will be captured in Return-Path (or) Delivered-To header.
 
 		// All header lines are separated with \n
 		for (String headerLine : mail.Headers.split('\n')) {
@@ -149,6 +149,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 				if(headerToEmailsMap.get(segments[0]) == null) {
 					headerToEmailsMap.put(segments[0], new List<String>());
 				}
+				//check if it is Return-Path header
+				//extract the email address (testcaseau@outlook.com) from the Return-Path (ex- Return-Path:testcaseau+ SRS = PJ0XO = CJ = auspost.com.au = test.ap @outlook.com)
+				if (segments[0].equalsIgnoreCase('Return-Path')) {
+					segments[1] = segments[1].substringBefore('+').trim() + '@' + segments[1].substringAfterLast('@').trim();
+				} 
 				headerToEmailsMap.get(segments[0]).add(segments[1].trim());
 			}
 		}
