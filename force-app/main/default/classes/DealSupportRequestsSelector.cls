@@ -16,6 +16,7 @@
 * 2023-01-20 - Sarath.burra@auspost.com.au - Added APT_Evaluated_Spend_per_annum__c field in the getSObjectFieldList() to pick up the field during query.
 * 											 APT_Evaluated_Spend_per_annum__c is a new field added to PSR to capture the Evaluated spend of the customer as part of the story https://australiapost.jira.com/browse/CI-772
 * 2023-02-13- sarath.burra@auspost.com.au - Removed Deal_Support_Request__c.Compass_Quote_Reference__c duplicate field from getSObjectFieldList()
+* 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
 */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
 	public enum Options {
@@ -61,7 +62,7 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 			Deal_Support_Request__c.Id,Deal_Support_Request__c.Name, Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Integration_Status__c , Deal_Support_Request__c.Work_Type__c,
 			Deal_Support_Request__c.Billing_Account_Change_of_Details_Type__c, Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Credit_Work_Type__c, Deal_Support_Request__c.Lodgement_Point_to_Work_Centre_Code__c,
 			Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c, Deal_Support_Request__c.LastImplementationStageUpdate__c, Deal_Support_Request__c.Compass_Quote_Reference__c, Deal_Support_Request__c.Approved_Event__c,Deal_Support_Request__c.Opportunity__c,Deal_Support_Request__c.Stage__c,
-			Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Product__c,Deal_Support_Request__c.Approved_Pricing_Structure__c,Deal_Support_Request__c.Approved_lodgement_zone__c,Deal_Support_Request__c.Quote_Validity_End_Date__c,Deal_Support_Request__c.Approved_Tier__c,Deal_Support_Request__c.APT_Evaluated_Spend_per_annum__c
+			Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Product__c,Deal_Support_Request__c.Approved_Pricing_Structure__c,Deal_Support_Request__c.Approved_lodgement_zone__c,Deal_Support_Request__c.Quote_Validity_End_Date__c,Deal_Support_Request__c.Approved_Tier__c,Deal_Support_Request__c.APT_Evaluated_Spend_per_annum__c,Deal_Support_Request__c.Min_Transit_Cover_Amount_Per_Article__c,Deal_Support_Request__c.Transit_Cover_Type__c
 		};
 	}
 	/**

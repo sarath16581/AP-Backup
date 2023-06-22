@@ -1114,8 +1114,8 @@
             <fullName>Signature on delivery</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Transit cover</fullName>
+		 <values>
+            <fullName>Wine and Alcohol</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3370,6 +3370,16 @@
         </values>
         <values>
             <fullName>6 Months</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+	<picklist>Transit_Cover_Type__c</picklist>
+        <values>
+            <fullName>Adhoc</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Always On</fullName>
             <default>false</default>
         </values>
     </picklistValues>
