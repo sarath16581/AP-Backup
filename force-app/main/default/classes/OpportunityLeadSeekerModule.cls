@@ -64,12 +64,14 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	}
 
 	/*
-	 * This method determines whether a user is eligible for the Lead Seeker program (if they have an APS number and the account record they're associated with is of record type "Facility")
+	 * This method determines whether a user is eligible for the Lead Seeker program 
+	 * Used for Local Business Partners in MyCommunity - when the users create new Opportunities, they're automatically 
+	 * enrolled into the Lead Seeker program through which they earn points and rewards.
+	 * The criteria is: APS number on the user record and the account record they're associated with is of record type "Facility"
 	 */
 	private boolean isUserEligibleForLeadSeekerPoints() {
 		User userRecord = UsersSelector.newInstance(0, new Map<SObjectType, Set <SObjectField>>{
 													User.SObjectType => new Set <SObjectField>{ User.APSNumber__c },
-													Contact.SObjectType => new Set <SObjectField>{ Contact.Id },
 													Account.SObjectType => new Set <SObjectField>{ Account.RecordTypeId }})
 										.selectById(new Set <Id> { currentUserId }, 
 													new Set <Object> { UsersSelector.Options.WITH_COMMUNITY_ACCOUNT })
