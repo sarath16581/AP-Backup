@@ -9,6 +9,7 @@
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
  * 2022-05-20 - nasir.jawed@auspost.com.au - added the method to get line item record by passing parameter config id and Line Type
  * 2022-11-29 - nasir.jawed@auspost.com.au - added the Option WITH_PRODUCT
+ * 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
  */
 
 public with sharing class LineItemsSelector extends ApplicationSelector{
@@ -44,10 +45,10 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 		return new Set<SObjectField>{
 				Apttus_Config2__LineItem__c.Id, Apttus_Config2__LineItem__c.Apttus_Config2__AttributeValueId__c,Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c,Apttus_Config2__LineItem__c.APT_Product_Code__c,
 				Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c,Apttus_Config2__LineItem__c.Compass_LineItem_Identifier__c,
-				Apttus_Config2__LineItem__c.Apttus_Config2__NetPrice__c,Apttus_Config2__LineItem__c.SAP_Custom_Reference__c,
+				Apttus_Config2__LineItem__c.Apttus_Config2__NetPrice__c,Apttus_Config2__LineItem__c.SAP_Custom_Reference__c,Apttus_Config2__LineItem__c.Apttus_Config2__Description__c,
 				Apttus_Config2__LineItem__c.Apttus_Config2__IsCustomPricing__c,Apttus_Config2__LineItem__c.Apttus_Config2__PricingStatus__c,Apttus_Config2__LineItem__c.Apttus_Config2__AddedByRuleInfo__c,
 				Apttus_Config2__LineItem__c.APT_Pricing_Reason__c,Apttus_Config2__LineItem__c.APT_Display_Adjustment_Amount__c,Apttus_Config2__LineItem__c.APT_Previous_Discount__c,Apttus_Config2__LineItem__c.Apttus_Config2__AdjustmentAmount__c,
-				Apttus_Config2__LineItem__c.APT_Rate_Card_Key__c,Apttus_Config2__LineItem__c.APT_Product_Name__c ,Apttus_Config2__LineItem__c.APT_Product_Family__c 
+				Apttus_Config2__LineItem__c.APT_Rate_Card_Key__c,Apttus_Config2__LineItem__c.APT_Product_Name__c ,Apttus_Config2__LineItem__c.APT_Product_Family__c
 		};
 	}
 	/**

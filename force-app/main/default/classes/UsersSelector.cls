@@ -21,7 +21,7 @@
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_ROLE, WITH_PROFILE, WITH_CONTACT, FILTER_EXTERNAL_USERS
+		WITH_ROLE, WITH_PROFILE, WITH_CONTACT, FILTER_EXTERNAL_USERS, WITH_COMMUNITY_ACCOUNT
 	}
 
 	public static UsersSelector newInstance() {
@@ -327,6 +327,10 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 
 		if(selectorOptions.contains(Options.FILTER_EXTERNAL_USERS)) {
 			builder.addConditions().add(new QueryBuilder.CompareCondition(User.IsPortalEnabled).eq(true)).endConditions();
+		}
+
+		if(selectorOptions.contains(Options.WITH_COMMUNITY_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Contact.Account');
 		}
 
 		return builder;

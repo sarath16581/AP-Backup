@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Pricing_Key_Constituents__c</field>
-        <value xsi:type="xsd:string">Product Type</value>
+        <value xsi:type="xsd:string">Product Type,Transit Cover Type</value>
     </values>
     <values>
         <field>Product_Type__c</field>
