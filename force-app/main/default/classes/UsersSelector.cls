@@ -17,6 +17,7 @@
  * 2023-01-27 - Naveen Rajanna - Updated api version and added method selectUsersEligibleForDeactivationQueryLocator
  * 2023-02-01 - Noel Lim - added method selectActiveUserById 
  * 2023-03-01 - Nathan Franklin - add search conditions, new fields, and field overrides to related Profile selector
+ * 2023-06-23 - Boris Bachovski - add WITH_COMMUNITY_ACCOUNT Option
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
