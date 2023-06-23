@@ -13,7 +13,7 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	@TestVisible
 	private static final String LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE = 'MyCommunity';
 	private static final String APP = 'Sales';
-	
+
 	// Setup which triggers this module should respond to
 	public OpportunityLeadSeekerModule() {
 		getTriggerEvents().enableBeforeInsert();
@@ -41,7 +41,7 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	public override void onBeforeInsert(List <SObject> records, ApplicationUnitOfWork uow) {	
 		try {
 			if (!records.IsEmpty()) {
-				populateLeadSeeker((List <Opportunity>)records);
+				populateLocalBusinessPartnerLeadSeeker((List <Opportunity>)records);
 			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
@@ -54,7 +54,7 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	 * 
 	 * @param records the list of new records from the trigger.
 	 */
-	private void populateLeadSeeker(List <Opportunity> records) {
+	private void populateLocalBusinessPartnerLeadSeeker(List <Opportunity> records) {
 		if (isUserEligibleForLeadSeekerPoints()) {
 			for (Opportunity opptyRecord : records) {
 				opptyRecord.LeadSource = LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE;
@@ -67,11 +67,13 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	 * This method determines whether a user is eligible for the Lead Seeker program (if they have an APS number and the account record they're associated with is of record type "Facility")
 	 */
 	private boolean isUserEligibleForLeadSeekerPoints() {
-		User userRecord = UsersSelector.newInstance().selectById(new Set <Id> { currentUserId }, 
-																 new Set <Object> { UsersSelector.Options.WITH_CONTACT, 
-																					ContactsSelector.Options.WITH_ACCOUNT, 
-																					AccountsSelector.Options.WITH_RECORDTYPE }
-																).get(currentUserId);
+		User userRecord = UsersSelector.newInstance(0, new Map<SObjectType, Set <SObjectField>>{
+													User.SObjectType => new Set <SObjectField>{ User.APSNumber__c },
+													Contact.SObjectType => new Set <SObjectField>{ Contact.Id },
+													Account.SObjectType => new Set <SObjectField>{ Account.RecordTypeId }})
+										.selectById(new Set <Id> { currentUserId }, 
+													new Set <Object> { UsersSelector.Options.WITH_COMMUNITY_ACCOUNT })
+										.get(currentUserId);
 		
 		Boolean userHasAPSNumber = String.IsNotBlank(userRecord?.APSNumber__c);
 		Boolean userNetworkIsCPO = userRecord?.Contact?.Account?.RecordTypeId == facilityRTId;

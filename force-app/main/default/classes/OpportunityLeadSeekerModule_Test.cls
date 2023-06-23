@@ -35,9 +35,7 @@ private class OpportunityLeadSeekerModule_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockUsersSelector.selectById(new Set<Id> { user.Id }, 
-															new Set <Object> { UsersSelector.Options.WITH_CONTACT, 
-																				ContactsSelector.Options.WITH_ACCOUNT, 
-																				AccountsSelector.Options.WITH_RECORDTYPE }))
+															new Set <Object> { UsersSelector.Options.WITH_COMMUNITY_ACCOUNT }))
 						.thenReturn(new Map <Id, User> { user.Id => user });
 
 		MockUtility.Mocks.stopStubbing();
