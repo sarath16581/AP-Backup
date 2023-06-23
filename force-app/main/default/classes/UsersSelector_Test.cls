@@ -16,6 +16,7 @@
  * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
  * 2023-01-27 - Naveen Rajanna - Updated api version and test methods for selectUsersEligibleForDeactivationQueryLocator
  * 2022-02-01 - Noel Lim - updated testSelectorIntegration method, added test for new selectActiveUserById()
+ * 2023-06-23 - Boris Bachovski - updated - test WITH_COMMUNITY_ACCOUNT option
  */
 @IsTest
 public with sharing class UsersSelector_Test {
