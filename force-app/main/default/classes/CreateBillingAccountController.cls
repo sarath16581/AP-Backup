@@ -52,9 +52,9 @@ public with sharing class CreateBillingAccountController {
 			APT_AgreementLineItemsSelector.Options.WITH_CONTRACT,
 			APT_AgreementLineItemsSelector.Options.WITH_APPLIED_PSR}))
 			{
-			if('Australia Post Parcel Contract'.equalsIgnoreCase(ali.APT_Product_Name__c) &&  ali.Apttus_CMConfig__EffectiveDate__c!=null && ali.Apttus_CMConfig__EndDate__c!=null){
-				serviceDatesInPlace=true;
-			}
+				if('Australia Post Parcel Contract'.equalsIgnoreCase(ali.APT_Product_Name__c) &&  ali.Apttus_CMConfig__EffectiveDate__c!=null && ali.Apttus_CMConfig__EndDate__c!=null){
+					serviceDatesInPlace=true;
+				}
 		}
 		return serviceDatesInPlace;
 	}
@@ -75,7 +75,6 @@ public with sharing class CreateBillingAccountController {
 				billingAccountWithEmptyfieldsVar = generateBillingAccountCreationRequestFromDSR(recordId, null);
 			}
 			return billingAccountWithEmptyfieldsVar;
-
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
@@ -98,8 +97,7 @@ public with sharing class CreateBillingAccountController {
 
 			String onboardingRequestId = CreateBillingAccountHelper.createExternalOnboardingRequest(billingAccountWithEmptyfieldsVar.billingAccountAttributesDetails);
 			externalOnboardingRequestWithConnectionDetailsVar = CreateBillingAccountHelper.ExternalOnboardingRequestDetails(billingAccountWithEmptyfieldsVar, onboardingRequestId);
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 		return externalOnboardingRequestWithConnectionDetailsVar;
@@ -141,9 +139,7 @@ public with sharing class CreateBillingAccountController {
 			Continuation con = service.getContinuation(billingAccountJson, onboardingRequestId, sourceSystem);
 			con.state = stateInfoVar;
 			con.continuationMethod = 'processResponse';
-
 			return con;
-
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
@@ -155,8 +151,7 @@ public with sharing class CreateBillingAccountController {
 	 * @return			Boolean callout status; true for success or false for failure
 	 */
 	@AuraEnabled
-	public static Boolean processResponse(List<String> labels,
-	Object state) {
+	public static Boolean processResponse(List<String> labels,Object state) {
 		StateInfo stateinformation = (StateInfo)state;
 		HttpResponse response = Continuation.getResponse(labels[0]);
 		System.debug('response>>>>'+response);
@@ -591,7 +586,6 @@ public with sharing class CreateBillingAccountController {
 				lodgementDetail.lodgementPointId = can.Network__r.Org_ID__c;
 				billingAccountWrapperObj.sap.customer.lodgementPoints.add(lodgementDetail);
 			}
-
 		}
 			// sap details info --- END
 		System.debug('billingAccountWrapperObj='+JSON.serialize(billingAccountWrapperObj));
@@ -629,7 +623,7 @@ public with sharing class CreateBillingAccountController {
 			// call method to create external onboarding request and return wrapper obj to LWC for handling front-end
 			String onboardingRequestId = CreateBillingAccountHelper.createExternalOnboardingRequest(ratingPlanRequestPayload);
 			externalOnboardingRequestWithConnectionDetailsVar = CreateBillingAccountHelper.externalOnboardingRequestDetailsForRatingPlanActivation(ratingPlanRequestPayload, onboardingRequestId, recordId);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			throw new AuraHandledException('Error occurred while preparing a rating plan activation payload' + e.getMessage());
 		}
 		return externalOnboardingRequestWithConnectionDetailsVar;
@@ -669,7 +663,7 @@ public with sharing class CreateBillingAccountController {
 			con.state = stateInfoVar;
 			con.continuationMethod = 'processResponse';
 			return con;
-		} catch (Exception e) {
+		}catch (Exception e) {
 			throw new AuraHandledException('Error occurred while making a continuation callout to Camunda'+ e.getMessage());
 		}
 	}

@@ -45,7 +45,8 @@ public with sharing class CreateBillingAccountHelper {
 	 * 				  Seth Heang 12/05/21 - Add hasSubAccount and subAccountCount as parameters to be sent fir UI processing at LWC component
 	 */
 	public static billingAccountWithEmptyfields billingAccountValidations(BillingAccountWrapper billingAccountRecord, String integrationStatus ,
-											billingAccountWithOtherValidations otherValidationCheck, String tradingName, String legalEntityName, boolean hasSubAccount, Integer subAccountCount, String senderNameFromOpportunity){
+											billingAccountWithOtherValidations otherValidationCheck, String tradingName, String legalEntityName, boolean hasSubAccount, Integer subAccountCount, String senderNameFromOpportunity)
+	{
 		//Validation
 		List<String> fieldList = new List<String>();
 		if(otherValidationCheck.loggedInUserProfile !='Enterprise Onboarding' && otherValidationCheck.loggedInUserProfile !='System Administrator'){
@@ -344,7 +345,6 @@ public with sharing class CreateBillingAccountHelper {
 		}catch(Exception ex){
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'B&G Sales', 'CreateBillingAccountHelper' , 'createExternalOnboardingRequest', null, LoggingLevel.ERROR);
 		}
-
 		return String.valueOf(sResult[0].getId());
 	}
 
@@ -464,17 +464,16 @@ public with sharing class CreateBillingAccountHelper {
 	public static BillingAccountWrapper.CompassContractActivation generateActivateRatePlanJSON(Deal_Support_Request__c dsrRecord, Boolean isNewAccount) {
 		BillingAccountWrapper.CompassContractActivation activateRatePlan = new BillingAccountWrapper.CompassContractActivation();
 		try {
-
 			activateRatePlan.customer = new List<BillingAccountWrapper.ratingPlanCustomer>();
 			// Query Agreement lodgement point junction object based on contract Id, for populating the customer node in the payload
 			List<APT_Agreement_Lodgement_Point__c> agreementLPs = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(
 				new Set<Id>{(Id)dsrRecord.APT_Contract__c},
 				new Set<Object>{
-					APT_AgreementLodgementPointsSelector.Options.WITH_BILLING_ACCOUNT,
-					APT_AgreementLodgementPointsSelector.Options.WITH_CHARGE_ACCOUNT_REQ,
-					APT_AgreementLodgementPointsSelector.Options.WITH_SUB_ACCOUNT_REQ,
-					APT_AgreementLodgementPointsSelector.Options.WITH_ORGANISATION
-				}).values();
+				APT_AgreementLodgementPointsSelector.Options.WITH_BILLING_ACCOUNT,
+				APT_AgreementLodgementPointsSelector.Options.WITH_CHARGE_ACCOUNT_REQ,
+				APT_AgreementLodgementPointsSelector.Options.WITH_SUB_ACCOUNT_REQ,
+				APT_AgreementLodgementPointsSelector.Options.WITH_ORGANISATION
+			}).values();
 
 			List<BillingAccountWrapper.ratingPlanCustomer> linkedAccountsList = new List<BillingAccountWrapper.ratingPlanCustomer>();
 			Apttus__APTS_Agreement__c apttusContractForUpdate = new Apttus__APTS_Agreement__c(id=dsrRecord.APT_Contract__c);

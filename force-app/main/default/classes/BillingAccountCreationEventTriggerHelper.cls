@@ -55,7 +55,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 	/* Shashwat.Nath@Auspost.com has created this method to handle the billing account creation platform events
 		published by CAMUNDA to create the billing account in salesforce and associate it to the respective organisation.
 		The method takes list of platform events as an input parameter
-		*/
+	*/
 	public static void createBillingAccount(List<BillingAccountCreationEvent__e> listEvents) {
 		List<Billing_Account__c> billingAccountList  = new List<Billing_Account__c>();
 		List<sObject> updateRelatedRecords = new List<sObject>();
@@ -377,10 +377,10 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 	}
 
 	/**
-	 * @description     This method create SAP Contract record and populate appropriate field values based on successful Rating Plan activation request
-	 * @param           BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId
-	 * @return          APT_SAP_Contracts__c
-	 */
+	* @description     This method create SAP Contract record and populate appropriate field values based on successful Rating Plan activation request
+	* @param           BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId
+	* @return          APT_SAP_Contracts__c
+	*/
 	public static APT_SAP_Contracts__c createSAPContract(BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId,Apttus__AgreementLineItem__c lineItem){
 		APT_SAP_Contracts__c sapCon = new APT_SAP_Contracts__c();
 		sapCon.APT_SAP_Contract_Number__c = ratingPlanPE.Rating_Plan_Id__c;
@@ -444,7 +444,6 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 			billingAccountRecord.Email__c = ca?.APT_Correspondence_Email_Address__c;
 			billingAccountRecord.Customer_Name_2__c = ca?.APT_Legal_Entity_Name__c;
 			billingAccountRecord.Credit_Limit__c = ca?.APT_Requested_Credit_Limit__c;
-
 		}
 		else if(billingAccountEvent.Sub_Account_Request_Id__c != null){
 			billingAccountRecord.Street__c = subAccountMap.get(billingAccountEvent.Sub_Account_Request_Id__c)?.APT_Postal_Address_Street_Name__c;
@@ -467,10 +466,8 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 			}
 		}
 		else{
-
 			Account org = organisationMap.get(billingAccountEvent.Organisation_Record_Id__c);
 			Deal_Support_Request__c dsr = dealsupportRequestMap.get(billingAccountEvent.Request_Object_Id__c);
-
 			billingAccountRecord.Organisation__c = billingAccountEvent.Organisation_Record_Id__c;
 			billingAccountRecord.name = billingAccountEvent.Billing_Account_Name__c;
 			billingAccountRecord.LEGACY_ID__c = billingAccountEvent.Billing_Account_Number__c;
@@ -548,15 +545,15 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 		APT_Credit_Assessment__c caTobeUpdated = new APT_Credit_Assessment__c();
 
 		//-- If billing account created successfully then populating Billing number in CA record
-		if(String.isNotEmpty(billingRecordId) &&
-			('Success'.equalsIgnoreCase(billingAccountEvent.Status__c) || 'Partial Success'.equalsIgnoreCase(billingAccountEvent.Status__c))){
-				caTobeUpdated.Billing_Account__c = billingRecordId;
-				//wiping out the 'direct debit' info on success scenario
-				caTobeUpdated.Direct_Debit_Account_Name__c = '';
-				caTobeUpdated.Direct_Debit_Bank_Name__c = '';
-				caTobeUpdated.Direct_Debit_BSB_Number__c = '';
-				caTobeUpdated.Direct_Debit_Account_Number__c = '';
-			}
+		if(String.isNotEmpty(billingRecordId) && ('Success'.equalsIgnoreCase(billingAccountEvent.Status__c) || 'Partial Success'.equalsIgnoreCase(billingAccountEvent.Status__c)))
+		{
+			caTobeUpdated.Billing_Account__c = billingRecordId;
+			//wiping out the 'direct debit' info on success scenario
+			caTobeUpdated.Direct_Debit_Account_Name__c = '';
+			caTobeUpdated.Direct_Debit_Bank_Name__c = '';
+			caTobeUpdated.Direct_Debit_BSB_Number__c = '';
+			caTobeUpdated.Direct_Debit_Account_Number__c = '';
+		}
 		//-- populating integration status and its description in 'CA' record
 		caTobeUpdated.id = billingAccountEvent.Request_Object_Id__c;
 		caTobeUpdated.Integration_Status__c = billingAccountEvent.Status__c;
@@ -612,7 +609,8 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 				if(platformEventsMap.containsKey(billingAccountRecord.LEGACY_ID__c) &&
 				String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Sub_Account_Request_Id__c) &&
-				String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c)){
+				String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c))
+				{
 					// Setting up apttus contract to be updated
 
 					//Jansi : Only for DSR. For CA billingAccountNumberDSRMap will be blank.
@@ -857,99 +855,99 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 					String objectName = String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype());
 						//[Jansi:] Ignoring the email notification for CA
 					if(!CA_OBJECT.equalsIgnoreCase(objectName)){
-					if(eachEvent.Request_Object_Id__c != null){
-						objectName = String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype());
-					}
-					if(eachEvent.Sub_Account_Request_Id__c !=null){
-						objectName = String.valueOf(id.valueOf(eachEvent.Sub_Account_Request_Id__c)?.getsobjecttype());
-					}
-					// Setting up Notifications on Sucess
-					if('Success'.equalsIgnoreCase(eachEvent.Status__c)) {
-						Messaging.CustomNotification notification = new Messaging.CustomNotification();
-						notification.setSenderId(Userinfo.getUserId());
-						notification.setNotificationTypeId(customNotificationTypeList[0].id);
-						if (eachEvent.Request_Object_Id__c != null && objectName == DSR_OBJECT && dealsupportRequestMap.containskey(eachEvent.Request_Object_Id__c)) {
-							//TargetObjectId
-							notification.setTargetId(eachEvent.Request_Object_Id__c);
-							notification.setBody('Click here to go to the DSR record');
-							notification.setTitle('Billing account creation request for ' + organisationMap.get(eachEvent.Organisation_Record_Id__c) ?.name + ' is completed');
-							notification.send(new Set<String>{
-									dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
-							});
+						if(eachEvent.Request_Object_Id__c != null){
+							objectName = String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype());
 						}
-						else if(eachEvent.Sub_Account_Request_Id__c !=null && objectName == SUB_ACCOUNT_REQUEST){
-							notification.setTargetId(billingAccountMap.get(eachEvent.Billing_Account_Number__c).id);
-							notification.setBody('Click here to go to the Sub Account record');
-							notification.setTitle('Sub Account-' + eachEvent.Billing_Account_Number__c + ' for SAP Billing Account-' + eachEvent.Parent_Account_Number__c + ' has been Successfully Completed.');
-							if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype()))){
+						if(eachEvent.Sub_Account_Request_Id__c !=null){
+							objectName = String.valueOf(id.valueOf(eachEvent.Sub_Account_Request_Id__c)?.getsobjecttype());
+						}
+						// Setting up Notifications on Sucess
+						if('Success'.equalsIgnoreCase(eachEvent.Status__c)) {
+							Messaging.CustomNotification notification = new Messaging.CustomNotification();
+							notification.setSenderId(Userinfo.getUserId());
+							notification.setNotificationTypeId(customNotificationTypeList[0].id);
+							if (eachEvent.Request_Object_Id__c != null && objectName == DSR_OBJECT && dealsupportRequestMap.containskey(eachEvent.Request_Object_Id__c)) {
+								//TargetObjectId
+								notification.setTargetId(eachEvent.Request_Object_Id__c);
+								notification.setBody('Click here to go to the DSR record');
+								notification.setTitle('Billing account creation request for ' + organisationMap.get(eachEvent.Organisation_Record_Id__c) ?.name + ' is completed');
 								notification.send(new Set<String>{
-									dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
-								});
-							}else{
-								notification.send(new Set<String>{
-									subAccountMap.get(eachEvent.Sub_Account_Request_Id__c) ?.ownerId
+										dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
 								});
 							}
+							else if(eachEvent.Sub_Account_Request_Id__c !=null && objectName == SUB_ACCOUNT_REQUEST){
+								notification.setTargetId(billingAccountMap.get(eachEvent.Billing_Account_Number__c).id);
+								notification.setBody('Click here to go to the Sub Account record');
+								notification.setTitle('Sub Account-' + eachEvent.Billing_Account_Number__c + ' for SAP Billing Account-' + eachEvent.Parent_Account_Number__c + ' has been Successfully Completed.');
+								if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype()))){
+									notification.send(new Set<String>{
+										dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
+									});
+								}else{
+									notification.send(new Set<String>{
+										subAccountMap.get(eachEvent.Sub_Account_Request_Id__c) ?.ownerId
+									});
+								}
+							}
 						}
-					}
-					// Setting up Notifications on Partial Success
-					if('Partial Success'.equalsIgnoreCase(eachEvent.Status__c)){
-						Messaging.CustomNotification notification = new Messaging.CustomNotification();
-						notification.setSenderId(Userinfo.getUserId());
-						notification.setNotificationTypeId(customNotificationTypeList[0].id);
-						if (eachEvent.Request_Object_Id__c != null && objectName == DSR_OBJECT && dealsupportRequestMap.containskey(eachEvent.Request_Object_Id__c)) {
-							//TargetObjectId
-							notification.setTargetId(eachEvent.Request_Object_Id__c);
-							notification.setBody('Click here to navigate to exception description and remedial action');
-							notification.setTitle('New Charge and/or Sub Account - '+ eachEvent.Billing_Account_Number__c + ' has been created with exceptions in SAP ERP. Review and remediation actions required to ensure Billing Account is fully operational.');
-							notification.send(new Set<String>{
-									dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
-							});
-						}
-						else if(eachEvent.Sub_Account_Request_Id__c !=null && objectName == SUB_ACCOUNT_REQUEST){
-							notification.setTargetId(billingAccountMap.get(eachEvent.Billing_Account_Number__c).id);
-							notification.setBody('Click here to navigate to exception description and remedial action');
-							notification.setTitle('New Charge and/or Sub Account - '+ eachEvent.Billing_Account_Number__c + ' has been created with exceptions in SAP ERP. Review and remediation actions required to ensure Billing Account is fully operational.');
-							if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype()))){
+						// Setting up Notifications on Partial Success
+						if('Partial Success'.equalsIgnoreCase(eachEvent.Status__c)){
+							Messaging.CustomNotification notification = new Messaging.CustomNotification();
+							notification.setSenderId(Userinfo.getUserId());
+							notification.setNotificationTypeId(customNotificationTypeList[0].id);
+							if (eachEvent.Request_Object_Id__c != null && objectName == DSR_OBJECT && dealsupportRequestMap.containskey(eachEvent.Request_Object_Id__c)) {
+								//TargetObjectId
+								notification.setTargetId(eachEvent.Request_Object_Id__c);
+								notification.setBody('Click here to navigate to exception description and remedial action');
+								notification.setTitle('New Charge and/or Sub Account - '+ eachEvent.Billing_Account_Number__c + ' has been created with exceptions in SAP ERP. Review and remediation actions required to ensure Billing Account is fully operational.');
 								notification.send(new Set<String>{
-									dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
+										dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
 								});
-							}else{
+							}
+							else if(eachEvent.Sub_Account_Request_Id__c !=null && objectName == SUB_ACCOUNT_REQUEST){
+								notification.setTargetId(billingAccountMap.get(eachEvent.Billing_Account_Number__c).id);
+								notification.setBody('Click here to navigate to exception description and remedial action');
+								notification.setTitle('New Charge and/or Sub Account - '+ eachEvent.Billing_Account_Number__c + ' has been created with exceptions in SAP ERP. Review and remediation actions required to ensure Billing Account is fully operational.');
+								if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype()))){
+									notification.send(new Set<String>{
+										dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
+									});
+								}else{
+									notification.setTargetId(eachEvent.Sub_Account_Request_Id__c);
+									notification.send(new Set<String>{
+										subAccountMap.get(eachEvent.Sub_Account_Request_Id__c) ?.ownerId
+									});
+								}
+							}
+						}
+						// Setting up Notifications on Failure
+						if('Error'.equalsIgnoreCase(eachEvent.Status__c)) {
+							Messaging.CustomNotification notification = new Messaging.CustomNotification();
+							notification.setNotificationTypeId(customNotificationTypeList[0].id);
+							notification.setSenderId(Userinfo.getUserId());
+							if (eachEvent.Request_Object_Id__c != null && objectName == DSR_OBJECT && dealsupportRequestMap.containskey(eachEvent.Request_Object_Id__c)) {
+								notification.setBody('Click here to go to the DSR record');
+								notification.setTitle('Billing account creation request for ' + organisationMap.get(eachEvent.Organisation_Record_Id__c) ?.name + ' has encountered an Error . Please Reach out to the IT Support Team');
+								notification.setTargetId(eachEvent.Request_Object_Id__c); // target object id
+								notification.send(new Set<String>{
+										dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
+								});
+							}
+							else if(eachEvent.Sub_Account_Request_Id__c !=null && objectName == SUB_ACCOUNT_REQUEST){
 								notification.setTargetId(eachEvent.Sub_Account_Request_Id__c);
-								notification.send(new Set<String>{
-									subAccountMap.get(eachEvent.Sub_Account_Request_Id__c) ?.ownerId
-								});
+								notification.setBody('Click here to go to the SAR record');
+								notification.setTitle('Sub Account request for SAP Billing Account-'+ eachEvent.Parent_Account_Number__c +' has encountered an Error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed.');
+								if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype()))){
+									notification.send(new Set<String>{
+										dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
+									});
+								}else{
+									notification.send(new Set<String>{
+										subAccountMap.get(eachEvent.Sub_Account_Request_Id__c) ?.ownerId
+									});
+								}
 							}
 						}
-					}
-					// Setting up Notifications on Failure
-					if('Error'.equalsIgnoreCase(eachEvent.Status__c)) {
-						Messaging.CustomNotification notification = new Messaging.CustomNotification();
-						notification.setNotificationTypeId(customNotificationTypeList[0].id);
-						notification.setSenderId(Userinfo.getUserId());
-						if (eachEvent.Request_Object_Id__c != null && objectName == DSR_OBJECT && dealsupportRequestMap.containskey(eachEvent.Request_Object_Id__c)) {
-							notification.setBody('Click here to go to the DSR record');
-							notification.setTitle('Billing account creation request for ' + organisationMap.get(eachEvent.Organisation_Record_Id__c) ?.name + ' has encountered an Error . Please Reach out to the IT Support Team');
-							notification.setTargetId(eachEvent.Request_Object_Id__c); // target object id
-							notification.send(new Set<String>{
-									dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
-							});
-						}
-						else if(eachEvent.Sub_Account_Request_Id__c !=null && objectName == SUB_ACCOUNT_REQUEST){
-							notification.setTargetId(eachEvent.Sub_Account_Request_Id__c);
-							notification.setBody('Click here to go to the SAR record');
-							notification.setTitle('Sub Account request for SAP Billing Account-'+ eachEvent.Parent_Account_Number__c +' has encountered an Error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed.');
-							if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(eachEvent.Request_Object_Id__c)?.getsobjecttype()))){
-								notification.send(new Set<String>{
-									dealsupportRequestMap.get(eachEvent.Request_Object_Id__c) ?.ownerId
-								});
-							}else{
-								notification.send(new Set<String>{
-									subAccountMap.get(eachEvent.Sub_Account_Request_Id__c) ?.ownerId
-								});
-							}
-						}
-					}
 					}
 				}
 				for(Deal_Support_Request__c dsr : dsrList ){

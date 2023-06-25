@@ -574,7 +574,7 @@ public with sharing class CreateBillingAccountController_Test {
 		}
 	}
 
-		@IsTest
+	@IsTest
 	private static void bcaBillingAccountCreationWithDummyConnectionTest() {
 		setMetadata(
 		'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
@@ -678,11 +678,11 @@ public with sharing class CreateBillingAccountController_Test {
 			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
 			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
 			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i],
-				new Map<String, Object>{
-					'Apttus_CMConfig__OptionId__r' => prodList[i],
-					'Apttus__AgreementId__c' => apttusContracts.Id,
-					'APT_Option_Name_Without_Tier__c' => 'T04'
-				});
+			new Map<String, Object>{
+				'Apttus_CMConfig__OptionId__r' => prodList[i],
+				'Apttus__AgreementId__c' => apttusContracts.Id,
+				'APT_Option_Name_Without_Tier__c' => 'T04'
+			});
 		}
 		//CI-613 Added Contract Line Items to check for Service commencement date and Service expiry date as sent in i5 request
 		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
@@ -814,11 +814,11 @@ public with sharing class CreateBillingAccountController_Test {
 			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
 			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
 			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i],
-				new Map<String, Object>{
-					'Apttus_CMConfig__OptionId__r' => prodList[i],
-					'Apttus__AgreementId__c' => apttusContracts.Id,
-					'APT_Option_Name_Without_Tier__c' => 'T04'
-				});
+			new Map<String, Object>{
+				'Apttus_CMConfig__OptionId__r' => prodList[i],
+				'Apttus__AgreementId__c' => apttusContracts.Id,
+				'APT_Option_Name_Without_Tier__c' => 'T04'
+			});
 		}
 
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
@@ -939,11 +939,11 @@ public with sharing class CreateBillingAccountController_Test {
 			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
 			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
 			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i],
-				new Map<String, Object>{
-					'Apttus_CMConfig__OptionId__r' => prodList[i],
-					'Apttus__AgreementId__c' => apttusContracts.Id,
-					'APT_Option_Name_Without_Tier__c' => 'T04'
-				});
+			new Map<String, Object>{
+				'Apttus_CMConfig__OptionId__r' => prodList[i],
+				'Apttus__AgreementId__c' => apttusContracts.Id,
+				'APT_Option_Name_Without_Tier__c' => 'T04'
+			});
 		}
 
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
@@ -1042,11 +1042,11 @@ public with sharing class CreateBillingAccountController_Test {
 			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
 			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
 			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i],
-				new Map<String, Object>{
-					'Apttus_CMConfig__OptionId__r' => prodList[i],
-					'Apttus__AgreementId__c' => apttusContracts.Id,
-					'APT_Option_Name_Without_Tier__c' => 'T04'
-				});
+			new Map<String, Object>{
+				'Apttus_CMConfig__OptionId__r' => prodList[i],
+				'Apttus__AgreementId__c' => apttusContracts.Id,
+				'APT_Option_Name_Without_Tier__c' => 'T04'
+			});
 		}
 
 		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, null, apttusContracts.id, account.id, true);
@@ -1119,11 +1119,11 @@ public with sharing class CreateBillingAccountController_Test {
 			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
 			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
 			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i],
-				new Map<String, Object>{
-					'Apttus_CMConfig__OptionId__r' => prodList[i],
-					'Apttus__AgreementId__c' => apttusContracts.Id,
-					'APT_Option_Name_Without_Tier__c' => 'T04'
-				});
+			new Map<String, Object>{
+				'Apttus_CMConfig__OptionId__r' => prodList[i],
+				'Apttus__AgreementId__c' => apttusContracts.Id,
+				'APT_Option_Name_Without_Tier__c' => 'T04'
+			});
 		}
 
 		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(1, null, apttusContracts.id, account.id, true);
@@ -1195,11 +1195,11 @@ public with sharing class CreateBillingAccountController_Test {
 			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
 			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
 			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i],
-				new Map<String, Object>{
-					'Apttus_CMConfig__OptionId__r' => prodList[i],
-					'Apttus__AgreementId__c' => apttusContracts.Id,
-					'APT_Option_Name_Without_Tier__c' => 'T04'
-				});
+			new Map<String, Object>{
+				'Apttus_CMConfig__OptionId__r' => prodList[i],
+				'Apttus__AgreementId__c' => apttusContracts.Id,
+				'APT_Option_Name_Without_Tier__c' => 'T04'
+			});
 		}
 		Billing_Account__c billAccRec = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
 		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, null, apttusContracts.id, account.id, true);
