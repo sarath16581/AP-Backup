@@ -9,6 +9,7 @@
 * 2020-11-18 - Shashwat.Nath@austpost.com.au - Created
 * 2022-08-08 - Seth Heang - Added test method to cover Rating Plan Activation changes
 * 2023-03-23 - Sarath.burra@auspost.com.au - CI-703 Added verifyAndCaptureInsertedDmlRecords/verifyAndCaptureUpdatedDmlRecords to verify captured Inserted and updated records
+* 2023-03-23 - Sarath.burra@auspost.com.au - CI-613 Added Contract Line Items to populate SAP contract with  Service commencement date and Service expiry date as sent in i5 request
 */
 @IsTest
 public with sharing class BillingAccountCreationEventHelperTest {
@@ -1021,6 +1022,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
                     'CreatedDate' => System.TODAY()
                 });
         APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',true)[0];
+		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
         Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1,account.id,'SAP',true)[0];
         billingAccount.LEGACY_ID__c = 'SF-11224455';
         subAccountRequest.APT_Source_of_Sub_Account_Request__c = 'Proposal';
@@ -1030,7 +1032,21 @@ public with sharing class BillingAccountCreationEventHelperTest {
         apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
         apttusContracts.Apttus__Account__c = account.Id;
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
-
+		//CI-613 Added Contract Line Items to populate SAP contract with  Service commencement date and Service expiry date as sent in i5 request
+		Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+		apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus__ProductId__c=prod.Id;
+		apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';
+		apttusContractLineItem.Apttus_CMConfig__EffectiveDate__c=Date.newInstance(2023, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__EndDate__c=Date.newInstance(2025, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
+		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
+		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
+		new Map<String, Object>{
+			'Apttus__AgreementId__c' => apttusContracts.id
+		});
+		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
         APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, null, apttusContracts.id, account.id, true)[0];
         alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
 
@@ -1045,7 +1061,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BillingAccountsSelector billAccountSel = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);
         APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
         ExternalOnboardingRequestSelector exOnboardingSelector = (ExternalOnboardingRequestSelector)MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
-
+		APT_AgreementLineItemsSelector lineItemsSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class);
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -1074,6 +1090,10 @@ public with sharing class BillingAccountCreationEventHelperTest {
         MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
             (Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
             new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
         MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -1132,6 +1152,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
         APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',true)[0];
         Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1,account.id,'SAP',true)[0];
+		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
         billingAccount.LEGACY_ID__c = 'SF-11224455';
         subAccountRequest.APT_Source_of_Sub_Account_Request__c = 'Proposal';
         apttusCreditAssessment.APT_Proposal__c = apttusProposals.Id;
@@ -1140,7 +1161,21 @@ public with sharing class BillingAccountCreationEventHelperTest {
         apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
         apttusContracts.Apttus__Account__c = account.Id;
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
-
+		//CI-613 Added Contract Line Items to populate SAP contract with  Service commencement date and Service expiry date as sent in i5 request
+		Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+		apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus__ProductId__c=prod.Id;
+		apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';
+		apttusContractLineItem.Apttus_CMConfig__EffectiveDate__c=Date.newInstance(2023, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__EndDate__c=Date.newInstance(2025, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
+		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
+		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
+		new Map<String, Object>{
+			'Apttus__AgreementId__c' => apttusContracts.id
+		});
+		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
         Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
         APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
         alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
@@ -1156,6 +1191,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BillingAccountsSelector billAccountSel = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);
         APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
         ExternalOnboardingRequestSelector exOnboardingSelector = (ExternalOnboardingRequestSelector)MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
+		APT_AgreementLineItemsSelector lineItemsSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class);
 
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
@@ -1181,6 +1217,11 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
         Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
         MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
+
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 
         MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
             (Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
@@ -1237,6 +1278,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
         APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',true)[0];
         Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1,account.id,'SAP',true)[0];
+		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
         billingAccount.LEGACY_ID__c = 'SF-11224455';
         subAccountRequest.APT_Source_of_Sub_Account_Request__c = 'Proposal';
         apttusCreditAssessment.APT_Proposal__c = apttusProposals.Id;
@@ -1245,6 +1287,21 @@ public with sharing class BillingAccountCreationEventHelperTest {
         apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
         apttusContracts.Apttus__Account__c = account.Id;
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
+		//CI-613 Added Contract Line Items to populate SAP contract with  Service commencement date and Service expiry date as sent in i5 request
+		Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+		apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus__ProductId__c=prod.Id;
+		apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';
+		apttusContractLineItem.Apttus_CMConfig__EffectiveDate__c=Date.newInstance(2023, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__EndDate__c=Date.newInstance(2025, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
+		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
+		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
+		new Map<String, Object>{
+			'Apttus__AgreementId__c' => apttusContracts.id
+		});
+		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
 
         Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
         APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
@@ -1260,6 +1317,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BillingAccountsSelector billAccountSel = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);
         APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
         ExternalOnboardingRequestSelector exOnboardingSelector = (ExternalOnboardingRequestSelector)MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
+		APT_AgreementLineItemsSelector lineItemsSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class);
 
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
@@ -1287,7 +1345,12 @@ public with sharing class BillingAccountCreationEventHelperTest {
         //MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
         MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
-        MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+        MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
+				(Set<Id>)fflib_Match.anyObject(),
+				(Set<String>)fflib_Match.anyObject(),
+				(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
             (Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
             new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
@@ -1339,6 +1402,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
         APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',true)[0];
         Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1,account.id,'SAP',true)[0];
+		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
         billingAccount.LEGACY_ID__c = 'SF-11224455';
         subAccountRequest.APT_Source_of_Sub_Account_Request__c = 'Proposal';
         apttusCreditAssessment.APT_Proposal__c = apttusProposals.Id;
@@ -1347,7 +1411,20 @@ public with sharing class BillingAccountCreationEventHelperTest {
         apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
         apttusContracts.Apttus__Account__c = account.Id;
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
-
+		//CI-613 Added Contract Line Items to populate SAP contract with  Service commencement date and Service expiry date as sent in i5 request
+		Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+		apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus__ProductId__c=prod.Id;
+		apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';
+		apttusContractLineItem.Apttus_CMConfig__EffectiveDate__c=Date.newInstance(2023, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__EndDate__c=Date.newInstance(2025, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
+		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
+		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
+		new Map<String, Object>{
+			'Apttus__AgreementId__c' => apttusContracts.id
+		});
         Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
         APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
         alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
@@ -1363,7 +1440,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BillingAccountsSelector billAccountSel = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);
         APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
         ExternalOnboardingRequestSelector exOnboardingSelector = (ExternalOnboardingRequestSelector)MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
-
+		APT_AgreementLineItemsSelector lineItemsSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class);
+		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -1388,6 +1466,11 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
         Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
         MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
+
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 
         MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
         (Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
@@ -1442,6 +1525,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
         APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',true)[0];
         Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1,account.id,'SAP',true)[0];
+		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
         billingAccount.LEGACY_ID__c = 'SF-11224455';
         subAccountRequest.APT_Source_of_Sub_Account_Request__c = 'Proposal';
         apttusCreditAssessment.APT_Proposal__c = apttusProposals.Id;
@@ -1450,6 +1534,21 @@ public with sharing class BillingAccountCreationEventHelperTest {
         apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
         apttusContracts.Apttus__Account__c = account.Id;
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
+		//CI-613 Added Contract Line Items to populate SAP contract with  Service commencement date and Service expiry date as sent in i5 request
+		Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+		apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus__ProductId__c=prod.Id;
+		apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
+		apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';
+		apttusContractLineItem.Apttus_CMConfig__EffectiveDate__c=Date.newInstance(2023, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__EndDate__c=Date.newInstance(2025, 06, 01);
+		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
+		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
+		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
+		new Map<String, Object>{
+			'Apttus__AgreementId__c' => apttusContracts.id
+		});
+		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
 
         Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
         APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
@@ -1467,6 +1566,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
         ExternalOnboardingRequestSelector exOnboardingSelector = (ExternalOnboardingRequestSelector)MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
 
+		APT_AgreementLineItemsSelector lineItemsSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class);
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -1491,6 +1591,10 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
         Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
         MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
+				(Set<Id>)fflib_Match.anyObject(),
+				(Set<String>)fflib_Match.anyObject(),
+				(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 
         MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
         (Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
