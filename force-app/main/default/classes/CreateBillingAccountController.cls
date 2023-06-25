@@ -1,19 +1,19 @@
-	/*
-	* @date 2020-11-18
-	* @group BillingAccounts
-	* @tag BillingAccount
-	* @domain Core
-	* @description Controller for createBillingAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
-	* @changelog
-	* 2020-11-18 - arjun.singh@auspost.com.au - Created
-	* 2021-05-12 - seth.heang@auspost.com.au - updated request payload structure and field mappings
-	* 2021-05-11 - avula.jansirani@auspost.com.au - updated (for BCA billing account creation)
-	* 2021-05-28 - ankur.gandhi@auspost.com.au - removing special chars from BSB number
-	* 2021-06-08 - seth.heang@auspost.com.au - STP-5386 map sender name field from opportunity and to same field on DSR's New Billing Account Request Modal Popup
-	* 2022-07-07 - madhuri.awasthi@auspost.com. - REQ2800825 Filtering Status for LP before sending in SAP
-	* 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
-	* 2023-06-14 - sarath.burra@auspost.com.au - CI-613 For a created DSR if service commencement date AND/OR service expiry date for APPC service are not populated system should throw an error
-	*/
+/*
+* @date 2020-11-18
+* @group BillingAccounts
+* @tag BillingAccount
+* @domain Core
+* @description Controller for createBillingAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
+* @changelog
+* 2020-11-18 - arjun.singh@auspost.com.au - Created
+* 2021-05-12 - seth.heang@auspost.com.au - updated request payload structure and field mappings
+* 2021-05-11 - avula.jansirani@auspost.com.au - updated (for BCA billing account creation)
+* 2021-05-28 - ankur.gandhi@auspost.com.au - removing special chars from BSB number
+* 2021-06-08 - seth.heang@auspost.com.au - STP-5386 map sender name field from opportunity and to same field on DSR's New Billing Account Request Modal Popup
+* 2022-07-07 - madhuri.awasthi@auspost.com. - REQ2800825 Filtering Status for LP before sending in SAP
+* 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
+* 2023-06-14 - sarath.burra@auspost.com.au - CI-613 For a created DSR if service commencement date AND/OR service expiry date for APPC service are not populated system should throw an error
+*/
 public with sharing class CreateBillingAccountController {
 	@TestVisible private static final String DSR_OBJECT = 'Deal_Support_Request__c';
 	@TestVisible private static final String CREDIT_ASSESMENT_OBJECT = 'APT_Credit_Assessment__c';

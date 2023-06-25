@@ -1,15 +1,15 @@
 /*
 /* @author
- * @date 2022-07-01
- * @group Billing Accounts
- * @tag Billing Account
- * @description: Rating Plan Activation Request Retry modal popup.
- * 				 Used to display a prompt message and retry a callout to Camunda for SAP Integration.
- * @changelog
- * 2022-07-01 seth.heang@auspost.com.au Created
- * 2023-06-15 sarath.burra@auspost.com.au Added ConnectedCallBack to check if Service Commencement Date and Service Expiry Date have been populated
- */
-import { LightningElement, api, wire, track } from 'lwc';
+* @date 2022-07-01
+* @group Billing Accounts
+* @tag Billing Account
+* @description: Rating Plan Activation Request Retry modal popup.
+* 				 Used to display a prompt message and retry a callout to Camunda for SAP Integration.
+* @changelog
+* 2022-07-01 seth.heang@auspost.com.au Created
+* 2023-06-15 CI-613arath.burra@auspost.com.au Added ConnectedCallBack to check if Service Commencement Date and Service Expiry Date have been populated
+*/
+import { LightningElement, api, wire} from 'lwc';
 import { CloseActionScreenEvent } from 'lightning/actions';
 import activateRatingPlan from "@salesforce/apex/CreateBillingAccountController.activateRatingPlan";
 import ratingPlanActivationCreationRequest from "@salesforce/apexContinuation/CreateBillingAccountController.ratingPlanActivationCreationRequest";
@@ -43,7 +43,7 @@ export default class RetryRatingPlanActivation extends LightningElement {
 	wiredRatePlanIntegrationStatus({error, data}){
 		if(error){
 			this.validateIntegrationStatus = false;
-		} else if (data) {
+		}else if (data) {
 			// get rating plan integration status field
 			let status = getFieldValue(data, RATING_PLAN_INTEGRATION_STATUS);
 			// check status value, if blank then display prompting message and can proceed with trigger a callout
@@ -60,15 +60,15 @@ export default class RetryRatingPlanActivation extends LightningElement {
 	}
 
 	@api
-    connectedCallback(event){
-        checkServiceDatesOnALI({ dsrId: this.recordId})
-        .then(result => {
-            this.serviceDatesError = result;
-        })
-        .catch(error => {
-            console.log('Error is: '+error);
-        });
-    }
+	connectedCallback(){
+		checkServiceDatesOnALI({ dsrId: this.recordId})
+		.then(result => {
+			this.serviceDatesError = result;
+		})
+		.catch(error => {
+			console.log('Error is: '+error);
+		});
+	}
 	/**
 	 * @description	this fuction imperatively call apex methods to generate a request payload with all required mappings, create BAM external onboarding request
 	 * 				and finally trigger a callout to Camunda

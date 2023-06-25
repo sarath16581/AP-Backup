@@ -1,17 +1,17 @@
-	/*
-	* @date 2020-11-18
-	* @group BillingAccounts
-	* @tag BillingAccount
-	* @domain Core
-	* @description Helper for createBillingAccount component and used for billing account creation
-	* @changelog
-	* 2020-11-18 - arjun.singh@auspost.com.au - Created
-	* 2021-05-12 - seth.heang@auspost.com.au - updated fields mapping due to changes to wrapper class attribute
-	* 2021-05-14 - avula.jansirani@auspost.com.au - updated (for BCA billing account creation)
-	* 2021-06-15 - Seth.Heang@auspost.com.au - STP-5386 Add senderNameFromOpportunity attribute in the wrapper and pass this value to LWC
-	* 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
-	* 2023-06-14 - sarath.burra@auspost.com.au - CI-613 Populate the validFrom and validTo dates in RatingPlanActivation from SCD and SED in ContractLineItem
-	*/
+/*
+* @date 2020-11-18
+* @group BillingAccounts
+* @tag BillingAccount
+* @domain Core
+* @description Helper for createBillingAccount component and used for billing account creation
+* @changelog
+* 2020-11-18 - arjun.singh@auspost.com.au - Created
+* 2021-05-12 - seth.heang@auspost.com.au - updated fields mapping due to changes to wrapper class attribute
+* 2021-05-14 - avula.jansirani@auspost.com.au - updated (for BCA billing account creation)
+* 2021-06-15 - Seth.Heang@auspost.com.au - STP-5386 Add senderNameFromOpportunity attribute in the wrapper and pass this value to LWC
+* 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
+* 2023-06-14 - sarath.burra@auspost.com.au - CI-613 Populate the validFrom and validTo dates in RatingPlanActivation from SCD and SED in ContractLineItem
+*/
 public with sharing class CreateBillingAccountHelper {
 	private static final String DSR_OBJECT = 'Deal_Support_Request__c';
 	private static final String CA_OBJECT = 'APT_Credit_Assessment__c';
