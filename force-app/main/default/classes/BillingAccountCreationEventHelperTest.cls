@@ -767,8 +767,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		}
 	}
 
-		@IsTest
-		private static void testBillingAccountCreationSuccessScenarioBCAError() {
+	@IsTest
+	private static void testBillingAccountCreationSuccessScenarioBCAError() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -995,7 +995,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
-
 	}
 
 	/**
@@ -1003,7 +1002,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	 *      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
 	 */
 	@IsTest
-	private static void testRatingPlanCreationSuccessScenario() {
+	private static void testRatingPlanCreationSuccessScenario()
+	{
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -1123,14 +1123,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		System.assertEquals(newsEvent.Status__c, updateableALPs.get(alpRec.Id).Integration_Status__c, 'Expected Success on Agreement Lodgement Point Integration Status');
 		System.assertEquals(newsEvent.Status_Description__c, updateableALPs.get(alpRec.Id).Integration_Status_Description__c, 'Expected matching status description on Agreement Lodgement Point Status Description');
 		System.assertEquals(newsEvent.Rating_Plan_Id__c, updateableALPs.get(alpRec.Id).Rating_Plan_Id__c, 'Expected matching rating plan Id on Agreement Lodgement Point Status Description');
-		}
+	}
 
-		/**
-		 * Test: when the rating plan creation callout is triggered and the callout has Error,
-		 *      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
-		 */
-		@IsTest
-		private static void testRatingPlanCreationErrorScenario() {
+	/**
+	 * Test: when the rating plan creation callout is triggered and the callout has Error,
+	 *      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
+	 */
+	@IsTest
+	private static void testRatingPlanCreationErrorScenario() {
 		// =====================================
 		// Data Preparation
 		// =====================================
