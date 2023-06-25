@@ -1043,9 +1043,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
 		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
 		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
-		new Map<String, Object>{
-			'Apttus__AgreementId__c' => apttusContracts.id
-		});
+		new Map<String, Object>{'Apttus__AgreementId__c' => apttusContracts.id});
 		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
 		APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, null, apttusContracts.id, account.id, true)[0];
 		alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
@@ -1090,11 +1088,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
 			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
 			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
-		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
-			(Set<Id>)fflib_Match.anyObject(),
-			(Set<String>)fflib_Match.anyObject(),
-			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
-
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType((Set<Id>)fflib_Match.anyObject(),(Set<String>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
@@ -1172,9 +1166,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
 		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
 		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
-		new Map<String, Object>{
-			'Apttus__AgreementId__c' => apttusContracts.id
-		});
+		new Map<String, Object>{'Apttus__AgreementId__c' => apttusContracts.id});
 		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
@@ -1217,15 +1209,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
 		MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
-
-		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
-			(Set<Id>)fflib_Match.anyObject(),
-			(Set<String>)fflib_Match.anyObject(),
-			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
-
-		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType((Set<Id>)fflib_Match.anyObject(),(Set<String>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId((Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
@@ -1298,11 +1283,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
 		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
 		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
-		new Map<String, Object>{
-			'Apttus__AgreementId__c' => apttusContracts.id
-		});
+		new Map<String, Object>{'Apttus__AgreementId__c' => apttusContracts.id});
 		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
-
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
 		alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
@@ -1344,16 +1326,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
-
-		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
-				(Set<Id>)fflib_Match.anyObject(),
-				(Set<String>)fflib_Match.anyObject(),
-				(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
-
-		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
-
+		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType((Set<Id>)fflib_Match.anyObject(),(Set<String>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId((Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
@@ -1422,9 +1396,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
 		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
 		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
-		new Map<String, Object>{
-			'Apttus__AgreementId__c' => apttusContracts.id
-		});
+		new Map<String, Object>{'Apttus__AgreementId__c' => apttusContracts.id});
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
 		alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
@@ -1450,11 +1422,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES,AccountsSelector.Options.WITH_HOLDINGROLE})).thenReturn(mockOrganisationMap );
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
-		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-		new Set<object>{
-			DealSupportRequestsSelector.Options.WITH_ORGANISATION
-		})).thenReturn(mockDsrMap);
-
+		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),new Set<object>{DealSupportRequestsSelector.Options.WITH_ORGANISATION})).thenReturn(mockDsrMap);
 		Map<Id, BAMExternalOnboardingRequest__c> externalOnboardingRecordMap = new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRecord.Id => externalOnboardingRecord};
 		MockUtility.Mocks.when(exOnboardingSelector.selectById(new Set<id>{externalOnboardingRecord.Id})).thenReturn(externalOnboardingRecordMap);
 
@@ -1468,14 +1436,12 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
-			(Set<Id>)fflib_Match.anyObject(),
-			(Set<String>)fflib_Match.anyObject(),
-			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
-
+		(Set<Id>)fflib_Match.anyObject(),
+		(Set<String>)fflib_Match.anyObject(),
+		(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
 		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
 		new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
-
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
@@ -1545,11 +1511,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
 		apttusContractLineItem.Apttus_CMConfig__LineType__c='Product/Service';
 		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
-		new Map<String, Object>{
-			'Apttus__AgreementId__c' => apttusContracts.id
-		});
+		new Map<String, Object>{'Apttus__AgreementId__c' => apttusContracts.id});
 		List<Apttus__AgreementLineItem__c> aliList = new List<Apttus__AgreementLineItem__c> {apttusContractLineItem};
-
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
 		alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
@@ -1592,9 +1555,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
 		MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType(
-				(Set<Id>)fflib_Match.anyObject(),
-				(Set<String>)fflib_Match.anyObject(),
-				(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+		(Set<Id>)fflib_Match.anyObject(),
+		(Set<String>)fflib_Match.anyObject(),
+		(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
 		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
