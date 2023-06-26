@@ -12,10 +12,6 @@
             <recipient>michele.gordon@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
-        <recipients>
-            <recipient>scott.warbrick@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
@@ -117,10 +113,6 @@
         </recipients>
         <recipients>
             <recipient>nicola.mcguire@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>scott.warbrick@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
