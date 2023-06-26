@@ -1,0 +1,154 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "dataProviders" : [ ],
+  "id" : "f0f370c4-f89a-482e-bfdb-d29d3162394a",
+  "label" : "Contact Detail",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "d82330d4-aa6c-4966-ad48-a5dad52f9186",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "0535fc12-b8da-414c-90c0-16fa6e547e2b",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "d75cf1dc-960b-45b1-9410-236c82718904",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "26a4044e-ae29-45f6-920f-c7a91b09f03a",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Details"
+          }, {
+            "UUID" : "d1fc0bea-1243-43fd-a7fa-3f6ba39113de",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "2",
+            "tabName" : "Related"
+          }, {
+            "UUID" : "da10b0b2-7c3c-451d-82b0-298c6fe16192",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "0a5ca",
+            "tabName" : "Change Address"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabset",
+      "id" : "d75cf1dc-960b-45b1-9410-236c82718904",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "7c1b4e79-a542-46b0-bb8d-e5e57e5995a9",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "26a4044e-ae29-45f6-920f-c7a91b09f03a",
+        "regionLabel" : "Details",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedRecords",
+          "id" : "605bc0a6-de06-422a-a310-2728d48f94a9",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "d1fc0bea-1243-43fd-a7fa-3f6ba39113de",
+        "regionLabel" : "Related",
+        "regionName" : "2",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "addressType" : "Contact_Mailing",
+            "addressType2" : "Contact_Physical",
+            "altRecordId" : "",
+            "cardTitle" : "Mailing Address",
+            "cardTitle2" : "Physical Address",
+            "cardTitle3" : "",
+            "noRefreshAfterSave" : false,
+            "recordId" : "{!recordId}",
+            "refreshAfterSave" : true
+          },
+          "componentName" : "c:addressLookupRecordWrapper",
+          "id" : "4966854c-3131-48c7-ab51-8b6e422c666f",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "da10b0b2-7c3c-451d-82b0-298c6fe16192",
+        "regionLabel" : "Change Address",
+        "regionName" : "0a5ca",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "720e6f86-863e-467e-b7c4-0d065f933705",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "374074a3-eb59-498e-96c3-f1c26f5a04a6",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "e1071061-1962-4ce2-b508-ac2c9fa9b7b9",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "58a1d284-17e4-4b7b-8def-603b7b6ec2d9",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}",
+        "showLegacyActivityComposer" : false
+      },
+      "componentName" : "forceCommunity:activityPanel",
+      "id" : "ff500c61-d39e-48a4-b9b1-9540d943dd17",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "848e7479-1c6a-4647-88b2-c514a03d914e",
+    "regionName" : "sidebar",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-003"
+}
