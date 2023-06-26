@@ -520,8 +520,6 @@ public without sharing class bspEnquiryUplift {
 
 		enq.DatePosted__c = enq.BSPLodgementDate__c;
 
-		System.debug('HASANTHA IS contain deli '+isContainDeliveredEvent(enq.ReferenceID__c));
-
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
