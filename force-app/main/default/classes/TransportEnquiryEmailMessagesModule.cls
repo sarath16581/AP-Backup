@@ -14,7 +14,9 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
 	private static Set<String> emailHeaders = new Set<String>{'Return-Path','Delivered-To'};
 
-	//get the map of email address to email to case mapping metadata
+	/**
+	 * This method get the map of email address to email to case mapping metadata
+	 */
 	@TestVisible
 	private static Map<String, EmailToCaseMapping__mdt> getEmailToCaseMappingMetadata() {
 		if (emailToCaseMappingMap == null) {
@@ -48,8 +50,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	}
 
 	/**
-	* Called when a new EmailMessage is being inserted
-	*/
+	 * This method is called when a new EmailMessage is being inserted
+	 * @param records list of email messages
+	 * @param uow instance of UnitOfWork
+	 *
+	 */
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
 			updateRelatedCases(records, uow); //update related case fields
@@ -60,8 +65,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	}
 
 	/**
-	* Perform updates to related Case object 
-	*/
+	 * This method performs updated to related case records
+	 * @param newEmails list of email messages
+	 * @param uow instance of UnitOfWork
+	 *
+	 */
 	public void updateRelatedCases(List<SObject> newEmails, ApplicationUnitOfWork uow) {
 		Set<Id> emailIdSet = (new Map<Id,SObject>(newEmails)).keySet(); //Set containing emailmessage Id whose parent id is of case
 		Set<Id> caseIds = new Set<Id>();
@@ -87,17 +95,19 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			//  If the case is closed, then re-open the case 
 
 			Datetime currentTimeStamp = currentTime;
-			for (Case cs : CasesSelector.newInstance().selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER}).values()) {
+			//field overrides for cases
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.Network__c, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c};
+
+			for (Case cs : CasesSelector.newInstance(fieldOverrides).selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER}).values()) {
 				casesMap.put(cs.Id, cs);
 				if(!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && cs.EmailMessages.size() > 1 && String.isNotBlank(cs.EmailToCaseAddress__c)) {
-					//re-open the case if there is incoming email message to closed case
+					// New email received - update Case_Update__c field 
+					Case caseRecord =  new Case(Id = cs.Id, Case_Update__c = TransportEnquiryCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp);
+					// Re-open the case if there is incoming email message to closed case
 					if (cs.Status == TransportEnquiryCaseService.CLOSED_STATUS) {
-						casesToUpdate.add(new Case(Id = cs.Id, Status = TransportEnquiryCaseService.NEW_STATUS, 
-							Case_Update__c = TransportEnquiryCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp));
-					} else {
-						//update the Case update field as new email received
-						casesToUpdate.add(new Case(Id = cs.Id, Case_Update__c = TransportEnquiryCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp));
+						caseRecord.Status = TransportEnquiryCaseService.NEW_STATUS;
 					}
+					casesToUpdate.add(caseRecord);
 				} else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
 					//update the case fields if it is new case created from email-to-case
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));
@@ -132,7 +142,12 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		}
 	}
 
-	//Function to get the email to case address from the EmailMessage
+	/**
+	 * This method returns the email to case address from the EmailMessage which is configured in custom metadata. Loops through the header list and search for Return-Path or Delivered-To header.
+	 * @param mail emailMessage record
+	 *
+	 * @return EmailAddress that matches to the EmailToCaseMapping custom metadata
+	 */
 	private String getEmailToCaseAddressFromHeader(EmailMessage mail) {
 		String emailAddress;
 		Map<String, List<String>> headerToEmailsMap = new Map<String, List<String>>();
@@ -173,7 +188,13 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		return emailAddress;
 	}
 
-	//Function to return the case update fields based on the EmailToCaseMapping custom metadata
+	/**
+	 * This method returns the case record with updated fields based on the EmailToCaseMapping custom metadata
+	 * @param parentCase case record
+	 * @param emailToCaseMapping custom metadata record.
+	 *
+	 * @return updated case record
+	 */
 	private Case getCaseToUpdate(Case parentCase, EmailToCaseMapping__mdt emailToCaseMapping) {
 		return new Case(
 			Id = parentCase.Id,

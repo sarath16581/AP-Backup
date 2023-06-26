@@ -84,7 +84,7 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 		if(selectorOptions.contains(Options.WITH_CASE)) {
 			Set<Object> clonedOptions = selectorOptions.clone();
 			clonedOptions.remove(Options.WITH_CASE);
-			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(clonedOptions), 'Parent');
+			builder.addRelatedFields(CasesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(clonedOptions), 'Parent');
 		}
 		return builder;
 	}

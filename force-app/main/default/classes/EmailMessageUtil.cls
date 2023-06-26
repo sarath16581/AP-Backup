@@ -38,9 +38,13 @@ public inherited sharing class EmailMessageUtil {
 		SecurePost__c securePostSetting = SecurePost__c.getInstance();
 		// Get Product for Secure Post.
 		List<Product2> productList = [SELECT id, name from Product2 where name = :securePostSetting.ProductName__c limit 1];
-		for (EmailMessage em : EmailMessagesSelector.newInstance().selectById(newEmails.keySet(), new Set<Object>{EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE})) {
-			if (em.Incoming && !String.isBlank(em.headers)) {
-				if ((em.headers).startsWith('Return-Path:')) {
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+			EmailMessage.SObjectType => new Set<SObjectField>{EmailMessage.Id, EmailMessage.ParentId, EmailMessage.Headers, EmailMessage.Incoming, EmailMessage.ToAddress, EmailMessage.CcAddress, EmailMessage.FromAddress},
+			Case.SObjectType => new Set<SObjectField>{Case.EmailToCaseAddress__c, Case.Bypass_Data_enforcement__c},
+			RecordType.getSObjectType() => new Set<SObjectField>{RecordType.DeveloperName}
+		};
+		for (EmailMessage em : EmailMessagesSelector.newInstance(fieldOverrides).selectById(newEmails.keySet(), new Set<Object>{EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE})) {
+			if (em.Incoming && !String.isBlank(em.headers) && (em.headers).startsWith('Return-Path:')) {
 					string[] headerSplits = em.headers.split('\\r?\\n');
 					//ignore for Transport Enquiry record type as it is being set in the TransportEnquiryEmailMessagesModule
 					if(!CASE_TRANSPORT_ENQUIRY_RT.equals(em.Parent.RecordType.DeveloperName)) {
@@ -48,12 +52,6 @@ public inherited sharing class EmailMessageUtil {
 					}
 					em.parent.Email_Bypass_Data_enforcement__c = true;
 					caseMap.put(em.ParentId, em.Parent);
-				}
-				// } else {
-				// 	if(QM__c.getOrgDefaults().CusEmail__c == em.fromAddress && !em.ToAddress.contains(em.fromAddress) && (em.ccAddress == null || !em.ccAddress.contains(em.fromAddress))) {
-				// 		em.parent.Email_Bypass_Data_enforcement__c = true;
-				// 		caseIdVsUserId.put(em.parentId, em.createdById);
-				// 	}
 			}
 			// Added check for Secure Post to update Type & Product on Case for SECURE_POST
 			if (securePostSetting!= null && securePostSetting.Email_to_Case_address__c != null && em.ToAddress != null && em.ToAddress.contains(securePostSetting.Email_to_Case_address__c)) { // Check if ToAddress is Secure Post email Address
