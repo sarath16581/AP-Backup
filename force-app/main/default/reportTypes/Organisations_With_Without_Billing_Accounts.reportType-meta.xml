@@ -360,6 +360,11 @@
             <field>CustomerType__c</field>
             <table>Account</table>
         </columns>
+		<columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Current_User_Belongs_to_Assigned_LPO__c</field>
+            <table>Account</table>
+        </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Jigsaw</field>

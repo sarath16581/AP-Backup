@@ -6,6 +6,7 @@
  * @group Tests
  * @domain StarTrack
  * @changelog
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
 @IsTest
 private class StarTrackSupportCasePriorityModule_Test {
@@ -18,7 +19,7 @@ private class StarTrackSupportCasePriorityModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 
@@ -70,7 +71,7 @@ private class StarTrackSupportCasePriorityModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true) };
 		Set<Id> articlesIds = new Set<Id>{ articles[0].Id };
@@ -119,7 +120,7 @@ private class StarTrackSupportCasePriorityModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 
@@ -167,7 +168,7 @@ private class StarTrackSupportCasePriorityModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true) };
@@ -219,7 +220,7 @@ private class StarTrackSupportCasePriorityModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 		Set<Id> articlesIds = new Set<Id>{ articles[0].Id };
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);

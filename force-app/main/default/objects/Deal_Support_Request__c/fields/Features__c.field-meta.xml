@@ -23,8 +23,14 @@
                 <label>Capture ID</label>
             </value>
             <value>
+                <fullName>Wine and Alcohol</fullName>
+                <default>false</default>
+                <label>Wine and Alcohol</label>
+            </value>
+            <value>
                 <fullName>Transit cover</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Transit cover</label>
             </value>
         </valueSetDefinition>

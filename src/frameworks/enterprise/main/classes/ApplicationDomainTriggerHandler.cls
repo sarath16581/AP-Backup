@@ -3,6 +3,8 @@
  * Used to dispatch a trigger execution flow and launch Domain classes
  * There should be only a single class extending this class per SObject.
  * See CaseTriggerHandler2 for an example implementation.
+ * 
+ * @deprecated use AutomationModule
  *
  * @author Nathan Franklin
  * @date 2020-07-27
@@ -13,6 +15,7 @@
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-07-20 - Sreenish Krishnan - Added After Delete handler
  * 2023-02-14 - Ranjeewa Silva - Added support for handling after undelete trigger event
+ * 2023-06-12 - Nathan Franklin - deprecated in favor of AutomationModule framework
  */
 public abstract inherited sharing class ApplicationDomainTriggerHandler {
 	public enum TriggerState {
