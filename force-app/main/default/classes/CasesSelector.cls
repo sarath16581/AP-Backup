@@ -23,12 +23,13 @@
  * 2023-02-08 - Dattaraj Deshmukh - Added fields in getSObjectFieldList.
  * 2023-02-28 - Dattaraj Deshmukh - Added 'WITH_NETWORK_RESPONSE' options for SSSW MyNetwork Cases.
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
+ * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT, 
-		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE
+		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
 	}
 
 	public static CasesSelector newInstance() {
@@ -269,6 +270,9 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_NETWORK_RESPONSE)) {
 			builder.addSubQuery(NetworkResponsesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Network_Responses1__r');
+		}
+		if(selectorOptions.contains(Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER)) {
+			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 0).setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'EmailMessages');
 		}				
 		return builder;
 	}

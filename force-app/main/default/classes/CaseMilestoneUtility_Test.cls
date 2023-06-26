@@ -8,6 +8,7 @@
  * 07/10/2021		  naveen.rajanna@auspost.com.au			   REQ2616056 Changed api version to 52
  * 2022-02-17 - Nathan Franklin - copied test for BGS entitlement assignment from another class
  * 2022-11-24	Noel Lim - updated testInternalEscalationScenario(), assert for taskCount from 1 to 2 as a temporary fix. Refer to assert for reasoning and technical details.
+ * 2023-06-05	Mahesh Parvathaneni - Added tests testTransportEnquiryApplyDefaultEntitlement
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
@@ -503,6 +504,49 @@ private with sharing class CaseMilestoneUtility_Test {
 		milestoneUtility.updateNetworkEscalationEmails(casesUpdated, oldMap);
 		System.assertEquals(network.Email_1__c, caseAfter.Facility_Tier_Escalation_Email__c,
 				'When Network is null, Facility_Tier_Escalation_Email__c retained');
+	}
+
+	/**
+	 * This method tests scenario of associating entitlement to case for transport enquiry cases types
+	*/
+	@IsTest
+	private static void testTransportEnquiryApplyDefaultEntitlement(){
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Account> orgAaccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		List<Entitlement> entitlements = ApplicationTestDataFactory.getEntitlements(1, true, TransportEnquiryCaseService.TRANSPORT_ENQUIRY_ENTITLEMENT, null, orgAaccounts[0].Id);
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		RecordType transportEnquiryRecordType = RecordTypesSelector.newInstance().selectByDeveloperNameLike('Case', 'Transport_Enquiry').values()[0];
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'RecordTypeId' => transportEnquiryRecordType.Id});
+		cases[1] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object>{'RecordTypeId' => transportEnquiryRecordType.Id});
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		TransportEnquiryCaseService mockService = (TransportEnquiryCaseService)MockUtility.mockUtility(TransportEnquiryCaseService.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockService.getTransportEnquiryEntitlementId()).thenReturn(entitlements[0].Id);
+		MockUtility.Mocks.when(mockService.getTransportEnquiryRecordTypeId()).thenReturn(transportEnquiryRecordType.Id);
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseMilestoneUtility util = new CaseMilestoneUtility();
+		util.insertMilestones(cases);
+
+		// make sure the entitlement has been populated
+		Assert.areEqual(cases[0].EntitlementId, entitlements[0].Id, 'Entitlement Id was not applied to case');
+		Assert.areEqual(cases[1].EntitlementId, entitlements[0].Id, 'Entitlement Id was not applied to case');
+
+		Test.stopTest();
 	}
 
 }
