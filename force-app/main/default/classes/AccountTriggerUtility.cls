@@ -1316,6 +1316,9 @@ public with sharing class AccountTriggerUtility {
                                 at.UserId = u.Id;
                                 at.TeamMemberRole = 'Assigned LPO';
                                 at.AccountId = aId;
+                                at.AccountAccessLevel = 'Edit';
+                                at.OpportunityAccessLevel = 'Read';
+                                at.CaseAccessLevel = 'Read';
                                 acctTeamToAdd.add(at);
                             }
                         }
