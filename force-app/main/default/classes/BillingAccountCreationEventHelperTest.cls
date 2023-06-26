@@ -107,14 +107,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -138,30 +138,30 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-			BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Request_Object_Id__c=dealSupportRequest.Id,
-			Billing_Account_Number__c = 'SF-11224455',
-			Billing_Account_Name__c ='Test Billing account Name',
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Success',
-			Parent_Account_Number__c='',
-			Sub_Account_Request_Id__c= ''
-			);
-			EventBus.publish(newsEvent);
+		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success',
+		Parent_Account_Number__c='',
+		Sub_Account_Request_Id__c= ''
+		);
+		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Success'
-		);
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
+)		;
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
@@ -271,26 +271,26 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Source_System__c = 'SAP',
-				Status__c = 'Error'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Error'
 		);
 		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Error'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Error'
 		);
 		EventBus.publish(newsEvent1);
 
@@ -353,14 +353,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -372,13 +372,13 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'T-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Source_System__c = 'TEAM',
-				Status__c = 'Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'T-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'TEAM',
+		Status__c = 'Success'
 		);
 		EventBus.publish(newsEvent);
 
@@ -441,14 +441,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -472,26 +472,26 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Source_System__c = 'SAP',
-				Status__c = 'Partial Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Partial Success'
 		);
 		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224454',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224454',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
 		);
 		EventBus.publish(newsEvent1);
 
@@ -601,26 +601,26 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Source_System__c = 'SAP',
-				Status__c = 'Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
 		);
 		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
 		);
 		EventBus.publish(newsEvent1);
 
@@ -722,26 +722,26 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Source_System__c = 'SAP',
-				Status__c = 'Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
 		);
 		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=dealSupportRequest.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Partial Success'
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Partial Success'
 		);
 		EventBus.publish(newsEvent1);
 
@@ -856,27 +856,27 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-			BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Request_Object_Id__c=CA.Id,
-			Billing_Account_Number__c = 'SF-11224455',
-			Billing_Account_Name__c ='Test Billing account Name',
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Error'
-			);
-			EventBus.publish(newsEvent);
+		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
+		Request_Object_Id__c=CA.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Error'
+		);
+		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=CA.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Success'
+		Request_Object_Id__c=CA.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
 		);
 		EventBus.publish(newsEvent1);
 
@@ -970,27 +970,27 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-			BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Request_Object_Id__c=CA.Id,
-			Billing_Account_Number__c = 'SF-11224455',
-			Billing_Account_Name__c ='Test Billing account Name',
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Success'
-			);
-			EventBus.publish(newsEvent);
+		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
+		Request_Object_Id__c=CA.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success'
+		);
+		EventBus.publish(newsEvent);
 
 		BillingAccountCreationEvent__e newsEvent1 = new BillingAccountCreationEvent__e(
-				Request_Object_Id__c=CA.Id,
-				Billing_Account_Number__c = 'SF-11224455',
-				Billing_Account_Name__c ='Test Billing account Name',
-				Organisation_Record_Id__c=account.Id,
-				Transaction_Id__c = externalOnboardingRecord.Id,
-				Parent_Account_Number__c = 'SF-11224455',
-				Sub_Account_Request_Id__c = subAccountRequest.id,
-				Source_System__c = 'SAP',
-				Status__c = 'Error'
+		Request_Object_Id__c=CA.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Parent_Account_Number__c = 'SF-11224455',
+		Sub_Account_Request_Id__c = subAccountRequest.id,
+		Source_System__c = 'SAP',
+		Status__c = 'Error'
 		);
 		EventBus.publish(newsEvent1);
 
@@ -1002,8 +1002,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	 *      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
 	 */
 	@IsTest
-	private static void testRatingPlanCreationSuccessScenario()
-	{
+	private static void testRatingPlanCreationSuccessScenario(){
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -1093,17 +1092,17 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 		Test.startTest();
-			BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Additional_Info__c='RatingPlanActivation',
-			Request_Object_Id__c=alpRec.Id,
-			Billing_Account_Number__c = 'SF-11224455',
-			Billing_Account_Name__c ='Test Billing account Name',
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Success',
-			Status_Description__c = 'Rating plan(s) have been activated successfully.',
-			Rating_Plan_Id__c = '444555677'
+		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
+		Additional_Info__c='RatingPlanActivation',
+		Request_Object_Id__c=alpRec.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Success',
+		Status_Description__c = 'Rating plan(s) have been activated successfully.',
+		Rating_Plan_Id__c = '444555677'
 		);
 		EventBus.publish(newsEvent);
 
@@ -1217,16 +1216,16 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Additional_Info__c='RatingPlanActivation',
-			Request_Object_Id__c=alpRec.Id,
-			Billing_Account_Number__c = 'SF-11224455',
-			Billing_Account_Name__c ='Test Billing account Name',
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Error',
-			Status_Description__c = 'Rating plan activation has failure.',
-			Rating_Plan_Id__c = '444555677'
+		Additional_Info__c='RatingPlanActivation',
+		Request_Object_Id__c=alpRec.Id,
+		Billing_Account_Number__c = 'SF-11224455',
+		Billing_Account_Name__c ='Test Billing account Name',
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Error',
+		Status_Description__c = 'Rating plan activation has failure.',
+		Rating_Plan_Id__c = '444555677'
 		);
 		EventBus.publish(newsEvent);
 
@@ -1334,13 +1333,13 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Additional_Info__c='RatingPlanActivation',
-			Request_Object_Id__c=dealSupportRequest.Id,
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Completed',
-			Status_Description__c = 'Rating plan(s) have been activated successfully.'
+		Additional_Info__c='RatingPlanActivation',
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Completed',
+		Status_Description__c = 'Rating plan(s) have been activated successfully.'
 		);
 		EventBus.publish(newsEvent);
 
@@ -1448,13 +1447,13 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Additional_Info__c='RatingPlanActivation',
-			Request_Object_Id__c=dealSupportRequest.Id,
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Partial Success',
-			Status_Description__c = 'One or more rating plan(s) activation failed...'
+		Additional_Info__c='RatingPlanActivation',
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Partial Success',
+		Status_Description__c = 'One or more rating plan(s) activation failed...'
 		);
 		EventBus.publish(newsEvent);
 
@@ -1569,13 +1568,13 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Test.startTest();
 		BillingAccountCreationEvent__e newsEvent = new BillingAccountCreationEvent__e(
-			Additional_Info__c='RatingPlanActivation',
-			Request_Object_Id__c=dealSupportRequest.Id,
-			Organisation_Record_Id__c=account.Id,
-			Transaction_Id__c = externalOnboardingRecord.Id,
-			Source_System__c = 'SAP',
-			Status__c = 'Error',
-			Status_Description__c = 'All rating plan(s) activation failed...'
+		Additional_Info__c='RatingPlanActivation',
+		Request_Object_Id__c=dealSupportRequest.Id,
+		Organisation_Record_Id__c=account.Id,
+		Transaction_Id__c = externalOnboardingRecord.Id,
+		Source_System__c = 'SAP',
+		Status__c = 'Error',
+		Status_Description__c = 'All rating plan(s) activation failed...'
 		);
 		EventBus.publish(newsEvent);
 
