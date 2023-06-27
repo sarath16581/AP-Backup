@@ -6742,6 +6742,14 @@ We manage your personal information in accordance with our Privacy policy. The p
         <shortDescription>REC_TYPE_DEV_LEGALDSR</shortDescription>
         <value>Legal_Support_Request</value>
     </labels>
+	<labels>
+        <fullName>REC_TYPE_DEV_TRANSPORT_ENQUIRY</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Transport Enquiry</shortDescription>
+        <value>Transport_Enquiry</value>
+    </labels>
     <labels>
         <fullName>REC_TYPE_DEV_SSSW_SERVICE</fullName>
         <language>en_US</language>

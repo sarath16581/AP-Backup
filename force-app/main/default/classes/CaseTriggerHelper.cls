@@ -16,6 +16,7 @@
   * 15/07/2020			seth.heang@auspost.com.au					STP2240,STP2242 - Updated sendClosureEmails to stop sending outbound email if reason is due to duplicate, and update OrgWideEmailAddress to 'noreply@auspost.com.au'
   * 2022-02-17 - Nathan Franklin - updated minor comments
   * 2022-11-04 - Nathan Franklin - slightly refactor processHLCCases to only execute a dml if needed... NOTE: The method should be refactored... I don't think a DML is needed at all, but have ran out of time
+  * 2023-06-02 - Mahesh Parvathaneni - Added logic to complete milestones for transport enquiry record type cases
   */
 public with sharing class CaseTriggerHelper{
 
@@ -43,6 +44,7 @@ public with sharing class CaseTriggerHelper{
 	public static Set<String> nonCharterMileStones = new Set<String>();
 	private static Set<Id> validRecTypes;				   // type of cases for which code executes
 	private static Set<Id> bgsRecTypes;				   // type of cases for Service Delivery
+	private static Id transportEnquiryRecTypeId;
 
 	// Set the recordTypeMap variable to store the map of id and record type name
 	static{
@@ -55,6 +57,8 @@ public with sharing class CaseTriggerHelper{
 
 
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),BGSConstants.SERVICE_DELIVERY_NAME);
+			// Get the Record Type Id for Transport Enquiry Cases
+			transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
 
 			if(queueMap.isEmpty()){
 				queueMap = HLCUtility.getGroupDetails(HLCUtility.AGENT_QUEUE_SET,HLCUtility.QUEUE);   // variable to store queue details
@@ -181,7 +185,7 @@ public with sharing class CaseTriggerHelper{
 		Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());	// get dynamic query row limit
 		List<CaseMilestone> updateMilestones = new List<CaseMilestone>();	   // milestones to be updated
 		List<Case> compMilestoneCases = new List<Case>();   // cases to be processed
-		List<Case> bgsMilestoneCases = new List<Case>();   // BGS cases to be processed, these need violated milestones to be completed too
+		List<Case> milestoneCasesToProcess = new List<Case>();
 		isCompleteMilestonRecursive = true; // -- kalpita 4.11.17 - moved recursion flag up
 		try{
 			Case oldCase = null;
@@ -201,15 +205,16 @@ public with sharing class CaseTriggerHelper{
 						compMilestoneCases.add(caseRec);
 					}
 				}
-				else if(Utility.isValidRecordType(bgsRecTypes, caseRec.RecordTypeId) && caseRec.IsClosed == true)
+				else if((Utility.isValidRecordType(bgsRecTypes, caseRec.RecordTypeId) && caseRec.IsClosed == true) || 
+					Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, caseRec.RecordTypeId))
 				{
-					// only complete milestones if the BGS Case is moving to closed
+					// only complete milestones if the BGS Case is moving to closed (or) case is of transport enquiry
 					// compare with existing fields to confirm that we need to action, anti-recursion guard
 					oldCase = oldCaseMap.get(caseRec.Id);
 					if(oldCase.Status != caseRec.Status)
 					{
-						//complete all the milestones for BGS if the case has been newly closed
-						bgsMilestoneCases.add(caseRec);
+						//complete all the milestones for BGS/Transport enquiry cases
+						milestoneCasesToProcess.add(caseRec);
 					}
 				}
 			}
@@ -220,10 +225,9 @@ public with sharing class CaseTriggerHelper{
 				Utility.completeCaseMilestones(compMilestoneCases,nonCharterMileStones,false);
 			}
 
-			if(!bgsMilestoneCases.isEmpty())
+			if(!milestoneCasesToProcess.isEmpty())
 			{
-				System.debug('CaseTriggerHelper:: completing BGS Milestones');
-				Utility.completeCaseMilestones(bgsMilestoneCases, nonCharterMileStones, true);
+				Utility.completeCaseMilestones(milestoneCasesToProcess, nonCharterMileStones, true);
 			}
 		}
 		catch(Exception exp){

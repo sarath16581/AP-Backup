@@ -30,6 +30,7 @@
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
+ * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -841,6 +842,14 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<FacilityByPass__c>)maybeGenerateIds(populateSObjects(FacilityByPass__c.SObjectType, new Map<SObjectField, Object> {
 				FacilityByPass__c.Facility_By_Pass_From__c => fromNetworkId,
 				FacilityByPass__c.Facility_By_Pass_To__c => toNetworkId
+		}, count), generateIds);
+	}
+
+	public static List<EmailToCaseMapping__mdt> getEmailToCaseMappings(Integer count, String emailAddress, Boolean generateIds) {
+		return (List<EmailToCaseMapping__mdt>)maybeGenerateIds(populateSObjects(EmailToCaseMapping__mdt.SObjectType, new Map<SObjectField, Object> {
+			EmailToCaseMapping__mdt.DeveloperName => 'RECORD%count%',
+			EmailToCaseMapping__mdt.IsActive__c => true,
+			EmailToCaseMapping__mdt.EmailToCaseAddress__c => emailAddress
 		}, count), generateIds);
 	}
 

@@ -66,7 +66,10 @@ public without sharing class LpoCpoAccessHandlerQueueable implements Queueable {
 								new AccountTeamMember(
 										AccountId = acc.Id,
 										UserId = contactUser.Id,
-										TeamMemberRole = 'Assigned LPO'
+										TeamMemberRole = 'Assigned LPO',
+										AccountAccessLevel = 'Edit',
+										OpportunityAccessLevel = 'Read',
+										CaseAccessLevel = 'Read'
 								)
 						);
 					}

@@ -10,6 +10,7 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	// Make testing mocks easier
 	@TestVisible 
 	private Id currentUserId = System.UserInfo.getUserId();
+	private User currentUser;
 	@TestVisible
 	private static final String LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE = 'MyCommunity';
 	private static final String APP = 'Sales';
@@ -59,6 +60,11 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 			for (Opportunity opptyRecord : records) {
 				opptyRecord.LeadSource = LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE;
 				opptyRecord.Lead_Seeker__c = true;
+
+				// Populate additional user info on the opportunity - used for reporting purposes
+				opptyRecord.Hidden_Lead_Creator_Name__c = currentUser.Name;
+				opptyRecord.Hidden_Lead_Seeker_Lead_Owner__c = currentUser.Email;
+				opptyRecord.APS_Number__c = currentUser.APSNumber__c;
 			}
 		}
 	}
@@ -70,15 +76,15 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	 * The criteria is: APS number on the user record and the account record they're associated with is of record type "Facility"
 	 */
 	private boolean isUserEligibleForLeadSeekerPoints() {
-		User userRecord = UsersSelector.newInstance(0, new Map<SObjectType, Set <SObjectField>>{
-													User.SObjectType => new Set <SObjectField>{ User.APSNumber__c },
+		currentUser = UsersSelector.newInstance(0, new Map<SObjectType, Set <SObjectField>>{
+													User.SObjectType => new Set <SObjectField>{ User.APSNumber__c, User.Name, User.Email },
 													Account.SObjectType => new Set <SObjectField>{ Account.RecordTypeId }})
 										.selectById(new Set <Id> { currentUserId }, 
 													new Set <Object> { UsersSelector.Options.WITH_COMMUNITY_ACCOUNT })
 										.get(currentUserId);
 		
-		Boolean userHasAPSNumber = String.IsNotBlank(userRecord?.APSNumber__c);
-		Boolean userNetworkIsCPO = userRecord?.Contact?.Account?.RecordTypeId == facilityRTId;
+		Boolean userHasAPSNumber = String.IsNotBlank(currentUser?.APSNumber__c);
+		Boolean userNetworkIsCPO = currentUser?.Contact?.Account?.RecordTypeId == facilityRTId;
 
 		return userHasAPSNumber && userNetworkIsCPO;
 	}
