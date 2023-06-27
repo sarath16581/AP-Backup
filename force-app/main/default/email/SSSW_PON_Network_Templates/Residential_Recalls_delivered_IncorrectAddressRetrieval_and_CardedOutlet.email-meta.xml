@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Residential – Recalls – delivered – Incorrect address – retrieval and carded to</name>
+    <style>none</style>
+    <subject>Australia Post – Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName}
+
+Re: Article {!Case.ReferenceID__c}
+
+Your item is ready for you to collect.
+
+I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. We’ve successfully retrieved this item from that address and it is now available for collection at a nearby Post Office.
+
+Please refer to our website  https://auspost.com.au/track  or mobile app, to find out from the tracking information which post office has the item .
+
+We apologise for any inconvenience this may cause.
+
+Kind Regards,
+{!User.FirstName}
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
