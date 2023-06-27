@@ -1670,8 +1670,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             }
             //-- change made for roll out of delivery issues network assignment automation
             String wcid = (String) wizardData.get('latestDeliveredScanWcid');
-            String isEligibleForMyNetworkAssignment = (String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue');
-            if(isEligibleForMyNetworkAssignment == 'true' && !isVodv)
+            String isEligibleForMyNetworkAssignment = Boolean.valueOf((String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue')) && !isVodv ? 'true' : 'false';
+            if(isEligibleForMyNetworkAssignment.equalsIgnoreCase('true'))
             {
                 //-- set the value for isEligibleForMyNetworkAssignment to the case field
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
