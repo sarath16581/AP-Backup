@@ -782,4 +782,16 @@
             <group>Sales_Excellence</group>
         </sharedFrom>
     </sharingOwnerRules>
+	<sharingOwnerRules>
+        <fullName>Transport_Enquiry_Case_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Shares the transport enquiry cases owned by users across the role AP Van Depot User.</description>
+        <label>Transport Enquiry Case Read Write</label>
+        <sharedTo>
+            <role>AP_Vans_Depot_Users</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>AP_Vans_Depot_Users</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

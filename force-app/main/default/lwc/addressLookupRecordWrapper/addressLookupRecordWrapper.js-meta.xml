@@ -19,6 +19,7 @@
             <property name="refreshAfterSave" type="Boolean" label="Refresh after Save (Not used. Use noRefreshAfterSave instead)" description="The title of component" required="false" default="true"/>
             <property name="noRefreshAfterSave" type="Boolean" label="Do not Refresh after Save" description="The title of component" required="false" default="false"/>
             <property name="altRecordId" type="String" label="Alternate Record Id" description="If the component is not a record page, we can specify the record id from this variable" required="false" default=""/>
+            <property name="recordId" type="String" />
         </targetConfig>
     </targetConfigs>
     <masterLabel>Address Lookup Record Wrapper</masterLabel>
