@@ -826,7 +826,7 @@
             <name>copy_description</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Lead.Description</field>
             <operation>notEqual</operation>

@@ -7,16 +7,17 @@
  * @domain BGStandardLead
  * @changelog
  * 2020-07-27 - Pratyush Chalasani - Created
+ * 2023-07-14 - Ranjeewa Silva - Refactored into new ApplicationModule framework.
  *
  */
-public inherited sharing class BGStandardLeadModule extends ApplicationDomain.Module {
+public inherited sharing class BGStandardLeadModule extends ApplicationModule {
 	public static BGStandardLeadModule newInstance() {
 		return (BGStandardLeadModule) Application.Utilities.newInstance(BGStandardLeadModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
 	public BGStandardLeadModule() {
-		getTriggerEvents().enablebeforeUpdate();
+		getTriggerEvents().enableBeforeUpdate();
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
