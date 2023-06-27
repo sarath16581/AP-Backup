@@ -882,4 +882,38 @@ private class AccountTriggerUtility_Test {
         List<AccountTeamMember> resultATMs = [SELECT Id, UserId, AccountId From AccountTeamMember ]; 
         System.assert(resultATMs.isEmpty());
     }
+
+    @IsTest
+    public static void testUpdateBAOnDelete(){
+        Account accountRecord = ApplicationTestDataFactory.getAccounts(1, false)[0];
+        insert accountRecord;
+        accountRecord.LEGACY_ID__c = '60000000';
+        update accountRecord;
+        System.assertNotEquals(null, accountRecord.Id, 'Expected an Account record to be created');
+
+        Billing_Account__c billingAccountRecord = ApplicationTestDataFactory.getBillingAccounts(1, accountRecord.Id, 'SAP ERP', false)[0];
+        insert billingAccountRecord;
+        System.assertNotEquals(null, billingAccountRecord.Id, 'Expected a Billing Account record to be created');
+
+        Revenue_by_Organisation__c rboToInsert = new Revenue_by_Organisation__c();
+        rboToInsert.Organisation__c = accountRecord.Id;
+        insert rboToInsert;
+        System.assertNotEquals(null, rboToInsert.Id, 'Expected a Revenue by Organisation record to be created');
+
+        Billing_Account__c ba = [SELECT Id,Organisation__c FROM Billing_Account__c WHERE Id = :billingAccountRecord.Id];
+        System.assertEquals(accountRecord.Id, ba.Organisation__c, 'Expected the Billing Account created is associated with the Account');
+
+        Revenue_by_Organisation__c rbo = [SELECT Id,Organisation__c FROM Revenue_by_Organisation__c WHERE Id = :rboToInsert.Id];
+        System.assertEquals(accountRecord.Id, rbo.Organisation__c, 'Expected the Revenue by Organisation created is associated with the Account');
+
+        Test.startTest();
+        delete accountRecord;
+        Test.stopTest();
+
+        List<Billing_Account__c> bas = [SELECT Id,Organisation__c FROM Billing_Account__c WHERE Id = :billingAccountRecord.Id];
+        System.assert(bas.isEmpty(), 'Expected the Billing Account to be deleted by the deletion of the Account record');
+
+        List<Revenue_by_Organisation__c> rbos = [SELECT Id,Organisation__c FROM Revenue_by_Organisation__c WHERE Id = :rboToInsert.Id];
+        System.assert(rbos.isEmpty(), 'Expected the Revenue by Organisation to be deleted by the deletion of the Account record');
+    }
 }
