@@ -18,10 +18,6 @@
                 <behavior>Readonly</behavior>
                 <field>CaseNumber</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Case_Owner_Manager__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -44,10 +40,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Requestor__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Sales_Team__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
@@ -73,6 +65,10 @@
                 <behavior>Edit</behavior>
                 <field>ContactId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Related_Billing_Account__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -92,10 +88,6 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Start_Date__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Support_Work_Type__c</field>
@@ -136,20 +128,8 @@
                 <behavior>Edit</behavior>
                 <field>RecordTypeId</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CreatedById</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Business_Days__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LastModifiedById</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Origin</field>
@@ -171,7 +151,6 @@
         <fields>Origin</fields>
         <fields>ContactId</fields>
         <fields>SuppliedEmail</fields>
-        <fields>CreatedById</fields>
     </miniLayout>
     <platformActionList>
         <actionListContext>Record</actionListContext>

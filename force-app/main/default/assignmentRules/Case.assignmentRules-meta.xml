@@ -31,7 +31,7 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>Data_Quality_Management</assignedTo>
+            <assignedTo>Sales_Coordinator</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
@@ -1218,7 +1218,7 @@
         <ruleEntry>
             <assignedTo>BSC_Packcentre</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10  OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 )</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10  OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1857,7 +1857,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 )</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 )</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1913,16 +1913,11 @@
                 <operation>contains</operation>
                 <value>bioceuticals.com.au</value>
             </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>mainfreight.com</value>
-            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_3</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 )</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1962,6 +1957,11 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>asics.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>mainfreight.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -2683,7 +2683,7 @@
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
-                <value>Sales Coordinator</value>
+                <value>Sales Operations Support</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.Origin</field>
@@ -2711,7 +2711,7 @@
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
-                <value>Sales Coordinator</value>
+                <value>Sales Operations Support</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
