@@ -31,7 +31,10 @@
     };
     </script>  
     <apex:form >
-        <apex:pageBlock >
+        <apex:pageBlock rendered="{!NOT(isAllowedToCreateCompensation)}">
+            <apex:pagemessage severity="error" strength="3" summary="You do not have privilege to create compensation records."/>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!isAllowedToCreateCompensation}" >
             <apex:pagemessages id="errors" />
             <apex:pageBlockButtons >
                 <apex:actionStatus id="processing" startText="Processing.. Please wait..">

@@ -35,7 +35,44 @@ public without sharing class EFTBankDetailsController {
     // DDS-8012: attribute indicate the route of customer provide or agent provide bank details
     public final String BANK_DETAILS_VIA_FORM = 'CustomerProvide';
     public final String BANK_DETAILS_VIA_AGENT = 'AgentProvide';
-    
+
+    public static Boolean isAllowedToCreateCompensation {
+        get {
+            if(isAllowedToCreateCompensation == null) {
+                return true;
+            }
+            return isAllowedToCreateCompensation;
+        }
+        private set;
+    }
+
+    public static Set<Id> RESTRICTED_COMPENSATION_RECORD_TYPES {
+        get {
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES == null) {
+                RESTRICTED_COMPENSATION_RECORD_TYPES = RecordTypesSelector.newInstance().selectByDeveloperName('Compensation__c', new Set<String>{'EFT','Load_and_Go','Money_Order','Money_Order_Number_Required'}).keySet();
+            }
+            return RESTRICTED_COMPENSATION_RECORD_TYPES;
+        }
+        private set;
+    }
+    public static final Boolean isCompensationUser {
+        get {
+            if(isCompensationUser == null) {
+                isCompensationUser = FeatureManagement.checkPermission('Is_Compensation_User');
+            }
+            return isCompensationUser;
+        }
+        private set;
+    }
+    public static final Boolean IsCompensationSupervisor {
+        get {
+            if(isCompensationSupervisor == null) {
+                isCompensationSupervisor = FeatureManagement.checkPermission('Is_Compensation_Supervisor');
+            }
+            return isCompensationSupervisor;
+        }
+        private set;
+    }
     
     public EFTBankDetailsController(ApexPages.StandardController stdController) {
         showEditButton = true;
@@ -73,6 +110,13 @@ public without sharing class EFTBankDetailsController {
         if(record.Status__c == 'Processing') {
             showEditButton = false;
         }
+
+        // compensation restrictions
+        String selectedRecordTypeId = (String)stdController.getRecord().get('RecordTypeId');
+        if(RESTRICTED_COMPENSATION_RECORD_TYPES.contains(selectedRecordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+            isAllowedToCreateCompensation = false;
+        }
+
     }
     
     public PageReference editMethod() {
