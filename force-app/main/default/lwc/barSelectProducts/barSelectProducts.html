@@ -1,0 +1,38 @@
+<template>
+		<!--template if:true={viewing}>
+			<lightning-datatable
+					key-field="id"
+					data={productData}
+					columns={gridColumns}
+					
+					selected-rows={selectedRows}
+					expanded-rows={expandedRows}
+					hide-checkbox-column=true>
+			</lightning-datatable>
+		</template-->
+		
+		
+			<lightning-tree-grid
+				columns={gridColumns}
+				data={productData}
+				key-field="id"
+				onrowselection={updateSelectedRows}
+				selected-rows={selectedRows}
+				expanded-rows={expandedRows}
+				hide-checkbox-column={viewing}
+				>
+			</lightning-tree-grid>
+		
+
+		<div style="text-align: right">
+			<template if:true={viewing}>
+				<lightning-button variant="brand" label="Edit" onclick={edit}></lightning-button>
+			</template>
+			
+			<template if:true={editing}>
+				<lightning-button variant="destructive-text" label="Cancel" onclick={close}></lightning-button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<lightning-button variant="brand" label="Save" onclick={saveSelection}></lightning-button>
+			</template>
+		</div>
+</template>
