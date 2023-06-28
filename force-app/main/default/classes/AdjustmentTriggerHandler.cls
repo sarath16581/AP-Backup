@@ -61,7 +61,7 @@ public without sharing class AdjustmentTriggerHandler {
 
 			List<Credit_Approval__c> caUpdateList = new List<Credit_Approval__c>();
 			List<Disputed_Item__c> diUpdateList = new List<Disputed_Item__c>();
-			List<Adjustment__c> adUpdateList = new List<Adjustment__c>();
+			Map<Id, Adjustment__c> adUpdateMap = new Map<Id, Adjustment__c>();
 
 			for(Adjustment__c adVar: adjustmentList){
 
@@ -100,7 +100,9 @@ public without sharing class AdjustmentTriggerHandler {
 								//diVar.ERP_Status__c = adVar.Status__c;
 								diUpdateList.add(diVar);
 								
-								adUpdateList.add(new Adjustment__c(Id = adVar.Id, Is_APPC__c = (diVar.Is_APPC__c == 'Yes')));
+								if (adUpdateMap.get(adVar.Id) == null) {
+									adUpdateMap.put(adVar.Id, new Adjustment__c(Id = adVar.Id, Is_APPC__c = (diVar.Is_APPC__c == 'Yes')));
+								}
 							}
 						}
 					}
@@ -115,12 +117,12 @@ public without sharing class AdjustmentTriggerHandler {
 			adjRecursiveFlag = true;
 			adjustmentLink = true;
 
-			if (adUpdateList.size()>0) {
+			if (adUpdateMap.size()>0) {
 				try {
-					ApplicationDatabase.getInstance().dmlUpdate(adUpdateList);
+					ApplicationDatabase.getInstance().dmlUpdate(adUpdateMap.values());
 				} catch(exception e){ 
 					system.debug('AdjustmentUpdateError:' + e.getStackTraceString());
-					for(Adjustment__c adVar: adjustmentList){
+					for(Adjustment__c adVar: adUpdateMap.values()){
 					  adVar.addError('Adjustment creation failed. Please contact your administrator.'); 
 					}
 				}
