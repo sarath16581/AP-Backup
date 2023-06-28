@@ -31,13 +31,13 @@ public with sharing class CreateBillingAccountController {
 
 	//CI-613 Method to check if Service Commencement Date and Service Expiry Date are populated, if any of the dates are not populated throw an error
 	@AuraEnabled
-	public static boolean checkServiceDatesOnALI(String recordId){
-		boolean serviceDatesInPlace=false;
+	public static boolean checkServiceDatesOnALI(String dsrId){
+		boolean serviceDatesError=false;
 		Deal_Support_Request__c dsrRecord;
-		String objectName = String.valueOf(id.valueOf(recordId).getsobjecttype());
+		String objectName = String.valueOf(id.valueOf(dsrId).getsobjecttype());
 			if(objectName == DSR_OBJECT){
 				dsrRecord = DealSupportRequestsSelector.newInstance().selectById(
-					new set<Id>{ recordId },
+					new set<Id>{dsrId},
 					new set<object>{
 						DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
 						DealSupportRequestsSelector.Options.WITH_CONTRACT,
@@ -53,10 +53,12 @@ public with sharing class CreateBillingAccountController {
 			APT_AgreementLineItemsSelector.Options.WITH_APPLIED_PSR}))
 			{
 				if('Australia Post Parcel Contract'.equalsIgnoreCase(ali.APT_Product_Name__c) &&  ali.Apttus_CMConfig__EffectiveDate__c!=null && ali.Apttus_CMConfig__EndDate__c!=null){
-					serviceDatesInPlace=true;
+					serviceDatesError=false;
+				}else{
+					serviceDatesError=true;
 				}
 		}
-		return serviceDatesInPlace;
+		return serviceDatesError;
 	}
 	/**
 	 * @Description:  Checks and validation all the required attributes for Billing Account creation and provide

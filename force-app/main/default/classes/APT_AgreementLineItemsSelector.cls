@@ -36,7 +36,7 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 			Apttus__AgreementLineItem__c.Id, Apttus__AgreementLineItem__c.Name, Apttus__AgreementLineItem__c.APT_Product_Name__c, Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c,
 			Apttus__AgreementLineItem__c.Apttus_CMConfig__ItemSequence__c, Apttus__AgreementLineItem__c.APT_Price_Structure__c, Apttus__AgreementLineItem__c.APT_Option_Group__c,
 			Apttus__AgreementLineItem__c.APT_Option_Product_Name__c, Apttus__AgreementLineItem__c.APT_Lodgement_Zone__c, Apttus__AgreementLineItem__c.APT_Lodgement_Zone_Code__c,
-			Apttus__AgreementLineItem__c.SAP_Custom_Reference__c, Apttus__AgreementLineItem__c.APT_Option_Name_Without_Tier__c
+			Apttus__AgreementLineItem__c.SAP_Custom_Reference__c, Apttus__AgreementLineItem__c.APT_Option_Name_Without_Tier__c,Apttus__AgreementLineItem__c.Apttus_CMConfig__EffectiveDate__c,Apttus__AgreementLineItem__c.Apttus_CMConfig__EndDate__c
 		};
 	}
 
@@ -70,7 +70,7 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 	}
 
 	public virtual List<Apttus__AgreementLineItem__c> selectByContractIdsLineTypeProduct(Set<Id> contractIds, Set<String> lineTypes,Set<String> productName, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)    
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
 		.addConditions()
 			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
 			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
@@ -107,7 +107,7 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 				.setSortingOrderAsc()
 			);
 		}
-		
+
 		return builder;
 	}
 }

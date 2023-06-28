@@ -16,9 +16,8 @@ import checkServiceDatesOnALI from "@salesforce/apex/CreateBillingAccountControl
 import ratingPlanActivationCreationRequest from "@salesforce/apexContinuation/CreateBillingAccountController.ratingPlanActivationCreationRequest";
 
 export default class CreateRatingPlanActivation extends LightningElement {
-	@api recordId;
 	inProgressSpinner = false;
-	displayPromptMsg = true;
+	displayPromptMsg = false;
 	submitRequestInProgress = false;
 	submitRequestComplete = false;
 	ratingPlanCreationSuccessful = false;
@@ -30,15 +29,34 @@ export default class CreateRatingPlanActivation extends LightningElement {
 				'<li>What best describes your issue? Received message from Camunda stating that service is currently unavailable<br/></li>'+
 				'<li>Can you provide a short description:  SAP Rating Plan Activation integration is not working</li><ul></h3>';
 
+	_recordId;
+	@api set recordId(value) {
+		// to execute only when recordId changes
+		if (value!== this._recordId) {
+			this._recordId = value;
 
-	@api
-	connectedCallback(){
-		checkServiceDatesOnALI({ dsrId: this.recordId})
+			// do your thing right here with this.recordId / value
+			this.displayRecordId();
+		}
+	}
+	get recordId() {
+		return this._recordId;
+	}
+	displayRecordId(){
+		checkServiceDatesOnALI({dsrId:this.recordId})
 		.then(result => {
-			this.serviceDatesError = result;
+			if(result===true){
+				this.displayPromptMsg=false;
+				this.submitRequestComplete=true;
+				this.serviceDatesError = result;
+			}else{
+				this.displayPromptMsg=true;
+			}
+
 		})
 		.catch(error => {
 			console.log('Error is: '+error);
+			console.log('@@@1'+JSON.stringify(error));
 		});
 	}
 	/**

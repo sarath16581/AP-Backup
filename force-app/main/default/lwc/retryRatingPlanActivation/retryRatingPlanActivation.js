@@ -19,9 +19,8 @@ import RATING_PLAN_INTEGRATION_NOT_CLEAR_ERROR_MSG from '@salesforce/label/c.Rat
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 
 export default class RetryRatingPlanActivation extends LightningElement {
-	@api recordId;
 	inProgressSpinner = false;
-	displayPromptMsg = true;
+	displayPromptMsg = false;
 	submitRequestInProgress = false;
 	submitRequestComplete = false;
 	ratingPlanCreationSuccessful = false;
@@ -36,6 +35,35 @@ export default class RetryRatingPlanActivation extends LightningElement {
 	integrationStausRetryErrorMsg = RATING_PLAN_INTEGRATION_NOT_CLEAR_ERROR_MSG;
 	passIntegrationStatusValidation = false;
 
+	_recordId;
+	@api set recordId(value) {
+		// to execute only when recordId changes
+		if (value!== this._recordId) {
+			this._recordId = value;
+
+			// do your thing right here with this.recordId / value
+			this.displayRecordId();
+		}
+	}
+	get recordId() {
+		return this._recordId;
+	}
+	displayRecordId(){
+		checkServiceDatesOnALI({dsrId:this.recordId})
+		.then(result => {
+			if(result===true){
+				this.displayPromptMsg=false;
+				this.submitRequestComplete=true;
+				this.serviceDatesError = result;
+			}else{
+				this.displayPromptMsg=true;
+			}
+
+		})
+		.catch(error => {
+			console.log('Error is: '+error);
+		});
+	}
 	/**
 	 * @description	wire method to retrieve the DSR record and rating plan integration status field, to be used for validation
 	 *  */
@@ -59,16 +87,7 @@ export default class RetryRatingPlanActivation extends LightningElement {
 		}
 	}
 
-	@api
-	connectedCallback(){
-		checkServiceDatesOnALI({ dsrId: this.recordId})
-		.then(result => {
-			this.serviceDatesError = result;
-		})
-		.catch(error => {
-			console.log('Error is: '+error);
-		});
-	}
+
 	/**
 	 * @description	this fuction imperatively call apex methods to generate a request payload with all required mappings, create BAM external onboarding request
 	 * 				and finally trigger a callout to Camunda
