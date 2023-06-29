@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Transport Enquiry - Used to notify the Customer when the Case has been created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Transport Enquiry - New Case Notification</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Transport Enquiry
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+Thank you for contacting Australia Post Collections Support.
+
+We have received your request and will respond to you shortly. Your case reference is  {!Case.CaseNumber} in case you need to follow up with us by phone, please do not send a second email.
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

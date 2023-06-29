@@ -278,6 +278,7 @@ public class BspConstants{
     public static final String BSP_PREMIUM_EXPRESS_RETURN_SIGNATURE = 'Returns Premium Express + Signature';
     public static final String BSP_PREMIUM_EXPRESS_SIGNATURE= 'Premium Express + Signature';
     public static final String BSP_PREMIUM_EXPRESS_PARCEL = 'Premium Express';
+    public static final Set<String> EVENT_STATUS_DELIVERED = new Set<String> {'DD-ER13','DD-ER14','DD-ER37','DOM-0001','DD-ER39','DD-ER15','DD-ER38'};
 
     /**
      * @description A special custom permission that is set on users with the profile BSP Community User or users with the permission set 'BSP_Community_Access' to determine whether a user can access BSP or not

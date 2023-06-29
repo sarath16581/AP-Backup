@@ -53,6 +53,8 @@ private class OpportunityLeadSeekerModule_Test {
 
 		System.Assert(oppties[0].LeadSource == OpportunityLeadSeekerModule.LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE, 'Expected opportunity record Lead Source to be ' + OpportunityLeadSeekerModule.LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE + '. Received ' + oppties[0].LeadSource);
 		System.Assert(oppties[0].Lead_Seeker__c == true, 'Expected opportunity record Lead Seeker to be true.');
+		System.Assert(oppties[0].APS_number__c == user.APSNumber__c, 'Expected opportunity APS Number to match User APS Number.');
+		System.Assert(oppties[0].Hidden_Lead_Seeker_Lead_Owner__c == user.Email, 'Expected opportunity Hidden_Lead_Seeker_Lead_Owner__c Number to match User Email.');
 	}
 
 	/**

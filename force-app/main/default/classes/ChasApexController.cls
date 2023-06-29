@@ -57,7 +57,8 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
-* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing
+* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing for Missing Item
+* 2023-06-26 SL DDS-11010 VODV case routing for Delivery Issue
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -1431,6 +1432,7 @@ commentBody = commentBody  + 'False';
             String parcelOrLetter =  (String) wizardData.get('selectedRadio2Name');
             String trackingNumber =  (String) wizardData.get('trackingId');
             String issueDateStr =  (String) wizardData.get('issueDate');
+            Boolean isVodv = String.isNotEmpty(wizardData.get('isVodv')) && 'true'.equalsIgnoreCase(wizardData.get('isVodv'));
             
             //--  address
             String addLine1 =  (String) wizardData.get('deliveryAddressLine1');
@@ -1668,8 +1670,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             }
             //-- change made for roll out of delivery issues network assignment automation
             String wcid = (String) wizardData.get('latestDeliveredScanWcid');
-            String isEligibleForMyNetworkAssignment = (String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue');
-            if(isEligibleForMyNetworkAssignment == 'true')
+            String isEligibleForMyNetworkAssignment = Boolean.valueOf((String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue')) && !isVodv ? 'true' : 'false';
+            if(isEligibleForMyNetworkAssignment.equalsIgnoreCase('true'))
             {
                 //-- set the value for isEligibleForMyNetworkAssignment to the case field
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
@@ -1683,19 +1685,15 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 {
                     toBeCreateCase.Description = toBeCreateCase.Description + Label.HS_Issue_Details_Warning +'\n\n'+ issueDescription + '\n\n';
                 }
-                
-            } 
-             //REQ2361513 -- Modified by Paul Swarnapandian
-                if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
-                    commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
-                } 
-                else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
-                    commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
-                }
-                
-                
-            
-            
+            }
+
+            //REQ2361513 -- Modified by Paul Swarnapandian
+            if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
+                commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
+            } else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
+                commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
+            }
+
             if(convertedIssueDate !=null){
                 toBeCreateCase.DateofIncident__c=convertedIssueDate;
             }
