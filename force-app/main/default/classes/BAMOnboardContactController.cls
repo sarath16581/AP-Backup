@@ -23,6 +23,7 @@ public without sharing class BAMOnboardContactController {
     public static String FIELD_BILLING_ACCOUNTS = 'billingAccounts';
     public static String FIELD_CONTACT_APPLICATIONS = 'contactApplications';
     public static String FIELD_CONTACT_ROLES_PER_APPLICATION = 'contactRolesPerApplication';
+	public static String FIELD_BILLING_ACCOUNTS_BY_APPLICATION = 'billingAccountsByApplication';
     public static List<String> INVALID_BILLING_ACCOUNT_TYPES = new List<String>{
             'SBBA', 'CASH'
     };
@@ -93,7 +94,7 @@ public without sharing class BAMOnboardContactController {
 
         // get all Applications, which is our STATIC DATA
         List<BAMApplication__c> allApplications = [
-                SELECT Id, Name, Status__c, Product__c,
+                SELECT Id, Name, Status__c, Product__c, BillingAccountFilter__c,
                 (
                         SELECT Id, Name, Role__c, Application__c, ShowBillingAccount__c, ShowGroup__c
                         FROM ApplicationRoles__r
@@ -196,59 +197,59 @@ public without sharing class BAMOnboardContactController {
         return mapApplicationRoles;
     }
 
-    @AuraEnabled
-    public static Map<String, Object> loadInitialState(Id contactId)
-    {
-        Map<String, Object> mapResults = new Map<String, Object> ();
+	@AuraEnabled
+	public static Map<String, Object> loadInitialState(Id contactId)
+	{
+		Map<String, Object> mapResults = new Map<String, Object> ();
 
-        // check user access for the contact
-        UserRecordAccess readContact = getRecordAccess(contactId);
-//        if(readContact == null || readContact.HasReadAccess == false)
-//        {
-//            // early out - no access
-//            mapResults.put(FIELD_MESSAGE, MSG_NO_ACCESS);
-//            System.debug('No Record access for user');
-//            return mapResults;
-//        }
+		// check user access for the contact
+		UserRecordAccess readContact = getRecordAccess(contactId);
+		//field overrides 
+		Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>> {
+			Contact.SObjectType => new Set<SObjectField> {
+				Contact.Id, Contact.Name, Contact.Phone, Contact.Email, Contact.OID_ID__c, Contact.Status__c, Contact.CRMCSSOID__c, Contact.BillingAccount__c,
+				Contact.BAMCSSOErrorMessage__c, Contact.BAMCSSOError__c, Contact.BAMInviteAcceptedDate__c, Contact.BAMInviteRequestDate__c
+			},
+			Billing_Account__c.SObjectType => new Set<SObjectField> {
+				Billing_Account__c.Name
+			}
+		};
+		// get the contact record
+		List<Contact> contacts = ContactsSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{contactId}, new Set<Object>{ContactsSelector.Options.WITH_BILLING_ACCOUNT}).values();
 
-        // get the contact record
-        List<Contact> contacts = [
-                SELECT Id, AccountId, Name, Phone, Email, OID_ID__c, Status__c, CRMCSSOID__c,
-                        BillingAccount__c, BillingAccount__r.Name, BAMCSSOErrorMessage__c, BAMCSSOError__c,
-                        BAMInviteAcceptedDate__c, BAMInviteRequestDate__c
-                FROM Contact
-                WHERE id = :contactId
-        ];
+		if(contacts.size() == 1)
+		{
+			Contact currContact = contacts[0];
+			mapResults.put(FIELD_CONTACT, currContact);
 
-        if(contacts.size() == 1)
-        {
-            Contact currContact = contacts[0];
-            mapResults.put(FIELD_CONTACT, currContact);
+			// load static data
 
-            // load static data
+			//1. Applications and Roles
+			List<BAMApplication__c> allApplications = loadAllApplications(currContact.AccountId);
+			mapResults.put(FIELD_APPLICATIONS, allApplications);
 
-            //1. Applications and Roles
-            List<BAMApplication__c> allApplications = loadAllApplications(currContact.AccountId);
-            mapResults.put(FIELD_APPLICATIONS, allApplications);
+			//2. Billing Accounts
+			List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId);
+			mapResults.put(FIELD_BILLING_ACCOUNTS, billingAccounts);
 
-            //2. Billing Accounts
-            List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId);
-            mapResults.put(FIELD_BILLING_ACCOUNTS, billingAccounts);
+			//3. Filter Billing Accounts per application
+			List<BAMUserUtility.ApplicationBillingAccountDataWrapper> billingAccountsByApp = BAMUserUtility.getAppBillingAccountDataWrapper(allApplications, billingAccounts);
+			mapResults.put(FIELD_BILLING_ACCOUNTS_BY_APPLICATION, billingAccountsByApp);
 
-            // load contact data
-            // 1. Latest External request, this determines if we show error or pending
-            Map<String, BAMContactApplication__c> externalRequestsByApp = loadContactApplications(contactId);
-            mapResults.put(FIELD_CONTACT_APPLICATIONS, externalRequestsByApp);
+			// load contact data
+			// 1. Latest External request, this determines if we show error or pending
+			Map<String, BAMContactApplication__c> externalRequestsByApp = loadContactApplications(contactId);
+			mapResults.put(FIELD_CONTACT_APPLICATIONS, externalRequestsByApp);
 
-            // 2. Contact Roles per Application
-            Map<String, BAMContactRole__c> rolesPerApp = loadContactRolePerApplication(contactId);
-            mapResults.put(FIELD_CONTACT_ROLES_PER_APPLICATION, rolesPerApp);
+			// 2. Contact Roles per Application
+			Map<String, BAMContactRole__c> rolesPerApp = loadContactRolePerApplication(contactId);
+			mapResults.put(FIELD_CONTACT_ROLES_PER_APPLICATION, rolesPerApp);
 
-        }
+		}
 
-        return mapResults;
+		return mapResults;
 
-    }
+	}
 
     @AuraEnabled
     public static Map<String, Object> saveProvisionRequests(Id contactId, List<Map<String, Object>> pageState, Id primaryBillingAccount) {

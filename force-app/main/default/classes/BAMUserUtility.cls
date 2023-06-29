@@ -138,7 +138,7 @@ public with sharing class BAMUserUtility {
     public static List<BAMApplication__c> getApplicationRolesForAccount(Id accountId) {
         // get all Applications
         List<BAMApplication__c> allApplications = [
-                SELECT Id, Name, Status__c, Product__c, AppKey__c,
+                SELECT Id, Name, Status__c, Product__c, AppKey__c, BillingAccountFilter__c,
                 (SELECT Id, Name, Role__c, Application__c, ShowBillingAccount__c, RoleDescription__c
                 FROM ApplicationRoles__r WHERE Status__c = 'Active' Order By OrderPriority__c)
                 FROM BAMApplication__c
@@ -185,6 +185,82 @@ public with sharing class BAMUserUtility {
         system.debug(hasAccess);
         return hasAccess;
     }
+
+	/**
+	 * @description This method returns the wrapper for Application and their related billing accounts based on the filter set at application level
+	 * @param  orgId			account id that onboards for the merchant portal
+	 * @param  appWithRoles 	list of applications that are active for the organisation
+	 * @return					wrapper of application to billing accounts based on BillingAccountFilter__c
+	 */
+	public static List<ApplicationBillingAccountDataWrapper> getAppBillingAccountDataWrapper(List<BAMApplication__c> appWithRoles, List<Billing_Account__c> billingAccounts) {
+		List<ApplicationBillingAccountDataWrapper> wrapperList = new List<ApplicationBillingAccountDataWrapper>();
+		Map<Id, BAMApplication__c> bamApplicationMap = new Map<Id, BAMApplication__c>(appWithRoles);
+
+		//loop through the  applications and get the billing accounts based on billing account filter
+		for (Id bamAppId : bamApplicationMap.keySet()) {
+			ApplicationBillingAccountDataWrapper wrapper = new ApplicationBillingAccountDataWrapper();
+			wrapper.bamApplicationId = bamAppId;
+			//get the billing account filter from the app level
+			if (String.isNotBlank(bamApplicationMap.get(bamAppId).BillingAccountFilter__c)) {
+				//deserialize the json filter
+				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(bamApplicationMap.get(bamAppId).BillingAccountFilter__c);
+				wrapper.billingAccounts = getBillingAccountsByAppFilter(billingAccounts, billingAccountFilterMap);
+			} else {
+				//add all the billing accounts if no filter at the app level
+				wrapper.billingAccounts =  billingAccounts;
+			}
+		}
+		return wrapperList;
+	}
+
+	/**
+	 * @description This method filters the billing accounts based on config from BillingAccountFilter__c
+	 * @param  billingAccounts			list of billing accounts
+	 * @param  billingAccountFilterMap	billing account filter configured for an app
+	 * @return							list of filtered billing accounts
+	 */
+	private static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap) {
+		List<Billing_Account__c> filteredAccounts = new List<Billing_Account__c>();
+		Set<String> keySet = billingAccountFilterMap.keySet();
+
+		//loop through billing account records and filter records that matches with the all the config that is set
+		for (Billing_Account__c ba : billingAccounts) {
+			Integer matchedKeys = 0;
+			for (String key : billingAccountFilterMap.keySet()) {
+				//check for field exists on the record
+				if (ba.isSet(key)) {
+					Object value = billingAccountFilterMap.get(key);
+					//if values is array, loop through to find if any criteria matches
+					if(value instanceof List<Object>) {
+						for(Object obj : (List<Object>)value) {
+							if(ba.get(key) == obj) {
+								matchedKeys++;
+								break;
+							}
+						}
+					} else {
+						//compare the SObject field value with the config value
+						if (ba.get(key) == value) {
+							matchedKeys++;
+						}
+					}
+				}
+			}
+			//if all the keys matched, add the billing account to the filtered list
+			if(matchedKeys == keySet.size()) {
+				filteredAccounts.add(ba);
+			}
+		}
+
+		return filteredAccounts;
+	}
+
+	public class ApplicationBillingAccountDataWrapper {
+		@AuraEnabled
+		Id bamApplicationId {get; set;}
+		@AuraEnabled
+		List<Billing_Account__c> billingAccounts {get; set;}
+	}
 
     /**
      * This service class helps with persona retrieval and switching to a new persona as necessary

@@ -98,17 +98,92 @@ public with sharing class BAMUserController {
         }
     }
 
-    @AuraEnabled
-    public static string retrieveAplicationData(Id orgId){
-        try {
-            ApplicationDataWrapper appData = new ApplicationDataWrapper();
-            appData.applicationsWithRoles = BAMUserUtility.getApplicationRolesForAccount(orgId);
-            appData.billingAccounts = getBillingAccountsByOrgId(orgId);
-            return JSON.serialize(appData);
-        } catch (Exception er) {
-            throw new AuraHandledException(er.getMessage());
-        }
-    }
+	@AuraEnabled
+	public static string retrieveAplicationData(Id orgId){
+		try {
+			ApplicationDataWrapper appData = new ApplicationDataWrapper();
+			List<BAMApplication__c> appWithRoles = BAMUserUtility.getApplicationRolesForAccount(orgId);
+			//get all the billing accounts for the organisation
+			List<Billing_Account__c> billingAccounts = getBillingAccountsByOrgId(orgId);
+			appData.applicationsWithRoles = appWithRoles;
+			appData.billingAccounts = billingAccounts;
+			appData.appBillingAccountDataWrapper = BAMUserUtility.getAppBillingAccountDataWrapper(appWithRoles, billingAccounts);
+			return JSON.serialize(appData);
+		} catch (Exception er) {
+			throw new AuraHandledException(er.getMessage());
+		}
+	}
+
+	/**
+	 * @description This method returns the wrapper for Application and their related billing accounts based on the filter set at application level
+	 * @param  orgId			account id that onboards for the merchant portal
+	 * @param  appWithRoles 	list of applications that are active for the organisation
+	 * @return					wrapper of application to billing accounts based on BillingAccountFilter__c
+	 */
+	private static List<ApplicationBillingAccountDataWrapper> getAppBillingAccountDataWrapper(Id orgId, List<BAMApplication__c> appWithRoles) {
+		List<ApplicationBillingAccountDataWrapper> wrapperList = new List<ApplicationBillingAccountDataWrapper>();
+		Map<Id, BAMApplication__c> bamApplicationMap = new Map<Id, BAMApplication__c>(appWithRoles);
+		//get all the billing accounts for the organisation
+		List<Billing_Account__c> billingAccounts = getBillingAccountsByOrgId(orgId);
+
+		//loop through the  applications and get the billing accounts based on billing account filter
+		for (Id bamAppId : bamApplicationMap.keySet()) {
+			ApplicationBillingAccountDataWrapper wrapper = new ApplicationBillingAccountDataWrapper();
+			wrapper.bamApplicationId = bamAppId;
+			//get the billing account filter from the app level
+			if (String.isNotBlank(bamApplicationMap.get(bamAppId).BillingAccountFilter__c)) {
+				//deserialize the json filter
+				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(bamApplicationMap.get(bamAppId).BillingAccountFilter__c);
+				wrapper.billingAccounts = getBillingAccountsByAppFilter(billingAccounts, billingAccountFilterMap);
+			} else {
+				//add all the billing accounts if no filter at the app level
+				wrapper.billingAccounts =  billingAccounts;
+			}
+		}
+		return wrapperList;
+	}
+
+	/**
+	 * @description This method filters the billing accounts based on config from BillingAccountFilter__c
+	 * @param  billingAccounts			list of billing accounts
+	 * @param  billingAccountFilterMap	billing account filter configured for an app
+	 * @return							list of filtered billing accounts
+	 */
+	private static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap) {
+		List<Billing_Account__c> filteredAccounts = new List<Billing_Account__c>();
+		Set<String> keySet = billingAccountFilterMap.keySet();
+
+		//loop through billing account records and filter records that matches with the all the config that is set
+		for (Billing_Account__c ba : billingAccounts) {
+			Integer matchedKeys = 0;
+			for (String key : billingAccountFilterMap.keySet()) {
+				//check for field exists on the record
+				if (ba.isSet(key)) {
+					Object value = billingAccountFilterMap.get(key);
+					//if values is array, loop through to find if any criteria matches
+					if(value instanceof List<Object>) {
+						for(Object obj : (List<Object>)value) {
+							if(ba.get(key) == obj) {
+								matchedKeys++;
+								break;
+							}
+						}
+					} else {
+						//compare the SObject field value with the config value
+						if (ba.get(key) == value) {
+							matchedKeys++;
+						}
+					}
+				}
+			}
+			//if all the keys matched, add the billing account to the filtered list
+			if(matchedKeys == keySet.size()) {
+				filteredAccounts.add(ba);
+			}
+		}
+
+		return filteredAccounts;
+	}
 
     /**
      * help to list super admins section on the my access page
@@ -134,14 +209,23 @@ public with sharing class BAMUserController {
         }
     }
 
-
-    @testVisible
+    @TestVisible
     private class ApplicationDataWrapper {
-        @testVisible
+        @TestVisible
         List<BAMApplication__c> applicationsWithRoles {get; set;}
-        @testVisible
+		@TestVisible
         List<Billing_Account__c> billingAccounts {get; set;}
+		@TestVisible
+		List<BAMUserUtility.ApplicationBillingAccountDataWrapper> appBillingAccountDataWrapper {get; set;}
     }
+
+	@TestVisible
+	private class ApplicationBillingAccountDataWrapper {
+		@TestVisible
+		Id bamApplicationId {get; set;}
+		@TestVisible
+		List<Billing_Account__c> billingAccounts {get; set;}
+	}
 
     @testVisible
     private class AdminDataWrapper {

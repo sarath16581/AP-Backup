@@ -76,6 +76,7 @@ export default class BamUserPage extends LightningElement {
     @track isBamUser = true
     @track isActiveContact = true
     @track superAdmins = []
+	@track appBillingAccountDataWrapper = []; //wrapper to store the filtered billing accounts related to app
 
     get hasBamCSSOError () {
         return !!this.contact.BAMCSSOError__c
@@ -256,7 +257,9 @@ export default class BamUserPage extends LightningElement {
             const contact = JSON.parse(contactDataStr)
             const contactApplicationsWithLatestExternalOnboardingRequests = JSON.parse(contactApplicationsWithLatestExternalOnboardingRequestsStr)
             const accessData = this.formatAccessData(JSON.parse(accessDataStr))
-            const { applicationsWithRoles, billingAccounts } = JSON.parse(appDataStr)
+            const { applicationsWithRoles, billingAccounts, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
+			debugger;
+			this.appBillingAccountDataWrapper = appBillingAccountDataWrapper;
             const superAdmins = JSON.parse(superAdminsDataStr);
 
             // BSP specific logic to support legacy functionality
@@ -356,8 +359,10 @@ export default class BamUserPage extends LightningElement {
     async retrieveDataAndSetStateForCreateMode(orgId) {
         try {
             const appDataStr = await retrieveAplicationData({orgId})
-            const { applicationsWithRoles, billingAccounts } = JSON.parse(appDataStr)
-            const appList = this.generatePageState(applicationsWithRoles)
+            const { applicationsWithRoles, billingAccounts, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
+			debugger;
+			this.appBillingAccountDataWrapper = appBillingAccountDataWrapper;
+            const appList = this.generatePageState(applicationsWithRoles);
             this.applications = appList
             this.billingAccountsOptions = billingAccounts.map(billingAccount => ({ value: billingAccount.Id, label: generateLabelForBillingAccount(billingAccount) }))
             this.billingAccounts = billingAccounts;

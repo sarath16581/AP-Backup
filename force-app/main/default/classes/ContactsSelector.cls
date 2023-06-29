@@ -17,7 +17,7 @@
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
     public enum Options {
-        WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT
+        WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT
     }
 
     public static ContactsSelector newInstance() {
@@ -158,6 +158,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Account');
 		}
+
+		if (selectorOptions.contains(Options.WITH_BILLING_ACCOUNT)) {
+			builder.addRelatedFields(BillingAccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'BillingAccount__r');
+		}
+		
 
 		return builder;
 	}
