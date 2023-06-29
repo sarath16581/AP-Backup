@@ -2029,6 +2029,16 @@
         <field>Deal_Support_Request__c.Transport_Collections__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Min_Transit_Cover_Amount_Per_Article__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Type__c</field>

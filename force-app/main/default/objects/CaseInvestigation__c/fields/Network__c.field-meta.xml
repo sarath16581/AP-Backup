@@ -24,6 +24,11 @@
             <operation>equals</operation>
             <value>True</value>
         </filterItems>
+		<filterItems>
+            <field>Network__c.Name</field>
+            <operation>notEqual</operation>
+            <value>StarTrack - National</value>
+        </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
     <referenceTo>Network__c</referenceTo>

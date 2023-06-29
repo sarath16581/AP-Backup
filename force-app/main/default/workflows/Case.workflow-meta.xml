@@ -628,6 +628,45 @@
         <template>SSSW_System_Emails/SSSW_Delivered_Left_in_a_Safe_Place</template>
     </alerts>
     <alerts>
+        <fullName>SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation For BSP After EDD Business Days</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</template>
+    </alerts>
+    <alerts>
+        <fullName>SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation For BSP Before EDD Business Days</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</template>
+    </alerts>
+    <alerts>
+        <fullName>SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Email on Creation New Case For BSP Before EDD</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</template>
+    </alerts>
+    <alerts>
         <fullName>SSSW_Email_on_within_EDD_case_created_Web_Portal</fullName>
         <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Email on within EDD case created (Web/Portal)</description>
@@ -769,45 +808,6 @@
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>SSSW_System_Emails/SSSW_Case_Closed_Warning</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW - Email on Creation New Case For BSP Before EDD</description>
-        <protected>false</protected>
-        <recipients>
-            <field>ContactEmail</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW - Email on Creation For BSP After EDD Business Days</description>
-        <protected>false</protected>
-        <recipients>
-            <field>ContactEmail</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP_Within_EDD</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Send_a_Email_when_a_New_Case_For_BSP_Within_EDD_Business_Days</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW - Email on Creation For BSP Before EDD Business Days</description>
-        <protected>false</protected>
-        <recipients>
-            <field>ContactEmail</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_New_Case_Notification_For_BSP_Within_EDD_Business_Days</template>
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created</fullName>
@@ -1211,6 +1211,42 @@
         <senderAddress>customer.satisfaction@startrack.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>StarTrack_System_Emails/StarTrack_VOC_Incident_System_User_Notification</template>
+    </alerts>
+	    <alerts>
+        <fullName>Transport_Enquiry_Case_Closed_Case_Email</fullName>
+        <description>Transport Enquiry Case - Send an Email to the Customer if they are sending an Email to a Case that has been Closed.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Transport_Enquiry_Case_Template/Transport_Enquiry_Closed_Case_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Transport_Enquiry_Case_bounce_back_email_alert</fullName>
+        <description>Transport Enquiry Case - bounce back email alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Transport_Enquiry_Case_Template/TransportEnquiry_bounce_back_email</template>
+    </alerts>
+    <alerts>
+        <fullName>Transport_Enquiry_Send_a_Email_when_a_new_Email_to_Case_has_been_created</fullName>
+        <description>Transport Enquiry - Send an Email when a new Email to Case has been created</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Transport_Enquiry_Case_Template/Transport_Enquiry_New_Case_Notification</template>
     </alerts>
     <alerts>
         <fullName>VL_First_email</fullName>
@@ -4421,7 +4457,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4465,6 +4501,16 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.CHASEnquiryType__c</field>
             <operation>equals</operation>
             <value>Missing or lost item</value>
+        </criteriaItems>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -4534,7 +4580,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4579,7 +4625,17 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <description>Snigdha : 19.05.2020 - Removed Article Codes DD-ER38, INT-2070</description>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <description>Snigdha : Updated for INC2147403</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4609,7 +4665,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4654,8 +4710,17 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-        <description>Workflow when case has a article event code DD-ER15, DD-ER38, INT-2070
-19.05.2020 - Snigdha : Added Event Codes DD-ER38, INT-2070</description>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <description>Snigdha: Updated for INC2147403</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -4681,7 +4746,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4726,6 +4791,16 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
+		<criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Web,Portal</value>
+        </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4748,7 +4823,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_to_Admin_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>False</active>
         <criteriaItems>
             <field>Case.Subject</field>
             <operation>equals</operation>

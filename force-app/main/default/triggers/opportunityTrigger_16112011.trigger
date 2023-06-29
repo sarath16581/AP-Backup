@@ -18,10 +18,14 @@ History:
 2020-08-02 - Nathan Franklin - Refactored some logic around updateOwnerEmployeeNumber on this extremely dodgy trigger
 2021-02-22 - arjun.singh@auspost.com.au - Modified to update Direct Contribution details on closed opportunity owner change
 2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
+2023-06-20 - Boris Bachovski - Introduce extension to a new module framework and establish a baseline for future refactoring of existing trigger code.
 **************************************************/
 
-	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){
-		// domain based trigger dispatch
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){ // verify if triggers are disabled
+        (new OpportunityAutomationTriggerHandler()).dispatch();
+
+        // domain based trigger dispatch. this is considered legacy and should not be used for any future work.
+        // to be refactored to new trigger dispatch without domains.
 		(new OpportunityTriggerHandler()).dispatch();
 	}
 

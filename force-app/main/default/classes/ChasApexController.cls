@@ -57,6 +57,8 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
+* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing for Missing Item
+* 2023-06-26 SL DDS-11010 VODV case routing for Delivery Issue
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -200,14 +202,14 @@ public with sharing class ChasApexController extends ChasBase{
         //wizardData = ChasUtil.sanitizeMap(wizardData);
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
-         try{
+         try {
 
-            String typeAndProduct = null;
-            String  productSubCategory= null;
-            String subject = null;
-            String caseOriginator = null;
-            
-            String type = ChasConstants.INVESTIGATION;
+             String typeAndProduct = null;
+             String productSubCategory = null;
+             String subject = null;
+             String caseOriginator = null;
+
+             String type = ChasConstants.INVESTIGATION;
 
              // DDS-8586
              // is the search eligible for multiple article selection?
@@ -223,6 +225,8 @@ public with sharing class ChasApexController extends ChasBase{
              List<TrackingNumberDetails> selectedArticles = new List<TrackingNumberDetails>(); // hold the selected articles
              List<TrackingNumberDetails> allArticles = new List<TrackingNumberDetails>(); // hold the selected articles
 
+             // article recognised as victim of violence
+             Boolean isVodv = (String.isNotEmpty(wizardData.get('isVodv'))) && 'true'.equalsIgnoreCase(wizardData.get('isVodv'));
              // are all the articles succesful in the consignment?
              allArticlesSuccessful = (String.isNotEmpty(wizardData.get('allArticlesSuccessful'))) && 'true'.equalsIgnoreCase(wizardData.get('allArticlesSuccessful'));
 
@@ -232,16 +236,16 @@ public with sharing class ChasApexController extends ChasBase{
              allArticles = getArticles(wizardData, false);
              // checking whether the article searched performed is eligible for multiple article selection or not,
              // if it is allowed routing needs to be changed accordingly
-             if(isEligibleForMultipleArticleSelection){
+             if (isEligibleForMultipleArticleSelection) {
                  // in case if the UI validation failed when user proceeds without selecting at least one article, user must not allow to create a case.
-                 if(selectedArticles.isEmpty()) {
+                 if (selectedArticles.isEmpty()) {
                      throw new AuraHandledException('At least one article must be selected to submit an enquiry');
                  }
                  // is multiple articles selected
                  isMultipleArticlesSelected = isMultipleArticlesSelected(selectedArticles);
 
                  // if there are multiple articles, are they delivered from deferment delivery centers?
-                 if(isMultipleArticlesSelected) {
+                 if (isMultipleArticlesSelected) {
                      isDeliveredByMultipleDeliveryCenters = isDeliveredByMultipleDeliveryCenters(selectedArticles);
                  }
                  // all the selected articles are delivered? even when there is a single article selected, we should get the isDelivered result
@@ -250,15 +254,15 @@ public with sharing class ChasApexController extends ChasBase{
                  isAllArticlesSelectedAreEligibleForNetwork = isAllArticlesSelectedAreEligibleForNetwork(selectedArticles);
              }
 
-            //--        Getting recordType Id
-            String recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWDELIVERY).getRecordTypeId();
-            String enquirySubType = wizardData.get('enqSubtype'); //Enquiry subtype is decided in the searchTrackingNumber method when deciding the tracking message
-            Datetime EDDPlusBusinessDays = !String.isEmpty(wizardData.get('deliveredByDateToUntil')) ? Date.valueOf(wizardData.get('deliveredByDateToUntil')) : !String.isEmpty(wizardData.get('deliveredByDatePlusBusinessDays'))? Date.valueOf(wizardData.get('deliveredByDatePlusBusinessDays')): null;
-            // cases which are raised within EDD or EDD plus business days, plus dont have a delivered scan are eligible for hold
-            Boolean isEligibleForHold = false;
-            // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
-            Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
-            // DDS-5273: article that contains pharma should not be held
+             //--        Getting recordType Id
+             String recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWDELIVERY).getRecordTypeId();
+             String enquirySubType = wizardData.get('enqSubtype'); //Enquiry subtype is decided in the searchTrackingNumber method when deciding the tracking message
+             Datetime EDDPlusBusinessDays = !String.isEmpty(wizardData.get('deliveredByDateToUntil')) ? Date.valueOf(wizardData.get('deliveredByDateToUntil')) : !String.isEmpty(wizardData.get('deliveredByDatePlusBusinessDays')) ? Date.valueOf(wizardData.get('deliveredByDatePlusBusinessDays')) : null;
+             // cases which are raised within EDD or EDD plus business days, plus dont have a delivered scan are eligible for hold
+             Boolean isEligibleForHold = false;
+             // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
+             Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
+             // DDS-5273: article that contains pharma should not be held
              if (!containsPharma) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
@@ -269,51 +273,53 @@ public with sharing class ChasApexController extends ChasBase{
                      }
                  }
              }
-            // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
-            // exclude cases which are eligible for hold
-            if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
-                if(isEligibleForHold){
-                    enquirySubType = ChasConstants.ENQ_SUB_TYPE_MISSING;
-                } else {
-                    type = ChasConstants.GENERAL_ENQUIRY;
-                    recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
-                }
-                
-            }    
-            // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
-            if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
-                type = ChasConstants.GENERAL_ENQUIRY;
-                recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
-            }
+             // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
+             // exclude cases which are eligible for hold
+             if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
+                 if (isEligibleForHold) {
+                     enquirySubType = ChasConstants.ENQ_SUB_TYPE_MISSING;
+                 } else {
+                     type = ChasConstants.GENERAL_ENQUIRY;
+                     recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
+                 }
+
+             }
+             // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
+             if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
+                 type = ChasConstants.GENERAL_ENQUIRY;
+                 recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
+             }
 
              Boolean isEligibleForMyNetwork = false;
-            // DDS-8586 allow network for single delivery centers : more than one tracking id and tracking ids are all delivered from same delivery centre (non medication/medication priority set above in existing logic)
-             if(isEligibleForMultipleArticleSelection) {
-                 // DDS-8586 2. if multiple articles selected and not delivered by different delivery centers and all articles are in delivered status
-                 if (isMultipleArticlesSelected && !isDeliveredByMultipleDeliveryCenters && isAllArticlesSelectedAreEligibleForNetwork) {
-                     isEligibleForMyNetwork = true;
-                 }
-
-                 // DDS-8586 5. Single article selected and, the selected article is eligible for network: assign to network
-                 if (!isMultipleArticlesSelected && isEligibleForMyNetworkAssignmentWizardLevel) {
-                     isEligibleForMyNetwork = true;
-                 }
-             } else { // if NOT eligible for multiple article selection
-                 // only if a single article is selected when multiple article selection is not allowed.
-                 // this is to cater the old behaviour where we treat the search as one sigle article
-                 if(allArticles.size() == 1) {
-                     // DDS-6115 Direct to Network - Do not assign directly unless manifest matches address
-                     Boolean dpidNotMatched = (String.isNotBlank(allArticles[0].dpid) && String.isNotBlank(wizardData.get('recipientDPID'))) && allArticles[0].dpid != wizardData.get('recipientDPID');
-                     // if user selected address anf the manifest address is available and they doesn't match, then do not let the logic to assign to network.
-                     isEligibleForMyNetwork = (dpidNotMatched ?  false : isEligibleForMyNetworkAssignmentWizardLevel);
-                 } else if(allArticles.size() > Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c)) {
-                     // in case if the search is not allowed multiple selection and consignment has more than 5 articles.
-                     // this is the only place we check for allArticlesSuccessful
-                     if(isEligibleForMyNetworkAssignmentWizardLevel && allArticlesSuccessful) {
+             if(!isVodv) {
+                 // DDS-8586 allow network for single delivery centers : more than one tracking id and tracking ids are all delivered from same delivery centre (non medication/medication priority set above in existing logic)
+                 if (isEligibleForMultipleArticleSelection) {
+                     // DDS-8586 2. if multiple articles selected and not delivered by different delivery centers and all articles are in delivered status
+                     if (isMultipleArticlesSelected && !isDeliveredByMultipleDeliveryCenters && isAllArticlesSelectedAreEligibleForNetwork) {
                          isEligibleForMyNetwork = true;
                      }
+
+                     // DDS-8586 5. Single article selected and, the selected article is eligible for network: assign to network
+                     if (!isMultipleArticlesSelected && isEligibleForMyNetworkAssignmentWizardLevel) {
+                         isEligibleForMyNetwork = true;
+                     }
+                 } else { // if NOT eligible for multiple article selection
+                     // only if a single article is selected when multiple article selection is not allowed.
+                     // this is to cater the old behaviour where we treat the search as one sigle article
+                     if (allArticles.size() == 1) {
+                         // DDS-6115 Direct to Network - Do not assign directly unless manifest matches address
+                         Boolean dpidNotMatched = (String.isNotBlank(allArticles[0].dpid) && String.isNotBlank(wizardData.get('recipientDPID'))) && allArticles[0].dpid != wizardData.get('recipientDPID');
+                         // if user selected address anf the manifest address is available and they doesn't match, then do not let the logic to assign to network.
+                         isEligibleForMyNetwork = (dpidNotMatched ? false : isEligibleForMyNetworkAssignmentWizardLevel);
+                     } else if (allArticles.size() > Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c)) {
+                         // in case if the search is not allowed multiple selection and consignment has more than 5 articles.
+                         // this is the only place we check for allArticlesSuccessful
+                         if (isEligibleForMyNetworkAssignmentWizardLevel && allArticlesSuccessful) {
+                             isEligibleForMyNetwork = true;
+                         }
+                     }
                  }
-             }
+            }
 
             // if the case is eligible for my network , assign the type to INVESTIGATION and enquirySubType to Disputed delivery scan
             if(isEligibleForMyNetwork) {
@@ -1426,6 +1432,7 @@ commentBody = commentBody  + 'False';
             String parcelOrLetter =  (String) wizardData.get('selectedRadio2Name');
             String trackingNumber =  (String) wizardData.get('trackingId');
             String issueDateStr =  (String) wizardData.get('issueDate');
+            Boolean isVodv = String.isNotEmpty(wizardData.get('isVodv')) && 'true'.equalsIgnoreCase(wizardData.get('isVodv'));
             
             //--  address
             String addLine1 =  (String) wizardData.get('deliveryAddressLine1');
@@ -1663,8 +1670,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             }
             //-- change made for roll out of delivery issues network assignment automation
             String wcid = (String) wizardData.get('latestDeliveredScanWcid');
-            String isEligibleForMyNetworkAssignment = (String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue');
-            if(isEligibleForMyNetworkAssignment == 'true')
+            String isEligibleForMyNetworkAssignment = Boolean.valueOf((String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue')) && !isVodv ? 'true' : 'false';
+            if(isEligibleForMyNetworkAssignment.equalsIgnoreCase('true'))
             {
                 //-- set the value for isEligibleForMyNetworkAssignment to the case field
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
@@ -1678,19 +1685,15 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 {
                     toBeCreateCase.Description = toBeCreateCase.Description + Label.HS_Issue_Details_Warning +'\n\n'+ issueDescription + '\n\n';
                 }
-                
-            } 
-             //REQ2361513 -- Modified by Paul Swarnapandian
-                if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
-                    commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
-                } 
-                else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
-                    commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
-                }
-                
-                
-            
-            
+            }
+
+            //REQ2361513 -- Modified by Paul Swarnapandian
+            if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
+                commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
+            } else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
+                commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
+            }
+
             if(convertedIssueDate !=null){
                 toBeCreateCase.DateofIncident__c=convertedIssueDate;
             }
@@ -1868,6 +1871,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                         trackingNumDetailsWrapperObj.duplicateCase = article.duplicateCase;
                         //set RTS scan flag if any
                         trackingNumDetailsWrapperObj.isReturnToSender = article.isReturnToSender;
+                        // is victim of violence
+                        trackingNumDetailsWrapperObj.isVodv = article.isVodv;
                         //set signature flag if any
                         trackingNumDetailsWrapperObj.hasSignature = article.hasSignature;
                         //set isParcelAwaitingCollection flag if any
@@ -2254,6 +2259,17 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                     return false;
                 } else {
                     return isDelivered;
+                }
+            }
+            set;
+        }
+        // is victim of violance article
+        @AuraEnabled public Boolean isVodv {
+            get {
+                if (isVodv == null) {
+                    return false;
+                } else {
+                    return isVodv;
                 }
             }
             set;

@@ -6,6 +6,7 @@
  * @group Tests
  * @domain StarTrack
  * @changelog
+ * 2023-06-19 - Nathan Franklin - updated unit of work source to CaseAutomationTriggerHandler
  */
 @IsTest
 private class StarTrackDeliveryEnquiryModule_Test {
@@ -18,7 +19,7 @@ private class StarTrackDeliveryEnquiryModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, false);
 
 		// set fields required to update No_Data_Change__c
@@ -58,7 +59,7 @@ private class StarTrackDeliveryEnquiryModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 
 		// set fields required to update No_Data_Change__c
@@ -101,7 +102,7 @@ private class StarTrackDeliveryEnquiryModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, false);
 
 		// set fields required to update No_Data_Change__c

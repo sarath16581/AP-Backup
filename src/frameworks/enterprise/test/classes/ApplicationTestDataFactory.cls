@@ -10,21 +10,6 @@
  * @group Tests
  * @tags mocking, apex mocks, tests, data factory, test data
  * @changelog
- * 2020/05/09 - Disha Kariya - Added test data for Facility, Licence, Network and Membership
- * 2020/05/12 Disha Kariya - Added methods for PSR assets and PSR Products
- * 2020/08/24 arjun.singh@auspost.com.au Added methods for opportunity records creation
- * 2020/08/24 disha.kariya@auspost.com.au Added nethods for networks, network responses, attachments
- * 2020/10/06 arjun.singh@auspost.com.au Added methods for opportunity Splits records creation
- * 2020-10-18 - Nathan Franklin - Added helpers for content version
- * 2020/11/06 seth.heang@auspost.com.au Added methods for opportunity product classification record creation
- * 2020/11/06 seth.heang@auspost.com.au Added methods for DSR, SSSWRouting, VFEmailTemplate, OrgWideEmailAddress
- * 2021/01/012 arjun.singh@auspost.com.au Added methods for SAP Integration for Billing Account Creation
- * 2021/03/02 - Ranjeewa Silva - Added test data helpers for BulkUploadRequest, BulkUploadRequestLineItem, DisputedItem
- * 2021/05/10  dheeraj.mandavilli@auspost.com.au Added Methods for Sub Account Request Creation
- * 2021/05/13 - Ranjeewa Silva - Added test data helpers for Credit Approval and Credit Approval Matrix
- * 2021/06/09  seth.heang@auspost.com.au Added Method agreement lodgement point creation
- * 2021/06/29 - Madhusudhan - Added methods to retrive Delivery/General Enquiry recordTypeId
- * 2021/07/02  seth.heang@auspost.com.au Added Method for Qualification Response Detail
  * 2021/06/30 - Snehil - Added methods to retrive Credit dispute recordTypeId
  * 2021/08/21 - seth.heang@auspost.com.au Added Method for Lead creation and uplift api version to 52
  * 2021/08/31 - Ranjeewa Silva - Updated coule of core methods to 'public' access. This is to enable separate test data factory for PUD.
@@ -43,7 +28,9 @@
  * 2023-03-21 - Nathan Franklin - small refactor / adding record type for consumer
  * 2023-04-04 - Mahesh Parvathaneni - Added method getFeedComments
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
+ * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
+ * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -301,6 +288,9 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<Case> getCases(Integer count, Boolean generateIds) {
 		return (List<Case>)maybeGenerateIds(populateSObjects(Case.SObjectType, new Map<SObjectField, Object> {
 				Case.Subject => 'Case Subject %count%',
@@ -317,10 +307,16 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	 }
 	 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<Case> getCases(Integer count, Set<Id> contactIds, Boolean generateIds) {
 		return getCases(count, new List<Id>(contactIds), generateIds);
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<Case> getCases(Integer count, List<Id> contactIds, Boolean generateIds) {
 		List<Case> output = (List<Case>)maybeGenerateIds(populateSObjects(Case.SObjectType, new Map<SObjectField, Object> {
 				Case.Subject => 'Case Subject %count%',
@@ -336,6 +332,9 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<CaseStatus> getCaseStatuses(Integer count, Boolean generateIds) {
 		List<CaseStatus> output = (List<CaseStatus>)maybeGenerateIds(populateSObjects(CaseStatus.SObjectType, new Map<SObjectField, Object> {
 		}, count), generateIds);
@@ -394,6 +393,9 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<MiniCaseFieldMapping__c> getEnquiryTypeMappings(Boolean generateIds) {
 		List<MiniCaseFieldMapping__c> mappings = new List<MiniCaseFieldMapping__c>{
 				new MiniCaseFieldMapping__c(
@@ -777,11 +779,16 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 	
-	//Added by Asha | MW0004779
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<EmailMessage> getEmailMessages(Integer count, Boolean generateIds,Boolean isIncoming, String fromAddress, String toAddress, String subject, Id caseId) {
 		return getEmailMessages(count, generateIds, isIncoming, fromAddress, toAddress, null, null, subject, caseId);
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<EmailMessage> getEmailMessages(Integer count, Boolean generateIds,Boolean isIncoming, String fromAddress, String toAddress, String ccAddress, String bccAddress, String subject, Id caseId) {
 		return (List<EmailMessage>)maybeGenerateIds(populateSObjects(EmailMessage.SObjectType, new Map<SObjectField, Object> {
 				EmailMessage.Incoming => isIncoming,
@@ -795,6 +802,9 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<MilestoneType> getMilestoneTypes(Integer count, Boolean generateIds) {
 		return (List<MilestoneType>)maybeGenerateIds(populateSObjects(MilestoneType.SObjectType, new Map<SObjectField, Object> {
 				MilestoneType.Name => 'Milestone Name %count%',
@@ -802,6 +812,9 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static List<CaseMilestone> getCaseMilestones(Integer count, Boolean generateIds,Boolean isViolated, Boolean isCompleted, Id milestoneTypeId, Id caseId) {
 		List<CaseMilestone> output = (List<CaseMilestone>)maybeGenerateIds(populateSObjects(CaseMilestone.SObjectType, new Map<SObjectField, Object> {}, count), generateIds);
 
@@ -829,6 +842,14 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<FacilityByPass__c>)maybeGenerateIds(populateSObjects(FacilityByPass__c.SObjectType, new Map<SObjectField, Object> {
 				FacilityByPass__c.Facility_By_Pass_From__c => fromNetworkId,
 				FacilityByPass__c.Facility_By_Pass_To__c => toNetworkId
+		}, count), generateIds);
+	}
+
+	public static List<EmailToCaseMapping__mdt> getEmailToCaseMappings(Integer count, String emailAddress, Boolean generateIds) {
+		return (List<EmailToCaseMapping__mdt>)maybeGenerateIds(populateSObjects(EmailToCaseMapping__mdt.SObjectType, new Map<SObjectField, Object> {
+			EmailToCaseMapping__mdt.DeveloperName => 'RECORD%count%',
+			EmailToCaseMapping__mdt.IsActive__c => true,
+			EmailToCaseMapping__mdt.EmailToCaseAddress__c => emailAddress
 		}, count), generateIds);
 	}
 
@@ -883,6 +904,16 @@ public with sharing class ApplicationTestDataFactory {
 			generateRecordIds(records);
 		}
 
+		return records;
+	}
+
+	/**
+	 * Attaches field values 
+	 */
+	public static List<SObject> applyFieldValues(List<SObject> records, Map<String, Object> fieldValues) {
+		for(Integer i=0;i<records.size();i++) {
+			records[i] = setUnwritableFields(records[i], fieldValues);
+		}
 		return records;
 	}
 
@@ -941,6 +972,10 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
+
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static Id caseSSSWGeneralEnquiryRecordType {
 		get {
 			if(caseSSSWGeneralEnquiryRecordType == null) {
@@ -950,7 +985,23 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-	 //Added by Madhusudhan | PBRP 2021
+
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
+	public static Id caseSSSWDeliveryRecordType {
+		get {
+			if(caseSSSWDeliveryRecordType == null) {
+				caseSSSWDeliveryRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'SSSWDelivery'].Id;
+			}
+			return caseSSSWDeliveryRecordType;
+		}
+		private set;
+	}
+	 
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static Id caseStarTrackDeliveryEnquiryRecordType {
 		get {
 			if(caseStarTrackDeliveryEnquiryRecordType == null) {
@@ -961,7 +1012,9 @@ public with sharing class ApplicationTestDataFactory {
 		 private set;
 	}
 	
-	//Added by Naveen Rajanna
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
    public static Id caseStarTrackVoiceOfCustRecordType {
 	   get {
 		   if(caseStarTrackVoiceOfCustRecordType == null) {
@@ -971,6 +1024,10 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
    }
+
+   /**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
    public static Id caseStarTransitWarrantyClaimRecordType {
 		get {
 			if(caseStarTransitWarrantyClaimRecordType == null) {
@@ -980,7 +1037,10 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-	//Added by Madhusudhan | PBRP 2021
+	
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static Id casestarTrackGeneralEnquiryRecordType {
 		get {
 			if(casestarTrackGeneralEnquiryRecordType == null) {
@@ -990,7 +1050,10 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-	//Added by Snehil | PBRP 2021
+
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static Id casestarTrackCreditDisputeRecordType {
 		get {
 			if(casestarTrackCreditDisputeRecordType == null) {
@@ -1000,7 +1063,10 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-	//Added by Asha | MW0004779
+	
+	/**
+	 * @deprecated ApplicationTestDataFactoryCases
+	 */
 	public static Id caseServiceDeliveryRecordType {
 		get {
 			if(caseServiceDeliveryRecordType == null) {
@@ -1010,6 +1076,7 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
+	
 	public static Id accountRecordType {
 		get {
 			if(accountRecordType == null) {

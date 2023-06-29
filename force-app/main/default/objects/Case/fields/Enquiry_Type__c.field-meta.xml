@@ -633,6 +633,76 @@
                 <default>false</default>
                 <label>Wet</label>
             </value>
+            <value>
+                <fullName>Volume update</fullName>
+                <default>false</default>
+                <label>Volume update</label>
+            </value>
+            <value>
+                <fullName>Amendment</fullName>
+                <default>false</default>
+                <label>Amendment</label>
+            </value>
+            <value>
+                <fullName>Cancellation</fullName>
+                <default>false</default>
+                <label>Cancellation</label>
+            </value>
+            <value>
+                <fullName>Review</fullName>
+                <default>false</default>
+                <label>Review</label>
+            </value>
+            <value>
+                <fullName>Missed</fullName>
+                <default>false</default>
+                <label>Missed</label>
+            </value>
+            <value>
+                <fullName>Booking</fullName>
+                <default>false</default>
+                <label>Booking</label>
+            </value>
+            <value>
+                <fullName>Equipment</fullName>
+                <default>false</default>
+                <label>Equipment</label>
+            </value>
+            <value>
+                <fullName>Labels</fullName>
+                <default>false</default>
+                <label>Labels</label>
+            </value>
+            <value>
+                <fullName>LQS</fullName>
+                <default>false</default>
+                <label>LQS</label>
+            </value>
+            <value>
+                <fullName>New customer</fullName>
+                <default>false</default>
+                <label>New customer</label>
+            </value>
+            <value>
+                <fullName>Not TCS related</fullName>
+                <default>false</default>
+                <label>Not TCS related</label>
+            </value>
+            <value>
+                <fullName>Pallet request</fullName>
+                <default>false</default>
+                <label>Pallet request</label>
+            </value>
+            <value>
+                <fullName>Switch to another service</fullName>
+                <default>false</default>
+                <label>Switch to another service</label>
+            </value>
+            <value>
+                <fullName>Peak planning</fullName>
+                <default>false</default>
+                <label>Peak planning</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Account Manager</controllingFieldValue>
@@ -1261,6 +1331,64 @@
         <valueSettings>
             <controllingFieldValue>Consumables</controllingFieldValue>
             <valueName>Ordering information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Site inspection</controllingFieldValue>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Amendment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Site inspection</controllingFieldValue>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Site inspection</controllingFieldValue>
+            <valueName>New customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Volume update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Booking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Equipment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Labels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>LQS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiry</controllingFieldValue>
+            <valueName>Not TCS related</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiry</controllingFieldValue>
+            <valueName>Pallet request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiry</controllingFieldValue>
+            <valueName>Switch to another service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiry</controllingFieldValue>
+            <valueName>Peak planning</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

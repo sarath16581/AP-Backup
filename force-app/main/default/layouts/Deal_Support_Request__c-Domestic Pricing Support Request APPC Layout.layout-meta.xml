@@ -105,6 +105,10 @@
                 <behavior>Edit</behavior>
                 <field>Features__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Transit_Cover_Type__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -114,6 +118,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Surcharges__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Min_Transit_Cover_Amount_Per_Article__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

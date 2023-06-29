@@ -4,7 +4,7 @@
         <name>BGS_Send_a_Bounce_Email_to_Sender</name>
         <label>BGS - Send a Bounce Email to Sender</label>
         <locationX>182</locationX>
-        <locationY>695</locationY>
+        <locationY>647</locationY>
         <actionName>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -22,7 +22,7 @@
         <name>Notify_Case_Owner_on_New_Email_BGS</name>
         <label>Notify Case Owner on New Email BGS</label>
         <locationX>50</locationX>
-        <locationY>935</locationY>
+        <locationY>863</locationY>
         <actionName>Case.Notify_Case_Owner_on_New_Email_BGS</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -33,12 +33,28 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>55.0</apiVersion>
+    <actionCalls>
+        <description>Sends an email to customer if case is permanently closed</description>
+        <name>Send_an_email_to_customer_if_case_is_permanent_closed</name>
+        <label>Send an email to customer if case is permanent closed</label>
+        <locationX>842</locationX>
+        <locationY>647</locationY>
+        <actionName>Case.Transport_Enquiry_Case_Closed_Case_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
     <decisions>
         <name>Generic_Notify_Owner</name>
         <label>Generic Notify Owner</label>
         <locationX>182</locationX>
-        <locationY>815</locationY>
+        <locationY>755</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Notify_Case_Owner</name>
@@ -67,8 +83,8 @@
     <decisions>
         <name>Identify_Case_Domain</name>
         <label>Identify Case Domain</label>
-        <locationX>611</locationX>
-        <locationY>455</locationY>
+        <locationX>831</locationX>
+        <locationY>431</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>ServiceAdvisors</name>
@@ -85,12 +101,27 @@
             </connector>
             <label>ServiceAdvisors</label>
         </rules>
+        <rules>
+            <name>Transport_Enquiry</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Parent.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_TRANSPORT_ENQUIRY</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Transport_Enquiry_Scenarios</targetReference>
+            </connector>
+            <label>Transport Enquiry</label>
+        </rules>
     </decisions>
     <decisions>
         <name>is_Incoming_Case_Email</name>
         <label>is Incoming Case Email?</label>
-        <locationX>858</locationX>
-        <locationY>335</locationY>
+        <locationX>1188</locationX>
+        <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Incoming_Case_Email</name>
@@ -119,7 +150,7 @@
         <name>ServiceAdvisor_Scenarios</name>
         <label>ServiceAdvisor Scenarios</label>
         <locationX>380</locationX>
-        <locationY>575</locationY>
+        <locationY>539</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Case_already_Closed_Bounce</name>
@@ -152,7 +183,30 @@
             <label>Case already Closed Bounce</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Transport_Enquiry_Scenarios</name>
+        <label>Transport Enquiry Scenarios</label>
+        <locationX>974</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Case_Permanently_Closed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Parent.Permanent_Close__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_an_email_to_customer_if_case_is_permanent_closed</targetReference>
+            </connector>
+            <label>Case Permanently Closed</label>
+        </rules>
+    </decisions>
     <description>record triggered flow upon After save on Email Message</description>
+    <environments>Default</environments>
     <interviewLabel>Email Message Common After Save Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>EmailMessage Common After Save Flow</label>
     <processMetadataValues>
@@ -175,7 +229,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>732</locationX>
+        <locationX>1062</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>is_Incoming_Case_Email</targetReference>

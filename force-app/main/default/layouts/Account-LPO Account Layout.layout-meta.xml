@@ -36,6 +36,10 @@
                 <behavior>Readonly</behavior>
                 <field>Organisation_Alternate_Name__c</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>TradedRevenueMyCommunity__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>L2C_Approved_AP_Credit_Limit__c</field>
@@ -158,7 +162,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>BillingAddress</field>
             </layoutItems>
         </layoutColumns>

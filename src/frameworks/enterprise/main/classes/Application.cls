@@ -10,18 +10,31 @@
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added methods for Domain classes
  * 2023-03-27 - Nathan Franklin - Fix bug with getting sandbox name
+ * 2023-06-12 - Nathan Franklin - Added 'ApplicationModule' capability and deprecated ApplicationDomain capability
  */
 public with sharing class Application {
 
 	public static UtilityFactory Utilities;
 	public static SelectorFactory Selectors;
+
+	/**
+	 * @deprecated use ApplicationModule
+	 */
 	public static DomainFactory Domains;
+
+	public static ModuleFactory Modules;
 	public static ProfileFactory Profiler;
 
 	static {
 		Utilities = new UtilityFactory();
 		Selectors = new SelectorFactory();
+
+		/**
+		 * @deprecated use ApplicationModule
+		 */
 		Domains = new DomainFactory();
+
+		Modules = new ModuleFactory();
 		Profiler = new ProfileFactory();
 	}
 
@@ -158,6 +171,9 @@ public with sharing class Application {
 		}
 	}
 
+	/**
+	 * @deprecated use ApplicationModule
+	 */
 	public class DomainFactory {
 
 		Map<Type, ApplicationDomain> mockDomains = new Map<Type, ApplicationDomain>();
@@ -181,6 +197,33 @@ public with sharing class Application {
 				return domain;
 			} else {
 				return (ApplicationDomain)domainType.newInstance();
+			}
+		}
+	}
+
+	public class ModuleFactory {
+
+		Map<Type, ApplicationModule> mockModules = new Map<Type, ApplicationModule>();
+
+		/**
+		 * Store a list of type instance mappings to be able grab the correct instance when needed
+		 * This is used to we can provide mocks in test classes to override default functionality where we don't care about the results
+		 */
+		@TestVisible
+		private void setMock(Type moduleType, ApplicationModule moduleInstance) {
+			mockModules.put(moduleType, moduleInstance);
+		}
+
+		/**
+		 * Used to inject mocking class for writing isolated unit tests
+		 * When not running tests, the method simply returns the normal instance
+		 */
+		public ApplicationModule newInstance(Type moduleType) {
+			if(Test.isRunningTest() && mockModules.get(moduleType) != null) {
+				ApplicationModule module = mockModules.get(moduleType);
+				return module;
+			} else {
+				return (ApplicationModule)moduleType.newInstance();
 			}
 		}
 	}

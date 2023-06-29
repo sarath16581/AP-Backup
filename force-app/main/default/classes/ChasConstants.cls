@@ -72,6 +72,7 @@ public class ChasConstants {
 
     public static final String GENERAL_ENQUIRY_PLUS_DOMESTIC_PARCELS_PLUS_PARCEL_POST ='General Enquiry|Domestic Parcels|Parcel Post';
     public static final String GENERAL_ENQUIRY_PLUS_DOMESTIC_PARCELS_PLUS_EXPRESS ='General Enquiry|Domestic Parcels|Express';
+    public static final String GENERAL_ENQUIRY_PLUS_DOMESTIC_PARCELS_PLUS_METRO ='General Enquiry|Domestic Parcels|Metro';
     public static final String GENERAL_ENQUIRY_PLUS_DOMESTIC_LETTERS_PLUS_REGULAR_EMAIL ='General Enquiry|Domestic Letters|Regular Mail';
     public static final String GENERAL_ENQUIRY_PLUS_DOMESTIC_LETTERS_PLUS_EXPRESS_POST = 'General Enquiry|Domestic Letters|Express Post';
     public static final String GENERAL_ENQUIRY_PLUS_DOMESTIC_LETTERS_PLUS_REGISTERED_POST ='General Enquiry|Domestic Letters|Registered Post';
@@ -89,10 +90,12 @@ public class ChasConstants {
     public static final String  MAIL_NOT_BEING_REDIRECTED_OR_HELD = 'Redirection Failure'; //Mail not being redirected/held'; REQ1567740
     public static final String MAIL_REDIRECTION='Mail redirection';
     public static final String FEEDBACK_AND_DOMESTIC_PARCELS_AND_MAIL_REDIRECTION='Feedback|Domestic Parcels|Mail redirection';
+    public static final String FEEDBACK_AND_DOMESTIC_PARCELS_AND_METRO='Feedback|Domestic Parcels|Metro';
     public static final String FEEDBACK_AND_DOMESTIC_LETTERS_AND_MAIL_REDIRECTION='Feedback|Domestic Letters|Mail redirection';
     public static final String FEEDBACK_AND_INTERNATIONAL_LETTERS_AND_MAIL_REDIRECTION='Feedback|International Letters|Mail redirection';
     public static final String MAIL_HOLD ='Mail hold';
     public static final String INVESTIGATION_AND_DOMESTIC_PARCELS_MAIL_HOLD='Investigation|Domestic Parcels|Mail hold';
+    public static final String INVESTIGATION_AND_DOMESTIC_PARCELS_METRO='Investigation|Domestic Parcels|Metro';
     public static final String INVESTIGATION_AND_DOMESTIC_LETTERS_MAIL_HOLD= 'Investigation|Domestic Letters|Mail hold';
 
     public static final String EVENT_STATUS_DELIVERED='DD-ER13,DD-ER14,DD-ER37,DOM-0001,DD-ER39';

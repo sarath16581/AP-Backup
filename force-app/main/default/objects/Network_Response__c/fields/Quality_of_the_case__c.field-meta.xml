@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Quality_of_the_case__c</fullName>
+    <description>REQ3111278 - renamed label and added new picklist values. Used in myNetwork for SSSW</description>
     <externalId>false</externalId>
-    <inlineHelpText>Was enough information provided to action the case accordingly?</inlineHelpText>
-    <label>Quality of the case</label>
+    <inlineHelpText>Cases flagged will be reviewed by the CCC managers and feedback provided to the relevant team member</inlineHelpText>
+    <label>Flag case for review</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
@@ -12,24 +13,49 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Excellent</fullName>
+                <fullName>Invalid_Incorrect_Missing_data</fullName>
                 <default>false</default>
-                <label>Excellent</label>
+                <label>Invalid/Incorrect/Missing data</label>
             </value>
             <value>
-                <fullName>Good</fullName>
+                <fullName>Incorrect_facility</fullName>
                 <default>false</default>
-                <label>Good</label>
+                <label>Incorrect facility</label>
             </value>
             <value>
-                <fullName>Average</fullName>
+                <fullName>Manifest_only</fullName>
                 <default>false</default>
-                <label>Average</label>
+                <label>Manifest only</label>
             </value>
             <value>
-                <fullName>Poor</fullName>
+                <fullName>Within_EDD</fullName>
                 <default>false</default>
-                <label>Poor</label>
+                <label>Within EDD</label>
+            </value>
+            <value>
+                <fullName>X2_weeks_past_delivered_date</fullName>
+                <default>false</default>
+                <label>2+ weeks past delivered date</label>
+            </value>
+            <value>
+                <fullName>Request_outside_service_offering</fullName>
+                <default>false</default>
+                <label>Request outside service offering</label>
+            </value>
+            <value>
+                <fullName>GPS_SDI_match_manifest_address</fullName>
+                <default>false</default>
+                <label>GPS &amp; SDI match manifest address</label>
+            </value>
+            <value>
+                <fullName>Unable_to_fulfil_request</fullName>
+                <default>false</default>
+                <label>Unable to fulfil request</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

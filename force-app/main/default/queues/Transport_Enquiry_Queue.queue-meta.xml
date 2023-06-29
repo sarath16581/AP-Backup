@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Transport Enquiry Queue</name>
+    <queueMembers>
+        <users>
+            <user>aihleen.sebastian@auspost.com.au.ap.pud</user>
+            <user>belinda.chatfield2@auspost.com.au.ap.pud</user>
+            <user>bella.takitaki@auspost.com.au.ap.pud</user>
+            <user>caitlin.mascall@auspost.com.au.ap.pud</user>
+            <user>edwin.chen4@auspost.com.au</user>
+            <user>kaleem.sheriff@auspost.com.au.ap.pud</user>
+            <user>lisa.barkla@auspost.com.au.ap.pud</user>
+            <user>magdalene.das3@auspost.com.au.ap.pud</user>
+            <user>mahesh.parvathaneni@auspost.com.au</user>
+            <user>merissa.dobbe2@auspost.com.au.ap.pud</user>
+            <user>stacy.williams@auspost.com.au.ap.pud</user>
+            <user>stephen.olivero@auspost.com.au.ap.pud</user>
+            <user>trudi.o&apos;meara@auspost.com.au.ap.pud</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

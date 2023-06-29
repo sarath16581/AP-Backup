@@ -24,10 +24,6 @@
                 <name>scott.durkin@auspost.com.au</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>scott.warbrick@auspost.com.au</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <description>STP: Update approval status to Approval</description>

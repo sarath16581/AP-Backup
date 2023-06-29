@@ -301,6 +301,7 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_CODE_MIN_COLLECTION_VALUE = 'Minimum Collection Value';
 	public static final String PRODUCT_CODE_EPARCEL_POST_RETURN = 'eParcel Post Return';
 	public static final String PRODUCT_CODE_POST_BILLPAY = 'Post Billpay';
+	public static final String PRODUCT_CODE_METRO = 'Metro';
 	public static final String PRODUCT_CODE_UNADDRESSED_MAIL_SERVICES = 'Unaddressed Mail Services';
 
 	//New Optional Products for new bundles
@@ -1654,5 +1655,13 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String APT_KG_Rate = '_KR';
 	public static final String APT_Basic_Rate = '_BR';
 	public static final String RATING_MODEL_PD = 'PD';
+	public static final String TC_PRICEPOINT_ALWAYS_ON='TCOVER-NR';
+	public static final String TC_IDENTIFIER_ALWAYS_ON='TCOVER-NR'+'_'+'FE002';
+	public static final String TC_PRICEPOINT_ADHOC='TCOVER-1';
+	public static final String TC_IDENTIFIER_ADHOC='TCOVER-1'+'_'+'FE002';
+	public static final String TC_COVER_TYPE_ALWAYS_ON='Always On';
+	public static final String TC_COVER_TYPE_ADHOC='Adhoc';
+	public static final set<string> TRANSIT_COVER_PRODUCTS=new set<string>{'Standard Parcel Transit Cover','Premium Express Parcel Transit Cover'};
+	public static final map<string,string> TC_PP_TYPE_MAP = new map<string,string>{'TCOVER-1_FE002'=>'Adhoc','TCOVER-NR_FE002'=>'Always On'};
 
 }

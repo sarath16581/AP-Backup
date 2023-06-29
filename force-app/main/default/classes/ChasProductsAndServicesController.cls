@@ -12,6 +12,8 @@
  * 2022-06-28 - Thang Nguyen - modified: DDS-11430: add Bypass Workflow Rules On Creation flag to true
  * 2022-07-08 - Mahesh Parvathaneni - modified: DDS-11191 Network name on transfer requests
  * 2022-07-15 - Hasantha Liyanage - DDS-11324 added support for unit test mocking
+ * 2023-06-07 - Talib Raza - REQ3209253: set priority to high for all Accessibility and disability cases
+ * 2023-06-26 - Thang Nguyen DDS-11384 VODV case routing
  */
 public with sharing class ChasProductsAndServicesController extends ChasBase {
 	//constants
@@ -86,6 +88,9 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 			String enquiryType = (String) wizardData.get('selectedRadio3Name');
 			String madeAndOrder = (String) wizardData.get('selectedRadio2Name');
 
+             // article recognised as victim of violence
+             Boolean isVodv = (String.isNotEmpty(wizardData.get('isVodv'))) && 'true'.equalsIgnoreCase(wizardData.get('isVodv'));
+
 			//--  delivery address
 			String deliveryAddressLine1 = (String) wizardData.get('deliveryAddressLine1') != null
 				? (String) wizardData.get('deliveryAddressLine1')
@@ -121,13 +126,15 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 				}
 			}
 			//-- Check network eligibility
-			if (
-				!String.isEmpty(wcid) &&
-				!String.isEmpty(wizardData.get('isParcelAwaitingCollection')) &&
-				'true'.equalsIgnoreCase(wizardData.get('isParcelAwaitingCollection')) &&
-				!transferToPoProductExclusions.containsIgnoreCase(subProductId)
-			) {
-				isEligibleForMyNetworkAssignment = 'true';
+			if(!isVodv) {
+				if (
+					!String.isEmpty(wcid) &&
+					!String.isEmpty(wizardData.get('isParcelAwaitingCollection')) &&
+					'true'.equalsIgnoreCase(wizardData.get('isParcelAwaitingCollection')) &&
+					!transferToPoProductExclusions.containsIgnoreCase(subProductId)
+				) {
+					isEligibleForMyNetworkAssignment = 'true';
+				}
 			}
 			String selectedPostOffice = (String) wizardData.get('selectedPostOffice') != null
 				? 'Please transfer item to : ' + (String) wizardData.get('selectedPostOffice')
@@ -320,6 +327,11 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 			// DDS-11103 adding complaint
 			toBeCreateCase.complaint__c = complaint;
 			if (isContainsPharma) {
+				toBeCreateCase.Priority = 'High';
+			}
+
+			//REQ3209253: set priority to high for all Accessibility and disability cases
+			if (issueDetailsType == 'Accessibility and disability') {
 				toBeCreateCase.Priority = 'High';
 			}
 

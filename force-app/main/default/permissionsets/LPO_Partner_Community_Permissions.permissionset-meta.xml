@@ -137,7 +137,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Account.BillingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -824,6 +824,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Total_Rebate_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Account.TradedRevenueMyCommunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

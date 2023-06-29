@@ -14,6 +14,7 @@ private class bspEnquiryUplift_Test {
 
     private static String INTERNATIONAL_EXPRESS = 'International Express';
     private static String PARCEL_POST = 'Parcel Post';
+    private static String METRO = 'Metro';
     private static String PARCEL = 'Parcel';
     private static String LETTER = 'Letter';
     private static String PARCEL_DOMESTIC = 'Parcel Domestic';
@@ -122,6 +123,7 @@ private class bspEnquiryUplift_Test {
         bspMappings.add(new BSPMappings__c(Name = 'parcel post',CaseProductSubCategory__c=PARCEL_POST));
         bspMappings.add(new BSPMappings__c(Name = 'premium express + signature',CaseProductSubCategory__c='Premium Express Parcel'));
         bspMappings.add(new BSPMappings__c(Name = 'parcel domestic',CaseProductSubCategory__c='Standard Parcel'));
+        bspMappings.add(new BSPMappings__c(Name = 'metro', BSPServiceUsed__c = 'Metro', CaseProductSubCategory__c = 'Metro'));
         Database.insert(bspMappings);
 
         Account testAccount = TestDataProvider.createAccount('Test Account', 1)[0];
@@ -367,6 +369,36 @@ private class bspEnquiryUplift_Test {
             Test.stopTest();
         }
     }
+
+    /**
+     * Test the Case field logic based on the newly introduced value: metro
+     */
+    @IsTest
+    public static void testCreateEnquiryDomesticMetro() {
+        User commUser = setupCommunityUser();
+        System.runAs(commUser) {
+            Test.startTest();
+            // domestic parcel
+            Case enq = new Case();
+            enq.ReferenceID__c = ARTICLE_NAME;
+            enq.CCUYourReference__c = 'test reference';
+            enq.Description = 'test enquiry';
+            enq.Description_of_contents__c = 'test items';
+            enq.CCUEnquiryType__c = MISSING_ITEM;
+            enq.ArticleType__c = PARCEL;
+            enq.CCUServiceUsed__c = METRO;
+            enq.BSP_Addressee_Company__c = 'test receiver company';
+            enq.BSP_Addressee_Name__c = 'testfname testlname';
+            bspEnquiryUplift.CreateEnquiryWrapper result = bspEnquiryUplift.createEnquiryAusPost(enq, new List<Map<String, String>> ());
+
+            Case insertedEnquiry = [SELECT Id,Type,ProductCategory__c,ProductSubCategory__c,Type_and_Product__c FROM Case WHERE Id = :result.enquiry.Id LIMIT 1];
+            System.assertEquals(ChasConstants.INVESTIGATION, insertedEnquiry.Type, 'Incorrect Case.Type check if CCUEnquiryType__c is setup correctly');
+            System.assertEquals(BspConstants.CASE_PRODUCT_CATEGORY_DOM_PARCELS, insertedEnquiry.ProductCategory__c, 'Incorrect Case.ProductCategory__c check if bspMappings.get(enq.CCUEnquiryType__c.toLowerCase()).CaseProductCategory__c is setup correctly');
+            System.assertEquals(METRO, insertedEnquiry.ProductSubCategory__c, 'Incorrect Case.ProductSubCategory__c check if bspMappings.get(enq.CCUEnquiryType__c.toLowerCase()).caseProductSubCategory__c is setup correctly');
+            System.assertEquals(ChasConstants.INVESTIGATION_AND_DOMESTIC_PARCELS_METRO, insertedEnquiry.Type_and_Product__c, 'Incorrect Case.Type_and_Product__c check if enq.Type is setup correctly');
+        }
+    }
+
     @IsTest
     public static void testCreateEnquiryDomesticPremiumExpress()
     {
@@ -388,7 +420,7 @@ private class bspEnquiryUplift_Test {
             bspEnquiryUplift.CreateEnquiryWrapper result = bspEnquiryUplift.createEnquiryAusPost(enq, new List<Map<String, String>> ());
             System.assertEquals(enq.ProductSubCategory__c,'Premium Express Parcel','Correct Product Subcategory');
             System.assertNotEquals(bspEnquiryUplift.STATUS_ERROR, result.status, 'Create Missing Domestic Parcel errored:' + result);
-            
+
         }
     }
     

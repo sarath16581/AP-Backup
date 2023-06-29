@@ -52,6 +52,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track description;
 	@track descriptionOfContents;
 	isContainsMedication;
+	isSentimental;
 	itemValue;
 	@track articleType;
 	@track serviceUsed;
@@ -61,7 +62,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track showNoEvents = false;
 	@track expectedDeliveryDate = '';
 	@track searchResult;
-
+	enteredTrackingNumber='';
+	isDisplayDeliveryStatus = false;
 	/**
 	 * Initialize the lwc, waits for the page url to be available first. This is to avoid order of execution
 	 * issues between loading the static picklist data and preloaded consignment ID for search (if any)
@@ -145,6 +147,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 					if('errorMessages' in result && result.errorMessages.length > 0)
 					{
 						this.errorMessage = result.errorMessages.join(', ');
+					} else
+					{
+						this.isDisplayDeliveryStatus = true;
 					}
 
 					this.searchResult = result;
@@ -164,7 +169,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	}
 
 	get displayDeliveryStatus(){
-		return this.searchResult ? (this.searchResult.singleCon ? true : false) : false;
+		return  (this.isDisplayDeliveryStatus ? (this.searchResult ? (this.searchResult.singleCon ? true : false): false) : false);
 	}
 
 	// handle 'enter' key press
@@ -183,22 +188,22 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	 * @returns {Promise<void>}
 	 */
 	async onClickSearchTracking(event) {
-		this.showSpinner = true;
-
 		// hide previous details
 		this.showEvent = false;
 		this.errorMessage = '';
-
-
 		const trackingComp = this.template.querySelectorAll('[data-id="trackingNumber"]'); //".address-input"
-		if(!checkAllValidity(trackingComp))
-		{
-			this.errorMessage = 'Please enter a tracking number';
-			this.showSpinner = false;
-			return;
+		if(this.enteredTrackingNumber != this.trackingId){
+			this.isDisplayDeliveryStatus = false;
+			this.showSpinner = true;
+			if(!checkAllValidity(trackingComp))
+			{
+				this.errorMessage = 'Please enter a tracking number';
+				this.showSpinner = false;
+				return;
+			}
+			this.enteredTrackingNumber = this.trackingId;
+			this.doSearch();
 		}
-
-		this.doSearch();
 	}
 
 	/**

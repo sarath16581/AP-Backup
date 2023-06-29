@@ -4,11 +4,11 @@
     <containerType>Network</containerType>
     <label>LPO Default Navigation</label>
     <navigationMenuItem>
-        <defaultListViewId>LPO_My_Open_Leads</defaultListViewId>
-        <label>Leads</label>
+        <defaultListViewId>LPO_My_Organisations</defaultListViewId>
+        <label>Organisations</label>
         <position>1</position>
         <publiclyAvailable>false</publiclyAvailable>
-        <target>Lead</target>
+        <target>Account</target>
         <type>SalesforceObject</type>
     </navigationMenuItem>
     <navigationMenuItem>
@@ -34,7 +34,7 @@
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Dashboard</label>
+        <label>Reports</label>
         <position>5</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/partner-dashboard</target>
