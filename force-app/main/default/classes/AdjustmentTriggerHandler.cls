@@ -117,7 +117,7 @@ public without sharing class AdjustmentTriggerHandler {
 			adjRecursiveFlag = true;
 			adjustmentLink = true;
 
-			if (adUpdateMap.size()>0) {
+			if (!adUpdateMap.IsEmpty()) {
 				try {
 					ApplicationDatabase.getInstance().dmlUpdate(adUpdateMap.values());
 				} catch(exception e){ 
