@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 2023-06-02
  * @changelog
+ * 29/06/2023 - Mahesh Parvathaneni - Added tests for method getEmailFullMatch
 */
 
 @IsTest
@@ -66,6 +67,37 @@ private class TransportEnquiryCaseService_Test {
 
 		// make sure the recordtype id has been returned
 		Assert.areNotEqual(null, recordTypeId, 'Expected transport enquiry recordtype id to be returned');
+
+		Test.stopTest();
+	}
+
+	/**
+	 * Scenario: Test to ensure the whole pattern match for email is returned from the string
+	 */
+	@IsTest
+	static void testGetEmailFullMatch() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		String email1 = 'transportenquiry@auspost.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48';
+		String email2 = 'transportenquiry@auspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
+		String result = 'transportenquiry@auspost.com.au';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		TransportEnquiryCaseService service = TransportEnquiryCaseService.getInstance();
+
+		// make sure the recordtype id has been returned
+		Assert.areEqual(result, service.getEmailFullMatch(email1), 'Expected valid email to be returned');
+		Assert.areEqual(result, service.getEmailFullMatch(email2), 'Expected valid email to be returned');
 
 		Test.stopTest();
 	}
