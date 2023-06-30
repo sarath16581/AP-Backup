@@ -1,0 +1,22 @@
+<apex:component controller="bspComponent">
+	<style>
+        .button-margin
+        {
+        width:160px;
+        text-align: center;
+        padding:5px;
+        }    
+    </style>
+	<div class="right-panel">
+		<div class="l-sb-module" style="height: 225px; ">
+		<!-- Begin Default Content REMOVE THIS -->
+		<h2>Ask Australia Post</h2>
+		<!-- START Live Agent Smart Speak Changes -->
+		<div>
+			<button id="hasp-chat-open" type = "button" onclick="$('.chat-btn').click();" style="background:#dc1928; color: white; border: solid 2px; font-size: 12px; padding:5px 20px;width: 145.2px;" data-description="Chat">Chat with us</button>
+		</div>
+		<p>Our virtual assistant is available 24/7.</p>
+		<p>Live chat is available during business hours.</p>
+		</div>
+	</div>
+</apex:component>
