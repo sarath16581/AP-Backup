@@ -56,9 +56,11 @@ public inherited sharing class TransportEnquiryCaseService {
 	 */
 	public String getEmailFullMatch(String input) {
 		String result;
-		Matcher matcher = getPattern(REGX_EXTRACT_EMAIL).matcher(input);
-		if (matcher.find()) {
-			result = matcher.group(0); // full match
+		if (String.isNotBlank(input)) {
+			Matcher matcher = getPattern(REGX_EXTRACT_EMAIL).matcher(input);
+			if (matcher.find()) {
+				result = matcher.group(0); // full match
+			}
 		}
 		return result;
 	}
