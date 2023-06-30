@@ -56,7 +56,7 @@ public with sharing class OpportunitySplitUtility {
 
 				Map<String, SalesOverlayTypeMapping__mdt> metadata = new Map<String, SalesOverlayTypeMapping__mdt>();
 
-				for (SalesOverlayTypeMapping__mdt record : SalesOverlayTypeMapping__mdt.getAll().values()) {
+				for (SalesOverlayTypeMapping__mdt record: SalesOverlayTypeMapping__mdt.getAll().values()) {
 					metadata.put(record.MasterLabel, record);
 				}
 				overlayTypesMetadata = metadata;
@@ -119,7 +119,6 @@ public with sharing class OpportunitySplitUtility {
 			if(oldSplitsMap == null){
 				RUN_TRIGGER_INSERT = true;
 			}
-			System.debug('BG_SALES_OPERATION_PERMISSIONSET_ASSIGNED>>>'+BG_SALES_OPERATION_PERMISSIONSET_ASSIGNED);
 			if(!opportunitySplits.isEmpty()){
 				Map<Id,Opportunity> opportunityMap = getSplitWithOpportunityDetail(OpportunitySplits);
 				Map<Id,List<OpportunitySplit>> splitWithOpportunityMap = new Map<Id,List<OpportunitySplit>>();
@@ -205,10 +204,8 @@ public with sharing class OpportunitySplitUtility {
 			for(String overLayType : splitMapTemp.keySet()){
 			   // if(splitMapTemp.get(overLayType).size() > 1 && RUN_TRIGGER_INSERT){
 				 if(oppWithExistingSplitsMap.containsKey(oppId)){
-					 System.debug('Here>>>>>1');
 					Map<String,Boolean> existingRecTemp = oppWithExistingSplitsMap.get(oppId);
 					if(existingRecTemp.containsKey(overLayType) && existingRecTemp.get(overLayType) && RUN_TRIGGER_INSERT){
-						System.debug('Here>>>>>2');
 						 //skip the validation as inder and Validadtion will happen on update
 						continue;
 					}
@@ -430,10 +427,10 @@ public with sharing class OpportunitySplitUtility {
 			});
 
 			// work out the results to return based on group membership and overlay type mappings.
-			for (String groupName : groupMemberUsers.keySet()) {
+			for (String groupName: groupMemberUsers.keySet()) {
 				Set<Id> eligibleUsers = groupMemberUsers.get(groupName).clone();
 				eligibleUsers.retainAll(userIds);
-				for (Id eligibleUserId : eligibleUsers) {
+				for (Id eligibleUserId: eligibleUsers) {
 					Set<String> overlayTypes = results.get(eligibleUserId);
 					if (overlayTypes == null) {
 						overlayTypes = new Set<String>{};
@@ -479,8 +476,8 @@ public with sharing class OpportunitySplitUtility {
 				List<OpportunitySplit> creatable = new List<OpportunitySplit>();
 				for (AutoAssignOpportunitySplitsWorkerParam param: params) {
 					for (String overlayType: param.overlayTypes) {
-						creatable.add(new OpportunitySplit(OpportunityId=param.opportunityId, SplitTypeId=overlayContributionSplitTypeId, Overlay_Type__c = overlayType,
-								SplitOwnerId=param.ownerId, SplitPercentage= overlayTypesMetadata.get(overlayType)?.DefaultPercentageAssignedOnCreation__c));
+						creatable.add(new OpportunitySplit(OpportunityId = param.opportunityId, SplitTypeId = overlayContributionSplitTypeId, Overlay_Type__c = overlayType,
+								SplitOwnerId = param.ownerId, SplitPercentage = overlayTypesMetadata.get(overlayType)?.DefaultPercentageAssignedOnCreation__c));
 					}
 				}
 
@@ -555,7 +552,7 @@ public with sharing class OpportunitySplitUtility {
 					// could be an expensive operation.
 					if (eligibleOverlaySplitOwners.contains(param.previousOwnerId)) {
 						Opportunity opportunityWithSplits = opportunitiesWithSplits.get(param.opportunityId);
-						for (OpportunitySplitSnapshot snapshot : param.splitsOwnedByPreviousOpportunityOwner) {
+						for (OpportunitySplitSnapshot snapshot: param.splitsOwnedByPreviousOpportunityOwner) {
 							// platform restricts a given user can have only one split record per each split type.
 							// when opportunity is transferred to a new owner, any overlay splits owned by prior owner will
 							// also be moved to new opportunity owner.

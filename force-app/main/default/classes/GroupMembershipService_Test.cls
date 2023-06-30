@@ -433,19 +433,15 @@ private class GroupMembershipService_Test {
 		try {
 			GroupMembershipService.getInstance().expandGroupMembership(new Set<String>{groups[0].DeveloperName}, null);
 			System.assert(false, 'Expected to throw GroupMembershipServiceException when member types parameter is null');
-		} catch (GroupMembershipService.GroupMembershipServiceException serviceEx) {
-			// expected
 		} catch (Exception e) {
-			System.assert(false, 'Expected to throw GroupMembershipServiceException but got : ' + e.getTypeName());
+			System.assert(e.getTypeName() == GroupMembershipService.GroupMembershipServiceException.class.getName(), 'Expected to throw GroupMembershipServiceException but got : ' + e.getTypeName());
 		}
 
 		try {
 			GroupMembershipService.getInstance().expandGroupMembership(new Set<String>{groups[0].DeveloperName}, new Set<GroupMembershipService.MemberTypes>());
 			System.assert(false, 'Expected to throw GroupMembershipServiceException when member types parameter is empty');
-		} catch (GroupMembershipService.GroupMembershipServiceException serviceEx) {
-			// expected
 		} catch (Exception e) {
-			System.assert(false, 'Expected to throw GroupMembershipServiceException but got : ' + e.getTypeName());
+			System.assert(e.getTypeName() == GroupMembershipService.GroupMembershipServiceException.class.getName(), 'Expected to throw GroupMembershipServiceException but got : ' + e.getTypeName());
 		}
 		Test.stopTest();
 	}
