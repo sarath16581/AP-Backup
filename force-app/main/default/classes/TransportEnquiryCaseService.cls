@@ -66,7 +66,7 @@ public inherited sharing class TransportEnquiryCaseService {
 	/**
 	 * @description This method provides the compiled regex pattern
 	 * @param  regex regex pattern
-	 * @return       return compiled regex pattern to find the matcher
+	 * @return		return compiled regex pattern to find the matcher
 	 */
 	private Pattern getPattern(String regex) {
 		if (compiledPatternsMap == null) {
