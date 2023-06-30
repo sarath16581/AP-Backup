@@ -289,6 +289,8 @@
             <c:MpbHspYourDetails />
             <!-- END Your details -->
 
+			<c:MpbHspChat />
+
             <!-- 21/04 MyPostBusiness -->
             <c:MpbHspCallMeBackRestCall />
 

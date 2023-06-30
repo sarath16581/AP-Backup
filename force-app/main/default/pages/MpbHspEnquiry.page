@@ -3,6 +3,7 @@
 2021-11-18  - Prerna Rahangdale - MPB Case type Subtype and new fields Preferred Contact Number, Detailed description of contents,
                 Wholesale Value of contents,Attach a document or image and change Tracking Id label Tracking Number.
 2022-05-17 - Talib Raza - Enquiry Sub types picklist moved to top for multiple enquiry types for consistency in UI.
+2023-06-30 - Talib Raza - REQ3222148: Implement a change to the UI to promote Chatbot above the Click2Call feature. 
 -->
 <apex:page controller="bspEnquiry"
            cache="false"
@@ -727,8 +728,10 @@
             -->
             <!-- END Quicklinks -->
 
-           <c:MpbHspCallMeBackRestCall />
+			<c:MpbHspChat />
 
+           <c:MpbHspCallMeBackRestCall />
+		   
         </div>
 
     </div>
