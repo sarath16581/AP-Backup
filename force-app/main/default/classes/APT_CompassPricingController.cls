@@ -237,7 +237,7 @@
 										keyFRSMap.put(keyFeat,totalFields);
 									}
 									//CI-834 Add changes to Populate the Min Transit cover amount for Custom and Delegated Pricing Scenarios, Pass the parameter to update the PAV
-									if('Transit Cover'.containsIgnoreCase(fea.name)) {
+									if(fea.name!=null && fea.name.containsIgnoreCase('Transit Cover')) {
 										tcCoverFeature=fea;
 									}
 								}
