@@ -4,6 +4,7 @@
  * @domain            : connected customer
  * @last modified on  : 08-19-2022
  * @last modified by  : Sreenish Krishnan
+ * @last modified by  : 30-06-2023 Thang Nguyen - queuable the updates of the users.
  **/
 public inherited sharing class ContactPointEmailContactSyncModule extends ApplicationDomain.Module {
 	public static ContactPointEmailContactSyncModule newInstance() {
@@ -224,15 +225,8 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 							usersToUpdate.add(portalUser);
 						}
 					}
-
-					uow.registerDirty(
-						usersToUpdate,
-						new List<SObjectField>{ User.Email, User.Username, User.FederationIdentifier },
-						false, // do not throw exception on error as it is async. It will be logged
-						ContactPointEmailContactSyncModule.class.getName() +
-						'.' +
-						AsyncUpdateUserLoginDetailsWorker.class.getName()
-					);
+					//queue a job to update the users
+					System.enqueueJob(new UpdateUserQueueable(usersToUpdate));
 				}
 			}
 		}
@@ -256,6 +250,25 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 				List<String> ids = input.split('-');
 				userIdsVsContactPointEmailIds.put(ids[0], ids[1]);
 				contactPointEmailIds.add(ids[1]);
+			}
+		}
+	}
+
+	public inherited sharing class UpdateUserQueueable implements Queueable, Database.AllowsCallouts {
+		List<User> usersToUpdate = new List<User>();
+
+		public UpdateUserQueueable(List<User> records) {				
+			this.usersToUpdate = records;
+		}
+
+		public void execute(QueueableContext context) {
+			try {
+				if (this.usersToUpdate.size() > 0 ){
+					List<Database.SaveResult> result = ApplicationDatabase.getInstance().dmlUpdate(this.usersToUpdate);
+				}					
+			} catch (Exception e) {
+				// Error Logged to Exception object for analysis
+				UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'ContactPointEmailContactSyncModule', UpdateUserQueueable.class.getName(), 'execute', 'ContactPointEmailContactSyncModule', LoggingLevel.ERROR);					
 			}
 		}
 	}
