@@ -7,16 +7,17 @@
  * @description Test Class covering OpportunitiesSplitSelector
  * @changelog
  * 2020-10-06 - arjun.singh@austpost.com.au - Created
+ * 2023-05-17 - Ranjeewa Silva - Updated tests to cover new selector option 'FILTER_OVERLAY_SPLITS'
  */
  @IsTest
 public with sharing class OpportunitiesSplitSelector_Test {
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectString() {
-    // =====================================
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
+	// =====================================
 	// Data Preparation
 	// =====================================
 	// None!
@@ -38,13 +39,13 @@ public with sharing class OpportunitiesSplitSelector_Test {
 	System.assertEquals(true, Pattern.compile('(?ism)\\bfrom opportunitySplit\\b').matcher(soql).find(), 'Resulting query does not select from opportunitySplit');
 
 	Test.stopTest();
-    }
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+	}
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
 
 	// =====================================
 	// Data Preparation
@@ -68,49 +69,53 @@ public with sharing class OpportunitiesSplitSelector_Test {
 
 	qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSplitSelector.Options.WITH_OWNER});
 	soql = qb.toSoqlString();
-    System.assertEquals(true, Pattern.compile('(?ism)SplitOwner\\..*?\\bfrom opportunitySplit\\b').matcher(soql).find(), 'Resulting query does not select SplitOwner fields');
+	System.assertEquals(true, Pattern.compile('(?ism)SplitOwner\\..*?\\bfrom opportunitySplit\\b').matcher(soql).find(), 'Resulting query does not select SplitOwner fields');
+
+	qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSplitSelector.Options.FILTER_OVERLAY_SPLITS});
+	soql = qb.toSoqlString();
+	System.assertEquals(true, Pattern.compile('(?ism)\\bfrom opportunitySplit\\b.*SplitType.DeveloperName\\s*=\\s*\'Opportunity_00N9000000EOb4X_Overlay\'').matcher(soql).find(), soql);
 
 	Test.stopTest();
 
-    }  
-    /**
+	}
+	/**
 	 * Executes a query to ensure it returns expected results with actual inserted data
 	 */
 	@IsTest
 	public static void testSelectorIntegration() {
-        // =====================================
+		// =====================================
 	// Data Preparation
 	// =====================================
 	MockUtility.disableTriggerExecution();
 
-        Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
-        insert account;
+		Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		insert account;
 
-        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
-        insert opportunityRecord;  
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
+		insert opportunityRecord;
 
-        User uRecord = ApplicationTestDataFactory.getUsers(1, false)[0];
-        insert uRecord;
+		User uRecord = ApplicationTestDataFactory.getUsers(1, false)[0];
+		insert uRecord;
 
-        OpportunitySplit opportunitySplitRecord = ApplicationTestDataFactory.getOpportunitySplits(1, opportunityRecord.Id, uRecord.Id, ApplicationTestDataFactory.directContributionOverlayType,'Direct Contribution' , false)[0];
-        insert opportunitySplitRecord;  
+		OpportunitySplit opportunitySplitRecord = ApplicationTestDataFactory.getOpportunitySplits(1, opportunityRecord.Id, uRecord.Id, ApplicationTestDataFactory.directContributionOverlayType,'Direct Contribution' , false)[0];
+		insert opportunitySplitRecord;
 
-        Set<Id> splitIds = new Set<Id>{opportunitySplitRecord.Id};
+		Set<Id> splitIds = new Set<Id>{opportunitySplitRecord.Id};
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-            OpportunitiesSplitSelector selector = OpportunitiesSplitSelector.newInstance(1);
-            Map<Id, OpportunitySplit> results = selector.selectById(splitIds);            
-	        System.assertEquals(1, results.size(), 'Expected result size of 1');
-            results = selector.selectById(splitIds, new Set<Object>{OpportunitiesSplitSelector.Options.WITH_OWNER});
-	        System.assertEquals(1, results.size(), 'Expected result size of 1');
-        Test.stopTest();
-    }
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+			OpportunitiesSplitSelector selector = OpportunitiesSplitSelector.newInstance(1);
+			Map<Id, OpportunitySplit> results = selector.selectById(splitIds);
+			System.assertEquals(1, results.size(), 'Expected result size of 1');
+			results = selector.selectById(splitIds, new Set<Object>{OpportunitiesSplitSelector.Options.WITH_OWNER});
+			System.assertEquals(1, results.size(), 'Expected result size of 1');
+		Test.stopTest();
+	}
 }

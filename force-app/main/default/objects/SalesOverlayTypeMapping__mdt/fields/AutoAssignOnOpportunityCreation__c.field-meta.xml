@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AutoAssignOnOpportunityCreation__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>true</defaultValue>
+    <description>Auto assign corresponding overlay opportunity split when opportunity is owned by a Sales Specialist Group member on opportunity creation.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Auto assign corresponding overlay opportunity split when opportunity is owned by a Sales Specialist Group member on opportunity creation.</inlineHelpText>
+    <label>Auto Assign on Opportunity Creation</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Checkbox</type>
+</CustomField>
