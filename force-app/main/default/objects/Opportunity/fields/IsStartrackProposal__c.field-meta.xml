@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsStartrackProposal__c</fullName>
+    <description>Users to determine whether this is a Startrack proposal or not</description>
+    <externalId>false</externalId>
+    <inlineHelpText>determine whether this is a Startrack opportunity</inlineHelpText>
+    <label>StarTrack Opportunity?</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

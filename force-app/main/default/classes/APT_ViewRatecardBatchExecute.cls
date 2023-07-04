@@ -11,6 +11,7 @@ History:
 2020-10-20 Mahesh Patel Modified STP-2763 STPAC - Generate ST proposal document - Added this condition for not doing any of these calculations for StarTrack
 2021-06-02 Naveen Rajanna - STP-5598/REQ2519238 Check if Pricing fields changed on proposal then display error if matches certain condition
 2021-11-10 Sautul Mehta - CI-95 Changes for APPC product
+2023-07-15 Nasir Jawed - commented ApexPages.AddMessage and added log Exception
 **************************************************/
 public with sharing class APT_ViewRatecardBatchExecute {
     
@@ -34,6 +35,14 @@ public with sharing class APT_ViewRatecardBatchExecute {
         proposalId = proposal;
     }
     
+    /**
+        Constructor
+    **/
+    public APT_ViewRatecardBatchExecute(String proposal, Boolean isCallFromRC){
+        proposalId = proposal;
+        isCallFromRateCalc = isCallFromRC;
+    }
+
     /**
         Initial execution
     **/    
@@ -331,12 +340,15 @@ public with sharing class APT_ViewRatecardBatchExecute {
             */
             return redirectPage;
         } catch(Exception ex) {
-            ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
-            return null;            
+            String stackTrace = ex.getStackTraceString().substringBefore('\n');
+            String className = stackTrace.substringAfter('.').substringBefore('.');
+            String methodName = stackTrace.substringBefore(':').substringAfter(className).substringAfter('.');
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Sales', className, methodName, 'NONE', LoggingLevel.ERROR);
+            return null;
         }
-        
+
     }
-    
+
     /**
         This method will redirect you to proposal page
     **/
@@ -346,7 +358,7 @@ public with sharing class APT_ViewRatecardBatchExecute {
         }
         catch(Exception ex) {
             ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
-            return null;            
+            return null;
         }
     }
 }

@@ -169,4 +169,29 @@ public with sharing class APT_AgreementLineItemsSelectorTest {
 		System.assertEquals(1, results.size(), 'Result count was wrong');     
 		Test.stopTest();
 	}
+
+	/**
+	 * Test: Ensures that the selectors is querying contractId, LineType and ChargeType and then return correct output
+	 */
+	@IsTest
+	public static void testSelectByContractIdLineTypeAndChargeType() {
+		MockUtility.disableTriggerExecution();
+		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, acc.Id, true)[0];
+		Contact con = ApplicationTestDataFactory.getContacts(1, acc.Id, true)[0];
+		Apttus__APTS_Agreement__c contract = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.id, true)[0];
+		Apttus__AgreementLineItem__c cliRec = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+
+		Test.startTest();
+		APT_AgreementLineItemsSelector selector = APT_AgreementLineItemsSelector.newInstance();
+		Map<Id, Apttus__AgreementLineItem__c> results = new Map<Id, Apttus__AgreementLineItem__c>(selector.selectByContractIdLineTypeAndChargeType(
+			new Set<Id>{contract.Id}, new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
+													 new Set<String>{APT_Constants.CHARGE_TYPE_STANDARD_PRICE} ,
+			new Set<Object>{}
+		));
+		Test.stopTest();
+
+		System.assertEquals(0, results.size(), 'Result count was right');
+	}
+
 }

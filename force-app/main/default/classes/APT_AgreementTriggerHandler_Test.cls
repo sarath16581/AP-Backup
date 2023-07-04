@@ -2,13 +2,13 @@
 private class APT_AgreementTriggerHandler_Test{
 
 	@testSetup static void setup() {
-			
+
 		//Create Contact
 		Contact con= APT_TestUtils.createContact();
 		con.MailingCity = 'Melbourne';
 		con.MailingState = 'VIC';
 		con.MailingStreet = 'Flinders Street';
-		con.MailingPostalCode = '3000'; 
+		con.MailingPostalCode = '3000';
 		insert con;
 
 		//Create Account
@@ -43,15 +43,15 @@ private class APT_AgreementTriggerHandler_Test{
 		List<Opportunity> oppList = new List<Opportunity>();
 		Opportunity opp1 = APT_TestUtils.createOpportunity(legacyacct.id);
 		Opportunity opp2 = APT_TestUtils.createOpportunity(tempacct.id);
-		
+
 		opp1.Is_Superseded_Opportunity__c = true;
 		opp2.Is_Superseded_Opportunity__c = true;
 		oppList.add(opp1);
-		oppList.add(opp2);       
-		insert oppList;   
+		oppList.add(opp2);
+		insert oppList;
 
 		//CREATE PRODUCTS
-		List<Product2> productList = new List<Product2>();    
+		List<Product2> productList = new List<Product2>();
 
 		//Create APPC Product
 		Product2 product = APT_TestUtils.createAPPCProduct('Australia Post Parcel Contract','X01','APPC');
@@ -83,22 +83,22 @@ private class APT_AgreementTriggerHandler_Test{
 		product4.APT_Product_Lines__c = 'StarTrack';
 		product4.APT_Contracting_Entity__c = 'StarTrack Express Pty Ltd';
 		productList.add(product4);
-		
+
 		Product2 product5 =APT_TestUtils.createInternationalProduct('Postal Services','26940998','Postal Services');
 		product5.name = APT_Constants.BUNDLE_NAME_INTERNATIONAL;
 		product5.APT_Product_Type__c = 'Workforce Verification';//add product type to product
 		productList.add(product5);
-		
+
 		Product2 product6 =APT_TestUtils.createInternationalProduct('Postal Services','26940998','Postal Services');
 		product6.ProductCode = APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD;
 		product6.APT_Product_Type__c = 'Workforce Verification';//add product type to product
 		productList.add(product6);
-		
+
 		Product2 product7 =APT_TestUtils.createInternationalProduct('Postal Services','26940998','Postal Services');
 		product7.Family = APT_Constants.PARCEL_SERVICES;
 		product7.APT_Product_Type__c = 'Workforce Verification';//add product type to product
 		productList.add(product7);
-		
+
 		Product2 product8 =APT_TestUtils.createInternationalProduct('Postal Services','26940998','Postal Services');
 		product8.APT_Product_Type__c = 'Workforce Verification';//add product type to product
 		productList.add(product8);
@@ -106,7 +106,7 @@ private class APT_AgreementTriggerHandler_Test{
 		Product2 product9 =APT_TestUtils.createInternationalProduct('International Bundle','26940998','Postal Services');
 		product9.APT_Product_Type__c = 'Workforce Verification';//add product type to product
 		productList.add(product9);
-		
+
 		//Create Post Billpay Product
 		Product2 product10 = APT_TestUtils.createPBPProduct('Post Billpay','PBP','Postal Services');
 		product10.APT_Product_Type__c = 'Post Billpay';
@@ -121,7 +121,7 @@ private class APT_AgreementTriggerHandler_Test{
 		insert priceList;
 
 		//CREATE Price List Item
-		List<Apttus_Config2__PriceListItem__c> priceListItemList = new List<Apttus_Config2__PriceListItem__c>();  
+		List<Apttus_Config2__PriceListItem__c> priceListItemList = new List<Apttus_Config2__PriceListItem__c>();
 		Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id, product.id, '', '');
 		priceListItemList.add(priceListItem);
 		Apttus_Config2__PriceListItem__c priceListItem2 = APT_TestUtils.createPriceListItem(priceList.id, product1.id, '', '');
@@ -226,7 +226,7 @@ private class APT_AgreementTriggerHandler_Test{
 		false,false,22.00,24.00,'',34.00,23.00,33.50,'');
 
 		lineItemList.add(lineItem5);
-		
+
 		//CREATE Post Billpay Line Item
 		Apttus_Config2__LineItem__c lineItem6 = APT_TestUtils.getConfigLineItem(config.id,summaryGroup.id , 1, true, 2, '', product10.id, false,prodOptionComponent.id,
 		product10.id,classHierarchy.id,'',2.3,false,'',2,priceList.id,priceListItem.Id,'','','','',
@@ -269,7 +269,7 @@ private class APT_AgreementTriggerHandler_Test{
 		propLineItem3.Apttus_QPConfig__LineNumber__c =2;
 		propLineItem3.Apttus_QPConfig__ItemSequence__c=2;
 		propLineItem3.Apttus_QPConfig__IsPrimaryLine__c=true;
-		propLineItem3.Apttus_QPConfig__LineType__c = 'Product/Service';       
+		propLineItem3.Apttus_QPConfig__LineType__c = 'Product/Service';
 		pliList.add(propLineItem3);
 		Apttus_Proposal__Proposal_Line_Item__c propLineItem4 = APT_TestUtils.getProposalLineItem(proposal.Id,lineItem4.Id,priceListItem4.Id,product3.Id,product3.Id);
 		propLineItem4.Apttus_QPConfig__LineNumber__c =3;
@@ -319,7 +319,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
@@ -329,17 +329,17 @@ private class APT_AgreementTriggerHandler_Test{
 		*/
 	}
 
-		
+
 	public static testMethod void testingAPPC(){
-			
+
 		Contact con = [Select Id from Contact Limit 1];
 		//CI-339 remove minimum spend field reference for account object
 		Account legacyacct = [Select Id from Account where Name = 'legacyacct' Limit 1];
-		
+
 		Opportunity opp1 = [Select Id, AccountId from Opportunity where AccountId = :legacyacct.Id Limit 1];
 		Application__c app = new Application__c();
 		app.Opportunity__c = opp1.Id;
-			
+
 		Billing_Account__c billacc = [Select Id, Organisation__c from Billing_Account__c where Organisation__c =:legacyacct.Id Limit 1];
 		Product2 product = [Select Id from Product2 where Name = 'Australia Post Parcel Contract' Limit 1];
 		Product2 product2 = [Select Id from Product2 where Name = 'International Bundle' Limit 1];
@@ -370,7 +370,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
@@ -486,8 +486,8 @@ private class APT_AgreementTriggerHandler_Test{
 		dsr1.Stage__c = 'New';
 		dsr1.Status__c = 'Draft';
 		dsr1.Start_Date__c = date.Today();
-		dsr1.Due_Date__c = date.Today().addDays(25); 
-		dsr1.Document_Type__c = 'RFP'; 
+		dsr1.Due_Date__c = date.Today().addDays(25);
+		dsr1.Document_Type__c = 'RFP';
 		dsr1.RecordTypeId = bidDSRRecordTypeId;
 		dsr1.Opportunity__c = opp1.Id;
 		dsr1.Compass_Quote_Reference__c = 'ABC-1234567-ADD4562222';
@@ -508,13 +508,13 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
 		aptContractParent.APT_Trading_As__c = 'test';// text area
 		aptContractParent.Billing_Account__c = billacc.Id; // billing accont Id
-		aptContractParent.Billing_Account__c = billacc.Id; 
+		aptContractParent.Billing_Account__c = billacc.Id;
 		aptContractParent.Apttus__Version_Number__c = 1;
 		agreementList.add(aptContractParent);
 
@@ -525,19 +525,19 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent2.RecordTypeID =  Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get('MSA & Service Schedule').getRecordTypeId();
 		aptContractParent2.Apttus_QPComply__RelatedProposalId__c = proposal.Id;
 		aptContractParent2.APT_New_Rate_Card_Download__c = true;
-		aptContractParent2.OwnerId = u1.ID;       
+		aptContractParent2.OwnerId = u1.ID;
 		aptContractParent2.Apttus__Status_Category__c = 'Request';
 		aptContractParent2.Apttus__Status__c = 'Request';
 		aptContractParent2.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent2.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent2.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent2.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent2.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent2.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent2.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent2.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
 		aptContractParent2.APT_Trading_As__c = 'test';// text area
 		aptContractParent2.Billing_Account__c = billacc.Id; // billing accont Id
-		aptContractParent2.Billing_Account__c = billacc.Id; 
+		aptContractParent2.Billing_Account__c = billacc.Id;
 		aptContractParent2.Apttus__Version_Number__c = 1;
 		agreementList.add(aptContractParent2);
 
@@ -556,7 +556,7 @@ private class APT_AgreementTriggerHandler_Test{
 
 		Test.startTest();
 		update productsToUpdateList;
-		insert dsr1; 
+		insert dsr1;
 		insert aptContractParent;
 
 		//BRP 20220322 start
@@ -606,7 +606,7 @@ private class APT_AgreementTriggerHandler_Test{
 		//Create Related Agreement
 		Apttus__APTS_Related_Agreement__c relatedAgreement = new Apttus__APTS_Related_Agreement__c();
 		relatedAgreement.Apttus__APTS_Contract_To__c = aptContractParent.Id;
-			
+
 		insert relatedAgreement;
 
 		aptContractParent.Apttus__Status__c = APT_Constants.LABEL_ACTIVATED;
@@ -646,13 +646,13 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
 		aptContractParent.APT_Trading_As__c = 'test';// text area
 		aptContractParent.Billing_Account__c = billacc.Id; // billing accont Id
-		aptContractParent.Billing_Account__c = billacc.Id; 
+		aptContractParent.Billing_Account__c = billacc.Id;
 		aptContractParent.Apttus__Version_Number__c = 1;
 		agreementList.add(aptContractParent);
 
@@ -663,19 +663,19 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent2.RecordTypeID =  Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get('MSA & Service Schedule').getRecordTypeId();
 		aptContractParent2.Apttus_QPComply__RelatedProposalId__c = proposal.Id;
 		aptContractParent2.APT_New_Rate_Card_Download__c = true;
-		aptContractParent2.OwnerId = u1.ID;       
+		aptContractParent2.OwnerId = u1.ID;
 		aptContractParent2.Apttus__Status_Category__c = 'Request';
 		aptContractParent2.Apttus__Status__c = 'Request';
 		aptContractParent2.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent2.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent2.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent2.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent2.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent2.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent2.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent2.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
 		aptContractParent2.APT_Trading_As__c = 'test';// text area
 		aptContractParent2.Billing_Account__c = billacc.Id; // billing accont Id
-		aptContractParent2.Billing_Account__c = billacc.Id; 
+		aptContractParent2.Billing_Account__c = billacc.Id;
 		aptContractParent2.Apttus__Version_Number__c = 1;
 		//agreementList.add(aptContractParent2);
 
@@ -693,7 +693,7 @@ private class APT_AgreementTriggerHandler_Test{
 		Test.startTest();
 
 		//update productsToUpdateList;
-		//insert dsr1; 
+		//insert dsr1;
 		insert agreementList;
 
 
@@ -789,7 +789,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
@@ -849,7 +849,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		update aptContractParent;
 
-		Set<Id> agreementIds = new Set<Id>();        
+		Set<Id> agreementIds = new Set<Id>();
 		agreementIds.add(aptContractParent.Id);
 		List<Apttus__AgreementLineItem__c> agreementLineItemsList = APT_AgreementTriggerHandler.getAgreementLineItemsCloned(agreementIds);
 		System.AssertEquals(agreementLineItemsList.size() > 0 , true);
@@ -865,7 +865,7 @@ private class APT_AgreementTriggerHandler_Test{
 		Contact con = [Select Id from Contact Limit 1];
 		Account legacyacct = [Select Id from Account where Name = 'legacyacct' Limit 1];
 		Account tempacct = [Select Id from Account where Name = 'tempacct' Limit 1];
-		List<Opportunity> oppList = new List<Opportunity>(); 
+		List<Opportunity> oppList = new List<Opportunity>();
 		Opportunity opp1 = [Select Id, AccountId from Opportunity where AccountId = :legacyacct.Id Limit 1];
 		Opportunity opp2 = [Select Id, AccountId from Opportunity where AccountId = :tempacct.Id Limit 1];
 
@@ -892,7 +892,7 @@ private class APT_AgreementTriggerHandler_Test{
 		r2tSystemProperties.APT_ReversalFees__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Card Dishonour and Reversal Fees').getRecordTypeId();
 		r2tSystemProperties.APT_Change_Management__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Change Management').getRecordTypeId();
 		insert r2tSystemProperties; */
-		
+
 		//Test Starts
 		Test.startTest();
 
@@ -911,7 +911,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.Apttus_QPComply__RelatedProposalId__c = proposal.Id;//should be proposal Id
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
@@ -920,7 +920,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = 'eParcels Domestic';// multi select picklist
 		insert aptContractParent;
 
-		
+
 		opp1.Opportunity_SubType__c = 'DoV Increase';
 		opp1.ECLM_Original_Opportunity_No__c = opp2.Id;
 		opp1.Is_Superseded_Opportunity__c = true;
@@ -935,14 +935,14 @@ private class APT_AgreementTriggerHandler_Test{
 		atch.body = blob.ValueOf('Test');
 		insert atch;
 
-		// Update the new Contract to In Signature and Fully Signed 
+		// Update the new Contract to In Signature and Fully Signed
 		aptContractParent.Apttus__Status_Category__c = 'In Signatures';
 		aptContractParent.Apttus__Status__c = 'Fully Signed';
-		
+
 		update aptContractParent;
-		
-		
-		
+
+
+
 		// Query the orignal Opportunity record associated to the current opportunity
 		Opportunity opp = [Select id,Is_Superseded_Opportunity__c from Opportunity Where id=:opp1.id];
 		Set<Id> oppListRef = new Set<Id>();
@@ -1030,7 +1030,7 @@ private class APT_AgreementTriggerHandler_Test{
 		System.AssertEquals(settlementProfileValue120, 120);
 
 		Test.stopTest();
-	}  
+	}
 
 	public static testMethod void addPostBillPayLineItemsToChild() {
 		Contact con = [Select Id from Contact Limit 1];
@@ -1074,7 +1074,7 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.Apttus_QPComply__RelatedProposalId__c = proposal.Id;//should be proposal Id
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
@@ -1089,17 +1089,17 @@ private class APT_AgreementTriggerHandler_Test{
 		admin.Name = 'APTS_ContentRepositoryType';
 		admin.Apttus__Value__c = 'Chatter';
 		//insert admin;
-		
+
 		List<APT_Agreement_auto_activate_recordtypes__c> aaRTypeList = new List<APT_Agreement_auto_activate_recordtypes__c>();
-		
+
 		APT_Agreement_auto_activate_recordtypes__c customsetting1 = new APT_Agreement_auto_activate_recordtypes__c();
 		customsetting1.Name = 'APT_MSA_Service_Schedule';
 		aaRTypeList.add(customsetting1);
-		
+
 		APT_Agreement_auto_activate_recordtypes__c customsetting2 = new APT_Agreement_auto_activate_recordtypes__c();
 		customsetting2.Name = 'APT_Postbillpay_Contract';
 		aaRTypeList.add(customsetting2);
-		
+
 		//insert aaRTypeList;
 
 		//insert r2tSystemProperties;
@@ -1112,13 +1112,13 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent2.RecordTypeID = Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get('MSA & Service Schedule').getRecordTypeId();
 		aptContractParent2.Apttus_QPComply__RelatedProposalId__c = proposal.Id;
 		aptContractParent2.APT_New_Rate_Card_Download__c = false;
-		aptContractParent2.OwnerId = u1.ID;       
+		aptContractParent2.OwnerId = u1.ID;
 		aptContractParent2.Apttus__Status_Category__c = 'Request';
 		aptContractParent2.Apttus__Status__c = 'Request';
 		//aptContractParent2.Included_Product_Lines__c = APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT;
 		aptContractParent2.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT; //'Renewal Contract';
 		aptContractParent2.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent2.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent2.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent2.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent2.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent2.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
@@ -1142,7 +1142,7 @@ private class APT_AgreementTriggerHandler_Test{
 		//APT_AgreementTriggerHandler.addPostBillPayLineItemsToChild(agreementList);
 		Test.stopTest();
 	}
-	
+
 	public static testMethod void createOperationalSchedulePostBillPay() {
 		Contact con = [Select Id from Contact Limit 1];
 		Account legacyacct = [Select Id from Account where Name = 'legacyacct' Limit 1];
@@ -1171,13 +1171,13 @@ private class APT_AgreementTriggerHandler_Test{
 		aptContractParent.Included_Product_Lines__c = APT_Constants.PRODUCT_CODE_POST_BILLPAY;
 		aptContractParent.APT_Contract_Type__c = APT_Constants.CONTRACT_TYPE_NEW_CONTRACT;
 		aptContractParent.APT_Commercial_Contact__c = con.Id;// should be contact Id
-		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id    
+		aptContractParent.APT_Operational_contact__c = con.Id;// should be contact Id
 		aptContractParent.APT_System_User__c = con.Id;// should be contact Id
 		aptContractParent.APT_Registered_Business_Name__c = 'test business name';// text area
 		aptContractParent.APTContract_Party_Legal_and_Trading_Name__c = 'test';// text area
 		aptContractParent.APT_Trading_As__c = 'test';// text area
 		aptContractParent.Billing_Account__c = billacc.Id; // billing accont Id
-		aptContractParent.Billing_Account__c = billacc.Id; 
+		aptContractParent.Billing_Account__c = billacc.Id;
 		aptContractParent.Apttus__Version_Number__c = 1;
 		agreementList.add(aptContractParent);
 
@@ -1205,4 +1205,64 @@ private class APT_AgreementTriggerHandler_Test{
 		System.AssertEquals(resultString , APT_Constants.SUCCESS_LABEL);
 		Test.stopTest();
 	}
+
+	/**
+	 * Test: Validates that system throws error if start date exceeds offer expiry date
+	 */
+	@IsTest
+	public static void validationOnStartDateTest() {
+		Opportunity opp = [SELECT ID FROM Opportunity LIMIT 1];
+		Contact con = [SELECT ID FROM Contact LIMIT 1];
+		Apttus__APTS_Agreement__c agg =  ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
+		try{
+			Test.startTest();
+				agg.Contract_Expiration_Date__c = Date.today().addYears(-1);
+				insert agg;
+			Test.stoptest();
+		}catch(Exception e){
+			Boolean expectedExceptionThrown =  e.getMessage().contains(APT_Constants.AGREEMENT_DATE_ERROR_MESSAGE) ? true : false;
+			System.AssertEquals(expectedExceptionThrown, true, 'An exception should be thrown');
+		}
+	}
+
+
+	/**
+	 * Test: Validates that end date is defaulted for OE term
+	 */
+	@IsTest
+	public static void agreementDatesLogicOnCreateTest() {
+		Opportunity opp = [SELECT ID FROM Opportunity LIMIT 1];
+		Contact con = [SELECT ID FROM Contact LIMIT 1];
+		Apttus__APTS_Agreement__c agg =  ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
+		Test.startTest();
+			agg.Term__c = APT_Constants.TERM_OPEN_ENDED ;
+			insert agg;
+		Test.stoptest();
+
+		Apttus__APTS_Agreement__c finalAgg = [SELECT Apttus__Contract_End_Date__c FROM Apttus__APTS_Agreement__c
+											  LIMIT 1];
+		System.AssertEquals(finalAgg.Apttus__Contract_End_Date__c, Date.newInstance(2999, 12,31),
+							'Agreement Expiry Date should be defaulted for OE Term');
+	}
+
+	 /**
+	 * Test: Validates that end date is defaulted for OE term
+	 */
+	@IsTest
+	public static void updateProposalStageTest() {
+		Opportunity opp = [SELECT ID FROM Opportunity LIMIT 1];
+		Contact con = [SELECT ID FROM Contact LIMIT 1];
+		Apttus__APTS_Agreement__c agg =  ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
+		Apttus_Proposal__Proposal__c prop = [SELECT Id FROM Apttus_Proposal__Proposal__c LIMIT 1];
+		Test.startTest();
+			agg.Apttus_QPComply__RelatedProposalId__c = prop.Id ;
+			insert agg;
+		Test.stoptest();
+
+		Apttus__APTS_Agreement__c finalAgg = [SELECT Apttus__Contract_End_Date__c FROM Apttus__APTS_Agreement__c
+											  LIMIT 1];
+		System.AssertEquals(finalAgg.Apttus__Contract_End_Date__c, Date.newInstance(2999, 12,31),
+							'Agreement Expiry Date should be defaulted for OE Term');
+	}
+
 }

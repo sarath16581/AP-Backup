@@ -11,6 +11,8 @@
  * 2022-08-04 - Seth Heang - Added APT_APPC_Count__c, Apttus__FF_Agreement_Number__c in the query
  * 2022-11-26 - Harry Wang - added selector method for sales intermediary
  * 2023-03-01 - Deepak Kemidi - CI-703 Added search method and additional selector options and field overrides
+ * 2023-03-31-Nasir Jawed-Added Apttus__Status_Category__c,Apttus__Status__c in the query
+*2023-05-16 - Yatika Bansal - Added Apttus_QPComply__RelatedProposalId__c in the query.
  */
 public with sharing class ApttusContractsSelector extends ApplicationSelector{
     public enum Options {
@@ -58,7 +60,7 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
                 Apttus__APTS_Agreement__c.APT_Review_Date__c,Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c,
                 Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c, Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c,
                 Apttus__APTS_Agreement__c.Term__c, Apttus__APTS_Agreement__c.APT_APPC_Count__c, Apttus__APTS_Agreement__c.Apttus__FF_Agreement_Number__c,Apttus__APTS_Agreement__c.Contract_Relationship__c,
-                Apttus__APTS_Agreement__c.Apttus__Status__c,Apttus__APTS_Agreement__c.Apttus__Status_Category__c
+                Apttus__APTS_Agreement__c.Apttus__Status__c,Apttus__APTS_Agreement__c.Apttus__Status_Category__c,Apttus__APTS_Agreement__c.Apttus_QPComply__RelatedProposalId__c
         };
     }
     /**

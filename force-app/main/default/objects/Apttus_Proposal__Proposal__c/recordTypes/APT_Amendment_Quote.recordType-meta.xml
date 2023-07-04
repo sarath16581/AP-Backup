@@ -305,6 +305,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Accepted without proposal document</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Approval Required</fullName>
             <default>false</default>
         </values>

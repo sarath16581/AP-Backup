@@ -1,0 +1,11 @@
+<apex:page controller="APT_AbandonCartController" showHeader="false" standardStylesheets="false" sidebar="false">
+	<script type="text/javascript">
+		window.onload = function(){	        
+	        initJS();
+	    } 	    	    
+	</script>
+    <apex:form >
+        <apex:actionFunction name="initJS" action="{!redirectToOpp}" >
+        </apex:actionFunction>
+    </apex:form> 
+</apex:page>

@@ -4,6 +4,7 @@
  * 
  * @changelog:
  * 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
+ * 2023-06-08 nasir.jawed2@auspost.com.au added a new method testDovUpdateOnOpportunity to test
 */
 @isTest
 private class APT_AmendRenewController_Test{
@@ -986,10 +987,12 @@ private class APT_AmendRenewController_Test{
             
             //Creating Opportunity Test Data
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
+			opp.IsStartrackProposal__c ='No';
             insert opp;
             
             //Creating Existing Opportunity to associate the dov Test Data
             Opportunity ExistingOpportunity = APT_TestUtils.createOpportunity(tempacct.id);
+			ExistingOpportunity.IsStartrackProposal__c ='No';
             insert ExistingOpportunity ;
             
             //Creating Pricelist test data
@@ -1238,6 +1241,7 @@ private class APT_AmendRenewController_Test{
             //Creating Opportunity Test Data
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
             opp.closedate = system.today();
+			opp.IsStartrackProposal__c ='No';
             insert opp;
             
             //Creating Price list Test Data
@@ -1355,10 +1359,12 @@ private class APT_AmendRenewController_Test{
             //Creating Opportunity Test Data
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
             opp.closedate = system.today();
+			opp.IsStartrackProposal__c ='No';
             insert opp;
             
             //Creating Existing Opportunity to associate the dov Test Data
             Opportunity ExistingOpportunity = APT_TestUtils.createOpportunity(tempacct.id);
+			ExistingOpportunity.IsStartrackProposal__c ='No';
             insert ExistingOpportunity ;
             
             //Creating Price list Test Data
@@ -1608,4 +1614,138 @@ private class APT_AmendRenewController_Test{
            
         }
     }
+	
+	private static testMethod void testDovUpdateOnOpportunity(){
+		//Creating a user with Sales Admin profile
+		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
+		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
+		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+		UserName=APT_Constants.EMAIL_TEST_USER);
+		try{
+			System.runAs(testuser ) {
+				Account account = ApplicationTestDataFactory.getAccounts(1, true)[0]; // Creating an Account
+				Contact con = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0]; // Creating a contact
+				Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];// Creating an Opportunity
+				opp.IsStartrackProposal__c = '';
+				opp.stagename = 'Identify';
+				//Mock for opportunity selector
+				OpportunitySelector mockSelectorOpp = (OpportunitySelector) MockUtility.mockSelector(OpportunitySelector.class);
+				ApplicationDatabase mockDatabaseOpp = MockUtility.mockDatabase();
+				MockUtility.Mocks.startStubbing();
+				MockUtility.Mocks.when(mockSelectorOpp.selectById((set<Id>)fflib_Match.eq(new Set<Id>{opp.id}))).thenReturn(
+					new map<Id,Opportunity>(new List<Opportunity>{opp}));
+				MockUtility.Mocks.stopStubbing();
+
+				Test.StartTest();
+				APT_AmendRenewController dov = new APT_AmendRenewController();
+
+				PageReference pageRef = Page.APT_AmendRenew; // Add your VF page Name here
+				pageRef.getParameters().put('oppName', 'test opportunity %count%'); //Setting parameter
+				pageRef.getParameters().put('oppId', opp.id); //Setting parameter
+				Test.setCurrentPage(pageRef);
+				dov.goBack();
+				dov.goToOpportunity();
+				Test.stopTest();
+				opportunity o =[select id,IsStartrackProposal__c from opportunity where id=:opp.id];
+				system.assertEquals(o.IsStartrackProposal__c,null);
+			}
+		}catch(Exception e){
+			system.debug('Exception :'+ e);
+		}
+
+	}
+	private static testMethod void testDovUpdateOnRenewAmendN0(){
+		//Creating a user with Sales Admin profile
+		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
+		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
+		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+		UserName=APT_Constants.EMAIL_TEST_USER);
+		try{
+			System.runAs(testuser ) {
+				Account account = ApplicationTestDataFactory.getAccounts(1, true)[0]; // Creating an Account
+				Contact con = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0]; // Creating a contact
+				Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];// Creating an Opportunity
+				opp.IsStartrackProposal__c = 'No';
+				opp.APTPostcodeSuburb__c= null;
+				opp.APTMinimumMonthlySpend__c = null;
+				opp.stagename = 'Identify';
+				//Mock for opportunity selector
+				OpportunitySelector mockSelectorOpp = (OpportunitySelector) MockUtility.mockSelector(OpportunitySelector.class);
+				ApplicationDatabase mockDatabaseOpp = MockUtility.mockDatabase();
+				MockUtility.Mocks.startStubbing();
+				MockUtility.Mocks.when(mockSelectorOpp.selectById((set<Id>)fflib_Match.eq(new Set<Id>{opp.id}))).thenReturn(
+					new map<Id,Opportunity>(new List<Opportunity>{opp}));
+				MockUtility.Mocks.stopStubbing();
+
+				Test.StartTest();
+				APT_AmendRenewController dov = new APT_AmendRenewController();
+
+				PageReference pageRef = Page.APT_AmendRenew; // Add your VF page Name here
+				pageRef.getParameters().put('oppName', 'test opportunity %count%'); //Setting parameter
+				pageRef.getParameters().put('oppId', opp.id); //Setting parameter
+				Test.setCurrentPage(pageRef);
+				dov.goBack();
+				dov.goToOpportunity();
+				dov.doAmend();
+				dov.doRenew();
+				Test.stopTest();
+				opportunity o =[select id,IsStartrackProposal__c from opportunity where id=:opp.id];
+				system.assertEquals(o.IsStartrackProposal__c,null);
+			}
+		}catch(Exception e){
+			system.debug('Exception :'+ e);
+		}
+
+	}
+
+	private static testMethod void testDovUpdateOnRenewAmendYes(){
+		//Creating a user with Sales Admin profile
+		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
+		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
+		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+		UserName=APT_Constants.EMAIL_TEST_USER);
+		try{
+			System.runAs(testuser ) {
+				Account account = ApplicationTestDataFactory.getAccounts(1, true)[0]; // Creating an Account
+				Contact con = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0]; // Creating a contact
+				APT_Post_Code_Mapping__c pcr = APT_TestDataFactory.getPostCodeMappingRecord(1,true)[0];
+				Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];// Creating an Opportunity
+				opp.IsStartrackProposal__c = 'Yes';
+				opp.stagename = 'Identify';
+				//Mock for opportunity selector
+				OpportunitySelector mockSelectorOpp = (OpportunitySelector) MockUtility.mockSelector(OpportunitySelector.class);
+				ApplicationDatabase mockDatabaseOpp = MockUtility.mockDatabase();
+				MockUtility.Mocks.startStubbing();
+				MockUtility.Mocks.when(mockSelectorOpp.selectById((set<Id>)fflib_Match.eq(new Set<Id>{opp.id}))).thenReturn(
+					new map<Id,Opportunity>(new List<Opportunity>{opp}));
+				MockUtility.Mocks.stopStubbing();
+
+				Test.StartTest();
+				APT_AmendRenewController dov = new APT_AmendRenewController();
+
+				PageReference pageRef = Page.APT_AmendRenew; // Add your VF page Name here
+				pageRef.getParameters().put('oppName', 'test opportunity %count%'); //Setting parameter
+				pageRef.getParameters().put('oppId', opp.id); //Setting parameter
+				Test.setCurrentPage(pageRef);
+				dov.goBack();
+				dov.goToOpportunity();
+				dov.doAmend();
+				dov.doRenew();
+				dov.selectedRevenue ='Increase Revenue';
+				dov.checkOpprtunityDisplay();
+				Test.stopTest();
+				opportunity o =[select id,IsStartrackProposal__c from opportunity where id=:opp.id];
+				system.assertEquals(o.IsStartrackProposal__c,null);
+			}
+		}catch(Exception e){
+			system.debug('Exception :'+ e);
+		}
+
+	}
 }

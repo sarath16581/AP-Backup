@@ -10,6 +10,7 @@
 * 2021-05-12 - Shashwat.Nath@auspost.com.au - Created
 * 2022-07-28 - Nasir Jawed - Added code for covering LineItem to provide correct record.
 * 2023-01-19 - Mahesh Parvathaneni - Added tests for WITH_PRODUCT selector option
+* 2023-05-23 - Yatika bansal - Added tests for selectByProdConfigLineTypeAndStatus method.
 */
 @IsTest
 public with sharing class LineItemsSelector_Test {
@@ -273,6 +274,11 @@ public with sharing class LineItemsSelector_Test {
 			new set<String>{'Product/Service'},
 			new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE});
 		System.assertEquals(1,LineItemProdService.size(), 'Resulting query give lineitem record as 1');  
+
+        List<Apttus_Config2__LineItem__c> LineItems =selector.selectByProdConfigLineTypeAndStatus(new set<ID>{(ID)prodConfig.id},new Set<String> {APT_Constants.LABEL_LINE_TYPE_OPTION},
+													 new Set<String> {APT_Constants.LABEL_LINE_STATUS,
+														 APT_Constants.LABEL_LINE_STATUS_DEF_PENDING});
+        System.assertEquals(0, LineItems.size(), 'Resulting query give lineitem record as 0');
 		Test.stopTest();
 
 	}

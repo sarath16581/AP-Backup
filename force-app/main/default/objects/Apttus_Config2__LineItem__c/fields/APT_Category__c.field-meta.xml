@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>TEXT(Apttus_Config2__AttributeValueId__r.Category__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>CATEGORY</label>
+    <label>Category</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

@@ -37,6 +37,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_AbandonCartController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_AccountDetails</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -221,6 +225,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_CheckoutController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_CompanyBusinessContHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -257,6 +265,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_ContractServiceDetailsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_CreateCaseController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -286,6 +298,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_CreateSAPRatesBatch_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_CreditAssessmentSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -322,6 +338,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_DoVLanguageTriggerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DocuSignDefaultRecipient2Selector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DocuSignRecipientTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -373,6 +397,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_HelptotheSellerControllerExtended</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_HelptotheSellerController_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -394,6 +422,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_InternationalPricingBatch_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_LandingCartController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_LandingCartController_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -454,6 +490,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_MergeDocBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_OperationalScheduleSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -642,6 +682,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_SaveConfigControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_Save_RedirectToOPCScreen</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -16471,6 +16515,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.APTMinimumMonthlySpend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.APTPostcodeSuburb__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.APT_Create_Rebate_Contract__c</field>
         <readable>true</readable>
@@ -16483,6 +16537,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.DOV_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.IsStartrackProposal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -17300,7 +17359,7 @@
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
-        <allowDelete>false</allowDelete>
+        <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
@@ -17419,6 +17478,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>APT_AbandonCart</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>APT_AmendRenew</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -17436,6 +17499,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_CashAccountAssessment</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_CheckOut</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -17476,6 +17543,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_HelptotheSeller</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_HelptotheSellerExtended</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -17536,6 +17607,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_RequestNewAccount</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_Save_RedirectToOPCScreen</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

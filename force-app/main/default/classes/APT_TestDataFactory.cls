@@ -12,6 +12,10 @@
 * 2022-08-24 - Bharat Patel - added the method to get SummaryGroup, ProductOptionComponent, ClassificationName, ClassificationHierarchy, ConfigLineItem and update getAPTContactRecord() method   for test class
 * 2022-09-19 - Seth Heang - Added getAPTProductOptionComponentRecord
 * 2022-11-24 - nasir.jawed@auspost.com.au - added the method to get getTemplateRecord, getAgreementRecord,getRelatedAgreementRecord,getApprovalRecord
+* 2023-04-06 - Nasir Jawed - Added getOpportunityLineItemRecord, getDocuSignRecipientsRecord
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
+* 2023-04-27 - Yatika bansal - Added getOperationalSchedule
+*2023-05-31 - Yatika bansal - Added getOrganisationRole, getApttusCreditAssessment
 */
 @isTest
 public class APT_TestDataFactory {
@@ -144,7 +148,7 @@ public class APT_TestDataFactory {
 	public static List<Apttus_Proposal__Proposal__c> getAPTProposalRecord(integer count, Id oppId, Id AccID,ID conID, Boolean generateIds){
 		return (List<Apttus_Proposal__Proposal__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Proposal__Proposal__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c => true,
-			Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c => 'NO',      
+			Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c => 'NO',
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c => AccID,
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary_Contact__c => conID,
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c => oppId,
@@ -153,10 +157,10 @@ public class APT_TestDataFactory {
 	}
 	// creating a test data for Contact object
 	public static List<Contact> getAPTContactRecord(integer count, Id accId, Boolean generateIds){
-		return (List<Contact>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Contact.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Contact>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Contact.SObjectType, new Map<SObjectField, Object> {
 			Contact.FirstName => APT_Constants.STRING_TEST1,
 			Contact.LastName => APT_Constants.STRING_SAMPLE,
-			Contact.Status__c => 'Active',      
+			Contact.Status__c => 'Active',
 			Contact.AccountId => accId,
 			Contact.Email => APT_Constants.SAMPLE_EMAIL,
 			Contact.Phone => '9886340071'
@@ -165,7 +169,7 @@ public class APT_TestDataFactory {
 
 	// creating a test data for Apttus_Config2__SummaryGroup__c object
 	public static List<Apttus_Config2__SummaryGroup__c> getSummaryGroupRecord(integer count, Id configId, integer itemSequence, integer lineNumber, Boolean generateIds){
-		return (List<Apttus_Config2__SummaryGroup__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__SummaryGroup__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus_Config2__SummaryGroup__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__SummaryGroup__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Config2__SummaryGroup__c.Apttus_Config2__ConfigurationId__c => configId,
 			Apttus_Config2__SummaryGroup__c.Apttus_Config2__ItemSequence__c => itemSequence,
 			Apttus_Config2__SummaryGroup__c.Apttus_Config2__LineNumber__c => lineNumber
@@ -174,7 +178,7 @@ public class APT_TestDataFactory {
 
 	// creating a test data for Apttus_Config2__ProductOptionComponent__c object
 	public static List<Apttus_Config2__ProductOptionComponent__c> getAPTProductOptionComponentRecord(integer count, Id parentProductId, Id optionProductId, Boolean generateIds){
-		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Required__c => false,
 			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => 1,
 			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__ComponentProductId__c => optionProductId,
@@ -188,15 +192,15 @@ public class APT_TestDataFactory {
 
 	// creating a test data for Apttus_Config2__ProductOptionComponent__c object
 	public static List<Apttus_Config2__ProductOptionComponent__c> getProductOptionComponentRecord(integer count,  integer itemSequence, Boolean generateIds){
-		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {      
-			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => itemSequence      
+		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => itemSequence
 		}, count), generateIds);
 	}
 
 	// creating a test data for Apttus_Config2__ClassificationName__c object
 	public static List<Apttus_Config2__ClassificationName__c> getClassificationNameRecord(integer count,  String name, String hierarchyLabel, String type, String guidePage, Boolean generateIds){
-		return (List<Apttus_Config2__ClassificationName__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationName__c.SObjectType, new Map<SObjectField, Object> {      
-			Apttus_Config2__ClassificationName__c.Name => name,  
+		return (List<Apttus_Config2__ClassificationName__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationName__c.SObjectType, new Map<SObjectField, Object> {
+			Apttus_Config2__ClassificationName__c.Name => name,
 			Apttus_Config2__ClassificationName__c.Apttus_Config2__Active__c => true,
 			Apttus_Config2__ClassificationName__c.Apttus_Config2__HierarchyLabel__c => hierarchyLabel,
 			Apttus_Config2__ClassificationName__c.Apttus_Config2__Type__c => type,
@@ -206,12 +210,12 @@ public class APT_TestDataFactory {
 
 	// creating a test data for Apttus_Config2__ClassificationHierarchy__c object
 	public static List<Apttus_Config2__ClassificationHierarchy__c> getClassificationHierarchyRecord(integer count, Id hierarchyId, String label, Boolean generateIds){
-		return (List<Apttus_Config2__ClassificationHierarchy__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationHierarchy__c.SObjectType, new Map<SObjectField, Object> {      
-			Apttus_Config2__ClassificationHierarchy__c.Apttus_Config2__HierarchyId__c => hierarchyId,  
+		return (List<Apttus_Config2__ClassificationHierarchy__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationHierarchy__c.SObjectType, new Map<SObjectField, Object> {
+			Apttus_Config2__ClassificationHierarchy__c.Apttus_Config2__HierarchyId__c => hierarchyId,
 			Apttus_Config2__ClassificationHierarchy__c.Apttus_Config2__Label__c => label
 		}, count), generateIds);
 	}
-
+	//creating a test data for Apttus_Config2__LineItem__c object
 	public static List<Apttus_Config2__LineItem__c> getConfigLineItemRecords(integer count, ID configId,ID groupId, Integer itemSeq,
 		ID productId, ID productOptionId, ID optionId, ID classId, Decimal quantity,
 		Boolean isQtyModifiable, String uom,Integer term,ID priceListId,ID plItemId, String priceType,String priceMethod,String chargeType, String frequency,
@@ -252,11 +256,11 @@ public class APT_TestDataFactory {
 				Apttus_Config2__LineItem__c.Apttus_Config2__AdjustedPrice__c => 0
 			}, count), generateIds);
 	}
-
+	//creating a test data for Product2 object
 	public static List<Product2> getAppcProduct(integer count, Boolean generateIds){
 		return (List<Product2>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.ProductCode=> 'APPC',
-			Product2.name=>'Australia Post Parcel Contract',            
+			Product2.name=>'Australia Post Parcel Contract',
 			Product2.Family=>'APPC',
 			Product2.APT_Contracting_Entity__c=>'Australian Postal Corporation',
 			Product2.IsActive=>true,
@@ -264,7 +268,7 @@ public class APT_TestDataFactory {
 			Product2.APT_Is_Apttus_Product__c=>true
 		}, count), generateIds);
 	}
-
+	//creating a test data for APT_Agreement_Lodgement_Point__c object
 	public static List<APT_Agreement_Lodgement_Point__c> getAgreementLodgementPoints(integer count, Id networkId, Id apttusContractId, Id accountId, Boolean generateIds){
 		return (List<APT_Agreement_Lodgement_Point__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(APT_Agreement_Lodgement_Point__c.SObjectType, new Map<SObjectField, Object> {
 			APT_Agreement_Lodgement_Point__c.APT_Lodgement_Point_Lookup__c => networkId,
@@ -273,56 +277,114 @@ public class APT_TestDataFactory {
 		}, count), generateIds);
 	}
 
-
+	//creating a test data for Apttus_Config2__UsagePriceTier__c object
 	public static List<Apttus_Config2__UsagePriceTier__c> getAPTUPTRecord(integer count, Id LineItemId, Boolean generateIds){
-		return (List<Apttus_Config2__UsagePriceTier__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__UsagePriceTier__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus_Config2__UsagePriceTier__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__UsagePriceTier__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__LineItemId__c => LineItemId,
 			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__Dimension4Value__c => 'CASSLOS_KRSP00S006CA',
-			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__AdjustmentAmount__c => 2.3,  
-			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__Sequence__c => 1    
+			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__AdjustmentAmount__c => 2.3,
+			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__Sequence__c => 1
 		}, count), generateIds);
 	}
-
+	//creating a test data for Apttus_Config2__AppliedRuleInfo__c object
 	public static List<Apttus_Config2__AppliedRuleInfo__c> getARIRecord(integer count, Id configId, Boolean generateIds){
-		return (List<Apttus_Config2__AppliedRuleInfo__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__AppliedRuleInfo__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus_Config2__AppliedRuleInfo__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__AppliedRuleInfo__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__Invalid__c => true,
-			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__ConfigurationId__c=> configId,    
-			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__PrimaryLineNumber__c => 1  
+			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__ConfigurationId__c=> configId,
+			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__PrimaryLineNumber__c => 1
 
 		}, count), generateIds);
 	}
-
+	//creating a test data for Apttus_Config2__ConstraintRule__c object
 	public static List<Apttus_Config2__ConstraintRule__c> getConstraintRuleRecord(integer count,  Boolean generateIds){
-		return (List<Apttus_Config2__ConstraintRule__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ConstraintRule__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus_Config2__ConstraintRule__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ConstraintRule__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Config2__ConstraintRule__c.Name => 'const',
-			Apttus_Config2__ConstraintRule__c.Apttus_Config2__Active__c=> True,    
-			Apttus_Config2__ConstraintRule__c.Apttus_Config2__MatchInPrimaryLines__c=> True 
+			Apttus_Config2__ConstraintRule__c.Apttus_Config2__Active__c=> True,
+			Apttus_Config2__ConstraintRule__c.Apttus_Config2__MatchInPrimaryLines__c=> True
 
+		}, count), generateIds);
+	}
+	//creating a test data for APT_Post_Code_Mapping__c object
+	public static List<APT_Post_Code_Mapping__c> getPostCodeMappingRecord(integer count,  Boolean generateIds){
+	return (List<APT_Post_Code_Mapping__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(APT_Post_Code_Mapping__c.SObjectType, new Map<SObjectField, Object> {
+		APT_Post_Code_Mapping__c.Name => 'test record',
+		APT_Post_Code_Mapping__c.APT_Suburb__c=> 'Melbourne',
+		APT_Post_Code_Mapping__c.APT_Post_Code__c=> '3000'
+	}, count), generateIds);
+	}
+	//creating a test data for OpportunityLineItem object
+	public static List<OpportunityLineItem> getOpportunityLineItemRecord(integer count, Id opportunityId,  Boolean generateIds){
+	return (List<OpportunityLineItem>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
+		OpportunityLineItem.Classification__c => 'New Business',
+		OpportunityLineItem.UnitPrice=> 1.5,
+		OpportunityLineItem.Quantity=> 1,
+		OpportunityLineItem.opportunityId=> opportunityId,
+		OpportunityLineItem.Contract_Product__c=> 'Yes',
+		OpportunityLineItem.Change_Classification__c=> 'No'
+	}, count), generateIds);
+	}
+    //creating a test data for Apttus_DocuApi__DocuSignDefaultRecipient2__c object
+	public static List<Apttus_DocuApi__DocuSignDefaultRecipient2__c> getDocuSignRecipientsRecord(integer count, Id AgreementId, Id userId,Id contactId,  Boolean generateIds){
+	return (List<Apttus_DocuApi__DocuSignDefaultRecipient2__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_DocuApi__DocuSignDefaultRecipient2__c.SObjectType, new Map<SObjectField, Object> {
+		Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_DocuApi__UserId__c => userId,
+		Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_DocuApi__RecipientType__c=> 'Signer',
+		Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_DocuApi__SigningOrder__c=> 1,
+		Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_CMDSign__AgreementId__c=> AgreementId ,
+		Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_DocuApi__ContactId__c=> contactId
+	}, count), generateIds);
+	}
+
+	//creating a test data for Account_Plan__c object
+	public static List<Account_Plan__c> getAccountPlanRecord(integer count, Id AccountId, Boolean generateIds){
+		return (List<Account_Plan__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Account_Plan__c.SObjectType, new Map<SObjectField, Object> {
+			Account_Plan__c.Name => 'Test',
+			Account_Plan__c.Account__c => AccountId
 		}, count), generateIds);
 	}
 
 	public static List<Apttus__APTS_Template__c> getTemplateRecord(integer count,  Boolean generateIds){
-		return (List<Apttus__APTS_Template__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus__APTS_Template__c.SObjectType, new Map<SObjectField, Object> {         
-			Apttus__APTS_Template__c.Apttus__Agreement_Types__c => 'APT_MSA_Service_Schedule'     
+		return (List<Apttus__APTS_Template__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus__APTS_Template__c.SObjectType, new Map<SObjectField, Object> {
+			Apttus__APTS_Template__c.Apttus__Agreement_Types__c => 'APT_MSA_Service_Schedule'
 		}, count), generateIds);
 	}
 	public static List<Apttus__APTS_Agreement__c> getAgreementRecord(integer count,  Boolean generateIds){
-		return (List<Apttus__APTS_Agreement__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus__APTS_Agreement__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus__APTS_Agreement__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus__APTS_Agreement__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus__APTS_Agreement__c.Name => 'Test',
-			Apttus__APTS_Agreement__c.Apttus__Subtype__c => 'TestSubType'      
+			Apttus__APTS_Agreement__c.Apttus__Subtype__c => 'TestSubType'
 		}, count), generateIds);
 	}
 
 	public static List<Apttus__APTS_Related_Agreement__c> getRelatedAgreementRecord(integer count,id Agreement1,id Agreement2,  Boolean generateIds){
-		return (List<Apttus__APTS_Related_Agreement__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus__APTS_Related_Agreement__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus__APTS_Related_Agreement__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus__APTS_Related_Agreement__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus__APTS_Related_Agreement__c.Apttus__APTS_Contract_To__c => Agreement1,
-			Apttus__APTS_Related_Agreement__c.Apttus__APTS_Contract_From__c => Agreement2      
+			Apttus__APTS_Related_Agreement__c.Apttus__APTS_Contract_From__c => Agreement2
 		}, count), generateIds);
 	}
 
 	public static List<Apttus_Approval__Approval_Request__c> getApprovalRecord(integer count,id cartID,  Boolean generateIds){
-		return (List<Apttus_Approval__Approval_Request__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Approval__Approval_Request__c.SObjectType, new Map<SObjectField, Object> {      
+		return (List<Apttus_Approval__Approval_Request__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Approval__Approval_Request__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Approval__Approval_Request__c.Apttus_CQApprov__CartId__c=> cartID
+		}, count), generateIds);
+	}
+	public static List<APT_Operational_Schedule__c> getOperationalSchedule(integer count, Id contractId, Boolean generateIds){
+		return (List<APT_Operational_Schedule__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(APT_Operational_Schedule__c.SObjectType, new Map<SObjectField, Object> {
+			APT_Operational_Schedule__c.APT_Contract__c => contractId
+		}, count), generateIds);
+	}
+
+	public static List<Organisation_Role__c> getOrganisationRole(integer count, Id accountId, Boolean generateIds){
+		return (List<Organisation_Role__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Organisation_Role__c.SObjectType, new Map<SObjectField, Object> {
+			Organisation_Role__c.Role_Type__c => 'Prospect',
+			Organisation_Role__c.Organisation__c => accountId
+		}, count), generateIds);
+	}
+
+
+	public static List<APT_Credit_Assessment__c> getApttusCreditAssessment(integer count, Id proposalId, Boolean generateIds){
+		return (List<APT_Credit_Assessment__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(APT_Credit_Assessment__c.SObjectType, new Map<SObjectField, Object> {
+			APT_Credit_Assessment__c.APT_Legal_Entity_Name__c => 'TestLegalEntity',
+			APT_Credit_Assessment__c.APT_Proposal__c => proposalId,
+			APT_Credit_Assessment__c.APT_Credit_Assessment_Status__c => 'Approved'
 		}, count), generateIds);
 	}
 }

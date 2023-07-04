@@ -38,6 +38,12 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 @changelog:
 2022-05-26 - Pradeep Jaiswal - CI-379 Added constant for International Return product
 2022-08-04 - Seth Heang - Added Constants for Rating Plan Integration Changes
+2023-02-26 - Nasir Jawed - Added Constants for Close Lost Opportunity,DOCUSIGN_OBJECT_API,OTHER_ROLE_BUFFER_DAYS ,END_DATE_BUFFER_DAYS
+2023-03-07 - Nasir Jawed - Added Constants OTHER_ROLE_BUFFER_DAYS ,END_DATE_BUFFER_DAYS,APT_CARBON_COPY,APT_Contact_RECORDTYPE,APT_DOCUSIGN_RECIPIENTS_TYPE_SALES_USER,APT_DOCUSIGN_RECIPIENTS_TYPE_CUSTOMER
+2023-03-23 - Yatika bansal - Added Constants for credit assessment status response used in custom checkout action
+2023-04-08 - Yatika bansal - Added Constants for error message ,email and Contract status
+2023-04-27 - Yatika bansal - Added Constant for Proposal Stage
+2023-05-29 - Yatika bansal - Added Constant for credit assessment auto-approval status
 **/
 public with sharing class APT_Constants {
 	//label
@@ -366,6 +372,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String APPROVAL_STAGE_GENERATED = 'Generated';
 	public static final String APPROVAL_STAGE_PRESENTED = 'Presented';
 	public static final String APPROVAL_STAGE_ACCEPTED = 'Accepted';
+	public static final String APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC = 'Accepted without proposal document';
 
 	//action label
 	public static final String ACTION_LABEL_CALCULATE_ESTIMATED_REVENUE = 'APT_CalculateEstimatedRevenue';
@@ -463,8 +470,10 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String AGREEMENT_SOURCE_OTHER_PARTY_PAPER = 'Other Party Paper';
 	public static final String AGREEMENT_CATEGORY_CUSTOMISED = 'Customised';
 	public static final String TERM_FIXED_TERM = 'Fixed Term';
+	public static final String AGREEMENT_STATUS_REQUEST = 'Request';
 
 	public static final String AGREEMENT_ATTACHMENT_ERROR_MESSAGE='Please attach the documents in Notes and Attachments';
+	public static final String AGREEMENT_DATE_ERROR_MESSAGE='Agreement commencement date cannot be after offer expiration date';
 
 	//AttachFile Controller
 	public static final String IMAGESONLY= 'Please upload images only of type JPEG or PNG';
@@ -596,12 +605,15 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 
 	//Credit Assessment Status.
 	public static final String CREDIT_ASSESSMENT_STATUS_APPROVED = 'Approved';
+	public static final String CREDIT_ASSESSMENT_STATUS_AUTO_APPROVED = 'Auto-Approved';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFER = 'refer';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFER_ALL_CAPITAL = 'REFER';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFER_CAPITAL = 'Refer';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFERRED = 'Referred';
 	public static final String CREDIT_ASSESSMENT_STATUS_DECLINE = 'DECLINE';        //Added By apttus Support
 	public static final String STRING_RESPONSE_MOCK = 'response_x';
+	public static final String STRING_RESPONSE_COMPLETE = 'Complete';
+	public static final String STRING_RESPONSE_INCOMPLETE = 'Incomplete';
 
 	//Network- Transport Capabilities picklist Values
 	public static final String TRANSPORT_CAPABILITY_EITHER_VAN_OR_TRUCK = 'Either VAN or Truck';
@@ -667,6 +679,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	Public static final Integer PARAM_CONTRACT_EXP_DAYS=59;
 	Public static final string PARAM_APPC_PRODUCT='Australia Post Parcel Contract';
 	public static final string PARAM_PRODUCT_Type='Product/Service';
+	public static final string PARAM_PRODUCT_Type_Misc='Misc';
 	public static final string APT_VfcontractPage='APT_CreateContractValidation';
 	public static final string APT_VfcontractesignaturePage='APT_HelptotheSeller';
 	public static final string PARAM_ACCOUNT_TYPE = 'accountType';
@@ -842,6 +855,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String LABEL_VISIBILITY_HIDDEN = 'visibility:hidden;';
 	public static final String LABEL_NAMESPACE_CONFIG2 = 'Apttus_Config2__pricing';
 	public static final String LABEL_LINE_STATUS = 'Pending';
+	public static final String LABEL_LINE_STATUS_DEF_PENDING = 'Default Pending';
 	public static final String STRING_PRICING_MANAGEMENT = 'Pricing Management';
 	public static final String STRING_URL_PROPOSAL_CONFIGURATION = '/apex/Apttus_QPConfig__ProposalConfiguration?Id=';
 	public static final String STRING_FLOW_NEW_QUOTE_ADVANCED = '&flow=NewQuote&useAdvancedApproval=true&useDealOptimizer=true';
@@ -1231,6 +1245,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String STRING_87009610342 = '87009610342';
 	public static final String STRING_INDV = 'INDV';
 	public static final String STRING_AUSTRALIAN_PRIVATE_COMPANY = 'Australian Private Company';
+	public static final String STRING_AUSTRALIAN_Postal_Corporation = 'Australian Postal Corporation';
 	public static final String STRING_COMPUTER_COMPANY = 'THE COMPUTER COMPANY PTY. LTD.';
 	public static final String STRING_COMPUTER_PVT_LTD = 'THE COMPUTER COMPANY PTY LTD TRADING AS SOUND SPECTRUM';
 	public static final String STRING_ACN = 'ACN';
@@ -1664,4 +1679,16 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final set<string> TRANSIT_COVER_PRODUCTS=new set<string>{'Standard Parcel Transit Cover','Premium Express Parcel Transit Cover'};
 	public static final map<string,string> TC_PP_TYPE_MAP = new map<string,string>{'TCOVER-1_FE002'=>'Adhoc','TCOVER-NR_FE002'=>'Always On'};
 
+	public static final String OPPORTUNITY_STAGENAME_CLOSED_LOST = 'Closed Lost';
+	public static final Integer OTHER_ROLE_BUFFER_DAYS = 10;
+	public static final Integer START_DATE_BUFFER_DAYS = 15;
+	public static final Integer END_DATE_BUFFER_DAYS = 365;
+	public static final String APT_CARBON_COPY = 'Carbon Copy';
+	public static final String APT_Contact_RECORDTYPE = 'Customer';
+	public static final String APT_DOCUSIGN_RECIPIENTS_TYPE_SALES_USER = 'Sales user';
+	public static final String APT_DOCUSIGN_RECIPIENTS_TYPE_CUSTOMER = 'Customer';
+
+	//Email
+	public static final String EMAIL_TEMP_AGREEMENT_SIGNED_AFTER_EXPIRY = 'APT_AgreementSignedAfterOfferExpiry';
+	public static final String ORG_WIDE_EMAIL_NO_REPLY = 'noreply@auspost.com.au';
 }

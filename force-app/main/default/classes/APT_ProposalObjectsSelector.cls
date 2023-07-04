@@ -11,10 +11,13 @@
 * 2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
 * 2022-11-22 - Harry Wang - added selector method for sales intermediary
 * 2022-12-06 - Nasir Jawed - Added field APT_Use_Offline_Rates__c
+* 2023-02-16 - Nasir JAwed Added method selectByOpportunityId
+* 2023-04-08 - Yatika bansal Added few fields ,selector option, updated newQueryBuilder method
+* 2023-04-11 - Nasir Jawed -Added method newInstance for fieldOverride
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_ORGANISATION
+		WITH_ORGANISATION,WITH_ACCOUNT
 	}
 
 	public static APT_ProposalObjectsSelector newInstance() {
@@ -29,6 +32,15 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 	*/
 	public static APT_ProposalObjectsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+     /**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 */
+	public static APT_ProposalObjectsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -47,7 +59,9 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,
-			Apttus_Proposal__Proposal__c.APT_Use_Offline_Rates__c };
+			Apttus_Proposal__Proposal__c.APT_Use_Offline_Rates__c, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Approval_Stage__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c,Apttus_Proposal__Proposal__c.Apttus_QPApprov__Approval_Status__c,
+            Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c,Apttus_Proposal__Proposal__c.RecordTypeId,Apttus_Proposal__Proposal__c.Apttus_QPConfig__PriceListId__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c, Apttus_Proposal__Proposal__c.APT_Date_of_Generation_Rate_Card__c,
+            Apttus_Proposal__Proposal__c.Apttus_QPConfig__ConfigurationFinalizedDate__c,Apttus_Proposal__Proposal__c.APT_Opportunity_Key_contact__c , Apttus_Proposal__Proposal__c.OwnerId };
 	}
 
 	/**
@@ -108,10 +122,26 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 		return Database.getQueryLocator(qb.toSoqlString());
 	}
 
+     /**
+     * @description Run a simple query to get records based on opportunity id
+    */
+    public Map<Id, Apttus_Proposal__Proposal__c> selectByOpportunityIds(Set<Id> oppIds) {
+        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :oppIds')).endConditions();
+        return new Map<Id, Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
+    }
+
+    public List<Apttus_Proposal__Proposal__c> selectByOpportunityId(Set<Id> oppIds) {
+        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :oppIds')).endConditions();
+        return new List<Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
+    }
+
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		if (selectorOptions.contains(Options.WITH_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__Account__r');
+		}
+        if(selectorOptions.contains(Options.WITH_ACCOUNT)) {
+            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Apttus_Proposal__Account__r');
 		}
 		return builder;
 	}

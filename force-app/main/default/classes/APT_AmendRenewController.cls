@@ -41,6 +41,7 @@ Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason 
 
 @changelog:
 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
+2023-07-06  nasir.jawed2@auspost.com.au Added method goToOpportunity(), and in doAmend(),doRenew() and when helps the user to select an opportunity for DOV.
 **/
 
 public with sharing class APT_AmendRenewController {
@@ -296,6 +297,36 @@ public with sharing class APT_AmendRenewController {
     
     /* Shashwat.Nath@Auspost.com code ends */
 
+	/**
+	*This method gets calling from aPT_AddProductLwc lightning and is used to create a proporsal when "Add Product" button gets clicked from opportunity.
+	*@param String
+	*@return pageRef APT_AmendRenew
+	*/
+	public PageReference goToOpportunity(){
+		// Set's the opportunity name Variable
+		oppName = ApexPages.currentPage().getParameters().get('oppName');
+
+		// Set's the opportunity id to associate the proposal with
+		oppId= ApexPages.currentPage().getParameters().get('oppId');
+
+		//fetching the opportunity record by using selector
+		map<Id,Opportunity> oppMap = OpportunitySelector.newInstance(0,new Set<SObjectField>{opportunity.IsStartrackProposal__c,opportunity.APTPostcodeSuburb__c,opportunity.APTMinimumMonthlySpend__c}).selectById(new Set<Id>{oppId});
+		Opportunity opp = oppMap.get(oppId);
+		//Checking the value for StarTrack Opportunity to show an error mesaage
+		if(opp.IsStartrackProposal__c == null || opp.IsStartrackProposal__c == ''){
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.APT_AmendRenewal_StarTrackField));
+			return null;
+		}
+		if(opp.IsStartrackProposal__c != null && opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && (opp.APTPostcodeSuburb__c == null || opp.APTMinimumMonthlySpend__c == null)){
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.Yes_Its_StarTrackProduct));
+			return null;
+		}
+		// Setting the page reference to redirect user back to
+		PageReference pageRef = new PageReference('/apex/APT_AmendRenew');
+		pageRef.setRedirect(false);
+		return pageRef;
+	}
+
     /**
      * returns the help message associated to selected category
      * */
@@ -516,6 +547,23 @@ public with sharing class APT_AmendRenewController {
                         WHERE Id = :agreementId
                 ];
             }
+
+			if(agreement != null && agreement.Apttus__Related_Opportunity__c != null){
+				//fetching the opportunity record by using selector
+				map<Id,Opportunity> oppMap = OpportunitySelector.newInstance(0,new Set<SObjectField>{opportunity.IsStartrackProposal__c,opportunity.APTPostcodeSuburb__c,opportunity.APTMinimumMonthlySpend__c}).selectById(new Set<Id>{agreement.Apttus__Related_Opportunity__c});
+				Opportunity opp = oppMap.get(agreement.Apttus__Related_Opportunity__c);
+				//Checking the value for StarTrack Opportunity to show an error mesaage
+				if(opp.IsStartrackProposal__c == null || opp.IsStartrackProposal__c == ''){
+					haserrorMessages = true;
+					ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.APT_AmendRenewal_StarTrackField));
+					return null;
+				}
+				if(opp.IsStartrackProposal__c != null && opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && (opp.APTPostcodeSuburb__c == null || opp.APTMinimumMonthlySpend__c == null)){
+					haserrorMessages = true;
+					ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.Yes_Its_StarTrackProduct));
+					return null;
+				}
+			}
 
             //defect 1336
             system.debug('*** selectedCategory **'+selectedCategory);
@@ -858,6 +906,22 @@ public with sharing class APT_AmendRenewController {
                 ];
             }
 
+			if(agreement != null && agreement.Apttus__Related_Opportunity__c != null){
+				//fetching the opportunity record by using selector
+				map<Id,Opportunity> oppMap = OpportunitySelector.newInstance(0,new Set<SObjectField>{opportunity.IsStartrackProposal__c,opportunity.APTPostcodeSuburb__c,opportunity.APTMinimumMonthlySpend__c}).selectById(new Set<Id>{agreement.Apttus__Related_Opportunity__c});
+				Opportunity opp = oppMap.get(agreement.Apttus__Related_Opportunity__c);
+				//Checking the value for StarTrack Opportunity to show an error mesaage
+				if(opp.IsStartrackProposal__c == null || opp.IsStartrackProposal__c == ''){
+					haserrorMessages = true;
+					ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.APT_AmendRenewal_StarTrackField));
+					return null;
+				}
+				if(opp.IsStartrackProposal__c != null && opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && (opp.APTPostcodeSuburb__c == null || opp.APTMinimumMonthlySpend__c == null)){
+					haserrorMessages = true;
+					ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,System.Label.Yes_Its_StarTrackProduct));
+					return null;
+				}
+			}
             //defect 1336
             system.debug('*** selectedCategory **'+selectedCategory);
             agreement.APT_SelectedContractAmendRenewCategory__c = selectedCategory;

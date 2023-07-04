@@ -8286,4 +8286,85 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>generic description</shortDescription>
         <value>(generic description)</value>
     </labels>
+	<labels>
+        <fullName>APT_AbandonCart</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Used in abandon cart custom action in cart</shortDescription>
+        <value>Abandon Cart</value>
+    </labels>
+    <labels>
+        <fullName>APT_AmendRenewal_StarTrackField</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_AmendRenewal_StarTrackField</shortDescription>
+        <value>You cannot link this opportunity record to amendment/renewal process as it’s missing the following information: &quot;Is this Opportunity for a Startrack product?&quot;, If this opportunity is for Startrack product, then you are required to provide: &quot;Minimum monthly Spend&quot; and &quot;Primary Postcode&quot;</value>
+    </labels>
+    <labels>
+        <fullName>APT_Checkout</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_Checkout</shortDescription>
+        <value>Checkout</value>
+    </labels>
+    <labels>
+        <fullName>Add_Product_On_Closed_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add_Product_On_Closed_Opportunity</shortDescription>
+        <value>You cannot create Proposal when Opportunity is &quot;Close Lost&quot;</value>
+    </labels>
+    <labels>
+        <fullName>SaveCartEditOpportunityProducts</fullName>
+        <categories>Button, Cart</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SaveCartEditOpportunityProducts</shortDescription>
+        <value>Save &amp; Add Products to Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>Send_for_eSignature_Custom_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send for eSignature Custom Message</shortDescription>
+        <value>Please confirm that you want to send this agreement for eSignature.
+                   
+                  Once the agreement is signed by Australia Post and Customer you will receive an
+                         email confirmation and Customer Onboarding team will be notified to provision the rates
+                          and activate the contract.</value>
+    </labels>
+    <labels>
+        <fullName>Yes_Its_StarTrackProduct</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Yes_Its_StarTrackProduct</shortDescription>
+        <value>Please fill the values for the field &quot;Primary pickup location&quot; and &quot;Minimum Monthly Spend&quot; when values for the field &quot;StarTrack Product&quot; is Yes</value>
+    </labels>
+    <labels>
+        <fullName>isStarTrackProduct</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>isStarTrackProduct</shortDescription>
+        <value>You cannot go to the Product Catalog without having completed the following fields:
+
+Is this Opportunity for a Startrack product? “
+
+If this opportunity is for Startrack product, then you are required to provide:
+
+“Minimum monthly Spend” and “Primary Postcode</value>
+    </labels>
+    <labels>
+        <fullName>keyContactErrorMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>keyContactErrorMsg</shortDescription>
+        <value>Your opportunity record is missing Key Contact information</value>
+    </labels>
+    <labels>
+        <fullName>viewRateCardControllerError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ViewRateCardControllerError</shortDescription>
+        <value>Your checkout transaction is still being processed, please try again later</value>
+    </labels>
 </CustomLabels>

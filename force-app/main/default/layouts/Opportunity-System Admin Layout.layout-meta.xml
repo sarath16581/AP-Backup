@@ -42,7 +42,7 @@
                 <field>Type</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>KeyContact__c</field>
             </layoutItems>
             <layoutItems>
@@ -92,6 +92,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Is_Superseded_Opportunity__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IsStartrackProposal__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APTPostcodeSuburb__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APTMinimumMonthlySpend__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -882,6 +894,11 @@
             <actionType>StandardButton</actionType>
             <sortOrder>15</sortOrder>
         </platformActionListItems>
+		<platformActionListItems>
+            <actionName>Opportunity.Add_Product</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>25</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -989,6 +1006,7 @@
         <fields>Classification__c</fields>
         <fields>Contract_Number__c</fields>
         <fields>Quantity</fields>
+        <fields>Annualised_Value__c</fields>
         <fields>Contract_Start_Date__c</fields>
         <fields>Contract_End_Date__c</fields>
         <fields>UnitPrice</fields>

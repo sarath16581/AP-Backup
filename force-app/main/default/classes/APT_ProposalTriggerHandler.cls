@@ -41,7 +41,8 @@ Last Modified Date - 2021-06-15 Darshan Chauhan Removing unessecary code for App
 2021-07-14 - Mansi Shah - Added method onBeforeInsert and commented method setOpportunityDriver
 
 2022-05-02  SaiSwetha Pingali  REQ2703521 - Added logic to capture role of the user at the time of creation.
-
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
+2023-04-27 - Nasir Jawed - added logic on beforeUpdateEvent for the field 'APT_Proposal_Status_Accepted_Denied__c' update on opportunity
 */
 
 public without sharing class APT_ProposalTriggerHandler {
@@ -509,6 +510,8 @@ public without sharing class APT_ProposalTriggerHandler {
             Set<Id> setPropId = new Set<Id>();
             APT_R2T_System_Properties__c r2tSystemObj = APT_R2T_System_Properties__c.getOrgDefaults();
             list<Opportunity> listOpportunity = new list<Opportunity>();
+            set<Opportunity> setOpportunity = new set<Opportunity>();
+            List<Opportunity> listOpp;
             Opportunity oppty;
             for(Apttus_Proposal__Proposal__c prop:listProposal){
                 setPropId.add(prop.Id);
@@ -558,6 +561,18 @@ public without sharing class APT_ProposalTriggerHandler {
                 if(null != prop.Apttus_Proposal__Opportunity__c)
                 {
                     oppty = new Opportunity(ID = prop.Apttus_Proposal__Opportunity__c);
+					List<string> proposalStatus = new List<string>{'Accepted','Denied'};
+					//This logic is update the boolean field on Opportunity which decides to create a new proposal or redirect to the cart of existing proposal
+					if(!proposalStatus.contains(prop.Apttus_Proposal__Approval_Stage__c)){
+					oppty.APT_Proposal_Status_Accepted_Denied__c = APT_Constants.BOOL_TRUE;
+					setOpportunity.add(oppty);
+					}
+					if(proposalStatus.contains(prop.Apttus_Proposal__Approval_Stage__c)){
+					oppty.APT_Proposal_Status_Accepted_Denied__c = APT_Constants.BOOL_FALSE;
+					setOpportunity.add(oppty);
+					}
+					listOpp = new List<Opportunity>(setOpportunity);
+  
                     if( null != prop.Apttus_QPConfig__ConfigurationFinalizedDate__c && null == mapProposalOld.get(prop.ID).Apttus_QPConfig__ConfigurationFinalizedDate__c)
                     {
                         //CR148/13
@@ -697,6 +712,10 @@ public without sharing class APT_ProposalTriggerHandler {
             if(Test.IsRunningTest() && blnIsExceptionThrownFromTestClass){
                 integer i = 1/0;
             }
+			if(listOpp != null){
+			ApplicationDatabase.getInstance().dmlupdate(listOpp);
+			}
+  
             
             return mapQuote_prod;
         }catch(Exception e){

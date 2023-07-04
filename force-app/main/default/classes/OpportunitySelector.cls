@@ -9,9 +9,10 @@
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
  * 2021-06-08 - Seth.heang@auspost.com.au - Added Sender_name_to_appear_on_parcel_label__c field into query
  * 2023-03-29 - Harry Wang - Added new selector options WITH_CHILD_PROPOSALS
+ * 2023-03-07 - nasir.jawed2@auspost.com.au - Added KeyContact__c,name, closedate field into query
  */
 
-public with sharing class OpportunitySelector extends ApplicationSelector{
+ public with sharing class OpportunitySelector extends ApplicationSelector{
     public enum Options {
         WITH_CHILD_PROPOSALS
     }
@@ -42,7 +43,8 @@ public with sharing class OpportunitySelector extends ApplicationSelector{
     }
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField>{
-                Opportunity.Id, Opportunity.Primary_Pick_Up_Location__c, Opportunity.Sender_name_to_appear_on_parcel_label__c, Opportunity.Opportunity_Number__c
+                Opportunity.Id, Opportunity.Primary_Pick_Up_Location__c, Opportunity.Sender_name_to_appear_on_parcel_label__c, Opportunity.Opportunity_Number__c,Opportunity.Stagename, Opportunity.APTPostcodeSuburb__c,Opportunity.APTMinimumMonthlySpend__c,Opportunity.IsStartrackProposal__c,Opportunity.AccountID,
+				Opportunity.KeyContact__c,Opportunity.Name,Opportunity.CloseDate,Opportunity.OwnerId
         };
     }
     /**

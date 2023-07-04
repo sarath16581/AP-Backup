@@ -6,6 +6,7 @@ Last Modified By -
 Last Modified Date -
 
 2021.07.01 seth.heang@auspost.com.au    Add code coverage for auto-population functionality of proposal's APT_Method_of_Payment__c field
+2023.05.02 nasir.jawed2@auspost.com.au  Added Account_Plan__c data to cover the test coverage for testMethod3()
 **/
 @isTest
 private with sharing class APT_ProposalTriggerHandler_Test {
@@ -211,8 +212,13 @@ static testMethod void testMethod1() {
          Account acc = APT_TestUtils.createOrganisation();
          insert acc;                          
          
+		//Create Account Plan Record
+		Account_Plan__c ap= APT_TestDataFactory.getAccountPlanRecord(1,acc.id,false)[0];
+		insert ap;
          //Create Opportunity
          Opportunity opty = APT_TestUtils.createOpportunity(acc.id);
+		opty.Account_Plan__c=ap.id;
+		opty.Amount =1;
          insert opty;
          
          //Create PriceList

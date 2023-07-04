@@ -12,6 +12,8 @@ Last Modified Date - 28th May 2020 | SOQL Limit exceeding Fix
 2021-08-31 - Naveen Rajanna - REQ2542972 - Comment code to set 'Fixed Term' when UMS or print Post
 2022-05-02 - SaiSwetha Pingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
 2023-02-14 - Ranjeewa Silva - Added support for before delete, after delete and after undelete trigger events
+2023-04-05 - Yatika Bansal - Updated code to populate agreement dates
+2023-05-10 - Yatika Bansal - Added code to populate service dates on agreement line items.
 
 */
 
@@ -89,6 +91,7 @@ if (Trigger.isBefore) {
 
 		result = APT_AgreementTriggerHandler.afterChangeofOwner(listOwner, Trigger.new);
 		result = APT_AgreementTriggerHandler.updateAgreementwithAttribute(Trigger.new);
+        APT_AgreementTriggerHandler.agreementDatesLogicOnCreate(Trigger.new);
 		result = APT_AgreementTriggerHandler.setProductLines(Trigger.new, mapProposal);
 
 		if (result != APT_Constants.SUCCESS_LABEL) {
@@ -314,6 +317,9 @@ if (Trigger.isBefore) {
 		//beforeAgreementFullySigned
 		APT_AgreementTriggerHandler.beforeAgreementFullySigned(Trigger.oldMap, Trigger.new);
 		//beforeAgreementFullySigned
+            
+		//populateAgreementDatesOnUpdate
+		APT_AgreementTriggerHandler.populateAgreementDatesOnUpdate(Trigger.oldMap, Trigger.newMap);
 
 		System.debug('@@!!!setOwnerId' + setOwnerId);
 		if(setOwnerId!= null) {
@@ -342,6 +348,7 @@ if (Trigger.isBefore) {
 if (Trigger.isAfter) {
 	//insert
 	if (Trigger.isInsert) {
+		APT_AgreementTriggerHandler.updateProposalStage(Trigger.new);
 		APT_AgreementTriggerHandler.addPostBillPayLineItemsToChild(Trigger.new);
 		System.debug('checkpoint4');
 		result = APT_AgreementTriggerHandler.createOperationalSchedule(Trigger.new);
@@ -356,6 +363,8 @@ if (Trigger.isAfter) {
 	//update
 	else if (Trigger.isUpdate) {
 
+		//sendEmailToDriver
+		APT_AgreementTriggerHandler.populateServiceDatesOnUpdate(Trigger.oldMap, Trigger.newMap);
 		APT_AgreementTriggerHandler.deleteExtralineItems(Trigger.oldMap, Trigger.newMap);
 
 		// Added by Adrian Recio

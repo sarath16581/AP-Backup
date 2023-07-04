@@ -41,6 +41,18 @@
                 <behavior>Edit</behavior>
                 <field>RecordTypeId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IsStartrackProposal__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APTPostcodeSuburb__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APTMinimumMonthlySpend__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -412,6 +424,11 @@
             <actionType>QuickAction</actionType>
             <sortOrder>18</sortOrder>
         </platformActionListItems>
+		<platformActionListItems>
+            <actionName>Opportunity.Add_Product</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>19</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <relatedContent>
         <relatedContentItems>
@@ -441,12 +458,12 @@
         <fields>Classification__c</fields>
         <fields>Contract_Number__c</fields>
         <fields>Quantity</fields>
+        <fields>Annualised_Value__c</fields>
         <fields>Contract_Start_Date__c</fields>
         <fields>Contract_End_Date__c</fields>
         <fields>UnitPrice</fields>
         <fields>TotalPrice</fields>
         <fields>In_Year_Revenue__c</fields>
-        <fields>Hidden_Annualised_Value__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

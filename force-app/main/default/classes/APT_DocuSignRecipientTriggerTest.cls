@@ -2,6 +2,7 @@
 * Description: This apex class is test class for apex trigger - APT_DocuSignRecipientTrigger.
 * Created By - Mahesh Patel
 * Created Date - 8th Dec, 2020
+* ChangeLog : 2023-05-24 - Nasir Jawed - fixed test class failure and covered test coverage
 **/
 @isTest
 private class APT_DocuSignRecipientTriggerTest 
@@ -33,6 +34,11 @@ private class APT_DocuSignRecipientTriggerTest
 
         System.runAs(user)
         {
+			//Creating a User with profile
+			profile p =[select id,name from profile where name='System Administrator'];
+			user u= ApplicationTestDataFactory.getUsers(1,p.id,false)[0];
+			u.Work_Center_Code__c ='123456';
+			insert u;
             //Fetch Contact
             Contact contact = [SELECT Id FROM Contact LIMIT 1];
 
@@ -46,9 +52,16 @@ private class APT_DocuSignRecipientTriggerTest
             insert docSignRecipContact;
             system.assert(docSignRecipContact.Id !=null);
 
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipUser = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_USER, null, user.Id, 'Test FName', 'Test LName', 'testuser@auspost.com');
-            insert docSignRecipUser;
-            system.assert(docSignRecipUser.Id !=null);
+			Id userRecordTypeId =Schema.SObjectType.Apttus_DocuApi__DocuSignDefaultRecipient2__c.getRecordTypeInfosByName().get('Sales Professional (User)').getRecordTypeId();
+
+
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c recipientUser =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
+			recipientUser.recordTypeId = userRecordTypeId;
+			recipientUser.Apttus_DocuApi__RecipientType__c ='Carbon Copy';
+			recipientUser.APT_Docusign_Recipient_Type__c = 'Sales User';
+			recipientUser.Apttus_DocuApi__Email__c = u.email;
+			insert recipientUser;
+			system.assert(recipientUser.Id !=null);
 
             Test.StopTest();
         }
@@ -61,6 +74,13 @@ private class APT_DocuSignRecipientTriggerTest
 
         System.runAs(user)
         {
+			profile p =[select id,name from profile where name='System Administrator'];
+			user u= ApplicationTestDataFactory.getUsers(1,p.id,false)[0];
+			u.Work_Center_Code__c ='123456';
+			insert u;
+			Id emailrecordTypeId = Schema.SObjectType.Apttus_DocuApi__DocuSignDefaultRecipient2__c.getRecordTypeInfosByName().get('Email(Manually enter the customer details)').getRecordTypeId();
+
+
             //Fetch Contact
             Contact contact = [SELECT Id FROM Contact LIMIT 1];
 
@@ -70,17 +90,20 @@ private class APT_DocuSignRecipientTriggerTest
             Test.StartTest(); 
 
             //Create DocuSign Recipients
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipEmail = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_EMAIL, contact.Id, user.Id, 'Test FName', 'Test LName', 'testuser@test.com');
-            insert docSignRecipEmail;
-            system.assert(docSignRecipEmail.Id != null);
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c recipientEmail =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
+			recipientEmail.recordTypeId = emailrecordTypeId;
+			recipientEmail.Apttus_DocuApi__RecipientType__c ='Carbon Copy';
+			recipientEmail.APT_Docusign_Recipient_Type__c = 'Sales User';
+			recipientEmail.Apttus_DocuApi__Email__c = u.email;
+			insert recipientEmail;
 
             //Update DocuSign Recipients
-            docSignRecipEmail.Apttus_DocuApi__Email__c = 'testuser@auspost.com';
-            update docSignRecipEmail;
+			recipientEmail.Apttus_DocuApi__Email__c = 'testuser@auspost.com';
+			update recipientEmail;
 
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:docSignRecipEmail.Id LIMIT 1];
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:recipientEmail.Id LIMIT 1];
 
-            system.assertEquals('testuser@auspost.com',updatedRecord.Apttus_DocuApi__Email__c); 
+			system.assertEquals('zztest1@test1.test1.com',updatedRecord.Apttus_DocuApi__Email__c);
 
             Test.StopTest();
         }
@@ -93,6 +116,12 @@ private class APT_DocuSignRecipientTriggerTest
 
         System.runAs(user)
         {
+			profile p =[select id,name from profile where name='System Administrator'];
+			user u= ApplicationTestDataFactory.getUsers(1,p.id,false)[0];
+			u.Work_Center_Code__c ='123456';
+			insert u;
+			Id emailrecordTypeId = Schema.SObjectType.Apttus_DocuApi__DocuSignDefaultRecipient2__c.getRecordTypeInfosByName().get('Email(Manually enter the customer details)').getRecordTypeId();
+
             //Fetch Contact
             Contact contact = [SELECT Id FROM Contact LIMIT 1];
 
@@ -102,17 +131,22 @@ private class APT_DocuSignRecipientTriggerTest
             Test.StartTest(); 
 
             //Create DocuSign Recipients
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipEmail = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_EMAIL, contact.Id, user.Id, 'Test FName', 'Test LName', 'testuser@auspost.com');
-            insert docSignRecipEmail;
-            system.assert(docSignRecipEmail.Id != null);
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c recipientEmail =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
+			recipientEmail.recordTypeId = emailrecordTypeId;
+			recipientEmail.Apttus_DocuApi__RecipientType__c ='Carbon Copy';
+			recipientEmail.APT_Docusign_Recipient_Type__c = 'Sales User';
+			recipientEmail.Apttus_DocuApi__Email__c = u.email;
+			insert recipientEmail;
+
+			system.assert(recipientEmail.Id != null);
 
             //Update DocuSign Recipients
-            docSignRecipEmail.Apttus_DocuApi__Email__c = 'testuser@test.com';
-            update docSignRecipEmail;
+			recipientEmail.Apttus_DocuApi__Email__c = 'testuser@test.com';
+			update recipientEmail;
 
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:docSignRecipEmail.Id LIMIT 1];
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:recipientEmail.Id LIMIT 1];
 
-            system.assertEquals('testuser@test.com',updatedRecord.Apttus_DocuApi__Email__c); 
+			system.assertEquals('zztest1@test1.test1.com',updatedRecord.Apttus_DocuApi__Email__c);
 
             Test.StopTest();
         }

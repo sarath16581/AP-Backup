@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>IF ( 
 	AND(
+                       NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Accepted without proposal document&apos;)) ,
 			(
 				AND(
 					NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Approval Required&apos;)) 

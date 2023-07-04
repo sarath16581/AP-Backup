@@ -6,9 +6,10 @@
  -->
 
 
-<apex:page controller="APT_AmendRenewController" tabStyle="Opportunity">
+ <apex:page controller="APT_AmendRenewController" tabStyle="Opportunity">
     <apex:form >
         <apex:sectionHeader title="Opportunity Lookup"/>
+		<apex:pageMessages ></apex:pageMessages>
         <apex:pageBlock >
          <!-- Link to allow User to go Back to Previous Page if User does not want to select the Opportunity -->
             <div align="center">
@@ -21,7 +22,7 @@
                 <apex:pageBlockTable Value="{!oppList }" var="opp">
                    <!-- Displaying the different columns on the Page Block Table -->
                    <apex:column headerValue="Opportunity Name">
-                        <apex:commandLink value="{!opp.Name}" action="{!goBack}">
+                        <apex:commandLink value="{!opp.Name}" action="{!goToOpportunity}">
                             <apex:param value="{!opp.Name}" name="oppName"/>
                             <apex:param value="{!opp.Id}" name="oppId"/>
                         </apex:commandLink>
