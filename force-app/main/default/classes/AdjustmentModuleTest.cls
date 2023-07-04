@@ -10,7 +10,7 @@
  */
 @isTest
 private class AdjustmentModuleTest {
-    @isTest
+	@isTest
 	static void test_AfterInsert() {
 		// =====================================
 		// Data Preparation
