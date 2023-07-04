@@ -4,6 +4,7 @@
         <apexClass>APTSAPContractsTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+	
     <classAccesses>
         <apexClass>APTS_BasicCPQFlowTest</apexClass>
         <enabled>true</enabled>
