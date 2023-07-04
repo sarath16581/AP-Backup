@@ -23,6 +23,7 @@
  * 2023-02-08 - Dattaraj Deshmukh - Added fields in getSObjectFieldList.
  * 2023-02-28 - Dattaraj Deshmukh - Added 'WITH_NETWORK_RESPONSE' options for SSSW MyNetwork Cases.
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
+ * 2023-06-28 - Pratyush Chalasani - Added selectByIdWithCreditAapprovalsAndDisputedItems method
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -218,6 +219,26 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :referenceIds'))
 		.endConditions();
 		qb.addOrderDesc(Case.CreatedDate);
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Select Cases based on case Id, and with related Credit Approvals and Disputed Items
+	 * @param referenceIds list of case Ids
+	 * @return matching case records
+	 */
+	public virtual Map<Id, Case> selectByIdWithCreditAapprovalsAndDisputedItems(Set<Id> ids, Set<Object> selectorOptions) {
+		DisputedItemsSelector diSelector = DisputedItemsSelector.newInstance(0, new Set<SObjectField>{Disputed_Item__c.Type__c, Disputed_Item__c.Adjustment__c, Disputed_Item__c.ERP_Status__c, Disputed_Item__c.Is_APPC__c});
+		QueryBuilder diSubQuery = diSelector.newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.CompareCondition(Disputed_Item__c.Status__c).eq('Verified Claim')).endConditions();
+
+		CreditApprovalsSelector caSelector = CreditApprovalsSelector.newInstance(0, new Set<SObjectField>{Credit_Approval__c.Type__c, Credit_Approval__c.Adjustment__c});
+		QueryBuilder caSubQuery = caSelector.newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.CompareCondition(Adjustment__c.Status__c).eq('Approved')).endConditions();
+
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions().add(new QueryBuilder.SimpleCondition(Case.Id + ' in :ids')).endConditions()
+			.addSubQuery(diSubQuery, 'Disputed_Items__r')
+			.addSubQuery(caSubQuery, 'Credit_Adjustments__r');
+
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 

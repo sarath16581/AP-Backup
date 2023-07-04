@@ -30,6 +30,7 @@
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
+ * 2023-01-03 - pratyush.chalasani@auspost.com.au - Added method to get Adjustment records
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -841,6 +842,13 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<FacilityByPass__c>)maybeGenerateIds(populateSObjects(FacilityByPass__c.SObjectType, new Map<SObjectField, Object> {
 				FacilityByPass__c.Facility_By_Pass_From__c => fromNetworkId,
 				FacilityByPass__c.Facility_By_Pass_To__c => toNetworkId
+		}, count), generateIds);
+	}
+
+	public static List<Adjustment__c> getAdjustments(Integer count, Id caseId, Boolean generateIds) {
+		return (List<Adjustment__c>) maybeGenerateIds(populateSObjects(Adjustment__c.SObjectType, new Map<SObjectField, Object> {
+			Adjustment__c.Status__c => 'New',
+			Adjustment__c.Case__c => caseId
 		}, count), generateIds);
 	}
 
