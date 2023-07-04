@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -197,10 +198,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Service_Partnership_Manager__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Service_Partnership_Team__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -556,6 +553,21 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>Account.New_Deal_Support_Request</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Create_Sales_Task</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Create_Sales_Event</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Account.New_Contact</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
@@ -579,21 +591,6 @@
             <actionName>FeedItem.TextPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Account.New_Deal_Support_Request</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Create_Sales_Task</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>1</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Create_Sales_Event</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>2</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
