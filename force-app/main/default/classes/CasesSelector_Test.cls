@@ -21,7 +21,7 @@
  * 2022-02-13 - Dattaraj Deshmukh - Added test for StarTrack cases and case investigations in testSelectorIntegration method.
  * 2022-02-28 - Dattaraj Deshmukh - Added test for WITH_NETWORK_RESPONSE in 'testEnsureQueryBuilderProducesCorrectStringWithRelatedFields' method.
  * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
- * 2023-06-28 - Pratyush Chalasani - Added test for selectByIdWithCreditAapprovalsAndDisputedItems method
+ * 2023-06-08 - Mahesh Parvathaneni - Added tests for WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -149,6 +149,10 @@ public with sharing class CasesSelector_Test {
 			'Resulting query does not select Network Response child records: ' + soql
 		);
 
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Select.*?\\(Select.*?\\bfrom EmailMessages\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Incoming EmailMessage records');
+
 
 
 		Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
@@ -256,21 +260,6 @@ public with sharing class CasesSelector_Test {
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		
 		Test.stopTest();
-
-	}
-
-	@isTest
-	static void selectByIdWithCreditAapprovalsAndDisputedItems() {
-		Case testCase = ApplicationTestDataFactory.getCases(1, false);
-		insert testCase;
-
-		
-		
-
-		Test.startTest();
-		selector.selectByIdsAndRecordTypeIds(cases.keySet(), new Set<Id>(), new Set<Object>());
-		Test.stopTest();
-
 
 	}
 }

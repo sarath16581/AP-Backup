@@ -30,7 +30,7 @@
  * 2023-03-27 - Pratyush Chalasani - Added method to retrieve Lead BG Standard record type
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
- * 2023-01-03 - pratyush.chalasani@auspost.com.au - Added method to get Adjustment records
+ * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -845,10 +845,11 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
-	public static List<Adjustment__c> getAdjustments(Integer count, Id caseId, Boolean generateIds) {
-		return (List<Adjustment__c>) maybeGenerateIds(populateSObjects(Adjustment__c.SObjectType, new Map<SObjectField, Object> {
-			Adjustment__c.Status__c => 'New',
-			Adjustment__c.Case__c => caseId
+	public static List<EmailToCaseMapping__mdt> getEmailToCaseMappings(Integer count, String emailAddress, Boolean generateIds) {
+		return (List<EmailToCaseMapping__mdt>)maybeGenerateIds(populateSObjects(EmailToCaseMapping__mdt.SObjectType, new Map<SObjectField, Object> {
+			EmailToCaseMapping__mdt.DeveloperName => 'RECORD%count%',
+			EmailToCaseMapping__mdt.IsActive__c => true,
+			EmailToCaseMapping__mdt.EmailToCaseAddress__c => emailAddress
 		}, count), generateIds);
 	}
 
