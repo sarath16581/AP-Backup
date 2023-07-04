@@ -101,13 +101,13 @@ public without sharing class DisputedItemTriggerHandler{
 
                 // recalculated product sub category with the maximum credit based on the current DML.
                 String productSubCategoryWithMaximumProposedCredit = (String) aggregateResult.get('Product_Sub_Category__c');
+
                 if (!String.isBlank(productSubCategoryWithMaximumProposedCredit)
                         && (String.isBlank(currentProductSubCategory) || !currentProductSubCategory.equals(productSubCategoryWithMaximumProposedCredit))) {
 
                     if (!creditApprovalsToUpdate.containsKey(creditApprovalId)) {
                         // update product sub category
-                        
-                       creditApprovalsToUpdate.put(creditApprovalId, new Credit_Approval__c(Id = creditApprovalId, Product_Sub_Category__c = productSubCategoryWithMaximumProposedCredit));
+                        creditApprovalsToUpdate.put(creditApprovalId, new Credit_Approval__c(Id = creditApprovalId, Product_Sub_Category__c = productSubCategoryWithMaximumProposedCredit));
                     }
                 }
             }
@@ -162,28 +162,28 @@ public without sharing class DisputedItemTriggerHandler{
      * @description: Main method that calls sub methods to populate CAs based on DIs presence.            
      */  
     public static void populateCreditApproval(Map <Id, Disputed_Item__c> oldMap, List<Disputed_Item__c> disputedItemsList){
-        try{
-            // Decalre Id Sets and Map to contain CA and its related Case and Product Family
-            Set <String> disputeItemCaseNumber = new Set <String>();
-            Set <String> disputeItemProductFamily = new Set <String>();   
-            Set <String> disputeItemType = new Set <String>();      
-            Map <String, Map<String,Credit_Approval__c>> creditApprovalMap = new Map <String, Map<String,Credit_Approval__c>> ();
-            List<Disputed_Item__c> tempDIList = new List<Disputed_Item__c>();
-            List<Disputed_Item__c> nullInvalidDIList = new List<Disputed_Item__c>();
+		try{
+			// Decalre Id Sets and Map to contain CA and its related Case and Product Family
+			Set <String> disputeItemCaseNumber = new Set <String>();
+			Set <String> disputeItemProductFamily = new Set <String>();   
+			Set <String> disputeItemType = new Set <String>();      
+			Map <String, Map<String,Credit_Approval__c>> creditApprovalMap = new Map <String, Map<String,Credit_Approval__c>> ();
+			List<Disputed_Item__c> tempDIList = new List<Disputed_Item__c>();
+			List<Disputed_Item__c> nullInvalidDIList = new List<Disputed_Item__c>();
 
             Boolean caError = false;
 
-            // Validate DI update. Restrict update if related CA is already submitted/pending approval
+			// Validate DI update. Restrict update if related CA is already submitted/pending approval
             // Validation should be successful for all DIs in the batch to make sure multiple depndency of CA and DI is correct
-    
+	
             if(oldMap!=null && AdjustmentTriggerHandler.adjustmentLink==false){
-                caError = validateCAStatus(oldMap, disputedItemsList);
-            }
+				caError = validateCAStatus(oldMap, disputedItemsList);
+			}
 
             if(caError==false){
-                // Filter dipsuted items (Only with PF and CT populated will be calculated)
-                // Build Id Set
-                for(Disputed_Item__c disputeItemVar : disputedItemsList){
+    			// Filter dipsuted items (Only with PF and CT populated will be calculated)
+    			// Build Id Set
+    			for(Disputed_Item__c disputeItemVar : disputedItemsList){
                     // Pull old map if present
                     // Cancel any DI calculations if updated is performed in ERP
                     Disputed_Item__c diOld;
@@ -193,17 +193,17 @@ public without sharing class DisputedItemTriggerHandler{
 
                     Boolean IsNullDI = true;
 
-                    if( diOld==null &&
+    				if( diOld==null &&
                         disputeItemVar.Product__c!=null && 
-                        disputeItemVar.Type__c!=null   &&
-                        disputeItemVar.Status__c!='Rejected' && 
-                        disputeItemVar.Status__c!='Invalid Claim'){
+    					disputeItemVar.Type__c!=null   &&
+    					disputeItemVar.Status__c!='Rejected' && 
+    					disputeItemVar.Status__c!='Invalid Claim'){
 
                         tempDIList.add(disputeItemVar);
                         IsNullDI = false;
 
                         system.debug('DI Insert');
-                    }else if(diOld!=null){
+    				}else if(diOld!=null){
                         IsNullDI = false;
 
                         if((disputeItemVar.Product__c!=diOld.Product__c || 
@@ -225,48 +225,48 @@ public without sharing class DisputedItemTriggerHandler{
                         disputeItemVar.Credit_Approval__c = null;
                         nullInvalidDIList.add(disputeItemVar);
                     }
-                }
+    			}
 
-                // Refresh DI list
-                disputedItemsList = tempDIList;
+    			// Refresh DI list
+    			disputedItemsList = tempDIList;
 
                 system.debug('DI Count from Temp:' + disputedItemsList.size());
 
                 if(disputedItemsList.size()>0){
-                    // Build Id Set
-                    for(Disputed_Item__c disputeItemVar : disputedItemsList){
-                        disputeItemCaseNumber.add(disputeItemVar.Case__c);
-                        disputeItemProductFamily.add(disputeItemVar.Product__c); 
-                        disputeItemType.add(disputeItemVar.Type__c);
-                    }                
+        			// Build Id Set
+        			for(Disputed_Item__c disputeItemVar : disputedItemsList){
+        				disputeItemCaseNumber.add(disputeItemVar.Case__c);
+        				disputeItemProductFamily.add(disputeItemVar.Product__c); 
+        				disputeItemType.add(disputeItemVar.Type__c);
+        			}                
 
-                    // Pull list of parent CA
-                    List<Credit_Approval__c> caList =  [Select Id, Name, Case__c, Product_Family__c, Product_Sub_Category__c,
-                                                               Type__c, Status__c, (Select Id, Proposed_Credit__c, Credit_Amount_Exclusive_GST__c, Product__c, Product_Sub_Category__c from Disputed_Items__r Where Status__c != 'Rejected' AND Status__c != 'Invalid Claim')
-                                                               From Credit_Approval__c 
-                                                               Where Case__c IN :disputeItemCaseNumber 
-                                                               And Product_Family__c IN :disputeItemProductFamily
-                                                               And Type__c IN :disputeItemType];
-                    
-                    creditApprovalMap = mapCA(caList,creditApprovalMap); // Build initial CA Map
-                    List<Credit_Approval__c> newCAList = disputeCAConnect(disputedItemsList, creditApprovalMap, false); // Build list of credit approval for insert
-                    
-                    // If new CA is needed, insert and refresh main map
-                    if(newCAList.size()>0){
-                        insert newCAList; // Insert missing credit approvals
-                        creditApprovalMap = mapCA(newCAList,creditApprovalMap); // Re-build/update CA map
-                    }
+        			// Pull list of parent CA
+        			List<Credit_Approval__c> caList =  [Select Id, Name, Case__c, Product_Family__c, Product_Sub_Category__c,
+        													   Type__c, Status__c, (Select Id, Proposed_Credit__c, Credit_Amount_Exclusive_GST__c, Product__c, Product_Sub_Category__c from Disputed_Items__r Where Status__c != 'Rejected' AND Status__c != 'Invalid Claim')
+        													   From Credit_Approval__c 
+        													   Where Case__c IN :disputeItemCaseNumber 
+        													   And Product_Family__c IN :disputeItemProductFamily
+        													   And Type__c IN :disputeItemType];
+        			
+        			creditApprovalMap = mapCA(caList,creditApprovalMap); // Build initial CA Map
+        			List<Credit_Approval__c> newCAList = disputeCAConnect(disputedItemsList, creditApprovalMap, false); // Build list of credit approval for insert
+        			
+        			// If new CA is needed, insert and refresh main map
+        			if(newCAList.size()>0){
+        				insert newCAList; // Insert missing credit approvals
+        				creditApprovalMap = mapCA(newCAList,creditApprovalMap); // Re-build/update CA map
+        			}
 
-                    // Connect CA to disputed items
-                    disputeCAConnect(disputedItemsList, creditApprovalMap, true); // Update dispute items with matching parent CA
-                    
-                    if(OldMap!=null){
-                        recalculateCATotalsbyPFUpdate(OldMap, disputedItemsList);
-                        deletebyParentCAUpdate(OldMap, disputedItemsList, nullInvalidDIList);
-                    }
+        			// Connect CA to disputed items
+        			disputeCAConnect(disputedItemsList, creditApprovalMap, true); // Update dispute items with matching parent CA
+        			
+        			if(OldMap!=null){
+        				recalculateCATotalsbyPFUpdate(OldMap, disputedItemsList);
+        				deletebyParentCAUpdate(OldMap, disputedItemsList, nullInvalidDIList);
+        			}
                 }
             }
-        }catch(Exception e){
+		}catch(Exception e){
             e.getStackTraceString();
         }
     }
@@ -298,7 +298,7 @@ public without sharing class DisputedItemTriggerHandler{
         // If list is not empty perform delete
         if(deleteCAList.size()>0){
             try{
-                delete deleteCAList;
+        		delete deleteCAList;
             }catch(Exception e){
                 system.debug('Error Stack Delete CA:' + e.getStackTraceString());
             }
@@ -339,69 +339,69 @@ public without sharing class DisputedItemTriggerHandler{
         }
         
         if(finalCADeleteList.size()>0){
-            try{
-                delete finalCADeleteList;
-            }catch(Exception e){
-                e.getStackTraceString();
-            }
+			try{
+				delete finalCADeleteList;
+			}catch(Exception e){
+            	e.getStackTraceString();
+        	}
         }
-    }
+	}
     
    /* @created by: Adrian Recio
     * @description Recalculate CA total if product family of disputed item is updated   
     */ 
     public static void recalculateCATotalsbyPFUpdate(Map <Id, Disputed_Item__c> OldMap, List<Disputed_Item__c> disputedItemsList){
         try{
-            Map<Id,List<Disputed_Item__c>> diCalculateMap = new Map<Id,List<Disputed_Item__c>>();
-            
-            for(Disputed_Item__c diVar: disputedItemsList){
-                
-                Disputed_Item__c olddiVar = OldMap.get(diVar.Id);
-                
-                // If product is updated, recalculate credit approval
-                if((diVar.Product__c!=olddiVar.Product__c 
-                    || diVar.Type__c!=olddiVar.Type__c) && 
+			Map<Id,List<Disputed_Item__c>> diCalculateMap = new Map<Id,List<Disputed_Item__c>>();
+			
+			for(Disputed_Item__c diVar: disputedItemsList){
+				
+				Disputed_Item__c olddiVar = OldMap.get(diVar.Id);
+				
+				// If product is updated, recalculate credit approval
+				if((diVar.Product__c!=olddiVar.Product__c 
+					|| diVar.Type__c!=olddiVar.Type__c) && 
                     diVar.Status__c=='Verified Claim'){
-                    List<Disputed_Item__c> diListTemp = new List<Disputed_Item__c>();
-                    if(diCalculateMap.containsKey(diVar.Credit_Approval__c)){
-                        diListTemp = diCalculateMap.get(diVar.Credit_Approval__c);
-                    }
-                    diListTemp.add(diVar);
-                    diCalculateMap.put(diVar.Credit_Approval__c,diListTemp);
-                }
-            }
+					List<Disputed_Item__c> diListTemp = new List<Disputed_Item__c>();
+					if(diCalculateMap.containsKey(diVar.Credit_Approval__c)){
+						diListTemp = diCalculateMap.get(diVar.Credit_Approval__c);
+					}
+					diListTemp.add(diVar);
+					diCalculateMap.put(diVar.Credit_Approval__c,diListTemp);
+				}
+			}
         
-             if(diCalculateMap.size()>0){
-                    List<Credit_Approval__c> caCalculateList = [Select CreditAmountExclusiveGST__c, CreditAmountInclusiveGST__c,
-                                                                GSTAmount__c,Id, Amount_Charged__c, Amount_Claimed__c, Credit_Amount__c 
-                                                                from Credit_Approval__c where Id IN :diCalculateMap.keySet()];
-                    for(Credit_Approval__c caVar: caCalculateList){
-                        List<Disputed_Item__c> diAddList = diCalculateMap.get(caVar.Id);
-                        for(Disputed_Item__c diVar: diAddList){
-                            try{
-                                caVar.Amount_Charged__c = nullReverse(caVar.Amount_Charged__c, false) + nullReverse(diVar.Amount__c, false);
-                                caVar.Amount_Claimed__c = nullReverse(caVar.Amount_Claimed__c, false) + nullReverse(diVar.Amount_Claimed__c, false);
-                                caVar.Credit_Amount__c = nullReverse(caVar.Credit_Amount__c, false) + nullReverse(diVar.Proposed_Credit__c, false);
-                                caVar.CreditAmountExclusiveGST__c = nullReverse(caVar.CreditAmountExclusiveGST__c, false) + nullReverse(diVar.Credit_Amount_Exclusive_GST__c, false);
-                                caVar.CreditAmountInclusiveGST__c = nullReverse(caVar.CreditAmountInclusiveGST__c, false) + nullReverse(diVar.Credit_Amount_Inclusive_GST__c, false);
-                                caVar.GSTAmount__c = nullReverse(caVar.GSTAmount__c, false) + nullReverse(diVar.GSTAmount__c, false);
+			 if(diCalculateMap.size()>0){
+					List<Credit_Approval__c> caCalculateList = [Select CreditAmountExclusiveGST__c, CreditAmountInclusiveGST__c,
+                                                        	   	GSTAmount__c,Id, Amount_Charged__c, Amount_Claimed__c, Credit_Amount__c 
+																from Credit_Approval__c where Id IN :diCalculateMap.keySet()];
+					for(Credit_Approval__c caVar: caCalculateList){
+						List<Disputed_Item__c> diAddList = diCalculateMap.get(caVar.Id);
+						for(Disputed_Item__c diVar: diAddList){
+							try{
+								caVar.Amount_Charged__c = nullReverse(caVar.Amount_Charged__c, false) + nullReverse(diVar.Amount__c, false);
+								caVar.Amount_Claimed__c = nullReverse(caVar.Amount_Claimed__c, false) + nullReverse(diVar.Amount_Claimed__c, false);
+								caVar.Credit_Amount__c = nullReverse(caVar.Credit_Amount__c, false) + nullReverse(diVar.Proposed_Credit__c, false);
+								caVar.CreditAmountExclusiveGST__c = nullReverse(caVar.CreditAmountExclusiveGST__c, false) + nullReverse(diVar.Credit_Amount_Exclusive_GST__c, false);
+								caVar.CreditAmountInclusiveGST__c = nullReverse(caVar.CreditAmountInclusiveGST__c, false) + nullReverse(diVar.Credit_Amount_Inclusive_GST__c, false);
+								caVar.GSTAmount__c = nullReverse(caVar.GSTAmount__c, false) + nullReverse(diVar.GSTAmount__c, false);
                                 
-                                caVar.Amount_Charged__c = nullReverse(caVar.Amount_Charged__c, true);
-                                caVar.Amount_Claimed__c = nullReverse(caVar.Amount_Claimed__c, true);
-                                caVar.Credit_Amount__c = nullReverse(caVar.Credit_Amount__c, true);
+								caVar.Amount_Charged__c = nullReverse(caVar.Amount_Charged__c, true);
+								caVar.Amount_Claimed__c = nullReverse(caVar.Amount_Claimed__c, true);
+								caVar.Credit_Amount__c = nullReverse(caVar.Credit_Amount__c, true);
                                 caVar.CreditAmountExclusiveGST__c = nullReverse(caVar.CreditAmountExclusiveGST__c, true);
-                                caVar.CreditAmountInclusiveGST__c = nullReverse(caVar.CreditAmountInclusiveGST__c, true);
-                                caVar.GSTAmount__c = nullReverse(caVar.GSTAmount__c, true);
-                            }catch(Exception e){
-                                system.debug('CA Calculation Error:' + e.getStackTraceString());
-                            }
-                        }
-                    }
-                    update caCalculateList;
-                }
-        }catch(Exception e){
-            e.getStackTraceString();
-        }   
+								caVar.CreditAmountInclusiveGST__c = nullReverse(caVar.CreditAmountInclusiveGST__c, true);
+								caVar.GSTAmount__c = nullReverse(caVar.GSTAmount__c, true);
+							}catch(Exception e){
+								system.debug('CA Calculation Error:' + e.getStackTraceString());
+							}
+						}
+					}
+					update caCalculateList;
+				}
+		}catch(Exception e){
+			e.getStackTraceString();
+		}	
     }
     
      /* @created by: Adrian Recio
@@ -446,7 +446,7 @@ public without sharing class DisputedItemTriggerHandler{
     
     /* @created by: Adrian Recio
      * @description: Binds CA to child DI depending on bindDI boolean.
-     *               If true, perform bind, If false, perform check of missing CA parent records.            
+     * 				 If true, perform bind, If false, perform check of missing CA parent records.            
      */ 
     public static List<Credit_Approval__c> disputeCAConnect(List<Disputed_Item__c> dIList, 
                                                             Map<String, Map<String, Credit_Approval__c>> creditApprovalMap,
@@ -515,6 +515,7 @@ public without sharing class DisputedItemTriggerHandler{
         pCAVar.OwnerId = disputeItem.OwnerId;
         pCAVar.Product_Family__c = disputeItem.Product__c;
         pCAVar.Case__c = disputeItem.Case__c;
+		pCAVar.Product_Sub_Category__c = disputeItem.Product_Sub_Category__c;
         pCAVar.Status__c = 'New';
         return pCAVar;
     }

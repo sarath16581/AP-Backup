@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalesSpecialistGroupName__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Developer name of the public group containing the members of specialist sales team responsible for providing specialised support on this overlay type (e.g. International, Product etc).</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Developer name of the public group containing the members of specialist sales team.</inlineHelpText>
+    <label>Sales Specialist Group Name</label>
+    <length>80</length>
+    <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

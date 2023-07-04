@@ -7,6 +7,7 @@
  * 06/11/2015 - nandan.narasappa@auspost.com.au			  Added createSignatureAttachments method
  * 18/01/2019 - disha.kariya@auspost.com.au				  Added insertCaseTeamMembersForChildCase method for Sharing Child Case to parent using Case Team member only for Service Delivery Setting Custom Metadata
  * 2021-10-04 - Nathan Franklin - Deprecated createSignatureAttachments, createAttachments, getArticleEventMessages
+ * 2023-07-03 - Mahesh Parvathaneni - Updated handleCaseTeamMembers to ignore for transport enquiry cases
  */
 public without sharing class CaseSharingUtility{	// Access is set without sharing to for creation of CaseTeamMember if executed from Community user
 	
@@ -18,13 +19,15 @@ public without sharing class CaseSharingUtility{	// Access is set without sharin
 	public static Boolean isHandleTeamMemberRecursive = false;	  // flag for handling case team members
 	public static Boolean isCreateSignatureRecursive = false;	  // flag for handling case team members
 	private static Set<Id> validRecTypes;				   // type of cases for which code executes
+	private static Id transportEnquiryRecTypeId;
 	
 	static{ // code executed to fetch details when class is invoked
 		try{
 			validRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+			// Get the Record Type Id for Transport Enquiry Cases
+			transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
 		}
 		catch(Exception exp){
-			System.debug('** StackTrack ==>'+ exp.getStackTraceString());
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
 													CaseSharingUtility.class.getName(), SSSWConstants.STATIC_BLOCK, 
@@ -49,31 +52,34 @@ public without sharing class CaseSharingUtility{	// Access is set without sharin
 		
 		try{
 			for(Case caseRec : caseList){
-				Case oldCase = oldCaseMap != null ? oldCaseMap.get(caseRec.Id) : null;  // get old case values
-				if(oldCase != null){	// update scenario
-					// verify if either old or new values of case contains network
-					if((caseRec.Network__c != null || oldCase.Network__c != null) &&
-						caseRec.Network__c != oldCase.Network__c){
-						
-						isHandleTeamMemberRecursive = true;	 // setting recursive flag for update scenario
-						
-						// members to be added to case team if network is populated for case
-						if(caseRec.Network__c != null && oldCase.Network__c == null){
-							addFacilityCaseMap = updateMap(addFacilityCaseMap,caseRec); 
-						}
-						// members to be removed from case team if network removed from case
-						else if(caseRec.Network__c == null && oldCase.Network__c != null){
-							delFacilityCaseMap = updateMap(delFacilityCaseMap,oldCase); 
-						}
-						else{   // members to be added to new network & removed from old network in case of network change
-							addFacilityCaseMap = updateMap(addFacilityCaseMap,caseRec); 
-							delFacilityCaseMap = updateMap(delFacilityCaseMap,oldCase); 
+				//ignore the assigment of case team members for transport enquiry case
+				if(caseRec.RecordTypeId != transportEnquiryRecTypeId) {
+					Case oldCase = oldCaseMap != null ? oldCaseMap.get(caseRec.Id) : null;  // get old case values
+					if(oldCase != null){	// update scenario
+						// verify if either old or new values of case contains network
+						if((caseRec.Network__c != null || oldCase.Network__c != null) &&
+							caseRec.Network__c != oldCase.Network__c){
+							
+							isHandleTeamMemberRecursive = true;	 // setting recursive flag for update scenario
+							
+							// members to be added to case team if network is populated for case
+							if(caseRec.Network__c != null && oldCase.Network__c == null){
+								addFacilityCaseMap = updateMap(addFacilityCaseMap,caseRec); 
+							}
+							// members to be removed from case team if network removed from case
+							else if(caseRec.Network__c == null && oldCase.Network__c != null){
+								delFacilityCaseMap = updateMap(delFacilityCaseMap,oldCase); 
+							}
+							else{   // members to be added to new network & removed from old network in case of network change
+								addFacilityCaseMap = updateMap(addFacilityCaseMap,caseRec); 
+								delFacilityCaseMap = updateMap(delFacilityCaseMap,oldCase); 
+							}
 						}
 					}
-				}
-				else{   // insert scenario 
-					if(caseRec.Network__c != null){ // verify if network is populated
-						addFacilityCaseMap = updateMap(addFacilityCaseMap,caseRec); 
+					else{   // insert scenario 
+						if(caseRec.Network__c != null){ // verify if network is populated
+							addFacilityCaseMap = updateMap(addFacilityCaseMap,caseRec); 
+						}
 					}
 				}
 			}
@@ -188,103 +194,6 @@ public without sharing class CaseSharingUtility{	// Access is set without sharin
 		}
 	}
 
-//	/**
-//	  * @description	   This method is invoked in after insert & update event, creates signature attachment for case
-//	  * @param			 caseList - List<Case>, oldCaseMap - Map<Id,Case>
-//	  * @return			Void
-//	  * @throws			Method might throw exception which is handled by Try-Catch block
-//	  */
-//	public void createSignatureAttachments(List<Case> caseList,Map<Id,Case> oldCaseMap){
-//		try{
-//			Set<Id> articleIds = new Set<Id>();
-//			List<Case> validCases = new List<Case>();
-//			for(Case csRec : caseList){
-//				if(Utility.isValidRecordType(validRecTypes,csRec.RecordTypeId)){  // verify if its SSSW recordtype
-//					Case oldCase = (oldCaseMap != null) ? oldCaseMap.get(csRec.Id) : null;  // get old case values
-//					// check if article is linked to case
-//					if(csRec.ArticleTest__c != null && (oldCase == null || (oldCase.ArticleTest__c != csRec.ArticleTest__c))){
-//						articleIds.add(csRec.ArticleTest__c);
-//						validCases.add(csRec);
-//					}
-//				}
-//			}
-//
-//			if(!articleIds.isEmpty()){  // check if articleIds got value
-//				isCreateSignatureRecursive = true;  // set flag to true
-//				// get article & its event messages
-//				Map<Id,List<EventMessage__c>> articleEventMsgMap = getArticleEventMessages(articleIds);
-//
-//				if(!articleEventMsgMap.isEmpty()){  // check if articleEventMsgMap got value
-//					List<Attachment> attList = createAttachments(validCases,articleEventMsgMap);	// create signature attachments
-//
-//					if(!attList.isEmpty()){ // check if attachments available for creation
-//						Database.insert(attList,false);
-//					}
-//				}
-//			}
-//		}
-//		catch(Exception exp){
-//			System.debug('** StackTrack ==>'+ exp.getStackTraceString());
-//			// Error Logged to Exception object for analysis
-//			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
-//													CaseSharingUtility.class.getName(), SSSWConstants.METH_CREATE_SIGNATURE,
-//													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-//		}
-//	}
-//
-//	/**
-//	  * @description	   This method returns article & its event messages
-//	  * @param			 articleIds - Set<Id>
-//	  * @return			Map<Id,List<EventMessage__c>>
-//	  * @throws			Method might throw exception which is handled by invoked method
-//	  */
-//	private Map<Id,List<EventMessage__c>> getArticleEventMessages(Set<Id> articleIds){
-//		Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());	// get dynamic query row limit
-//		Map<Id,List<EventMessage__c>> articleEventMsgMap = new Map<Id,List<EventMessage__c>>();
-//		// fetch article & its event messages
-//		for(Article__c article : [SELECT Id,
-//									(SELECT EventType__c,EventDescription__c,SignatoryName__c,SignatureXString__c
-//										FROM Event_Messages__r)
-//									FROM Article__c WHERE Id IN: articleIds LIMIT : rowLimit]){
-//			articleEventMsgMap.put(article.Id,article.Event_Messages__r);
-//		}
-//		return articleEventMsgMap;
-//	}
-//
-//	/**
-//	  * @description	   This method creates signature attachments for a case
-//	  * @param			 caseList - List<Case>, articleEventMsgMap - Map<Id,List<EventMessage__c>>
-//	  * @return			List<Attachment>
-//	  * @throws			Method might throw exception which is handled by invoked method
-//	  */
-//	private List<Attachment> createAttachments(List<Case> caseList,Map<Id,List<EventMessage__c>> articleEventMsgMap){
-//		List<Attachment> attList = new List<Attachment>();
-//		Map<String, EventMessageTypes__c> eventMessageTypes = EventMessageTypes__c.getAll();	// get event message custom setting values
-//		for(Case csRec : caseList){
-//			// check if articleEventMsgMap has case article & got event messages
-//			if(articleEventMsgMap.containsKey(csRec.ArticleTest__c) && articleEventMsgMap.get(csRec.ArticleTest__c) != null){
-//				for(EventMessage__c evntMsg : articleEventMsgMap.get(csRec.ArticleTest__c)){
-//					EventMessageTypes__c eventType = eventMessageTypes.get(evntMsg.EventType__c);   // get setting for event type
-//					if(eventType != null && eventType.SignatureAttachmentOnCase__c && String.isNotBlank(evntMsg.SignatureXString__c)){
-//						Attachment att = new Attachment();
-//						att.ContentType = SSSWConstants.CONT_TYPE_IMAGE;
-//						att.ParentId = csRec.Id;
-//						att.Body = EncodingUtil.base64Decode(evntMsg.SignatureXString__c);
-//						String attName = SSSWConstants.SIGNATURE + SSSWConstants.HYPHEN
-//										+ (String.isNotBlank(evntMsg.EventDescription__c) ?
-//											evntMsg.EventDescription__c : SSSWConstants.EMPTY_SPACE)
-//										+ SSSWConstants.HYPHEN + (String.isNotBlank(evntMsg.SignatoryName__c) ?
-//																	evntMsg.SignatoryName__c : SSSWConstants.EMPTY_SPACE)
-//										+ SSSWConstants.PNG_FORMAT;
-//						att.Name = attName;
-//						attList.add(att);
-//					}
-//				}
-//			}
-//		}
-//		return attList;
-//	}
-
 	/**
 	  * @description	   This method is invoked in after insert event, to add Parent Case Owner AND/OR 
 							Requestor as Case Team Member on Child case creation when Parent Case Record Type 
@@ -362,7 +271,6 @@ public without sharing class CaseSharingUtility{	// Access is set without sharin
 		}
 		catch (Exception exp){
 			// Error Logged to Exception object for analysis
-			system.debug('adding case team errir '+exp.getMessage()+' at line '+exp.getStackTraceString());
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), 'Child Case creation',
 				   CaseTriggerHelper.class.getName(), SSSWConstants.METH_HANDLE_MBRS_CHILD_CASE,
 				   SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);

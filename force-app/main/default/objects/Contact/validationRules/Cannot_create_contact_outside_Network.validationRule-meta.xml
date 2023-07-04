@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_create_contact_outside_Network</fullName>
+    <active>true</active>
+    <description>Cannot create contacts with Account outside your current Network.</description>
+    <errorConditionFormula>ISNEW() &amp;&amp;
+$User.IsExcludedFromValidationRules__c == false &amp;&amp;
+$Profile.Name == &apos;LPO Partner Community User&apos; &amp;&amp;
+Account.Current_User_Belongs_to_Assigned_LPO__c == false</errorConditionFormula>
+    <errorMessage>Cannot create contacts with Account outside your current Network.</errorMessage>
+</ValidationRule>

@@ -824,6 +824,16 @@
                 <label>Joint Business Review</label>
             </value>
             <value>
+                <fullName>Opportunity Assistance</fullName>
+                <default>false</default>
+                <label>Opportunity Assistance</label>
+            </value>
+            <value>
+                <fullName>Lead Assistance</fullName>
+                <default>false</default>
+                <label>Lead Assistance</label>
+            </value>
+            <value>
                 <fullName>Label / Manifest test</fullName>
                 <default>false</default>
                 <label>Label / Manifest test</label>
@@ -1783,6 +1793,66 @@
                 <default>false</default>
                 <label>Wrapping/Packing</label>
             </value>
+            <value>
+                <fullName>Change of Organisation Details</fullName>
+                <default>false</default>
+                <label>Change of Organisation Details</label>
+            </value>
+            <value>
+                <fullName>Integration Issues</fullName>
+                <default>false</default>
+                <label>Integration Issues</label>
+            </value>
+            <value>
+                <fullName>Merge or Restructure of Organisation or Contact</fullName>
+                <default>false</default>
+                <label>Merge or Restructure of Organisation or Contact</label>
+            </value>
+            <value>
+                <fullName>Revenue Flow issues</fullName>
+                <default>false</default>
+                <label>Revenue Flow issues</label>
+            </value>
+            <value>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+                <label>Reporting</label>
+            </value>
+            <value>
+                <fullName>Salesforce Access and Training</fullName>
+                <default>false</default>
+                <label>Salesforce Access and Training</label>
+            </value>
+            <value>
+                <fullName>Sales Coverage &amp; Frequency Updates</fullName>
+                <default>false</default>
+                <label>Sales Coverage &amp; Frequency Updates</label>
+            </value>
+            <value>
+                <fullName>Service Updates</fullName>
+                <default>false</default>
+                <label>Service Updates</label>
+            </value>
+            <value>
+                <fullName>System Issues</fullName>
+                <default>false</default>
+                <label>System Issues</label>
+            </value>
+            <value>
+                <fullName>Administration Tasks</fullName>
+                <default>false</default>
+                <label>Administration Tasks</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Coverage &amp; Frequency Updates</fullName>
+                <default>false</default>
+                <label>LBP Sales Coverage &amp; Frequency Updates</label>
+            </value>
+            <value>
+                <fullName>Network Updates</fullName>
+                <default>false</default>
+                <label>Network Updates</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product/Services</controllingFieldValue>
@@ -1931,6 +2001,44 @@
             <controllingFieldValue>Service Partner Triage</controllingFieldValue>
             <controllingFieldValue>New eParcel Customer</controllingFieldValue>
             <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Organisations &amp; Contacts</controllingFieldValue>
+            <valueName>Change of Organisation Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Organisations &amp; Contacts</controllingFieldValue>
+            <valueName>Integration Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Organisations &amp; Contacts</controllingFieldValue>
+            <valueName>Merge or Restructure of Organisation or Contact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Organisations &amp; Contacts</controllingFieldValue>
+            <valueName>Revenue Flow issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Organisations &amp; Contacts</controllingFieldValue>
+            <controllingFieldValue>Opportunities &amp; Leads</controllingFieldValue>
+            <controllingFieldValue>LBP/LPO Program</controllingFieldValue>
+            <valueName>Reporting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunities &amp; Leads</controllingFieldValue>
+            <valueName>Opportunity Assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunities &amp; Leads</controllingFieldValue>
+            <valueName>Lead Assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LBP/LPO Program</controllingFieldValue>
+            <valueName>LBP Sales Coverage &amp; Frequency Updates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LBP/LPO Program</controllingFieldValue>
+            <valueName>Network Updates</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>SAP Entry</controllingFieldValue>
@@ -2894,6 +3002,26 @@
         <valueSettings>
             <controllingFieldValue>Salesforce Administration</controllingFieldValue>
             <valueName>Work Day Adjustments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salesforce Administration</controllingFieldValue>
+            <valueName>Salesforce Access and Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salesforce Administration</controllingFieldValue>
+            <valueName>Sales Coverage &amp; Frequency Updates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salesforce Administration</controllingFieldValue>
+            <valueName>Service Updates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salesforce Administration</controllingFieldValue>
+            <valueName>System Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salesforce Administration</controllingFieldValue>
+            <valueName>Administration Tasks</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>SAP Pricing Schedules</controllingFieldValue>

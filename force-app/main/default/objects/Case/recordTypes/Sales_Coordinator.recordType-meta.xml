@@ -4,8 +4,8 @@
     <active>true</active>
     <businessProcess>Sales Coordinator</businessProcess>
     <compactLayoutAssignment>Business_Enablement_Compact_Layout</compactLayoutAssignment>
-    <description>Request Salesforce reports, assistance with opportunity hygiene and other sales administration requests</description>
-    <label>Sales Coordinator</label>
+    <description>Request assistance with Salesforce including Opportunities, Salesforce reporting, Data Quality Management and other Salesforce administrative tasks.</description>
+    <label>Sales Operations Support</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>
@@ -3389,11 +3389,11 @@
         </values>
         <values>
             <fullName>Phone</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Salesforce User</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -7098,6 +7098,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Administration Tasks</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Agency</fullName>
             <default>false</default>
         </values>
@@ -7187,6 +7191,10 @@
         </values>
         <values>
             <fullName>Chain of Responsibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change of Organisation Details</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7538,6 +7546,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Integration Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Intercept %26 RTS</fullName>
             <default>false</default>
         </values>
@@ -7578,6 +7590,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>LBP Sales Coverage %26 Frequency Updates</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>LBP%2FLPO Program</fullName>
             <default>false</default>
         </values>
@@ -7599,6 +7615,10 @@
         </values>
         <values>
             <fullName>Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead Assistance</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7658,6 +7678,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Merge or Restructure of Organisation or Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Migration</fullName>
             <default>false</default>
         </values>
@@ -7687,6 +7711,10 @@
         </values>
         <values>
             <fullName>Network Changes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network Updates</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7735,6 +7763,10 @@
         </values>
         <values>
             <fullName>Operational Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity Assistance</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7946,6 +7978,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Reports</fullName>
             <default>false</default>
         </values>
@@ -7962,6 +7998,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Revenue Flow issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Room Bookings</fullName>
             <default>false</default>
         </values>
@@ -7975,6 +8015,10 @@
         </values>
         <values>
             <fullName>Sales %26 Service Coverage Updates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Coverage %26 Frequency Updates</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7998,6 +8042,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Salesforce Access and Training</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Salesforce Administration</fullName>
             <default>false</default>
         </values>
@@ -8015,6 +8063,10 @@
         </values>
         <values>
             <fullName>Seen Not Known</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Updates</fullName>
             <default>false</default>
         </values>
         <values>
@@ -8071,6 +8123,10 @@
         </values>
         <values>
             <fullName>Support guide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Issues</fullName>
             <default>false</default>
         </values>
         <values>
@@ -9921,15 +9977,19 @@
     <picklistValues>
         <picklist>Work_Type__c</picklist>
         <values>
-            <fullName>Opportunity Assistance</fullName>
+            <fullName>LBP%2FLPO Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunities %26 Leads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisations %26 Contacts</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Salesforce Administration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Salesforce Reporting</fullName>
             <default>false</default>
         </values>
     </picklistValues>

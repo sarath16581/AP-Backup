@@ -168,10 +168,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>OPC1%2E2 - ABN Change</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>OPC1%2E3 - Trade Before Contract Executed</fullName>
             <default>false</default>
         </values>
@@ -193,14 +189,6 @@
         </values>
         <values>
             <fullName>TE1%2E1 %E2%80%93 Abnormalities</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>TE1%2E2 %E2%80%93 Liquidation%2FReceivership</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>TE1%2E3 %E2%80%93 Credit Block</fullName>
             <default>false</default>
         </values>
     </picklistValues>
