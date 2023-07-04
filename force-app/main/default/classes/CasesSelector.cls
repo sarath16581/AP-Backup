@@ -24,7 +24,7 @@
  * 2023-02-28 - Dattaraj Deshmukh - Added 'WITH_NETWORK_RESPONSE' options for SSSW MyNetwork Cases.
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
- * 2023-06-28 - Pratyush Chalasani - Added selectByIdWithCreditAapprovalsAndDisputedItems method
+ * 2023-06-30 - Pratyush Chalasani - Added WITH_DISPUTED_ITEMS and WITH_CREDIT_APPROVALS enums in options
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 

@@ -37,7 +37,7 @@ public inherited sharing class AdjustmentModule extends ApplicationModule {
 
 		List<Adjustment__c> adjustmentList = new List<Adjustment__c>();
 
-    	set<Id>caseIdSet = new set<Id>();
+    	set<Id> caseIdSet = new Set<Id>();
 
     	for (ApplicationRecursion.RecordState recordState: changedRecords) {
 			Adjustment__c adjustment = (Adjustment__c)recordState.record;
@@ -46,7 +46,9 @@ public inherited sharing class AdjustmentModule extends ApplicationModule {
     	}
 
         if (caseIdSet.size() > 0) {
-			Map<Id, Case> pCaseMap = CasesSelector.newInstance().selectByIdWithCreditAapprovalsAndDisputedItems(caseIdSet, null);
+			Set<Object> selectorOptions = new Set<Object>{CasesSelector.WITH_DISPUTED_ITEMS, CasesSelector.WITH_CREDIT_APROVALS};
+
+			Map<Id, Case> pCaseMap = CasesSelector.newInstance().selectById(caseIdSet, selectorOptions);
 
         	List<Credit_Approval__c> caUpdateList = new List<Credit_Approval__c>();
         	List<Disputed_Item__c> diUpdateList = new List<Disputed_Item__c>();
