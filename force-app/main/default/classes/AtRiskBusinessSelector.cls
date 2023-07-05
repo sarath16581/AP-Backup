@@ -15,15 +15,6 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	public static AtRiskBusinessSelector newInstance() {
 		return (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
 	}
-
-	/**
-	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	*						  This approach removes data consistency and prevents possible caching of results
-	*/
-	public static AtRiskBusinessSelector newInstance(Integer recordLimit, Map<Schema.SObjectType,Set<Schema.SObjectField>> fieldOverrides) {
-		AtRiskBusinessSelector selector = (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-		return selector;
-	}
 	
 	public virtual override SObjectType getSObjectType() {
 		return At_Risk_Business__c.getSObjectType();
@@ -37,8 +28,8 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	/**
 	 * @description Run a simple query to get records based on Id's
 	 */
-	public List<At_Risk_Business__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(At_Risk_Business__c.Id + ' in :ids')).endConditions();
+	public List<At_Risk_Business__c> selectById(Set<Id> ids) {
+        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(At_Risk_Business__c.Id + ' in :ids')).endConditions();
 		return (List<At_Risk_Business__c>)Database.query(qb.toSoqlString());
 	}
 }

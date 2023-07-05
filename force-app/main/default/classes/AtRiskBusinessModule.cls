@@ -8,9 +8,10 @@
  * 2023-04-21 - Pratyush Chalasani - Created
  *
  */
-public inherited sharing class AtRiskBusinessModule extends ApplicationDomain.Module {
-	private static List<String> monthNames = new List<String>{'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'};
-
+public inherited sharing class AtRiskBusinessModule extends ApplicationModule {
+	@testVisible
+	private static Date calculationDate = System.today();
+	
 	public static AtRiskBusinessModule newInstance() {
 		return (AtRiskBusinessModule) Application.Utilities.newInstance(AtRiskBusinessModule.class);
 	}
@@ -21,137 +22,101 @@ public inherited sharing class AtRiskBusinessModule extends ApplicationDomain.Mo
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		calculateRevenueAtRisk((List<At_Risk_Business__c>) records, (Map<Id, At_Risk_Business__c>) existingRecords, uow);
+		calculateRevenueAtRisk((List<At_Risk_Business__c>) records, (Map<Id, At_Risk_Business__c>) existingRecords);
 	}
 	
-	private void calculateRevenueAtRisk(List<At_Risk_Business__c> records, Map<Id, At_Risk_Business__c> existingRecords, ApplicationUnitOfWork uow){
-		Map<String, List<String>> financialYearMonths = getFinancialYearsAndMonths(System.today());
+	private void calculateRevenueAtRisk(List<At_Risk_Business__c> records, Map<Id, At_Risk_Business__c> existingRecords){
+		Map<String, List<String>> financialYearMonths = AtRiskBusinessUtility.getFinancialYearsAndMonths(calculationDate);
 
-		List<At_Risk_Business__c> recordsToUpdate = new List<At_Risk_Business__c>();
+		List<At_Risk_Business__c> filteredRecords = new List<At_Risk_Business__c>();
 
 		Set<Id> organisationIDs = new Set<Id>();
 
 		Map<Id, List<String>> revenueProductMap = new Map<Id, List<String>>();
 
-		// First find all account and product IDs
+		// Filter records which have changed Scale or Product ID fields,
+		// and collect account IDs
 		for (At_Risk_Business__c arb: records) {
-			if (arb.Scale__c == 'Whole of Business') {
-				arb.Product_IDs__c = null;
-				arb.Products__c = null;
-			}
+			At_Risk_Business__c oldARB = existingRecords.get(arb.Id);
 
-			if (String.isNotBlank(arb.Product_IDs__c)) {
-				revenueProductMap.put(arb.Id, arb.Product_IDs__c.split(';'));
+			if (arb.Scale__c != oldARB.Scale__c || arb.Product_IDs__c != oldARB.Product_IDs__c) {
+				if (arb.Scale__c == 'Whole of Business') {
+					arb.Product_IDs__c = null;
+					arb.Products__c = null;
+				}
+
+				if (String.isNotBlank(arb.Product_IDs__c)) {
+					revenueProductMap.put(arb.Id, arb.Product_IDs__c.split(';'));
+				}
+				
+				organisationIDs.add(arb.Legal_Entity_Name__c);
+
+				filteredRecords.add(arb);
 			}
-			
-			organisationIDs.add(arb.Legal_Entity_Name__c);
 		}
 
-		List<Budget_and_Revenue__c> revenueList = BudgetAndRevenueSelector.newInstance().selectByOrganisationId(organisationIDs, financialYearMonths.keySet(), null);
+		if (!filteredRecords.isEmpty()) {
+			List<Budget_and_Revenue__c> revenueList = BudgetAndRevenueSelector.newInstance().selectByOrganisationId(organisationIDs, financialYearMonths.keySet());
 
-		Map<Id, List<Budget_and_Revenue__c>> orgRevenueMap = new Map<Id, List<Budget_and_Revenue__c>>();
+			Map<Id, List<Budget_and_Revenue__c>> orgRevenueMap = new Map<Id, List<Budget_and_Revenue__c>>();
 
-		for (Budget_and_Revenue__c revenue: revenueList) {
-			List<Budget_and_Revenue__c> orgRevenues = orgRevenueMap.get(revenue.Organisation__c);
+			for (Budget_and_Revenue__c revenue: revenueList) {
+				List<Budget_and_Revenue__c> orgRevenues = orgRevenueMap.get(revenue.Organisation__c);
 
-			if (orgRevenues == null || orgRevenues.isEmpty()) {
-				orgRevenues = new List<Budget_and_Revenue__c>();
+				if (orgRevenues == null || orgRevenues.isEmpty()) {
+					orgRevenues = new List<Budget_and_Revenue__c>();
 
-				orgRevenueMap.put(revenue.Organisation__c, orgRevenues);
+					orgRevenueMap.put(revenue.Organisation__c, orgRevenues);
+				}
+
+				orgRevenues.add(revenue);
 			}
 
-			orgRevenues.add(revenue);
-		}
+			// Here is where we calculate the total revenue in the 12 months to date for each ARB record
+			for (At_Risk_Business__c arb: records) {
+				// Revenue total for each financial year record
+				Map<String, Decimal> fyRevenue = new Map<String, Decimal>();
 
-		// Here is where we calculate the total revenue in the 12 months to date for each ARB record
-		for (At_Risk_Business__c arb: records) {
-			// Revenue total for each financial year record
-			Map<String, Decimal> fyRevenue = new Map<String, Decimal>();
+				// first set everything to zero
+				for (String fy: financialYearMonths.keySet()) {
+					fyRevenue.put(fy, 0);
+				}
 
-			// first set everything to zero
-			for (String fy: financialYearMonths.keySet()) {
-				fyRevenue.put(fy, 0);
-			}
+				// Get the revenue records for the linked account
+				List<Budget_and_Revenue__c> revenues = orgRevenueMap.get(arb.Legal_Entity_Name__c);
 
-			// Get the revenue records for the linked account
-			List<Budget_and_Revenue__c> revenues = orgRevenueMap.get(arb.Legal_Entity_Name__c);
+				// Get the list of products selected for this ARB record
+				List<Id> productIDs = revenueProductMap.get(arb.Id);
 
-			// Get the list of products selected for this ARB record
-			List<Id> productIDs = revenueProductMap.get(arb.Id);
-
-			for (Budget_and_Revenue__c rev: revenues) {
-				if ((arb.Scale__c == 'Whole of Business') || (productIDs != null && productIDs.contains(String.valueOf(rev.Product__c)))) {
-					Decimal revenue = fyRevenue.get(rev.Financial_Year__c);
-		
-					List<String> months = financialYearMonths.get(rev.Financial_Year__c);
-		
-					for (String m: months) {
-						Decimal r = (Decimal)(rev.get(m + '_Revenue_Amount__c'));
-		
-						if (r != null) {
-							revenue += r;
+				Decimal totalRevenue = 0;
+				
+				if (revenues != null) {
+					for (Budget_and_Revenue__c rev: revenues) {
+						if ((arb.Scale__c == 'Whole of Business') || (productIDs != null && productIDs.contains(String.valueOf(rev.Product__c)))) {
+							Decimal revenue = fyRevenue.get(rev.Financial_Year__c);
+				
+							List<String> months = financialYearMonths.get(rev.Financial_Year__c);
+				
+							for (String m: months) {
+								Decimal r = (Decimal)(rev.get(m + '_Revenue_Amount__c'));
+				
+								if (r != null) {
+									revenue += r;
+								}
+							}
+				
+							fyRevenue.put(rev.Financial_Year__c, revenue);
 						}
 					}
-		
-					fyRevenue.put(rev.Financial_Year__c, revenue);
+
+					for (String year: fyRevenue.keySet()) {
+						totalRevenue += fyRevenue.get(year);
+					}
 				}
+
+				arb.Date_of_Revenue_Calculation__c = calculationDate;
+				arb.Value_of_Business_at_Risk__c = totalRevenue;
 			}
-
-			Decimal totalRevenue = 0;
-
-			for (String year: fyRevenue.keySet()) {
-				totalRevenue += fyRevenue.get(year);
-			}
-
-			arb.Date_of_Revenue_Calculation__c = System.today();
-			arb.Value_of_Business_at_Risk__c = totalRevenue;
 		}
-	}
-
-	/*
-	 * @description Given a date, return the financial years and names of months going back 12 months (from before the month of the given date)
-	 */
-	@testVisible
-	public static Map<String, List<String>> getFinancialYearsAndMonths(Date atRiskDate) {
-		Integer year = atRiskDate.year();
-		Integer month = atRiskDate.month();
-
-		Map<String, List<String>> financialYearMonths = new Map<String, List<String>>();
-
-		if (month == 7) {
-			financialYearMonths.put(String.valueOf(year - 1), monthNames);
-		} else {
-			List<String> previousFYMonths = new List<String>();
-			List<String> currentFYMonths = new List<String>();
-	
-			if (month <= 6) {
-				for (Integer m = 6; m < 12; m++) {
-					currentFYMonths.add(monthNames[m]);
-				}
-				for (Integer m = 0; m < (month - 1); m++) {
-					currentFYMonths.add(monthNames[m]);
-				}
-				for (Integer m = (month - 1); m < 6; m++) {
-					previousFYMonths.add(monthNames[m]);
-				}
-			} else {
-				for (Integer m = 6; m < (month - 1); m++) {
-					currentFYMonths.add(monthNames[m]);
-				}
-				
-				for (Integer m = (month - 1); m < 12; m++) {
-					previousFYMonths.add(monthNames[m]);
-				}
-				for (Integer m = 0; m < 6; m++) {
-					previousFYMonths.add(monthNames[m]);
-				}
-				
-			}
-	
-			financialYearMonths.put(String.valueOf(year - 1), previousFYMonths);
-			financialYearMonths.put(String.valueOf(year), currentFYMonths);
-		}
-
-		return financialYearMonths;
 	}
 }

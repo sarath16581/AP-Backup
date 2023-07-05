@@ -7,27 +7,15 @@
  * @changelog
  * 2023-04-21 - Pratyush Chalasani - Created
  */
-public class AtRiskBusinessTriggerHandler extends ApplicationDomainTriggerHandler {
-
-	public static AtRiskBusinessTriggerHandler newInstance() {
-		return (AtRiskBusinessTriggerHandler) Application.Utilities.newInstance(AtRiskBusinessTriggerHandler.class);
-	}
-
+public class AtRiskBusinessTriggerHandler extends ApplicationTriggerHandler {
 	public override SObjectType getSObjectType() {
 		return At_Risk_Business__c.SObjectType;
 	}
 
-	public override List<Type> registerDomains() {
-		return new List<Type>{ 
-			AtRiskBusinessDomain.class 
-		};
+	public override void registerModules() {
+		registerModule(AtRiskBusinessModule.class);
 	}
 
-	/**
-	 * Unit of work that encapsulates all the required objects for each domain within this SObject
-	 *
-	 * @return unit or work instance
-	 */
 	public override ApplicationUnitOfWork newUnitOfWork() {
 		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
 	}

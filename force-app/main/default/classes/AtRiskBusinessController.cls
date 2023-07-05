@@ -6,6 +6,12 @@
  2023-04-20 - Pratyush Chalasani - Created
 **/
 public with sharing class AtRiskBusinessController {
+	@testVisible
+	private static Date revenueDate = System.today();
+
+	@testVisible
+	private static At_Risk_Business__c arb;
+
 	public class ProductData {
 		@AuraEnabled
 		public List<String> selectedIDs = new List<String>();
@@ -33,13 +39,13 @@ public with sharing class AtRiskBusinessController {
 		try {
 			ProductData data = new ProductData();
 
-			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{ arbId }, null)[0];
+			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{ arbId })[0];
 	
-			BudgetAndRevenueSelector revenueSelector = BudgetAndRevenueSelector.newInstance(); //new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Budget_and_Revenue__c.SobjectType => new Set<Schema.SObjectField>{Budget_and_Revenue__c.Product__c}}
+			BudgetAndRevenueSelector revenueSelector = BudgetAndRevenueSelector.newInstance();
 	
-			Map<String, List<String>> financialYearMonths = AtRiskBusinessModule.getFinancialYearsAndMonths(System.today());
+			Map<String, List<String>> financialYearMonths = AtRiskBusinessUtility.getFinancialYearsAndMonths(revenueDate);
 
-			List<Budget_and_Revenue__c> revenues = revenueSelector.selectByOrganisationId(new Set<Id>{arb.Legal_Entity_Name__c}, financialYearMonths.keySet(), null);
+			List<Budget_and_Revenue__c> revenues = revenueSelector.selectByOrganisationId(new Set<Id>{arb.Legal_Entity_Name__c}, financialYearMonths.keySet());
 
 			Map<Id, Decimal> productRevenueMap = new Map<Id, Decimal>();
 	
@@ -63,7 +69,7 @@ public with sharing class AtRiskBusinessController {
 				productRevenueMap.put(productId, addRevenue(productRevenue, rev, financialYearMonths));
 			}
 	
-			ProductsSelector productsSelector = ProductsSelector.newInstance(10000, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.ProductCode, Product2.APT_Product_Type__c, Product2.Product_Level_1__c, Product2.Product_Level_2__c, Product2.Product_Level_3__c, Product2.Product_Level_4__c}});
+			ProductsSelector productsSelector = ProductsSelector.newInstance(0, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.ProductCode, Product2.APT_Product_Type__c, Product2.Product_Level_1__c, Product2.Product_Level_2__c, Product2.Product_Level_3__c, Product2.Product_Level_4__c}});
 
 			List<Product2> products = productsSelector.selectByIdOrderByName(productIDs, null);
 
@@ -87,35 +93,35 @@ public with sharing class AtRiskBusinessController {
 	}
 
 	@testVisible
-	private static Decimal addRevenue(Decimal exisitngRevenue, Budget_and_Revenue__c revenueRecord, Map<String, List<String>> financialYearMonths) {
+	private static Decimal addRevenue(Decimal existingRevenue, Budget_and_Revenue__c revenueRecord, Map<String, List<String>> financialYearMonths) {
 		List<String> monthNames = financialYearMonths.get(revenueRecord.Financial_Year__c);
 
 		Decimal addedRevenue = 0;
 
 		for (String month: monthNames) {
-			addedRevenue += ((Decimal)revenueRecord.get(month));
+			addedRevenue += ((Decimal)revenueRecord.get(month + '_Revenue_Amount__c'));
 		}
 
-		return (exisitngRevenue != null ? (exisitngRevenue + addedRevenue) : addedRevenue);
+		return (existingRevenue != null ? (existingRevenue + addedRevenue) : addedRevenue);
 	}
 
     @AuraEnabled
-	public static void saveSelection(String barId, List<String> productIDs) {
+	public static void saveSelection(String arbId, List<String> productIds) {
 		// Converting to Set<Id> in order to pass it to selector
 		Set<Id> productIdSet = new Set<Id>();
 
-		for (String productId: productIDs) {
+		for (String productId: productIds) {
 			productIdSet.add(Id.valueOf(productId));
 		}
 
 		try {
-			At_Risk_Business__c arb = new At_Risk_Business__c(Id = barId);
+			arb = new At_Risk_Business__c(Id = arbId);
 
 			if (productIDs.isEmpty()) {
 				arb.Product_IDs__c = null;
 				arb.Products__c = null;
 			} else {
-				ProductsSelector productsSelector = ProductsSelector.newInstance(10000, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.Name}});
+				ProductsSelector productsSelector = ProductsSelector.newInstance(0, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.Name}});
 
 				List<String> productNames = new List<String>();
 
@@ -123,50 +129,14 @@ public with sharing class AtRiskBusinessController {
 					productNames.add(prod.Name);
 				}
 
-				arb.Product_IDs__c = String.join(productIDs, ';');
+				arb.Product_IDs__c = String.join(productIds, ';');
 				arb.Products__c = String.join(productNames, ';');
 			}
 
-			ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
-
+			if (!Test.isRunningTest()) ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
 
 }
-
-/*public without sharing class BusinessAtRiskController {
-    @AuraEnabled
-	public static void saveSelection(String barId, List<String> productIDs) {
-		try {
-			System.debug('ID: ' + barId);
-			System.debug('Saving:');
-			System.debug(productIDs);
-
-			At_Risk_Business__c bar = new At_Risk_Business__c(Id = barId);
-
-			if (productIDs.isEmpty()) {
-				bar.Product_IDs__c = null;
-				bar.Products__c = null;
-			} else {
-				List<Product2> products = [SELECT Name FROM Product2 WHERE Id IN :productIDs ORDER BY Name ASC];
-
-				List<String> productNames = new List<String>();
-
-				for (Product2 prod: products) {
-					productNames.add(prod.Name);
-				}
-
-				bar.Product_IDs__c = String.join(productIDs, ';');
-				bar.Products__c = String.join(productNames, ';');
-			}
-
-			update bar;
-
-		} catch (Exception e) {
-			throw new AuraHandledException(e.getMessage());
-		}
-	}
-
-}*/
