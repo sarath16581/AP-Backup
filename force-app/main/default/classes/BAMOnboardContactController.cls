@@ -116,7 +116,7 @@ public without sharing class BAMOnboardContactController {
     {
         List<Billing_Account__c> output = new List<Billing_Account__c>();
         for(Billing_Account__c billingAccount : [SELECT Id, Name, Organisation__c, SAP_marked_for_deletion__c
-                                                            , Type__c, MLID__c, LEGACY_ID__c, State__c, Suburb__c
+                                                            , Type__c, MLID__c, LEGACY_ID__c, State__c, Suburb__c, Source_System__c, Credit_Status__c
                                                     FROM Billing_Account__c
                                                     WHERE Organisation__c = :accountId
                                                     AND SAP_marked_for_deletion__c = false
@@ -207,7 +207,7 @@ public without sharing class BAMOnboardContactController {
 		//field overrides 
 		Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>> {
 			Contact.SObjectType => new Set<SObjectField> {
-				Contact.Id, Contact.Name, Contact.Phone, Contact.Email, Contact.OID_ID__c, Contact.Status__c, Contact.CRMCSSOID__c, Contact.BillingAccount__c,
+				Contact.Id, Contact.AccountId, Contact.Name, Contact.Phone, Contact.Email, Contact.OID_ID__c, Contact.Status__c, Contact.CRMCSSOID__c, Contact.BillingAccount__c,
 				Contact.BAMCSSOErrorMessage__c, Contact.BAMCSSOError__c, Contact.BAMInviteAcceptedDate__c, Contact.BAMInviteRequestDate__c
 			},
 			Billing_Account__c.SObjectType => new Set<SObjectField> {

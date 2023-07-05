@@ -289,7 +289,7 @@
 
                                         <div class="slds-col slds-large-size_8-of-12">
                                             <!-- wrapped in aura for 2-way binding -->
-                                            <c:BAMBillingAccountSelectorWrapper billingAccounts="{!v.billingAccounts}"
+                                            <c:BAMBillingAccountSelectorWrapper billingAccounts="{!appState.billingAccounts}"
                                                                                 isDisabled="{!appState.locked}"
                                                                                 applicationId="{!appState.Id}"
                                                                                 selected="{!appState.contactRole.selectedEntities}">
@@ -319,7 +319,7 @@
                                         <lightning:combobox
                                                 class="form-input"
                                                 name="Primary billing account"
-                                                options="{!v.billingAccountOptions}"
+                                                options="{!appState.billingAccountOptions}"
                                                 value="{!v.contactObj.BillingAccount__c}"
                                                 disabled="{!appState.locked}"
                                                 label=""

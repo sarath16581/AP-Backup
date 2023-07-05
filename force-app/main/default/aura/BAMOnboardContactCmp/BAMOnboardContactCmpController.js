@@ -30,9 +30,10 @@
 					helper.parseApplications(component,
 						objResponse.applications,
 						objResponse.contactApplications,
-						objResponse.contactRolesPerApplication);
+						objResponse.contactRolesPerApplication,
+						objResponse.billingAccountsByApplication);
 
-					helper.parseBillingAccounts(component, objResponse.billingAccounts);
+					//helper.parseBillingAccounts(component, objResponse.billingAccounts);
 
 					new Promise($A.getCallback(function (result) {
 						setTimeout($A.getCallback(function () {

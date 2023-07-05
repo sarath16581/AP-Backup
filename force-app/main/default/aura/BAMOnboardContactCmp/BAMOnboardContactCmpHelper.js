@@ -9,7 +9,7 @@
 	 * @param contactApplications
 	 * @param mapAppToRoles
 	 */
-	parseApplications : function(component, arrApplications, contactApplications, mapAppToRoles)
+	parseApplications : function(component, arrApplications, contactApplications, mapAppToRoles, billingAccountsByApp)
 	{
 		var pendingCount = 0;
 		var pageState = [];
@@ -112,6 +112,14 @@
 						case 'success':
 							break;
 					}
+				}
+
+				//get the billing accounts by app
+				app.billingAccountOptions = [];
+				let billingAccountWrapperData = billingAccountsByApp.find(billingAccountData => app.Id === billingAccountData.bamApplicationId);
+				if(billingAccountWrapperData){
+					app.billingAccounts = billingAccountWrapperData.billingAccounts;
+					app.billingAccountOptions = this.parseBillingAccounts(app.billingAccounts);
 				}
 			}
 			else
@@ -232,6 +240,41 @@
 			arrBillingAccountIds.push(arrEntities[i].BillingAccount__c);
 		}
 		return arrBillingAccountIds;
+	}
+
+	/**
+	 * Helper function to format static data of Billing Accounts
+	 * @param component
+	 * @param arrBillingAccounts
+	 */
+	, parseBillingAccounts: function(arrBillingAccounts)
+	{
+		let arrOptions = [];
+
+		for(let i = 0; i < arrBillingAccounts.length; ++i)
+		{
+			let ba = arrBillingAccounts[i];
+			let baName = ba.Name;
+
+			let baIds = '';
+			if(ba.MLID__c) {
+				baIds += ba.MLID__c + ' ';
+			}
+			if(ba.LEGACY_ID__c) {
+				baIds += ba.LEGACY_ID__c;
+			}
+
+			if(baIds != '')
+				baName = baIds + ' ' + baName;
+
+			let objOption = {
+				'label':baName,
+				'value':ba.Id
+			}
+			arrOptions.push(objOption);
+		}
+
+		return arrOptions;
 	}
 
 	/**

@@ -209,6 +209,7 @@ public with sharing class BAMUserUtility {
 				//add all the billing accounts if no filter at the app level
 				wrapper.billingAccounts =  billingAccounts;
 			}
+			wrapperList.add(wrapper);
 		}
 		return wrapperList;
 	}
@@ -251,7 +252,6 @@ public with sharing class BAMUserUtility {
 				filteredAccounts.add(ba);
 			}
 		}
-
 		return filteredAccounts;
 	}
 
