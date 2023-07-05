@@ -219,6 +219,10 @@
                 <behavior>Readonly</behavior>
                 <field>Sales_Director__c</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Edit</behavior>
+                <field>PortfolioCode__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Is_Strategic_Account__c</field>

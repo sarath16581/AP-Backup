@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalesEGM__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>A field to nominate the Sales EGM in relation to a Portfolio Code.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A field to nominate the Sales EGM in relation to a Portfolio Code.</inlineHelpText>
+    <label>Sales EGM</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>PortfolioSalesEGM</relationshipName>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
