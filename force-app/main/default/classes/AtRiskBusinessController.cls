@@ -138,5 +138,4 @@ public with sharing class AtRiskBusinessController {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
-
 }
