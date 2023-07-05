@@ -1,7 +1,7 @@
 /**
- * Date            Version          Owner               Desription
- * 29-Mar-17        1.0             Adrian A            Test class for AdjustmentTriggerHandler
- * 2023-06-30       2.0             Pratyush Chalasani  Refactored into new framework
+ * Date			Version		  Owner					Desription
+ * 29-Mar-17	1.0			 Adrian A				Test class for AdjustmentTriggerHandler
+ * 2023-06-30	2.0			 Pratyush Chalasani		Refactored into new framework
  */
 @isTest
 private with sharing class AdjustmentTriggerHandlerTest {

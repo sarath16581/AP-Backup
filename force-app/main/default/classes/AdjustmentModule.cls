@@ -37,7 +37,7 @@ public inherited sharing class AdjustmentModule extends ApplicationModule {
 
 		List<Adjustment__c> adjustmentList = new List<Adjustment__c>();
 
-		set<Id> caseIdSet = new Set<Id>();
+		Set<Id> caseIdSet = new Set<Id>();
 
 		for (ApplicationRecursion.RecordState recordState: changedRecords) {
 			Adjustment__c adjustment = (Adjustment__c)recordState.record;
@@ -55,23 +55,25 @@ public inherited sharing class AdjustmentModule extends ApplicationModule {
 			Map<Id, Adjustment__c> adUpdateMap = new Map<Id, Adjustment__c>();
 
 			for (Adjustment__c adVar: adjustmentList) {
+				if (adVar.Case__c == null) continue;
+
 				Boolean IsChanged = true;
 
 				// Fire adjustment recalculation only if case is updated for trigger updates
-				if (oldMap!=null && adVar.Case__c!=null) {
+				if (oldMap != null) {
 					Adjustment__c oldAdj = oldMap.get(adVar.Id);
 					if (oldAdj.Case__c == adVar.Case__c ) {
 						IsChanged = false;
 					}
 				}
 
-				if (adVar.Case__c!=null && IsChanged) {
+				if (IsChanged) {
 					Case pCaseVar = pCaseMap.get(adVar.Case__c);
 
-	  				if (pCaseVar!=null) {
+	  				if (pCaseVar != null) {
 						for (Credit_Approval__c caVar: pCaseVar.Credit_Adjustments__r) {
 							if (adVar.Type__c == caVar.Type__c) {
-								if (caVar.Adjustment__c!=adVar.Id) {
+								if (caVar.Adjustment__c != adVar.Id) {
 								  caVar.Adjustment__c = adVar.Id;
 								  caUpdateList.add(caVar);
 								}
