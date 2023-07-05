@@ -113,14 +113,6 @@
 							break;
 					}
 				}
-
-				//get the billing accounts by app
-				app.billingAccountOptions = [];
-				let billingAccountWrapperData = billingAccountsByApp.find(billingAccountData => app.Id === billingAccountData.bamApplicationId);
-				if(billingAccountWrapperData){
-					app.billingAccounts = billingAccountWrapperData.billingAccounts;
-					app.billingAccountOptions = this.parseBillingAccounts(app.billingAccounts);
-				}
 			}
 			else
 			{
@@ -132,6 +124,13 @@
 			if (app.Name == 'Business Support Portal'){
 			    app.isBSP = true;
             }
+			//get the billing accounts by app
+			app.billingAccountOptions = [];
+			let billingAccountWrapperData = billingAccountsByApp.find(billingAccountData => app.Id === billingAccountData.bamApplicationId);
+			if(billingAccountWrapperData){
+				app.billingAccounts = billingAccountWrapperData.billingAccounts;
+				app.billingAccountOptions = this.parseBillingAccounts(app.billingAccounts);
+			}
 
 			pageState.push(app);
 		}

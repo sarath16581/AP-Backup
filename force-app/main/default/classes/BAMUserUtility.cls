@@ -257,9 +257,9 @@ public with sharing class BAMUserUtility {
 
 	public class ApplicationBillingAccountDataWrapper {
 		@AuraEnabled
-		Id bamApplicationId {get; set;}
+		public Id bamApplicationId {get; set;}
 		@AuraEnabled
-		List<Billing_Account__c> billingAccounts {get; set;}
+		public List<Billing_Account__c> billingAccounts {get; set;}
 	}
 
     /**
