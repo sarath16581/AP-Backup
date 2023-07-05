@@ -13,6 +13,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 
 	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
+	private static Map<String, Id> wcisToNetworkIdMap;
 	private static Set<String> emailHeaders = new Set<String>{'X-MS-Exchange-ForwardingLoop','X-MS-Exchange-Inbox-Rules-Loop'};
 
 	/**
@@ -28,6 +29,23 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			}
 		}
 		return emailToCaseMappingMap;
+	}
+
+	/**
+	 * @description This method returns the map of WCIS code to Network Id
+	 * @param 		networkOrgs set of wcis codes
+	 * @return		map of WCIS code to Network Id
+	 */
+	@TestVisible
+	private static Map<String, Id> getWCISCodeToNetworkIdMap(Set<String> networkOrgs) {
+		if (wcisToNetworkIdMap == null) {
+			wcisToNetworkIdMap = new Map<String, Id>();
+			//get networks related to WCIS codes
+			for (Network__c nOrg : NetworksSelector.newInstance().selectByOrgId(networkOrgs).values()) {
+				wcisToNetworkIdMap.put(nOrg.Org_ID__c, nOrg.Id);
+			}
+		}
+		return wcisToNetworkIdMap;
 	}
 
 	@TestVisible
@@ -79,6 +97,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		Map<Id, String> emailIdToCaseEmailValueMap = new Map<Id, String>();
 		Map<Id, Case> casesMap = new Map<Id, Case>();
 		List<Case> casesToUpdate = new List<Case>();
+		Set<String> networkOrgs = new Set<String>();
 
 		//get record type for transport enquiry case
 		Id recordTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
@@ -118,6 +137,13 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			if (!emailsToProcess.isEmpty()) {
 				//get the configured metadata
 				emailToCaseMappingMap = getEmailToCaseMappingMetadata();
+				//get the network ids related to wcis codes
+				for (EmailToCaseMapping__mdt mapping : emailToCaseMappingMap.values()) {
+					if (String.isNotBlank(mapping.AssignNetworkWCIS__c)) {
+						networkOrgs.add(mapping.AssignNetworkWCIS__c);
+					}
+				}
+				wcisToNetworkIdMap = getWCISCodeToNetworkIdMap(networkOrgs);
 				//get the email to case address from the email message
 				for (EmailMessage em : emailsToProcess.values()) {
 					emailIdToCaseEmailValueMap.put(em.Id, getEmailToCaseAddressFromHeader(em));
@@ -198,7 +224,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	private Case getCaseToUpdate(Case parentCase, EmailToCaseMapping__mdt emailToCaseMapping) {
 		return new Case(
 			Id = parentCase.Id,
-			Network__r = String.isNotBlank(emailToCaseMapping.AssignNetworkWCIS__c) ? new Network__c(Org_ID__c = emailToCaseMapping.AssignNetworkWCIS__c)  : null,
+			Network__c = String.isNotBlank(emailToCaseMapping.AssignNetworkWCIS__c) ? wcisToNetworkIdMap.get(emailToCaseMapping.AssignNetworkWCIS__c) : parentCase.Network__c,
 			EmailToCaseAddress__c = emailToCaseMapping.EmailToCaseAddress__c,
 			Call_Purpose__c = String.isNotBlank(emailToCaseMapping.CasePurpose__c) ? emailToCaseMapping.CasePurpose__c : parentCase.Call_Purpose__c
 		);

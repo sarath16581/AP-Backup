@@ -1096,19 +1096,6 @@
             <controllingFieldValue>Return to Sender fee</controllingFieldValue>
             <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
             <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
-            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
-            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
-            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <controllingFieldValue>Capture ID fee</controllingFieldValue>
-            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
-            <valueName>Incorrect service</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
-            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
-            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
-            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
             <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
             <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
             <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
@@ -1150,6 +1137,11 @@
             <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
             <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
             <valueName>Operator Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect service</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>

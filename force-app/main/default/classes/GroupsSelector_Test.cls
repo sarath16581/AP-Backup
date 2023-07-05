@@ -12,7 +12,8 @@
  * 2020-05-01 - Dheeraj Mandavilli - Updated - Removed selectbyId Method.
  * 2020-11-02 - Ranjeewa Silva	- Added tests for 'selectByDeveloperName'.
  * 2020-12-18 - Seth Heang - Added tests for selectbyGroupTypeAndName
-* 2021-02-17 - Seth Heang - Updated - Add coverage for selectByGroupTypeAndDeveloperName method
+ * 2021-02-17 - Seth Heang - Updated - Add coverage for selectByGroupTypeAndDeveloperName method
+ * 2023-05-04 - Ranjeewa Silva - Updated to test selector option - 'WITH_DIRECT_MEMBERS'
  */
 @IsTest
 public with sharing class GroupsSelector_Test {
@@ -75,6 +76,12 @@ public with sharing class GroupsSelector_Test {
 		String soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom group\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
 
+		qb = selector.newQueryBuilder(new Set<Object>{GroupsSelector.Options.WITH_DIRECT_MEMBERS});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom groupmembers\\b.*?\\).*?\\bfrom group\\b').matcher(soql).find(),
+				'Resulting query does not select GroupMember child records: ' + soql
+		);
+
 		Test.stopTest();
 
 	}
@@ -89,13 +96,13 @@ public with sharing class GroupsSelector_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-        
-        Map<Id, Group> groups = new Map<Id, Group>([Select Id, DeveloperName From Group Limit 10]);
 
-        Group testGroup = ApplicationTestDataFactory.getGroups(1,'queue', false)[0];
-        testGroup.Name = 'Test Group';
-        testGroup.DeveloperName = 'Test_Group';
-        insert testGroup;
+		Map<Id, Group> groups = new Map<Id, Group>([Select Id, DeveloperName From Group Limit 10]);
+
+		Group testGroup = ApplicationTestDataFactory.getGroups(1,'queue', false)[0];
+		testGroup.Name = 'Test Group';
+		testGroup.DeveloperName = 'Test_Group';
+		insert testGroup;
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -105,8 +112,8 @@ public with sharing class GroupsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-        
-        GroupsSelector selector = GroupsSelector.newInstance();
+
+		GroupsSelector selector = GroupsSelector.newInstance();
 		Map<Id, Group> results = selector.selectById(groups.keySet());
 		System.assertEquals(10, results.size(), 'Expected result size of 10');
 
@@ -116,7 +123,7 @@ public with sharing class GroupsSelector_Test {
 		results = selector.selectByDeveloperName(new Set<String>{groups.values()[0].DeveloperName});
 		System.assert(results.size() >= 1, 'Expected result size of more than 1');
 		
-        results = selector.selectByGroupTypeAndName(new set<String>{'queue'}, new set<String>{testGroup.Name});
+		results = selector.selectByGroupTypeAndName(new set<String>{'queue'}, new set<String>{testGroup.Name});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 		results = selector.selectByGroupTypeAndDeveloperName(new set<String>{'queue'}, new set<String>{testGroup.DeveloperName});

@@ -7,17 +7,18 @@
  * @description Test Class covering OpportunitiesSelector
  * @changelog
  * 2020-08-14 - arjun.singh@austpost.com.au - Created
+ * 2023-05-17 - Ranjeewa Silva - Updated tests to cover new selector option 'WITH_OVERLAY_SPLITS'
  */
  
 @IsTest
 public with sharing class OpportunitiesSelector_Test {
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectString() {
-    // =====================================
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
+	// =====================================
 	// Data Preparation
 	// =====================================
 	// None!
@@ -39,13 +40,13 @@ public with sharing class OpportunitiesSelector_Test {
 	System.assertEquals(true, Pattern.compile('(?ism)\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select from opportunity');
 
 	Test.stopTest();
-    }
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+	}
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
 
 	// =====================================
 	// Data Preparation
@@ -71,15 +72,17 @@ public with sharing class OpportunitiesSelector_Test {
 	soql = qb.toSoqlString();
 	System.assertEquals(true, Pattern.compile('(?ism)Owner\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
 
-	qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSelector.Options.WITH_RECORDTYPE, OpportunitiesSelector.Options.WITH_OWNER});
+	qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSelector.Options.WITH_RECORDTYPE, OpportunitiesSelector.Options.WITH_OWNER, OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS});
 	soql = qb.toSoqlString();
 	System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
 	System.assertEquals(true, Pattern.compile('(?ism)Owner\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
+	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom opportunitysplits\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
+			'Resulting query does not select OpportunitySplit child records: ' + soql);
 
 	Test.stopTest();
 
-    }    
-    /**
+	}
+	/**
 	 * Executes a query to ensure it returns expected results with actual inserted data
 	 */
 	@IsTest
@@ -94,7 +97,7 @@ public with sharing class OpportunitiesSelector_Test {
 	insert account;
 
 	Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
-	insert opportunityRecord;      
+	insert opportunityRecord;
 
 	Set<Id> oppIds = new Set<Id>{opportunityRecord.Id};
 
