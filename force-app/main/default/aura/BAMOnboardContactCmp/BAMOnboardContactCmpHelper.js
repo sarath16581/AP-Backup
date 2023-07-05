@@ -276,42 +276,6 @@
 		return arrOptions;
 	}
 
-	/**
-	 * Helper function to format static data of Billing Accounts
-	 * @param component
-	 * @param arrBillingAccounts
-	 */
-	, parseBillingAccounts: function(component, arrBillingAccounts)
-	{
-		let arrOptions = [];
-
-		for(let i = 0; i < arrBillingAccounts.length; ++i)
-		{
-			let ba = arrBillingAccounts[i];
-			let baName = ba.Name;
-
-			let baIds = '';
-			if(ba.MLID__c) {
-				baIds += ba.MLID__c + ' ';
-			}
-			if(ba.LEGACY_ID__c) {
-				baIds += ba.LEGACY_ID__c;
-			}
-
-			if(baIds != '')
-				baName = baIds + ' ' + baName;
-
-			let objOption = {
-				'label':baName,
-				'value':ba.Id
-			}
-			arrOptions.push(objOption);
-		}
-
-		component.set('v.billingAccountOptions', arrOptions);
-		component.set('v.billingAccounts', arrBillingAccounts);
-	}
-
 	// UI function to expand all accordion sections
 	, openAllSections:function(component)
 	{
