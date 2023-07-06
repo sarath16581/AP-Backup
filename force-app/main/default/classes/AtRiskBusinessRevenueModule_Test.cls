@@ -9,14 +9,14 @@
  *
  */
 @isTest
-public class AtRiskBusinessModule_Test {
+public class AtRiskBusinessRevenueModule_Test {
 
 	@isTest
 	static void test_onBeforeUpdate_selectedProducts() {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		AtRiskBusinessModule.calculationDate = Date.newInstance(2023, 7, 1);
+		AtRiskBusinessRevenueModule.calculationDate = Date.newInstance(2023, 7, 1);
 
 		String testYear = '2023';
 
@@ -52,13 +52,13 @@ public class AtRiskBusinessModule_Test {
 		// =====================================
 		Test.startTest();
 
-		AtRiskBusinessModule module = AtRiskBusinessModule.newInstance();
+		AtRiskBusinessRevenueModule module = AtRiskBusinessRevenueModule.newInstance();
 
 		module.onBeforeUpdate(arbs, oldARBs, null);
 
 		Test.stopTest();
 		
-		Assert.areEqual(AtRiskBusinessModule.calculationDate, arbs[0].Date_of_Revenue_Calculation__c);
+		Assert.areEqual(AtRiskBusinessRevenueModule.calculationDate, arbs[0].Date_of_Revenue_Calculation__c);
 		Assert.areEqual(12000, arbs[0].Value_of_Business_at_Risk__c);
 	}
 
@@ -67,7 +67,7 @@ public class AtRiskBusinessModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		AtRiskBusinessModule.calculationDate = Date.newInstance(2023, 7, 1);
+		AtRiskBusinessRevenueModule.calculationDate = Date.newInstance(2023, 7, 1);
 
 		String testYear = '2023';
 
@@ -104,7 +104,7 @@ public class AtRiskBusinessModule_Test {
 		// =====================================
 		Test.startTest();
 
-		AtRiskBusinessModule module = AtRiskBusinessModule.newInstance();
+		AtRiskBusinessRevenueModule module = AtRiskBusinessRevenueModule.newInstance();
 
 		module.onBeforeUpdate(arbs, oldARBs, null);
 
@@ -114,7 +114,7 @@ public class AtRiskBusinessModule_Test {
 		Assert.areEqual(null, arbs[0].Products__c);
 		Assert.areEqual(null, arbs[0].Product_IDs__c);
 
-		Assert.areEqual(AtRiskBusinessModule.calculationDate, arbs[0].Date_of_Revenue_Calculation__c);
+		Assert.areEqual(AtRiskBusinessRevenueModule.calculationDate, arbs[0].Date_of_Revenue_Calculation__c);
 		Assert.areEqual(12000, arbs[0].Value_of_Business_at_Risk__c);
 	}
 }

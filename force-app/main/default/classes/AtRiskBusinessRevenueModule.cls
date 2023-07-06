@@ -1,6 +1,6 @@
 /**
  * @description Domain Module to handle At_Risk_Business__c object functionality
- * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
+ * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding TriggerHandler class
  * @author Pratyush Chalasani
  * @group Domain
  * @domain AtRiskBusiness
@@ -8,16 +8,16 @@
  * 2023-04-21 - Pratyush Chalasani - Created
  *
  */
-public inherited sharing class AtRiskBusinessModule extends ApplicationModule {
+public inherited sharing class AtRiskBusinessRevenueModule extends ApplicationModule {
 	@testVisible
 	private static Date calculationDate = System.today();
 	
-	public static AtRiskBusinessModule newInstance() {
-		return (AtRiskBusinessModule) Application.Utilities.newInstance(AtRiskBusinessModule.class);
+	public static AtRiskBusinessRevenueModule newInstance() {
+		return (AtRiskBusinessRevenueModule) Application.Utilities.newInstance(AtRiskBusinessRevenueModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public AtRiskBusinessModule() {
+	public AtRiskBusinessRevenueModule() {
 		getTriggerEvents().enableBeforeUpdate();
 	}
 
