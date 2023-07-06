@@ -1272,6 +1272,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+			<controllingFieldValue>Unmanifested Article Fee</controllingFieldValue>
             <valueName>Un-manifested Fee Refund</valueName>
         </valueSettings>
         <valueSettings>
