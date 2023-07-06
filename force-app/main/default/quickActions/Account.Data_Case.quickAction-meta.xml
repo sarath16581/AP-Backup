@@ -9,7 +9,7 @@
         <field>Status</field>
         <literalValue>New</literalValue>
     </fieldOverrides>
-    <label>Data Case</label>
+    <label>Sales Operations Support</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
@@ -26,6 +26,11 @@
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
+                <field>Support_Work_Type__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
                 <field>Subject</field>
                 <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
@@ -34,12 +39,17 @@
                 <field>Description</field>
                 <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Requested_For__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>
     </quickActionLayout>
-    <successMessage>Your Customer Data Case has been created.</successMessage>
+    <successMessage>Your Sales Operations Support Case has been created.</successMessage>
     <targetObject>Case</targetObject>
     <targetParentField>Account</targetParentField>
-    <targetRecordType>Case.Data_Quality_Management</targetRecordType>
+    <targetRecordType>Case.Sales_Coordinator</targetRecordType>
     <type>Create</type>
 </QuickAction>

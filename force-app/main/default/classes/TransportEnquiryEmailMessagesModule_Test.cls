@@ -29,12 +29,12 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		cases[1].RecordTypeId = transportEnquiryRecordType.Id;
 		cases[1].Priority = 'Low';
 		cases[2].RecordTypeId = transportEnquiryRecordType.Id;
-		List<EmailMessage> records = ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'melbournevanoperations@test.com', 'Test Subject', cases[0].Id);
-		records.addAll(ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'sydneyvanoperations@test.com', 'Test Subject', cases[1].Id));
-		records.addAll(ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'perthvanoperations@test.com', 'Test Subject', cases[1].Id));
-		records[0].Headers = 'Return-Path: caseroutingtesting+caf_=caseroutingtesting=5-1iz5gu7n9ir9bqev6o9wspvpigsnywv2e31uhnp8iy8rfd9fq6.0k-edoeeag.cs57.case.sandbox.salesforce.com@gmail.com\nX-SFDC-Binding: coremailprocessor\nX-SFDC-DOMAINKEYS: None\nX-SFDC-TLS-VERIFIED: no\nX-SFDC-TLS-CIPHER: AES256-SHA\nX-SFDC-TLS-STATUS: true\nX-SFDC-SENDERID-PRA: Pass\nX-SFDC-SENDERID: None\nX-SFDC-SPF: None\nSFDC-Interface: external\nReceived: from [182.50.78.79] ([182.50.78.79:39388] helo=smtp16-tyo.mta.salesforce.com) by mx4-sjl.mta.salesforce.com (envelope-from <>) (ecelerity 2.2.2.45 r()) with ESMTPS (cipher=AES256-SHA)  id 83/4F-23732-69D72A35; Thu, 19 May 2023 06:05:10 +0000\nMessage-ID: <0D.1F.12049.19D72A35@mx2-tyo.mta.salesforce.com>\nFrom: Mail Delivery System <mailer-daemon@salesforce.com>\nTo: mohamed.atheek@7-28x4xajpl6prpzkou885d32xtd4u1fw6a5mh6zqdrtyzwe64tu.o-vluvmas.cs5.case.sandbox.salesforce.com\nDelivered-To: melbournevanoperations@test.com\nDate: Thu, 19 May 2023 06:05:05 +0000';
-		records[1].Headers = 'Return-Path: caseroutingtesting+caf_=caseroutingtesting=5-1iz5gu7n9ir9bqev6o9wspvpigsnywv2e31uhnp8iy8rfd9fq6.0k-edoeeag.cs57.case.sandbox.salesforce.com@gmail.com\nX-SFDC-Binding: coremailprocessor\nX-SFDC-DOMAINKEYS: None\nX-SFDC-TLS-VERIFIED: no\nX-SFDC-TLS-CIPHER: AES256-SHA\nX-SFDC-TLS-STATUS: true\nX-SFDC-SENDERID-PRA: Pass\nX-SFDC-SENDERID: None\nX-SFDC-SPF: None\nSFDC-Interface: external\nReceived: from [182.50.78.79] ([182.50.78.79:39388] helo=smtp16-tyo.mta.salesforce.com) by mx4-sjl.mta.salesforce.com (envelope-from <>) (ecelerity 2.2.2.45 r()) with ESMTPS (cipher=AES256-SHA)  id 83/4F-23732-69D72A35; Thu, 19 May 2023 06:05:10 +0000\nMessage-ID: <0D.1F.12049.19D72A35@mx2-tyo.mta.salesforce.com>\nFrom: Mail Delivery System <mailer-daemon@salesforce.com>\nTo: mohamed.atheek@7-28x4xajpl6prpzkou885d32xtd4u1fw6a5mh6zqdrtyzwe64tu.o-vluvmas.cs5.case.sandbox.salesforce.com\nDelivered-To: adelaidevanoperations@test.com\nDate: Thu, 19 May 2023 06:05:05 +0000\nDelivered-To: sydneyvanoperations@test.com';
-		records[2].Headers = 'Return-Path: caseroutingtesting+caf_=caseroutingtesting=5-1iz5gu7n9ir9bqev6o9wspvpigsnywv2e31uhnp8iy8rfd9fq6.0k-edoeeag.cs57.case.sandbox.salesforce.com@gmail.com\nX-SFDC-Binding: coremailprocessor\nX-SFDC-DOMAINKEYS: None\nX-SFDC-TLS-VERIFIED: no\nX-SFDC-TLS-CIPHER: AES256-SHA\nX-SFDC-TLS-STATUS: true\nX-SFDC-SENDERID-PRA: Pass\nX-SFDC-SENDERID: None\nX-SFDC-SPF: None\nSFDC-Interface: external\nReceived: from [182.50.78.79] ([182.50.78.79:39388] helo=smtp16-tyo.mta.salesforce.com) by mx4-sjl.mta.salesforce.com (envelope-from <>) (ecelerity 2.2.2.45 r()) with ESMTPS (cipher=AES256-SHA)  id 83/4F-23732-69D72A35; Thu, 19 May 2023 06:05:10 +0000\nMessage-ID: <0D.1F.12049.19D72A35@mx2-tyo.mta.salesforce.com>\nFrom: Mail Delivery System <mailer-daemon@salesforce.com>\nTo: mohamed.atheek@7-28x4xajpl6prpzkou885d32xtd4u1fw6a5mh6zqdrtyzwe64tu.o-vluvmas.cs5.case.sandbox.salesforce.com\nDelivered-To: perthvanoperations@test.com\nDate: Thu, 19 May 2023 06:05:05 +0000';
+		List<EmailMessage> records = ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'melbournevanoperations@test.com.au', 'Test Subject', cases[0].Id);
+		records.addAll(ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'sydneyvanoperations@test.com.au', 'Test Subject', cases[1].Id));
+		records.addAll(ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'perthvanoperations@test.com.au', 'Test Subject', cases[1].Id));
+		records[0].Headers = 'Return-Path: caseroutingtesting+caf_=caseroutingtesting=5-1iz5gu7n9ir9bqev6o9wspvpigsnywv2e31uhnp8iy8rfd9fq6.0k-edoeeag.cs57.case.sandbox.salesforce.com@gmail.com\nX-SFDC-Binding: coremailprocessor\nX-SFDC-DOMAINKEYS: None\nX-SFDC-TLS-VERIFIED: no\nX-SFDC-TLS-CIPHER: AES256-SHA\nX-SFDC-TLS-STATUS: true\nX-SFDC-SENDERID-PRA: Pass\nX-SFDC-SENDERID: None\nX-SFDC-SPF: None\nSFDC-Interface: external\nReceived: from [182.50.78.79] ([182.50.78.79:39388] helo=smtp16-tyo.mta.salesforce.com) by mx4-sjl.mta.salesforce.com (envelope-from <>) (ecelerity 2.2.2.45 r()) with ESMTPS (cipher=AES256-SHA)  id 83/4F-23732-69D72A35; Thu, 19 May 2023 06:05:10 +0000\nMessage-ID: <0D.1F.12049.19D72A35@mx2-tyo.mta.salesforce.com>\nFrom: Mail Delivery System <mailer-daemon@salesforce.com>\nTo: mohamed.atheek@7-28x4xajpl6prpzkou885d32xtd4u1fw6a5mh6zqdrtyzwe64tu.o-vluvmas.cs5.case.sandbox.salesforce.com\nX-MS-Exchange-ForwardingLoop: melbournevanoperations@test.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48\nDate: Thu, 19 May 2023 06:05:05 +0000';
+		records[1].Headers = 'Return-Path: caseroutingtesting+caf_=caseroutingtesting=5-1iz5gu7n9ir9bqev6o9wspvpigsnywv2e31uhnp8iy8rfd9fq6.0k-edoeeag.cs57.case.sandbox.salesforce.com@gmail.com\nX-SFDC-Binding: coremailprocessor\nX-SFDC-DOMAINKEYS: None\nX-SFDC-TLS-VERIFIED: no\nX-SFDC-TLS-CIPHER: AES256-SHA\nX-SFDC-TLS-STATUS: true\nX-SFDC-SENDERID-PRA: Pass\nX-SFDC-SENDERID: None\nX-SFDC-SPF: None\nSFDC-Interface: external\nReceived: from [182.50.78.79] ([182.50.78.79:39388] helo=smtp16-tyo.mta.salesforce.com) by mx4-sjl.mta.salesforce.com (envelope-from <>) (ecelerity 2.2.2.45 r()) with ESMTPS (cipher=AES256-SHA)  id 83/4F-23732-69D72A35; Thu, 19 May 2023 06:05:10 +0000\nMessage-ID: <0D.1F.12049.19D72A35@mx2-tyo.mta.salesforce.com>\nFrom: Mail Delivery System <mailer-daemon@salesforce.com>\nTo: mohamed.atheek@7-28x4xajpl6prpzkou885d32xtd4u1fw6a5mh6zqdrtyzwe64tu.o-vluvmas.cs5.case.sandbox.salesforce.com\nX-MS-Exchange-ForwardingLoop: adelaidevanoperations@test.com.au\nDate: Thu, 19 May 2023 06:05:05 +0000\nX-MS-Exchange-ForwardingLoop: sydneyvanoperations@test.com.au';
+		records[2].Headers = 'Return-Path: caseroutingtesting+caf_=caseroutingtesting=5-1iz5gu7n9ir9bqev6o9wspvpigsnywv2e31uhnp8iy8rfd9fq6.0k-edoeeag.cs57.case.sandbox.salesforce.com@gmail.com\nX-SFDC-Binding: coremailprocessor\nX-SFDC-DOMAINKEYS: None\nX-SFDC-TLS-VERIFIED: no\nX-SFDC-TLS-CIPHER: AES256-SHA\nX-SFDC-TLS-STATUS: true\nX-SFDC-SENDERID-PRA: Pass\nX-SFDC-SENDERID: None\nX-SFDC-SPF: None\nSFDC-Interface: external\nReceived: from [182.50.78.79] ([182.50.78.79:39388] helo=smtp16-tyo.mta.salesforce.com) by mx4-sjl.mta.salesforce.com (envelope-from <>) (ecelerity 2.2.2.45 r()) with ESMTPS (cipher=AES256-SHA)  id 83/4F-23732-69D72A35; Thu, 19 May 2023 06:05:10 +0000\nMessage-ID: <0D.1F.12049.19D72A35@mx2-tyo.mta.salesforce.com>\nFrom: Mail Delivery System <mailer-daemon@salesforce.com>\nTo: mohamed.atheek@7-28x4xajpl6prpzkou885d32xtd4u1fw6a5mh6zqdrtyzwe64tu.o-vluvmas.cs5.case.sandbox.salesforce.com\nX-MS-Exchange-ForwardingLoop: perthvanoperations@test.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48\nDate: Thu, 19 May 2023 06:05:05 +0000';
 		records[0] = (EmailMessage)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object>{'ParentId' => cases[0].Id});
 		records[1] = (EmailMessage)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object>{'ParentId' => cases[1].Id});
 		records[2] = (EmailMessage)ApplicationTestDataFactory.setUnwritableFields(records[2], new Map<String, Object>{'ParentId' => cases[2].Id});
@@ -42,30 +42,34 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		cases[1] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[1],new Map<String,List<SObject>>{'EmailMessages'=> new List<EmailMessage>{records[1]}});
 		cases[2] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[2],new Map<String,List<SObject>>{'EmailMessages'=> new List<EmailMessage>{records[2]}});
 
+		//get networks
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+		networks[0].Org_ID__c = '1234';
+		networks[1].Org_ID__c = '3456';
+
 		//get EmailToCase Mapping custom metadata
-		List<EmailToCaseMapping__mdt> emailToCaseMappings = ApplicationTestDataFactory.getEmailToCaseMappings(1, 'melbournevanoperations@test.com', true);
-		emailToCaseMappings.addAll(ApplicationTestDataFactory.getEmailToCaseMappings(1, 'sydneyvanoperations@test.com', true));
-		emailToCaseMappings[0].AssignNetworkWCIS__c = '1234';
-		emailToCaseMappings[1].AssignNetworkWCIS__c = '3456';
-		emailToCaseMappings[1].CasePriority__c = 'Medium';
+		List<EmailToCaseMapping__mdt> emailToCaseMappings = ApplicationTestDataFactory.getEmailToCaseMappings(1, 'melbournevanoperations@test.com.au', true);
+		emailToCaseMappings.addAll(ApplicationTestDataFactory.getEmailToCaseMappings(1, 'sydneyvanoperations@test.com.au', true));
+		emailToCaseMappings[0].AssignNetworkWCIS__c = networks[0].Org_ID__c;
+		emailToCaseMappings[1].AssignNetworkWCIS__c = networks[1].Org_ID__c;
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		TransportEnquiryCaseService mockService = (TransportEnquiryCaseService)MockUtility.mockUtility(TransportEnquiryCaseService.class);
 		EmailMessagesSelector mockEmailMessagesSelector = (EmailMessagesSelector)MockUtility.mockSelector(EmailMessagesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 		EmailToCaseMappingsSelector mockEmailToCaseMappingsSelector = (EmailToCaseMappingsSelector)MockUtility.mockSelector(EmailToCaseMappingsSelector.class);
+		NetworksSelector mockNetworksSelector = (NetworksSelector)MockUtility.mockSelector(NetworksSelector.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockService.getTransportEnquiryRecordTypeId()).thenReturn(transportEnquiryRecordType.Id);
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByIdsAndParentRecordTypeId(new Set<Id>{records[0].Id, records[1].Id, records[2].Id}, new Set<Id>{transportEnquiryRecordType.Id}, 
 			new Set<Object>{EmailMessagesSelector.Options.FILTER_INCOMING, EmailMessagesSelector.Options.WITH_CASE})).thenReturn(records);
 		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id}, new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER}))
 			.thenReturn(new Map<Id, Case>{cases[0].Id => cases[0], cases[1].Id => cases[1], cases[2].Id => cases[2]});
 		MockUtility.Mocks.when(mockEmailToCaseMappingsSelector.selectAll(new Set<Object>{ EmailToCaseMappingsSelector.Options.FILTER_ACTIVE })).thenReturn(emailToCaseMappings);
+		MockUtility.Mocks.when(mockNetworksSelector.selectByOrgId((Set<String>) fflib_Match.anyObject())).thenReturn(new Map<Id, Network__c>{networks[0].Id => networks[0], networks[1].Id => networks[1]});
 		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>) fflib_Match.anyObject(), fflib_Match.eqBoolean(true), (String)fflib_Match.eq(TransportEnquiryEmailMessagesModule.class.getName()))).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		MockUtility.Mocks.stopStubbing();
 
@@ -82,21 +86,18 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		//asserting case records updated with correct data
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<Case>) fflib_Match.eq(new List<Case>{
-				new Case(Id = cases[0].Id, Priority = 'Low', Network__r = new Network__c(Org_ID__c ='1234'), EmailToCaseAddress__c = 'melbournevanoperations@test.com', Call_Purpose__c = null),
-				new Case(Id = cases[1].Id, Priority = 'Medium', Network__r = new Network__c(Org_ID__c ='3456'), EmailToCaseAddress__c = 'sydneyvanoperations@test.com', Call_Purpose__c = null)
+				new Case(Id = cases[0].Id, Network__c = networks[0].Id, EmailToCaseAddress__c = 'melbournevanoperations@test.com.au', Call_Purpose__c = null),
+				new Case(Id = cases[1].Id, Network__c = networks[1].Id, EmailToCaseAddress__c = 'sydneyvanoperations@test.com.au', Call_Purpose__c = null)
 			}),
 			fflib_Match.eqBoolean(true),
 			fflib_Match.eqString(TransportEnquiryEmailMessagesModule.class.getName())
 		);
 
-		((TransportEnquiryCaseService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getTransportEnquiryRecordTypeId();
-
 		Assert.areEqual(2, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected 2 case records to be updated');
-		Assert.areEqual('1234', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Network__r.Org_ID__c, 'Expected network field to be updated');
-		Assert.areEqual('3456', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).Network__r.Org_ID__c, 'Expected network field to be updated');
-		Assert.areEqual('melbournevanoperations@test.com', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).EmailToCaseAddress__c, 'Expected email to case address field to be updated');
-		Assert.areEqual('sydneyvanoperations@test.com', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).EmailToCaseAddress__c, 'Expected email to case address field to be updated');
-		Assert.areEqual('Medium', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).Priority, 'Expected priority field to be updated');
+		Assert.areEqual(networks[0].Id, ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Network__c, 'Expected network field to be updated');
+		Assert.areEqual(networks[1].Id, ((Case)MockUtility.mockUnitOfWorkDMLs[1]).Network__c, 'Expected network field to be updated');
+		Assert.areEqual('melbournevanoperations@test.com.au', ((Case)MockUtility.mockUnitOfWorkDMLs[0]).EmailToCaseAddress__c, 'Expected email to case address field to be updated');
+		Assert.areEqual('sydneyvanoperations@test.com.au', ((Case)MockUtility.mockUnitOfWorkDMLs[1]).EmailToCaseAddress__c, 'Expected email to case address field to be updated');
 	}
 
 	/**

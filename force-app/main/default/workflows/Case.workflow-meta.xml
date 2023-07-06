@@ -3629,7 +3629,7 @@ if case is accepted manually, change case status from New to In Progress</descri
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Data Quality Management</value>
+            <value>Sales Coordinator</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>

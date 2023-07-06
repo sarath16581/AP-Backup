@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KeepSplitsOnOpportunityTransfer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>true</defaultValue>
+    <description>Retain overlay opportunity splits assigned to previous opportunity owner when opportunity is transferred across to a new owner.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Retain overlay opportunity splits assigned to previous opportunity owner when opportunity is transferred across to a new owner.</inlineHelpText>
+    <label>Keep Splits on Opportunity Transfer</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Checkbox</type>
+</CustomField>

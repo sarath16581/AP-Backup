@@ -6,13 +6,15 @@
  * @group Domain
  * @domain EmailMessageCasesDomain
  * @changelog
+ * 29/06/2023 - Mahesh Parvathaneni - Updated email headers logic related to Microsoft Exchange
  */
 
 public inherited sharing class TransportEnquiryEmailMessagesModule extends ApplicationDomain.Module {
 
 	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
-	private static Set<String> emailHeaders = new Set<String>{'Return-Path','Delivered-To'};
+	private static Map<String, Id> wcisToNetworkIdMap;
+	private static Set<String> emailHeaders = new Set<String>{'X-MS-Exchange-ForwardingLoop','X-MS-Exchange-Inbox-Rules-Loop'};
 
 	/**
 	 * This method get the map of email address to email to case mapping metadata
@@ -27,6 +29,23 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			}
 		}
 		return emailToCaseMappingMap;
+	}
+
+	/**
+	 * @description This method returns the map of WCIS code to Network Id
+	 * @param 		networkOrgs set of wcis codes
+	 * @return		map of WCIS code to Network Id
+	 */
+	@TestVisible
+	private static Map<String, Id> getWCISCodeToNetworkIdMap(Set<String> networkOrgs) {
+		if (wcisToNetworkIdMap == null) {
+			wcisToNetworkIdMap = new Map<String, Id>();
+			//get networks related to WCIS codes
+			for (Network__c nOrg : NetworksSelector.newInstance().selectByOrgId(networkOrgs).values()) {
+				wcisToNetworkIdMap.put(nOrg.Org_ID__c, nOrg.Id);
+			}
+		}
+		return wcisToNetworkIdMap;
 	}
 
 	@TestVisible
@@ -78,6 +97,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		Map<Id, String> emailIdToCaseEmailValueMap = new Map<Id, String>();
 		Map<Id, Case> casesMap = new Map<Id, Case>();
 		List<Case> casesToUpdate = new List<Case>();
+		Set<String> networkOrgs = new Set<String>();
 
 		//get record type for transport enquiry case
 		Id recordTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
@@ -117,6 +137,13 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			if (!emailsToProcess.isEmpty()) {
 				//get the configured metadata
 				emailToCaseMappingMap = getEmailToCaseMappingMetadata();
+				//get the network ids related to wcis codes
+				for (EmailToCaseMapping__mdt mapping : emailToCaseMappingMap.values()) {
+					if (String.isNotBlank(mapping.AssignNetworkWCIS__c)) {
+						networkOrgs.add(mapping.AssignNetworkWCIS__c);
+					}
+				}
+				wcisToNetworkIdMap = getWCISCodeToNetworkIdMap(networkOrgs);
 				//get the email to case address from the email message
 				for (EmailMessage em : emailsToProcess.values()) {
 					emailIdToCaseEmailValueMap.put(em.Id, getEmailToCaseAddressFromHeader(em));
@@ -143,7 +170,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	}
 
 	/**
-	 * This method returns the email to case address from the EmailMessage which is configured in custom metadata. Loops through the header list and search for Return-Path or Delivered-To header.
+	 * This method returns the email to case address from the EmailMessage which is configured in custom metadata. Loops through the header list and search for X-MS-Exchange-ForwardingLoop or X-MS-Exchange-Inbox-Rules-Loop header.
 	 * @param mail emailMessage record
 	 *
 	 * @return EmailAddress that matches to the EmailToCaseMapping custom metadata
@@ -152,8 +179,8 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		String emailAddress;
 		Map<String, List<String>> headerToEmailsMap = new Map<String, List<String>>();
 		
-		// Loop through the email headers and get the emails mapped to Return-Path and Delivered-To header.
-		// If an email is sent (either To, Cc or Bcc) to any of the configured email to case address in our metadata, it will be captured in Return-Path (or) Delivered-To header.
+		// Loop through the email headers and get the emails mapped to X-MS-Exchange-ForwardingLoop and X-MS-Exchange-Inbox-Rules-Loop header.
+		// If an email is sent (either To, Cc or Bcc) to any of the configured email to case address in our metadata, it will be captured in X-MS-Exchange-ForwardingLoop (or) X-MS-Exchange-Inbox-Rules-Loop header.
 
 		// All header lines are separated with \n
 		for (String headerLine : mail.Headers.split('\n')) {
@@ -161,15 +188,14 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			List<String> segments = headerLine.split(':', 2);
 			//check if there is header key and value and header key exists in our emailHeaders to track
 			if (segments.size() > 1 && emailHeaders.contains(segments[0]) && String.isNotBlank(segments[1])) {
-				if(headerToEmailsMap.get(segments[0]) == null) {
-					headerToEmailsMap.put(segments[0], new List<String>());
+				//get the correct email address by matching regex
+				String fullMatchEmail = TransportEnquiryCaseService.getInstance().getEmailFullMatch(segments[1].trim());
+				if(String.isNotBlank(fullMatchEmail)) {
+					if(headerToEmailsMap.get(segments[0]) == null) {
+						headerToEmailsMap.put(segments[0], new List<String>());
+					} 
+					headerToEmailsMap.get(segments[0]).add(fullMatchEmail);
 				}
-				//check if it is Return-Path header
-				//extract the email address (testcaseau@outlook.com) from the Return-Path (ex- Return-Path:testcaseau+ SRS = PJ0XO = CJ = auspost.com.au = test.ap @outlook.com)
-				if (segments[0].equalsIgnoreCase('Return-Path')) {
-					segments[1] = segments[1].substringBefore('+').trim() + '@' + segments[1].substringAfterLast('@').trim();
-				} 
-				headerToEmailsMap.get(segments[0]).add(segments[1].trim());
 			}
 		}
 
@@ -198,8 +224,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 	private Case getCaseToUpdate(Case parentCase, EmailToCaseMapping__mdt emailToCaseMapping) {
 		return new Case(
 			Id = parentCase.Id,
-			Priority = String.isNotBlank(emailToCaseMapping.CasePriority__c) ? emailToCaseMapping.CasePriority__c : parentCase.Priority,
-			Network__r = String.isNotBlank(emailToCaseMapping.AssignNetworkWCIS__c) ? new Network__c(Org_ID__c = emailToCaseMapping.AssignNetworkWCIS__c)  : new Network__c(Id = parentCase.Network__c),
+			Network__c = String.isNotBlank(emailToCaseMapping.AssignNetworkWCIS__c) ? wcisToNetworkIdMap.get(emailToCaseMapping.AssignNetworkWCIS__c) : parentCase.Network__c,
 			EmailToCaseAddress__c = emailToCaseMapping.EmailToCaseAddress__c,
 			Call_Purpose__c = String.isNotBlank(emailToCaseMapping.CasePurpose__c) ? emailToCaseMapping.CasePurpose__c : parentCase.Call_Purpose__c
 		);

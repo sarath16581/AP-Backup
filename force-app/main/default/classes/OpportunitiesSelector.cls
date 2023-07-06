@@ -7,20 +7,22 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2020-08-14 - arjun.singh@austpost.com.au - Created
+ * 2023-05-17 - Ranjeewa Silva - Added new selector option to select child opportunity splits with split type 'overlay contribution'
  */
 
 public virtual inherited sharing class OpportunitiesSelector extends ApplicationSelector {
 
-    public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER
-    }
-    public static OpportunitiesSelector newInstance() {
+	public enum Options {
+		WITH_RECORDTYPE, WITH_OWNER, WITH_OVERLAY_SPLITS
+	}
+
+	public static OpportunitiesSelector newInstance() {
 		return (OpportunitiesSelector)Application.Selectors.newInstance(OpportunitiesSelector.class);
 	}
 	public static OpportunitiesSelector newInstance(Integer recordLimit) {
 		return (OpportunitiesSelector)Application.Selectors.newInstance(OpportunitiesSelector.class).setLimit(recordLimit);
-    }
-    /**
+	}
+	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 * This approach removes data consistency and prevents possible caching of results
 	 */	
@@ -52,19 +54,16 @@ public virtual inherited sharing class OpportunitiesSelector extends Application
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public virtual Map<Id, Opportunity> selectById(Set<Id> ids) {
-        System.debug('Coming1');
 		return selectById(ids, new Set<Object>());
 	}
 
-    
+
 	/**
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public virtual Map<Id, Opportunity> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        System.debug('Coming2');
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Opportunity.Id + ' in :ids')).endConditions();
-        System.debug('qb>>>>'+qb);
-        return new Map<Id, Opportunity>((List<Opportunity>)Database.query(qb.toSoqlString()));
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Opportunity.Id + ' in :ids')).endConditions();
+		return new Map<Id, Opportunity>((List<Opportunity>)Database.query(qb.toSoqlString()));
 	}
 
 	public virtual override QueryBuilder newQueryBuilder() {
@@ -80,6 +79,12 @@ public virtual inherited sharing class OpportunitiesSelector extends Application
 
 		if(selectorOptions.contains(Options.WITH_OWNER)) {
 			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
+
+		if (selectorOptions.contains(Options.WITH_OVERLAY_SPLITS)) {
+			builder.addSubQuery(OpportunitiesSplitSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(new Set<Object>{
+					OpportunitiesSplitSelector.Options.FILTER_OVERLAY_SPLITS
+			}), 'OpportunitySplits');
 		}
 		return builder;
 	}

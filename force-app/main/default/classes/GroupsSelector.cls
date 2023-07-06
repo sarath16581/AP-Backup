@@ -13,11 +13,12 @@
 * 2020-12-18 - Seth Heang   - Added new methods to select by Group Type AND Group Name
 * 2021-02-17 - Seth Heang - Updated - Add selectByGroupTypeAndDeveloperName method 
 * 2022-11-06 - George Nguyen - added selectOmniQueues
+* 2023-05-04 - Ranjeewa Silva - Added new selector option WITH_DIRECT_MEMBERS
 */
 public inherited sharing class GroupsSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_OWNER
+		WITH_OWNER, WITH_DIRECT_MEMBERS
 	}
 
 	public static GroupsSelector newInstance() {
@@ -48,6 +49,10 @@ public inherited sharing class GroupsSelector extends ApplicationSelector {
 
 		if(selectorOptions.contains(Options.WITH_OWNER)) {
 			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
+
+		if (selectorOptions.contains(Options.WITH_DIRECT_MEMBERS)) {
+			builder.addSubQuery(GroupMembersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'GroupMembers');
 		}
 
 		return builder;

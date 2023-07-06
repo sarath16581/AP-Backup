@@ -670,6 +670,11 @@
             <field>APProfitCentreCode__c</field>
             <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
         </columns>
+		<columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Pricing_Condition_Code__c</field>
+            <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
+        </columns>
         <masterLabel>Disputed Items</masterLabel>
     </sections>
 </ReportType>

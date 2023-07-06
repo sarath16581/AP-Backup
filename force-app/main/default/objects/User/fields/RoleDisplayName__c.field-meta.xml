@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RoleDisplayName__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Identifies user&apos;s role in a way that makes more sense to business users. If display name (UserRole.RollupDescription) is not specified on user&apos;s role, use role name (UserRole.Name) instead. For users with out an assigned role shows &quot;other&quot; as the display name. 
+
+Included in search layout for User as the secondary field so that it is used on user search results and more importantly on user lookup search results.</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(UserRole.RollupDescription)),
+	UserRole.RollupDescription,
+	IF(NOT(ISBLANK(UserRole.Name)), 
+		UserRole.Name, 
+		&quot;Other&quot;
+	)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Identifies user&apos;s role in a way that makes more sense to business users.</inlineHelpText>
+    <label>Role Name</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -42,7 +42,7 @@ public virtual inherited sharing class EmailToCaseMappingsSelector extends Appli
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			EmailToCaseMapping__mdt.Id, EmailToCaseMapping__mdt.AssignNetworkWCIS__c, EmailToCaseMapping__mdt.EmailToCaseAddress__c, 
-			EmailToCaseMapping__mdt.IsActive__c, EmailToCaseMapping__mdt.CasePriority__c, EmailToCaseMapping__mdt.CasePurpose__c
+			EmailToCaseMapping__mdt.IsActive__c, EmailToCaseMapping__mdt.CasePurpose__c
 		};
 	}
 

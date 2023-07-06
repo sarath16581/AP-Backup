@@ -88,7 +88,7 @@
                                 }                            
 
 								// Mapping from credit claim reason to it's description
-								const creditClaimReasonDecriptionMap = {!CreditClaimReasonDescriptions};
+								const creditClaimReasonDescriptionMap = {!CreditClaimReasonDescriptions};
                                 
                                 function validatePage(){                                    
                                     var functionReturn = true;
@@ -272,7 +272,7 @@
 									// If a credit claim reason was selected and a description is mapped for it
 									// then display the reason under the picklist.
 									// If no value is selected, or a description is not found, then don't display any description text.
-									if (hdnRCC.value) {
+									if (hdnRCC.value && !hdnRCC.value.startsWith('_')) {
 										const creditClaimReason = creditClaimReasonDescriptionMap[hdnRCC.value.toLowerCase()];
 
 										if (creditClaimReason) {
