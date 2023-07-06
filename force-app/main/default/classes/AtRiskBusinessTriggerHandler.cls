@@ -13,7 +13,7 @@ public class AtRiskBusinessTriggerHandler extends ApplicationTriggerHandler {
 	}
 
 	public override void registerModules() {
-		registerModule(AtRiskBusinessModule.class);
+		registerModule(AtRiskBusinessRevenueModule.class);
 	}
 
 	public override ApplicationUnitOfWork newUnitOfWork() {
