@@ -126,57 +126,57 @@ export default class BarSelectProducts extends LightningElement {
 
 	updateSelectedRows() {
 		let tempList = [];
-        let selectRows = this.template.querySelector('lightning-tree-grid').getSelectedRows();
-        if(selectRows.length > 0){
-            selectRows.forEach(record => {
-                tempList.push(record.id);
-            })
+		let selectRows = this.template.querySelector('lightning-tree-grid').getSelectedRows();
+		if(selectRows.length > 0){
+			selectRows.forEach(record => {
+				tempList.push(record.id);
+			})
 
-            // select and deselect child rows based on header row
-            this.productData.forEach(record => {
-                // if header was checked and remains checked, do not add sub-rows
+			// select and deselect child rows based on header row
+			this.productData.forEach(record => {
+				// if header was checked and remains checked, do not add sub-rows
 
-                // if header was not checked but is now checked, add sub-rows
-                if(!this.currentSelectedRows.includes(record.id) && tempList.includes(record.id)) {
-                    record['_children'].forEach(item => {
-                        if(!tempList.includes(item.id)) {
-                            tempList.push(item.id);
-                        }
-                    })
-                }
+				// if header was not checked but is now checked, add sub-rows
+				if(!this.currentSelectedRows.includes(record.id) && tempList.includes(record.id)) {
+					record['_children'].forEach(item => {
+						if(!tempList.includes(item.id)) {
+							tempList.push(item.id);
+						}
+					})
+				}
 
-                // if header was checked and is no longer checked, remove header and sub-rows
-                if(this.currentSelectedRows.includes(record.id) && !tempList.includes(record.id)) {
-                    record['_children'].forEach(item => {
-                        const index = tempList.indexOf(item.id);
-                        if(index > -1) {
-                            tempList.splice(index, 1);
-                        }
-                    })
-                }
+				// if header was checked and is no longer checked, remove header and sub-rows
+				if(this.currentSelectedRows.includes(record.id) && !tempList.includes(record.id)) {
+					record['_children'].forEach(item => {
+						const index = tempList.indexOf(item.id);
+						if(index > -1) {
+							tempList.splice(index, 1);
+						}
+					})
+				}
 
-                // if all child rows for the header row are checked, add the header
-                // else remove the header
-                let allSelected = true;
-                record['_children'].forEach(item => {
-                    if(!tempList.includes(item.id)) {
-                        allSelected = false;
-                    }
-                })
+				// if all child rows for the header row are checked, add the header
+				// else remove the header
+				let allSelected = true;
+				record['_children'].forEach(item => {
+					if(!tempList.includes(item.id)) {
+						allSelected = false;
+					}
+				})
 
-                if(allSelected && !tempList.includes(record.id)) {
-                    tempList.push(record.id);
-                } else if(!allSelected && tempList.includes(record.id)) {
-                    const index = tempList.indexOf(record.id);
-                    if(index > -1) {
-                        tempList.splice(index, 1);
-                    }
-                }
+				if(allSelected && !tempList.includes(record.id)) {
+					tempList.push(record.id);
+				} else if(!allSelected && tempList.includes(record.id)) {
+					const index = tempList.indexOf(record.id);
+					if(index > -1) {
+						tempList.splice(index, 1);
+					}
+				}
 
-            })
+			})
 
-            this.selectedRows = tempList;
-            this.currentSelectedRows = tempList;
+			this.selectedRows = tempList;
+			this.currentSelectedRows = tempList;
 
 			let selectedCount = 0;
 
@@ -187,7 +187,7 @@ export default class BarSelectProducts extends LightningElement {
 					}
 				});
 			});
-        }
+		}
 	}
 
 	edit(event) {
@@ -196,7 +196,7 @@ export default class BarSelectProducts extends LightningElement {
 	}
 
 	saveSelection(event) {
-		const selectedProductIDs = this.selectedRows.filter(id => (id.indexOf('01') == 0));
+		const selectedProductIDs = this.selectedRows.filter(id => (id.indexOf('01') === 0));
 
 		saveSelection({barId: this.recordId, productIDs: selectedProductIDs})
 			.then(result => {

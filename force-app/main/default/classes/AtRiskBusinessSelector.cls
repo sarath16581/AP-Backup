@@ -10,8 +10,7 @@
 * 2023-04-21 - Pratyush Chalasani - Created
 */
 public virtual inherited sharing class AtRiskBusinessSelector extends ApplicationSelector {
-	public enum Options {
-	}
+
 	public static AtRiskBusinessSelector newInstance() {
 		return (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
 	}
@@ -29,7 +28,7 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public List<At_Risk_Business__c> selectById(Set<Id> ids) {
-        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(At_Risk_Business__c.Id + ' in :ids')).endConditions();
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(At_Risk_Business__c.Id + ' in :ids')).endConditions();
 		return (List<At_Risk_Business__c>)Database.query(qb.toSoqlString());
 	}
 }

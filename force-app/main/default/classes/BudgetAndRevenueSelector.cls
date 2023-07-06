@@ -30,7 +30,7 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 	 * @description Query revenues by specific account
 	 */
 	public List<Budget_and_Revenue__c> selectByOrganisationId(Id organisationId) {
-        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Organisation__c + ' = :organisationId')).endConditions();
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Organisation__c + ' = :organisationId')).endConditions();
 
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
 	}
@@ -39,7 +39,7 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 	 * @description Query revenues by accounts and financial years
 	 */
 	public List<Budget_and_Revenue__c> selectByOrganisationId(Set<Id> organisationIds, Set<String> financialYears) {
-        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Organisation__c + ' in :organisationIds')).endConditions();
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Organisation__c + ' in :organisationIds')).endConditions();
 
 		if (!financialYears.isEmpty()) {
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Financial_Year__c + ' in :financialYears')).endConditions();

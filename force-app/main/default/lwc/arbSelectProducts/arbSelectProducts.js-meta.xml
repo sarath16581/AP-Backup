@@ -7,9 +7,9 @@
 	</targets>
 	<targetConfigs>
 		<targetConfig targets="lightning__RecordPage">
-            <objects>
-                <object>At_Risk_Business__c</object>
-            </objects>
-        </targetConfig>
+			<objects>
+				<object>At_Risk_Business__c</object>
+			</objects>
+		</targetConfig>
 	</targetConfigs>
 </LightningComponentBundle>
