@@ -25,9 +25,22 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>Update_case_record</name>
-        <label>Update case record</label>
-        <locationX>308</locationX>
+        <name>Reset_case_update_fields_when_closed</name>
+        <label>Reset case update fields when closed</label>
+        <locationX>440</locationX>
+        <locationY>276</locationY>
+        <inputAssignments>
+            <field>Case_Update_Time__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Case_Update__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_case_record_for_permanent_close</name>
+        <label>Update case record for permanent close</label>
+        <locationX>176</locationX>
         <locationY>276</locationY>
         <inputAssignments>
             <field>Bypass_Data_enforcement__c</field>
@@ -77,11 +90,22 @@
         <scheduledPaths>
             <name>X5_Days_after_case_closed</name>
             <connector>
-                <targetReference>Update_case_record</targetReference>
+                <targetReference>Update_case_record_for_permanent_close</targetReference>
             </connector>
             <label>5 Days after case closed</label>
             <offsetNumber>5</offsetNumber>
             <offsetUnit>Days</offsetUnit>
+            <recordField>ClosedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X0_Hours_after_case_closed</name>
+            <connector>
+                <targetReference>Reset_case_update_fields_when_closed</targetReference>
+            </connector>
+            <label>0 Hours after case closed</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
             <recordField>ClosedDate</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
