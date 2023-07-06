@@ -74,12 +74,12 @@ public with sharing class AtRiskBusinessController {
 			for (Product2 product: products) {
 				ProductItem item = new ProductItem();
 
-				item.id         = product.Id;
-				item.code       = product.ProductCode;
-				item.name       = product.Name;
-				item.type       = product.APT_Product_type__c;
-				item.level4Name = product.Product_Level_4__c;
-				item.revenue    = productRevenueMap.get(product.Id);
+				item.id			= product.Id;
+				item.code		= product.ProductCode;
+				item.name		= product.Name;
+				item.type		= product.APT_Product_type__c;
+				item.level4Name	= product.Product_Level_4__c;
+				item.revenue	= productRevenueMap.get(product.Id);
 
 				data.products.add(item);
 			}
@@ -103,7 +103,7 @@ public with sharing class AtRiskBusinessController {
 		return (existingRevenue != null ? (existingRevenue + addedRevenue) : addedRevenue);
 	}
 
-    @AuraEnabled
+	@AuraEnabled
 	public static void saveSelection(String arbId, List<String> productIds) {
 		// Converting to Set<Id> in order to pass it to selector
 		Set<Id> productIdSet = new Set<Id>((List<Id>)productIds);

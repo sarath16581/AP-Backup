@@ -55,10 +55,12 @@ public class AtRiskBusinessController_Test {
 		// =====================================
 		Test.startTest();
 
-		BusinessAtRiskController.ProductData productData = BusinessAtRiskController.getProducts(arb.Id);
+		AtRiskBusinessController.ProductData productData = BusinessAtRiskController.getProducts(arb.Id);
 
 		Test.stopTest();
 		
+		Assert.areEqual(1, productData.products.size());
+		Assert.areEqual(products[0].Id, productData.selectedIDs[0]);
     }
 
 	@isTest
@@ -98,11 +100,11 @@ public class AtRiskBusinessController_Test {
 		// =====================================
 		Test.startTest();
 
-		BusinessAtRiskController.saveSelection(testARBId, productIdList);
+		AtRiskBusinessController.saveSelection(testARBId, productIdList);
 
 		Test.stopTest();
 		
-		Assert.areEqual(productIdString, BusinessAtRiskController.arb.Product_IDs__c);
-		Assert.areEqual(productNameString, BusinessAtRiskController.arb.Products__c);
+		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Product_IDs__c);
+		Assert.areEqual(productNameString, AtRiskBusinessController.arb.Products__c);
     }
 }
