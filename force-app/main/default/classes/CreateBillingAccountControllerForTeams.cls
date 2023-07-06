@@ -8,6 +8,7 @@
  * 2020-11-18 - Shashwat.Nath@auspost.com.au - Created
  * 2021-06-08 - seth.heang@auspost.com.au - STP-5386 map sender name field from opportunity and to same field on DSR's New Billing Account Request Modal Popup 
  * 2022-08-04 - Seth Heang - Updated parseResponse param due to changes in method signature
+ * 2023.04.19 Ken McGuire  Proposal field migration to opportunity
  */
 public with sharing class CreateBillingAccountControllerForTeams {
     @TestVisible private static final String DSR_OBJECT = 'Deal_Support_Request__c';
@@ -125,7 +126,7 @@ public with sharing class CreateBillingAccountControllerForTeams {
                     billingAccountOtherValidation.creditAssessmentStatus = contractRecord.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Credit_Assessment_Status__c ;
                     billingAccountRequestVar.team.creditDetails.creditAssessNo = contractRecord.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.name ;
                     billingAccountRequestVar.team.creditDetails.creditLimit = Integer.valueOf(contractRecord.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.StarTrack_Proposed_for_New_Account__c);
-                    billingAccountRequestVar.team.creditDetails.estimatedMonthlyRevenue =Integer.valueOf(contractRecord.Apttus_QPComply__RelatedProposalId__r?.Apttus_Proposal__Opportunity__r?.APTMinimumMonthlySpend__c);
+                    billingAccountRequestVar.team.creditDetails.estimatedMonthlyRevenue =Integer.valueOf(contractRecord.Apttus_QPComply__RelatedProposalId__r?.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c);
                     if('Open Ended'.equalsIgnoreCase(contractRecord.Term__c)) {
                         date myDate = date.newInstance( Date.Today().Year(), 08, 01);
                         if(contractRecord.Apttus__Contract_Start_Date__c <= myDate){

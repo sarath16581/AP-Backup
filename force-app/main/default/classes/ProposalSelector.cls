@@ -7,6 +7,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2020-11-18 - Shashwat.Nath@austpost.com.au - Created
+ * 2023.04.19 Ken McGuire  Proposal field migration to opportunity
  */
 public with sharing class ProposalSelector extends ApplicationSelector{
     public enum Options {
@@ -39,7 +40,7 @@ public with sharing class ProposalSelector extends ApplicationSelector{
     }    
     public virtual override Set<SObjectField> getSObjectFieldList() {
     return new Set<SObjectField> {
-      Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Name, Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c   
+      Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Name, Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c //,Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c
     };
     }
     /**

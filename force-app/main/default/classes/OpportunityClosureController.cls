@@ -30,14 +30,6 @@ public with sharing class OpportunityClosureController {
             updateList.add(op);
         }
         
-        /*try {
-            update(updateList); 
-            Database.rollback(sp);
-        } catch (DMLException e) {
-            Database.rollback(sp);
-            throw new AuraHandledException(e.getMessage());
-            
-        } */
 
         Database.SaveResult[] svResult = Database.update(updateList, false );
         Integer i = 0;

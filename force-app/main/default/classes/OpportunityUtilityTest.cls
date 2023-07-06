@@ -1274,21 +1274,18 @@ private class OpportunityUtilityTest
 		];
 		PricebookEntry pbEntry =[SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 		test.startTest();
-        
-        integer yearToUse = System.Today().year();
-        Integer monthToUse = Date.today().month() >6 ? 4 : 7;
 		OpportunityLineItem oliVar = new OpportunityLineItem();
 		oliVar.OpportunityId = testOpty[0].Id;
 		oliVar.Product2Id = testProd.Id;
-		oliVar.Classification__c = 'Renewal';
+		oliVar.Classification__c = 'Growth';
 		oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
 		oliVar.Contract_Product__c = 'No';
 		oliVar.Quantity = 12;
 		oliVar.TotalPrice = 24.00;
 		oliVar.PricebookEntryId = pbEntry.Id;
-		oliVar.Contract_Start_Date__c = Date.newInstance(yearToUse, monthToUse, 4);
-		oliVar.Contract_End_Date__c = Date.newInstance(yearToUse, monthToUse+1, 8);
-		oliVar.Change_Classification__c = 'No';
+		oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
+		oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
+		oliVar.Change_Classification__c = 'Yes';
 		INSERT oliVar;
 
 		oldRecMap.put(testOpty[0].Id, testOpty[0]);
@@ -1300,7 +1297,7 @@ private class OpportunityUtilityTest
 		newOpty.StageName = 'Closed Won';
 		newOpty.Closed_Reason__c = 'Functionality';
 		newOpty.Data_Integrity_Compliance__c = TRUE;
-		newOpty.CloseDate = newOpty.CloseDate = Date.newInstance(yearToUse, monthToUse, 4);	// Date.today();
+		newOpty.CloseDate = newOpty.CloseDate = Date.newInstance(System.Today().year(), 4, 4);	// Date.today();
 		newOpty.Offline_Contract_Received__c = TRUE;
 		//[Jansi:12-03-2020]added below line - To fix the ERROR - FIELD_CUSTOM_VALIDATION_EXCEPTION, Please use the 'Opportunity Closure' button to Close the Opportunity:
 		newOpty.Hidden_Restrict_Path_Closure__c = TRUE;
@@ -1310,7 +1307,7 @@ private class OpportunityUtilityTest
 		OpportunityUtility.populateClassification(newOptyList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+		System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
 	}
 
 	/*********************************
@@ -1333,21 +1330,18 @@ private class OpportunityUtilityTest
 		];
 		PricebookEntry pbEntry =[SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 		test.startTest();
-        
-        integer yearToUse = System.Today().year();
-        Integer monthToUse = Date.today().month() >6 ? 4 : 7;
 		OpportunityLineItem oliVar = new OpportunityLineItem();
 		oliVar.OpportunityId = testOpty[0].Id;
 		oliVar.Product2Id = testProd.Id;
-		oliVar.Classification__c = 'Renewal';
+		oliVar.Classification__c = 'Growth';
 		oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
 		oliVar.Contract_Product__c = 'No';
 		oliVar.Quantity = 12;
 		oliVar.TotalPrice = 24.00;
 		oliVar.PricebookEntryId = pbEntry.Id;
-		oliVar.Contract_Start_Date__c = Date.newInstance(yearToUse, monthToUse, 9);
-		oliVar.Contract_End_Date__c = Date.newInstance(yearToUse, monthToUse+1, 12);
-		oliVar.Change_Classification__c = 'No';
+		oliVar.Contract_Start_Date__c = Date.newInstance(2018, 9, 9);
+		oliVar.Contract_End_Date__c = Date.newInstance(2018, 12, 12);
+		oliVar.Change_Classification__c = 'Yes';
 		INSERT oliVar;
 
 		oldRecMap.put(testOpty[0].Id, testOpty[0]);
@@ -1369,7 +1363,7 @@ private class OpportunityUtilityTest
 		OpportunityUtility.populateClassification(newOptyList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+		System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
 	}
 
 	/*********************************
@@ -1399,21 +1393,20 @@ private class OpportunityUtilityTest
 		insert orgRole;
 
 		test.startTest();
-        integer yearToUse = System.Today().year();
-        Integer monthToUse = Date.today().month() >6 ? 4 : 7;
 		OpportunityLineItem oliVar = new OpportunityLineItem();
 		oliVar.OpportunityId = testOpty[0].Id;
 		oliVar.Product2Id = testProd.Id;
-		oliVar.Classification__c = 'Renewal';
+		oliVar.Classification__c = 'Growth';
 		oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
-		oliVar.Change_Classification__c = 'No';
+		oliVar.Change_Classification__c = 'Yes';
 		oliVar.Contract_Product__c = 'No';
 		oliVar.Quantity = 12;
 		oliVar.TotalPrice = 24.00;
 		oliVar.PricebookEntryId = pbEntry.Id;
-		oliVar.Contract_Start_Date__c = Date.newInstance(yearToUse, monthToUse, 7);
-		oliVar.Contract_End_Date__c = Date.newInstance(yearToUse, monthToUse+1, 8);
-
+		oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 7, 7);
+		oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 8, 8);
+		//oliVar.Contract_Start_Date__c = Date.newInstance(2019, 7, 7);
+		//oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
 		INSERT oliVar;
 
 		oldRecMap.put(testOpty[0].Id, testOpty[0]);
@@ -1435,7 +1428,7 @@ private class OpportunityUtilityTest
 		OpportunityUtility.populateClassification(newOptyList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+		System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
 	}
 
 	/*********************************
@@ -1638,8 +1631,6 @@ private class OpportunityUtilityTest
 		Apttus_Proposal__Proposal__c testProposal =[SELECT Id, Apttus_Proposal__Account__c, Apttus_Proposal__Opportunity__c FROM Apttus_Proposal__Proposal__c WHERE Apttus_Proposal__Opportunity__c =: testOpty[0].Id LIMIT 1];
 		PricebookEntry pbEntry =[SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 		test.startTest();
-        integer yearToUse = System.Today().year();
-        Integer monthToUse = Date.today().month() >6 ? 4 : 7;
 		OpportunityLineItem oliVar = new OpportunityLineItem();
 		oliVar.OpportunityId = testOpty[0].Id;
 		oliVar.Product2Id = testProd.Id;
@@ -1649,8 +1640,8 @@ private class OpportunityUtilityTest
 		oliVar.Quantity = 12;
 		oliVar.TotalPrice = 24.00;
 		oliVar.PricebookEntryId = pbEntry.Id;
-		oliVar.Contract_Start_Date__c = Date.newInstance(yearToUse, monthToUse, 4);
-		oliVar.Contract_End_Date__c = Date.newInstance(yearToUse, monthToUse+1, 8);
+		oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
+		oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
 		INSERT oliVar;
 
 		//Create Apttus Opty Line Item
@@ -1678,7 +1669,7 @@ private class OpportunityUtilityTest
 		OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+		System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
 	}
 
 	/*********************************
