@@ -106,5 +106,5 @@ public class AtRiskBusinessController_Test {
 		
 		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Product_IDs__c);
 		Assert.areEqual(productNameString, AtRiskBusinessController.arb.Products__c);
-    }
+	}
 }
