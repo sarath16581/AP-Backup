@@ -113,7 +113,6 @@ public with sharing class AtRiskBusinessController {
 	public static void saveSelection(String arbId, List<Id> productIds) {
 		try {
 			arb = new At_Risk_Business__c(Id = arbId);
-
 			arb.Product_IDs__c = null;
 			arb.Products__c = null;
 			

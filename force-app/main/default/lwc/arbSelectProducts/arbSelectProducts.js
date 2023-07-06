@@ -227,8 +227,6 @@ export default class BarSelectProducts extends LightningElement {
 	}
 
 	saveSelection(event) {
-		this.loading = true;
-
 		this.selectedRows = this.template.querySelector('lightning-tree-grid').getSelectedRows()
 
 		const selectedProductIDs = this.selectedRows.filter(item => (item.id.indexOf('01') === 0)).map(item => item.id);
