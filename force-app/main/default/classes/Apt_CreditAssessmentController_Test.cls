@@ -13,6 +13,7 @@ Last Modified Date - 17th May, 2021 | STP 4285 - Update test class to fix Opport
 
 Last Modified By - Seth Heang
 Last Modified Date - 1th July, 2021 | STP-5757 - Fix method failing and Increase Code Coverage
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 */
 @isTest
 private class Apt_CreditAssessmentController_Test {
@@ -34,11 +35,6 @@ private class Apt_CreditAssessmentController_Test {
 			opty.CloseDate = System.date.Today();
             insert opty;
             
-            // Comment out, as 'Propect' role is already created from a trigger
-            /*Organisation_Role__c orgRole = new Organisation_Role__c();
-            orgRole.organisation__c = acc.id;
-            orgRole.Role_Type__c = 'Prospect';
-            insert orgRole;*/
         
             //Create PriceList
             Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
@@ -265,6 +261,7 @@ private class Apt_CreditAssessmentController_Test {
             Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
             opty.Amount = 100;
 			opty.CloseDate = System.date.Today();
+            opty.IsStartrackProposal__c = 'No';
             insert opty;
             
             //Create PriceList
@@ -282,7 +279,7 @@ private class Apt_CreditAssessmentController_Test {
             //Create Proposal
             Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.ID,opty.ID,'Proposal','Quote', priceList.ID);
             Proposal.Apttus_Proposal__Account__c = acc.ID;
-            Proposal.Is_Startrack_Proposal__c = 'No';
+
             insert Proposal;
             
             //Create Product Configuration             
@@ -460,10 +457,6 @@ private class Apt_CreditAssessmentController_Test {
             system.assert(sc!=null);
             
             
-            //System.debug('Outcome Reason: ' + cac.AssessmentOutComeReason);
-            //System.debug('CA Status ' + cac.creditAssesment.APT_Credit_Assessment_Status__c);
-            //System.assertEquals(cac.AssessmentOutComeReason, 'Hotlisted Customer');
-            //System.assertEquals(cac.creditAssesment.APT_Credit_Assessment_Status__c, 'Referred');
         }    
     }
     

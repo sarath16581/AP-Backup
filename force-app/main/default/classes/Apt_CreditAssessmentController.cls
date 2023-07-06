@@ -24,6 +24,7 @@
 * 2021-05-21 - Dheeraj Mandavilli - STP 5839 - Added logic to switch between LWC component and VF page based upon Teams vs SAP from Credit Asessment process initiated from Propsoal Record.
 * 2021-06-08 - Seth Heang - STP 5389 - Pre-populate Trustee Name and Trustee ACN from Opportunity
 * 2023-03-02 - Harry Wang - STP-7602 - adding new parameter: contextId allowing redirect based on contextId
+* Ken McGuire 2023.04.19 Proposal field migration to opportunity
 */
 
 public with sharing class Apt_CreditAssessmentController {
@@ -249,7 +250,7 @@ public with sharing class Apt_CreditAssessmentController {
                 proposalID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID);
                 contextId = ApexPages.currentPage().getParameters().get('contextId');
                 proposal = [SELECT id, Apttus_Proposal__Account__c, Apttus_Proposal__Account__r.Role_Type_Roll_Up__c,
-                            Apttus_Proposal__Account__r.Name, Is_Startrack_Proposal__c,
+                            Apttus_Proposal__Account__r.Name, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,
                             APT_Credit_Assessment_Status__c, Apttus_Proposal__Opportunity__c,Apttus_Proposal__Opportunity__r.amount,
                             APT_Method_of_Payment__c, APT_Credit_Referred_Manually__c
                             FROM Apttus_Proposal__Proposal__c 
@@ -332,11 +333,11 @@ public with sharing class Apt_CreditAssessmentController {
                     2. If proposal is startrack then ST proposed credit limit would be calculated based on Opportunity Amount multiplied by .25(which is configurable)
                        and is added to the already Aprroved ST credit limit at the Organisation Level.
                 */
-                if('No'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+                if('No'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                     chargeAccount.AP_Proposed_Credit_Limit__c = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c + (account.L2C_Approved_AP_Credit_Limit__c !=null ? account.L2C_Approved_AP_Credit_Limit__c : 0 )).intValue();
                     chargeAccount.Star_Track_Proposed_Credit_Limit__c = (account.L2C_Star_Track_Approved_Credit_Limit__c !=null ? account.L2C_Star_Track_Approved_Credit_Limit__c : 0 ).intValue();
                 }
-                else If('Yes'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+                else If('Yes'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                     chargeAccount.Star_Track_Proposed_Credit_Limit__c = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c  + (account.L2C_Star_Track_Approved_Credit_Limit__c !=null ? account.L2C_Star_Track_Approved_Credit_Limit__c : 0 )).intValue(); 
                     chargeAccount.AP_Proposed_Credit_Limit__c = (account.L2C_Approved_AP_Credit_Limit__c !=null ? account.L2C_Approved_AP_Credit_Limit__c : 0).intValue();
                 }
@@ -569,12 +570,12 @@ public with sharing class Apt_CreditAssessmentController {
                     2. If proposal is startrack then ST proposed for new Account would be calculated based on Opportunity Amount multiplied by .25(which is configurable)
                     */
                      //Applying the RoundUp to next thousands for both AP and ST
-                    if('No'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+                    if('No'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                         creditRoundUp = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c).intValue() ;
 						creditRoundUpResult = ((creditRoundUp + NEAREST_ROUND_OFF_3)/NEAREST_ROUND_OFF_2)*NEAREST_ROUND_OFF_2;
                         creditAssesment.Aus_Post_Proposed_for_New_Account__c = creditRoundUpResult;    
                     }
-                    else if('Yes'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+                    else if('Yes'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                         creditRoundUp = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c).intValue();
                     	creditRoundUpResult = ((creditRoundUp + NEAREST_ROUND_OFF_3)/NEAREST_ROUND_OFF_2)*NEAREST_ROUND_OFF_2;
                      	creditAssesment.StarTrack_Proposed_for_New_Account__c = creditRoundUpResult;
@@ -1094,12 +1095,12 @@ public with sharing class Apt_CreditAssessmentController {
                     2. If proposal is startrack then ST proposed for new Account would be calculated based on Opportunity Amount multiplied by .25(which is configurable)
             */
             //Applying the RoundUp to next thousands for both AP and ST
-            if('No'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+            if('No'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                 creditRoundUp = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c).intValue() ;
             	creditRoundUpResult = ((creditRoundUp + NEAREST_ROUND_OFF_3)/NEAREST_ROUND_OFF_2)*NEAREST_ROUND_OFF_2;
                 creditAssesment.Aus_Post_Proposed_for_New_Account__c = creditRoundUpResult; 
             }
-            else if('Yes'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+            else if('Yes'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                 creditRoundUp = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c).intValue();
             	creditRoundUpResult = ((creditRoundUp + NEAREST_ROUND_OFF_3)/NEAREST_ROUND_OFF_2)*NEAREST_ROUND_OFF_2;
                 creditAssesment.StarTrack_Proposed_for_New_Account__c = creditRoundUpResult; 
@@ -1191,7 +1192,7 @@ public with sharing class Apt_CreditAssessmentController {
             update proposal;
 
             if(accountType != null && accountType.equalsIgnoreCase(APT_Constants.ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT) == true) {
-                if(proposal.Is_Startrack_Proposal__c == 'No'){
+                if(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c == 'No'){
                     redirectPage = Page.SubAcctReqFormCmpfromCreditAssesment;
                 }else{
                     redirectPage = Page.APT_SubAccountAssessment;
@@ -2269,12 +2270,12 @@ public with sharing class Apt_CreditAssessmentController {
                         2. If proposal is startrack then ST proposed for new Account would be calculated based on Opportunity Amount multiplied by .25(which is configurable)
                 */
                 //Applying the RoundUp to next thousands for both AP and ST
-                if('No'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+                if('No'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                     creditRoundUp = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c).intValue() ;
                 	creditRoundUpResult = ((creditRoundUp + NEAREST_ROUND_OFF_3)/NEAREST_ROUND_OFF_2)*NEAREST_ROUND_OFF_2;
                     creditAssesment.Aus_Post_Proposed_for_New_Account__c = creditRoundUpResult;  
                 }
-                else if('Yes'.equalsIgnoreCase(proposal.Is_Startrack_Proposal__c)){
+                else if('Yes'.equalsIgnoreCase(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c)){
                     creditRoundUp = ((proposal?.Apttus_Proposal__Opportunity__r?.amount !=null ? proposal.Apttus_Proposal__Opportunity__r.amount:0)*APT_R2T_System_Properties__c.getOrgDefaults().Opportunity_Value_Multiplier__c).intValue();
                 	creditRoundUpResult = ((creditRoundUp + NEAREST_ROUND_OFF_3)/NEAREST_ROUND_OFF_2)*NEAREST_ROUND_OFF_2;
                     creditAssesment.StarTrack_Proposed_for_New_Account__c = creditRoundUpResult;  

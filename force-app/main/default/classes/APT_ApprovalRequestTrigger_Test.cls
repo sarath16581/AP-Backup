@@ -4,6 +4,7 @@ Created By - Drashtee Shah
 Created Date -19th Feb, 2016
 Last Modified By -
 Last Modified Date -
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/
 @isTest
 private class APT_ApprovalRequestTrigger_Test {
@@ -339,9 +340,6 @@ private class APT_ApprovalRequestTrigger_Test {
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
             insert acc;
-            //Create Opportunity
-            Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
-            insert opty;
             //Create PriceList
             Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
             insert priceList;
@@ -366,15 +364,18 @@ private class APT_ApprovalRequestTrigger_Test {
             insert pli;
             APT_Post_Code_Mapping__c pcm1 = APT_TestUtils.createPostCodeMapping('3000', 'AUSTRALIAN NATIONAL UNIVERSITY', 'MIL', 'VC3', 'AC3');
             insert pcm1;
+            //Create Opportunity
+            Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
+            opty.APTPostcodeSuburb__c = pcm1.id;
+            opty.IsStartrackProposal__c = APT_Constants.OPTION_YES;
+            opty.APTMinimumMonthlySpend__c = 1200;
+            insert opty;
             //Create Proposal
             Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.ID,opty.ID,'Proposal','Quote', priceList.ID);
             proposal.Expected_Revenue_Start_Date__c = System.Today() - 20;
             proposal.APT_Domestic_Overweight_Flag__c = true;
             proposal.APT_International_Overweight_Flag__c = true;
             proposal.APT_Overweight_Approval_Status__c = 'Approved';
-            proposal.Is_Startrack_Proposal__c = APT_Constants.OPTION_YES;
-            proposal.APT_Minimum_Monthly_Spend__c = 1200;
-            proposal.APT_Postcode_Suburb__c = pcm1.id;
             insert Proposal;
             Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1,
                                                                                                        Proposal.id, 'Proposal',

@@ -4,6 +4,7 @@ Created By: Raviteja Epuri
 Created Date: 21th Dec, 2015
 Last Modified By: Krishna Velani
 Last Modified Date: 19th May 2021 STP-5156 Populate OOTB Related Proposal & Related Opportunity fields on AR
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 */
 public with sharing class APT_ApprovalRequestTriggerHandler {
     
@@ -133,14 +134,16 @@ public with sharing class APT_ApprovalRequestTriggerHandler {
         }
         Map<String, Apttus_Config2__ProductConfiguration__c> cartMap = new Map<String, Apttus_Config2__ProductConfiguration__c>();
         if(!cartId.isEmpty()){
-          for(Apttus_Config2__ProductConfiguration__c cartIdRec : [Select Id, Apttus_QPConfig__Proposald__c,Apttus_QPConfig__Proposald__r.OwnerId,Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c,Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c 
-                                                                   from Apttus_Config2__ProductConfiguration__c where Id In: cartId]){
+          for(Apttus_Config2__ProductConfiguration__c cartIdRec : 
+              [Select Id, Apttus_QPConfig__Proposald__c,Apttus_QPConfig__Proposald__r.OwnerId,Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c,
+               Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c 
+              from Apttus_Config2__ProductConfiguration__c where Id In: cartId]){
               cartMap.put(cartIdRec.Id, cartIdRec);
           }
         }
         if(!cartMap.isEmpty()){
             for(Apttus_Approval__Approval_Request__c ar : approvalrequestNew){
-                if(cartMap.get(ar.Apttus_CQApprov__CartId__c).Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c.equalsIgnoreCase(APT_Constants.OPTION_YES)){
+                if(cartMap.get(ar.Apttus_CQApprov__CartId__c). Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c.equalsIgnoreCase(APT_Constants.OPTION_YES)){
                     ar.Apttus_QPApprov__ProposalId__c = cartMap.get(ar.Apttus_CQApprov__CartId__c).Apttus_QPConfig__Proposald__c;  
                     ar.Apttus_Approval__Related_Opportunity__c=cartMap.get(ar.Apttus_CQApprov__CartId__c).Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c;
                     ar.Apttus_QPApprov__ProposalOwnerId__c = cartMap.get(ar.Apttus_CQApprov__CartId__c).Apttus_QPConfig__Proposald__r.OwnerId;

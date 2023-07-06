@@ -28,6 +28,7 @@
 
 * Last Modified By - Madhuri Awasthi
 * Last Modified Date - 27th Sep, 2021 | REQ2594537 (Allow StarTrack Standard Delegation Approval Process for Intermediaries for Price Adjustment)
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 ***************************************************************************************************************/
 global with sharing class APT_CartValidationCallBack implements Apttus_Config2.CustomClass.IValidationCallback2 {
     
@@ -124,24 +125,7 @@ global with sharing class APT_CartValidationCallBack implements Apttus_Config2.C
                 lineItemCount = allLineItems.size();
             }
             
-/*
-            //validate approvals
-            if(prodConfig != null && lineItemCount >= largeCartThresholdLimit && ((!prodConfig.APT_Validate_Approvals__c) 
-                || (prodConfig.APT_Validate_Approvals__c && prodConfig.APT_Config_Change__c))) {
-                result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please click on Validate Approvals button first.'));
-                result.isSuccess =  false;
-            }
-            //validate approvals
-*/
-                       
-            
-            /*
-            if(PageAction != null && PageAction != 'Abandon' && prodConfig != null && prodConfig.Apttus_Config2__Status__c == 'Saved') {
-                result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, 'You can not abandon saved cart. You can only abandon finalized cart.'));
-                result.isSuccess =  false;
-                return result;
-            }
-            */
+
             
             //avoid SOQL in validation call back
             //LIst<Apttus_Config2__LineItem__c> lstLI =[select id,Apttus_Config2__ConfigurationId__c,Apttus_Config2__ProductId__r.APT_Sync_with_Opportunity__c,Apttus_Config2__LineType__c,Apttus_Config2__IsPrimaryLine__c from Apttus_Config2__LineItem__c where Apttus_Config2__ConfigurationId__c=:configurationId AND Apttus_Config2__ProductId__r.APT_Sync_with_Opportunity__c=True AND Apttus_Config2__LineType__c!='Option' AND Apttus_Config2__IsPrimaryLine__c=True];
@@ -277,39 +261,19 @@ global with sharing class APT_CartValidationCallBack implements Apttus_Config2.C
                     }
                 }
             }
-            
-            /**
-            integer iPriceMatrixEntryCount = 0;
-            list<String> listValidKey = new list<String>();
-            for(String validKey : setValidKey) {
-                listValidKey = validKey.split(APT_Constants.SEPERATOR_SIMILARITY);
-                if(listValidKey != null && listValidKey.size() >= 1 && mapUsagePriceTierCount.get(validKey) != null && mapPriceMatrixEntryCount.get(listValidKey[1]) != null) {
-                    system.debug('*** validKey ***'+validKey);
-                    system.debug('*** listValidKey ***'+listValidKey);
-                    system.debug('*** listValidKey 0 ***'+listValidKey[0]);
-                    system.debug('*** listValidKey 1 ***'+listValidKey[1]);
-                    iUsagePriceTierCount = mapUsagePriceTierCount.get(validKey);
-                    iPriceMatrixEntryCount = mapPriceMatrixEntryCount.get(listValidKey[1]);
-                    system.debug('*** iPriceMatrixEntryCount ***'+iPriceMatrixEntryCount);
-                    system.debug('*** iUsagePriceTierCount ***'+iUsagePriceTierCount);
-                    if(iUsagePriceTierCount != iPriceMatrixEntryCount) {
-                        result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, Label.APT_Cart_Usage_Price_Tier_Mismatch_Error + ' ' + mapLineItem.get(listValidKey[0]).Apttus_Config2__LineNumber__c));
-                        result.isSuccess =  false;
-                    }
-                }
-            }
-            **/
-            //1869
+
 
            /**CR-148/13 Start
             * Added by Daric Dava
             */
            // Retrieve related proposal based on proposal configuraton record
 
-           // ST-4725 added field Is_Startrack_Proposal__c, APT_Tier_Adjustment_Type__c
-           List<Apttus_Proposal__Proposal__c> lstProposal =[Select id,RecordType.name, APT_Revenue_Type__c, APT_Contract_Id__c, Is_Startrack_Proposal__c,
-                                                            APT_Tier_Adjustment_Type__c From Apttus_Proposal__Proposal__c
-                                                            where id = :prodConfig.Apttus_QPConfig__Proposald__c ];
+           // ST-4725 added field Apttus_Proposal__Opportunity__r.IsStartrackProposal__c, APT_Tier_Adjustment_Type__c
+           List<Apttus_Proposal__Proposal__c> lstProposal =
+               [Select id,RecordType.name, APT_Revenue_Type__c, APT_Contract_Id__c, 
+               Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,
+               APT_Tier_Adjustment_Type__c From Apttus_Proposal__Proposal__c
+               where id = :prodConfig.Apttus_QPConfig__Proposald__c ];
            Decimal totPrice = 0;
            Decimal opptySubTotalAmount = 0;
            String quoteRecordType;
@@ -380,53 +344,13 @@ global with sharing class APT_CartValidationCallBack implements Apttus_Config2.C
 
                system.debug('Total Opp Amount:' + opptySubTotalAmount);
                system.debug('Total Opp Amount:' + totPrice);
-               // If current revenue is less or equal to previous revenue and amendement type is increase in revenue, throw exception
-               /*if(totPrice <= opptySubTotalAmount && revenueType == APT_AmendRenewController.INCREASE_REVENUE && quoteRecordType==APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE){
-                   result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, APT_AmendRenewController.NOT_INCREASE_REVENUE_ERROR));
-                   result.isSuccess =  false;
-               }
-               // If current revenue is more or equal to previous revenue and amendment type is decrease in revenue, throw exception
-               else if(totPrice >=opptySubTotalAmount && revenueType == APT_AmendRenewController.DECREASE_REVENUE && quoteRecordType==APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE){
-                   result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, APT_AmendRenewController.NOT_DECREASE_REVENUE_ERROR));
-                   result.isSuccess =  false;
-               }*/
            }
            //CR-148/13 End
 
-           
-           //added by Darshan Chauhan ST-4725 start
-/*           
-            if(String.isNotBlank(lstProposal[0].Is_Startrack_Proposal__c) && (lstProposal[0].Is_Startrack_Proposal__c).equalsIgnoreCase('Yes') ){
-                set<Id> productId = new set<Id>();
-                if(String.isNotBlank(lstProposal[0].APT_Tier_Adjustment_Type__c) ){
-                    List<Id> cardtProdId = new List<Id>();
-                    List<Revenue_by_Billing_Account__c> revenueBillingAccList = new List<Revenue_by_Billing_Account__c>();
-                    if(prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c != null){
-                        revenueBillingAccList = [SELECT Id, Customer__c, Product__c from Revenue_by_Billing_Account__c 
-                                            WHERE Customer__c =: prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c];
-
-                        if(!revenueBillingAccList.isEmpty() && revenueBillingAccList.size() > 0){
-                            //logic for checkign cart products                            
-                            for(Apttus_Config2__LineItem__c lineItem : allLineItems){
-                                productId.add(lineItem.Apttus_Config2__ProductId__c);
-                            }
-                            for(Revenue_by_Billing_Account__c rba : revenueBillingAccList ){
-                                if(productId.contains(rba.Product__c)){
-                                    result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, 'This opportunity is not for new business/cross sell, to request standard pricing delegation, contact pricing support team via Deal Support Request (DSR)'));
-                                    result.isSuccess =  false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //added by Darshan Chauhan ST-4725 start end
-*/
             
             //Begin Added by Naresh for Winback  STP-6324  
 
-               if(String.isNotBlank(lstProposal[0].Is_Startrack_Proposal__c) && (lstProposal[0].Is_Startrack_Proposal__c).equalsIgnoreCase('Yes') ){
+               if(String.isNotBlank(lstProposal[0].Apttus_Proposal__Opportunity__r.IsStartrackProposal__c) && (lstProposal[0].Apttus_Proposal__Opportunity__r.IsStartrackProposal__c).equalsIgnoreCase('Yes') ){
                    set<Id> productId = new set<Id>();
                    if(String.isNotBlank(lstProposal[0].APT_Tier_Adjustment_Type__c) ){
                        List<Id> cardtProdId = new List<Id>();

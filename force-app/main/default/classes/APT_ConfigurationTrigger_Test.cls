@@ -1,3 +1,4 @@
+//Ken McGuire 2023.04.19 Proposal field migration to opportunity
 @isTest
 private class APT_ConfigurationTrigger_Test {
     public static TestMethod void APT_ConfigurationTrigger1() {
@@ -6,10 +7,6 @@ private class APT_ConfigurationTrigger_Test {
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
         
-        //Create Opportunity
-        Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
-        opty.Type = 'New Customer';
-        insert opty;
         
         //Create PriceList
         Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
@@ -25,11 +22,16 @@ private class APT_ConfigurationTrigger_Test {
 
         APT_Post_Code_Mapping__c pcm1 = APT_TestUtils.createPostCodeMapping('3000', 'AUSTRALIAN NATIONAL UNIVERSITY', 'MIL', 'VC3', 'AC3');
         insert pcm1;
+        //Create Opportunity
+        Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
+        opty.Type = 'New Customer';
+       	opty.IsStartrackProposal__c = 'Yes';
+        opty.APTMinimumMonthlySpend__c = 1200;
+        opty.APTPostcodeSuburb__c = pcm1.id;
+        insert opty;
         //Create Proposal
         Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.ID,opty.ID,'Proposal','Quote', priceList.ID);
-        Proposal.Is_Startrack_Proposal__c = 'Yes';
-        Proposal.APT_Minimum_Monthly_Spend__c = 1200;
-        Proposal.APT_Postcode_Suburb__c = pcm1.id;
+
         insert Proposal;
         
         //Create Product Configuration             
