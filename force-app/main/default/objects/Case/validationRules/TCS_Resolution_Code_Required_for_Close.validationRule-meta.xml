@@ -3,7 +3,8 @@
     <fullName>TCS_Resolution_Code_Required_for_Close</fullName>
     <active>true</active>
     <description>Transport Enquiry Case - Resolution code required if case is closed.</description>
-    <errorConditionFormula>AND ( 
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; 
+AND ( 
 RecordType.DeveloperName = &apos;Transport_Enquiry&apos;, 
 TEXT(Status) = &apos;Closed&apos;, 
 ISBLANK(TEXT( ResolutionCode__c )) 
