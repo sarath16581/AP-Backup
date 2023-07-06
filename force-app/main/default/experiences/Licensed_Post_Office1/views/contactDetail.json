@@ -93,7 +93,8 @@
             "cardTitle3" : "",
             "noRefreshAfterSave" : false,
             "recordId" : "{!recordId}",
-            "refreshAfterSave" : true
+            "refreshAfterSave" : false,
+            "refreshNotNavigate" : true
           },
           "componentName" : "c:addressLookupRecordWrapper",
           "id" : "4966854c-3131-48c7-ab51-8b6e422c666f",
