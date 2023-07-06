@@ -11,6 +11,72 @@
 */
 @isTest
 public with sharing class AtRiskBusinessSelector_Test {
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		AtRiskBusinessSelector selector = AtRiskBusinessSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom at_risk_business__c\\b').matcher(soql).find(), 'Resulting query does not select from At_Risk_Business__c');
+
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithFieldOverrides() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		AtRiskBusinessSelector selector = AtRiskBusinessSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+			At_Risk_Business__c.SObjectType => new Set<SObjectField>{At_Risk_Business__c.Name}
+		});
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?ism)Name.*?\\bfrom at_risk_business__c\\b').matcher(soql).find(), 'Resulting query does not select Name field: ' + soql);
+
+		Test.stopTest();
+
+	}
+
 	@isTest
 	static void testSelectById() {
 		// =====================================
