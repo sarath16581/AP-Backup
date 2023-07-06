@@ -6,6 +6,7 @@
  * @changelog
  * 2021-05-25 - Darshan Chauhan - Created
  * 2021-09-27 - Madhuri Awasthi : REQ2594537 (Allow StarTrack Standard Delegation Approval Process for Intermediaries for Price Adjustment)
+ * Ken McGuire 2023.04.19 Proposal field migration to opportunity
 */
 public with sharing class APT_PricingAdjustmentController {
     /**
@@ -40,7 +41,7 @@ public with sharing class APT_PricingAdjustmentController {
                 prodConfig.Apttus_Config2__IsPricePending__c = true;
                 update prodConfig;
 
-                Apttus_Proposal__Proposal__c proposalObj =[Select id, Is_Startrack_Proposal__c,APT_Tier_Adjustment_Type__c, APT_Pricing_Request_Type__c, 
+                Apttus_Proposal__Proposal__c proposalObj =[Select id, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,APT_Tier_Adjustment_Type__c, APT_Pricing_Request_Type__c, 
                                                                 APT_Tier_Adjustment_Justification__c, APT_Customer_Background__c, APT_Intermediary__c, APT_Conversation__c, 
                                                                 APT_Name_of_Intermediary_s_Client__c  From Apttus_Proposal__Proposal__c 
                                                                 where id = :prodConfig.Apttus_QPConfig__Proposald__c LIMIT 1 ]; //
@@ -52,7 +53,7 @@ public with sharing class APT_PricingAdjustmentController {
 
                 // Apttus_Config2.CustomClass.ValidationResult validationResult = Apttus_Config2.CPQWebService.validateCart(configurationId);
 
-                if( proposalObj != null && String.isNotBlank(proposalObj.Is_Startrack_Proposal__c) && (proposalObj.Is_Startrack_Proposal__c).equalsIgnoreCase('Yes')
+                if( proposalObj != null && String.isNotBlank(proposalObj.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c) && (proposalObj.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c).equalsIgnoreCase('Yes')
                     && String.isNotBlank(proposalObj.APT_Tier_Adjustment_Type__c ) ){
                     set<Id> productId = new set<Id>();
                     // if(String.isNotBlank(proposalObj.APT_Tier_Adjustment_Type__c) ){
@@ -248,12 +249,12 @@ public with sharing class APT_PricingAdjustmentController {
                     update prodConfig;
                 }
                 Apttus_Proposal__Proposal__c proposalObj = new Apttus_Proposal__Proposal__c();
-                proposalObj = [Select Id, Is_Startrack_Proposal__c, APT_Tier_Adjustment_Type__c, APT_Pricing_Request_Type__c, 
+                proposalObj = [Select Id, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c, APT_Tier_Adjustment_Type__c, APT_Pricing_Request_Type__c, 
                                 APT_Tier_Adjustment_Justification__c, APT_Intermediary__c, APT_Customer_Background__c, APT_Conversation__c, 
                                 APT_Name_of_Intermediary_s_Client__c from Apttus_Proposal__Proposal__c where Id=:prodConfig.Apttus_QPConfig__Proposald__c limit 1];
                  
                 if(proposalObj != null){
-                    if(proposalObj.Is_Startrack_Proposal__c.equalsIgnoreCase('Yes')){
+                    if(proposalObj.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c.equalsIgnoreCase('Yes')){
                         proposalObj.APT_Tier_Adjustment_Type__c = '';
                         proposalObj.APT_Pricing_Request_Type__c = '';
                         proposalObj.APT_Tier_Adjustment_Justification__c = '';

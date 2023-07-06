@@ -7,6 +7,7 @@
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   05-06-2021   Mansi Shah   Initial Version
+*Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/
 global with sharing class APT_DisplayActionCallBackClass implements Apttus_Config2.CustomClass.IDisplayActionCallback{
     //Global Variables
@@ -34,7 +35,7 @@ global with sharing class APT_DisplayActionCallBackClass implements Apttus_Confi
            }
 
            if(prodConfigObj != null){
-               lstProdConfig =[Select id, Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c  From Apttus_Config2__ProductConfiguration__c
+              	lstProdConfig =[Select id,Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c From Apttus_Config2__ProductConfiguration__c
                where id = :prodConfigObj.Id];
            }
            //Added by Darshan Chauhan for STP-5150 end
@@ -48,7 +49,7 @@ global with sharing class APT_DisplayActionCallBackClass implements Apttus_Confi
                }
                //Added by Darshan Chauhan for STP-5150 start
                if(!lstProdConfig.isEmpty()){
-                   if(lstProdConfig[0].Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c.equalsIgnoreCase(APT_Constants.OPTION_NO)){
+                 if(lstProdConfig[0].Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c.equalsIgnoreCase(APT_Constants.OPTION_NO)){
                        if(ActionSOInst.Apttus_Config2__ActionLabelName__c.equalsIgnoreCase('APT_Pricing_Adjustments'))
                        {
                            actionInfoInst.IsEnabled = false;

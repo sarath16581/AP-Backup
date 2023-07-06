@@ -6,6 +6,7 @@
  * @changelog
  * 2021-05-31 - Darshan Chauhan - Created
  2022-05-15 Nasir Jawed changed Tier
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 */
 
 @isTest
@@ -35,11 +36,12 @@ public with sharing class APT_PricingAdjustmentController_Test {
         insert acc;
         
         Opportunity oppty = APT_TestUtils.createOpportunity(acc.Id);
+        oppty.IsStartrackProposal__c = 'Yes';
+        oppty.APTMinimumMonthlySpend__c = 1200;
+        oppty.APTPostcodeSuburb__c = postCodeMapping.Id;
         insert oppty;
 
         Apttus_Proposal__Proposal__c proposalObj = APT_TestUtils.getQuoteProposal(acc.Id, oppty.Id, 'Proposal', 'Test', priceList.Id);
-        proposalObj.Is_Startrack_Proposal__c = 'Yes';
-        proposalObj.APT_Minimum_Monthly_Spend__c = 1200;
         proposalObj.APT_Tier_Adjustment_Type__c = '1 Tier Up';
         proposalObj.Apttus_Proposal__Primary__c = true;
         proposalObj.APT_Pricing_Request_Type__c = 'New Business';
@@ -47,7 +49,6 @@ public with sharing class APT_PricingAdjustmentController_Test {
         proposalObj.APT_Customer_Background__c = 'Test';
         proposalObj.APT_Conversation__c = 'Test';
         proposalObj.APT_competitor__c = 'Test';
-        proposalObj.APT_Postcode_Suburb__c = postCodeMapping.Id;
         insert proposalObj;
 
         Apttus_Config2__ProductConfiguration__c propConfig = APT_TestUtils.getProductConfiguration('Test',1,proposalObj.Id,'Proposal','Product',priceList.Id,null,'New',date.today(),date.today().addDays(30),true);
@@ -123,12 +124,12 @@ public with sharing class APT_PricingAdjustmentController_Test {
     @isTest 
     static void onApplyTestNonStarTrack(){
         Id configId = [select Id from Apttus_Config2__ProductConfiguration__c limit 1].Id;
-        Id businessObjectId = [select Id from Apttus_Proposal__Proposal__c limit 1].Id;
-        Apttus_Proposal__Proposal__c prop = [SELECT Id, Is_Startrack_Proposal__c  FROM Apttus_Proposal__Proposal__c limit 1];
-        prop.Is_Startrack_Proposal__c = APT_Constants.OPTION_NO;
-        update prop;
+        Apttus_Proposal__Proposal__c businessObject = [select Id,Apttus_Proposal__Opportunity__c from Apttus_Proposal__Proposal__c limit 1];
+        Opportunity oppy = [SELECT Id, IsStartrackProposal__c  FROM Opportunity WHERE Id = :businessObject.Apttus_Proposal__Opportunity__c limit 1];
+        oppy.IsStartrackProposal__c = APT_Constants.OPTION_NO;
+        update oppy;
         test.startTest();
-        APT_PricingAdjustmentController.onApply(configId, businessObjectId, 'New Quote', null);
+        APT_PricingAdjustmentController.onApply(configId, businessObject.Id, 'New Quote', null);
         test.stopTest();
         System.assertEquals(1,([select Id from Apttus_Proposal__Proposal__c]).size());
     }

@@ -7,6 +7,7 @@
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   05-25-2021   Mansi Shah   Initial Version
+ * Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/
 @isTest
 public class APT_DisplayActionCallBackTest {
@@ -60,6 +61,7 @@ public class APT_DisplayActionCallBackTest {
             //Create Opportunity
             Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
             opty.type = 'New Customer';
+            opty.IsStartrackProposal__c = APT_Constants.OPTION_NO;
             insert opty;
             
             //Create PriceList
@@ -78,9 +80,7 @@ public class APT_DisplayActionCallBackTest {
             insert pcm1;
 
             Apttus_Proposal__Proposal__c proposal = APT_TestUtils.getQuoteProposal(acc.ID,opty.ID,'Proposal','Quote', priceList.ID);
-            proposal.Is_Startrack_Proposal__c = APT_Constants.OPTION_NO;
-            // Proposal.APT_Minimum_Monthly_Spend__c = 1200;
-            // Proposal.APT_Postcode_Suburb__c = pcm1.id;
+
             insert proposal;
             
             Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, 

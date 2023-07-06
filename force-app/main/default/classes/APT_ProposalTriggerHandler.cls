@@ -663,8 +663,8 @@ public without sharing class APT_ProposalTriggerHandler {
                     //End
                     //STP-5598/REQ2519238 - Set APT_pricing_fields_changed__c to true if value changed from previous value of not NULL on either Primary pickup location(Postcode-Suburb) or Minimum Monthly Spend
                     if(oldProposal != null &&
-                        ((oldProposal.APT_Postcode_Suburb__c != null && prop.APT_Postcode_Suburb__c != oldProposal.APT_Postcode_Suburb__c) || 
-                        (oldProposal.APT_Minimum_Monthly_Spend__c != null && prop.APT_Minimum_Monthly_Spend__c != oldProposal.APT_Minimum_Monthly_Spend__c))) 
+                        ((oldProposal.Apttus_Proposal__Opportunity__r.APTPostcodeSuburb__c != null && prop.Apttus_Proposal__Opportunity__r.APTPostcodeSuburb__c != oldProposal.Apttus_Proposal__Opportunity__r.APTPostcodeSuburb__c) || 
+                        (oldProposal.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c != null && prop.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c != oldProposal.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c))) 
                     {
                         prop.APT_pricing_fields_changed__c = true;
                     }

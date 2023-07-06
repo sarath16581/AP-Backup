@@ -3,6 +3,7 @@ Created By - Mahesh Patel
 Created Date - 12th Nov, 2020
 Last Modified By -
 Last Modified Date -
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 Description - Product Attribute Callback Test Class
 */
 @isTest
@@ -40,15 +41,13 @@ public with sharing class APT_ProductAttributeCallbackTest {
             //Create test opportunity
             Opportunity oppVar = APT_TestUtil2.createOpportunity(accVar);
             oppVar.StageName = 'Identify';
-            insert oppVar;
+            oppVar.APTpostcodesuburb__c = postCodeMapping.Id;
+        	insert oppVar;
 
             //Create proposal
             Apttus_Proposal__Proposal__c proposalVar = APT_TestUtil2.createQuoteProposalNoAgrmnt(accVar, oppVar, APT_Constants.RECORD_TYPE_PROPOSAL, priceList);
             insert proposalVar;
 
-            //Update Postcode-Suburb on proposal
-            proposalVar.APT_postcode_suburb__c = postCodeMapping.Id;
-            update proposalVar;
 
             //Create Product Configuration
             Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtil2.getProductConfiguration('Product Configuration', 1,

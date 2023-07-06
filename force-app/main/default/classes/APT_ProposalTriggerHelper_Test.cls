@@ -63,6 +63,7 @@ public with sharing class APT_ProposalTriggerHelper_Test {
             opty.IsStartrackProposal__c = 'Yes';
 			opty.APTMinimumMonthlySpend__c = 1200;
             opty.APTPostcodeSuburb__c = pcm1.id;
+			opty.IsStartrackProposal__c = 'Yes';
             insert opty;
 
             Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.id,opty.id,'Proposal','Quote', priceList.id);
@@ -71,10 +72,7 @@ public with sharing class APT_ProposalTriggerHelper_Test {
             Proposal.Expected_Revenue_End_Date__c = System.today() +90;
             Proposal.Apttus_Proposal__Primary__c =false;
             Proposal.APT_Selected_LP__c = ntwk.id;
-            Proposal.Is_Startrack_Proposal__c = 'Yes';
             Proposal.Apttus_QPApprov__Approval_Status__c = 'Approval Required';
-            Proposal.APT_Minimum_Monthly_Spend__c = 1200;
-            Proposal.APT_Postcode_Suburb__c = pcm1.id;
             insert Proposal;
     }
 }

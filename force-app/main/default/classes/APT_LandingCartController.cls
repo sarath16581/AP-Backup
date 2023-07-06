@@ -7,6 +7,7 @@
 				opportunity page which is called form lightning "aPT_AddProductLWC" class
 *@changelog
 *2023-02-28 Bharat Patel : Replace hard-code values from code (coding standard practice)
+*2023-07-06 replaced Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
 */
 public with sharing class APT_LandingCartController {
 	/**
@@ -96,11 +97,11 @@ public with sharing class APT_LandingCartController {
 
 			//Checking which flow to use to land to the Catalogue page for the proposal which gets created or the existed proposal.
 			if(((proposalId != null || proposalExist== APT_Constants.BOOL_TRUE) && proposal.Apttus_QPConfig__PriceListId__c != null
-				&& proposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE && proposal.Is_Startrack_Proposal__c != ''
+				&& proposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE && Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != ''
 				&& proposal.Apttus_Proposal__Approval_Stage__c !=  APT_Constants.APPROVAL_STAGE_ACCEPTED) ||
 				(
-				(proposal.Apttus_QPApprov__Approval_Status__c != APT_Constants.APPROVAL_STAGE_APPROVED && proposal.Apttus_QPApprov__Approval_Status__c != null  && proposal.Is_Startrack_Proposal__c != APT_Constants.OPTION_NO && proposal.Is_Startrack_Proposal__c !=null) ||
-				(proposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED && proposal.Apttus_Proposal__Approval_Stage__c != null && proposal.Is_Startrack_Proposal__c != APT_Constants.OPTION_YES && proposal.Is_Startrack_Proposal__c !=null)
+				(proposal.Apttus_QPApprov__Approval_Status__c != APT_Constants.APPROVAL_STAGE_APPROVED && proposal.Apttus_QPApprov__Approval_Status__c != null  && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != APT_Constants.OPTION_NO && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c !=null) ||
+				(proposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED && proposal.Apttus_Proposal__Approval_Stage__c != null && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != APT_Constants.OPTION_YES && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c !=null)
 				)
 				){
 				//Redirecting to the New Quote catalogue page depending upon Profile
@@ -185,9 +186,6 @@ public with sharing class APT_LandingCartController {
 			proposal = new Apttus_Proposal__Proposal__c();
 			proposal.Apttus_Proposal__Account__c  = opp.AccountID;
 			proposal.Apttus_Proposal__Opportunity__c = opp.ID;
-			proposal.Is_Startrack_Proposal__c = opp.IsStartrackProposal__c;
-			proposal.APT_Postcode_Suburb__c = opp.APTPostcodeSuburb__c;
-			proposal.APT_Minimum_Monthly_Spend__c = opp.APTMinimumMonthlySpend__c;
 			proposal.Apttus_Proposal__Primary_Contact__c = opp.KeyContact__c;
 			proposal.Apttus_Proposal__Proposal_Expiration_Date__c = system.today();
 			proposal.APT_Contracting_Entity__c = APT_Constants.STRING_AUSTRALIAN_Postal_Corporation;

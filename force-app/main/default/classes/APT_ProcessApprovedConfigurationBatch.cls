@@ -7,6 +7,7 @@
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   06-08-2021   Mansi Shah   Initial Version
+ * Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/
 public with sharing class APT_ProcessApprovedConfigurationBatch implements Queueable{
     public Set<Id> setOfConfigurationIds;
@@ -27,9 +28,10 @@ public with sharing class APT_ProcessApprovedConfigurationBatch implements Queue
        
         Id cartId;
 
-        productConfigurationList = [SELECT id, Apttus_Config2__IsPricePending__c, APT_STE_Pricing_Tier__c,Apttus_CQApprov__Approval_Status__c,Apttus_Config2__Status__c,Apttus_QPConfig__Proposald__c 
+        productConfigurationList = [SELECT id, Apttus_Config2__IsPricePending__c, APT_STE_Pricing_Tier__c,Apttus_CQApprov__Approval_Status__c,
+                                    Apttus_Config2__Status__c,Apttus_QPConfig__Proposald__c 
                                     FROM Apttus_Config2__ProductConfiguration__c 
-                                    WHERE id =: setOfConfigurationIds AND Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c =:APT_Constants.OPTION_YES];
+                                    WHERE id =: setOfConfigurationIds AND Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c =:APT_Constants.OPTION_YES];
 
         
         if(productConfigurationList != null && !productConfigurationList.isEmpty()){

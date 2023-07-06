@@ -21,12 +21,12 @@ public with sharing class APT_ProcessApprvdConfigBatch_Test {
         System.runAs(testuser) {
 
             set<Id> setprodconfigId = new set<Id>();
-            Apttus_Config2__ProductConfiguration__c prodconfig = [SELECT Id, name, Apttus_QPConfig__Proposald__c, Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c from Apttus_Config2__ProductConfiguration__c];
+            Apttus_Config2__ProductConfiguration__c prodconfig = [SELECT Id, name, Apttus_QPConfig__Proposald__c, Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c from Apttus_Config2__ProductConfiguration__c];
             prodconfig.Apttus_CQApprov__Approval_Status__c = APT_Constants.APPROVAL_STATUS_PROCESSING_APPROVAL;
             update prodconfig;
 
 
-            for(Apttus_Config2__ProductConfiguration__c prod1 : [SELECT Id, name, Apttus_QPConfig__Proposald__c, Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c from Apttus_Config2__ProductConfiguration__c]){
+            for(Apttus_Config2__ProductConfiguration__c prod1 : [SELECT Id, name, Apttus_QPConfig__Proposald__c, Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c from Apttus_Config2__ProductConfiguration__c]){
                 System.debug('prod record>>>'+prod1);
                 setprodconfigId.add(prod1.Id);
             }
@@ -44,9 +44,7 @@ public with sharing class APT_ProcessApprvdConfigBatch_Test {
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;                          
             
-        //Create Opportunity
-        Opportunity opty = APT_TestUtils.createOpportunity(acc.id);
-        insert opty;
+
 
         // Startrack Product
         Product2 product = APT_TestUtils.createStarTrackProduct('Road Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'Startrack');
@@ -65,17 +63,21 @@ public with sharing class APT_ProcessApprvdConfigBatch_Test {
 
         Network__c ntwk = APT_TestUtils.createNetwork();
         insert ntwk;
-
+        //Create Opportunity
+        Opportunity opty = APT_TestUtils.createOpportunity(acc.id);
+        opty.APTMinimumMonthlySpend__c = 1200;
+        opty.APTPostcodeSuburb__c = pcm1.id;
+        opty.IsStartrackProposal__c = APT_Constants.OPTION_YES;
+        insert opty;
+        
         Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.id,opty.id,'Proposal','Quote', priceList.id);
         Proposal.Apttus_Proposal__Approval_Stage__c='Draft';
         Proposal.Expected_Revenue_Start_Date__c = System.today();
         Proposal.Expected_Revenue_End_Date__c = System.today() +90;
         Proposal.Apttus_Proposal__Primary__c =false;
         Proposal.APT_Selected_LP__c = ntwk.id;
-        Proposal.Is_Startrack_Proposal__c = APT_Constants.OPTION_YES;
+
         Proposal.Apttus_QPApprov__Approval_Status__c = 'Approval Required';
-        Proposal.APT_Minimum_Monthly_Spend__c = 1200;
-        Proposal.APT_Postcode_Suburb__c = pcm1.id;
         insert Proposal;
 
         //Create Product Configuration             

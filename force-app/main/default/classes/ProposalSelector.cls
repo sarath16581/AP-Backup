@@ -39,7 +39,7 @@ public with sharing class ProposalSelector extends ApplicationSelector{
     }    
     public virtual override Set<SObjectField> getSObjectFieldList() {
     return new Set<SObjectField> {
-      Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Name, Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,Apttus_Proposal__Proposal__c.APT_Minimum_Monthly_Spend__c   
+      Apttus_Proposal__Proposal__c.Id, Apttus_Proposal__Proposal__c.Name, Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c   
     };
     }
     /**

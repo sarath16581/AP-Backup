@@ -404,7 +404,7 @@ public with sharing class APT_AgreementTriggerHandler{
 				if(!proposalIds.isEmpty()){ //28062019- added to fix selective query issue
 					//need to move this query to the selector if it exists.
 					proposalsWithLineItemsMap = new Map <Id, Apttus_Proposal__Proposal__c>([
-																							Select Id, APT_minimum_monthly_spend__c, APT_STE_Pricing_Tier__c,
+																							Select Id, Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c, APT_STE_Pricing_Tier__c,
 																								(SELECT Id, Apttus_Proposal__Product__c, Apttus_Proposal__Proposal__c,
 																								Apttus_Proposal__Product__r.APT_Product_type__c,
 																								Apttus_Proposal__Product__r.Name,

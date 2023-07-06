@@ -148,7 +148,6 @@ public class APT_TestDataFactory {
 	public static List<Apttus_Proposal__Proposal__c> getAPTProposalRecord(integer count, Id oppId, Id AccID,ID conID, Boolean generateIds){
 		return (List<Apttus_Proposal__Proposal__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Proposal__Proposal__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c => true,
-			Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c => 'NO',
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c => AccID,
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary_Contact__c => conID,
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c => oppId,
