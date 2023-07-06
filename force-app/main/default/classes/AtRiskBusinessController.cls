@@ -54,9 +54,7 @@ public with sharing class AtRiskBusinessController {
 			if (String.isNotBlank(arb.Product_IDs__c)) {
 				data.selectedIDs = arb.Product_IDs__c.split(';');
 				
-				for (String id: productIDs) {
-					productIDs.add(id);
-				}
+				productIds.addAll(data.selectedIDs);
 			}
 	
 			for (Budget_and_Revenue__c rev: revenues) {
@@ -108,19 +106,15 @@ public with sharing class AtRiskBusinessController {
     @AuraEnabled
 	public static void saveSelection(String arbId, List<String> productIds) {
 		// Converting to Set<Id> in order to pass it to selector
-		Set<Id> productIdSet = new Set<Id>();
-
-		for (String productId: productIds) {
-			productIdSet.add(Id.valueOf(productId));
-		}
+		Set<Id> productIdSet = new Set<Id>((List<Id>)productIds);
 
 		try {
 			arb = new At_Risk_Business__c(Id = arbId);
 
-			if (productIDs.isEmpty()) {
-				arb.Product_IDs__c = null;
-				arb.Products__c = null;
-			} else {
+			arb.Product_IDs__c = null;
+			arb.Products__c = null;
+			
+			if (!productIDs.isEmpty()) {
 				ProductsSelector productsSelector = ProductsSelector.newInstance(0, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.Name}});
 
 				List<String> productNames = new List<String>();

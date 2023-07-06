@@ -11,12 +11,12 @@
 */
 @isTest
 public with sharing class AtRiskBusinessSelector_Test {
-    @isTest
+	@isTest
 	static void testSelectById() {
 		// =====================================
-        // Data Preparation
-        // =====================================
-        MockUtility.disableTriggerExecution();
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
 
 		Account testAcc = new Account(Name = 'test');
 
@@ -26,14 +26,14 @@ public with sharing class AtRiskBusinessSelector_Test {
 
 		insert arb;
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
 		AtRiskBusinessSelector selector = AtRiskBusinessSelector.newInstance();
 		List<At_Risk_Business__c> results = selector.selectById(new Set<Id>{arb.Id});
-        
+		
 		Assert.areEqual(1, results.size(), 'Expected result size of 1');
 
 		Test.stopTest();
