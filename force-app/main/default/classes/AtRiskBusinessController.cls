@@ -105,9 +105,6 @@ public with sharing class AtRiskBusinessController {
 
 	@AuraEnabled
 	public static void saveSelection(String arbId, List<Id> productIds) {
-		// Converting to Set<Id> in order to pass it to selector
-		Set<Id> productIdSet = new Set<Id>(productIds);
-
 		try {
 			arb = new At_Risk_Business__c(Id = arbId);
 
@@ -119,14 +116,14 @@ public with sharing class AtRiskBusinessController {
 
 				List<String> productNames = new List<String>();
 
-				for (Product2 prod: productsSelector.selectByIdOrderByName(productIdSet, null)) {
+				for (Product2 prod: productsSelector.selectByIdOrderByName(new Set<Id>(productIds), null)) {
 					productNames.add(prod.Name);
 				}
 
-				arb.Product_IDs__c = String.join(productIdSet, ';');
+				arb.Product_IDs__c = String.join(productIds, ';');
 				arb.Products__c = String.join(productNames, ';');
 			}
-
+			
 			if (!Test.isRunningTest()) {
 				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
 			}
