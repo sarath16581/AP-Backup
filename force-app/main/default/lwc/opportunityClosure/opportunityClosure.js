@@ -111,11 +111,13 @@ export default class OpportunityClosure extends LightningElement {
     @track validStage = false;
     @track isOptyClose = false;
     //Toggles the Step1 to show the Stage and Next Steps Fields 
-    @track showCloseFields = true;
+    @track showCloseFields = false;
     // Returns true if there are any Open Tasks for the Current Opportunity to Close.
     @track closureOpenTasks = false;
     // Returns true if the Data integrity Complaince Check is Completed. 
     @track isDataIntegrityCompleted = false;
+	// Toggles the UI to show the product review table.
+	@track showConfirmOPC = true;
     //Toggles the UI to show the Data Integrity Task 
     @track showDataCheck = false;
     // Returns true if there are any Open DSR Records. 
@@ -342,6 +344,16 @@ export default class OpportunityClosure extends LightningElement {
             });
         }
     }
+
+
+
+    /*
+    **** Function to confirm opportunity line items have appropriate classificaiton
+    */ 
+	confirmOPC() {
+		this.showConfirmOPC = false;
+		this.showCloseFields = true;
+	}
 
     /*
     **** Function to check for Opportunity Open Tasks before Closing. 

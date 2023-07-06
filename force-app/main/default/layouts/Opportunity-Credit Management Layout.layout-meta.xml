@@ -143,10 +143,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Opportunity_Initial_Estimate__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>CAPEX__c</field>
             </layoutItems>
         </layoutColumns>

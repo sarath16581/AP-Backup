@@ -56,7 +56,7 @@
             <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.APT_Postcode_Suburb__r.Name}"></apex:outputText>
             <br/>  
             <apex:outputText value="Minimum Monthly Spend: $"></apex:outputText>
-            <apex:outputText value="{0,number,00.00}"><apex:param value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.APT_Minimum_Monthly_Spend__c}"></apex:param></apex:outputText>
+            <apex:outputText value="{0,number,00.00}"><apex:param value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c}"></apex:param></apex:outputText>
             <br/> 
             <br/>
             <b><apex:outputText value="Sales Justification: "></apex:outputText></b>
