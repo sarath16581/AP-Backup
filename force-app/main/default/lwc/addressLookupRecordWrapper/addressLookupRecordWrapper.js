@@ -31,6 +31,7 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
   @api refreshAfterSave;
   // pass in containerContext = 'VisualForce', to use old skool
   @api containerContext = 'Lightning';
+  @api refreshNotNavigate;
 
   settings;
   currentRecord;
@@ -231,6 +232,9 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
           updateRecord(record)
             .then(() => {
               this.showSpinner = false;
+              if (this.refreshNotNavigate) {
+                window.location.reload();
+              }
               if (!this.noRefreshAfterSave) {
                 this[NavigationMixin.Navigate]({
                   type: 'standard__recordPage',
