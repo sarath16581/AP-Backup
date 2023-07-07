@@ -614,14 +614,14 @@ public with sharing class ActivityUtil {
     }
 
     public without sharing class ActivityUtilWithoutSharing {
-        private final List <Account> accounts;
+        private final List<Account> accounts;
 
-        public ActivityUtilWithoutSharing(List <Account> accounts) {
+        public ActivityUtilWithoutSharing(List<Account> accounts) {
             this.accounts = accounts;
         }
 
         public void updateAccounts() {
-            update accounts;
+            ApplicationDatabase.getInstance().dmlUpdate(accounts);
         }
     }
 }
