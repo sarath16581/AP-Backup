@@ -69,6 +69,7 @@ export default class BarSelectProducts extends LightningElement {
 
 				let productTree = {};
 
+				//debugger; 
 				result.products.forEach(record => {
 					let level4 = productTree[record.level4Name];
 

@@ -13,7 +13,7 @@ public class AtRiskBusinessController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		BusinessAtRiskController.revenueDate = Date.newInstance(2023, 7, 1);
+		AtRiskBusinessController.revenueDate = Date.newInstance(2023, 7, 1);
 
 		String testYear = '2023';
 
@@ -55,7 +55,7 @@ public class AtRiskBusinessController_Test {
 		// =====================================
 		Test.startTest();
 
-		AtRiskBusinessController.ProductData productData = BusinessAtRiskController.getProducts(arb.Id);
+		AtRiskBusinessController.ProductData productData = AtRiskBusinessController.getProducts(arb.Id);
 
 		Test.stopTest();
 		
@@ -107,4 +107,39 @@ public class AtRiskBusinessController_Test {
 		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Product_IDs__c);
 		Assert.areEqual(productNameString, AtRiskBusinessController.arb.Products__c);
 	}
+
+	@isTest
+    static void test_recalculateRevenue() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Id testAccountId = fflib_IDGenerator.generate(Account.getSObjectType());
+
+		At_Risk_Business__c arb = ApplicationTestDataFactory.getAtRiskBusiness(1, testAccountId, true)[0];
+		
+		arb.Recalculate_Revenue__c = false;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		AtRiskBusinessSelector mockARBSelector = (AtRiskBusinessSelector)MockUtility.mockSelector(AtRiskBusinessSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockARBSelector.selectById(new Set<Id>{arb.Id})).thenReturn(new List<At_Risk_Business__c>{arb});
+		MockUtility.Mocks.stopStubbing();
+		
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		AtRiskBusinessController.recalculateRevenue(arb.Id);
+
+		Test.stopTest();
+		
+		Assert.areEqual(true, arb.Recalculate_Revenue__c);
+    }
+
+
 }
