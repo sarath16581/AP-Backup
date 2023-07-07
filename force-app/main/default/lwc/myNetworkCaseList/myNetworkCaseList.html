@@ -8,143 +8,143 @@
 12.05.2020    Hara Sahoo     Added markup for a Print Button
 -->
 <template>
-    <template if:true={loadLandingPage}>
-        <lightning-spinner alternative-text="Loading..."></lightning-spinner>
-    </template>
-    <div if:true={loadLandingPageErrMsg} class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
-        <p style="color:red" class="slds-p-left_xx-large">{loadLandingPageErrMsg}</p>
-    </div>
-    <template if:false={loadLandingPage}>
-    <div class="slds-p-around_small">
-        <c-my-network-current-user-info total-open-cases={totalNumberOfCases}>
-        </c-my-network-current-user-info>
-    </div>
-    <c-my-network-case-list-views onlistviewchange={listViewChangeHandler}
-        onsearchfieldschange={searchfieldschangeHandler} loading-flag>
-    </c-my-network-case-list-views>
+	<template if:true={loadLandingPage}>
+		<lightning-spinner alternative-text="Loading..."></lightning-spinner>
+	</template>
+	<div if:true={loadLandingPageErrMsg} class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
+		<p style="color:red" class="slds-p-left_xx-large">{loadLandingPageErrMsg}</p>
+	</div>
+	<template if:false={loadLandingPage}>
+	<div class="slds-p-around_small">
+		<c-my-network-current-user-info total-open-cases={totalNumberOfCases}>
+		</c-my-network-current-user-info>
+	</div>
+	<c-my-network-case-list-views onlistviewchange={listViewChangeHandler}
+		onsearchfieldschange={searchfieldschangeHandler} loading-flag>
+	</c-my-network-case-list-views>
 
-    
-    <div class="slds-p-around_small">
-        <lightning-card>
-            <div if:true={assignToSelfHasErr} class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
-                <p style="color:red" class="slds-p-left_xx-large">{assignToSelfErrMsg}</p>
-            </div>
-            <template if:true={searchingFlag}>
-                <lightning-spinner alternative-text="Loading..."></lightning-spinner>
-            </template>
-            <div if:true={noCasesFoundflag}>
-                <p style="color:red;padding-left:20px;"> No Cases Found</p>
-            </div>
-            <div if:false={noCasesFoundflag}>
-                <!--Single/Multiple Print-->
-                <div class="slds-float_right" style="padding-right:10px;">
-                    <lightning-button variant="Neutral" label="Print" onclick={handleClick}
-                        title="Print Single or Multiple" class="slds-m-left_x-small"></lightning-button>
-                </div>
-                <div class="slds-float_right" style="padding-right:20px;">
-                    <lightning-button variant="Neutral" label="Assign To Self" onclick={assignToSelfHandler}
-                        title="Assign To Self" class="slds-m-left_x-small"></lightning-button>
-                </div>
-                
-               <div class="slds-float_right" style="padding-right:20px;">
-                    <lightning-button variant="Neutral" label="Assign To User" onclick={handleAssignToUser}
-                        title="Assign To User" class="slds-m-left_x-small"></lightning-button>
-                </div>
-                <template if:true={bShowModal}>
-                    <c-my-network-case-assigned-to-pop-up
-                                onclosemodalpopup={closemodalpopuphandler}
-                                onassignuser={assignuserHandler}></c-my-network-case-assigned-to-pop-up>
-                </template>
-            </div><br/><br/>
-            <div if:false={noCasesFoundflag}>
-                <div class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
-                    <h2 class="slds-text-heading_small slds-p-left_xx-large"><b>Filtered Cases : {totalNumberOfFilteredCases} of
-                            {totalNumberOfCases}</b></h2>
-                </div>
-            </div>
-            <template if:true={showTable}>
-                <lightning-card>
-                    <div class="slds-grid slds-grid_align-end">
-                        <div class="slds-col slds-size_5-of-12">
-                            <!--SEARCH BOX-->
-                            <div if:true={showSearchBox}>
-                                <div class="slds-p-horizontal_x-small slds-m-top_x-small slds-p-bottom_xx-small">
-                                    <lightning-input label="" type="search" placeholder="Search The Case List"
-                                        variant="label-hidden" onchange={handleKeyChange}></lightning-input>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slds-col slds-col_bump-left">
-                            <div style={controlPagination}
-                                class="slds-list_inline slds-m-top_x-small slds-p-bottom_xx-small">
-                                <label class="slds-text-color_weak slds-p-horizontal_x-small"
-                                    for="recordsPerPage">Records Per Page:</label>
-                                <div class="slds-select_container">
-                                    <select class="slds-select" id="recordsPerPage" onchange={handleRecordsPerPage}>
-                                        <template for:each={pageSizeOptions} for:item="option">
-                                            <option key={option} value={option}>{option}</option>
-                                        </template>
-                                    </select>
-                                </div>
-                            </div>
-                            <div style={controlPagination} class="slds-m-top_x-small slds-list_inline">
-                                <div class="slds-col slds-p-bottom_xx-small slds-float_right">
-                                    <span style={controlPrevious}>
-                                        <lightning-button-icon icon-name="utility:left" variant="bare" size="medium"
-                                            alternative-text="Previous Page" onclick={previousPage}>
-                                        </lightning-button-icon>
-                                    </span>
-                                    <label class="slds-text-color_weak slds-p-right_xx-small"
-                                        for="pageNum">Page:</label>
-                                    <input type="number" id="pageNum" value={pageNumber} maxlength="4"
-                                        onkeypress={handlePageNumberChange} class="customInput"
-                                        title="Go to a Page"></input>
-                                    <span>&nbsp;of&nbsp;<b id="totalPages">{totalPages}</b></span>
-                                    <span style={controlNext}>
-                                        <lightning-button-icon icon-name="utility:right" variant="bare" size="medium"
-                                            alternative-text="Next Page" onclick={nextPage}
-                                            class="slds-p-horizontal_x-small"></lightning-button-icon>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div><br />
-                    <!-- MyNetwork Paginator Ends-->
-                    <lightning-datatable key-field="Id" data={recordsToDisplay} columns={columns}
-                        row-number-offset={rowNumberOffset} onrowaction={handleRowAction} onsort={updateColumnSorting}
-                        sorted-by={sortedBy} sorted-direction={sortedDirection} onrowselection={getSelectedRows}>
-                    </lightning-datatable><br />
+	
+	<div class="slds-p-around_small">
+		<lightning-card>
+			<div if:true={assignToSelfHasErr} class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
+				<p style="color:red" class="slds-p-left_xx-large">{assignToSelfErrMsg}</p>
+			</div>
+			<template if:true={searchingFlag}>
+				<lightning-spinner alternative-text="Loading..."></lightning-spinner>
+			</template>
+			<div if:true={noCasesFoundflag}>
+				<p style="color:red;padding-left:20px;"> No Cases Found</p>
+			</div>
+			<div if:false={noCasesFoundflag}>
+				<!--Single/Multiple Print-->
+				<div class="slds-float_right" style="padding-right:10px;">
+					<lightning-button variant="Neutral" label="Print" onclick={handleClick}
+						title="Print Single or Multiple" class="slds-m-left_x-small"></lightning-button>
+				</div>
+				<div class="slds-float_right" style="padding-right:20px;">
+					<lightning-button variant="Neutral" label="Assign To Self" onclick={assignToSelfHandler}
+						title="Assign To Self" class="slds-m-left_x-small"></lightning-button>
+				</div>
+				
+			   <div class="slds-float_right" style="padding-right:20px;">
+					<lightning-button variant="Neutral" label="Assign To User" onclick={handleAssignToUser}
+						title="Assign To User" class="slds-m-left_x-small"></lightning-button>
+				</div>
+				<template if:true={bShowModal}>
+					<c-my-network-case-assigned-to-pop-up
+								onclosemodalpopup={closemodalpopuphandler}
+								onassignuser={assignuserHandler}></c-my-network-case-assigned-to-pop-up>
+				</template>
+			</div><br/><br/>
+			<div if:false={noCasesFoundflag}>
+				<div class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
+					<h2 class="slds-text-heading_small slds-p-left_xx-large"><b>Filtered Cases : {totalNumberOfFilteredCases} of
+							{totalNumberOfCases}</b></h2>
+				</div>
+			</div>
+			<template if:true={showTable}>
+				<lightning-card>
+					<div class="slds-grid slds-grid_align-end">
+						<div class="slds-col slds-size_5-of-12">
+							<!--SEARCH BOX-->
+							<div if:true={showSearchBox}>
+								<div class="slds-p-horizontal_x-small slds-m-top_x-small slds-p-bottom_xx-small">
+									<lightning-input label="" type="search" placeholder="Search The Case List"
+										variant="label-hidden" onchange={handleKeyChange}></lightning-input>
+								</div>
+							</div>
+						</div>
+						<div class="slds-col slds-col_bump-left">
+							<div style={controlPagination}
+								class="slds-list_inline slds-m-top_x-small slds-p-bottom_xx-small">
+								<label class="slds-text-color_weak slds-p-horizontal_x-small"
+									for="recordsPerPage">Records Per Page:</label>
+								<div class="slds-select_container">
+									<select class="slds-select" id="recordsPerPage" onchange={handleRecordsPerPage}>
+										<template for:each={pageSizeOptions} for:item="option">
+											<option key={option} value={option}>{option}</option>
+										</template>
+									</select>
+								</div>
+							</div>
+							<div style={controlPagination} class="slds-m-top_x-small slds-list_inline">
+								<div class="slds-col slds-p-bottom_xx-small slds-float_right">
+									<span style={controlPrevious}>
+										<lightning-button-icon icon-name="utility:left" variant="bare" size="medium"
+											alternative-text="Previous Page" onclick={previousPage}>
+										</lightning-button-icon>
+									</span>
+									<label class="slds-text-color_weak slds-p-right_xx-small"
+										for="pageNum">Page:</label>
+									<input type="number" id="pageNum" value={pageNumber} maxlength="4"
+										onkeypress={handlePageNumberChange} class="customInput"
+										title="Go to a Page"></input>
+									<span>&nbsp;of&nbsp;<b id="totalPages">{totalPages}</b></span>
+									<span style={controlNext}>
+										<lightning-button-icon icon-name="utility:right" variant="bare" size="medium"
+											alternative-text="Next Page" onclick={nextPage}
+											class="slds-p-horizontal_x-small"></lightning-button-icon>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div><br />
+					<!-- MyNetwork Paginator Ends-->
+					<lightning-datatable key-field="Id" data={recordsToDisplay} columns={columns}
+						row-number-offset={rowNumberOffset} onrowaction={handleRowAction} onsort={updateColumnSorting}
+						sorted-by={sortedBy} sorted-direction={sortedDirection} onrowselection={getSelectedRows}>
+					</lightning-datatable><br />
 
-                     
-                    <div class="slds-col slds-size_12-of-12">
-                        <!--PAGE NAVIGATION-->
-                        <div style={controlPagination}>
-                            <div class="slds-col slds-p-bottom_xx-small slds-float_right">
-                                <span style={controlPrevious}>
-                                    <lightning-button-icon icon-name="utility:left" variant="bare" size="medium"
-                                        alternative-text="Previous Page" onclick={previousPage}></lightning-button-icon>
-                                </span>
-                                <label class="slds-text-color_weak slds-p-horizontal_x-small"
-                                    for="pageNum">Page:</label>
-                                <input type="number" id="pageNumv1" value={pageNumber} maxlength="4"
-                                    onkeypress={handlePageNumberChange} class="customInput"
-                                    title="Go to a Page"></input>
-                                <span>&nbsp;of&nbsp;<b id="totalPagesv1">{totalPages}</b></span>
-                                <span style={controlNext}>
-                                    <lightning-button-icon icon-name="utility:right" variant="bare" size="medium"
-                                        alternative-text="Next Page" onclick={nextPage}
-                                        class="slds-p-horizontal_x-small"></lightning-button-icon>
-                                </span>
-                            </div>
-                        </div>
-                    </div><br /><br />
-                </lightning-card>
-            </template>
-            <template if:true={showCaseRecordDetails}>
-                <c-my-network-case-details selected-case-record-wrapper={caseRecordWrapper}>
-                </c-my-network-case-details>
-            </template>
-        </lightning-card>
-    </div>
+					 
+					<div class="slds-col slds-size_12-of-12">
+						<!--PAGE NAVIGATION-->
+						<div style={controlPagination}>
+							<div class="slds-col slds-p-bottom_xx-small slds-float_right">
+								<span style={controlPrevious}>
+									<lightning-button-icon icon-name="utility:left" variant="bare" size="medium"
+										alternative-text="Previous Page" onclick={previousPage}></lightning-button-icon>
+								</span>
+								<label class="slds-text-color_weak slds-p-horizontal_x-small"
+									for="pageNum">Page:</label>
+								<input type="number" id="pageNumv1" value={pageNumber} maxlength="4"
+									onkeypress={handlePageNumberChange} class="customInput"
+									title="Go to a Page"></input>
+								<span>&nbsp;of&nbsp;<b id="totalPagesv1">{totalPages}</b></span>
+								<span style={controlNext}>
+									<lightning-button-icon icon-name="utility:right" variant="bare" size="medium"
+										alternative-text="Next Page" onclick={nextPage}
+										class="slds-p-horizontal_x-small"></lightning-button-icon>
+								</span>
+							</div>
+						</div>
+					</div><br /><br />
+				</lightning-card>
+			</template>
+			<template if:true={showCaseRecordDetails}>
+				<c-my-network-case-details selected-case-record-wrapper={caseRecordWrapper}>
+				</c-my-network-case-details>
+			</template>
+		</lightning-card>
+	</div>
 </template>   
 </template>
