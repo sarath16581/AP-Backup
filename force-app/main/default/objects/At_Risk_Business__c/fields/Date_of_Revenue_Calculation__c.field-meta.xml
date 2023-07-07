@@ -3,7 +3,7 @@
 	<fullName>Date_of_Revenue_Calculation__c</fullName>
 	<externalId>false</externalId>
 	<inlineHelpText>Revenue calculations may become inconsistent when BaR records span multiple months</inlineHelpText>
-	<descrition>Date when revenue was automatically calculated.</descrition>
+	<description>Date when revenue was automatically calculated.</description>
 	<label>Date of Revenue Calculation</label>
 	<required>false</required>
 	<trackFeedHistory>false</trackFeedHistory>
