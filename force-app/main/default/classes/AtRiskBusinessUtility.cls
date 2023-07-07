@@ -5,7 +5,7 @@ public inherited sharing class AtRiskBusinessUtility {
 		return calendarMonth > 7 ? (calendarMonth - 6) : (calendarMonth + 6);
 	}
 
-    /*
+	/*
 	 * @description Given a date, return the financial years and names of months going back 12 months (from before the month of the given date)
 	 */
 	public static Map<String, List<String>> getFinancialYearsAndMonths(Date atRiskDate) {
