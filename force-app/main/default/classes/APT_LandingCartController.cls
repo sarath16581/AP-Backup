@@ -97,7 +97,7 @@ public with sharing class APT_LandingCartController {
 
 			//Checking which flow to use to land to the Catalogue page for the proposal which gets created or the existed proposal.
 			if(((proposalId != null || proposalExist== APT_Constants.BOOL_TRUE) && proposal.Apttus_QPConfig__PriceListId__c != null
-				&& proposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE && Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != ''
+				&& proposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != ''
 				&& proposal.Apttus_Proposal__Approval_Stage__c !=  APT_Constants.APPROVAL_STAGE_ACCEPTED) ||
 				(
 				(proposal.Apttus_QPApprov__Approval_Status__c != APT_Constants.APPROVAL_STAGE_APPROVED && proposal.Apttus_QPApprov__Approval_Status__c != null  && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != APT_Constants.OPTION_NO && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c !=null) ||
