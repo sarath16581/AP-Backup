@@ -42,14 +42,10 @@ public with sharing class AtRiskBusinessController {
 			ProductData data = new ProductData();
 
 			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{ arbId })[0];
-
-			System.debug(arb);
 	
 			BudgetAndRevenueSelector revenueSelector = BudgetAndRevenueSelector.newInstance();
 	
 			Map<String, List<String>> financialYearMonths = AtRiskBusinessUtility.getFinancialYearsAndMonths(revenueDate);
-
-			System.debug('FY: ' + financialYearMonths);
 
 			List<Budget_and_Revenue__c> revenues = revenueSelector.selectByOrganisationId(new Set<Id>{arb.Legal_Entity_Name__c}, financialYearMonths.keySet());
 
@@ -62,8 +58,6 @@ public with sharing class AtRiskBusinessController {
 				
 				productIds.addAll((List<Id>)data.selectedIDs);
 			}
-
-			System.debug('ProductIDs: ' + productIDs);
 	
 			for (Budget_and_Revenue__c rev: revenues) {
 				if (!allProducts && !productIDs.contains(rev.Product__c)) {
