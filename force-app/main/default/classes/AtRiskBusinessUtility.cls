@@ -1,7 +1,7 @@
 public inherited sharing class AtRiskBusinessUtility {
 	private static final List<String> monthNames = new List<String>{'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'};
 
-    /*
+	/*
 	 * @description Given a date, return the financial years and names of months going back 12 months (from before the month of the given date)
 	 */
 	public static Map<String, List<String>> getFinancialYearsAndMonths(Date atRiskDate) {

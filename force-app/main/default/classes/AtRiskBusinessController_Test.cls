@@ -9,7 +9,7 @@
 public class AtRiskBusinessController_Test {
 
 	@isTest
-    static void test_getProducts() {
+	static void test_getProducts() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -61,10 +61,10 @@ public class AtRiskBusinessController_Test {
 		
 		Assert.areEqual(1, productData.products.size());
 		Assert.areEqual(products[0].Id, productData.selectedIDs[0]);
-    }
+	}
 
 	@isTest
-    static void test_saveSelection() {
+	static void test_saveSelection() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -109,7 +109,7 @@ public class AtRiskBusinessController_Test {
 	}
 
 	@isTest
-    static void test_recalculateRevenue() {
+	static void test_recalculateRevenue() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -139,7 +139,5 @@ public class AtRiskBusinessController_Test {
 		Test.stopTest();
 		
 		Assert.areEqual(true, arb.Recalculate_Revenue__c);
-    }
-
-
+	}
 }
