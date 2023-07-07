@@ -38,19 +38,14 @@ public with sharing class AtRiskBusinessController {
 
 	@AuraEnabled(cacheable=true)
 	public static ProductData getProducts(String arbId, Boolean allProducts) {
-		System.debug('arbID: ' + arbId);
 		try {
 			ProductData data = new ProductData();
 
 			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{ arbId })[0];
-
-			System.debug(arb);
 	
 			BudgetAndRevenueSelector revenueSelector = BudgetAndRevenueSelector.newInstance();
 	
 			Map<String, List<String>> financialYearMonths = AtRiskBusinessUtility.getFinancialYearsAndMonths(revenueDate);
-
-			System.debug('FY: ' + financialYearMonths);
 
 			List<Budget_and_Revenue__c> revenues = revenueSelector.selectByOrganisationId(new Set<Id>{arb.Legal_Entity_Name__c}, financialYearMonths.keySet());
 
@@ -63,8 +58,6 @@ public with sharing class AtRiskBusinessController {
 				
 				productIds.addAll((List<Id>)data.selectedIDs);
 			}
-
-			System.debug('ProductIDs: ' + productIDs);
 	
 			for (Budget_and_Revenue__c rev: revenues) {
 				if (!allProducts && !productIDs.contains(rev.Product__c)) {
@@ -79,8 +72,6 @@ public with sharing class AtRiskBusinessController {
 
 				productRevenueMap.put(productId, addRevenue(productRevenue, rev, financialYearMonths));
 			}
-	
-			System.debug('ProductIDs: ' + productIDs);
 
 			List<Product2> products = ProductsSelector.newInstance(0, productFields).selectByIdOrderByName(productIDs, new Set<Object>());
 
@@ -124,9 +115,6 @@ public with sharing class AtRiskBusinessController {
 	public static void saveSelection(String arbId, List<Id> productIds) {
 		try {
 			arb = new At_Risk_Business__c(Id = arbId);
-
-			system.debug('arbID: '+ arbId);
-			system.debug('productIds:' + productIds);
 
 			arb.Product_IDs__c = null;
 			arb.Products__c = null;
