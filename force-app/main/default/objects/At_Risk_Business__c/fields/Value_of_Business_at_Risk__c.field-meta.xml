@@ -3,7 +3,7 @@
     <fullName>Value_of_Business_at_Risk__c</fullName>
     <description>Currency Field - User Input</description>
     <externalId>false</externalId>
-    <inlineHelpText>Identify the total annual value of the Business At Risk or Business Lost</inlineHelpText>
+    <inlineHelpText>Enter estimated value. This will be system calculated after saving when you select specific product(s) or whole of business.</inlineHelpText>
     <label>Annual Value of Business at Risk</label>
     <precision>18</precision>
     <required>false</required>
