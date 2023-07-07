@@ -9,6 +9,6 @@
  */
 trigger AtRiskBusinessTrigger on At_Risk_Business__c (before insert, before update,after insert,after update, after delete) {
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(At_Risk_Business__c.SObjectType))) {
-		AtRiskBusinessTriggerHandler.newInstance().dispatch();
+		(new AtRiskBusinessTriggerHandler()).dispatch();
 	}
 }
