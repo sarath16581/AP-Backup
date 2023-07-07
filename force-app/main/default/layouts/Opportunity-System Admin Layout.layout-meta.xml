@@ -821,9 +821,24 @@
             <sortOrder>17</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
+            <actionName>Bids_Support_Request</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>18</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Clone</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>19</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Clone_With_Products</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>20</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Sales_Implementation_Request</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>21</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Sales_Solutions_Request</actionName>
@@ -836,29 +851,14 @@
             <sortOrder>23</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Bids_Support_Request</actionName>
+            <actionName>Bulk_Edit_Products</actionName>
             <actionType>CustomButton</actionType>
-            <sortOrder>18</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Clone_With_Products</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>20</sortOrder>
+            <sortOrder>24</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Opportunity.New_Deal_Support_Request</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>25</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Sales_Implementation_Request</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>21</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Bulk_Edit_Products</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>24</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -892,7 +892,7 @@
         </relatedContentItems>
         <relatedContentItems>
             <layoutItem>
-                <behavior>Readonly</behavior>
+                <behavior>Required</behavior>
                 <field>KeyContact__c</field>
             </layoutItem>
         </relatedContentItems>

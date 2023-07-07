@@ -34,7 +34,6 @@
         <picklistValueName>Closed Won</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>KeyContact__c</fieldNames>
         <fieldNames>CloseDate</fieldNames>
         <fieldNames>Amount</fieldNames>
         <fieldNames>Primary_Competitor_Name__c</fieldNames>
@@ -42,7 +41,6 @@
         <picklistValueName>Identify</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>KeyContact__c</fieldNames>
         <fieldNames>CloseDate</fieldNames>
         <fieldNames>Amount</fieldNames>
         <fieldNames>Data_Quality_Score__c</fieldNames>
@@ -50,7 +48,6 @@
         <picklistValueName>Negotiate</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>KeyContact__c</fieldNames>
         <fieldNames>CloseDate</fieldNames>
         <fieldNames>Amount</fieldNames>
         <fieldNames>Data_Quality_Score__c</fieldNames>
@@ -58,7 +55,6 @@
         <picklistValueName>Propose</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>KeyContact__c</fieldNames>
         <fieldNames>CloseDate</fieldNames>
         <fieldNames>Amount</fieldNames>
         <fieldNames>Primary_Competitor_Name__c</fieldNames>

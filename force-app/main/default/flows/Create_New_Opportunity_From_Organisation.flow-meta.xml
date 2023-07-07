@@ -467,7 +467,7 @@ Then, navigate to new opportunity record.</description>
             <targetReference>LPO_Get_Account</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>choice_Type</name>
         <dataType>Picklist</dataType>
