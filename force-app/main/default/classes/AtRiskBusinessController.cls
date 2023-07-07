@@ -85,8 +85,6 @@ public with sharing class AtRiskBusinessController {
 				item.level4Name	= product.Product_Level_4__c;
 				item.revenue	= productRevenueMap.get(product.Id);
 
-				System.debug(item);
-
 				data.products.add(item);
 			}
 
