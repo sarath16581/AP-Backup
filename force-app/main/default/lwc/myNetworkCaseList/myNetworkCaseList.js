@@ -12,6 +12,7 @@
 31.01.2023		Dattaraj Deshmukh - Updated to show number of case numbers.
 01.05.2023		Mahesh Parvathaneni - Updated the case link and case investigation link to use the base path of community
 03.05.2023		Mahesh Parvathaneni - Updated SentToNetworkDatetime__c field for case investigation
+06.07.2023    Swati Mogadala    INC2170610: After summer '23 release, _target fix on NavigationMixin
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
@@ -683,27 +684,24 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 	}
 	
 	handleClick(evt) {
-		var hostname = window.location.hostname;
 
 		//this.selectedRecords == null modified with length() to get message when no case is selected  
 		if(this.selectedRecords.length === 0){
 		this.assignToSelfHasErr = true;
 		this.assignToSelfErrMsg = 'Please select case(s) for printing'
 		}else{
+	
 		evt.preventDefault();
-		evt.stopPropagation();
-		this.VFpage = {
-			type: "standard__webPage",
+		evt.stopPropagation();	
+		
+		this[NavigationMixin.GenerateUrl]({
+			type: 'standard__webPage',
 			attributes: {
-			url:
-				"https://" +
-				hostname + (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") +
-				"/apex/myNetworkCasePDFGenerator?selectedIds=" +
-				encodeURI(this.selectedRecords),
-			},
-		};
-		// Navigate to the Case print VF page.
-		this[NavigationMixin.Navigate](this.VFpage);
+				url: '/apex/myNetworkCasePDFGenerator?selectedIds=' + this.selectedRecords
+			}
+		}).then(generatedUrl => {
+			window.open(generatedUrl, '_blank');
+		});
 		}
 	}
 

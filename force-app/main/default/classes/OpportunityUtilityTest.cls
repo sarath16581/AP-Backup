@@ -5,9 +5,9 @@ Description:    Test class to cover OpportunityUtility functionality
 History:
 -----------------------------------------------------------------------------------------
 17.10.2017      Adrian Recio (Accenture)            Test class created
-14-06-2018  heguang.miao@coroma.com.au  Updated [TDO-96] Unit tests re-written with scenario based tests. 
-17-02-2020   Jansi                       Added stage while inserting Opportunity in testDatasetup 
-28-Feb-2020  Lavanya Kavuri (lkavuri@salesforce.com)     Fixing Test class failures    
+14-06-2018  heguang.miao@coroma.com.au  Updated [TDO-96] Unit tests re-written with scenario based tests.
+17-02-2020   Jansi                       Added stage while inserting Opportunity in testDatasetup
+28-Feb-2020  Lavanya Kavuri (lkavuri@salesforce.com)     Fixing Test class failures
 05-03-2020  seth.p.heang@accenture.com  Updated Test methods with dynamic dateTime test data to fix test failure due to static dateTime
 12-03-2020  Jansi(avula.jansirani@crmit.com) added line ' newOpty.Hidden_Restrict_Path_Closure__c =TRUE;'
 25-03-2020  Jansi(avula.jansirani@crmit.com) commented test.startTest() before creating Opportunity and added before inserting OpportunityLineItem to avoid SOQL Limit issue
@@ -148,25 +148,25 @@ private class OpportunityUtilityTest {
         organizationAccount.email__c = 'test@test.com';
         organizationAccount.recordtypeid = organizationRecordType.Id;
         insert organizationAccount;
-        
+
         // Create test Account
         List<Account> accVarList = new List<Account>();
         Account accVar = APT_TestUtil2.createOrganisation();
         accVar.Name = 'WithRevenue';
         accVarList.add(accVar);
-        
+
         Account accVar2 = APT_TestUtil2.createOrganisation();
         accVar2.Name = 'WithoutRevenue';
         accVarList.add(accVar2);
-        
+
         Account accVar3 = APT_TestUtil2.createOrganisation();
         accVar3.Name = 'AnotherWithRevenue';
         accVarList.add(accVar3);
-        
+
         Account accVar4 = APT_TestUtil2.createOrganisation();
         accVar4.Name = 'RefactoredAcct';
         accVarList.add(accVar4);
-        
+
         insert accVarList;
 
         // Create test Opportunity
@@ -175,28 +175,28 @@ private class OpportunityUtilityTest {
         oppVar.StageName = 'Identify';
         oppVar.Pre_Entry__c = TRUE;
         optyList.add(oppVar);
-        
+
         Opportunity oppVar2 = APT_TestUtil2.createOpportunity(accVar2);
         oppVar2.Pre_Entry__c = TRUE;
         oppVar2.StageName = 'Identify';
         optyList.add(oppVar2);
-        
+
         Opportunity oppVar3 = APT_TestUtil2.createOpportunity(accVar3);
         oppVar3.Pre_Entry__c = TRUE;
         oppVar3.Closed_Reason__c = 'Functionality';
         oppVar3.StageName = 'Identify';
         optyList.add(oppVar3);
-        
+
         Opportunity oppVar4 = APT_TestUtil2.createOpportunity(accVar4);
         oppVar4.Pre_Entry__c = TRUE;
         oppVar4.Closed_Reason__c = 'Functionality';
         //--[Jansi] added below 17-02-2020 [for ERROR::System.DmlException: Insert failed. First exception on row 3; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, New Opportunity can only be created with Stage set to 'Identify': []]
         oppVar4.StageName = 'Identify';
         optyList.add(oppVar4);
-        
+
         insert optyList;
 
-        
+
         // Create account plan
         Account_Plan__c apVar = new Account_Plan__c();
         apVar.name = 'test plan';
@@ -229,27 +229,27 @@ private class OpportunityUtilityTest {
         );
 
         insert configSetting;
-        
+
         //create products
         List<Product2> productList = new List<Product2>();
         Product2 bundle1 = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('International Bundle', TRUE);
         productList.add(bundle1);
-        
+
         Product2 bundle2 = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('Road Express - STE', TRUE);
         productList.add(bundle2);
-        
+
         Product2 bundle3 = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('eParcel Express', TRUE);
         productList.add(bundle3);
-        
+
         Product2 bundle4 = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('Boxes and Bags Others', TRUE);
         productList.add(bundle4);
-        
+
         insert productList;
-        
+
         //Create your pricebook entry
         Id pricebookId = Test.getStandardPricebookId();
         PricebookEntry pbEntry = new PricebookEntry();
-        
+
         List<PricebookEntry> pbEntryList = new List<PricebookEntry>();
         for(Product2 testProd : productList){
             pbEntry = new PricebookEntry();
@@ -259,13 +259,13 @@ private class OpportunityUtilityTest {
             pbEntry.IsActive = true;
             pbEntryList.add(pbEntry);
         }
-        
+
         insert pbEntryList;
-        
+
         //Create PriceList
         Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
         insert priceList;
-        
+
         //Create Proposal
         Apttus_Proposal__Proposal__c testProposal1 = new Apttus_Proposal__Proposal__c();
         List<Apttus_Proposal__Proposal__c> lstPro = new List<Apttus_Proposal__Proposal__c>();
@@ -273,40 +273,40 @@ private class OpportunityUtilityTest {
         testProposal1.APT_Selected_LP__c = 'Selected Proposal';
         testProposal1.RecordTypeID = [SELECT id from RecordType where Name = 'Renewal Quote'].Id;
         lstPro.add(testProposal1);
-        
+
         Apttus_Proposal__Proposal__c testProposal2 = new Apttus_Proposal__Proposal__c();
         testProposal2= APT_TestUtils.getQuoteProposal(accVar2.ID, oppVar2.ID, 'Proposal', 'Quote', priceList.ID);
         testProposal2.APT_Selected_LP__c = 'Selected Proposal';
         testProposal2.RecordTypeID = [SELECT id from RecordType where Name = 'Renewal Quote'].Id;
         lstPro.add(testProposal2);
-        
+
         Apttus_Proposal__Proposal__c testProposal3 = new Apttus_Proposal__Proposal__c();
         testProposal3= APT_TestUtils.getQuoteProposal(accVar3.ID, oppVar3.ID, 'Proposal', 'Quote', priceList.ID);
         testProposal3.APT_Selected_LP__c = 'Selected Proposal';
         testProposal3.RecordTypeID = [SELECT id from RecordType where Name = 'Renewal Quote'].Id;
         lstPro.add(testProposal3);
-        
+
         Apttus_Proposal__Proposal__c testProposal4 = new Apttus_Proposal__Proposal__c();
         testProposal4 = APT_TestUtils.getQuoteProposal(accVar4.ID, oppVar4.ID, 'Proposal', 'Quote', priceList.ID);
         testProposal4.APT_Selected_LP__c = 'Selected Proposal';
         testProposal4.RecordTypeID = [SELECT id from RecordType where Name = 'Renewal Quote'].Id;
         lstPro.add(testProposal4);
-        
+
         insert lstPro;
-        
-        //Create Product Configuration    
-        List<Apttus_Config2__ProductConfiguration__c> prodConfigList = new List<Apttus_Config2__ProductConfiguration__c>();    
-        Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, testProposal1.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);        
+
+        //Create Product Configuration
+        List<Apttus_Config2__ProductConfiguration__c> prodConfigList = new List<Apttus_Config2__ProductConfiguration__c>();
+        Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, testProposal1.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);
         prodConfigList.add(prodconfig);
-        
+
         Apttus_Config2__ProductConfiguration__c prodconfig1 = APT_TestUtils.getProductConfiguration('Product Configuration', 1, testProposal2.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);
         prodConfigList.add(prodconfig1);
-        
+
         Apttus_Config2__ProductConfiguration__c prodconfig2 = APT_TestUtils.getProductConfiguration('Product Configuration', 1, testProposal3.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);
         prodConfigList.add(prodconfig2);
-        
+
         INSERT prodConfigList;
-        
+
         //Create Budget_and_Revenue__c
         Integer currentYear = Date.today().year();
         List<Budget_and_Revenue__c> barList = new List<Budget_and_Revenue__c>();
@@ -328,18 +328,18 @@ private class OpportunityUtilityTest {
         barObj.Dec_Revenue_Amount__c = 5;
         barObj.Total_Revenue_Amount__c = 600;
         barObj.Financial_Year__c = String.valueOf(currentYear);
-        
+
         barList.add(barObj);
-        
+
         Budget_and_Revenue__c barObjPFY = new Budget_and_Revenue__c();
         barObjPFY.Name = 'Test Name Last Year';
         barObjPFY.Organisation__c = accVar.Id;
         barObjPFY.Product__c = bundle3.Id;
         barObjPFY.Total_Revenue_Amount__c = 0;
         barObjPFY.Financial_Year__c = String.valueOf(currentYear-1);
-        
+
         barList.add(barObjPFY);
-        
+
         Budget_and_Revenue__c barObj2 = new Budget_and_Revenue__c();
         barObj2.Name = 'Revenue1';
         barObj2.Organisation__c = accVar3.Id;
@@ -358,9 +358,9 @@ private class OpportunityUtilityTest {
         barObj2.Dec_Revenue_Amount__c = 100;
         barObj2.Total_Revenue_Amount__c = 1200;
         barObj2.Financial_Year__c = String.valueOf(currentYear-1);
-        
+
         barList.add(barObj2);
-        
+
         Budget_and_Revenue__c barObj3 = new Budget_and_Revenue__c();
         barObj3.Name = 'Revenue2';
         barObj3.Organisation__c = accVar3.Id;
@@ -379,9 +379,9 @@ private class OpportunityUtilityTest {
         barObj3.Dec_Revenue_Amount__c = 100;
         barObj3.Total_Revenue_Amount__c = 1200;
         barObj3.Financial_Year__c = String.valueOf(currentYear-2);
-        
+
         barList.add(barObj3);
-        
+
         Budget_and_Revenue__c barObj4 = new Budget_and_Revenue__c();
         barObj4.Name = 'Revenue2';
         barObj4.Organisation__c = accVar3.Id;
@@ -400,9 +400,9 @@ private class OpportunityUtilityTest {
         barObj4.Dec_Revenue_Amount__c = 0;
         barObj4.Total_Revenue_Amount__c = 1200;
         barObj4.Financial_Year__c = String.valueOf(currentYear+1);
-        
+
         barList.add(barObj4);
-        
+
         Budget_and_Revenue__c barObj5 = new Budget_and_Revenue__c();
         barObj5.Name = 'Revenue3';
         barObj5.Organisation__c = accVar3.Id;
@@ -421,9 +421,9 @@ private class OpportunityUtilityTest {
         barObj5.Dec_Revenue_Amount__c = 0;
         barObj5.Total_Revenue_Amount__c = 1200;
         barObj5.Financial_Year__c = String.valueOf(currentYear);
-        
+
         barList.add(barObj5);
-        
+
         Budget_and_Revenue__c barObj6 = new Budget_and_Revenue__c();
         barObj6.Name = 'Revenue3';
         barObj6.Organisation__c = accVar.Id;
@@ -442,9 +442,9 @@ private class OpportunityUtilityTest {
         barObj6.Dec_Revenue_Amount__c = 0;
         barObj6.Total_Revenue_Amount__c = 0;
         barObj6.Financial_Year__c = String.valueOf(currentYear);
-        
+
         barList.add(barObj6);
-        
+
         Budget_and_Revenue__c barObj7 = new Budget_and_Revenue__c();
         barObj7.Name = 'Revenue3';
         barObj7.Organisation__c = accVar.Id;
@@ -463,9 +463,9 @@ private class OpportunityUtilityTest {
         barObj7.Dec_Revenue_Amount__c = 0;
         barObj7.Total_Revenue_Amount__c = 150;
         barObj7.Financial_Year__c = String.valueOf(currentYear-2);
-        
+
         barList.add(barObj7);
-        
+
         INSERT barlist; // 10/23/2019 added to fix validaion issues
     }
    /**
@@ -632,7 +632,7 @@ private class OpportunityUtilityTest {
     static void OpportunityUtility_assignSalesRep_customerAccountWithHuser() {
 
         Account account = [SELECT Id, Role_Type_Roll_Up__c, OwnerId FROM Account WHERE Name = 'customer huser user account'];
-        
+
         Test.startTest();
 
         Opportunity opp = new Opportunity();
@@ -651,21 +651,21 @@ private class OpportunityUtilityTest {
         opp = [SELECT Id, OwnerId from Opportunity WHERE Id = :opp.Id];
 
         Id accountOwnerId = [Select OwnerId from Account where Id =: account.Id].OwnerId;
-        
-        //This assert should not be equal as per the code in Oppty Util. 
-       
+
+        //This assert should not be equal as per the code in Oppty Util.
+
         System.assertNotEquals(accountOwnerId, opp.OwnerId,
                 'OpportunityUtility_assignSalesRep_customerAccountWithHuser : Opportunitys having customer account owned by ' +
                     'the holding user should be owned by account owner');
 
         /*  Lavanya Commented out based on the Modification in the Opportunity UTIL Class, that there is no longer a SalesTeam Member associated with the Opportunity.
-        **  OwnerId = Account Owner Id for this scenario. 
+        **  OwnerId = Account Owner Id for this scenario.
 
         User salesTeamMember = [SELECT Id FROM User WHERE Username = 'auTestY@auspost.com.au'];
         System.assertEquals(salesTeamMember.Id, opp.OwnerId,
                 'OpportunityUtility_assignSalesRep_customerAccountWithHuser : Opportunitys having customer account owned by ' +
                         'the holding user should be assigned to the correct sales member');
-                        */ 
+                        */
     }
 
     /**
@@ -877,7 +877,7 @@ private class OpportunityUtilityTest {
         System.assertEquals(opp.Owner_Employee_Number__c, null,
                 'OpportunityUtility_updateOwnerEmployeeNumber_emptyAssignment : Owner_Employee_Number__c should be empty');
     }
-    
+
    /***************************************************************
     * SCENARIO: Test Checks of CWG-1/CWG-5
     * AUTHOR: PEncina
@@ -931,7 +931,7 @@ private class OpportunityUtilityTest {
         opp1.Pricebook2Id = standardPBId;
         opp1.Offline_Contract_Received__c = true;
         oppList.add(opp1);
-        
+
         // without Product -- not allowed
         Opportunity opp2 = new Opportunity();
         opp2.Name = 'Test Opportunity 2';
@@ -941,66 +941,66 @@ private class OpportunityUtilityTest {
         opp2.AccountId = testAcc.Id;
         opp2.Data_Integrity_Compliance__c = true;
         oppList.add(opp2);
-        
+
         OpportunityLineItem testOLI = new OpportunityLineItem();
         testOLI.Contract_Start_Date__c = Date.today().addDays(30);
         testOLI.Contract_End_Date__c = Date.today().addDays(60);
         testOLI.Quantity = 1000;
         testOLI.UnitPrice = 1.00;
         testOLI.Contract_Product__c = 'Yes';
-        
+
         User testRunAs = [SELECT Id from User WHERE Alias = 'testRun' LIMIT 1];
 
         // test.startTest();        // moved to the very top
         System.runAs(testRunAs) {
             try {
                 insert oppList;
-                
+
                 // Opportunity has been inserted: OpportunityId
                 testOLI.OpportunityId = opp1.Id;
                 testOLI.PricebookEntryId = pbe.Id;
                 testOLI.Product2Id = testProduct.Id;
                 insert testOLI;
-                
+
                 // (For APT Contract) Create quote proposal
                 Apttus_Proposal__Proposal__c testPR = APT_TestUtil2.createQuoteProposalNoAgrmnt(testAcc, opp1, 'Proposal', testPL);
                 insert testPR;
-                
+
                 // Create test DocuSign Envelope
                 Apttus_DocuApi__DocuSignEnvelope__c dsEnv = new Apttus_DocuApi__DocuSignEnvelope__c();
                 dsEnv.Apttus_DocuApi__Status__c = DOCUSIGN_STATUS_COMPLETED;
                 insert dsEnv;
-                
+
                 // Create test Apttus Contract
                 Apttus__APTS_Agreement__c aptContract = APT_TestUtil2.createAgreement(testAcc, testCon, opp1, testPR, AUTHORCONTRACT_STATUS, INAUTHOR_STATUS_CATEGORY, MSA_RECORTYPE);
                 aptContract.APT_Product__c = 'eParcel';
-                aptContract.Apttus_CMDSign__DocuSignEnvelopeId__c = dsEnv.Id;       
+                aptContract.Apttus_CMDSign__DocuSignEnvelopeId__c = dsEnv.Id;
                 aptContract.Is_Document_Signed__c = true;
                 // insert aptContract;
-                
+
                 // Attempt to Close-Win the Opportunities
-                List<Opportunity> newOppList = [SELECT Id, Closed_Reason__c, StageName FROM Opportunity WHERE StageName = 'Negotiate'];                
+                List<Opportunity> newOppList = [SELECT Id, Closed_Reason__c, StageName FROM Opportunity WHERE StageName = 'Negotiate'];
                 for (Opportunity opp : newOppList) {
                     opp.Closed_Reason__c = 'Capability';
                     opp.StageName = Constants.CLOSED_WON;
                 }
-                
+
                 update newOppList;
-                
+
             } catch (Exception e) {
                 System.debug('Error: ' + e.getMessage());
             }
 
         }
         test.stopTest();
-        
+
         // Assertions; Only assert Opportunity records updated in this method
         for (Opportunity oppty : [SELECT Id, Name, StageName FROM Opportunity WHERE Name = 'Test Opportunity 1' OR Name = 'Test Opportunity 2']) {
             // Opportunity 1 is the only record allowed to Close Win
             System.assertNotEquals(Constants.CLOSED_WON, oppty.StageName);
         }
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Cross Sell
      * Author: Jeoffrey Palmero
@@ -1028,11 +1028,11 @@ private class OpportunityUtilityTest {
         oliVar.Contract_End_Date__c = Date.today()+10;
         oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
         INSERT oliVar;
-        
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         System.assertEquals(oliVar.OpportunityId, testOpty[0].Id);
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1045,13 +1045,13 @@ private class OpportunityUtilityTest {
         newOpty.Hidden_Restrict_Path_Closure__c =TRUE;
         newOptyList.add(newOpty);
         UPDATE newOptyList;
-        
+
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Cross Sell', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1066,8 +1066,8 @@ private class OpportunityUtilityTest {
         List<Opportunity> testOpty = [SELECT Id, AccountId, StageName FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
-        
-        //Create Organisation Role 
+
+        //Create Organisation Role
         Organisation_Role__c orgRole = new Organisation_Role__c();
         orgRole.Role_Type__c = 'Customer';
         orgRole.Organisation__c = testOrg.Id;
@@ -1089,7 +1089,7 @@ private class OpportunityUtilityTest {
         //oliVar.Contract_Start_Date__c = Date.newInstance(2019, 7, 7);
         //oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
+
        // test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1105,10 +1105,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1123,7 +1123,7 @@ private class OpportunityUtilityTest {
         List<Opportunity> testOpty = [SELECT Id, AccountId, StageName FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
-          
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
         test.startTest();
         OpportunityLineItem oliVar = new OpportunityLineItem();
@@ -1138,7 +1138,7 @@ private class OpportunityUtilityTest {
         oliVar.Contract_Start_Date__c = Date.newInstance(Date.Today().year()-2,07,07);
         oliVar.Contract_End_Date__c = Date.Today()+10;
         INSERT oliVar;
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1154,10 +1154,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1185,9 +1185,9 @@ private class OpportunityUtilityTest {
         oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
        // test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1203,10 +1203,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1233,11 +1233,11 @@ private class OpportunityUtilityTest {
         oliVar.PricebookEntryId = pbEntry.Id;
         oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
-        oliVar.Change_Classification__c = 'Yes';
+        oliVar.Change_Classification__c = 'No';
         INSERT oliVar;
-        
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1253,10 +1253,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1283,11 +1283,11 @@ private class OpportunityUtilityTest {
         oliVar.PricebookEntryId = pbEntry.Id;
         oliVar.Contract_Start_Date__c = Date.newInstance(2018, 9, 9);
         oliVar.Contract_End_Date__c = Date.newInstance(2018, 12, 12);
-        oliVar.Change_Classification__c = 'Yes';
+        oliVar.Change_Classification__c = 'No';
         INSERT oliVar;
-        
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE Id =: testOpty[0].Id LIMIT 1];
@@ -1303,10 +1303,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1323,7 +1323,7 @@ private class OpportunityUtilityTest {
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 
 
-        //Create Organisation Role 
+        //Create Organisation Role
         Organisation_Role__c orgRole = new Organisation_Role__c();
         orgRole.Role_Type__c = 'Customer';
         orgRole.Organisation__c = testOrg.Id;
@@ -1335,7 +1335,7 @@ private class OpportunityUtilityTest {
         oliVar.Product2Id = testProd.Id;
         oliVar.Classification__c = 'Growth';
         oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
-        oliVar.Change_Classification__c = 'Yes';
+        oliVar.Change_Classification__c = 'No';
         oliVar.Contract_Product__c = 'No';
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
@@ -1345,9 +1345,9 @@ private class OpportunityUtilityTest {
         //oliVar.Contract_Start_Date__c = Date.newInstance(2019, 7, 7);
         //oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
        // test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1363,10 +1363,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1394,9 +1394,9 @@ private class OpportunityUtilityTest {
         oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
+
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
@@ -1412,10 +1412,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('New Business', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1455,9 +1455,9 @@ private class OpportunityUtilityTest {
         INSERT testProd1;
   //System.debug('00000 CC###'+Limits.getQueries());
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         //test.startTest();
-         //System.debug('00000 DD###'+Limits.getQueries()); 
+         //System.debug('00000 DD###'+Limits.getQueries());
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE Id =: testOpty[0].Id LIMIT 1];
         newOpty.StageName = 'Closed Won';
@@ -1473,10 +1473,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('New Business', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1506,7 +1506,7 @@ private class OpportunityUtilityTest {
         oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
+
         //Create Apttus Opty Line Item
         APT_Opportunity_Product_Line_Item__c testProd1 = APT_TestUtils.createOpProdLI('Amendment','Yes', testProd.id, testConfig.id, 1 , testProposal.id, 1, Date.newInstance(2019, 8, 27), Date.newInstance(2019, 9, 27));
         testProd1.APT_Classification__c = 'Cross Sell';
@@ -1514,8 +1514,8 @@ private class OpportunityUtilityTest {
         INSERT testProd1;
 
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
-       
+
+
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE Id =: testOpty[0].Id LIMIT 1];
         newOpty.StageName = 'Closed Won';
@@ -1530,10 +1530,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Cross Sell', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1563,7 +1563,7 @@ private class OpportunityUtilityTest {
         oliVar.Contract_Start_Date__c = Date.newInstance(2019, 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
+
         //Create Apttus Opty Line Item
         APT_Opportunity_Product_Line_Item__c testProd1 = APT_TestUtils.createOpProdLI('Amendment','Yes', testProd.id, testConfig.id, 1 , testProposal.id, 1, Date.newInstance(2019, 8, 27), Date.newInstance(2019, 9, 27));
         testProd1.APT_Classification__c = 'Cross Sell';
@@ -1571,7 +1571,7 @@ private class OpportunityUtilityTest {
         INSERT testProd1;
 
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
        // test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE Id =: testOpty[0].Id LIMIT 1];
@@ -1587,10 +1587,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1623,7 +1623,7 @@ private class OpportunityUtilityTest {
         oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 8, 8);
 
         INSERT oliVar;
-        
+
         //Create Apttus Opty Line Item
         APT_Opportunity_Product_Line_Item__c testProd1 = APT_TestUtils.createOpProdLI('Amendment','Yes', testProd.id, testConfig.id, 1 , testProposal.id, 1, Date.newInstance(2019, 4, 27), Date.newInstance(2019, 9, 27));
         testProd1.APT_Classification__c = 'Cross Sell';
@@ -1631,7 +1631,7 @@ private class OpportunityUtilityTest {
         INSERT testProd1;
 
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE Id =: testOpty[0].Id LIMIT 1];
@@ -1647,10 +1647,10 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
-    
+
     /*********************************
      * Description: Tests the populate classification method for Renewal
      * Author: Jeoffrey Palmero
@@ -1664,7 +1664,7 @@ private class OpportunityUtilityTest {
         Map<Id, Opportunity> oldRecMap = new Map<Id, Opportunity>();
         Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
         List<Opportunity> testOpty = [SELECT Id, AccountId, StageName FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
-        
+
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         Apttus_Config2__ProductConfiguration__c testConfig = [SELECT Id FROM Apttus_Config2__ProductConfiguration__c LIMIT 1];
         Apttus_Proposal__Proposal__c testProposal = [SELECT Id, Apttus_Proposal__Account__c, Apttus_Proposal__Opportunity__c FROM Apttus_Proposal__Proposal__c WHERE Apttus_Proposal__Opportunity__c =: testOpty[0].Id LIMIT 1];
@@ -1685,17 +1685,17 @@ private class OpportunityUtilityTest {
         //oliVar.Contract_Start_Date__c = Date.newInstance(2017, 7, 7);
         //oliVar.Contract_End_Date__c = Date.newInstance(2019, 8, 8);
         INSERT oliVar;
-        
-        //Lavanya before changing the role from prospoect to customer, we need to have Physcial Address for the Account. 
+
+        //Lavanya before changing the role from prospoect to customer, we need to have Physcial Address for the Account.
         testOrg.ShippingState = 'VIC';
         testOrg.ShippingCity = 'Melbourne';
        testOrg.ShippingPostalCode = '3000';
        testOrg.ShippingStreet = '111 Bourke Street';
-       update testOrg; 
+       update testOrg;
 
-        //Lavanya added this method for the legal entity name validation rule 
-        
-        //Create Organisation Role 
+        //Lavanya added this method for the legal entity name validation rule
+
+        //Create Organisation Role
         Organisation_Role__c orgRole = new Organisation_Role__c();
         orgRole.Role_Type__c = 'Customer';
         orgRole.Organisation__c = testOrg.Id;
@@ -1708,7 +1708,7 @@ private class OpportunityUtilityTest {
         INSERT testProd1;
 
         oldRecMap.put(testOpty[0].Id, testOpty[0]);
-        
+
         //test.startTest();
         Opportunity newOpty = [SELECT Id, StageName, Closed_Reason__c, Data_Integrity_Compliance__c,
                                CloseDate, Offline_Contract_Received__c, AccountId FROM Opportunity WHERE Id =: testOpty[0].Id LIMIT 1];
@@ -1724,7 +1724,7 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-        
+
         System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
     /**
@@ -1749,7 +1749,7 @@ private class OpportunityUtilityTest {
         oliVar.Contract_End_Date__c = Date.today()+10;
         oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
         INSERT oliVar;
-        
+
         testOpty[0].StageName = 'Closed Won';
         testOpty[0].Closed_Reason__c = 'Functionality';
         testOpty[0].Data_Integrity_Compliance__c = TRUE;
@@ -1773,11 +1773,11 @@ private class OpportunityUtilityTest {
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 
         Test.StartTest();
-        
+
         User uRecrd = [Select id, UserRole.name from user where UserName = 'auTestX@auspost.com.au.def' limit 1];
         PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'BG_Sales_Operations'];
         System.runAs(uRecrd){
-            
+
             insert new PermissionSetAssignment(AssigneeId = uRecrd.id, PermissionSetId = ps.Id);
             OpportunityLineItem oliVar = new OpportunityLineItem();
             oliVar.OpportunityId = testOpty[0].Id;
@@ -1791,7 +1791,7 @@ private class OpportunityUtilityTest {
             oliVar.Contract_End_Date__c = Date.today()+10;
             oliVar.APT_Is_Apttus_Opportunity_Line_item__c = FALSE;
             INSERT oliVar;
-            
+
             testOpty[0].StageName = 'Closed Won';
             testOpty[0].Closed_Reason__c = 'Functionality';
             testOpty[0].Data_Integrity_Compliance__c = TRUE;
@@ -1806,7 +1806,7 @@ private class OpportunityUtilityTest {
         System.assertEquals(updateOpp.Closing_Owner_Role__c , uRecrd.UserRole.name);
 
     }
-    
+
     /**
     * @Description - check for validation on opportunity product duplicates with pairing exemption of classification 'Growth' & 'Renewal'
     */
@@ -1834,7 +1834,7 @@ private class OpportunityUtilityTest {
         OpportunityLineItem oliVar2 = new OpportunityLineItem();
         // clone the opportunity line item to test duplicate
         oliVar2 = oliVar.clone(true,true);
-        
+
         testOpty[0].StageName = 'Closed Won';
         testOpty[0].Closed_Reason__c = 'Functionality';
         testOpty[0].Data_Integrity_Compliance__c = TRUE;
@@ -1847,10 +1847,10 @@ private class OpportunityUtilityTest {
             // Should trigger validation error due to duplicate opportunity Line items
             System.assertEquals(e.getMessage(), Label.Opportunity_Has_Duplicate_Product_Lines, 'Should see validation error due to duplicate opportunity line items');
         }
-        
+
         oliVar2.Classification__c = 'Renewal';
         UPDATE oliVar2;
-        
+
         // No error thrown due to pairing exception of classification 'Growth' & 'Renewal'
         UPDATE testOpty[0];
         opportunity updateOpp = [Select Id, StageName From Opportunity where id=:testOpty[0].Id];
@@ -1859,7 +1859,7 @@ private class OpportunityUtilityTest {
         Test.StopTest();
 
     }
-    
+
     /**
      * @Description Test the 'Close Date' field auto-population to Today's date during Opportunity Closure
      */
@@ -1871,7 +1871,7 @@ private class OpportunityUtilityTest {
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'International Bundle' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
         Test.StartTest();
-        
+
         User uRecrd = [Select id, UserRole.name from user where UserName = 'auTestX@auspost.com.au.def' limit 1];
         PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'BG_Sales_Operations'];
         System.runAs(uRecrd){
@@ -1892,7 +1892,7 @@ private class OpportunityUtilityTest {
             OpportunityLineItem oliVar2 = oliVar.clone(false);
             oliVar2.OpportunityId = testOpty[1].Id;
             INSERT oliVar2;
-            
+
             // Scenario: Close Date in the future and Stage = 'Closed Won'
             testOpty[0].StageName = 'Closed Won';
             testOpty[0].Closed_Reason__c = 'Functionality';
