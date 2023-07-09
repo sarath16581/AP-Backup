@@ -14,6 +14,7 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-07-19 - Sreenish Krishnan - Code upliftment to newinstance with map parameters and additional fields
  * 2022-09-05 - Nathan Franklin - Passed options and overrides to AccountsSelector
+ * 2023-07-05 - Mahesh Parvathaneni - Added options WITH_BILLING_ACCOUNT
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
     public enum Options {
