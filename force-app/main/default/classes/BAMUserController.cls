@@ -772,7 +772,7 @@ public with sharing class BAMUserController {
     //REQ2279110 added filter criteria to remove Peoplesoft accounts
     private static List<Billing_Account__c> getBillingAccountsByOrgId(Id accountId) {
         List<Billing_Account__c> billingAccounts = [
-                SELECT Id, Name, Organisation__c, SAP_marked_for_deletion__c, LEGACY_ID__c, MLID__c, Type__c, State__c, Suburb__c
+                SELECT Id, Name, Organisation__c, SAP_marked_for_deletion__c, LEGACY_ID__c, MLID__c, Type__c, State__c, Suburb__c, Source_System__c, Credit_Status__c
                 FROM Billing_Account__c
                 WHERE Organisation__c = :accountId
                 AND SAP_marked_for_deletion__c = false

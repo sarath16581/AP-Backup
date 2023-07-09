@@ -257,8 +257,7 @@ export default class BamUserPage extends LightningElement {
             const contact = JSON.parse(contactDataStr)
             const contactApplicationsWithLatestExternalOnboardingRequests = JSON.parse(contactApplicationsWithLatestExternalOnboardingRequestsStr)
             const accessData = this.formatAccessData(JSON.parse(accessDataStr))
-            const { applicationsWithRoles, billingAccounts, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
-			debugger;
+            const { applicationsWithRoles, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
 			this.appBillingAccountDataWrapper = appBillingAccountDataWrapper;
             const superAdmins = JSON.parse(superAdminsDataStr);
 
@@ -266,11 +265,7 @@ export default class BamUserPage extends LightningElement {
             this.primaryBillingAccountBSP = contact.BillingAccount__c
             contact.primaryBillingAccountId = contact.BillingAccount__c
 
-            // generate state
-            this.billingAccountsOptions = billingAccounts.map(billingAccount => ({ value: billingAccount.Id, label: generateLabelForBillingAccount(billingAccount) }))
-            this.billingAccounts = billingAccounts;
-            this.billingAccountsMap = keyBy(this.billingAccountsOptions, 'value')
-            
+            // generate state            
             const appList = this.generatePageState(applicationsWithRoles, contactApplicationsWithLatestExternalOnboardingRequests, accessData)
 
             // set state
@@ -332,6 +327,15 @@ export default class BamUserPage extends LightningElement {
             ...role,
         }))
         const rolePickerOptions = [...applicationRoleOptions, noAccessOption]
+
+		//get the billing accounts by app
+		app.billingAccountOptions = [];
+		let billingAccountWrapperData = this.appBillingAccountDataWrapper.find(billingAccountData => app.Id === billingAccountData.bamApplicationId);
+		if(billingAccountWrapperData){
+			app.billingAccounts = billingAccountWrapperData.billingAccounts;
+			app.billingAccountsOptions = app.billingAccounts.map(billingAccount => ({ value: billingAccount.Id, label: generateLabelForBillingAccount(billingAccount) }))
+            app.billingAccountsMap = keyBy(app.billingAccountsOptions, 'value')
+		}
                 
 
         app.isPending = isPending
@@ -344,7 +348,7 @@ export default class BamUserPage extends LightningElement {
         app.showBillingAccount = !!app.selectedAppRole.ShowBillingAccount__c
         app.selectedRoleOption = find(app.rolePickerOptions, {'value' : app.selectedAppRoleId}) || {}
         app.selectedBillingAccountIds = selectedBillingAccountIds
-        app.selectedBillingAccounts = selectedBillingAccountIds.map(baId => this.billingAccountsMap[baId])
+        app.selectedBillingAccounts = selectedBillingAccountIds.map(baId => app.billingAccountsMap[baId])
         app.allowBSPConsignmentSearch = !!(contactApplicationRecord && contactApplicationRecord.BSPCanViewAllConsignments__c)
         app.isBSPWithAccess = app.AppKey__c === 'BSP' && app.selectedRoleOption.value !== '_no-access'
         app.displayIfRoleHasShowBillingAccounts = app.selectedRoleOption.showBillingAccounts ? '' : 'slds-hide'
@@ -359,14 +363,10 @@ export default class BamUserPage extends LightningElement {
     async retrieveDataAndSetStateForCreateMode(orgId) {
         try {
             const appDataStr = await retrieveAplicationData({orgId})
-            const { applicationsWithRoles, billingAccounts, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
-			debugger;
+            const { applicationsWithRoles, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
 			this.appBillingAccountDataWrapper = appBillingAccountDataWrapper;
             const appList = this.generatePageState(applicationsWithRoles);
             this.applications = appList
-            this.billingAccountsOptions = billingAccounts.map(billingAccount => ({ value: billingAccount.Id, label: generateLabelForBillingAccount(billingAccount) }))
-            this.billingAccounts = billingAccounts;
-            this.billingAccountsMap = keyBy(this.billingAccountsOptions, 'value')
             this.contact.orgId = orgId
         } catch (er) {
             console.error(er)
@@ -430,7 +430,7 @@ export default class BamUserPage extends LightningElement {
 
         const app = find(this.applications, {'Id': appId})   
         app.selectedBillingAccountIds = selectedBillingAccountIds
-        app.selectedBillingAccounts = selectedBillingAccountIds.map(baId => this.billingAccountsMap[baId])
+        app.selectedBillingAccounts = selectedBillingAccountIds.map(baId => app.billingAccountsMap[baId])
     }
 
     handleRecepientChange(event) {

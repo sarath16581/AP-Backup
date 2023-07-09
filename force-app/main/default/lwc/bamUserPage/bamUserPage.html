@@ -77,7 +77,7 @@
                                             >
                                             </lightning-dual-listbox>-->
 
-                                            <c-bam-billing-account-selector billing-accounts={billingAccounts}
+                                            <c-bam-billing-account-selector billing-accounts={application.billingAccounts}
                                                                             is-disabled={application.disabledInput}
                                                                             selected={application.selectedBillingAccountIds}
                                                                             application-id={application.Id}
@@ -94,7 +94,7 @@
                                                 value={contact.BillingAccount__c}
                                                 label="Select primary billing account"
                                                 placeholder=""
-                                                options={billingAccountsOptions}
+                                                options={application.billingAccountsOptions}
                                                 disabled={application.disabledInput}
                                                 onchange={handlePrimaryBillingAccountChange} >
                                             </lightning-combobox>
