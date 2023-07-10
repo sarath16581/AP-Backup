@@ -50,8 +50,8 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 	public virtual List<Apttus__AgreementLineItem__c> selectByContractIdsAndLineType(Set<Id> contractIds, Set<String> lineTypes, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 		.addConditions()
-			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
-			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
+		.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
+		.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
 		.endConditions();
 		return (List<Apttus__AgreementLineItem__c>)Database.query(qb.toSoqlString());
 	}
@@ -72,10 +72,10 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 	public virtual List<Apttus__AgreementLineItem__c> selectByContractIdsLineTypeProduct(Set<Id> contractIds, Set<String> lineTypes,Set<String> productName, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 		.addConditions()
-			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
-			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
-			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.APT_Product_Name__c + '  in :productName'))
-			.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.APT_New__c + ' = true'))
+		.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus__AgreementId__c + ' in :contractIds'))
+		.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c + ' in :lineTypes'))
+		.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.APT_Product_Name__c + '  in :productName'))
+		.add(new QueryBuilder.SimpleCondition(Apttus__AgreementLineItem__c.APT_New__c + ' = true'))
 		.endConditions();
 		return (List<Apttus__AgreementLineItem__c>)Database.query(qb.toSoqlString());
 	}
@@ -103,8 +103,8 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 		}
 		if(selectorOptions.contains(Options.ORDER_BY_ITEM_SEQUENCE_ASC)) {
 			builder.addOrder(
-				new QueryBuilder.Order(Apttus__AgreementLineItem__c.Apttus_CMConfig__ItemSequence__c)
-				.setSortingOrderAsc()
+			new QueryBuilder.Order(Apttus__AgreementLineItem__c.Apttus_CMConfig__ItemSequence__c)
+			.setSortingOrderAsc()
 			);
 		}
 
