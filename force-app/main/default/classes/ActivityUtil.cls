@@ -385,7 +385,7 @@ public with sharing class ActivityUtil {
                 }
             }
         }
-        update accts;
+        new ActivityUtilWithoutSharing(accts).updateAccounts();
     }
 
     public static void updateLastActivityFromEvent(List<Event> eList){
@@ -412,8 +412,7 @@ public with sharing class ActivityUtil {
                 }
             }
         }
-        update accts;
-    
+        new ActivityUtilWithoutSharing(accts).updateAccounts();
     }
 
     // YL - 2015/10/12        
@@ -611,6 +610,18 @@ public with sharing class ActivityUtil {
                 } 
             }
             update leadsForUpdate;
+        }
+    }
+
+    public without sharing class ActivityUtilWithoutSharing {
+        private final List<Account> accounts;
+
+        public ActivityUtilWithoutSharing(List<Account> accounts) {
+            this.accounts = accounts;
+        }
+
+        public void updateAccounts() {
+            ApplicationDatabase.getInstance().dmlUpdate(accounts);
         }
     }
 }
