@@ -1,16 +1,16 @@
 /* @author Seth Heang
- * @date 2022-05-30
- * @group Tests
- * @tag Apttus__AgreementLineItem__c
- * @domain Apttus
- * @description A very simple selector class that sits in the Apttus domain
- * @changelog
- * 2022-05-30 - Seth Heang - Created
- * 2022-06-01 - seth.heang@auspost.com.au - Added method selectByContractIdsAndLineType
- * 2022-08-04 - Seth Heang - Added related list WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC and added fields to query
- * 2022-10-17 - Seth Heang - Added WITH_APPLIED_PSR
- * 2022-12-06 - Nasir Jawed - Added method selectByContractIdsLineTypeProduct
- */
+* @date 2022-05-30
+* @group Tests
+* @tag Apttus__AgreementLineItem__c
+* @domain Apttus
+* @description A very simple selector class that sits in the Apttus domain
+* @changelog
+* 2022-05-30 - Seth Heang - Created
+* 2022-06-01 - seth.heang@auspost.com.au - Added method selectByContractIdsAndLineType
+* 2022-08-04 - Seth Heang - Added related list WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC and added fields to query
+* 2022-10-17 - Seth Heang - Added WITH_APPLIED_PSR
+* 2022-12-06 - Nasir Jawed - Added method selectByContractIdsLineTypeProduct
+*/
 public with sharing class APT_AgreementLineItemsSelector extends ApplicationSelector{
 	public enum Options {
 		WITH_CONTRACT, WITH_PROPOSAL, WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC, WITH_APPLIED_PSR
