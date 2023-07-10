@@ -24,7 +24,7 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 
 	/**
 	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	*                         This approach removes data consistency and prevents possible caching of results
+	*This approach removes data consistency and prevents possible caching of results
 	*/
 	public static APT_AgreementLineItemsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		APT_AgreementLineItemsSelector selector = (APT_AgreementLineItemsSelector)Application.Selectors.newInstance(APT_AgreementLineItemsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);

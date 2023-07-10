@@ -40,8 +40,8 @@ public with sharing class CreateBillingAccountHelper {
 	@testVisible static private Map<String, List<SObject>> metadataCoverageRecordsMap = new Map<String, List<SObject>>();
 	/**
 	 * @Description : Checks and validation all the required attributes for Billing Account creation and provide
-	 *                a message to user in case of any one attribute is missing and prevents the billign account
-	 *                creation till the time all requried attribute is populated.
+	 *  a message to user in case of any one attribute is missing and prevents the billign account
+	 *  creation till the time all requried attribute is populated.
 	 * 				  Seth Heang 12/05/21 - Add hasSubAccount and subAccountCount as parameters to be sent fir UI processing at LWC component
 	 */
 	public static billingAccountWithEmptyfields billingAccountValidations(BillingAccountWrapper billingAccountRecord, String integrationStatus ,
@@ -136,17 +136,17 @@ public with sharing class CreateBillingAccountHelper {
 	}
 	/**
 	 * @Descrtipion : An object which holds informations as below:
-	 *                1. billingAccountAttributesDetails: Attributes for billing account creation
-	 *                2. emptyAttributesList: Attribites which has missing values and related message
-	 *                3. integrationStatus : Integration status which holds current status of request for billing account creation
-	 *                                       It has different values such as Requested, Completed, Error
-	 *                4. billingAccountValidations : Addtitional validation details which are required prior to billing account creation
-	 *                5. tradingName : Related organisation trading name
-	 *                6. senderNameFromOpportunity : Query value from Opportunity.Sender_name_to_appear_on_parcel_label__c
-	 *                                               Used to pre-populate the "What sender name should be displayed on parcel labels" input field on DSR's New Billing Account Modal Popup
-	 *                7. legalEntityName : Related organisation legal Entity name
-	 *                8. hasSubAccount : flag to determine if this is Charge Account Only or Charge + Sub Account Scenario
-	 *                9. subAccountCount : count of the sub-account requests
+	 *  1. billingAccountAttributesDetails: Attributes for billing account creation
+	 *  2. emptyAttributesList: Attribites which has missing values and related message
+	 *  3. integrationStatus : Integration status which holds current status of request for billing account creation
+	 *   It has different values such as Requested, Completed, Error
+	 *  4. billingAccountValidations : Addtitional validation details which are required prior to billing account creation
+	 *  5. tradingName : Related organisation trading name
+	 *  6. senderNameFromOpportunity : Query value from Opportunity.Sender_name_to_appear_on_parcel_label__c
+	 *   Used to pre-populate the "What sender name should be displayed on parcel labels" input field on DSR's New Billing Account Modal Popup
+	 *  7. legalEntityName : Related organisation legal Entity name
+	 *  8. hasSubAccount : flag to determine if this is Charge Account Only or Charge + Sub Account Scenario
+	 *  9. subAccountCount : count of the sub-account requests
 	 */
 	public class BillingAccountWithEmptyfields{
 		@AuraEnabled
@@ -196,7 +196,7 @@ public with sharing class CreateBillingAccountHelper {
 	}
 	/**
 	 * @Description : Creates External Onboarding Request prior to billing account creation and record Id
-	 *                will be passed as once of the parameter called as transaction Id in request.
+	 *  will be passed as once of the parameter called as transaction Id in request.
 	 */
 
 	public static externalOnboardingRequestWithConnectionDetails externalOnboardingRequestDetails(billingAccountWithEmptyfields billingAccountRecord, String onboardingRequestId){
@@ -309,7 +309,7 @@ public with sharing class CreateBillingAccountHelper {
 	}
 	/**
 	 * @Description : External Onboarding Request creation method. The created record is used as transaction Id
-	 *                for request.
+	 *  for request.
 	 */
 	public static String createExternalOnboardingRequest(BillingAccountWrapper billingAccountWrapperVar){
 		List<Database.SaveResult> sResult;
@@ -397,7 +397,7 @@ public with sharing class CreateBillingAccountHelper {
 
 	/**
 	 * @Description: Updates the CA and external onborading request based on the initial
-	 *               response received from camunda
+	 *   response received from camunda
 	 * avula.jansirani@auspost.com.au
 	 */
 	public static void updateCaAndOnboardingObj(String requestObjId, String onboardingRequestId, String status, String responseMsg){

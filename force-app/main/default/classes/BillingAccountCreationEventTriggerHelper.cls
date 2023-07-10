@@ -4,10 +4,10 @@
 	* @tag BillingAccount
 	* @domain Core
 	* @description Helper class for BillingAccountCreationEvent__e Trigger. Contains logic to Create Billing accounts
-	*              and associate it to the Organisation Record and also update the billing account on related objects as:
-	*              1. Apttus Contract
-	*              2. DSR
-	*              3. Charge Account Request
+	*   and associate it to the Organisation Record and also update the billing account on related objects as:
+	*   1. Apttus Contract
+	*   2. DSR
+	*   3. Charge Account Request
 	* @changelog
 	* 2020-11-18 - shashwat.nath@auspost.com.au - Created
 	* 2021-05-14 - avaula.jansirani@auspost.com.au - updated (for BCA billing account creation)
@@ -241,9 +241,9 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 	/**
 	 * @description This method handles the billing account creation platform events for rating plan activation response payload
-	 *              published by CAMUNDA and create APT_SAP_Contracts__c records and update other appropriate records including DSR and Agreement Lodgement Point.
-	 * @param       List<BillingAccountCreationEvent__e>
-	 * @return      void
+	 *   published by CAMUNDA and create APT_SAP_Contracts__c records and update other appropriate records including DSR and Agreement Lodgement Point.
+	 * @param  List<BillingAccountCreationEvent__e>
+	 * @return   void
 	 * */
 	public static void activateRatingPlan(List<BillingAccountCreationEvent__e> listEvents){
 		try{
@@ -361,9 +361,9 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 
 	/**
-	 * @description     This method update Rating plan integration related field on DSR from Rating Plan platform event received from Camunda
-	 * @param           BillingAccountCreationEvent__e ratingPlanPE
-	 * @return          Deal_Support_Request__c
+	 * @description  This method update Rating plan integration related field on DSR from Rating Plan platform event received from Camunda
+	 * @param   BillingAccountCreationEvent__e ratingPlanPE
+	 * @return  Deal_Support_Request__c
 	 */
 	public static Deal_Support_Request__c updateRatingDSR(BillingAccountCreationEvent__e ratingPlanPE){
 		Deal_Support_Request__c dsrUpdate = new Deal_Support_Request__c();
@@ -375,9 +375,9 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 	}
 
 	/**
-	* @description     This method create SAP Contract record and populate appropriate field values based on successful Rating Plan activation request
-	* @param           BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId
-	* @return          APT_SAP_Contracts__c
+	* @description  This method create SAP Contract record and populate appropriate field values based on successful Rating Plan activation request
+	* @param   BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId
+	* @return  APT_SAP_Contracts__c
 	*/
 	public static APT_SAP_Contracts__c createSAPContract(BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId,Apttus__AgreementLineItem__c lineItem){
 		APT_SAP_Contracts__c sapCon = new APT_SAP_Contracts__c();
@@ -563,9 +563,9 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 	}
 
 	/**
-	 * @description     check if this platform event is for APPC product
-	 * @param           N/A
-	 * @return          true for APPC product, false for non-APPC product (eg. eParcel/International)
+	 * @description  check if this platform event is for APPC product
+	 * @param   N/A
+	 * @return  true for APPC product, false for non-APPC product (eg. eParcel/International)
 	 */
 	public static boolean validateAPPCProduct(){
 		for(Deal_Support_Request__c dsr : dealsupportRequestMap.values()){
@@ -801,18 +801,18 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 
 	/**
-	 * @description     This method send custom bell notification to DSR's owner with appropriate message based on Rating Plan integration status("Completed", "Partial Success", "Error")
-	 *                  in the final platform event sent from Camunda
-	 * @param           BillingAccountCreationEvent__e eachEvent, Deal_Support_Request__c dsr
-	 * @return          void
+	 * @description  This method send custom bell notification to DSR's owner with appropriate message based on Rating Plan integration status("Completed", "Partial Success", "Error")
+	 *  in the final platform event sent from Camunda
+	 * @param   BillingAccountCreationEvent__e eachEvent, Deal_Support_Request__c dsr
+	 * @return  void
 	 *
 	 */
 	public static void sendCustomNotificationforEachRatingPlan(BillingAccountCreationEvent__e eachEvent, Deal_Support_Request__c dsr) {
 		/**
 		 * Querying the custom notification Type:
 		 * Selector Framework fails on ApplicationSelector.QueryBuilder.addFields(getSObjectFieldList()) with below error message
-		 *      System.NoAccessException: Insufficient Privileges: You do not have the level of access necessary to perform the operation you requested.
-		 *      Please contact the owner of the record or your administrator if access is necessary.
+		 *   System.NoAccessException: Insufficient Privileges: You do not have the level of access necessary to perform the operation you requested.
+		 *   Please contact the owner of the record or your administrator if access is necessary.
 		 * This may be due to immutability property of CustomNotificationType metadata obj:
 		 * https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customnotificationtype.htm
 		 */
@@ -1032,8 +1032,8 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 	/*
 		* @description  This method updates Agreement Lodgement Point record with appropriate values coming from Camunda's rating plan platform event
-		* @param            BillingAccountCreationEvent__e
-		* @return           APT_Agreement_Lodgement_Point__c
+		* @param   BillingAccountCreationEvent__e
+		* @return   APT_Agreement_Lodgement_Point__c
 	*/
 	public static APT_Agreement_Lodgement_Point__c updateAgreementLodgementPoint(BillingAccountCreationEvent__e ratingPlanEvent){
 		APT_Agreement_Lodgement_Point__c alp = new APT_Agreement_Lodgement_Point__c();

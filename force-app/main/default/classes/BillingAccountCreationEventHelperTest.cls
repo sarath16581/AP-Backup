@@ -999,7 +999,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 	/**
 	* Test: when the rating plan creation callout is triggered and the callout is successful,
-	*      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
+	* validate that the agreement lodgement point's integration related fields are updated based on platform event fields
 	*/
 	@IsTest
 	private static void testRatingPlanCreationSuccessScenario(){
@@ -1126,7 +1126,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 	/**
 	* Test: when the rating plan creation callout is triggered and the callout has Error,
-	*      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
+	* validate that the agreement lodgement point's integration related fields are updated based on platform event fields
 	*/
 	@IsTest
 	private static void testRatingPlanCreationErrorScenario() {
@@ -1243,7 +1243,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 	/**
 	* Test: when the rating plan creation callout is triggered and the final rollup platform event has Completed status,
-	*      validate that the DSR's integration related fields are updated based on platform event fields
+	* validate that the DSR's integration related fields are updated based on platform event fields
 	*/
 	@IsTest
 	private static void testRatingPlanCreationFinalPayloadCompletedScenario() {
@@ -1356,7 +1356,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 	/**
 	* Test: when the rating plan creation callout is triggered and final rollup platform event has Partial Success status,
-	*      validate that the DSR's integration related fields are updated based on platform event fields
+	* validate that the DSR's integration related fields are updated based on platform event fields
 	*/
 	@IsTest
 	private static void testRatingPlanCreationFinalPayloadPartialSuccessScenario() {
@@ -1471,7 +1471,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 	/**
 	* Test: when the rating plan creation callout is triggered and final rollup platform event has Error status,
-	*      validate that the DSR's integration related fields are updated based on platform event fields
+	* validate that the DSR's integration related fields are updated based on platform event fields
 	*/
 	@IsTest
 	private static void testRatingPlanCreationFinalPayloadErrorScenario() {

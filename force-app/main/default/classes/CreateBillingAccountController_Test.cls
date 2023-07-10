@@ -92,9 +92,9 @@ public with sharing class CreateBillingAccountController_Test {
 
 	/**
 	 * @description Test method on by simulating the mock Charge + Sub Account Request Payload to Camunda
-	 *              Due to limitation of the ApplicationTestDataFactory + Selector Framework, where we need to query two layers deep in a relationship based on fake ID,
-	 *              the selector query does not work. As such, I have used actual DML operation for this method.
-	 *              - Seth.Heang@auspost.com.au
+	 *  Due to limitation of the ApplicationTestDataFactory + Selector Framework, where we need to query two layers deep in a relationship based on fake ID,
+	 *  the selector query does not work. As such, I have used actual DML operation for this method.
+	 *  - Seth.Heang@auspost.com.au
 	 */
 	@IsTest
 	private static void generateExternalOnboardingRecordTest() {
