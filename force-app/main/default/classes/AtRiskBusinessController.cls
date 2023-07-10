@@ -165,4 +165,19 @@ public with sharing class AtRiskBusinessController {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
+
+	@AuraEnabled
+	public static void recalculateRevenue(Id arbId) {
+		try {
+			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{arbId})[0];
+
+			arb.Recalculate_Revenue__c = true;
+
+			if (!Test.isRunningTest()) {
+				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
+			}
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
 }
