@@ -220,7 +220,7 @@ public with sharing class BAMUserUtility {
 	 * @param  billingAccountFilterMap	billing account filter configured for an app
 	 * @return							list of filtered billing accounts
 	 */
-	private static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap) {
+	public static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap) {
 		List<Billing_Account__c> filteredAccounts = new List<Billing_Account__c>();
 		Set<String> keySet = billingAccountFilterMap.keySet();
 

@@ -13,6 +13,7 @@
  * 2021-08-06 - Seth Heang - Added selectByLikedNameOrderByName
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-05-30 - Seth Heang - Added PAYER_ACCOUNT_ID related list and selectByOrgId method
+ * 2023-07-10 - Mahesh Parvathaneni - Added options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
  */
 public virtual inherited sharing class BillingAccountsSelector extends ApplicationSelector {
 
@@ -20,7 +21,9 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		WITH_ORGANISATION,
 		FILTER_CUST_TYPE,
 		FILTER_ACTIVE,
-		WITH_PAYER_ACCOUNT_ID
+		WITH_PAYER_ACCOUNT_ID,
+		FILTER_TYPE_NOT_IN_SBBA_CASH,
+		FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
 	}
 
 	public static BillingAccountsSelector newInstance() {
@@ -158,6 +161,14 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		if(selectorOptions.contains(Options.WITH_PAYER_ACCOUNT_ID)) {
 			// limit 1 to prevent recursive loop due to self-lookup
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(1).newQueryBuilder(), 'PAYER_ACCOUNT_ID__r');
+		}
+
+		if (selectorOptions.contains(Options.FILTER_TYPE_NOT_IN_SBBA_CASH)) {
+			builder.addConditions().add((new QueryBuilder.InCondition(Billing_Account__c.Type__c)).notInCollection(new Set<String>{'SBBA', 'CASH'})).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.Source_System__c).ne('PeopleSoft')).endConditions();
 		}
 
 		return builder;

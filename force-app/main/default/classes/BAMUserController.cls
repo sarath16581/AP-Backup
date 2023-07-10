@@ -319,6 +319,9 @@ public with sharing class BAMUserController {
                 }
             }
 
+			//validate the billing accounts selected as per the filter set at application level
+			validateBillingAccountsByApp(appMap, pageState);
+
             // CREATE USER RECORD FOR NEWLY CREATED OR EXISTING CONTACT(IF USER DOESN'T EXIST FOR EXITING CONTACT)
             // check if user exists for contact being created or edited
             List<User> contextContactUserList = [SELECT Id, Name, ContactId FROM User WHERE ContactId =: contactId];
@@ -372,6 +375,49 @@ public with sharing class BAMUserController {
             throw auraError;
         }
     }
+
+	private static void validateBillingAccountsByApp(Map<Id,BAMApplication__c> appMap, List<Map<String,Object>> pageState){
+		Set<Id> selectedBillingAccountIds = new Set<Id>();
+		Map<Id, List<Billing_Account__c>> billingAccountsKeyedByAppId = new Map<Id, List<Billing_Account__c>>();
+
+		for (Map<String,Object> appState : pageState) {
+			for (Object unTypedId : (List<Object>) appState.get('selectedBillingAccountIds')) {
+				selectedBillingAccountIds.add((Id)unTypedId);
+			}
+		}
+
+		if (!selectedBillingAccountIds.isEmpty()) {
+			//get the billing accounts
+			Map<Id, Billing_Account__c> billingAccountMap = BillingAccountsSelector.newInstance().selectById(selectedBillingAccountIds, 
+				new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
+
+			for (Map<String,Object> appState : pageState) {
+				List<Billing_Account__c> bAccounts = new List<Billing_Account__c>();
+				Id appId = (Id)appState.get('Id');
+
+				if (billingAccountsKeyedByAppId.get(appId) == null) {
+					billingAccountsKeyedByAppId.put(appId, new List<Billing_Account__c>());
+				}
+				for (Object unTypedId : (List<Object>) appState.get('selectedBillingAccountIds')) {
+					if (billingAccountMap.containsKey((Id)unTypedId)) {
+						bAccounts.add(billingAccountMap.get((Id)unTypedId));
+					}
+				}
+				billingAccountsKeyedByAppId.put(appId, bAccounts);
+			}	
+		}
+
+		for (Id appId : billingAccountsKeyedByAppId.keySet()) {
+			if (String.isNotBlank(appMap.get(appId).BillingAccountFilter__c)) {
+				//deserialise the json filter
+				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(appMap.get(appId).BillingAccountFilter__c);
+				List<Billing_Account__c> filteredAccounts = BAMUserUtility.getBillingAccountsByAppFilter(billingAccountsKeyedByAppId.get(appId), billingAccountFilterMap);
+				if (filteredAccounts.size() != billingAccountsKeyedByAppId.get(appId).size()) {
+					throw new BAMUserException('Billing accounts selected are not valid as per the filter at application level');
+				}
+			}
+		}
+	}
 
 
     // This method iterates through the pageState List and determines which junction recoreds (BAMContactApplication__c, BAMContactRole__c, BAMLinkedEntity__c)  need to be inserted, updated, and deleted
