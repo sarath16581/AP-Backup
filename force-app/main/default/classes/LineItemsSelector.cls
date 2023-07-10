@@ -9,6 +9,7 @@
 	* 2021-03-30 - Shashwat.nath@auspost.com.au - Created
 	* 2022-05-20 - nasir.jawed@auspost.com.au - added the method to get line item record by passing parameter config id and Line Type
 	* 2022-11-29 - nasir.jawed@auspost.com.au - added the Option WITH_PRODUCT
+	* 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
 	* 2023-04-13 - Yatika Bansal - added the method to get line item record by passing parameter config id, Line Type and Status
 	*/
 
