@@ -18,6 +18,5 @@
     <language>en_US</language>
     <queue>SSSW_2_Way_SMS_holding_queue</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>
