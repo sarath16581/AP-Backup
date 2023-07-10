@@ -1,5 +1,4 @@
 import { LightningElement, track, api } from 'lwc';
-import { CloseActionScreenEvent } from 'lightning/actions';
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 
 import getProducts from '@salesforce/apex/AtRiskBusinessController.getProducts';
@@ -40,7 +39,7 @@ export default class BarSelectProducts extends LightningElement {
 		if (recordId !== this._recordId) {
 			this._recordId = recordId;
 
-			this.loadProducts(false);
+			this.loadProducts(false, true);
 		}
 	}
 
@@ -48,7 +47,7 @@ export default class BarSelectProducts extends LightningElement {
 		return this._recordId;
 	}
 
-	loadProducts(allProducts) {
+	loadProducts(allProducts, resetViewFlag) {
 		this.productData = [];
 		this.selectedRows = [];
 		this.currentSelectedRows = [];
@@ -57,8 +56,6 @@ export default class BarSelectProducts extends LightningElement {
 
 		getProducts({arbId: this._recordId, allProducts: allProducts})
 			.then(result => {
-				console.log(result);
-
 				if (result.products.length === 0) {
 					this.empty = true;
 					this.loading = false;
@@ -71,7 +68,6 @@ export default class BarSelectProducts extends LightningElement {
 
 				let productTree = {};
 
-				//debugger; 
 				result.products.forEach(record => {
 					let level4 = productTree[record.level4Name];
 
@@ -111,6 +107,14 @@ export default class BarSelectProducts extends LightningElement {
 
 				this.empty = false;
 				this.loading = false;
+
+				if (resetViewFlag) {
+					this.viewing = true;
+					this.editing = false;
+					
+					// Refresh record page
+					notifyRecordUpdateAvailable([{recordId: this._recordId}]);
+				}
 			})
 			.catch(error => {
 				console.error('[SELECT PRODUCTS]', error);
@@ -217,29 +221,20 @@ export default class BarSelectProducts extends LightningElement {
 		this.editing = true;
 		this.viewing = false;
 		this.empty = false;
-
-		this.loadProducts(true);
+ 
+		this.loadProducts(true, false);
 	}
 
 	saveSelection(event) {
 		this.loading = true;
 
-		console.log('saving', JSON.parse(JSON.stringify(this.selectedRows)));
+		this.selectedRows = this.template.querySelector('lightning-tree-grid').getSelectedRows()
 
-		//debugger;
+		const selectedProductIDs = this.selectedRows.filter(item => (item.id.indexOf('01') === 0)).map(item => item.id);
 
-		const selectedProductIDs = this.selectedRows.filter(id => (id.indexOf('01') === 0));
-
-		saveSelection({arbId: this.recordId, productIds: selectedProductIDs})
-			.then(result => {
-				// Refresh record page
-				notifyRecordUpdateAvailable([{recordId: this._recordId}]).then(() => {
-					this.dispatchEvent(new CloseActionScreenEvent());
-				});
-
-				this.loadProducts(false);
-				this.viewing = true;
-				this.editing = false;
+		saveSelection({arbId: this._recordId, productIds: selectedProductIDs})
+			.then(() => {
+				this.loadProducts(false, true);
 			})
 			.catch(error => {
 				console.error('[SAVE SELECTION]', error);

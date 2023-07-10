@@ -61,16 +61,70 @@ public class AtRiskBusinessUtility_Test {
 		Assert.isTrue(fyMonths.keySet().contains('2024'));
 		Assert.isTrue(fyMonths.keySet().contains('2023'));
 
-		List<String> monthsFY2022 = new List<String>{'Jul', 'Aug', 'Sep', 'Oct', 'Nov'};
+		List<String> monthsFY2024 = new List<String>{'Jul', 'Aug', 'Sep', 'Oct', 'Nov'};
 		List<String> months = fyMonths.get('2024');
+		for (Integer m = 0; m < months.size(); m++) {
+			Assert.areEqual(monthsFY2024[m], months[m]);
+		}
+
+		List<String> monthsFY2023 = new List<String>{'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'};
+		months = fyMonths.get('2023');
+		for (Integer m = 0; m < months.size(); m++) {
+			Assert.areEqual(monthsFY2023[m], months[m]);
+		}
+	}
+
+	// 4) Querying 2 FY records (where the previous 12 months cross an FY bounds)
+	// Running with June 2023 should return 2 lists:
+	// * Jul -> May 2023
+	// * June 2022
+	@isTest
+	static void testJune() {
+		// 1st December
+		Date testDate = Date.newInstance(2023, 6, 1);
+
+		Map<String, List<String>> fyMonths = AtRiskBusinessUtility.getFinancialYearsAndMonths(testDate);
+
+		Assert.isTrue(fyMonths.keySet().contains('2023'));
+		Assert.isTrue(fyMonths.keySet().contains('2022'));
+
+		List<String> monthsFY2023 = new List<String>{'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'};
+		List<String> months = fyMonths.get('2023');
+		for (Integer m = 0; m < months.size(); m++) {
+			Assert.areEqual(monthsFY2023[m], months[m]);
+		}
+
+		List<String> monthsFY2022 = new List<String>{'Jun'};
+		months = fyMonths.get('2022');
 		for (Integer m = 0; m < months.size(); m++) {
 			Assert.areEqual(monthsFY2022[m], months[m]);
 		}
+	}
 
-		List<String> monthsFY2021 = new List<String>{'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'};
+	// 5) Querying 2 FY records (where the previous 12 months cross an FY bounds)
+	// Running with October 2023 should return 2 lists:
+	// * Jul -> Sep 2024
+	// * Oct -> Jun 2023
+	@isTest
+	static void testOctober() {
+		// 1st December
+		Date testDate = Date.newInstance(2023, 10, 1);
+
+		Map<String, List<String>> fyMonths = AtRiskBusinessUtility.getFinancialYearsAndMonths(testDate);
+
+		Assert.isTrue(fyMonths.keySet().contains('2024'));
+		Assert.isTrue(fyMonths.keySet().contains('2023'));
+
+		List<String> monthsFY2024 = new List<String>{'Jul', 'Aug', 'Sep'};
+		List<String> months = fyMonths.get('2024');
+		for (Integer m = 0; m < months.size(); m++) {
+			Assert.areEqual(monthsFY2024[m], months[m]);
+		}
+
+		List<String> monthsFY2023 = new List<String>{ 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'};
 		months = fyMonths.get('2023');
 		for (Integer m = 0; m < months.size(); m++) {
-			Assert.areEqual(monthsFY2021[m], months[m]);
+			Assert.areEqual(monthsFY2023[m], months[m]);
 		}
 	}
 }

@@ -15,9 +15,16 @@ public inherited sharing class AtRiskBusinessUtility {
 		Map<String, List<String>> financialYearMonths = new Map<String, List<String>>();
 
 		if (month == 7) {
+			// When the Calendar Month is July, the Financial Year is the same as the Calendar Year
+			// and all months of the previous FY should be returned
 			financialYearMonths.put(String.valueOf(year), monthNames);
 		} else {
+			// If the Calendar Month is between Jan and Jun, then the Previous FY is (Current Calendar Year - 1),
+			// or else FY and Calendar Year are the same
 			Integer previousFY = (month <= 6) ? (year - 1) : year;
+
+			// If the Calendar Month is between Jul and Dec, then the Current FY is (Current Calendar Year + 1),
+			// or else FY and Calendar Year are the same
 			Integer currentFY  = (month > 6) ?  (year + 1): year;
 
 			List<String> previousFYMonths = new List<String>();

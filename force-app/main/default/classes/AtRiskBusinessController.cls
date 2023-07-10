@@ -36,7 +36,7 @@ public with sharing class AtRiskBusinessController {
 		public Decimal revenue;
 	}
 
-	@AuraEnabled(cacheable=true)
+	@AuraEnabled(cacheable=false)
 	public static ProductData getProducts(String arbId, Boolean allProducts) {
 		try {
 			ProductData data = new ProductData();
