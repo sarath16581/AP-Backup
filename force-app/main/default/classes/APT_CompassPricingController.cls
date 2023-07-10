@@ -11,6 +11,7 @@
 	27/01/2023 - Sarath Burra - Removing the LodgmentZone Validation for APPC in the onApply Method as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
 	* 							Lines Removed 141-147
 	01/05/2023 - Sarath Burra - CI 834- Populate the Min Transit cover amount for Custom and Delegated Pricing Scenarios
+	10/07/2023 - Sarath Burra - CI-904- Changes to I2 as per Fixed Term Optimization
 	**/
 	public with sharing class APT_CompassPricingController {
 		public String lineItemId {get; set;}
@@ -123,9 +124,7 @@
 			Deal_Support_Request__c selectedPSR = (Deal_Support_Request__c) objDSR;
 
 			try{
-				// fetch product attribute value and its neccessary fields' values for validation purposes
-				pavRec = APT_ProductAttributeValuesSelector.newInstance(1).selectByLineItemId(new Set<Id>{selectedLineItemId})[0];
-
+				//CI-904 Removed the pavRec Query as part of optimization- Query no longer needed
 				// check if validity end date has passed in PSR and display error message
 				if(selectedPSR.Quote_Validity_End_Date__c < Date.today()){
 					exceptionHandler = new AuraHandledException(System.Label.APT_ExpiredQuoteValidityEndDate);
@@ -360,17 +359,13 @@
 						}
 					}
 				}
-            	for(Apttus_Config2__LineItem__c li:LineItemsSelector.newInstance().selectByProdConfId(new set<ID>{(ID)quoteConfigurationId})){
-                //if(li.Apttus_Config2__LineType__c == 'Product/Service')  // BRP : 20221007
-                    pavList.add(li.Apttus_Config2__AttributeValueId__c);
-            	}
+				//CI-904 Removed the for loop and lineItem Query as part of optimization- Query no longer needed
 
 				//Fetch all the Product Attribute value records and update all the records with Tier and Price structure
 				if(!pavList.isEmpty()){
-					pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByPavID(pavList);
-					if(!pavListQuery.isEmpty()){
-						pavTierCheck = pavListQuery[0].APT_Customer_Tier__c;
-					}
+					//CI-904 Changed the pavListQuery to fetch using ConifgID
+					pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByconfigIDAndLineType(new List<ID>{(ID)quoteConfigurationId}).values();
+					//CI-904 Removed the pavTierCheck condition. No Longer needed
 					UpdateProductAttributeValues(pavListQuery,selectedPSR,compassPriceResponse, quoteConfigurationId,tcCoverFeature);
 				}
 				/*CI-834 Changes to accomodate Custom pricing for Transit Cover and consolidate LienItem Updates for Custom/Delegated Pricing scenarios
@@ -437,7 +432,6 @@
 					if(!lineItemCustom.isEmpty()){
 
 						Map<Id, Apttus_Config2__UsagePriceTier__c> uptMap = APT_UsagePriceTierSelector.newInstance().selectByLineItemId(lineItemCustom);
-						Map<id,List<Apttus_Config2__UsagePriceTier__c>> liIDUptRecMap = new Map<id,List<Apttus_Config2__UsagePriceTier__c>>();
 						for(Apttus_Config2__UsagePriceTier__c upt: uptMap.values()){
 							if(keyServiceMap.containsKey(upt.Apttus_Config2__Dimension4Value__c) && upt.Apttus_Config2__Dimension4Value__c != '' ){
 
@@ -480,9 +474,9 @@
 			/* This method process cleanup invalid
 			*  Param : product Configuration ID
 			*/
-		public static void cleanUpInvalidLineItems(Id quoteConfigurationId, Boolean onlyPriceStructeChange) {
+			//CI-904 Passed Line Items in the method to avoid querying multiple times
+			public static void cleanUpInvalidLineItems(Id quoteConfigurationId, Boolean onlyPriceStructeChange,List<Apttus_Config2__LineItem__c> liList) {
 
-			List<Apttus_Config2__LineItem__c> afterCRLiList = LineItemsSelector.newInstance().selectByProdConfId(new set<ID>{(ID)quoteConfigurationId});
 			List <Apttus_Config2__AppliedRuleInfo__c> ruleInfos = APT_AppliedRuleInfoSelector.newInstance().selectByConfigId(new set<ID>{(ID)quoteConfigurationId});
 
 			List<Apttus_Config2__LineItem__c> toDeleteLine = new List<Apttus_Config2__LineItem__c>();
@@ -493,7 +487,7 @@
 					allInvalidCR.add(inValidCR);
 				}
 			}
-			for (Apttus_Config2__LineItem__c li : afterCRLiList) {
+			for (Apttus_Config2__LineItem__c li : liList) {
 				if(li.Apttus_Config2__AddedByRuleInfo__c != null){
 					String[] ruleInfos1 = (li.Apttus_Config2__AddedByRuleInfo__c).split(',');
 					if(allInvalidCR.contains(ruleInfos1[0]+ ',' +ruleInfos1[1])) {
@@ -516,7 +510,8 @@
 				List<Apttus_Config2__ProductAttributeValue__c> pavListUpdate= new List<Apttus_Config2__ProductAttributeValue__c>();
 				List<Id> configIDs = new List<Id>();
 				configIDs.add(configId);
-
+				//CI-904 Passed Line Items in the method to avoid querying multiple times
+				List<Apttus_Config2__LineItem__c> liList  = LineItemsSelector.newInstance().selectByProdConfId(new set<ID>{(ID)configId});
 				Map<Id, Apttus_Config2__ProductAttributeValue__c> idPavMap = APT_ProductAttributeValuesSelector.newInstance().selectByconfigIDAndLineType(configIDs);
 				Boolean isSetCartTier = false;
 				for(Apttus_Config2__ProductAttributeValue__c pav: idPavMap.Values()){
@@ -560,14 +555,14 @@
 						if(constraintResult2.NeedMoreProcessing)
 						{
 							Apttus_CPQApi.CPQWebService.applyConstraintRules(configId, false);
-							cleanUpInvalidLineItems(configId, onlyPriceStructeChange);
+							cleanUpInvalidLineItems(configId, onlyPriceStructeChange,liList);
 						}
 						else {
-							cleanUpInvalidLineItems(configId, onlyPriceStructeChange);
+							cleanUpInvalidLineItems(configId, onlyPriceStructeChange,liList);
 						}
 					}
 					else {
-						cleanUpInvalidLineItems(configId, onlyPriceStructeChange);
+						cleanUpInvalidLineItems(configId, onlyPriceStructeChange,liList);
 					}
 					}
 					//BRP: 20221116 - added below condition check only stop
@@ -576,7 +571,6 @@
 				else if(onlyPriceStructeChange) {
 
 						List<Apttus_Config2__LineItem__c> liListUpdate= new List<Apttus_Config2__LineItem__c>();
-						List<Apttus_Config2__LineItem__c> liList  = LineItemsSelector.newInstance().selectByProdConfId(new set<ID>{(ID)configId});
 						for( Apttus_Config2__LineItem__c li : liList)
 						{
 							li.Apttus_Config2__PricingStatus__c = 'Pending';
