@@ -3,7 +3,7 @@
     <fullName>Service_Partnership_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Service Partner</label>
+    <label>Service Optimisation Partner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Accounts2</relationshipName>
     <required>false</required>
