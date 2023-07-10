@@ -17,9 +17,13 @@ Hi {!Contact.FirstName}
 
 Re: Article {!Case.ReferenceID__c}
 
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
+
 I’m happy to hear that you have now received your item.
 
 I’m sorry that this delivery didn’t go as planned. Steps have been put in place to ensure that extra care is taken with all future deliveries.
+
+Thank you for contacting Australia Post.
 
 Kind Regards,
 {!User.FirstName}

@@ -100,14 +100,13 @@
 
 Re: Article {!Case.ReferenceID__c}<br/><br/> 
 
-We have an update on the delivery of your {!Case.ProductSubCategory__c} item. 
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 <br/><br/>
-The mail sorter has advised that your item was delivered into your PO Box.
+A mail sorter has advised that your item was delivered into the PO Box on the label.
 <br/><br/>
-If you’re still unable to locate the item, the sender will need to contact us, quoting Case {!Case.CaseNumber}.
+I encourage you to contact your sender to confirm the PO Box address that the item was sent to.
 <br/><br/>
 Thank you for taking the time to contact Australia Post.
-
 
 <br/><br/>
 								</td>

@@ -13,6 +13,7 @@
         <locationY>200</locationY>
         <actionName>Case.StarTrack_Transit_Warranty_Claim_Create_Email</actionName>
         <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -36,6 +37,7 @@
         <connector>
             <targetReference>myRule_13_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -56,6 +58,7 @@
         <locationY>200</locationY>
         <actionName>Case.StarTrack_Credit_Dispute_Successful_Completion</actionName>
         <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -79,6 +82,7 @@
         <connector>
             <targetReference>myRule_1_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -102,6 +106,7 @@
         <connector>
             <targetReference>myRule_3_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -122,6 +127,7 @@
         <locationY>200</locationY>
         <actionName>Case.StarTrack_Delivery_Enquiry_Security_Notification</actionName>
         <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -142,6 +148,7 @@
         <locationY>200</locationY>
         <actionName>Case.StarTrack_General_Enquiry_Security_Notification</actionName>
         <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -149,23 +156,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
-    <assignments>
-        <name>myVariable_waitStartTimeAssignment</name>
-        <label>myVariable_waitStartTimeAssignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>isChangedDecision6_myRule_5_Approval_Status_c</targetReference>
-        </connector>
-    </assignments>
+    <apiVersion>58.0</apiVersion>
     <decisions>
         <name>isChangedDecision6_myRule_5_Approval_Status_c</name>
         <label>isChangedDecision6_myRule_5_Approval_Status_c</label>
@@ -668,9 +659,9 @@
               ISPICKVAL([Case].Origin, &apos;Web&apos;)),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),  
-		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),       
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -693,13 +684,13 @@
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)), 
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c}),
         LOWER(RIGHT({!myVariable_current.SuppliedEmail}, LEN({!myVariable_current.SuppliedEmail}) - FIND(&quot;@&quot;,
         {!myVariable_current.SuppliedEmail}))))),
         NOT({!myVariable_current.Business_Solutions_Customer__c}))</expression>
@@ -715,8 +706,8 @@
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
         NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),          
+        NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -735,13 +726,13 @@
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c}),
         LOWER(RIGHT({!myVariable_current.SuppliedEmail}, LEN({!myVariable_current.SuppliedEmail}) - FIND(&quot;@&quot;,
         {!myVariable_current.SuppliedEmail}))))))</expression>
     </formulas>
@@ -756,9 +747,9 @@
         OR(ISPICKVAL([Case].Origin, &apos;Email&apos;),ISPICKVAL([Case].Origin, &apos;Web&apos;)),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)), 
+        NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -777,14 +768,14 @@
         OR(ISPICKVAL({!myVariable_current.Origin}, &apos;Email&apos;),ISPICKVAL({!myVariable_current.Origin}, &apos;Web&apos;)),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)), 
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c}),
         LOWER(RIGHT({!myVariable_current.SuppliedEmail}, LEN({!myVariable_current.SuppliedEmail}) - FIND(&quot;@&quot;,
         {!myVariable_current.SuppliedEmail}))))))</expression>
     </formulas>
@@ -827,8 +818,8 @@
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
         NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -851,13 +842,13 @@
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),         
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
         NOT(CONTAINS(
-        LOWER($Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c),
+        LOWER({!$Setup.StarTrack_Settings__c.Domains_Excluded_From_Auto_Response__c}),
         LOWER(RIGHT({!myVariable_current.SuppliedEmail}, LEN({!myVariable_current.SuppliedEmail}) - FIND(&quot;@&quot;,
         {!myVariable_current.SuppliedEmail}))))),
         {!myVariable_current.Business_Solutions_Customer__c})</expression>
@@ -879,7 +870,7 @@
         ISNEW(),
         {!myVariable_current.Tier__c} = &apos;1&apos;)</expression>
     </formulas>
-    <interviewLabel>StarTrack_Outbound_Email_Alert-9_Case</interviewLabel>
+    <interviewLabel>StarTrack_Outbound_Email_Alert-12_InterviewLabel</interviewLabel>
     <label>StarTrack Outbound Email Alert</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -914,6 +905,9 @@
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -924,6 +918,9 @@
             <value>
                 <stringValue>[Case]</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_13_A2</name>
         <label>Update Case Flag</label>
@@ -1013,6 +1010,9 @@
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -1023,6 +1023,9 @@
             <value>
                 <stringValue>[Case]</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_1_A2</name>
         <label>Update Case Flag</label>
@@ -1112,6 +1115,9 @@
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -1122,6 +1128,9 @@
             <value>
                 <stringValue>[Case]</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_3_A2</name>
         <label>Update Case Flags</label>
@@ -1203,8 +1212,8 @@
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
-    <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
-    <status>Active</status>
+    <startElementReference>isChangedDecision6_myRule_5_Approval_Status_c</startElementReference>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
@@ -1220,15 +1229,5 @@
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
-    </variables>
-    <variables>
-        <name>myVariable_waitStartTimeVariable</name>
-        <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <elementReference>$Flow.CurrentDateTime</elementReference>
-        </value>
     </variables>
 </Flow>

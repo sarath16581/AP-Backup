@@ -5,65 +5,6 @@
     <description>Licence agreement with a Postpoint Partner</description>
     <label>Licence PP</label>
     <picklistValues>
-        <picklist>APT_Eligible_APPC_Tier__c</picklist>
-        <values>
-            <fullName>T01</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T02</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T03</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T04</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T05</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T06</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T07</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T08</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T09</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T10</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T11</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T13</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T14</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
             <fullName>Procurement</fullName>

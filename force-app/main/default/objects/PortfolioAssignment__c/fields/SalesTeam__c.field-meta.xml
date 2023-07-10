@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SalesTeam__c</fullName>
-    <businessStatus>Active</businessStatus>
-    <complianceGroup>GDPR</complianceGroup>
-    <description>A field to nominate the Sales Team in respect to a Portfolio Code.</description>
     <externalId>false</externalId>
-    <inlineHelpText>A field to nominate the Sales Team in respect to a Portfolio Code.</inlineHelpText>
     <label>Sales Team</label>
     <length>100</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

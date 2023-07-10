@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>CasePurpose__c</field>
-        <value xsi:type="xsd:string">Site inspection</value>
+        <value xsi:type="xsd:string">Site Inspection</value>
     </values>
     <values>
         <field>EmailToCaseAddress__c</field>

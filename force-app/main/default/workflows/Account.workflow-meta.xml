@@ -70,10 +70,10 @@
     </alerts>
     <alerts>
         <fullName>Email_for_Active_Licence_Record</fullName>
-        <ccEmails>LBPTier1@auspost.com.au</ccEmails>
+        <ccEmails>LBPTier1@auspost.com.au.ptest</ccEmails>
         <description>Email for Active Licence Record</description>
         <protected>false</protected>
-        <senderType>DefaultWorkflowUser</senderType>
+        <senderType>CurrentUser</senderType>
         <template>License_Management_Templates/LBP_Active_Licence</template>
     </alerts>
     <alerts>
@@ -679,7 +679,7 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
         <fullName>PartnerInfoLicenceActivation</fullName>
         <apiVersion>57.0</apiVersion>
         <description>Notify POST+ system upon Licence Activation.</description>
-        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/stest/aws.cce.auspost/abns</endpointUrl>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/aws.cce.auspost/abns</endpointUrl>
         <fields>Assignment_Effective_From_Date__c</fields>
         <fields>Id</fields>
         <fields>ParentABN__c</fields>
@@ -852,7 +852,7 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
             <name>Email_for_Active_Licence_Record</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Designed to alert the LBP admin team where a Facility record is marked as Active AND the related Network record (via the facility record) is currently set to Tier 1OR2 in the LBP fields.</description>
         <formula>RecordType.Name = &quot;Licence&quot; &amp;&amp;    ISPICKVAL( Licence_Type__c , &quot;LPO&quot;) &amp;&amp;   ISPICKVAL( Licence_Status__c , &quot;Active&quot;) &amp;&amp;    OR(  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 1&quot;),  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 2&quot;))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
