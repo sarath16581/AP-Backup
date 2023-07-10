@@ -84,6 +84,9 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>At_Risk_Business__c.Recalculate_Revenue</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -281,6 +284,23 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Products__c</fieldItem>
+                <identifier>RecordProducts_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Scale__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Product Specific (Please Specify)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Competitor__c</fieldItem>
                 <identifier>RecordCompetitor__cField</identifier>
                 <visibilityRule>
@@ -321,6 +341,10 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Primary_Campaign__c</fieldItem>
                 <identifier>RecordPrimary_Campaign_cField1</identifier>
             </fieldInstance>
@@ -377,6 +401,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Value_of_Business_at_Risk__c</fieldItem>
                 <identifier>RecordValue_of_Business_at_Risk__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Date_of_Revenue_Calculation__c</fieldItem>
+                <identifier>RecordDate_of_Revenue_Calculation_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -590,6 +624,10 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Primary_Campaign__c</fieldItem>
                 <identifier>RecordPrimary_Campaign_cField2</identifier>
             </fieldInstance>
@@ -1181,6 +1219,10 @@
                     <value>Facet-758105df-ace1-473d-a36a-d2b233751589</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Information</value>
                 </componentInstanceProperties>
@@ -1206,6 +1248,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-9f097511-322f-4fa1-9e19-4a9af532d4db</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -1235,6 +1281,10 @@
                     <value>Facet-e09366ec-8c65-4e5f-b755-07699afe49d4</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Account Management &amp; Service Performance</value>
                 </componentInstanceProperties>
@@ -1260,6 +1310,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-2c3567e1-98b7-4b8e-8761-3734b24305e4</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -1289,6 +1343,10 @@
                     <value>Facet-2b272e23-aa62-4886-a964-9cf656e21d48</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Risk Owners</value>
                 </componentInstanceProperties>
@@ -1310,6 +1368,10 @@
                     <value>Facet-1612ab9f-4c45-435c-9791-8cb6b28d3478</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Customer Issues</value>
                 </componentInstanceProperties>
@@ -1324,6 +1386,10 @@
                     <value>Facet-da5059c0-32ca-44da-b036-f9badc1b17fe</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Mitigation Plan</value>
                 </componentInstanceProperties>
@@ -1336,6 +1402,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-433e838e-1d08-48ea-9d39-b76477e30f59</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -1478,6 +1548,42 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>arbSelectProducts</componentName>
+                <identifier>c_arbSelectProducts</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-2ee26255-0ea2-4a24-9f38-79b84c2ef016</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-2ee26255-0ea2-4a24-9f38-79b84c2ef016</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Selected Products</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-0676109c-1b01-4cba-a912-437992d8ee26</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>showLegacyActivityComposer</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
@@ -1534,6 +1640,23 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-0676109c-1b01-4cba-a912-437992d8ee26</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Scale__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Product Specific (Please Specify)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

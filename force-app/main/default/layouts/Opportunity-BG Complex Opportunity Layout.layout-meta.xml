@@ -380,6 +380,7 @@
         </platformActionListItems>
         <platformActionListItems>
             <actionName>FeedItem.RypplePost</actionName>
+            <actionName>New_BG_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>13</sortOrder>
         </platformActionListItems>
@@ -397,6 +398,11 @@
             <actionName>FeedItem.PollPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>16</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>FeedItem.PollPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>15</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>ChangeOwnerOne</actionName>

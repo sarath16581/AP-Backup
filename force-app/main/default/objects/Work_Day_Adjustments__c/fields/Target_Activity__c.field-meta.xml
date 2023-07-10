@@ -4,9 +4,9 @@
     <description>Target daily/weekly activity</description>
     <externalId>false</externalId>
     <formula>CASE(TEXT( Role__c ),
-                      &apos;Key Accounts&apos;, 5,
-                      &apos;Inside Sales&apos;, 10,
-                      &apos;Territory Sales&apos;, 10, 0)</formula>
+                      &apos;Key Accounts&apos;, 2,
+                      &apos;Inside Sales&apos;, 8,
+                      &apos;Territory Sales&apos;, 2, 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Target daily/weekly activity</inlineHelpText>
     <label>Target Activity</label>

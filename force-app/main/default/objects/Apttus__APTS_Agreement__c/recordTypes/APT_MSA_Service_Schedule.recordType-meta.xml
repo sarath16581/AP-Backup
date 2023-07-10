@@ -302,20 +302,20 @@
             <fullName>Local Pickup and Delivery Services - Replace</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>Metro - Add</fullName>
             <default>false</default>
         </values>
-		<values>
-            <fullName>Metro - Replace</fullName>
+        <values>
+            <fullName>Metro - Add New Product</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>Metro - Delete</fullName>
             <default>false</default>
         </values>
-		<values>
-            <fullName>Metro - Add New Product</fullName>
+        <values>
+            <fullName>Metro - Replace</fullName>
             <default>false</default>
         </values>
         <values>

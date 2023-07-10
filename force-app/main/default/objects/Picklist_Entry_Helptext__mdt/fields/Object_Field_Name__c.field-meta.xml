@@ -5,10 +5,10 @@
     <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Combined API Names of the Object and Field (e.g. Case.ReasonForCreditClaim__c)</inlineHelpText>
-	<securityClassification>INTERNAL</securityClassification>
     <label>Object &amp; Field</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

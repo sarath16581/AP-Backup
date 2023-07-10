@@ -6742,7 +6742,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <shortDescription>REC_TYPE_DEV_LEGALDSR</shortDescription>
         <value>Legal_Support_Request</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>REC_TYPE_DEV_TRANSPORT_ENQUIRY</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
@@ -8110,7 +8110,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Flag to allow linking of old Opportunity when converting Lead Seeker lead</shortDescription>
         <value>You’ve attempted to convert a Lead Seeker lead into an existing opportunity. To proceed with this conversion, please email the Lead Seeker inbox for help (seekerrewards@seeker.auspost.com.au).</value>
     </labels>
-    	<labels>
+    <labels>
         <fullName>GPS_SDI_match_manifest_address</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8118,7 +8118,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>GPS &amp; SDI match manifest address</shortDescription>
         <value>Please flag when delivery GPS and Safe Drop Image match manifest address and there is not an issue with the safe drop location</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Incorrect_facility</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8134,7 +8134,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Invalid/Incorrect/Missing data</shortDescription>
         <value>Please provide details on missing data in Network Response</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Manifest_only</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8142,7 +8142,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Manifest only</shortDescription>
         <value>Please flag when there are no physical scans for the parcel</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Other</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8150,7 +8150,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Other</shortDescription>
         <value>Please provide further details in Network Response</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Request_outside_service_offering</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8158,7 +8158,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Request outside service offering</shortDescription>
         <value>Please specify request - address change without redirection in place, redelivery request, etc</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Unable_to_fulfil_request</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8166,7 +8166,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Unable to fulfil request</shortDescription>
         <value>Please include reason in Network Response</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Within_EDD</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -8182,7 +8182,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>2+ weeks past delivered date</shortDescription>
         <value>Please flag when an investigation is sent through more than 10 days after the delivery date and the contents are not high priority - medication, items with high resale value, etc</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>CHQ_Handling_Fee_Reversal</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8190,7 +8190,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Cheque handling fee charged incorrectly</shortDescription>
         <value>Cheque handling fee charged incorrectly</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Duplicate_Charge</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8198,7 +8198,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>This is a duplicate charge for the same article</shortDescription>
         <value>This is a duplicate charge for the same article</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Explanation_of_charge</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8206,15 +8206,15 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Unknown charge</shortDescription>
         <value>Unknown charge</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Incorrect_pricing_rates</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Article Pricing was charged incorrectly</shortDescription>
         <value>Article Pricing was charged incorrectly</value>
-	</labels>
-	<labels>
+    </labels>
+    <labels>
         <fullName>Incorrect_weight_cubic_charge</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8222,7 +8222,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>The article was charged for incorrect weight and/or dimensions</shortDescription>
         <value>The article was charged for incorrect weight and/or dimensions</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>International_Fees_Taxes</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8230,7 +8230,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>International fees or taxes charged incorrectly</shortDescription>
         <value>International fees or taxes charged incorrectly</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Late_payment</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8238,7 +8238,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Late payment of the Tax Invoice fee charged incorrectly</shortDescription>
         <value>Late payment of the Tax Invoice fee charged incorrectly</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Manifest_Correction_Fee_Credit</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8246,7 +8246,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Manifest was charged incorrectly</shortDescription>
         <value>Manifest was charged incorrectly</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Manifested_not_sent</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8254,7 +8254,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Incorrect charges for articles that were not sent</shortDescription>
         <value>Incorrect charges for articles that were not sent</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Manual_handling_surcharge</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8262,15 +8262,15 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Manual handling surcharge charged incorrectly</shortDescription>
         <value>Manual handling surcharge charged incorrectly</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Not_our_charge</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Unknown charge </shortDescription>
-        <value>Unknown charge </value>
+        <shortDescription>Unknown charge</shortDescription>
+        <value>Unknown charge</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Un_manifested_charge</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>
@@ -8278,7 +8278,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Un-manifested charge is incorrect</shortDescription>
         <value>Un-manifested charge is incorrect</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Generic_Reason_Description</fullName>
         <categories>CreditClaimReason</categories>
         <language>en_US</language>

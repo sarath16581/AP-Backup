@@ -3,6 +3,9 @@
     <customButtons>Merge_Organisation</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -253,7 +256,7 @@
                 <behavior>Readonly</behavior>
                 <field>Sales_Director__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PortfolioCode__c</field>
             </layoutItems>
@@ -290,6 +293,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Service_Partnership_Manager__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Service_Partnership_Team__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sales_Specialist__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sales_Specialist_Team__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -569,19 +584,19 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Merge_Organisation</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Account.New_BG_Opportunity</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>1</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Account.New_Deal_Support_Request</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>FeedItem.TextPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>9</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>BAM_Configure_Apps</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>10</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Create_Sales_Task</actionName>
@@ -614,14 +629,14 @@
             <sortOrder>8</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>FeedItem.TextPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>9</sortOrder>
+            <actionName>Merge_Organisation</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>BAM_Configure_Apps</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>10</sortOrder>
+            <actionName>Account.New_BG_Opportunity</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

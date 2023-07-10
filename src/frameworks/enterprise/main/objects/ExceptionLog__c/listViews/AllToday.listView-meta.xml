@@ -9,15 +9,5 @@
     <columns>ExceptionType__c</columns>
     <columns>ExceptionLogTimestamp__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>CREATED_DATE</field>
-        <operation>greaterThan</operation>
-        <value>3/10/2023 12:00 AM</value>
-    </filters>
-    <filters>
-        <field>ClassName__c</field>
-        <operation>equals</operation>
-        <value>STCIMilestoneViolationCheckerBatch</value>
-    </filters>
     <label>All -Today</label>
 </ListView>

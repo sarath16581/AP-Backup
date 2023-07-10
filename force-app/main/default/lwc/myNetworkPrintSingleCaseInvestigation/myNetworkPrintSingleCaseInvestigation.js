@@ -37,5 +37,6 @@ export default class MyNetworkPrintSingleCaseInvestigation extends NavigationMix
 				window.open(generatedUrl, '_blank');
 			});
 		
+		//this[NavigationMixin.Navigate](this.VFpage);
 	}
 }

@@ -246,14 +246,14 @@
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Coordinator</value>
+            <value>Sales Operations Support</value>
         </criteriaItems>
         <criteriaItems>
             <field>CaseComment.IsPublished</field>
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
-        <description>Case Comment Updated - Sales Coordinator</description>
+        <description>Case Comment Updated - Sales Operations Support</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -345,7 +345,7 @@
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Operations Support</value>
+            <value>Data Quality Management</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>

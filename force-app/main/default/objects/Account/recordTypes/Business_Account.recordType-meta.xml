@@ -20,65 +20,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>APT_Eligible_APPC_Tier__c</picklist>
-        <values>
-            <fullName>T01</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T02</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T03</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T04</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T05</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T06</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T07</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T08</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T09</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T10</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T11</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T13</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>T14</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
             <fullName>Procurement</fullName>
@@ -1893,39 +1834,47 @@
     <picklistValues>
         <picklist>Sales_Segment__c</picklist>
         <values>
-            <fullName>AP Global eCommerce Solutions</fullName>
+            <fullName>Centrally Managed</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic - Not Active</fullName>
+            <fullName>Enterprise - Not Active</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic NSW 1</fullName>
+            <fullName>Enterprise NSW 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic NSW 2</fullName>
+            <fullName>Enterprise NSW 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic QLD</fullName>
+            <fullName>Enterprise QLD %26 NT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic VIC 1</fullName>
+            <fullName>Enterprise VIC 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic VIC 2</fullName>
+            <fullName>Enterprise VIC 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic VIC 3</fullName>
+            <fullName>Enterprise VIC 3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial Services</fullName>
+            <fullName>Enterprise VIC 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Institutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Institutions - Not Active</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1953,11 +1902,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Northern 1</fullName>
+            <fullName>LBP CPO%2FBC North</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Northern 1 CPO%2FBC</fullName>
+            <fullName>LBP CPO%2FBC South</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2013,10 +1962,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Sales Manager VIC 4</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>LBP Sales Manager WA 1</fullName>
             <default>false</default>
         </values>
@@ -2025,11 +1970,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Southern 1</fullName>
+            <fullName>LBP Tier 2 North</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Southern 1 CPO%2FBC</fullName>
+            <fullName>LBP Tier 2 South</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2097,11 +2042,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other Business and Government</fullName>
+            <fullName>Not Active</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Platforms %26 Partners</fullName>
+            <fullName>Nurture Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other PP%26eCS</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2129,7 +2078,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Small Business SA%2FNT%2FWA</fullName>
+            <fullName>Small Business SA%2FNT</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2138,6 +2087,14 @@
         </values>
         <values>
             <fullName>Small Business VIC 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eCommerce Partnerships</fullName>
             <default>false</default>
         </values>
     </picklistValues>

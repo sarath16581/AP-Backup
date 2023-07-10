@@ -100,11 +100,13 @@
 
 Re: Article {!Case.ReferenceID__c}<br/><br/> 
 
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
+
 I’m happy to hear that you have now received your item.<br/><br/>
 
-I’m sorry that this delivery didn’t go as planned. Steps have been put in place to ensure that extra care is taken with all future deliveries.
+I’m sorry that this delivery didn’t go as planned. Steps have been put in place to ensure that extra care is taken with all future deliveries.<br/><br/>
 
- 
+Thank you for contacting Australia Post.
 <br/><br/>
 								</td>
 							</tr>								
