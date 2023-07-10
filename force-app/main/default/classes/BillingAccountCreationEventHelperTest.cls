@@ -61,24 +61,24 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
 
 		apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem,
-				new Map<String, Object>{
-					'Apttus__AgreementId__c' => apttusContracts.id
-				});
+		new Map<String, Object>{
+			'Apttus__AgreementId__c' => apttusContracts.id
+		});
 		apttusProposals = (Apttus_Proposal__Proposal__c)ApplicationTestDataFactory.setUnwritableFields(apttusProposals,
-				new Map<String, Object>{
-					'APT_Credit_Assessment__r' =>apttusCreditAssessment
-				});
+		new Map<String, Object>{
+			'APT_Credit_Assessment__r' =>apttusCreditAssessment
+		});
 
 		apttusContracts = (Apttus__APTS_Agreement__c)ApplicationTestDataFactory.setUnwritableFields(apttusContracts,
-				new Map<String, Object>{
-					'APT_APPC_Count__c' =>1.00,
-						'Apttus_QPComply__RelatedProposalId__r'=> apttusProposals
-				});
+		new Map<String, Object>{
+			'APT_APPC_Count__c' =>1.00,
+			'Apttus_QPComply__RelatedProposalId__r'=> apttusProposals
+		});
 
 		dealSupportRequest = (Deal_Support_Request__c)ApplicationTestDataFactory.setUnwritableFields(dealSupportRequest,
-			new Map<String, Object>{
-				'APT_Contract__r' =>apttusContracts
-			});
+		new Map<String, Object>{
+			'APT_Contract__r' =>apttusContracts
+		});
 
 
 
@@ -130,8 +130,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}),(Set<Object>)fflib_Match.anyObject())).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}),(Set<Object>)fflib_Match.anyObject())).thenReturn(
+		new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -161,7 +161,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Sub_Account_Request_Id__c = subAccountRequest.id,
 		Source_System__c = 'SAP',
 		Status__c = 'Success'
-)		;
+		)		;
 		EventBus.publish(newsEvent1);
 
 		Test.stopTest();
@@ -240,14 +240,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -262,8 +262,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
+		new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -463,8 +463,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
+		new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -570,14 +570,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -592,8 +592,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
+		new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -693,14 +693,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -828,14 +828,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -942,14 +942,14 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_OWNER,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
-				DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
-				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_CONTRACT,
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_OWNER,
+			DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT ,
+			DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST,
+			DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT,
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, Holding_Role_Reference__c> holdingRoleMap = new Map<Id, Holding_Role_Reference__c>{getHoldingRoleRef.Id => getHoldingRoleRef};
 		//MockUtility.Mocks.when(holdingRoleSelector.selectByName('New Accounts')).thenReturn(holdingRoleMap);
@@ -998,9 +998,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	}
 
 	/**
-	 * Test: when the rating plan creation callout is triggered and the callout is successful,
-	 *      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
-	 */
+	* Test: when the rating plan creation callout is triggered and the callout is successful,
+	*      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
+	*/
 	@IsTest
 	private static void testRatingPlanCreationSuccessScenario(){
 		// =====================================
@@ -1017,9 +1017,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		Holding_Role_Reference__c getHoldingRoleRef = ApplicationTestDataFactory.getHoldingRoleRef(1, true)[0];
 		BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
 		externalOnboardingRecord = (BAMExternalOnboardingRequest__c)ApplicationTestDataFactory.setUnwritableFields(externalOnboardingRecord,
-				new Map<String, Object>{
-					'CreatedDate' => System.TODAY()
-				});
+		new Map<String, Object>{
+			'CreatedDate' => System.TODAY()
+		});
 		APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',true)[0];
 		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];
 		Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1,account.id,'SAP',true)[0];
@@ -1068,9 +1068,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, BAMExternalOnboardingRequest__c> externalOnboardingRecordMap = new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRecord.Id => externalOnboardingRecord};
 		MockUtility.Mocks.when(exOnboardingSelector.selectById(new Set<id>{externalOnboardingRecord.Id})).thenReturn(externalOnboardingRecordMap);
@@ -1085,8 +1085,8 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(billAccountSel.selectByAccountNumber((Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
-			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
+		(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
+		new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
 		MockUtility.Mocks.when(lineItemsSelector.selectByContractIdsAndLineType((Set<Id>)fflib_Match.anyObject(),(Set<String>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -1125,9 +1125,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	}
 
 	/**
-	 * Test: when the rating plan creation callout is triggered and the callout has Error,
-	 *      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
-	 */
+	* Test: when the rating plan creation callout is triggered and the callout has Error,
+	*      validate that the agreement lodgement point's integration related fields are updated based on platform event fields
+	*/
 	@IsTest
 	private static void testRatingPlanCreationErrorScenario() {
 		// =====================================
@@ -1193,9 +1193,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, BAMExternalOnboardingRequest__c> externalOnboardingRecordMap = new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRecord.Id => externalOnboardingRecord};
 		MockUtility.Mocks.when(exOnboardingSelector.selectById(new Set<id>{externalOnboardingRecord.Id})).thenReturn(externalOnboardingRecordMap);
@@ -1242,9 +1242,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	}
 
 	/**
-	 * Test: when the rating plan creation callout is triggered and the final rollup platform event has Completed status,
-	 *      validate that the DSR's integration related fields are updated based on platform event fields
-	 */
+	* Test: when the rating plan creation callout is triggered and the final rollup platform event has Completed status,
+	*      validate that the DSR's integration related fields are updated based on platform event fields
+	*/
 	@IsTest
 	private static void testRatingPlanCreationFinalPayloadCompletedScenario() {
 		// =====================================
@@ -1309,9 +1309,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 
 		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
 		MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(),
-			new Set<object>{
-				DealSupportRequestsSelector.Options.WITH_ORGANISATION
-			})).thenReturn(mockDsrMap);
+		new Set<object>{
+			DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		})).thenReturn(mockDsrMap);
 
 		Map<Id, BAMExternalOnboardingRequest__c> externalOnboardingRecordMap = new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRecord.Id => externalOnboardingRecord};
 		MockUtility.Mocks.when(exOnboardingSelector.selectById(new Set<id>{externalOnboardingRecord.Id})).thenReturn(externalOnboardingRecordMap);
@@ -1355,9 +1355,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	}
 
 	/**
-	 * Test: when the rating plan creation callout is triggered and final rollup platform event has Partial Success status,
-	 *      validate that the DSR's integration related fields are updated based on platform event fields
-	 */
+	* Test: when the rating plan creation callout is triggered and final rollup platform event has Partial Success status,
+	*      validate that the DSR's integration related fields are updated based on platform event fields
+	*/
 	@IsTest
 	private static void testRatingPlanCreationFinalPayloadPartialSuccessScenario() {
 		// =====================================
@@ -1470,9 +1470,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
 	}
 
 	/**
-	 * Test: when the rating plan creation callout is triggered and final rollup platform event has Error status,
-	 *      validate that the DSR's integration related fields are updated based on platform event fields
-	 */
+	* Test: when the rating plan creation callout is triggered and final rollup platform event has Error status,
+	*      validate that the DSR's integration related fields are updated based on platform event fields
+	*/
 	@IsTest
 	private static void testRatingPlanCreationFinalPayloadErrorScenario() {
 		// =====================================

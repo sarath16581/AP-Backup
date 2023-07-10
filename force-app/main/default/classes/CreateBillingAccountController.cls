@@ -142,7 +142,7 @@ public with sharing class CreateBillingAccountController {
 			con.state = stateInfoVar;
 			con.continuationMethod = 'processResponse';
 			return con;
-		} catch (Exception e) {
+		}catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -359,7 +359,6 @@ public with sharing class CreateBillingAccountController {
 								// zero count of sub-account request
 								subAccountCount = 0;
 							}
-
 						}
 
 						// Query "Agreement Lodgement Point" junction record which related to Apttus Contract, and retrieve the Network record

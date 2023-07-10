@@ -115,7 +115,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 			// Jansi :  Get the map of CA id and CA records
 			caMap = CreditsAssessmentSelector.newInstance(getCAFieldsSet()).selectById(caIdSet);
-			dealsupportRequestMap = DealSupportRequestsSelector.newInstance().selectById(dsrIdSet ,
+			dealsupportRequestMap = DealSupportRequestsSelector.newInstance().selectById(dsrIdSet,
 									new Set<object>{
 										DealSupportRequestsSelector.Options.WITH_OWNER,
 										DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT,
@@ -212,7 +212,6 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 			Map<Id,APT_Sub_Account__c> eparcelEnabledSubAccountReqMap = new Map<Id,APT_Sub_Account__c>();
 			for(sObject obj : updateRelatedRecords){
 				if(SUB_ACCOUNT_REQUEST.equalsIgnoreCase(String.ValueOf(obj.Id?.getsobjecttype()))
-
 					//APT_Sub_Account__c subAccReq = (APT_Sub_Account__c)obj;
 					&& 'Success'.equalsIgnoreCase(((APT_Sub_Account__c)obj).APT_Sub_Account_Request_Status__c)
 					&& 'Yes'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).APT_eParcel_Enabled__c)
@@ -220,7 +219,6 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 					//CI-703 Add the condition to create DSR only if (Is_Parcel_Send_Login_Required__c =='No' && Product__c!='APPC') OR Is_Parcel_Send_Login_Required__c=='Yes'
 					&& (('No'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).Is_Parcel_Send_Login_Required__c) && subAccountMap.get(((APT_Sub_Account__c)obj).id).Product__c!='APPC') || ('YES'.equalsIgnoreCase(subAccountMap.get(((APT_Sub_Account__c)obj).id).Is_Parcel_Send_Login_Required__c)))){
 						eparcelEnabledSubAccountReqMap.put(obj.id, (APT_Sub_Account__c)obj);
-
 				}
 			}
 
@@ -995,7 +993,6 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 				dsrRecord.Support_Work_Type__c = 'Deal Processing';
 				dsrRecord.Lodgement_Point_to_Work_Centre_Code__c = subAcc.Lodgement_Point_to_Work_Centre_Code__c;
 				dsrRecord.Description__c = 'Add contract rates to new sub account';
-				system.debug('@@@' +dsrRecord);
 				//CI-703 For Is_Parcel_Send_Login_Required__c =='Yes' populate product in DSR with product from sub account
 				//If Is_Parcel_Send_Login_Required__c =='No' and Product in SubAccount contains APPC along with other products, just populate the other products
 				//If Is_Parcel_Send_Login_Required__c =='No' and Product in SubAccount='APPC'
@@ -1010,7 +1007,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 									else dsrRecord.Product__c +=';'+prod;
 								}
 							}
-						} else dsrRecord.Product__c = subAcc.Product__c;
+						}else dsrRecord.Product__c = subAcc.Product__c;
 					}
 				}
 
