@@ -2976,7 +2976,7 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Operations Support</value>
+            <value>Data Quality Management</value>
         </criteriaItems>
         <criteriaItems>
             <field>EmailMessage.TextBody</field>

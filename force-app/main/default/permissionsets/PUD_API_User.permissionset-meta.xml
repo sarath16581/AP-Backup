@@ -268,6 +268,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>PUD_Job__c.RouteEndTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.RouteName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.RouteStartTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.RouteType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>PUD_Job__c.Route_Lookup__c</field>
         <readable>true</readable>
     </fieldPermissions>

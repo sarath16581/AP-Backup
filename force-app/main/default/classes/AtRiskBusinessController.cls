@@ -6,6 +6,8 @@
  2023-04-20 - Pratyush Chalasani - Created
 **/
 public with sharing class AtRiskBusinessController {
+	private static final Map<Schema.SObjectType,Set<Schema.SObjectField>> productFields = new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.Name, Product2.ProductCode, Product2.APT_Product_Type__c, Product2.Product_Level_4__c}};
+
 	@testVisible
 	private static Date revenueDate = System.today();
 
@@ -34,8 +36,8 @@ public with sharing class AtRiskBusinessController {
 		public Decimal revenue;
 	}
 
-	@AuraEnabled(cacheable=true)
-	public static ProductData getProducts(String arbId) {
+	@AuraEnabled(cacheable=false)
+	public static ProductData getProducts(String arbId, Boolean allProducts) {
 		try {
 			ProductData data = new ProductData();
 
@@ -54,10 +56,14 @@ public with sharing class AtRiskBusinessController {
 			if (String.isNotBlank(arb.Product_IDs__c)) {
 				data.selectedIDs = arb.Product_IDs__c.split(';');
 				
-				productIds.addAll(data.selectedIDs);
+				productIds.addAll((List<Id>)data.selectedIDs);
 			}
 	
 			for (Budget_and_Revenue__c rev: revenues) {
+				if (!allProducts && !productIDs.contains(rev.Product__c)) {
+					continue;
+				}
+
 				Id productId = rev.Product__c;
 
 				productIDs.add(productId);
@@ -66,10 +72,8 @@ public with sharing class AtRiskBusinessController {
 
 				productRevenueMap.put(productId, addRevenue(productRevenue, rev, financialYearMonths));
 			}
-	
-			ProductsSelector productsSelector = ProductsSelector.newInstance(0, new Map<Schema.SObjectType,Set<Schema.SObjectField>>{Product2.SObjectType => new Set<Schema.SObjectField>{Product2.ProductCode, Product2.APT_Product_Type__c, Product2.Product_Level_1__c, Product2.Product_Level_2__c, Product2.Product_Level_3__c, Product2.Product_Level_4__c}});
 
-			List<Product2> products = productsSelector.selectByIdOrderByName(productIDs, null);
+			List<Product2> products = ProductsSelector.newInstance(0, productFields).selectByIdOrderByName(productIDs, new Set<Object>());
 
 			for (Product2 product: products) {
 				ProductItem item = new ProductItem();
@@ -85,6 +89,8 @@ public with sharing class AtRiskBusinessController {
 			}
 
 			return data;
+
+			
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
@@ -116,7 +122,7 @@ public with sharing class AtRiskBusinessController {
 
 				List<String> productNames = new List<String>();
 
-				for (Product2 prod: productsSelector.selectByIdOrderByName(new Set<Id>(productIds), null)) {
+				for (Product2 prod: productsSelector.selectByIdOrderByName(new Set<Id>(productIds), new Set<Object>())) {
 					productNames.add(prod.Name);
 				}
 
@@ -124,6 +130,21 @@ public with sharing class AtRiskBusinessController {
 				arb.Products__c = String.join(productNames, ';');
 			}
 			
+			if (!Test.isRunningTest()) {
+				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
+			}
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	@AuraEnabled
+	public static void recalculateRevenue(Id arbId) {
+		try {
+			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{arbId})[0];
+
+			arb.Recalculate_Revenue__c = true;
+
 			if (!Test.isRunningTest()) {
 				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
 			}

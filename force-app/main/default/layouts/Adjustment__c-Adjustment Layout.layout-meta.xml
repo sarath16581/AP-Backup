@@ -35,7 +35,7 @@
                 <behavior>Readonly</behavior>
                 <field>Adjustment_Note_Number__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Is_APPC__c</field>
             </layoutItems>

@@ -19,9 +19,11 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this parcel was incorrectly addressed to you by the sender. Please Note: The item was delivered as addressed.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this parcel was delivered to the address on the label.
 
-However, we have been advised that the resident has kindly delivered the item to you.
+We have been advised that a resident has kindly delivered the item to you.
+
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
 
 Thank you for taking the time to contact Australia Post.
 

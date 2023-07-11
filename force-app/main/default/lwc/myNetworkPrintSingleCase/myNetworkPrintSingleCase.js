@@ -15,15 +15,19 @@ export default class myNetworkPrintSingleCase extends NavigationMixin(LightningE
 
 	handleClick(evt) {
 		evt.preventDefault();
-		evt.stopPropagation();	
+		evt.stopPropagation();
+		
+		//var url = this.VFpage.attributes.url;
+		//var recordId = this.recordId;
 		
 		this[NavigationMixin.GenerateUrl]({
-			type: 'standard__webPage',
-			attributes: {
-				url: '/apex/myNetworkCasePDFGenerator?selectedIds=' + this.recordId
-			}
-		}).then(generatedUrl => {
-			window.open(generatedUrl, '_blank');
-		});
+            type: 'standard__webPage',
+            attributes: {
+                url: '/apex/myNetworkCasePDFGenerator?selectedIds=' + this.recordId
+            }
+        }).then(generatedUrl => {
+            window.open(generatedUrl, '_blank');
+        });
+		//this[NavigationMixin.Navigate](this.VFpage);
 	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pricing_Condition_Code__c</fullName>
+    <description>Pricing condition code to be sent to SAP</description>
     <externalId>false</externalId>
     <formula>IF(TEXT(Is_APPC__c) == &apos;Yes&apos;,
 IF(ISPICKVAL(Reason_Category__c, &quot;Manual Handling Surcharge&quot;),&quot;Y593&quot;,
@@ -16,11 +17,10 @@ IF(ISPICKVAL(Reason_Category__c, &quot;Fuel Surcharge&quot;),&quot;Y580&quot;,
 IF(ISPICKVAL(Reason_Category__c, &quot;Wine &amp; Alcohol fee&quot;),&quot;Y206&quot;,&quot;Y101&quot;))))))))))),
 null)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Pricing condition code to be sent to SAP</inlineHelpText>
     <label>Pricing Condition Code</label>
-	<description>Pricing condition code to be sent to SAP</description>
-	<inlineHelpText>Pricing condition code to be sent to SAP</inlineHelpText>
-	<securityClassification>INTERNAL</securityClassification>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -912,11 +912,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Eligible_APPC_Tier__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>NumberOfEmployees</field>
             <table>Account</table>
         </columns>
@@ -1483,11 +1478,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Minimum_Payment_Allowance_Sp_Cond__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Min_Spend_Per_Annum__c</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -2645,7 +2635,7 @@
             <field>Post_Office_Assigned__c.Network_Manager__c</field>
             <table>Account</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.Region__c</field>
             <table>Account</table>
@@ -3354,5 +3344,13 @@
             <table>Account.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TradedRevenueMyCommunity__c</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>
