@@ -6,14 +6,14 @@
 *@tag Opportunity
 *@domain Apttus
 *@description The class will redirect user to OpportunityLineItems of respected Opportunity.
-* NOTE:As Synchronisation of Products selected in Shopping Cart with Opportunity is running in background.
-*      The LWC added, to reduce the number of instance/ experice of not able to see sync product's under
-*      OpportunityLineItems as the process running in background (async mode) and to break the transaction
-*      chain as observed the synchronisaion process start after the transation execution complete.
-*      Please refresh your browser after a few seconds in case products are not synchronised instantly.
-*      This class is responsible only redirect user to respected UI.
-* @changelog
-* 2023-05-11 - Bharat Patel - Created
+*NOTE:As Synchronisation of Products selected in Shopping Cart with Opportunity is running in background.
+*The LWC added, to reduce the number of instance/ experice of not able to see sync product's under
+*OpportunityLineItems as the process running in background (async mode) and to break the transaction
+*chain as observed the synchronisaion process start after the transation execution complete.
+*Please refresh your browser after a few seconds in case products are not synchronised instantly.
+*This class is responsible only redirect user to respected UI.
+*@changelog
+*2023-05-11 - Bharat Patel - Created
 */
 import { LightningElement, api} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';

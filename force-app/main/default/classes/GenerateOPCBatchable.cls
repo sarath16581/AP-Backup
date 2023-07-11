@@ -26,7 +26,9 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 	public static final String ORGID = UserInfo.getOrganizationId(); 
 	public Boolean testRun = false;
 
-	global GenerateOPCBatchable() {}
+	global GenerateOPCBatchable() {
+		// Left blank for legacy code
+	}
 
 	global Database.QueryLocator start(Database.BatchableContext BC) {
 
@@ -70,7 +72,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 
 			// If the current date is before the start of the financial year, subtract a year from the start date
 			if (currentDate < startOfFinancialYear) {
-			startOfFinancialYear = startOfFinancialYear.addYears(-1);
+				startOfFinancialYear = startOfFinancialYear.addYears(-1);
 			}
 		return startOfFinancialYear;
 	}
@@ -188,6 +190,9 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 	}
 	}
 
-		global void finish(Database.BatchableContext BC) { }
+	global void finish(Database.BatchableContext BC) 
+	{ 
+		// Left blank for legacy code
+	}
 
 }

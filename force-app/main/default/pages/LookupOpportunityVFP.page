@@ -1,41 +1,41 @@
 <!--
- - Created by Shashwat.Nath@Auspost.com on 18/08/2020.
- - This VF page is invoked from within the "APT_AmendRenew" VFP when user Clicks on the lookup Icon to assosiate DOV/renewal to an existing opportunity 
- - It displays the list of opportunities for user selection based on the criteria mention in "lookupToOpportunity" method.
- - On Selecting any of the opportunities User is redirected to the previous "APT_AmendRenew" Page
- -->
+-Created by Shashwat.Nath@Auspost.com on 18/08/2020.
+-This VF page is invoked from within the "APT_AmendRenew" VFP when user Clicks on the lookup Icon to assosiate DOV/renewal to an existing opportunity
+-It displays the list of opportunities for user selection based on the criteria mention in "lookupToOpportunity" method.
+-On Selecting any of the opportunities User is redirected to the previous "APT_AmendRenew" Page
+-->
 
 
- <apex:page controller="APT_AmendRenewController" tabStyle="Opportunity">
-    <apex:form >
-        <apex:sectionHeader title="Opportunity Lookup"/>
+<apex:page controller="APT_AmendRenewController" tabStyle="Opportunity">
+	<apex:form >
+		<apex:sectionHeader title="Opportunity Lookup"/>
 		<apex:pageMessages ></apex:pageMessages>
-        <apex:pageBlock >
-         <!-- Link to allow User to go Back to Previous Page if User does not want to select the Opportunity -->
-            <div align="center">
-                <apex:commandbutton value="Back" action="{!goBack}" />
-            </div>
-        <apex:pageBlockSection columns="1" >
-        </apex:pageBlockSection>
-            <apex:pageBlockSection columns="1">
-                <!-- Iterate Over List Of Opportunities -->
-                <apex:pageBlockTable Value="{!oppList }" var="opp">
-                   <!-- Displaying the different columns on the Page Block Table -->
-                   <apex:column headerValue="Opportunity Name">
-                        <apex:commandLink value="{!opp.Name}" action="{!goToOpportunity}">
-                            <apex:param value="{!opp.Name}" name="oppName"/>
-                            <apex:param value="{!opp.Id}" name="oppId"/>
-                        </apex:commandLink>
-                    </apex:column>
-                    <apex:column headerValue="Legal Entity Name" value="{!opp.Account.Name}"/>
-                    <apex:column headerValue="Opportunity Number" value="{!opp.Opportunity_Number__c}"/>
-                    <apex:column headerValue="Opportunity Sub-Type" value="{!opp.Opportunity_SubType__c}"/>
-                    <apex:column headerValue="Opportunity Stage" value="{!opp.Stagename}"/>
-                    <apex:column headerValue="Opportunity Driver" value="{!opp.Owner.name}"/>
-                    <apex:column headerValue="Opportunity Last Modified Date" value="{!opp.LastModifiedDate}"/>
-                    <apex:column headerValue="Total Opportunity Value" value="{!opp.Amount}"/>
-                </apex:pageBlockTable>
-            </apex:pageBlockSection>
-        </apex:pageBlock>
-    </apex:form>
+		<apex:pageBlock >
+		 <!-- Link to allow User to go Back to Previous Page if User does not want to select the Opportunity -->
+			<div align="center">
+				<apex:commandbutton value="Back" action="{!goBack}" />
+			</div>
+		<apex:pageBlockSection columns="1" >
+		</apex:pageBlockSection>
+			<apex:pageBlockSection columns="1">
+				<!-- Iterate Over List Of Opportunities -->
+				<apex:pageBlockTable Value="{!oppList }" var="opp">
+				   <!-- Displaying the different columns on the Page Block Table -->
+				   <apex:column headerValue="Opportunity Name">
+						<apex:commandLink value="{!opp.Name}" action="{!goToOpportunity}">
+							<apex:param value="{!opp.Name}" name="oppName"/>
+							<apex:param value="{!opp.Id}" name="oppId"/>
+						</apex:commandLink>
+					</apex:column>
+					<apex:column headerValue="Legal Entity Name" value="{!opp.Account.Name}"/>
+					<apex:column headerValue="Opportunity Number" value="{!opp.Opportunity_Number__c}"/>
+					<apex:column headerValue="Opportunity Sub-Type" value="{!opp.Opportunity_SubType__c}"/>
+					<apex:column headerValue="Opportunity Stage" value="{!opp.Stagename}"/>
+					<apex:column headerValue="Opportunity Driver" value="{!opp.Owner.name}"/>
+					<apex:column headerValue="Opportunity Last Modified Date" value="{!opp.LastModifiedDate}"/>
+					<apex:column headerValue="Total Opportunity Value" value="{!opp.Amount}"/>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
 </apex:page>

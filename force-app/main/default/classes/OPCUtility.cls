@@ -27,7 +27,7 @@ Do not raise a Case for New Customer, Cross Sell and Win Back if exception is fo
 29/2/2023 Ken McGurie	allow for OPC override and forward planning
 17/5/2023 Ken McGurire Modified for related products
 **************************************************/
-public class OPCUtility {
+public without sharing class OPCUtility {
 	public static final String[] months = new String[] { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' };
 	public static final String FIELD_SUFFIX_SCHEDULE_AMOUNT = '_Schedule_Amount__c';
 	public static final String FIELD_SUFFIX_NRT_ADJUSTMENT = '_NRT_Adjustment__c';
@@ -667,10 +667,10 @@ public class OPCUtility {
 	@param parentChildAccountMap : the child accounts to associate with parents
 	@param budetAndRevenue : relevant budget and revenue records to summarise.
 	@returnresults are stored in a local key, value map suitable for lazy loading,
-						where the key is a composite of account, product and year and the value is a parent account revenue data structure.
+		where the key is a composite of account, product and year and the value is a parent account revenue data structure.
 	Date Author What Changed
 	2023-03-23 Ken McGuire Created
-	2023-04-17 - added product replacement logic
+	2023-04-17 - Ken McGuire added product replacement logic
 	****************************/
 	private static void calculateParentAccountRevenueMap(Map<String, String> parentChildAccountIdMap, Map<String, Set<String>> productReplacementIdMap, List<Budget_and_Revenue__c> budgetAndRevenue) {
 		

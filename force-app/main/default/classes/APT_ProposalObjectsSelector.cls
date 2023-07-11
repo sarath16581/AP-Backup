@@ -1,19 +1,19 @@
-/* @author Sri Harsha
-* @date 2022-04-22
-* @group Selector
-* @tag Selector
-* @tag Apttus_Proposal__Proposal__c
-* @domain Apttus
-* @description A very simple selector class for Apttus_Proposal__Proposal__c to get createddate
-* @changelog:
-* 2022-05-30 - Seth Heang - updated getSObjectFieldList
-* 2022-05-30 - Nasir JAwed Added method selectByConfigIds
-* 2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
-* 2022-11-22 - Harry Wang - added selector method for sales intermediary
-* 2022-12-06 - Nasir Jawed - Added field APT_Use_Offline_Rates__c
-* 2023-02-16 - Nasir JAwed Added method selectByOpportunityId
-* 2023-04-08 - Yatika bansal Added few fields ,selector option, updated newQueryBuilder method
-* 2023-04-11 - Nasir Jawed -Added method newInstance for fieldOverride
+/*@author Sri Harsha
+*@date 2022-04-22
+*@group Selector
+*@tag Selector
+*@tag Apttus_Proposal__Proposal__c
+*@domain Apttus
+*@description A very simple selector class for Apttus_Proposal__Proposal__c to get createddate
+*@changelog:
+*2022-05-30 - Seth Heang - updated getSObjectFieldList
+*2022-05-30 - Nasir JAwed Added method selectByConfigIds
+*2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
+*2022-11-22 - Harry Wang - added selector method for sales intermediary
+*2022-12-06 - Nasir Jawed - Added field APT_Use_Offline_Rates__c
+*2023-02-16 - Nasir JAwed Added method selectByOpportunityId
+*2023-04-08 - Yatika bansal Added few fields ,selector option, updated newQueryBuilder method
+*2023-04-11 - Nasir Jawed -Added method newInstance for fieldOverride
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
 	public enum Options {
@@ -35,7 +35,7 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 		return selector;
 	}
 
-     /**
+	 /**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 *						  This approach removes data consistency and prevents possible caching of results
 	 */
@@ -45,8 +45,8 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 	}
 
 	/**
-	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	*                         This approach removes data consistency and prevents possible caching of results
+	*@param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	*This approach removes data consistency and prevents possible caching of results
 	*/
 	public static APT_ProposalObjectsSelector newInstance(Integer recordLimit, Map<Schema.SObjectType,Set<Schema.SObjectField>> fieldOverrides) {
 		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -61,8 +61,8 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 		return new Set<SObjectField> {
 			Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,
 			Apttus_Proposal__Proposal__c.APT_Use_Offline_Rates__c, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Approval_Stage__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c,Apttus_Proposal__Proposal__c.Apttus_QPApprov__Approval_Status__c,
-            Apttus_Proposal__Proposal__c.RecordTypeId,Apttus_Proposal__Proposal__c.Apttus_QPConfig__PriceListId__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c, Apttus_Proposal__Proposal__c.APT_Date_of_Generation_Rate_Card__c,
-            Apttus_Proposal__Proposal__c.Apttus_QPConfig__ConfigurationFinalizedDate__c,Apttus_Proposal__Proposal__c.APT_Opportunity_Key_contact__c , Apttus_Proposal__Proposal__c.OwnerId };
+			Apttus_Proposal__Proposal__c.RecordTypeId,Apttus_Proposal__Proposal__c.Apttus_QPConfig__PriceListId__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c, Apttus_Proposal__Proposal__c.APT_Date_of_Generation_Rate_Card__c,
+			Apttus_Proposal__Proposal__c.Apttus_QPConfig__ConfigurationFinalizedDate__c,Apttus_Proposal__Proposal__c.APT_Opportunity_Key_contact__c , Apttus_Proposal__Proposal__c.OwnerId };
 	}
 
 	/**
@@ -102,7 +102,7 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 	* is null or empty, returns all Proposal records having a parent account.
 	* Query results are ordered by parent account Id desc
 	* @param accountIds set of parent account ids. returns all child Proposal records associated with a parent account if null
-	*                   or empty set is supplied.
+	* or empty set is supplied.
 	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of Apttus_Proposal__Proposal__c records
 	*/
@@ -123,26 +123,26 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 		return Database.getQueryLocator(qb.toSoqlString());
 	}
 
-     /**
-     * @description Run a simple query to get records based on opportunity id
-    */
-    public Map<Id, Apttus_Proposal__Proposal__c> selectByOpportunityIds(Set<Id> oppIds) {
-        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :oppIds')).endConditions();
-        return new Map<Id, Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
-    }
+	 /**
+	 * @description Run a simple query to get records based on opportunity id
+	*/
+	public Map<Id, Apttus_Proposal__Proposal__c> selectByOpportunityIds(Set<Id> oppIds) {
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :oppIds')).endConditions();
+		return new Map<Id, Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
+	}
 
-    public List<Apttus_Proposal__Proposal__c> selectByOpportunityId(Set<Id> oppIds) {
-        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :oppIds')).endConditions();
-        return new List<Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
-    }
+	public List<Apttus_Proposal__Proposal__c> selectByOpportunityId(Set<Id> oppIds) {
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c + ' IN :oppIds')).endConditions();
+		return new List<Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
+	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		if (selectorOptions.contains(Options.WITH_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__Account__r');
 		}
-        if(selectorOptions.contains(Options.WITH_ACCOUNT)) {
-            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Apttus_Proposal__Account__r');
+		if(selectorOptions.contains(Options.WITH_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Apttus_Proposal__Account__r');
 		}
 		return builder;
 	}

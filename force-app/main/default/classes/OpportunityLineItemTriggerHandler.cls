@@ -8,7 +8,7 @@ August 2, 2018 - Created by conrad.c.v.borbon
 14/03/2023 Nasir Jawed Added function populateRevenueDate() to inset the Revenue start/End Date when an OLI in inserted at beforeInsertActions
 02/05/2023 Ken McGuire modified opc recalculation calls to newly refactored methods.
 **************************************************/
-public class OpportunityLineItemTriggerHandler
+public without sharing class OpportunityLineItemTriggerHandler
 {
 	private static final String STR_LOWER_CASE_NO = 'no';
 	private static final Decimal THREE_MILLION = 3000000.00;

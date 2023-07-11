@@ -290,6 +290,31 @@ public inherited sharing class OmniChannelService {
 			};
 			return ServiceResourceSkillSelector.newInstance(0, fieldOverrides).selectByActiveServiceResourceRelatedRecordIdsAndSkills(userIds, OmniChannelService.getInstance().preferredAgentQualifySkillDeveloperNames, new Set<Object> { ServiceResourceSkillSelector.Options.WITH_SERVICE_RESOURCE });
 		}
+
+		private Map<Id, QueueWrapper> getQueuesWithRoutingConfigs() {
+			Map<Id, QueueWrapper> queuesWithRoutingConfig = new Map<Id, QueueWrapper>();
+	
+			List<Group> queues = [SELECT DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
+			Set<Id> queueRoutingConfigIds = new Set<Id>();	
+
+			for(Group queue : queues) {
+				queueRoutingConfigIds.add(queue.QueueRoutingConfigId);
+			}
+
+			if(queueRoutingConfigIds.isEmpty() == false){
+				List<QueueRoutingConfig> routingConfigs = [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
+															PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig WHERE Id IN :queueRoutingConfigIds];
+				for(Group queue : queues){
+					for(QueueRoutingConfig routingConfig : routingConfigs){
+						if(queue.QueueRoutingConfigId == routingConfig.Id){
+							queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
+						}
+					}					
+				}
+			}
+			
+			return queuesWithRoutingConfig;
+		}
 	}
 
 	public class CacheFactory {
@@ -325,27 +350,8 @@ public inherited sharing class OmniChannelService {
 				if(queuesWithRoutingConfig == null) {
 					queuesWithRoutingConfig = (Map<Id, QueueWrapper>)CacheManager.get('QUEUES_WITH_ROUTING_CONFIG');
 					if(queuesWithRoutingConfig == null) {
-						queuesWithRoutingConfig = new Map<Id, QueueWrapper>();
-	
-						List<Group> queues = [SELECT DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
-						Set<Id> queueRoutingConfigIds = new Set<Id>();	
-	
-						for(Group queue : queues) {
-							queueRoutingConfigIds.add(queue.QueueRoutingConfigId);
-						}
-	
-						if(queueRoutingConfigIds.isEmpty() == false){
-							List<QueueRoutingConfig> routingConfigs = [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
-																PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig WHERE Id IN :queueRoutingConfigIds];
-							for(Group queue : queues){
-								for(QueueRoutingConfig routingConfig : routingConfigs){
-									if(queue.QueueRoutingConfigId == routingConfig.Id){
-										queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
-									}
-								}					
-							}
-						}		
-	
+						queuesWithRoutingConfig = (new WithoutSharingRetrieveData()).getQueuesWithRoutingConfigs();
+						
 						CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', queuesWithRoutingConfig);
 					}
 				}
