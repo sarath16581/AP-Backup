@@ -63,7 +63,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 			try {
 				console.log(JSON.stringify(data));
 				this.data = JSON.parse(JSON.stringify(data));
-				if (this.data.length==0) {
+				if (this.data.length===0) {
 					this.error = 'To see products on this page, you will need to add them via the Product Catalogue page within Apttus. Once you have added products, they will then be displayed on this page. For further help, please contact your local CRM Specialist.';
 					this.showNotification('Error', this.error, 'error');
 				} else {
@@ -86,8 +86,8 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	convertToForm(productObjectRows) {
 		for (let i = 0; i < productObjectRows.length; i++) {
 			productObjectRows[i].ProductName = productObjectRows[i].Product2.Name;
-			productObjectRows[i].ContractProduct = productObjectRows[i].Contract_Product__c == 'Yes';
-			productObjectRows[i].Growth = productObjectRows[i].Change_Classification__c == 'Yes';
+			productObjectRows[i].ContractProduct = productObjectRows[i].Contract_Product__c === 'Yes';
+			productObjectRows[i].Growth = productObjectRows[i].Change_Classification__c === 'Yes';
 		}
 	}
 

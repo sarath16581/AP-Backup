@@ -8,9 +8,9 @@
  * 2023-05-09 - Harry Wang - Created
  */
 ({
-    onPageReferenceChange: function(cmp) {
-        let myPageRef = cmp.get("v.pageReference");
-        let id = myPageRef.state.c__oppId;
-        cmp.set("v.recordId", id);
-    }
+	onPageReferenceChange: function(cmp) {
+		let myPageRef = cmp.get("v.pageReference");
+		let id = myPageRef.state.c__oppId;
+		cmp.set("v.recordId", id);
+	}
 });
