@@ -1,13 +1,13 @@
-/* @author Seth Heang
- * @date 2022-06-01
- * @group Tests
- * @tag Selector
- * @domain Apttus
- * @description Test Class covering APT_AgreementLineItemsSelector
- * @changelog
- * 2022-06-01 - Seth Heang - Created
- * 2022-12-06 - Nasir Jawed - Added test method selectByContractIdsLineTypeProduct
- */
+/*@author Seth Heang
+*@date 2022-06-01
+*@group Tests
+*@tag Selector
+*@domain Apttus
+*@description Test Class covering APT_AgreementLineItemsSelector
+*@changelog
+*2022-06-01 - Seth Heang - Created
+*2022-12-06 - Nasir Jawed - Added test method selectByContractIdsLineTypeProduct
+*/
 @IsTest
 public with sharing class APT_AgreementLineItemsSelectorTest {
 	/**
@@ -72,22 +72,22 @@ public with sharing class APT_AgreementLineItemsSelectorTest {
 		insert acc;
 		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, acc.Id, false)[0];
 		insert opp;
-		
+
 		Contact con = ApplicationTestDataFactory.getContacts(1, acc.Id, false)[0];
 		insert con;
-		
-			
-		
+
+
+
 		Apttus__APTS_Agreement__c contract = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.id, false)[0];
 		contract.Included_Product_Lines__c='Print Post';
-		insert contract;      
-		
-		
+		insert contract;
+
+
 		Apttus__AgreementLineItem__c cliRec = APT_TestDataFactory.getAPTAgreementLineItem(1, false)[0];
 		cliRec.Apttus_CMConfig__LineType__c = 'Product/Service';
-		cliRec.Apttus__AgreementId__c = contract.Id;          
+		cliRec.Apttus__AgreementId__c = contract.Id;
 		cliRec.APT_New__c = true;
-		insert cliRec;        
+		insert cliRec;
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -103,11 +103,11 @@ public with sharing class APT_AgreementLineItemsSelectorTest {
 			new Set<id>{contract.Id},
 			new Set<String>{'Product/Service'},
 			new Set<Object>{
-				APT_AgreementLineItemsSelector.Options.WITH_CONTRACT, 
+				APT_AgreementLineItemsSelector.Options.WITH_CONTRACT,
 				APT_AgreementLineItemsSelector.Options.WITH_PROPOSAL
 			}
-		));        
-		
+		));
+
 		System.assertEquals(1, results.size(), 'Result count was wrong');
 		System.assertEquals(results.get(cliRec.Id).Id, cliRec.Id, 'Agreement line item Id does not match');
 		Test.stopTest();
@@ -126,32 +126,32 @@ public with sharing class APT_AgreementLineItemsSelectorTest {
 		insert acc;
 		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, acc.Id, false)[0];
 		insert opp;
-		
+
 		Contact con = ApplicationTestDataFactory.getContacts(1, acc.Id, false)[0];
 		insert con;
-		
+
 		Product2 product =APT_TestUtils.createAPPCProduct('Print Post',APT_Constants.PRODUCT_CODE_PRINT_POST,'Postal Services');
-		insert product ;      
-		
+		insert product ;
+
 		//get Price List and Price List Item
 		Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
-		insert priceList ;       
+		insert priceList ;
 		Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,product.id,'','');
 		insert priceListItem ;
-		
+
 		Apttus_Proposal__Proposal__c quote = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, acc.Id, con.id, false)[0];
 		quote.APT_Use_Offline_Rates__c= true;
-		insert quote ;    
-		
+		insert quote ;
+
 		Apttus__APTS_Agreement__c contract = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.id, false)[0];
 		contract.Included_Product_Lines__c='Print Post';
-		insert contract;      
-		
-		
+		insert contract;
+
+
 		Apttus__AgreementLineItem__c cliRec = APT_TestDataFactory.getAPTAgreementLineItem(1, false)[0];
 		cliRec.Apttus_CMConfig__LineType__c = 'Product/Service';
-		cliRec.Apttus__AgreementId__c = contract.Id;  
-		cliRec.Apttus__ProductId__c = product.id;   
+		cliRec.Apttus__AgreementId__c = contract.Id;
+		cliRec.Apttus__ProductId__c = product.id;
 		cliRec.APT_New__c = true;
 		insert cliRec;
 		// =====================================
@@ -162,11 +162,11 @@ public with sharing class APT_AgreementLineItemsSelectorTest {
 		// =====================================
 		// Testing
 		// =====================================
-		Test.startTest();  
-		APT_AgreementLineItemsSelector selector = APT_AgreementLineItemsSelector.newInstance();     
-		List<Apttus__AgreementLineItem__c> results= selector.selectByContractIdsLineTypeProduct(new Set<id>{contract.Id}, 
+		Test.startTest();
+		APT_AgreementLineItemsSelector selector = APT_AgreementLineItemsSelector.newInstance();
+		List<Apttus__AgreementLineItem__c> results= selector.selectByContractIdsLineTypeProduct(new Set<id>{contract.Id},
 				new Set<String>{APT_Constants.LINE_TYPE_PRODUCT_SERVICE}, new Set<String>{APT_Constants.PRODUCT_CODE_PRINT_POST});
-		System.assertEquals(1, results.size(), 'Result count was wrong');     
+		System.assertEquals(1, results.size(), 'Result count was wrong');
 		Test.stopTest();
 	}
 

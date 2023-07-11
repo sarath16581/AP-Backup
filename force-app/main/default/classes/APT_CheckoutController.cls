@@ -1,7 +1,7 @@
 /**
-*@description       : A class which performs various Validations and Actions when Checkout button
+*@description: A class which performs various Validations and Actions when Checkout button
 						 is clicked in shopping cart
-*@author            : Yatika Bansal
+*@author: Yatika Bansal
 *Modifications Log
 *1.0 : 09-03-2023 : Bharat Patel : Added method for OOTB finalize API to finalize the Proposal on 'Checkout Only' action from LWC
 *1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
