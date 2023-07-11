@@ -130,23 +130,23 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 		return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
 	}
 
-    /**
-    * @description Run a query by passing the prod config id, LineType and Status
-    */
-    public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigLineTypeAndStatus(Set<ID> prodConfigIds, Set<String> lineType,  Set<String> status) {
-        return selectByProdConfigLineTypeAndStatus(prodConfigIds, lineType, status, new Set<Object>());
-    }
+	/**
+	* @description Run a query by passing the prod config id, LineType and Status
+	*/
+	public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigLineTypeAndStatus(Set<ID> prodConfigIds, Set<String> lineType,  Set<String> status) {
+		return selectByProdConfigLineTypeAndStatus(prodConfigIds, lineType, status, new Set<Object>());
+	}
 
-    /**
-    * @description Run a query by passing the prod config id, LineType and Status
-    */
-    public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigLineTypeAndStatus(Set<ID> prodConfigIds, Set<String> lineType, Set<String> status, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions);
-        qb.addConditions()
-            .add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfigIds'))
-            .add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c + ' != :lineType'))
-            .add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigStatus__c + ' IN :status'))
-        .endConditions();
-        return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
-    }
+	/**
+	* @description Run a query by passing the prod config id, LineType and Status
+	*/
+	public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigLineTypeAndStatus(Set<ID> prodConfigIds, Set<String> lineType, Set<String> status, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfigIds'))
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c + ' != :lineType'))
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigStatus__c + ' IN :status'))
+		.endConditions();
+		return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
+	}
 }
