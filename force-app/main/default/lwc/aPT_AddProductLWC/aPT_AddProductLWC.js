@@ -40,7 +40,7 @@ export default class APT_AddProductLWC extends NavigationMixin(LightningElement)
 								}
 						},
 						true
-					  );
+						);
 					} else{
 						this[NavigationMixin.Navigate]({
 							type: 'standard__webPage',

@@ -18,6 +18,7 @@ global class OPCBatchableSchedulable implements Schedulable {
 		Database.executeBatch(genOPC);
 	}
 
+	@istest
 	private static testMethod void testOPCBatchableSchedulable() {
 	
 		//Abort jobs to allow for test class to set the schedule
@@ -34,7 +35,8 @@ global class OPCBatchableSchedulable implements Schedulable {
 		test.startTest();
 		OPCBatchableSchedulable ops = new OPCBatchableSchedulable();
 		String schedule = '0 0 23 * * ?';
-		system.schedule('OPCBatchableSchedulable', schedule, ops);
+		Id jobId = system.schedule('OPCBatchableSchedulable', schedule, ops);
 		test.stopTest();
+		system.assert(jobId != null);
 	} 
 }
