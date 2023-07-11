@@ -672,7 +672,6 @@ public inherited sharing class OpportunityLineItemService {
 		for (OpportunityLineItem currentItem : getNewOverrideRenewalToGrowth(opportunityLineItems)) {
 			// if the item is renewal and it shoud be growth, change it.
 			// If the item is not renewal and also not growth, you can't override it.
-			system.debug('************* currentItem classificaton '+ currentItem.Classification__c);
 			if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
 				currentItem.Classification__c = Constants.CLSS_GROWTH;
 			} else if (currentItem.Classification__c != Constants.CLSS_GROWTH) {
@@ -700,7 +699,6 @@ public inherited sharing class OpportunityLineItemService {
 		for (OpportunityLineItem currentItem : getNewOverrideRenewalToGrowth(opportunityLineItems,priorValues)) {
 			// if the item is renewal and it shoud be growth, change it.
 			// If the item is not renewal and also not growth, you can't override it.
-			system.debug('*** classification '+ currentItem.Classification__c );
 			if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
 				currentItem.Classification__c = Constants.CLSS_GROWTH;
 			} else if (currentItem.Classification__c != Constants.CLSS_GROWTH) {

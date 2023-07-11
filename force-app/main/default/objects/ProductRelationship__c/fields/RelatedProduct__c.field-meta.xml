@@ -12,4 +12,7 @@
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
+	<businessStatus>Active</businessStatus>
+	<complianceGroup>GDPR</complianceGroup>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>
