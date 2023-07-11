@@ -86,7 +86,7 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
 	* If set of account ids is null or empty, returns all Apttus Contract records having a parent account.
 	* Query results are ordered by parent account Id desc
 	* @param accountIds set of parent account ids. returns all child Apttus Contract records associated with a parent account if null
-	*                   or empty set is supplied.
+	* or empty set is supplied.
 	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of Apttus Contract records
 	*/
@@ -110,10 +110,10 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
 	 * Run a SOQL based on the search parameters passed in
 	 *
 	 * @param searchParams A map containing searchable values:
-	 *                          agreementId / agreementId: maps to Apttus__FF_Agreement_Number__c
-	 *                          accountId / accountIds: maps to Apttus__Account__c
-	 *                          pricingCategory / pricingCategories: maps to APT_Pricing_Category__c
-	 *                          status / status: maps to Apttus__Status__c
+	 * agreementId / agreementId: maps to Apttus__FF_Agreement_Number__c
+	 * accountId / accountIds: maps to Apttus__Account__c
+	 * pricingCategory / pricingCategories: maps to APT_Pricing_Category__c
+	 * status / status: maps to Apttus__Status__c
 	 * @param matchAll If true will search based on AND, else search based on OR
 	 * @return list<Apttus__APTS_Agreement__c>
 	 */
@@ -125,12 +125,12 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
 	* Run a SOQL based on the search parameters passed in
 	*
 	* @param searchParams A map containing searchable values:
-	*                          agreementNum / agreementNums: maps to Apttus__FF_Agreement_Number__c
-	*                          accountId / accountIds: maps to Apttus__Account__c
-	*                          pricingCategory / pricingCategories: maps to APT_Pricing_Category__c
-	*                          status / status: maps to Apttus__Status__c
-	*						   orderBy: set the order by field (SObjectField)
-	*						   sortOrder: set the sort direction (asc,desc)
+	* agreementNum / agreementNums: maps to Apttus__FF_Agreement_Number__c
+	* accountId / accountIds: maps to Apttus__Account__c
+	* pricingCategory / pricingCategories: maps to APT_Pricing_Category__c
+	* status / status: maps to Apttus__Status__c
+	* orderBy: set the order by field (SObjectField)
+	* sortOrder: set the sort direction (asc,desc)
 	* @param matchAll If true will search based on AND, else search based on OR
 	* @return list<Apttus__APTS_Agreement__c>
 	*/

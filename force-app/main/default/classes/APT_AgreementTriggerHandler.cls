@@ -1300,17 +1300,17 @@ public with sharing class APT_AgreementTriggerHandler{
 			}
 		}
 
-		//@future
-		private static void submitGenDoc(Id agreementId, String templateId, String pLevel, String outputFormat, String sessionId, String serverURL) {
-			system.debug('** submitGenDoc **');
-			if(!test.isRunningTest()) {
-				Id attachmentId = Apttus.MergeWebService.submitGenerateDoc(templateId, agreementId, pLevel, outputFormat, false, sessionId, serverURL);
-			}
+	//@future
+	private static void submitGenDoc(Id agreementId, String templateId, String pLevel, String outputFormat, String sessionId, String serverURL) {
+		system.debug('** submitGenDoc **');
+		if(!test.isRunningTest()) {
+			Id attachmentId = Apttus.MergeWebService.submitGenerateDoc(templateId, agreementId, pLevel, outputFormat, false, sessionId, serverURL);
 		}
-		**/
+	}
+	**/
 
 	/**
-	 Method for populating Agreement Dates on update
+	Method for populating Agreement Dates on update
 	**/
 	public static void populateAgreementDatesOnUpdate(Map<ID, Apttus__APTS_Agreement__c> oldAgreementMap, Map<ID, Apttus__APTS_Agreement__c> newAgreementMap){
 		for(Id agreementId : newAgreementMap.keySet()){
@@ -1327,8 +1327,8 @@ public with sharing class APT_AgreementTriggerHandler{
 		}
 	}
 
-	  /**
-	 Method for populating Agreement Dates on insert
+	/**
+	Method for populating Agreement Dates on insert
 	**/
 	public static void agreementDatesLogicOnCreate(List<Apttus__APTS_Agreement__c> listAgrmnt){
 		for(Apttus__APTS_Agreement__c agreement : listAgrmnt){
@@ -1346,8 +1346,8 @@ public with sharing class APT_AgreementTriggerHandler{
 		}
 	}
 
-	 /**
-	 Method for updating Proposal Stage to Accepted without proposal document on insert
+	/**
+	Method for updating Proposal Stage to Accepted without proposal document on insert
 	**/
 	public static void updateProposalStage(List<Apttus__APTS_Agreement__c> listAgrmnt){
 		List<Apttus_Proposal__Proposal__c> proposalsToBeUpdated = new List<Apttus_Proposal__Proposal__c>();
@@ -1364,8 +1364,8 @@ public with sharing class APT_AgreementTriggerHandler{
 		}
 	}
 
-		/**
-	 Method for populating Service Dates on update
+	/**
+	Method for populating Service Dates on update
 	**/
 	public static void populateServiceDatesOnUpdate(Map<ID, Apttus__APTS_Agreement__c> oldAgreementMap, Map<ID, Apttus__APTS_Agreement__c> newAgreementMap){
 		Set<Id> aggIds = new Set<Id>();

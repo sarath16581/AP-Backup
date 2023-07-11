@@ -1,9 +1,9 @@
 /**
- * @description       : This is the test class for Proposal Trigger Helper
- * @author            : Darshan Chauhan
- * @group             :
- * @last modified on  : 06-25-2021
- * @last modified by  : Darshan Chauhan
+ * @description: This is the test class for Proposal Trigger Helper
+ * @author: Darshan Chauhan
+ * @group:
+ * @last modified on: 06-25-2021
+ * @last modified by: Darshan Chauhan
  * Modifications Log
  * Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/

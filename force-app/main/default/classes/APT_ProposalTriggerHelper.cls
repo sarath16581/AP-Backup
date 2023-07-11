@@ -1,12 +1,11 @@
 /**
- * @description       : This is the helper class for Proposal Trigger
- * @author            : Mansi Shah
- * @group             :
- * @last modified on  : 06-10-2021
- * @last modified by  : Mansi Shah
+ * @description: This is the helper class for Proposal Trigger
+ * @author: Mansi Shah
+ * @last modified on: 06-10-2021
+ * @last modified by: Mansi Shah
  * Modifications Log
- * Ver   Date         Author       Modification
- * 1.0   06-10-2021   Mansi Shah   Initial Version
+ * Ver Date Author Modification
+ * 1.0   06-10-2021 Mansi Shah Initial Version
  * Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/
 public with sharing class APT_ProposalTriggerHelper {
@@ -21,9 +20,9 @@ public with sharing class APT_ProposalTriggerHelper {
 		if(newProposalMap != null){
 			for(Apttus_Proposal__Proposal__c oProposal : newProposalMap.values()){
 				if(oProposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != null &&
-				   oProposal.Apttus_QPApprov__Approval_Status__c != null &&
+					oProposal.Apttus_QPApprov__Approval_Status__c != null &&
 					oProposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c.equalsIgnoreCase(APT_Constants.OPTION_YES) &&
-				   (oProposal.Apttus_QPApprov__Approval_Status__c.equalsIgnoreCase(APT_Constants.APPROVAL_STATUS_REJECTED) ||
+					(oProposal.Apttus_QPApprov__Approval_Status__c.equalsIgnoreCase(APT_Constants.APPROVAL_STATUS_REJECTED) ||
 					oProposal.Apttus_QPApprov__Approval_Status__c.equalsIgnoreCase(APT_Constants.APPROVAL_STATUS_CANCELLED)) &&
 					oldProposalMap.containsKey(oProposal.Id) &&
 					oldProposalMap.get(oProposal.Id).Apttus_QPApprov__Approval_Status__c != oProposal.Apttus_QPApprov__Approval_Status__c)
@@ -41,12 +40,12 @@ public with sharing class APT_ProposalTriggerHelper {
 				//Added By Yatika - STP-8804
 				if(oldProposalMap.get(oProposal.Id).Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC &&
 					oProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_GENERATED){
-				 	oProposal.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC;
+					oProposal.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC;
 				}
 
 				if(oldProposalMap.get(oProposal.Id).Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED &&
 					oProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC){
-				 	oProposal.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_ACCEPTED;
+					oProposal.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_ACCEPTED;
 				}
 			}
 		}

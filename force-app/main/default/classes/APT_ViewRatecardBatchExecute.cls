@@ -129,7 +129,7 @@ public with sharing class APT_ViewRatecardBatchExecute {
 						&& pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT)
 						{
 							if(pli.Apttus_QPConfig__OptionId__r.APT_Domestic_Pricing__c) {
-								setPriceStructure.add(pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c);    //charge code calculation
+								setPriceStructure.add(pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c);//charge code calculation
 							}
 
 							//1084

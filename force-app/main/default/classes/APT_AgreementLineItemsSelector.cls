@@ -13,7 +13,7 @@
 *2023-04-25 - Yatika Bansal - Added WITH_PRODUCT
 *2023-05-10 - Yatika Bansal - Added method selectByContractIdLineTypeAndChargeType
 *2023-06-14 - Yatika Bansal - Added field Apttus__AgreementId__c
- */
+*/
 public with sharing class APT_AgreementLineItemsSelector extends ApplicationSelector{
 	public enum Options {
 		WITH_CONTRACT, WITH_PROPOSAL, WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC, WITH_APPLIED_PSR, WITH_PRODUCT
@@ -23,8 +23,8 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 	}
 
 	/**
-	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	*                         This approach removes data consistency and prevents possible caching of results
+	*@param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	*This approach removes data consistency and prevents possible caching of results
 	*/
 	public static APT_AgreementLineItemsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		APT_AgreementLineItemsSelector selector = (APT_AgreementLineItemsSelector)Application.Selectors.newInstance(APT_AgreementLineItemsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
