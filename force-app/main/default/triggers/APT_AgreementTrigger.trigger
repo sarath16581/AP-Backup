@@ -192,8 +192,8 @@ if (Trigger.isBefore) {
 			//APT Print Post Makes Contract FT > workflow rule to trigger
 			//REQ2542972
 			// if (String.isNotBlank(agreement.Term__c) && String.isNotBlank(agreement.Included_Product_Lines__c) && !agreement.Term__c.equalsIgnoreCase(APT_Constants.TERM_FIXED_TERM) &&
-			//         (agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_PRINT_POST) || agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_UMS))) {
-			//     agreement.Term__c = APT_Constants.TERM_FIXED_TERM;
+			//(agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_PRINT_POST) || agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_UMS))) {
+			//agreement.Term__c = APT_Constants.TERM_FIXED_TERM;
 			// }
 			//APT Print Post Makes Contract FT > workflow rule to trigger
 
