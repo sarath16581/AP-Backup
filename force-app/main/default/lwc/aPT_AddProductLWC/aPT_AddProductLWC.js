@@ -1,9 +1,9 @@
 /**
- * @author Nasir Jawed
- * @date 2023-02-13
- * @description LWC component which is getting called from Aura component "Aura_AddProduct.cmp" which is placed as a lightning Action button
- *  on the page layout of Opportunity (Add Product) *
- */
+*@author Nasir Jawed
+*@date 2023-02-13
+*@description LWC component which is getting called from Aura component "Aura_AddProduct.cmp" which is placed as a lightning Action button
+*on the page layout of Opportunity (Add Product) *
+*/
 import { LightningElement,api ,track} from 'lwc';
 import validationCheck from "@salesforce/apex/APT_LandingCartController.validationCheck";
 import { NavigationMixin } from 'lightning/navigation';
@@ -19,7 +19,7 @@ export default class APT_AddProductLWC extends NavigationMixin(LightningElement)
 
 	// Calling the function on click of "Add Product" button from opportunity and passing the opportunity record id to process proposal and land of Catalog page
 	connectedCallback(){
-		this.isLoading = true;		
+		this.isLoading = true;
 		validationCheck(
 			{
 				recordId: this.recordId
@@ -36,7 +36,7 @@ export default class APT_AddProductLWC extends NavigationMixin(LightningElement)
 						this[NavigationMixin.Navigate]({
 							type: 'standard__webPage',
 							attributes: {
-								url : '/apex/Apttus_Config2__Cart?businessObjectId='+ this.proposalId  +'&flow='+ this.flow +'&useAdvancedApproval=true&useDealOptimizer=true&productOrderByClause=APT_Most_Popular__c%20NULLS%20LAST&launchState=catalog#!/search/'
+								url:'/apex/Apttus_Config2__Cart?businessObjectId='+ this.proposalId  +'&flow='+ this.flow +'&useAdvancedApproval=true&useDealOptimizer=true&productOrderByClause=APT_Most_Popular__c%20NULLS%20LAST&launchState=catalog#!/search/'
 								}
 						},
 						true
@@ -45,11 +45,11 @@ export default class APT_AddProductLWC extends NavigationMixin(LightningElement)
 						this[NavigationMixin.Navigate]({
 							type: 'standard__webPage',
 							attributes: {
-								url : '/apex/Apttus_Config2__Cart?businessObjectId='+ this.proposalId +'&useAdvancedApproval=true&useDealOptimizer=true'
+								url :'/apex/Apttus_Config2__Cart?businessObjectId='+ this.proposalId +'&useAdvancedApproval=true&useDealOptimizer=true'
 							}
 						},
 						true
-					  );
+					);
 					}
 
 				}
