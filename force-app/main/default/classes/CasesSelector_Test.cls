@@ -22,7 +22,6 @@
  * 2022-02-28 - Dattaraj Deshmukh - Added test for WITH_NETWORK_RESPONSE in 'testEnsureQueryBuilderProducesCorrectStringWithRelatedFields' method.
  * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  * 2023-06-08 - Mahesh Parvathaneni - Added tests for WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
- * 2023-06-30 - Pratyush Chalasani - Added test for WITH_DISPUTED_ITEMS and WITH_CREDIT_APPROVALS
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -262,58 +261,5 @@ public with sharing class CasesSelector_Test {
 		
 		Test.stopTest();
 
-	}
-
-	@isTest
-	static void test_selectByIdWithCreditAapprovalsAndDisputedItems() {
-		// =====================================
-        // Data Preparation
-        // =====================================
-        MockUtility.disableTriggerExecution();
-
-		Case testCase = ApplicationTestDataFactory.getCases(1, false)[0];
-
-		insert testCase;
-		
-		Disputed_Item__c testDI = ApplicationTestDataFactory.getDisputedItems(1, testCase.Id, false)[0];
-
-		testDi.Is_APPC__c = 'Yes';
-		testDi.Status__c = 'Verified Claim';
-		testDi.Type__c = 'Discretionary Credit';
-		testDi.Proposed_Credit__c = 10;
-		TestDi.Reason_Category__c = 'Transit Cover fee';
-		TestDi.Reason__c = 'Delivery Error';
-		testDi.Resolution_Code__c = 'test';
-		testDi.Product__c = 'Parcels';
-		testDi.Product_Sub_Category__c = 'Local marketplaces';
-
-		insert testDI;
-
-		Credit_Approval__c testCA = ApplicationTestDataFactory.getCreditApprovals(1, false)[0];
-
-		testCA.Case__c = testCase.Id;
-		testCA.Status__c = 'Approved';
-		testCA.Type__c = 'Discretionary Credit';
-
-		insert testCA;
-
-		// =====================================
-        // Stubbing
-        // =====================================
-        // None!
-
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-
-		Set<Object> selectorOptions = new Set<Object>{CasesSelector.Options.WITH_DISPUTED_ITEMS, CasesSelector.Options.WITH_CREDIT_APPROVALS};
-
-		CasesSelector selector = CasesSelector.newInstance();
-		Map<Id, Case> results = selector.selectById(new Set<Id>{testCase.Id}, selectorOptions);
-        
-		Assert.areEqual(1, results.size(), 'Expected result size of 1');
-
-		Test.stopTest();
 	}
 }

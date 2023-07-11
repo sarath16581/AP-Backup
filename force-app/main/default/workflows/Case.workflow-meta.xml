@@ -1212,7 +1212,7 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>StarTrack_System_Emails/StarTrack_VOC_Incident_System_User_Notification</template>
     </alerts>
-	    <alerts>
+    <alerts>
         <fullName>Transport_Enquiry_Case_Closed_Case_Email</fullName>
         <description>Transport Enquiry Case - Send an Email to the Customer if they are sending an Email to a Case that has been Closed.</description>
         <protected>false</protected>
@@ -1220,7 +1220,7 @@
             <field>SuppliedEmail</field>
             <type>email</type>
         </recipients>
-        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderAddress>transportenquiry@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Transport_Enquiry_Case_Template/Transport_Enquiry_Closed_Case_Email</template>
     </alerts>
@@ -1244,7 +1244,7 @@
             <field>SuppliedEmail</field>
             <type>email</type>
         </recipients>
-        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderAddress>transportenquiry@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Transport_Enquiry_Case_Template/Transport_Enquiry_New_Case_Notification</template>
     </alerts>
@@ -3629,7 +3629,7 @@ if case is accepted manually, change case status from New to In Progress</descri
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Coordinator</value>
+            <value>Data Quality Management</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>
@@ -4502,7 +4502,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-		<criteriaItems>
+        <criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4512,6 +4512,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>Web,Portal</value>
         </criteriaItems>
+        <description>Update for INC2147403 : Added condition for Case Origin</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -4625,7 +4626,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-		<criteriaItems>
+        <criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4635,7 +4636,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>Web,Portal</value>
         </criteriaItems>
-        <description>Snigdha : Updated for INC2147403</description>
+        <description>Update for INC2147403 : Added condition for Case Origin</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4710,7 +4711,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-		<criteriaItems>
+        <criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4720,7 +4721,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>Web,Portal</value>
         </criteriaItems>
-        <description>Snigdha: Updated for INC2147403</description>
+        <description>Update for INC2147403 : Added condition for Case Origin</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -4791,7 +4792,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>equals</operation>
             <value>Missing or lost item</value>
         </criteriaItems>
-		<criteriaItems>
+        <criteriaItems>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
@@ -4801,6 +4802,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>Web,Portal</value>
         </criteriaItems>
+        <description>Update for INC2147403 : Added condition for Case Origin</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <timeLength>1</timeLength>
@@ -4823,7 +4825,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_to_Admin_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>False</active>
+        <active>false</active>
         <criteriaItems>
             <field>Case.Subject</field>
             <operation>equals</operation>

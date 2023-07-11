@@ -2567,16 +2567,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Eligible_APPC_Tier__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Min_Spend_Per_Annum__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Docusign_VOI__c</field>
             <table>Account</table>
         </columns>
@@ -2613,6 +2603,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Tray_Despatch_Loading__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TradedRevenueMyCommunity__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Organisations</masterLabel>

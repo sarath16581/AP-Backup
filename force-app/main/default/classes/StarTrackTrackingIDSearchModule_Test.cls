@@ -29,7 +29,7 @@ public class StarTrackTrackingIDSearchModule_Test {
         StarTrackTrackingIDSearchModule module = StarTrackTrackingIDSearchModule.newInstance();
         module.onAfterInsert( (List<SObject>)cases, uow);
 
-        
+
         Test.stopTest();
 
     }

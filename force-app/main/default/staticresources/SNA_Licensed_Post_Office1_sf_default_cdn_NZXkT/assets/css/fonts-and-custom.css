@@ -195,7 +195,6 @@ h3 {
     letter-spacing: .03rem;
 }
 
-
 /*********************************************************
  * SLDS Button Declarations
  *********************************************************/
@@ -465,4 +464,25 @@ button.closeIcon svg {
 span[title='Follow'], .slds-button .slds-icon-utility-add {display: none}
 span[title='Following'], .slds-button .slds-icon-utility-check {display: none}
 span[title='Unfollow'], .slds-button .slds-icon-utility-close {display: none}
+
+/*********************************************************
+ * Footer Links
+ *********************************************************/
+.footerLinks {
+	background: #F5F5F5;
+    bottom: 0;
+    color: #DC1928;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-around;
+    padding: 20px 30%;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    width: 100%;
+}
+
+.footerLinks>a {
+    color: #DC1928 !important;
+}
 :root { --dxp-c-section-columns-max-width: 1170px; }

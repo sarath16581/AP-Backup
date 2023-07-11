@@ -16,6 +16,7 @@
         <connector>
             <targetReference>myRule_17_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -39,6 +40,7 @@
         <connector>
             <targetReference>myRule_1_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
@@ -62,6 +64,7 @@
         <connector>
             <targetReference>myRule_1_A3</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>
@@ -118,6 +121,7 @@
         <locationY>200</locationY>
         <actionName>StarTrackVOCEnquiryDueDateCalculation</actionName>
         <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>
@@ -177,6 +181,7 @@
         <connector>
             <targetReference>myRule_5_A3</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>
@@ -236,6 +241,7 @@
         <connector>
             <targetReference>myRule_5_A4</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>
@@ -295,6 +301,7 @@
         <connector>
             <targetReference>myRule_7_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>
@@ -338,7 +345,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>58.0</apiVersion>
     <decisions>
         <name>isChangedDecision12_myRule_11_Nominated_Advocate_Email_c</name>
         <label>isChangedDecision12_myRule_11_Nominated_Advocate_Email_c</label>
@@ -947,7 +954,7 @@
                 <stringValue>IF([Case].CallBackRequired__c, &apos;Yes&apos;, &apos;No&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_13_myRule_11_A1_9249489086</name>
+        <name>formula_13_myRule_11_A1_9227354946</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.CallBackRequired__c}, &apos;Yes&apos;, &apos;No&apos;)</expression>
     </formulas>
@@ -958,7 +965,7 @@
                 <stringValue>&apos;New VOC Incident Assigned: &apos; &amp; [Case].CaseNumber </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_14_myRule_11_A1_7048559223</name>
+        <name>formula_14_myRule_11_A1_6969248303</name>
         <dataType>String</dataType>
         <expression>&apos;New VOC Incident Assigned: &apos; &amp; {!myVariable_current.CaseNumber}</expression>
     </formulas>
@@ -969,7 +976,7 @@
                 <stringValue>IF(ISBLANK([Case].Network__c), &apos;&apos;, [Case].Network__c.Name)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myRule_11_A1_8708801779</name>
+        <name>formula_15_myRule_11_A1_5924828205</name>
         <dataType>String</dataType>
         <expression>IF(ISBLANK({!myVariable_current.Network__c}), &apos;&apos;, {!myVariable_current.Network__r.Name})</expression>
     </formulas>
@@ -980,7 +987,7 @@
                 <stringValue>PRIORVALUE([Case].OwnerId)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_19_myRule_17_A2_9727360072</name>
+        <name>formula_19_myRule_17_A2_8119271865</name>
         <dataType>String</dataType>
         <expression>PRIORVALUE({!myVariable_current.OwnerId})</expression>
     </formulas>
@@ -1000,9 +1007,9 @@
                        NOT([Case].Auto_Email_Response_sent__c))),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-		NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)), 
+        NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
+	NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),         
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -1026,9 +1033,9 @@
                        NOT({!myVariable_current.Auto_Email_Response_sent__c}))),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-		NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)), 
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
+	NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),         
         NOT(CONTAINS(
         LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -1067,7 +1074,7 @@
         {!myVariable_current.Case_RecordType_Name__c} = &apos;Voice of Customer Incident&apos;,
         ISNEW())</expression>
     </formulas>
-    <interviewLabel>StarTrack_VOC_Incident_Calculation-24_InterviewLabel</interviewLabel>
+    <interviewLabel>StarTrack_VOC_Incident_Calculation-26_InterviewLabel</interviewLabel>
     <label>StarTrack VOC Calculation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1195,7 +1202,7 @@
             </processMetadataValues>
             <field>Call_Back_Required__c</field>
             <value>
-                <elementReference>formula_13_myRule_11_A1_9249489086</elementReference>
+                <elementReference>formula_13_myRule_11_A1_9227354946</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1387,7 +1394,7 @@
             </processMetadataValues>
             <field>Name</field>
             <value>
-                <elementReference>formula_14_myRule_11_A1_7048559223</elementReference>
+                <elementReference>formula_14_myRule_11_A1_6969248303</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1417,7 +1424,7 @@
             </processMetadataValues>
             <field>Network_Name__c</field>
             <value>
-                <elementReference>formula_15_myRule_11_A1_8708801779</elementReference>
+                <elementReference>formula_15_myRule_11_A1_5924828205</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1516,6 +1523,19 @@
             <processMetadataValues>
                 <name>implicit</name>
                 <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.ParentId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
                     <booleanValue>false</booleanValue>
                 </value>
             </processMetadataValues>
@@ -1553,19 +1573,6 @@
             <operator>EqualTo</operator>
             <value>
                 <booleanValue>false</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.ParentId</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -1683,7 +1690,7 @@
             <field>OwnerId</field>
             <operator>NotEqualTo</operator>
             <value>
-                <elementReference>formula_19_myRule_17_A2_9727360072</elementReference>
+                <elementReference>formula_19_myRule_17_A2_8119271865</elementReference>
             </value>
         </filters>
         <filters>
@@ -2414,7 +2421,7 @@
         <object>Case</object>
     </recordUpdates>
     <startElementReference>isChangedDecision8_myRule_7_Status</startElementReference>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

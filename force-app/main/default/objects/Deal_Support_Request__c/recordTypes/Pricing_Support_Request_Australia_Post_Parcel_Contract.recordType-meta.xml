@@ -1114,7 +1114,7 @@
             <fullName>Signature on delivery</fullName>
             <default>false</default>
         </values>
-		 <values>
+        <values>
             <fullName>Wine and Alcohol</fullName>
             <default>false</default>
         </values>
@@ -3373,16 +3373,16 @@
             <default>false</default>
         </values>
     </picklistValues>
-	<picklistValues>
-		<picklist>Transit_Cover_Type__c</picklist>
-			<values>
-				<fullName>Adhoc</fullName>
-				<default>true</default>
-			</values>
-			<values>
-				<fullName>Always On</fullName>
-				<default>false</default>
-			</values>
+    <picklistValues>
+        <picklist>Transit_Cover_Type__c</picklist>
+        <values>
+            <fullName>Adhoc</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Always On</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Type__c</picklist>

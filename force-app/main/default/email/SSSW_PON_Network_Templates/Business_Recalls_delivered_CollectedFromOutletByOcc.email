@@ -102,9 +102,9 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
 
-I have spoken with the Post Office that delivered this parcel, they have confirmed that they were provided with identification that matched the business address, allowing the item to be collected. <br/><br/>
+A team member at the post office where your item was awaiting collection was provided with identification and appropriate authorisation, allowing the item to be collected. <br/><br/>
 
-If there are any concerns, please contact the sender of the item to confirm the address details.<br/><br/>
+To find out more about authority to collect, please visit  <a href='www.auspost.com.au '/>www.auspost.com.au </a><br/><br/>
 
 Thank you for contacting Australia Post, I hope that this information assists you.<br/><br/>
 								</td>

@@ -146,14 +146,6 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 		return selectByArticleNumber(articleIds, new Set<Object>());
 	}
 
-	public virtual List<EventMessage__c> selectByArticleNumber(Set<String> articleIds,Set<String> eventTypes, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition('Article__r.ArticleID__c in :articleIds')).endConditions();
-		if(eventTypes.size() > 0) {
-			qb.addConditions().add(new QueryBuilder.SimpleCondition(EventMessage__c.EventType__c + ' in :eventTypes')).endConditions();
-		}
-		return (List<EventMessage__c>)Database.query(qb.toSoqlString());
-	}
-
 	/**
 	 * @description Run a query to get records based on Article Id's and event types
 	 */

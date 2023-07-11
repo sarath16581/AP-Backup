@@ -16,7 +16,6 @@
  * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
  * 2023-01-27 - Naveen Rajanna - Updated api version and test methods for selectUsersEligibleForDeactivationQueryLocator
  * 2022-02-01 - Noel Lim - updated testSelectorIntegration method, added test for new selectActiveUserById()
- * 2023-06-23 - Boris Bachovski - updated - test WITH_COMMUNITY_ACCOUNT option
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -114,10 +113,6 @@ public with sharing class UsersSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)UserRole\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select UserRole fields');
 		System.assertEquals(true, Pattern.compile('(?ism)Profile\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select Profile fields');
-
-		qb = selector.newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_COMMUNITY_ACCOUNT});
-		soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)Contact\\.Account\\.Name.*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select Contact.Account fields');
 
 		Test.stopTest();
 
@@ -255,11 +250,6 @@ public with sharing class UsersSelector_Test {
 		System.assertNotEquals(null, results.values()[0].UserRole, 'Expected UserRole object but got null');
 		System.assertNotEquals(null, results.values()[0].Profile, 'Expected Profile object but got null');
 		System.assertEquals(UserInfo.getFirstName(), results.get(UserInfo.getUserId()).FirstName, 'Expected first name to match current user');
-
-		results = selector.selectById(new Set<Id>{users[0].Id}, new Set<Object>{UsersSelector.Options.WITH_COMMUNITY_ACCOUNT});
-		System.assertEquals(1, results.size(), 'Expected 1 result');
-		System.assertNotEquals(null, results.values()[0].Contact, 'Expected Contact object but got null');
-		System.assertNotEquals(null, results.values()[0].Contact.Account, 'Expected Contact.Account object but got null');
 
 		results = selector.selectByUsername(new Set<String>{users[0].Username, users[1].Username});
 		System.assertEquals(2, results.size(), 'Expected 2 results');

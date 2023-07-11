@@ -17,7 +17,9 @@ Hi {!Contact.FirstName},
 
 Thank you for contacting Australia Post Collections Support.
 
-We have received your request and will respond to you shortly. Your case reference is  {!Case.CaseNumber} in case you need to follow up with us by phone, please do not send a second email.
+We have received your request and will respond to you shortly. Your case 											reference is  {!Case.CaseNumber} in case you need to follow up with 											us by phone.
+
+Please do not send a second email.
 
 
 
@@ -25,7 +27,7 @@ Kind regards,
 Australia Post
 {!Case.Thread_Id}
 
-This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the 							communication is free of errors, viruses or interference.
 Terms &amp; conditions  |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>

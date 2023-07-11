@@ -413,9 +413,9 @@
                 <label>Resolved - POD Sent</label>
             </value>
             <value>
-                <fullName>Resolved  - Rebooked</fullName>
+                <fullName>Resolved - Rebooked</fullName>
                 <default>false</default>
-                <label>Resolved  - Rebooked</label>
+                <label>Resolved - Rebooked</label>
             </value>
             <value>
                 <fullName>Resolved - Rebooked (Futile)</fullName>

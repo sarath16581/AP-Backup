@@ -179,7 +179,7 @@
                 <behavior>Readonly</behavior>
                 <field>Sales_Director__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PortfolioCode__c</field>
             </layoutItems>

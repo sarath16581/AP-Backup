@@ -1361,10 +1361,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>accountStructureController_v2</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>batchClassFixTargetANDRevenue</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -9038,18 +9034,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>buildHierarchyView</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>buildHierarchyView_toExcel</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>buildHierarchyView_v2</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>buildHierarchyView_v3</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

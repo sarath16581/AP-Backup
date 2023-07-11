@@ -33,9 +33,9 @@ public inherited sharing class TransportEnquiryCaseService {
 	// Funtion to get the transport enquiry entitlement record id
 	public Id getTransportEnquiryEntitlementId() {
 		if (transportEnquiryEntitlementId == null) {
-			Entitlement entitlement = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT}, new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT_ACCOUNT})[0];
-			if (entitlement != null) {
-				transportEnquiryEntitlementId = entitlement.Id;
+			List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT}, new Set<String>{TRANSPORT_ENQUIRY_ENTITLEMENT_ACCOUNT});
+			if (!entitlements.isEmpty()) {
+				transportEnquiryEntitlementId = entitlements[0].Id;
 			}
 		}
 		return transportEnquiryEntitlementId;
@@ -44,7 +44,10 @@ public inherited sharing class TransportEnquiryCaseService {
 	//Function to get the transport enquiry record type ids
 	public Id getTransportEnquiryRecordTypeId() {
 		if (transportEnquiryRecordTypeId == null) {
-			transportEnquiryRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{CASE_TRANSPORT_ENQUIRY_RT}).values()[0].Id;
+			List<RecordType> recordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{CASE_TRANSPORT_ENQUIRY_RT}).values();
+			if (!recordTypes.isEmpty()) {
+				transportEnquiryRecordTypeId = recordTypes[0].Id;
+			}
 		}
 		return transportEnquiryRecordTypeId;
 	}
