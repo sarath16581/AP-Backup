@@ -7,7 +7,7 @@
 * 				 Used to display a prompt message and retry a callout to Camunda for SAP Integration.
 * @changelog
 * 2022-07-01 seth.heang@auspost.com.au Created
-* 2023-06-15 CI-613arath.burra@auspost.com.au Added ConnectedCallBack to check if Service Commencement Date and Service Expiry Date have been populated
+* 2023-06-15 CI-613 sarath.burra@auspost.com.au Added set method to check if Service Commencement Date and Service Expiry Date have been populated
 */
 import { LightningElement, api, wire} from 'lwc';
 import { CloseActionScreenEvent } from 'lightning/actions';
