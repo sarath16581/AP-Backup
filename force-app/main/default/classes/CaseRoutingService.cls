@@ -391,7 +391,7 @@ public inherited sharing class CaseRoutingService {
 				// TODO confirm, does this need to go into without sharing????
 				List<PendingServiceRouting> preferredAgentPSRs = PendingServiceRoutingSelector.newInstance(0, new Set<SObjectField>{PendingServiceRouting.Id, PendingServiceRouting.WorkItemId}).search(new Map<String, Object>{
 					'workItemIds' => processableCases.keySet(),
-					'isPreferredUserRequired' => true
+					'isPreferredUserRequiredOnly' => true
 				}, true);
 
 				if(!preferredAgentPSRs.isEmpty()) {
