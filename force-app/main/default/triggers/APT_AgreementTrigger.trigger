@@ -62,19 +62,19 @@ if (Trigger.isBefore) {
 		if (setProposalId.size()>0 ) {
 			mapProposal = new Map<Id, Apttus_Proposal__Proposal__c>([
 					SELECT Id, APT_Use_Offline_Rates__c,
-						(SELECT id, Apttus_Proposal__Product__c, 
-							APT_Bundle_Product_Name__c, 
-							Apttus_Proposal__Product__r.name, 
+						(SELECT id, Apttus_Proposal__Product__c,
+							APT_Bundle_Product_Name__c,
+							Apttus_Proposal__Product__r.name,
 							Apttus_Proposal__Product__r.APT_Product_Lines__c,
 							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
-							Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c 
-						FROM Apttus_Proposal__R00N70000001yUfBEAU__r) 
+							Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c
+						FROM Apttus_Proposal__R00N70000001yUfBEAU__r)
 					FROM Apttus_Proposal__Proposal__c
 					WHERE Id IN :setProposalId
 			]);
 		}
-		
-		
+
+
 		if (listOpportunity.size() > 0) {
 			System.debug('checkpoint2' + listOpportunity.size());
 			update listOpportunity;
@@ -91,7 +91,7 @@ if (Trigger.isBefore) {
 
 		result = APT_AgreementTriggerHandler.afterChangeofOwner(listOwner, Trigger.new);
 		result = APT_AgreementTriggerHandler.updateAgreementwithAttribute(Trigger.new);
-        APT_AgreementTriggerHandler.agreementDatesLogicOnCreate(Trigger.new);
+		APT_AgreementTriggerHandler.agreementDatesLogicOnCreate(Trigger.new);
 		result = APT_AgreementTriggerHandler.setProductLines(Trigger.new, mapProposal);
 
 		if (result != APT_Constants.SUCCESS_LABEL) {
@@ -317,7 +317,7 @@ if (Trigger.isBefore) {
 		//beforeAgreementFullySigned
 		APT_AgreementTriggerHandler.beforeAgreementFullySigned(Trigger.oldMap, Trigger.new);
 		//beforeAgreementFullySigned
-            
+
 		//populateAgreementDatesOnUpdate
 		APT_AgreementTriggerHandler.populateAgreementDatesOnUpdate(Trigger.oldMap, Trigger.newMap);
 
@@ -418,24 +418,24 @@ if (Trigger.isAfter) {
 		if (setChildAgIdsActivated.size() > 0) {
 			APT_AgreementTriggerHandler.afterAgreementActivatedForChildAgreements(setChildAgIdsActivated);
 		}
-		
+
 		/* Shashwat.Nath@Auspost.com.au has added the below lines of code on 22/09/2020 for STP Release 2 requirement
 		of superseding the Original Opportunity when the new DOV contract reaches the stage of "In Signature" and "Fully Signed" */
-			
+
 		Set<Id> opportunitiesInScope = new Set<Id>();
 		// Iterating on trigger.new and adding only those opportunity Ids to the set which would parent opportunities be required to be superseded
 		for(Apttus__APTS_Agreement__c apttusContract : trigger.new){
 			if('In Signatures'.equalsIgnoreCase(apttusContract.Apttus__Status_Category__c) &&
-				trigger.oldmap.get(apttusContract.id).Apttus__Status__c != apttusContract.Apttus__Status__c && 
+				trigger.oldmap.get(apttusContract.id).Apttus__Status__c != apttusContract.Apttus__Status__c &&
 				'Fully Signed'.equalsIgnoreCase(apttusContract.Apttus__Status__c) && apttusContract.Apttus__Related_Opportunity__c!=null){
-					opportunitiesInScope.add(apttusContract.Apttus__Related_Opportunity__c);    
+					opportunitiesInScope.add(apttusContract.Apttus__Related_Opportunity__c);
 				}
 		}
 		if(!opportunitiesInScope.isEmpty()){
 			// Calling the supersede Original Opportunity Method
-			APT_AgreementTriggerHandler.supersedeOriginalOpportunity(opportunitiesInScope);        
+			APT_AgreementTriggerHandler.supersedeOriginalOpportunity(opportunitiesInScope);
 		}
-		
+
 		/* Shashwat.Nath@auspost.com.au code ends */
 	}
 }

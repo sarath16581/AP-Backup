@@ -1,24 +1,24 @@
 <!--
  @description: 	This Visualforce Page is for custom checkout functionality.
-			It is used as a wrapper for the LWC component, using Lightning-out framework. 
+			It is used as a wrapper for the LWC component, using Lightning-out framework.
  @author Yatika Bansal
  @date 2023-06-03
 -->
 <apex:page showHeader="false" sidebar="false" controller="APT_CheckoutController">
-	<html>	
+	<html>
 		<body class="slds-scope">
-            <apex:outputPanel layout="block" style="overflow:auto;height:450px" >
+			<apex:outputPanel layout="block" style="overflow:auto;height:450px" >
 			<div id="wrapper">
 				<c:LightningWrapper lightningApp="c:APT_CheckoutApp"
-									lightningComponent="c:apt_CheckoutLWC"	                        
+									lightningComponent="c:apt_CheckoutLWC"
 									crossOriginLwcEvents="false"
 									componentAttributes="{!checkoutAttributes}" />
 			</div>
-            </apex:outputPanel>
+			</apex:outputPanel>
 		</body>
 	</html>
-    
-    <script>
+
+	<script>
 		// listen for the custom dom event navigateToUrl to navigate back to proposal record
 		document.getElementById('wrapper').addEventListener('navigateToUrl', handleNavigateToUrl);
 		/**
@@ -26,8 +26,8 @@
 		 */
 		function handleNavigateToUrl(e) {
 			if(e && e.type === 'navigateToUrl' && e.detail) {
-               window.top.location.href  = e.detail.url;
-               //window.open(e.detail.url, '_parent');
+			   window.top.location.href  = e.detail.url;
+			   //window.open(e.detail.url, '_parent');
 			}
 		}
 	</script>

@@ -2,6 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Category__c</fullName>
     <externalId>false</externalId>
+	<description>Indicates Category</description>
+	<inlineHelpText>Indicates Category</inlineHelpText>
     <formula>TEXT(Apttus_Config2__AttributeValueId__r.Category__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Category</label>

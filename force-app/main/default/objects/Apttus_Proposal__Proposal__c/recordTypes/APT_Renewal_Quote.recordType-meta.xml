@@ -3,6 +3,7 @@
     <fullName>APT_Renewal_Quote</fullName>
     <active>true</active>
     <compactLayoutAssignment>Proposal_Lightning_Compact_Layout</compactLayoutAssignment>
+	<description>Captures the information for renewal quotes.</description>
     <label>Renewal Quote</label>
     <picklistValues>
         <picklist>APT_Contracting_Entity__c</picklist>
