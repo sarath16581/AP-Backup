@@ -107,7 +107,7 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <decisions>
         <name>isChangedDecision10_myRule_9_Stage_c</name>
         <label>isChangedDecision10_myRule_9_Stage_c</label>

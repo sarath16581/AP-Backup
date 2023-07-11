@@ -3,6 +3,7 @@
     <fullName>Status__c</fullName>
     <externalId>false</externalId>
     <inlineHelpText>Identifies where the risk is at in the stages</inlineHelpText>
+	<description>Identifies where the risk is at in the stages</description>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
