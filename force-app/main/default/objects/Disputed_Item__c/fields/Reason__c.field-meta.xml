@@ -1149,6 +1149,11 @@
             <valueName>Customer Claim Met</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Unmanifested Article fee</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Un-manifested Fee Refund</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
             <valueName>Incorrect Product Data Provided</valueName>
@@ -1269,11 +1274,6 @@
         <valueSettings>
             <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
             <valueName>BML - Operator Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-			<controllingFieldValue>Unmanifested Article Fee</controllingFieldValue>
-            <valueName>Un-manifested Fee Refund</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>

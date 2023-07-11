@@ -99,7 +99,7 @@
 						<lightning-layout-item size="5" class="slds-var-p-around_small">
 							<lightning-input type="search" value={postcodeSuburb} onchange={populatePostcodeSuburb}
 								label="Postcode/Suburb" class="input-label"
-								field-level-help="Finds the AP facility that delivers to this postcode/suburb">
+								field-level-help="Find an AP MyNetwork facility which deliver parcels to a postcode/suburb">
 							</lightning-input>
 							<template if:true={showSearchResults}>
 								<div class="slds-box">
@@ -121,7 +121,7 @@
 						<lightning-layout-item size="5" class="slds-var-p-around_small">
 							<lightning-input class="input-label" type="text" value={facilityName}
 								onchange={handleFacilityNameChange} label="MyNetwork Facility Name"
-								field-level-help="Search all AP MyNetwork facilities by name"></lightning-input>
+								field-level-help="Search the name of an AP MyNetwork facility which deliver parcels"></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item size="7" class="slds-var-p-left_small slds-var-p-top_medium">
 							<lightning-button variant="brand" label="Search by Postcode/Suburb"

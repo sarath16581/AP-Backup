@@ -17,11 +17,11 @@ Hi {!Contact.FirstName}
 
 Re: Article {!Case.ReferenceID__c}
 
-Please be advised that your item is on its way to you.
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. We are now attempting to retrieve the item from that address and will deliver it to you as soon as possible.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. We are now attempting to retrieve the item from that address and will deliver it to you as soon as possible.
 
-If you have not received this delivery within 3 business days please notify us by replying to this email and we can investigate the situation. For tracking information, please visit auspost.com.au/track
+If you have not received this delivery within three business days, please notify us by replying to this email and we can investigate the situation. For tracking information, please visit https://auspost.com.au/track
 
 I’m sorry that this delivery did not go as planned.
 

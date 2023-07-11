@@ -41,7 +41,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Analytics &amp; Reporting Request (CAR),Sales Coordinator</value>
+            <value>Sales Operations Support,Customer Analytics &amp; Reporting Request (CAR)</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -130,7 +130,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Operations Support</value>
+            <value>Data Quality Management</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -241,7 +241,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Operations Support</value>
+            <value>Data Quality Management</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -730,7 +730,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Analytics &amp; Reporting Request (CAR),Sales Coordinator</value>
+            <value>Sales Operations Support,Customer Analytics &amp; Reporting Request (CAR)</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -782,7 +782,7 @@
             <group>Sales_Excellence</group>
         </sharedFrom>
     </sharingOwnerRules>
-	<sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Transport_Enquiry_Case_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Shares the transport enquiry cases owned by users across the role AP Van Depot User.</description>

@@ -21,6 +21,26 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>All_Internal_Users_except_Retail_Merchandise</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>This rule enables all accounts to be shared within internal users except retail merchandise users who only need access retail data.</description>
+        <label>All Internal Users except Retail Merchandise</label>
+        <sharedTo>
+            <group>All_Users_Ex_Retail_Merchandise</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Is_a_facility__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Customer_Integration_Team</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>

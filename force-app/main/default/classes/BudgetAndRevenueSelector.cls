@@ -45,6 +45,9 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Financial_Year__c + ' in :financialYears')).endConditions();
 		}
 
+		System.debug('SOQL');
+		System.debug(qb.toSoqlString());
+
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
 	}
 }

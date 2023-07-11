@@ -19,13 +19,9 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, however they are unable to recall the specifics of this delivery. They have suggested that items delivered to your address are usually left at reception.
+I have met with the team member responsible for the delivery of this item and reviewed the route and tracking information. They are unable to recall the specifics of this delivery but have advised that items delivered to your business are usually delivered to reception.
 
-As a signature was not required on this delivery, we cannot investigate further.
-
-If you are unable to locate the item, the sender will need to contact us and quote Case {!Case.CaseNumber}.
-
-Thank you for contacting Australia Post, I hope that this information assists you.
+Thank you for taking the time to contact Australia Post. I hope that this information assists you.
 
 Kind Regards,
 {!User.FirstName}

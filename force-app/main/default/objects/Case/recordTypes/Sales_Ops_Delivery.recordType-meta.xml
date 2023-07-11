@@ -669,6 +669,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Self-service support</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Site Inspection</fullName>
             <default>false</default>
         </values>
@@ -678,6 +682,10 @@
         </values>
         <values>
             <fullName>Tracking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction History Request</fullName>
             <default>false</default>
         </values>
         <values>

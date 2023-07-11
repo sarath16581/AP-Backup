@@ -19,11 +19,13 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was not addressed to you and was delivered as addressed.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this parcel was delivered to the address on the label.
 
-I encourage you to make contact with the sender so that you’re able to find a resolution and receive your item.
+I encourage you to contact your sender to confirm the address that the item was sent to.
 
-Thanks for taking the time to contact us. I hope that this information assists you.
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/delivery-options
+
+Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}

@@ -102,13 +102,11 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
 
-I have contacted the Post Office where your item had been awaiting collection. <br/><br/>
+A team member at the post office where your item was awaiting collection was provided with identification that matched the item’s delivery address, allowing the item to be collected.<br/><br/>
 
-The Post Office has confirmed that they were provided with identification that matched the item’s delivery address, allowing the item to be collected. <br/><br/>
+If you have still not received your item, please contact your sender to clarify the address the item was sent to. <br/><br/>
 
-If there are any concerns, please contact the sender of the item directly.  <br/><br/>
-
-Thank you for contacting Australia Post, I hope that this information assists you.<br/><br/>
+Thank you for contacting Australia Post. I hope that this information assists you.<br/><br/>
 
 
 								</td>

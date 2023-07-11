@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>AssignNetworkWCIS__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">271230</value>
     </values>
     <values>
         <field>CasePriority__c</field>
@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>EmailToCaseAddress__c</field>
-        <value xsi:type="xsd:string">transportcustomercollectionsstf@auspost.com</value>
+        <value xsi:type="xsd:string">transportcustomercollectionsstf@auspost.com.au</value>
     </values>
     <values>
         <field>IsActive__c</field>

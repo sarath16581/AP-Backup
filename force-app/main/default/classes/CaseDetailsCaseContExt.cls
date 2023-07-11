@@ -18,14 +18,14 @@
  25/06/2018 disha.kariya@auspost.com.au	 Removed NPSRequired__c and NPSTagDate__c to delete it.
  22/05/2020 dheeraj.mandavilli@auspost.com.au Removed check duplicates and generate attachments from Initialize page method and created new methods.
  2020-06-19 dheeraj.mandavilli@auspost.com.au Removed generateattatchments method from this class and kept in Faxtrigger
- 2020-10-15 naseer.abbasi@auspost.com.au		Updated call to SSSW_Routing.assignCasesAndDescription with additional isInsert parameter 
+ 2020-10-15 naseer.abbasi@auspost.com.au		Updated call to SSSW_Routing.assignCasesAndDescription with additional isInsert parameter
  2021-02-02 saiswetha.pingali@auspost.com.au -  Reset 'ClosedbySystem__C' to false on cloning a case.
  2021-04-15 naveen.rajanna@auspost.com.au - added itemHeld flag to be used in frontend js to denote user by alert message.
  2021-09-06 seth.heang@auspost.com.au   Uplift SF API version to 52
- 2021-09.20 seth.heang@auspost.com.au   INC1852893 Fix SOQL query bug which caused 'Reassign' button functionality to not working 
+ 2021-09.20 seth.heang@auspost.com.au   INC1852893 Fix SOQL query bug which caused 'Reassign' button functionality to not working
  2021.10.01	seth.heang@auspost.com.au	INC1859157, INC1859449 Fix SOQL query issue with ReferenceID__c, Status, EnquirySubType__c
  2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
- 2022-11-18 George Nguyen - Added logic to check against the target ownerId: If it is omni and the skills are matching the previous owner's skills then do not allow the case to be Reassigned. 
+ 2022-11-18 George Nguyen - Added logic to check against the target ownerId: If it is omni and the skills are matching the previous owner's skills then do not allow the case to be Reassigned.
  2023-02-06 Noel Lim - Added Preferred Agent logic, which sets BypassPreferredAgent to true if the case is being routed to an omni queue.
  2023-06-06 - Nathan Franklin - Refactored case reassignment
 ***********************************/
@@ -510,7 +510,7 @@ global class CaseDetailsCaseContExt  {
 					OwnerId,
 					SocialPostTags__c, // INC1852893 - SOQL query bug
 					CaseLocality__c,  // INC1852893 - SOQL query bug
-					PreferredAgentExpiry__c, 
+					PreferredAgentExpiry__c,
 					BusinessHoursId ,
 					AllocateToQueue__c,
 					Rework_Reason__c,
@@ -867,7 +867,7 @@ global class CaseDetailsCaseContExt  {
 		query = includeField(query,'FacilityOrOutletWCC__c');
 
 		// Add below fields into the Query to load on the Case layout
-	// From v44 onward, only field specified in SELECT Query can be accessed in the code. Else, runtime error on SOQL query is observed.   
+	// From v44 onward, only field specified in SELECT Query can be accessed in the code. Else, runtime error on SOQL query is observed.
 		query = includeField(query,'BSP_Sender_Name__c');
 		query = includeField(query,'BSP_Sender_Address__c');
 		query = includeField(query,'BSP_Sender_Company__c');
@@ -886,7 +886,7 @@ global class CaseDetailsCaseContExt  {
 		query = includeField(query,'Address4State__c');
 		query = includeField(query,'Address4Postcode__c');
 		query = includeField(query,'Address4Country__c');
-		
+
 		// Fix INC1859157, INC1859449 SOQL fix
 		query = includeField(query,'ReferenceID__c');
 		query = includeField(query,'Status');
@@ -1029,12 +1029,12 @@ global class CaseDetailsCaseContExt  {
 			QM__c queueSettings = QM__c.getInstance();
 			Id temporaryReassignmentQueue = queueSettings.TemporaryReassignmentQueue__c;
 			String awaitingReopenQueueId = [Select Id from Group where Name = :REOPEN_QUEUE_NAME limit 1].Id;
-			
+
 			skillsList = '';
 			noAssignmentSameMembershipError = false;
 			noAssignmentSameSkillsError = false;
 			noAssignmentCaseClosedError = false;
-			
+
 			//check if case has child cases
 			//check if case has child cases of status - awaiting n/w response
 			Boolean setParentCaseToAwaitingReopen = false;
@@ -1080,7 +1080,7 @@ global class CaseDetailsCaseContExt  {
 
 			System.debug('current owner: ' + previousOwnerId);
 			System.debug('new simulated owner: ' + caseToBeRouted.OwnerId);
-			
+
 			// check to see if the user is a part of queue membership of the assigned queue
 			// if they are then we do not let routing proceceed
 			Boolean simulatedQueueIsServicedByCurrentUser = groupIds.contains(caseToBeRouted.OwnerId);
@@ -1088,8 +1088,8 @@ global class CaseDetailsCaseContExt  {
 				Boolean simulatedQueueIsOmniQueue = OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(caseToBeRouted.OwnerId);
 
 				if(simulatedQueueIsOmniQueue) {
-					// set save point so we can revert the update to omni queue (if applicable). We need the PSR in order to compare the target skills vs the skills of the current agent. 
-					// If they are the same then the whole process should be reverted and show an error message to the user. 
+					// set save point so we can revert the update to omni queue (if applicable). We need the PSR in order to compare the target skills vs the skills of the current agent.
+					// If they are the same then the whole process should be reverted and show an error message to the user.
 					Savepoint sp = Database.setSavepoint();
 
 					// check to see if we need to move the case to a temporary queue if the new owner is the same as the previous
@@ -1120,7 +1120,7 @@ global class CaseDetailsCaseContExt  {
 
 							Boolean hasAllSkills = true;
 							for(SkillRequirement sr: skillsRequirements) {
-								// if previous owner does not have the same skill or does have the same skill but lower level then it is a mis-match. 
+								// if previous owner does not have the same skill or does have the same skill but lower level then it is a mis-match.
 								if(!userSkillIdVsSkillLevel.containsKey(sr.SkillId) || userSkillIdVsSkillLevel.get(sr.SkillId) < sr.SkillLevel) {
 									hasAllSkills = false;
 									break;
@@ -1131,11 +1131,11 @@ global class CaseDetailsCaseContExt  {
 								skillsList += (!String.isEmpty(skillsList) ? ', ' : '') + sr.Skill.MasterLabel;
 							}
 
-							// user has all the required skills so we should revert the update and show the error to the user. 
+							// user has all the required skills so we should revert the update and show the error to the user.
 							if(hasAllSkills == true) {
 								ApplicationDatabase.getInstance().dmlRollback(sp);
 								noAssignmentSameSkillsError = true;
-							}								
+							}
 						} else {
 							// no skills which could mean its a queue based assignment or there were no skills mapped
 							// either way we allow the update to occur

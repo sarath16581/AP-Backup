@@ -102,7 +102,7 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item <br/><br/>
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that it was delivered to an incorrect address. After attempting to retrieve the item, they learned that another business has now delivered the item to you. <br/><br/>
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that it was delivered to an incorrect address. After attempting to retrieve the item, they learned that another business has now delivered the item to you. <br/><br/>
 
 
 I’m sorry that this delivery did not go as planned. <br/><br/>

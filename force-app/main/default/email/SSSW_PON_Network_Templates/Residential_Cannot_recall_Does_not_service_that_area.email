@@ -102,19 +102,14 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
 
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall delivering the item to the address on the parcel.<br/><br/>
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall delivering the item to the address on the parcel.<br/><br/>
-
-
-As you have suggested you live in a different area, we kindly ask that you contact the sender of your item to confirm that the item was addressed correctly, and the correct tracking number was provided.<br/><br/>
+As you have suggested you live in a different area, this would imply that your address was not on this parcel.<br/><br/>
  
-
-Should the sender contact us, please ensure that they quote Case {!Case.CaseNumber} number as evidence that an investigation has taken place.<br/><br/>
-
-
-Thanks for taking the time to contact us. I hope that this information assists you.
+We kindly ask that you contact the sender of your item to confirm the address on the parcel, and that the correct tracking number was provided. <br/><br/>
 
 
+Thank you for contacting Australia Post. I hope that this information assists you.
 <br/><br/>
 								</td>
 							</tr>								

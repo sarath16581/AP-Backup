@@ -1179,6 +1179,11 @@
             <field>Account_Owner_Role_Group__c</field>
             <table>Account</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TradedRevenueMyCommunity__c</field>
+            <table>Account</table>
+        </columns>
         <masterLabel>Organisations</masterLabel>
     </sections>
     <sections>
