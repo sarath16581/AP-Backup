@@ -360,14 +360,11 @@
 					}
 				}
 				//CI-904 Removed the for loop and lineItem Query as part of optimization- Query no longer needed
+				//CI-904 Changed the pavListQuery to fetch using ConifgID
+				pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByconfigIDAndLineType(new List<ID>{(ID)quoteConfigurationId}).values();
+				//CI-904 Removed the pavTierCheck condition. No Longer needed
+				UpdateProductAttributeValues(pavListQuery,selectedPSR,compassPriceResponse, quoteConfigurationId,tcCoverFeature);
 
-				//Fetch all the Product Attribute value records and update all the records with Tier and Price structure
-				if(!pavList.isEmpty()){
-					//CI-904 Changed the pavListQuery to fetch using ConifgID
-					pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByconfigIDAndLineType(new List<ID>{(ID)quoteConfigurationId}).values();
-					//CI-904 Removed the pavTierCheck condition. No Longer needed
-					UpdateProductAttributeValues(pavListQuery,selectedPSR,compassPriceResponse, quoteConfigurationId,tcCoverFeature);
-				}
 				/*CI-834 Changes to accomodate Custom pricing for Transit Cover and consolidate LienItem Updates for Custom/Delegated Pricing scenarios
 				Provided below is the flow for Custom/Delegated Pricing
 				Custom Pricing: 1.  Update PAV
