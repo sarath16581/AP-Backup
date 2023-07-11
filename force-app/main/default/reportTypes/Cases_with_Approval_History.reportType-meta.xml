@@ -12,17 +12,12 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>ProcessInstance</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>ProcessDefinition</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Status</field>
+            <field>Id</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
@@ -32,7 +27,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>LastActor</field>
+            <field>CreatedBy</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
@@ -48,6 +43,31 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ElapsedTimeInMinutes</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastActor</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TableEnumOrId</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CurrentNodeName</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TargetName</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Status</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
@@ -62,22 +82,37 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
+            <field>ProcessDefinition.LastModifiedBy.Account.Id</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TableEnumOrId</field>
+            <field>ProcessDefinition.LastModifiedBy.Account.Name</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TargetName</field>
+            <field>ProcessDefinition.LastModifiedBy.Account.TextName</field>
             <table>ProcessInstance</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CurrentNodeName</field>
+            <field>ProcessDefinition.LastModifiedBy.Account.AccountNumber</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.LastModifiedBy.Account.Network_Facility__c</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.LastModifiedBy.Account.Legal_Name__c</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.LastModifiedBy.Account.CreatedDate</field>
             <table>ProcessInstance</table>
         </columns>
         <masterLabel>Process Instance</masterLabel>
@@ -85,27 +120,12 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>ProcessInstance.Nodes</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>ProcessNode</field>
             <table>ProcessInstance.Nodes</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>NodeStatus</field>
-            <table>ProcessInstance.Nodes</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>CompletedDate</field>
-            <table>ProcessInstance.Nodes</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastActor</field>
             <table>ProcessInstance.Nodes</table>
         </columns>
         <columns>
@@ -121,6 +141,21 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ElapsedTimeInMinutes</field>
+            <table>ProcessInstance.Nodes</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastActor</field>
+            <table>ProcessInstance.Nodes</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>ProcessInstance.Nodes</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>NodeStatus</field>
             <table>ProcessInstance.Nodes</table>
         </columns>
         <masterLabel>Process Instance Node</masterLabel>

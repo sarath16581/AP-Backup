@@ -3539,16 +3539,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Eligible_APPC_Tier__c</field>
-            <table>Contact.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Min_Spend_Per_Annum__c</field>
-            <table>Contact.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Docusign_VOI__c</field>
             <table>Contact.Accounts__r</table>
         </columns>
@@ -3636,5 +3626,13 @@
             <table>Contact.Accounts__r.Apttus__AccountHierarchiesLeaf__r</table>
         </columns>
         <masterLabel>Account Hierarchies</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TradedRevenueMyCommunity__c</field>
+            <table>Contact.Accounts__r</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

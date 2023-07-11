@@ -1096,19 +1096,6 @@
             <controllingFieldValue>Return to Sender fee</controllingFieldValue>
             <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
             <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
-            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
-            <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
-            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <controllingFieldValue>Capture ID fee</controllingFieldValue>
-            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
-            <valueName>Incorrect service</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transit Cover fee</controllingFieldValue>
-            <controllingFieldValue>Return to Sender fee</controllingFieldValue>
-            <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
-            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
             <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
             <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
             <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
@@ -1152,9 +1139,19 @@
             <valueName>Operator Error</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect service</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
             <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
             <valueName>Customer Claim Met</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unmanifested Article fee</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Un-manifested Fee Refund</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Returns Shipping costs</controllingFieldValue>
@@ -1277,10 +1274,6 @@
         <valueSettings>
             <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
             <valueName>BML - Operator Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <valueName>Un-manifested Fee Refund</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>

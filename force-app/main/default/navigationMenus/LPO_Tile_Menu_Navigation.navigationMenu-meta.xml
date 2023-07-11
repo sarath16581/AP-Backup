@@ -6,7 +6,7 @@
     <navigationMenuItem>
         <defaultListViewId>LPO_My_Organisations</defaultListViewId>
         <label>My Organisations</label>
-		<menuItemBranding>
+        <menuItemBranding>
             <tileImage>bh_organisations_red_nr</tileImage>
         </menuItemBranding>
         <position>1</position>
@@ -16,7 +16,7 @@
     </navigationMenuItem>
     <navigationMenuItem>
         <label>My Reports</label>
-		<menuItemBranding>
+        <menuItemBranding>
             <tileImage>bh_reports_red_nr</tileImage>
         </menuItemBranding>
         <position>2</position>
@@ -27,7 +27,7 @@
     <navigationMenuItem>
         <defaultListViewId>LPO_My_Open_Leads</defaultListViewId>
         <label>My Leads</label>
-		<menuItemBranding>
+        <menuItemBranding>
             <tileImage>bh_leads_red_nr</tileImage>
         </menuItemBranding>
         <position>3</position>
@@ -38,7 +38,7 @@
     <navigationMenuItem>
         <defaultListViewId>LPO_My_Open_Opportunities_1</defaultListViewId>
         <label>My Opportunities</label>
-		<menuItemBranding>
+        <menuItemBranding>
             <tileImage>bh_opportunities_red_nr</tileImage>
         </menuItemBranding>
         <position>4</position>
@@ -48,7 +48,7 @@
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Happy Parcels</label>
-		<menuItemBranding>
+        <menuItemBranding>
             <tileImage>bh_happy_parcels_red_nr</tileImage>
         </menuItemBranding>
         <position>5</position>
@@ -58,7 +58,7 @@
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Seismic</label>
-		<menuItemBranding>
+        <menuItemBranding>
             <tileImage>bh_seismic_red_nr</tileImage>
         </menuItemBranding>
         <position>6</position>

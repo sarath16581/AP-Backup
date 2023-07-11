@@ -519,13 +519,11 @@ public without sharing class bspEnquiryUplift {
 		}
 
 		enq.DatePosted__c = enq.BSPLodgementDate__c;
-
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
 			&& enq.EstimatedDelivery__c != null 
-			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')
-			&& !isContainDeliveredEvent(enq.ReferenceID__c)) {
+			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
 			setDirectRoutingValues(enq);
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
@@ -538,15 +536,6 @@ public without sharing class bspEnquiryUplift {
 		}
 
 		return enquiryWrapper;
-	}
-
-	public static Boolean isContainDeliveredEvent(String referenceId) {
-		List<EventMessage__c> results = EventMessagesSelector.newInstance().selectByArticleNumber(new Set<String>{referenceId}, BspConstants.EVENT_STATUS_DELIVERED,new Set<Object>());
-		if (results == null || results.size() == 0) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 	/**

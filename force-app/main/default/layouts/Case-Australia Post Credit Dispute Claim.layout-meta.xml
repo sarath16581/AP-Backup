@@ -440,8 +440,8 @@
         <customButtons>Mass_Edit</customButtons>
         <customButtons>Mass_Update</customButtons>
         <fields>NAME</fields>
-        <fields>Invoice_Number__c</fields>
         <fields>Connote__c</fields>
+        <fields>Invoice_Number__c</fields>
         <fields>Transaction_ID__c</fields>
         <fields>Credit_Amount_Exclusive_GST__c</fields>
         <fields>Product__c</fields>

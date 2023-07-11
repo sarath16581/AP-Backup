@@ -31,6 +31,7 @@
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
  * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
+ * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -850,6 +851,43 @@ public with sharing class ApplicationTestDataFactory {
 			EmailToCaseMapping__mdt.DeveloperName => 'RECORD%count%',
 			EmailToCaseMapping__mdt.IsActive__c => true,
 			EmailToCaseMapping__mdt.EmailToCaseAddress__c => emailAddress
+		}, count), generateIds);
+	}
+
+	public static List<Adjustment__c> getAdjustments(Integer count, Id caseId, Boolean generateIds) {
+		return (List<Adjustment__c>) maybeGenerateIds(populateSObjects(Adjustment__c.SObjectType, new Map<SObjectField, Object> {
+			Adjustment__c.Status__c => 'New',
+			Adjustment__c.Case__c => caseId
+		}, count), generateIds);
+	}
+
+	public static List<At_Risk_Business__c> getAtRiskBusiness(Integer count, Id accountId, Boolean generateIds) {
+		return (List<At_Risk_Business__c>) maybeGenerateIds(populateSObjects(At_Risk_Business__c.SObjectType, new Map<SObjectField, Object> {
+			At_Risk_Business__c.Legal_Entity_Name__c => accountId
+		}, count), generateIds);
+	}
+
+	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Boolean generateIds) {
+		return (List<Budget_And_Revenue__c>) maybeGenerateIds(populateSObjects(Budget_And_Revenue__c.SObjectType, new Map<SObjectField, Object> {
+			Budget_and_Revenue__c.Organisation__c => accountId,
+			Budget_and_Revenue__c.Jan_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Feb_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Mar_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Apr_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.May_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Jun_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Jul_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Aug_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Sep_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Oct_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Nov_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000 
+		}, count), generateIds);
+	}
+
+	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
+		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
+			Product2.Name => 'Product %count%'
 		}, count), generateIds);
 	}
 

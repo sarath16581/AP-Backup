@@ -19,11 +19,13 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered to the back door of the business address.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered to the back door of the business address.
 
-If you’re still unable to locate the item, the sender will need to contact us, quoting Case {!Case.CaseNumber} as evidence that an investigation has taken place.
+If you’re still unable to locate the item, we suggest that you contact the sender to confirm your delivery details.
 
-Thanks for taking the time to contact us. I hope that this information assists you.
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
+
+Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}

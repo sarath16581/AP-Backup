@@ -103,6 +103,11 @@
                 <label>Accepted by apartment/complex concierge</label>
             </value>
             <value>
+                <fullName>3rd party locker</fullName>
+                <default>false</default>
+                <label>3rd party locker</label>
+            </value>
+            <value>
                 <fullName>RTS - Sender has the item</fullName>
                 <default>false</default>
                 <label>RTS - Sender has the item</label>
@@ -191,6 +196,11 @@
                 <fullName>Collected from Outlet via written order</fullName>
                 <default>false</default>
                 <label>Collected from Outlet via written order</label>
+            </value>
+            <value>
+                <fullName>Collected from outlet by authorised person</fullName>
+                <default>false</default>
+                <label>Collected from outlet by authorised person</label>
             </value>
             <value>
                 <fullName>Considered delivered as addressed(believes front door)</fullName>
@@ -295,6 +305,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>3rd party locker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>RTS - Sender has the item</valueName>
         </valueSettings>
@@ -359,12 +373,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Collected from Outlet by occupant of address with ID</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Collected from Outlet via written order</valueName>
         </valueSettings>
         <valueSettings>
@@ -436,6 +448,10 @@
         <valueSettings>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>PO BOX diversion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Collected from outlet by authorised person</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>BusinessCannot recall</controllingFieldValue>

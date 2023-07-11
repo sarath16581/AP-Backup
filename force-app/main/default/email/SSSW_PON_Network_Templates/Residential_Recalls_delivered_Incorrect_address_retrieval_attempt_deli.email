@@ -102,14 +102,12 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address.<br/><br/> 
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. <br/><br/> 
 
 During a retrieval attempt, we were advised by the resident that they have kindly delivered the article to your address.<br/><br/>
 
-If this hasn’t happened, the sender will need to contact us, quoting Case {!Case.CaseNumber} as evidence that an enquiry has taken place.<br/><br/>
+We apologise for any inconvenience this may have caused. <br/><br/>
 
-We apologise for any inconvenience this may have caused. 
-<br/><br/>
 								</td>
 							</tr>								
 							<tr>

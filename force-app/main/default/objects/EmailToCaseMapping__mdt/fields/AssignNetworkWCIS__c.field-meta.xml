@@ -8,7 +8,7 @@
     <label>Assign Network WCIS</label>
     <length>18</length>
     <required>false</required>
-	<securityClassification>INTERNAL</securityClassification>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

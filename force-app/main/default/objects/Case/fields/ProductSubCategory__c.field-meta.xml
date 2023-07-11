@@ -1205,6 +1205,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Metro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
             <valueName>Parcel Post</valueName>
         </valueSettings>
         <valueSettings>

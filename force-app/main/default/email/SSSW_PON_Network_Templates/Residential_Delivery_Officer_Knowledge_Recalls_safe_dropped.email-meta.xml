@@ -9,7 +9,7 @@
 
 Help &amp; Support
 
-Reference {!Case.CaseNumber}
+{!Case.Thread_Id}  Reference {!Case.CaseNumber}
 
 Update for {!Case.Type} - {!Case.CaseNumber}
 
@@ -19,18 +19,18 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your parcel was ‘safe dropped’ in the following location:
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your parcel was ‘safe dropped’ in the following location:
 
 [Location]
 
 What is ‘Safe Drop’?
-A ‘Safe Drop’ is when our delivery driver finds a suitable place at your address where they can safely leave an item that does not require a signature.
+A ‘Safe Drop’ is when our delivery team member finds a suitable place at your address where they can safely leave an item that does not require a signature.
 
-If you are unable to locate the parcel, you may contact the sender to discuss alternative arrangements. Please provide them case number {!Case.CaseNumber} as a record of your enquiry.
+If you are still unable to locate your item, we recommend you contact your sender to see if they can assist further.
 
-To find out more about our delivery options and choose the best one for you, visit: auspost.com.au/delivery-options
+For future deliveries, you may like to find out about alternative delivery options by visiting  https://auspost.com.au/receiving/mypost
 
-Thanks for providing us feedback so we can continue to improve your delivery experience.
+Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}
