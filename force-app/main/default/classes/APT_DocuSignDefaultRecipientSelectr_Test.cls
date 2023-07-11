@@ -73,7 +73,7 @@ private with sharing class APT_DocuSignDefaultRecipientSelectr_Test{
 		agreement.Apttus_QPComply__RelatedProposalId__c =quote1.id;
 		agreement.Apttus__Account__c=account.id;
 		insert agreement;
-		system.debug('agreement:'+ agreement);
+
 		//creating DocuSign user record
 		Apttus_DocuApi__DocuSignDefaultRecipient2__c recipient1 =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
 		recipient1.recordTypeId = userRecordTypeId;

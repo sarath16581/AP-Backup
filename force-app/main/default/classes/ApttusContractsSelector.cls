@@ -74,10 +74,8 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
 	 */
 
 	public virtual Map<Id, Apttus__APTS_Agreement__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-		System.debug('selectorOptions>>>'+selectorOptions);
+
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Id + ' in :ids')).endConditions();
-		System.debug('qb.toSoqlString()>>>>>'+qb.toSoqlString());
-		System.debug('Database.query(qb.toSoqlString())>>>>'+Database.query(qb.toSoqlString()));
 		return new Map<Id, Apttus__APTS_Agreement__c>((List<Apttus__APTS_Agreement__c>)Database.query(qb.toSoqlString()));
 	}
 
@@ -136,7 +134,7 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
 	*/
 	public list<Apttus__APTS_Agreement__c> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 
-		System.debug('searchParams: ' + searchParams);
+
 
 		Set<String> agreementNums = (Set<String>)(searchParams.get('agreementNums') == null ? new Set<String>() : (searchParams.get('agreementNums') instanceof Set<String> ? searchParams.get('agreementNums') : new Set<String>{(String)searchParams.get('agreementNums')}));
 		Set<Id> accountIds = (Set<Id>)(searchParams.get('accountIds') == null ? new Set<Id>() : (searchParams.get('accountIds') instanceof Set<Id> ? searchParams.get('accountIds') : new Set<Id>{(Id)searchParams.get('accountIds')}));

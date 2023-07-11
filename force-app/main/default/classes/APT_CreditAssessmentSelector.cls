@@ -38,9 +38,6 @@ public virtual inherited sharing class APT_CreditAssessmentSelector extends Appl
 	public List<APT_Credit_Assessment__c> selectByProposalAndAssessStatus(Set<Id> proposalIds, Set<String> assessmentStatuses, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(APT_Credit_Assessment__c.APT_Proposal__c + ' = :proposalIds')).endConditions();
 		qb.addConditions().add(new QueryBuilder.SimpleCondition(APT_Credit_Assessment__c.APT_Credit_Assessment_Status__c  + ' = :assessmentStatuses')).setConditionOrder('1 AND 2').endConditions();
-
-
-		system.debug('****Credit Assessment query****'+qb.toSoqlString());
 		return (List<APT_Credit_Assessment__c>)Database.query(qb.toSoqlString());
 	}
 }
