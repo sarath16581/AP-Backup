@@ -54,6 +54,16 @@
                 <default>false</default>
                 <label>Business Migrated</label>
             </value>
+			<value>
+                <fullName>Approved by Service Performance Manager</fullName>
+                <default>false</default>
+                <label>Approved by Service Performance Manager</label>
+            </value>
+            <value>
+                <fullName>Rejected by Service Performance Manager</fullName>
+                <default>false</default>
+                <label>Rejected by Service Performance Manager</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>New</controllingFieldValue>
@@ -74,6 +84,14 @@
         <valueSettings>
             <controllingFieldValue>Work In Progress</controllingFieldValue>
             <valueName>Escalated</valueName>
+        </valueSettings>
+		<valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Approved by Service Performance Manager</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Rejected by Service Performance Manager</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>

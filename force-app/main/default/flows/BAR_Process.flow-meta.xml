@@ -4,7 +4,7 @@
         <processMetadataValues>
             <name>processSelection</name>
             <value>
-                <stringValue>Business at Risk Approval Template - Business_at_Risk_Approval_Template</stringValue>
+                <stringValue>Business at Risk Approval Template V1 - Business_at_Risk_Approval_Template_v1</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -20,7 +20,7 @@
             </value>
         </processMetadataValues>
         <name>myRule_3_A1</name>
-        <label>BAR - Submit for Manager Approval</label>
+        <label>Submit for Manager Approval V1</label>
         <locationX>300</locationX>
         <locationY>200</locationY>
         <actionName>submit</actionName>
@@ -35,13 +35,13 @@
         <inputParameters>
             <name>comment</name>
             <value>
-                <stringValue>Request for manager approval</stringValue>
+                <stringValue>Manager Approval</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
             <name>processDefinitionNameOrId</name>
             <value>
-                <stringValue>Business_at_Risk_Approval_Template</stringValue>
+                <stringValue>Business_at_Risk_Approval_Template_v1</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -613,7 +613,7 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__c})
 )
 )</expression>
     </formulas>
-    <interviewLabel>BAR_Process-9_InterviewLabel</interviewLabel>
+    <interviewLabel>BAR_Process-6_InterviewLabel</interviewLabel>
     <label>BAR Process</label>
     <processMetadataValues>
         <name>ObjectType</name>
