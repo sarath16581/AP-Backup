@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="urn:metadata.tooling.soap.sforce.com" fqn="opportunityClosure">
-    <apiVersion>47.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <isExposed>true</isExposed>
     <masterLabel>Opportunity Closure </masterLabel>
     <description> This is a demo component for Opportunity Closure </description>

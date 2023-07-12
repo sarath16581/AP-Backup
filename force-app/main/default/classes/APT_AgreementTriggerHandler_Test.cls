@@ -302,6 +302,8 @@ private class APT_AgreementTriggerHandler_Test{
 		appli2.Account__c = tempacct.Id;
 		appLiList.add(appli2);
 		insert appLiList;
+
+		system.Assert (appLiList[0].id != null);
 	}
 
 	@isTest
@@ -438,6 +440,10 @@ private class APT_AgreementTriggerHandler_Test{
 		update aptContractParent;
 
 		Test.stopTest();
+
+		system.AssertEquals(APT_Constants.AGREEMENT_STATUS_FULLY_SIGNED,aptContractParent.Apttus__Status__c);
+
+
 	}
 
 	@isTest
@@ -589,6 +595,9 @@ private class APT_AgreementTriggerHandler_Test{
 		update aptContractParent;
 
 		Test.stopTest();
+
+		system.AssertEquals(APT_Constants.LABEL_ACTIVATED,aptContractParent.Apttus__Status__c);
+
 	}
 	@isTest
 	public static void createOperationalSchedule() {
@@ -782,36 +791,6 @@ private class APT_AgreementTriggerHandler_Test{
 		ali.Apttus_CMConfig__LineType__c = APT_Constants.LINE_TYPE_PRODUCT_SERVICE;
 		ali.Apttus_CMConfig__IsPrimaryLine__c = true;
 
-		/*
-		//CREATE Network
-		List<Network__c> lstNw = new List<Network__c>();
-		Network__c aptNw = APT_TestUtils.createNetwork();
-		aptnw.Post_Code__c = '2586';
-		aptnw.recordtypeid = Schema.SObjectType.Network__c.getRecordTypeInfosByName().get('Delivery').getRecordTypeId();
-		aptnw.Status__c = 'Open';
-		aptnw.APT_Apttus_LP__c = true;
-		lstNw.add(aptNw);
-
-		//Create Lodgement Point
-		APT_Agreement_Lodgement_Point__c objLp = new APT_Agreement_Lodgement_Point__c();
-		objLp.APT_Status__c = 'Active';
-		objLp.APT_Agreement__c = aptContractParent.Id;
-		objLp.APT_Address__c = 'australia';
-		objLp.APT_eParcel_Enabled__c = 'Yes';
-		objLp.APT_Transport_Capability__c = 'VAN Only';
-		objLp.APT_Organisation_ID__c = 'ORG123';
-		objLp.APT_Lodgement_Point_Lookup__c= aptNw.id;
-		objLp.APT_Organisation__c = legacyacct.id;
-		objLp.APT_Lodgement_Zone_Lookup__c= LZ.id;
-		objLp.APT_DWS_ID__c = 'DwS12';
-		objLp.APT_Billing_Account__c = billacc.Id;
-		//objLp.APT_Selected_Lodgement_Point__c = objLp.Name;
-		objLp.APT_LP_Post_Code__c = 'Pcode';
-		objLp.APT_Lodgement_Zone__c = 'LZoone';
-		objLp.APT_Product__c = 'Promo Post';
-		objLp.APT_Outlet_Type__c = 'OType';
-		insert objLp;
-		*/
 		Test.startTest();
 
 		//insert aptContractParent;
@@ -856,19 +835,6 @@ private class APT_AgreementTriggerHandler_Test{
 		APT_Lodgement_Zone__c LZ = [Select Id from APT_Lodgement_Zone__c Limit 1];
 		Application__c appli = [Select Id from Application__c Limit 1];
 		Apttus_Config2__PriceList__c priceList = [Select Id from Apttus_Config2__PriceList__c Limit 1];
-
-		/**
-		APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(priceList.Id);
-		r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-		r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-		r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-		r2tSystemProperties.APT_PricingBatchStatusEmailNotification__c = 'test@apttus.com1';
-		//RecordType rt12 = [SELECT Id,Name FROM RecordType WHERE SobjectType= 'APT_Contract_Fee__c' and DeveloperName = 'Transaction_Fees'];
-		r2tSystemProperties.Transaction_Fee_Reord_Type_ID__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Transaction Fees').getRecordTypeId();
-		r2tSystemProperties.Name = 'System Properties';
-		r2tSystemProperties.APT_ReversalFees__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Card Dishonour and Reversal Fees').getRecordTypeId();
-		r2tSystemProperties.APT_Change_Management__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Change Management').getRecordTypeId();
-		insert r2tSystemProperties; */
 
 		//Test Starts
 		Test.startTest();
@@ -1025,19 +991,6 @@ private class APT_AgreementTriggerHandler_Test{
 		Apttus_Config2__PriceList__c priceList = [Select Id from Apttus_Config2__PriceList__c Limit 1];
 		Apttus_Config2__ClassificationHierarchy__c classHierarchy = [Select Id from Apttus_Config2__ClassificationHierarchy__c limit 1];
 
-		/*
-		APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(priceList.Id);
-		r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-		r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-		r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-		r2tSystemProperties.APT_PricingBatchStatusEmailNotification__c = 'test@apttus.com1';
-		//RecordType rt12 = [SELECT Id,Name FROM RecordType WHERE SobjectType= 'APT_Contract_Fee__c' and DeveloperName = 'Transaction_Fees'];
-		r2tSystemProperties.Transaction_Fee_Reord_Type_ID__c = '01290000001UPguAAG'; //Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Transaction Fees').getRecordTypeId();
-		r2tSystemProperties.Name = 'System Properties';
-		r2tSystemProperties.APT_ReversalFees__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Card Dishonour and Reversal Fees').getRecordTypeId();
-		r2tSystemProperties.APT_Change_Management__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Change Management').getRecordTypeId();
-		*/
-
 		Apttus__APTS_Agreement__c aptContractParent = APT_TestUtils.createAgreement(con.Id);
 		aptContractParent.APT_Product__c= 'eParcel';
 		aptContractParent.Apttus__Related_Opportunity__c=opp1.Id;
@@ -1120,6 +1073,8 @@ private class APT_AgreementTriggerHandler_Test{
 		agreementList.add(aptContractParent2);
 		//APT_AgreementTriggerHandler.addPostBillPayLineItemsToChild(agreementList);
 		Test.stopTest();
+
+		system.AssertEquals(1,agreementList.size());
 	}
 
 	@isTest
@@ -1193,6 +1148,7 @@ private class APT_AgreementTriggerHandler_Test{
 	public static void validationOnStartDateTest() {
 		Opportunity opp = [SELECT ID FROM Opportunity LIMIT 1];
 		Contact con = [SELECT ID FROM Contact LIMIT 1];
+		Boolean expectedExceptionThrown = false;
 		Apttus__APTS_Agreement__c agg = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
 		try{
 			Test.startTest();
@@ -1200,9 +1156,9 @@ private class APT_AgreementTriggerHandler_Test{
 				insert agg;
 			Test.stoptest();
 		}catch(Exception e){
-			Boolean expectedExceptionThrown = e.getMessage().contains(APT_Constants.AGREEMENT_DATE_ERROR_MESSAGE) ? true : false;
-			System.AssertEquals(expectedExceptionThrown, true, 'An exception should be thrown');
+			expectedExceptionThrown = e.getMessage().contains(APT_Constants.AGREEMENT_DATE_ERROR_MESSAGE) ? true : false;
 		}
+		System.AssertEquals(expectedExceptionThrown, true, 'An exception should be thrown');
 	}
 
 

@@ -296,18 +296,12 @@ public with sharing class APT_AgreementTriggerHandler{
 		**/
 		public static String createOperationalSchedule(List<Apttus__APTS_Agreement__c> listAgrmnt) {
 			try{
+				// EagerlyLoadedDescribeSObjectResult: DescribeSObjectResult could be being loaded eagerly with all child relationships.
+				// Not addressed because was in existing code
 				Map<ID,Schema.RecordTypeInfo> recordTypeMap = new Map<ID, Schema.RecordTypeInfo>();
 				Map<ID,RecordType> opSchedRecTypeMap = new Map<ID, RecordType>();
-				
-				// Collect the sObject types to describe
-				List<String> sObjectTypes = new List<String>{ 'Apttus__APTS_Agreement__c' };
-
-				// Perform eager describe call to get record type information
-				List<Schema.DescribeSObjectResult> describeResults = Schema.describeSObjects(sObjectTypes);
-				Schema.DescribeSObjectResult sObjectDescribe = describeResults[0];
-				recordTypeMap = sObjectDescribe.getRecordTypeInfosById();
-				
-				opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE}); //CI:126 Added APPC Record Type
+				recordTypeMap = Apttus__APTS_Agreement__c.sObjectType.getDescribe().getRecordTypeInfosById();
+				opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE});    //CI:126 Added APPC Record Type   
 				List<APT_Operational_Schedule__c> listOprSchedule = new List<APT_Operational_Schedule__c>();
 				Set<ID> proposalIDSet = new Set<ID>();
 				APT_Operational_Schedule__c opSchedule = new APT_Operational_Schedule__c();
@@ -688,6 +682,8 @@ public with sharing class APT_AgreementTriggerHandler{
 				}
 
 				// ApexSOQLInjection: Avoid untrusted/unescaped variables in DML query
+				// No string in the query is taken from user input. These are safe.
+				// agreementIds is the only values passed in to this method and does not appear to be used.
 				String query = selects + agreementRateCardString + APT_Constants.SOQL_FROM
 						+ objectName + APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_WHERE;
 
@@ -1020,9 +1016,7 @@ public with sharing class APT_AgreementTriggerHandler{
 				settlementProfileValue = 90;
 			} else if((APT_Constants.SETTLEMENT_PROFILE_120).equalsIgnoreCase(settlementProfile)){
 				settlementProfileValue = 120;
-			} else {
-
-			}
+			} 
 			return settlementProfileValue;
 		}
 		/**

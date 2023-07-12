@@ -14,7 +14,7 @@ public with sharing class ApplicationTestDataFactorySales {
 
 	/**
 	* @desc: Called from DealSupportRequstMilestoneSelector_Test, DealSpprtReqsMilestonesTrackModule_Test.
-	*        Creates Deal Support Request milestone record for a DSR
+	* Creates Deal Support Request milestone record for a DSR
 	*/
 	public static List<DealSupportRequestMilestone__c> getDealSupportRequestMilestones(integer count, Id dealSupportRequestId, Boolean generateIds) {
 		return (List<DealSupportRequestMilestone__c>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(DealSupportRequestMilestone__c.SObjectType, new Map<SObjectField, Object>{
@@ -24,7 +24,7 @@ public with sharing class ApplicationTestDataFactorySales {
 
 	/**
 	 * @desc: Called from OpportunityLineItemSelector_Test
-	 *        Creates OpportunityLineItems
+	 * Creates OpportunityLineItems
 	 */
 	public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id priceBookEntryId, Boolean generateIds) {
 		return (List<OpportunityLineItem>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object>{
