@@ -83,10 +83,10 @@ public with sharing class APT_Constants {
 	public static final String SEPARATOR_GREATER_THAN_CHANGE = '">';
 
 	//Logical Operator
-	public static final String  OPERATOR_AND = 'AND';
-	public static final String  OPERATOR_OR = 'OR';
-	public static final String  OPERATOR_EQUAL_TO = 'equal to';
-	public static final String  OPERATOR_LESS_THAN = 'less than';
+	public static final String OPERATOR_AND = 'AND';
+	public static final String OPERATOR_OR = 'OR';
+	public static final String OPERATOR_EQUAL_TO = 'equal to';
+	public static final String OPERATOR_LESS_THAN = 'less than';
 
 	//Yes / No option
 	public static final String OPTION_YES = 'Yes';
@@ -483,11 +483,11 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String RESTRICTION_FILE_UPLOAD_MESSAGE = 'Exception';
 	public static final String FOLDER_DOES_EXIST_MESSAGE = 'Folder does not exist';
 	public static final String FILE_SIZE_RESTRICTION='File Size is more than 1MB';
-	public static final String IMAGE_TAG = '<img   src=https://';
+	public static final String IMAGE_TAG = '<img src=https://';
 	public static final String SERVLET_TAG = '/servlet/servlet.FileDownload?file=';
 	public static final String SERVLET = 'servlet';
 	public static final String IMAGE_SERVER = 'ImageServer';
-	public static final String CLOSE_TAG = ' class="richText"  > ';
+	public static final String CLOSE_TAG = ' class="richText" > ';
 
 	//Manage Contarct LodgementPoint
 	public static final String PRODUCT_PROMO_POST = 'Promo Post';
@@ -610,7 +610,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFER_ALL_CAPITAL = 'REFER';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFER_CAPITAL = 'Refer';
 	public static final String CREDIT_ASSESSMENT_STATUS_REFERRED = 'Referred';
-	public static final String CREDIT_ASSESSMENT_STATUS_DECLINE = 'DECLINE';        //Added By apttus Support
+	public static final String CREDIT_ASSESSMENT_STATUS_DECLINE = 'DECLINE'; //Added By apttus Support
 	public static final String STRING_RESPONSE_MOCK = 'response_x';
 	public static final String STRING_RESPONSE_COMPLETE = 'Complete';
 	public static final String STRING_RESPONSE_INCOMPLETE = 'Incomplete';
@@ -886,7 +886,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String SOQL_OPERATIONAL_SCHEDULE_QUERY = ' FROM APT_Operational_Schedule__c WHERE APT_Contract__c in :setParentAgreementId';
 	public static final String SOQL_PRODUCT_ATTRIBUTE_VALUE = 'select Apttus_Config2__LineItemId__r.Apttus_Config2__LineType__c,Apttus_Config2__LineItemId__r.Apttus_Config2__OptionId__r.Name,Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.Name,Apttus_Config2__LineItemId__r.APT_Product_Name__c,APT_Volume_Data__c,Apttus_Config2__LineItemId__r.Apttus_Config2__OptionId__c';
 	public static final String SOQL_PRODUCT_ATTRIBUTE_VALUE_FROM = ' from Apttus_Config2__ProductAttributeValue__c where Apttus_Config2__LineItemId__c IN:ltsLineItems';
-	public static final string SOQL_QUOTE_LODGEMENT_POINT_FROM = ' from   APT_Quote_Lodgement_Point__c where APT_Quote_Proposal__c in :setQuoteId';
+	public static final string SOQL_QUOTE_LODGEMENT_POINT_FROM = ' from APT_Quote_Lodgement_Point__c where APT_Quote_Proposal__c in :setQuoteId';
 	public static final string SOQL_LINE_ITEM_RATE_CARD_OBJECT = 'APT_Line_Item_Rate_Card__c';
 	public static final string SOQL_LINE_ITEM_RATE_CARD_FROM = ' FROM APT_Line_Item_Rate_Card__c WHERE APT_Proposal_Line_Item__c IN :setPropLineItemId ORDER BY Name ASC';
 	public static final string SOQL_QUOTE_RATE_CARD_OBJECT = 'APT_Quote_Rate_Card__c';
@@ -1158,7 +1158,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 
 	public static final String PARAM_OBJECTTYPE = 'objType';
 	public static final String PARAM_PROPOSAL_ID2 = 'proposalId';
-	public static final String PARAM_IS_EXISTING_CUSTOMER =  'isExistingCustomer';
+	public static final String PARAM_IS_EXISTING_CUSTOMER = 'isExistingCustomer';
 	public static final String MISSING_CHARGE_ACCOUNT = 'Please Select Parent Account.';
 	public static final String MISSING_PROPOSAL = 'Missing Proposal';
 	public static final String PLEASE_PROVIDE_SUB_ACCOUNT_DETAILS = 'Please provide Sub-Account Details as you have selected Charge Account + Sub Account as Account Type for Quote/Proposal.';
@@ -1191,7 +1191,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String STIRNG_ID_CAPITAL = 'ID';
 	public static final String STIRNG_ID_FIRST_CAPITAL = 'Id';
 	public static final String SOQL_QUERY_FROM_OBJECT_LINEITEM = ' from Apttus_Config2__LineItem__c';
-	public static final String SOQL_WHERE_ID_LINEITEM = ' where  id =: lineItemID';
+	public static final String SOQL_WHERE_ID_LINEITEM = ' where id =: lineItemID';
 	public static final String ERROR_MULTIPLE_APPS_FOUND = ' Multiple Apps found. ';
 	public static final String ERROR_NO_APPS_FOUND = ' No Apps found.';
 	public static final String STRING_EPARCEL_2 = 'Eparcel';
@@ -1395,7 +1395,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String STATUS_CATEGORY_IN_EFFECT = 'In Effect';
 	public static final String APT_Unique_fields = 'APT_Minimum_Quantity__c,Category__c';
 	public static final String APT_Cash_Account = 'Cash Account';
-	public static final String Legacy_Id  = '60000000';
+	public static final String Legacy_Id = '60000000';
 	public static final String Prospect = 'Prospect';
 	public static final String Known = 'Known';
 	public static final String Error = 'ERROR';
@@ -1463,26 +1463,26 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final string FIELDSETNAME_CASHACCOUNT_LP = 'APT_Dimension_for_Cash_Account';
 	public static final string FIELDSETNAME_SUBACCOUNT_LP = 'APT_Dimension_for_Sub_Account';
 	public static final string FIELDSETNAME_CHARGEACCOUNT_LP = 'APT_Dimension_for_Charge_Account';
-	public static final string WHERECLAUSE_AGMTLP = ' where APT_Charge_Account__c IN:allIdSet OR APT_Cash_Account__c IN:allIdSet  OR APT_Sub_Account__c  IN:allIdSet';
+	public static final string WHERECLAUSE_AGMTLP = ' where APT_Charge_Account__c IN:allIdSet OR APT_Cash_Account__c IN:allIdSet OR APT_Sub_Account__c IN:allIdSet';
 
 	//***Test Class Constant Created By Jetha ***********//
-	public static final String  TEST_ACCOUNT_TYPE = 'Charge Account + Sub Account';
-	public static final String  TEST_ACCOUNT_ACN = '123456789';
-	public static final String  TEST_ACCOUNT_ABN = '12345678910';
-	public static final String  TEST_ACCOUNT_LEGACY_ID = '60000000';
-	public static final String  TEST_Cust_NAME = 'Test Customer';
-	public static final String  TEST_Cust_STATE = 'ACT';
-	public static final String  TEST_BUSINESS_NAME = 'Test Business Name';
-	public static final String  TEST_BRANCH = 'State Branch';
-	public static final String  TEST_COUNTRY_CODE = 'AU';
-	public static final String  TEST_STATUS_OPEN = 'Open';
-	public static final Integer  NUMBER_1 = 1;
-	public static final Integer  NUMBER_10 = 10;
-	public static final String  APPROVAL_STATUS_SUBMITTED  = 'Submitted';
-	public static final Integer  NUMBER_9999 = 9999;
-	public static final String  DEVELOPER_NAME_DELIVERY_1 = 'Delivery_1';
-	public static final String  NETWORK_SOBJECT_TYPE = 'Network__c';
-	public static final String  STRING_LOGGEMENT = 'Lodgement';
+	public static final String TEST_ACCOUNT_TYPE = 'Charge Account + Sub Account';
+	public static final String TEST_ACCOUNT_ACN = '123456789';
+	public static final String TEST_ACCOUNT_ABN = '12345678910';
+	public static final String TEST_ACCOUNT_LEGACY_ID = '60000000';
+	public static final String TEST_Cust_NAME = 'Test Customer';
+	public static final String TEST_Cust_STATE = 'ACT';
+	public static final String TEST_BUSINESS_NAME = 'Test Business Name';
+	public static final String TEST_BRANCH = 'State Branch';
+	public static final String TEST_COUNTRY_CODE = 'AU';
+	public static final String TEST_STATUS_OPEN = 'Open';
+	public static final Integer NUMBER_1 = 1;
+	public static final Integer NUMBER_10 = 10;
+	public static final String APPROVAL_STATUS_SUBMITTED = 'Submitted';
+	public static final Integer NUMBER_9999 = 9999;
+	public static final String DEVELOPER_NAME_DELIVERY_1 = 'Delivery_1';
+	public static final String NETWORK_SOBJECT_TYPE = 'Network__c';
+	public static final String STRING_LOGGEMENT = 'Lodgement';
 
 	// Constants added for international CO
 	public static final String STRING_XLS ='xls';
@@ -1527,9 +1527,9 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 	public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED_OR_REFERRED = 'Credit Assessment has been already approved or rejected.';
 	//public static final String CREDIT_ASSESSMENT_ALREADY_REFERRED = 'The Credit Assessment has been already referred.';
 	public static final String CREDIT_ASSESSMENT_ALREADY_REFERRED = 'The Credit Assessment is pending.';
-	public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED  = 'Approved Credit Assessment exists and the request will be referred to Credit Management.';
-	public static final String CREDIT_ASSESSMENT_ALREADY_DECLINE  = 'Declined Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
-	public static final String CREDIT_ASSESSMENT_ALREADY_REJECTED  = 'Rejected Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_APPROVED = 'Approved Credit Assessment exists and the request will be referred to Credit Management.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_DECLINE = 'Declined Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
+	public static final String CREDIT_ASSESSMENT_ALREADY_REJECTED = 'Rejected Credit Assessment exists against the Customer and the request will be Referred to Credit Management.';
 
 	public static final String ENTITY_TYPE_FPT = 'FPT';
 	public static final String ENTITY_TYPE_PTR = 'PTR';

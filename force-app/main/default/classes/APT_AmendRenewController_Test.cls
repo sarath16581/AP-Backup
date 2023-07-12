@@ -27,11 +27,11 @@ private class APT_AmendRenewController_Test{
 			Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
 			insert product;
 
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			Id priceBookId=Test.getStandardPricebookId();
-			PricebookEntry  priceBookEntry = APT_TestUtils.getPricebookEntry(priceBookId,product.Id);
+			PricebookEntry priceBookEntry = APT_TestUtils.getPricebookEntry(priceBookId,product.Id);
 			insert priceBookEntry;
 
 			OpportunityLineItem oppLineItem = new OpportunityLineItem(Quantity=2,OpportunityId=opp.Id,TotalPrice =45678,PricebookEntryId=priceBookEntry.Id,Contract_Start_Date__c=System.Today(),Contract_End_Date__c=System.Today()+1 );
@@ -84,7 +84,8 @@ private class APT_AmendRenewController_Test{
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 
 	*/
-	private static testMethod void testingAPT_AmendRenewController(){
+	@IsTest
+	private static void testingAPT_AmendRenewController(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -127,7 +128,8 @@ private class APT_AmendRenewController_Test{
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 
 	*/
-	private static testMethod void testActionAPT_AmendRenewController1(){
+	@IsTest
+	private static void testActionAPT_AmendRenewController1(){
 		 // Setup test data
 		// This code runs as the system admin test user
 
@@ -194,10 +196,10 @@ private class APT_AmendRenewController_Test{
 			//contract2.Apttus_QPComply__RelatedProposalId__c = new Apttus_Proposal__Proposal__c();
 			delete contract2;
 			//system.debug('>>> contract2.Apttus_QPComply__RelatedProposalId__c: ' + contract2.Apttus_QPComply__RelatedProposalId__c);
-			amendRenew.doRenew();
+			PageReference pgRef =  amendRenew.doRenew();
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
+			system.assert(pgRef != null);
 		}
 	}
 
@@ -205,7 +207,8 @@ private class APT_AmendRenewController_Test{
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 
 	*/
-	private static testMethod void testActionAPT_AmendRenewController3(){
+	@IsTest
+	private static void testActionAPT_AmendRenewController3(){
 		// Setup test data
 		// This code runs as the system admin test user
 
@@ -242,20 +245,21 @@ private class APT_AmendRenewController_Test{
 			update renewDoVProperties;
 			amendRenew.DoVProperties = renewDoVProperties;
 			amendRenew.doRenew();
-			amendRenew.doAmend();
+			PageReference pgRef = amendRenew.doAmend();
 
 			//PageReference pgRef = amendRenew.doAmend();
 
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
-	   }
+			system.assert(pgRef != null);
+	 }
 	}
 
 	/*
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	*/
-	private static testMethod void testActionAPT_AmendRenewController2(){
+	@IsTest
+	private static void testActionAPT_AmendRenewController2(){
 		// Setup test data
 		// This code runs as the system admin test user
 
@@ -297,13 +301,14 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
-	   }
+			system.assert(pgRef != null);
+	 }
 	}
 	/*
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	*/
-   private static testMethod void testnegativeAPT_AmendRenewController(){
+	@IsTest
+	private static void testnegativeAPT_AmendRenewController(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -312,7 +317,7 @@ private class APT_AmendRenewController_Test{
 		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
 		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
 		UserName=APT_Constants.EMAIL_TEST_USER);
-	   System.runAs(testuser) {
+	 System.runAs(testuser) {
 			testingData(APT_Constants.ACTION_NAME_RENEW);
 			APT_R2T_Renew_DoV_Properties__c renewDoVProperties = new APT_R2T_Renew_DoV_Properties__c(Name ='Sample2',APT_Category__c='Add new product to non-aligned contract',APT_Create_Agrement__c=false,
 																	APT_Create_Case__c=true,APT_Create_Quote__c=true,APT_Type__c=APT_Constants.ACTION_TYPE_RENEWAL,APT_Create_Opportunity__c=true);
@@ -335,13 +340,14 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
-	   }
+			system.assert(pgRef != null);
+	 }
 	}
 	/*
 	This method used for test of APT_AmendRenewController controller.
 	*/
-	private static testMethod void testAction(){
+	@IsTest
+	private static void testAction(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -362,13 +368,14 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			   system.assert(pgRef == null);
+			 system.assert(pgRef == null);
 		}
 	}
 	/*
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	*/
-	private static testMethod void testNullValue(){
+	@IsTest
+	private static void testNullValue(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -399,7 +406,8 @@ private class APT_AmendRenewController_Test{
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	It will also insert temporary data of account, contact,opportunity, product,pricelist,proposal and configuration objects.
 	*/
-	private static testMethod void doAmendsNoSysProperties(){
+	@IsTest
+	private static void doAmendsNoSysProperties(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -417,7 +425,7 @@ private class APT_AmendRenewController_Test{
 			insert opp;
 			Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
 			insert product;
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 			Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
 			quote.Expected_Revenue_Start_Date__c = System.today() + 2;
@@ -450,7 +458,8 @@ private class APT_AmendRenewController_Test{
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	It will also insert temporary data of account, contact,opportunity, product,pricelist,proposal and configuration objects.
 	*/
-	private static testMethod void doRenewNoSysProperties(){
+	@IsTest
+	private static void doRenewNoSysProperties(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -468,7 +477,7 @@ private class APT_AmendRenewController_Test{
 			insert opp;
 			Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
 			insert product;
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 			Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
 			quote.Expected_Revenue_Start_Date__c = System.today() + 2;
@@ -501,7 +510,8 @@ private class APT_AmendRenewController_Test{
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	It will also insert temporary data of account, contact,opportunity, product,pricelist,proposal and configuration objects.
 	*/
-	private static testMethod void doAmendsNoRelatedQuote(){
+	@IsTest
+	private static void doAmendsNoRelatedQuote(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -519,7 +529,7 @@ private class APT_AmendRenewController_Test{
 			insert opp;
 			Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
 			insert product;
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 			APT_R2T_System_Properties__c sysProperties = new APT_R2T_System_Properties__c(APT_Default_Price_List_ID__c=priceList.id);
 			insert sysProperties;
@@ -547,14 +557,15 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
+			system.assert(pgRef != null);
 		}
 	}
 	/*
 	This method will insert record for custom setting 'R2T Renew DoV Properties'.
 	It will also insert temporary data of account, contact,opportunity, product,pricelist,proposal and configuration objects.
 	*/
-   private static testMethod void doRenewNoRelatedQuote(){
+	@IsTest
+	private static void doRenewNoRelatedQuote(){
 		 // Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -573,7 +584,7 @@ private class APT_AmendRenewController_Test{
 			insert opp;
 			Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
 			insert product;
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 			Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
 			quote.Expected_Revenue_Start_Date__c = System.today() + 2;
@@ -605,11 +616,11 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
+			system.assert(pgRef != null);
 		}
 	}
-
-	private static testMethod void testingNullAgreement(){
+	@IsTest
+	private static void testingNullAgreement(){
 
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
@@ -631,10 +642,10 @@ private class APT_AmendRenewController_Test{
 			amendRenew.getCategories();
 			amendRenew.doCancel();
 			amendRenew.doRenew();
-		  //  renewDoVProperties.APT_Create_Quote__c=true;
-		  //  renewDoVProperties.APT_Create_Agrement__c=false;
-		  //  update renewDoVProperties;
-		 //   amendRenew.doAmend();
+		 // renewDoVProperties.APT_Create_Quote__c=true;
+		 // renewDoVProperties.APT_Create_Agrement__c=false;
+		 // update renewDoVProperties;
+		 // amendRenew.doAmend();
 			renewDoVProperties.APT_Create_Quote__c=false;
 			update renewDoVProperties;
 			amendRenew.doAmend();
@@ -657,11 +668,11 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			//system.assert(pgRef != null);
+			system.assert(pgRef != null);
 		}
 	}
-
-	private static testMethod void testingOnlyQuote(){
+	@IsTest
+	private static void testingOnlyQuote(){
 		// Setup test data
 		// This code runs as the system admin test user
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
@@ -689,16 +700,16 @@ private class APT_AmendRenewController_Test{
 			amendRenew.doRenew();
 		//amendRenew.doAmend();
 
-		  //  renewDoVProperties.APT_Create_Agrement__c=false;
-		  //  renewDoVProperties.APT_Create_Quote__c=false;
-		   // update renewDoVProperties ;
+		 // renewDoVProperties.APT_Create_Agrement__c=false;
+		 // renewDoVProperties.APT_Create_Quote__c=false;
+		 // update renewDoVProperties ;
 
 			PageReference pgRef = amendRenew.doAmend();
 
 
 			Test.stopTest();
 			system.assert(pgRef == null);
-	   }
+	 }
 	}
 
 	/*
@@ -706,8 +717,8 @@ private class APT_AmendRenewController_Test{
 	 *Created Date: 30/7/2018
 	 *This test method will test changes for new contract Amendment flow
 	 */
-
-	private static testMethod void AmendRenewControllerPropAndContr(){
+	@IsTest
+	private static void AmendRenewControllerPropAndContr(){
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
 		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
@@ -823,133 +834,14 @@ private class APT_AmendRenewController_Test{
 			Test.stopTest();
 		 }
 		 catch(exception ex){
-			  system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
+			 system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
 		 }
 
 		}
 
 	}
-
-	/* Shashwat.Nath@Auspost.com.au has included this method on 10/09/2020 as part of STP- Release 2 changes to test the Dov Reason
-	   population on opportunity.In order to do a DOV users need to select a reason for both Increase and Decrease Revenue . This reason is captured
-	   at the opportunity level created or updated as part of the DOV Process */
-	/*Commented By Mansi Shah as DOV Reasons are removed from APT_AmendRenewPage*/
-	/*private static testMethod void testDovReasons(){
-		// Setup test data
-		// This code runs as the Sales Admin User
-		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
-		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
-		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-		UserName=APT_Constants.EMAIL_TEST_USER);
-		System.runAs(testuser ) {
-
-
-			// Creating the Custom Setting Data
-			APT_R2T_Renew_DoV_Properties__c renewDoVProperties = new APT_R2T_Renew_DoV_Properties__c(Name ='Sample',APT_Category__c=APT_AmendRenewController.CATEGORY_DOV_PROPANDCONTR,APT_Create_Agrement__c=false,
-																	APT_Create_Case__c=false,APT_Create_Quote__c=true,APT_Type__c=APT_Constants.ACTION_NAME_DoV,APT_Create_Opportunity__c=true);
-			insert renewDoVProperties ;
-
-
-			// Creating the Contact Test Data
-			Contact con = APT_TestUtils.createContact();
-			con.MailingCity = 'Melbourne';
-			con.MailingState = 'VIC';
-			con.MailingStreet = 'Flinders Street';
-			con.MailingPostalCode = '3000';
-			insert con;
-
-			//Creating account test data
-			Account tempacct = APT_TestUtils.createOrganisation();
-			insert tempacct;
-
-			//Creating Opportunity Test Data
-			Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
-			insert opp;
-
-			//Creating Pricelist test data
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
-			insert priceList;
-
-			//Creating proposal test data
-			Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
-			quote.Expected_Revenue_Start_Date__c = System.today() + 2;
-			insert quote;
-
-			//Inserting product test data
-			Product2 bundle1 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST001','Postal Services');
-			bundle1.Non_contracted__c = false;
-			insert bundle1;
-
-			//Inserting product test data 2
-			Product2 bundle2 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST002','Postal Services');
-			bundle2.APT_Sync_with_Opportunity__c = true;
-			bundle2.Apttus_Config2__HasOptions__c = true;
-			bundle2.Non_contracted__c = true;
-			bundle2.Apttus_Config2__ConfigurationType__c = 'Bundle';
-			insert bundle2;
-
-			//Inserting product configuration test data
-			Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1,
-			quote.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);
-			insert prodconfig;
-
-			//Inserting PLI test data
-			Apttus_Config2__PriceListItem__c pli= APT_TestUtils.createPriceListItem(priceList.ID,bundle1.ID,'C Manufacturing','BAND 2');
-			insert pli;
-
-			//Inserting Line Item test data
-			Apttus_Config2__LineItem__c bundleLine = APT_TestUtils.getConfigLineItem(prodconfig.Id, null, 1, true,//Config Id, grpId, LineNum, isPrimary
-			1, 'Product/Service', bundle2.Id, true, null,//ItemSeq, lineType, bundleId, customizable, productOptionId
-			null, null, null, 1, true,//optionId, class Id, class hierarchy, qty, qty Modifiable
-			'Each', 1, priceList.Id, pli.Id,//Uom, term, priceList, Pli,
-			'One Time', 'Per Unit', 'Standard Price', 'One Time',//priceType, priceMethod, chargeType, frequency
-			true, true, 5500, 5500, 'Per Unit',//allowManualAdj, allocateGroupAdj, listPrice, basePrice, basePriceMethod,
-			5225, 0, 5225, 'TestaPTTUS');//baseExtPrice, optionPrice, extendedPrice, lineDesc
-			bundleLine.Apttus_Config2__AllowManualAdjustment__c = true;
-			bundleLine.Apttus_Config2__NetPrice__c = 5225;
-			bundleLine.Apttus_Config2__PrimaryLineNumber__c = 1;
-			bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
-			insert bundleLine;
-
-			//Inserting Contract Test Data
-			Apttus__APTS_Agreement__c aptContract = APT_TestUtils.createAgreement(con.Id);
-			aptContract.Apttus__Related_Opportunity__c =opp.id;
-			aptContract.Apttus__Account__c = tempacct.id;
-			aptContract.Apttus_QPComply__RelatedProposalId__c =quote.id;
-			aptContract.Apttus__Contract_End_Date__c = System.today() + 360;
-			insert aptContract;
-
-			//setting up default price list value
-			APT_R2T_System_Properties__c sysProperties = new APT_R2T_System_Properties__c(APT_Default_Price_List_ID__c=priceList.id);
-			insert sysProperties;
-
-			//Setting the current page scope to the DOV Page and action name to dov
-			ApexPages.currentPage().getParameters().put('agreementId',aptContract.Id);
-			ApexPages.currentPage().getParameters().put('actionName',APT_Constants.ACTION_NAME_DoV);
-
-			//Test Starts
-			Test.startTest();
-				APT_AmendRenewController amendRenew = new APT_AmendRenewController();
-				amendRenew.selectedCategory=APT_AmendRenewController.CATEGORY_DOV_PROPANDCONTR;
-				amendRenew.selectedRevenue='Increase Revenue';
-				//amendRenew.renderDovReasonPicklist();
-				amendRenew.selectedReason='Update products/rates';
-				amendRenew.doAmend();
-			// Test Stop
-			Test.stopTest();
-			// Asserting that a new Opportunity is created as part of DOV and the Dov Reason on new opportunity is captured successfully
-			List<Opportunity> opportunityList = [Select id , DOV_Reason__c from Opportunity where ECLM_Original_Opportunity_No__c =:opp.id ] ;
-			System.assertEquals('Update products/rates',opportunityList[0].DOV_Reason__c );
-		}
-	}*/
-
-	  /* Shashwat.Nath@Auspost.com.au has included this method on 10/09/2020 as part of STP- Release 2 changes to test functionality
-		of associating the new proposal to an existing opportunity instead of creating a new opportunity . Users get an option to select an
-		existing opportunity to associate there amendment when doing DOV */
-
-	 private static testMethod void testAssociatingExistingOpportunity(){
+	@IsTest
+	 private static void testAssociatingExistingOpportunity(){
 		// Setup test data
 		// This code runs as the Sales Admin User
 
@@ -991,7 +883,7 @@ private class APT_AmendRenewController_Test{
 			insert ExistingOpportunity ;
 
 			//Creating Pricelist test data
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			//Creating proposal test data
@@ -1051,8 +943,8 @@ private class APT_AmendRenewController_Test{
 			ApexPages.currentPage().getParameters().put('agreementId',aptContract.Id);
 			ApexPages.currentPage().getParameters().put('actionName',APT_Constants.ACTION_NAME_DoV);
 
-		   //Test starts
-		   Test.startTest();
+		 //Test starts
+		 Test.startTest();
 				APT_AmendRenewController amendRenew = new APT_AmendRenewController();
 				amendRenew.selectedCategory=APT_AmendRenewController.CATEGORY_DOV_PROPANDCONTR;
 				amendRenew.selectedRevenue='Increase Revenue';
@@ -1075,9 +967,9 @@ private class APT_AmendRenewController_Test{
 	}
 
 	/* Shashwat.Nath@Auspost.com.au has included this method on 10/09/2020 as part of STP- Release 2 changes to test functionality
-		of creating a new opportunity on Revenue Decrease and superseding the original opportunity  */
-
-	private static testMethod void testdecreaseRevenueSupersedeOriginalOpportunity(){
+		of creating a new opportunity on Revenue Decrease and superseding the original opportunity */
+	@IsTest
+	private static void testdecreaseRevenueSupersedeOriginalOpportunity(){
 		// Setup test data
 		// This code runs as the Sales Admin User
 		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
@@ -1113,7 +1005,7 @@ private class APT_AmendRenewController_Test{
 			insert opp;
 
 			//Inserting the Price List test data
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			//Inserting the proposal test data
@@ -1193,16 +1085,16 @@ private class APT_AmendRenewController_Test{
 			System.assertEquals(0 , opportunityListNew.size());
 
 			// Confirm new Proposal is associated to original Opportunity
-			List<Apttus_Proposal__Proposal__c > proposalNewList  = [Select id from Apttus_Proposal__Proposal__c where Apttus_Proposal__Opportunity__c=:opp.id];
+			List<Apttus_Proposal__Proposal__c > proposalNewList = [Select id from Apttus_Proposal__Proposal__c where Apttus_Proposal__Opportunity__c=:opp.id];
 			// Asserting that the new proposal is associated to original opportunity
 			System.assert(proposalNewList.size()>0);
 		}
 	}
 
 	 /* Shashwat.Nath@Auspost.com.au has included this method on 10/09/2020 as part of STP- Release 2 changes to test functionality
-		of creating a new opportunity on Renewal and NOT superseding the original opportunity  */
-
-	 private static testMethod void testdoNotSupersedeOriginalOpportunityForRenewal(){
+		of creating a new opportunity on Renewal and NOT superseding the original opportunity */
+	@IsTest
+	 private static void testdoNotSupersedeOriginalOpportunityForRenewal(){
 
 		//Setup test data
 		//This code runs as the Sales Admin User
@@ -1240,7 +1132,7 @@ private class APT_AmendRenewController_Test{
 			insert opp;
 
 			//Creating Price list Test Data
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			//Creating quote Test data
@@ -1319,8 +1211,8 @@ private class APT_AmendRenewController_Test{
 
 	/* Shashwat.Nath@Auspost.com.au has included this method on 10/09/2020 as part of STP- Release 2 changes to test functionality
 		of creating a new opportunity on Renewal and asserting that the new opropsal gets associated to the existing opportunity */
-
-	 private static testMethod void testAssociateExistingOppforRenewal(){
+	@IsTest
+	 private static void testAssociateExistingOppforRenewal(){
 
 		//Setup test data
 		//This code runs as the Sales Admin User
@@ -1363,7 +1255,7 @@ private class APT_AmendRenewController_Test{
 			insert ExistingOpportunity ;
 
 			//Creating Price list Test Data
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			//Creating quote Test data
@@ -1448,10 +1340,11 @@ private class APT_AmendRenewController_Test{
 		}
 	}
 
-	  /* Shashwat.Nath@Auspost.com.au has included this method on 26/10/2020 to test the selection of existing Opportunity
-	   for Migrated Contract Renewal Scenario */
-
-	 private static testMethod void testAssociateExistingOppforRenewalMigratedContract(){
+	 /* Shashwat.Nath@Auspost.com.au has included this method on 26/10/2020 to test the selection of existing Opportunity
+	 for Migrated Contract Renewal Scenario */
+	
+	@IsTest
+	 private static void testAssociateExistingOppforRenewalMigratedContract(){
 
 		//Setup test data
 		//This code runs as the Sales Admin User
@@ -1491,7 +1384,7 @@ private class APT_AmendRenewController_Test{
 			Opportunity ExistingOpportunity = APT_TestUtils.createOpportunity(tempacct.id);
 			insert ExistingOpportunity ;
 
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			//Creating Apttus contract Test data
@@ -1529,8 +1422,9 @@ private class APT_AmendRenewController_Test{
 	}
 
 	/* Shashwat.Nath@Auspost.com.au has included this method on 26/10/2020 to test the selection of existing Opportunity
-	   for Migrated Contract */
-	private static testMethod void testDovAssociateExistingOpportunity(){
+	 for Migrated Contract */
+	@IsTest
+	private static void testDovAssociateExistingOpportunity(){
 		// Setup test data
 		// This code runs as the Sales Admin User
 
@@ -1569,7 +1463,7 @@ private class APT_AmendRenewController_Test{
 			Opportunity ExistingOpportunity = APT_TestUtils.createOpportunity(tempacct.id);
 			insert ExistingOpportunity ;
 
-			Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+			Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList();
 			insert priceList;
 
 			//Creating contract Test Data
@@ -1586,8 +1480,8 @@ private class APT_AmendRenewController_Test{
 			ApexPages.currentPage().getParameters().put('agreementId',aptContract.Id);
 			ApexPages.currentPage().getParameters().put('actionName',APT_Constants.ACTION_NAME_DoV);
 
-		   //Test starts
-		   Test.startTest();
+		 //Test starts
+		 Test.startTest();
 				APT_AmendRenewController amendRenew = new APT_AmendRenewController();
 				amendRenew.selectedCategory=APT_AmendRenewController.CATEGORY_DOV_PROPANDCONTR;
 				amendRenew.selectedRevenue='Increase Revenue';
@@ -1609,8 +1503,8 @@ private class APT_AmendRenewController_Test{
 
 		}
 	}
-
-	private static testMethod void testDovUpdateOnOpportunity(){
+	@IsTest
+	private static void testDovUpdateOnOpportunity(){
 		//Creating a user with Sales Admin profile
 		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
@@ -1651,7 +1545,8 @@ private class APT_AmendRenewController_Test{
 		}
 
 	}
-	private static testMethod void testDovUpdateOnRenewAmendN0(){
+	@IsTest
+	private static void testDovUpdateOnRenewAmendN0(){
 		//Creating a user with Sales Admin profile
 		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
@@ -1696,8 +1591,8 @@ private class APT_AmendRenewController_Test{
 		}
 
 	}
-
-	private static testMethod void testDovUpdateOnRenewAmendYes(){
+	@IsTest
+	private static void testDovUpdateOnRenewAmendYes(){
 		//Creating a user with Sales Admin profile
 		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
