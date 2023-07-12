@@ -1,15 +1,16 @@
-/**************************************************
-Description:    Test class that covers BAMUserUtility class
-History:
---------------------------------------------------
-2019-05-13  nathan.franklin@auspost.com.au  Created
-**************************************************/
+/**
+ * @description Test class that covers BAMUserUtility class
+ * @author Nathan Franklin
+ * @date 2019-05-13
+ * @changelog
+ * 2023-07-14 - Nathan Franklin - Fixing sm all bug in test class
+ */
 @isTest
-public class BAMUserUtility_Test {
+private class BAMUserUtility_Test {
 
 	public static Id bspProfileId = [Select Id From Profile Where Name = :BspConstants.BSP_COMMUNITY_PROFILE_NAME].Id;
 	public static Id businessPortalProfileId = [Select Id From Profile Where Name = :BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME].Id;
-	public static Id bspNetworkId = [Select Id From Network Where Name = 'Australia Post Business Support Portal'].Id;
+	public static Id bspNetworkId = [Select Id From Network Where Name = 'AP Business Support Portal'].Id;
 	public static Id merchantPortalNetworkId = [Select Id From Network Where Name = 'Australia Post Merchant Portal'].Id;
 
 	@testSetup

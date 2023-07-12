@@ -6,6 +6,7 @@
  * @changelog
  * 2019-07-04  nathan.franklin@auspost.com.au  Added additional API helper methods
  * 2020-04-22 - Nathan Franklin - Added additional fields to soql
+ * 2023-07-14 - Nathan Franklin - Uplifting some capability to frameworks and integration to Auth0
  */
 public with sharing class BAMUserUtility {
 
@@ -14,7 +15,7 @@ public with sharing class BAMUserUtility {
     public static final String BAM_EXTERNAL_ONBOARDING_REQUEST_RECORD_TYPE_NAME = 'BAM';
     public static final Integer ACCESS_MANAGEMENT_MAX_PER_ORG = 3;
 
-    public static final String CONTACT_STATUS_ACTIVE = 'Active';
+	public static final String CONTACT_STATUS_ACTIVE = 'Active';
     public static final String MERCHANT_PORTAL_PROFILE_NAME = 'Merchant Portal Community User';
 
     /**
@@ -56,6 +57,7 @@ public with sharing class BAMUserUtility {
         @AuraEnabled public Boolean isActive { get; set; }
         @AuraEnabled public Boolean userActive { get; set; }
         @AuraEnabled public Id primaryBillingAccount { get; set; }
+		@AuraEnabled public String federationIdentifier { get; set; }
     }
 
     /**
@@ -88,12 +90,12 @@ public with sharing class BAMUserUtility {
      */
     public static List<BAMContactApplication__c> getContactApplicationConfig(Id contactId) {
         List<BAMContactApplication__c> output = [Select Id, BSPCanViewAllConsignments__c,
-                Application__c, Status__c, Application__r.AppKey__c, Application__r.Name, Application__r.Status__c, Application__r.SVGRefId__c,
-                Application__r.AccessUrl__c, Application__r.LaunchApplicationInNewWindow__c, Application__r.Description__c, Application__r.ShortDescription__c
-        From BAMContactApplication__c
-        Where Application__r.Status__c = 'Active'
-        And Status__c In ('Active', 'Pending')
-        And Contact__c = :contactId];
+														Application__c, Status__c, Application__r.AppKey__c, Application__r.Name, Application__r.Status__c, Application__r.SVGRefId__c,
+														Application__r.AccessUrl__c, Application__r.LaunchApplicationInNewWindow__c, Application__r.Description__c, Application__r.ShortDescription__c
+												From BAMContactApplication__c
+												Where Application__r.Status__c = 'Active'
+												And Status__c In ('Active', 'Pending')
+												And Contact__c = :contactId];
         return output;
     }
 
@@ -104,11 +106,11 @@ public with sharing class BAMUserUtility {
      */
     public static BAMContactApplication__c getContactApplicationConfig(Id contactId, String appKey) {
         List<BAMContactApplication__c> output = [Select Id, Contact__c, BSPCanViewAllConsignments__c
-        From BAMContactApplication__c
-        Where Application__r.AppKey__c = :appKey
-        And Application__r.Status__c = 'Active'
-        And Status__c = 'Active'
-        And Contact__c = :contactId];
+													From BAMContactApplication__c
+													Where Application__r.AppKey__c = :appKey
+													And Application__r.Status__c = 'Active'
+													And Status__c = 'Active'
+													And Contact__c = :contactId];
         if(output.isEmpty()) {
             return null;
         } else {
@@ -227,29 +229,42 @@ public with sharing class BAMUserUtility {
                         throw new InvalidPersonaException('User Context is Invalid');
 
                     personas = (Map<Id, UserPersona>)CacheManager.get('BAM_USER_PERSONA_CONTEXT', userContextCNumber + networkId);
-                    if (personas != null && !personas.isEmpty())
+                    if (personas != null && !personas.isEmpty()) {
                         return personas;
+					}
 
                     personas = new Map<Id, UserPersona>();
 
-                    // grab a list of contacts/users that match the CNumber based on the rules defined in the comments of the property
-                    String soql = 'Select Id, IsActive, ContactId, Contact.Id, Contact.AccountId, Contact.Account.Name, Contact.Account.LEGACY_ID__c, Contact.Name, Contact.Status__c, Contact.BillingAccount__c, Contact.Account.Id, ProfileId, Profile.Name ' +
-                            'From User ' +
-                            ' Where Contact.IsPersonAccount = false ' +
-                            ' And UserType In :PORTAL_PERSONA_USER_TYPES ' +
-                            ' And Contact.OID_ID__c = :userContextCNumber ' +
-                            ' And Contact.Status__c = \'Active\' ' +
-                            (MERCHANT_PORTAL_NETWORK_ID != networkId ? ' And IsActive = true ' : '') + // any non Merchant Portal profile must be active since it's most likely related to another org
-                            (MERCHANT_PORTAL_NETWORK_ID == networkId ? ' And (Profile.Name = :MERCHANT_PORTAL_PROFILE_NAME Or IsActive = true) ' : ''); // if the user profile is merchant portal then it doesn't matter if it's active or not... The contact Status is used to ensure the persona is 'active'
+					Map<String, Object> searchParams = new Map<String, Object>();
+					searchParams.put('isPersonAccount', false);
+					searchParams.put('contactCNumbers', userContextCNumber);
+					searchParams.put('contactStatuses', 'Active');
+					searchParams.put('userTypes', PORTAL_PERSONA_USER_TYPES);
+					if(networkId != MERCHANT_PORTAL_NETWORK_ID) {
+						searchParams.put('isActive', true);
+					} else {
+						searchParams.put('activeOrMerchantPortalProfile', true);
+					}
 
-                    System.debug('>> PERSONA SOQL: ' + soql);
+					Map<Id, User> queryResults = new Map<Id, User>(UsersSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+						Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.AccountId, Contact.Name, Contact.Status__c, Contact.BillingAccount__c},
+						Account.SObjectType => new Set<SObjectField>{Account.Id, Account.Name, Account.LEGACY_ID__c},
+						User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive, User.ContactId, User.ProfileId, User.FederationIdentifier},
+						Profile.SObjectType => new Set<SObjectField>{Profile.Id, Profile.Name}
+					}).search(searchParams, new Set<Object>{
+						UsersSelector.Options.WITH_CONTACT,
+						UsersSelector.Options.WITH_PROFILE,
+						ContactsSelector.Options.WITH_ACCOUNT
+					}, true));
 
-
-                    Map<Id, User> queryResults = new Map<Id, User>((List<User>)Database.query(soql));
                     List<User> users = new List<User>();
 
                     // final check is to filter out any of the personas that do not have access to the specified community by checking the network member
-                    for(NetworkMember member : [Select MemberId From NetworkMember Where MemberId In :queryResults.keySet() And NetworkId = :networkId]) {
+					Map<String, Object> memberSearchParams = new Map<String, Object>{
+						'memberIds' => queryResults.keySet(),
+						'networkIds' => networkId
+					};
+                    for(NetworkMember member : NetworkMembersSelector.newInstance().search(memberSearchParams, true)) { 
                         users.add(queryResults.get(member.MemberId));
                     }
 
@@ -266,6 +281,7 @@ public with sharing class BAMUserUtility {
                             persona.userActive = u.IsActive;
                             persona.userProfile = u.Profile.Name;
                             persona.primaryBillingAccount = u.Contact.BillingAccount__c;
+							persona.federationIdentifier = u.FederationIdentifier;
                             personas.put(u.Id, persona);
                         }
                     }
