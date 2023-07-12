@@ -26,6 +26,9 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
 	}
 
+	public static String sortOrder ='Desc';
+	public static String sortfieldAPIName = 'CreatedDate';
+
 	public static BillingAccountsSelector newInstance() {
 		return (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class);
 	}
@@ -55,6 +58,16 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 	public override SObjectType getSObjectType() {
 		return Billing_Account__c.getSObjectType();
+	}
+
+	public static BillingAccountsSelector newInstance(String sortField, String order) {
+		if(!String.isEmpty(sortField)){
+			sortfieldAPIName = sortField;
+		}
+		if(!String.isEmpty(order)){
+			sortOrder = order;
+		}
+		return (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class);
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
@@ -172,6 +185,13 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		}
 
 		return builder;
+	}
+
+	/**
+	 * Forces an order to be applied to any query built with QueryBuilder. This can be overridden if needed
+	 */
+	public virtual override List<QueryBuilder.Order> getOrderBy() {
+		return new List<QueryBuilder.Order>{new QueryBuilder.Order(sortfieldAPIName, sortOrder)};
 	}
 
 }

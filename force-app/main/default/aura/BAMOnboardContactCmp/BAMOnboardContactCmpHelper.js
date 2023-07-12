@@ -1,5 +1,6 @@
 /**
  * 2020-05-27 - Nathan Franklin - Included the search billing account selector table and fixed some minor UI bugs
+ * 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
  */
 ({
 	/**
@@ -129,6 +130,7 @@
 			let billingAccountWrapperData = billingAccountsByApp.find(billingAccountData => app.Id === billingAccountData.bamApplicationId);
 			if(billingAccountWrapperData){
 				app.billingAccounts = billingAccountWrapperData.billingAccounts;
+				//set the billing account options for the dropdown
 				app.billingAccountOptions = this.parseBillingAccounts(app.billingAccounts);
 			}
 

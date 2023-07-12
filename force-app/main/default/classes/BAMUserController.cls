@@ -825,16 +825,11 @@ public with sharing class BAMUserController {
 	
     //REQ2279110 added filter criteria to remove Peoplesoft accounts
     private static List<Billing_Account__c> getBillingAccountsByOrgId(Id accountId) {
-        List<Billing_Account__c> billingAccounts = [
-                SELECT Id, Name, Organisation__c, SAP_marked_for_deletion__c, LEGACY_ID__c, MLID__c, Type__c, State__c, Suburb__c, Source_System__c, Credit_Status__c
-                FROM Billing_Account__c
-                WHERE Organisation__c = :accountId
-                AND SAP_marked_for_deletion__c = false
-                AND Type__c NOT IN:INVALID_BILLING_ACCOUNT_TYPES
-            	AND Source_System__c !='PeopleSoft'
-                ORDER BY Name
-        ];
-
+		List<Billing_Account__c> billingAccounts = new List<Billing_Account__c>();
+		if (accountId != null) {
+			billingAccounts =  BillingAccountsSelector.newInstance('Name', 'Asc').selectByOrgId(new Set<Id>{accountId}, 
+								new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT}).values();
+		}
         return billingAccounts;
     }
 

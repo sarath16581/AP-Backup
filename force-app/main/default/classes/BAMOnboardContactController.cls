@@ -10,7 +10,8 @@
  * @changelog
  * 2019-01-30 - gdevasurendra@auspost.com.au - Capability to update Primary Billing Account (REQ2044525)
  * 2020-05-24 - Nathan Franklin - Fixed a few small bugs where pending deletes = true were preventing subsequent selection
- * * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts 
+ * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts
+ * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
  */
 public without sharing class BAMOnboardContactController {
 
@@ -115,16 +116,10 @@ public without sharing class BAMOnboardContactController {
     private static List<Billing_Account__c> loadBillingAccounts(Id accountId)
     {
         List<Billing_Account__c> output = new List<Billing_Account__c>();
-        for(Billing_Account__c billingAccount : [SELECT Id, Name, Organisation__c, SAP_marked_for_deletion__c
-                                                            , Type__c, MLID__c, LEGACY_ID__c, State__c, Suburb__c, Source_System__c, Credit_Status__c
-                                                    FROM Billing_Account__c
-                                                    WHERE Organisation__c = :accountId
-                                                    AND SAP_marked_for_deletion__c = false
-                                                    AND Type__c NOT IN:INVALID_BILLING_ACCOUNT_TYPES
-                                                 	AND Source_System__c !='PeopleSoft'
-                                                    ORDER BY Name]) {
-            output.add(billingAccount);
-        }
+		if (accountId != null) {
+			output =  BillingAccountsSelector.newInstance('Name', 'Asc').selectByOrgId(new Set<Id>{accountId}, 
+								new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT}).values();
+		}
         return output;
     }
 
