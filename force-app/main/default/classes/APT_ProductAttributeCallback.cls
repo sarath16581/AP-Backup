@@ -9,12 +9,12 @@ Ken McGuire 2023.04.19 Proposal field migration to opportunity
 global with sharing class APT_ProductAttributeCallback implements Apttus_Config2.CustomClass.IProductAttributeCallback {
 
 	global void start(Apttus_Config2.ProductConfiguration config) {
-		system.debug('***productAttributeCallBack > start() > ' + config);
+
 	}
 
 	global void setDefaults(Apttus_Config2.LineItem lineItem, Apttus_Config2__ProductAttributeValue__c productAttribute) {
 
-		system.debug('***productAttributeCallBack > setDefaults() > productAttribute:' + productAttribute);
+
 		// lineItem is a wrapper class to the lineItem class which we use in product configuration.
 		// Take line Item from this wrapper class.
 		Apttus_Config2__LineItem__c prodLineItem = lineItem.getLineItemSO();
@@ -32,6 +32,6 @@ global with sharing class APT_ProductAttributeCallback implements Apttus_Config2
 	}
 
 	global void finish() {
-		system.debug('***productAttributeCallBack > finish()');
+
 	}
 }
