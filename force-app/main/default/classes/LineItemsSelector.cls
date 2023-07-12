@@ -64,7 +64,6 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 
 	public virtual Map<Id, Apttus_Config2__LineItem__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Id + ' in :ids')).endConditions();
-		System.debug('Line Item Query>>>>>>>>>>>'+qb.toSoqlString());
 		return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
 	}
 
@@ -126,7 +125,6 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 
 	public virtual Map<Id, Apttus_Config2__LineItem__c> selectByProdConfId(ID ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :ids')).endConditions();
-		System.debug('totallineItem'+qb.toSoqlString());
 		return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
 	}
 

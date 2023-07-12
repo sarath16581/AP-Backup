@@ -164,7 +164,6 @@ public with sharing class APT_DocuSignRecipientTriggerHandler
 		}
 		catch(Exception ex)
 		{
-			system.debug('docuSignRecipienttrigger.Error: ' + ex.getLineNumber() + ' ' + ex.getStackTraceString()+' '+ex.getMessage());
 			return ex.getMessage();
 		}
 	}

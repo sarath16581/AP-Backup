@@ -42,7 +42,6 @@ public static void redirectToOPCScreenTest(){
 	MockUtility.Mocks.stopStubbing();
 
 	ProductConfigurationSelector mockSelectorProdConfi = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
-	ApplicationDatabase mockDatabase3 = MockUtility.mockDatabase();
 	MockUtility.Mocks.startStubbing();
 	MockUtility.Mocks.when(mockSelectorProdConfi.selectByProposalId(new set<ID>{(ID)quote1.Id})).thenReturn(
 	new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}));
