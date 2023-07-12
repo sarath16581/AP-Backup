@@ -380,7 +380,6 @@
         </platformActionListItems>
         <platformActionListItems>
             <actionName>FeedItem.RypplePost</actionName>
-            <actionName>New_BG_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>13</sortOrder>
         </platformActionListItems>

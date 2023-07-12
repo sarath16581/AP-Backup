@@ -279,87 +279,6 @@ public without sharing class APT_ProposalTriggerHandler {
 						database.executeBatch(controller, 1);
 					}
 				}
-				//APOST-1524
-
-				//APOST-1718
-			 /* map<Id, Opportunity> mapOpportunity = new map<Id, Opportunity>([SELECT Id, Type, StageName, NextStep, Next_Step__c FROM Opportunity WHERE Id IN :setOpportunityId]);
-				list<Opportunity> listOpportunity = new list<Opportunity>();
-				Opportunity oppty;
-				set<Id> setOpptyId = new set<Id>();
-				for(Apttus_Proposal__Proposal__c proposal : [SELECT Id, Name, Apttus_Proposal__Primary__c,
-															Apttus_QPConfig__ConfigurationFinalizedDate__c, Apttus_Proposal__Approval_Stage__c,
-															Apttus_Proposal__Opportunity__c, Apttus_Proposal__Opportunity__r.Type,
-															recordType.Name, APT_Next_Steps__c
-															FROM Apttus_Proposal__Proposal__c
-															WHERE Id IN :mapProposalOld.keySet()]) {
-
-
-
-					//stage name
-					if((proposal.Apttus_Proposal__Primary__c && proposal.Apttus_QPConfig__ConfigurationFinalizedDate__c != null
-							&& !String.isEmpty(proposal.recordType.Name) && proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_PROPOSAL))
-								||
-							(proposal.Apttus_Proposal__Primary__c && proposal.Apttus_QPConfig__ConfigurationFinalizedDate__c != null
-								&& !String.isEmpty(proposal.recordType.Name) && (proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE) || proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE))
-								&& !String.isEmpty(proposal.Apttus_Proposal__Opportunity__r.Type) && !proposal.Apttus_Proposal__Opportunity__r.Type.equalsIgnoreCase(APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER))) {
-
-						//draft
-						//Update opportunity stage to Qualify if proposal finalized date is not null
-						//if(!String.isEmpty(proposal.Apttus_Proposal__Approval_Stage__c) && !String.isEmpty(mapProposalOld.get(proposal.id).Apttus_Proposal__Approval_Stage__c) && !mapProposalOld.get(proposal.id).Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_DRAFT) && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_DRAFT)) {
-						if(null != proposal.Apttus_QPConfig__ConfigurationFinalizedDate__c && null == mapProposalOld.get(proposal.id).Apttus_QPConfig__ConfigurationFinalizedDate__c) {
-
-								oppty = mapOpportunity.get(proposal.Apttus_Proposal__Opportunity__c);
-								oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_QUALIFY;
-
-								if(!setOpptyId.contains(oppty.Id)) {
-									setOpptyId.add(oppty.Id);
-									listOpportunity.add(oppty);
-								}
-						}
-
-						//generated, presented and accepted
-						if(!String.isEmpty(proposal.Apttus_Proposal__Approval_Stage__c) && !String.isEmpty(mapProposalOld.get(proposal.id).Apttus_Proposal__Approval_Stage__c) &&
-							((!mapProposalOld.get(proposal.id).Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_GENERATED) && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_GENERATED)) ||
-							(!mapProposalOld.get(proposal.id).Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_PRESENTED) && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_PRESENTED)) ||
-							(!mapProposalOld.get(proposal.id).Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED)))) {
-
-							oppty = mapOpportunity.get(proposal.Apttus_Proposal__Opportunity__c);
-							oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_PROPOSE;
-
-							if(!setOpptyId.contains(oppty.Id)) {
-								setOpptyId.add(oppty.Id);
-								listOpportunity.add(oppty);
-							}
-
-						}
-					}
-					//stage name
-
-					//next step
-					if((!String.isEmpty(proposal.APT_Next_Steps__c) && !String.isEmpty(mapProposalOld.get(proposal.id).APT_Next_Steps__c) && !mapProposalOld.get(proposal.id).APT_Next_Steps__c.equalsIgnoreCase(proposal.APT_Next_Steps__c) && !String.isEmpty(proposal.recordType.Name) && proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_PROPOSAL))
-										||
-						 (!String.isEmpty(proposal.APT_Next_Steps__c) && !String.isEmpty(mapProposalOld.get(proposal.id).APT_Next_Steps__c) && !mapProposalOld.get(proposal.id).APT_Next_Steps__c.equalsIgnoreCase(proposal.APT_Next_Steps__c) && !String.isEmpty(proposal.recordType.Name)
-							&& (proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE) || proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE))
-							&& !String.isEmpty(proposal.Apttus_Proposal__Opportunity__r.Type) && !proposal.Apttus_Proposal__Opportunity__r.Type.equalsIgnoreCase(APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER))) {
-
-						oppty = mapOpportunity.get(proposal.Apttus_Proposal__Opportunity__c);
-						oppty.Next_Step__c = proposal.APT_Next_Steps__c;
-
-						if(!setOpptyId.contains(oppty.Id)) {
-							setOpptyId.add(oppty.Id);
-							listOpportunity.add(oppty);
-						}
-					}
-					//next step
-				}
-
-				if(listOpportunity.size() > 0) {
-					update listOpportunity;
-				}
-				*/
-				//APOST-1718
-				//sendMailTOProposalOwners(proposalStatusChangedByCreditManagementEmailerList);
-
 			//Added By Apttus to Cover code of catch block and Trigger Exception
 			if(Test.IsRunningTest() && blnIsExceptionThrownFromTestClass){
 				integer i = 1/0;
@@ -691,7 +610,7 @@ public without sharing class APT_ProposalTriggerHandler {
 				insert listQLP;
 			}
 		}catch(Exception e){
-			return null;
+			return;
 		}
 	 }
 
@@ -845,7 +764,7 @@ public without sharing class APT_ProposalTriggerHandler {
 				update opptyToUpdate;
 			}
 		}catch(Exception e){
-			return null;
+			return;
 		}
 	}
 

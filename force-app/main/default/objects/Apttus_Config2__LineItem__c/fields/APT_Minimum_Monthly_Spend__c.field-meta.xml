@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c</formula>
     <label>Minimum Monthly Spend</label>
-	<descripton>Minimum Monthly Spend</descripton>
+	<description>Minimum Monthly Spend</description>
 	<inlineHelpText>Minimum Monthly Spend</inlineHelpText>
     <precision>18</precision>
     <required>false</required>

@@ -34,9 +34,7 @@ import fetchOpenDSRRecords from '@salesforce/apex/OpportunityClosureController.g
 import closeOpenDSRRecords from '@salesforce/apex/OpportunityClosureController.closeDealSupportRequests';
 
 export default class OpportunityClosure extends LightningElement {
-	var el; 
-	var selected;
-	var selectedJSONString;
+
 	//Columns for the DSR Records Lightning Data Table. 
 	@track dsrColumns = [
 	{
@@ -588,11 +586,11 @@ export default class OpportunityClosure extends LightningElement {
 	*/ 
 
 	updateDSRRecords() {
-		this.showSpinner = true;
 		//Selected records from the UI.
-		this.el = this.template.querySelector('lightning-datatable');
-			this.selected = el.getSelectedRows();
-			this.selectedJSONString = JSON.stringify(selected);
+		let el = this.template.querySelector('lightning-datatable');
+		let selected = el.getSelectedRows();
+		let selectedJSONString = JSON.stringify(selected);
+		this.showSpinner = true;
 		//Calling the apex controller
 		closeOpenDSRRecords({ dsrList: selected})
 		.then(result => {

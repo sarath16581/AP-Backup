@@ -19,7 +19,7 @@ global class OPCBatchableSchedulable implements Schedulable {
 	}
 
 	@istest
-	private static testMethod void testOPCBatchableSchedulable() {
+	private static void testOPCBatchableSchedulable() {
 	
 		//Abort jobs to allow for test class to set the schedule
 		//list<CronTrigger> cron = new list<CronTrigger>([SELECT Id, State FROM CronTrigger where state!='DELETED']);
