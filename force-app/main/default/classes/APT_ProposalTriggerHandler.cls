@@ -40,7 +40,7 @@ Last Modified Date - 2021-06-15 Darshan Chauhan Removing unessecary code for App
 
 2021-07-14 - Mansi Shah - Added method onBeforeInsert and commented method setOpportunityDriver
 
-2022-05-02  SaiSwetha Pingali  REQ2703521 - Added logic to capture role of the user at the time of creation.
+2022-05-02 SaiSwetha Pingali REQ2703521 - Added logic to capture role of the user at the time of creation.
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
 2023-04-27 - Nasir Jawed - added logic on beforeUpdateEvent for the field 'APT_Proposal_Status_Accepted_Denied__c' update on opportunity
 */
@@ -59,14 +59,13 @@ public without sharing class APT_ProposalTriggerHandler {
 		//KG ROUNDING CODE START
 		try
 		{
-		   //spingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
-		   String roleId = Userinfo.getUserRoleId();
-		   List<UserRole> RoleList ;
-		   if(roleId !=null)
-		   {
-			  RoleList = [SELECT id, name FROM userrole WHERE Id =: roleId ];
-		   }
-			//system.debug('*** before insert ***');
+		 //spingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
+		 String roleId = Userinfo.getUserRoleId();
+		 List<UserRole> RoleList ;
+		 if(roleId !=null)
+		 {
+			 RoleList = [SELECT id, name FROM userrole WHERE Id =: roleId ];
+		 }
 			Set<ID> accSet = new Set<ID>();
 			Map<ID, Apttus_Proposal__Proposal__c> oppToProposalMap = new Map<ID, Apttus_Proposal__Proposal__c>();
 			for(Apttus_Proposal__Proposal__c proposal : listProposal) {
@@ -85,18 +84,17 @@ public without sharing class APT_ProposalTriggerHandler {
 			}
 
 			//.debug('*** accSet ***'+accSet);
-			//List<Budget_and_Revenue__c> targetRevList = [select ID, Product__r.ProductCode,Organisation__c  from Budget_and_Revenue__c where Organisation__c IN:accSet];
+			//List<Budget_and_Revenue__c> targetRevList = [select ID, Product__r.ProductCode,Organisation__c from Budget_and_Revenue__c where Organisation__c IN:accSet];
 			Map<ID, Boolean> accIDToEparcelCheckMap = new Map<ID, Boolean>();
 			Map<Id,Boolean> brHasErrorMap = new Map<Id,Boolean>();
 
 			for(Budget_and_Revenue__c revObj : [select ID, Product__r.ProductCode,Organisation__c, Int_Last_Upd_Date__c
 												from Budget_and_Revenue__c
 												where Organisation__c IN:accSet]) {
-				//system.debug('*** revObj **'+revObj);
 				// Updated by Adrian Recio, Added null check in last update field , 28/11/2017
 				if(revObj.Product__r.ProductCode != null &&
-				  (revObj.Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) ||
-				   revObj.Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)) ){
+				 (revObj.Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) ||
+				 revObj.Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)) ){
 					if(revObj.Int_Last_Upd_Date__c == null){
 						 brHasErrorMap.put(revObj.Organisation__c,true);
 					}else if(revObj.Int_Last_Upd_Date__c.monthsBetween(Date.Today()) <= 13) {
@@ -114,12 +112,10 @@ public without sharing class APT_ProposalTriggerHandler {
 					proposal.addError('Your contract target and revenue is missing.');
 				}else{
 					if(accIDToEparcelCheckMap.containsKey(proposal.Apttus_Proposal__Account__c) &&
-					   accIDToEparcelCheckMap.get(proposal.Apttus_Proposal__Account__c)){
+					 accIDToEparcelCheckMap.get(proposal.Apttus_Proposal__Account__c)){
 						proposal.APT_Is_Existing_eParcel_Customer__c = 'Yes';
-						//system.debug('*** yes **');
 					}else{
 						proposal.APT_Is_Existing_eParcel_Customer__c = 'No';
-						//system.debug('*** no **');
 					}
 				}
 			}
@@ -131,7 +127,6 @@ public without sharing class APT_ProposalTriggerHandler {
 		}
 		catch(Exception e)
 		{
-			//system.debug('Expception -'+e);
 			return null;
 		}
 		return APT_Constants.SUCCESS_LABEL;
@@ -162,9 +157,6 @@ public without sharing class APT_ProposalTriggerHandler {
 				}
 			}
 
-			system.debug('OldSetSum:' + oldSumSet);
-			system.debug('NewSetSum:' + newSumSet);
-
 			if(apNewAmountMap.keySet().size()>0){
 				List<Apttus__APTS_Agreement__c>aCList = [Select Id, Apttus__Total_Contract_Value__c,Apttus_QPComply__RelatedProposalId__c
 														 from Apttus__APTS_Agreement__c
@@ -177,15 +169,13 @@ public without sharing class APT_ProposalTriggerHandler {
 					try{
 						update aCList;
 					}catch(exception e){
-						system.debug('TotalAmountSyncError:' + e.getMessage());
+						return null;
 					}
 				}
 			}
 			// End of total contract population
 
 			set<Id> syncWithOpportunityProposalIds = new set<Id>();
-
-			system.debug('*** start after update ***');
 
 			set<Id> setPresentedProposalId = new set<Id>();
 			set<Apttus_Proposal__Proposal__c> finalizedQuotes = new set<Apttus_Proposal__Proposal__c>();
@@ -248,9 +238,6 @@ public without sharing class APT_ProposalTriggerHandler {
 						&& String.IsBlank(proposal.Apttus_QPApprov__Approval_Status__c)
 						&& oldProposal.Apttus_QPConfig__ConfigurationFinalizedDate__c != proposal.Apttus_QPConfig__ConfigurationFinalizedDate__c;
 					//APOST-1524
-					system.debug('**** Primary Sync Check 1****'+oldProposalNotNull );
-					system.debug('**** Primary Sync Check 2****'+proposal.Apttus_Proposal__Primary__c);
-					system.debug('**** Primary Sync Check 3****'+proposalMadePrimary);
 					if( oldProposalNotNull && proposal.Apttus_Proposal__Primary__c
 							&& (approvalStageChangedToAccepted || proposalMadePrimary
 								|| proposalRevenueStartDateChange || proposalRevenueEndDateChange
@@ -274,19 +261,10 @@ public without sharing class APT_ProposalTriggerHandler {
 
 				//sync with Opportunity
 				/* Shashwat.Nath@Auspost.com has commented this line of code as part of the changes to the Sync Process for SFT Release 2.
-				   The Sync process would now be getting Triggered from APT_ConfigurationTrigger */
+				 The Sync process would now be getting Triggered from APT_ConfigurationTrigger */
 				//APT_ConfigurationTriggerHandler.sycWithOpportunity(syncWithOpportunityProposalIds);
 
 				/* Shashwat.Nath@Auspost.com commenting ends */
-
-				if(finalizedIds.size()>0){
-					//APOST-2023 > moved to create proposal
-					//copyProductNamesAndZones(finalizedIds);
-					//APOST-2023 > moved to create proposal
-
-					//APOST-912
-					//checkIdenticalLines(finalizedIds); //TEMPORARY
-				}
 
 				//APOST-1524
 				if(setPresentedProposalId.size() > 0) {
@@ -298,14 +276,13 @@ public without sharing class APT_ProposalTriggerHandler {
 
 					if(listPLI != null && listPLI.size() > 0) {
 						APT_UpdateProposalUsagePriceTierBatch controller = new APT_UpdateProposalUsagePriceTierBatch(setPresentedProposalId);
-						System.debug('***Trigger::setPresentedProposalId => ' + setPresentedProposalId);
 						database.executeBatch(controller, 1);
 					}
 				}
 				//APOST-1524
 
 				//APOST-1718
-			   /* map<Id, Opportunity> mapOpportunity = new map<Id, Opportunity>([SELECT Id, Type, StageName, NextStep, Next_Step__c FROM Opportunity WHERE Id IN :setOpportunityId]);
+			 /* map<Id, Opportunity> mapOpportunity = new map<Id, Opportunity>([SELECT Id, Type, StageName, NextStep, Next_Step__c FROM Opportunity WHERE Id IN :setOpportunityId]);
 				list<Opportunity> listOpportunity = new list<Opportunity>();
 				Opportunity oppty;
 				set<Id> setOpptyId = new set<Id>();
@@ -361,7 +338,7 @@ public without sharing class APT_ProposalTriggerHandler {
 					//next step
 					if((!String.isEmpty(proposal.APT_Next_Steps__c) && !String.isEmpty(mapProposalOld.get(proposal.id).APT_Next_Steps__c) && !mapProposalOld.get(proposal.id).APT_Next_Steps__c.equalsIgnoreCase(proposal.APT_Next_Steps__c) && !String.isEmpty(proposal.recordType.Name) && proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_PROPOSAL))
 										||
-						   (!String.isEmpty(proposal.APT_Next_Steps__c) && !String.isEmpty(mapProposalOld.get(proposal.id).APT_Next_Steps__c) && !mapProposalOld.get(proposal.id).APT_Next_Steps__c.equalsIgnoreCase(proposal.APT_Next_Steps__c) && !String.isEmpty(proposal.recordType.Name)
+						 (!String.isEmpty(proposal.APT_Next_Steps__c) && !String.isEmpty(mapProposalOld.get(proposal.id).APT_Next_Steps__c) && !mapProposalOld.get(proposal.id).APT_Next_Steps__c.equalsIgnoreCase(proposal.APT_Next_Steps__c) && !String.isEmpty(proposal.recordType.Name)
 							&& (proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE) || proposal.recordType.Name.equalsIgnoreCase(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE))
 							&& !String.isEmpty(proposal.Apttus_Proposal__Opportunity__r.Type) && !proposal.Apttus_Proposal__Opportunity__r.Type.equalsIgnoreCase(APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER))) {
 
@@ -383,8 +360,6 @@ public without sharing class APT_ProposalTriggerHandler {
 				//APOST-1718
 				//sendMailTOProposalOwners(proposalStatusChangedByCreditManagementEmailerList);
 
-			system.debug('*** end after update ***');
-
 			//Added By Apttus to Cover code of catch block and Trigger Exception
 			if(Test.IsRunningTest() && blnIsExceptionThrownFromTestClass){
 				integer i = 1/0;
@@ -395,7 +370,6 @@ public without sharing class APT_ProposalTriggerHandler {
 
 
 		} catch(Exception e){
-				system.debug('Expception -'+e);
 				return null;
 		}
 			return APT_Constants.SUCCESS_LABEL;
@@ -417,74 +391,6 @@ public without sharing class APT_ProposalTriggerHandler {
 	public static final string CUSTOMER_NUMBER = 'Customer Number: ';
 	public static final string LEGAL_ENTITY_NAME = 'Legal Entity Name: ';
 
-	/**
-		It will send email to proposal owners
-		@param
-		listProposalID - set of proposal Ids
-	**/
-	/*
-	private static void sendMailTOProposalOwners(Set<ID> listProposalID){
-		try {
-			if(listProposalID != null && listProposalID.size() > 0 ){
-				List<Apttus_Proposal__Proposal__c> listProposal=  [select id,Name,Apttus_Proposal__Account__r.name,
-																		CreatedBy.email, APT_Credit_Assessment_Status__c,
-																		Apttus_Proposal__Opportunity__r.Opportunity_Number__c,
-																		Apttus_Proposal__Account__r.AccountNumber,
-																		CreatedBy.Name
-																		from Apttus_Proposal__Proposal__c
-																		where id in: listProposalID];
-				list<String> toAddresses;
-				Messaging.SingleEmailMessage mail;
-				List<Messaging.SingleEmailMessage> emaillist;
-				for(Apttus_Proposal__Proposal__c proposal : listProposal){
-					String body  = MAIL_DEAR + proposal.CreatedBy.Name + MAIL_BR
-									+ MAIL_P + APT_Constants.MAIL_SUBJECT_CHARGE_ACCOUNT
-									+ proposal.Apttus_Proposal__Account__r.Name
-									+ MAIL_HAS_BEEN + proposal.APT_Credit_Assessment_Status__c + MAIL_FULL_STOP
-									+ MAIL_CLOSE_P + MAIL_BR + MAIL_BR
-									+  MAIL_BOLD
-									+ CUSTOMER_DETAILS
-									+ MAIL_BOLD_CLOSE + MAIL_BR
-									+ LEGAL_ENTITY_NAME + proposal.Apttus_Proposal__Account__r.name + MAIL_BR
-									+ CUSTOMER_NUMBER + proposal.Apttus_Proposal__Account__r.AccountNumber + MAIL_BR
-									+ OPPORTUNITY_NUMBER + proposal.Apttus_Proposal__Opportunity__r.Opportunity_Number__c
-									+ MAIL_BR
-									+ PROPOSAL_ID + proposal.Name + MAIL_BR
-									+ MAIL_BR
-									+ MAIL_P
-									+ MAIL_CLICk_HERE
-									+ MAIL_AHREF + URL.getSalesforceBaseUrl().toExternalForm()
-									+ APT_Constants.SEPERATOR_BACKWARD_SLASH + proposal.id
-									+ APT_Constants.SEPARATOR_GREATER_THAN_CHANGE
-									+ proposal.Name
-									+APT_Constants.MAIL_TAGS_AP;
-
-					String subject = APT_Constants.MAIL_SUBJECT_CHARGE_ACCOUNT
-										+ proposal.Apttus_Proposal__Account__r.name
-										+ MAIL_HAS_BEEN
-										+ proposal.APT_Credit_Assessment_Status__c;
-
-					String toEmailId = proposal.CreatedBy.email;//add Users emailID
-					toAddresses = new list<String>();
-					toAddresses.add(toEmailId);
-
-					mail = new Messaging.SingleEmailMessage();
-					mail.setReplyTo(Userinfo.getUserEmail());
-					mail.setSenderDisplayName(Userinfo.getName());
-					mail.setToAddresses(toAddresses);
-					mail.setSubject(subject);
-					mail.setHtmlBody(body);
-					emaillist = new List<Messaging.SingleEmailMessage>();
-					emaillist.add(mail);
-					Messaging.sendEmail(emaillist);
-				}
-			}
-		 } catch(Exception e){
-			system.debug('Expception -'+e);
-
-		}
-	}
-	*/
 
 	/**
 		This method will update proposals
@@ -493,8 +399,6 @@ public without sharing class APT_ProposalTriggerHandler {
 	**/
 	public static Map<Id,String> beforeUpdateEvent(list<Apttus_Proposal__Proposal__c> listProposal, map<Id, Apttus_Proposal__Proposal__c> mapProposalOld) {
 		try {
-
-			system.debug('*** start before update ***');
 			//for CR148/13 Start
 			// Added by Lyndon Lavapie
 			// Fetch the Amendment record Type Id
@@ -581,7 +485,7 @@ public without sharing class APT_ProposalTriggerHandler {
 						if(!(prop.recordTypeId == amendmentRecType && prop.APT_Revenue_Type__c == APT_AmendRenewController.DECREASE_REVENUE)){
 
 						/*Shashwat.Nath@Auspost.com commented the below line on 09/09/2020 to stop automated progression of opportunity Stage as per
-+                          the requirement STP-2806 for release 2*/
++ the requirement STP-2806 for release 2*/
 
 						//oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_QUALIFY;
 
@@ -601,7 +505,7 @@ public without sharing class APT_ProposalTriggerHandler {
 						if(!(prop.recordTypeId == amendmentRecType && prop.APT_Revenue_Type__c == APT_AmendRenewController.DECREASE_REVENUE)){
 
 						/*Shashwat.Nath@Auspost.com commented the below line on 09/09/2020 to stop automated progression of opportunity Stage as per
-+                          the requirement STP-2806 for release 2*/
++ the requirement STP-2806 for release 2*/
 
 						//oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_PROPOSE;
 
@@ -620,7 +524,7 @@ public without sharing class APT_ProposalTriggerHandler {
 						if(!(prop.recordTypeId == amendmentRecType && prop.APT_Revenue_Type__c == APT_AmendRenewController.DECREASE_REVENUE)){
 
 						/*Shashwat.Nath@Auspost.com commented the below line on 09/09/2020 to stop automated progression of opportunity Stage as per
-+                          the requirement STP-2806 for release 2*/
++ the requirement STP-2806 for release 2*/
 
 						//oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_PROPOSE;
 
@@ -636,10 +540,10 @@ public without sharing class APT_ProposalTriggerHandler {
 						//CR148/13
 						//Added by Daric Dava 7/24/2018
 						//block the update of Oppty status when when proposal status updated to ACCEPTED
-					   if(!(prop.recordTypeId == amendmentRecType && prop.APT_Revenue_Type__c == APT_AmendRenewController.DECREASE_REVENUE)){
+					 if(!(prop.recordTypeId == amendmentRecType && prop.APT_Revenue_Type__c == APT_AmendRenewController.DECREASE_REVENUE)){
 
 						/*Shashwat.Nath@Auspost.com commented the below line on 09/09/2020 to stop automated progression of opportunity Stage as per
-+                          the requirement STP-2806 for release 2*/
++ the requirement STP-2806 for release 2*/
 
 						//oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_NEGOTIATE;
 
@@ -680,7 +584,7 @@ public without sharing class APT_ProposalTriggerHandler {
 			if(listOpportunity.size() > 0) {
 				update listOpportunity;
 			}
-		   for(Apttus_Config2__ProductConfiguration__c config : [Select id,Name,Apttus_QPConfig__Proposald__c  from   Apttus_Config2__ProductConfiguration__c where  Apttus_QPConfig__Proposald__c in : setPropId AND Apttus_Config2__Status__c = :APT_Constants.CONFIGURATION_STATUS_FINALIZED]){
+		 for(Apttus_Config2__ProductConfiguration__c config : [Select id,Name,Apttus_QPConfig__Proposald__c from Apttus_Config2__ProductConfiguration__c where Apttus_QPConfig__Proposald__c in : setPropId AND Apttus_Config2__Status__c = :APT_Constants.CONFIGURATION_STATUS_FINALIZED]){
 				prodConfig.add(config.Id);
 				mapProp_Config.put(config.Apttus_QPConfig__Proposald__c,config.Id);
 			}
@@ -705,9 +609,6 @@ public without sharing class APT_ProposalTriggerHandler {
 				}
 			}
 
-
-			system.debug('*** end before update ***');
-
 			//Added By Apttus to Cover code of catch block and Trigger Exception
 			if(Test.IsRunningTest() && blnIsExceptionThrownFromTestClass){
 				integer i = 1/0;
@@ -728,7 +629,7 @@ public without sharing class APT_ProposalTriggerHandler {
 	static Map<string,Id> mapBillingAcc=new Map<string,Id>();
 	static List<String> lststrg = new List<String>();
 	static List<String> lstIds = new List<String>();
-	  /**
+	 /**
 		Method to create Quote Lodgement point from Line item Lodgementpoint on finalization of Product configuration.
 		@params -
 		trigger.new & Trigger.oldmap of proposal
@@ -742,8 +643,8 @@ public without sharing class APT_ProposalTriggerHandler {
 			set<id> allNtwkIds = new set<id>();
 			set<id> NtwkIds;
 			for(Apttus_Proposal__Proposal__c quote :finalizedQuotes){
-			   finalizedQuoteIds.add(quote.ID);
-			   if(quote.APT_Selected_LP__c !=APT_Constants.EMPTY_STRING && quote.APT_Selected_LP__c != Null){
+			 finalizedQuoteIds.add(quote.ID);
+			 if(quote.APT_Selected_LP__c !=APT_Constants.EMPTY_STRING && quote.APT_Selected_LP__c != Null){
 				 NtwkIds = new Set<id> ();
 				 NtwkIds = getLPIDs(quote.APT_Selected_LP__c,quote.Id);
 				 mapntwkIdsFromQuote.put(quote.ID,NtwkIds);
@@ -751,14 +652,14 @@ public without sharing class APT_ProposalTriggerHandler {
 				}
 			}
 
-			Delete [select id from APT_Quote_Lodgement_Point__c where APT_Quote_Proposal__c  IN : finalizedQuoteIds];
+			Delete [select id from APT_Quote_Lodgement_Point__c where APT_Quote_Proposal__c IN : finalizedQuoteIds];
 
 			Map<ID,Apttus_Config2__LineItem__c> mapLineItems=new Map<ID,Apttus_Config2__LineItem__c>([select id,APT_Lodgement_Zone_Selected__c,Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c,APT_Selected_LP__c,APT_Product_Name__c,Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__c from Apttus_Config2__LineItem__c where Apttus_Config2__IsPrimaryLine__c = True AND Apttus_Config2__LineType__c != :APT_Constants.LABEL_LINE_TYPE_OPTION AND Apttus_Config2__ConfigurationId__c IN
 																	(select id from Apttus_Config2__ProductConfiguration__c where Apttus_Config2__Status__c =:APT_Constants.CONFIGURATION_STATUS_FINALIZED AND Apttus_QPConfig__Proposald__c IN: finalizedQuoteIds)]);
-			   for(Apttus_Config2__LineItem__c LI: mapLineItems.values()){
-			   if(LI.APT_Selected_LP__c !=APT_Constants.EMPTY_STRING && LI.APT_Selected_LP__c != Null){
-				  mapntwkIdsFromLineItem.put(LI.Id,new set<id>(getLPIDs(LI.APT_Selected_LP__c,LI.Id)));
-				  allNtwkIds.addall(getLPIDs(LI.APT_Selected_LP__c,LI.Id));
+			 for(Apttus_Config2__LineItem__c LI: mapLineItems.values()){
+			 if(LI.APT_Selected_LP__c !=APT_Constants.EMPTY_STRING && LI.APT_Selected_LP__c != Null){
+				 mapntwkIdsFromLineItem.put(LI.Id,new set<id>(getLPIDs(LI.APT_Selected_LP__c,LI.Id)));
+				 allNtwkIds.addall(getLPIDs(LI.APT_Selected_LP__c,LI.Id));
 				}
 			}
 
@@ -771,19 +672,18 @@ public without sharing class APT_ProposalTriggerHandler {
 			Integer count = 0;
 			for(Apttus_Proposal__Proposal_Line_Item__c pLI: [select id,Apttus_Proposal__Proposal__c,Apttus_QPConfig__DerivedFromId__c from Apttus_Proposal__Proposal_Line_Item__c where Apttus_QPConfig__DerivedFromId__c IN: mapLineItems.keyset()] ){
 				count = count + 1;
-				System.debug('count: '+ count);
 				mapProposalLineItemId.put(pLI.Apttus_QPConfig__DerivedFromId__c,pLI.ID);
 			}
 
 			for(Id quoteId : mapntwkIdsFromQuote.keyset()){
 				for(id netId:mapntwkIdsFromQuote.get(quoteId)){
-				  listQLP.add(populateQLPFields(quoteId,netId,mapBillingAcc.get(netId+APT_Constants.ADD_HYPHEN+quoteId),mapntwk.get(netId),APT_Constants.URL_QUOTE,Null,Null));
-			  }
+				 listQLP.add(populateQLPFields(quoteId,netId,mapBillingAcc.get(netId+APT_Constants.ADD_HYPHEN+quoteId),mapntwk.get(netId),APT_Constants.URL_QUOTE,Null,Null));
+			 }
 			}
 
 			for(Id LineItemId : mapntwkIdsFromLineItem.keyset()){
 				for(id netId:mapntwkIdsFromLineItem.get(LineItemId)){
-				  listQLP.add(populateQLPFields(mapLineItems.get(LineItemId).Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c,netId,mapBillingAcc.get(netId+APT_Constants.ADD_HYPHEN+LineItemId),mapntwk.get(netId),APT_Constants.LABEL_LINEITEM,mapProposalLineItemId.get(LineItemId),mapLineItems.get(LineItemId)));
+				 listQLP.add(populateQLPFields(mapLineItems.get(LineItemId).Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c,netId,mapBillingAcc.get(netId+APT_Constants.ADD_HYPHEN+LineItemId),mapntwk.get(netId),APT_Constants.LABEL_LINEITEM,mapProposalLineItemId.get(LineItemId),mapLineItems.get(LineItemId)));
 				}
 			 }
 
@@ -791,9 +691,9 @@ public without sharing class APT_ProposalTriggerHandler {
 				insert listQLP;
 			}
 		}catch(Exception e){
-			system.debug('Expception -'+e);
+			return null;
 		}
-	   }
+	 }
 
 	 /**
 		Method to populate field values of Quote Lodgement point
@@ -805,12 +705,12 @@ public without sharing class APT_ProposalTriggerHandler {
 					qLP.APT_Quote_Proposal__c = quoteId;
 					if(source==APT_Constants.LABEL_LINEITEM){
 						 Map<id,Id> mapLZ = getLPZoneIds(lineItem.APT_Lodgement_Zone_Selected__c);
-						  qLP.APT_Proposal_Line_Item__c= proposalId;
-						  qLP.APT_Lodgement_Zone_Lookup__c =  mapLZ.get(ntwkId);
-						  //lineItem.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__c;
-						  qLP.APT_Product__c =lineItem.APT_Product_Name__c;
+						 qLP.APT_Proposal_Line_Item__c= proposalId;
+						 qLP.APT_Lodgement_Zone_Lookup__c = mapLZ.get(ntwkId);
+						 //lineItem.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__c;
+						 qLP.APT_Product__c =lineItem.APT_Product_Name__c;
 					}
-					qLP.APT_Selected_Lodgement_Point__c =   ntwkId;
+					qLP.APT_Selected_Lodgement_Point__c = ntwkId;
 					qLP.APT_LP_Post_Code__c = ntwk.Post_Code__c;
 					qLP.APT_LP_State__c =ntwk.State__c;
 
@@ -824,7 +724,6 @@ public without sharing class APT_ProposalTriggerHandler {
 					qLP.APT_Organisation_ID__c =ntwk.Org_ID__c;
 					qLP.APT_Transport_Capability__c =ntwk.APT_Transport_Capability__c;
 		}catch(Exception e){
-			system.debug('Expception -'+e);
 			return null;
 		}
 		return qLP;
@@ -835,16 +734,16 @@ public without sharing class APT_ProposalTriggerHandler {
 	 **/
 	public static set<id> getLPIDs(String selectedLP,String recId){
 		 try {
-			  setlP = new set<id>();
-			  LIst<string> lstlPIds = new List<string>();
-			  lststrg = new List<String>();
-			  lstIds = new List<String>();
-			  if(selectedLP.contains(APT_Constants.SEPERATOR_COMMA)){
+			 setlP = new set<id>();
+			 LIst<string> lstlPIds = new List<string>();
+			 lststrg = new List<String>();
+			 lstIds = new List<String>();
+			 if(selectedLP.contains(APT_Constants.SEPERATOR_COMMA)){
 				lststrg = selectedLP.split(APT_Constants.SEPERATOR_COMMA);
-			  }else {
+			 }else {
 				lststrg.add(selectedLP);
-			  }
-			  for(string s: lststrg){
+			 }
+			 for(string s: lststrg){
 				if(s.contains(APT_Constants.SEPERATOR_SIMILARITY)){
 				lstIds=s.split(APT_Constants.SEPERATOR_SIMILARITY);
 				lstlPIds.addall(lstIds);
@@ -852,20 +751,19 @@ public without sharing class APT_ProposalTriggerHandler {
 					mapBillingAcc.put(lstIds[0]+APT_Constants.ADD_HYPHEN+recId,lstIds[1]);
 				}
 
-			   }else {
+			 }else {
 				lstlPIds.add(s);
-			   }
-			  }
-			   for(String nId: lstlPIds){
+			 }
+			 }
+			 for(String nId: lstlPIds){
 				if(nId.startsWith(Network__c.sObjectType.getDescribe().getKeyPrefix())){
 				setlP.add(nId);
 				}
-			  }
+			 }
 		}catch(Exception e){
-			system.debug('Expception -'+e);
 			return null;
 		}
-	  return setlP;
+	 return setlP;
 	}
 
 	/**
@@ -875,184 +773,25 @@ public without sharing class APT_ProposalTriggerHandler {
 		Map<Id,Id> mapLZ =new Map<Id,Id>();
 		try {
 
-			  if(selectedZone!=null){
-				String[] selectedLZList =  selectedZone.split(APT_Constants.SEPERATOR_COMMA);
+			 if(selectedZone!=null){
+				String[] selectedLZList = selectedZone.split(APT_Constants.SEPERATOR_COMMA);
 				for(string s:selectedLZList){
 				String [] lstLZ = s.split(APT_Constants.SEPERATOR_SIMILARITY);
 				if(lstLZ.size()==2){
 				mapLZ.put(lstLZ[0],lstLZ[1]);
-			   }
-			   }
-			  }
+			 }
+			 }
+			 }
 		}catch(Exception e){
-			system.debug('Expception -'+e);
 			return null;
 		}
-	  return mapLZ;
+	 return mapLZ;
 	}
-
-	//@future > do not create future methods. Proposal Line Items are not being created. It is being created using future call.
-	//we can't make future call using future.
-   /* public static void createLineItemRateCard(Set<id> finalizedIds) {
-	system.debug('enter line item rate card');
-		Map<ID,Apttus_Config2__ProductConfiguration__c> mapProductConfigurationIds=new Map<ID,Apttus_Config2__ProductConfiguration__c>([select id from Apttus_Config2__ProductConfiguration__c where Apttus_Config2__Status__c ='Finalized' AND Apttus_QPConfig__Proposald__c IN: finalizedIds]);
-		Map<id,Id> mapLineItemId=new Map<id,Id>();
-		Set<Id> setLineItemId =new Set<Id>();
-		for(Apttus_Proposal__Proposal_Line_Item__c pLI: [select id,Apttus_QPConfig__ConfigurationId__c,Apttus_Proposal__Proposal__c,Apttus_QPConfig__DerivedFromId__c from Apttus_Proposal__Proposal_Line_Item__c where Apttus_QPConfig__ConfigurationId__c IN: mapProductConfigurationIds.keyset()] ){
-			mapLineItemId.put(pLI.Apttus_QPConfig__DerivedFromId__c,pLI.Id);
-			setLineItemId.add(pLI.Apttus_QPConfig__DerivedFromId__c);
-		}
-		list<APT_Quote_Rate_Card__c> listQuoteRateCard = database.query('Select ' + APT_AmendRenewUtility.getAllAgrFields('APT_Quote_Rate_Card__c') + ' FROM APT_Quote_Rate_Card__c WHERE APT_Line_Item__c IN : setLineItemId');
-		list<APT_Line_Item_Rate_Card__c> listLineItemRateCard = new list<APT_Line_Item_Rate_Card__c>();
-		set<String> setIgnoreFields = new set<String>{'APT_Line_Item__c'};
-		if(listQuoteRateCard != null && listQuoteRateCard.size() > 0) {
-			for(APT_Quote_Rate_Card__c qrc : listQuoteRateCard) {
-				APT_Line_Item_Rate_Card__c clonedLineItemRateCard = new APT_Line_Item_Rate_Card__c();
-				for (String fieldName : APT_AmendRenewUtility.getFieldNames(APT_Quote_Rate_Card__c.getSObjectType())) {
-					Object value = qrc.get(fieldName);
-					if(value != null) {
-					// get the target field name
-						if(setIgnoreFields.contains(fieldName) == false) {
-							clonedLineItemRateCard.put(fieldName, value);
-						}
-					}
-				}
-				clonedLineItemRateCard.APT_Proposal_Line_Item__c = mapLineItemId.get(qrc.APT_Line_Item__c);
-				listLineItemRateCard.add(clonedLineItemRateCard);
-				System.debug(clonedLineItemRateCard + '-->');
-			}
-		}
-
-		if(listLineItemRateCard.size() > 0) {
-			insert listLineItemRateCard;
-		}
-	} */
-
-
-   /**
-		Method to Populate Product names and Zones from Proposal line item to Quote
-	 **/
-
-	/**
-	//APOST-2023 > moved to create proposal
-	public static void copyProductNamesAndZones(set<Id> finalizedQuoteIds) {
-	   try {
-	   Map<Id, List<Apttus_Proposal__Proposal_Line_Item__c>> mapPLI= new Map<Id, List<Apttus_Proposal__Proposal_Line_Item__c>>();
-	   List<Apttus_Proposal__Proposal__c > lstQuotesToUpdate=new List<Apttus_Proposal__Proposal__c >();
-	   List<Apttus_Proposal__Proposal__c > lstQuotesQueried=new List<Apttus_Proposal__Proposal__c >();
-
-		lstQuotesQueried=[select id,APT_Product_names__c,APT_Zone__c from Apttus_Proposal__Proposal__c where ID IN:finalizedQuoteIds];
-		List<Apttus_Proposal__Proposal_Line_Item__c> proposalLineItemList;
-		for(Apttus_Proposal__Proposal_Line_Item__c pLI: [SELECT id, Apttus_Proposal__Proposal__c, Apttus_Proposal__Proposal__r.RecordType.Name,
-														APT_Product_and_Price_Structure__c, APT_Zone__c, APT_New__c
-														FROM Apttus_Proposal__Proposal_Line_Item__c
-														where Apttus_Proposal__Proposal__c IN: finalizedQuoteIds]) {
-
-			if(mapPLI.containsKey(pLI.Apttus_Proposal__Proposal__c)) {
-			   mapPLI.get(pLI.Apttus_Proposal__Proposal__c).add(pLI);
-			} else {
-				proposalLineItemList = new List<Apttus_Proposal__Proposal_Line_Item__c> ();
-				proposalLineItemList.add(pLI);
-				mapPLI.put(pLI.Apttus_Proposal__Proposal__c, proposalLineItemList);
-			}
-		}
-		 set<string> setProducts;
-		 set<string> setZones;
-		 for(Apttus_Proposal__Proposal__c quote:lstQuotesQueried){
-			setProducts =new set<string>();
-			setZones =new set<string>();
-			quote.APT_Product_names__c=APT_Constants.EMPTY_STRING;
-			quote.APT_Zone__c=APT_Constants.EMPTY_STRING;
-			if(mapPLI.get(quote.Id) != null){
-
-				for(Apttus_Proposal__Proposal_Line_Item__c qPLI:mapPLI.get(quote.Id)){
-
-					IF(!setProducts.contains(qPLI.APT_Product_and_Price_Structure__c) && qPLI.APT_Product_and_Price_Structure__c!=NULL){
-						setProducts.add(qPLI.APT_Product_and_Price_Structure__c);
-
-						IF(String.IsEmpty(quote.APT_Product_names__c)){
-						   quote.APT_Product_names__c=qPLI.APT_Product_and_Price_Structure__c;
-						}else{
-							quote.APT_Product_names__c= quote.APT_Product_names__c+APT_Constants.SEPERATOR_COMMA+qPLI.APT_Product_and_Price_Structure__c;
-						}
-					 }
-
-					 IF(!setZones.contains(string.valueof(qPLI.APT_Zone__c))){
-						setZones.add(qPLI.APT_Zone__c);
-						IF(String.IsEmpty(quote.APT_Zone__c)){
-						   quote.APT_Zone__c =qPLI.APT_Zone__c;
-						} else{
-							quote.APT_Zone__c = quote.APT_Zone__c+APT_Constants.SEPERATOR_COMMA+qPLI.APT_Zone__c;
-						}
-					 }
-				 }
-		   }
-
-			//set non contracted mail products
-			if(quote.APT_Product_names__c != null && (quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_NonContractedUMS) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_NonContractedPrintPost)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_CLEAN_MAIL) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_SAMPLE_POST)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_PRESORT_LETTERS) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_IMPACT_MAIL)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_ACQUISITION_MAIL) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_CHARITY_MAIL)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_REGISTERED_POST) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_PO_BOXES)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_COUNCILLOR_MAIL) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_PROMO_POST)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_IMPRINT_METERED_POST) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_REPLY_PAID)
-													|| quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_LOCAL_COUNTRY_LETTER) || quote.APT_Product_names__c.contains(APT_Constants.PRODUCT_NAME_COMPETITION_MAIL))){
-
-				quote.APT_Non_Contracted_Mail_Products__c = true;
-			} else {
-				quote.APT_Non_Contracted_Mail_Products__c = false;
-			}
-
-			lstQuotesToUpdate.add(quote);
-		 }
-
-		 Update lstQuotesToUpdate;
-		 }catch(Exception e){
-			system.debug('Expception -'+e);
-		}
-	}
-	**/
-
-	/**
-	 To mark Proposal Line Items when the single product is added multiple times
-	**/
-	/*************
-	//1834 | moved to create proposal button click
-	 public static void checkIdenticalLines(set<Id> finalizedQuoteIds) {
-		 try {
-			 set<string> setUniqueLines = new set<string>();
-			 List<Apttus_Proposal__Proposal_Line_Item__c> lstIdenticalLines = new List<Apttus_Proposal__Proposal_Line_Item__c>();
-			 for(Apttus_Proposal__Proposal_Line_Item__c pLI:[select id,Apttus_Proposal__Product__c,Apttus_QPConfig__OptionId__c,Apttus_QPConfig__ChargeType__c,APT_Identical_Line__c from Apttus_Proposal__Proposal_Line_Item__c where Apttus_Proposal__Proposal__c IN :finalizedQuoteIds]){
-			   Id productId;
-			   if(pLI.Apttus_QPConfig__OptionId__c !=null){
-				  productId = pLI.Apttus_QPConfig__OptionId__c;
-			   }else{
-				 productId = pLI.Apttus_Proposal__Product__c;
-			   }
-
-			   if(setUniqueLines.contains(productId+pLI.Apttus_QPConfig__ChargeType__c)){
-				 pLI.APT_Identical_Line__c =true;
-				lstIdenticalLines.add(pLI);
-			   }else{
-				 setUniqueLines.add(productId+pLI.Apttus_QPConfig__ChargeType__c);
-			   }
-			 }
-
-			if(lstIdenticalLines.size()>0){
-			  update lstIdenticalLines;
-			}
-		}catch(Exception e){
-			system.debug('Expception -'+e);
-		}
-	 }
-	 //1834
-	 *******************/
 
 	 //CR148/13
 	 //Added By Lyndon Lavapie
 	 //Calculate and assignment value for "Revenue Decrease" to Oppty
 	public static void calculateRevenueDecrease(List<Apttus_Proposal__Proposal__c> decreaseAmendment) {
-		System.debug('calculateRevenueDecrease');
 		Map<Id,Id> originalOppty = new Map<Id,Id>();
 
 		Set<Id> accountId = new Set<Id>();
@@ -1074,16 +813,14 @@ public without sharing class APT_ProposalTriggerHandler {
 				agreementNumber.add(cont.Apttus__Agreement_Number__c);
 			}
 
-			for (AggregateResult ar : [SELECT APT_Quote_Proposal__c, SUM(APT_TotalPrice__c) FROM APT_Opportunity_Product_Line_Item__c where APT_Quote_Proposal__c in: decreaseAmendment GROUP BY APT_Quote_Proposal__c])  {
+			for (AggregateResult ar : [SELECT APT_Quote_Proposal__c, SUM(APT_TotalPrice__c) FROM APT_Opportunity_Product_Line_Item__c where APT_Quote_Proposal__c in: decreaseAmendment GROUP BY APT_Quote_Proposal__c]) {
 				proposalTotalPrice.put((Id)ar.get('APT_Quote_Proposal__c'), (Decimal)ar.get('expr0'));
 			}
-			system.debug('proposalTotalPrice:' + proposalTotalPrice);
 			for(Apttus__APTS_Agreement__c contract : [Select Id, Apttus__Related_Opportunity__c, Apttus__Account__c From Apttus__APTS_Agreement__c where Apttus__Account__c in: accountId AND Apttus__Agreement_Number__c in: agreementNumber AND ((Apttus__Status__c =: APT_AmendRenewController.SUPERSEDED_STATUS AND Apttus__Status_Category__c =: APT_AmendRenewController.AMENDED_STATUS_CATEGORY) OR Id in: contractIds)]){
 				opptyBundleMap.put(contract.Apttus__Related_Opportunity__c, contract.Apttus__Account__c);
 
 			}
-			system.debug('opptyBundleMap:' + opptyBundleMap);
-			for (AggregateResult ar : [SELECT AccountId, SUM(Amount), Max(APT_Revenue_Decrease__c) FROM Opportunity where Id in: opptyBundleMap.keyset() GROUP BY AccountId])  {
+			for (AggregateResult ar : [SELECT AccountId, SUM(Amount), Max(APT_Revenue_Decrease__c) FROM Opportunity where Id in: opptyBundleMap.keyset() GROUP BY AccountId]) {
 				//proposalTotalPrice.put((Id)ar.get('APT_Quote_Proposal__c'), (Decimal)ar.get('expr0'));
 				opptyTotalAmount.put((Id)ar.get('AccountId'), (Decimal)ar.get('expr0'));
 				opptyTotalDecrease.put((Id)ar.get('AccountId'), (Decimal)ar.get('expr1'));
@@ -1092,11 +829,7 @@ public without sharing class APT_ProposalTriggerHandler {
 
 
 			for(Opportunity oppty: [Select Id, Amount, AccountId From Opportunity where id in: originalOppty.keyset()]){
-				system.debug('opptyToUpdate:'+ oppty.AccountId);
 				if(opptyTotalAmount.containsKey(oppty.AccountId)){
-						system.debug('opptyTotalAmount:'+ opptyTotalAmount.get(oppty.AccountId));
-						system.debug('opptyTotalDecrease:'+ opptyTotalDecrease.get(oppty.AccountId));
-						system.debug('proposalTotalPrice:'+ proposalTotalPrice.get(originalOppty.get(oppty.Id)));
 						//Decimal decreaseRev = opptyTotalDecrease.get(oppty.AccountId));
 
 						Decimal decreaseRev = opptyTotalDecrease.get(oppty.AccountId) == null ? 0 : opptyTotalDecrease.get(oppty.AccountId);
@@ -1112,9 +845,8 @@ public without sharing class APT_ProposalTriggerHandler {
 				update opptyToUpdate;
 			}
 		}catch(Exception e){
-			system.debug('Expception -'+e);
+			return null;
 		}
-
 	}
 
 	/**
@@ -1149,7 +881,7 @@ public without sharing class APT_ProposalTriggerHandler {
 	}
 
 	//STP-5088 To update Proposal Owner with the value of Opportunity Driver (Opportunity'owner)
-	  /*public static string setOpportunityDriver(Map<Id, Apttus_Proposal__Proposal__c> newProposalMap) {
+	 /*public static string setOpportunityDriver(Map<Id, Apttus_Proposal__Proposal__c> newProposalMap) {
 		Map<String, String> opportunityToProposal = new Map<String, String>();
 
 		try{
@@ -1179,7 +911,7 @@ public without sharing class APT_ProposalTriggerHandler {
 	/**
 	* @description : This method will be called from BeforeInsert Trigger
 	* @author Mansi Shah | 06-10-2021
-	* @param  listOfNewProposals
+	* @param listOfNewProposals
 	*/
 	public static void onBeforeInsert(List<Apttus_Proposal__Proposal__c> listOfNewProposals){
 		APT_ProposalTriggerHelper.updateProposalOwner(listOfNewProposals);

@@ -41,7 +41,7 @@ Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason 
 
 @changelog:
 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
-2023-07-06  nasir.jawed2@auspost.com.au Added method goToOpportunity(), and in doAmend(),doRenew() and when helps the user to select an opportunity for DOV.
+2023-07-06 nasir.jawed2@auspost.com.au Added method goToOpportunity(), and in doAmend(),doRenew() and when helps the user to select an opportunity for DOV.
 **/
 
 public with sharing class APT_AmendRenewController {
@@ -101,13 +101,11 @@ public with sharing class APT_AmendRenewController {
 		// 28/05/2020 LJ Removed the SOQL - SOQL 101 Error FIX
 		displayCatValues = new list<APT_R2T_Renew_DoV_Properties__c>();
 		List<APT_R2T_Renew_DoV_Properties__c> catgoryValues = APT_R2T_Renew_DoV_Properties__c.getAll().values();
-		 system.debug( catgoryValues.size());
 		for (APT_R2T_Renew_DoV_Properties__c item : catgoryValues){
 			if(item.APT_Type__c == APT_Constants.ACTION_NAME_DoV ){
 				displayCatValues.add(item);
 			}
 		}
-		system.debug( displayCatValues);
 		displayCatValues.sort();
 		return displayCatValues;
 	}
@@ -141,8 +139,8 @@ public with sharing class APT_AmendRenewController {
 	 * This method is used to display a new picklist field on the page "DOV Reason " which gets rendered on selection of "Revenue Type"
 	*/
 	/*public void renderDovReasonPicklist() {
-	  try{
-		   //Resetting the variables on reshuffling of the Revenue type Values
+	 try{
+		 //Resetting the variables on reshuffling of the Revenue type Values
 			oppName ='';
 			oppId = null;
 			displayLookup = false;
@@ -152,7 +150,7 @@ public with sharing class APT_AmendRenewController {
 			reasons.add(new SelectOption(APT_Constants.SELECT_OPTION_NONE,APT_Constants.SELECT_OPTION_NONE));
 
 			/* Fetching the Values from the Custom Setting to get the Values from the DOV increase reason and DOV increase/decrease
-			   reason and populate them them based on the selection of Revenue type
+			 reason and populate them them based on the selection of Revenue type
 			Map<String , APT_R2T_Renew_DoV_Properties__c> maptR2TRenewDoVProperties = APT_R2T_Renew_DoV_Properties__c.getall();
 			List<String> dovReasons = new List<String>();
 			// Adding all the values to the List
@@ -176,7 +174,7 @@ public with sharing class APT_AmendRenewController {
 			}
 		}
 		catch (System.Exception ex) {
-		   ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
+		 ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
 		}
 	}*/
 
@@ -188,7 +186,6 @@ public with sharing class APT_AmendRenewController {
 		Description: This method will check if Opportunity Lookup needs to be displayed on UI or not
 	*/
 	public void checkOpprtunityDisplay(){
-		System.debug('Test');
 		// Setting the display Display Lookup Reason boolean to true
 			if('Increase Revenue'.equalsIgnoreCase(selectedRevenue)){
 				displayLookup = true;
@@ -236,7 +233,7 @@ public with sharing class APT_AmendRenewController {
 		// Setting the value for opportunitySubType filter based on Revenue Type Selection by the User when User is Doing DOV
 		//Increase Revenue
 		//STp-3031 krishna.velani@auspost.com.au on 26thFeb: Commented below logic and removed subtype filter from If-Else block so that it fetches all open opportunites associated with the organization
-	   /* if(actionName.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV) && 'Increase Revenue'.equalsIgnoreCase(selectedRevenue)){
+	 /* if(actionName.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV) && 'Increase Revenue'.equalsIgnoreCase(selectedRevenue)){
 			opportunitySubType = 'DoV Increase';
 		}
 		//Decrease Revenue
@@ -248,10 +245,10 @@ public with sharing class APT_AmendRenewController {
 			opportunitySubType = 'Re-Contract';
 		}*/
 		/* Query the Opportunity based upon the name match or Opportunity Number match which user enters . Query filters the opportunity records within
-		   same Organisation as Active Contract from which the DOV is initiated .
-		   Also putting an inner query to get at least one proposal associated to Opportunity which is a Primary Proposal . This would be used later to
-		   restrict user to use any such opportunity which is already having an active proposal when they click on Continue Button by displaying them an
-		   error . Adding an inner query here to save a SOQL on doAmend() in order to find if selected opportunity has any active proposal linked to them */
+		 same Organisation as Active Contract from which the DOV is initiated .
+		 Also putting an inner query to get at least one proposal associated to Opportunity which is a Primary Proposal . This would be used later to
+		 restrict user to use any such opportunity which is already having an active proposal when they click on Continue Button by displaying them an
+		 error . Adding an inner query here to save a SOQL on doAmend() in order to find if selected opportunity has any active proposal linked to them */
 
 		if(!String.isblank(oppName) && !String.isblank(relatedAccountId) ){
 			oppList = [Select id,Name,Account.name,Opportunity_Number__c,Opportunity_SubType__c,LastmodifiedDate, amount,
@@ -263,11 +260,11 @@ public with sharing class APT_AmendRenewController {
 		}
 		//If user chooses to view the Opportunities under the same Organisation as the original account without wanting to put any oppoortunity name or number
 		else if(String.isblank(oppName) && !String.isblank(relatedAccountId)){
-		   oppList = [Select id,Name,Account.name,Opportunity_Number__c,Opportunity_SubType__c,LastmodifiedDate, amount,
-					  (Select id from R00N70000001yUfDEAU where Apttus_Proposal__Primary__c = true LIMIT 1),
-					   stagename, isClosed , Owner.Name
-					   from Opportunity WHERE
-					   isClosed=false AND Accountid=:relatedAccountId LIMIT 1000];
+		 oppList = [Select id,Name,Account.name,Opportunity_Number__c,Opportunity_SubType__c,LastmodifiedDate, amount,
+					 (Select id from R00N70000001yUfDEAU where Apttus_Proposal__Primary__c = true LIMIT 1),
+					 stagename, isClosed , Owner.Name
+					 from Opportunity WHERE
+					 isClosed=false AND Accountid=:relatedAccountId LIMIT 1000];
 		}
 		else{
 			oppList = new List<Opportunity>();
@@ -304,10 +301,10 @@ public with sharing class APT_AmendRenewController {
 	*/
 	public PageReference goToOpportunity(){
 		// Set's the opportunity name Variable
-		oppName = ApexPages.currentPage().getParameters().get('oppName');
+		oppName =string.escapeSingleQuotes(ApexPages.currentPage().getParameters().get('oppName'));
 
 		// Set's the opportunity id to associate the proposal with
-		oppId= ApexPages.currentPage().getParameters().get('oppId');
+		oppId= string.escapeSingleQuotes(ApexPages.currentPage().getParameters().get('oppId'));
 
 		//fetching the opportunity record by using selector
 		map<Id,Opportunity> oppMap = OpportunitySelector.newInstance(0,new Set<SObjectField>{opportunity.IsStartrackProposal__c,opportunity.APTPostcodeSuburb__c,opportunity.APTMinimumMonthlySpend__c}).selectById(new Set<Id>{oppId});
@@ -413,8 +410,8 @@ public with sharing class APT_AmendRenewController {
 							Apttus_QPComply__RelatedProposalId__r.APT_Use_Offline_Rates__c,
 					(
 							SELECT id,Apttus_CMConfig__DerivedFromId__c,Apttus__AgreementId__c
-							FROM  Apttus__AgreementLineItems__r
-							WHERE  Apttus_CMConfig__DerivedFromId__r.APT_International_PCMS_or_CSP__c =: APT_Constants.PRODUCT_DETAILS_PCMS AND
+							FROM Apttus__AgreementLineItems__r
+							WHERE Apttus_CMConfig__DerivedFromId__r.APT_International_PCMS_or_CSP__c =: APT_Constants.PRODUCT_DETAILS_PCMS AND
 							Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__ProductId__r.ProductCode =: APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE
 							LIMIT 1
 					)
@@ -458,7 +455,7 @@ public with sharing class APT_AmendRenewController {
 							&& !String.isEmpty(R2TRenewDoVProperty.APT_Type__c) && R2TRenewDoVProperty.APT_Type__c.equalsIgnoreCase(APT_Constants.ACTION_TYPE_RENEWAL)) ||
 							// if cs type is aligned with the amendment page action, populate option
 							(!String.isEmpty(R2TRenewDoVProperty.APT_Category__c) && !String.isEmpty(actionName) && actionName.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV )
-									&&  !String.isEmpty(R2TRenewDoVProperty.APT_Type__c) && R2TRenewDoVProperty.APT_Type__c.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV ))
+									&& !String.isEmpty(R2TRenewDoVProperty.APT_Type__c) && R2TRenewDoVProperty.APT_Type__c.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV ))
 					) {
 				listCategory.add(new SelectOption(R2TRenewDoVProperty.APT_Category__c, R2TRenewDoVProperty.APT_Category__c));
 			}// End If
@@ -496,7 +493,7 @@ public with sharing class APT_AmendRenewController {
 			}
 
 			/* Shashwat.Nath@Auspost.com has added the below code to check if the selected opportunity has an associated proposal which is primary
-			   then display an error to user and do not allow them to proceed further with that opportunity */
+			 then display an error to user and do not allow them to proceed further with that opportunity */
 			if(!String.isBlank(oppId)){
 				//Iterating over the open Opportunity list for the same revenue type within the same organisation as Active Contract
 				for(Opportunity opportunityRecord :oppList){
@@ -515,14 +512,14 @@ public with sharing class APT_AmendRenewController {
 			Boolean bCreateOpportunity = false;
 			Boolean bCreateQuote = false;
 			Boolean bCreateAgreement = false;
-			Boolean bRequireCustomerSignature = false;  //defect 1336
+			Boolean bRequireCustomerSignature = false; //defect 1336
 
 			if( !String.isEmpty(actionName) && actionName.equalsIgnoreCase(APT_Constants.ACTION_NAME_RENEW)) {
 				list<APT_R2T_Renew_DoV_Properties__c> listR2TRenewDoVProperties = APT_R2T_Renew_DoV_Properties__c.getall().values();
 				if(listR2TRenewDoVProperties != null && listR2TRenewDoVProperties.size() > 0){
 					for(APT_R2T_Renew_DoV_Properties__c renewDovProperty : listR2TRenewDoVProperties) {
 						if( !String.isEmpty(renewDovProperty.APT_Type__c) && renewDovProperty.APT_Type__c.equalsIgnoreCase(APT_Constants.ACTION_TYPE_RENEWAL)
-								&&  !String.isEmpty(renewDovProperty.APT_Category__c) && renewDovProperty.APT_Category__c.equalsIgnoreCase(selectedCategory)) {
+								&& !String.isEmpty(renewDovProperty.APT_Category__c) && renewDovProperty.APT_Category__c.equalsIgnoreCase(selectedCategory)) {
 
 							bCreateOpportunity = renewDovProperty.APT_Create_Opportunity__c;
 							bCreateQuote = renewDovProperty.APT_Create_Quote__c;
@@ -566,7 +563,6 @@ public with sharing class APT_AmendRenewController {
 			}
 
 			//defect 1336
-			system.debug('*** selectedCategory **'+selectedCategory);
 			agreement.APT_SelectedContractAmendRenewCategory__c = selectedCategory;
 			agreement.APT_Require_Customer_Signature__c = bRequireCustomerSignature;
 
@@ -577,7 +573,7 @@ public with sharing class APT_AmendRenewController {
 				haserrorMessages = true;
 				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_SETTING_NOT_CONFIGURED));
 				return null;
-			} else if(!bCreateOpportunity  && !bCreateQuote && !bCreateAgreement) {
+			} else if(!bCreateOpportunity && !bCreateQuote && !bCreateAgreement) {
 				haserrorMessages = true;
 				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_SETTING_NOT_CONFIGURED));
 				return null;
@@ -585,15 +581,15 @@ public with sharing class APT_AmendRenewController {
 				haserrorMessages = true;
 				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_SETTING_NOT_CONFIGURED));
 				return null;
-			} else {}
+			} 
 
 			//create opportunity
 			String opportunityId;
 			if(bCreateOpportunity) {
-				if(agreement != null &&  !String.isEmpty(agreement.Apttus__Related_Opportunity__c)) {
+				if(agreement != null && !String.isEmpty(agreement.Apttus__Related_Opportunity__c)) {
 					/* Shashwat.Nath@Auspost.com has added the below if else condition to make sure that new opportunity is
-					   created for the renewal only if user has not selected any existing opportunity to associate the renewal with
-					   after clicking on "Renew" button on Apttus Contract Record */
+					 created for the renewal only if user has not selected any existing opportunity to associate the renewal with
+					 after clicking on "Renew" button on Apttus Contract Record */
 
 					if(String.isBlank(oppId) || (!String.isBlank(oppId) && String.isBlank(oppName))){
 						Opportunity clonedOpportunity = APT_AmendRenewUtility.cloneOpporunity(agreement, APT_Constants.ACTION_TYPE_RENEWAL);
@@ -602,12 +598,12 @@ public with sharing class APT_AmendRenewController {
 					}
 					else{
 						/* Setting the opportunity Id to the Existing opportunity which User has selected to associate the renewal after clicking
-						   Renew button on Apttus Contract detail Page */
-						opportunityId = oppId;
+						 Renew button on Apttus Contract detail Page */
+						opportunityId = string.escapeSingleQuotes(oppId);
 						//Link the original Opportunity to this Existing opportunity which user has selected
 						Opportunity existingOpportunity = new Opportunity();
 						//Setting the Opportunity Id
-						existingOpportunity.id = oppId;
+						existingOpportunity.id = string.escapeSingleQuotes(oppId);
 						// Linking the Existing Opportunity with Original Opportunity Which is Associated to Apttus Contract from where the DOV Was Started
 						existingOpportunity.ECLM_Original_Opportunity_No__c = agreement.Apttus__Related_Opportunity__c;
 						//Update existing Opportunity
@@ -628,7 +624,7 @@ public with sharing class APT_AmendRenewController {
 						insert listClonedOpportunityLineItem;
 					}*/
 				} else {
-					  // Create a new Opportunity only if user has not selected an existing opportunity to associate the Renewal to
+					 // Create a new Opportunity only if user has not selected an existing opportunity to associate the Renewal to
 							if(String.isBlank(oppId) || (!String.isBlank(oppId) && String.isBlank(oppName))){
 								//new opportunity
 								Opportunity newOpportunity = APT_AmendRenewUtility.newOpportunity(agreement, APT_Constants.ACTION_TYPE_RENEWAL);
@@ -637,7 +633,7 @@ public with sharing class APT_AmendRenewController {
 							}
 							// Assign the existing opportunity Id which user has selected to assosiate the renewal to
 							else{
-								 opportunityId = oppId;
+								 opportunityId = string.escapeSingleQuotes(oppId);
 							}
 					}
 			}
@@ -655,7 +651,7 @@ public with sharing class APT_AmendRenewController {
 				//default price list id
 				APT_R2T_System_Properties__c r2tSystemProperty = APT_R2T_System_Properties__c.getOrgDefaults();
 				String priceListId;
-				if(r2tSystemProperty != null &&  !String.isEmpty(r2tSystemProperty.APT_Default_Price_List_ID__c)) {
+				if(r2tSystemProperty != null && !String.isEmpty(r2tSystemProperty.APT_Default_Price_List_ID__c)) {
 					priceListId = r2tSystemProperty.APT_Default_Price_List_ID__c;
 				} else {
 					Database.rollback(sp);
@@ -664,7 +660,7 @@ public with sharing class APT_AmendRenewController {
 					return null;
 				}
 
-				if(agreement != null &&  !String.isEmpty(agreement.Apttus_QPComply__RelatedProposalId__c)) {
+				if(agreement != null && !String.isEmpty(agreement.Apttus_QPComply__RelatedProposalId__c)) {
 					//clone proposal
 					Apttus_Proposal__Proposal__c clonedProposal = APT_AmendRenewUtility.cloneProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE, opportunityId, priceListId, agreement);
 					insert clonedProposal;
@@ -683,8 +679,6 @@ public with sharing class APT_AmendRenewController {
 
 					//copy proposal child records PST
 					bResult = APT_AmendRenewUtility.copyProposalChildRecords(agreement.Apttus_QPComply__RelatedProposalId__c, clonedProposal.Id, agreement.Included_Product_Lines__c, APT_Constants.ACTION_NAME_RENEW, clonedProposal.APT_Contract_Id__c);
-					system.debug('====>'+agreement.Apttus_QPComply__RelatedProposalId__c+'Clone Id ::'+clonedProposal.Id);
-
 					//bResult = Apttus_QPConfig.QPConfigWebService.copyProductConfiguration(agreement.Apttus_QPComply__RelatedProposalId__c, clonedProposal.Id);
 
 					if(!bResult) {
@@ -768,7 +762,7 @@ public with sharing class APT_AmendRenewController {
 			//create agreement
 			if(bCreateAgreement) {
 				//renew agreement
-				Apttus__APTS_Agreement__c  renewedAgreement = APT_AmendRenewUtility.renewAgreement(APT_Constants.RECORD_TYPE_RENEWAL_CONTRACT,
+				Apttus__APTS_Agreement__c renewedAgreement = APT_AmendRenewUtility.renewAgreement(APT_Constants.RECORD_TYPE_RENEWAL_CONTRACT,
 						opportunityId, proposalId, agreement);
 				insert renewedAgreement;
 
@@ -823,7 +817,7 @@ public with sharing class APT_AmendRenewController {
 			}
 
 			/* Shashwat.Nath@auspost.com has added the below if condition display an error on page if user does not selects a
-			   DOV reason after selecting the Revenue Type Picklist as Increase Revenue */
+			 DOV reason after selecting the Revenue Type Picklist as Increase Revenue */
 			/* Modified By: Mansi Shah - commented the below code as we are not showing DoV Reason on this page anymore as per User Story - STP-5134*/
 
 			/*if(selectedCategory.equalsIgnoreCase(CATEGORY_DOV_PROPANDCONTR) && 'Increase Revenue'.equalsIgnoreCase(selectedRevenue)
@@ -836,7 +830,7 @@ public with sharing class APT_AmendRenewController {
 
 
 			/* Shashwat.Nath@Auspost.com has added the below code to check if the selected opportunity has an associated proposal which is primary
-			   then display an error to user and do not allow them to proceed further with that opportunity */
+			 then display an error to user and do not allow them to proceed further with that opportunity */
 			if(!String.isBlank(oppId)){
 				//Iterating over the open Opportunity list for the same revenue type within the same organisation as Active Contract
 				for(Opportunity opportunityRecord :oppList){
@@ -857,14 +851,14 @@ public with sharing class APT_AmendRenewController {
 			boolean bCreateOpportunity = false;
 			boolean bCreateQuote = false;
 			boolean bCreateAgreement = false;
-			boolean bRequireCustomerSignature = false;  //defect 1336
+			boolean bRequireCustomerSignature = false; //defect 1336
 
 			if( !String.isEmpty(actionName) && actionName.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV )) {
 				list<APT_R2T_Renew_DoV_Properties__c> listR2TRenewDoVProperties = APT_R2T_Renew_DoV_Properties__c.getall().values();
 				if(listR2TRenewDoVProperties != null && listR2TRenewDoVProperties.size() > 0){
 					for(APT_R2T_Renew_DoV_Properties__c renewDovProperty : listR2TRenewDoVProperties) {
 						if( !String.isEmpty(renewDovProperty.APT_Type__c) && renewDovProperty.APT_Type__c.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV )
-								&&  !String.isEmpty(renewDovProperty.APT_Category__c) && renewDovProperty.APT_Category__c.equalsIgnoreCase(selectedCategory)) {
+								&& !String.isEmpty(renewDovProperty.APT_Category__c) && renewDovProperty.APT_Category__c.equalsIgnoreCase(selectedCategory)) {
 
 							bCreateCase = renewDovProperty.APT_Create_Case__c;
 							bCreateQuote = renewDovProperty.APT_Create_Quote__c;
@@ -875,22 +869,15 @@ public with sharing class APT_AmendRenewController {
 					}
 				}
 			}
-
-			system.debug('*** bCreateQuote ***'+bCreateQuote);
-			system.debug('*** bCreateAgreement ***'+bCreateAgreement);
-			system.debug('*** bCreateCase ***'+bCreateCase);
-
 			if(bCreateQuote && bCreateAgreement) {
-				system.debug('*** 1 ***');
 				haserrorMessages = true;
 				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_SETTING_NOT_CONFIGURED));
 				return null;
 			} else if(bCreateCase && (bCreateQuote || bCreateAgreement)) {
-				system.debug('*** 2 ***');
 				haserrorMessages = true;
 				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_SETTING_NOT_CONFIGURED));
 				return null;
-			} else {}
+			} 
 
 			// 28/05/2020 LJ conditional query - SOQL 101 Error FIX
 			if ( agreement == null || agreement.Id != agreementId) {
@@ -923,7 +910,6 @@ public with sharing class APT_AmendRenewController {
 				}
 			}
 			//defect 1336
-			system.debug('*** selectedCategory **'+selectedCategory);
 			agreement.APT_SelectedContractAmendRenewCategory__c = selectedCategory;
 			agreement.APT_Require_Customer_Signature__c = bRequireCustomerSignature;
 
@@ -944,13 +930,13 @@ public with sharing class APT_AmendRenewController {
 			//create opportunity
 			String opportunityId;
 			if(bCreateOpportunity) {
-				if(agreement != null &&  !String.isEmpty(agreement.Apttus__Related_Opportunity__c)) {
+				if(agreement != null && !String.isEmpty(agreement.Apttus__Related_Opportunity__c)) {
 					//CR-148/13 Start
 					//Added By Lyndon Lavapie
 					//Assign the Original oppty as related oppty if decrease revenue type
 					/* Shashwat.Nath@Auspost.com Commented the below line of code where for Decrease in Revenue would associate the new Proposal to
-					   original Opportunity . However going forward even Decrease in Revenue would create either a new opportunity from original Opportunity
-					   or would link the DOV to an existing Opportunity which is selected by User */
+					 original Opportunity . However going forward even Decrease in Revenue would create either a new opportunity from original Opportunity
+					 or would link the DOV to an existing Opportunity which is selected by User */
 					/*if(selectedRevenue == APT_AmendRenewController.DECREASE_REVENUE){
 						opportunityId = agreement.Apttus__Related_Opportunity__c;
 					}*/
@@ -959,11 +945,10 @@ public with sharing class APT_AmendRenewController {
 					//Clone Oppty
 					//else{//if(selectedRevenue == 'Increase Revenue')
 						//clone opportunit
-						//system.debug('**Account Name**'+accName);
 
 						/*Shashwat.Nath@Auspost.com Added below if else condition to differentiate the process between new Opportunity creation vs
-						   Linking the DOV with an existing Opportunity . If block code would fire when user goes with new opportunity Creation for
-						   DOV and else block would run when User selects an existing Opportunity to associate the DOV with */
+						 Linking the DOV with an existing Opportunity . If block code would fire when user goes with new opportunity Creation for
+						 DOV and else block would run when User selects an existing Opportunity to associate the DOV with */
 						/* STP-3031: krishna.velani@auspost.com.au added logic to update Opportunity subtype for Increase and Decrease Revenue */
 						if(String.isBlank(oppId) || (!String.isBlank(oppId) && String.isBlank(oppName))){
 
@@ -996,7 +981,7 @@ public with sharing class APT_AmendRenewController {
 							// Creating Opportunity Instance to Update the Existing Opportunity.
 							Opportunity existingOpportunity = new Opportunity();
 							//Setting the Opportunity Id
-							existingOpportunity.id = oppId;
+							existingOpportunity.id = string.escapeSingleQuotes(oppId);
 							// Linking the Existing Opportunity with Original Opportunity Which is Associated to Apttus Contract from where the DOV Was Started
 							existingOpportunity.ECLM_Original_Opportunity_No__c = agreement.Apttus__Related_Opportunity__c;
 							// Setting the DOV Reason on Existing Opportunity
@@ -1012,26 +997,13 @@ public with sharing class APT_AmendRenewController {
 							opportunitiesToBeUpdated.add(existingOpportunity);
 
 							// Setting the Opportunity id Variable to the id of the Existing opportunity to be later used during the creation of new proposal
-							opportunityId = oppId;
+							opportunityId = string.escapeSingleQuotes(oppId);
 
 							//Updating the opportunities
 							List<Database.SaveResult> result = database.update(opportunitiesToBeUpdated,false);
 						}
-				   // }
+				 // }
 					//End
-
-					/*
-					list<OpportunityLineItem> listOpportunityLineItem = [SELECT Id, Name, Description, OpportunityId, PriceBookEntryId,
-																			Quantity, UnitPrice, Subtotal, Classification__c,
-																			Sub_Classification__c, Contract_End_Date__c, Contract_Start_Date__c,
-																			ProdClassFieldUpdate__c
-																			FROM OpportunityLineItem
-																			WHERE opportunityId = :agreement.Apttus__Related_Opportunity__c];
-
-					if(listOpportunityLineItem != null && listOpportunityLineItem.size() > 0) {
-						list<OpportunityLineItem> listClonedOpportunityLineItem = APT_AmendRenewUtility.cloneOpporunityProducts(clonedOpportunity.Id, agreement, listOpportunityLineItem, APT_Constants.ACTION_NAME_DoV);
-						insert listClonedOpportunityLineItem;
-					}*/
 				} else {
 					 // Create a new Opportunity only if user has not selected an existing opportunity to associate the Renewal to
 							if(String.isBlank(oppId) || (!String.isBlank(oppId) && String.isBlank(oppName))){
@@ -1042,7 +1014,7 @@ public with sharing class APT_AmendRenewController {
 							}
 							// Assign the existing opportunity Id which user has selected to assosiate the DoV with
 							else{
-								 opportunityId = oppId;
+								 opportunityId = string.escapeSingleQuotes(oppId);
 							}
 					}
 			}
@@ -1060,7 +1032,7 @@ public with sharing class APT_AmendRenewController {
 				//default price list id
 				APT_R2T_System_Properties__c r2tSystemProperty = APT_R2T_System_Properties__c.getOrgDefaults();
 				String priceListId;
-				if(r2tSystemProperty != null &&  !String.isEmpty(r2tSystemProperty.APT_Default_Price_List_ID__c)) {
+				if(r2tSystemProperty != null && !String.isEmpty(r2tSystemProperty.APT_Default_Price_List_ID__c)) {
 					priceListId = r2tSystemProperty.APT_Default_Price_List_ID__c;
 				} else {
 					Database.rollback(sp);
@@ -1069,7 +1041,7 @@ public with sharing class APT_AmendRenewController {
 					return null;
 				}
 
-				if(agreement != null &&  !String.isEmpty(agreement.Apttus_QPComply__RelatedProposalId__c)) {
+				if(agreement != null && !String.isEmpty(agreement.Apttus_QPComply__RelatedProposalId__c)) {
 					//clone proposal
 					Apttus_Proposal__Proposal__c clonedProposal = APT_AmendRenewUtility.cloneProposal(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE, opportunityId,
 							priceListId, agreement);
@@ -1094,7 +1066,6 @@ public with sharing class APT_AmendRenewController {
 					if(!bResult) {
 						Database.rollback(sp);
 						haserrorMessages = true;
-						system.debug('###### -Proposal ---');
 						ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_COPY_CONFIG_FIELDS));
 						return null;
 					}
@@ -1109,26 +1080,26 @@ public with sharing class APT_AmendRenewController {
 					}
 
 					//Deleting International Digital Bundle(Start)
-					/*      Id renewalRecordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Renewal Quote').getRecordTypeId();
-						  Id amendRecordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Amendment Quote').getRecordTypeId();
-			   List<Apttus_Config2__LineItem__c> ltli1 = new List<Apttus_Config2__LineItem__c>();
+					/* Id renewalRecordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Renewal Quote').getRecordTypeId();
+						 Id amendRecordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Amendment Quote').getRecordTypeId();
+			 List<Apttus_Config2__LineItem__c> ltli1 = new List<Apttus_Config2__LineItem__c>();
 				ltli1 = [SELECT Id,Apttus_Config2__ConfigurationId__c,
-													   APT_International_PCMS_or_CSP__c,Apttus_Config2__ProductId__r.ProductCode,
-													   Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c,
-													   Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordTypeId,
-													   Apttus_Config2__LineNumber__c,Apttus_Config2__ConfigurationId__r.id
-													   FROM Apttus_Config2__LineItem__c WHERE
+													 APT_International_PCMS_or_CSP__c,Apttus_Config2__ProductId__r.ProductCode,
+													 Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c,
+													 Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordTypeId,
+													 Apttus_Config2__LineNumber__c,Apttus_Config2__ConfigurationId__r.id
+													 FROM Apttus_Config2__LineItem__c WHERE
 				Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c =: clonedProposal.Id AND APT_International_PCMS_or_CSP__c =: APT_Constants.PRODUCT_DETAILS_PCMS AND Apttus_Config2__ProductId__r.ProductCode =: APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE AND
 				(Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordTypeId =: renewalRecordTypeId OR Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordTypeId =: amendRecordTypeId) LIMIT 1];
 
 
-				  if(!ltli1.isEmpty()){
+				 if(!ltli1.isEmpty()){
 					Apttus_CPQApi.CPQ.RemoveBundleRequestDO request = new Apttus_CPQApi.CPQ.RemoveBundleRequestDO();
-				  request.CartId = ltli1[0].Apttus_Config2__ConfigurationId__r.id;
-				  request.LineNumber = ltli1[0].Apttus_Config2__LineNumber__c;
-				  Apttus_CPQApi.CPQ.RemoveBundleResponseDO response = Apttus_CPQApi.CPQWebService.removeBundle(request);
+				 request.CartId = ltli1[0].Apttus_Config2__ConfigurationId__r.id;
+				 request.LineNumber = ltli1[0].Apttus_Config2__LineNumber__c;
+				 Apttus_CPQApi.CPQ.RemoveBundleResponseDO response = Apttus_CPQApi.CPQWebService.removeBundle(request);
 
-				  }*/
+				 }*/
 
 
 
@@ -1163,7 +1134,7 @@ public with sharing class APT_AmendRenewController {
 			//create agreement
 			if(bCreateAgreement) {
 				//renew agreement
-				Apttus__APTS_Agreement__c  amendedAgreement = APT_AmendRenewUtility.amendAgreement(APT_Constants.RECORD_TYPE_DOV_CONTRACT,
+				Apttus__APTS_Agreement__c amendedAgreement = APT_AmendRenewUtility.amendAgreement(APT_Constants.RECORD_TYPE_DOV_CONTRACT,
 						opportunityId, null, agreement, APT_Constants.ACTION_NAME_AMEND);
 
 				//1084
@@ -1171,8 +1142,6 @@ public with sharing class APT_AmendRenewController {
 				//1084
 
 				insert amendedAgreement;
-
-				system.debug('*** amendedAgreement ***'+amendedAgreement);
 				//build relationship with original agreement
 				Boolean bResult = APT_AmendRenewUtility.afterAmend(agreement.Id, amendedAgreement.Id, false);
 

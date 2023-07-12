@@ -40,7 +40,7 @@ Last Modified Date - 23rd Feb, 2021 | STP-4289 STPAC - DLWT: Ability to generate
 Last Modified By - Deepak Kemidi
 Last Modified Date - 7th Feb, 2023 | remove minimum spend field reference from account object
 2023-04-05 - Yatika Bansal - Updated code to populate agreement dates
-2023.04.19 Ken McGuire  Proposal field migration to opportunity
+2023.04.19 Ken McGuire Proposal field migration to opportunity
 2023-05-10 - Yatika Bansal - Added code to populate service dates on agreement line items.
 **/
 public with sharing class APT_AgreementTriggerHandler{
@@ -52,9 +52,9 @@ public with sharing class APT_AgreementTriggerHandler{
 			This method will update agreement's field based on field of owner user.(i.e. Manager, Seller Manager, Sales General Manager)
 			@params -
 			listOwner- list of Users
-			listAgreement  - list of Agreements
+			listAgreement - list of Agreements
 			**/
-		public static String  afterChangeofOwner(List<User>listOwner, List<Apttus__APTS_Agreement__c> listAgreement) {
+		public static String afterChangeofOwner(List<User>listOwner, List<Apttus__APTS_Agreement__c> listAgreement) {
 			try{
 				/*List<User> listOwner = new List<User>([SELECT Id,ManagerId,Seller_Manager__c,Sales_General_Manager__c from User where id in:setOwnerId]);*/
 				Map <Id,Id> mapOwner = new Map<Id,Id>();
@@ -66,7 +66,6 @@ public with sharing class APT_AgreementTriggerHandler{
 
 				//Not feasible with Process Builder – not possible to access User fields via Owner lookup in Process Builder
 				for(Apttus__APTS_Agreement__c agreement : listAgreement){
-					system.debug('@@@@'+String.valueOf(agreement.OwnerId).substring( 0,3 ));
 					if(String.valueOf(agreement.OwnerId).substring( 0,3 ).equalsIgnoreCase(APT_Constants.LABEL_USER_ID_PREFIX)){
 						agreement.APT_Seller_Manager__c = mapOwner.get(agreement.OwnerId);
 						agreement.APT_Sales_Director__c=mapOwner.get(agreement.APT_Seller_Manager__c);
@@ -83,15 +82,14 @@ public with sharing class APT_AgreementTriggerHandler{
 		/**
 			This method will update agreement's Product lines field by looking at the products selected in the related proposal line items.
 			@params -
-			listAgreement  - list of Agreements
+			listAgreement - list of Agreements
 			relatedProposalMap - Map of related Proposals with line Items
 			**/
-		public static String  setProductLines(List<Apttus__APTS_Agreement__c> listAgreement, Map<Id, Apttus_Proposal__Proposal__c> relatedProposalMap) {
+		public static String setProductLines(List<Apttus__APTS_Agreement__c> listAgreement, Map<Id, Apttus_Proposal__Proposal__c> relatedProposalMap) {
 			try{
 				for(Apttus__APTS_Agreement__c agreement : listAgreement){
-					system.debug('Related Proposal Id'+agreement.Apttus_QPComply__RelatedProposalId__c);
 					if(agreement.Apttus_QPComply__RelatedProposalId__c != null){
-						List<Apttus_Proposal__Proposal_Line_Item__c> proposalLineItems  = relatedProposalMap.get(agreement.Apttus_QPComply__RelatedProposalId__c)?.
+						List<Apttus_Proposal__Proposal_Line_Item__c> proposalLineItems = relatedProposalMap.get(agreement.Apttus_QPComply__RelatedProposalId__c)?.
 																						Apttus_Proposal__R00N70000001yUfBEAU__r;
 						if(proposalLineItems != null){
 							agreement.Included_Product_Lines__c = getRelevantProductLinesString(proposalLineItems);
@@ -113,7 +111,7 @@ public with sharing class APT_AgreementTriggerHandler{
 	/**
 		Method is used to derive the multi-select picklist value for included product lines on an agreement.
 		@params -
-		pLineItems  - list of Proposal line items
+		pLineItems - list of Proposal line items
 		**/
 
 		public static String getRelevantProductLinesString(List<Apttus_Proposal__Proposal_Line_Item__c> pLineItems) {
@@ -130,7 +128,7 @@ public with sharing class APT_AgreementTriggerHandler{
 		/**
 			 before Agreement is Fully Signed
 			**/
-		public static Void  beforeAgreementFullySigned(Map<Id, Apttus__APTS_Agreement__c> oldAgreementMap, List<Apttus__APTS_Agreement__c> newAgreementList) {
+		public static Void beforeAgreementFullySigned(Map<Id, Apttus__APTS_Agreement__c> oldAgreementMap, List<Apttus__APTS_Agreement__c> newAgreementList) {
 			Set<ID> proposalIdSet = new Set<ID>();
 			List<APT_Agreement_Lodgement_Point__c> agreementLPList = null;
 			Set<ID> agreementIds = new Set<ID>();
@@ -159,7 +157,7 @@ public with sharing class APT_AgreementTriggerHandler{
 					for(APT_Agreement_Lodgement_Point__c agrLP : agreementLPList){
 
 						if(null != agrLP.APT_Billing_Account__r.LEGACY_ID__c && String.isNotBlank(agrLP.APT_Billing_Account__r.LEGACY_ID__c)){
-							String BillingAccountId  = String.IsNotBlank(contractTOBillingAccountMap.get(agrLP.APT_Agreement__c))
+							String BillingAccountId = String.IsNotBlank(contractTOBillingAccountMap.get(agrLP.APT_Agreement__c))
 									? contractTOBillingAccountMap.get(agrLP.APT_Agreement__c) + APT_Constants.ADD_COMMA
 									: APT_Constants.SEPERATOR_NO_SPACE ;
 							if(!BillingAccountId.contains(agrLP.APT_Billing_Account__r.LEGACY_ID__c)) {
@@ -219,14 +217,6 @@ public with sharing class APT_AgreementTriggerHandler{
 						Boolean otherProductsFlag = otherProductsOnAgreementMap.get(agreement.Id) != null ? otherProductsOnAgreementMap.get(agreement.Id) : false;
 						Boolean eParcelProductsFlag = eParcelProductsOnAgreementMap.get(agreement.Id) != null ? eParcelProductsOnAgreementMap.get(agreement.Id) : false;
 						Boolean cspinternationalProductsFlag = cspProductsOnAgreementMap.get(agreement.Id) != null ? cspProductsOnAgreementMap.get(agreement.Id) : false;
-
-						system.debug('postalProductsFlag--->' + postalProductsFlag);
-						system.debug('otherProductsFlag--->' + otherProductsFlag);
-						system.debug('eParcelProductsFlag--->' + eParcelProductsFlag);
-						system.debug('cspinternationalProductsFlag--->' + cspinternationalProductsFlag);
-						system.debug('Eparcel--->' + (eParcelProductsFlag && !(otherProductsFlag) && !(postalProductsFlag) ));
-
-
 						if(eParcelProductsFlag && !(otherProductsFlag) && !(postalProductsFlag) ){
 							agreement.APT_Rollup_Product_Names__c = APT_Constants.eParcel_Product;
 						} else if(postalProductsFlag && !otherProductsFlag && !cspinternationalProductsFlag && !eParcelProductsFlag ) {
@@ -234,15 +224,6 @@ public with sharing class APT_AgreementTriggerHandler{
 						} else {
 							agreement.APT_Rollup_Product_Names__c = APT_Constants.Other_Product;
 						}
-
-						/*
-						if(postalProductsFlag && !otherProductsFlag && !eParcelProductsFlag){
-							agreement.APT_Rollup_Product_Names__c = APT_Constants.POSTAL_SERVICES;
-						} else if(eParcelProductsFlag && (otherProductsFlag || postalProductsFlag)){
-							agreement.APT_Rollup_Product_Names__c = APT_Constants.Other_Product;
-						} else if(eParcelProductsFlag && !otherProductsFlag && !otherProductsFlag){
-							agreement.APT_Rollup_Product_Names__c = APT_Constants.eParcel_Product;
-						} else {}*/
 					}
 				}
 			} catch(system.exception ex) {
@@ -259,7 +240,7 @@ public with sharing class APT_AgreementTriggerHandler{
 		public static void afterAgreementActivatedForChildAgreements(set<Id> setAgIds) {
 			if(setAgIds != null && setAgIds.size() > 0){
 				Map<Id,Apttus__APTS_Related_Agreement__c> mapAgreementToAgreement = new Map<ID,Apttus__APTS_Related_Agreement__c>();
-				List<Apttus__APTS_Related_Agreement__c>  relatedAgreementDetailsList = [select Apttus__APTS_Contract_To__c, Apttus__APTS_Contract_From__c,
+				List<Apttus__APTS_Related_Agreement__c> relatedAgreementDetailsList = [select Apttus__APTS_Contract_To__c, Apttus__APTS_Contract_From__c,
 						Apttus__APTS_Contract_To__r.Apttus__Version_Number__c
 				from Apttus__APTS_Related_Agreement__c
 				where Apttus__APTS_Contract_To__c in :setAgIds];
@@ -271,38 +252,6 @@ public with sharing class APT_AgreementTriggerHandler{
 					Set<ID> parentAgreementIdSet = new Set<ID>();
 					parentAgreementIdSet.addAll(mapAgreementToAgreement.keySet());
 
-					/**
-					//1655
-					String queryString = 'Select  '
-												+ getSelectFieldsString('APT_SAP_Contracts__c')
-												+ ' from APT_SAP_Contracts__c where APT_Apttus_Contract__c in: parentAgreementIdSet';
-					system.Debug('queryString-->' + queryString);
-					system.Debug('parentAgreementIdSet-->' + parentAgreementIdSet);
-					system.Debug('mapAgreementToAgreement-->' + mapAgreementToAgreement);
-					List<APT_SAP_Contracts__c> sapContractsList = database.query(queryString);
-					List<APT_SAP_Contracts__c> sapContractsToBeCloned = new List<APT_SAP_Contracts__c>();
-					if(sapContractsList != null && sapContractsList.size() > 0 ){
-						APT_SAP_Contracts__c cloneSAPContract;
-						for(APT_SAP_Contracts__c sapContract : sapContractsList){
-							cloneSAPContract = new APT_SAP_Contracts__c();
-							cloneSAPContract = sapContract.clone();
-							if(mapAgreementToAgreement.get(sapContract.APT_Apttus_Contract__c) != null){
-								cloneSAPContract.APT_Apttus_Contract__c = mapAgreementToAgreement.get(sapContract.APT_Apttus_Contract__c).Apttus__APTS_Contract_To__c;
-								String sapContractnumber  = sapContract.APT_SAP_Contract_Number__c.substring(0,7);
-
-								cloneSAPContract.APT_SAP_Contract_Number__c = sapContractnumber +'.' +
-																					+ mapAgreementToAgreement.get(sapContract.APT_Apttus_Contract__c).Apttus__APTS_Contract_To__r.Apttus__Version_Number__c;
-								sapContractsToBeCloned.add(cloneSAPContract);
-							}
-
-						}
-
-						if(sapContractsToBeCloned != null && sapContractsToBeCloned.size() > 0){
-							insert sapContractsToBeCloned;
-						}
-					}
-					//1655
-					**/
 				}
 			}
 		}
@@ -312,7 +261,7 @@ public with sharing class APT_AgreementTriggerHandler{
 			@params -
 			setAgIds - Set Of Agreement Ids
 		**/
-		public static String  afterAgreementFullySigned(set<Id> setAgIds) {
+		public static String afterAgreementFullySigned(set<Id> setAgIds) {
 			try{
 				MAP<Id,Id> mapAgIds = new MAP<Id,Id>();
 				String[] remDocIds = new String[]{};
@@ -349,8 +298,16 @@ public with sharing class APT_AgreementTriggerHandler{
 			try{
 				Map<ID,Schema.RecordTypeInfo> recordTypeMap = new Map<ID, Schema.RecordTypeInfo>();
 				Map<ID,RecordType> opSchedRecTypeMap = new Map<ID, RecordType>();
-				recordTypeMap = Apttus__APTS_Agreement__c.sObjectType.getDescribe().getRecordTypeInfosById();
-				opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE});    //CI:126 Added APPC Record Type
+				
+				// Collect the sObject types to describe
+				List<String> sObjectTypes = new List<String>{ 'Apttus__APTS_Agreement__c' };
+
+				// Perform eager describe call to get record type information
+				List<Schema.DescribeSObjectResult> describeResults = Schema.describeSObjects(sObjectTypes);
+				Schema.DescribeSObjectResult sObjectDescribe = describeResults[0];
+				recordTypeMap = sObjectDescribe.getRecordTypeInfosById();
+				
+				opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE}); //CI:126 Added APPC Record Type
 				List<APT_Operational_Schedule__c> listOprSchedule = new List<APT_Operational_Schedule__c>();
 				Set<ID> proposalIDSet = new Set<ID>();
 				APT_Operational_Schedule__c opSchedule = new APT_Operational_Schedule__c();
@@ -425,8 +382,6 @@ public with sharing class APT_AgreementTriggerHandler{
 
 				//create a map to query case under related proposal to copy approved entities, approved ABN and payment terms from
 				//the latest case
-				//system.debug('proposalIds '+proposalIds.size());
-				//system.debug('proposalIds '+proposalIds);
 				Map<Id,Case> proposalToCaseMap = new Map<Id,Case>();
 				if(!proposalIds.isEmpty()){ ////28062019- added to fix selective query issue
 					for(Case proposalCase :[SELECT Id, Proposal__c, APT_Approved_ABN__c,
@@ -470,7 +425,6 @@ public with sharing class APT_AgreementTriggerHandler{
 										}
 										else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_PRIORITY_AIR_SERVICES_PRODUCT)){
 											String serviceType = propLineItem.Apttus_QPConfig__DerivedFromId__r?.Apttus_Config2__AttributeValueId__r?.APT_StarTrack_Service_Type__c;
-											System.debug('Service Type::'+serviceType);
 											if(serviceType != null){
 												if(serviceType.equalsIgnoreCase('FPP')){
 													opSchedule.Fixed_Price_Premium__c = true;
@@ -510,19 +464,19 @@ public with sharing class APT_AgreementTriggerHandler{
 									//commenting below SOQL, not required as a part of CI-106 which is a design change on top of CI-126 by Gopesh Banker on 22/04/2022
 									// for(APT_Site_Inspection__c siteInsp : mapSiteInspection.values())
 									// {
-									//     if(agrmnt.id == siteInsp.APT_Contract__c)
-									//     {
-									//         if(String.IsNotBlank(siteInsp.APT_Contract__r.Operational_Schedule__c) &&
-									//         String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__c) &&
-									//         String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__c) &&
-									//         String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__c) &&
-									//         siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_APPC))
-									//         {
-									//             opSchedule.APT_Parcel_Collection_Point_Ids__c = opSchedule.APT_Parcel_Collection_Point_Ids__c + ',' + siteInsp.Id;
-									//             opSchedule.APT_Parcel_Collection_Points__c = opSchedule.APT_Parcel_Collection_Points__c + ' ' + siteInsp.APT_Collection_Street_Address__c + ' ' + siteInsp.APT_State__c + ' ' + siteInsp.APT_Suburb__c + ' ' + siteInsp.APT_Postal_Code__c + ' ' + siteInsp.APT_Agreement_Lodgement_Point__r.APT_Billing_Account__r.LEGACY_ID__c + ' ';
-									//             opSchedule.APT_Parcel_Collection_Times__c = opSchedule.APT_Parcel_Collection_Times__c + ' ' + siteInsp.APT_Requested_Collection_Time__c;
-									//         }
-									//     }
+									// if(agrmnt.id == siteInsp.APT_Contract__c)
+									// {
+									// if(String.IsNotBlank(siteInsp.APT_Contract__r.Operational_Schedule__c) &&
+									// String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__c) &&
+									// String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__c) &&
+									// String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__c) &&
+									// siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_APPC))
+									// {
+									// opSchedule.APT_Parcel_Collection_Point_Ids__c = opSchedule.APT_Parcel_Collection_Point_Ids__c + ',' + siteInsp.Id;
+									// opSchedule.APT_Parcel_Collection_Points__c = opSchedule.APT_Parcel_Collection_Points__c + ' ' + siteInsp.APT_Collection_Street_Address__c + ' ' + siteInsp.APT_State__c + ' ' + siteInsp.APT_Suburb__c + ' ' + siteInsp.APT_Postal_Code__c + ' ' + siteInsp.APT_Agreement_Lodgement_Point__r.APT_Billing_Account__r.LEGACY_ID__c + ' ';
+									// opSchedule.APT_Parcel_Collection_Times__c = opSchedule.APT_Parcel_Collection_Times__c + ' ' + siteInsp.APT_Requested_Collection_Time__c;
+									// }
+									// }
 									// }
 
 
@@ -530,10 +484,10 @@ public with sharing class APT_AgreementTriggerHandler{
 									//This calculation is now based on the Minimum Monthly Spend field on Proposal.
 									/*Decimal currentMonthlySpend = propLineItem.Apttus_QPConfig__DerivedFromId__r?.Apttus_Config2__AttributeValueId__r?.APT_Monthly_Spend__c;
 									maxMonthlySpend = (currentMonthlySpend != null && currentMonthlySpend > maxMonthlySpend) ? currentMonthlySpend : maxMonthlySpend;
-									opSchedule.APT_Minimum_Monthly_Revenue__c =  maxMonthlySpend;*/
+									opSchedule.APT_Minimum_Monthly_Revenue__c = maxMonthlySpend;*/
 
 									//if product type is defined for the product query metadata R2T_Exempted_Contract_Settings__mdt defines product type and record type mapping
-									R2T_Exempted_Contract_Settings__mdt contractSettings =  contractSettingsMap.get(propLineItem.Apttus_Proposal__Product__r.APT_Product_type__c);
+									R2T_Exempted_Contract_Settings__mdt contractSettings = contractSettingsMap.get(propLineItem.Apttus_Proposal__Product__r.APT_Product_type__c);
 									//if record type is assigned in metadata create operational schedule with that record type
 									if(contractSettings != null && contractSettings.Operational_Schedule_RecordType__c != null){
 										opSchedule.RecordTypeId = contractSettings.Operational_Schedule_RecordType__c;
@@ -578,11 +532,6 @@ public with sharing class APT_AgreementTriggerHandler{
 				}
 
 				insert listOprSchedule;
-
-				system.Debug('proposalIDSet--->' + proposalIDSet);
-
-
-
 				//add Agreement Line items.
 				Map<ID, ID> configMapToProposal = new Map<ID,ID>();
 				if(proposalIDSet != null && proposalIDSet.size() > 0){
@@ -591,8 +540,6 @@ public with sharing class APT_AgreementTriggerHandler{
 					where Apttus_QPConfig__Proposald__c in: proposalIDSet
 					AND Apttus_Config2__Status__c =: APT_Constants.CONFIGURATION_STATUS_FINALIZED
 					order By Apttus_Config2__VersionNumber__c Asc];
-					system.Debug('--->' + configurationList);
-					system.Debug('proposalIDSet--->' + proposalIDSet);
 
 					if(configurationList!= null && configurationList.size()> 0 ){
 						for(Apttus_Config2__ProductConfiguration__c config : configurationList){
@@ -655,7 +602,7 @@ public with sharing class APT_AgreementTriggerHandler{
 					Map<id,List<Apttus__AgreementLineItem__c>> agreementLineItemMapByAgreementId = new Map<id,List<Apttus__AgreementLineItem__c>>();
 					List<Apttus__AgreementLineItem__c> aliList;
 					for(Apttus__AgreementLineItem__c aLineItem : agreementLineItemsList){
-						aliList = agreementLineItemMapByAgreementId.get(aLineItem.Apttus__AgreementId__c) != null  ? agreementLineItemMapByAgreementId.get(aLineItem.Apttus__AgreementId__c)
+						aliList = agreementLineItemMapByAgreementId.get(aLineItem.Apttus__AgreementId__c) != null ? agreementLineItemMapByAgreementId.get(aLineItem.Apttus__AgreementId__c)
 								: new List<Apttus__AgreementLineItem__c>();
 						aliList.add(aLineItem);
 						agreementLineItemMapByAgreementId.put(aLineItem.Apttus__AgreementId__c,aliList);
@@ -725,14 +672,10 @@ public with sharing class APT_AgreementTriggerHandler{
 				String objectName = APT_Constants.SOQL_AGREEMENT_LINE_ITEM_OBJECT;
 				String selects = APT_Constants.SOQL_AGREEMENT_OBJECT_SELECT ;
 
-				system.debug(logginglevel.error,'*** selects 1 ***'+selects);
-
 
 				selects = selects + getSelectFieldsString(objectName);
 
 				string agreementRatecardFields = getSelectFieldsString(APT_Constants.SOQL_AGREEMENT_RATE_CARD_OBJECT);
-
-				system.debug(logginglevel.error,'*** agreementRatecardFields  ***'+agreementRatecardFields );
 
 
 
@@ -744,34 +687,9 @@ public with sharing class APT_AgreementTriggerHandler{
 					agreementRateCardString = SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER_WITHOUT_COMMA + agreementRatecardFields + SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF;
 				}
 
-				system.debug(logginglevel.error,'*** APT_Constants.SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER***'+APT_Constants.SOQL_AGREEMENT_LINE_ITEM_SELECT_INNER);
-				system.debug(logginglevel.error,'*** agreementRatecardFields ***'+agreementRatecardFields );
-				system.debug(logginglevel.error,'*** SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF***'+SOQL_AGREEMENT_RATE_CARD_OBJECT_INNER_REF);
-				system.debug(logginglevel.error,'*** agreementRateCardString ***'+agreementRateCardString );
-
-				/*string agreementLPFields = getSelectFieldsString(APT_Constants.SOQL_AGREEMENT_LODGEMENT_POINT_OBJECT);
-
-					String agreementLPFieldsString = APT_Constants.SOQL_AGREEMENT_LODGEMENT_POINT_FIELDS + agreementLPFields + APT_Constants.SOQL_AGREEMENT_LODGEMENT_POINT_FROM;
-
-					string agreementUsagePriceFields = getSelectFieldsString(APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_OBJECT);
-
-					String agreementUsagePriceFieldsString = APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_SELECT_INNER + agreementUsagePriceFields
-																	+ APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_FROM;
-
-
-					String query = selects + agreementRateCardString  + agreementLPFieldsString + agreementUsagePriceFieldsString
-										+ APT_Constants.SOQL_FROM + objectName + APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_WHERE;
-
-					*/
-
-				system.debug(logginglevel.error,'*** APT_Constants.SOQL_FROM ***'+APT_Constants.SOQL_FROM);
-				system.debug(logginglevel.error,'*** objectName ***'+objectName);
-				system.debug(logginglevel.error,'*** APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_WHERE ***'+APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_WHERE);
-
+				// ApexSOQLInjection: Avoid untrusted/unescaped variables in DML query
 				String query = selects + agreementRateCardString + APT_Constants.SOQL_FROM
 						+ objectName + APT_Constants.SOQL_AGREEMENT_USAGE_PRICE_TIER_WHERE;
-
-				System.Debug(logginglevel.error,'query-->' + query);
 
 				List<Apttus__AgreementLineItem__c> agreementLineItemsList = database.query(query);
 
@@ -801,11 +719,9 @@ public with sharing class APT_AgreementTriggerHandler{
 				}
 			}
 
-			system.debug(logginglevel.error,'*** selectFields ***'+selectFields);
 			if (!selectFields.isEmpty()){
 				queryFields = String.Join(selectFields, APT_Constants.SEPERATOR_COMMA_SPACE) ;
 			}
-			system.debug(logginglevel.error,'*** queryFields ***'+queryFields);
 			return queryFields;
 		}
 
@@ -827,7 +743,6 @@ public with sharing class APT_AgreementTriggerHandler{
 					}
 
 					//1084
-					system.debug('*** included product lines ***'+newAgreement.Included_Product_Lines__c);
 					if((null != newAgreement.Included_Product_Lines__c && String.isNotBlank(newAgreement.Included_Product_Lines__c) && String.isNotBlank(oldAgreementMap.get(newAgreement.id).Included_Product_Lines__c) && !newAgreement.Included_Product_Lines__c.equalsIgnoreCase(oldAgreementMap.get(newAgreement.id).Included_Product_Lines__c)) || (String.isNotBlank(newAgreement.Included_Product_Lines__c) && String.isBlank(oldAgreementMap.get(newAgreement.id).Included_Product_Lines__c))) {
 						mapOSId.put(newAgreement.Operational_Schedule__c, newAgreement.Included_Product_Lines__c);
 					}
@@ -838,9 +753,7 @@ public with sharing class APT_AgreementTriggerHandler{
 				String includedProductLines;
 				list<APT_Operational_Schedule__c> listUpdateOS = new list<APT_Operational_Schedule__c>();
 				APT_Operational_Schedule__c os = new APT_Operational_Schedule__c();
-				system.debug('*** mapOSId ***'+mapOSId);
 				for(Id osId : mapOSId.keySet()) {
-					system.debug('*** osId ***'+osId);
 					os = new APT_Operational_Schedule__c();
 					includedProductLines = null;
 					os.Id = osId;
@@ -903,10 +816,10 @@ public with sharing class APT_AgreementTriggerHandler{
 					// Change by mathewjose@auspost.com.au - Updated the condition to check for local pickup & delivery amongst the included product lines.
 					if(String.isNotBlank(includedProductLines) && (includedProductLines.contains(APT_Constants.PRODUCT_CODE_COURIER) || includedProductLines.contains(APT_Constants.PRODUCT_NAME_LOCAL_PICKUP_DELIVERY))) {
 						os.APT_Courier__c = true;
-						os.APT_Courier_Scheduled_Run__c = true;     //1284
+						os.APT_Courier_Scheduled_Run__c = true; //1284
 					} else {
 						os.APT_Courier__c = false;
-						os.APT_Courier_Scheduled_Run__c = false;    //1284
+						os.APT_Courier_Scheduled_Run__c = false; //1284
 						os.APT_Courier_AP_Contact__c = null;
 						os.APT_Courier_on_demand_services__c = false;
 						os.APT_Interstate_Distribution__c = false;
@@ -930,7 +843,6 @@ public with sharing class APT_AgreementTriggerHandler{
 						listUpdateOS.add(os);
 					}
 				}
-				system.debug('*** listUpdateOS ***'+listUpdateOS);
 				if(listUpdateOS.size() > 0) {
 					update listUpdateOS;
 				}
@@ -943,8 +855,6 @@ public with sharing class APT_AgreementTriggerHandler{
 					where Apttus_QPConfig__Proposald__c in: proposalIDSet
 					AND Apttus_Config2__Status__c =: APT_Constants.CONFIGURATION_STATUS_FINALIZED
 					order By Apttus_Config2__VersionNumber__c Asc];
-					system.Debug('--->' + configurationList);
-					system.Debug('proposalIDSet--->' + proposalIDSet);
 
 					if(configurationList!= null && configurationList.size() > 0 ){
 						for(Apttus_Config2__ProductConfiguration__c config : configurationList){
@@ -960,68 +870,13 @@ public with sharing class APT_AgreementTriggerHandler{
 						}
 					}
 				}
-				/*
-				if(agreementIdsToBeProcessed.size() > 0 ) {
 
-					deleteAgreementLineItemsBasedOnProductType(agreementIdsToBeProcessed);
-				}*/
 			}
 			catch(Exception e){
 				//ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, e.getMessage()));
 				throw e;
 			}
 		}
-		/**
-			 Method for delete agreement line item
-		**/
-		// Updated by Adrian Recio
-		// Description Method not used. Commented out to reduce code limit consumption
-		// Date 7/4/2017
-		/*
-		@future
-		public static void deleteAgreementLineItemsBasedOnProductType(Set<ID> agreementIds){
-			try {
-				//List<Apttus__AgreementLineItem__c> aliList = [select id, Apttus__AgreementId__c,Apttus__AgreementId__r.Included_Product_Lines__c , Apttus__ProductId__c, Apttus__ProductId__r.APT_Product_type__c, Apttus__ProductId__r.Non_contracted__c from Apttus__AgreementLineItem__c where Apttus__AgreementId__c  in : agreementIds ];
-				List<Apttus__AgreementLineItem__c> aliTobeDeleted = new List<Apttus__AgreementLineItem__c>();
-				//System.debug('aliList --> ' + aliList);
-
-				for(Apttus__AgreementLineItem__c ali : [select id, Apttus__AgreementId__c,
-															Apttus__AgreementId__r.Included_Product_Lines__c ,
-															Apttus__ProductId__c, Apttus__ProductId__r.APT_Product_type__c,
-															Apttus__ProductId__r.Non_contracted__c,
-															Apttus__AgreementId__r.RecordType.DeveloperName
-															from Apttus__AgreementLineItem__c
-															where Apttus__AgreementId__c  in : agreementIds ]) { //aliList ){
-					System.Debug('ProductId--> ' +  ali.Apttus__ProductId__c);
-					String linesToBeInsertedTypes = ali.Apttus__AgreementId__r.Included_Product_Lines__c;
-					String productType =  ali.Apttus__ProductId__r.APT_Product_type__c;
-
-					if(!(String.IsNotBlank(productType)
-							&& linesToBeInsertedTypes.ToLowercase().contains(productType.toLowerCase()))
-							|| ali.Apttus__ProductId__r.Non_contracted__c){
-						aliTobeDeleted.add(ali);
-
-					}
-					}
-
-					System.debug('aliTobeDeleted --> ' + aliTobeDeleted);
-					if(aliTobeDeleted != null && aliTobeDeleted.size() > 0){
-						List<APT_Agreement_Lodgement_Point__c> alpList = [select id from APT_Agreement_Lodgement_Point__c where APT_Agreement_Line_Item__c in:aliTobeDeleted];
-						if(alpList != null && alpList.size() > 0){
-							List<Database.DeleteResult> deleteResults  = Database.delete(alpList, false);
-						}
-						List<Database.DeleteResult> deleteResultsALI  = Database.delete(aliTobeDeleted, false);
-					}
-			} catch(system.exception ex) {
-				//ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
-				throw ex;
-			}
-
-		}
-		*/
-		/**
-		Method for update agreement with attribute
-		**/
 
 		public static String updateAgreementwithAttribute(List<Apttus__APTS_Agreement__c> listAgrmnt) {
 
@@ -1029,21 +884,21 @@ public with sharing class APT_AgreementTriggerHandler{
 				set<id> quoteIds = new set<id>();
 				Set<ID> opportunityIds = new Set<ID>();
 
-				Map<Id,Apttus_Proposal__Proposal_Line_Item__c> mapQuotePLI =new  Map<Id,Apttus_Proposal__Proposal_Line_Item__c>();
+				Map<Id,Apttus_Proposal__Proposal_Line_Item__c> mapQuotePLI =new Map<Id,Apttus_Proposal__Proposal_Line_Item__c>();
 
 				for(Apttus__APTS_Agreement__c ag:listAgrmnt){
 					quoteIds.add(ag.Apttus_QPComply__RelatedProposalId__c);
 					opportunityIds.add(ag.Apttus__Related_Opportunity__c);
 				}
 
-				Map<Id,Opportunity> mapOpportunity =new  Map<Id,Opportunity>([select id, Amount, Account.Organisation_Trading_Name__c,
+				Map<Id,Opportunity> mapOpportunity =new Map<Id,Opportunity>([select id, Amount, Account.Organisation_Trading_Name__c,
 						Account.Name, Account.Organisation_Alternate_Name__c
 				from opportunity where id in : opportunityIds]);
 				List<Application__c> applicationsList = [select id, name, Opportunity__c, SettlementProfile__c,
 						PricingPlan__r.PricingPlanDesc__c from Application__c
 				where Opportunity__c in : opportunityIds];
 				Map<ID, Application__c> mapApplicationsWithOpportunityIds = new Map<ID, Application__c>();
-				Map<ID, Apttus_Proposal__Proposal__c> mapProposal = new Map<ID, Apttus_Proposal__Proposal__c>([select id,Apttus_Proposal__Proposal_Expiration_Date__c, APT_Contracting_Entity__c,Apttus_QPApprov__Approval_Status__c  from Apttus_Proposal__Proposal__c where id in: quoteIds]);
+				Map<ID, Apttus_Proposal__Proposal__c> mapProposal = new Map<ID, Apttus_Proposal__Proposal__c>([select id,Apttus_Proposal__Proposal_Expiration_Date__c, APT_Contracting_Entity__c,Apttus_QPApprov__Approval_Status__c from Apttus_Proposal__Proposal__c where id in: quoteIds]);
 
 				//creating APMS List based on Opportunity
 				if(applicationsList != null && applicationsList.size() > 0 ){
@@ -1092,7 +947,6 @@ public with sharing class APT_AgreementTriggerHandler{
 							agreement.APT_Pricing_Category__c = APT_Constants.AGREEMENT_CATEGORY_CUSTOMISED;
 						}
 					}
-					system.debug('-->' + apms);
 					if(apms !=null && APT_Constants.RECORD_TYPE_SECURE_PAY_ONLINE_PAYMENTS.equalsIgnoreCase(Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosById().get(agreement.recordtypeid).getname()))
 					{
 						agreement.APMS_Application__c = apms.id;
@@ -1103,9 +957,6 @@ public with sharing class APT_AgreementTriggerHandler{
 					}
 				}
 			} catch(Exception e){
-				system.debug('Exception type caught: ' + e.getTypeName());
-				system.debug('Line number: ' + e.getLineNumber());
-				system.debug('Stack trace: ' + e.getStackTraceString());
 
 				// return e.getMessage();
 				return e.getStackTraceString();
@@ -1120,7 +971,7 @@ public with sharing class APT_AgreementTriggerHandler{
 		try{
 			List<Opportunity> opportunityListToBeUpdated = new List<Opportunity>();
 			// Iterate on list of DOV Opportunities to get the original opportunity and update the Supersede Checkbox on Original Opportunity
-			for(Opportunity opportunityRec : [SELECT id , ECLM_Original_Opportunity_No__c ,ECLM_Original_Opportunity_No__r.Is_Superseded_Opportunity__c  from Opportunity WHERE ID IN: opportunityIdSet AND
+			for(Opportunity opportunityRec : [SELECT id , ECLM_Original_Opportunity_No__c ,ECLM_Original_Opportunity_No__r.Is_Superseded_Opportunity__c from Opportunity WHERE ID IN: opportunityIdSet AND
 												Opportunity_SubType__c ='DoV Increase']){
 
 				//Only supersede the Original Opportunity if its not already supersesed.
@@ -1216,114 +1067,18 @@ public with sharing class APT_AgreementTriggerHandler{
 			return pricingPlanValue;
 		}
 
-		/**
-		public static void callSubmitGenerateDocAPI(map<Id, String> mapSubmitGenDocIds, map<Id, Apttus__APTS_Agreement__c> mapAgreement) {
-			system.debug('** callSubmitGenerateDocAPI **');
-			if(mapSubmitGenDocIds != null) {
-
-				list<Apttus__APTS_Agreement__c> listAgreement = [SELECT Id, Name, RecordType.DeveloperName,
-																Apttus__Subtype__c, APT_Contract_Type__c
-																FROM Apttus__APTS_Agreement__c
-																WHERE Id IN :mapAgreement.keySet()];
-				if(listAgreement != null && listAgreement.size() > 0) {
-					set<String> setRecordTypes = new set<String>();
-					set<String> setSubTypes = new set<String>();
-					set<String> setContractTypes = new set<String>();
-					for(Apttus__APTS_Agreement__c agreement : listAgreement) {
-						setRecordTypes.add(agreement.RecordType.DeveloperName);
-						setSubTypes.add(agreement.Apttus__Subtype__c);
-						setContractTypes.add(agreement.APT_Contract_Type__c);
-					}
-
-					List<APT_R2T_Templates_Settings__c>  templateCS = [SELECT Id, Name, Compare_against_IPL__c, Template_Product_Name__c, Sequence_No__c, Template_ID__c, Default_Document_Output__c, Security_Level__c
-																		FROM APT_R2T_Templates_Settings__c
-																		WHERE Record_Type_API__c IN :setRecordTypes
-																			AND
-																			Subtype__c IN :setSubTypes
-																			AND
-																			Contract_Type__c IN :setContractTypes
-																			AND
-																			Settings_Type__c = 'Template'
-																		ORDER BY Sequence_No__c];
-
-					map<Id, String> mapTemplatepLevel = new map<Id, String>();
-					map<Id, String> mapTemplateDocFormat = new map<Id, String>();
-
-					if(templateCS != null && templateCS.size() > 0) {
-						//convert template reference id to id
-						set<String> setTemplateReferences = new set<String>();
-						for(APT_R2T_Templates_Settings__c ts : templateCS) {
-							setTemplateReferences.add(ts.Template_ID__c);
-						}
-
-						map<String, Id> mapTemplateId = new map<String, Id>();
-						for(Apttus__APTS_Template__c template : [SELECT Id, Apttus__ReferenceId__c
-																FROM Apttus__APTS_Template__c
-																WHERE Apttus__ReferenceId__c IN :setTemplateReferences]) {
-
-							mapTemplateId.put(template.Apttus__ReferenceId__c, template.id);
-						}
-
-						for(APT_R2T_Templates_Settings__c ts : templateCS) {
-							mapTemplatepLevel.put(mapTemplateId.get(ts.Template_ID__c), ts.Security_Level__c);
-							mapTemplateDocFormat.put(mapTemplateId.get(ts.Template_ID__c), ts.Default_Document_Output__c);
-						}
-					}
-
-					map<Id, list<String>> mapTemplateIds = new map<Id, list<String>>();
-					String templateIds;
-					list<String> listTemplateIds = new list<String>();
-					String agreementId;
-					for(String aId : mapSubmitGenDocIds.keySet()) {
-						agreementId = aId;
-						templateIds = mapSubmitGenDocIds.get(aId);
-						listTemplateIds = templateIds.split(APT_Constants.SEPERATOR_COMMA);
-						mapTemplateIds.put(aId, listTemplateIds);
-					}
-
-					String sessionId = userInfo.getSessionId();
-					//server url
-					Apttus__ComplySystemProperties__c complySystemProperties = Apttus__ComplySystemProperties__c.getvalues(APT_Constants.CUSTOM_SETTING_RECORD_NAME_SYSTEM_PROPERTIES);
-					String serverURL = complySystemProperties.Apttus__InstanceUrl__c + '/services/Soap/u/29.0/' + UserInfo.getOrganizationId(); //Merge server URL
-
-
-					//for(Id agreementId : mapTemplateIds.keySet()) {
-					//    for(String templateId : mapTemplateIds.get(agreementId)) {
-					//        //there should be one future call only
-					//        submitGenDoc(agreementId, templateId, mapTemplatepLevel.get(templateId), mapTemplateDocFormat.get(templateId), sessionId, serverURL);
-					//    }
-					//}
-
-
-					submitGenDoc(agreementId, templateIds, mapTemplatepLevel.get(templateIds), mapTemplateDocFormat.get(templateIds), sessionId, serverURL);
-				}
-			}
-		}
-
-	//@future
-	private static void submitGenDoc(Id agreementId, String templateId, String pLevel, String outputFormat, String sessionId, String serverURL) {
-		system.debug('** submitGenDoc **');
-		if(!test.isRunningTest()) {
-			Id attachmentId = Apttus.MergeWebService.submitGenerateDoc(templateId, agreementId, pLevel, outputFormat, false, sessionId, serverURL);
-		}
-	}
-	**/
-
-	/**
-	Method for populating Agreement Dates on update
-	**/
 	public static void populateAgreementDatesOnUpdate(Map<ID, Apttus__APTS_Agreement__c> oldAgreementMap, Map<ID, Apttus__APTS_Agreement__c> newAgreementMap){
 		for(Id agreementId : newAgreementMap.keySet()){
 			Apttus__APTS_Agreement__c newAgg = newAgreementMap.get(agreementId);
 
 			//When Contract is fully signed
 			if(oldAgreementMap.get(agreementId).Contract_Fully_Signed_Date__c != newAgg.Contract_Fully_Signed_Date__c
-			   && newAgg.Contract_Fully_Signed_Date__c != null){
-				   //contract signed date exceeds start date, override start date
-				   if(newAgg.Contract_Fully_Signed_Date__c > newAgg.Apttus__Contract_Start_Date__c){
-					   newAgg.Apttus__Contract_Start_Date__c = newAgg.Contract_Fully_Signed_Date__c;
-				   }
-			   }
+			 && newAgg.Contract_Fully_Signed_Date__c != null){
+				 //contract signed date exceeds start date, override start date
+				 if(newAgg.Contract_Fully_Signed_Date__c > newAgg.Apttus__Contract_Start_Date__c){
+					 newAgg.Apttus__Contract_Start_Date__c = newAgg.Contract_Fully_Signed_Date__c;
+				 }
+			 }
 		}
 	}
 
@@ -1335,7 +1090,7 @@ public with sharing class APT_AgreementTriggerHandler{
 
 			//add error if start date exceeds offer expiry date
 			if(agreement.Apttus__Contract_Start_Date__c != null &&
-			   agreement.Apttus__Contract_Start_Date__c > agreement.Contract_Expiration_Date__c){
+			 agreement.Apttus__Contract_Start_Date__c > agreement.Contract_Expiration_Date__c){
 				agreement.addError(APT_Constants.AGREEMENT_DATE_ERROR_MESSAGE);
 			}
 
@@ -1353,7 +1108,7 @@ public with sharing class APT_AgreementTriggerHandler{
 		List<Apttus_Proposal__Proposal__c> proposalsToBeUpdated = new List<Apttus_Proposal__Proposal__c>();
 		for(Apttus__APTS_Agreement__c agreement : listAgrmnt){
 			if(agreement.Apttus_QPComply__RelatedProposalId__c != null){
-				Apttus_Proposal__Proposal__c prop = new Apttus_Proposal__Proposal__c(Id =  agreement.Apttus_QPComply__RelatedProposalId__c);
+				Apttus_Proposal__Proposal__c prop = new Apttus_Proposal__Proposal__c(Id = agreement.Apttus_QPComply__RelatedProposalId__c);
 				prop.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC;
 				proposalsToBeUpdated.add(prop);
 			}
