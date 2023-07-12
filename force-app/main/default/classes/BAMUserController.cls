@@ -7,6 +7,7 @@
  * 2019-10-21  hasantha.liyanage@auspost.com.au : added retrieveSuperAdmins method
  * 2020-05-25 - Nathan Franklin - added additional fields to soql
  * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts
+ * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
  */
 public with sharing class BAMUserController {
     static Integer AUTO_INCREMENT_ID = 0;
@@ -106,7 +107,6 @@ public with sharing class BAMUserController {
 			//get all the billing accounts for the organisation
 			List<Billing_Account__c> billingAccounts = getBillingAccountsByOrgId(orgId);
 			appData.applicationsWithRoles = appWithRoles;
-			appData.billingAccounts = billingAccounts;
 			appData.appBillingAccountDataWrapper = BAMUserUtility.getAppBillingAccountDataWrapper(appWithRoles, billingAccounts);
 			return JSON.serialize(appData);
 		} catch (Exception er) {
@@ -138,15 +138,13 @@ public with sharing class BAMUserController {
         }
     }
 
-    @TestVisible
-    private class ApplicationDataWrapper {
-        @TestVisible
-        List<BAMApplication__c> applicationsWithRoles {get; set;}
+	@TestVisible
+	private class ApplicationDataWrapper {
 		@TestVisible
-        List<Billing_Account__c> billingAccounts {get; set;}
+		List<BAMApplication__c> applicationsWithRoles {get; set;}
 		@TestVisible
 		List<BAMUserUtility.ApplicationBillingAccountDataWrapper> appBillingAccountDataWrapper {get; set;}
-    }
+	}
 
     @testVisible
     private class AdminDataWrapper {

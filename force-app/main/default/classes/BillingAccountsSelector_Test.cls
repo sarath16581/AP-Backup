@@ -8,6 +8,7 @@
  * 2021-08-09 - Seth Heang - Added selectByLikedNameOrderByName test coverage
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-06-01 - Seth Heang - Added selectByOrgId and WITH_PAYER_ACCOUNT_ID related list test coverage
+ * 2023-07-10 - Mahesh Parvathaneni - Added tests for options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
  */
 @IsTest
 private class BillingAccountsSelector_Test {
@@ -71,6 +72,12 @@ private class BillingAccountsSelector_Test {
 		String soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
 		System.assertEquals(true, Pattern.compile('(?ism)PAYER_ACCOUNT_ID__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Payer Account Id fields');
+
+		selector = BillingAccountsSelector.newInstance(BillingAccountsSelector.sortfieldAPIName, BillingAccountsSelector.sortOrder);
+		qb = selector.newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom billing_account__c\\b.*Source_System__c\\s*!=\\s*\'PeopleSoft\'').matcher(soql).find(), 'Resulting query does not limit source system of PeopleSoft');
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom billing_account__c\\b.*Type__c\\s*NOT IN\\s*').matcher(soql).find(), 'Resulting query does not limit Type__c field');
 		
 		Test.stopTest();
 
@@ -170,6 +177,9 @@ private class BillingAccountsSelector_Test {
 		System.assertEquals(2, resultsforBillingAccountwithNumbers.size(), 'Result count was wrong');
 
 		Map<Id, Billing_Account__c> selectByOrgIdResult = selector.selectByOrgId(new Set<Id>{accountRecord.Id});
+		System.assertEquals(2, selectByOrgIdResult.size(), 'Result count was wrong');
+
+		selectByOrgIdResult =  selector.selectByOrgId(new Set<Id>{accountRecord.Id}, new Set<Object>{BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
 		System.assertEquals(2, selectByOrgIdResult.size(), 'Result count was wrong');
 		Test.stopTest();
 
