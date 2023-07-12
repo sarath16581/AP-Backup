@@ -376,10 +376,16 @@ public with sharing class BAMUserController {
         }
     }
 
+	/**
+	 * @description This method validates the selected billing accounts are as per the filter defined at application level
+	 * @param  appMap
+	 * @param  pageState
+	 */
 	private static void validateBillingAccountsByApp(Map<Id,BAMApplication__c> appMap, List<Map<String,Object>> pageState){
 		Set<Id> selectedBillingAccountIds = new Set<Id>();
 		Map<Id, List<Billing_Account__c>> billingAccountsKeyedByAppId = new Map<Id, List<Billing_Account__c>>();
 
+		//get all the selected billing account ids from the pageState
 		for (Map<String,Object> appState : pageState) {
 			for (Object unTypedId : (List<Object>) appState.get('selectedBillingAccountIds')) {
 				selectedBillingAccountIds.add((Id)unTypedId);
@@ -391,8 +397,8 @@ public with sharing class BAMUserController {
 			Map<Id, Billing_Account__c> billingAccountMap = BillingAccountsSelector.newInstance().selectById(selectedBillingAccountIds, 
 				new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
 
+			//create a map of application id to billing accounts
 			for (Map<String,Object> appState : pageState) {
-				List<Billing_Account__c> bAccounts = new List<Billing_Account__c>();
 				Id appId = (Id)appState.get('Id');
 
 				if (billingAccountsKeyedByAppId.get(appId) == null) {
@@ -400,18 +406,20 @@ public with sharing class BAMUserController {
 				}
 				for (Object unTypedId : (List<Object>) appState.get('selectedBillingAccountIds')) {
 					if (billingAccountMap.containsKey((Id)unTypedId)) {
-						bAccounts.add(billingAccountMap.get((Id)unTypedId));
+						billingAccountsKeyedByAppId.get(appId).add(billingAccountMap.get((Id)unTypedId));
 					}
 				}
-				billingAccountsKeyedByAppId.put(appId, bAccounts);
 			}	
 		}
 
 		for (Id appId : billingAccountsKeyedByAppId.keySet()) {
+			//check if any billing account filter defined at application level
 			if (String.isNotBlank(appMap.get(appId).BillingAccountFilter__c)) {
 				//deserialise the json filter
 				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(appMap.get(appId).BillingAccountFilter__c);
+				//validate the billing accounts selected are satisfied with the  conditions set at application level
 				List<Billing_Account__c> filteredAccounts = BAMUserUtility.getBillingAccountsByAppFilter(billingAccountsKeyedByAppId.get(appId), billingAccountFilterMap);
+				//throw an exception if filtered accounts not matched with the selected billing accounts
 				if (filteredAccounts.size() != billingAccountsKeyedByAppId.get(appId).size()) {
 					throw new BAMUserException('Billing accounts selected are not valid as per the filter at application level');
 				}
