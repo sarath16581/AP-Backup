@@ -46,6 +46,9 @@ public with sharing class APT_ViewRatecardBatchExecute {
 	/**
 		Initial execution
 	**/
+	/*
+	ApexCSRF: Avoid making DML operations in Apex class constructor or initializers(can not be addressed because it is in existing code.)
+	*/
 	public PageReference init(){
 		try {
 			PageReference redirectPage = null;
@@ -301,7 +304,9 @@ public with sharing class APT_ViewRatecardBatchExecute {
 			//31052019- added one more attribute product type
 			APT_ViewratecardBatch viewBatch = new APT_ViewratecardBatch(config.ID, proposalId, sessionId, serverUrl, URL.getSalesforceBaseUrl().toExternalForm(),isCallFromRateCalc, prodType);
 			Database.executeBatch(viewBatch,1);
-
+			/*
+			ApexXSSFromURLParam: Apex classes should escape/sanitize Strings obtained from URL parameters(can not be addressed because it is in existing code.)
+			*/
 			//set flag
 			Apttus_Proposal__Proposal__c proposal = new Apttus_Proposal__Proposal__c();
 			proposal.id = proposalId;
@@ -352,6 +357,9 @@ public with sharing class APT_ViewRatecardBatchExecute {
 	/**
 		This method will redirect you to proposal page
 	**/
+	/*
+	ApexOpenRedirect: Apex classes should safely redirect to a known location(can not be addressed because it is in existing code.)
+	*/
 	public PageReference redirectToProposal(){
 		try {
 			return new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + proposalId);

@@ -69,7 +69,7 @@ History:
 				if(!acctplanIds.isEmpty()) {
 					OpportunityUtility.updateAccountPlan(acctplanIds);
 				}
-					
+
 				//Phase 2
 				if(!closedoppIds.isEmpty()) {
 					if (!OpportunityProductClassificationUtil.hasCreatedSchedules()) {
@@ -109,9 +109,6 @@ History:
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isBefore){
 			if(trigger.isUpdate){
-
-				system.debug('***** BEFORE UPDATE *****');
-
 				// Added logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
 				// Eligibility Criteria - business rules
 				// Commit to Action
@@ -153,7 +150,7 @@ History:
 		if(trigger.isAfter){
 			if(trigger.isUpdate){
 				if(APTMS_AvoidRecursion.isFirstRun()){
-					system.debug('***** AFTER UPDATE Apttus Trigger called *****');
+
 					APTMS_OpportunityHandler.updateRecordTypeOfOPLs(trigger.new, trigger.oldMap);
 				}
 				OpportunityHandler.afterUpdateAction(trigger.new, trigger.oldMap);

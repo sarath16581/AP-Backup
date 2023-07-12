@@ -30,7 +30,7 @@ if(!TriggerHelper.isTriggerDisabled(String.valueOf(Apttus__APTS_Agreement__c.SOb
 if (Trigger.isBefore) {
 	//insert
 	if (Trigger.isInsert) {
-		System.debug('###' + Trigger.new);
+		
 		//Not feasible with Process Builder – not possible to access User fields via Owner lookup in Process Builder
 		Set<Id> setOwnerId = new Set<Id>();
 		Set<Id> setProposalId = new Set<Id>();
@@ -76,11 +76,8 @@ if (Trigger.isBefore) {
 
 
 		if (listOpportunity.size() > 0) {
-			System.debug('checkpoint2' + listOpportunity.size());
 			update listOpportunity;
-			System.debug('checkpoint3');
 		}
-		System.debug('!!!setOwnerId' + setOwnerId);
 
 		List<User> listOwner = new List<User>([
 				SELECT Id,ManagerId,Seller_Manager__c,Sales_General_Manager__c
@@ -110,7 +107,6 @@ if (Trigger.isBefore) {
 			Integer agreementNumberParent = AgreementnumberDecimal.intValue();
 			String agreementNumberString = (('000000') + agreementNumberParent).right(8) + '.0';
 			//String agreementNumberString = String.format('%08d',agreementNumberParent)+'.0';
-			System.debug('agreementNumberString : ' + agreementNumberString);
 			mapofIdToString.put(IdOfDOVAgreement, agreementNumberString);
 			newSetFFNumber.add(agreementNumberString);
 
@@ -229,7 +225,6 @@ if (Trigger.isBefore) {
 					WHERE Apttus__AgreementId__c IN :rateCardsCreatedAgreementIds
 			]
 			) {
-				System.debug('Post Bill Pay gross Sttlement Fee*****' + aLineItem.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c);
 				if (aLineItem.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c.equalsIgnoreCase(APT_Constants.OPTION_YES)) {
 					agreementIDtoGrossSetteled.put(aLineItem.Apttus__AgreementId__c, true);
 				}
@@ -321,7 +316,7 @@ if (Trigger.isBefore) {
 		//populateAgreementDatesOnUpdate
 		APT_AgreementTriggerHandler.populateAgreementDatesOnUpdate(Trigger.oldMap, Trigger.newMap);
 
-		System.debug('@@!!!setOwnerId' + setOwnerId);
+
 		if(setOwnerId!= null) {
 			List<User> listOwner = new List<User>([
 					SELECT Id,ManagerId,Seller_Manager__c,Sales_General_Manager__c
@@ -350,9 +345,9 @@ if (Trigger.isAfter) {
 	if (Trigger.isInsert) {
 		APT_AgreementTriggerHandler.updateProposalStage(Trigger.new);
 		APT_AgreementTriggerHandler.addPostBillPayLineItemsToChild(Trigger.new);
-		System.debug('checkpoint4');
+
 		result = APT_AgreementTriggerHandler.createOperationalSchedule(Trigger.new);
-		System.debug('checkpoint5' + result);
+
 		if (result != APT_Constants.SUCCESS_LABEL) {
 			for (Apttus__APTS_Agreement__c agreement : Trigger.new) {
 				agreement.addError(result);
@@ -387,7 +382,7 @@ if (Trigger.isAfter) {
 				WHERE Id IN :Trigger.new
 		]) {
 
-			System.debug('*************:temp' + APT_Agreement_auto_activate_recordtypes__c.getValues(agreement.RecordType.DeveloperName) + '****:RecordType' + agreement.RecordType);
+
 			if (Trigger.oldMap.get(agreement.Id).Apttus__Status__c != agreement.Apttus__Status__c &&
 					agreement.Apttus__Status__c == APT_Constants.AGREEMENT_STATUS_FULLY_SIGNED &&
 					APT_Agreement_auto_activate_recordtypes__c.getValues(agreement.RecordType.DeveloperName) != NULL) {
