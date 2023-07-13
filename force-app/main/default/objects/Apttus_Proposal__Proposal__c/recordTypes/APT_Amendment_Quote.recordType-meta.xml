@@ -3,6 +3,7 @@
     <fullName>APT_Amendment_Quote</fullName>
     <active>true</active>
     <compactLayoutAssignment>Proposal_Lightning_Compact_Layout</compactLayoutAssignment>
+	<description>Captures the information for amendment quotes.</description>
     <label>Amendment Quote</label>
     <picklistValues>
         <picklist>APT_Contracting_Entity__c</picklist>
@@ -302,6 +303,10 @@
         <picklist>Apttus_Proposal__Approval_Stage__c</picklist>
         <values>
             <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accepted without proposal document</fullName>
             <default>false</default>
         </values>
         <values>

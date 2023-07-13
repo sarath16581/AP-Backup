@@ -1,5 +1,4 @@
 import { LightningElement, track, api } from 'lwc';
-import { CloseActionScreenEvent } from 'lightning/actions';
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 
 import getProducts from '@salesforce/apex/AtRiskBusinessController.getProducts';
@@ -222,13 +221,10 @@ export default class BarSelectProducts extends LightningElement {
 		this.editing = true;
 		this.viewing = false;
 		this.empty = false;
-
 		this.loadProducts(true, false);
 	}
 
 	saveSelection(event) {
-		this.loading = true;
-
 		this.selectedRows = this.template.querySelector('lightning-tree-grid').getSelectedRows()
 
 		const selectedProductIDs = this.selectedRows.filter(item => (item.id.indexOf('01') === 0)).map(item => item.id);

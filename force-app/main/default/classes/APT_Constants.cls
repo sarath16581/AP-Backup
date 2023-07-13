@@ -307,19 +307,19 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_CODE_MIN_COLLECTION_VALUE = 'Minimum Collection Value';
 	public static final String PRODUCT_CODE_EPARCEL_POST_RETURN = 'eParcel Post Return';
 	public static final String PRODUCT_CODE_POST_BILLPAY = 'Post Billpay';
- 	public static final String PRODUCT_CODE_METRO = 'Metro';
+	public static final String PRODUCT_CODE_METRO = 'Metro';
 	public static final String PRODUCT_CODE_UNADDRESSED_MAIL_SERVICES = 'Unaddressed Mail Services';
 
 	//New Optional Products for new bundles
-	public static final String PRODUCT_CODE_NEW_EXPRESS_DOCT = 'EXPRESS_DOCT';
-	public static final String PRODUCT_CODE_NEW_EXPRESS_MERCH = 'EXPRESS_MERCH';
-	public static final String PRODUCT_CODE_NEW_STANDARD = 'STANDARD';
-	public static final String PRODUCT_CODE_NEW_ECONOMY = 'ECONOMY';
-	public static final String PRODUCT_CODE_NEW_RETURNS_EXPRESS = 'RETURNS_EXPRESS';
-	public static final String PRODUCT_CODE_NEW_RETURNS_STANDARD = 'RETURNS_STANDARD';
-	public static final String PRODUCT_CODE_NEW_STANDARD_SIGN = 'STANDARD_SIG';
-	public static final String PRODUCT_CODE_NEW_ECONOMY_SIGN = 'ECONOMY_SIG';
-	public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
+public static final String PRODUCT_CODE_NEW_EXPRESS_DOCT = 'EXPRESS_DOCT';
+public static final String PRODUCT_CODE_NEW_EXPRESS_MERCH = 'EXPRESS_MERCH';
+public static final String PRODUCT_CODE_NEW_STANDARD = 'STANDARD';
+public static final String PRODUCT_CODE_NEW_ECONOMY = 'ECONOMY';
+public static final String PRODUCT_CODE_NEW_RETURNS_EXPRESS = 'RETURNS_EXPRESS';
+public static final String PRODUCT_CODE_NEW_RETURNS_STANDARD = 'RETURNS_STANDARD';
+public static final String PRODUCT_CODE_NEW_STANDARD_SIGN = 'STANDARD_SIG';
+public static final String PRODUCT_CODE_NEW_ECONOMY_SIGN = 'ECONOMY_SIG';
+public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
 
 
 	public static final String PRODUCT_CODE_ePARCEL_STANDARD = 'eParcelStandard';
@@ -1426,7 +1426,7 @@ public with sharing class APT_Constants {
 	public static final String Ready_For_Finalization = 'Ready For Finalization';
 	public static final String eParcelExpress = 'eParcelExpress';
 	public static final String account_query = 'select id from account where Role_Type_Roll_Up__c=: cust AND (';
-	// public static final String account_query = 'select id from account where (';
+// public static final String account_query = 'select id from account where (';
 	public static final String Customer = 'Customer';
 	/* Start: Meet Desai: Updated Apttus Merge Service's API Version from 29 to 38 */
 	public static final String services_Soap_u_38_0 = '/services/Soap/u/38.0/';
@@ -1465,7 +1465,7 @@ public with sharing class APT_Constants {
 	public static final string FIELDSETNAME_CHARGEACCOUNT_LP = 'APT_Dimension_for_Charge_Account';
 	public static final string WHERECLAUSE_AGMTLP = ' where APT_Charge_Account__c IN:allIdSet OR APT_Cash_Account__c IN:allIdSet OR APT_Sub_Account__c IN:allIdSet';
 
-//***Test Class Constant Created By Jetha ***********//
+	//***Test Class Constant Created By Jetha ***********//
 	public static final String TEST_ACCOUNT_TYPE = 'Charge Account + Sub Account';
 	public static final String TEST_ACCOUNT_ACN = '123456789';
 	public static final String TEST_ACCOUNT_ABN = '12345678910';

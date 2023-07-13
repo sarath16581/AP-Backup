@@ -2,6 +2,7 @@
 <WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Edit_Product_LWC</fullName>
     <availability>online</availability>
+    <description>Redirect user to Bulk Edit Products screen using aura wrapper with Opportunity ID passed in</description>
     <displayType>massActionButton</displayType>
     <encodingKey>UTF-8</encodingKey>
     <height>600</height>
@@ -10,5 +11,5 @@
     <openType>sidebar</openType>
     <protected>false</protected>
     <requireRowSelection>true</requireRowSelection>
-    <url>/apex/OppProductList?id={!Opportunity.Id}</url>
+    <url>/lightning/cmp/c__opcNavToBulkEdit?c__oppId={!Opportunity.Id}</url>
 </WebLink>

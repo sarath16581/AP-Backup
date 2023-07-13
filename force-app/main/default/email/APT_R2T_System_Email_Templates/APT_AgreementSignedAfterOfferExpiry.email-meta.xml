@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification to Opp Driver when Agreement signed outside offer validity</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AgreementSignedAfterOfferExpiry</name>
+    <style>none</style>
+    <subject>Agreement signed outside offer validity</subject>
+    <textOnly>Dear {!Apttus__APTS_Agreement__c.OwnerFullName},
+
+
+
+This is a system generated notification.
+
+
+
+Your contract  {!Apttus__APTS_Agreement__c.Link} for opportunity {!Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c} has been signed outside the offer validity. The offer is valid until {!Apttus__APTS_Agreement__c.Contract_Expiration_Date__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
