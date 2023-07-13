@@ -14,6 +14,12 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	public static AtRiskBusinessSelector newInstance() {
 		return (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
 	}
+
+	public static AtRiskBusinessSelector newInstance(Set<SObjectField> fieldOverrides) {
+		AtRiskBusinessSelector selector = (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 	
 	public virtual override SObjectType getSObjectType() {
 		return At_Risk_Business__c.getSObjectType();

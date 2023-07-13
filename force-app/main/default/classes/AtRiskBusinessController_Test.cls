@@ -47,7 +47,7 @@ public class AtRiskBusinessController_Test {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockARBSelector.selectById(new Set<Id>{arb.Id})).thenReturn(new List<At_Risk_Business__c>{arb});
 		MockUtility.Mocks.when(mockRevenueSelector.selectByOrganisationId(new Set<Id>{testAccountId}, new Set<String>{testYear})).thenReturn(testRevenues);
-		MockUtility.Mocks.when(mockProductSelector.selectByIdOrderByName(new Set<Id>{products[0].Id}, null)).thenReturn(products);
+		MockUtility.Mocks.when(mockProductSelector.selectByIdOrderByName(new Set<Id>{products[0].Id},new Set<Object>())).thenReturn(products);
 		MockUtility.Mocks.stopStubbing();
 		
 		// =====================================
@@ -55,7 +55,7 @@ public class AtRiskBusinessController_Test {
 		// =====================================
 		Test.startTest();
 
-		AtRiskBusinessController.ProductData productData = AtRiskBusinessController.getProducts(arb.Id);
+		AtRiskBusinessController.ProductData productData = AtRiskBusinessController.getProducts(arb.Id, true);
 
 		Test.stopTest();
 		
@@ -89,10 +89,12 @@ public class AtRiskBusinessController_Test {
 		// Stubbing
 		// =====================================
 		ProductsSelector mockProductSelector = (ProductsSelector)MockUtility.mockSelector(ProductsSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockProductSelector.selectByIdOrderByName(productIdSet, null)).thenReturn(products);
+		MockUtility.Mocks.when(mockProductSelector.selectByIdOrderByName(productIdSet, new Set<Object>())).thenReturn(products);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenReturn((List<SObject>)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 		
 		// =====================================
@@ -104,6 +106,10 @@ public class AtRiskBusinessController_Test {
 
 		Test.stopTest();
 		
+		// Check that dmlUpdate was called once
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+
+		// Check that fields were updated as expected
 		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Product_IDs__c);
 		Assert.areEqual(productNameString, AtRiskBusinessController.arb.Products__c);
 	}
@@ -123,10 +129,12 @@ public class AtRiskBusinessController_Test {
 		// Stubbing
 		// =====================================
 		AtRiskBusinessSelector mockARBSelector = (AtRiskBusinessSelector)MockUtility.mockSelector(AtRiskBusinessSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockARBSelector.selectById(new Set<Id>{arb.Id})).thenReturn(new List<At_Risk_Business__c>{arb});
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenReturn((List<SObject>)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 		
 		// =====================================
@@ -137,7 +145,11 @@ public class AtRiskBusinessController_Test {
 		AtRiskBusinessController.recalculateRevenue(arb.Id);
 
 		Test.stopTest();
+
+		// Check that dmlUpdate was called once
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
 		
+		// Check that field was set to expected value
 		Assert.areEqual(true, arb.Recalculate_Revenue__c);
 	}
 }
