@@ -118,7 +118,7 @@
             <targetReference>Fetch_the_User_to_Check_if_it_is_an_Automated_User</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>varDSRCreatedUserId</name>
         <dataType>String</dataType>
