@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>58.0</apiVersion>
     <decisions>
         <name>Check_for_Automated_User_Id</name>
         <label>Check for Automated User Id</label>
@@ -100,6 +100,13 @@
                 <elementReference>varDSRCreatedUserId</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>User</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -111,7 +118,7 @@
             <targetReference>Fetch_the_User_to_Check_if_it_is_an_Automated_User</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>varDSRCreatedUserId</name>
         <dataType>String</dataType>
