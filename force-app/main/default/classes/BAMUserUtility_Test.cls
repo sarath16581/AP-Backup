@@ -3,13 +3,14 @@ Description:    Test class that covers BAMUserUtility class
 History:
 --------------------------------------------------
 2019-05-13  nathan.franklin@auspost.com.au  Created
+2023-07-13  mahesh.parvathaneni@auspost.com.au  Updated - added tests for getAppBillingAccountDataWrapper
 **************************************************/
 @isTest
 public class BAMUserUtility_Test {
 
 	public static Id bspProfileId = [Select Id From Profile Where Name = :BspConstants.BSP_COMMUNITY_PROFILE_NAME].Id;
 	public static Id businessPortalProfileId = [Select Id From Profile Where Name = :BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME].Id;
-	public static Id bspNetworkId = [Select Id From Network Where Name = 'Australia Post Business Support Portal'].Id;
+	public static Id bspNetworkId = [Select Id From Network Where Name = 'AP Business Support Portal'].Id;
 	public static Id merchantPortalNetworkId = [Select Id From Network Where Name = 'Australia Post Merchant Portal'].Id;
 
 	@testSetup
@@ -324,5 +325,53 @@ public class BAMUserUtility_Test {
 
 		Test.stopTest();
 
+	}
+
+	/**
+	 * Scenario: Testing to check billing accounts filtered as per the filter set at application level
+	 */
+	@IsTest
+	private static void testGetAppBillingAccountDataWrapper() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//get account
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		//get products
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		//get BAM Applications
+		List<BAMApplication__c> bamApps = ApplicationTestDataFactory.getBamApplications(1,'Business Shop',products[0].Id, true);
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Business Support Portal',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Parcel Send',products[1].Id, true));
+		bamApps[0].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false}';
+		bamApps[2].BillingAccountFilter__c = '{"Source_System__c": ["TEAM","SAP ERP"],"Credit_Status__c": false}';
+		//get billing accounts
+		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'SAP ERP',true);
+		billingAccounts.addAll(ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'TEAM',true));
+
+		for (Billing_Account__c ba : billingAccounts) {
+			ba.Credit_Status__c = false;
+		}
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<BAMUserUtility.ApplicationBillingAccountDataWrapper> wrapper = BAMUserUtility.getAppBillingAccountDataWrapper(bamApps, billingAccounts);
+
+		Test.stopTest();
+
+		//Assert filters are applied 
+		Assert.areEqual(bamApps.size(), wrapper.size(), 'Expected three application results to be returned');
+		Assert.areEqual(bamApps[0].Id, wrapper[0].bamApplicationId, 'Incorrect app id returned');
+		Assert.areEqual(3, wrapper[0].billingAccounts.size(), 'Expected Team source system billing accounts are filtered');
+		Assert.areEqual(billingAccounts.size(), wrapper[1].billingAccounts.size(), 'Expected no billing accounts are filtered');
+		Assert.areEqual(billingAccounts.size(), wrapper[2].billingAccounts.size(), 'Expected all billing accounts are filtered');
 	}
 }
