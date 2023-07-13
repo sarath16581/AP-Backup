@@ -209,16 +209,11 @@ public with sharing class BAMUserUtility {
          * Returns a list of user records with their corresponding personas based on the logged in user's cNumber if it exists
          * This is necessary since a Salesforce contact is a persona of an individual and a User record can only be related to a single contact
          * This returns persona's in the context of the community the user is accessing.
+		 * 
+		 * Remember: a Persona is only returned if the user has access to the Community
+		 * 				a persona with the federation id set may not be returned in this list if that user record is enabled for the current community
          *
-         * RULES:
-         * BusinessPortal:
-         *  1. User is either someone with just Merchant Portal Community User (IsActive irrelevent because JIT will handle the activation) OR
-         *  2.  The user has an active account for any non Merchant Portal Community User profile
-         *
-         * All other communities supported with personas:
-         *  1. User account must be active
-         *
-         * Any user must have access to the community using NetworkMemberx
+         * Check https://australiapost.jira.com/wiki/spaces/SF/pages/2837905683/Salesforce+Merchant+Portal+Persona+Data+Architecture for the definition of a Persona
          */
         public Map<Id, UserPersona> personas {
             get {
@@ -243,19 +238,26 @@ public with sharing class BAMUserUtility {
 					if(networkId != MERCHANT_PORTAL_NETWORK_ID) {
 						searchParams.put('isActive', true);
 					} else {
+						// they are logging into Merchant Portal community. Since we provision all merchant portal users as inactive initiatially, IsActive become a secondary check
+						// We will activate an inactive user (inside the reg handler) if they are loggin into merchant portal and their user is inactive
+						// NOTE: we only do this for Merchant Portal community and NOT other communities
 						searchParams.put('activeOrMerchantPortalProfile', true);
 					}
 
-					Map<Id, User> queryResults = new Map<Id, User>(UsersSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+					Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 						Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.AccountId, Contact.Name, Contact.Status__c, Contact.BillingAccount__c},
 						Account.SObjectType => new Set<SObjectField>{Account.Id, Account.Name, Account.LEGACY_ID__c},
 						User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive, User.ContactId, User.ProfileId, User.FederationIdentifier},
 						Profile.SObjectType => new Set<SObjectField>{Profile.Id, Profile.Name}
-					}).search(searchParams, new Set<Object>{
+					};
+
+					Set<Object> selectorOptions = new Set<Object>{
 						UsersSelector.Options.WITH_CONTACT,
 						UsersSelector.Options.WITH_PROFILE,
 						ContactsSelector.Options.WITH_ACCOUNT
-					}, true));
+					};
+
+					Map<Id, User> queryResults = new Map<Id, User>(UsersSelector.newInstance(0, fieldOverrides).search(searchParams, selectorOptions, true));
 
                     List<User> users = new List<User>();
 

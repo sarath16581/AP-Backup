@@ -12,7 +12,7 @@
  * @date 2023-02-28
  * @changelog
  */
-global with sharing class MerchantPortalOIDCRegHandler implements Auth.RegistrationHandler, Auth.ConfirmUserRegistrationHandler {
+global without sharing class MerchantPortalOIDCRegHandler implements Auth.RegistrationHandler, Auth.ConfirmUserRegistrationHandler {
 	global class HandlerException extends Exception { }
 
 	/**
@@ -25,7 +25,7 @@ global with sharing class MerchantPortalOIDCRegHandler implements Auth.Registrat
 		System.debug('createUser');
 		
 		outputDebugInformation(data);
-		
+
 		MerchantPortalRegHandlerService service = MerchantPortalRegHandlerService.getInstance();
 
 		// we will supplement the existing attributes with a couple of our own to parse into our user matcher
@@ -40,6 +40,7 @@ global with sharing class MerchantPortalOIDCRegHandler implements Auth.Registrat
 		}
 
 		// return a list of personas based on the cnumber including if one is already marked as the 'primary' (based on the value in the FederationIdentifier field)
+		// https://australiapost.jira.com/wiki/spaces/SF/pages/2837905683/Salesforce+Merchant+Portal+Persona+Data+Architecture
 		BAMUserUtility.BAMPersonaSwitchUtility personaUtility = new BAMUserUtility.BAMPersonaSwitchUtility(augmentedAttributes.get('cnumber'), Network.getNetworkId());
 		List<BAMUserUtility.UserPersona> personas = personaUtility.personas.values();
 		System.debug('personas: ' + personas);
@@ -62,10 +63,11 @@ global with sharing class MerchantPortalOIDCRegHandler implements Auth.Registrat
 
 			User matchedUser = new User(Id = matchedPersona.userId);
 
-			if(BAMUserUtility.MERCHANT_PORTAL_NETWORK_ID == Network.getNetworkId() && BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME.equalsIgnoreCase(personas[0].userProfile)) {
 
-				// if the persona matched is a merchant portal community user and the users profile is Merchant Portal Community User we need to make the record Active
-				// this is because a user record will be created for a contact at the beginning of the BAM provisioning process as an inactive Merchant Portal Community user
+			// if the persona matched is a merchant portal community user and the users profile is Merchant Portal Community User we need to make the record Active
+			// this is because a user record will be created for a contact at the beginning of the BAM provisioning process as an inactive Merchant Portal Community user
+			if(!matchedPersona.userActive && BAMUserUtility.MERCHANT_PORTAL_NETWORK_ID == Network.getNetworkId() && BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME.equalsIgnoreCase(matchedPersona.userProfile)) {
+
 				matchedUser.IsActive = true;
 
 				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{matchedUser});
@@ -77,7 +79,7 @@ global with sharing class MerchantPortalOIDCRegHandler implements Auth.Registrat
 
 	/**
 	 * This is called before updateUser to validate whether or not the matched user based on ThirdPartyAccountLink is the correct user
-	 * For backwards compatibility, we always need to force a match based on the users federation id (via the person account APCN).
+	 * A matching value in the FederationIdentifier field will always be the authoritative user record to authenticate the user against irrespective of their third party account link. This is how we deal with Personas
 	 * NOTE: implementing confirmUser simply allows us to bypass any explicitly linked users to the remote IdP and rematch the user on the fly
 	 * 			See: https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_interface_Auth_ConfirmUserRegistrationHandler.htm#apex_interface_Auth_ConfirmUserRegistrationHandler
 	 */
@@ -117,20 +119,27 @@ global with sharing class MerchantPortalOIDCRegHandler implements Auth.Registrat
 			for(BAMUserUtility.UserPersona persona : personas) {
 				userPersonaMappings.put(persona.userId, persona);
 				if(federationIdentifier.equalsIgnoreCase(persona.federationIdentifier)) {
+					// since the FederationIdentifier field matches, we use this user record to authenticate the user against
+					// NOTE: this is irrespective of whether the current ThirdPartyAccountLink record is linked to this user record or not
+					// If we need to we revoke access to the TPAL below (if the user matched is different)
 					matchedPersona = persona;
 					break;
 				}
 			}
 
 			if(matchedPersona != null) {
+				// the FederationIdentifier was matched above
 				matchedUserId = matchedPersona.userId;
 			} else if(matchedPersona == null && userPersonaMappings.keySet().contains(userId)) {
+				// We need to make sure that the user with the ThirdPartyAccountLink is one from the list of valid personas
+				// It should always be the case, but this is one extra check to make sure users aren't inadvertantly authenticated to the incorrect user record
 				matchedUserId = userId;
 			} else {
 				throw new MerchantPortalRegHandlerService.RegHandlerException('A persona could not be found matched for the user');
 			}
 
 			if(matchedUserId != userId) {
+				// The persona we found was different to the user where the TPAL record exists. We need to revoke the current access so Salesforce can associate a new TPAL record
 				ThirdPartyAccountLink existingRecord = ThirdPartyAccountLinksSelector.newInstance(0, new Set<SObjectField>{ThirdPartyAccountLink.SsoProviderId}).selectById(new Set<Id>{tpalId})[0];
 				Boolean success = ApplicationDatabase.getInstance().revokeTokenAccess(existingRecord.SsoProviderId, data.provider.toLowerCase(), userId, data.identifier);
 				if(!success) {
@@ -152,14 +161,14 @@ global with sharing class MerchantPortalOIDCRegHandler implements Auth.Registrat
 		outputDebugInformation(data);
 
 		User matchedUser = UsersSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
-			User.SObjectType => new Set<SObjectField>{User.Id},
+			User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive},
 			Profile.SObjectType => new Set<SObjectField>{Profile.Name}
 		}).selectById(new Set<Id>{userId}, new Set<Object>{UsersSelector.Options.WITH_PROFILE}).values()[0];
 
-		if(BAMUserUtility.MERCHANT_PORTAL_NETWORK_ID == Network.getNetworkId() && BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME.equalsIgnoreCase(matchedUser.Profile.Name)) {
+		// if the persona matched is a merchant portal community user and the users profile is Merchant Portal Community User we need to make the record Active
+		// this is because a user record will be created for a contact at the beginning of the BAM provisioning process as an inactive Merchant Portal Community user
+		if(!matchedUser.IsActive && BAMUserUtility.MERCHANT_PORTAL_NETWORK_ID == Network.getNetworkId() && BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME.equalsIgnoreCase(matchedUser.Profile.Name)) {
 
-			// if the persona matched is a merchant portal community user and the users profile is Merchant Portal Community User we need to make the record Active
-			// this is because a user record will be created for a contact at the beginning of the BAM provisioning process as an inactive Merchant Portal Community user
 			matchedUser.IsActive = true;
 
 			ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{matchedUser});
