@@ -23,15 +23,8 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 			processPortalUsers((List<ContactPointEmail>) records, null, uow);
 		} catch (Exception e) {
-			UTIL_LoggingService.logHandledException(
-				e,
-				UserInfo.getOrganizationId(),
-				'ContactPointEmailContactSyncModule',
-				ContactPointEmailContactSyncModule.class.getName(),
-				'onAfterInsert',
-				'ContactPointEmailContactSyncModule',
-				LoggingLevel.ERROR
-			);
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', ContactPointEmailContactSyncModule.class.getName(), 'onAfterInsert', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -43,15 +36,8 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 
 			processPortalUsers((List<ContactPointEmail>) records, (Map<Id, ContactPointEmail>) existingRecords, uow);
 		} catch (Exception e) {
-			UTIL_LoggingService.logHandledException(
-				e,
-				UserInfo.getOrganizationId(),
-				'ContactPointEmailContactSyncModule',
-				ContactPointEmailContactSyncModule.class.getName(),
-				'onAfterUpdate',
-				'ContactPointEmailContactSyncModule',
-				LoggingLevel.ERROR
-			);
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', ContactPointEmailContactSyncModule.class.getName(), 'onAfterUpdate', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -61,15 +47,8 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 				.syncContactPointEmailToContacts(null, (List<ContactPointEmail>) records, null);
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 		} catch (Exception e) {
-			UTIL_LoggingService.logHandledException(
-				e,
-				UserInfo.getOrganizationId(),
-				'ContactPointEmailContactSyncModule',
-				ContactPointEmailContactSyncModule.class.getName(),
-				'onAfterDelete',
-				'ContactPointEmailContactSyncModule',
-				LoggingLevel.ERROR
-			);
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', ContactPointEmailContactSyncModule.class.getName(), 'onAfterDelete', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -268,7 +247,7 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 				}					
 			} catch (Exception e) {
 				// Error Logged to Exception object for analysis
-				UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'ContactPointEmailContactSyncModule', UpdateUserQueueable.class.getName(), 'execute', 'ContactPointEmailContactSyncModule', LoggingLevel.ERROR);					
+				ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', UpdateUserQueueable.class.getName(), 'execute', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
 			}
 		}
 	}
