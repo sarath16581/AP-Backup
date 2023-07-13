@@ -1,0 +1,135 @@
+<template>
+	<!-- Close Icon-->
+	<p class="slds-p-around_x-small slds-text-align_right">
+		<lightning-button-icon icon-name="utility:close" onclick={handleClose} alternative-text="Close" title="Closing the page without saving any changes" size="large" variant="bare"></lightning-button-icon>
+	</p>
+
+	<!--Hide component for sales if contract is sent for signing-->
+	<template if:true={hideComp}>
+		<div role="alert" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error">
+			<h2>{contractSentForSignMsg}</h2>
+		</div>
+	</template>
+
+	<template if:false={hideComp}>
+		<!-- parent div with 'slds-is-relative' so that spinner cover the whole page -->
+		<div class="slds-is-relative">
+		<!-- Loading Spinner -->
+		<template if:true={isLoading}>
+			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+		</template>
+
+		<!-- Error Banner -->
+		<template if:true ={error}>
+			<div role="alert" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error">
+				<h2>{error}</h2>
+			</div>
+		</template>
+
+		<!--Contract Details-->
+		<div class="slds-p-around_x-large  slds-page-header__title slds-align_absolute-center">Confirm Contract Details</div>
+
+	<template if:true={readyToShowComponent}>
+
+		<lightning-record-edit-form object-api-name={contractObjName}  record-id={contractId}
+		onload={handleOnLoad}>
+
+			<lightning-messages></lightning-messages>
+			<div class="slds-grid slds-wrap slds-gutters_xx-small">
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input value={ownerValue} label="Owner" disabled="true"></lightning-input>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={entityField}> </lightning-input-field>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={contactField}> </lightning-input-field>
+				</div>
+
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={conditionField}
+					onchange ={handleConditionsChange} class="condField"> </lightning-input-field>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={expDateField}  class="expDateField" style="display:none;"> </lightning-input-field>
+					<lightning-input type="date" value={expDateValue} label="Offer Expiration Date"
+					class="expDate" date-style="short" disabled="true"></lightning-input>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={typeField}> </lightning-input-field>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={startDateField} class="startDateField" style="display:none;"></lightning-input-field>
+					<lightning-input type="date" value={startDateValue} label="Agreement Commencement Date"
+					date-style="short" class="startDate" required="true" onchange ={handleAggStartDateChange}></lightning-input>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={inclProdField} class="prodLinesField"> </lightning-input-field>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={termField} class="termField" style="display:none;"> </lightning-input-field>
+					<lightning-input value={termValue} label="Term of Agreement (Months)" class="term"
+					disabled={termFieldDisabled} required={termFieldRequired} onchange ={handleTermChange}></lightning-input>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-input-field field-name={endDateField} style="display:none;"
+					class="endDateField"> </lightning-input-field>
+					<lightning-input type="date" value={endDateValue} label="Agreement Expiry Date"
+					date-style="short" class="endDate" disabled="true"></lightning-input>
+				</div>
+			</div>
+		</lightning-record-edit-form >
+
+		<!--Service Details-->
+
+		<template if:true={serviceIds}>
+			<template for:each={serviceIds} for:item="serviceId">
+				<div key={serviceId} class="slds-p-around_x-large slds-page-header__title slds-align_absolute-center">Service Details</div>
+
+				<lightning-record-edit-form key={serviceId} object-api-name={aliObjName} record-id={serviceId} onload={handleOnLoadService}>
+
+					<lightning-messages></lightning-messages>
+					<div class="slds-grid slds-gutters_xx-small">
+						<div class="slds-col slds-size_1-of-2">
+							<lightning-input-field field-name={serviceStartField} class="serviceStartField"
+							style="display:none;"> </lightning-input-field>
+							<lightning-input type="date" value={serviceStartValue} label="Service Commencement Date"
+							date-style="short" class="serviceStart" required="true" onchange ={handleStartDateChange}></lightning-input>
+						</div>
+						<div class="slds-col slds-size_1-of-2">
+							<lightning-input-field field-name={serviceEndField} class="serviceEndField"
+							style="display:none;"> </lightning-input-field>
+							<lightning-input type="date" value={serviceEndValue} label="Service Expiry Date"
+							date-style="short" class="serviceEnd" onchange ={handleEndDateChange}></lightning-input>
+						</div>
+					</div>
+				</lightning-record-edit-form>
+			</template>
+
+			<!--Collection Address only for appc-->
+			<template if:true={isAppc}>
+				<template if:true ={currentAddress}>
+					<div class="slds-p-top_x-large">Current Address : {currentAddress}</div>
+				</template>
+				<div class="slds-p-top_x-small">
+					<c-ame-address-validation2
+					label="Collection Address"
+					override-label="Manual Address"
+					oneditaddress={handleAddressChange}
+					onselectaddress={handleAddressChange}
+					variant = "show-detail-onsearch">
+					</c-ame-address-validation2>
+				</div>
+			</template>
+		</template>
+
+	</template>
+
+		<!--Footer-->
+		<p class="slds-p-around_x-small slds-text-align_right slds-border_top">
+			<lightning-button variant="brand" label="Next" disabled={disableButton} onclick={handleNext}>
+			</lightning-button>
+		</p>
+		</div>
+	</template>
+</template>

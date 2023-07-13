@@ -1,17 +1,17 @@
-	/* @author Nathan Franklin
-	* @date 2021-03-30
-	* @group Tests
-	* @tag Selector
-	* @tag LineItemSelector
-	* @domain Core
-	* @description A very simple selector class that sits in the base domain
-	* @changelog
-	* 2021-03-30 - Shashwat.nath@auspost.com.au - Created
-	* 2022-05-20 - nasir.jawed@auspost.com.au - added the method to get line item record by passing parameter config id and Line Type
-	* 2022-11-29 - nasir.jawed@auspost.com.au - added the Option WITH_PRODUCT
-	* 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
-	* 2023-04-13 - Yatika Bansal - added the method to get line item record by passing parameter config id, Line Type and Status
-	*/
+/* @author Nathan Franklin
+ * @date 2021-03-30
+ * @group Tests
+ * @tag Selector
+ * @tag LineItemSelector
+ * @domain Core
+ * @description A very simple selector class that sits in the base domain
+ * @changelog
+ * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
+ * 2022-05-20 - nasir.jawed@auspost.com.au - added the method to get line item record by passing parameter config id and Line Type
+ * 2022-11-29 - nasir.jawed@auspost.com.au - added the Option WITH_PRODUCT
+ * 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
+ * 2023-04-13 - Yatika Bansal - added the method to get line item record by passing parameter config id, Line Type and Status
+ */
 
 public with sharing class LineItemsSelector extends ApplicationSelector{
 	public enum Options {
@@ -64,7 +64,6 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 
 	public virtual Map<Id, Apttus_Config2__LineItem__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Id + ' in :ids')).endConditions();
-		System.debug('Line Item Query>>>>>>>>>>>'+qb.toSoqlString());
 		return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
 	}
 
@@ -126,7 +125,6 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 
 	public virtual Map<Id, Apttus_Config2__LineItem__c> selectByProdConfId(ID ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :ids')).endConditions();
-		System.debug('totallineItem'+qb.toSoqlString());
 		return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
 	}
 

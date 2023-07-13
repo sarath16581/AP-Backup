@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Proposal_Status_Accepted_Denied__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>This field is to Navigate the user to a existing proposal or its creates a new Proposal depending upon the Status of Proposal</description>
+    <externalId>false</externalId>
+	<inlineHelpText>This field is to Navigate the user to a existing proposal or its creates a new Proposal depending upon the Status of Proposal</inlineHelpText>
+    <label>Proposal Status Accepted/Denied</label>
+	<securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

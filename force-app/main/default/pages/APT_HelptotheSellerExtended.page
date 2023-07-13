@@ -1,0 +1,17 @@
+<apex:page standardController="Apttus__APTS_Agreement__c"  sidebar="false">
+	<apex:includeLightning />
+	<div id="LightningComponentid"/>
+	<script>
+		$Lightning.use("c:APT_SendForESignature",function(){
+		$Lightning.createComponent("c:APT_SendForESignatureAura",
+		{
+			recordId: '{!JSENCODE($CurrentPage.parameters.recordId)}'
+		},
+		"LightningComponentid",
+		function(cmp){
+		console.log('LWC Componenet added in VF page');
+		});
+		});
+	</script>
+
+</apex:page>

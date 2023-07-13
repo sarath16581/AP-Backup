@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ACIC_Request_Approved__c</fullName>
     <defaultValue>false</defaultValue>
-    <description>This checkbox will be checked whenever ACIC Request Case Status is set to Approved</description>
+    <description>Approval request will be triggered automatically on checkout of the shopping cart. This field will be ticked when the Workforce Verification Team provide ACIC approval.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Approval request will be triggered automatically on checkout of the shopping cart. This field will be ticked when the Workforce Verification Team provide ACIC approval.</inlineHelpText>
     <label>ACIC Request Approved</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

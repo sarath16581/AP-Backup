@@ -12,6 +12,8 @@ Last Modified Date - 28th May 2020 | SOQL Limit exceeding Fix
 2021-08-31 - Naveen Rajanna - REQ2542972 - Comment code to set 'Fixed Term' when UMS or print Post
 2022-05-02 - SaiSwetha Pingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
 2023-02-14 - Ranjeewa Silva - Added support for before delete, after delete and after undelete trigger events
+2023-04-05 - Yatika Bansal - Updated code to populate agreement dates
+2023-05-10 - Yatika Bansal - Added code to populate service dates on agreement line items.
 
 */
 
@@ -28,7 +30,7 @@ if(!TriggerHelper.isTriggerDisabled(String.valueOf(Apttus__APTS_Agreement__c.SOb
 if (Trigger.isBefore) {
 	//insert
 	if (Trigger.isInsert) {
-		System.debug('###' + Trigger.new);
+		
 		//Not feasible with Process Builder – not possible to access User fields via Owner lookup in Process Builder
 		Set<Id> setOwnerId = new Set<Id>();
 		Set<Id> setProposalId = new Set<Id>();
@@ -60,25 +62,22 @@ if (Trigger.isBefore) {
 		if (setProposalId.size()>0 ) {
 			mapProposal = new Map<Id, Apttus_Proposal__Proposal__c>([
 					SELECT Id, APT_Use_Offline_Rates__c,
-						(SELECT id, Apttus_Proposal__Product__c, 
-							APT_Bundle_Product_Name__c, 
-							Apttus_Proposal__Product__r.name, 
+						(SELECT id, Apttus_Proposal__Product__c,
+							APT_Bundle_Product_Name__c,
+							Apttus_Proposal__Product__r.name,
 							Apttus_Proposal__Product__r.APT_Product_Lines__c,
 							Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c,
-							Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c 
-						FROM Apttus_Proposal__R00N70000001yUfBEAU__r) 
+							Apttus_Proposal__Product__r.Apttus_Config2__ConfigurationType__c
+						FROM Apttus_Proposal__R00N70000001yUfBEAU__r)
 					FROM Apttus_Proposal__Proposal__c
 					WHERE Id IN :setProposalId
 			]);
 		}
-		
-		
+
+
 		if (listOpportunity.size() > 0) {
-			System.debug('checkpoint2' + listOpportunity.size());
 			update listOpportunity;
-			System.debug('checkpoint3');
 		}
-		System.debug('!!!setOwnerId' + setOwnerId);
 
 		List<User> listOwner = new List<User>([
 				SELECT Id,ManagerId,Seller_Manager__c,Sales_General_Manager__c
@@ -89,6 +88,7 @@ if (Trigger.isBefore) {
 
 		result = APT_AgreementTriggerHandler.afterChangeofOwner(listOwner, Trigger.new);
 		result = APT_AgreementTriggerHandler.updateAgreementwithAttribute(Trigger.new);
+		APT_AgreementTriggerHandler.agreementDatesLogicOnCreate(Trigger.new);
 		result = APT_AgreementTriggerHandler.setProductLines(Trigger.new, mapProposal);
 
 		if (result != APT_Constants.SUCCESS_LABEL) {
@@ -107,7 +107,6 @@ if (Trigger.isBefore) {
 			Integer agreementNumberParent = AgreementnumberDecimal.intValue();
 			String agreementNumberString = (('000000') + agreementNumberParent).right(8) + '.0';
 			//String agreementNumberString = String.format('%08d',agreementNumberParent)+'.0';
-			System.debug('agreementNumberString : ' + agreementNumberString);
 			mapofIdToString.put(IdOfDOVAgreement, agreementNumberString);
 			newSetFFNumber.add(agreementNumberString);
 
@@ -189,8 +188,8 @@ if (Trigger.isBefore) {
 			//APT Print Post Makes Contract FT > workflow rule to trigger
 			//REQ2542972
 			// if (String.isNotBlank(agreement.Term__c) && String.isNotBlank(agreement.Included_Product_Lines__c) && !agreement.Term__c.equalsIgnoreCase(APT_Constants.TERM_FIXED_TERM) &&
-			//         (agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_PRINT_POST) || agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_UMS))) {
-			//     agreement.Term__c = APT_Constants.TERM_FIXED_TERM;
+			//(agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_PRINT_POST) || agreement.Included_Product_Lines__c.contains(APT_Constants.PRODUCT_CODE_UMS))) {
+			//agreement.Term__c = APT_Constants.TERM_FIXED_TERM;
 			// }
 			//APT Print Post Makes Contract FT > workflow rule to trigger
 
@@ -226,7 +225,6 @@ if (Trigger.isBefore) {
 					WHERE Apttus__AgreementId__c IN :rateCardsCreatedAgreementIds
 			]
 			) {
-				System.debug('Post Bill Pay gross Sttlement Fee*****' + aLineItem.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c);
 				if (aLineItem.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Gross_Settlement_fee__c.equalsIgnoreCase(APT_Constants.OPTION_YES)) {
 					agreementIDtoGrossSetteled.put(aLineItem.Apttus__AgreementId__c, true);
 				}
@@ -315,7 +313,10 @@ if (Trigger.isBefore) {
 		APT_AgreementTriggerHandler.beforeAgreementFullySigned(Trigger.oldMap, Trigger.new);
 		//beforeAgreementFullySigned
 
-		System.debug('@@!!!setOwnerId' + setOwnerId);
+		//populateAgreementDatesOnUpdate
+		APT_AgreementTriggerHandler.populateAgreementDatesOnUpdate(Trigger.oldMap, Trigger.newMap);
+
+
 		if(setOwnerId!= null) {
 			List<User> listOwner = new List<User>([
 					SELECT Id,ManagerId,Seller_Manager__c,Sales_General_Manager__c
@@ -342,10 +343,11 @@ if (Trigger.isBefore) {
 if (Trigger.isAfter) {
 	//insert
 	if (Trigger.isInsert) {
+		APT_AgreementTriggerHandler.updateProposalStage(Trigger.new);
 		APT_AgreementTriggerHandler.addPostBillPayLineItemsToChild(Trigger.new);
-		System.debug('checkpoint4');
+
 		result = APT_AgreementTriggerHandler.createOperationalSchedule(Trigger.new);
-		System.debug('checkpoint5' + result);
+
 		if (result != APT_Constants.SUCCESS_LABEL) {
 			for (Apttus__APTS_Agreement__c agreement : Trigger.new) {
 				agreement.addError(result);
@@ -356,6 +358,8 @@ if (Trigger.isAfter) {
 	//update
 	else if (Trigger.isUpdate) {
 
+		//sendEmailToDriver
+		APT_AgreementTriggerHandler.populateServiceDatesOnUpdate(Trigger.oldMap, Trigger.newMap);
 		APT_AgreementTriggerHandler.deleteExtralineItems(Trigger.oldMap, Trigger.newMap);
 
 		// Added by Adrian Recio
@@ -378,7 +382,7 @@ if (Trigger.isAfter) {
 				WHERE Id IN :Trigger.new
 		]) {
 
-			System.debug('*************:temp' + APT_Agreement_auto_activate_recordtypes__c.getValues(agreement.RecordType.DeveloperName) + '****:RecordType' + agreement.RecordType);
+
 			if (Trigger.oldMap.get(agreement.Id).Apttus__Status__c != agreement.Apttus__Status__c &&
 					agreement.Apttus__Status__c == APT_Constants.AGREEMENT_STATUS_FULLY_SIGNED &&
 					APT_Agreement_auto_activate_recordtypes__c.getValues(agreement.RecordType.DeveloperName) != NULL) {
@@ -409,24 +413,24 @@ if (Trigger.isAfter) {
 		if (setChildAgIdsActivated.size() > 0) {
 			APT_AgreementTriggerHandler.afterAgreementActivatedForChildAgreements(setChildAgIdsActivated);
 		}
-		
+
 		/* Shashwat.Nath@Auspost.com.au has added the below lines of code on 22/09/2020 for STP Release 2 requirement
 		of superseding the Original Opportunity when the new DOV contract reaches the stage of "In Signature" and "Fully Signed" */
-			
+
 		Set<Id> opportunitiesInScope = new Set<Id>();
 		// Iterating on trigger.new and adding only those opportunity Ids to the set which would parent opportunities be required to be superseded
 		for(Apttus__APTS_Agreement__c apttusContract : trigger.new){
 			if('In Signatures'.equalsIgnoreCase(apttusContract.Apttus__Status_Category__c) &&
-				trigger.oldmap.get(apttusContract.id).Apttus__Status__c != apttusContract.Apttus__Status__c && 
+				trigger.oldmap.get(apttusContract.id).Apttus__Status__c != apttusContract.Apttus__Status__c &&
 				'Fully Signed'.equalsIgnoreCase(apttusContract.Apttus__Status__c) && apttusContract.Apttus__Related_Opportunity__c!=null){
-					opportunitiesInScope.add(apttusContract.Apttus__Related_Opportunity__c);    
+					opportunitiesInScope.add(apttusContract.Apttus__Related_Opportunity__c);
 				}
 		}
 		if(!opportunitiesInScope.isEmpty()){
 			// Calling the supersede Original Opportunity Method
-			APT_AgreementTriggerHandler.supersedeOriginalOpportunity(opportunitiesInScope);        
+			APT_AgreementTriggerHandler.supersedeOriginalOpportunity(opportunitiesInScope);
 		}
-		
+
 		/* Shashwat.Nath@auspost.com.au code ends */
 	}
 }

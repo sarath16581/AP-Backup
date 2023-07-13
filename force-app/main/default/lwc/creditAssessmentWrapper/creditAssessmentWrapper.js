@@ -62,8 +62,6 @@ export default class CreditAssessmentWrapper extends LightningElement {
 				});
 				// only one primary proposal?
 				if (primaryCount === 1) {
-					// Primary proposal checked out?
-					if (this.primaryProposal && this.primaryProposal.Apttus_QPConfig__ConfigurationFinalizedDate__c) {
 						// OPC complete?
 						if (data.opportunity.Count_of_Contract_Start_Dates__c === 0 && data.opportunity.Count_of_Contract_End_Dates__c === 0 && data.opportunity.Count_of_Opportunity_Line_Items__c > 0) {
 							// Any credit assessments under primary proposal?
@@ -78,9 +76,6 @@ export default class CreditAssessmentWrapper extends LightningElement {
 						} else {
 							this.messageBody = data.messageBodyMap.OPPORTUNITY_INCOMPLETE_OPC;
 						}
-					} else {
-						this.messageBody = data.messageBodyMap.OPPORTUNITY_PRIMARY_NOT_CHECKED;
-					}
 				} else {
 					this.messageBody = data.messageBodyMap.OPPORTUNITY_INCOMPLETE_OPC;
 				}
