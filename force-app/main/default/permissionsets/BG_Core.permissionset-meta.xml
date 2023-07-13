@@ -3087,6 +3087,10 @@
         <tab>Pick_Up_Location__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
+	<tabSettings>
+        <tab>PortfolioAssignment__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Sales_Team_Segment__c</tab>
         <visibility>Available</visibility>

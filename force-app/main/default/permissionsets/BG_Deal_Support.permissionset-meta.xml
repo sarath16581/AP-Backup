@@ -2741,6 +2741,10 @@
         <tab>Deal_Support_Request__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+	<tabSettings>
+        <tab>PortfolioAssignment__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <userPermissions>
         <enabled>true</enabled>
         <name>TransferAnyEntity</name>

@@ -3262,6 +3262,10 @@
         <tab>BG_One_Stop_Shop_Sales</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+		<tabSettings>
+    <tab>PortfolioAssignment__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Seismic</tab>
         <visibility>Visible</visibility>
