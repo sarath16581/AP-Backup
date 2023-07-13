@@ -1,3 +1,4 @@
+//Description: This apex class gives coverage to APT_TriggerHandler.
 //Ken McGuire 2023.04.19 Proposal field migration to opportunity
 @isTest
 private class APT_ConfigurationTrigger_Test {

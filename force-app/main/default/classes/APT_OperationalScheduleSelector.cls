@@ -4,6 +4,7 @@
  * @tag APT_Operational_Schedule__c
  * @domain Core
  * @description A very simple selector class that sits in the base domain
+ * 2023.04.19 Ken McGuire  Proposal field migration to opportunity
  */
 public virtual inherited sharing class APT_OperationalScheduleSelector extends ApplicationSelector{
  

@@ -17,7 +17,7 @@ History:
 15.10.2012R. Enojas (Salesforce)Added code to clear OPCs whose Revenue Schedules have been deleted due to 'Product Error' (CR 27)
 19.12.2012	R. Enojas (Salesforce)		Changed date criteria on batch scope to start from July 1st of the CFY
 28/06/2022 KMcGuire	Modified for including related account sales in OPC classification
-5/07/2023 Modified for OPCUtil refactoring.
+5/07/2023 KMcGuire Modified for OPCUtil refactoring.
 **************************************************/
 
 global class GenerateOPCBatchable implements Database.Batchable<SObject> {

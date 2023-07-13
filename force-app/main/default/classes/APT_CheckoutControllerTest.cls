@@ -5,6 +5,7 @@
 * @tag ApexController
 * @domain Apttus
 * @description A test class for APT_CheckoutController
+1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 */
 @IsTest
 public class APT_CheckoutControllerTest {

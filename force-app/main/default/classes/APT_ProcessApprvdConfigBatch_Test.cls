@@ -6,6 +6,7 @@
  * @last modified by  : Darshan Chauhan
  * Modifications Log 
  2022- 05-15 Nasir Jawed Changed Tier
+ Ken McGuire 2023.04.19 Proposal field migration to opportunity
 **/
 @isTest
 public with sharing class APT_ProcessApprvdConfigBatch_Test {

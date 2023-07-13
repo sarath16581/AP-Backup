@@ -1,3 +1,7 @@
+/**
+Description: this is the test class for APT_AgreementTriAPT_AgreementTriggerHandler
+2023.04.19 Ken McGuire Proposal field migration to opportunity
+**/
 @isTest
 private class APT_AgreementTriggerHandler_Test{
 

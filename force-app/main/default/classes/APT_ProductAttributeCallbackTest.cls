@@ -1,10 +1,10 @@
 /**
+ * Description - Product Attribute Callback Test Class
 Created By - Mahesh Patel
 Created Date - 12th Nov, 2020
 Last Modified By -
 Last Modified Date -
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
-Description - Product Attribute Callback Test Class
 */
 @isTest
 public with sharing class APT_ProductAttributeCallbackTest {

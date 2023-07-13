@@ -5,7 +5,7 @@ Created Date:17-03-2023
 Last Modified By:
 Last Modified Date:
 @changelog:
-
+2023.04.19 Ken McGuire  Proposal field migration to opportunity
 */
 
 public with sharing class APT_HelptotheSellerControllerExtended{

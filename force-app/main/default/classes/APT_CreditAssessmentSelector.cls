@@ -4,6 +4,7 @@
 *@tag APT_Credit_Assessment__c
 *@domain Core
 *@description A very simple selector class that sits in the base domain
+Ken McGuire 2023.04.19 Proposal field migration to opportunity
 */
 public virtual inherited sharing class APT_CreditAssessmentSelector extends ApplicationSelector{
 

@@ -2,6 +2,8 @@
  * @description: A class which handles Contract creation and Service Details modification
  *						when Create Contract button is clicked on Proposal
  * @author: Yatika Bansal
+ * Ken McGuire 2023.04.19 Proposal field migration to opportunity
+ * 
 **/
 public without sharing class APT_ContractServiceDetailsController {
 

@@ -26,7 +26,7 @@ History:
 2020-09-08 Seth Heang STP-2226: Added validation to check for duplicate opportunity line items upon closing as "Close Won"
 2020-09-09 arjun.singh@auspost.com.au Modified the checkIfAllowedToCloseWin method to capture all the possible validation rules
 2020-30-11		seth.heang@auspost.com.au			Update the checkIfAllowedToCloseWin method to auto-populate opportunity's close date to Today prior to Opportunity Closure
-1011-07-22 ken.mcguire OPC Uplift.
+2022-07-22 ken.mcguire OPC Uplift.
 **************************************************/
 public with sharing class OpportunityUtility
 {

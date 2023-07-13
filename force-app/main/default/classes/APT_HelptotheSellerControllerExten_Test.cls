@@ -5,6 +5,7 @@
 *@description This class test the functionality to create Docusign recipients on the fly and user can edit the recipients
 *and add user as Carbon copy
 *@changelog
+2023.04.19 Ken McGuire  Proposal field migration to opportunity
 */
 
 @IsTest

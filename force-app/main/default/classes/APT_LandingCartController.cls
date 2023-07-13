@@ -7,7 +7,7 @@
 				opportunity page which is called form lightning "aPT_AddProductLWC" class
 *@changelog
 *2023-02-28 Bharat Patel : Replace hard-code values from code (coding standard practice)
-*2023-07-06 replaced Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
+*2023-07-06 Ken McGuire replaced Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
 */
 public with sharing class APT_LandingCartController {
 	/**

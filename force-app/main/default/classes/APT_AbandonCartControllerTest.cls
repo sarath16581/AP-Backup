@@ -4,6 +4,7 @@
 *@tag ApexController
 *@domain Apttus
 *@description A test class for APT_AbandonCartController
+2023.04.19 Ken McGuire  Proposal field migration to opportunity
 */
 
 @IsTest

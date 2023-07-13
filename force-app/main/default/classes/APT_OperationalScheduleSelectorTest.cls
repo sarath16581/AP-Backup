@@ -4,6 +4,7 @@
 * @group Tests
 * @domain Apttus
 * @description A test class for APT_OperationalScheduleSelector
+2023.04.19 Ken McGuire  Proposal field migration to opportunity
 */
 @IsTest
 public class APT_OperationalScheduleSelectorTest {

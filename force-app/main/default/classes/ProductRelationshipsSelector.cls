@@ -1,3 +1,10 @@
+/* @author Ken McGuire
+ * @date 2023-05-29
+ * @test ProductRelationshipsSelector_Test
+ * @description simple selector class for product relationships
+ * @changelog
+ *  2023-05-29 - Ken McGuire - Created
+ */
 public virtual inherited sharing class ProductRelationshipsSelector extends ApplicationSelector {
 	public enum Options {
 		WITH_PRODUCT_RELATIONSHIP

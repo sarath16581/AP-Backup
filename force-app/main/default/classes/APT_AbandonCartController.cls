@@ -2,6 +2,7 @@
 Description: This apex class is using VF page "APT_AbandonCart" to redirect user from Cart/Catalog to Opportunity page
 Created By: Yatika Bansal
 Created Date: 05-05-2023
+2023.04.19 Ken McGuire  Proposal field migration to opportunity
 */
 
 public class APT_AbandonCartController {

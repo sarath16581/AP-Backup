@@ -5,6 +5,7 @@
  * @description A class which test Proposal creation on a click of button "Add Product" is clicked from the
 				   opportunity page which is called form lightning "aPT_AddProductLWC" class
  * @changelog
+ * 2023-07-06 Ken McGuire replaced Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
  */
 @IsTest
 public with sharing class APT_LandingCartController_Test {
