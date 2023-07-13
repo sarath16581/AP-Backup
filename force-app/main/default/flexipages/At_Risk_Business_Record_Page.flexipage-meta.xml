@@ -1455,8 +1455,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>barSelectProducts</componentName>
-                <identifier>c_barSelectProducts</identifier>
+                <componentName>arbSelectProducts</componentName>
+                <identifier>c_arbSelectProducts</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-1612ee69-fbb4-47aa-b421-f08ccc67e7f6</name>
