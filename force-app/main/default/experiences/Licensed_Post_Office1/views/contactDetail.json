@@ -92,9 +92,7 @@
             "cardTitle2" : "Physical Address",
             "cardTitle3" : "",
             "noRefreshAfterSave" : false,
-            "recordId" : "{!recordId}",
-            "refreshAfterSave" : false,
-            "refreshNotNavigate" : true
+            "refreshAfterSave" : false
           },
           "componentName" : "c:addressLookupRecordWrapper",
           "id" : "4966854c-3131-48c7-ab51-8b6e422c666f",
