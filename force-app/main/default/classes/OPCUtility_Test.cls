@@ -2,8 +2,9 @@
  * Description: Test Class for the OPCUtility class
  * Author: Ken McGuire
  * History
- * 24/03/2023	Created
- ***************************************/
+ * 24/03/2023	Ken McGuire Created
+ * 14/07/2023 Ken McGuire Fixed field not queried issues
+ ********************************************/
 @isTest
 private class OPCUtility_Test {
 	@TestSetup
@@ -100,6 +101,31 @@ private class OPCUtility_Test {
 		tbr2.Total_Revenue_Amount__c = 600;
 		tbr2.Financial_Year__c = priorYear;
 		insert(new list<Budget_and_Revenue__c>{tbr1,tbr2});
+	}
+
+	private static List<Opp_Product_Classification__c> getOppProductClassification(integer recordLimit) {
+		return [SELECT 
+		Account__c, Product__c, Classification__c, Financial_Year__c,
+		Jan_Schedule_Amount__c, Feb_Schedule_Amount__c, Mar_Schedule_Amount__c, 
+		Apr_Schedule_Amount__c,May_Schedule_Amount__c, Jun_Schedule_Amount__c,
+		Jul_Schedule_Amount__c, Aug_Schedule_Amount__c, Sep_Schedule_Amount__c , 
+		Oct_Schedule_Amount__c , Nov_Schedule_Amount__c , Dec_Schedule_Amount__c,
+		Jan_NRT_Adjustment__c, Feb_NRT_Adjustment__c, Mar_NRT_Adjustment__c, 
+		Apr_NRT_Adjustment__c,May_NRT_Adjustment__c, Jun_NRT_Adjustment__c, 
+		Jul_NRT_Adjustment__c, Aug_NRT_Adjustment__c, Sep_NRT_Adjustment__c , 
+		Oct_NRT_Adjustment__c , Nov_NRT_Adjustment__c , Dec_NRT_Adjustment__c
+		FROM Opp_Product_Classification__c LIMIT :recordLimit];
+	} 
+
+	private static List<Budget_and_Revenue__c> getBudgetAndRevenue(integer recordLimit) {
+		return [SELECT 
+		Name,Organisation__c,Product__c,
+		Jan_Revenue_Amount__c,Feb_Revenue_Amount__c,Mar_Revenue_Amount__c,
+		Apr_Revenue_Amount__c,May_Revenue_Amount__c,Jun_Revenue_Amount__c,
+		Jul_Revenue_Amount__c,Aug_Revenue_Amount__c,Sep_Revenue_Amount__c,
+		Oct_Revenue_Amount__c,Nov_Revenue_Amount__c,Dec_Revenue_Amount__c,
+		Total_Revenue_Amount__c,Financial_Year__c
+		FROM Budget_and_Revenue__c LIMIT : recordLimit];
 	}
 
 	/**
@@ -231,24 +257,7 @@ private class OPCUtility_Test {
 	 */
 	@isTest
 	static void testUpdateExistingOPC() {
-			Opp_Product_Classification__c opc = [SELECT 
-					Account__c, 
-					Product__c, 
-					Classification__c, 
-					Financial_Year__c,
-					Jan_Schedule_Amount__c, 
-					Feb_Schedule_Amount__c, 
-					Mar_Schedule_Amount__c, 
-					Apr_Schedule_Amount__c,
-					May_Schedule_Amount__c, 
-					Jun_Schedule_Amount__c, 
-					Jul_Schedule_Amount__c, 
-					Aug_Schedule_Amount__c,
-					Sep_Schedule_Amount__c , 
-					Oct_Schedule_Amount__c , 
-					Nov_Schedule_Amount__c , 
-					Dec_Schedule_Amount__c 
-				FROM Opp_Product_Classification__c LIMIT 1];
+		Opp_Product_Classification__c opc = getOppProductClassification(1)[0];
 		Opp_Product_Classification__c newOPC = new Opp_Product_Classification__c();
 		OPCUtility.updateExistingOPC(opc, newOPC);
 		system.assertEquals(opc.Mar_Schedule_Amount__c,newOPC.Mar_Schedule_Amount__c);
@@ -259,45 +268,8 @@ private class OPCUtility_Test {
 	 */
 	@isTest
 	static void testPopulateOpcCalculatedFields() {
-		Opp_Product_Classification__c opc = [SELECT 
-		Account__c, 
-		Product__c, 
-		Classification__c, 
-		Financial_Year__c,
-		Jan_Schedule_Amount__c, 
-		Feb_Schedule_Amount__c, 
-		Mar_Schedule_Amount__c, 
-		Apr_Schedule_Amount__c,
-		May_Schedule_Amount__c, 
-		Jun_Schedule_Amount__c, 
-		Jul_Schedule_Amount__c, 
-		Aug_Schedule_Amount__c,
-		Sep_Schedule_Amount__c , 
-		Oct_Schedule_Amount__c , 
-		Nov_Schedule_Amount__c , 
-		Dec_Schedule_Amount__c 
-	FROM Opp_Product_Classification__c LIMIT 1];
-		
-		List<Budget_and_Revenue__c> testBudgetAndRevenue = [SELECT 
-		Name,
-		Organisation__c,
-			Product__c,
-		Jan_Revenue_Amount__c,
-		Feb_Revenue_Amount__c,
-		Mar_Revenue_Amount__c,
-		Apr_Revenue_Amount__c,
-		May_Revenue_Amount__c,
-		Jun_Revenue_Amount__c,
-		Jul_Revenue_Amount__c,
-		Aug_Revenue_Amount__c,
-		Sep_Revenue_Amount__c,
-		Oct_Revenue_Amount__c,
-		Nov_Revenue_Amount__c,
-		Dec_Revenue_Amount__c,
-		Total_Revenue_Amount__c,
-		Financial_Year__c
-		FROM Budget_and_Revenue__c LIMIT 2];
-		
+		Opp_Product_Classification__c opc =  getOppProductClassification(1)[0];
+		List<Budget_and_Revenue__c> testBudgetAndRevenue = getBudgetAndRevenue(2);
 		
 		string revenueKey = OPCUtility.constructRevenueKey(opc.Account__c, opc.Product__c, opc.Financial_Year__c);
 		OPCUtility.ParentAccountRevenue testParentAccountRevenue = new OPCUtility.ParentAccountRevenue(opc.Account__c, testBudgetAndRevenue[0], false);
@@ -330,24 +302,7 @@ private class OPCUtility_Test {
 	@isTest 
 	static void testRelateRevenueScheduleToOPC() {
 	// Create test data
-	List<Opp_Product_Classification__c> opcList =[SELECT 
-				Account__c, 
-				Product__c, 
-				Classification__c, 
-				Financial_Year__c,
-				Jan_Schedule_Amount__c, 
-				Feb_Schedule_Amount__c, 
-				Mar_Schedule_Amount__c, 
-				Apr_Schedule_Amount__c,
-				May_Schedule_Amount__c, 
-				Jun_Schedule_Amount__c, 
-				Jul_Schedule_Amount__c, 
-				Aug_Schedule_Amount__c,
-				Sep_Schedule_Amount__c , 
-				Oct_Schedule_Amount__c , 
-				Nov_Schedule_Amount__c , 
-				Dec_Schedule_Amount__c 
-			FROM Opp_Product_Classification__c];
+	List<Opp_Product_Classification__c> opcList = getOppProductClassification(1);
 		List<Revenue_Schedule__c> rsList = new List<Revenue_Schedule__c>{new Revenue_Schedule__c(Opportunity_Product_Classification__c =opcList[0].Id, Classification_c__c = 'Growth', Contract_Start_Date__c = date.today())};
 		Map<String, Id> uniqueIdopcIdMap = new Map<String, Id>();
 		Map<String, Revenue_Schedule__c> opcIdRSMap = new Map<String, Revenue_Schedule__c>();
@@ -369,24 +324,7 @@ private class OPCUtility_Test {
 	@isTest 
 	static void testRelateRevenueScheduleToOPC1() {
 		// Create test data
-		List<Opp_Product_Classification__c> opcList =[SELECT 
-			Account__c, 
-			Product__c, 
-			Classification__c, 
-			Financial_Year__c,
-			Jan_Schedule_Amount__c, 
-			Feb_Schedule_Amount__c, 
-			Mar_Schedule_Amount__c, 
-			Apr_Schedule_Amount__c,
-			May_Schedule_Amount__c, 
-			Jun_Schedule_Amount__c, 
-			Jul_Schedule_Amount__c, 
-			Aug_Schedule_Amount__c,
-			Sep_Schedule_Amount__c , 
-			Oct_Schedule_Amount__c , 
-			Nov_Schedule_Amount__c , 
-			Dec_Schedule_Amount__c 
-		FROM Opp_Product_Classification__c];
+		List<Opp_Product_Classification__c> opcList = getOppProductClassification(1);
 		List<Revenue_Schedule__c> rsList = new List<Revenue_Schedule__c>{new Revenue_Schedule__c(Opportunity_Product_Classification__c =opcList[0].Id, Classification_c__c = 'Growth', Contract_Start_Date__c = date.today())};
 
 		// Execute the method
@@ -403,24 +341,7 @@ private class OPCUtility_Test {
 	@isTest 
 	static void testCheckForException() {
 		// Create test data
-		List<Opp_Product_Classification__c> opcList = [SELECT 
-				Account__c, 
-				Product__c, 
-				Classification__c, 
-				Financial_Year__c,
-				Jan_Schedule_Amount__c, 
-				Feb_Schedule_Amount__c, 
-				Mar_Schedule_Amount__c, 
-				Apr_Schedule_Amount__c,
-				May_Schedule_Amount__c, 
-				Jun_Schedule_Amount__c, 
-				Jul_Schedule_Amount__c, 
-				Aug_Schedule_Amount__c,
-				Sep_Schedule_Amount__c , 
-				Oct_Schedule_Amount__c , 
-				Nov_Schedule_Amount__c , 
-				Dec_Schedule_Amount__c 
-			FROM Opp_Product_Classification__c];
+		List<Opp_Product_Classification__c> opcList = getOppProductClassification(1);
 		
 		
 		Map<String, OPCUtility.ParentAccountRevenue> idBARMap = new Map<String, OPCUtility.ParentAccountRevenue>();
@@ -450,24 +371,7 @@ private class OPCUtility_Test {
 	@isTest 
 	static void testRequeryOPCList() {
 		// Create test data
-		List<Opp_Product_Classification__c> opcList = [SELECT 
-			Account__c, 
-			Product__c, 
-			Classification__c, 
-			Financial_Year__c,
-			Jan_Schedule_Amount__c, 
-			Feb_Schedule_Amount__c, 
-			Mar_Schedule_Amount__c, 
-			Apr_Schedule_Amount__c,
-			May_Schedule_Amount__c, 
-			Jun_Schedule_Amount__c, 
-			Jul_Schedule_Amount__c, 
-			Aug_Schedule_Amount__c,
-			Sep_Schedule_Amount__c , 
-			Oct_Schedule_Amount__c , 
-			Nov_Schedule_Amount__c , 
-			Dec_Schedule_Amount__c 
-		FROM Opp_Product_Classification__c];
+		List<Opp_Product_Classification__c> opcList = getOppProductClassification(1);
 
 
 		// Call the method being tested
