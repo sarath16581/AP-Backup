@@ -3,12 +3,17 @@ import getAllActivities from '@salesforce/apex/ActivityTimelineController.getAll
 
 export default class ActivityTimeline extends LightningElement {
     @api recordId;
+    @api sObjectName;
+    @api loadNumber;
 
     sectionClassPrefix = 'slds-timeline__item_expandable slds-timeline__item_task';
     allActivities;
 
     connectedCallback() {
-        getAllActivities({recordId: this.recordId}).then(result => {
+        getAllActivities({
+            recordId: this.recordId,
+            sObjectName: this.sObjectName
+        }).then(result => {
             this.allActivities = result;
             console.log(this.allActivities)
         }).catch(error => {

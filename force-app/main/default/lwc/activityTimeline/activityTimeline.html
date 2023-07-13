@@ -4,7 +4,7 @@
         <template if:true={allActivities}>
             <template for:each={allActivities} for:item="activity">
                 <li key={activity.actId}>
-                    <div class="slds-timeline__item_expandable slds-timeline__item_task slds-section slds-is-open" data-id={activity.actId}>
+                    <div class="slds-timeline__item_expandable slds-timeline__item_task slds-section slds-is-close" data-id={activity.actId}>
                         <span class="slds-assistive-text">task</span>
                         <div class="slds-media">
                             <div class="slds-media__figure">
@@ -27,28 +27,35 @@
                                         </h3>
                                     </div>
                                     <div class="slds-timeline__actions slds-timeline__actions_inline">
-                                        <p class="slds-timeline__date">{activity.createdDate}</p>
+                                        <lightning-formatted-date-time value={activity.createdDate}></lightning-formatted-date-time>
                                     </div>
                                 </div>
-                                <p class="slds-m-horizontal_xx-small">A subtitle maybe?</p>
+                                <p class="slds-m-horizontal_xx-small">You had a task</p>
                                 <div class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium" aria-hidden="false">
                                     <ul class="slds-list_horizontal slds-wrap">
                                         <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
-                                            <span class="slds-text-title slds-p-bottom_x-small">Field 1</span>
-                                            <span class="slds-text-body_medium slds-truncate" title="Field 1">
-                                                Field 1
+                                            <span class="slds-text-title slds-p-bottom_x-small">Type</span>
+                                            <span class="slds-text-body_medium slds-truncate" title={activity.type}>
+                                                {activity.type}
                                             </span>
                                         </li>
                                         <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
-                                            <span class="slds-text-title slds-p-bottom_x-small">Field 2</span>
-                                            <span class="slds-text-body_medium slds-truncate" title="Field 2">
-                                                Field 2
+                                            <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                                            <span class="slds-text-body_medium slds-truncate" title={activity.category}>
+                                                {activity.category}
                                             </span>
                                         </li>
                                     </ul>
                                     <div>
                                         <span class="slds-text-title">Description</span>
-                                        <p class="slds-p-top_x-small">{activity.description}</p>
+                                        <template if:true={activity.htmlBody}>
+                                            <lightning-formatted-rich-text value={activity.htmlBody}></lightning-formatted-rich-text>
+                                        </template>
+                                        <template if:false= {activity.htmlBody}>
+                                            <br/>
+                                            <lightning-formatted-text value={activity.description}></lightning-formatted-text>
+                                        </template>
+
                                     </div>
                                 </div>
                             </div>

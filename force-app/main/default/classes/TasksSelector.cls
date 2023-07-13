@@ -33,7 +33,7 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 				Task.Id, Task.Subject, Task.Description, Task.ActivityDate, Task.OwnerId, Task.WhatId,
-				Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.IsClosed,  Task.Priority, Task.OwnerId
+				Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.TaskSubtype, Task.IsClosed, Task.Priority, Task.OwnerId, Task.Operations_Outcome_Comment__c, Task.CreatedDate
 		};
 	}
 
