@@ -69886,6 +69886,11 @@
         <field>Deal_Support_Request__c.Sales_Director__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Sales_Justification__c</field>
