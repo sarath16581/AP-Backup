@@ -29,7 +29,7 @@ public inherited sharing class SurchargeExemptionRequestModule extends Applicati
 	}
 
 	private static void populateSalesDirectorAndGeneralManager(List<Deal_Support_Request__c> records, Map<Id,Deal_Support_Request__c> existingRecords) {
-    	List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, records, existingRecords, monitoredFields);
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, records, existingRecords, monitoredFields);
 
 		if (changedRecords.isEmpty()) {
 			// Skip everything if there are no changed records to process
