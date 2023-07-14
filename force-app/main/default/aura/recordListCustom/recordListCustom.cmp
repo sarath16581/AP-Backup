@@ -1,5 +1,5 @@
 <aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:appHostable" access="global">
-    <aura:attribute name="objectAPIName" type="String" default="Account"/>
+	<aura:attribute name="objectAPIName" type="String" default="Account"/>
 	<aura:attribute name="listViewAPIName" type="String" default="AllAccounts"/>
 	<aura:attribute name="mobileListViewAPIName" type="String" default=""/>
 	<aura:attribute name="rows" type="String" default="25"/>

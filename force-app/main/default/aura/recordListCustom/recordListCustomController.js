@@ -1,5 +1,5 @@
 ({
-    doInit: function(cmp) {
+	doInit: function(cmp) {
 		const maxWidth = 1280; 
 		const mobileListView = cmp.get("v.mobileListViewAPIName");
 		
