@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <environments>Default</environments>
     <interviewLabel>Share DSR Records With Approvers {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Share DSR Records With Approvers</label>

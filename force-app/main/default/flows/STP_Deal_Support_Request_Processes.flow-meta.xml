@@ -1203,7 +1203,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <assignments>
         <name>myAssignment_myRule_88_A2</name>
         <label>myAssignment_myRule_88_A2</label>

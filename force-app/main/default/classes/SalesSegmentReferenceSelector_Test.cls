@@ -11,72 +11,69 @@
 */
 @IsTest
 private with sharing class SalesSegmentReferenceSelector_Test {
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    private static void testEnsureQueryBuilderProducesCorrectString() {
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	private static void testEnsureQueryBuilderProducesCorrectString() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        // None!
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        SalesSegmentReferenceSelector selector = SalesSegmentReferenceSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder();
-        String soql = qb.toSoqlString();
+		SalesSegmentReferenceSelector selector = SalesSegmentReferenceSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Sales_Segment_Reference__c\\b').matcher(soql).find(), 'Resulting query does not select from Sales_Segment_Reference__c');
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom Sales_Segment_Reference__c\\b').matcher(soql).find(), 'Resulting query does not select from Sales_Segment_Reference__c');
 
-        Test.stopTest();
+		Test.stopTest();
+	}
 
-    }
+	/**
+	 * Test:
+	 *  Ensures the selector is returning the correct results
+	 */
+	@IsTest
+	private static void testSelectByName() {
 
-    /**
-     * Test:
-     *  Ensures the selector is returning the correct results
-     */
-    @IsTest
-    private static void testSelectByName() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        MockUtility.disableTriggerExecution();
-
-		Sales_Segment_Reference__c testSSR = ApplicationTestDataFactory.getSalesSegmentReferences(1, false)[0];
+		Sales_Segment_Reference__c testSSR = ApplicationTestDataFactorySales.getSalesSegmentReferences(1, false)[0];
 
 		testSSR.Sales_Segment__c = 'Holding Sales Team';
 
-        insert testSSR;
-        
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		insert testSSR;
+		
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        SalesSegmentReferenceSelector selector = SalesSegmentReferenceSelector.newInstance();
-        List<Sales_Segment_Reference__c> results = selector.selectByName(new Set<String>{'Holding Sales Team'});
-        System.assertEquals(1, results.size(), 'Expected result size of 1');
+		SalesSegmentReferenceSelector selector = SalesSegmentReferenceSelector.newInstance();
+		List<Sales_Segment_Reference__c> results = selector.selectByName(new Set<String>{'Holding Sales Team'});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
-        Test.stopTest();
-
-    }
-
+		Test.stopTest();
+	}
 }

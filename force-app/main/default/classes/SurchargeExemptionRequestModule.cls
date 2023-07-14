@@ -8,7 +8,7 @@
  * 2023-07-12 - Pratyush Chalasani - created 
  */
 public inherited sharing class SurchargeExemptionRequestModule extends ApplicationDomain.Module {
-    public static SurchargeExemptionRequestModule newInstance() {
+	public static SurchargeExemptionRequestModule newInstance() {
 		return (SurchargeExemptionRequestModule)Application.Utilities.newInstance(SurchargeExemptionRequestModule.class);
 	}
 	

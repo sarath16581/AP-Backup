@@ -31,8 +31,6 @@
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
  * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
- * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
- * 2023-07-12 - Pratyush Chalasani - Added getSalesSegmentReferences
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -890,10 +888,6 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
 		}, count), generateIds);
-	}
-
-	public static List<Sales_Segment_Reference__c> getSalesSegmentReferences(Integer count, Boolean generateIds) {
-		return (List<Sales_Segment_Reference__c>) maybeGenerateIds(populateSObjects(Sales_Segment_Reference__c.SObjectType, new Map<SObjectField, Object>(), count), generateIds);
 	}
 
 	public static void generateRecordIds(List<SObject> records) {

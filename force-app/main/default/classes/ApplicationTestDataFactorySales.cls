@@ -7,6 +7,7 @@
  * @changelog
  * 2022-06-04 - Dattaraj Deshmukh - Created - getDealSupportRequestMilestones method for User story, SM-604
  * 2023-04-14 - Harry Wang - Created - added getOpportunityLineItems method
+ * 2023-07-13 - Pratyush Chalasani - Added getSalesSegmentReferences
  */
 @IsTest
 public with sharing class ApplicationTestDataFactorySales {
@@ -33,5 +34,9 @@ public with sharing class ApplicationTestDataFactorySales {
 				OpportunityLineItem.UnitPrice => 2,
 				OpportunityLineItem.PricebookEntryId => priceBookEntryId
 		}, count), generateIds);
+	}
+
+	public static List<Sales_Segment_Reference__c> getSalesSegmentReferences(Integer count, Boolean generateIds) {
+		return (List<Sales_Segment_Reference__c>) ApplicationTestDataFactory.maybeGenerateIds(populateSObjects(Sales_Segment_Reference__c.SObjectType, new Map<SObjectField, Object>(), count), generateIds);
 	}
 }
