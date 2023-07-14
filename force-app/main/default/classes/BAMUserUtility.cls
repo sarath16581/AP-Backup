@@ -16,6 +16,8 @@ public with sharing class BAMUserUtility {
 
     public static final String CONTACT_STATUS_ACTIVE = 'Active';
     public static final String MERCHANT_PORTAL_PROFILE_NAME = 'Merchant Portal Community User';
+	public static final String KEY_NOT_CONTAINS = 'notContains';
+	public static final String KEY_EQUALS = 'equals';
 
     /**
 	 * Grab BAM Record Type Id for the External Onboarding record Sobject
@@ -203,7 +205,13 @@ public with sharing class BAMUserUtility {
 			//get the billing account filter from the app level
 			if (String.isNotBlank(bamApplicationMap.get(bamAppId).BillingAccountFilter__c)) {
 				//deserialize the json filter
-				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(bamApplicationMap.get(bamAppId).BillingAccountFilter__c);
+				Map<String, Object> billingAccountFilterMap;
+				try {
+					billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(bamApplicationMap.get(bamAppId).BillingAccountFilter__c);
+				} catch(Exception e) {
+					//fail-safe if invalid json
+					billingAccountFilterMap = new Map<String, Object>();
+				}
 				wrapper.billingAccounts = getBillingAccountsByAppFilter(billingAccounts, billingAccountFilterMap);
 			} else {
 				//add all the billing accounts if no filter at the app level
@@ -222,37 +230,123 @@ public with sharing class BAMUserUtility {
 	 */
 	public static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap) {
 		List<Billing_Account__c> filteredAccounts = new List<Billing_Account__c>();
-		Set<String> keySet = billingAccountFilterMap.keySet();
+		Set<String> keysToMatch = new Set<String>();
+		Set<String> notContainsKeysToMatch = new Set<String>();
 
-		//loop through billing account records and filter records that matches with the all the config that is set
-		for (Billing_Account__c ba : billingAccounts) {
-			Integer matchedKeys = 0;
-			for (String key : billingAccountFilterMap.keySet()) {
-				//check for field exists on the record
-				if (ba.isSet(key)) {
-					Object value = billingAccountFilterMap.get(key);
-					//if values is array, loop through to find if any criteria matches
-					if(value instanceof List<Object>) {
-						for(Object obj : (List<Object>)value) {
-							if(ba.get(key) == obj) {
+		//return if json object is empty
+		if (billingAccountFilterMap.isEmpty()) {
+			return billingAccounts;
+		}
+
+		try {
+			//get the keys from the billing account filter defined at app level
+			getKeysForComparison(billingAccountFilterMap, keysToMatch, notContainsKeysToMatch);
+
+			//loop through billing account records and filter records that matches with the all the config that is set
+			for (Billing_Account__c ba : billingAccounts) {
+				Integer matchedKeys = 0;
+				Integer notContainsMatchedKeys = 0;
+				//check the record matched with our filter
+				for (String key : billingAccountFilterMap.keySet()) {
+					//check for field exists on the record
+					if (!key.equalsIgnoreCase(KEY_NOT_CONTAINS) && ba.isSet(key)) {
+						Object value = billingAccountFilterMap.get(key);
+						//if values is array, loop through to find if any criteria matches
+						if(value instanceof List<Object>) {
+							if (isRecordMatched(ba, key, (List<Object>)value, KEY_EQUALS)) {
 								matchedKeys++;
-								break;
+							}
+						} else {
+							//compare the SObject field value with the config value
+							if (isRecordMatched(ba, key, new List<Object>{value}, KEY_EQUALS)) {
+								matchedKeys++;
 							}
 						}
-					} else {
-						//compare the SObject field value with the config value
-						if (ba.get(key) == value) {
-							matchedKeys++;
+					} else if (key.equalsIgnoreCase(KEY_NOT_CONTAINS)) {
+						Object notContainsValue = billingAccountFilterMap.get(key);
+						if (notContainsValue instanceOf Map<String,Object> ) {
+							Map<String,Object> notContainsValueMap = (Map<String,Object>)notContainsValue;
+							for (String ncKey : notContainsValueMap.keySet()) {
+								//check for field exists on the record
+								if (ba.isSet(ncKey)) {
+									Object value = notContainsValueMap.get(ncKey);
+									//if values is array, loop through to find if any criteria matches
+									if(value instanceof List<Object>) {
+										if (isRecordMatched(ba, ncKey, (List<Object>)value, KEY_NOT_CONTAINS)) {
+											notContainsMatchedKeys++;
+										}
+									} else {
+										//compare the SObject field value with the config value
+										if (isRecordMatched(ba, ncKey, new List<Object>{value}, KEY_NOT_CONTAINS)) {
+											notContainsMatchedKeys++;
+										}
+									}
+								}
+							}
 						}
 					}
 				}
-			}
-			//if all the keys matched, add the billing account to the filtered list
-			if(matchedKeys == keySet.size()) {
-				filteredAccounts.add(ba);
-			}
+				//if all the keys matched, add the billing account to the filtered list
+				if(matchedKeys == keysToMatch.size() && notContainsMatchedKeys == notContainsKeysToMatch.size()) {
+					filteredAccounts.add(ba);
+				}
+			}	
+		} catch (Exception  ex) {
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'BAM', BAMUserUtility.class.getName(), 'getBillingAccountsByAppFilter', 'getAppBillingAccountDataWrapper', LoggingLevel.ERROR);
 		}
 		return filteredAccounts;
+	}
+	
+	/**
+	 * @description			This method checks the record based on equals/not contains operation with the key and value/values passed
+	 * @param  ba			Billing_Account__c record
+	 * @param  fieldName	Field to check on the record
+	 * @param  value		Field value/values to check
+	 * @param  compareKey	operator to check equals (or) notContains
+	 * @return				returns boolean if record matched
+	 */
+	private static Boolean isRecordMatched(Billing_Account__c ba, String fieldName, List<Object> value, String compareKey) {
+		Boolean isMatched = false;
+		Integer notContainsKeyMatched = 0;
+		for (Object obj : (List<Object>)value) {
+			if (compareKey.equals(KEY_EQUALS) && ba.get(fieldName) == obj) {
+				return true;
+			} else if(compareKey.equals(KEY_NOT_CONTAINS)){
+				String fieldVal = (String)ba.get(fieldName);
+				if (!fieldVal.contains((String)obj)) {
+					notContainsKeyMatched++;
+				}
+			}
+		}
+		if (compareKey.equals(KEY_NOT_CONTAINS)) {
+			isMatched = notContainsKeyMatched == value.size();
+		}
+		return isMatched;
+	}
+
+	/**
+	 * @description 					This method is used to collect all the keys (field API names) that is defined in the json filter 
+	 * @param  billingAccountFilterMap 	key-value pair for the billing account filter
+	 * @param  keysToMatch				fields to compare that has no other criteria set
+	 * @param  notContainsKeysToMatch	fields to compare that defined in the notContains key in json filter
+	 */
+	private static void getKeysForComparison(Map<String, Object> billingAccountFilterMap, Set<String> keysToMatch, Set<String> notContainsKeysToMatch) {
+		//loop through the json map to get the keys
+		for (String key : billingAccountFilterMap.keySet()) {
+			if (key.equalsIgnoreCase(KEY_NOT_CONTAINS)) {
+				//get the keys from 'notContains' defined at filter
+				//this is in the Map<String, Object> format again
+				Object notContainsValue = billingAccountFilterMap.get(key);
+				if (notContainsValue instanceOf Map<String,Object> ) {
+					Map<String,Object> notContainsValueMap = (Map<String,Object>)notContainsValue;
+					//add all the keys in notContains json object 
+					notContainsKeysToMatch.addAll(notContainsValueMap.keySet());
+				}
+			} else {
+				//add the keys
+				keysToMatch.add(key);
+			}
+		}
 	}
 
 	public class ApplicationBillingAccountDataWrapper {

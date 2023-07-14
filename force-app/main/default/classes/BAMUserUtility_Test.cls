@@ -343,14 +343,25 @@ public class BAMUserUtility_Test {
 		List<BAMApplication__c> bamApps = ApplicationTestDataFactory.getBamApplications(1,'Business Shop',products[0].Id, true);
 		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Business Support Portal',products[1].Id, true));
 		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Parcel Send',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Online Shop',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Online Support Portal',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Help and  Support',products[1].Id, true));
+		//filter with equal check only
 		bamApps[0].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false}';
+		//filter with equal check only
 		bamApps[2].BillingAccountFilter__c = '{"Source_System__c": ["TEAM","SAP ERP"],"Credit_Status__c": false}';
+		//filter with equal check and notContains for Legacy_ID__c and State__c
+		bamApps[3].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"LEGACY_ID__c":["A","B"],"State__c":"QLD"}}';
+		bamApps[4].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"LEGACY_ID__c":["A","B"],"State__c":"VIC"}}';
+		//invalid json filter
+		bamApps[5].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false';
 		//get billing accounts
 		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'SAP ERP',true);
 		billingAccounts.addAll(ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'TEAM',true));
 
 		for (Billing_Account__c ba : billingAccounts) {
 			ba.Credit_Status__c = false;
+			ba.State__c = 'VIC';
 		}
 
 		// =====================================
@@ -367,11 +378,19 @@ public class BAMUserUtility_Test {
 
 		Test.stopTest();
 
-		//Assert filters are applied 
-		Assert.areEqual(bamApps.size(), wrapper.size(), 'Expected three application results to be returned');
+		//Assert filters are applied
+		Assert.areEqual(bamApps.size(), wrapper.size(), 'Expected five application results to be returned');
 		Assert.areEqual(bamApps[0].Id, wrapper[0].bamApplicationId, 'Incorrect app id returned');
 		Assert.areEqual(3, wrapper[0].billingAccounts.size(), 'Expected Team source system billing accounts are filtered');
+		//all the billing accounts are returned as there is no filter specified at app level
 		Assert.areEqual(billingAccounts.size(), wrapper[1].billingAccounts.size(), 'Expected no billing accounts are filtered');
+		//all the billing accounts are returned as they satisfy with Source_System__c as TEAM or SAP ERP
 		Assert.areEqual(billingAccounts.size(), wrapper[2].billingAccounts.size(), 'Expected all billing accounts are filtered');
+		//only Source_System__c as TEAM will be returned as they satify the filter and have State__c as VIC
+		Assert.areEqual(3, wrapper[3].billingAccounts.size(), 'Expected Team source system billing accounts are filtered');
+		//no billing accounts match for the filter defined as the billing accounts have state as VIC
+		Assert.areEqual(0, wrapper[4].billingAccounts.size(), 'Expected no billing accounts are returned');
+		//all the billing accounts will be returned as json filter is invalid
+		Assert.areEqual(billingAccounts.size(), wrapper[5].billingAccounts.size(), 'Expected all billing accounts are returned');
 	}
 }
