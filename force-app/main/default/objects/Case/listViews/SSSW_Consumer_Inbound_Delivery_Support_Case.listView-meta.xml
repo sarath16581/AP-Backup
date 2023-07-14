@@ -20,6 +20,5 @@
     <label>SSSW Consumer Inbound Deliv Supp Standar</label>
     <queue>SSSW_Consumer_Inbound_Delivery_Support</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
     </sharedTo>
 </ListView>

@@ -17,6 +17,5 @@
     <label>SSSW Customer Care Specialist T2</label>
     <queue>SSSW_Customer_Care_Tier_2</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>
