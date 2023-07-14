@@ -6,9 +6,10 @@
  * @change log:
  * Dattaraj Deshmukh - 2022-06-02  - Created
  * Ken McGuire - 2022-08-08 registered survey invitation module
+ * Pratyush Chalasani - 2023-07-12 - Added SurchargeExemptionRequestModule
  */
 public with sharing class DealSupportRequestGenericDomain  extends ApplicationDomain{
-    public static DealSupportRequestGenericDomain newInstance(List<SObject> sObjectList) {
+	public static DealSupportRequestGenericDomain newInstance(List<SObject> sObjectList) {
 		return (DealSupportRequestGenericDomain)ApplicationDomain.newInstance(DealSupportRequestGenericDomain.class, sObjectList);
 	}
 	/**
@@ -25,6 +26,8 @@ public with sharing class DealSupportRequestGenericDomain  extends ApplicationDo
 		registerModule(DealSupportSurveyInvitationModule.class);
 		// The sales record sharing module shares deal support request records based on parent records
 		registerModule(SalesRecordSharingModule.class);
+		// Module for processing surchage exemption approvals
+		registerModule(SurchargeExemptionRequestModule.class);
 	}
 	/**
 	 * Trigger instantiation context
