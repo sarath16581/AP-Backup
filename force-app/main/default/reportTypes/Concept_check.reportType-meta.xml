@@ -3994,4 +3994,12 @@
         </columns>
         <masterLabel>Revenue by Billing Account</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TradedRevenueMyCommunity__c</field>
+            <table>Billing_Account__c.Contacts__r.Accounts__r</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
+    </sections>
 </ReportType>

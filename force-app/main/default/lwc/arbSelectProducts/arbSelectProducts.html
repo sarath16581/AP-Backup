@@ -1,5 +1,13 @@
 <template>
+	<template if:true={loading}>
+		<lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+	</template>
 
+	<template if:true={empty}>
+		<i>No products selected</i>
+	</template>
+
+	<template if:false={empty}>
 		<lightning-tree-grid
 			columns={gridColumns}
 			data={productData}
@@ -10,17 +18,16 @@
 			hide-checkbox-column={viewing}
 			>
 		</lightning-tree-grid>
+	</template>
+	<div style="text-align: right; padding-top: 10px;">
+		<template if:true={viewing}>
+			<lightning-button variant="brand" label="Edit" onclick={edit}></lightning-button>
+		</template>
 		
-
-		<div style="text-align: right">
-			<template if:true={viewing}>
-				<lightning-button variant="brand" label="Edit" onclick={edit}></lightning-button>
-			</template>
-			
-			<template if:true={editing}>
-				<lightning-button variant="destructive-text" label="Cancel" onclick={close}></lightning-button>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<lightning-button variant="brand" label="Save" onclick={saveSelection}></lightning-button>
-			</template>
-		</div>
+		<template if:true={editing}>
+			<lightning-button variant="destructive-text" label="Cancel" onclick={close}></lightning-button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<lightning-button variant="brand" label="Save" onclick={saveSelection}></lightning-button>
+		</template>
+	</div>
 </template>

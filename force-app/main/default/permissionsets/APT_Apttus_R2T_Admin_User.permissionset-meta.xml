@@ -17,6 +17,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_AbandonCartController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_AccountDetails</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -177,6 +181,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_CheckoutController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_CompanyBusinessContHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -198,6 +206,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_Constants</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ContractServiceDetailsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -237,6 +249,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_CreditAssessmentSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_DeleteExistingDomesticPricingBatch</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -258,6 +274,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_DoVLanguageTriggerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DocuSignDefaultRecipient2Selector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DocuSignRecipientTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -309,6 +333,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_HelptotheSellerControllerExtended</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_HelptotheSellerController_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -330,6 +358,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_InternationalPricingBatch_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_LandingCartController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -378,6 +410,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_MergeDocBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_OperationalScheduleSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -550,6 +586,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_SaveConfigControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_Save_RedirectToOPCScreen</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -5291,7 +5331,7 @@
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Annual_Volume_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Average_Chargeable_Weight_Kg__c</field>
         <readable>true</readable>
@@ -5301,17 +5341,12 @@
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Band__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.Category__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Cubic_Factor__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Cubic_Status__c</field>
         <readable>true</readable>
@@ -5534,6 +5569,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.Apttus_CMConfig__Vendor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14523,12 +14563,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.APTMinimumMonthlySpend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.APTPostcodeSuburb__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.APT_Create_Rebate_Contract__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.APT_Create_SOP_Contract__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.IsStartrackProposal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15485,6 +15540,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>APT_AbandonCart</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>APT_AmendRenew</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -15498,6 +15557,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_CashAccountAssessment</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_CheckOut</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -15530,6 +15593,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_HelptotheSeller</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_HelptotheSellerExtended</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -15586,6 +15653,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_RequestNewAccount</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_Save_RedirectToOPCScreen</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

@@ -1,0 +1,325 @@
+<template>
+	<!-- Loading the error message if any -->
+	<template if:true={error}>
+		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+			<!--error graphic-->
+			<span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+			<lightning-icon icon-name="utility:error" alternative-text="Error" title="Error" variant="inverse"></lightning-icon>
+			</span>
+			<!--error message-->
+			<h2>{error}</h2>
+		</div>
+	</template>
+
+	<div class="slds-text-align_center slds-text-heading_medium">
+		Confirm Docusign Recipients
+	</div>
+
+	<div class="padding-top: 800px;">
+	</div>
+	<div>&nbsp;</div>
+
+	<lightning-card title="Sales Professional Signer" >
+		<template if:true={isLoading}>
+			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+		</template>
+		<!--User data List-->
+		<template if:true={mapDataUserList}>
+			<div class="slds-border_top c-container">
+				<lightning-datatable
+					data-id="user"
+					key-field="Id"
+					data={mapDataUserList}
+					columns={columns}
+					hide-checkbox-column="true"
+					onrowaction={handleRowActionUser}>
+				</lightning-datatable>
+			</div>
+		</template>
+	</lightning-card>
+
+	<div class="padding-top: 400px;">
+	</div>
+	<div>&nbsp;</div>
+
+	<!--Button to edit Key Contact record-->
+	<lightning-card title="Customer Signer" >
+		<!--Key Contact data List-->
+		<template if:true={mapDataContactsList}>
+			<div class="slds-border_top c-container">
+				<lightning-datatable
+					data-id="contact"
+					key-field="Id"
+					data={mapDataContactsList}
+					columns={customerColumns}
+					hide-checkbox-column="true"
+					onrowaction={handleRowActionContact}>
+				</lightning-datatable>
+			</div>
+		</template>
+	</lightning-card>
+
+	<div class="padding-top: 400px;">
+	</div>
+	<div>&nbsp;</div>
+
+	<!-- This is for Carbon Copy-->
+	<lightning-card title="Carbon Copy Recipient(s)" >
+			<lightning-button variant="brand"  label="Add" title="Add" onclick={addCarbonCopy} class="slds-m-right_x-small" slot="actions" disabled={AddButtontrue}></lightning-button>
+		<!--Key Carbon Copy data List-->
+		<template if:true={mapDataCCList}>
+			<div class="slds-border_top c-container">
+				<lightning-datatable
+					data-id="cc"
+					key-field="Id"
+					data={mapDataCCList}
+					columns={ccColumns}
+					hide-checkbox-column="true"
+					onrowaction={handleRowActionCC}>
+				</lightning-datatable>
+			</div>
+		</template>
+	</lightning-card>
+
+	<!--Table to edit user record-->
+	<template if:true={isModalOpenUser}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!--Modal/Popup Box LWC header here-->
+				<header class="slds-modal__header">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalUser}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+					</button>
+					<h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Recipients(User)</h2>
+				</header>
+				<!-- Modal/Popup Box LWC body starts here -->
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+					<lightning-record-edit-form record-id={userDocuSign}  object-api-name={objectApiName} onsuccess={handleSuccess}>
+						<lightning-messages></lightning-messages>
+						<lightning-input-field field-name="Apttus_DocuApi__UserId__c" required></lightning-input-field>
+						<lightning-output-field field-name="Apttus_DocuApi__RecipientType__c"></lightning-output-field>
+						<lightning-input-field field-name="Apttus_DocuApi__SigningOrder__c"></lightning-input-field>
+						<lightning-input-field field-name="Apttus_DocuApi__Note__c"  ></lightning-input-field>
+						<div class="slds-align_absolute-center slds-p-around_medium">
+							<lightning-button class="slds-m-top_small" label="Update" type="submit" name="Update" variant="brand"></lightning-button>
+						</div>
+					</lightning-record-edit-form>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+	<!--Table to edit Key Contact record-->
+	<template if:true={isModalOpenContact}>
+
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!-- Modal/Popup Box LWC header here -->
+				<header class="slds-modal__header">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalContact}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+					</button>
+					<h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Edit Recipients(Contact)</h2>
+				</header>
+				<!-- Modal/Popup Box LWC body starts here -->
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+					<lightning-record-edit-form record-id={keyContactDocuSign}  object-api-name={objectApiName} onsuccess={handleSuccess}>
+						<lightning-messages></lightning-messages>
+						<lightning-input-field field-name="Apttus_DocuApi__ContactId__c" required></lightning-input-field>
+						<lightning-output-field field-name="Apttus_DocuApi__RecipientType__c"></lightning-output-field>
+						<lightning-input-field field-name="Apttus_DocuApi__SigningOrder__c"></lightning-input-field>
+						<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+						<div class="slds-align_absolute-center slds-p-around_medium">
+							<lightning-button class="slds-m-around_xx-small" label="Update" type="submit" name="Update" variant="brand"></lightning-button>
+						</div>
+					</lightning-record-edit-form>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+
+	<template if:true={isModalOpenEditCC}>
+
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-05" aria-modal="true" aria-describedby="modal-content-id-5" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!-- Modal/Popup Box LWC header here -->
+				<header class="slds-modal__header">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalCC}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+					</button>
+					<h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate">Edit Carbon Copy Recipient(s)</h2>
+				</header>
+				<!-- Modal/Popup Box LWC body starts here -->
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+					<template if:true={carbonCopyPopUp}>
+							<lightning-card title="Carbon Copy Recipient(s) Type: Manually Enter recipients Details" >
+
+								<lightning-record-edit-form record-id={carbonCopyDocuSign}  object-api-name={objectApiName} onsuccess={handleSuccess}>
+									<lightning-messages></lightning-messages>
+									<div class="slds-grid slds-wrap slds-p-around--medium" >
+										<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+											<lightning-input-field field-name="Apttus_DocuApi__FirstName__c" required></lightning-input-field>
+										</div>
+										<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+											<lightning-input-field field-name="Apttus_DocuApi__LastName__c" required></lightning-input-field>
+										</div>
+										<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+											<lightning-input-field field-name="Apttus_DocuApi__Email__c" required></lightning-input-field>
+										</div>
+										<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+											<lightning-output-field field-name="Apttus_DocuApi__RecipientType__c" ></lightning-output-field>
+										</div>
+										<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+											<lightning-input-field field-name="APT_Docusign_Recipient_Type__c" required></lightning-input-field>
+										</div>
+										<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+											<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+										</div>
+										<div class="slds-align_absolute-center slds-p-around_medium">
+											<lightning-button class="slds-m-around_xx-small" label="Update" type="submit" name="Update" variant="brand"></lightning-button>
+										</div>
+									</div>
+								</lightning-record-edit-form>
+
+							</lightning-card>
+					</template>
+
+					<template if:true={userDocuPopUp}>
+						<lightning-card title="Carbon Copy Recipient(s) Type: Sales Professional (User)" >
+
+							<lightning-record-edit-form record-id={userDocuSign}  object-api-name={objectApiName} onsuccess={handleSuccess}>
+								<lightning-messages></lightning-messages>
+								<lightning-output-field field-name="Apttus_DocuApi__UserId__c" required></lightning-output-field>
+								<lightning-output-field field-name="Apttus_DocuApi__RecipientType__c" required></lightning-output-field>
+								<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+								<div class="slds-align_absolute-center slds-p-around_medium">
+									<lightning-button class="slds-m-around_xx-small" label="Update" type="submit" name="Update" variant="brand"></lightning-button>
+								</div>
+							</lightning-record-edit-form>
+
+						</lightning-card>
+					</template>
+
+					<template if:true={keyContactPopUp}>
+						<lightning-card title="Carbon Copy Recipient(s) Type: Customer (Contact)" >
+
+								<lightning-record-edit-form record-id={keyContactDocuSign}  object-api-name={objectApiName} onsuccess={handleSuccess}>
+									<lightning-messages></lightning-messages>
+									<lightning-output-field field-name="Apttus_DocuApi__ContactId__c" required></lightning-output-field>
+									<lightning-output-field field-name="Apttus_DocuApi__RecipientType__c" required></lightning-output-field>
+									<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+									<div class="slds-align_absolute-center slds-p-around_medium">
+										<lightning-button class="slds-m-around_xx-small" label="Update" type="submit" name="Update" variant="brand"></lightning-button>
+									</div>
+								</lightning-record-edit-form>
+
+						</lightning-card>
+					</template>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+
+	<!--Table to add Carbon copy record-->
+	<template if:true={isModalOpenAdd}>
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-13" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!-- Modal/Popup Box LWC header here -->
+				<header class="slds-modal__header">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalAdd}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+			   		</button>
+					<h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Add Carbon Copy Recipient(s)</h2>
+				</header>
+				<!-- Modal/Popup Box LWC body starts here -->
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-13">
+					<lightning-radio-group name="radioGroup"
+						label="Carbon Copy Recipient(s) Type"
+						options={options}
+						value={value}
+						type="radio"
+						onchange={handleRadioChange}>
+					</lightning-radio-group>
+					&nbsp; &nbsp; &nbsp; &nbsp;
+					<template if:true={emailFieldValue}>
+						<lightning-record-edit-form   object-api-name={objectApiName} record-type-id={emailDocuSignRecordType} onsubmit ={handleSubmit}  onsuccess={handleSuccess}>
+							<lightning-messages></lightning-messages>
+								<div class="slds-grid slds-wrap slds-p-around--medium" >
+								<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+									<lightning-input-field field-name="Apttus_DocuApi__FirstName__c" required></lightning-input-field>
+								</div>
+								<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+									<lightning-input-field field-name="Apttus_DocuApi__LastName__c" required></lightning-input-field>
+								</div>
+								<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+									<lightning-input-field field-name="Apttus_DocuApi__Email__c" required></lightning-input-field>
+								</div>
+								<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+									<lightning-input value={carbonCopy} label="Recipient Type" disabled="true"></lightning-input>
+								</div>
+								<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+									<lightning-input-field field-name="APT_Docusign_Recipient_Type__c" required></lightning-input-field>
+								</div>
+								<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+									<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+								</div>
+								<div class="slds-align_absolute-center slds-p-around_medium">
+									<lightning-button class="slds-m-around_xx-small" label="Save" type="submit" variant="brand"></lightning-button>
+								</div>
+							</div>
+						</lightning-record-edit-form>
+					</template>
+
+					<template if:true={customerFieldValue}>
+						<lightning-record-edit-form   object-api-name={objectApiName} record-type-id={contactDocuSignRecordType} onsubmit ={handleSubmit}  onsuccess={handleSuccess}>
+							<lightning-messages></lightning-messages>
+							<lightning-input-field field-name="Apttus_DocuApi__ContactId__c" required></lightning-input-field>
+							<lightning-input value={carbonCopy} label="Recipient Type" disabled="true"></lightning-input>
+							<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+							<div class="slds-align_absolute-center slds-p-around_medium">
+								<lightning-button class="slds-m-around_xx-small" label="Save" type="submit" variant="brand"></lightning-button>
+							</div>
+						</lightning-record-edit-form>
+					</template>
+
+					<template if:true={userFieldValue}>
+						<lightning-record-edit-form   object-api-name={objectApiName} record-type-id={userDocuSignRecordType} onsubmit ={handleSubmit}  onsuccess={handleSuccess}>
+							<lightning-messages></lightning-messages>
+							<lightning-input-field field-name="Apttus_DocuApi__UserId__c" required></lightning-input-field>
+							<lightning-input value={carbonCopy} label="Recipient Type" disabled="true"></lightning-input>
+							<lightning-input-field field-name="Apttus_DocuApi__Note__c"></lightning-input-field>
+							<div class="slds-align_absolute-center slds-p-around_medium">
+								<lightning-button class="slds-m-around_xx-small" label="Save" type="submit" variant="brand"></lightning-button>
+							</div>
+						</lightning-record-edit-form>
+					</template>
+
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+
+	<div class="padding-top: 200px;">
+	</div>
+	<div>&nbsp;</div>
+
+	<img style="max-height: 400px" alt="DocuSign" src={docusignImage}/>
+	<!--Navigation to Attachment page-->
+	<template if:true={navigationButtonVisibility}>
+		<lightning-layout-item size="9" flexibility="auto" padding="horizontal-small" class="slds-text-align_right">
+			<div class="slds-m-left_x-small slds-p-around_medium">
+				<a class='slds-button slds-button_brand' href={handleBackToContract} if:true={handleBackToContract}>Back</a>
+				<template if:true={navigationButton}>
+					<a class='slds-button slds-button_brand' href={navigateToAttachmentsPage} if:true={navigateToAttachmentsPage}>Next</a>
+				</template>
+			</div>
+		</lightning-layout-item>
+	</template>
+</template>

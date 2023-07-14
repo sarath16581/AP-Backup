@@ -46,6 +46,12 @@
         </div>
     </template>
 
+	<!-- Step1: Review OPC -->
+	<template if:true={showConfirmOPC}>
+	<c-opp-product-data-table opp-id={recordId} recalculateopc=true onconfirmed={confirmOPC} oncanceled={cancelClosure}></c-opp-product-data-table>
+
+</template>
+
     <!-- when the Opportunity Stage = [Propose, Negotiate] then only we proceed with Closed Won Opportunity Closure -->
     <!-- When the Opportunity Stage = Any, We only proceed with Closed Lost, Closed Disqualified, Closed Duplicate -->
         <!-- Step 1: Dispaly the Stage and Next Step Fields -->
@@ -120,31 +126,15 @@
                     </div>
                     
                 </center>
-                 <!--
-                <div class="slds-m-around_medium">
-                    <template if:true={showCloseOptyButton}>
-                        <lightning-button variant="brand" class="slds-m-around_medium" label="Close Opportunity" onclick={validateOpportunity}></lightning-button>
-                    </template>
-                    
-                    <center>
-                        <template if:true={showCloseOptyButton}>
-                            <lightning-button variant="brand" class="slds-m-around_medium" label="Close Opportunity" onclick={closeOpportunity}></lightning-button>
-                        </template>
-                        <template if:true={showValidateOptyButton}>
-                            <lightning-button variant="brand" class="slds-m-around_medium" label="Validate Closure" onclick={checkOpenTasks}></lightning-button>
-                        </template>
-                    </center>
-                   
-                    
-                </div>
-                 -->
             </lightning-card>
             
         </template>
 
+
+
         <!-- Closure Open Tasks Section -->
         <template if:true={closureOpenTasks}>
-            <!-- Step 2: Display the Data Integrity and Complaince Check -->
+            <!-- Step 3: Display the Data Integrity and Complaince Check -->
             <template if:true={showDataCheck}>
                 <lightning-card variant="brand">
                     <div slot="title">
@@ -200,7 +190,7 @@
                 </center>
             </template>
             
-            <!-- Step 3: Display the Open DSR Records -->
+            <!-- Step 4: Display the Open DSR Records -->
             <template if:true={showDSR}>
                 <template if:false={isDSRClosed}>
                     <lightning-card variant="brand">
@@ -232,7 +222,7 @@
                 </center>
             </template>
         </template>
-         <!-- Step4: Final Confirmation Screen -->
+         <!-- Step5: Final Confirmation Screen -->
          <template if:true={showConfirmation}>
             <template if:true={isAllDone}>
                 <center>
@@ -253,6 +243,4 @@
             </template>
         </template>
     </template>
-
-    
 </template>

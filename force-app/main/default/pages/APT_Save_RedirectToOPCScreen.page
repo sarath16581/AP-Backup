@@ -1,0 +1,6 @@
+<apex:page controller="APT_Save_RedirectToOPCScreen" action="{!OPCScreenRedirect}" showHeader="false" standardStylesheets="false" sidebar="false">
+	<!--
+	VfCsrf: Avoid calling VF action upon page load required fix
+	cannot be implimented here.
+	-->
+</apex:page>

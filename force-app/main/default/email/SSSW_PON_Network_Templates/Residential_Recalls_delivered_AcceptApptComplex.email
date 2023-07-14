@@ -102,11 +102,13 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
 
-I have met with the driver responsible for the delivery of this item, they recall that your item was accepted by your apartment/ complex concierge.<br/><br/>
+I have met with the team member responsible for the delivery of this item, they recall that your item was accepted by your apartment/complex concierge.<br/><br/>
 
-If you’re still unable to locate the item, please contact your concierge service to assist you. Should the concierge be unable to find the item, we suggest that you contact the sender to confirm your delivery details.<br/><br/>
+If you’re still unable to locate the item, please contact your concierge service or building manager to assist you. Should they be unable to find the item, we recommend you contact your sender to confirm the delivery details.<br/><br/>
 
-Thank you for taking the time to contact Australia Post. We hope that this information assists you.<br/><br/>
+For future deliveries, you may like to find out about alternative delivery options by visiting <a href='https://auspost.com.au/receiving/mypost'>https://auspost.com.au/receiving/mypost</a><br/><br/>
+
+Thank you for taking the time to contact Australia Post. <br/><br/>
 								</td>
 							</tr>								
 							<tr>

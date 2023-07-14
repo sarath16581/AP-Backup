@@ -4,11 +4,11 @@
     <externalId>false</externalId>
     <formula>If(
   AND(
-    OR(ISPICKVAL(Type__c, &apos;Non-Discretionary&apos;), ISPICKVAL(Type__c, &apos;Discretionary Credit&apos;)),
+    OR(ISPICKVAL(Type__c,&apos;Non-Discretionary&apos;), ISPICKVAL(Type__c, &apos;Discretionary Credit&apos;)),
     TEXT(Is_APPC__c) == &apos;Yes&apos;
   ),
-&quot;ZP02&quot;,
-&quot;Z9&quot;)</formula>
+&apos;ZP02&apos;,
+&apos;Z9&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>SAP Order Type</label>
     <required>false</required>
@@ -16,7 +16,4 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
-	<securityClassification>INTERNAL</securityClassification>
-	<description>ZP02 if IsAPPC flag is set, z9 by default. Checking for both values of type field here to future-proof, in case new values are added.</description>
-	<inlineHelpText>ZP02 if IsAPPC flag is set, z9 by default. Checking for both values of type field here to future-proof, in case new values are added.</inlineHelpText>
 </CustomField>

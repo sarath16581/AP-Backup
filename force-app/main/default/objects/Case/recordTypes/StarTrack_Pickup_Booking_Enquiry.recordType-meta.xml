@@ -3374,10 +3374,6 @@
     <picklistValues>
         <picklist>ResolutionCode__c</picklist>
         <values>
-            <fullName>Resolved  - Rebooked</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Resolved - Booked</fullName>
             <default>false</default>
         </values>

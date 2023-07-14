@@ -11,51 +11,66 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>AP Global eCommerce Solutions</fullName>
+                <fullName>Centrally Managed</fullName>
                 <default>false</default>
-                <label>AP Global eCommerce Solutions</label>
+                <label>Centrally Managed</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic - Not Active</fullName>
+                <fullName>eCommerce Partnerships</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic - Not Active</label>
+                <label>eCommerce Partnerships</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic NSW 1</fullName>
+                <fullName>Enterprise - Not Active</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic NSW 1</label>
+                <label>Enterprise - Not Active</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic NSW 2</fullName>
+                <fullName>Enterprise NSW 1</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic NSW 2</label>
+                <label>Enterprise NSW 1</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic QLD</fullName>
+                <fullName>Enterprise NSW 2</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic QLD</label>
+                <label>Enterprise NSW 2</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic VIC 1</fullName>
+                <fullName>Enterprise QLD &amp; NT</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic VIC 1</label>
+                <label>Enterprise QLD &amp; NT</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic VIC 2</fullName>
+                <fullName>Enterprise VIC 1</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic VIC 2</label>
+                <label>Enterprise VIC 1</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic VIC 3</fullName>
+                <fullName>Enterprise VIC 2</fullName>
                 <default>false</default>
-                <label>Enterprise &amp; Strategic VIC 3</label>
+                <label>Enterprise VIC 2</label>
             </value>
             <value>
-                <fullName>Financial Services</fullName>
+                <fullName>Enterprise VIC 3</fullName>
                 <default>false</default>
-                <label>Financial Services</label>
+                <label>Enterprise VIC 3</label>
+            </value>
+            <value>
+                <fullName>Enterprise VIC 4</fullName>
+                <default>false</default>
+                <label>Enterprise VIC 4</label>
+            </value>
+            <value>
+                <fullName>Financial Institutions</fullName>
+                <default>false</default>
+                <label>Financial Institutions</label>
+            </value>
+            <value>
+                <fullName>Financial Institutions - Not Active</fullName>
+                <default>false</default>
+                <label>Financial Institutions - Not Active</label>
             </value>
             <value>
                 <fullName>Government North</fullName>
@@ -88,14 +103,14 @@
                 <label>Intermediaries - Not Active</label>
             </value>
             <value>
-                <fullName>LBP Northern 1</fullName>
+                <fullName>LBP CPO/BC North</fullName>
                 <default>false</default>
-                <label>LBP Northern 1</label>
+                <label>LBP CPO/BC North</label>
             </value>
             <value>
-                <fullName>LBP Northern 1 CPO/BC</fullName>
+                <fullName>LBP CPO/BC South</fullName>
                 <default>false</default>
-                <label>LBP Northern 1 CPO/BC</label>
+                <label>LBP CPO/BC South</label>
             </value>
             <value>
                 <fullName>LBP Post Offices NSW/ACT &amp; QLD/NT</fullName>
@@ -163,11 +178,6 @@
                 <label>LBP Sales Manager VIC 3</label>
             </value>
             <value>
-                <fullName>LBP Sales Manager VIC 4</fullName>
-                <default>false</default>
-                <label>LBP Sales Manager VIC 4</label>
-            </value>
-            <value>
                 <fullName>LBP Sales Manager WA 1</fullName>
                 <default>false</default>
                 <label>LBP Sales Manager WA 1</label>
@@ -178,14 +188,14 @@
                 <label>LBP Sales Manager WA 2</label>
             </value>
             <value>
-                <fullName>LBP Southern 1</fullName>
+                <fullName>LBP Tier 2 North</fullName>
                 <default>false</default>
-                <label>LBP Southern 1</label>
+                <label>LBP Tier 2 North</label>
             </value>
             <value>
-                <fullName>LBP Southern 1 CPO/BC</fullName>
+                <fullName>LBP Tier 2 South</fullName>
                 <default>false</default>
-                <label>LBP Southern 1 CPO/BC</label>
+                <label>LBP Tier 2 South</label>
             </value>
             <value>
                 <fullName>Medium Business - Not Active</fullName>
@@ -268,14 +278,19 @@
                 <label>New Accounts</label>
             </value>
             <value>
-                <fullName>Other Business and Government</fullName>
+                <fullName>Not Active</fullName>
                 <default>false</default>
-                <label>Other Business and Government</label>
+                <label>Not Active</label>
             </value>
             <value>
-                <fullName>Platforms &amp; Partners</fullName>
+                <fullName>Nurture Program</fullName>
                 <default>false</default>
-                <label>Platforms &amp; Partners</label>
+                <label>Nurture Program</label>
+            </value>
+            <value>
+                <fullName>Other PP&amp;eCS</fullName>
+                <default>false</default>
+                <label>Other PP&amp;eCS</label>
             </value>
             <value>
                 <fullName>Small Business - Not Active</fullName>
@@ -308,9 +323,9 @@
                 <label>Small Business QLD 2</label>
             </value>
             <value>
-                <fullName>Small Business SA/NT/WA</fullName>
+                <fullName>Small Business SA/NT</fullName>
                 <default>false</default>
-                <label>Small Business SA/NT/WA</label>
+                <label>Small Business SA/NT</label>
             </value>
             <value>
                 <fullName>Small Business VIC 1</fullName>
@@ -321,6 +336,11 @@
                 <fullName>Small Business VIC 2</fullName>
                 <default>false</default>
                 <label>Small Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>Small Business WA</fullName>
+                <default>false</default>
+                <label>Small Business WA</label>
             </value>
         </valueSetDefinition>
     </valueSet>

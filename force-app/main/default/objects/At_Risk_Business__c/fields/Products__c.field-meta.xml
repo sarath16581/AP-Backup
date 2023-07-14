@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>Products__c</fullName>
-	<externalId>false</externalId>
-	<label>Products</label>
-	<required>false</required>
-	<trackFeedHistory>false</trackFeedHistory>
-	<trackHistory>false</trackHistory>
-	<trackTrending>false</trackTrending>
-	<type>MultiselectPicklist</type>
-	<description>Selected products for revenue at risk</description>
-	<inlineHelpText>Selected products for revenue at risk</inlineHelpText>
-	<valueSet>
-		<valueSetDefinition>
-			<sorted>false</sorted>
-			<value>
-				<fullName>placeholder</fullName>
-				<default>false</default>
-				<label>(placeholder)</label>
-			</value>
-		</valueSetDefinition>
-	</valueSet>
-	<visibleLines>4</visibleLines>
-	<securityClassification>INTERNAL</securityClassification>
+    <fullName>Products__c</fullName>
+    <description>Selected products for revenue at risk</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Selected products for revenue at risk</inlineHelpText>
+    <label>Products</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>placeholder</fullName>
+                <default>false</default>
+                <label>(placeholder)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
 </CustomField>

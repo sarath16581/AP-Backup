@@ -159,10 +159,6 @@ public with sharing class EventMessagesSelector_Test {
         System.assertEquals(2, resultsList.size(), 'Expected result size of 2');
         System.assertNotEquals(null, resultsList[0].Article__r, 'Expected article object');
 
-        selector = EventMessagesSelector.newInstance();
-        resultsList = selector.selectByArticleNumber(new Set<String>{article.Name}, new Set<String>{eventMessageType.get('Delivered')[0].Label}, new Set<Object>());
-        System.assertEquals(1, resultsList.size(), 'Expected result size of 1');
-
 		selector = EventMessagesSelector.newInstance();
 		List<EventMessage__c> eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.FILTER_GEO_LOCATION});
 		System.assertEquals(1, eventsList.size(), 'Expected result size of 1');

@@ -344,4 +344,7 @@
         </columns>
         <masterLabel>Disputed Item</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Disputed Items</masterLabel>
+    </sections>
 </ReportType>
