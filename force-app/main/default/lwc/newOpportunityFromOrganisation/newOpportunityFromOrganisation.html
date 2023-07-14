@@ -1,0 +1,38 @@
+<template>
+	<lightning-modal-header label="New Opportunity"></lightning-modal-header>
+	<lightning-modal-body>
+		<div class="slds-card slds-card__header">
+			<header class="slds-media slds-media_center slds-has-flexi-truncate">
+				<h2>Legal Entity Name: <span class="slds-card__header-title">{organisationName}</span></h2>
+			</header>
+		</div>
+		<div>
+			<lightning-record-edit-form object-api-name="Opportunity" onsubmit={handleSave}>
+				<div class="slds-grid">
+					<div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+						<lightning-input-field field-name="Name" required></lightning-input-field>
+						<lightning-input-field field-name="Type" disabled required value={roleType}></lightning-input-field>
+						<lightning-input-field field-name="Next_Step__c" required></lightning-input-field>
+						<lightning-input-field field-name="IsStartrackProposal__c" onchange={handleIsStartrackOpportunity} required></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+						<lightning-input-field field-name="StageName" disabled required value="Identify"></lightning-input-field>
+						<lightning-input-field field-name="CloseDate" required></lightning-input-field>
+						<lightning-input-field field-name="Amount"></lightning-input-field>
+						<template lwc:if={isStartrackOpportunity}>
+							<lightning-input-field field-name="APTPostcodeSuburb__c" required></lightning-input-field>
+							<lightning-input-field field-name="APTMinimumMonthlySpend__c" required></lightning-input-field>
+						</template>
+					</div>
+				</div>
+				<lightning-button class="slds-button slds-float_right slds-m-around_small" variant="brand" type="submit" label="Next"></lightning-button>
+			</lightning-record-edit-form>
+		</div>
+		<template lwc:if={isLoading}>
+			<div class="slds-text-align_center slds-grow">
+				<lightning-spinner variant="brand" size="medium" alternative-text="Loading...">
+				</lightning-spinner>
+			</div>
+		</template>
+	</lightning-modal-body>
+</template>

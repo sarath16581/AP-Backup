@@ -1,0 +1,7 @@
+<p>Dear {!Apttus__APTS_Agreement__c.OwnerFullName},</p>
+
+<p>This is a system generated notification.</p>
+
+<p>Your contract  <a href="{!Apttus__APTS_Agreement__c.Link}">{!Apttus__APTS_Agreement__c.Name}</a> for opportunity  
+<a href="{!Left(Apttus__APTS_Agreement__c.Link,find('.com',Apttus__APTS_Agreement__c.Link))}com/{!Apttus__APTS_Agreement__c.Apttus__Related_OpportunityId__c}">{!Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c}</a>  has been signed outside the offer validity. 
+The offer is valid until {!Apttus__APTS_Agreement__c.Contract_Expiration_Date__c}</p>
