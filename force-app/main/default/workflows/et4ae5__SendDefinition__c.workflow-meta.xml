@@ -177,13 +177,10 @@
     </rules>
     <rules>
         <fullName>et4ae5__SetConversationId</fullName>
-        <actions>
-            <name>et4ae5__SetConversationId</name>
-            <type>FieldUpdate</type>
-        </actions>
         <active>true</active>
-        <formula>NOT( CONTAINS( et4ae5__ConversationId__c , &quot;v3_&quot;) )</formula>
-        <triggerType>onAllChanges</triggerType>
+        <description>This workflow rule is now deprecated. Please deactivate this workflow rule.</description>
+        <formula>ISBLANK(&apos;DEPRECATED&apos;)</formula>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>et4ae5__TrackingAsOfSD</fullName>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>58.0</apiVersion>
     <decisions>
         <name>Check_for_Automated_User_Id</name>
         <label>Check for Automated User Id</label>
-        <locationX>306</locationX>
-        <locationY>232</locationY>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Launch_Flow_if_its_DSR_creation_is_not_by_Automated_User</name>
@@ -17,12 +17,20 @@
                     <stringValue>Automated Process</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Fetch_the_User_to_Check_if_it_is_an_Automated_User.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Create_DSR_Share_Record_for_Created_User</targetReference>
             </connector>
             <label>Launch Flow if its DSR creation is not by Automated User</label>
         </rules>
     </decisions>
+    <environments>Default</environments>
     <interviewLabel>Share DSR Records With Created User {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Share DSR Records With Created User</label>
     <processMetadataValues>
@@ -34,7 +42,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -47,8 +55,8 @@
     <recordCreates>
         <name>Create_DSR_Share_Record_for_Created_User</name>
         <label>Create DSR Share Record for Created User</label>
-        <locationX>457</locationX>
-        <locationY>69</locationY>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
         <inputAssignments>
             <field>AccessLevel</field>
             <value>
@@ -78,8 +86,8 @@
     <recordLookups>
         <name>Fetch_the_User_to_Check_if_it_is_an_Automated_User</name>
         <label>Fetch the User to Check if it is an Automated User</label>
-        <locationX>123</locationX>
-        <locationY>227</locationY>
+        <locationX>182</locationX>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_for_Automated_User_Id</targetReference>
@@ -104,8 +112,8 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-        <locationX>50</locationX>
-        <locationY>50</locationY>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>Fetch_the_User_to_Check_if_it_is_an_Automated_User</targetReference>
         </connector>

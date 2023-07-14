@@ -2339,11 +2339,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Eligible_APPC_Tier__c</field>
-            <table>Network__c.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>NumberOfEmployees</field>
             <table>Network__c.Accounts__r</table>
         </columns>
@@ -2915,11 +2910,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Minimum_Payment_Allowance_Sp_Cond__c</field>
-            <table>Network__c.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Min_Spend_Per_Annum__c</field>
             <table>Network__c.Accounts__r</table>
         </columns>
         <columns>

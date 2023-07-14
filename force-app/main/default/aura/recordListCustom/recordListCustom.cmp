@@ -16,4 +16,4 @@
 		showActionBar="{!v.showActionBar}"
 		enableInlineEdit="{!v.enableInlineEdit}"
 		showRowLevelActions="{!v.showRowLevelActions}" />
-</aura:component>	
+</aura:component>

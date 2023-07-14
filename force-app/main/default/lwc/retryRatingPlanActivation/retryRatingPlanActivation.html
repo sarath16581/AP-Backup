@@ -3,11 +3,15 @@
 		<h2 class="slds-modal__title">Retry Rating Plan Activation Request</h2>
 	</header>
 	<div class="slds-modal__content slds-p-around_medium">
+		<!-- Check for SCD and SED -->
+		<template if:true={serviceDatesError}>
+			<h1 class="slds-text-heading_small slds-p-top_large"><b>Service commencement and/or expiry date are blank. Please update prior to initiating rating plan activation.</b></h1>
+		</template>
+		<!-- Check for SCD and SED -->
 		<!-- Validation message if rating plan integration status on DSR is not cleared-->
 		<template if:true={integrationStatusIsNotCleared}>
 			<h1 class="slds-text-heading_small slds-p-top_large"><b>{integrationStausRetryErrorMsg}</b></h1>
-			</template>
-
+		</template>
 		<!-- If rating plan status on DSR is cleared, then proceed to display prompt message -->
 		<template if:true={passIntegrationStatusValidation}>
 			<template if:true={displayPromptMsg}>
@@ -19,7 +23,7 @@
 			</template>
 			<!-- feedback message after failing to trigger a request callout to Camunda -->
 			<template if:true={ratingPlanCalloutFailure}>
-				<lightning-formatted-rich-text 
+				<lightning-formatted-rich-text
 						value={failedErrMsg}
 				></lightning-formatted-rich-text>
 			</template>
@@ -28,7 +32,7 @@
 				<div class="slds-is-relative">
 					<div if:true={inProgressSpinner} class="slds-is-relative">
 						<lightning-spinner variant="brand" size="small"></lightning-spinner>
-					</div> 
+					</div>
 					<h1 class="slds-text-heading_small slds-p-top_large"><b>Re-submitting Rating Plan Activation Creation request...</b></h1>
 				</div>
 			</template>

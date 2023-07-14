@@ -1361,10 +1361,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>accountStructureController_v2</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>batchClassFixTargetANDRevenue</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -7700,6 +7696,16 @@
         <field>Sales_Segment_Reference__c.Sales_Segment__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Segment_Reference__c.GeneralManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Segment_Reference__c.SalesDirectorApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Segmentation_Change_Request__c.Approval_Status__c</field>
@@ -9038,18 +9044,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>buildHierarchyView</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>buildHierarchyView_toExcel</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>buildHierarchyView_v2</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>buildHierarchyView_v3</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

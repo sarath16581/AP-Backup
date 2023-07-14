@@ -1,0 +1,88 @@
+<template>
+	<!--Checkout Actions Section-->
+	<template if:false={showContractAndServiceDetails}>
+		<lightning-card>
+			<!--Loading Spinner-->
+			<template if:true={isLoading}>
+				<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+			</template>
+
+			<!--Title-->
+			<div class="slds-text-heading_medium headerTextStyle slds-page-header__title slds-align_absolute-center">
+				Check Out
+			</div>
+
+			<!--Error Banner-->
+			<template if:true={errorMsg}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+					<h2>{error}</h2>
+				</div>
+			</template>
+
+			<div class="slds-border_top slds-p-around_x-small slds-text-heading_small">Select an option</div>
+
+			<!--Disable Buttons in case of error-->
+			<div data-id="disableSection">
+
+				<!--Actions-->
+				<div class="slds-p-around_x-small">
+					<div class="clickable slds-p-around_x-small slds-text-heading_small" onclick={genProposal}>
+						<lightning-tile class="disabledLink boldTextStyle" label="Generate Proposal Document"
+							type="media">
+							<lightning-icon slot="media" icon-name="standard:quotes" style="zoom: 150%">
+							</lightning-icon>
+							<p class="slds-truncate" title="Description">This is to generate proposal document using
+								standard proposal template. You will be directed to proposal details page where you can
+								review the proposal document and present it to customers.</p>
+						</lightning-tile>
+					</div>
+				</div>
+
+				<template if:true={workVerification}>
+					<div class="slds-p-around_x-small">
+						<div class="clickable slds-p-around_x-small slds-text-heading_small" onclick={genAgreement}>
+							<lightning-tile class="disabledLink boldTextStyle" label="Generate Agreement Document"
+								type="media">
+								<lightning-icon slot="media" icon-name="standard:contract" style="zoom: 150%">
+								</lightning-icon>
+								<p class="slds-truncate" title="Description">This is to generate agreement document
+									using standard agreement template. You will be directed to series of page to confirm
+									contract details and lodgement point (if required). You can review the generated
+									agreement on contract details page prior sending for signing.</p>
+							</lightning-tile>
+						</div>
+					</div>
+				</template>
+
+				<!--Show only for Customer Onboarding User-->
+				<template if:true={workForceWithManualAgreement}>
+					<div class="slds-p-around_x-small">
+						<div class="clickable slds-p-around_x-small slds-text-heading_small"
+							onclick={genManualAgreement}>
+							<lightning-tile class="disabledLink boldTextStyle" label="Generate Manual Agreement Document"
+								type="media">
+								<lightning-icon slot="media" icon-name="custom:custom18" style="zoom: 150%">
+								</lightning-icon>
+								<p class="slds-truncate" title="Description">This is to generate manual agreement
+									document using custom agreement template. You will be directed to series of page to
+									confirm contract details and lodgement point (if required).</p>
+							</lightning-tile>
+						</div>
+					</div>
+				</template>
+
+				<div class="slds-p-around_x-small">
+					<div class="clickable slds-p-around_x-small slds-text-heading_small" onclick={checkoutOnly}>
+						<lightning-tile class="disabledLink boldTextStyle" label="Checkout Only" type="media">
+							<lightning-icon slot="media" icon-name="standard:checkout" style="zoom: 150%">
+							</lightning-icon>
+							<p class="slds-truncate" title="Description">Checks out the shopping cart without generating
+								proposal or agreement document. You will be directed to Proposal details page, and take
+								the necessary action accordingly.</p>
+						</lightning-tile>
+					</div>
+				</div>
+			</div>
+		</lightning-card>
+	</template>
+</template>

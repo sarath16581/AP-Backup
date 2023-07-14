@@ -14,13 +14,19 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	public static AtRiskBusinessSelector newInstance() {
 		return (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
 	}
+
+	public static AtRiskBusinessSelector newInstance(Set<SObjectField> fieldOverrides) {
+		AtRiskBusinessSelector selector = (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 	
 	public virtual override SObjectType getSObjectType() {
 		return At_Risk_Business__c.getSObjectType();
 	}
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			At_Risk_Business__c.Id, At_Risk_Business__c.Name, At_Risk_Business__c.Legal_Entity_Name__c, At_Risk_Business__c.Scale__c, At_Risk_Business__c.Product_IDs__c, At_Risk_Business__c.Date_of_Revenue_Calculation__c
+			At_Risk_Business__c.Id, At_Risk_Business__c.Name, At_Risk_Business__c.Legal_Entity_Name__c, At_Risk_Business__c.Scale__c, At_Risk_Business__c.Product_IDs__c, At_Risk_Business__c.Date_of_Revenue_Calculation__c, At_Risk_Business__c.Recalculate_Revenue__c
 		};
 	}
 

@@ -34,6 +34,9 @@
     margin-top: 0.2rem;
 	line-height: 1.0rem;
 }
+.slds-form-element__icon{
+	display: none !important;
+}
 
 .layout--rightcol .sidebar--configure-product .configure-product__price-name {
     -webkit-box-flex: 0;

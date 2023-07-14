@@ -100,11 +100,11 @@
 
 Re: Article {!Case.ReferenceID__c}<br/><br/> 
 
-We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
+We have received advice that you are now in possession of your {!Case.ProductSubCategory__c} item. <br/><br/>
 
-After confirming with the driver responsible for this delivery, they have confirmed that you are now in possession of this item.<br/><br/>
+For future deliveries, you may like to find out about alternative delivery options by visiting:<a href='https://auspost.com.au/receiving/mypost'>https://auspost.com.au/receiving/mypost   </a><br/><br/>
 
-Thank you for taking the time to contact Australia Post, we are pleased that your item has been received.   <br/><br/>
+Thank you for taking the time to contact Australia Post, we are pleased that your item has been received. <br/><br/>
 								</td>
 							</tr>								
 							<tr>

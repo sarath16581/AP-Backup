@@ -58,6 +58,43 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;This agreement is signed outside the offer validity and will not be provisioned. To proceed with the deal, Account Manager to reissue pricing and contract document&lt;/strong&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Apttus__Status_Category__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>In Signatures</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Apttus__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Fully Signed</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Apttus__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>SFDC Case Created</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.APT_Contract_Signed_After_Offer_Expiry__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>hideUpdateButton</name>
                     <value>true</value>
                 </componentInstanceProperties>
