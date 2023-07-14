@@ -11429,6 +11429,16 @@
         <field>Sales_Segment_Reference__c.Sales_Segment__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.GeneralManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.SalesDirectorApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Sales_Solution_Request__c.Solution_Stage__c</field>
