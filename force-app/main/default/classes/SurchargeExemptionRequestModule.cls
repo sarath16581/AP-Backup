@@ -44,7 +44,9 @@ public inherited sharing class SurchargeExemptionRequestModule extends Applicati
 
 		Set<Id> accountIDs = new Set<Id>();
 
-		for (Deal_Support_Request__c dsr: records) {
+		for (ApplicationRecursion.RecordState changed: changedRecords) {
+			Deal_Support_Request__c dsr = (Deal_Support_Request__c)changed.record;
+
 			Deal_Support_Request__c oldDSR = (existingRecords != null) ? existingRecords.get(dsr.Id) : null;
 			
 			if ((dsr.RecordTypeId == surchargeExemptionRT) && (oldDSR == null || dsr.Organisation__c != oldDSR.Organisation__c)) {
