@@ -19,13 +19,15 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item. They confirmed that your business address has a Post Office Box diversion in place. This means that letter and parcel deliveries are delivered to the company’s PO Box, even when addressed to the street address.
+I have met with the team member responsible for the delivery of this item. They confirmed that your business address has a Post office Box diversion in place. This means that letter and parcel deliveries are delivered to the company’s PO Box, even when addressed to the street address.
 
-We suggest checking your company’s PO Box or speaking to someone familiar with your internal mail arrangements.
+We suggest checking your company’s PO Box or speaking to someone familiar with your internal mail arrangements as alternative delivery arrangements such as third-party courier collection can be in place for final delivery to your business address.
 
-If you’re still unable to locate the item, the sender will need to contact us, quoting Case {!Case.CaseNumber} as evidence that an investigation has taken place.
+If you’re still unable to locate the item, we suggest that you contact the sender to confirm your delivery details.
 
-Thanks for taking the time to contact us. I hope that this information assists you.
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
+
+Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}

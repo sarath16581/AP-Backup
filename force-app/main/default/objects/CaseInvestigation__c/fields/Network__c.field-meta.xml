@@ -9,6 +9,7 @@
     <label>Network</label>
     <lookupFilter>
         <active>true</active>
+        <errorMessage>Selected network is either not available on MyNetwork or closed</errorMessage>
         <filterItems>
             <field>Network__c.Contact_Facility__c</field>
             <operation>equals</operation>
@@ -20,11 +21,6 @@
             <value>Closed</value>
         </filterItems>
         <filterItems>
-            <field>Network__c.Parcel__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-		<filterItems>
             <field>Network__c.Name</field>
             <operation>notEqual</operation>
             <value>StarTrack - National</value>

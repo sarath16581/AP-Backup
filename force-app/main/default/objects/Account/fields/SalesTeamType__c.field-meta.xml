@@ -2,9 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SalesTeamType__c</fullName>
     <businessStatus>Active</businessStatus>
-    <description>Dependent picklist field to segment Accounts based on Sales team picklist. This field is populated by automation on business accounts based on the controlling &quot;Sales Team&quot; (API Name - &quot;Sales_Segment__c&quot;) pick list value and not intended to be populated directly. 
-
-The value of this field drives sharing behaviour that handles access segmentation for Sales Team.
+    <description>Dependent picklist field to segment Accounts based on Sales team picklist. This field is populated by automation on business accounts based on the controlling &quot;Sales Team&quot; (API Name - &quot;Sales_Segment__c&quot;) pick list value and not intended to be populated directly. The value of this field drives sharing behaviour that handles access segmentation for Sales Team.
 - Criteria based sharing rules on Account (3 sharing rules)
 - Apex managed sharing for sensitive child objects having a lookup relationship to Account</description>
     <externalId>false</externalId>
@@ -37,6 +35,7 @@ The value of this field drives sharing behaviour that handles access segmentatio
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Financial Institutions - Not Active</controllingFieldValue>
             <controllingFieldValue>Small Business NSW 1</controllingFieldValue>
             <controllingFieldValue>Small Business NSW 2</controllingFieldValue>
             <controllingFieldValue>Small Business NSW 3</controllingFieldValue>
@@ -44,7 +43,6 @@ The value of this field drives sharing behaviour that handles access segmentatio
             <controllingFieldValue>LBP Sales Manager QLD 3</controllingFieldValue>
             <controllingFieldValue>Small Business QLD 2</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager SA 1</controllingFieldValue>
-            <controllingFieldValue>Small Business SA/NT/WA</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager VIC 2</controllingFieldValue>
             <controllingFieldValue>Small Business VIC 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager VIC 3</controllingFieldValue>
@@ -52,36 +50,28 @@ The value of this field drives sharing behaviour that handles access segmentatio
             <controllingFieldValue>LBP Post Offices VIC/TAS &amp; WA &amp; SA</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager WA 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager WA 2</controllingFieldValue>
-            <controllingFieldValue>Other Business and Government</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic NSW 1</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic NSW 2</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic VIC 1</controllingFieldValue>
-            <controllingFieldValue>LBP Sales Manager VIC 4</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic QLD</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic - Not Active</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic VIC 2</controllingFieldValue>
-            <controllingFieldValue>Enterprise &amp; Strategic VIC 3</controllingFieldValue>
+            <controllingFieldValue>LBP CPO/BC North</controllingFieldValue>
+            <controllingFieldValue>LBP CPO/BC South</controllingFieldValue>
+            <controllingFieldValue>LBP Tier 2 North</controllingFieldValue>
+            <controllingFieldValue>LBP Tier 2 South</controllingFieldValue>
+            <controllingFieldValue>Other PP&amp;eCS</controllingFieldValue>
+            <controllingFieldValue>Small Business SA/NT</controllingFieldValue>
+            <controllingFieldValue>Small Business WA</controllingFieldValue>
             <controllingFieldValue>Government - Not Active</controllingFieldValue>
             <controllingFieldValue>Medium Business - Not Active</controllingFieldValue>
             <controllingFieldValue>Micro - Not Active</controllingFieldValue>
             <controllingFieldValue>Small Business - Not Active</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager QLD 1</controllingFieldValue>
-            <controllingFieldValue>Financial Services</controllingFieldValue>
-            <controllingFieldValue>LBP Northern 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager VIC 1</controllingFieldValue>
-            <controllingFieldValue>LBP Northern 1 CPO/BC</controllingFieldValue>
-            <controllingFieldValue>LBP Southern 1</controllingFieldValue>
-            <controllingFieldValue>LBP Southern 1 CPO/BC</controllingFieldValue>
-            <controllingFieldValue>Platforms &amp; Partners</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 1</controllingFieldValue>
             <controllingFieldValue>Government North</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 2</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 3</controllingFieldValue>
             <controllingFieldValue>Government South</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 4</controllingFieldValue>
+            <controllingFieldValue>eCommerce Partnerships</controllingFieldValue>
             <controllingFieldValue>Medium Business QLD 1</controllingFieldValue>
-            <controllingFieldValue>AP Global eCommerce Solutions</controllingFieldValue>
             <controllingFieldValue>Medium Business QLD 2</controllingFieldValue>
             <controllingFieldValue>Medium Business SA/NT</controllingFieldValue>
             <controllingFieldValue>Medium Business VIC 1</controllingFieldValue>
@@ -91,21 +81,33 @@ The value of this field drives sharing behaviour that handles access segmentatio
             <controllingFieldValue>Medium Business WA</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 2</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 3</controllingFieldValue>
+            <controllingFieldValue>Enterprise - Not Active</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 4</controllingFieldValue>
+            <controllingFieldValue>Enterprise NSW 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager QLD 2</controllingFieldValue>
+            <controllingFieldValue>Enterprise NSW 2</controllingFieldValue>
+            <controllingFieldValue>Enterprise QLD &amp; NT</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 1</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 2</controllingFieldValue>
             <controllingFieldValue>LBP Post Offices NSW/ACT &amp; QLD/NT</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 3</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 4</controllingFieldValue>
+            <controllingFieldValue>Financial Institutions</controllingFieldValue>
             <valueName>Direct</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Active</controllingFieldValue>
+            <controllingFieldValue>Nurture Program</controllingFieldValue>
+            <controllingFieldValue>New Accounts</controllingFieldValue>
+            <controllingFieldValue>Holding Sales Team</controllingFieldValue>
+            <controllingFieldValue>Centrally Managed</controllingFieldValue>
+            <controllingFieldValue>MyPost Business</controllingFieldValue>
+            <valueName>Holding</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Intermediaries - Not Active</controllingFieldValue>
             <controllingFieldValue>Intermediaries</controllingFieldValue>
             <valueName>Intermediary</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>New Accounts</controllingFieldValue>
-            <controllingFieldValue>Holding Sales Team</controllingFieldValue>
-            <controllingFieldValue>MyPost Business</controllingFieldValue>
-            <valueName>Holding</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

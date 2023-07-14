@@ -396,11 +396,6 @@
             <field>Date_ACN_Changed__c</field>
             <table>Account</table>
         </columns>
-		<columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DaysSinceLastActivity__c</field>
-            <table>Account</table>
-        </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Department__c</field>
@@ -1226,7 +1221,7 @@
             <field>Post_Office_Assigned__c.Org_Unit_Type__c</field>
             <table>Account</table>
         </columns>
-		<columns>
+        <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.Region__c</field>
             <table>Account</table>
@@ -1247,5 +1242,13 @@
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TradedRevenueMyCommunity__c</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

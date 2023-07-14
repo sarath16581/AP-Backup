@@ -19,9 +19,11 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your parcel was delivered to your letterbox.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your parcel was delivered into your letterbox.
 
-If you’re still unable to locate the item, the sender will need to contact us, quoting Case {!Case.CaseNumber}
+If you are still unable to locate your item, we recommend you contact your sender to see if they can assist further.
+
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
 
 Thank you for taking the time to contact Australia Post.
 

@@ -137,7 +137,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.BillingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -826,7 +826,7 @@
         <field>Account.Total_Rebate_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.TradedRevenueMyCommunity__c</field>
         <readable>true</readable>
@@ -1951,11 +1951,11 @@
         <field>At_Risk_Business__c.Value_of_Business_at_Risk__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Billing_Account__c.Credit_Representative_Email__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.Credit_Representative_Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Budget_and_Revenue__c.Apr_Revised_Budget__c</field>

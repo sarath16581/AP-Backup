@@ -45,7 +45,7 @@
         <field>Account.Is_Strategic_Account_StarTrack__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.PortfolioCode__c</field>
         <readable>true</readable>
@@ -1246,6 +1246,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Min_Transit_Cover_Amount_Per_Article__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Minimum_Volumes_as_per_Contract__c</field>
         <readable>true</readable>
@@ -1866,6 +1871,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Transport_Collections_Sites__c</field>
         <readable>true</readable>
@@ -1875,17 +1885,6 @@
         <field>Deal_Support_Request__c.Transport_Collections__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	 <fieldPermissions>
-        <editable>false</editable>
-        <field>Deal_Support_Request__c.Transit_Cover_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-     <fieldPermissions>
-        <editable>false</editable>
-        <field>Deal_Support_Request__c.Min_Transit_Cover_Amount_Per_Article__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Type__c</field>
@@ -2522,6 +2521,11 @@
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
+		<editable>false</editable>
+		<field>OpportunityLineItem.OPCOverride__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>PortfolioAssignment__c.AccountManager__c</field>
         <readable>true</readable>
@@ -2660,7 +2664,7 @@
         <object>Opp_Product_Classification__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-	<objectPermissions>
+    <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
@@ -2736,6 +2740,10 @@
     <tabSettings>
         <tab>Deal_Support_Request__c</tab>
         <visibility>Visible</visibility>
+    </tabSettings>
+	<tabSettings>
+        <tab>PortfolioAssignment__c</tab>
+        <visibility>Available</visibility>
     </tabSettings>
     <userPermissions>
         <enabled>true</enabled>

@@ -2,8 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Generate__c</fullName>
     <externalId>false</externalId>
+	<description>Displays a button on proposal to Create proposal document</description>
+	<inlineHelpText>Creates Proposal Document</inlineHelpText>
     <formula>IF ( 
 	AND(
+                       NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Accepted without proposal document&apos;)) ,
 			(
 				AND(
 					NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Approval Required&apos;)) 

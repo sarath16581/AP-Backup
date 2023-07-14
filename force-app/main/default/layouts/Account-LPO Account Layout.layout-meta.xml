@@ -36,7 +36,7 @@
                 <behavior>Readonly</behavior>
                 <field>Organisation_Alternate_Name__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>TradedRevenueMyCommunity__c</field>
             </layoutItems>

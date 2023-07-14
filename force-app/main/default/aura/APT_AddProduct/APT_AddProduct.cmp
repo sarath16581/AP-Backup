@@ -1,0 +1,7 @@
+<aura:component
+	implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:hasRecordId,lightning:isUrlAddressable,force:appHostable"
+	access="global">
+	<aura:attribute name="recordId" type="String" />
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<c:aPT_AddProductLWC recordId="{!v.recordId}" />
+</aura:component>

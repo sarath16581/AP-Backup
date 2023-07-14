@@ -3,19 +3,7 @@
     <fullName>Transport_Enquiry_Case_Permanent_Close</fullName>
     <active>true</active>
     <description>Transport Enquiry - Prevent the reopening of a Case that has been marked as &quot;Permanently Closed&quot;.</description>
-    <errorConditionFormula>Permanent_Close__c 
-
-&amp;&amp; 
-
-ISCHANGED(Status) 
-
-&amp;&amp; 
-
-NOT(ISPICKVAL(Status, &apos;Closed&apos;)) 
-
-&amp;&amp; 
-
-RecordType.DeveloperName = &apos;Transport_Enquiry&apos;</errorConditionFormula>
+    <errorConditionFormula>Permanent_Close__c &amp;&amp; ISCHANGED(Status) &amp;&amp; NOT(ISPICKVAL(Status, &apos;Closed&apos;)) &amp;&amp; RecordType.DeveloperName = &apos;Transport_Enquiry&apos;</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>This case has been permanently closed and no status change may take place.</errorMessage>
 </ValidationRule>

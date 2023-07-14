@@ -17,9 +17,9 @@ Hi {!Contact.FirstName}
 
 Re: Article {!Case.ReferenceID__c}
 
-We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
+We have received advice that you are now in possession of your {!Case.ProductSubCategory__c} item.
 
-After confirming with the driver responsible for this delivery, they have confirmed that you are now in possession of this item.
+For future deliveries, you may like to find out about alternative delivery options by visiting:https://auspost.com.au/receiving/mypost
 
 Thank you for taking the time to contact Australia Post, we are pleased that your item has been received.
 

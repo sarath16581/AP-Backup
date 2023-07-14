@@ -19,9 +19,11 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was accepted by an occupant of the address.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was accepted by an occupant of the address.
 
-Thanks for taking the time to contact us. I hope that this information assists you.
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
+
+Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}

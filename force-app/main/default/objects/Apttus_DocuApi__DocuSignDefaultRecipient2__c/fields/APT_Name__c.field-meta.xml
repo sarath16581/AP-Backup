@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Name__c</fullName>
+    <description>This field store the name of the user, contact or Carbon copy</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field store the name of the user, contact or Carbon copy</inlineHelpText>
+    <label>Name</label>
+    <length>80</length>
+    <required>false</required>
+	<securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

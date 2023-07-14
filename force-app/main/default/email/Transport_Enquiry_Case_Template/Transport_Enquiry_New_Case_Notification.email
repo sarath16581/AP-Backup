@@ -132,6 +132,7 @@
 										style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;">
 										<br />
 										<p>Hi {!Contact.FirstName},</p>
+
 									</td>
 								</tr>
 								<tr>
@@ -141,7 +142,9 @@
 
 										<p>We have received your request and will respond to you shortly. Your case
 											reference is <b> {!Case.CaseNumber}</b> in case you need to follow up with
-											us by phone, please do not send a second email.</p>
+											us by phone.</p>
+										
+										<p>Please do not send a second email.</p>
 
 										<br />
 									</td>

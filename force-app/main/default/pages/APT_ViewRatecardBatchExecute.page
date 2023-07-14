@@ -1,26 +1,26 @@
 <apex:page controller="APT_ViewRatecardBatchExecute">
-	
-<script type="text/javascript">
-		window.onload = function(){	        
-	        initJS();
-	    } 
-	    
-	    
-	</script>
-    <apex:form id="Executeform">
-    
-    <apex:actionFunction name="initJS" action="{!init}" rerender="Executeform" >
-         <apex:param name="isCallFromRC" value="{!$CurrentPage.parameters.isRCCall}" assignTo="{!isCallFromRateCalc}"/>
-    </apex:actionFunction>
-    
-        <apex:pageBlock >
-            <apex:pageMessage summary="Processing line items. You will be informed once the process is completed." 
-                severity="info" strength="3" rendered="{!Not(hideMessage)}" />
 
-            <apex:pageMessages />
-            <apex:pageBlockButtons location="bottom" >
-                <apex:commandButton action="{!redirectToProposal}" value="{!$Label.Apttus_XApps__Cancel}"/>
-            </apex:pageBlockButtons> 
-        </apex:pageBlock>
-    </apex:form>
+<script type="text/javascript">
+		window.onload = function(){
+			initJS();
+		}
+
+
+	</script>
+	<apex:form id="Executeform">
+
+	<apex:actionFunction name="initJS" action="{!init}" rerender="Executeform" >
+		 <apex:param name="isCallFromRC" value="{!$CurrentPage.parameters.isRCCall}" assignTo="{!isCallFromRateCalc}"/>
+	</apex:actionFunction>
+
+		<apex:pageBlock >
+			<apex:pageMessage summary="Your proposal document is currently being generated. You will be notified via email once successfully generated. Proposal document will be available under 'Notes & Attachment' for your review prior presenting it to customer."
+				severity="info" strength="3" rendered="{!Not(hideMessage)}" />
+
+			<apex:pageMessages />
+			<apex:pageBlockButtons location="bottom" >
+				<apex:commandButton action="{!redirectToProposal}" value="{!$Label.Apttus_XApps__Cancel}"/>
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
 </apex:page>

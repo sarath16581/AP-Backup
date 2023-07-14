@@ -65,9 +65,7 @@ public with sharing class AtRiskBusinessSelector_Test {
 		// =====================================
 		Test.startTest();
 
-		AtRiskBusinessSelector selector = AtRiskBusinessSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
-			At_Risk_Business__c.SObjectType => new Set<SObjectField>{At_Risk_Business__c.Name}
-		});
+		AtRiskBusinessSelector selector = AtRiskBusinessSelector.newInstance(new Set<SObjectField>{At_Risk_Business__c.Name});
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
 

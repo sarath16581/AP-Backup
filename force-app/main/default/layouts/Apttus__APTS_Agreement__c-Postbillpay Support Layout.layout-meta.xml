@@ -75,7 +75,7 @@
                 <behavior>Edit</behavior>
                 <field>APT_Contract_Extension_Date__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Contract_Expiration_Date__c</field>
             </layoutItems>

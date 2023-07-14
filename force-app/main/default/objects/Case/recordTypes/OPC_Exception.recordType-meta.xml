@@ -11491,10 +11491,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Resolved  - Rebooked</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Resolved %E2%80%93 Non VoC</fullName>
             <default>false</default>
         </values>
