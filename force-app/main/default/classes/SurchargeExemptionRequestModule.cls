@@ -8,6 +8,9 @@
  * 2023-07-12 - Pratyush Chalasani - created 
  */
 public inherited sharing class SurchargeExemptionRequestModule extends ApplicationDomain.Module {
+	private static final String recursionContext = 'SurchargeExemptionRequestModule';
+	private static final Set<SObjectField> monitoredFields = new Set<SObjectField>{Deal_Support_Request__c.Organisation__c};
+
 	public static SurchargeExemptionRequestModule newInstance() {
 		return (SurchargeExemptionRequestModule)Application.Utilities.newInstance(SurchargeExemptionRequestModule.class);
 	}
@@ -26,6 +29,13 @@ public inherited sharing class SurchargeExemptionRequestModule extends Applicati
 	}
 
 	private static void populateSalesDirectorAndGeneralManager(List<Deal_Support_Request__c> records, Map<Id,Deal_Support_Request__c> existingRecords) {
+    	List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, records, existingRecords, monitoredFields);
+
+		if (changedRecords.isEmpty()) {
+			// Skip everything if there are no changed records to process
+			return;
+		}
+
 		Map<Id, RecordType> recordTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{'Surcharge_Exemption_Request'});
 
 		Id surchargeExemptionRT = recordTypeMap.values()[0].Id;
@@ -43,9 +53,6 @@ public inherited sharing class SurchargeExemptionRequestModule extends Applicati
 			}
 		}
 
-		System.debug('AccountIDs: ' + accountIDs);
-		System.debug('validDSRs: ' + validDSRs);
-
 		if (!accountIDs.isEmpty()) {
 			Map<Id, String> accountSalesTeamMap = new Map<Id, String>();
 
@@ -59,8 +66,6 @@ public inherited sharing class SurchargeExemptionRequestModule extends Applicati
 
 			salesTeamNames.addAll(accountSalesTeamMap.values());
 
-			System.debug('Sales Teams: ' + salesTeamNames);
-
 			List<Sales_Segment_Reference__c> salesTeams = SalesSegmentReferenceSelector.newInstance().selectByName(salesTeamNames);
 
 			Map<String, Sales_Segment_Reference__c> salesTeamMap = new Map<String, Sales_Segment_Reference__c>();
@@ -69,14 +74,8 @@ public inherited sharing class SurchargeExemptionRequestModule extends Applicati
 				salesTeamMap.put(team.Sales_Segment__c, team);
 			}
 
-			System.debug('Sales Team map: ' + salesTeamMap);
-
 			for (Deal_Support_Request__c dsr: validDSRs) {
-				System.debug('Org: ' + dsr.Organisation__c);
-
 				String salesTeamName = accountSalesTeamMap.get(dsr.Organisation__c);
-
-				System.debug('salesTeamName: ' + salesTeamName);
 
 				Sales_Segment_Reference__c team = salesTeamMap.get(salesTeamName);
 
