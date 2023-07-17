@@ -34,7 +34,7 @@ public class WorkDayAdjustmentTriggerHandlerTest {
         
         // Create test work day adjustment
         Work_Day_Adjustments__c wdVar = new Work_Day_Adjustments__c();
-        wdVar.Sales_Team__c = 'Business Hubs';
+        wdVar.Sales_Team__c = 'Holding Sales Team';
         wdVar.fiscalYear__c = fyVar.Id;
 		wdVar.holiday__c = holiVar.Id;
         
@@ -56,7 +56,7 @@ public class WorkDayAdjustmentTriggerHandlerTest {
         test.startTest();
         	insert wdVar;
         
-        	wdVar.Sales_Team__c = 'Enterprise';
+        	wdVar.Sales_Team__c = 'Intermediaries';
         	update wdVar;
         
         test.stopTest();
