@@ -8,6 +8,7 @@
  23.02.18     kalpita.talwadekar@auspost.com.au            updated code for test class for accommodating new enhancements
  04.06.18     kalpita.talwadekar@auspost.com.au            updated code for test class failure fix and coding standards TDO - 203
 2019-04-26 - Swati.mogadala@auspost.com.au  - Update 'Message to network' from the case description field as per REQ1760281
+2023-07-18 - Nathan Franklin - Update failing test method - a bit of dodgy fix (testNwResp_sendbckCCC) - Move test.starttest()
 
  *******************************  History ************************************************/
 @isTest
@@ -628,14 +629,15 @@ private class SSSW_MyNetworkResponsePageContr_Test{
                     limit 1];
         EmailTemplate em = new EmailTemplate(DeveloperName='TestTemplate',SUbject='Test',Body='here we are',Name='TestTemplate',
                 FolderId=fld.Id,TemplateType='Text',HTMLValue='text');
-    
-        Case cse = [Select Id,Status from Case limit 1];//Disputed delivery scan case
-        cse.Status = 'Closed';
-        cse.ResolutionCode__c = 'Resolved';
-        cse.Type = 'Feedback';
-        database.update(cse);
 
-        test.startTest();
+		test.startTest();
+				
+			Case cse = [Select Id,Status from Case limit 1];//Disputed delivery scan case
+			cse.Status = 'Closed';
+			cse.ResolutionCode__c = 'Resolved';
+			cse.Type = 'Feedback';
+			database.update(cse);
+
             //set standard page controller and initialize class constroller
             ApexPages.StandardController stdCon = new ApexPages.StandardController(cse);
             SSSW_MyNetworkResponsePageContr contr = new SSSW_MyNetworkResponsePageContr (stdCon);
