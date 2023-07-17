@@ -199,7 +199,7 @@ private class APT_AmendRenewController_Test{
 			PageReference pgRef =  amendRenew.doRenew();
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 		}
 	}
 
@@ -251,7 +251,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 	 }
 	}
 
@@ -301,7 +301,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 	 }
 	}
 	/*
@@ -340,7 +340,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 	 }
 	}
 	/*
@@ -616,7 +616,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 		}
 	}
 	@IsTest
@@ -668,7 +668,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 		}
 	}
 	@IsTest

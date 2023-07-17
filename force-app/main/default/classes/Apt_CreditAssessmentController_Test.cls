@@ -574,6 +574,7 @@ private class Apt_CreditAssessmentController_Test {
 
 
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
+			cac.userInput = '87009610342';
 			cac.selectedOrgIdUniqueNumber = 1;
 			cac.chargeAccount = cacc;
 			cac.init();
@@ -707,6 +708,7 @@ private class Apt_CreditAssessmentController_Test {
 
 
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
+			cac.userInput = '87009610342';
 			cac.chargeAccount = cacc;
 			cac.selectedOrgIdUniqueNumber = 2;
 			cac.init();
@@ -842,6 +844,7 @@ private class Apt_CreditAssessmentController_Test {
 
 
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
+			cac.userInput = '87009610342';
 			cac.backToSearch();
 			cac.chargeAccount = cacc;
 			cac.selectedOrgIdUniqueNumber = 1;
