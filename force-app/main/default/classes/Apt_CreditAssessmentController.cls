@@ -217,7 +217,7 @@ public with sharing class Apt_CreditAssessmentController {
 	public Apt_CreditAssessmentController (ApexPages.StandardController controller){
 		try {
 			if(String.isNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PageType))){
-				PageType = Apexpages.currentPage().getParameters().get(APT_Constants.PageType);
+				PageType = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get(APT_Constants.PageType));
 			} else {
 				PageType = PAGE_TYPE_CHARGE_ACCOUNT;
 			}
@@ -240,15 +240,15 @@ public with sharing class Apt_CreditAssessmentController {
 			responseWrapper = new APT_CompanyCreditAssessmentWrapper.CompanyBusinessResponse_element();
 			individualResponseWrapper = new APT_IndividualCreditAssessmentWrapper.individualCommercialResponse_element();
 			if(String.isNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID))){
-				accountID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID);
+				accountID = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ID));
 				accountType = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_ACCOUNT_TYPE);
 				isAccountFlow = true;
 
 			} else if(String.isNotBlank(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID))) {
 				isAnonymousFlow = false;
 				isAccountFlow = false;
-				proposalID = Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID);
-				contextId = ApexPages.currentPage().getParameters().get('contextId');
+				proposalID = String.escapeSingleQuotes(Apexpages.currentPage().getParameters().get(APT_Constants.PARAM_PROPOSAL_ID));
+				contextId = String.escapeSingleQuotes(ApexPages.currentPage().getParameters().get('contextId'));
 				proposal = [SELECT id, Apttus_Proposal__Account__c, Apttus_Proposal__Account__r.Role_Type_Roll_Up__c,
 						Apttus_Proposal__Account__r.Name, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,
 						APT_Credit_Assessment_Status__c, Apttus_Proposal__Opportunity__c,Apttus_Proposal__Opportunity__r.amount,
@@ -1139,7 +1139,6 @@ public with sharing class Apt_CreditAssessmentController {
 				} else if (APT_Constants.APPROVAL_STAGE_APPROVE.equalsIgnoreCase(creditAssessmentStatus)){
 					creditAssessmentStatus = APT_Constants.CREDIT_ASSESSMENT_STATUS_APPROVED;
 				}
-
 			} else{
 				creditAssessmentStatus = APT_Constants.CREDIT_ASSESSMENT_REFFERED ;
 			}
@@ -1565,7 +1564,7 @@ public with sharing class Apt_CreditAssessmentController {
 										+ APT_AmendRenewUtility.getAllAgrFields(APT_Constants.SOQL_CHARGEACCOUNT_OBJECT)
 										+ ' FROM ' + APT_Constants.SOQL_CHARGEACCOUNT_OBJECT
 										+ ' WHERE Id = :chargeAccountId';
-								list<APT_Charge_Account__c> listChargeAccount = database.query(chargeAccountQuery);
+								list<APT_Charge_Account__c> listChargeAccount = database.query(String.escapeSingleQuotes(chargeAccountQuery));
 
 								if(listChargeAccount != null && listChargeAccount.size() > 0) {
 									ca = listChargeAccount[0];
