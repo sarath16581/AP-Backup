@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Note_Surcharge__c</fullName>
     <description>This field store the note to be displayed on Surcharge Exemption request before its submitted for Approval for Sales manager</description>
+	<inlineHelpText>This field store the note to be displayed on Surcharge Exemption request before its submitted for Approval for Sales manager</inlineHelpText>
     <externalId>false</externalId>
-    <formula>&quot;Please select the relevant Sales Director for approval of your Surcharge Exemption Request. Once approved, your request will be submitted to the Support team for further review.&quot;</formula>
+    <formula>&quot;This request will now be submitted to your Sales Director and Sales GM for endorsement according to the freight services pricing policy. Once approved, this request will be subject to further review to gain endorsement from the Head of Commercial &amp; Partnership.&quot;</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Note:</label>
     <required>false</required>
