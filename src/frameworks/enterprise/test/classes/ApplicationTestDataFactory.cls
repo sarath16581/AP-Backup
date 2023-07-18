@@ -31,6 +31,8 @@
  * 2023-05-25 - Nathan Franklin - Deprecated a bunch of case related methods (Use ApplicationTestDataFactoryCase moving forward)
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
  * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
+ * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
+ * 2023-07-16 - SteveL- Added getEvents
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -306,7 +308,13 @@ public with sharing class ApplicationTestDataFactory {
 				Task.Priority => 'New'
 		}, count), generateIds);
 	 }
-	 
+
+	public static List<Event> getEvents(Integer count, Id whatId, Boolean generateIds) {
+		return (List<Event>)maybeGenerateIds(populateSObjects(Event.SObjectType, new Map<SObjectField, Object> {
+				Event.WhatId => whatId
+		}, count), generateIds);
+	}
+
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
 	 */
@@ -880,7 +888,7 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Sep_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Oct_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Nov_Revenue_Amount__c => 1000,
-			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000 
+			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
 

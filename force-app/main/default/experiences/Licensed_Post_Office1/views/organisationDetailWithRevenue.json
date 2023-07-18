@@ -45,6 +45,13 @@
             "seedComponents" : [ ],
             "tabKey" : "3",
             "tabName" : "Revenue"
+          }, {
+            "UUID" : "36af51dd-7936-4cea-82ce-47187fd8d5af",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "cd419",
+            "tabName" : "All Activities"
           } ],
           "useOverflowMenu" : false
         }
@@ -158,6 +165,23 @@
         "id" : "670f57e3-a699-4c7f-a6d0-a1a29870b9c6",
         "regionLabel" : "Revenue",
         "regionName" : "3",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}",
+            "recordLimit" : 3,
+            "sObjectName" : "Account"
+          },
+          "componentName" : "c:activityTimeline",
+          "id" : "0cba465b-1d25-42bf-a83a-ee0374ff7ff0",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "36af51dd-7936-4cea-82ce-47187fd8d5af",
+        "regionLabel" : "All Activities",
+        "regionName" : "cd419",
         "renditionMap" : { },
         "type" : "region"
       } ],
