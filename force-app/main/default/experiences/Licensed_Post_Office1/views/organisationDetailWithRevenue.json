@@ -171,10 +171,11 @@
         "components" : [ {
           "componentAttributes" : {
             "recordId" : "{!recordId}",
+            "recordLimit" : 3,
             "sObjectName" : "Account"
           },
           "componentName" : "c:activityTimeline",
-          "id" : "10c8ff43-b667-4a41-a2d0-06325ffc8cf9",
+          "id" : "0cba465b-1d25-42bf-a83a-ee0374ff7ff0",
           "renditionMap" : { },
           "type" : "component"
         } ],

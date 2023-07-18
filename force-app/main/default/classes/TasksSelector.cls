@@ -18,12 +18,22 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		WITH_OWNER, WITH_CONTACT
 	}
 
+	protected String sortField = 'ActivityDate';
+	protected String sortOrder ='Desc NULLS First';
+
 	public static TasksSelector newInstance() {
 		return (TasksSelector)Application.Selectors.newInstance(TasksSelector.class);
 	}
 
 	public static TasksSelector newInstance(Integer offsetLimit) {
 		return (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setOffset(offsetLimit);
+	}
+
+	public static TasksSelector newInstance(Integer recordLimit, Integer offsetLimit, String sortField, String sortOrder) {
+		TasksSelector selector = (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setLimit(recordLimit).setOffset(offsetLimit);
+		selector.sortField = sortField;
+		selector.sortOrder = sortOrder;
+		return selector;
 	}
 
 	public override SObjectType getSObjectType() {
@@ -33,7 +43,8 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 				Task.Id, Task.Subject, Task.Description, Task.ActivityDate, Task.OwnerId, Task.WhatId,
-				Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.TaskSubtype, Task.IsClosed, Task.Priority, Task.OwnerId, Task.Operations_Outcome_Comment__c, Task.CreatedDate
+				Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.TaskSubtype, Task.IsClosed,
+				Task.Priority, Task.OwnerId, Task.Operations_Outcome_Comment__c, Task.CreatedDate
 		};
 	}
 
@@ -128,7 +139,14 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 	 * @description Run a simple query to get records based on what Ids | PBRP
 	 */
 	public Map<Id, Task> selectByWhatId(Set<Id> whatIds) {
-		QueryBuilder qb = newQueryBuilder(new Set<Object>()).addConditions().add(new QueryBuilder.SimpleCondition(Task.WhatId + ' in :whatIds')).endConditions();
+		return selectByWhatId(whatIds, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on what Ids | PBRP
+	 */
+	public Map<Id, Task> selectByWhatId(Set<Id> whatIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Task.WhatId + ' in :whatIds')).endConditions();
 		return new Map<Id, Task>((List<Task>)Database.query(qb.toSoqlString()));
 	}
 
@@ -136,17 +154,17 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_CONTACT)) {
-			builder.addRelatedFields(ContactsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Who');
+			builder.addRelatedFields(RelatedTosSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Who');
 		}
 
 		if(selectorOptions.contains(Options.WITH_OWNER)) {
-			builder.addRelatedFields(UsersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Owner');
+			builder.addRelatedFields(OwnersSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Owner');
 		}
 
 		return builder;
 	}
 
 	public virtual override List<QueryBuilder.Order> getOrderBy() {
-		return new List<QueryBuilder.Order>{new QueryBuilder.Order('ActivityDate', 'Desc NULLS First')};
+		return new List<QueryBuilder.Order>{new QueryBuilder.Order(sortField, sortOrder)};
 	}
 }

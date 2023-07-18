@@ -32,6 +32,7 @@
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
  * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
  * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
+ * 2023-07-16 - SteveL- Added getEvents
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -307,6 +308,12 @@ public with sharing class ApplicationTestDataFactory {
 				Task.Priority => 'New'
 		}, count), generateIds);
 	 }
+
+	public static List<Event> getEvents(Integer count, Id whatId, Boolean generateIds) {
+		return (List<Event>)maybeGenerateIds(populateSObjects(Event.SObjectType, new Map<SObjectField, Object> {
+				Event.WhatId => whatId
+		}, count), generateIds);
+	}
 	 
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases

@@ -4,21 +4,51 @@ import getAllActivities from '@salesforce/apex/ActivityTimelineController.getAll
 export default class ActivityTimeline extends LightningElement {
     @api recordId;
     @api sObjectName;
-    @api loadNumber;
+    @api recordLimit;
 
-    sectionClassPrefix = 'slds-timeline__item_expandable slds-timeline__item_task';
-    allActivities;
+    offset = 0;
+    sectionClassPrefix = 'slds-timeline__item_expandable slds-timeline__item_task ';
+    allActivities = [];
+    loading= false;
 
     connectedCallback() {
+        this.loadData();
+    }
+
+    loadData() {
+        this.loading = true;
         getAllActivities({
             recordId: this.recordId,
-            sObjectName: this.sObjectName
+            sObjectName: this.sObjectName,
+            recordLimit: this.recordLimit,
+            offsetLimit: this.offset
         }).then(result => {
-            this.allActivities = result;
-            console.log(this.allActivities)
+            this.allActivities = [...this.allActivities, ...result];
+            this.loading = false;
         }).catch(error => {
-            console.log(error);
+            this.loading = false;
+        }).finally(() => {
+            this.loading = false;
         });
+    }
+
+    loadMoreData() {
+        this.offset = this.offset + this.recordLimit;
+        this.loadData();
+    }
+
+    expandAll() {
+        let allSections = this.template.querySelectorAll('.slds-timeline__item_expandable');
+        for (let section of allSections) {
+            section.className = this.sectionClassPrefix + 'slds-section slds-is-open';
+        }
+    }
+
+    collapseAll() {
+        let allSections = this.template.querySelectorAll('.slds-timeline__item_expandable');
+        for (let section of allSections) {
+            section.className = this.sectionClassPrefix + 'slds-section slds-is-close';
+        }
     }
 
     toggleSection(event) {

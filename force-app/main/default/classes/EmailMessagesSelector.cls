@@ -26,13 +26,6 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 		return (EmailMessagesSelector)Application.Selectors.newInstance(EmailMessagesSelector.class);
 	}
 
-	public static EmailMessagesSelector newInstance(SObjectField sortField, String orderBy){
-		EmailMessagesSelector selector = (EmailMessagesSelector)Application.Selectors.newInstance(EmailMessagesSelector.class);
-		selector.sortField = sortField;
-		selector.sortOrder = orderBy;
-		return selector;
-	}
-
 	public static EmailMessagesSelector newInstance(SObjectField sortField, String orderBy, Integer recordLimit){
 		EmailMessagesSelector selector = (EmailMessagesSelector)Application.Selectors.newInstance(EmailMessagesSelector.class).setLimit(recordLimit);
 		selector.sortField = sortField;
@@ -47,7 +40,7 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			EmailMessage.Id, EmailMessage.ToAddress, EmailMessage.CcAddress, EmailMessage.BccAddress, EmailMessage.Incoming, EmailMessage.Status, EmailMessage.Subject, EmailMessage.CreatedDate, EmailMessage.FromAddress, 
-			EmailMessage.Headers, EmailMessage.ParentId, EmailMessage.RelatedToId, EmailMessage.ActivityId, EmailMessage.TextBody, EmailMessage.HtmlBody
+			EmailMessage.Headers, EmailMessage.ParentId
 		};
 	}
 
@@ -127,13 +120,5 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 	public virtual Integer getDuplicateEmailMessagesCount(Id emailMessageId, String fromAddress, String subject, Datetime customDateTime) {
 		String query = 'SELECT COUNT() FROM EmailMessage WHERE Id!=:emailMessageId AND FromAddress=:fromAddress AND Subject=:subject AND CreatedDate>:customDateTime';
 		return Database.countQuery(query);
-	}
-
-	/**
-	 * @description Run a simple query to get records based on RelatedToId
-	 */
-	public virtual List<EmailMessage> selectByRelatedToIds(Set<Id> relatedToIds) {
-		QueryBuilder qb = newQueryBuilder(new Set<Object>()).addConditions().add(new QueryBuilder.SimpleCondition(EmailMessage.RelatedToId + ' in :relatedToIds')).endConditions();
-		return Database.query(qb.toSoqlString());
 	}
 }
