@@ -227,10 +227,6 @@ public without sharing class BAMOnboardContactController {
 			List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId);
 			mapResults.put(FIELD_BILLING_ACCOUNTS, billingAccounts);
 
-			//3. Filter Billing Accounts per application
-			List<BAMUserUtility.ApplicationBillingAccountDataWrapper> billingAccountsByApp = BAMUserUtility.getAppBillingAccountDataWrapper(allApplications, billingAccounts);
-			mapResults.put(FIELD_BILLING_ACCOUNTS_BY_APPLICATION, billingAccountsByApp);
-
 			// load contact data
 			// 1. Latest External request, this determines if we show error or pending
 			Map<String, BAMContactApplication__c> externalRequestsByApp = loadContactApplications(contactId);
@@ -239,6 +235,11 @@ public without sharing class BAMOnboardContactController {
 			// 2. Contact Roles per Application
 			Map<String, BAMContactRole__c> rolesPerApp = loadContactRolePerApplication(contactId);
 			mapResults.put(FIELD_CONTACT_ROLES_PER_APPLICATION, rolesPerApp);
+
+			//3. Filter Billing Accounts per application
+			Map<Id, Set<Id>> existingBillingAccountsKeyedByAppId = BAMUserUtility.getBillingAccountIdsKeyedByAppId(rolesPerApp);
+			List<BAMUserUtility.ApplicationBillingAccountDataWrapper> billingAccountsByApp = BAMUserUtility.getAppBillingAccountDataWrapper(allApplications, billingAccounts, existingBillingAccountsKeyedByAppId);
+			mapResults.put(FIELD_BILLING_ACCOUNTS_BY_APPLICATION, billingAccountsByApp);
 
 		}
 
@@ -321,7 +322,7 @@ public without sharing class BAMOnboardContactController {
             }
         }
 
-		validateBillingAccountsByApp(applicationRolesKeyedByAppId);
+		validateBillingAccountsByApp(contactId, applicationRolesKeyedByAppId);
 
         try
         {
@@ -410,14 +411,20 @@ public without sharing class BAMOnboardContactController {
 
 	/**
 	 * @description This method validates the selected billing accounts are as per the filter defined at application level
+	 * It ignores the validation on already existing billing accounts for the contact that are deviated to filter
+	 * @param  contactId 
 	 * @param  applicationRolesKeyedByAppId 
 	 */
-	private static void validateBillingAccountsByApp(Map<Id, List<Map<Object, Object>>> applicationRolesKeyedByAppId) {
+	private static void validateBillingAccountsByApp(Id contactId, Map<Id, List<Map<Object, Object>>> applicationRolesKeyedByAppId) {
         Set<Id> appIds = new Set<Id>();
         Set<Id> selectedBillingAccountIds = new Set<Id>();
 		Map<Id, List<Billing_Account__c>> billingAccountsKeyedByAppId = new Map<Id, List<Billing_Account__c>>();
         Map<Id, Billing_Account__c> billingAccountMap = new Map<Id, Billing_Account__c>();
         Map<Id,BAMApplication__c> appMap = new Map<Id,BAMApplication__c>();
+
+		//get the existing contact roles with linked entities if any
+		Map<String, BAMContactRole__c> contactRolesKeyedByAppId = BAMUserUtility.loadContactRolePerApplication(contactId);
+		Map<Id, Set<Id>> existingBillingAccountsKeyedByAppId = BAMUserUtility.getBillingAccountIdsKeyedByAppId(contactRolesKeyedByAppId);
 
 		//get all the selected billing account ids from the appRoles pageState
 		//get the appIds that have billing accounts selected
@@ -462,12 +469,16 @@ public without sharing class BAMOnboardContactController {
         }
 
 		for (Id appId : billingAccountsKeyedByAppId.keySet()) {
+			Set<Id> existingBillingAccountIds = new Set<Id>();
+			if (existingBillingAccountsKeyedByAppId.containsKey(appId)) {
+				existingBillingAccountIds = existingBillingAccountsKeyedByAppId.get(appId);
+			}
 			//check if any billing account filter defined at application level
 			if (String.isNotBlank(appMap.get(appId).BillingAccountFilter__c)) {
 				//deserialise the json filter
 				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(appMap.get(appId).BillingAccountFilter__c);
 				//validate the billing accounts selected are satisfied with the  conditions set at application level
-				List<Billing_Account__c> filteredAccounts = BAMUserUtility.getBillingAccountsByAppFilter(billingAccountsKeyedByAppId.get(appId), billingAccountFilterMap);
+				List<Billing_Account__c> filteredAccounts = BAMUserUtility.getBillingAccountsByAppFilter(billingAccountsKeyedByAppId.get(appId), billingAccountFilterMap, existingBillingAccountIds);
 				//throw an exception if filtered accounts not matched with the selected billing accounts
 				if (filteredAccounts.size() != billingAccountsKeyedByAppId.get(appId).size()) {
 					throw new AuraHandledException('Billing accounts selected are not valid as per the filter at application level');

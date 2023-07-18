@@ -6,6 +6,7 @@
  * @changelog
  * 2019-07-04  nathan.franklin@auspost.com.au  Added additional API helper methods
  * 2020-04-22 - Nathan Franklin - Added additional fields to soql
+ * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
  */
 public with sharing class BAMUserUtility {
 
@@ -190,16 +191,23 @@ public with sharing class BAMUserUtility {
 
 	/**
 	 * @description This method returns the wrapper for Application and their related billing accounts based on the filter set at application level
-	 * @param  orgId			account id that onboards for the merchant portal
-	 * @param  appWithRoles 	list of applications that are active for the organisation
-	 * @return					wrapper of application to billing accounts based on BillingAccountFilter__c
+	 * It can also include the billing accounts that don't match with the filter which were already selected by user if the filter is defined at later stage
+	 * @param  appWithRoles						list of applicaitons with application roles
+	 * @param  billingAccounts 					list of billing accounts for an orgnisation
+	 * @param  billingAccountIdsKeyedByAppId 	map of existing billing accounts keyed by app id
+	 * @return									wrapper of application to billing accounts based on BillingAccountFilter__c
 	 */
-	public static List<ApplicationBillingAccountDataWrapper> getAppBillingAccountDataWrapper(List<BAMApplication__c> appWithRoles, List<Billing_Account__c> billingAccounts) {
+	public static List<ApplicationBillingAccountDataWrapper> getAppBillingAccountDataWrapper(List<BAMApplication__c> appWithRoles, List<Billing_Account__c> billingAccounts, Map<Id, Set<Id>> billingAccountIdsKeyedByAppId) {
 		List<ApplicationBillingAccountDataWrapper> wrapperList = new List<ApplicationBillingAccountDataWrapper>();
 		Map<Id, BAMApplication__c> bamApplicationMap = new Map<Id, BAMApplication__c>(appWithRoles);
 
 		//loop through the  applications and get the billing accounts based on billing account filter
 		for (Id bamAppId : bamApplicationMap.keySet()) {
+			Set<Id> selectedBillingAccountIds = new Set<Id>();
+			if (billingAccountIdsKeyedByAppId != null && billingAccountIdsKeyedByAppId.containsKey(bamAppId)) {
+				selectedBillingAccountIds = billingAccountIdsKeyedByAppId.get(bamAppId);
+			}
+
 			ApplicationBillingAccountDataWrapper wrapper = new ApplicationBillingAccountDataWrapper();
 			wrapper.bamApplicationId = bamAppId;
 			//get the billing account filter from the app level
@@ -212,7 +220,7 @@ public with sharing class BAMUserUtility {
 					//fail-safe if invalid json
 					billingAccountFilterMap = new Map<String, Object>();
 				}
-				wrapper.billingAccounts = getBillingAccountsByAppFilter(billingAccounts, billingAccountFilterMap);
+				wrapper.billingAccounts = getBillingAccountsByAppFilter(billingAccounts, billingAccountFilterMap, selectedBillingAccountIds);
 			} else {
 				//add all the billing accounts if no filter at the app level
 				wrapper.billingAccounts =  billingAccounts;
@@ -224,11 +232,12 @@ public with sharing class BAMUserUtility {
 
 	/**
 	 * @description This method filters the billing accounts based on config from BillingAccountFilter__c
-	 * @param  billingAccounts			list of billing accounts
-	 * @param  billingAccountFilterMap	billing account filter configured for an app
-	 * @return							list of filtered billing accounts
+	 * @param  billingAccounts				list of billing accounts
+	 * @param  billingAccountFilterMap		billing account filter configured for an app
+	 * @param  selectedBillingAccountIds	selected billing accounts for the user
+	 * @return								list of filtered billing accounts
 	 */
-	public static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap) {
+	public static List<Billing_Account__c> getBillingAccountsByAppFilter(List<Billing_Account__c> billingAccounts, Map<String, Object> billingAccountFilterMap, Set<Id> selectedBillingAccountIds) {
 		List<Billing_Account__c> filteredAccounts = new List<Billing_Account__c>();
 		Set<String> keysToMatch = new Set<String>();
 		Set<String> notContainsKeysToMatch = new Set<String>();
@@ -286,8 +295,9 @@ public with sharing class BAMUserUtility {
 						}
 					}
 				}
-				//if all the keys matched, add the billing account to the filtered list
-				if(matchedKeys == keysToMatch.size() && notContainsMatchedKeys == notContainsKeysToMatch.size()) {
+				//if all the keys matched, add the billing account to the filtered list (or)
+				//add the billing account if it's already in the selected list
+				if((matchedKeys == keysToMatch.size() && notContainsMatchedKeys == notContainsKeysToMatch.size()) || (selectedBillingAccountIds != null && selectedBillingAccountIds.contains(ba.Id))) {
 					filteredAccounts.add(ba);
 				}
 			}	
@@ -354,6 +364,68 @@ public with sharing class BAMUserUtility {
 		public Id bamApplicationId {get; set;}
 		@AuraEnabled
 		public List<Billing_Account__c> billingAccounts {get; set;}
+	}
+
+	/**
+	 * @description This method returns the map of application id to billing accounts from the contact role
+	 * @param  appIdcontactRoleMap map of contact roles with linked entities keyed by app id
+	 * @return                     return Map of billing accounts keyed by application id
+	 */
+	public static Map<Id, Set<Id>> getBillingAccountIdsKeyedByAppId(Map<String, BAMContactRole__c> appIdcontactRoleMap) {
+		Map<Id, Set<Id>> billingAccountIdsKeyedByAppId = new Map<Id, Set<Id>>();
+
+		//create map of app id to selected billing accounts for a contact if already exist
+		for (String appId : appIdcontactRoleMap.keySet()) {
+			if (billingAccountIdsKeyedByAppId.get(appId) == null) {
+				billingAccountIdsKeyedByAppId.put(appId, new Set<Id>());
+			}
+			BAMContactRole__c contactRole = appIdcontactRoleMap.get(appId);
+			for (BAMLinkedEntity__c le : contactRole.LinkedEntities__r) {
+				billingAccountIdsKeyedByAppId.get(appId).add(le.BillingAccount__c);
+			}
+		}
+
+		return billingAccountIdsKeyedByAppId;
+
+	}
+
+	/**
+	 * //TODO: Refactor to use the selectors
+	 * @description This function returns the contact role keyed by app id related to contact
+	 * @param  contactId 
+	 * @return Map of application id to contact role with linked entities		
+	 */
+	public static Map<String, BAMContactRole__c> loadContactRolePerApplication(Id contactId) {
+		Map<String, BAMContactRole__c> mapApplicationRoles = new Map<String, BAMContactRole__c>();
+
+		if (contactId != null) {
+			List<BAMContactRole__c> listRoles = [
+				SELECT Id, Name, Status__c, Pending_Delete__c
+						, ContactApplication__c, ContactApplication__r.Application__c
+						, ContactApplication__r.Pending_Delete__c
+						, ApplicationRole__r.Name, ApplicationRole__r.Role__c
+						, ApplicationRole__c
+						, (
+						SELECT Id, Name,
+								Pending_Delete__c, BillingAccount__c, Organisation__c, Group__c
+						FROM LinkedEntities__r
+						WHERE Pending_Delete__c = false
+				)
+				FROM BAMContactRole__c
+				WHERE ContactApplication__r.Contact__c = :contactId
+				AND Pending_Delete__c != true
+				ORDER BY ContactApplication__c, CreatedDate DESC
+			];
+
+			for(BAMContactRole__c role: listRoles)
+			{
+				if(null == mapApplicationRoles.get(role.ContactApplication__r.Application__c))
+				{
+					mapApplicationRoles.put(role.ContactApplication__r.Application__c, role);
+				}
+			}
+		}
+		return mapApplicationRoles;
 	}
 
     /**

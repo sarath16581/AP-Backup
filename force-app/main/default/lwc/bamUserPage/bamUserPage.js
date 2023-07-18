@@ -7,6 +7,7 @@
 01.07.2019    Sameed Khan(Mav3rik)    Created
 21.10.2019 hasantha.liyanage@auspost.com.au Modified : Added Super Admins Section
 2020-05-25 - Nathan Franklin - Changed the dual listbox to the multi billing account selector
+2023-07-17 - Mahesh Parvathaneni - Updated the logic to include billing accounts filtered at app level
 **/
 
 /* eslint-disable no-undef */
@@ -250,7 +251,7 @@ export default class BamUserPage extends LightningElement {
                 retrieveContactData({ contactId }),
                 contactApplicationsRetrievalFunction({ contactId }),
                 exisitingAccessRetrievalFunction({ contactId }),
-                retrieveAplicationData({ orgId }),
+                retrieveAplicationData({ orgId, contactId }),
                 retrieveSuperAdmins({ orgId }),
             ])
             // parse data
@@ -362,7 +363,7 @@ export default class BamUserPage extends LightningElement {
     // loads data from server for 'Create mode' and sets up the components state
     async retrieveDataAndSetStateForCreateMode(orgId) {
         try {
-            const appDataStr = await retrieveAplicationData({orgId})
+            const appDataStr = await retrieveAplicationData({orgId, contactId})
             const { applicationsWithRoles, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
 			this.appBillingAccountDataWrapper = appBillingAccountDataWrapper;
             const appList = this.generatePageState(applicationsWithRoles);
