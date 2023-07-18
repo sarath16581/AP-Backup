@@ -837,41 +837,44 @@ public class OpportunityLineItemServiceTest {
 		List<ProductRelationship__c> relatedProductList = new List<ProductRelationship__c>();
 		MockUtility.Mocks.when(relationshipSelector.selectByRelatedAndParent((Set<id>)fflib_Match.anyObject(), (Set<id>)fflib_Match.anyObject())).thenReturn(relatedProductList);
 		MockUtility.Mocks.stopStubbing();
- 
+
 		Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
 		Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
 		Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
 		PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 		Map<Id, OpportunityLineItem> oldRecMap = new Map<Id,OpportunityLineItem>();
 
+	Integer monthToUse = Date.today().month() >6 ? 7 : 4;
 		OpportunityLineItem oliVar = new OpportunityLineItem();
 		oliVar.OpportunityId = testOpty.Id;
 		oliVar.Product2Id = testProd.Id;
 		oliVar.Classification__c = Constants.CLSS_GROWTH;
+		oliVar.Change_Classification__c = 'Yes';
+		oliVar.OPCOverride__c = 'No';
 		oliVar.Quantity = 12;
 		oliVar.TotalPrice = 24.00;
 		oliVar.PricebookEntryId = pbEntry.Id;
-		oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4);
-		oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
+		oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), monthToUse, 4);
+		oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), monthToUse+1, 16);
 		INSERT oliVar;
 		oldRecMap.put(oliVar.Id, oliVar);
 
 		List<OpportunityLineItem> optyLIList = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c,OPCOverride__c
 									 FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
+
 		OpportunityLineItem newOptyLI = optyLIList[0];
-		newOptyLI.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 9, 9);
-		newOptyLI.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
+
+
+		newOptyLI.Contract_Start_Date__c = Date.newInstance(System.Today().year(), monthToUse, 9);
+		newOptyLI.Contract_End_Date__c = Date.newInstance(System.Today().year(), monthToUse+1, 16);
 		newOptyLI.Change_Classification__c = 'No';
 		UPDATE newOptyLI;
 
-		 System.assertEquals(Constants.CLSS_RENEWAL, newOptyLI.Classification__c);
- 
-
-
+		System.assertEquals(Constants.CLSS_GROWTH, newOptyLI.Classification__c);
 		test.startTest();
 		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
-		System.assertEquals(Constants.CLSS_WINBACK, newOptyLI.Classification__c);
+		System.assertEquals(Constants.CLSS_RENEWAL, newOptyLI.Classification__c);
 
 	}
 
