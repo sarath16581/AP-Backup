@@ -59,7 +59,6 @@ private class ActivityTimelineController_Test {
         Integer offsetLimit = 0;
         List<ActivityTimelineController.RecordActivity> results = ActivityTimelineController.getAllActivities(recordId, sObjectName, recordLimit, offsetLimit);
         System.assertEquals(2, results.size(), 'Expected to return 2 results');
-        System.debug(results);
         Boolean assertResult = false;
         for (ActivityTimelineController.RecordActivity result : results) {
             if (!String.isEmpty(result.type) && result.type.containsIgnoreCase(ActivityTimelineController.CALL_SUBTYPE)) {
