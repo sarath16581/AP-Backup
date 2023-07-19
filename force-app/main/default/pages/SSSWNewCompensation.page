@@ -32,7 +32,7 @@
     </script>  
     <apex:form >
         <apex:pageBlock rendered="{!NOT(isAllowedToCreateCompensation)}">
-            <apex:pagemessage severity="error" strength="3" summary="You do not have privilege to create compensation records."/>
+            <apex:pagemessages id="errors" />
         </apex:pageBlock>
         <apex:pageBlock rendered="{!isAllowedToCreateCompensation}" >
             <apex:pagemessages id="errors" />
@@ -258,5 +258,13 @@
                 }
             }
         }
+
+
+        window.onload = function(){
+            var isCompensationUser = {!isCompensationUser};
+            let compensationEmail = document.getElementsByClassName('compensationEmail');
+            compensationEmail.disabled = true;
+        }
+        //
     </script>
 </apex:page>

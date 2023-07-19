@@ -12,7 +12,8 @@
 public virtual inherited sharing class ContentDocumentLinksSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_CONTENTVERSION
+		WITH_CONTENTVERSION,
+		WITH_CONTENTDOCUMENT
 	}
 
 	public String sortOrder ='Desc';
@@ -162,6 +163,10 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 
 		if(selectorOptions.contains(Options.WITH_CONTENTVERSION)) {
 			builder.addRelatedFields(ContentVersionsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContentDocument.LatestPublishedVersion');
+		}
+
+		if(selectorOptions.contains(Options.WITH_CONTENTDOCUMENT)) {
+			builder.addRelatedFields(ContentDocumentsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContentDocument');
 		}
 
 		return builder;

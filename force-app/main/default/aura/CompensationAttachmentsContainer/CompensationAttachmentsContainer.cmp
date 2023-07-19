@@ -1,0 +1,9 @@
+<!--
+ - Created by hasan on 11/07/2023.
+ -->
+
+<aura:component description="CompensationAttachmentsContainer" implements="force:appHostable">
+    <aura:attribute name="recordId" type="object"  />
+    <c:compensationAttachments recordId="{!v.recordId}"/>
+</aura:component>
+

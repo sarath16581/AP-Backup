@@ -72,7 +72,7 @@ public virtual inherited sharing class AttachmentsSelector extends ApplicationSe
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		//NOTE: Do not add Body to this, see note about WITH_BODY selector option
 		return new Set<SObjectField> {
-			Attachment.Id, Attachment.Name, Attachment.ParentId, Attachment.CreatedDate
+			Attachment.Id, Attachment.Name, Attachment.ParentId, Attachment.CreatedDate, Attachment.ContentType, Attachment.BodyLength
 		};
 	}
 
@@ -88,6 +88,15 @@ public virtual inherited sharing class AttachmentsSelector extends ApplicationSe
 	 */
 	public virtual Map<Id, Attachment> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Attachment.Id + ' in :ids')).endConditions();
+		return new Map<Id, Attachment>((List<Attachment>)Database.query(qb.toSoqlString()));
+	}
+
+	public virtual Map<Id, Attachment> selectByParentId(Set<Id> ids) {
+		return selectByParentId(ids, new Set<Object>());
+	}
+
+	public virtual Map<Id, Attachment> selectByParentId(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Attachment.ParentId + ' in :ids')).endConditions();
 		return new Map<Id, Attachment>((List<Attachment>)Database.query(qb.toSoqlString()));
 	}
 

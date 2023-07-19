@@ -14,7 +14,7 @@ the controller runs on system mode to enable agents to enter and edit compensati
 */
 
 public without sharing class EFTBankDetailsController {
-    public Compensation__c record {get;set;}
+    public Compensation__c record  {get;set;}
     public Boolean showEditScreen {get;set;}
     public Boolean showEditButton {get;set;}
     public Boolean detailsProvided {get;set;}
@@ -55,6 +55,16 @@ public without sharing class EFTBankDetailsController {
         }
         private set;
     }
+
+    public static Set<Id> RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES {
+        get {
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES == null) {
+                RESTRICTED_COMPENSATION_RECORD_TYPES = RecordTypesSelector.newInstance().selectByDeveloperName('Compensation__c', new Set<String>{'EFT','Load_and_Go'}).keySet();
+            }
+            return RESTRICTED_COMPENSATION_RECORD_TYPES;
+        }
+        private set;
+    }
     public static final Boolean isCompensationUser {
         get {
             if(isCompensationUser == null) {
@@ -79,15 +89,18 @@ public without sharing class EFTBankDetailsController {
         stdCon = stdController;
         eftRecordTypeID = [select Id,Name from RecordType where SobjectType='Compensation__c' and RecordType.DeveloperName = 'EFT'].Id;
         System.debug('stdController : '+stdController);
+        System.debug('stdController : getRecord '+stdController.getRecord());
+
         //if standard controller id is null create new compensation. this occurs when creating new records.
         if(stdController.getId() == null) {
-            record = new Compensation__c();
+            record = (Compensation__c) stdController.getRecord();
+            System.debug('stdController : Case__c '+record);
         }
         else {
             //quary the compensation record passed in through the std controller
-            record = [SELECT Id, Case__c, CostCentreCode__c,Status__c, Compensation_Amount__c, Proof_of_Value__c, Service_Value__c,
+            record = [SELECT Id, Case__c, Case__r.ArticleTest__c, CostCentreCode__c,Status__c, Compensation_Amount__c, Proof_of_Value__c, Service_Value__c,
                       Other__c, Discretionary_Compensation__c, Account_Name__c, Account_Number__c, BSB__c, Privacy_Check__c ,
-                      Cover_Type__c , Contact__c, Legal_Entity_Name__c , Business_Account_Number__c, HasExtraCover__c, Bank_Detail_Provided_By_Customer__c
+                      Cover_Type__c , Contact__c, Legal_Entity_Name__c , Business_Account_Number__c, HasExtraCover__c, Bank_Detail_Provided_By_Customer__c, RecordTypeId
                       FROM Compensation__c
                       WHERE Id = :stdController.getId()];
         }
@@ -112,13 +125,10 @@ public without sharing class EFTBankDetailsController {
         }
 
         // compensation restrictions
-        String selectedRecordTypeId = (String)stdController.getRecord().get('RecordTypeId');
-        if(RESTRICTED_COMPENSATION_RECORD_TYPES.contains(selectedRecordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
-            isAllowedToCreateCompensation = false;
-        }
+        validateOnLoad();
 
     }
-    
+
     public PageReference editMethod() {
         //display edit screen and hide the edit button on edit button press
         showEditScreen = true;
@@ -205,7 +215,8 @@ public without sharing class EFTBankDetailsController {
                 record.Account_Name__c = accountName;
                 record.Privacy_Check__c = privacyCheck;
                 record.Bank_Details_Confirmed__c = confirmDetails;
-                Upsert record;
+                ElevatedSharingContext context = new ElevatedSharingContext();
+                context.upsertRecords(new List<SObject>{record});
                 //show edit button and return to view screen
                 showEditButton = true;
                 showEditScreen = false;
@@ -242,9 +253,24 @@ public without sharing class EFTBankDetailsController {
         showEditScreen = false;
         return null;
     }
-    
+
+    /**
+     * Validate checks on load of the page
+     */
+    private void validateOnLoad() {
+        if (this.record == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(this.record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+            isAllowedToCreateCompensation = false;
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to create/update compensation records.'));
+        } else if (this.record == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
+            // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
+            isAllowedToCreateCompensation = false;
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'This article already have a compensation record and only supervisor can create more than one.'));
+        }
+    }
+
     //used to validate the bank details enterd by user
     public boolean validateDetails() {
+
         System.Debug('inside validate');
         // DDS-6866: if user tick the send compensation email checkbox, bank details at this step is not mandatory
         if (!this.compensationEmail)
@@ -273,12 +299,70 @@ public without sharing class EFTBankDetailsController {
             if(String.isNotBlank(accountNumber) && accountNumber.length() > 9) {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Account Number should not exceed beyond 9 digits'));
             }
+
+            // compensation Agent permission do not have the method to manually enter the bank account details
+            // and should continue using the current email method to acquire bank account details from the customer.
+            // check is only against EFT and Load and Go record Types as those are the only 2 record types which accepts bank details
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES.contains(this.record.recordTypeId) && !isCompensationSupervisor) {
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to manually enter the bank account details'));
+            }
+
+        } else  if(!isCompensationUser && !isCompensationSupervisor) {
+            // User DOESN't have the system permission “CC Compensation Agent” OR,
+            // the system permission “CC Compensation Supervisor” he is not allowed to send email
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to send email to customer'));
         }
+
         if(ApexPages.getMessages().size() > 0) {
             return true;
         }
         else {
             return false;
+        }
+    }
+
+    /**
+     * Checking whether If there are more than one compensation per reference ID,
+     * @param caseId
+     *
+     * @return Boolean
+     */
+    private Boolean isMoreThanOneCompensationRecord(String caseId) {
+        // get the related case
+        List<Case> cases = CasesSelector.newInstance(1).selectById(new Set<Id>{
+                Id.valueOf(caseId)
+        }).values();
+        // find the reference ID
+        String referenceId = cases[0].ReferenceID__c;
+        // if no reference ID found return false, which means user will be able to create the comensation record
+        if(referenceId == null) {
+            return false;
+        }
+
+        // with the reference ID let's find how many cases available
+        Map<Id, Case> allCases = CasesSelector.newInstance().selectByReferenceIdOrderByCreatedDate(new Set<String>{referenceId});
+        // on all the cases found are there one or more compensation(s) already exists?
+        Map<Id, Compensation__c> allCompensationsPerArticle = CompensationSelector.newInstance().selectByCaseIds(allCases.keySet(), new Set<Object>());
+        // if compensations already exists!
+        if(allCompensationsPerArticle.size() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
+	* sharing settings.
+	*/
+    private without sharing class ElevatedSharingContext {
+
+        /**
+		 * Insert a list of sObject records in system mode
+		 * @param List<sObject>
+		*/
+        private void upsertRecords(List<sObject> recordList) {
+            ApplicationDatabase.getInstance().dmlUpsert(recordList, Compensation__c.Id,true);
         }
     }
 }
