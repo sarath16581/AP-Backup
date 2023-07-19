@@ -12,32 +12,40 @@
         <type>SalesforceObject</type>
     </navigationMenuItem>
     <navigationMenuItem>
+        <label>Reports</label>
+        <position>2</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/partner-dashboard</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
         <defaultListViewId>LPO_My_Open_Opportunities_1</defaultListViewId>
         <label>Opportunities</label>
-        <position>2</position>
+        <position>3</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Opportunity</target>
         <type>SalesforceObject</type>
     </navigationMenuItem>
     <navigationMenuItem>
+        <defaultListViewId>My_Open_Leads_AvP</defaultListViewId>
+        <label>Leads</label>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Lead</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
         <label>Seismic</label>
-        <position>3</position>
+        <position>5</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/seismic</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Happy Parcels</label>
-        <position>4</position>
+        <position>6</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/happy-parcels</target>
-        <type>InternalLink</type>
-    </navigationMenuItem>
-    <navigationMenuItem>
-        <label>Reports</label>
-        <position>5</position>
-        <publiclyAvailable>false</publiclyAvailable>
-        <target>/partner-dashboard</target>
         <type>InternalLink</type>
     </navigationMenuItem>
 </NavigationMenu>

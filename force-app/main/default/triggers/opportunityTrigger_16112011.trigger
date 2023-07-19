@@ -1,4 +1,3 @@
-trigger opportunityTrigger_16112011 on Opportunity (before insert, before update, after insert, after update, after delete, after undelete, before delete) {
 /**************************************************
 Type:	 Trigger for Opportunity Object
 Purpose:	For inserts/updates, roll up Opportunity Amount
@@ -21,9 +20,12 @@ History:
 2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
 2023-06-20 - Boris Bachovski - Introduce extension to a new module framework and establish a baseline for future refactoring of existing trigger code.
 **************************************************/
+trigger opportunityTrigger_16112011 on Opportunity (before insert, before update, after insert, after update, after delete, after undelete, before delete) {
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){ // verify if triggers are disabled
+		(new OpportunityAutomationTriggerHandler()).dispatch();
 
-	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){
-		// domain based trigger dispatch
+		// domain based trigger dispatch. this is considered legacy and should not be used for any future work.
+		// to be refactored to new trigger dispatch without domains.
 		(new OpportunityTriggerHandler()).dispatch();
 	}
 
@@ -93,7 +95,6 @@ History:
 	/* this is the end of the original trigger content from SFDC */
 
 	/* this is the extension by CV on 16.11.2011, to insert sales team members on ownership change */
-
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isAfter){
 			if(trigger.isUpdate){
@@ -128,29 +129,28 @@ History:
 
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if (trigger.isBefore && trigger.isDelete){
-
 			DeletedRecordUtil.createDeletedRecord(trigger.old, 'Opportunity');
 		}
 
 		if (trigger.isAfter && trigger.isUnDelete){
-
 			DeletedRecordUtil.undeleteDeletedRecord(trigger.new);
 		}
 
 		if (trigger.isAfter && trigger.isInsert){
 			OpportunityUtility.assignSalesRep(trigger.new);
+			//OpportunityUtility.assignOpportunityOwner(trigger.new);
+			//OpportunityUtility.updatePersonalAccount(trigger.new);
 		}
 	}
 
 
-	 // Added by Apttus Managed Services for case# 00210442
+	// Added by Apttus Managed Services for case# 00210442
 	// --------------------------------------------------Apttus Code Starts---------------------------------------------------
-	// ADD1	 Jeoffrey Palmero		06/05/2019		 Added triggers for User Profile validation
+	// ADD1	 Jeoffrey Palmero		06/05/2019		  Added triggers for User Profile validation
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isAfter){
 			if(trigger.isUpdate){
 				if(APTMS_AvoidRecursion.isFirstRun()){
-
 					APTMS_OpportunityHandler.updateRecordTypeOfOPLs(trigger.new, trigger.oldMap);
 				}
 				OpportunityHandler.afterUpdateAction(trigger.new, trigger.oldMap);

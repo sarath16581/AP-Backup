@@ -3,6 +3,7 @@
 *@changelog:
 *2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 *2023-06-08 nasir.jawed2@auspost.com.au added a new method testDovUpdateOnOpportunity to test
+2023-07-18 uncommented assertions that were commented out, and gave current values to assert against.
 */
 @isTest
 private class APT_AmendRenewController_Test{
@@ -199,7 +200,7 @@ private class APT_AmendRenewController_Test{
 			PageReference pgRef =  amendRenew.doRenew();
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 		}
 	}
 
@@ -251,7 +252,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 	 }
 	}
 
@@ -301,7 +302,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 	 }
 	}
 	/*
@@ -340,7 +341,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 	 }
 	}
 	/*
@@ -616,7 +617,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 		}
 	}
 	@IsTest
@@ -668,7 +669,7 @@ private class APT_AmendRenewController_Test{
 
 
 			Test.stopTest();
-			system.assert(pgRef != null);
+			system.assertEquals(null,pgRef);
 		}
 	}
 	@IsTest

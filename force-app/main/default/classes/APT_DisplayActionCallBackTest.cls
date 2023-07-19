@@ -15,13 +15,6 @@ public class APT_DisplayActionCallBackTest {
 	private static List<Apttus_Config2.DisplayActionInfo> displayActions;
 	@TestSetup
 	static void makeData(){
-		Profile p = [SELECT Id FROM Profile WHERE Name='BG Base'];
-		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
-				EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-				LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-				TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-				UserName=APT_Constants.EMAIL_TEST_USER);
-		insert testuser;
 
 		//create config custom class properties
 		Apttus_Config2__ConfigCustomClasses__c configCustomClassesProperty = new Apttus_Config2__ConfigCustomClasses__c();
@@ -54,7 +47,25 @@ public class APT_DisplayActionCallBackTest {
 
 		insert listConfigDisplayActions;
 
+		Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
+		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
+				EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+				LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+				TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+				UserName=APT_Constants.EMAIL_TEST_USER);
+		insert testuser;
+
+        // Retrieve the Permission Set
+        PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'APT_Apttus_R2T_User' LIMIT 1];
+        
+        // Assign the Permission Set to the User
+        PermissionSetAssignment psAssignment = new PermissionSetAssignment(
+            PermissionSetId = ps.Id,
+            AssigneeId = testuser.Id
+        );
+
 		System.runAs(testuser) {
+  			insert psAssignment;
 			Account acc = APT_TestUtils.createOrganisation();
 			insert acc;
 

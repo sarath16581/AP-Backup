@@ -673,7 +673,7 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>SAP_Order_Type__c</field>
-            <table>Adjustment__c</table>
+            <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
         </columns>
         <masterLabel>Disputed Items</masterLabel>
     </sections>

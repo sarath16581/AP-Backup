@@ -13,6 +13,7 @@
       "componentAttributes" : {
         "enableInlineEdit" : false,
         "listViewAPIName" : "LBP_Open_Tasks",
+        "mobileListViewAPIName" : "LBP_Open_Tasks_Mobile",
         "objectAPIName" : "Task",
         "rows" : "25",
         "showActionBar" : false,

@@ -52,7 +52,7 @@ private class ActivityUtil_Test {
         List<Work_Day_Adjustments__c> workDayList = new List<Work_Day_Adjustments__c>();
 
         Work_Day_Adjustments__c testWorkDay = new Work_Day_Adjustments__c();
-        testWorkDay.Sales_Team__c = 'Business Hubs';
+        testWorkDay.Sales_Team__c = 'Holding Sales Team';
         testWorkDay.Role__c = 'Inside Sales';
         testWorkDay.fiscalYear__c = testFiscalYear.Id;
         testWorkDay.holiday__c = testPublicHoliday.Id;
@@ -62,7 +62,7 @@ private class ActivityUtil_Test {
 
         //Create test work day adjustment for Key Accounts
         Work_Day_Adjustments__c testWorkDay2 = new Work_Day_Adjustments__c();
-        testWorkDay2.Sales_Team__c = 'Business Hubs';
+        testWorkDay2.Sales_Team__c = 'Holding Sales Team';
         testWorkDay2.Role__c = 'Key Accounts';
         testWorkDay2.fiscalYear__c = testFiscalYear.Id;
         testWorkDay2.holiday__c = testPublicHoliday.Id;

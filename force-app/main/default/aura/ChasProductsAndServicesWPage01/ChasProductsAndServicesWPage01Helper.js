@@ -1,6 +1,5 @@
 /**
  * Created by nmain on 31/10/2017.
- * * 2023-06-26 Thang Nguyen DDS-11384 VODV case routing
  */
 ({
 	setRadioName: function (
@@ -336,10 +335,6 @@
 						cmp.set(
 							"v.wizardData.subProductId",
 							returnObj["trackingNumberDetails"][0].subProductId
-						);
-						cmp.set(
-							'v.wizardData.isVodv', 
-							returnObj["trackingNumberDetails"][0].isVodv						
 						);
 					}
 					// for return code other than 200 Success OK

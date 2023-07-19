@@ -631,7 +631,7 @@ private class CaseRoutingService_Test {
 		((PendingServiceRoutingSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)searchParamsCaptor.capture(), fflib_Match.anyBoolean());
 		Map<String, Object> searchParams = (Map<String, Object>)searchParamsCaptor.getValue();
 		System.assertEquals(new Set<Id>{cases[0].Id, cases[1].Id}, searchParams.get('workItemIds'));
-		System.assertEquals(true, searchParams.get('isPreferredUserRequired'));
+		System.assertEquals(true, searchParams.get('isPreferredUserRequiredOnly'));
 
 		fflib_ArgumentCaptor deleteCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlDelete((List<SObject>)deleteCaptor.capture(), fflib_Match.anyBoolean());
