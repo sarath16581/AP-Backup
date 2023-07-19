@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <description>A Custom Component to Display Activities as Timeline</description>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightningCommunity__Default">
+            <property name="recordId" type="String" label="Record Id" default="{!recordId}" description="Use the value: {!recordId}"/>
+            <property name="sObjectName" type="String" label="SObject API Name" default="Account" description="The API name of the SObject. i.e. Account"/>
+            <property name="recordLimit" type="Integer" label="Record Limit" default="3" description="The default number of records that will be loaded at the initialisation of the component"/>
+        </targetConfig>
+    </targetConfigs>
+    <masterLabel>Activity Timeline</masterLabel>
+</LightningComponentBundle>
