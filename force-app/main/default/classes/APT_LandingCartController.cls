@@ -17,8 +17,7 @@ public with sharing class APT_LandingCartController {
 	@AuraEnabled
 	public static string validationCheck(ID recordId){
 		AuraHandledException exceptionHandler;
-		id userProfileID = userinfo.getProfileId();
-		string pageRedirect = 'false';
+		id userProfileID = userinfo.getProfileId();		
 		id proposalId;
 		string returnValue;
 		//getting the profile id of current user
@@ -136,8 +135,7 @@ public with sharing class APT_LandingCartController {
 	*/
 	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp){
 
-		boolean newProposal= APT_Constants.BOOL_FALSE;
-		AuraHandledException exceptionHandler;
+		boolean newProposal= APT_Constants.BOOL_FALSE;		
 		string proposalRecordId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Proposal').getRecordTypeId();
 		Apttus_Proposal__Proposal__c proposal ;
 		List<Apttus_Proposal__Proposal__c> updatePrimaryFalse = new List<Apttus_Proposal__Proposal__c>();
