@@ -69,8 +69,6 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
 		Set<Id> whatIds = (Set<Id>)(searchParams.get('whatIds') == null ? new Set<Id>() : (searchParams.get('whatIds') instanceof Set<Id> ? searchParams.get('whatIds') : new Set<Id>{(Id)searchParams.get('whatIds')}));
-        Set<Id> ownerIds = (Set<Id>)(searchParams.get('ownerIds') == null ? new Set<Id>() : (searchParams.get('ownerIds') instanceof Set<Id> ? searchParams.get('ownerIds') : new Set<Id>{(Id)searchParams.get('ownerIds')}));
-		Set<String> subjects = (Set<String>)(searchParams.get('subjects') == null ? new Set<String>() : (searchParams.get('subjects') instanceof Set<String> ? searchParams.get('subjects') : new Set<String>{String.valueOf(searchParams.get('subjects'))}));
 		Date fromActivityDate = searchParams.get('fromActivityDate') == null ? null : Date.valueOf(String.valueOf(searchParams.get('fromActivityDate')));
 		Boolean isClosed = (Boolean) searchParams.get('isClosed');
 

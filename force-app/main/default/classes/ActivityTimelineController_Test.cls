@@ -34,7 +34,6 @@ private class ActivityTimelineController_Test {
         // =====================================
         // Stubbing
         // =====================================
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
         AccountsSelector accountsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
         TasksSelector tasksSelector = (TasksSelector)MockUtility.mockSelector(TasksSelector.class);

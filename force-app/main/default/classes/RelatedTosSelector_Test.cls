@@ -34,13 +34,7 @@ private class RelatedTosSelector_Test {
         // Testing
         // =====================================
         Test.startTest();
-
-        // grab the records and ensure the query has been called just once
-        RelatedTosSelector selector = RelatedTosSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder();
-
         System.assert(true, 'Something went wrong');
-
         Test.stopTest();
     }
 }
