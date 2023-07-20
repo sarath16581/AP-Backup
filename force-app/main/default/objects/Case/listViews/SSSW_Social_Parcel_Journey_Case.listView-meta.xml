@@ -5,6 +5,6 @@
     <label>SSSW Social Parcel Journey</label>
     <queue>SSSW_Social_Parcel_Journey</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        
     </sharedTo>
 </ListView>

@@ -5,6 +5,5 @@
     <label>SSSW Consumer Back Office Low Priority</label>
     <queue>SSSW_Consumer_Back_Office_Low_Priority</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

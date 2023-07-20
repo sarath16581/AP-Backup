@@ -18,6 +18,5 @@
     <language>en_US</language>
     <queue>SSSW_Customer_Care_Tier_3</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

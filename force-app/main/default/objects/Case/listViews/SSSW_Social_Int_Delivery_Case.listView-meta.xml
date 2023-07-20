@@ -5,6 +5,6 @@
     <label>SSSW Social Int Delivery</label>
     <queue>SSSW_Social_Int_Delivery</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        
     </sharedTo>
 </ListView>

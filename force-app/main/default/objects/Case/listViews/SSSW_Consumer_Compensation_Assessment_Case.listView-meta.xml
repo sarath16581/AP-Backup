@@ -18,6 +18,5 @@
     <language>en_US</language>
     <queue>SSSW_Consumer_Compensation_Assessment</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>
