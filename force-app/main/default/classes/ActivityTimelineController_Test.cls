@@ -43,7 +43,7 @@ private class ActivityTimelineController_Test {
 
         MockUtility.Mocks.when(accountsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>(accounts));
         MockUtility.Mocks.when(tasksSelector.selectByWhatId((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id,Task>(tasks));
-        MockUtility.Mocks.when(eventsSelector.selectByWhatId((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id,Event>(events));
+        MockUtility.Mocks.when(eventsSelector.selectByWhatId((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id,Event>(events));
         MockUtility.Mocks.when(mockUow.registerNew((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 
         MockUtility.Mocks.stopStubbing();
