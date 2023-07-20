@@ -16,7 +16,7 @@ public inherited sharing class BAMApplicationAutomationModule extends Applicatio
 	private static Set<String> billingAccountFields {
 		get {
 			if (billingAccountFields == null) {
-				billingAccountFields = Billing_Account__c.SObjectType.getDescribe().fields.getMap().keySet();
+				billingAccountFields = Billing_Account__c.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap().keySet();
 			}
 			return billingAccountFields;
 		}
@@ -62,7 +62,7 @@ public inherited sharing class BAMApplicationAutomationModule extends Applicatio
 	 * 				are used in the filter criteria
 	 * @param  records			list of BAMApplication records
 	 * @param  existingRecords	map of existing BAMApplication records
-	 * @param  uow             instance of UnitOfWork
+	 * @param  uow				instance of UnitOfWork
 	 */
 	private void validateBillingAccountFilter(List<BAMApplication__c> records, Map<Id, BAMApplication__c> existingRecords, ApplicationUnitOfWork uow){		
 		for (BAMApplication__c bamApp : (List<BAMApplication__c>) records) {

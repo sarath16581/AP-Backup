@@ -16,8 +16,6 @@ private class BAMApplicationAutomationTriggerHdlr_Test {
 
 		BAMApplicationAutomationTriggerHandler handler = new BAMApplicationAutomationTriggerHandler();
 
-		ApplicationUnitOfWork uow = handler.newUnitOfWork();
-
 		handler.registerModules();
 
 		Id bamRecordType = new List<Id>(new RecordTypesSelector().selectByDeveloperNamesLike('BAMApplication__c', new Set<String>{'BAM'}).keySet())[0];

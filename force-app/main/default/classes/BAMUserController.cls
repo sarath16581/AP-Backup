@@ -393,8 +393,10 @@ public with sharing class BAMUserController {
 
 		//get all the selected billing account ids from the pageState
 		for (Map<String,Object> appState : pageState) {
-			for (Object unTypedId : (List<Object>) appState.get('selectedBillingAccountIds')) {
-				selectedBillingAccountIds.add((Id)unTypedId);
+			if (appState.containsKey('selectedBillingAccountIds')) {
+				for (Object unTypedId : (List<Object>) appState.get('selectedBillingAccountIds')) {
+					selectedBillingAccountIds.add((Id)unTypedId);
+				}
 			}
 		}
 

@@ -122,7 +122,7 @@ private with sharing class ContactsSelector_Test {
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
-        Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0];
 		acc.LEGACY_ID__c = '60000000';
 		insert acc;
 
@@ -130,10 +130,10 @@ private with sharing class ContactsSelector_Test {
 		insert billingAcc;
 
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(2, acc.Id, false);
-        contacts[0].FirstName = 'Sim';
-        contacts[0].Phone = '+61440123456';
+		contacts[0].FirstName = 'Sim';
+		contacts[0].Phone = '+61440123456';
 		contacts[0].BillingAccount__c = billingAcc.Id;
-        contacts[1].MobilePhone = '+61440123456';
+		contacts[1].MobilePhone = '+61440123456';
 		insert contacts;
 
 
@@ -147,30 +147,30 @@ private with sharing class ContactsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-        
-        ContactsSelector selector = ContactsSelector.newInstance(2);
+		
+		ContactsSelector selector = ContactsSelector.newInstance(2);
 		Map<Id, Contact> results = selector.selectById(mappedContacts.keySet());
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
-        results = selector.selectByAccount(new Set<Id> {contacts[0].AccountId});
+		results = selector.selectByAccount(new Set<Id> {contacts[0].AccountId});
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
 		results = selector.selectById(mappedContacts.keySet(), new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE, ContactsSelector.Options.WITH_OWNER, ContactsSelector.Options.WITH_ACCOUNT});
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
-        results = selector.selectByAccount(new Set<Id> {contacts[0].AccountId}, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE, ContactsSelector.Options.WITH_OWNER, ContactsSelector.Options.WITH_ACCOUNT});
+		results = selector.selectByAccount(new Set<Id> {contacts[0].AccountId}, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE, ContactsSelector.Options.WITH_OWNER, ContactsSelector.Options.WITH_ACCOUNT});
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
 		results = selector.selectByLikedNameOrderByConsumerAndNameNullFirst(contacts[0].FirstName);
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		
-        results = selector.selectByLikedAnyPhoneOrderByName(contacts[0].phone);
+		results = selector.selectByLikedAnyPhoneOrderByName(contacts[0].phone);
 		//System.assertEquals(2, results.size(), 'Expected result size of 2');
 
 		results = selector.selectById(mappedContacts.keySet(), new Set<Object>{ContactsSelector.Options.WITH_BILLING_ACCOUNT});
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 		System.assertNotEquals(null, results.get(contacts[0].Id).BillingAccount__r, 'Expected billing account object');
-        
+		
 		Test.stopTest();
 
 	}

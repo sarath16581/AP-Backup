@@ -40,7 +40,7 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static BillingAccountsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		BillingAccountsSelector selector = (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -49,7 +49,7 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static BillingAccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		BillingAccountsSelector selector = (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -123,10 +123,10 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 	}
 
 	/**
-     * @description Select Billing Account based on 'LIKE' name and order by name
-     * @param String name of billing account
-     * @return matching billing account records
-     */
+	 * @description Select Billing Account based on 'LIKE' name and order by name
+	 * @param String name of billing account
+	 * @return matching billing account records
+	 */
 	public Map<Id, Billing_Account__c> selectByLikedNameOrderByName(String name, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.LikeCondition(Billing_Account__c.Name).likeAnyBoth(name)).endConditions();
 		qb.addOrderAsc(Billing_Account__c.Name);

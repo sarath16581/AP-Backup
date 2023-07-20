@@ -17,16 +17,16 @@
  * 2023-07-05 - Mahesh Parvathaneni - Added options WITH_BILLING_ACCOUNT
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
-    public enum Options {
-        WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT
-    }
+	public enum Options {
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT
+	}
 
-    public static ContactsSelector newInstance() {
-        return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class);
-    }
-    public static ContactsSelector newInstance(Integer recordLimit) {
-        return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class).setLimit(recordLimit);
-    }
+	public static ContactsSelector newInstance() {
+		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class);
+	}
+	public static ContactsSelector newInstance(Integer recordLimit) {
+		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class).setLimit(recordLimit);
+	}
 
 	public static ContactsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		return (ContactsSelector) Application.Selectors.newInstance(ContactsSelector.class)
@@ -45,12 +45,12 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
-        return new Set<SObjectField> {
-                Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
-                Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
+		return new Set<SObjectField> {
+				Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
+				Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
 				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c
-        };
-    }
+		};
+	}
 
 	/**
 	 * @description Run a simple query to get records based on Id's
@@ -168,20 +168,20 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return builder;
 	}
 
-	// TODO: Activate Cache
-	//  /**
-	//   * Builds a list of sobjects that were present in a query based on the selectorOptions.
-	//   * By tracking all sobjects used in a query, we can accurately purge any cache that may become stale after DML operations occur for those objects
-	//   * The purging is done as a part of the execution of the trigger
-	//   */
-	//  @TestVisible
-	//  protected override Set<String> getUsedCachedSObjects(Set<Object> selectorOptions) {
-	//      Set<String> output = super.getUsedCachedSObjects(selectorOptions);
-	//
-	//      if(((Integer)selectorOptions & SELECTOR_OPTION_WITH_OWNER) == SELECTOR_OPTION_WITH_OWNER) {
-	//          output.add('User');
-	//      }
-	//
-	//      return output;
-	//  }
+		// TODO: Activate Cache
+		// 	/**
+		// 	 * Builds a list of sobjects that were present in a query based on the selectorOptions.
+		// 	* By tracking all sobjects used in a query, we can accurately purge any cache that may become stale after DML operations occur for those objects
+		// 	* The purging is done as a part of the execution of the trigger
+		// 	*/
+		// 	@TestVisible
+		// 	protected override Set<String> getUsedCachedSObjects(Set<Object> selectorOptions) {
+		// 		Set<String> output = super.getUsedCachedSObjects(selectorOptions);
+		
+		// 		if(((Integer)selectorOptions & SELECTOR_OPTION_WITH_OWNER) == SELECTOR_OPTION_WITH_OWNER) {
+		// 			output.add('User');
+		// 		}
+		
+		// 		return output;
+		// 	}
 }

@@ -1,5 +1,5 @@
 /**************************************************
-Description:    Test class that covers BAMUserUtility class
+Description:	Test class that covers BAMUserUtility class
 History:
 --------------------------------------------------
 2019-05-13  nathan.franklin@auspost.com.au  Created

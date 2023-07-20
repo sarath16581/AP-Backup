@@ -323,7 +323,7 @@ public with sharing class BAMUserUtility {
 				return true;
 			} else if(compareKey.equals(KEY_NOT_CONTAINS)){
 				String fieldVal = (String)ba.get(fieldName);
-				if (!fieldVal.contains((String)obj)) {
+				if ((String.isNotBlank(fieldVal) && !fieldVal.contains((String)obj)) || (fieldVal == null && obj != null)) {
 					notContainsKeyMatched++;
 				}
 			}
@@ -369,7 +369,7 @@ public with sharing class BAMUserUtility {
 	/**
 	 * @description This method returns the map of application id to billing accounts from the contact role
 	 * @param  appIdcontactRoleMap map of contact roles with linked entities keyed by app id
-	 * @return                     return Map of billing accounts keyed by application id
+	 * @return		return Map of billing accounts keyed by application id
 	 */
 	public static Map<Id, Set<Id>> getBillingAccountIdsKeyedByAppId(Map<String, BAMContactRole__c> appIdcontactRoleMap) {
 		Map<Id, Set<Id>> billingAccountIdsKeyedByAppId = new Map<Id, Set<Id>>();
