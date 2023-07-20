@@ -1,16 +1,22 @@
 <aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:appHostable" access="global">
 	<aura:attribute name="objectAPIName" type="String" default="Account"/>
-	<aura:attribute name="listViewAPIName" type="String" default="AllAccounts"/>	
+	<aura:attribute name="listViewAPIName" type="String" default="AllAccounts"/>
+	<aura:attribute name="mobileListViewAPIName" type="String" default=""/>
 	<aura:attribute name="rows" type="String" default="25"/>
 	<aura:attribute name="showSearchBar" type="Boolean" default="true" />
 	<aura:attribute name="showActionBar" type="Boolean" default="false" />
 	<aura:attribute name="enableInlineEdit" type="Boolean" default="false" />
 	<aura:attribute name="showRowLevelActions" type="Boolean" default="false" />
 
+	<!-- Calculate viewport width in order to use a mobile-friendly layout -->
+	<aura:attribute name="calculatedListView" type="String" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
 	<lightning:listView 
 		aura:id="listViewCustom"
 		objectApiName="{!v.objectAPIName}"
-		listName="{!v.listViewAPIName}"
+		listName="{!v.calculatedListView}"
 		rows="{!v.rows}"
 		showSearchBar="{!v.showSearchBar}"
 		showActionBar="{!v.showActionBar}"

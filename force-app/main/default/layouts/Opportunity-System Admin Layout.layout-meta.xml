@@ -892,7 +892,7 @@
         </relatedContentItems>
         <relatedContentItems>
             <layoutItem>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>KeyContact__c</field>
             </layoutItem>
         </relatedContentItems>

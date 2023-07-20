@@ -25,8 +25,8 @@
             </approver>
             <whenMultipleApprovers>Unanimous</whenMultipleApprovers>
         </assignedApprover>
-        <label>Step 1</label>
-        <name>Step_1</name>
+        <label>Sales Director</label>
+        <name>Sales_Director</name>
     </approvalStep>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
@@ -37,8 +37,8 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <label>Step 2</label>
-        <name>Step_2</name>
+        <label>Sales Team General Manager</label>
+        <name>Sales_Team_General_Manager</name>
         <rejectBehavior>
             <type>RejectRequest</type>
         </rejectBehavior>
@@ -63,10 +63,6 @@
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>
-        <action>
-            <name>Deal_Support_request_Approved</name>
-            <type>Alert</type>
-        </action>
         <action>
             <name>Update_Stage_to_Submitted</name>
             <type>FieldUpdate</type>

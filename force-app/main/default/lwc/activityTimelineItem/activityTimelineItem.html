@@ -1,0 +1,162 @@
+<!-- Activity Timeline Item -->
+<template>
+
+        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                <h3 class="slds-truncate" title={activity.title}>
+                    <strong>{activity.title}</strong>
+                </h3>
+            </div>
+            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                <lightning-formatted-date-time value={activity.createdDate}></lightning-formatted-date-time>
+            </div>
+        </div>
+        <div class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium" aria-hidden="false">
+            <template if:true={isTask}>
+                <ul class="slds-list_horizontal slds-wrap">
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Type</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.type}>
+                            {activity.type}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Due Date</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.dueDate}>
+                            {activity.dueDate}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Status</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.status}>
+                            {activity.status}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.category}>
+                            {activity.category}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Priority</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.priority}>
+                            {activity.priority}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Assigned To</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.assignedToName}>
+                            {activity.assignedToName}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Related To</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.relatedToName}>
+                            {activity.relatedToName}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Comment</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.comment}>
+                            {activity.comment}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Description</span>
+                        <span class="slds-text-body_medium" title="Description">
+                            <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
+                        </span>
+                    </li>
+                </ul>
+            </template>
+            <template if:true={isEvent}>
+                <ul class="slds-list_horizontal slds-wrap">
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Status</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.status}>
+                            {activity.status}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Type</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.type}>
+                            {activity.type}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Start Date</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.startDate}>
+                            <lightning-formatted-date-time value={activity.startDate}></lightning-formatted-date-time>
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">End Date</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.endDate}>
+                            <lightning-formatted-date-time value={activity.endDate}></lightning-formatted-date-time>
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Related To</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.relatedToName}>
+                            {activity.relatedToName}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Description</span>
+                        <span class="slds-text-body_medium" title="Description">
+                            <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
+                        </span>
+                    </li>
+                </ul>
+            </template>
+            <template if:true={isEmail}>
+                <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                    <span class="slds-text-title slds-p-bottom_x-small">Related To</span>
+                    <span class="slds-text-body_medium slds-truncate" title={activity.relatedToName}>
+                        {activity.relatedToName}
+                    </span>
+                </li>
+                <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
+                    <span class="slds-text-title slds-p-bottom_x-small">Description</span>
+                    <span class="slds-text-body_medium" title="Description">
+                        <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
+                    </span>
+                </li>
+            </template>
+            <template if:true={isCall}>
+                <ul class="slds-list_horizontal slds-wrap">
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Type</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.type}>
+                            {activity.type}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Due Date</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.dueDate}>
+                            {activity.dueDate}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Status</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.status}>
+                            {activity.status}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Related To</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.relatedToName}>
+                            {activity.relatedToName}
+                        </span>
+                    </li>
+                    <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
+                        <span class="slds-text-title slds-p-bottom_x-small">Description</span>
+                        <span class="slds-text-body_medium" title="Description">
+                            <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
+                        </span>
+                    </li>
+                </ul>
+            </template>
+    </div>
+</template>
