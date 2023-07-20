@@ -32,6 +32,10 @@ public with sharing class CompensationAttachmentsController {
         private set;
     }
 
+    /**
+     * pass the common configurations for the componsnt
+     * @return PageConfig
+     */
     @AuraEnabled
     public static PageConfig getPageConfig() {
         PageConfig config = new PageConfig();
@@ -43,52 +47,55 @@ public with sharing class CompensationAttachmentsController {
         return config;
     }
 
+    /**
+     *  Prepare and return the AttachmentDetail wrapper after retrieving and comparing Attachments and Files linked to the case
+     *  and the compensation record, any existing files/attachments linked to the compensations should not be allowed to de-select from the table
+     * @param recordId compensation record ID
+     *
+     * @return List<AttachmentDetail>
+     */
     @AuraEnabled
     public static List<AttachmentDetail> getAttachmentsByParentId(Id recordId) {
+        List<AttachmentDetail> attachmentDetails = new List<AttachmentDetail>();
         Compensation__c compensation = CompensationSelector.newInstance(1).getById(recordId, new Set<Object>())[0];
         if (compensation == null || compensation.Case__c == null) {
             return new List<AttachmentDetail>();
         }
 
+        // get attachment details
+        getAttachmentDetails(compensation, attachmentDetails);
+        // get file details
+        getFileAttachmentDetails(compensation, attachmentDetails);
 
-        Map<Id, Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                compensation.Case__c
-        });
-        Map<Id, Attachment> compensationAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                recordId
-        });
-
-        List<AttachmentDetail> attachmentDetails = new List<AttachmentDetail>();
-        for (Attachment caseAttachment : caseAttachments.values()) {
-            AttachmentDetail detail = new AttachmentDetail();
-            detail.BodyLength = caseAttachment.BodyLength;
-            detail.ContentType = caseAttachment.ContentType;
-            detail.CreatedDate = caseAttachment.CreatedDate;
-            detail.Id = caseAttachment.Id;
-            detail.Name = caseAttachment.Name;
-            detail.ParentId = caseAttachment.ParentId;
-            detail.isAttachment = true;
-            for (Attachment compensationAttachment : compensationAttachments.values()) {
-                if (caseAttachment.Name == compensationAttachment.Name) {
-                    detail.isSelected = true;
-                }
-            }
-            attachmentDetails.add(detail);
-        }
-
-
-
-
+        return attachmentDetails;
+    }
+    /**
+     * Get file details
+     * @param compensation
+     * @param attachmentDetails
+     */
+    @TestVisible
+    private static void getFileAttachmentDetails(Compensation__c compensation, List<AttachmentDetail> attachmentDetails) {
+        // get files related to related case
         List<ContentDocumentLink> caseContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
-                new Map<String, Object>{'entityIds' => compensation.Case__c },
-                new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT},
+                new Map<String, Object>{
+                        'entityIds' => compensation.Case__c
+                },
+                new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                },
                 true).values();
+        // get files related to compensation
         List<ContentDocumentLink> compensationContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
-                new Map<String, Object>{'entityIds' => recordId },
-                new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT},
+                new Map<String, Object>{
+                        'entityIds' => compensation.Id
+                },
+                new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                },
                 true).values();
 
-
+        // compare files and prepare the attachment details
         for (ContentDocumentLink contentDocumentLink : caseContentDocumentLinks) {
             AttachmentDetail detail = new AttachmentDetail();
             detail.BodyLength = contentDocumentLink.ContentDocument.ContentSize;
@@ -105,18 +112,53 @@ public with sharing class CompensationAttachmentsController {
             }
             attachmentDetails.add(detail);
         }
-
-        return attachmentDetails;
     }
 
-    // TODO UOW
-    @AuraEnabled
-    public static void createDuplicateAttachments(List<AttachmentDetail> attachmentDetails, Id recordId) {
+    /**
+     * get attachment details
+     * @param compensation current compensation record
+     * @param attachmentDetails to storeattachment details
+     */
+    @TestVisible
+    private static void getAttachmentDetails(Compensation__c compensation, List<AttachmentDetail> attachmentDetails) {
+        // get attachments related to related case
+        Map<Id, Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
+                compensation.Case__c
+        });
+        // get attachments related to compensation, this will allow us to find any existing attachments
+        Map<Id, Attachment> compensationAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
+                compensation.Id
+        });
 
-        system.debug('attachmentDetails  '+attachmentDetails);
+        // compare attachments and prepare the attachment details
+        for (Attachment caseAttachment : caseAttachments.values()) {
+            AttachmentDetail detail = new AttachmentDetail();
+            detail.BodyLength = caseAttachment.BodyLength;
+            detail.ContentType = caseAttachment.ContentType;
+            detail.CreatedDate = caseAttachment.CreatedDate;
+            detail.Id = caseAttachment.Id;
+            detail.Name = caseAttachment.Name;
+            detail.ParentId = caseAttachment.ParentId;
+            detail.isAttachment = true;
+            for (Attachment compensationAttachment : compensationAttachments.values()) {
+                if (caseAttachment.Name == compensationAttachment.Name) {
+                    detail.isSelected = true;
+                }
+            }
+            attachmentDetails.add(detail);
+        }
+    }
+
+    /**
+     * Create/link selected attachments/files against the compensation record
+     */
+    @AuraEnabled
+    public static void createAttachments(List<AttachmentDetail> attachmentDetails, Id recordId) {
+
         Set<Id> attachmentIds = new Set<Id>();
         Compensation__c compensation;
         List<ContentDocumentLink> contentLinks = new List<ContentDocumentLink>();
+        // read the attachment details passed and deviate between attachments and files
         for (AttachmentDetail detail : attachmentDetails) {
             if(detail.isSelectedNew) {
                 // if the selected file is an attachment
@@ -139,29 +181,36 @@ public with sharing class CompensationAttachmentsController {
 
         }
 
+        // link the files found to the compensation
         if(!contentLinks.isEmpty()) {
-            insert contentLinks;
+            ApplicationDatabase.getInstance().dmlInsert(contentLinks);
         }
 
+        // restive attachments to create duplicate attachments
         Map<Id, Attachment> attachmentsToDuplicate = AttachmentsSelector.newInstance().selectById(attachmentIds, new Set<Object>{AttachmentsSelector.Options.WITH_BODY});
         List<Attachment> duplicateAttachments = new List<Attachment>();
 
+        // prepare clones
         for (Attachment attachment : attachmentsToDuplicate.values()) {
             Attachment newAttachment = attachment.clone(false);
             newAttachment.ParentId = recordId;
             duplicateAttachments.add(newAttachment);
         }
 
+        // create new attachments against compensation record
         if(!duplicateAttachments.isEmpty()) {
-            insert duplicateAttachments;
+            ApplicationDatabase.getInstance().dmlInsert(duplicateAttachments);
         }
 
+        // update the POV checkbox if there is at least one of attachment OR file is selected
         if(compensation != null) {
-            update compensation;
+            ApplicationDatabase.getInstance().dmlUpdate(new List<Compensation__c> {compensation});
         }
     }
 
-
+    /**
+     *  Wrapper class to store attachment/file data to pass between apex class and the lwc component
+     */
     public class AttachmentDetail {
         @AuraEnabled public Boolean isSelected {
             get {
@@ -190,6 +239,9 @@ public with sharing class CompensationAttachmentsController {
         @AuraEnabled public String ParentId {get;set;}
     }
 
+    /**
+     * any configurations needs to pass to the front end
+     */
     public class PageConfig {
         @AuraEnabled public Boolean isAllowedToCreateCompensation {get;set;}
     }

@@ -15,7 +15,7 @@
 import { LightningElement, wire, api } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import getAttachmentsByParentId from '@salesforce/apex/CompensationAttachmentsController.getAttachmentsByParentId';
-import createDuplicateAttachments from '@salesforce/apex/CompensationAttachmentsController.createDuplicateAttachments';
+import createAttachments from '@salesforce/apex/CompensationAttachmentsController.createAttachments';
 import getPageConfig from '@salesforce/apex/CompensationAttachmentsController.getPageConfig';
 
 // Data table columns
@@ -163,7 +163,7 @@ export default class CompensationAttachments extends LightningElement {
     handleCreateAttachments() {
         this.isLoading = true;
         this.messages = {};
-        createDuplicateAttachments({ attachmentDetails: this.attachments, recordId: this.recordId })
+        createAttachments({ attachmentDetails: this.attachments, recordId: this.recordId })
             .then(() => {
                 this.messages.showSuccess = true;
                 this.messages.message = 'Attachments created successfully.';

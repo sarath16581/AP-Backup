@@ -258,13 +258,13 @@ public without sharing class EFTBankDetailsController {
      * Validate checks on load of the page
      */
     private void validateOnLoad() {
-        if (this.record == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(this.record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+        if (this.record.Id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(this.record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
             isAllowedToCreateCompensation = false;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to create/update compensation records.'));
-        } else if (this.record == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
+        } else if (this.record.Id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
             // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
             isAllowedToCreateCompensation = false;
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'This article already have a compensation record and only supervisor can create more than one.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'The Reference ID already have a compensation record and only supervisor can create more than one.'));
         }
     }
 
