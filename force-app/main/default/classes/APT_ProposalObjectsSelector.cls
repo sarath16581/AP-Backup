@@ -57,7 +57,7 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 	public virtual override SObjectType getSObjectType() {
 		return Apttus_Proposal__Proposal__c.getSObjectType();
 	}
-	// Removed  Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
+
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,
