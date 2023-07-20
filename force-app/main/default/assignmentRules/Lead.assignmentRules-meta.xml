@@ -212,6 +212,15 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>Business_Events</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Lead.LeadSource</field>
+                <operation>equals</operation>
+                <value>Business Events</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>Inside_Sales_Team</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
