@@ -29,7 +29,16 @@
       "componentName" : "community_navigation:tileMenu",
       "id" : "33937385-a258-405e-9ce4-708ae59b6790",
       "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
+      "renditionMap" : {
+        "small" : "a8ea8f79-9956-4bea-bca3-056c5a83bf5c"
+      },
+      "renditions" : [ {
+        "id" : "a8ea8f79-9956-4bea-bca3-056c5a83bf5c",
+        "renditionValue" : {
+          "isVisible" : false
+        },
+        "type" : "renditionComponent"
+      } ],
       "type" : "component"
     } ],
     "id" : "b63bb9ad-8f0c-4f67-a97e-8d097ce0e5fa",
@@ -56,7 +65,16 @@
       "componentName" : "forceCommunity:objectHome",
       "id" : "a496898b-e6c7-4c8d-a78b-471c1d6ac40a",
       "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
+      "renditionMap" : {
+        "small" : "25b4bf6e-4630-4b44-94de-40cee8884b43"
+      },
+      "renditions" : [ {
+        "id" : "25b4bf6e-4630-4b44-94de-40cee8884b43",
+        "renditionValue" : {
+          "isVisible" : true
+        },
+        "type" : "renditionComponent"
+      } ],
       "type" : "component"
     } ],
     "id" : "1210b6a5-0f64-4042-b683-a166fdcd9334",

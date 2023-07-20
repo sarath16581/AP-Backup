@@ -5,6 +5,10 @@
         <name>BG_Deal_Support</name>
     </customPermissions>
     <description>Permission to for users who will be actioning Deal Support Requests in relation to Sales activities.</description>
+	<classAccesses>
+        <apexClass>AtRiskBusinessController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>APT_Credit_Assessment__c.Sales_Team_Segment__c</field>
@@ -230,6 +234,16 @@
         <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>At_Risk_Business__c.Product_IDs__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>At_Risk_Business__c.Products__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Billing_Account__c.Is_Intermediary_Account_StarTrack__c</field>
@@ -1688,6 +1702,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Sales_Director__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

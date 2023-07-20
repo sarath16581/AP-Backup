@@ -9,7 +9,6 @@
 * 2020-09-14 haraprasad.sahoo@auspost.com.au Modified : Caters to the new ChasTrackStatus wrapper class.
 * 2020-10-06 haraprasad.sahoo@auspost.com.au Modified : Caters for consignment search API
 * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
-* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing
 */
 
 public with sharing class ChasOneTrackResponse {
@@ -167,8 +166,7 @@ public with sharing class ChasOneTrackResponse {
         public String id {get;set;} 
         public String code {get;set;} 
         public String consignmentId {get;set;} 
-        public String consignmentCode {get;set;} 
-        public Boolean isVodv {get;set;}
+        public String consignmentCode {get;set;}
         public String fullBarcode {get;set;}
         public String shortBarcode {get;set;} 
         public Boolean isRegisteredByAP {get;set;} 
@@ -204,8 +202,6 @@ public with sharing class ChasOneTrackResponse {
                             consignmentId = parser.getText();
                         } else if (text == 'consignmentCode') {
                             consignmentCode = parser.getText();
-                        } else if (text == 'isVodv') {
-                            isVodv = parser.getBooleanValue();
                         } else if (text == 'fullBarcode') {
                             fullBarcode = parser.getText();
                         } else if (text == 'shortBarcode') {
