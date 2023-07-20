@@ -3,354 +3,324 @@
 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
 -->
 <aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
-                controller="BAMOnboardContactController"
-                access="global" >
+				controller="BAMOnboardContactController"
+				access="global" >
 
-    <!-- app event to send requests for VF -->
-    <aura:registerEvent name="appEvent" type="c:AsynchApexContinuationRequest" />
+	<!-- app event to send requests for VF -->
+	<aura:registerEvent name="appEvent" type="c:AsynchApexContinuationRequest" />
 
-    <!-- loading spinner -->
-    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+	<!-- loading spinner -->
+	<aura:attribute name="showSpinner" type="Boolean" default="true" />
 
-    <!-- Contact -->
-    <aura:attribute name="contactId" type="Id" default="" />
-    <aura:attribute name="contactObj" type="Contact"/>
+	<!-- Contact -->
+	<aura:attribute name="contactId" type="Id" default="" />
+	<aura:attribute name="contactObj" type="Contact"/>
 
-    <!-- Static data: Applications -->
-    <aura:attribute name="pendingCount" type="Integer" description="" default="0"/>
-    <aura:attribute name="hasPending" type="Boolean" description="" default="false"/>
-    <aura:attribute name="openApplicationSections" type="List" description="" default="[]"/>
-    <aura:attribute name="applications" type="List" description="application objects"/>
+	<!-- Static data: Applications -->
+	<aura:attribute name="pendingCount" type="Integer" description="" default="0"/>
+	<aura:attribute name="hasPending" type="Boolean" description="" default="false"/>
+	<aura:attribute name="openApplicationSections" type="List" description="" default="[]"/>
+	<aura:attribute name="applications" type="List" description="application objects"/>
 
-    <!-- Static data: Billing Accounts-->
-    <aura:attribute name="billingAccounts" type="List" description="billing accounts (linkable entities)"/>
-    <aura:attribute name="billingAccountOptions" type="List" description="formatted billing accounts for listbox"/>
+	<!-- Static data: Billing Accounts-->
+	<aura:attribute name="billingAccounts" type="List" description="billing accounts (linkable entities)"/>
+	<aura:attribute name="billingAccountOptions" type="List" description="formatted billing accounts for listbox"/>
 
-    <!-- Contact data-->
+	<!-- Contact data-->
 
-    <!-- page state -->
-    <aura:attribute name="pageState" type="List" default="[]" description="custom object to hold the current state of editing, starts with Application__c structure"/>
-    <aura:attribute name="applicationRoles" type="List" default="[]" description="application role objects to control show/hide of Billing accounts"/>
+	<!-- page state -->
+	<aura:attribute name="pageState" type="List" default="[]" description="custom object to hold the current state of editing, starts with Application__c structure"/>
+	<aura:attribute name="applicationRoles" type="List" default="[]" description="application role objects to control show/hide of Billing accounts"/>
 
-    <!-- for modal -->
-    <aura:handler event="c:AuraModalEvent" action="{!c.handleModalEvent}"/>
+	<!-- for modal -->
+	<aura:handler event="c:AuraModalEvent" action="{!c.handleModalEvent}"/>
 
-    <!--lightdnlk handlers -->
-    <aura:handler name="init" value="{!this}" action="{!c.onInitLoad}" />
+	<!--lightdnlk handlers -->
+	<aura:handler name="init" value="{!this}" action="{!c.onInitLoad}" />
 
-    <lightning:spinner class="{!if(v.showSpinner, '', 'slds-hidden')}"/>
-    <div class="{!if(not(empty(v.contactObj)), 'slds-m-around_medium', 'slds-hidden')}">
-        <div >
-            <lightning:icon title="Onboard Contact" iconName="action:join_group"/>
-            <span class="slds-m-left_medium slds-text-title_bold">Onboard Contact to Merchant Portal Applications</span>
-        </div>
+	<lightning:spinner class="{!if(v.showSpinner, '', 'slds-hidden')}"/>
+	<div class="{!if(not(empty(v.contactObj)), 'slds-m-around_medium', 'slds-hidden')}">
+		<div >
+			<lightning:icon title="Onboard Contact" iconName="action:join_group"/>
+			<span class="slds-m-left_medium slds-text-title_bold">Onboard Contact to Merchant Portal Applications</span>
+		</div>
 
-        <div class="slds-m-top_medium slds-m-bottom_medium">
-            <div class="slds-m-top_small" style="width:75%;min-width:500px;">
-                <aura:if isTrue="{!v.hasPending}">
-                    <div class="slds-m-bottom_medium slds-p-around_x-small" style="background-color: #16325c" data-aura-rendered-by="23:9;a">
-                        <lightning:icon iconName="utility:clock" variant="bare" size="medium"></lightning:icon>
-                        <span class="slds-text-color_inverse slds-m-left_medium" data-aura-rendered-by="25:9;a">There are pending provisioning/deprovisioning requests.&nbsp;&nbsp;&nbsp;<lightning:button variant="inverse" label="Cancel Requests" onclick="{!c.handleCancelRequestClick}"></lightning:button> </span>
-                    </div>
-                </aura:if>
+		<div class="slds-m-top_medium slds-m-bottom_medium">
+			<div class="slds-m-top_small" style="width:75%;min-width:500px;">
+				<aura:if isTrue="{!v.hasPending}">
+					<div class="slds-m-bottom_medium slds-p-around_x-small" style="background-color: #16325c" data-aura-rendered-by="23:9;a">
+						<lightning:icon iconName="utility:clock" variant="bare" size="medium"></lightning:icon>
+						<span class="slds-text-color_inverse slds-m-left_medium" data-aura-rendered-by="25:9;a">There are pending provisioning/deprovisioning requests.&nbsp;&nbsp;&nbsp;<lightning:button variant="inverse" label="Cancel Requests" onclick="{!c.handleCancelRequestClick}"></lightning:button> </span>
+					</div>
+				</aura:if>
 
-                <div class="slds-m-bottom_small slds-grid slds-wrap slds-gutters_direct-x-small slds-grid_vertical-stretch slds-grid_align-spread">
-                    <div class="slds-col slds-size_1-of-2 slds-grid_vertical-stretch slds-grid_align-spread">
-                        <lightning:card title="Contact Details" class="full-height">
-                            <div class="slds-p-horizontal_small">
-                                <div class="slds-grid slds-wrap">
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Contact Name</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!v.contactObj.Name}">
-                                                <a href="{! '/' + v.contactObj.Id}" target="_blank">{!v.contactObj.Name}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Phone</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!v.contactObj.Phone}">
-                                                <lightning:formattedPhone value="{!v.contactObj.Phone}"></lightning:formattedPhone>
-                                            </div>
-                                        </div>
-                                    </div>
+				<div class="slds-m-bottom_small slds-grid slds-wrap slds-gutters_direct-x-small slds-grid_vertical-stretch slds-grid_align-spread">
+					<div class="slds-col slds-size_1-of-2 slds-grid_vertical-stretch slds-grid_align-spread">
+						<lightning:card title="Contact Details" class="full-height">
+							<div class="slds-p-horizontal_small">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Contact Name</strong></div>
+										<div class="slds-form-element__control">
+											<div class="slds-truncate" title="{!v.contactObj.Name}">
+												<a href="{! '/' + v.contactObj.Id}" target="_blank">{!v.contactObj.Name}</a>
+											</div>
+										</div>
+									</div>
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Phone</strong></div>
+										<div class="slds-form-element__control">
+											<div class="slds-truncate" title="{!v.contactObj.Phone}">
+												<lightning:formattedPhone value="{!v.contactObj.Phone}"></lightning:formattedPhone>
+											</div>
+										</div>
+									</div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Email</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!v.contactObj.Email}">
-                                                {!v.contactObj.Email}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Primary Billing Account</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!v.contactObj.BillingAccount__r.Name}">
-                                                {!v.contactObj.BillingAccount__r.Name}
-                                            </div>
-                                        </div>
-                                    </div>
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Email</strong></div>
+										<div class="slds-form-element__control">
+											<div class="slds-truncate" title="{!v.contactObj.Email}">
+												{!v.contactObj.Email}
+											</div>
+										</div>
+									</div>
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Primary Billing Account</strong></div>
+										<div class="slds-form-element__control">
+											<div class="slds-truncate" title="{!v.contactObj.BillingAccount__r.Name}">
+												{!v.contactObj.BillingAccount__r.Name}
+											</div>
+										</div>
+									</div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Status</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!v.contactObj.Status__c}">
-                                                {!v.contactObj.Status__c}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </lightning:card>
-                    </div>
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Status</strong></div>
+										<div class="slds-form-element__control">
+											<div class="slds-truncate" title="{!v.contactObj.Status__c}">
+												{!v.contactObj.Status__c}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</lightning:card>
+					</div>
 
-                    <div class="slds-col slds-size_1-of-2 slds-grid_vertical-stretch slds-grid_align-spread">
-                        <lightning:card title="Merchant Portal - SSO" class="full-height">
-                            <div class="slds-p-horizontal_small">
-                                <div class="slds-grid slds-wrap">
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>C-Number</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!if(v.contactObj.OID_ID__c, v.contactObj.OID_ID__c, 'None')}">
-                                                {!if(v.contactObj.OID_ID__c, v.contactObj.OID_ID__c, 'None')}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--
-                                    TODO - More analysis around how/when this field is updated (particular if a user changes their login information through GLAM)
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Login Email</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <div class="slds-truncate" title="{!if(v.contactObj.CRMCSSOID__c, v.contactObj.CRMCSSOID__c, 'None')}">
-                                                {!if(v.contactObj.CRMCSSOID__c, v.contactObj.CRMCSSOID__c, 'None')}
-                                            </div>
-                                        </div>
-                                    </div>-->
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Invite Date</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <aura:if isTrue="{!v.contactObj.BAMInviteRequestDate__c}">
-                                                <div class="slds-truncate" title="{!v.contactObj.BAMInviteRequestDate__c}">
-                                                    <lightning:formattedDateTime value="{!v.contactObj.BAMInviteRequestDate__c}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
-                                                </div>
+					<div class="slds-col slds-size_1-of-2 slds-grid_vertical-stretch slds-grid_align-spread">
+						<lightning:card title="Merchant Portal - SSO" class="full-height">
+							<div class="slds-p-horizontal_small">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>C-Number</strong></div>
+										<div class="slds-form-element__control">
+											<div class="slds-truncate" title="{!if(v.contactObj.OID_ID__c, v.contactObj.OID_ID__c, 'None')}">
+												{!if(v.contactObj.OID_ID__c, v.contactObj.OID_ID__c, 'None')}
+											</div>
+										</div>
+									</div>
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Invite Date</strong></div>
+										<div class="slds-form-element__control">
+											<aura:if isTrue="{!v.contactObj.BAMInviteRequestDate__c}">
+												<div class="slds-truncate" title="{!v.contactObj.BAMInviteRequestDate__c}">
+													<lightning:formattedDateTime value="{!v.contactObj.BAMInviteRequestDate__c}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
+												</div>
 
-                                                <aura:set attribute="else">
-                                                    None
-                                                </aura:set>
-                                            </aura:if>
-                                        </div>
-                                    </div>
+												<aura:set attribute="else">
+													None
+												</aura:set>
+											</aura:if>
+										</div>
+									</div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                        <div class="slds-form-element__label"><strong>Invite Completed Date</strong></div>
-                                        <div class="slds-form-element__control">
-                                            <aura:if isTrue="{!v.contactObj.BAMInviteAcceptedDate__c}">
-                                                <div class="slds-truncate" title="{!v.contactObj.BAMInviteAcceptedDate__c}">
-                                                    <lightning:formattedDateTime value="{!v.contactObj.BAMInviteAcceptedDate__c}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
-                                                </div>
+									<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+										<div class="slds-form-element__label"><strong>Invite Completed Date</strong></div>
+										<div class="slds-form-element__control">
+											<aura:if isTrue="{!v.contactObj.BAMInviteAcceptedDate__c}">
+												<div class="slds-truncate" title="{!v.contactObj.BAMInviteAcceptedDate__c}">
+													<lightning:formattedDateTime value="{!v.contactObj.BAMInviteAcceptedDate__c}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
+												</div>
 
-                                                <aura:set attribute="else">
-                                                    None
-                                                </aura:set>
-                                            </aura:if>
-                                        </div>
-                                    </div>
-                                    <aura:if isTrue="{!v.contactObj.BAMCSSOError__c}">
-                                        <div class="slds-col slds-size_1-of-1 slds-form-element slds-clearfix">
-                                            <div class="slds-form-element__label"><strong>Error</strong></div>
-                                            <div class="slds-form-element__control">
-                                                <div class="slds-text-color_error">{!v.contactObj.BAMCSSOErrorMessage__c}</div>
-                                            </div>
-                                        </div>
-                                    </aura:if>
-                                </div>
-                            </div>
-                        </lightning:card>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- div class="slds-m-around_medium">
-            <lightning:button
-                    label="Provision Access"
-                    onclick="{!c.onClickProvision}"
-                    variant="brand"
-                    iconName="utility:upload"
-            />
-        </div -->
-        <!-- END Contact Details -->
+												<aura:set attribute="else">
+													None
+												</aura:set>
+											</aura:if>
+										</div>
+									</div>
+									<aura:if isTrue="{!v.contactObj.BAMCSSOError__c}">
+										<div class="slds-col slds-size_1-of-1 slds-form-element slds-clearfix">
+											<div class="slds-form-element__label"><strong>Error</strong></div>
+											<div class="slds-form-element__control">
+												<div class="slds-text-color_error">{!v.contactObj.BAMCSSOErrorMessage__c}</div>
+											</div>
+										</div>
+									</aura:if>
+								</div>
+							</div>
+						</lightning:card>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Contact Details -->
 
-        <!-- Applications -->
-        <aura:if isTrue="{!equals(v.contactObj.Status__c,'Active')}">
-            <div class="slds slds-box_border">
-                <lightning:accordion
-                        title="Configure Application Access"
-                        allowMultipleSectionsOpen="true"
-                        activeSectionName="{!v.openApplicationSections}"
-                >
-                    <!-- for each application -->
-                    <aura:iteration items="{!v.pageState}" var="appState">
-                        <lightning:accordionSection name="{!appState.Name}" label="{!concat(appState.Name, if(appState.applicationStatus, concat(' - ', appState.applicationStatus), ''))}" class="{!if(appState.locked == true, 'slds-theme_shade slds-theme_alert-texture', '')}">
-                            <div class="slds-m-top_small slds-m-bottom_small">
-                                <div class="">
-                                    <div class="">
-                                        <aura:if isTrue="{!appState.status=='provisioned'}">
-                                            <div class="slds-p-around_x-small">
-                                                <lightning:icon iconName="utility:fulfillment_order" alternativeText="Edit in BAM" variant="warning" size="small"/>
-                                                <span class="slds-text-color_success slds-m-left_medium">{!appState.statusMessage}</span>
-                                            </div>
-                                        </aura:if>
-                                        <aura:if isTrue="{!appState.status=='pending'}">
-                                            <div class="slds-p-around_x-small" style="background-color: #16325c" >
-                                                <lightning:icon iconName="utility:connected_apps" alternativeText="Pending" variant="inverse" size="small"/>
-                                                <span class="slds-text-color_inverse slds-m-left_medium" >{!appState.statusMessage}</span>
-                                            </div>
-                                        </aura:if>
-                                        <aura:if isTrue="{!appState.status=='error'}">
-                                            <div class="slds-p-around_x-small">
-                                                <lightning:icon iconName="utility:error" alternativeText="Error in request" variant="error" size="small"/>
-                                                <span class="slds-text-color_error slds-m-left_medium">{!appState.statusMessage}</span>
-                                            </div>
-                                        </aura:if>
-                                    </div>
-                                </div>
-                            </div>
+		<!-- Applications -->
+		<aura:if isTrue="{!equals(v.contactObj.Status__c,'Active')}">
+			<div class="slds slds-box_border">
+				<lightning:accordion
+						title="Configure Application Access"
+						allowMultipleSectionsOpen="true"
+						activeSectionName="{!v.openApplicationSections}"
+				>
+					<!-- for each application -->
+					<aura:iteration items="{!v.pageState}" var="appState">
+						<lightning:accordionSection name="{!appState.Name}" label="{!concat(appState.Name, if(appState.applicationStatus, concat(' - ', appState.applicationStatus), ''))}" class="{!if(appState.locked == true, 'slds-theme_shade slds-theme_alert-texture', '')}">
+							<div class="slds-m-top_small slds-m-bottom_small">
+								<div class="">
+									<div class="">
+										<aura:if isTrue="{!appState.status=='provisioned'}">
+											<div class="slds-p-around_x-small">
+												<lightning:icon iconName="utility:fulfillment_order" alternativeText="Edit in BAM" variant="warning" size="small"/>
+												<span class="slds-text-color_success slds-m-left_medium">{!appState.statusMessage}</span>
+											</div>
+										</aura:if>
+										<aura:if isTrue="{!appState.status=='pending'}">
+											<div class="slds-p-around_x-small" style="background-color: #16325c" >
+												<lightning:icon iconName="utility:connected_apps" alternativeText="Pending" variant="inverse" size="small"/>
+												<span class="slds-text-color_inverse slds-m-left_medium" >{!appState.statusMessage}</span>
+											</div>
+										</aura:if>
+										<aura:if isTrue="{!appState.status=='error'}">
+											<div class="slds-p-around_x-small">
+												<lightning:icon iconName="utility:error" alternativeText="Error in request" variant="error" size="small"/>
+												<span class="slds-text-color_error slds-m-left_medium">{!appState.statusMessage}</span>
+											</div>
+										</aura:if>
+									</div>
+								</div>
+							</div>
 
-                            <aura:if isTrue="{!appState.locked}">
-                                <div class="slds-box_border slds-m-bottom_medium">
-                                    <p class="slds-section-title_divider">LAST PENDING REQUEST</p>
-                                    <div class="slds-m-around_small">
+							<aura:if isTrue="{!appState.locked}">
+								<div class="slds-box_border slds-m-bottom_medium">
+									<p class="slds-section-title_divider">LAST PENDING REQUEST</p>
+									<div class="slds-m-around_small">
 
-                                        <div class="slds-grid slds-wrap">
+										<div class="slds-grid slds-wrap">
 
-                                            <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                                <div class="slds-form-element__label"><strong>Requested</strong></div>
-                                                <div class="slds-form-element__control">
-                                                    <aura:if isTrue="{!appState.requestDate}">
-                                                        <lightning:formattedDateTime value="{!appState.requestDate}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
+											<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+												<div class="slds-form-element__label"><strong>Requested</strong></div>
+												<div class="slds-form-element__control">
+													<aura:if isTrue="{!appState.requestDate}">
+														<lightning:formattedDateTime value="{!appState.requestDate}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
 
-                                                        <aura:set attribute="else">
-                                                            None
-                                                        </aura:set>
-                                                    </aura:if>
-                                                </div>
-                                            </div>
+														<aura:set attribute="else">
+															None
+														</aura:set>
+													</aura:if>
+												</div>
+											</div>
 
-                                            <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                                <div class="slds-form-element__label"><strong>Requested By</strong></div>
-                                                <div class="slds-form-element__control">
-                                                    {!appState.createdBy + ' (' + appState.createdByUserType + ')'}
-                                                </div>
-                                            </div>
+											<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+												<div class="slds-form-element__label"><strong>Requested By</strong></div>
+												<div class="slds-form-element__control">
+													{!appState.createdBy + ' (' + appState.createdByUserType + ')'}
+												</div>
+											</div>
 
-                                            <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                                <div class="slds-form-element__label"><strong>Started</strong></div>
-                                                <div class="slds-form-element__control">
-                                                    <aura:if isTrue="{!appState.startedDate}">
-                                                        <lightning:formattedDateTime value="{!appState.startedDate}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
+											<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+												<div class="slds-form-element__label"><strong>Started</strong></div>
+												<div class="slds-form-element__control">
+													<aura:if isTrue="{!appState.startedDate}">
+														<lightning:formattedDateTime value="{!appState.startedDate}" year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning:formattedDateTime>
 
-                                                        <aura:set attribute="else">
-                                                            None
-                                                        </aura:set>
-                                                    </aura:if>
-                                                </div>
-                                            </div>
-                                            <div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
-                                                <div class="slds-form-element__label"><strong>Type</strong></div>
-                                                <div class="slds-form-element__control">
-                                                    {!if(appState.requestType,appState.requestType,'None')}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </aura:if>
+														<aura:set attribute="else">
+															None
+														</aura:set>
+													</aura:if>
+												</div>
+											</div>
+											<div class="slds-col slds-size_1-of-2 slds-form-element slds-clearfix">
+												<div class="slds-form-element__label"><strong>Type</strong></div>
+												<div class="slds-form-element__control">
+													{!if(appState.requestType,appState.requestType,'None')}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</aura:if>
 
-                            <div class="slds-box_border ">
-                                <p class="slds-section-title_divider">Role</p>
-                                <div class="slds-m-around_small">
-                                    <lightning:radioGroup label="Role"
-                                                          options="{!appState.ApplicationRoleOptions}"
-                                                          value="{!appState.contactRole.ApplicationRole__c}"
-                                                          type="button"
-                                                          onchange="{!c.onSelectRole}"
-                                                          variant="label-hidden"
-                                                          disabled="{!appState.locked}"
-                                    />
-                                </div>
-                            </div>
+							<div class="slds-box_border ">
+								<p class="slds-section-title_divider">Role</p>
+								<div class="slds-m-around_small">
+									<lightning:radioGroup label="Role"
+															options="{!appState.ApplicationRoleOptions}"
+															value="{!appState.contactRole.ApplicationRole__c}"
+															type="button"
+															onchange="{!c.onSelectRole}"
+															variant="label-hidden"
+															disabled="{!appState.locked}"
+									/>
+								</div>
+							</div>
 
 
-                            <div aura:id="{!appState.Id}" id="{!appState.Id}" style="display: none">
-                                <div class="slds-box_border slds-m-top_medium">
-                                    <p class="slds-section-title_divider">Billing Accounts</p>
-                                    <div class="slds-p-around_medium slds-grid">
+							<div aura:id="{!appState.Id}" id="{!appState.Id}" style="display: none">
+								<div class="slds-box_border slds-m-top_medium">
+									<p class="slds-section-title_divider">Billing Accounts</p>
+									<div class="slds-p-around_medium slds-grid">
 
-                                        <div class="slds-col slds-large-size_8-of-12">
-                                            <!-- wrapped in aura for 2-way binding -->
-                                            <c:BAMBillingAccountSelectorWrapper billingAccounts="{!appState.billingAccounts}"
-                                                                                isDisabled="{!appState.locked}"
-                                                                                applicationId="{!appState.Id}"
-                                                                                selected="{!appState.contactRole.selectedEntities}">
-                                            </c:BAMBillingAccountSelectorWrapper>
-                                        </div>
+										<div class="slds-col slds-large-size_8-of-12">
+											<!-- wrapped in aura for 2-way binding -->
+											<c:BAMBillingAccountSelectorWrapper billingAccounts="{!appState.billingAccounts}"
+																				isDisabled="{!appState.locked}"
+																				applicationId="{!appState.Id}"
+																				selected="{!appState.contactRole.selectedEntities}">
+											</c:BAMBillingAccountSelectorWrapper>
+										</div>
+									</div>
 
+								</div>
+							</div>
 
-                                        <!--                                        <lightning:dualListbox name="Billing Accounts"-->
-                                        <!--                                                               label="Billing Accounts"-->
-                                        <!--                                                               variant="label-hidden"-->
-                                        <!--                                                               sourceLabel="Available"-->
-                                        <!--                                                               selectedLabel="Selected"-->
+							<aura:if isTrue="{!appState.Name == 'Business Support Portal'}" >
+								<div class="slds-box_border slds-m-top_medium">
+									<p class="slds-section-title_divider">Primary Billing Account</p>
+									<div class="slds-m-left_medium slds-m-around--small">
+										<lightning:combobox
+												class="form-input"
+												name="Primary billing account"
+												options="{!appState.billingAccountOptions}"
+												value="{!v.contactObj.BillingAccount__c}"
+												disabled="{!appState.locked}"
+												label=""
+										/>
+									</div>
+								</div>
+							</aura:if>
+						</lightning:accordionSection>
+					</aura:iteration>
+					<!-- end for each application -->
+				</lightning:accordion>
+			</div>
+			<div class="slds-float_right slds-m-top_medium">
+				<lightning:button
+						label="Provision Access"
+						onclick="{!c.onClickProvision}"
+						variant="brand"
+						iconName="utility:upload"
+				/>
+			</div>
+			<!-- END Applications -->
+			<aura:set attribute="else">
+				<div class="slds slds-box_border">
+					<div class="slds-m-around_medium slds-text-heading_label">
+						This Contact is not active, please edit in Access Management.
+					</div>
+				</div>
+			</aura:set>
+		</aura:if>
+	</div>
 
-                                        <!--                                                               options="{!v.billingAccountOptions}"-->
-                                        <!--                                                               value="{!appState.contactRole.selectedEntities}"-->
-                                        <!--                                                               disabled="{!appState.locked}"-->
-                                        <!--                                                               onchange="{! c.onChangeBillingAccount}"/>-->
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <aura:if isTrue="{!appState.Name == 'Business Support Portal'}" >
-                                <div class="slds-box_border slds-m-top_medium">
-                                    <p class="slds-section-title_divider">Primary Billing Account</p>
-                                    <div class="slds-m-left_medium slds-m-around--small">
-                                        <lightning:combobox
-                                                class="form-input"
-                                                name="Primary billing account"
-                                                options="{!appState.billingAccountOptions}"
-                                                value="{!v.contactObj.BillingAccount__c}"
-                                                disabled="{!appState.locked}"
-                                                label=""
-                                        />
-                                    </div>
-                                </div>
-                            </aura:if>
-                        </lightning:accordionSection>
-                    </aura:iteration>
-                    <!-- end for each application -->
-                </lightning:accordion>
-            </div>
-            <div class="slds-float_right slds-m-top_medium">
-                <lightning:button
-                        label="Provision Access"
-                        onclick="{!c.onClickProvision}"
-                        variant="brand"
-                        iconName="utility:upload"
-                />
-            </div>
-            <!-- END Applications -->
-            <aura:set attribute="else">
-                <div class="slds slds-box_border">
-                    <div class="slds-m-around_medium slds-text-heading_label">
-                        This Contact is not active, please edit in Access Management.
-                    </div>
-                </div>
-            </aura:set>
-        </aura:if>
-    </div>
-
-    <c:AuraModal aura:id="auraRequestCancellationModal" title="Cancel request?" contentBody="Are you sure you want to cancel all pending requests for this user?" okText="OK"></c:AuraModal>
+	<c:AuraModal aura:id="auraRequestCancellationModal" title="Cancel request?" contentBody="Are you sure you want to cancel all pending requests for this user?" okText="OK"></c:AuraModal>
 </aura:component>
