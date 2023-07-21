@@ -51,7 +51,6 @@ public without sharing class ActivityTimelineController {
             recordActivity.description = task.Description;
             recordActivity.createdDate = task.CreatedDate;
             recordActivity.assignedToName = task.Owner.Name;
-            recordActivity.comment = task.Operations_Outcome_Comment__c;
             recordActivity.dueDate = task.ActivityDate;
             recordActivity.status = task.Status;
             recordActivity.priority = task.Priority;
@@ -88,7 +87,6 @@ public without sharing class ActivityTimelineController {
         @AuraEnabled public String description {get; set;}
         @AuraEnabled public Datetime createdDate {get; set;}
         @AuraEnabled public String assignedToName {get; set;}
-        @AuraEnabled public String comment {get; set;}
         @AuraEnabled public Date dueDate {get; set;}
         @AuraEnabled public String status {get; set;}
         @AuraEnabled public String priority {get; set;}
