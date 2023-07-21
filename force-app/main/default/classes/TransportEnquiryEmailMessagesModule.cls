@@ -7,6 +7,7 @@
  * @domain EmailMessageCasesDomain
  * @changelog
  * 29/06/2023 - Mahesh Parvathaneni - Updated email headers logic related to Microsoft Exchange
+ * 21/07/2023 - Mahesh Parvathaneni - updated email comparison to lowercase 
  */
 
 public inherited sharing class TransportEnquiryEmailMessagesModule extends ApplicationDomain.Module {
@@ -203,7 +204,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		for (String header : emailHeaders) {
 			if (String.isBlank(emailAddress) && headerToEmailsMap.size() > 0 && headerToEmailsMap.containsKey(header)) {
 				for (String email : headerToEmailsMap.get(header)) {
-					if (emailToCaseMappingMap.containsKey(email)) {
+					if (emailToCaseMappingMap.containsKey(email.toLowerCase())) {
 						emailAddress = email.toLowerCase();
 						break;
 					}

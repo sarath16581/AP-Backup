@@ -20,6 +20,6 @@
     <label>SSSW Shopmate</label>
     <queue>SSSW_Shopmate</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
+
     </sharedTo>
 </ListView>

@@ -18,6 +18,5 @@
     <language>en_US</language>
     <queue>SSSW_Consumer_Key_Account_BO</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

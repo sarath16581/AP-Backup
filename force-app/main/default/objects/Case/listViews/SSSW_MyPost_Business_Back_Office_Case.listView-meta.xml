@@ -21,6 +21,5 @@
     <language>en_US</language>
     <queue>SSSW_MyPost_Business_Back_Office</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
     </sharedTo>
 </ListView>

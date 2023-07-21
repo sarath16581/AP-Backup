@@ -20,11 +20,5 @@
     <label>SSSW Consumer Inbound Specialist Del</label>
     <queue>SSSW_Online_Blitz</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
-        <role>SSSW_Call_Centre_Manager</role>
-        <role>SSSW_Management</role>
-        <role>SSSW_North_Manager</role>
-        <role>SSSW_South_Manager</role>
-        <role>SSSW_South_Team_Lead</role>
     </sharedTo>
 </ListView>
