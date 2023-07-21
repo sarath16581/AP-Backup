@@ -41,6 +41,5 @@
     <language>en_US</language>
     <queue>SSSWConsumerBackOffice</queue>
     <sharedTo>
-        <role>SSSW_Management</role>
     </sharedTo>
 </ListView>

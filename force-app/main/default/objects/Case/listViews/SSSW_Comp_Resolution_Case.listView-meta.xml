@@ -5,6 +5,5 @@
     <label>SSSW Comp Resolution</label>
     <queue>SSSW_Comp_Resolution</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

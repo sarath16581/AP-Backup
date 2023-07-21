@@ -18,6 +18,5 @@
     <language>en_US</language>
     <queue>SSSW_Consumer_IVR_case_creation</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

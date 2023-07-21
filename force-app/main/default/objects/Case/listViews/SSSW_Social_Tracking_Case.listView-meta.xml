@@ -5,6 +5,6 @@
     <label>SSSW Social Tracking</label>
     <queue>SSSW_Social_Tracking</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+      
     </sharedTo>
 </ListView>

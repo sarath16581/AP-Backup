@@ -18,6 +18,5 @@
     <language>en_US</language>
     <queue>SSSW_Manager_Escalations</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>
