@@ -15,6 +15,7 @@
 *2023-04-08 - Yatika bansal Added few fields ,selector option, updated newQueryBuilder method
 *2023-04-11 - Nasir Jawed -Added method newInstance for fieldOverride
 *2023-07-06 - Yatika bansal Added new field APT_Contract_Number__c
+* 2023-07-20 - Yatika bansal Added new field APT_Postbillpay_Included__c
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
 	public enum Options {
@@ -63,7 +64,7 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 			Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c,
 			Apttus_Proposal__Proposal__c.APT_Use_Offline_Rates__c, Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Approval_Stage__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c,Apttus_Proposal__Proposal__c.Apttus_QPApprov__Approval_Status__c,
 			Apttus_Proposal__Proposal__c.RecordTypeId,Apttus_Proposal__Proposal__c.Apttus_QPConfig__PriceListId__c,Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c, Apttus_Proposal__Proposal__c.APT_Date_of_Generation_Rate_Card__c,
-			Apttus_Proposal__Proposal__c.Apttus_QPConfig__ConfigurationFinalizedDate__c,Apttus_Proposal__Proposal__c.APT_Opportunity_Key_contact__c , Apttus_Proposal__Proposal__c.OwnerId,Apttus_Proposal__Proposal__c.APT_Contract_Number__c,Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c };
+			Apttus_Proposal__Proposal__c.Apttus_QPConfig__ConfigurationFinalizedDate__c,Apttus_Proposal__Proposal__c.APT_Opportunity_Key_contact__c , Apttus_Proposal__Proposal__c.OwnerId,Apttus_Proposal__Proposal__c.APT_Contract_Number__c,Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c , Apttus_Proposal__Proposal__c.APT_Postbillpay_Included__c};
 	}
 
 	/**
