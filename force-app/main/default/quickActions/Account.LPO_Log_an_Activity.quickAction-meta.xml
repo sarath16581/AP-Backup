@@ -12,10 +12,6 @@
         <field>Status</field>
         <literalValue>Completed</literalValue>
     </fieldOverrides>
-	<fieldOverrides>
-        <field>Type</field>
-        <literalValue>Phone Call</literalValue>
-    </fieldOverrides>
     <label>Log an Activity</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
@@ -46,7 +42,7 @@
 			<quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>Type</field>
-                <uiBehavior>Edit</uiBehavior>ior>
+                <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
     </quickActionLayout>
