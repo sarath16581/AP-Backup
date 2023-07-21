@@ -20,12 +20,5 @@
     <label>SSSW Consumer Back Office Fin &amp; Travel</label>
     <queue>SSSWSocial</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
-        <role>SSSW_Call_Centre_Manager</role>
-        <role>SSSW_Management</role>
-        <role>SSSW_North_Manager</role>
-        <role>SSSW_North_Team_Lead</role>
-        <role>SSSW_South_Manager</role>
-        <role>SSSW_South_Team_Lead</role>
     </sharedTo>
 </ListView>

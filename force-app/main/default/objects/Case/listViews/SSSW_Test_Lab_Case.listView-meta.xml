@@ -18,10 +18,6 @@
     <label>SSSW Test Lab</label>
     <queue>SSSW_Test_Lab</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
-        <group>SSSW_Customer_Service_Reporting</group>
-        <group>SSSW_Knowledge_Publish_Articles</group>
-        <group>Social_Media_Mgt</group>
-        <role>SO_Sales_Excellence</role>
+        
     </sharedTo>
 </ListView>

@@ -28,6 +28,7 @@
  2022-11-18 George Nguyen - Added logic to check against the target ownerId: If it is omni and the skills are matching the previous owner's skills then do not allow the case to be Reassigned.
  2023-02-06 Noel Lim - Added Preferred Agent logic, which sets BypassPreferredAgent to true if the case is being routed to an omni queue.
  2023-06-06 - Nathan Franklin - Refactored case reassignment
+ 2023-07-21 - Nathan Franklin - added an additional check to allow multiple status tracking to be created in reassign case
 ***********************************/
 global class CaseDetailsCaseContExt  {
 
@@ -1096,6 +1097,10 @@ global class CaseDetailsCaseContExt  {
 					// just because the new owner is the same, down 't mean the updated skills will be the same
 					if(caseToBeRouted.OwnerId == previousOwnerId) {
 						ApplicationDatabase.getInstance().dmlUpdate(new List<Case>{new Case(Id = caseToBeRouted.Id, OwnerId = temporaryReassignmentQueue)});
+
+						// We reset this dodgy flag so status tracking is regenerated on the next update...
+						// TODO: get rid of silly flag :D 
+						CaseTrackingHelper.isUpdateStatusTrackRecursive = false;
 					}
 
 					// trigger an update to the owner which will generate a PSR and a set of skill requirements

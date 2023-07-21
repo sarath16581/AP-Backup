@@ -20,6 +20,5 @@
     <label>SSSW Consumer Inbound Post Info</label>
     <queue>SSSW_Consumer_Inbound_Post_Info</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
     </sharedTo>
 </ListView>

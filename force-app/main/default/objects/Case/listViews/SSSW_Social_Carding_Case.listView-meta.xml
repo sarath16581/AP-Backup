@@ -5,6 +5,5 @@
     <label>SSSW Social Carding</label>
     <queue>SSSW_Social_Carding</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

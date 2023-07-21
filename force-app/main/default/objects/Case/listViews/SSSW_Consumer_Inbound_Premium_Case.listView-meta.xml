@@ -20,6 +20,5 @@
     <label>SSSW Consumer Inbound Deliv Supp Premium</label>
     <queue>SSSW_Consumer_Inbound_Premium</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
     </sharedTo>
 </ListView>

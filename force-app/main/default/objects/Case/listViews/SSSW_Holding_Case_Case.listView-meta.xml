@@ -11,6 +11,5 @@
     <language>en_US</language>
     <queue>SSSW_Holding_Case</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
     </sharedTo>
 </ListView>

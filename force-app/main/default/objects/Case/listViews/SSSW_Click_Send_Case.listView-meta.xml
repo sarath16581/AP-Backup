@@ -20,6 +20,5 @@
     <label>SSSW Consumer Back Office Disputed Del</label>
     <queue>SSSW_Click_Send</queue>
     <sharedTo>
-        <group>SSSWAgents</group>
     </sharedTo>
 </ListView>
