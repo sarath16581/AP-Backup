@@ -301,6 +301,17 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
     </alerts>
+	<alerts>
+        <fullName>Deal_Support_Request_Closed</fullName>
+        <description>Deal Support Request Closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Closed</template>
+    </alerts>
     <fieldUpdates>
         <fullName>Approval_Flag_is_set_once_Approved</fullName>
         <field>DSR_Approved__c</field>
