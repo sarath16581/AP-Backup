@@ -93,8 +93,8 @@
                 <targetReference>Update_case_record_for_permanent_close</targetReference>
             </connector>
             <label>5 Days after case closed</label>
-            <offsetNumber>1</offsetNumber>
-            <offsetUnit>Hours</offsetUnit>
+            <offsetNumber>5</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
             <recordField>ClosedDate</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>

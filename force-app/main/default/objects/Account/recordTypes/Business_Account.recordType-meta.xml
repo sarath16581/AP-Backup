@@ -22,6 +22,10 @@
     <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
+            <fullName>Business Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Procurement</fullName>
             <default>false</default>
         </values>

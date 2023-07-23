@@ -2,6 +2,7 @@
  * Date            Version          Owner               Desription
  * 14-Feb-17        1.0             Bharat P            Initial Version - Enterprise Credit Claim Test Class
  * 12-Jul-17        1.1             AP Rivera           Added test method to cover functionality of file attachments
+ * 02-Jun-23        1.2             Pratyush Chalasani  Added test method for credit dispute descriptions
  */
 @isTest
 private class EnterpriseCreditClaimTest {
@@ -129,4 +130,23 @@ private class EnterpriseCreditClaimTest {
 
 
     /* END - APRIVERA - Added test method to cover block of codes for input file functionality */
+
+	@isTest
+	static void testCreditClaimReasonsDescriptions() {
+		Case cse = createData();
+
+		Test.startTest();
+		
+		insert cse;
+
+		ApexPages.StandardController sc = new ApexPages.StandardController(cse);
+        EnterpriseCreditClaim instance = new EnterpriseCreditClaim(sc);
+
+		Map<String, Object> reasonDescriptionMap = (Map<String, Object>)JSON.deserializeUntyped(instance.getCreditClaimReasonDescriptions());
+
+		Test.stopTest();
+
+		Assert.isTrue(reasonDescriptionMap.keySet().size() > 0, 'Map should not be empty');
+		Assert.isTrue(reasonDescriptionMap.values()[0] instanceOf String, 'Map entries should be strings');
+	}
 }

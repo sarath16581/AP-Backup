@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Create_MSA_Service_Schedule__c</fullName>
-    <description>Select this action to create a contract record.</description>
     <externalId>false</externalId>
-     <formula>IF (NOT(APT_Document_Generation_in_Progress__c) &amp;&amp; 
+    <formula>IF (NOT(APT_Document_Generation_in_Progress__c) &amp;&amp; 
 OR(ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Approved&quot;),
 ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;),
 (ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Draft&quot;) &amp;&amp;
@@ -18,8 +17,8 @@ NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Pending Approval&quot;))) 
 OR(NOT(APT_ACIC_Request_required_for_Contract__c), AND(APT_ACIC_Request_required_for_Contract__c, ACIC_Request_Approved__c)),
 HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=&quot;&amp;Id&amp;&apos;&amp;c__isST=&apos;&amp;TEXT(Is_Startrack_Proposal__c)&amp;&apos;&amp;c__isManualContract=false&apos; , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <inlineHelpText>Select this action to create a contract record.</inlineHelpText>
-    <label>Create Contract / Service Schedule</label>
+    <inlineHelpText>Click this button to create a new Agreement (Contract).</inlineHelpText>
+    <label>Create Agreement (Contract)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

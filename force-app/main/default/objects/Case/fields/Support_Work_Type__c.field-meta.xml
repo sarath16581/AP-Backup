@@ -2025,6 +2025,14 @@
             <valueName>Reporting</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Opportunities &amp; Leads</controllingFieldValue>
+            <valueName>Opportunity Assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunities &amp; Leads</controllingFieldValue>
+            <valueName>Lead Assistance</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>LBP/LPO Program</controllingFieldValue>
             <valueName>LBP Sales Coverage &amp; Frequency Updates</valueName>
         </valueSettings>

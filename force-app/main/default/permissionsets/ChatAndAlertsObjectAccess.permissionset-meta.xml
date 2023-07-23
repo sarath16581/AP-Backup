@@ -69883,12 +69883,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Deal_Support_Request__c.Sales_Director__c</field>
+        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
-        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
+        <field>Deal_Support_Request__c.Sales_Director__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -88288,6 +88288,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sales_Segment_Reference__c.GeneralManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Segment_Reference__c.SalesDirectorApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Sales_Segment_Reference__c.Sales_Director__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -88299,16 +88309,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Segment_Reference__c.Sales_Team_Owner_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Sales_Segment_Reference__c.GeneralManager__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Sales_Segment_Reference__c.SalesDirectorApprover__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

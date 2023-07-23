@@ -474,15 +474,48 @@ span[title='Unfollow'], .slds-button .slds-icon-utility-close {display: none}
     color: #DC1928;
     display: flex;
     font-weight: bold;
-    justify-content: space-around;
-    padding: 20px 30%;
+    justify-content: center;
     position: relative;
     text-align: center;
     text-decoration: underline;
     width: 100%;
+    margin-top: 50px;
 }
 
-.footerLinks>a {
+.footerLinks > a {
     color: #DC1928 !important;
+    padding: 15px;
+}
+
+/* Smaller footer links for mobile */
+@media screen and (max-width: 600px) {
+	.footerLinks {
+    	font-size: 11px;
+    	line-height: 1.5em;
+        text-decoration: none;
+    }
+    .footerLinks > a {
+        padding: 8px;
+    }
+    
+    /* Header title font size on mobiles */
+    .forceCommunityThemeHeroBase .contentTitle {
+        font-size: 30px !important;
+    }
+}
+
+/*********************************************************
+ * TILE MENU - Make icons a little bit smaller for Tablets
+ *********************************************************/
+@media screen and (max-width: 1200px) {
+    .comm-tile-menu__item, .community_navigation-tileMenuItem_tileMenuItem-host {
+        width: 200px !important;
+        height: 200px !important;
+    }
+	
+	/* Header title font size on tablets */
+    .forceCommunityThemeHeroBase .contentTitle {
+        font-size: 2rem !important;
+    }
 }
 :root { --dxp-c-section-columns-max-width: 1170px; }

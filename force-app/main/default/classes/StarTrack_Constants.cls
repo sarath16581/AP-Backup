@@ -129,7 +129,7 @@ public class StarTrack_Constants {
     public static final String STCUSTOMERSTREAM_RUBY = 'Ruby';
     public static final String TRANSFER_QUEUE = 'Transfer Queue';
     public static final String DEPOT_OWNER_QUEUE = 'Depot Owner Queue';
-    public static final String RECYCLE_BIN_QUEUE = 'StarTrack Recycle Bin';
+    public static final String RECYCLE_BIN_QUEUE = 'CRM Recycle Bin';
     public static final String WEB_BOOKINGS_QUEUE = 'StarTrack Pickup Enquiry Queue';
     public static final String ETA_QUEUE = 'StarTrack ETA Request Queue';
     public static final String ST_NETWORK_CUST_NOTIF = 'StarTrack Network Customer Notification';

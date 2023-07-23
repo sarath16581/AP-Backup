@@ -46,4 +46,15 @@ public with sharing class ProductsSelector extends ApplicationSelector{
 
 		return (List<Product2>)Database.query(qb.toSoqlString());
 	}
+
+	@AuraEnabled
+	public static List<Product2> getAllProducts() {
+		try {
+			List<Product2> products = [SELECT Id, Name, ProductCode, APT_Product_Type__c, Product_Level_1__c, Product_Level_2__c, Product_Level_3__c, Product_Level_4__c FROM Product2 WHERE Product_Level_4__c != null AND IsActive = true ORDER BY Product_Level_4__c, Name];
+
+			return products;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
 }

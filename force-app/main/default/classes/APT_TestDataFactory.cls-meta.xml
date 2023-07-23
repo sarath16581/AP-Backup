@@ -17,6 +17,11 @@
         <namespace>Apttus_CMConfig</namespace>
     </packageVersions>
     <packageVersions>
+        <majorNumber>5</majorNumber>
+        <minorNumber>50</minorNumber>
+        <namespace>Apttus_CMDSign</namespace>
+    </packageVersions>
+    <packageVersions>
         <majorNumber>12</majorNumber>
         <minorNumber>24</minorNumber>
         <namespace>Apttus_CQApprov</namespace>
@@ -25,6 +30,11 @@
         <majorNumber>12</majorNumber>
         <minorNumber>1839</minorNumber>
         <namespace>Apttus_Config2</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>8</majorNumber>
+        <minorNumber>142</minorNumber>
+        <namespace>Apttus_DocuApi</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>10</majorNumber>

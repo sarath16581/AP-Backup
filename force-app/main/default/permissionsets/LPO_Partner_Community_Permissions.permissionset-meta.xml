@@ -3932,12 +3932,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Deal_Support_Request__c.Sales_Director__c</field>
+        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
-        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
+        <field>Deal_Support_Request__c.Sales_Director__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
