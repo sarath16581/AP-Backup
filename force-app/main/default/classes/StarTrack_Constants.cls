@@ -14,6 +14,7 @@ October 02, 2017 - Angelo Rivera - Added for Minor Work MWT0004521
 2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
 2022-11-23 - Mahesh Parvathaneni - Addded constants for StarTrack Agent and Care agent
 2023-02-15 - naveen.rajanna@auspost.com.au - REQ3072620 Added constants for Web Bookings Queue, ETA Queue and renamed labels
+2023-07-18 - mel.patil2@auspost.com.au - REQ3247592 renamed label for StarTrack Recycle Bin to CRM Recycle Bin
 **************************************************/
 public class StarTrack_Constants {
 

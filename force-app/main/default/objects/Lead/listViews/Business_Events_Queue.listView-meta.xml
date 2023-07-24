@@ -9,11 +9,13 @@
     <columns>LEAD.UNREAD</columns>
     <columns>LEAD.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Queue</filterScope>
     <label>Business Events Queue</label>
+    <queue>Business_Events</queue>
     <sharedTo>
         <group>Account_Managers</group>
         <group>Sales_Group_Specialist</group>
         <group>Sales_Managers</group>
+        <role>Marketing</role>
     </sharedTo>
 </ListView>
