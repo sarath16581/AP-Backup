@@ -113,11 +113,14 @@ public without sharing class BAMOnboardContactController {
     }
 	
     //REQ2279110 added filter criteria to remove Peoplesoft accounts 
-    private static List<Billing_Account__c> loadBillingAccounts(Id accountId)
+    private static List<Billing_Account__c> loadBillingAccounts(Id accountId, List<BAMApplication__c> allApps)
     {
         List<Billing_Account__c> output = new List<Billing_Account__c>();
 		if (accountId != null) {
-			output =  BillingAccountsSelector.newInstance('Name', 'Asc').selectByOrgId(new Set<Id>{accountId}, 
+			Map<Id, BAMApplication__c> bamApplicationMap = new Map<Id, BAMApplication__c>(allApps);
+			//get fieldoverrides for billing accounts - this includes basic fiels plus any fields defined in BillingAccountFilter__c field
+			Set<SObjectField> fieldOverrides = BAMUserUtility.getBillingAccountFieldOverridesWithFilterFields(bamApplicationMap);
+			output =  BillingAccountsSelector.newInstance('Name', 'Asc', fieldOverrides).selectByOrgId(new Set<Id>{accountId}, 
 								new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT}).values();
 		}
         return output;
@@ -224,8 +227,7 @@ public without sharing class BAMOnboardContactController {
 			mapResults.put(FIELD_APPLICATIONS, allApplications);
 
 			//2. Billing Accounts
-			List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId);
-			mapResults.put(FIELD_BILLING_ACCOUNTS, billingAccounts);
+			List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId, allApplications);
 
 			// load contact data
 			// 1. Latest External request, this determines if we show error or pending
@@ -447,8 +449,10 @@ public without sharing class BAMOnboardContactController {
         }
 
         if (!selectedBillingAccountIds.isEmpty()) {
+			//get fieldoverrides for billing accounts - this includes basic fiels plus any fields defined in BillingAccountFilter__c field
+			Set<SObjectField> fieldOverrides = BAMUserUtility.getBillingAccountFieldOverridesWithFilterFields(appMap);
             //get the billing accounts
-			billingAccountMap = BillingAccountsSelector.newInstance().selectById(selectedBillingAccountIds, 
+			billingAccountMap = BillingAccountsSelector.newInstance(0, fieldOverrides).selectById(selectedBillingAccountIds, 
 				new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
         }
 

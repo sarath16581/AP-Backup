@@ -60,14 +60,14 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		return Billing_Account__c.getSObjectType();
 	}
 
-	public static BillingAccountsSelector newInstance(String sortField, String order) {
+	public static BillingAccountsSelector newInstance(String sortField, String order, Set<SObjectField> fieldOverrides) {
 		if(!String.isEmpty(sortField)){
 			sortfieldAPIName = sortField;
 		}
 		if(!String.isEmpty(order)){
 			sortOrder = order;
 		}
-		return (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class);
+		return (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class).setFieldOverrides(fieldOverrides);
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {

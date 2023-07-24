@@ -51,7 +51,7 @@ export default class BamBillingAccountSelector extends LightningElement {
 	}
 
 	get tableWrapperStyles() {
-		return 'max-height: 390px;overflow-y:scroll;position:relative;';// + (this.filteredBillingAccounts ? Math.min(this.filteredBillingAccounts.length*35, 350) : 100) + 'px';
+		return 'max-height: 390px;overflow-y:auto;position:relative;';// + (this.filteredBillingAccounts ? Math.min(this.filteredBillingAccounts.length*35, 350) : 100) + 'px';
 	}
 
 	get tableClasses() {

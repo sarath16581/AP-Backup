@@ -464,4 +464,45 @@ public class BAMUserUtility_Test {
 		//no billing accounts match for the filter defined as the billing accounts have PAYER_ACCOUNT_ID__c as null
 		Assert.areEqual(0, wrapper[2].billingAccounts.size(), 'Expected no billing accounts are returned');
 	}
+
+	/**
+	 * Scenario: Testing to check correct SObjectFields are returned from the BillingAccountFilter__c field
+	 */
+	@IsTest
+	private static void testGetBillingAccountFieldOverridesWithFilterFields() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//get account
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		//get products
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		//get BAM Applications
+		List<BAMApplication__c> bamApps = ApplicationTestDataFactory.getBamApplications(1,'Business Shop',products[0].Id, true);
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Business Support Portal',products[1].Id, true));
+		bamApps[0].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false}';
+		bamApps[1].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"PAYER_ACCOUNT_ID__c":null}}';
+		Map<Id, BAMApplication__c> appMap = new Map<Id, BAMApplication__c>(bamApps);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Set<SObjectField> fields = BAMUserUtility.getBillingAccountFieldOverridesWithFilterFields(appMap);
+
+		Test.stopTest();
+
+		//Assert SObjectFields are returned
+		Assert.areEqual(true, fields.contains(Billing_Account__c.Source_System__c), 'Expected Source_System__c field to be returned');
+		Assert.areEqual(true, fields.contains(Billing_Account__c.Credit_Status__c), 'Expected Credit_Status__c field to be returned');
+		Assert.areEqual(true, fields.contains(Billing_Account__c.PAYER_ACCOUNT_ID__c), 'Expected PAYER_ACCOUNT_ID__c field to be returned');
+		Assert.areEqual(false, fields.contains(Billing_Account__c.Fax_Number__c), 'Expected Fax_Number__c field not to be returned');
+		Assert.areEqual(false, fields.contains(Billing_Account__c.Credit_Limit__c), 'Expected Credit_Limit__c field not to be returned');
+	}
 }

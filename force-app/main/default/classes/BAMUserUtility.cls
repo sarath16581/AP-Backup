@@ -43,6 +43,19 @@ public with sharing class BAMUserUtility {
         private set;
     }
 
+	/**
+	 * Billing account field map
+	 */
+	private static Map<String, SObjectField> billingAccountFieldMap {
+		get {
+			if (billingAccountFieldMap == null) {
+				billingAccountFieldMap = Billing_Account__c.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
+			}
+			return billingAccountFieldMap;
+		}
+		private set;
+	}
+
     public static final Set<String> PORTAL_PERSONA_USER_TYPES = new Set<String>{'CspLitePortal'};
 
     /**
@@ -225,6 +238,8 @@ public with sharing class BAMUserUtility {
 				//add all the billing accounts if no filter at the app level
 				wrapper.billingAccounts =  billingAccounts;
 			}
+			//billingAccounts contains the fields which we have added to do comparison, so send only the fields that are required for the front-end
+			wrapper.billingAccounts = getBillingAccountsForClientSide(wrapper.billingAccounts);
 			wrapperList.add(wrapper);
 		}
 		return wrapperList;
@@ -426,6 +441,101 @@ public with sharing class BAMUserUtility {
 			}
 		}
 		return mapApplicationRoles;
+	}
+
+	/**
+	 * @description	This method returns the fieldoverrides for billing accounts dynamically with the fields from the filter at application level if any
+	 * @param  		bamApplicationMap
+	 * @return   	basic billing account fields plus any fields defined for filter at app level
+	 */
+	public static Set<SObjectField> getBillingAccountFieldOverridesWithFilterFields(Map<Id,BAMApplication__c> bamApplicationMap) {
+		//field overrides for billing accounts
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{Billing_Account__c.Id, Billing_Account__c.Name, Billing_Account__c.Organisation__c, 
+			Billing_Account__c.SAP_marked_for_deletion__c, Billing_Account__c.Type__c, Billing_Account__c.MLID__c, Billing_Account__c.LEGACY_ID__c,
+			Billing_Account__c.State__c, Billing_Account__c.Suburb__c};
+
+		//loop through the  applications and get the fields on billing account filter
+		for (Id bamAppId : bamApplicationMap.keySet()) {
+			//get the billing account filter from the app level
+			if (String.isNotBlank(bamApplicationMap.get(bamAppId).BillingAccountFilter__c)) {
+				//deserialize the json filter
+				Map<String, Object> billingAccountFilterMap;
+				try {
+					billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(bamApplicationMap.get(bamAppId).BillingAccountFilter__c);
+				} catch(Exception e) {
+					//fail-safe if invalid json
+					billingAccountFilterMap = new Map<String, Object>();
+				}
+				//get the SObjectField from the filter 
+				Set<SObjectField> fields = getFieldsFromBillingAccountFilter(billingAccountFilterMap);
+
+				if (!fields.isEmpty()) {
+					fieldOverrides.addAll(fields);
+				}
+			}
+		}
+		return fieldOverrides;
+	}
+
+	/**
+	 * @description This method returns the set of SObject field that are included in the billing account filter json
+	 * @param  		billingAccountFilterMap
+	 * @return      Set of SObjectField for billing account
+	 */
+	private static Set<SObjectField> getFieldsFromBillingAccountFilter(Map<String, Object> billingAccountFilterMap) {
+		Set<SObjectField> sobjectFields = new Set<SObjectField>();
+		Set<String> fieldNames = new Set<String>();
+
+		if (billingAccountFilterMap.isEmpty()) {
+			return sobjectFields;
+		}
+
+		//loop through the json map to get the keys
+		for (String key : billingAccountFilterMap.keySet()) {
+			if (!key.equalsIgnoreCase(KEY_NOT_CONTAINS)) {
+				fieldNames.add(key);
+			} else if (key.equalsIgnoreCase(KEY_NOT_CONTAINS)) {
+				//get the keys from 'notContains' defined at filter
+				//this is in the Map<String, Object> format again
+				Object notContainsValue = billingAccountFilterMap.get(key);
+				if (notContainsValue instanceOf Map<String,Object> ) {
+					Map<String,Object> notContainsValueMap = (Map<String,Object>)notContainsValue;
+					//add all the keys in notContains json object 
+					fieldNames.addAll(notContainsValueMap.keySet());
+				}
+			}
+		}
+
+		for (String fieldName : fieldNames) {
+			if (billingAccountFieldMap.containsKey(fieldName)) {
+				sobjectFields.add(billingAccountFieldMap.get(fieldName));
+			}
+		}
+
+		return sobjectFields;
+	}
+
+	/**
+	 * @description This method returns the minimal fields that are required for the client side from the billingAccounts
+	 * @param  		billingAccounts 
+	 * @return      list of billing accounts
+	 */
+	private static List<Billing_Account__c> getBillingAccountsForClientSide(List<Billing_Account__c> billingAccounts) {
+		List<Billing_Account__c> baList = new List<Billing_Account__c>();
+		for (Billing_Account__c ba : billingAccounts) {
+			Billing_Account__c bAccount = new Billing_Account__c();
+			bAccount.Id = ba.Id;
+			bAccount.Name = ba.Name;
+			bAccount.Organisation__c = ba.Organisation__c;
+			bAccount.SAP_marked_for_deletion__c = ba.SAP_marked_for_deletion__c;
+			bAccount.Type__c = ba.Type__c;
+			bAccount.MLID__c = ba.MLID__c;
+			bAccount.LEGACY_ID__c = ba.LEGACY_ID__c;
+			bAccount.State__c = ba.State__c;
+			bAccount.Suburb__c = ba.Suburb__c;
+			baList.add(bAccount);
+		}
+		return baList;
 	}
 
     /**

@@ -526,7 +526,7 @@ export default class BamUserPage extends LightningElement {
 			showToast('error', get(err,'body.message') || get(err,'message'))(this)
 		} finally {
 			// hide spinner
-			this.dataLoaded = true
+			this.dataLoaded = true;
 		}
 	}
 

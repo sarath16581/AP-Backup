@@ -73,7 +73,7 @@ private class BillingAccountsSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
 		System.assertEquals(true, Pattern.compile('(?ism)PAYER_ACCOUNT_ID__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Payer Account Id fields');
 
-		selector = BillingAccountsSelector.newInstance(BillingAccountsSelector.sortfieldAPIName, BillingAccountsSelector.sortOrder);
+		selector = BillingAccountsSelector.newInstance(BillingAccountsSelector.sortfieldAPIName, BillingAccountsSelector.sortOrder, new Set<SObjectField>());
 		qb = selector.newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom billing_account__c\\b.*Source_System__c\\s*!=\\s*\'PeopleSoft\'').matcher(soql).find(), 'Resulting query does not limit source system of PeopleSoft');
