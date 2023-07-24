@@ -276,7 +276,7 @@ public inherited sharing class CaseRoutingService {
 				csRec.AllocateToQueue__c = true;
 
 				// debug messaging to inform admin of routing path
-				populateRoutingDebug(csRec, 'routing initiated: case reopened and belongs to omni closed queue');
+				populateRoutingDebug(csRec, 'routing initiated: case reopened');
 				
 			}
 
