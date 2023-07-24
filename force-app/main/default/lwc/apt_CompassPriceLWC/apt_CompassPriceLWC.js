@@ -6,6 +6,7 @@
  * @changelog
  * 2022-04-01 - Seth Heang - Created
  * 2022-06-10 - Bharat Patel - Updated the call from client to Server specific to custom pricing execution.
+ * 2023-07-24 - Sarath Burra - CI-904- Removed Repricing as its no longer applicable
 */
 import { LightningElement, wire, api, track } from 'lwc';
 import getPSRList from "@salesforce/apex/APT_CompassPricingController.getPSRList";
@@ -13,7 +14,6 @@ import fetchConfigRequestId from "@salesforce/apex/APT_CompassPricingController.
 import linkPSR from "@salesforce/apex/APT_CompassPricingController.onApply";
 import LABEL_INCOMPLETE_APPC_PSR from '@salesforce/label/c.APT_IncompleteAPPCPSR';
 import updateCartForCustomPricing from "@salesforce/apex/APT_CompassPricingController.updateCartForCustomPricing";
-import repriceCartRequest from "@salesforce/apex/APT_CompassPricingController.rePriceCartForCustomPricing";
 
 // building table columns for incomplete PSR table
 const incompletePSRColumns = [
@@ -165,49 +165,31 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 
 				var reseultValue = result;
 				if(result != null && reseultValue.indexOf(this.customerTierDefault) > -1 ) {
-
-					//reset old cust tier
-					var resultList = reseultValue.split(this.customerTierDefault);
-					if(resultList.length > 1) {
-						this.cartTier = resultList[1];
-						repriceCartRequest(
-							{
-								configId: this.configId
-							})
-							.then((result)=>{
-								updateCartForCustomPricing(
-									{
-										selectedLineItemId: this.lineitemId,
-										objDSR: this.selectedPSR,
-										configId: this.configId,
-										cartTier: this.cartTier
-									})
-									.then((result)=>{
-										// display success message on successful link
-										this.success = result;
-										this.error = void 0;
-										// disable Apply PSR button once successful link
-										this.disableApplyPSR = true;
-										this.isLoading = false;
-									})
-									.catch((error) => {
-										this.isLoading = false;
-										this.error = error.body.message;
-									})
-							})
-							.catch((error) => {
-								this.isLoading = false;
-								this.error = error.body.message;
-							})
-					}
-				}
-				else {
 					// display success message on successful link
-					this.success = result;
 					this.error = void 0;
-					// disable Apply PSR button once successful link
-					this.disableApplyPSR = true;
-					this.isLoading = false;
+					updateCartForCustomPricing(
+						{
+							selectedLineItemId: this.lineitemId,
+							objDSR: this.selectedPSR,
+							configId: this.configId,
+						})
+						.then((result)=>{
+							// display success message on successful link
+							this.disableApplyPSR = true;
+							this.success = result;
+							this.error = void 0;
+							// disable Apply PSR button once successful link
+							this.isLoading = false;
+						})
+						.catch((error) => {
+							this.isLoading = false;
+							this.error = error.body.message;
+						})
+
+					.catch((error) => {
+						this.isLoading = false;
+						this.error = error.body.message;
+					})
 
 				}
 			})
