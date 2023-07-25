@@ -85,7 +85,8 @@
                 <field>Email</field>
             </layoutItems>
             <layoutItems>
-                <emptySpace>true</emptySpace>
+                <behavior>Edit</behavior>
+                <field>Pref_Method_of_Contact__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

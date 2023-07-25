@@ -25,6 +25,7 @@
  * 2023-05-01 - Naveen Rajanna - REQ2916371 - Changes to search function and Added enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
  * 2023-06-21 - Naveen Rajanna - REQ2916371 - Modified selectByAPCNAndIdAndPersonAccount to have it's own logic instead of using search
  * 2023-04-08 - Yatika bansal - added new SObject Field
+ * 2023-06-17 - Harry Wang - added new method selectByIdWithContactsAndOpportunities
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
@@ -291,6 +292,21 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				.add(new QueryBuilder.SimpleCondition('Account.Post_Office_Assigned__r.Org_ID__c != NULL'))
 				.endConditions();
 		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Select Accounts with related contacts and opportunities given IDs of accounts, contacts and opportunities.
+	 * @param contactIds IDs of related contacts
+	 * @param oppIds IDs of related opportunities
+	 * @param accIds IDs of accounts
+	 * @param selectorOptions selector options
+	 * @return list of account records by IDs
+	 */
+	public List<Account> selectByIdWithContactsAndOpportunities(Set<Id> contactIds, Set<Id> oppIds, Set<Id> accIds,  Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds')).endConditions();
+		qb.addSubQuery(ContactsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Contact.Id + ' IN :contactIds')).endConditions(), 'Contacts');
+		qb.addSubQuery(OpportunitySelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Opportunity.Id + ' IN :oppIds')).endConditions(), 'Opportunities');
+		return Database.query(qb.toSoqlString());
 	}
 
 	/**
