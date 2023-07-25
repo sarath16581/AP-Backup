@@ -26,9 +26,12 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
 		cases[0].RecordTypeId = transportEnquiryRecordType.Id;
 		cases[0].Priority = 'Low';
+		cases[0].Origin = 'Email';
 		cases[1].RecordTypeId = transportEnquiryRecordType.Id;
 		cases[1].Priority = 'Low';
+		cases[1].Origin = 'Email';
 		cases[2].RecordTypeId = transportEnquiryRecordType.Id;
+		cases[2].Origin = 'Email';
 		List<EmailMessage> records = ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'melbournevanoperations@test.com.au', 'Test Subject', cases[0].Id);
 		records.addAll(ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'sydneyvanoperations@test.com.au', 'Test Subject', cases[1].Id));
 		records.addAll(ApplicationTestDataFactory.getEmailMessages(1, true, true, 'test@test.com', 'perthvanoperations@test.com.au', 'Test Subject', cases[1].Id));
