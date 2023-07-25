@@ -21,7 +21,7 @@ private class BGStandardLeadModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(LeadTriggerHandler.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(LeadAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		Opportunity testOpp = ApplicationTestDataFactory.getOpportunities(1, fflib_IDGenerator.generate(Account.getSObjectType()), true)[0];
 
 		testOpp = (Opportunity)ApplicationTestDataFactory.setUnwritableFields(testOpp, new Map<String, Object>{'CreatedDate' => System.Now().addDays(-1)});
