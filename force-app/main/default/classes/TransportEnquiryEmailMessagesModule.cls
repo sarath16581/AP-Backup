@@ -7,7 +7,8 @@
  * @domain EmailMessageCasesDomain
  * @changelog
  * 29/06/2023 - Mahesh Parvathaneni - Updated email headers logic related to Microsoft Exchange
- * 21/07/2023 - Mahesh Parvathaneni - updated email comparison to lowercase 
+ * 21/07/2023 - Mahesh Parvathaneni - updated email comparison to lowercase
+ * 25/07/2023 - Mahesh Parvathaneni - case field updates fix
  */
 
 public inherited sharing class TransportEnquiryEmailMessagesModule extends ApplicationDomain.Module {
