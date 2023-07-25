@@ -202,11 +202,10 @@ export default class BamUserPage extends LightningElement {
 				return
 			}
 			// retrieve the access data and the latest external onboarding requests
-			const [contactDataStr, contactApplicationsWithLatestExternalOnboardingRequestsStr, accessDataStr, appDataStr] = await Promise.all([
+			const [contactDataStr, contactApplicationsWithLatestExternalOnboardingRequestsStr, accessDataStr] = await Promise.all([
 				retrieveContactData({ contactId: this.contact.Id }),
 				retrieveContactApplicationsWithLatestExternalOnboardingRequests({contactId: this.contact.Id}),
-				retrieveExistingAccessAndRolesWithLinkedEntitiesForContact({contactId: this.contact.Id}),
-				retrieveAplicationData({orgId: this.orgId, contactId: this.contact.Id })
+				retrieveExistingAccessAndRolesWithLinkedEntitiesForContact({contactId: this.contact.Id})
 			])
 			// generate initial state from data retrieved from server
 			// update contact with CSSO Error fields so we we can update the display with error messages if need be
@@ -219,9 +218,6 @@ export default class BamUserPage extends LightningElement {
 			const accessData = this.formatAccessData(JSON.parse(accessDataStr))
 			
 			const contactApplicationsWithLatestExternalOnboardingRequests = JSON.parse(contactApplicationsWithLatestExternalOnboardingRequestsStr)
-
-			const { applicationsWithRoles, appBillingAccountDataWrapper } = JSON.parse(appDataStr);
-			this.appBillingAccountDataWrapper = appBillingAccountDataWrapper;
 
 			// reconcile the changes found in the database with the current page state (which may have been changed due to user input). 
 			// But only do so for the pending apps as those are the ones for which the UI has to be updated with the latest data fetched from the server
