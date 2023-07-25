@@ -3,7 +3,7 @@
  *						when Create Contract button is clicked on Proposal
  * @author: Yatika Bansal
  * Ken McGuire 2023.04.19 Proposal field migration to opportunity
- * 
+ * 20-07-2023 - Yatika bansal : Modified createContract method to include post billpay
 **/
 public without sharing class APT_ContractServiceDetailsController {
 
@@ -25,7 +25,11 @@ public without sharing class APT_ContractServiceDetailsController {
 		aggreement.APT_Sales_Team__c = proposal.Apttus_Proposal__Account__r.Sales_Segment__c ;
 		aggreement.OwnerId = proposal.OwnerId;
 		aggreement.Apttus__Primary_Contact__c = proposal.APT_Opportunity_Key_contact__c;
-		aggreement.recordTypeId = System.Label.APT_MSARecordTypeID;
+		if(proposal.APT_Postbillpay_Included__c > 0){
+			aggreement.recordTypeId = System.Label.APT_PBPRecordTypeID;
+		}else{
+			aggreement.recordTypeId = System.Label.APT_MSARecordTypeID;
+		}
 
 		ApplicationDatabase.getInstance().dmlInsert(new List<Apttus__APTS_Agreement__c>{aggreement});
 		return aggreement.Id;

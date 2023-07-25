@@ -8286,7 +8286,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>generic description</shortDescription>
         <value>(generic description)</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_AbandonCart</fullName>
         <language>en_US</language>
         <protected>false</protected>

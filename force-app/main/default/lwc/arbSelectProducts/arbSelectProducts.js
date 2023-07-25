@@ -221,10 +221,13 @@ export default class BarSelectProducts extends LightningElement {
 		this.editing = true;
 		this.viewing = false;
 		this.empty = false;
+ 
 		this.loadProducts(true, false);
 	}
 
 	saveSelection(event) {
+		this.loading = true;
+
 		this.selectedRows = this.template.querySelector('lightning-tree-grid').getSelectedRows()
 
 		const selectedProductIDs = this.selectedRows.filter(item => (item.id.indexOf('01') === 0)).map(item => item.id);
@@ -241,5 +244,9 @@ export default class BarSelectProducts extends LightningElement {
 	close(event) {
 		this.editing = false;
 		this.viewing = true;
+		this.loading = true;
+
+		// Reload existing products after user clicks Cancel
+		this.loadProducts(false, false);
 	}
 }

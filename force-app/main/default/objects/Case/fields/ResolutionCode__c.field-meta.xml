@@ -543,39 +543,29 @@
                 <label>Voucher Incorrect</label>
             </value>
             <value>
-                <fullName>Rebooked</fullName>
-                <default>false</default>
-                <label>Rebooked</label>
-            </value>
-            <value>
                 <fullName>Information provided</fullName>
                 <default>false</default>
                 <label>Information provided</label>
             </value>
             <value>
-                <fullName>Actioned</fullName>
-                <default>false</default>
-                <label>Actioned</label>
-            </value>
-            <value>
-                <fullName>Refused</fullName>
-                <default>false</default>
-                <label>Refused</label>
-            </value>
-            <value>
-                <fullName>Completed</fullName>
-                <default>false</default>
-                <label>Completed</label>
-            </value>
-            <value>
-                <fullName>Unable to service</fullName>
-                <default>false</default>
-                <label>Unable to service</label>
-            </value>
-            <value>
                 <fullName>Referred to others</fullName>
                 <default>false</default>
                 <label>Referred to others</label>
+            </value>
+            <value>
+                <fullName>Request completed</fullName>
+                <default>false</default>
+                <label>Request completed</label>
+            </value>
+            <value>
+                <fullName>Request rejected</fullName>
+                <default>false</default>
+                <label>Request rejected</label>
+            </value>
+            <value>
+                <fullName>Invalid/Duplicate</fullName>
+                <default>false</default>
+                <label>Invalid/Duplicate</label>
             </value>
         </valueSetDefinition>
     </valueSet>

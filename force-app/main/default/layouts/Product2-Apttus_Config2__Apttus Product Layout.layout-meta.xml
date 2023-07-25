@@ -392,7 +392,7 @@
         <fields>NAME</fields>
         <relatedList>Apttus_Config2__SearchAttributeValue__c.Apttus_Config2__BaseProductId__c</relatedList>
     </relatedLists>
-	<relatedLists>
+    <relatedLists>
         <fields>ParentProduct__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>ProductRelationship__c.RelatedProduct__c</relatedList>

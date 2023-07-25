@@ -12,8 +12,8 @@
 	2022-08-23 - bharat.patel30@auspost.com.au - Updated for Conga API(s) related execution validation and respected data set
 	2023-03-07 - deepak.kemidi@auspost.com.au - CI-828 Updated for removing check for validation on lodgment zone metro
 	*/
-@IsTest
-public with sharing class APT_CompassPricingController_Test {
+	@IsTest
+	public with sharing class APT_CompassPricingController_Test {
 
 	/**
 	 * Test: when the method getPSRList is called, validate that the method successfully queries the APPC PSR records based on opportunity Id passed in as the parameter and other
@@ -305,8 +305,6 @@ public with sharing class APT_CompassPricingController_Test {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockSelector.selectByLineItemId((Set<id>)fflib_Match.eq(new Set<Id>{lineItem.Id}))).thenReturn(
 			new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
-		MockUtility.Mocks.when(mockSelector.selectByconfigIDAndLineType(new List<Id>{config.Id})).thenReturn(
-			new Map<Id, Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
 		MockUtility.Mocks.stopStubbing();
 
 		//Query Selector for Line item
@@ -988,7 +986,7 @@ public with sharing class APT_CompassPricingController_Test {
 		APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,config.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
 		APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq2,config.id,lineItem.Id,dealSupportReq2.Approved_Tier__c);
 		APT_CompassPricingController.reSetCustTier(config.id,dealSupportReq.Approved_Tier__c);
-		APT_CompassPricingController.cleanUpInvalidLineItems(config.id,true,new list<Apttus_Config2__LineItem__c>{lineItem});
+		APT_CompassPricingController.cleanUpInvalidLineItems(config.id,true);
 		Test.stopTest();
 
 		System.assertNotEquals(defaultTier, null, 'Expected default customer tier to be returned');
@@ -997,4 +995,4 @@ public with sharing class APT_CompassPricingController_Test {
 	private class MockException extends Exception
 	{
 	}
-}
+	}

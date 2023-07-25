@@ -8,13 +8,9 @@
         <field>Category__c</field>
         <literalValue>Sales</literalValue>
     </fieldOverrides>
-	<fieldOverrides>
+    <fieldOverrides>
         <field>Status</field>
         <literalValue>Completed</literalValue>
-    </fieldOverrides>
-	<fieldOverrides>
-        <field>Type</field>
-        <literalValue>Phone Call</literalValue>
     </fieldOverrides>
     <label>Log an Activity</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
@@ -43,10 +39,10 @@
                 <field>Status</field>
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
-			<quickActionLayoutItems>
+            <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>Type</field>
-                <uiBehavior>Edit</uiBehavior>ior>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
     </quickActionLayout>

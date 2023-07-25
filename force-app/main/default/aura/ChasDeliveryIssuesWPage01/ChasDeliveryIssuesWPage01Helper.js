@@ -3,6 +3,7 @@
  * Modified Ba: Hasantha 12/09/2019 :  added lateOrMissingRadioButtons for validations
  * 2020-10-26 hara.sahoo@auspost.com.au Modified : Prepopulate track id and options passed in the url for auto-progression of the forms
  * 2022-06-08 mahesh.parvathaneni@auspost.com.au Modified : DDS-10987 Delivery issue form network assignment fix in searchTrackingNumber
+ * 2023-06-26 SL DDS-11383 VODV case routing
  */
 ({
     searchTrackingNumber : function(cmp, event, helper) {
@@ -35,6 +36,7 @@
                         cmp.set('v.wizardData.duplicateCase', returnObj["trackingNumberDetails"][0].duplicateCase);
                         cmp.set('v.wizardData.isReturnToSender', returnObj["trackingNumberDetails"][0].isReturnToSender);
                         cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["trackingNumberDetails"][0].isParcelAwaitingCollection);
+                        cmp.set('v.wizardData.isVodv', lArticle["isVodv"]);
                     }
                     this.checkNetworkEligibility(cmp,event,helper);
                     // for return code other than 200 Success OK

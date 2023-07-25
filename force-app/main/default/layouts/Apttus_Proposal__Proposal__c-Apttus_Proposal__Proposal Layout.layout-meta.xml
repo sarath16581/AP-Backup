@@ -21,13 +21,13 @@
         <editHeading>true</editHeading>
         <label>Proposal Steps</label>
         <layoutColumns>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>APT_Generate__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-				<field>APT_Create_T_C__c</field>
+                <field>APT_Create_T_C__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

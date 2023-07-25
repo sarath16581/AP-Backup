@@ -3,7 +3,7 @@
     <fullName>APT_Contract_Signed_After_Offer_Expiry__c</fullName>
     <description>Field to check if the agreement was signed after offer expiration date</description>
     <externalId>false</externalId>
-    <formula>If(Contract_Fully_Signed_Date__c &gt;  Contract_Expiration_Date__c , &quot;true&quot;, &quot;false&quot;)</formula>
+    <formula>If(Contract_Fully_Signed_Date__c &gt; Contract_Expiration_Date__c , &quot;true&quot;, &quot;false&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Checks if the agreement was signed after offer expiration date</inlineHelpText>
     <label>Contract signed after offer expiry</label>
