@@ -68,6 +68,9 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+						<valueListItems>
+                            <value>At_Risk_Business__c.Recalculate_Revenue</value>
+                        </valueListItems>
                         <valueListItems>
                             <value>Edit</value>
                             <visibilityRule>
@@ -83,9 +86,6 @@
                                     <rightValue>Submitted</rightValue>
                                 </criteria>
                             </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>At_Risk_Business__c.Recalculate_Revenue</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -170,7 +170,7 @@
                     <criteria>
                         <leftValue>{!Record.Scale__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
+                        <rightValue>Product Specific (Please Specify after save)</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1512,7 +1512,7 @@
                     <criteria>
                         <leftValue>{!Record.Scale__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
+                        <rightValue>Product Specific (Please Specify after save)</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

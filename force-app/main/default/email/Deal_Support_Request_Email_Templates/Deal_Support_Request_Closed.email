@@ -1,0 +1,9 @@
+{!TEXT(TODAY())}
+
+Dear {!Deal_Support_Request__c.Requestor_Name__c},
+
+The request for {!Deal_Support_Request__c.Organisation__c} under Deal Support Request ({!Deal_Support_Request__c.Name}) has been {!Deal_Support_Request__c.Stage__c} - {!Deal_Support_Request__c.Status__c}:
+{!Deal_Support_Request__c.Link}
+
+Regards,
+Commercial Yield Team
