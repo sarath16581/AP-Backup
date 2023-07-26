@@ -199,7 +199,7 @@
 
 			try{
 				dealSupportReq.Quote_Validity_End_Date__c = Date.Today()-1;
-				String result = APT_CompassPricingController.onApply(dealSupportReq,prodConfig.Id,lineItem.Id);
+				APT_CompassPricingController.onApply(dealSupportReq,prodConfig.Id,lineItem.Id);
 				System.assert(false, 'Expected Quote Validity Exception is not thrown.');
 			}catch(Exception e){
 				System.assert(true, 'Quote Validity Exception should be thrown');
@@ -207,7 +207,7 @@
 
 			try{
 				dealSupportReq.Approved_lodgement_zone__c = 'Capital';
-				String result = APT_CompassPricingController.onApply(dealSupportReq,'invalid prodConfigId',lineItem.Id);
+				APT_CompassPricingController.onApply(dealSupportReq,'invalid prodConfigId',lineItem.Id);
 				System.assert(false, 'Expected Exception is not thrown');
 			}catch(Exception e){
 				System.assert(true, 'Exception should be thrown');
@@ -312,7 +312,7 @@
 
 			//Query Selector for Line item
 			LineItemsSelector mockSelector1 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
-			ApplicationDatabase mockDatabase1 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector1.selectByProdConfId(new set<ID>{(ID)config.Id})).thenReturn(
 				new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));
@@ -320,7 +320,7 @@
 
 			//Query Selector for Product Attribute Values
 			APT_ProductAttributeValuesSelector mockSelector2 = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
-			ApplicationDatabase mockDatabase2 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector2.selectByPavID((List<Id>)fflib_Match.eq(pavIDList))).thenReturn(
 				new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
@@ -328,7 +328,7 @@
 
 			//Query Selector for Product Configuration
 			ProductConfigurationSelector mockSelector3 = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
-			ApplicationDatabase mockDatabase3 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector3.selectByConfigId(new set<ID>{(ID)config.Id})).thenReturn(
 				new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{config}));
@@ -336,7 +336,7 @@
 
 			//Query Selector for Proposal
 			APT_ProposalObjectsSelector mockSelector4 = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
-			ApplicationDatabase mockDatabase4 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector4.selectByConfigId(new set<ID>{(ID)config.Id})).thenReturn(
 				new Map<Id,Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{quote}));
@@ -375,7 +375,7 @@
 			// =====================================
 			Test.startTest();
 				String successMsg = APT_CompassPricingController.onApply(dealSupportReqList[0],config.Id,lineItem.Id);
-				Boolean isConstraintRulesMoreProcess = APT_CompassPricingController.applyConstraintRules(config.Id, true);
+				APT_CompassPricingController.applyConstraintRules(config.Id, true);
 			Test.stopTest();
 
 			System.assertNotEquals(null, compassPricingCon.compassPricingAttributes, 'Instance variables should not be null');
@@ -447,7 +447,6 @@
 			try{
 				APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD');
 				HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
-				system.debug('res :'+ res );
 				system.assertEquals(400,res.getStatusCode());
 				//CI-904 Test class changes to accomodate Changes to I2,removed a method parameter as its no longer in use
 				APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id);
@@ -499,7 +498,6 @@
 			try{
 				APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD');
 				HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
-				system.debug('res :'+ res );
 				system.assertEquals(400,res.getStatusCode());
 				//CI-904 Test class changes to accomodate Changes to I2,removed a method parameter as its no longer in use
 				APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id);
@@ -552,7 +550,6 @@
 			try{
 				APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD');
 				HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
-				system.debug('res :'+ res );
 				system.assertEquals(400,res.getStatusCode());
 				//CI-904 Test class changes to accomodate Changes to I2,removed a method parameter as its no longer in use
 				APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id);
@@ -655,7 +652,6 @@
 			try{
 				APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD');
 				HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
-				system.debug('res :'+ res );
 				system.assertEquals(400,res.getStatusCode());
 				//CI-904 Test class changes to accomodate Changes to I2,removed a method parameter as its no longer in use
 				APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id);
@@ -721,8 +717,6 @@
 			Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockInvalidHttpCall());
 			Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 			account.LEGACY_ID__c = '4604376';
-
-			Contact con = APT_TestDataFactory.getAPTContactRecord(1, account.Id, true)[0];
 			Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 
 			APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
@@ -758,7 +752,7 @@
 			Test.startTest();
 			try{
 			APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD');
-			HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
+			APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
 			//CI-904 Test class changes to accomodate Changes to I2,removed a method parameter as its no longer in use
 			APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id);
 			}Catch(exception e){
@@ -809,7 +803,7 @@
 			Test.startTest();
 			try{
 			APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD');
-			HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
+			APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
 			//CI-904 Test class changes to accomodate Changes to I2,removed a method parameter as its no longer in use
 			APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id);
 			//APT_CompassPricingController.updateRecordForCustomPricing(prodConfig.id,dealSupportReq);
@@ -826,7 +820,6 @@
 			// =====================================
 			Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 			Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
-			Apttus_Config2__TempObject__c configTempObj = APT_TestDataFactory.getAPTConfigTempObj(1, prodConfig.Id, true)[0];
 			// =====================================
 			// Stubbing
 			// =====================================
@@ -948,7 +941,7 @@
 			insert aList;
 
 			APT_ProductAttributeValuesSelector mockSelectorPav = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
-			ApplicationDatabase mockDatabasepav = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelectorPav.selectByPavID(pavIDList)).thenReturn(
 				new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
@@ -961,15 +954,15 @@
 				new Map<Id, Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
 			MockUtility.Mocks.stopStubbing();
 
-				LineItemsSelector mockSelector1 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
-			ApplicationDatabase mockDatabase1 = MockUtility.mockDatabase();
+			LineItemsSelector mockSelector1 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector1.selectByProdConfId(new set<ID>{(ID)config.Id})).thenReturn(
 				new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));
 			MockUtility.Mocks.stopStubbing();
 
 			LineItemsSelector mockSelector2 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
-			ApplicationDatabase mockDatabase2 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector2.selectByProdConfId(config.Id)).thenReturn(
 				new Map<id,Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));
@@ -977,7 +970,7 @@
 
 				//Query Selector for Product Configuration
 			ProductConfigurationSelector mockSelector3 = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
-			ApplicationDatabase mockDatabase3 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector3.selectByConfigId(new set<ID>{(ID)config.Id})).thenReturn(
 				new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{config}));
@@ -985,7 +978,7 @@
 
 			//Query Selector for Proposal
 			APT_ProposalObjectsSelector mockSelector4 = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
-			ApplicationDatabase mockDatabase4 = MockUtility.mockDatabase();
+			MockUtility.mockDatabase();
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelector4.selectByConfigId(new set<ID>{(ID)config.Id})).thenReturn(
 				new Map<Id,Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{quote}));
