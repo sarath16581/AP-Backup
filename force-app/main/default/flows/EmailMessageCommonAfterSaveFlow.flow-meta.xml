@@ -7,9 +7,6 @@
         <locationY>647</locationY>
         <actionName>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</actionName>
         <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>Generic_Notify_Owner</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
@@ -25,6 +22,9 @@
         <locationY>863</locationY>
         <actionName>Case.Notify_Case_Owner_on_New_Email_BGS</actionName>
         <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>ServiceAdvisor_Scenarios</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
@@ -55,6 +55,9 @@
         <label>Generic Notify Owner</label>
         <locationX>182</locationX>
         <locationY>755</locationY>
+        <defaultConnector>
+            <targetReference>ServiceAdvisor_Scenarios</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Notify_Case_Owner</name>
@@ -97,7 +100,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>ServiceAdvisor_Scenarios</targetReference>
+                <targetReference>Generic_Notify_Owner</targetReference>
             </connector>
             <label>ServiceAdvisors</label>
         </rules>
