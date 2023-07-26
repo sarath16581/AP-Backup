@@ -166,7 +166,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 				var reseultValue = result;
 				if(result != null && reseultValue.indexOf(this.customerTierDefault) > -1 ) {
 					// display success message on successful link
-					this.error = void 0;
+					this.error = null;
 					updateCartForCustomPricing(
 						{
 							selectedLineItemId: this.lineitemId,
@@ -177,7 +177,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 							// display success message on successful link
 							this.disableApplyPSR = true;
 							this.success = result;
-							this.error = void 0;
+							this.error = null;
 							// disable Apply PSR button once successful link
 							this.isLoading = false;
 						})
@@ -234,7 +234,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 		this.selectedPSR = Object.assign({}, ...event.detail.selectedRows);
 		// remove error msg related to not selecting PSR, when a PSR is selected
 		if(this.error === this.errorMsgPSRNotselected){
-			this.error = void 0;
+			this.error = null;
 		}
 	}
 
