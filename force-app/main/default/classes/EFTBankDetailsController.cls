@@ -154,7 +154,9 @@ public without sharing class EFTBankDetailsController {
                     record.Bank_Details_Confirmed__c = confirmDetails;
                 }
                 record.Bank_Detail_Provided_By_Customer__c = this.compensationEmail;
-                Upsert record;
+
+                ElevatedSharingContext context = new ElevatedSharingContext();
+                context.upsertRecords(new List<SObject>{record});
                 //return to the record default details page
                 return new pagereference('/' + record.id);
             }
@@ -334,7 +336,7 @@ public without sharing class EFTBankDetailsController {
         }).values();
         // find the reference ID
         String referenceId = cases[0].ReferenceID__c;
-        // if no reference ID found return false, which means user will be able to create the comensation record
+        // if no reference ID found return false, which means user will be able to create the compensation record
         if(referenceId == null) {
             return false;
         }
@@ -355,12 +357,14 @@ public without sharing class EFTBankDetailsController {
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
 	* sharing settings.
 	*/
+    @TestVisible
     private without sharing class ElevatedSharingContext {
 
         /**
 		 * Insert a list of sObject records in system mode
 		 * @param List<sObject>
 		*/
+        @TestVisible
         private void upsertRecords(List<sObject> recordList) {
             ApplicationDatabase.getInstance().dmlUpsert(recordList, Compensation__c.Id,true);
         }

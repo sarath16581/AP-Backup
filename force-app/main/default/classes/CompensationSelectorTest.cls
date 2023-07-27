@@ -183,6 +183,22 @@ private with sharing class CompensationSelectorTest
         System.assertEquals(0, compensations.size());
     }
 
+
+    @isTest
+    private static void testSelectByCaseIds(){
+
+        String subject = 'subject';
+        Case cse = [SELECT Id FROM Case];
+        cse.Subject = subject;
+
+        CompensationSelector selector = new CompensationSelector();
+
+        List<Compensation__c> compensations = selector.selectByCaseIds(new Set<Id>{cse.Id}, new Set<Object>()).values();
+
+        System.assertEquals(1, compensations.size());
+
+    }
+
     // @isTest
     // private static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields()
     // {

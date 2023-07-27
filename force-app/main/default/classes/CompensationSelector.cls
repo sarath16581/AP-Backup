@@ -8,6 +8,7 @@
  * @description Compensation selector class
  * @changelog
  * 2021-07-12 - Phap Mai - Init
+ * 2023-07-25 - Hasantha Liyanage - Modified: added SelectByCaseIds
  */
 public virtual inherited sharing class CompensationSelector extends ApplicationSelector
 {
@@ -45,6 +46,7 @@ public virtual inherited sharing class CompensationSelector extends ApplicationS
             }
         };
     }
+
 
     public static CompensationSelector newInstance()
     {

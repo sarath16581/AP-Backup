@@ -14,8 +14,16 @@
 
 @isTest
 public with sharing class EFTBankDetailsController_Test {
-    
-	
+    @TestSetup
+    static void setupData() {
+        Test.startTest();
+        list<PermissionSetAssignment> permissionSetAssignmentList = new list<PermissionSetAssignment>();
+        // create a super user
+        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_User'},'agent','CEO/Reporting');
+        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
+        TestDataFactory.insertUserFuture('SSSW - Service Agent',null,'normalUser','CEO/Reporting');
+        Test.stopTest();
+    }
 	/********************************************
 	Scenario:
 	Test the bank details save method.
@@ -391,4 +399,399 @@ public with sharing class EFTBankDetailsController_Test {
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('Please confirm Bank Details with the customer.',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
+
+    /**
+     * Compensation user permission is not allowed to update bank details
+     */
+    static testMethod void testValidateCompensationUserPermission_bankDetail_001() {
+
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Compensation__c comp = new Compensation__c(
+                Contact__c = contact.Id,
+                Case__c = testCase.Id ,
+                Batch_ID__c = 1 ,
+                Status__c = 'Pending' ,
+                Compensation_Amount__c = 150,
+                CostCentreCode__c = 'test',
+                BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
+
+        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+        context.upsertRecords(new List<SObject>{comp});
+
+        Test.startTest();
+        String message = '';
+        System.runAs(agentUser) {
+
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+
+            ext.accountNumber = '11111111';
+            ext.accountBSB = '111111';
+            ext.accountName = 'New Account';
+            ext.privacyCheck = true;
+            ext.confirmDetails = true;
+            try {
+                ext.insertMethod();
+            } catch (Exception e) {
+                message = e.getMessage();
+            }
+
+
+        }
+        Test.stopTest();
+        system.debug('HASANTHA MSG'+message+ApexPages.getMessages());
+        System.assertEquals(
+                'You do not have privilege to manually enter the bank account details',
+                ApexPages.getMessages()[0].getSummary(),
+                'testValidateCompensationUserPermission_bankDetail_001: You do not have privilege to manually enter the bank account details'
+        );
+    }
+
+    /**
+  * Compensation Supervisor user permission is allowed to update bank details
+  */
+    static testMethod void testValidateCompensationUserPermission_bankDetail_002() {
+
+        User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Compensation__c comp = new Compensation__c(
+                Contact__c = contact.Id,
+                Case__c = testCase.Id ,
+                Batch_ID__c = 1 ,
+                Status__c = 'Pending' ,
+                Compensation_Amount__c = 150,
+                CostCentreCode__c = 'test',
+                BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
+
+
+        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+        context.upsertRecords(new List<SObject>{comp});
+
+        Test.startTest();
+        System.runAs(superUser) {
+
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+
+            ext.accountNumber = '11111111';
+            ext.accountBSB = '111111';
+            ext.accountName = 'New Account';
+            ext.privacyCheck = true;
+            ext.confirmDetails = true;
+            ext.insertMethod();
+
+
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                0,
+                ApexPages.getMessages().size(),
+                'testValidateCompensationUserPermission_bankDetail_002: Super user should have privilege to manually enter the bank account details'
+        );
+    }
+
+    /**
+    * Normal user permission is NOT allowed to send email
+    */
+    static testMethod void testValidateCompensationSendEmail_001() {
+
+        User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Compensation__c comp = new Compensation__c(
+                Contact__c = contact.Id,
+                Case__c = testCase.Id ,
+                Batch_ID__c = 1 ,
+                Status__c = 'Pending' ,
+                Compensation_Amount__c = 150,
+                CostCentreCode__c = 'test',
+                BSB__c = '444333',
+                Account_Number__c = '123234345' ,
+                RecordTypeId = recordTypeId,
+                Cover_Type__c = 'ACL'
+        );
+
+
+        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+        context.upsertRecords(new List<SObject>{comp});
+
+        Test.startTest();
+        System.runAs(normalUser) {
+
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+            ext.compensationEmail = true;
+            ext.insertMethod();
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                'You do not have privilege to send email to customer',
+                ApexPages.getMessages()[0].getSummary(),
+                'testValidateCompensationSendEmail__001: You do not have privilege to send email to customer'
+        );
+    }
+
+    /**
+    * Users with permission is allowed to send email
+    */
+    static testMethod void testValidateCompensationSendEmail_002() {
+
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Compensation__c comp = new Compensation__c(
+                Contact__c = contact.Id,
+                Case__c = testCase.Id ,
+                Batch_ID__c = 1 ,
+                Status__c = 'Pending' ,
+                Compensation_Amount__c = 150,
+                CostCentreCode__c = 'test',
+                BSB__c = '444333',
+                Account_Number__c = '123234345' ,
+                RecordTypeId = recordTypeId,
+                Cover_Type__c = 'ACL'
+        );
+
+
+        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+        context.upsertRecords(new List<SObject>{comp});
+
+        Test.startTest();
+        System.runAs(agentUser) {
+
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+            ext.compensationEmail = true;
+            ext.insertMethod();
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                0,
+                ApexPages.getMessages().size(),
+                'testValidateCompensationSendEmail_002: User should have privilege to send email to customer'
+        );
+    }
+
+    /**
+    * Check on privilege to create compensation records as an agent user with permissions
+    */
+    static testMethod void validateOnLoad_001() {
+
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Test.startTest();
+        System.runAs(agentUser) {
+            Compensation__c comp = new Compensation__c(
+                    Contact__c = contact.Id,
+                    Case__c = testCase.Id ,
+                    Batch_ID__c = 1 ,
+                    Status__c = 'Pending' ,
+                    Compensation_Amount__c = 150,
+                    CostCentreCode__c = 'test',
+                    RecordTypeId = recordTypeId,
+                    Cover_Type__c = 'ACL'
+            );
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+            ext.compensationEmail = true;
+            ext.insertMethod();
+        }
+        Test.stopTest();
+        system.debug('HASANTHA -- '+ApexPages.getMessages());
+        System.assertEquals(
+                0,
+                ApexPages.getMessages().size(),
+                'validateOnLoad_001: User should have privilege to create/update compensation records.'
+        );
+    }
+
+    /**
+    * Check on privilege to create compensation records as a normal user without permissions and with EFT record type
+    */
+    static testMethod void validateOnLoad_002() {
+
+        User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Test.startTest();
+        System.runAs(normalUser) {
+            Compensation__c comp = new Compensation__c(
+                    Contact__c = contact.Id,
+                    Case__c = testCase.Id ,
+                    Batch_ID__c = 1 ,
+                    Status__c = 'Pending' ,
+                    Compensation_Amount__c = 150,
+                    CostCentreCode__c = 'test',
+                    BSB__c = '444333',
+                    Account_Number__c = '123234345' ,
+                    RecordTypeId = recordTypeId,
+                    Cover_Type__c = 'ACL'
+            );
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+            ext.insertMethod();
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                'You do not have privilege to create/update compensation records.',
+                ApexPages.getMessages()[0].getSummary(),
+                'validateOnLoad_001: User do not have privilege to create/update compensation records.'
+        );
+    }
+
+    /**
+     * User should not be able to create a duplicate compensation record per Reference ID
+     */
+    static testMethod void validateOnLoad_003() {
+
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c  = 'REF01';
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+        Compensation__c comp = new Compensation__c(
+                Contact__c = contact.Id,
+                Case__c = testCase.Id ,
+                Batch_ID__c = 1 ,
+                Status__c = 'Pending' ,
+                Compensation_Amount__c = 150,
+                CostCentreCode__c = 'test',
+                BSB__c = '444333',
+                Account_Number__c = '123234345' ,
+                RecordTypeId = recordTypeId,
+                Cover_Type__c = 'ACL'
+        );
+
+
+        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+        context.upsertRecords(new List<SObject>{comp});
+        Test.startTest();
+        System.runAs(agentUser) {
+            Compensation__c comp2 = new Compensation__c(
+                    Contact__c = contact.Id,
+                    Case__c = testCase.Id ,
+                    Batch_ID__c = 1 ,
+                    Status__c = 'Pending' ,
+                    Compensation_Amount__c = 150,
+                    CostCentreCode__c = 'test',
+                    RecordTypeId = recordTypeId,
+                    Cover_Type__c = 'ACL'
+            );
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp2);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+            ext.compensationEmail = true;
+            ext.insertMethod();
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                'The Reference ID already have a compensation record and only supervisor can create more than one.',
+                ApexPages.getMessages()[0].getSummary(),
+                'validateOnLoad_001: User should not be able to create another compensation record'
+        );
+    }
+
+    /**
+     * Only supervisor user should be able to create duplicate compensation records
+     */
+    static testMethod void validateOnLoad_004() {
+
+        User Superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+
+        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        insert contact;
+        //create test data
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c  = 'REF01';
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+        Compensation__c comp = new Compensation__c(
+                Contact__c = contact.Id,
+                Case__c = testCase.Id ,
+                Batch_ID__c = 1 ,
+                Status__c = 'Pending' ,
+                Compensation_Amount__c = 150,
+                CostCentreCode__c = 'test',
+                BSB__c = '444333',
+                Account_Number__c = '123234345' ,
+                RecordTypeId = recordTypeId,
+                Cover_Type__c = 'ACL'
+        );
+
+
+        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+        context.upsertRecords(new List<SObject>{comp});
+        Test.startTest();
+        System.runAs(Superagent) {
+            Compensation__c comp2 = new Compensation__c(
+                    Contact__c = contact.Id,
+                    Case__c = testCase.Id ,
+                    Batch_ID__c = 1 ,
+                    Status__c = 'Pending' ,
+                    Compensation_Amount__c = 150,
+                    CostCentreCode__c = 'test',
+                    RecordTypeId = recordTypeId,
+                    Cover_Type__c = 'ACL'
+            );
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp2);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+            ext.compensationEmail = true;
+            ext.insertMethod();
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                0,
+                ApexPages.getMessages().size(),
+                'validateOnLoad_004: Only supervisor user should be able to create duplicate compensation records'
+        );
+    }
+
 }

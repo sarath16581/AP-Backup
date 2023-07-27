@@ -2,7 +2,7 @@ public with sharing class CompensationResendButtonExtension
 {
     public Boolean compensationEmailResendDone {get; set;}
     public String compensationEmailResendResult {get; set;}
-    public static Boolean isAllowedToCreateCompensation {
+    public Boolean isAllowedToCreateCompensation {
         get {
             if(isAllowedToCreateCompensation == null) {
                 return true;

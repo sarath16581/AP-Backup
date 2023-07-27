@@ -128,11 +128,6 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return selectByCaseNumber(caseNumbers, new Set<Object>());
 	}
 
-	public virtual Map<Id, Case> selectByArticleIds(Set<String> ids, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' in :ids')).endConditions();
-		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
-	}
-
 	/**
 	 * @description Run a simple query to get records based on case numbers
 	 */

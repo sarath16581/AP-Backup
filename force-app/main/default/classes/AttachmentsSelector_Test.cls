@@ -8,6 +8,7 @@
  * @description Test Class covering AttachmentsSelector
  * @changelog
  * 2020-08-24 - Disha Kariya - Created
+ * 2023-07-25 - Hasantha Liyanage - Modified: added testSelectorSelectByParentId test
  */
 @IsTest
 public with sharing class AttachmentsSelector_Test {
@@ -98,6 +99,43 @@ public with sharing class AttachmentsSelector_Test {
 
         AttachmentsSelector selector = AttachmentsSelector.newInstance(1);
         Map<Id, Attachment> results = selector.selectById(new Set<Id>{attachment.Id});
+        System.assertEquals(1, results.size(), 'Expected result size of 1');
+
+
+        Test.stopTest();
+
+    }
+
+
+    /**
+     * Executes a query to ensure it returns expected results with actual inserted data
+     */
+    @IsTest
+    public static void testSelectorSelectByParentId() {
+
+        // =====================================
+        // Data Preparation
+        // =====================================
+        MockUtility.disableTriggerExecution();
+
+        Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+        insert account;
+
+        Attachment attachment = ApplicationTestDataFactory.getAttachments(1, account.Id, false)[0];
+        insert attachment;
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        // None!
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+        AttachmentsSelector selector = AttachmentsSelector.newInstance(1);
+        Map<Id, Attachment> results = selector.selectByParentId(new Set<Id>{account.Id});
         System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 

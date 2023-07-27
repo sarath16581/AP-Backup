@@ -8,6 +8,7 @@
  * -----------------------------------------------------------------------------------
  * 12-10-2020  Jansi added newInstance method with recordLimit, offsetLimit params
  * 13-10-2020 added sortOrder, sortfieldAPIName class variables
+ * 21-07-2023 hasantha.liyanage@auspost.com.au Added with with contentDocument option
 */
 public virtual inherited sharing class ContentDocumentLinksSelector extends ApplicationSelector {
 

@@ -54,4 +54,28 @@ public class TestDataFactory {
         
         return testCommunityUser;
     }
+
+    @future
+    public static void insertUserFuture(String profileName, Set<String> permissionSets, String UserName, String role) {
+        Profile p = [SELECT Id FROM Profile WHERE Name=: profileName];
+        UserRole r = [SELECT Id FROM UserRole WHERE Name =: role];
+
+        User futureUser = new User(firstname = UserName, lastname = UserName,
+                alias = 'future', defaultgroupnotificationfrequency = 'N',
+                digestfrequency = 'N', email = 'test@test.org',
+                emailencodingkey = 'UTF-8', languagelocalekey='en_US',
+                localesidkey='en_US', profileid = p.Id,
+                timezonesidkey = 'America/Los_Angeles',
+                username = UserName+'@test.org',
+                userpermissionsmarketinguser = false,
+                userpermissionsofflineuser = false, userroleid = r.Id);
+        insert(futureUser);
+        list<PermissionSetAssignment> permissionSetAssignmentList = new list<PermissionSetAssignment>();
+        List<PermissionSet> permissionSetsToAssign = [SELECT Id FROM PermissionSet WHERE Name IN: permissionSets] ;
+        for(PermissionSet permSet: permissionSetsToAssign) {
+            permissionSetAssignmentList.add(new PermissionSetAssignment (PermissionSetId = permSet.Id, AssigneeId = futureUser.Id));
+        }
+
+        insert permissionSetAssignmentList;
+    }
 }

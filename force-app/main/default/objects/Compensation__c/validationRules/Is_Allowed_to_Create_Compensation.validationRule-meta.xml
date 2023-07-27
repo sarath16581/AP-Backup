@@ -4,16 +4,17 @@
     <active>true</active>
     <errorConditionFormula>AND(
   NOT(
-    OR($Permission.Is_Compensation_User, $Permission.Is_Compensation_Supervisor)
+    OR($Permission.Is_Compensation_User
+      , $Permission.Is_Compensation_Supervisor
+      , $Profile.Name = &apos;Consumer Help and Support Profile&apos;
+      , CONTAINS($Profile.Name , &quot;Administrator&quot;))
   ), 
   OR(
     RecordType.DeveloperName = &apos;EFT&apos;,
     RecordType.DeveloperName = &apos;Load_and_Go&apos;,
     RecordType.DeveloperName = &apos;Money_Order&apos;,
     RecordType.DeveloperName = &apos;Money_Order_Number_Required&apos;
-    ),
-    NOT($Profile.Name = &apos;Consumer Help and Support Profile&apos;) &amp;&amp; 
-    NOT( CONTAINS($Profile.Name , &quot;Administrator&quot;) )
+    )
   )</errorConditionFormula>
     <errorDisplayField>Account_Name__c</errorDisplayField>
     <errorMessage>You do not have privilege to create/update compensation records.</errorMessage>
