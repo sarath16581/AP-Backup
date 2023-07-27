@@ -1,5 +1,6 @@
 /**
  * 2020-05-25 - Nathan Franklin - Added ability to search billing accounts for selection for Merchant Portal
+ * 2023-07-25 - Mahesh Parvathaneni - Added getter setter for billingAccounts to re-render the billing accounts from parent
  */
 import {LightningElement, api, track} from 'lwc';
 import { keyBy, debounce } from 'c/bamUtils'
@@ -16,7 +17,6 @@ export default class BamBillingAccountSelector extends LightningElement {
 	@track objectifiedSelections;
 	@track filteringDataset;
 
-	@api billingAccounts;
 	@api isDisabled;
 
 	/**
@@ -32,6 +32,17 @@ export default class BamBillingAccountSelector extends LightningElement {
 	}
 	get selected() {
 		return Object.keys(this.objectifiedSelections);
+	}
+
+	@api
+	set billingAccounts(value) {
+		if(value) {
+			this.filteredBillingAccounts = value;
+		}
+	}
+
+	get billingAccounts() {
+		return this.filteredBillingAccounts;
 	}
 
 	@api applicationId;
@@ -51,7 +62,7 @@ export default class BamBillingAccountSelector extends LightningElement {
 	}
 
 	get tableWrapperStyles() {
-		return 'max-height: 390px;overflow-y:scroll;position:relative;';// + (this.filteredBillingAccounts ? Math.min(this.filteredBillingAccounts.length*35, 350) : 100) + 'px';
+		return 'max-height: 390px;overflow-y:auto;position:relative;';// + (this.filteredBillingAccounts ? Math.min(this.filteredBillingAccounts.length*35, 350) : 100) + 'px';
 	}
 
 	get tableClasses() {

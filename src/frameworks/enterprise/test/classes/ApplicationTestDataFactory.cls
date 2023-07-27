@@ -33,6 +33,7 @@
  * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
  * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
  * 2023-07-16 - SteveL- Added getEvents
+ * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -895,6 +896,17 @@ public with sharing class ApplicationTestDataFactory {
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
+		}, count), generateIds);
+	}
+
+	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
+		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
+			BAMApplication__c.Name => appName,
+			BAMApplication__c.ConfigurationModel__c => 'Per Customer',
+			BAMApplication__c.Status__c => 'Active',
+			BAMApplication__c.Product__c =>  productId,
+			BAMApplication__c.appKey__c => appName.substring(0,Math.min(appName.length(), 9)),
+			BAMApplication__c.ServiceType__c =>  'Salesforce'
 		}, count), generateIds);
 	}
 

@@ -1,5 +1,6 @@
 /**
  * 2020-05-27 - Nathan Franklin - Included the search billing account selector table and fixed some minor UI bugs
+ * 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
  */
 ({
 	/**
@@ -9,7 +10,7 @@
 	 * @param contactApplications
 	 * @param mapAppToRoles
 	 */
-	parseApplications : function(component, arrApplications, contactApplications, mapAppToRoles)
+	parseApplications : function(component, arrApplications, contactApplications, mapAppToRoles, billingAccountsByApp)
 	{
 		var pendingCount = 0;
 		var pageState = [];
@@ -74,7 +75,7 @@
 					app.locked = false;
 				}
 
-				 */
+					*/
 
 				// set any statuses by the latest request
 
@@ -122,8 +123,16 @@
 			app.contactRole = stateRole;
 
 			if (app.Name == 'Business Support Portal'){
-			    app.isBSP = true;
-            }
+				app.isBSP = true;
+			}
+			//get the billing accounts by app
+			app.billingAccountOptions = [];
+			let billingAccountWrapperData = billingAccountsByApp.find(billingAccountData => app.Id === billingAccountData.bamApplicationId);
+			if(billingAccountWrapperData){
+				app.billingAccounts = billingAccountWrapperData.billingAccounts;
+				//set the billing account options for the dropdown
+				app.billingAccountOptions = this.parseBillingAccounts(app.billingAccounts);
+			}
 
 			pageState.push(app);
 		}
@@ -136,10 +145,10 @@
 
 
 	/**
-	 * Helper function to store the roles as option objects which the RadioGroup can use
-	 * @param applicationRoles
-	 * @returns {Array}
-	 */
+	* Helper function to store the roles as option objects which the RadioGroup can use
+	* @param applicationRoles
+	* @returns {Array}
+	*/
 	, formatApplicationRoles:function(component, applicationRoles__r)
 	{
 		var applicationRoles = component.get('v.applicationRoles');
@@ -195,32 +204,32 @@
 	, updateBillingAccountsVisibility:function(component, idRole)
 	{
 		// look for the Application Role to see if we need to show the billing accounts
-        let appRole = this.findApplicationRoleById(component, idRole);
-        var divBillingAccounts = document.getElementById(appRole.Application__c);
-        if(divBillingAccounts) {
-	        if (appRole.ShowBillingAccount__c == true) {
-		        divBillingAccounts.style.display = 'block';
-	        } else {
-		        divBillingAccounts.style.display = 'none';
-	        }
-        }
+		let appRole = this.findApplicationRoleById(component, idRole);
+		var divBillingAccounts = document.getElementById(appRole.Application__c);
+		if(divBillingAccounts) {
+			if (appRole.ShowBillingAccount__c == true) {
+				divBillingAccounts.style.display = 'block';
+			} else {
+				divBillingAccounts.style.display = 'none';
+			}
+		}
 	}
 
 	, findApplicationRoleById:function(component, idRole)
-    {
-        var applicationRoles = component.get('v.applicationRoles');
-        for(var i = 0; i < applicationRoles.length; ++i) {
-            var appRole = applicationRoles[i];
-            if (appRole.Id == idRole)
-                return appRole;
-        }
-    }
+	{
+		var applicationRoles = component.get('v.applicationRoles');
+		for(var i = 0; i < applicationRoles.length; ++i) {
+			var appRole = applicationRoles[i];
+			if (appRole.Id == idRole)
+				return appRole;
+		}
+	}
 
 	/**
-	 * Helper function format the selection in a string array for preselection of dual listboxes
-	 * @param arrEntities
-	 * @returns {Array}
-	 */
+	* Helper function format the selection in a string array for preselection of dual listboxes
+	* @param arrEntities
+	* @returns {Array}
+	*/
 	, formatBillingAccounts:function(arrEntities)
 	{
 		if(!arrEntities)
@@ -235,11 +244,11 @@
 	}
 
 	/**
-	 * Helper function to format static data of Billing Accounts
-	 * @param component
-	 * @param arrBillingAccounts
-	 */
-	, parseBillingAccounts: function(component, arrBillingAccounts)
+	* Helper function to format static data of Billing Accounts
+	* @param component
+	* @param arrBillingAccounts
+	*/
+	, parseBillingAccounts: function(arrBillingAccounts)
 	{
 		let arrOptions = [];
 
@@ -266,8 +275,7 @@
 			arrOptions.push(objOption);
 		}
 
-		component.set('v.billingAccountOptions', arrOptions);
-		component.set('v.billingAccounts', arrBillingAccounts);
+		return arrOptions;
 	}
 
 	// UI function to expand all accordion sections
@@ -388,20 +396,20 @@
 				}
 			}
 
-            // check if billing accounts need to be added
-            let appRole = this.findApplicationRoleById(component, pageRole.ApplicationRole__c)
-            {
-                if(appRole && appRole.ShowBillingAccount__c == true
-                    && (!pageRole.selectedEntities || pageRole.selectedEntities.length < 1))
-                {
-                    console.debug('missing billing accounts for ' + i);
-                    missingBillingAccounts = true;
-                }
-                else if (!appRole || appRole.ShowBillingAccount__c == false)
-                {
-                    pageRole.selectedEntities = [];
-                }
-            }
+			// check if billing accounts need to be added
+			let appRole = this.findApplicationRoleById(component, pageRole.ApplicationRole__c)
+			{
+				if(appRole && appRole.ShowBillingAccount__c == true
+					&& (!pageRole.selectedEntities || pageRole.selectedEntities.length < 1))
+				{
+					console.debug('missing billing accounts for ' + i);
+					missingBillingAccounts = true;
+				}
+				else if (!appRole || appRole.ShowBillingAccount__c == false)
+				{
+					pageRole.selectedEntities = [];
+				}
+			}
 
 
 			if(appState.upsert.length != 0 || appState.destructive.length != 0)
@@ -410,15 +418,15 @@
 
 
 		if(missingBillingAccounts)
-        {
-            alert('1 or more roles are missing a billing account');
-            return;
-        }
+		{
+			alert('1 or more roles are missing a billing account');
+			return;
+		}
 
-        // Set the updated Primary Billing Account to the Contact
-        var contact = component.get('v.contactObj');
-        var primaryBillingAccount = contact.BillingAccount__c;
-        console.debug('Set new primaryBillingAccount', primaryBillingAccount);
+		// Set the updated Primary Billing Account to the Contact
+		var contact = component.get('v.contactObj');
+		var primaryBillingAccount = contact.BillingAccount__c;
+		console.debug('Set new primaryBillingAccount', primaryBillingAccount);
 
 		// attempt to save regardless of UI changes, in case a Primary Billing Account has been added
 
@@ -443,15 +451,15 @@
 				console.debug('OnboardContactComponent::after save');
 				console.debug(objResponse);
 
-                // check for any user creation errors
-                if(objResponse.status == 'Error')
-                {
-                    alert('Error saving:' + objResponse.message );
-                }
-                else {
-                    window.location.reload();
-                    return;
-                }
+				// check for any user creation errors
+				if(objResponse.status == 'Error')
+				{
+					alert('Error saving:' + objResponse.message );
+				}
+				else {
+					window.location.reload();
+					return;
+				}
 
 
 				/*
@@ -482,21 +490,21 @@
 					alert('Error occurred, please reload the page');
 				}
 				
-				 */
+					*/
 			}
 			else {
-                var errors = response.getError();
-                if (errors) {
-                    if (errors[0] && errors[0].message) {
-                        alert("Error message: " + 
-                                 errors[0].message);
-                    }
-                }
-                else
-                {       
-                    alert('Error saving changes, please try again');
-                }
-            }
+				var errors = response.getError();
+				if (errors) {
+					if (errors[0] && errors[0].message) {
+						alert("Error message: " + 
+									errors[0].message);
+					}
+	                }
+	                else
+	                {       
+	                    alert('Error saving changes, please try again');
+	                }
+			}
 			component.set('v.showSpinner', false);
 		});
 		$A.enqueueAction(actionSave);
@@ -578,18 +586,18 @@
 				}
 			}
 			else {
-                var errors = response.getError();
-                if (errors) {
-                    if (errors[0] && errors[0].message) {
-                        alert("Error message: " + 
-                                 errors[0].message);
-                    }
-                }
-                else
-                {       
-                    alert('Error saving changes, please try again');
-                }
-            }
+				var errors = response.getError();
+				if (errors) {
+					if (errors[0] && errors[0].message) {
+						alert("Error message: " + 
+									errors[0].message);
+					}
+	                }
+	                else
+	                {       
+	                    alert('Error saving changes, please try again');
+	                }
+			}
 			component.set('v.showSpinner', false);
 		});
 		$A.enqueueAction(actionSave);
