@@ -13,6 +13,7 @@ $Profile.Name = &apos;Hub Users&apos;,
 $Profile.Name = &apos;Product Sales&apos;,
 $Profile.Name = &apos;Sales 3rd Party&apos;,
 $Profile.Name = &apos;SecurePay Super User&apos;,
+$Profile.Name = &apos;Sales Admin&apos;,
 $Profile.Name = &apos;Solution Sales&apos;)
 )</errorConditionFormula>
     <errorMessage>This Opportunity is Closed-Won, you don&apos;t have access to add or remove Products</errorMessage>
