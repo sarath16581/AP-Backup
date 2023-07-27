@@ -8367,4 +8367,20 @@ If this opportunity is for Startrack product, then you are required to provide:
         <shortDescription>ViewRateCardControllerError</shortDescription>
         <value>Your checkout transaction is still being processed, please try again later</value>
     </labels>
+	<labels>
+        <fullName>BAMInvalidBillingAccountFields</fullName>
+        <categories>BAM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Invalid Billing Account Fields</shortDescription>
+        <value>Billing Account field API Name: {0} defined in the filter is invalid.</value>
+    </labels>
+    <labels>
+        <fullName>BAMInvalidBillingAccountJsonFilter</fullName>
+        <categories>BAM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Invalid Billing Account Json Filter</shortDescription>
+        <value>JSON provided is invalid. Please fix it.</value>
+    </labels>
 </CustomLabels>
