@@ -166,6 +166,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 				var reseultValue = result;
 				if(result != null && reseultValue.indexOf(this.customerTierDefault) > -1 ) {
 					// display success message on successful link
+
 					this.error = null;
 					updateCartForCustomPricing(
 						{
@@ -174,12 +175,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 							configId: this.configId,
 						})
 						.then((result)=>{
-							// display success message on successful link
-							this.disableApplyPSR = true;
 							this.success = result;
-							this.error = null;
-							// disable Apply PSR button once successful link
-							this.isLoading = false;
 						})
 						.catch((error) => {
 							this.isLoading = false;
@@ -192,6 +188,13 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 					})
 
 				}
+				// display success message on successful link
+				this.disableApplyPSR = true;
+				this.success = result;
+				this.error = null;
+				// disable Apply PSR button once successful link
+				this.isLoading = false;
+
 			})
 			.catch((error) => {
 				this.isLoading = false;
