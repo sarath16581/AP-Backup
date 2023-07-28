@@ -156,7 +156,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Portfolio Assignment</label>
     <nameField>
-        <label>Portfolio Assignment Code</label>
+        <label>Portfolio Code</label>
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
