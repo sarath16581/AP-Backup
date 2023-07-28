@@ -617,7 +617,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
+        <field>PortfolioAssignment__c.SalesDirectorPortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
