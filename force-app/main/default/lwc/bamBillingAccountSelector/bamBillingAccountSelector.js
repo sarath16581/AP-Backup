@@ -13,6 +13,7 @@ export default class BamBillingAccountSelector extends LightningElement {
 
 	// used for storing the filtered billing account state
 	filteredBillingAccounts;
+	_billingAccounts; //private variable to store billing accounts on initial load
 
 	@track objectifiedSelections;
 	@track filteringDataset;
@@ -38,11 +39,12 @@ export default class BamBillingAccountSelector extends LightningElement {
 	set billingAccounts(value) {
 		if(value) {
 			this.filteredBillingAccounts = value;
+			this._billingAccounts = value;
 		}
 	}
 
 	get billingAccounts() {
-		return this.filteredBillingAccounts;
+		return this._billingAccounts;
 	}
 
 	@api applicationId;
