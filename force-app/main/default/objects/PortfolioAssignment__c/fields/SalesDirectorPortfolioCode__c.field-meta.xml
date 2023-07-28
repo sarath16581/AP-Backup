@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>SalesManagerPortfolioCode__c</fullName>
+    <fullName>SalesDirectorPortfolioCode__c</fullName>
     <externalId>false</externalId>
-    <label>Sales Manager Portfolio Code</label>
+    <label>Sales Director Portfolio Code</label>
     <length>100</length>
     <required>false</required>
     <trackHistory>false</trackHistory>
