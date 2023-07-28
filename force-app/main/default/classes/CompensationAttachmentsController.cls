@@ -119,6 +119,19 @@ public with sharing class CompensationAttachmentsController {
     }
 
     /**
+     * Get Attachments related to passed Id
+     * @param recordId
+     *
+     * @return
+     */
+    private static List<Attachment> getAttachments(Id recordId) {
+        Map<Id, Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
+                recordId
+        });
+        return caseAttachments != null ? caseAttachments.values() : new List<Attachment>();
+    }
+
+    /**
      * get attachment details
      * @param compensation current compensation record
      * @param attachmentDetails to storeattachment details
@@ -126,16 +139,12 @@ public with sharing class CompensationAttachmentsController {
     @TestVisible
     private static void getAttachmentDetails(Compensation__c compensation, List<AttachmentDetail> attachmentDetails) {
         // get attachments related to related case
-        Map<Id, Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                compensation.Case__c
-        });
+        List<Attachment> caseAttachments = getAttachments(compensation.Case__c);
         // get attachments related to compensation, this will allow us to find any existing attachments
-        Map<Id, Attachment> compensationAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                compensation.Id
-        });
+        List<Attachment> compensationAttachments = getAttachments(compensation.Id);
 
         // compare attachments and prepare the attachment details
-        for (Attachment caseAttachment : caseAttachments.values()) {
+        for (Attachment caseAttachment : caseAttachments) {
             AttachmentDetail detail = new AttachmentDetail();
             detail.BodyLength = caseAttachment.BodyLength;
             detail.ContentType = caseAttachment.ContentType;
@@ -144,7 +153,7 @@ public with sharing class CompensationAttachmentsController {
             detail.Name = caseAttachment.Name;
             detail.ParentId = caseAttachment.ParentId;
             detail.isAttachment = true;
-            for (Attachment compensationAttachment : compensationAttachments.values()) {
+            for (Attachment compensationAttachment : compensationAttachments) {
                 if (caseAttachment.Name == compensationAttachment.Name) {
                     detail.isSelected = true;
                 }
@@ -189,16 +198,18 @@ public with sharing class CompensationAttachmentsController {
         if(!contentLinks.isEmpty()) {
             ApplicationDatabase.getInstance().dmlInsert(contentLinks);
         }
-
+        system.debug('HASANTHA HERE attachmentIds'+attachmentIds);
         // restive attachments to create duplicate attachments
         Map<Id, Attachment> attachmentsToDuplicate = AttachmentsSelector.newInstance().selectById(attachmentIds, new Set<Object>{AttachmentsSelector.Options.WITH_BODY});
         List<Attachment> duplicateAttachments = new List<Attachment>();
 
-        // prepare clones
-        for (Attachment attachment : attachmentsToDuplicate.values()) {
-            Attachment newAttachment = attachment.clone(false);
-            newAttachment.ParentId = recordId;
-            duplicateAttachments.add(newAttachment);
+        if(attachmentsToDuplicate != null) {
+            // prepare clones
+            for (Attachment attachment : attachmentsToDuplicate.values()) {
+                Attachment newAttachment = attachment.clone(false);
+                newAttachment.ParentId = recordId;
+                duplicateAttachments.add(newAttachment);
+            }
         }
 
         // create new attachments against compensation record
