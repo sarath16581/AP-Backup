@@ -11,6 +11,7 @@ the controller runs on system mode to enable agents to enter and edit compensati
 * 2020-08-07 - dheeraj.mandavilli@auspost.com.au Added Logic to accomodate Load & Go Record Type.
 * 2020-08-21 - dheeraj.mandavilli@auspost.com.au Removed Logic associated with Load & Go Record Type.
 * 2021-08-25 - phap.mai@auspost.com.au Modified the validate method to ignore checking if compensation email checkbox is ticked
+* 2023-07-01 - hasantha.liyanage@auspost.com.au Modified: Compensation MW changes based on the custom permissions control the UI accessibility
 */
 
 public without sharing class EFTBankDetailsController {

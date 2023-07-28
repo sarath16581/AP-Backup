@@ -9,6 +9,7 @@
  * @changelog
  * 2020-08-21 - Disha kariya - Created
  * 2021-10-01 -  Nathan Franklin - Added WITH_BODY option + uplift to v52
+ * 2023-07-15 -  Hasantha Liyanage added selectByParentId method
  */
 public virtual inherited sharing class AttachmentsSelector extends ApplicationSelector {
 

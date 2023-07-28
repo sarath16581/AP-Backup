@@ -1,5 +1,13 @@
 /**
- * Created by hasan on 11/07/2023.
+ * @author Hasantha Liyanage
+ * @date 2023-07-12
+ * @group Module
+ * @tag Module
+ * @tag Compensation
+ * @domain Core
+ * @description Compensation Module class
+ * @changelog
+ * 2023-07-15 - Hasantha Liyanage - Created
  */
 
 public with sharing class CompensationUtilityModule extends ApplicationModule {
