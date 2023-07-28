@@ -10,6 +10,7 @@
 * 2020-08-07 - dheeraj.mandavilli@auspost.com.au Added Logic to accomodate Load & Go Record Type Tests
 * 2020-08-21 - dheeraj.mandavilli@auspost.com.au Removed Logic associated with Load & Go Record Type.
 * 2021-08-25 - phap.mai@auspost.com.au Added test method for compensation email checkbox
+* 2023-07-25 - Hasantha.Liyanage@auspost.com.au Added test method for new compensation custom permission validations
 */
 
 @isTest
@@ -17,7 +18,6 @@ public with sharing class EFTBankDetailsController_Test {
     @TestSetup
     static void setupData() {
         Test.startTest();
-        list<PermissionSetAssignment> permissionSetAssignmentList = new list<PermissionSetAssignment>();
         // create a super user
         TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_User'},'agent','CEO/Reporting');
         TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');

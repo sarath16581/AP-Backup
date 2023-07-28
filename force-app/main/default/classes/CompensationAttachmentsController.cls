@@ -77,23 +77,9 @@ public with sharing class CompensationAttachmentsController {
     @TestVisible
     private static void getFileAttachmentDetails(Compensation__c compensation, List<AttachmentDetail> attachmentDetails) {
         // get files related to related case
-        List<ContentDocumentLink> caseContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
-                new Map<String, Object>{
-                        'entityIds' => compensation.Case__c
-                },
-                new Set<Object>{
-                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
-                },
-                true).values();
+        List<ContentDocumentLink> caseContentDocumentLinks = getContentDocumentLinksWithDocuments(compensation.Case__c);
         // get files related to compensation
-        List<ContentDocumentLink> compensationContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
-                new Map<String, Object>{
-                        'entityIds' => compensation.Id
-                },
-                new Set<Object>{
-                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
-                },
-                true).values();
+        List<ContentDocumentLink> compensationContentDocumentLinks = getContentDocumentLinksWithDocuments(compensation.Id);
 
         // compare files and prepare the attachment details
         for (ContentDocumentLink contentDocumentLink : caseContentDocumentLinks) {
@@ -112,6 +98,24 @@ public with sharing class CompensationAttachmentsController {
             }
             attachmentDetails.add(detail);
         }
+    }
+
+    /**
+     * Get content documents with content documents per passed Id
+     * @param entityId
+     *
+     * @return
+     */
+    private static List<ContentDocumentLink> getContentDocumentLinksWithDocuments(Id entityId) {
+        Map<Id, ContentDocumentLink> caseContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
+                new Map<String, Object>{
+                        'entityIds' => entityId
+                },
+                new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                },
+                true);
+        return caseContentDocumentLinks != null ? caseContentDocumentLinks.values() : new List<ContentDocumentLink>();
     }
 
     /**
