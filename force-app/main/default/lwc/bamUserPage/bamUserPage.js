@@ -177,7 +177,7 @@ export default class BamUserPage extends LightningElement {
 						poll(this.reloadDataToReflectChangesInPendingApps)
 					}
 				} else {
-					await this.retrieveDataAndSetStateForCreateMode(orgId)
+					await this.retrieveDataAndSetStateForCreateMode(orgId, contactId)
 				}
 			}
 			this.dataLoaded = true
@@ -361,7 +361,7 @@ export default class BamUserPage extends LightningElement {
 	}
 
 	// loads data from server for 'Create mode' and sets up the components state
-	async retrieveDataAndSetStateForCreateMode(orgId) {
+	async retrieveDataAndSetStateForCreateMode(orgId, contactId) {
 		try {
 			const appDataStr = await retrieveAplicationData({orgId, contactId})
 			const { applicationsWithRoles, appBillingAccountDataWrapper } = JSON.parse(appDataStr);

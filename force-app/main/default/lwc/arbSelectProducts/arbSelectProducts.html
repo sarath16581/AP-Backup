@@ -4,9 +4,7 @@
 	</template>
 
 	<template if:true={empty}>
-		<span class="noproducts">
-			Please click <strong>Edit</strong> below and select one or more products, or select <q>Whole of Business</q> from the <strong>Scale</strong> field.
-		</span>
+		<i>No products selected</i>
 	</template>
 
 	<template if:false={empty}>

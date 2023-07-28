@@ -3,10 +3,9 @@
     <fullName>Note_Surcharge__c</fullName>
     <description>This field store the note to be displayed on Surcharge Exemption request before its submitted for Approval for Sales manager</description>
     <externalId>false</externalId>
-    <formula>&quot;In accordance with the policy any surcharge exemption application will be sent to Sales Director, Sales GM and Head of Commercial for approval, click Save if you wish to proceed.&quot; &amp;  BR() &amp;  BR() &amp; &quot;Please also note that our Freight Services Pricing Policy dictates that surcharges should be charged at standard rates and it should not be treated as a negotiation lever.&quot; &amp;  BR() &amp;  BR() &amp; &quot;Approved surcharge exemptions will be collated and reported to Parcel, Post &amp; eCommerce Services EGM on a regular basis.&quot;</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-	<inlineHelpText>This field store the note to be displayed on Surcharge Exemption request before its submitted for Approval for Sales manager</inlineHelpText>
-	<label>Note:</label>
+    <formula>&quot;In accordance with the policy any surcharge exemption application will be sent to Sales Director, Sales GM and Head of Commercial for approval, click Save if you wish to proceed.&quot; &amp; BR() &amp; BR() &amp; &quot;Please also note that our Freight Services Pricing Policy dictates that surcharges should be charged at standard rates and it should not be treated as a negotiation lever.&quot; &amp; BR() &amp; BR() &amp; &quot;Approved surcharge exemptions will be collated and reported to Parcel, Post &amp; eCommerce Services EGM on a regular basis.&quot;</formula>
+    <inlineHelpText>This field store the note to be displayed on Surcharge Exemption request before its submitted for Approval for Sales manager</inlineHelpText>
+    <label>Note:</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
