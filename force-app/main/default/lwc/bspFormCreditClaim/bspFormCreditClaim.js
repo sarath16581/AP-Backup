@@ -52,7 +52,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track contactName;
 	@track contactEmailAddress;
 	@track contactPhoneNumber;
-	@track contactPhoneNumber;
 	@track accountHeldWith;
 	@track disputeType;
 	@track reasonClaim;
@@ -89,7 +88,17 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: ENQUIRY_TYPE_FIELD })
 	enquiryTypeInfo({data, error}) {
-		if (data) this.disputeTypeList = data.values;
+		let enquiryTypeOptions = [];
+		if (data) {
+			data.values.forEach(enquiryTypeOption =>{
+					let etOption = {...enquiryTypeOption};
+					if (etOption.label === 'Billing Dispute' || etOption.label === 'Service Performance'){
+						enquiryTypeOptions.push(etOption);
+					}
+				}
+			)
+		}
+		this.disputeTypeList = enquiryTypeOptions;		
 	};
 
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: REASON_CREDIT_CLAIM_FIELD })
@@ -250,7 +259,15 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.errorMessage = '';
 
 		const inputComponents = this.template.querySelectorAll('lightning-input, lightning-textarea, lightning-combobox');
-		const allValid = checkAllValidity(inputComponents);
+		const inputDisputeItems = this.template.querySelector("c-bsp-dispute-items");
+		let disputeItemValid;
+		if (inputDisputeItems === null){
+			disputeItemValid = false;
+		}else{
+			disputeItemValid = inputDisputeItems.checkAllValidity();
+		}
+		const allValid = checkAllValidity(inputComponents) && disputeItemValid;
+		
 
 		if (!allValid) {
 			this.showSpinner = false;
@@ -271,4 +288,11 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		});
 	}
 
+	get showDisputedTransactionSection(){
+		if (this.accountHeldWith){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

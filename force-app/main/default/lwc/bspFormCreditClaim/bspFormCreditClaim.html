@@ -12,7 +12,7 @@
         <!-- Case Creation Form -->
         <div class="slds-grid slds-grid_align-center">
             <div
-                class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+                class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_9-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
                 <template if:false={successCreation}>
 
                     <!-- spinner -->
@@ -22,7 +22,7 @@
                     </template>
 
                     <lightning-card title="">
-                        <div class="slds-p-horizontal_x-large slds-p-bottom_large long-form-right-pad">
+                        <div class="slds-p-horizontal_x-large slds-p-bottom_large">
 
                             <!-- Form Title-->
                             <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
@@ -33,12 +33,14 @@
                                 <c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
                             </template>
 
+							<lightning-layout multiple-rows="true">
+
                             <!-- Business and contact details HEADING -->
                             <div>
                                 <h3 class="slds-p-vertical_large">Business and contact details</h3>
                             </div>
-
                             <!-- businessName -->
+							<lightning-layout-item size="9">
                             <lightning-input label="Business name" 
 											value={businessName}
                                             data-id="businessName"
@@ -52,8 +54,10 @@
 											disabled
 											max-length="255">
                             </lightning-input>
-
-                            <!-- businessAccountNumber -->
+							</lightning-layout-item>
+                            
+							<!-- businessAccountNumber -->
+							<lightning-layout-item size="9">
                             <lightning-input label="Business account number" 
 											value={businessAccountNumber}
                                             data-id="businessAccountNumber"
@@ -66,8 +70,10 @@
 											class="brand-form-input slds-p-bottom_x-large"
 											max-length="255">
                             </lightning-input>
+							</lightning-layout-item>
 
                             <!-- contactName -->
+							<lightning-layout-item size="9">
                             <lightning-input label="Contact name" 
 											value={contactName}
                                             data-id="contactName"
@@ -80,8 +86,10 @@
 											class="brand-form-input slds-p-bottom_x-large"
 											max-length="255">
                             </lightning-input>							
-							
+							</lightning-layout-item>
+
                             <!-- contactEmailAddress -->
+							<lightning-layout-item size="9">							
                             <lightning-input label="Contact email address" 
 											value={contactEmailAddress}
                                             data-id="contactEmailAddress"
@@ -96,8 +104,10 @@
 											message-when-pattern-mismatch="Please enter a valid Email Address"
 											max-length="255">
                             </lightning-input>
+							</lightning-layout-item>
 
-							<!-- contactPhoneNumber -->							
+							<!-- contactPhoneNumber -->
+							<lightning-layout-item size="9">														
                             <lightning-input label="Contact phone number (optional)" 
 											value={contactPhoneNumber} 
 											data-id="contactPhoneNumber"
@@ -108,13 +118,17 @@
                                 			class="brand-form-input slds-p-bottom_x-large" 
 											max-length="255">
                             </lightning-input>
+							</lightning-layout-item>
 
                             <!-- Claim description HEADING -->
-                            <div>
+							<lightning-layout-item size="12">								
+                            <div>								
                                 <h3 class="slds-p-vertical_large">Claim description</h3>
                             </div>
+							</lightning-layout-item>
 
                             <!-- accountHeldWith -->
+							<lightning-layout-item size="9">								
                             <lightning-combobox label="Account held with" 
 											data-id="accountHeldWith" 
 											value={accountHeldWith}
@@ -126,8 +140,10 @@
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
                             </lightning-combobox>
-							
+							</lightning-layout-item>
+
 							<!-- disputeType -->
+							<lightning-layout-item size="9">
                             <lightning-combobox label="Dispute type" 
 											data-id="disputeType" 
 											value={disputeType}
@@ -139,9 +155,11 @@
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
                             </lightning-combobox>
-
+							</lightning-layout-item>
+							
 							<!-- reasonForCreditClaim -->
-                            <lightning-combobox label="Dispute type" 
+							<lightning-layout-item size="9">
+                            <lightning-combobox label="Reason for credit claim" 
 											data-id="reasonClaim" 
 											value={reasonClaim}
 											placeholder="Select a reason" 
@@ -152,9 +170,10 @@
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
                             </lightning-combobox>
-							
+							</lightning-layout-item>
 
                             <!-- claimAmount -->
+							<lightning-layout-item size="9">
                             <lightning-input label="Total amount claimed ($) (optional)" value={claimAmount}
                                              data-id="claimAmount"
                                              onchange={onChangeField}
@@ -166,13 +185,14 @@
                                              message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
                                              message-when-range-underflow="Total amount cannot be a negative value"
                                              min=".01"
-                                             max="1000000"
                                              step=".01"
-                                             class="brand-form-input slds-p-bottom_x-large slds-size_2-of-5" 
+                                             class="brand-form-input slds-p-bottom_x-large" 
 											 max-length="20">
-                            </lightning-input>							
+                            </lightning-input>				
+							</lightning-layout-item>			
 
                             <!-- description -->
+							<lightning-layout-item size="9">
                             <lightning-textarea label="Description" 
 											data-id="description"
 											type="text" 
@@ -182,17 +202,38 @@
 											onfocus={handleFocus}
 											required 
 											class="brand-form-input slds-p-bottom_x-large" 
-											max-length="4000">
+											max-length="32000">
                             </lightning-textarea>
+							</lightning-layout-item>
+
+							<template if:true={showDisputedTransactionSection}>
+								<!--  Disputed Transactions HEADING -->
+								<lightning-layout-item size="12">								
+								<div>
+									<h3 class="slds-p-vertical_large">Disputed Transactions</h3>
+								</div>
+								</lightning-layout-item>
+
+								<!--  Files upload -->
+								<lightning-layout-item size="12">
+								<c-bsp-dispute-items account-held-with={accountHeldWith}></c-bsp-dispute-items>								
+								</lightning-layout-item>
+							</template>
 
                             <!-- Supporting documents HEADING -->
+							<lightning-layout-item size="12">			
                             <div>
                                 <h3 class="slds-p-vertical_large">Supporting documents</h3>
                             </div>
+							</lightning-layout-item>
 
                             <!--  Files upload 
+							<lightning-layout-item size="12">			
                             <c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
+							</lightning-layout-item>
 							-->
+
+							</lightning-layout>
 
                             <!-- Buttons -->
                             <div class="slds-p-top_x-large">
