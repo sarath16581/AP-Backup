@@ -125,9 +125,9 @@ public virtual inherited sharing class CompensationSelector extends ApplicationS
         return builder;
     }
 
-    public virtual Map<Id, Compensation__c> selectByCaseIds(Set<Id> ids, Set<Object> selectorOptions) {
+    public virtual List<Compensation__c> selectByCaseIds(Set<Id> ids, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Compensation__c.Case__c + ' in :ids')).endConditions();
-        return new Map<Id, Compensation__c>((List<Compensation__c>)Database.query(qb.toSoqlString()));
+        return (List<Compensation__c>)Database.query(qb.toSoqlString());
     }
 
     public virtual List<Compensation__c> getByToken(String token, Set<Object> selectorOptions)

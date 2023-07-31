@@ -89,13 +89,11 @@ public without sharing class EFTBankDetailsController {
         showEditButton = true;
         stdCon = stdController;
         eftRecordTypeID = [select Id,Name from RecordType where SobjectType='Compensation__c' and RecordType.DeveloperName = 'EFT'].Id;
-        System.debug('stdController : '+stdController);
-        System.debug('stdController : getRecord '+stdController.getRecord());
 
         //if standard controller id is null create new compensation. this occurs when creating new records.
         if(stdController.getId() == null) {
             record = (Compensation__c) stdController.getRecord();
-            System.debug('stdController : Case__c '+record);
+
         }
         else {
             //quary the compensation record passed in through the std controller
@@ -172,7 +170,6 @@ public without sharing class EFTBankDetailsController {
     }
     public PageReference saveMethod()
     {
-        System.Debug(accountNumber+'-'+accountBSB+'-'+accountName);
 
         String currentRoute = this.compensationEmail? BANK_DETAILS_VIA_FORM : BANK_DETAILS_VIA_AGENT;
         String newRoute;
@@ -274,7 +271,6 @@ public without sharing class EFTBankDetailsController {
     //used to validate the bank details enterd by user
     public boolean validateDetails() {
 
-        System.Debug('inside validate');
         // DDS-6866: if user tick the send compensation email checkbox, bank details at this step is not mandatory
         if (!this.compensationEmail)
         {
@@ -345,7 +341,7 @@ public without sharing class EFTBankDetailsController {
         // with the reference ID let's find how many cases available
         Map<Id, Case> allCases = CasesSelector.newInstance().selectByReferenceIdOrderByCreatedDate(new Set<String>{referenceId});
         // on all the cases found are there one or more compensation(s) already exists?
-        Map<Id, Compensation__c> allCompensationsPerArticle = CompensationSelector.newInstance().selectByCaseIds(allCases.keySet(), new Set<Object>());
+        List<Compensation__c> allCompensationsPerArticle = CompensationSelector.newInstance().selectByCaseIds(allCases.keySet(), new Set<Object>());
         // if compensations already exists!
         if(allCompensationsPerArticle.size() > 0) {
             return true;

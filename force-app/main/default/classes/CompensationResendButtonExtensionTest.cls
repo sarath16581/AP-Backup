@@ -91,7 +91,8 @@ private with sharing class CompensationResendButtonExtensionTest
         Test.stopTest();
     }
 
-    static testMethod void validateOnResendEmail_001() {
+    @isTest
+    static void validateOnResendEmail001() {
 
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
 
@@ -127,7 +128,8 @@ private with sharing class CompensationResendButtonExtensionTest
         Test.stopTest();
     }
 
-    static testMethod void validateOnResendEmail_002() {
+    @isTest
+    static void validateOnResendEmail002() {
 
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 

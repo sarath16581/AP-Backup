@@ -198,7 +198,7 @@ public with sharing class CompensationAttachmentsController {
         if(!contentLinks.isEmpty()) {
             ApplicationDatabase.getInstance().dmlInsert(contentLinks);
         }
-        system.debug('HASANTHA HERE attachmentIds'+attachmentIds);
+
         // restive attachments to create duplicate attachments
         Map<Id, Attachment> attachmentsToDuplicate = AttachmentsSelector.newInstance().selectById(attachmentIds, new Set<Object>{AttachmentsSelector.Options.WITH_BODY});
         List<Attachment> duplicateAttachments = new List<Attachment>();
@@ -246,12 +246,12 @@ public with sharing class CompensationAttachmentsController {
             set;
         }
         @AuraEnabled public Boolean isAttachment {get;set;}
-        @AuraEnabled public Integer BodyLength {get;set;}
-        @AuraEnabled public String ContentType {get;set;}
-        @AuraEnabled public Datetime CreatedDate {get;set;}
-        @AuraEnabled public String Id {get;set;}
-        @AuraEnabled public String Name {get;set;}
-        @AuraEnabled public String ParentId {get;set;}
+        @AuraEnabled public Integer bodyLength {get;set;}
+        @AuraEnabled public String contentType {get;set;}
+        @AuraEnabled public Datetime createdDate {get;set;}
+        @AuraEnabled public String id {get;set;}
+        @AuraEnabled public String name {get;set;}
+        @AuraEnabled public String parentId {get;set;}
     }
 
     /**

@@ -403,7 +403,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
      * Compensation user permission is not allowed to update bank details
      */
-    static testMethod void testValidateCompensationUserPermission_bankDetail_001() {
+    static testMethod void testValidateCompensationUserPermissionBankDetail001() {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
         Contact contact = TestDataProvider.createContact('test',null,'Contact');
@@ -457,7 +457,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
   * Compensation Supervisor user permission is allowed to update bank details
   */
-    static testMethod void testValidateCompensationUserPermission_bankDetail_002() {
+    static testMethod void testValidateCompensationUserPermissionBankDetail002() {
 
         User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 
@@ -508,7 +508,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
     * Normal user permission is NOT allowed to send email
     */
-    static testMethod void testValidateCompensationSendEmail_001() {
+    static testMethod void testValidateCompensationSendEmail001() {
 
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
 
@@ -556,7 +556,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
     * Users with permission is allowed to send email
     */
-    static testMethod void testValidateCompensationSendEmail_002() {
+    static testMethod void testValidateCompensationSendEmail002() {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
 
@@ -604,7 +604,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
     * Check on privilege to create compensation records as an agent user with permissions
     */
-    static testMethod void validateOnLoad_001() {
+    static testMethod void validateOnLoad001() {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
 
@@ -644,7 +644,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
     * Check on privilege to create compensation records as a normal user without permissions and with EFT record type
     */
-    static testMethod void validateOnLoad_002() {
+    static testMethod void validateOnLoad002() {
 
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
 
@@ -685,7 +685,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
      * User should not be able to create a duplicate compensation record per Reference ID
      */
-    static testMethod void validateOnLoad_003() {
+    static testMethod void validateOnLoad003() {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
 
@@ -741,7 +741,7 @@ public with sharing class EFTBankDetailsController_Test {
     /**
      * Only supervisor user should be able to create duplicate compensation records
      */
-    static testMethod void validateOnLoad_004() {
+    static testMethod void validateOnLoad004() {
 
         User Superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 

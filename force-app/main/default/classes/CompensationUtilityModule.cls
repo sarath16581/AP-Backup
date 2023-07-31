@@ -24,7 +24,6 @@ public with sharing class CompensationUtilityModule extends ApplicationModule {
     */
     public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
-            System.debug('CompensationUtilityModule:onBeforeInsert');
             if(!records.isEmpty()) {
                 // update fields on compensation record
                 CompensationService.getInstance().updateCurrentArticleInfoOnCompensationRecord ((List<Compensation__c>)records);
@@ -41,7 +40,6 @@ public with sharing class CompensationUtilityModule extends ApplicationModule {
      */
     public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         try {
-            System.debug('CompensationUtilityModule:onBeforeUpdate');
             if(!records.isEmpty()) {
                 // update approved field on update of the record
                 CompensationService.getInstance().approveCompensationRecord((List<Compensation__c>)records, (Map<Id, Compensation__c>)existingRecords);

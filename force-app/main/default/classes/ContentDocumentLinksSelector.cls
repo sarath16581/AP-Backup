@@ -95,8 +95,6 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 		// add our tracking query
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
-		System.debug('searchParams: ' + searchParams);
-
 		Set<Id> entityIds = (Set<Id>)(searchParams.get('entityIds') == null ? new Set<Id>() : (searchParams.get('entityIds') instanceof Set<Id> ? searchParams.get('entityIds') : new Set<Id>{(Id)searchParams.get('entityIds')}));
 		Set<Id> documentIds = (Set<Id>)(searchParams.get('documentIds') == null ? new Set<Id>() : (searchParams.get('documentIds') instanceof Set<Id> ? searchParams.get('documentIds') : new Set<Id>{(Id)searchParams.get('documentIds')}));
 		Set<String> titles = (Set<String>)(searchParams.get('titles') == null ? new Set<String>() : (searchParams.get('titles') instanceof Set<String> ? searchParams.get('titles') : new Set<String>{String.valueOf(searchParams.get('titles'))}));
@@ -155,7 +153,7 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 		conditions.setConditionOrder(conditionOrder);
 
 		String soql = conditions.endConditions().toSoqlString();
-		System.debug(soql);
+
 		return new Map<Id, ContentDocumentLink>((List<ContentDocumentLink>)Database.query(soql));
 	}
 

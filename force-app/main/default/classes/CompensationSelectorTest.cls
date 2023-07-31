@@ -193,7 +193,7 @@ private with sharing class CompensationSelectorTest
 
         CompensationSelector selector = new CompensationSelector();
 
-        List<Compensation__c> compensations = selector.selectByCaseIds(new Set<Id>{cse.Id}, new Set<Object>()).values();
+        List<Compensation__c> compensations = selector.selectByCaseIds(new Set<Id>{cse.Id}, new Set<Object>());
 
         System.assertEquals(1, compensations.size());
 

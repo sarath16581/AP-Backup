@@ -8,8 +8,6 @@
 * @description This class contains unit tests for vCompensationAttachmentsController
 * 2023-07-28 - Hasantha.Liyanage@auspost.com.au Added test method for new compensation custom permission validations
 */
-
-
 @IsTest
 private class CompensationAttachmentsController_Test {
     @TestSetup
@@ -21,7 +19,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void getPageConfig_001() {
+    static void getPageConfig001() {
 
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 
@@ -40,7 +38,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void getPageConfig_002() {
+    static void getPageConfig002() {
 
         Test.startTest();
         CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig();
@@ -54,7 +52,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void getFileAttachmentDetails_001() {
+    static void getFileAttachmentDetails001() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -63,14 +61,12 @@ private class CompensationAttachmentsController_Test {
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
-        ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, documentId, true)[0];
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
 
         // =====================================
         // Stubbing
         // =====================================
-        CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
         ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -103,7 +99,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void getFileAttachmentDetails_002() {
+    static void getFileAttachmentDetails002() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -112,7 +108,6 @@ private class CompensationAttachmentsController_Test {
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
-        ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, documentId, true)[0];
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
         ContentDocumentLink documentLinkRecordForCompensation = ApplicationTestDataFactory.getContentDocumentLinks(1, compensations[0].Id, documentId, true)[0];
@@ -121,7 +116,6 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         // Stubbing
         // =====================================
-        CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
         ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -157,7 +151,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void getAttachmentDetails_001() {
+    static void getAttachmentDetails001() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -169,7 +163,6 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         // Stubbing
         // =====================================
-        CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
         AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector)MockUtility.mockSelector(AttachmentsSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -201,7 +194,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void getAttachmentDetails_002() {
+    static void getAttachmentDetails002() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -242,7 +235,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void createAttachments_001() {
+    static void createAttachments001() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -252,7 +245,6 @@ private class CompensationAttachmentsController_Test {
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
-        ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, documentId, true)[0];
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
         // =====================================
@@ -318,7 +310,7 @@ private class CompensationAttachmentsController_Test {
     }
 
     @IsTest
-    static void createAttachments_002() {
+    static void createAttachments002() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -328,7 +320,6 @@ private class CompensationAttachmentsController_Test {
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
-        ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, documentId, true)[0];
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
         // =====================================
