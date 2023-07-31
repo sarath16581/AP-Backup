@@ -463,7 +463,7 @@ button.closeIcon svg {
  *********************************************************/
 span[title='Follow'], .slds-button .slds-icon-utility-add {display: none}
 span[title='Following'], .slds-button .slds-icon-utility-check {display: none}
-span[title='Unfollow'], .slds-button .slds-icon-utility-close {display: none}
+/* span[title='Unfollow'], .slds-button .slds-icon-utility-close {display: none} */
 
 /*********************************************************
  * Footer Links

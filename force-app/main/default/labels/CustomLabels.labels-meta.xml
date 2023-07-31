@@ -8367,7 +8367,7 @@ If this opportunity is for Startrack product, then you are required to provide:
         <shortDescription>ViewRateCardControllerError</shortDescription>
         <value>Your checkout transaction is still being processed, please try again later</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>BAMInvalidBillingAccountFields</fullName>
         <categories>BAM</categories>
         <language>en_US</language>

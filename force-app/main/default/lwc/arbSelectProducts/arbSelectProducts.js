@@ -244,9 +244,5 @@ export default class BarSelectProducts extends LightningElement {
 	close(event) {
 		this.editing = false;
 		this.viewing = true;
-		this.loading = true;
-
-		// Reload existing products after user clicks Cancel
-		this.loadProducts(false, false);
 	}
 }
