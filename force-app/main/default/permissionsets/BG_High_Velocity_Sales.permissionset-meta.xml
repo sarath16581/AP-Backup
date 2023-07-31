@@ -4,11 +4,11 @@
         <application>standard__HVSConsole</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>Provide access to the High Velocity Sales Console to be used by specific B&amp;G Sales users.</description>
-	<classAccesses>
+    <classAccesses>
         <apexClass>AtRiskBusinessController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <description>Provide access to the High Velocity Sales Console to be used by specific B&amp;G Sales users.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.PortfolioCode__c</field>
@@ -39,16 +39,16 @@
         <field>AccountRelationship__c.Relationship__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>At_Risk_Business__c.Product_IDs__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>At_Risk_Business__c.Products__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>At_Risk_Business__c.Product_IDs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>At_Risk_Business__c.Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Network__c.AMP_F__c</field>
@@ -1941,7 +1941,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
+        <field>PortfolioAssignment__c.SalesDirectorPortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2102,7 +2102,7 @@
         <tab>Network__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
-	<tabSettings>
+    <tabSettings>
         <tab>PortfolioAssignment__c</tab>
         <visibility>Available</visibility>
     </tabSettings>

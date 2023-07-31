@@ -115,7 +115,7 @@ private class StarTrack_Constants_Test {
 		System.assertEquals(StarTrack_Constants.STCUSTOMERSTREAM_RUBY, 'Ruby');
 		System.assertEquals(StarTrack_Constants.TRANSFER_QUEUE, 'Transfer Queue');
 		System.assertEquals(StarTrack_Constants.DEPOT_OWNER_QUEUE, 'Depot Owner Queue');
-		System.assertEquals(StarTrack_Constants.RECYCLE_BIN_QUEUE, 'StarTrack Recycle Bin');
+		System.assertEquals(StarTrack_Constants.RECYCLE_BIN_QUEUE, 'CRM Recycle Bin');
 		System.assertEquals(StarTrack_Constants.ST_NETWORK_CUST_NOTIF, 'StarTrack Network Customer Notification');
 		System.assertEquals(StarTrack_Constants.ST_EVENT_TYPE, 'DELIVERED'); 
 		System.assertEquals(StarTrack_Constants.ST_SCAN_TYPE, 'Label'); 

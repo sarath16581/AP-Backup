@@ -8286,7 +8286,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>generic description</shortDescription>
         <value>(generic description)</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_AbandonCart</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -8366,5 +8366,21 @@ If this opportunity is for Startrack product, then you are required to provide:
         <protected>false</protected>
         <shortDescription>ViewRateCardControllerError</shortDescription>
         <value>Your checkout transaction is still being processed, please try again later</value>
+    </labels>
+    <labels>
+        <fullName>BAMInvalidBillingAccountFields</fullName>
+        <categories>BAM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Invalid Billing Account Fields</shortDescription>
+        <value>Billing Account field API Name: {0} defined in the filter is invalid.</value>
+    </labels>
+    <labels>
+        <fullName>BAMInvalidBillingAccountJsonFilter</fullName>
+        <categories>BAM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Invalid Billing Account Json Filter</shortDescription>
+        <value>JSON provided is invalid. Please fix it.</value>
     </labels>
 </CustomLabels>

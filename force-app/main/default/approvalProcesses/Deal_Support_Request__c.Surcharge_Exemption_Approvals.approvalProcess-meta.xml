@@ -64,10 +64,6 @@
     </entryCriteria>
     <finalApprovalActions>
         <action>
-            <name>Deal_Support_request_Approved</name>
-            <type>Alert</type>
-        </action>
-        <action>
             <name>Update_Stage_to_Submitted</name>
             <type>FieldUpdate</type>
         </action>

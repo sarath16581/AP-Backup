@@ -101,7 +101,7 @@ public with sharing class ChasCustomCaseListAndDetailController {
         try {
             User runningUser = [SELECT Id,APCN__c,Contact.APCN__c,CreatedById FROM User WHERE Id = :UserInfo.getUserId()];
 
-            return SSSWCasesSelector.newInstance(2000,new Set<SObjectField>{Case.Id,Case.CHASEnquiryType__c,Case.CaseNumber,Case.LastModifiedDate,Case.CreatedById})
+            return SSSWCasesSelector.newInstance(2000,new Set<SObjectField>{Case.Id,Case.CHASEnquiryType__c,Case.CaseNumber,Case.LastModifiedDate,Case.CreatedById, Case.Enquiry_Status__c})
                     .selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),runningUser.Contact.APCN__c, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}).values();
 
         } catch(Exception ex) {

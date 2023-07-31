@@ -13,6 +13,7 @@
  * 2021-08-06 - Seth Heang - Added selectByLikedNameOrderByName
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-05-30 - Seth Heang - Added PAYER_ACCOUNT_ID related list and selectByOrgId method
+ * 2023-07-10 - Mahesh Parvathaneni - Added options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
  */
 public virtual inherited sharing class BillingAccountsSelector extends ApplicationSelector {
 
@@ -20,8 +21,13 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		WITH_ORGANISATION,
 		FILTER_CUST_TYPE,
 		FILTER_ACTIVE,
-		WITH_PAYER_ACCOUNT_ID
+		WITH_PAYER_ACCOUNT_ID,
+		FILTER_TYPE_NOT_IN_SBBA_CASH,
+		FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
 	}
+
+	public static String sortOrder ='Desc';
+	public static String sortfieldAPIName = 'CreatedDate';
 
 	public static BillingAccountsSelector newInstance() {
 		return (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class);
@@ -34,7 +40,7 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static BillingAccountsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		BillingAccountsSelector selector = (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -43,7 +49,7 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static BillingAccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		BillingAccountsSelector selector = (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -52,6 +58,16 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 	public override SObjectType getSObjectType() {
 		return Billing_Account__c.getSObjectType();
+	}
+
+	public static BillingAccountsSelector newInstance(String sortField, String order, Set<SObjectField> fieldOverrides) {
+		if(!String.isEmpty(sortField)){
+			sortfieldAPIName = sortField;
+		}
+		if(!String.isEmpty(order)){
+			sortOrder = order;
+		}
+		return (BillingAccountsSelector)Application.Selectors.newInstance(BillingAccountsSelector.class).setFieldOverrides(fieldOverrides);
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
@@ -107,10 +123,10 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 	}
 
 	/**
-     * @description Select Billing Account based on 'LIKE' name and order by name
-     * @param String name of billing account
-     * @return matching billing account records
-     */
+	 * @description Select Billing Account based on 'LIKE' name and order by name
+	 * @param String name of billing account
+	 * @return matching billing account records
+	 */
 	public Map<Id, Billing_Account__c> selectByLikedNameOrderByName(String name, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.LikeCondition(Billing_Account__c.Name).likeAnyBoth(name)).endConditions();
 		qb.addOrderAsc(Billing_Account__c.Name);
@@ -160,7 +176,22 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(1).newQueryBuilder(), 'PAYER_ACCOUNT_ID__r');
 		}
 
+		if (selectorOptions.contains(Options.FILTER_TYPE_NOT_IN_SBBA_CASH)) {
+			builder.addConditions().add((new QueryBuilder.InCondition(Billing_Account__c.Type__c)).notInCollection(new Set<String>{'SBBA', 'CASH'})).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.Source_System__c).ne('PeopleSoft')).endConditions();
+		}
+
 		return builder;
+	}
+
+	/**
+	 * Forces an order to be applied to any query built with QueryBuilder. This can be overridden if needed
+	 */
+	public virtual override List<QueryBuilder.Order> getOrderBy() {
+		return new List<QueryBuilder.Order>{new QueryBuilder.Order(sortfieldAPIName, sortOrder)};
 	}
 
 }

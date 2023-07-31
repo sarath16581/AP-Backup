@@ -3,7 +3,7 @@
     <fullName>Fill_Postcode_Suburb_Startrack_Proposal</fullName>
     <active>true</active>
     <description>This is to ensure that the user enters the post code suburb and minimum monthly spend if it is a startrack proposal.</description>
-    <errorConditionFormula>AND(ISPICKVAL(IsStartrackProposal__c , &apos;Yes&apos;) , ISBLANK( APTPostcodeSuburb__c )  )</errorConditionFormula>
+    <errorConditionFormula>AND(ISPICKVAL(IsStartrackProposal__c , &apos;Yes&apos;) , ISBLANK( APTPostcodeSuburb__c ) )</errorConditionFormula>
     <errorDisplayField>APTPostcodeSuburb__c</errorDisplayField>
     <errorMessage>Complete this field for Startrack Opportunity</errorMessage>
 </ValidationRule>

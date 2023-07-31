@@ -545,6 +545,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IsStartrackProposal__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Key_Drivers__c</picklist>
         <values>
             <fullName>Ability to deliver anywhere in Australia</fullName>
@@ -603,6 +614,10 @@
         </values>
         <values>
             <fullName>Auspost website</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Events</fullName>
             <default>false</default>
         </values>
         <values>

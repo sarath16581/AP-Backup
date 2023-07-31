@@ -6,6 +6,7 @@
  * @group Tests
  * @domain BGStandardLead
  * @changelog
+ * 2023-07-14 - Ranjeewa Silva - Minor updates after moving to new ApplicationModule framework
  */
 @IsTest
 private class BGStandardLeadModule_Test {
@@ -20,29 +21,31 @@ private class BGStandardLeadModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(LeadTriggerHandler.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(LeadAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		Opportunity testOpp = ApplicationTestDataFactory.getOpportunities(1, fflib_IDGenerator.generate(Account.getSObjectType()), true)[0];
 
 		testOpp = (Opportunity)ApplicationTestDataFactory.setUnwritableFields(testOpp, new Map<String, Object>{'CreatedDate' => System.Now().addDays(-1)});
 
 		List<Lead> testLeads = ApplicationTestDataFactory.getLeads(5, true);
 
+		Id bgStandardRecordTypeId = new List<Id>(new RecordTypesSelector().selectByDeveloperName('Lead', new Set<String>{'BG_Standard'}).keySet())[0];
+
 		// Lead 0: Positive test: BG Standard and Lead Seeker, and ConvertedOpportunityId will be changed (this should be blocked from linking to old opp)
-		testLeads[0].RecordTypeId = ApplicationTestDataFactory.leadBGStandardRecordType;
+		testLeads[0].RecordTypeId = bgStandardRecordTypeId;
 		testLeads[0].Lead_Seeker__c = true;
 
 		// Lead 1: Negative test: BG Standard and Lead Seeker, and ConvertedOpportunityId will be changed, but LeadSeekerConversionOverride__c will be ticked
-		testLeads[1].RecordTypeId = ApplicationTestDataFactory.leadBGStandardRecordType;
+		testLeads[1].RecordTypeId = bgStandardRecordTypeId;
 		testLeads[1].Lead_Seeker__c = true;
 		testLeads[1].LeadSeekerConversionOverride__c = true;
 
 		// Lead 2: Negative test: BG Standard and Lead Seeker, but ConvertedOpportunityId has not changed
-		testLeads[2].RecordTypeId = ApplicationTestDataFactory.leadBGStandardRecordType;
+		testLeads[2].RecordTypeId = bgStandardRecordTypeId;
 		testLeads[2].Lead_Seeker__c = true;
 		testLeads[2] = (Lead)ApplicationTestDataFactory.setUnwritableFields(testLeads[2], new Map<String, Object>{'ConvertedOpportunityId' => testOpp.Id, 'CreatedDate' => System.Now()});
 
 		// Lead 3: Negative test: BG Standard but not Lead Seaker
-		testLeads[3].RecordTypeId = ApplicationTestDataFactory.leadBGStandardRecordType;
+		testLeads[3].RecordTypeId = bgStandardRecordTypeId;
 
 		// Lead 4: Negative test: not BG Standard and not Lead Seaker (do nothing here)
 

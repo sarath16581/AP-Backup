@@ -4,10 +4,9 @@
 *@tag Proposal creation
 *@domain Core
 *@description A class which creates Proposal when a button "Add Product" is clicked from the
-				opportunity page which is called form lightning "aPT_AddProductLWC" class
+		opportunity page which is called form lightning "aPT_AddProductLWC" class
 *@changelog
 *2023-02-28 Bharat Patel : Replace hard-code values from code (coding standard practice)
-*2023-07-06 Ken McGuire replaced Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
 */
 public with sharing class APT_LandingCartController {
 	/**
@@ -19,7 +18,6 @@ public with sharing class APT_LandingCartController {
 	public static string validationCheck(ID recordId){
 		AuraHandledException exceptionHandler;
 		id userProfileID = userinfo.getProfileId();
-		string pageRedirect = 'false';
 		id proposalId;
 		string returnValue;
 		//getting the profile id of current user
@@ -44,66 +42,63 @@ public with sharing class APT_LandingCartController {
 				//Checking error condition as per business requirement
 				//USer should not be permitted to create proposal if IsStartrackProposal__c field is empty or null
 				if(opp.IsStartrackProposal__c == '' || opp.IsStartrackProposal__c == null){
-				exceptionHandler = new AuraHandledException(System.Label.isStarTrackProduct);
-				exceptionHandler.setMessage(System.Label.isStarTrackProduct);
-				throw exceptionHandler;
+					exceptionHandler = new AuraHandledException(System.Label.isStarTrackProduct);
+					exceptionHandler.setMessage(System.Label.isStarTrackProduct);
+					throw exceptionHandler;
 				}
 				//User should not be permitted to create proposal if stagename field is 'closed Lost'
 				if(opp.stagename == APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST && opp.stagename != null ){
-				exceptionHandler = new AuraHandledException(System.Label.Add_Product_On_Closed_Opportunity);
-				exceptionHandler.setMessage(System.Label.Add_Product_On_Closed_Opportunity);
-				throw exceptionHandler;
+					exceptionHandler = new AuraHandledException(System.Label.Add_Product_On_Closed_Opportunity);
+					exceptionHandler.setMessage(System.Label.Add_Product_On_Closed_Opportunity);
+					throw exceptionHandler;
 				}
 				//User should not be permitted to create proposal if IsStartrackProposal__c field is 'yes' and APTPostcodeSuburb__c ,APTMinimumMonthlySpend__c are blank or null
 				if(opp.IsStartrackProposal__c != null && opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && (opp.APTPostcodeSuburb__c == null || opp.APTMinimumMonthlySpend__c == null)){
-				exceptionHandler = new AuraHandledException(System.Label.Yes_Its_StarTrackProduct);
-				exceptionHandler.setMessage(System.Label.Yes_Its_StarTrackProduct);
-				throw exceptionHandler;
+					exceptionHandler = new AuraHandledException(System.Label.Yes_Its_StarTrackProduct);
+					exceptionHandler.setMessage(System.Label.Yes_Its_StarTrackProduct);
+					throw exceptionHandler;
 				}
 				//User should be able to create proposal if field IsStartrackProposal__c is having values and stagename field is not 'closed Lost'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_NO  && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-				proposal = createProposalRecord(opp);
-				proposalList.add(proposal);
-
+					proposal = createProposalRecord(opp);
+					proposalList.add(proposal);
 				}
 				//User should be able to create proposal if IsStartrackProposal__c is yes and  field APTMinimumMonthlySpend__c and APTPostcodeSuburb__c having values'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && opp.APTPostcodeSuburb__c != null && opp.APTMinimumMonthlySpend__c != null && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-				proposal = createProposalRecord(opp);
-				proposalList.add(proposal);
+					proposal = createProposalRecord(opp);
+					proposalList.add(proposal);
 				}
 			}
 			//Querying the proposal record by using the proposal id returned from the method createProposalRecord().
 			List<Apttus_Proposal__Proposal__c> existingProposalRedirect = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new Set<Id>{proposal.id});
 
-
 			if(existingProposalRedirect != null && existingProposalRedirect.size()> 0){
 				if( existingProposalRedirect[0].Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE  && (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED) || (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != 'Denied')){
-				proposalExist= APT_Constants.BOOL_TRUE;
-				proposalID = existingProposalRedirect[0].id;
+					proposalExist= APT_Constants.BOOL_TRUE;
+					proposalID = existingProposalRedirect[0].id;
 				}
 			}
 			else{
 				if(proposalList != null) {
-				proposalInsert = ApplicationDatabase.getInstance().dmlInsert(proposalList);
-				for (Database.SaveResult sr : proposalInsert) {
-					if (sr.isSuccess()) {
+					proposalInsert = ApplicationDatabase.getInstance().dmlInsert(proposalList);
+					for (Database.SaveResult sr : proposalInsert) {
+						if (sr.isSuccess()) {
 						proposalID = sr.getId();
+						}
 					}
 				}
-				}
-
 			}
 
 
 			//Checking which flow to use to land to the Catalogue page for the proposal which gets created or the existed proposal.
 			if(((proposalId != null || proposalExist== APT_Constants.BOOL_TRUE) && proposal.Apttus_QPConfig__PriceListId__c != null
-				&& proposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != ''
-				&& proposal.Apttus_Proposal__Approval_Stage__c !=  APT_Constants.APPROVAL_STAGE_ACCEPTED) ||
-				(
-				(proposal.Apttus_QPApprov__Approval_Status__c != APT_Constants.APPROVAL_STAGE_APPROVED && proposal.Apttus_QPApprov__Approval_Status__c != null  && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != APT_Constants.OPTION_NO && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c !=null) ||
-				(proposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED && proposal.Apttus_Proposal__Approval_Stage__c != null && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c != APT_Constants.OPTION_YES && proposal.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c !=null)
-				)
-				){
+			&& proposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE && proposal.Is_Startrack_Proposal__c != ''
+			&& proposal.Apttus_Proposal__Approval_Stage__c !=  APT_Constants.APPROVAL_STAGE_ACCEPTED) ||
+			(
+			(proposal.Apttus_QPApprov__Approval_Status__c != APT_Constants.APPROVAL_STAGE_APPROVED && proposal.Apttus_QPApprov__Approval_Status__c != null  && proposal.Is_Startrack_Proposal__c != APT_Constants.OPTION_NO && proposal.Is_Startrack_Proposal__c !=null) ||
+			(proposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED && proposal.Apttus_Proposal__Approval_Stage__c != null && proposal.Is_Startrack_Proposal__c != APT_Constants.OPTION_YES && proposal.Is_Startrack_Proposal__c !=null)
+			)
+			){
 				//Redirecting to the New Quote catalogue page depending upon Profile
 				if(proposal.recordTypeId == proposalRecordId && p.name != APT_Constants.STRING_PRICING_MANAGEMENT ){
 					returnValue = proposalId+'+NewQuote';
@@ -125,7 +120,7 @@ public with sharing class APT_LandingCartController {
 					return returnValue;
 				}
 
-				}
+			}
 			return proposalId;
 
 		} catch (Exception e) {
@@ -141,7 +136,6 @@ public with sharing class APT_LandingCartController {
 	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp){
 
 		boolean newProposal= APT_Constants.BOOL_FALSE;
-		AuraHandledException exceptionHandler;
 		string proposalRecordId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Proposal').getRecordTypeId();
 		Apttus_Proposal__Proposal__c proposal ;
 		List<Apttus_Proposal__Proposal__c> updatePrimaryFalse = new List<Apttus_Proposal__Proposal__c>();
@@ -154,29 +148,29 @@ public with sharing class APT_LandingCartController {
 		if(existingProposalList.size() >0){
 			for(Apttus_Proposal__Proposal__c existingProposalPrimary: existingProposalList){
 				if((existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == 'Denied') && existingProposalPrimary.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
-				existingProposalPrimary.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
-				updatePrimaryFalse.add(existingProposalPrimary);
+					existingProposalPrimary.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
+					updatePrimaryFalse.add(existingProposalPrimary);
 				}
 			}
 			if(updatePrimaryFalse.size()>0){
 				proposalupdatePrimaryfalse = ApplicationDatabase.getInstance().dmlupdate(updatePrimaryFalse);
 			}
-		}else{
-			newProposal= APT_Constants.BOOL_TRUE;
-		}
-		//Checking wheather to create a proposal or land to the existing proposal depending upon the status
-		if(newProposal == APT_Constants.BOOL_FALSE){
+			}else{
+				newProposal= APT_Constants.BOOL_TRUE;
+			}
+			//Checking wheather to create a proposal or land to the existing proposal depending upon the status
+			if(newProposal == APT_Constants.BOOL_FALSE){
 			List<Apttus_Proposal__Proposal__c> existingProposalListupdated = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opp.id});
 
 			if(existingProposalListupdated.size() >0){
 				for(Apttus_Proposal__Proposal__c existingProposal: existingProposalListupdated){
-				if((existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_DENIED) && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_FALSE){
-					newProposal= APT_Constants.BOOL_TRUE;
-				}
+					if((existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_DENIED) && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_FALSE){
+						newProposal= APT_Constants.BOOL_TRUE;
+					}
 
-				if((existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_DENIED) && newProposal == APT_Constants.BOOL_FALSE && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
-					return existingProposal;
-				}
+					if((existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_DENIED) && newProposal == APT_Constants.BOOL_FALSE && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
+						return existingProposal;
+					}
 				}
 			}
 		}
@@ -186,6 +180,9 @@ public with sharing class APT_LandingCartController {
 			proposal = new Apttus_Proposal__Proposal__c();
 			proposal.Apttus_Proposal__Account__c  = opp.AccountID;
 			proposal.Apttus_Proposal__Opportunity__c = opp.ID;
+			proposal.Is_Startrack_Proposal__c = opp.IsStartrackProposal__c;
+			proposal.APT_Postcode_Suburb__c = opp.APTPostcodeSuburb__c;
+			proposal.APT_Minimum_Monthly_Spend__c = opp.APTMinimumMonthlySpend__c;
 			proposal.Apttus_Proposal__Primary_Contact__c = opp.KeyContact__c;
 			proposal.Apttus_Proposal__Proposal_Expiration_Date__c = system.today();
 			proposal.APT_Contracting_Entity__c = APT_Constants.STRING_AUSTRALIAN_Postal_Corporation;

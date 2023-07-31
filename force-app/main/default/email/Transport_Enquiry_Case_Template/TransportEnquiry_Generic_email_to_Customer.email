@@ -114,8 +114,9 @@
 															<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
 																	<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
-																		Kind regards, <br /></br>
-																		<b style="color:#dc1928;">Australia Post</b>
+																		Kind regards, <br /><br />
+
+																		<p><b style="color:#dc1928;">Australia Post Customer Collections</b></p>
 																		<br/><span style="color:#ffffff">{!Case.Thread_Id}</span>
 																	</td>
 																</tr>

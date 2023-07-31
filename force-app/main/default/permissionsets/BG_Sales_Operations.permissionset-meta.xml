@@ -5,25 +5,11 @@
         <name>BG_Sales_Operations</name>
     </customPermissions>
     <description>Permissions specific to users who provide support to B&amp;G Sales staff and the Sales process.</description>
-	<classAccesses>
-        <apexClass>AtRiskBusinessController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.PortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>At_Risk_Business__c.Product_IDs__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>At_Risk_Business__c.Products__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opp_Product_Classification__c.Apr_Actual_Amount__c</field>
@@ -616,6 +602,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>OpportunityLineItem.Change_Classification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>PortfolioAssignment__c.AccountManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -626,7 +617,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
+        <field>PortfolioAssignment__c.SalesDirectorPortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -10,6 +10,7 @@ export default class ActivityTimeline extends LightningElement {
     sectionClassPrefix = 'slds-timeline__item_expandable slds-timeline__item_task ';
     allActivities = [];
     loading= false;
+    disableLoadMore = false;
 
     connectedCallback() {
         this.loadData();
@@ -23,6 +24,7 @@ export default class ActivityTimeline extends LightningElement {
             recordLimit: this.recordLimit,
             offsetLimit: this.offset
         }).then(result => {
+            this.disableLoadMore = this.recordLimit > result.length;
             this.allActivities = [...this.allActivities, ...result];
             this.loading = false;
         }).catch(error => {

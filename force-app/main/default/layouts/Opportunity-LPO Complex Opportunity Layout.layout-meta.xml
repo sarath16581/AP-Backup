@@ -37,18 +37,6 @@
                 <behavior>Required</behavior>
                 <field>Type</field>
             </layoutItems>
-			<layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsStartrackProposal__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APTPostcodeSuburb__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APTMinimumMonthlySpend__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -178,24 +166,19 @@
             <sortOrder>1</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Bulk_Edit_Products</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>2</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Opportunity.LPO_New_Deal_Support_Request_LWC</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
+            <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Opportunity.LPO_New_Task</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>4</sortOrder>
+            <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Opportunity.LPO_Add_Products</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>5</sortOrder>
+            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>
@@ -220,19 +203,19 @@
     <relatedLists>
         <excludeButtons>AddProduct</excludeButtons>
         <excludeButtons>ChoosePricebook</excludeButtons>
-		<excludeButtons>EditAllProduct</excludeButtons>
+        <excludeButtons>EditAllProduct</excludeButtons>
         <excludeButtons>MultiAdd</excludeButtons>
         <excludeButtons>MultiEdit</excludeButtons>
         <fields>Product2</fields>
         <fields>Classification__c</fields>
         <fields>Contract_Number__c</fields>
         <fields>Quantity</fields>
-        <fields>Annualised_Value__c</fields>
         <fields>Contract_Start_Date__c</fields>
         <fields>Contract_End_Date__c</fields>
-		<fields>UnitPrice</fields>
+        <fields>UnitPrice</fields>
         <fields>TotalPrice</fields>
         <fields>In_Year_Revenue__c</fields>
+        <fields>Hidden_Annualised_Value__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>
