@@ -15,7 +15,7 @@ public with sharing class CompensationAttachmentsController {
 
     public static final Boolean isCompensationUser {
         get {
-            if(isCompensationUser == null) {
+            if (isCompensationUser == null) {
                 isCompensationUser = FeatureManagement.checkPermission('Is_Compensation_User');
             }
             return isCompensationUser;
@@ -24,7 +24,7 @@ public with sharing class CompensationAttachmentsController {
     }
     public static final Boolean IsCompensationSupervisor {
         get {
-            if(isCompensationSupervisor == null) {
+            if (isCompensationSupervisor == null) {
                 isCompensationSupervisor = FeatureManagement.checkPermission('Is_Compensation_Supervisor');
             }
             return isCompensationSupervisor;
@@ -173,7 +173,7 @@ public with sharing class CompensationAttachmentsController {
         List<ContentDocumentLink> contentLinks = new List<ContentDocumentLink>();
         // read the attachment details passed and deviate between attachments and files
         for (AttachmentDetail detail : attachmentDetails) {
-            if(detail.isSelectedNew) {
+            if (detail.isSelectedNew) {
                 // if the selected file is an attachment
                 if (detail.isAttachment) {
                     attachmentIds.add(detail.Id);
@@ -187,7 +187,7 @@ public with sharing class CompensationAttachmentsController {
                 }
 
                 // if the first time selection and no existing attachments, then update the POV checkbox
-                if(!detail.isSelected) {
+                if (!detail.isSelected) {
                     compensation = new Compensation__c (Id = recordId, Proof_of_Value__c = true);
                 }
             }
@@ -195,15 +195,17 @@ public with sharing class CompensationAttachmentsController {
         }
 
         // link the files found to the compensation
-        if(!contentLinks.isEmpty()) {
+        if (!contentLinks.isEmpty()) {
             ApplicationDatabase.getInstance().dmlInsert(contentLinks);
         }
 
         // restive attachments to create duplicate attachments
-        Map<Id, Attachment> attachmentsToDuplicate = AttachmentsSelector.newInstance().selectById(attachmentIds, new Set<Object>{AttachmentsSelector.Options.WITH_BODY});
+        Map<Id, Attachment> attachmentsToDuplicate = AttachmentsSelector.newInstance().selectById(attachmentIds, new Set<Object>{
+                AttachmentsSelector.Options.WITH_BODY
+        });
         List<Attachment> duplicateAttachments = new List<Attachment>();
 
-        if(attachmentsToDuplicate != null) {
+        if (attachmentsToDuplicate != null) {
             // prepare clones
             for (Attachment attachment : attachmentsToDuplicate.values()) {
                 Attachment newAttachment = attachment.clone(false);
@@ -213,13 +215,15 @@ public with sharing class CompensationAttachmentsController {
         }
 
         // create new attachments against compensation record
-        if(!duplicateAttachments.isEmpty()) {
+        if (!duplicateAttachments.isEmpty()) {
             ApplicationDatabase.getInstance().dmlInsert(duplicateAttachments);
         }
 
         // update the POV checkbox if there is at least one of attachment OR file is selected
-        if(compensation != null) {
-            ApplicationDatabase.getInstance().dmlUpdate(new List<Compensation__c> {compensation});
+        if (compensation != null) {
+            ApplicationDatabase.getInstance().dmlUpdate(new List<Compensation__c>{
+                    compensation
+            });
         }
     }
 
@@ -245,19 +249,19 @@ public with sharing class CompensationAttachmentsController {
             }
             set;
         }
-        @AuraEnabled public Boolean isAttachment {get;set;}
-        @AuraEnabled public Integer bodyLength {get;set;}
-        @AuraEnabled public String contentType {get;set;}
-        @AuraEnabled public Datetime createdDate {get;set;}
-        @AuraEnabled public String id {get;set;}
-        @AuraEnabled public String name {get;set;}
-        @AuraEnabled public String parentId {get;set;}
+        @AuraEnabled public Boolean isAttachment { get; set; }
+        @AuraEnabled public Integer bodyLength { get; set; }
+        @AuraEnabled public String contentType { get; set; }
+        @AuraEnabled public Datetime createdDate { get; set; }
+        @AuraEnabled public String id { get; set; }
+        @AuraEnabled public String name { get; set; }
+        @AuraEnabled public String parentId { get; set; }
     }
 
     /**
      * any configurations needs to pass to the front end
      */
     public class PageConfig {
-        @AuraEnabled public Boolean isAllowedToCreateCompensation {get;set;}
+        @AuraEnabled public Boolean isAllowedToCreateCompensation { get; set; }
     }
 }

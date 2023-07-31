@@ -14,7 +14,9 @@ private class CompensationAttachmentsController_Test {
     static void setupData() {
         Test.startTest();
         //Creating users in future to avoid mix DML issues
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
+        TestDataFactory.insertUserFuture('SSSW - Service Agent', new Set<String>{
+                'CC_Compensation_Supervisor'
+        }, 'Superagent', 'CEO/Reporting');
         Test.stopTest();
     }
 
@@ -58,7 +60,7 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
@@ -72,8 +74,14 @@ private class CompensationAttachmentsController_Test {
         MockUtility.Mocks.startStubbing();
         // Selectors
         MockUtility.Mocks.when(mockContentDocumentLinksSelector
-                .search(new Map<String, Object>{'entityIds' => cases[0].Id}, new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT}, true))
-                .thenReturn(new Map<Id, ContentDocumentLink>{documentLinkRecordForCase.Id => documentLinkRecordForCase});
+                .search(new Map<String, Object>{
+                        'entityIds' => cases[0].Id
+                }, new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                }, true))
+                .thenReturn(new Map<Id, ContentDocumentLink>{
+                        documentLinkRecordForCase.Id => documentLinkRecordForCase
+                });
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -81,7 +89,7 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         Test.startTest();
         List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = new List<CompensationAttachmentsController.AttachmentDetail>();
-        CompensationAttachmentsController.getFileAttachmentDetails(compensations[0],attachmentDetails);
+        CompensationAttachmentsController.getFileAttachmentDetails(compensations[0], attachmentDetails);
         Test.stopTest();
 
         System.assertEquals(
@@ -105,7 +113,7 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
@@ -121,11 +129,23 @@ private class CompensationAttachmentsController_Test {
         MockUtility.Mocks.startStubbing();
         // Selectors
         MockUtility.Mocks.when(mockContentDocumentLinksSelector
-                .search(new Map<String, Object>{'entityIds' => cases[0].Id}, new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT}, true))
-                .thenReturn(new Map<Id, ContentDocumentLink>{documentLinkRecordForCase.Id => documentLinkRecordForCase});
+                .search(new Map<String, Object>{
+                        'entityIds' => cases[0].Id
+                }, new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                }, true))
+                .thenReturn(new Map<Id, ContentDocumentLink>{
+                        documentLinkRecordForCase.Id => documentLinkRecordForCase
+                });
         MockUtility.Mocks.when(mockContentDocumentLinksSelector
-                .search(new Map<String, Object>{'entityIds' => compensations[0].Id}, new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT}, true))
-                .thenReturn(new Map<Id, ContentDocumentLink>{documentLinkRecordForCompensation.Id => documentLinkRecordForCompensation});
+                .search(new Map<String, Object>{
+                        'entityIds' => compensations[0].Id
+                }, new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                }, true))
+                .thenReturn(new Map<Id, ContentDocumentLink>{
+                        documentLinkRecordForCompensation.Id => documentLinkRecordForCompensation
+                });
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -133,7 +153,7 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         Test.startTest();
         List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = new List<CompensationAttachmentsController.AttachmentDetail>();
-        CompensationAttachmentsController.getFileAttachmentDetails(compensations[0],attachmentDetails);
+        CompensationAttachmentsController.getFileAttachmentDetails(compensations[0], attachmentDetails);
         Test.stopTest();
 
         System.assertEquals(
@@ -158,18 +178,22 @@ private class CompensationAttachmentsController_Test {
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
         // =====================================
         // Stubbing
         // =====================================
-        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector)MockUtility.mockSelector(AttachmentsSelector.class);
+        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector) MockUtility.mockSelector(AttachmentsSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
         // Selectors
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectByParentId(new Set<Id>{cases[0].Id}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCase.Id => attachmentForCase});
+                .selectByParentId(new Set<Id>{
+                        cases[0].Id
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCase.Id => attachmentForCase
+                });
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -177,7 +201,7 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         Test.startTest();
         List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = new List<CompensationAttachmentsController.AttachmentDetail>();
-        CompensationAttachmentsController.getAttachmentDetails(compensations[0],attachmentDetails);
+        CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
         Test.stopTest();
 
         System.assertEquals(
@@ -201,22 +225,30 @@ private class CompensationAttachmentsController_Test {
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
         Attachment attachmentForCompensation = ApplicationTestDataFactory.getAttachments(1, compensations[0].Id, true)[0];
 
         // =====================================
         // Stubbing
         // =====================================
-        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector)MockUtility.mockSelector(AttachmentsSelector.class);
+        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector) MockUtility.mockSelector(AttachmentsSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
         // Selectors
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectByParentId(new Set<Id>{cases[0].Id}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCase.Id => attachmentForCase});
+                .selectByParentId(new Set<Id>{
+                        cases[0].Id
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCase.Id => attachmentForCase
+                });
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectByParentId(new Set<Id>{compensations[0].Id}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCompensation.Id => attachmentForCompensation});
+                .selectByParentId(new Set<Id>{
+                        compensations[0].Id
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCompensation.Id => attachmentForCompensation
+                });
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -224,7 +256,7 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         Test.startTest();
         List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = new List<CompensationAttachmentsController.AttachmentDetail>();
-        CompensationAttachmentsController.getAttachmentDetails(compensations[0],attachmentDetails);
+        CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
         Test.stopTest();
 
         System.assertEquals(
@@ -242,7 +274,7 @@ private class CompensationAttachmentsController_Test {
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
@@ -251,26 +283,44 @@ private class CompensationAttachmentsController_Test {
         // Stubbing
         // =====================================
 
-        CompensationSelector mockCompensationSelector = (CompensationSelector)MockUtility.mockSelector(CompensationSelector.class);
-        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector)MockUtility.mockSelector(AttachmentsSelector.class);
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector) MockUtility.mockSelector(AttachmentsSelector.class);
         ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
         MockUtility.Mocks.startStubbing();
         // Selectors
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectByParentId(new Set<Id>{cases[0].Id}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCase.Id => attachmentForCase});
+                .selectByParentId(new Set<Id>{
+                        cases[0].Id
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCase.Id => attachmentForCase
+                });
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectById(new Set<Id>{attachmentForCase.Id},new Set<Object>{AttachmentsSelector.Options.WITH_BODY}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCase.Id => attachmentForCase});
+                .selectById(new Set<Id>{
+                        attachmentForCase.Id
+                }, new Set<Object>{
+                        AttachmentsSelector.Options.WITH_BODY
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCase.Id => attachmentForCase
+                });
         MockUtility.Mocks.when(mockCompensationSelector
                 .getById(compensations[0].Id, new Set<Object>()))
-                .thenReturn(new List<Compensation__c> {compensations[0]});
+                .thenReturn(new List<Compensation__c>{
+                        compensations[0]
+                });
         MockUtility.Mocks.when(mockContentDocumentLinksSelector
-                .search(new Map<String, Object>{'entityIds' => cases[0].Id}, new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT}, true))
-                .thenReturn(new Map<Id, ContentDocumentLink>{documentLinkRecordForCase.Id => documentLinkRecordForCase});
-        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+                .search(new Map<String, Object>{
+                        'entityIds' => cases[0].Id
+                }, new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                }, true))
+                .thenReturn(new Map<Id, ContentDocumentLink>{
+                        documentLinkRecordForCase.Id => documentLinkRecordForCase
+                });
+        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 
         MockUtility.Mocks.stopStubbing();
 
@@ -279,19 +329,19 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         Test.startTest();
         List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0].Id);
-        CompensationAttachmentsController.getAttachmentDetails(compensations[0],attachmentDetails);
-        for(CompensationAttachmentsController.AttachmentDetail detail: attachmentDetails){
+        CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
+        for (CompensationAttachmentsController.AttachmentDetail detail : attachmentDetails) {
             detail.isSelectedNew = true; // user selecting the attachment/files in the UI
         }
-        CompensationAttachmentsController.createAttachments(attachmentDetails,compensations[0].Id);
+        CompensationAttachmentsController.createAttachments(attachmentDetails, compensations[0].Id);
         Test.stopTest();
 
         // make sure the dml is performed
-        List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,2);
+        List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 2);
 
         // not that it is verified, let's check for the result
-        for(List<SObject> obj :insertedRecords){
-            if(Attachment.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
+        for (List<SObject> obj : insertedRecords) {
+            if (Attachment.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
                 System.assertEquals(
                         compensations[0].Id,
                         obj[0].get('ParentId'),
@@ -299,7 +349,7 @@ private class CompensationAttachmentsController_Test {
                 );
             }
 
-            if(ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
+            if (ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
                 System.assertEquals(
                         compensations[0].Id,
                         obj[0].get('LinkedEntityId'),
@@ -317,7 +367,7 @@ private class CompensationAttachmentsController_Test {
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
@@ -326,26 +376,44 @@ private class CompensationAttachmentsController_Test {
         // Stubbing
         // =====================================
 
-        CompensationSelector mockCompensationSelector = (CompensationSelector)MockUtility.mockSelector(CompensationSelector.class);
-        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector)MockUtility.mockSelector(AttachmentsSelector.class);
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector) MockUtility.mockSelector(AttachmentsSelector.class);
         ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         // set up our responses
         MockUtility.Mocks.startStubbing();
         // Selectors
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectByParentId(new Set<Id>{cases[0].Id}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCase.Id => attachmentForCase});
+                .selectByParentId(new Set<Id>{
+                        cases[0].Id
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCase.Id => attachmentForCase
+                });
         MockUtility.Mocks.when(mockAttachmentsSelector
-                .selectById(new Set<Id>{attachmentForCase.Id},new Set<Object>{AttachmentsSelector.Options.WITH_BODY}))
-                .thenReturn(new Map<Id, Attachment>{attachmentForCase.Id => attachmentForCase});
+                .selectById(new Set<Id>{
+                        attachmentForCase.Id
+                }, new Set<Object>{
+                        AttachmentsSelector.Options.WITH_BODY
+                }))
+                .thenReturn(new Map<Id, Attachment>{
+                        attachmentForCase.Id => attachmentForCase
+                });
         MockUtility.Mocks.when(mockCompensationSelector
                 .getById(compensations[0].Id, new Set<Object>()))
-                .thenReturn(new List<Compensation__c> {compensations[0]});
+                .thenReturn(new List<Compensation__c>{
+                        compensations[0]
+                });
         MockUtility.Mocks.when(mockContentDocumentLinksSelector
-                .search(new Map<String, Object>{'entityIds' => cases[0].Id}, new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT}, true))
-                .thenReturn(new Map<Id, ContentDocumentLink>{documentLinkRecordForCase.Id => documentLinkRecordForCase});
-        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+                .search(new Map<String, Object>{
+                        'entityIds' => cases[0].Id
+                }, new Set<Object>{
+                        ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+                }, true))
+                .thenReturn(new Map<Id, ContentDocumentLink>{
+                        documentLinkRecordForCase.Id => documentLinkRecordForCase
+                });
+        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 
         MockUtility.Mocks.stopStubbing();
 
@@ -354,23 +422,23 @@ private class CompensationAttachmentsController_Test {
         // =====================================
         Test.startTest();
         List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0].Id);
-        CompensationAttachmentsController.getAttachmentDetails(compensations[0],attachmentDetails);
-        for(CompensationAttachmentsController.AttachmentDetail detail: attachmentDetails){
-            if(detail.isAttachment) {
+        CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
+        for (CompensationAttachmentsController.AttachmentDetail detail : attachmentDetails) {
+            if (detail.isAttachment) {
                 detail.isSelectedNew = false;
             } else {
                 detail.isSelectedNew = true; // user selecting the files in the UI NOT the attachment
             }
         }
-        CompensationAttachmentsController.createAttachments(attachmentDetails,compensations[0].Id);
+        CompensationAttachmentsController.createAttachments(attachmentDetails, compensations[0].Id);
         Test.stopTest();
 
         // make sure the dml is performed
-        List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase,1);
+        List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
 
         // not that it is verified, let's check for the result
-        for(List<SObject> obj :insertedRecords){
-            if(ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
+        for (List<SObject> obj : insertedRecords) {
+            if (ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
                 System.assertEquals(
                         compensations[0].Id,
                         obj[0].get('LinkedEntityId'),

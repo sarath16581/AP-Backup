@@ -12,7 +12,7 @@ private class CompensationUtilityModule_Test {
     @IsTest
     static void onBeforeInsert() {
 
-        CompensationService mockService = (CompensationService)MockUtility.mockUtility(CompensationService.class);
+        CompensationService mockService = (CompensationService) MockUtility.mockUtility(CompensationService.class);
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.stopStubbing();
 
@@ -20,14 +20,14 @@ private class CompensationUtilityModule_Test {
         CompensationUtilityModule module = CompensationUtilityModule.newInstance();
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
         Test.startTest();
 
         module.onBeforeInsert(compensations, uow);
-        ((CompensationService)MockUtility.Mocks.verify(
+        ((CompensationService) MockUtility.Mocks.verify(
                 mockService,
-                MockUtility.Mocks.times(1))).updateCurrentArticleInfoOnCompensationRecord((List<Compensation__c>)fflib_Match.eq(compensations)
+                MockUtility.Mocks.times(1))).updateCurrentArticleInfoOnCompensationRecord((List<Compensation__c>) fflib_Match.eq(compensations)
         );
 
         // PMD warning
@@ -39,7 +39,7 @@ private class CompensationUtilityModule_Test {
     @IsTest
     static void onBeforeUpdate() {
 
-        CompensationService mockService = (CompensationService)MockUtility.mockUtility(CompensationService.class);
+        CompensationService mockService = (CompensationService) MockUtility.mockUtility(CompensationService.class);
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.stopStubbing();
 
@@ -47,16 +47,18 @@ private class CompensationUtilityModule_Test {
         CompensationUtilityModule module = CompensationUtilityModule.newInstance();
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id,recordTypeId, true);
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
         Compensation__c compensation = compensations[0];
         Compensation__c oldCompensation = compensation.clone(true, true, false, false);
-        Map<Id, Compensation__c> existingRecords = new Map<Id, Compensation__c>{oldCompensation.Id => oldCompensation};
+        Map<Id, Compensation__c> existingRecords = new Map<Id, Compensation__c>{
+                oldCompensation.Id => oldCompensation
+        };
         Test.startTest();
 
-        module.onBeforeUpdate(compensations,existingRecords, uow);
-        ((CompensationService)MockUtility.Mocks.verify(
+        module.onBeforeUpdate(compensations, existingRecords, uow);
+        ((CompensationService) MockUtility.Mocks.verify(
                 mockService,
-                MockUtility.Mocks.times(1))).approveCompensationRecord((List<Compensation__c>)fflib_Match.eq(compensations), (Map<Id, Compensation__c>)fflib_Match.eq(existingRecords)
+                MockUtility.Mocks.times(1))).approveCompensationRecord((List<Compensation__c>) fflib_Match.eq(compensations), (Map<Id, Compensation__c>) fflib_Match.eq(existingRecords)
         );
 
         // PMD warning

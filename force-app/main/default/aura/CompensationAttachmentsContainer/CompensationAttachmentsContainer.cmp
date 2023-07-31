@@ -15,7 +15,7 @@
  -->
 
 <aura:component description="CompensationAttachmentsContainer" implements="force:appHostable">
-    <aura:attribute name="recordId" type="object"  />
+    <aura:attribute name="recordId" type="object"/>
     <c:compensationAttachments recordId="{!v.recordId}"/>
 </aura:component>
 

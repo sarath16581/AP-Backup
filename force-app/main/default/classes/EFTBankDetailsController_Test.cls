@@ -32,16 +32,16 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
         Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         //enter banking details.
         ext.accountNumber = '11111111';
         ext.accountBSB = '111111';
@@ -51,7 +51,7 @@ public with sharing class EFTBankDetailsController_Test {
         //save
         ext.saveMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ext.showEditButton,'check edit button visibility');
         System.assertEquals(false,ext.showEditScreen,'check edit screen visibility');
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.Confirm),'check edit button visibility');
@@ -61,16 +61,16 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Bank_Detail_Provided_By_Customer__c = true, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '', Account_Number__c = '' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
         Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         //enter banking details.
         ext.accountNumber = '1234';
         ext.accountBSB = '123456';
@@ -80,7 +80,7 @@ public with sharing class EFTBankDetailsController_Test {
         //save
         ext.saveMethod();
         Test.stopTest();
-        
+
         comp = [SELECT Bank_Detail_Provided_By_Customer__c, Account_Name__c, Account_Number__c, BSB__c FROM Compensation__c WHERE Id = :comp.Id];
 
         System.assert(String.isNotEmpty(comp.Account_Name__c), 'testSaveMethod_AgentEdit failed: account name is not saved');
@@ -91,16 +91,16 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover', Bank_Detail_Provided_By_Customer__c = true);
         Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         //enter banking details.
         // ext.accountNumber = '11111111';
         // ext.accountBSB = '111111';
@@ -110,10 +110,10 @@ public with sharing class EFTBankDetailsController_Test {
         //save
         // ext.saveMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ext.showEditButton,'check edit button visibility');
     }
-    
+
     /********************************************
 	Scenario:
 	Test the cancel method
@@ -122,29 +122,29 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
         Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         ext.accountNumber = '11111111';
         ext.accountBSB = '111111';
         ext.accountName = 'New Account';
         ext.privacyCheck = true;
         ext.confirmDetails = true;
-        
+
         ext.cancelMethod();
         Test.stopTest();
         //screen should return back to view screen.
         System.assertEquals(true,ext.showEditButton,'check edit button visibility');
         System.assertEquals(false,ext.showEditScreen,'check edit screen visibility');
     }
-    
+
     	/********************************************
 	Scenario:
 	Test creating a compensation.
@@ -153,11 +153,11 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
@@ -170,7 +170,7 @@ public with sharing class EFTBankDetailsController_Test {
         //insert compensation
         ext.insertMethod();
         Test.stopTest();
-        
+
         //query the compensation to verify creation
         Compensation__c c = [select Id,Name,Batch_ID__c from Compensation__c][0];
         //check the batch Id returned vs inserted.
@@ -181,11 +181,11 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
@@ -199,7 +199,7 @@ public with sharing class EFTBankDetailsController_Test {
         //insert compensation
         ext.insertMethod();
         Test.stopTest();
-        
+
         //query the compensation to verify creation
         Compensation__c c = [select Id,Name,Batch_ID__c,Account_Number__c from Compensation__c][0];
         //check the batch Id returned vs inserted.
@@ -207,7 +207,7 @@ public with sharing class EFTBankDetailsController_Test {
         System.debug('------' + c.Account_Number__c);
         System.assert(String.isEmpty(c.Account_Number__c));
     }
-    
+
     /********************************************
 	Scenario:
 	Test the validation that check empty bank details.
@@ -216,15 +216,15 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
-        
+
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         Test.startTest();
 		//exclude account number field.
         //ext.accountNumber = '11111111';
@@ -232,14 +232,14 @@ public with sharing class EFTBankDetailsController_Test {
         ext.accountName = 'New Account';
         ext.privacyCheck = true;
         ext.confirmDetails = true;
-        
+
         ext.insertMethod();
         Test.stopTest();
-    		
+
 		System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('Bank Details cannot be empty.',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
-    
+
     /********************************************
 	Scenario:
 	Test the validation that checks non-numeric values
@@ -248,30 +248,30 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         ext.accountNumber = '11111111';
         //enter non numaric value for BSB.
         ext.accountBSB = '1111gg';
         ext.accountName = 'New Account';
         ext.privacyCheck = true;
         ext.confirmDetails = true;
-        
+
         ext.insertMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('Account Number and BSB should be numbers only.',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
-    
+
     /********************************************
 	Scenario:
 	Test the validation that checks values BSB larger than 6 digits
@@ -280,30 +280,30 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         ext.accountNumber = '11111111';
         //enter a number larger than 6 digits
         ext.accountBSB = '1111111';
         ext.accountName = 'New Account';
         ext.privacyCheck = true;
         ext.confirmDetails = true;
-        
+
         ext.insertMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('BSB should be 6 digits',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
-    
+
     /********************************************
 	Scenario:
 	Test the validation that checks account numbers larger than 9 digits.
@@ -312,30 +312,30 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         //enter a account number larger than 9 digits.
         ext.accountNumber = '11111111111';
         ext.accountBSB = '111111';
         ext.accountName = 'New Account';
         ext.privacyCheck = true;
         ext.confirmDetails = true;
-        
+
         ext.insertMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('Account Number should not exceed beyond 9 digits',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
-    
+
     /********************************************
 	Scenario:
 	Test the validation that ensures the privacy check has been done.
@@ -344,30 +344,30 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-        
+
         ext.accountNumber = '11111111';
         ext.accountBSB = '111111';
         ext.accountName = 'New Account';
         //uncheck the privacy check
         ext.privacyCheck = false;
         ext.confirmDetails = true;
-        
+
         ext.insertMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('Please ensure that data compliance statement has been read to the customer.',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
-    
+
     /********************************************
 	Scenario:
 	Test the validation that check whether the agent has verified the details before saving.
@@ -376,26 +376,26 @@ public with sharing class EFTBankDetailsController_Test {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
-        
+
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-        
+
         Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
-        
+
         Test.startTest();
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
         EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-    		
+
         ext.accountNumber = '11111111';
         ext.accountBSB = '111111';
         ext.accountName = 'New Account';
         ext.privacyCheck = true;
         //uncheck the confirm details
         ext.confirmDetails = false;
-        
+
         ext.insertMethod();
         Test.stopTest();
-        
+
         System.assertEquals(true,ApexPages.hasMessages(ApexPages.SEVERITY.ERROR),'check validation has fired');
 		System.assertEquals('Please confirm Bank Details with the customer.',ApexPages.getMessages()[0].getSummary(),'check edit button visibility');
     }
@@ -406,7 +406,7 @@ public with sharing class EFTBankDetailsController_Test {
     static testMethod void testValidateCompensationUserPermissionBankDetail001() {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
@@ -415,15 +415,17 @@ public with sharing class EFTBankDetailsController_Test {
 
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
-                Case__c = testCase.Id ,
-                Batch_ID__c = 1 ,
-                Status__c = 'Pending' ,
+                Case__c = testCase.Id,
+                Batch_ID__c = 1,
+                Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
-                BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
+                BSB__c = '444333', Account_Number__c = '123234345', RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
 
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{comp});
+        context.upsertRecords(new List<SObject>{
+                comp
+        });
 
         Test.startTest();
         String message = '';
@@ -446,7 +448,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         }
         Test.stopTest();
-        system.debug('HASANTHA MSG'+message+ApexPages.getMessages());
+        system.debug('HASANTHA MSG' + message + ApexPages.getMessages());
         System.assertEquals(
                 'You do not have privilege to manually enter the bank account details',
                 ApexPages.getMessages()[0].getSummary(),
@@ -461,7 +463,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
@@ -470,16 +472,18 @@ public with sharing class EFTBankDetailsController_Test {
 
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
-                Case__c = testCase.Id ,
-                Batch_ID__c = 1 ,
-                Status__c = 'Pending' ,
+                Case__c = testCase.Id,
+                Batch_ID__c = 1,
+                Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
-                BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
+                BSB__c = '444333', Account_Number__c = '123234345', RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
 
 
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{comp});
+        context.upsertRecords(new List<SObject>{
+                comp
+        });
 
         Test.startTest();
         System.runAs(superUser) {
@@ -512,7 +516,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
@@ -521,20 +525,22 @@ public with sharing class EFTBankDetailsController_Test {
 
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
-                Case__c = testCase.Id ,
-                Batch_ID__c = 1 ,
-                Status__c = 'Pending' ,
+                Case__c = testCase.Id,
+                Batch_ID__c = 1,
+                Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
                 BSB__c = '444333',
-                Account_Number__c = '123234345' ,
+                Account_Number__c = '123234345',
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
 
 
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{comp});
+        context.upsertRecords(new List<SObject>{
+                comp
+        });
 
         Test.startTest();
         System.runAs(normalUser) {
@@ -560,7 +566,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
@@ -569,20 +575,22 @@ public with sharing class EFTBankDetailsController_Test {
 
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
-                Case__c = testCase.Id ,
-                Batch_ID__c = 1 ,
-                Status__c = 'Pending' ,
+                Case__c = testCase.Id,
+                Batch_ID__c = 1,
+                Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
                 BSB__c = '444333',
-                Account_Number__c = '123234345' ,
+                Account_Number__c = '123234345',
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
 
 
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{comp});
+        context.upsertRecords(new List<SObject>{
+                comp
+        });
 
         Test.startTest();
         System.runAs(agentUser) {
@@ -608,7 +616,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
@@ -619,9 +627,9 @@ public with sharing class EFTBankDetailsController_Test {
         System.runAs(agentUser) {
             Compensation__c comp = new Compensation__c(
                     Contact__c = contact.Id,
-                    Case__c = testCase.Id ,
-                    Batch_ID__c = 1 ,
-                    Status__c = 'Pending' ,
+                    Case__c = testCase.Id,
+                    Batch_ID__c = 1,
+                    Status__c = 'Pending',
                     Compensation_Amount__c = 150,
                     CostCentreCode__c = 'test',
                     RecordTypeId = recordTypeId,
@@ -633,7 +641,7 @@ public with sharing class EFTBankDetailsController_Test {
             ext.insertMethod();
         }
         Test.stopTest();
-        system.debug('HASANTHA -- '+ApexPages.getMessages());
+        system.debug('HASANTHA -- ' + ApexPages.getMessages());
         System.assertEquals(
                 0,
                 ApexPages.getMessages().size(),
@@ -648,7 +656,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
@@ -659,13 +667,13 @@ public with sharing class EFTBankDetailsController_Test {
         System.runAs(normalUser) {
             Compensation__c comp = new Compensation__c(
                     Contact__c = contact.Id,
-                    Case__c = testCase.Id ,
-                    Batch_ID__c = 1 ,
-                    Status__c = 'Pending' ,
+                    Case__c = testCase.Id,
+                    Batch_ID__c = 1,
+                    Status__c = 'Pending',
                     Compensation_Amount__c = 150,
                     CostCentreCode__c = 'test',
                     BSB__c = '444333',
-                    Account_Number__c = '123234345' ,
+                    Account_Number__c = '123234345',
                     RecordTypeId = recordTypeId,
                     Cover_Type__c = 'ACL'
             );
@@ -689,36 +697,38 @@ public with sharing class EFTBankDetailsController_Test {
 
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
-        testCase.ReferenceID__c  = 'REF01';
+        testCase.ReferenceID__c = 'REF01';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
-                Case__c = testCase.Id ,
-                Batch_ID__c = 1 ,
-                Status__c = 'Pending' ,
+                Case__c = testCase.Id,
+                Batch_ID__c = 1,
+                Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
                 BSB__c = '444333',
-                Account_Number__c = '123234345' ,
+                Account_Number__c = '123234345',
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
 
 
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{comp});
+        context.upsertRecords(new List<SObject>{
+                comp
+        });
         Test.startTest();
         System.runAs(agentUser) {
             Compensation__c comp2 = new Compensation__c(
                     Contact__c = contact.Id,
-                    Case__c = testCase.Id ,
-                    Batch_ID__c = 1 ,
-                    Status__c = 'Pending' ,
+                    Case__c = testCase.Id,
+                    Batch_ID__c = 1,
+                    Status__c = 'Pending',
                     Compensation_Amount__c = 150,
                     CostCentreCode__c = 'test',
                     RecordTypeId = recordTypeId,
@@ -745,36 +755,38 @@ public with sharing class EFTBankDetailsController_Test {
 
         User Superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
-        testCase.ReferenceID__c  = 'REF01';
+        testCase.ReferenceID__c = 'REF01';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
-                Case__c = testCase.Id ,
-                Batch_ID__c = 1 ,
-                Status__c = 'Pending' ,
+                Case__c = testCase.Id,
+                Batch_ID__c = 1,
+                Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
                 BSB__c = '444333',
-                Account_Number__c = '123234345' ,
+                Account_Number__c = '123234345',
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
 
 
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{comp});
+        context.upsertRecords(new List<SObject>{
+                comp
+        });
         Test.startTest();
         System.runAs(Superagent) {
             Compensation__c comp2 = new Compensation__c(
                     Contact__c = contact.Id,
-                    Case__c = testCase.Id ,
-                    Batch_ID__c = 1 ,
-                    Status__c = 'Pending' ,
+                    Case__c = testCase.Id,
+                    Batch_ID__c = 1,
+                    Status__c = 'Pending',
                     Compensation_Amount__c = 150,
                     CostCentreCode__c = 'test',
                     RecordTypeId = recordTypeId,

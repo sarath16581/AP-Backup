@@ -12,20 +12,22 @@
  *
  */
 
-import { LightningElement, wire, api } from 'lwc';
-import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import {LightningElement, wire, api} from 'lwc';
+import {getObjectInfo} from 'lightning/uiObjectInfoApi';
 import getAttachmentsByParentId from '@salesforce/apex/CompensationAttachmentsController.getAttachmentsByParentId';
 import createAttachments from '@salesforce/apex/CompensationAttachmentsController.createAttachments';
 import getPageConfig from '@salesforce/apex/CompensationAttachmentsController.getPageConfig';
 
 // Data table columns
 const columns = [
-    { label: 'Attachment Name', fieldName: 'Name' },
-    { label: 'Type', fieldName: 'ContentType' },
-    { label: 'Size (KB)', fieldName: 'BodyLength', type: 'number',
-        cellAttributes: { alignment: 'center' }
+    {label: 'Attachment Name', fieldName: 'Name'},
+    {label: 'Type', fieldName: 'ContentType'},
+    {
+        label: 'Size (KB)', fieldName: 'BodyLength', type: 'number',
+        cellAttributes: {alignment: 'center'}
     },
-    { label: 'Preview', type:  'button',
+    {
+        label: 'Preview', type: 'button',
         typeAttributes: {
             label: 'Preview',
             name: 'Preview',
@@ -33,7 +35,7 @@ const columns = [
             iconName: 'utility:preview',
             iconPosition: 'right'
         },
-        cellAttributes: { alignment: 'center' }
+        cellAttributes: {alignment: 'center'}
     },
     {
         label: 'Actions',
@@ -44,7 +46,7 @@ const columns = [
             name: 'selectFileAction',
             iconSize: 1,
             variant: 'base',
-            disabled : {fieldName: 'isSelected'}
+            disabled: {fieldName: 'isSelected'}
         },
 
         cellAttributes: {
@@ -62,7 +64,7 @@ export default class CompensationAttachments extends LightningElement {
     isDisableSelection = true;
     messages = {};
     config = {};
-    @wire(getObjectInfo, { objectApiName: 'Attachment' })
+    @wire(getObjectInfo, {objectApiName: 'Attachment'})
     attachmentObjectInfo;
 
     attachments = [];
@@ -73,25 +75,25 @@ export default class CompensationAttachments extends LightningElement {
         this.loadAttachments();
     }
 
-    async handleRowAction(event){
-        const actionName  = event.detail.action.name;
-        const actionedRow  = event.detail.row;
+    async handleRowAction(event) {
+        const actionName = event.detail.action.name;
+        const actionedRow = event.detail.row;
 
-        switch (actionName){
+        switch (actionName) {
             case 'selectFileAction':
-                if(this.attachments) {
+                if (this.attachments) {
                     // render the selection button icons based on the selections
                     this.attachments = this.attachments.map(row => {
-                        if(actionedRow.Id === row.Id) {
+                        if (actionedRow.Id === row.Id) {
                             let isSelectedNew = !row.isSelectedNew
                             let buttonIconName = isSelectedNew ? 'utility:check' : 'utility:add';
-                            return { ...row, isSelectedNew, buttonIconName };
+                            return {...row, isSelectedNew, buttonIconName};
                         }
-                        return { ...row};
+                        return {...row};
 
                     });
 
-                    if(this.config.isAllowedToCreateCompensation) {
+                    if (this.config.isAllowedToCreateCompensation) {
                         // enable/disable the attachment button based on the selection
                         this.isDisableSelection = !(this.attachments.some(row => row.isSelectedNew === true));
                     }
@@ -106,7 +108,7 @@ export default class CompensationAttachments extends LightningElement {
 
                 }
 
-                this.dispatchEvent(new CustomEvent('preview', { detail: detail, bubbles: true, composed: true }));
+                this.dispatchEvent(new CustomEvent('preview', {detail: detail, bubbles: true, composed: true}));
 
                 break;
             default:
@@ -132,15 +134,15 @@ export default class CompensationAttachments extends LightningElement {
             this.isLoading = false;
         });
 
-        getAttachmentsByParentId({ recordId: this.recordId })
+        getAttachmentsByParentId({recordId: this.recordId})
             .then((result) => {
                 this.attachments = result;
                 console.log(result);
-                if(this.attachments) {
+                if (this.attachments) {
                     let customerKey;
                     let buttonIconName;
                     this.attachments = this.attachments.map(row => {
-                        buttonIconName = (row.isSelected === true? 'utility:check' : 'utility:add') ;
+                        buttonIconName = (row.isSelected === true ? 'utility:check' : 'utility:add');
                         return {...row, buttonIconName}
                     })
                 }
@@ -152,7 +154,7 @@ export default class CompensationAttachments extends LightningElement {
                 this.messages.showError = true;
                 this.messages.message = error.body.message;
             }).finally(() => {
-                this.isLoading = false;
+            this.isLoading = false;
         });
     }
 
@@ -163,7 +165,7 @@ export default class CompensationAttachments extends LightningElement {
     handleCreateAttachments() {
         this.isLoading = true;
         this.messages = {};
-        createAttachments({ attachmentDetails: this.attachments, recordId: this.recordId })
+        createAttachments({attachmentDetails: this.attachments, recordId: this.recordId})
             .then(() => {
                 this.messages.showSuccess = true;
                 this.messages.message = 'Attachments created successfully.';
@@ -173,7 +175,7 @@ export default class CompensationAttachments extends LightningElement {
                 this.messages.showError = true;
                 this.messages.message = error.body.message;
             }).finally(() => {
-                this.isLoading = false;
+            this.isLoading = false;
         });
     }
 
