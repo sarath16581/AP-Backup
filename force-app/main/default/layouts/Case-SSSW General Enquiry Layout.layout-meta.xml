@@ -174,15 +174,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Bypass_Data_enforcement__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>CCU3rdPartyReference__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Complaint__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Resolution_Result__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LinkedArticleHasExtraCover__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -223,8 +227,8 @@
                 <field>CCUYourReference__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LinkedArticleHasExtraCover__c</field>
+                <behavior>Edit</behavior>
+                <field>Bypass_Data_enforcement__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -338,10 +342,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>NetworkComments__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Resolution_Result__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -737,16 +737,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Case.CaseDetails</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Case.SAPEM</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>1</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>FeedItem.ContentPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
@@ -760,6 +750,16 @@
             <actionName>Submit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>4</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Case.CaseDetails</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Case.SAPEM</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

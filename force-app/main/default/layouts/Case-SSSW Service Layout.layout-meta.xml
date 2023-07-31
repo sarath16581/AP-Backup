@@ -173,16 +173,16 @@
                 <field>ResolutionCode__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Bypass_Data_enforcement__c</field>
+                <behavior>Required</behavior>
+                <field>Complaint__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Resolution_Result__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Complaint__c</field>
+                <behavior>Edit</behavior>
+                <field>Bypass_Data_enforcement__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

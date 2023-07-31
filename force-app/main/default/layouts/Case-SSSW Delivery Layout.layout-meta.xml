@@ -179,16 +179,16 @@
                 <field>ResolutionCode__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Bypass_Data_enforcement__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Complaint__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LinkedArticleHasExtraCover__c</field>
+                <behavior>Edit</behavior>
+                <field>Resolution_Result__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Bypass_Data_enforcement__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -231,6 +231,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CCUYourReference__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LinkedArticleHasExtraCover__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -444,10 +448,6 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Resolution_Result__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>NetworkComments__c</field>
