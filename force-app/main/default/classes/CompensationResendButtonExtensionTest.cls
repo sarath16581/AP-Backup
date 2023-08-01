@@ -91,77 +91,74 @@ private with sharing class CompensationResendButtonExtensionTest
         Test.stopTest();
     }
 
+    /**
+     * Testing of a normal agent user without any permission sets assigned,
+     * should not allow the user to re send email
+     * isAllowedToCreateCompensation is used to render the visualforce UI buttons based on the value
+     */
     @isTest
-    static void validateOnResendEmail001() {
+    static void validateOnResendEmailUserWithoutPrivilege() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        // this user needs to be inserted as the controller's constructor determines the value of the isAllowedToCreateCompensation based on the,
+        // custom permissionset assignment
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
-        User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
-
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
-        insert contact;
-        //create test data
-        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
-        insert testCase;
-        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-
+        // =====================================
+        // Testing
+        // =====================================
         Test.startTest();
-        System.runAs(normalUser) {
-            Compensation__c comp = new Compensation__c(
-                    Contact__c = contact.Id,
-                    Case__c = testCase.Id ,
-                    Batch_ID__c = 1 ,
-                    Status__c = 'Pending' ,
-                    Compensation_Amount__c = 150,
-                    CostCentreCode__c = 'test',
-                    BSB__c = '444333',
-                    Account_Number__c = '123234345' ,
-                    RecordTypeId = recordTypeId,
-                    Cover_Type__c = 'ACL'
-            );
-            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
-            CompensationResendButtonExtension ext = new CompensationResendButtonExtension(stdCtl);
-            System.assertEquals(
-                    false,
-                    ext.isAllowedToCreateCompensation,
-                    'validateOnResendEmail_001: User do not have privilege to resend email'
-            );
+        CompensationResendButtonExtension ext;
+        System.runAs(superagent) {
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(compensations[0]);
+            ext = new CompensationResendButtonExtension(stdCtl);
         }
         Test.stopTest();
+        System.assertEquals(
+                false,
+                ext.isAllowedToCreateCompensation,
+                'validateOnResendEmailUserWithoutPrivilege: User should not have privilege to resend email'
+        );
+
     }
 
-    @isTest
-    static void validateOnResendEmail002() {
-
+    /**
+     * Testing of an agent user with any custom permissions of Is_Compensation_User or Is_Compensation_Supervisor assigned,
+     * should allow the user to re send email
+     * isAllowedToCreateCompensation is used to render the visualforce UI buttons based on the value
+    */
+    @IsTest
+    static void validateOnResendEmailUserWithPrivilege() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        // this user needs to be inserted as the controller's constructor determines the value of the isAllowedToCreateCompensation based on the,
+        // custom permissionset assignment
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
-        Contact contact = TestDataProvider.createContact('test',null,'Contact');
-        insert contact;
-        //create test data
-        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
-        insert testCase;
-        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-
+        // =====================================
+        // Testing
+        // =====================================
         Test.startTest();
+        CompensationResendButtonExtension ext;
         System.runAs(superagent) {
-            Compensation__c comp = new Compensation__c(
-                    Contact__c = contact.Id,
-                    Case__c = testCase.Id ,
-                    Batch_ID__c = 1 ,
-                    Status__c = 'Pending' ,
-                    Compensation_Amount__c = 150,
-                    CostCentreCode__c = 'test',
-                    BSB__c = '444333',
-                    Account_Number__c = '123234345' ,
-                    RecordTypeId = recordTypeId,
-                    Cover_Type__c = 'ACL'
-            );
-            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
-            CompensationResendButtonExtension ext = new CompensationResendButtonExtension(stdCtl);
-            System.assertEquals(
-                    true,
-                    ext.isAllowedToCreateCompensation,
-                    'validateOnResendEmail_001: User should have privilege to resend email'
-            );
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(compensations[0]);
+            ext = new CompensationResendButtonExtension(stdCtl);
         }
         Test.stopTest();
+
+        System.assertEquals(
+                true,
+                ext.isAllowedToCreateCompensation,
+                'validateOnResendEmailUserWithPrivilege: User should have privilege to resend email'
+        );
+
     }
 }
