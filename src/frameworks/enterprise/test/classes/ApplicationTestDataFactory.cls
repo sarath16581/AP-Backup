@@ -302,9 +302,9 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
-	public static List<Case> getCases(Integer count, String ReferenceId , Boolean generateIds) {
+	public static List<Case> getCases(Integer count, String referenceId , Boolean generateIds) {
 		return (List<Case>)maybeGenerateIds(populateSObjects(Case.SObjectType, new Map<SObjectField, Object> {
-				Case.ReferenceID__c => ReferenceId,
+				Case.ReferenceID__c => referenceId,
 				Case.Subject => 'Case Subject %count%',
 				Case.Description => 'Case Description %count%',
 				Case.Status => 'New'

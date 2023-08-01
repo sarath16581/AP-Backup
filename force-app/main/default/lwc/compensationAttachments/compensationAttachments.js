@@ -139,7 +139,6 @@ export default class CompensationAttachments extends LightningElement {
                 this.attachments = result;
                 console.log(result);
                 if (this.attachments) {
-                    let customerKey;
                     let buttonIconName;
                     this.attachments = this.attachments.map(row => {
                         buttonIconName = (row.isSelected === true ? 'utility:check' : 'utility:add');
