@@ -178,7 +178,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Resolution_Result__c</field>
+                <field>CCUYourReference__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -216,11 +216,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>RelatedCase__c</field>
+                <field>Resolution_Result__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>CCUYourReference__c</field>
+                <field>RelatedCase__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
