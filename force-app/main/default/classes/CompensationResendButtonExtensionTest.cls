@@ -49,7 +49,6 @@ private with sharing class CompensationResendButtonExtensionTest
         update compensation;
 
         Test.startTest();
-        list<PermissionSetAssignment> permissionSetAssignmentList = new list<PermissionSetAssignment>();
         // create a user
         TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
         TestDataFactory.insertUserFuture('SSSW - Service Agent',null,'normalUser','CEO/Reporting');
@@ -57,7 +56,7 @@ private with sharing class CompensationResendButtonExtensionTest
     }
 
     @isTest
-    private static void resendCompensationEmail_HappyPath()
+    private static void resendCompensationEmailHappyPath()
     {
         Compensation__c compensation = [SELECT Id, Compensation_Form_Token__c FROM Compensation__c];
 
@@ -66,12 +65,12 @@ private with sharing class CompensationResendButtonExtensionTest
         ApexPages.StandardController controller = new ApexPages.StandardController(compensation);
         CompensationResendButtonExtension extension = new CompensationResendButtonExtension(controller);
         extension.resendCompensationEmail();
-        System.assertEquals(1, System.Limits.getEmailInvocations(), 'resendCompensationEmail_HappyPath failed: no email sent');
+        System.assertEquals(1, System.Limits.getEmailInvocations(), 'resendCompensationEmailHappyPath failed: no email sent');
         Test.stopTest();
     }
     
     @isTest
-    private static void resendCompensationEmail_ErrorPath()
+    private static void resendCompensationEmailErrorPath()
     {
         Compensation__c compensation = [SELECT Id, Compensation_Form_Token__c FROM Compensation__c];
         compensation.Bank_Detail_Provided_By_Customer__c = false;
@@ -85,9 +84,9 @@ private with sharing class CompensationResendButtonExtensionTest
             extension.resendCompensationEmail();
         } catch (Exception e)
         {
-            System.assert(extension.compensationEmailResendResult != 'Compensation email has been sent', 'resendCompensationEmail_ErrorPath failed: resend result is not error');
+            System.assert(extension.compensationEmailResendResult != 'Compensation email has been sent', 'resendCompensationEmailErrorPath failed: resend result is not error');
         }
-        System.assertEquals(0, System.Limits.getEmailInvocations(), 'resendCompensationEmail_ErrorPath failed: email sent');
+        System.assertEquals(0, System.Limits.getEmailInvocations(), 'resendCompensationEmailErrorPath failed: email sent');
         Test.stopTest();
     }
 

@@ -67,7 +67,7 @@ public with sharing class EFTBankDetailsController_Test {
     }
 
     @IsTest
-    static void testSaveMethod_AgentEditChangeRoute() {
+    static void testSaveMethodAgentEditChangeRoute() {
         User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
         // by pass the validation rules when run as a user with a SSSW Agent profile
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
@@ -205,7 +205,7 @@ public with sharing class EFTBankDetailsController_Test {
     }
 
     @IsTest
-    static void testInsertMethod_CompensationChecked() {
+    static void testInsertMethodCompensationChecked() {
         //create test data
         User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
         // by pass the validation rules when run as a user with a SSSW Agent profile
@@ -836,7 +836,7 @@ public with sharing class EFTBankDetailsController_Test {
     @IsTest
     static void validateOnLoadCreateDuplicateCompensationWithPermission() {
 
-        User Superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
@@ -864,7 +864,7 @@ public with sharing class EFTBankDetailsController_Test {
                 comp
         });
         Test.startTest();
-        System.runAs(Superagent) {
+        System.runAs(superagent) {
             Compensation__c comp2 = new Compensation__c(
                     Contact__c = contact.Id,
                     Case__c = testCase.Id,
