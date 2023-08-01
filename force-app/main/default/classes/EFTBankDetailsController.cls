@@ -66,7 +66,7 @@ public without sharing class EFTBankDetailsController {
         }
         private set;
     }
-    public static final Boolean isCompensationUser {
+    public Boolean isCompensationUser {
         get {
             if(isCompensationUser == null) {
                 isCompensationUser = FeatureManagement.checkPermission('Is_Compensation_User');
@@ -75,7 +75,7 @@ public without sharing class EFTBankDetailsController {
         }
         private set;
     }
-    public static final Boolean IsCompensationSupervisor {
+    public Boolean isCompensationSupervisor {
         get {
             if(isCompensationSupervisor == null) {
                 isCompensationSupervisor = FeatureManagement.checkPermission('Is_Compensation_Supervisor');
