@@ -36,21 +36,4 @@ public with sharing class CompensationService {
             compensation.CurrentArticleId__c = cases.get(compensation.Case__c)?.ReferenceID__c;
         }
     }
-
-    /**
-     * When Approved__c field set to true when Status is Approved, Processing, Alternate Compensation, Awaiting Money Order Number, Payment Successful, Approved Awaiting Customer
-     * update the Approved__c to true
-     * @param compensations
-     * @param oldCompensations
-     */
-    public void approveCompensationRecord(List<Compensation__c> compensations, Map<Id, Compensation__c> oldCompensations) {
-        for (Compensation__c compensation : compensations) {
-            Compensation__c oldCompensation = oldCompensations.get(compensation.Id);
-            String status = compensation.Status__c;
-            // if the status is changed then update the approved__c
-            if (compensation.Status__c != oldCompensation.Status__c && COMPENSATION_APPROVED_STATUSES.contains(status.toUpperCase())) {
-                compensation.Approved__c = true;
-            }
-        }
-    }
 }

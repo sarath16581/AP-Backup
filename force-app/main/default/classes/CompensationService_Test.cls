@@ -32,28 +32,4 @@ private class CompensationService_Test {
                 'updateCurrentArticleInfoOnCompensationRecord : Current Article field should be updated'
         );
     }
-
-    @IsTest
-    static void approveCompensationRecord() {
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
-        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
-        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-        Compensation__c compensation = compensations[0];
-        compensation.Status__c = 'APPROVED';
-        Compensation__c oldCompensation = compensation.clone(true, true, false, false);
-        oldCompensation.Status__c = 'PENDING';
-        oldCompensation.Approved__c = false;
-        Map<Id, Compensation__c> existingRecords = new Map<Id, Compensation__c>{
-                oldCompensation.Id => oldCompensation
-        };
-
-        Test.startTest();
-        CompensationService.getInstance().approveCompensationRecord(compensations, existingRecords);
-        Test.stopTest();
-        System.assertEquals(
-                true,
-                compensations[0].Approved__c,
-                'approveCompensationRecord : Approved field should be marked true'
-        );
-    }
 }

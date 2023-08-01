@@ -443,27 +443,31 @@ public with sharing class EFTBankDetailsController_Test {
 	*********************************************/
     @IsTest
     static void testValidateDetailsConfirmation() {
-    	//create test data
+        //create test data
+        User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        // by pass the validation rules when run as a user with a SSSW Agent profile
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
+        insert contact;
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
 
         Test.startTest();
-        ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
-        EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-
-        ext.accountNumber = '11111111';
-        ext.accountBSB = '111111';
-        ext.accountName = 'New Account';
-        ext.privacyCheck = true;
-        //uncheck the confirm details
-        ext.confirmDetails = false;
-        User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        //admin user will not be able to create the record without custom permission set, hence need a run as
         System.runAs(superUser) {
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+
+            ext.accountNumber = '11111111';
+            ext.accountBSB = '111111';
+            ext.accountName = 'New Account';
+            ext.privacyCheck = true;
+            //uncheck the confirm details
+            ext.confirmDetails = false;
             ext.insertMethod();
         }
         Test.stopTest();
