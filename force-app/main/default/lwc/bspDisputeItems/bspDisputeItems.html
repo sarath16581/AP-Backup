@@ -42,6 +42,7 @@
 									type="text" 
 									value={disputeItem.Invoice_Number__c} 
 									onchange={onChangeField} 
+									max-length="12"
 									data-id={disputeItem.Id} 
 									data-field="Invoice_Number__c">
 								</lightning-input>
@@ -51,11 +52,13 @@
 									<lightning-input
 										variant="label-hidden" 
 										type="text" 
-										value={disputeItem.Transaction_ID__c} 
+										value={disputeItem.Transaction_ID__c}
+										onfocus={handleFocus}
 										required
 										onchange={onChangeField}
 										placeholder="Transaction ID"
 										message-when-value-missing="Please enter a Transaction ID which can be found on the invoice"	 
+										max-length="50"
 										data-id={disputeItem.Id} 
 										data-field="Transaction_ID__c">
 									</lightning-input>
@@ -67,10 +70,12 @@
 										variant="label-hidden"
 										type="text" 
 										value={disputeItem.Connote__c} 
+										onfocus={handleFocus}
 										required
 										onchange={onChangeField}
 										placeholder="Connote #"
 										message-when-value-missing="Please enter a Consignment Note Number which can be found on the invoice"	 
+										max-length="20"
 										data-id={disputeItem.Id} 
 										data-field="Connote__c">
 									</lightning-input>
@@ -84,7 +89,6 @@
 									onchange={onChangeField}
 									type="number"
 									formatter="currency"
-									onfocus={handleFocus}
 									message-when-value-missing="Enter the amount claimed"
 									message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
 									message-when-range-underflow="Amount claimed cannot be a negative value"
@@ -102,7 +106,6 @@
 									onchange={onChangeField}
 									type="number"
 									formatter="currency"
-									onfocus={handleFocus}
 									message-when-value-missing="Enter the amount charged"
 									message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
 									message-when-range-underflow="Amount charged cannot be a negative value"

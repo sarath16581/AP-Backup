@@ -35,10 +35,22 @@ export default class bspDisputeItems extends LightningElement {
     }
 
 	handleFocus(event) {
-//		const inputCmp = this.template.querySelectorAll('[data-id="' + event.target.dataset.id + '"]');
-//		inputCmp[0].setCustomValidity('');
+		const inputCmp = this.template.querySelectorAll('[data-id="' + event.target.dataset.id + '"]');
+		inputCmp[1].setCustomValidity('');
 	}
 
+	handleFocusOut(event) {
+		this.checkValidationOfField(event.target.dataset.id);
+	}
+
+	checkValidationOfField(datasetId) {
+		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
+		//--Checking the custom validation on change of a field value
+		if (inputCmp != undefined && inputCmp.length > 0) {
+			checkCustomValidity(inputCmp[1], inputCmp[0].messageWhenValueMissing);
+		}
+	}
+	
 	get showTransactionId(){
 		if (this.accountHeldWith === 'Australia Post'){
 			return true;
