@@ -9,7 +9,6 @@ OR(
 $User.Profile_Name_in_Text__c = &apos;AP Integration&apos;,
 $User.Profile_Name_in_Text__c = &apos;AusPost Integration&apos;,
 $User.Profile_Name_in_Text__c = &apos;AusPost Integration API Only&apos;,
-$User.Profile_Name_in_Text__c = &apos;SNNAP Integration&apos;,
 $User.Profile_Name_in_Text__c = &apos;SSSW Social Integration&apos;,
 CONTAINS(Username, &quot;schandel@exacttarget.com&quot;)),
 TRUE, FALSE)</formula>
