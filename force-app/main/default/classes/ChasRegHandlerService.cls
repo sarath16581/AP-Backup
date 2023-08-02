@@ -6,6 +6,7 @@
  * @author Nathan Franklin
  * @date 2023-03-16
  * @changelog
+ * 2023-08-01 Mahesh Parvathaneni - Added validation for backwards compabitibility for user federation id in updateForExistingUser method
  */
 public with sharing class ChasRegHandlerService {
 
@@ -119,7 +120,7 @@ public with sharing class ChasRegHandlerService {
 	public User matchOrCreate(String federationId, Map<String, String> attributes) {
 
 		// look for an existing records first
-		Map<SObjectType, SObject> existingRecords = getExistingRecords(federationId, attributes);
+		Map<SObjectType, SObject> existingRecords = getExistingRecords(attributes);
 
 		Id personContactId;
 		Account personAccountRecord;
@@ -132,7 +133,7 @@ public with sharing class ChasRegHandlerService {
 		} else {
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
-			personAccountRecord = createPersonAccount(federationId, attributes);
+			personAccountRecord = createPersonAccount(attributes);
 			personContactId = personAccountRecord.PersonContactId;
 		}
 
@@ -155,7 +156,7 @@ public with sharing class ChasRegHandlerService {
 	/**
 	 * Method will attempt to grab both the person account and user records if they exist based on the attributes passed in
 	 */
-	public Map<SObjectType, SObject> getExistingRecords(String federationId, Map<String, String> attributes) {
+	public Map<SObjectType, SObject> getExistingRecords(Map<String, String> attributes) {
 		Map<SObjectType, SObject> output = new Map<SObjectType, SObject>();
 		
 		String existingAPCN = attributes.get(ATTRIBUTE_APCN_MAPPING);
@@ -195,7 +196,7 @@ public with sharing class ChasRegHandlerService {
 	 * Create a new person account record for use with the community the user is logging into
 	 * This is invoked where a person account record could not be found based on the matching criteria
 	 */
-	public Account createPersonAccount(String federationId, Map<String, String> attributes) {
+	public Account createPersonAccount(Map<String, String> attributes) {
 		Account matchedAccount = (Account)populateRecord(Account.getSObjectType(), attributes, PERSONACCOUNT_SOBJECT_CREATEABLE_ATTRIBUTE_MAPPINGS);
 		matchedAccount.RecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{ChasConstants.PERSON_ACCOUNT_RECORD_TYPE_DEVELOPER_NAME}).values()[0].Id;
 
@@ -230,6 +231,10 @@ public with sharing class ChasRegHandlerService {
 		// make sure that the user has not been disabled and disconnected from the person account
 		if(!userRecord.IsPortalEnabled) {
 			throw new RegHandlerException('User is configured incorrectly. Not a portal user.');
+		}
+
+		if(!userIsFederatedMatch(userRecord, attributes.get('augmented_username'))) {
+			throw new RegHandlerException('Could not find a federated match for an existing user.');
 		}
 
 		// populate a user record for update
