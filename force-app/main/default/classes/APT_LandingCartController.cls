@@ -175,7 +175,7 @@ public with sharing class APT_LandingCartController {
 					existingProposalPrimary.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
 					updatePrimaryFalse.add(existingProposalPrimary);
 					}else{
-						proposalPrimaryTrueId.add(existingProposalPrimary.id);                        
+						proposalPrimaryTrueId.add(existingProposalPrimary.id);
 					}
 				}
 				//Querying the product config record by using the proposal id to show the error if user don't have access to Prod config.
@@ -185,7 +185,7 @@ public with sharing class APT_LandingCartController {
 					Id prodConfigOwnerId;
 					if(prodConfig.size() > 0){
 						for(Apttus_Config2__ProductConfiguration__c pc:prodConfig){
-							prodConfigOwnerId = pc.OwnerId;                            
+							prodConfigOwnerId = pc.OwnerId;
 						}
 						if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
 							exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
