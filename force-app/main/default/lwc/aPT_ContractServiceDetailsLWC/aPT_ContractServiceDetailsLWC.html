@@ -48,7 +48,7 @@
 
 				<div class="slds-col slds-size_1-of-2">
 					<lightning-input-field field-name={conditionField}
-					onchange ={handleConditionsChange} class="condField"> </lightning-input-field>
+					onchange ={handleConditionsChange} class="condField" disabled={aggstartDateDisabled}> </lightning-input-field>
 				</div>
 				<div class="slds-col slds-size_1-of-2">
 					<lightning-input-field field-name={expDateField}  class="expDateField" style="display:none;"> </lightning-input-field>
@@ -61,7 +61,7 @@
 				<div class="slds-col slds-size_1-of-2">
 					<lightning-input-field field-name={startDateField} class="startDateField" style="display:none;"></lightning-input-field>
 					<lightning-input type="date" value={startDateValue} label="Agreement Commencement Date"
-					date-style="short" class="startDate" required="true" onchange ={handleAggStartDateChange}></lightning-input>
+					date-style="short" class="startDate" required="true" onchange ={handleAggStartDateChange} disabled={aggstartDateDisabled}></lightning-input>
 				</div>
 				<div class="slds-col slds-size_1-of-2">
 					<lightning-input-field field-name={inclProdField} class="prodLinesField"> </lightning-input-field>

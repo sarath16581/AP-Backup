@@ -14,6 +14,21 @@
         <shortDescription>Apttus Object Initials for Proposal</shortDescription>
         <value>a8O</value>
     </labels>
+	<labels>
+        <fullName>Abandon_Shopping_Cart_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Abandon_Shopping_Cart_Error</shortDescription>
+        <value>You do not have access to this record. Please reach out to the opportunity driver and/or system administrator team for access</value>
+    </labels>
+    <labels>
+        <fullName>SaveCartEditOpportunityProducts</fullName>
+        <categories>Button, Cart</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SaveCartEditOpportunityProducts</shortDescription>
+        <value>Save Cart &amp; Edit Opportunity Products</value>
+    </labels>
     <labels>
         <fullName>EXPIRED_QUOTE</fullName>
         <language>en_US</language>

@@ -59,4 +59,10 @@ export default class APT_AddProductLWC extends NavigationMixin(LightningElement)
 				this.error = error.body.message;
 			})
 	}
+
+	//Redircting the user to opportunity record
+	get handleBackToOpportunity(){
+		this.isLoading = true;
+		return (this.sfdcBaseURL = window.location.origin + '/lightning/r/Opportunity/'+this.recordId+'/view');
+	}
 }
