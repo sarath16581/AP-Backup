@@ -47,6 +47,8 @@ export default class CsqApprovalQA extends LightningElement {
 		if (this.backgroundTasks[BACKGROUND_TASK.GetRecord].status) {
 			return this.backgroundTasks[BACKGROUND_TASK.GetRecord].result;
 		}
+
+		return null;
 	}
 	
 	// Using currentPageReference to obtain recordId and objectApiName

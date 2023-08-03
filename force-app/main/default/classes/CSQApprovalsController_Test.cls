@@ -63,8 +63,6 @@ public with sharing class CSQApprovalsController_Test {
 			CSQApprovalsController.updatePickupLocationStatus(puLoc.Id, 'pending', 'comments');
 			System.assert(true, 'No exception expected');
 		} catch(Exception ex) {
-			System.debug(ex);
-			System.debug(ex.getStackTraceString());
 			System.assert(false, 'No exception expected');
 		}
 
