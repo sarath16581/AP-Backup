@@ -47,7 +47,7 @@ class UIToasts {
 	 */
 	static showToast = ({ thisArg, title, message, messageData, variant, mode }) => 
 		// Wrapped in async setTimeout callback to work around issue where the Toast doesn't show
-		Promise.resolve(
+		Promise.resolve(setTimeout(
 			() => thisArg.template.dispatchEvent(
 				new ShowToastEvent({
 					title, messageData, variant, mode,
@@ -55,8 +55,8 @@ class UIToasts {
 						? formatApiError(message)
 						: message
 				})
-			)
-		);	
+			), 0
+		));
 
 	/**
 	 * Displays a success notification leveraging LWC Toasts
