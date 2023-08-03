@@ -15,10 +15,10 @@ import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment
 
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
 
-//	enquiryType = 'Missing Item';
+	//	enquiryType = 'Missing Item';
 	spinnerAltText = 'loading';
 	errorGeneric = 'An error has occurred';
-//	errorOnSearch = 'An error has occurred while searching';
+	//	errorOnSearch = 'An error has occurred while searching';
 	errorOnValidate = 'Please correct the errors in your input';
 
 	showLog = false;
@@ -63,13 +63,13 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track reasonClaimFieldData;
 
 	//login user details
-    @track user = {
-        FirstName: '',
-        LastName: '',
-        Email: '',
-        Phone: '',
-        MobilePhone: ''
-    };
+	@track user = {
+		FirstName: '',
+		LastName: '',
+		Email: '',
+		Phone: '',
+		MobilePhone: ''
+	};
 
 	@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
 	wiredObjectInfo({data, error}) {
@@ -79,12 +79,12 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			const rtis = data.recordTypeInfos;
 			this.recordTypeId = Object.keys(rtis).find(rti => rtis[rti].name === 'Enterprise Credit Dispute Claim');
 		}
-	};	
- 
+	}
+
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: BUSINESS_UNIT_FIELD })
 	businessUnitInfo({data, error}) {
 		if (data) this.accountHeldWithList = data.values;
-	};
+	}
 
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: ENQUIRY_TYPE_FIELD })
 	enquiryTypeInfo({data, error}) {
@@ -99,12 +99,12 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			)
 		}
 		this.disputeTypeList = enquiryTypeOptions;		
-	};
+	}
 
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: REASON_CREDIT_CLAIM_FIELD })
 	reasonClaimInfo({data, error}) {
 		if (data) this.reasonClaimFieldData = data;
-	};
+	}
 
 	handleEnquiryTypeChange(event) {
 		let key = this.reasonClaimFieldData.controllerValues[event.target.value]; 
@@ -112,23 +112,23 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	}
 
 	//get current user profile details
-    @wire(getUserProfileDetails) userProfileDetails({
-        error,
-        data
-    }) {
-        if (data) {
+	@wire(getUserProfileDetails) userProfileDetails({
+		error,
+		data
+	}) {
+		if (data) {
 			if (data.user)
-            	this.user = data.user
-        	if (data.businessName)
-            	this.businessName = data.businessName;
+				this.user = data.user
+			if (data.businessName)
+				this.businessName = data.businessName;
 
 			this.showSpinner = false;
 
-        } else if (error) {
-            this.errorMessage = this.errorGeneric;
-            this.showSpinner = false;
-        }
-    }
+		} else if (error) {
+			this.errorMessage = this.errorGeneric;
+			this.showSpinner = false;
+		}
+	}
 
 	/**
 	 * Initialize the lwc, waits for the page url to be available first. This is to avoid order of execution
@@ -203,7 +203,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	checkValidationOfField(datasetId) {
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
 		//--Checking the custom validation on change of a field value
-		if (inputCmp != undefined && inputCmp.length > 0) {
+		if (inputCmp !== undefined && inputCmp.length > 0) {
 			checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
 		}
 	}
@@ -239,7 +239,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		for(let i = 0; i < this.uploadedFiles.length; ++i)
 		{
 			let objFile = this.uploadedFiles[i];
-			if(objFile.documentId == fileId)
+			if(objFile.documentId === fileId)
 			{
 				this.uploadedFiles.splice(i, 1);
 				return;

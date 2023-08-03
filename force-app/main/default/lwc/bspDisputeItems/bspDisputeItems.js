@@ -1,38 +1,38 @@
 import { LightningElement, api, track } from 'lwc';
 
-import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight} from 'c/bspCommonJS';
+import {checkAllValidity, checkCustomValidity} from 'c/bspCommonJS';
 
 export default class bspDisputeItems extends LightningElement {
-    @track disputeItemList = [];
+	@track disputeItemList = [];
 	@api accountHeldWith = '';
 
 
-    addRow() {
-        const newDisputeItem = {
-            Id: Date.now().toString(36) + Math.random().toString(36).substring(2),
-            Invoice_Number__c: '',
+	addRow() {
+		const newDisputeItem = {
+			Id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+			Invoice_Number__c: '',
 			Transaction_ID__c: '',
 			Connote__c: '',
-            Amount_Claimed__c: null,
-            Amount__c: null
-        };
-        this.disputeItemList.push(newDisputeItem);
+			Amount_Claimed__c: null,
+			Amount__c: null
+		};
+		this.disputeItemList.push(newDisputeItem);
 		
-    }
+	}
 
 	deleteRow(event) {
-        const { id } = event.target.dataset;
-        this.disputeItemList = this.disputeItemList.filter(disputeItem => disputeItem.Id !== id);
-    }
+		const { id } = event.target.dataset;
+		this.disputeItemList = this.disputeItemList.filter(disputeItem => disputeItem.Id !== id);
+	}
 
-    onChangeField(event) {
-        const { id, field } = event.target.dataset;
-        const value = event.target.value;
-        const disputeItemToUpdate = this.disputeItemList.find(disputeItem => disputeItem.Id === id);
-        if (disputeItemToUpdate) {
-            disputeItemToUpdate[field] = value;
-        }
-    }
+	onChangeField(event) {
+		const { id, field } = event.target.dataset;
+		const value = event.target.value;
+		const disputeItemToUpdate = this.disputeItemList.find(disputeItem => disputeItem.Id === id);
+		if (disputeItemToUpdate) {
+			disputeItemToUpdate[field] = value;
+		}
+	}
 
 	handleFocus(event) {
 		const inputCmp = this.template.querySelectorAll('[data-id="' + event.target.dataset.id + '"]');
@@ -46,27 +46,27 @@ export default class bspDisputeItems extends LightningElement {
 	checkValidationOfField(datasetId) {
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
 		//--Checking the custom validation on change of a field value
-		if (inputCmp != undefined && inputCmp.length > 0) {
+		if (inputCmp !== undefined && inputCmp.length > 0) {
 			checkCustomValidity(inputCmp[1], inputCmp[0].messageWhenValueMissing);
 		}
 	}
-	
+
 	get showTransactionId(){
 		if (this.accountHeldWith === 'Australia Post'){
 			return true;
-		}else{
-			return false;
 		}
+		
+		return false;		
 	}
 
 	get showConnote(){
 		if (this.accountHeldWith === 'StarTrack'){
 			return true;
-		}else{
-			return false;
 		}
+		
+		return false;		
 	}
-	
+
 	@api
 	checkAllValidity(){
 		const inputComponents = this.template.querySelectorAll('lightning-input');
@@ -77,7 +77,6 @@ export default class bspDisputeItems extends LightningElement {
 	@api
 	getDisputedItems(){
 		return this.disputeItemList;
-
 	}
 
 

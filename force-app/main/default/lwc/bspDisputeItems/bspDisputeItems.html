@@ -3,9 +3,9 @@
  -->
 
 <template>
-    <div class="slds-box slds-scrollable slds-m-around_medium">
+	<div class="slds-box slds-scrollable slds-m-around_medium">
 
-		 <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_striped">
+			<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_striped">
 			<thead>
 				<tr class="slds-line-height_reset">
 					<th class="" scope="col">
@@ -33,7 +33,7 @@
 					</th>
 				</tr>
 			</thead>
-            <tbody>
+			<tbody>
 					<template for:each={disputeItemList} for:item="disputeItem" for:index="index">
 						<tr key={disputeItem.Id} class="slds-hint-parent">						
 							<td class="slds-truncate">
@@ -125,8 +125,8 @@
 							</td>
 						</tr>
 					</template>
-            </tbody>
-        </table>
+			</tbody>
+		</table>
 		<div class="slds-var-p-top_medium">
 			<lightning-button label="Add Row" 
 				variant="brand" 

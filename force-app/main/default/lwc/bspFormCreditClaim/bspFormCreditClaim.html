@@ -5,134 +5,136 @@
 <!-- Bsp Form Credit Claim -->
 <template>
 
-    <!-- Navigation links-->
-    <c-bsp-breadcrumb bread-crumb-text={formTitle}></c-bsp-breadcrumb>
+	<!-- Navigation links-->
+	<c-bsp-breadcrumb bread-crumb-text={formTitle}></c-bsp-breadcrumb>
 
-    <div>
-        <!-- Case Creation Form -->
-        <div class="slds-grid slds-grid_align-center">
-            <div
-                class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_9-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
-                <template if:false={successCreation}>
+	<div>
+		<!-- Case Creation Form -->
+		<div class="slds-grid slds-grid_align-center">
+			<div
+				class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_9-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+				<template if:false={successCreation}>
 
-                    <!-- spinner -->
-                    <template if:true={showSpinner}>
-                        <lightning-spinner variant="brand" size="medium" alternative-text="loading...">
-                        </lightning-spinner>
-                    </template>
+					<!-- spinner -->
+					<template if:true={showSpinner}>
+						<lightning-spinner variant="brand" size="medium" alternative-text="loading...">
+						</lightning-spinner>
+					</template>
 
-                    <lightning-card title="">
-                        <div class="slds-p-horizontal_x-large slds-p-bottom_large">
+					<lightning-card title="">
+						<div class="slds-p-horizontal_x-large slds-p-bottom_large">
 
-                            <!-- Form Title-->
-                            <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
-                                <h2>{formTitle}</h2>
-                            </div>
-                            <!-- error display -->
-                            <template if:true={errorMessage}>
-                                <c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
-                            </template>
+							<!-- Form Title-->
+							<div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
+								<h2>{formTitle}</h2>
+							</div>
+							<!-- error display -->
+							<template if:true={errorMessage}>
+								<c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
+							</template>
+
+							
 
 							<lightning-layout multiple-rows="true">
 
-                            <!-- Business and contact details HEADING -->
-                            <div>
-                                <h3 class="slds-p-vertical_large">Business and contact details</h3>
-                            </div>
-                            <!-- businessName -->
+							<!-- Business and contact details HEADING -->
+							<div>
+								<h3 class="slds-p-vertical_large">Business and contact details</h3>
+							</div>
+							<!-- businessName -->
 							<lightning-layout-item size="9">
-                            <lightning-input label="Business name" 
+							<lightning-input label="Business name" 
 											value={businessName}
-                                            data-id="businessName"
-                                            onchange={onChangeField}
-                                            name="businessName"
-                                            type="text"
-                                            required
+											data-id="businessName"
+											onchange={onChangeField}
+											name="businessName"
+											type="text"
+											required
 											placeholder="Enter the Business Name"											 
-                                            message-when-value-missing="Please enter Business Name"
+											message-when-value-missing="Please enter Business Name"
 											class="brand-form-input slds-p-bottom_x-large"
 											disabled
 											max-length="255">
-                            </lightning-input>
+							</lightning-input>
 							</lightning-layout-item>
-                            
+							
 							<!-- businessAccountNumber -->
 							<lightning-layout-item size="9">
-                            <lightning-input label="Business account number" 
+							<lightning-input label="Business account number" 
 											value={businessAccountNumber}
-                                            data-id="businessAccountNumber"
-                                            onchange={onChangeField}
-                                            name="businessAccountNumber"
-                                            type="text"
+											data-id="businessAccountNumber"
+											onchange={onChangeField}
+											name="businessAccountNumber"
+											type="text"
 											onfocus={handleFocus}
-                                            required
+											required
 											placeholder="Enter the business account number"											 
-                                            message-when-value-missing="Please enter Business Account Number"
+											message-when-value-missing="Please enter Business Account Number"
 											class="brand-form-input slds-p-bottom_x-large"
 											max-length="255">
-                            </lightning-input>
+							</lightning-input>
 							</lightning-layout-item>
 
-                            <!-- contactName -->
+							<!-- contactName -->
 							<lightning-layout-item size="9">
-                            <lightning-input label="Contact name" 
+							<lightning-input label="Contact name" 
 											value={contactName}
-                                            data-id="contactName"
-                                            onchange={onChangeField}
-                                            name="contactName"
-                                            type="text"
+											data-id="contactName"
+											onchange={onChangeField}
+											name="contactName"
+											type="text"
 											onfocus={handleFocus}
-                                            required
+											required
 											placeholder="Enter the contact name"											 
-                                            message-when-value-missing="Please enter Contact Name"
+											message-when-value-missing="Please enter Contact Name"
 											class="brand-form-input slds-p-bottom_x-large"
 											max-length="255">
-                            </lightning-input>							
+							</lightning-input>							
 							</lightning-layout-item>
 
-                            <!-- contactEmailAddress -->
+							<!-- contactEmailAddress -->
 							<lightning-layout-item size="9">							
-                            <lightning-input label="Contact email address" 
+							<lightning-input label="Contact email address" 
 											value={contactEmailAddress}
-                                            data-id="contactEmailAddress"
-                                            onchange={onChangeField}
-                                            name="contactEmailAddress"
-                                            type="text"
+											data-id="contactEmailAddress"
+											onchange={onChangeField}
+											name="contactEmailAddress"
+											type="text"
 											onfocus={handleFocus}
-                                            required
+											required
 											placeholder="Enter the contact email address"											 
-                                            message-when-value-missing="Please enter a valid Email Address"
+											message-when-value-missing="Please enter a valid Email Address"
 											class="brand-form-input slds-p-bottom_x-large"
 											pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
 											message-when-pattern-mismatch="Please enter a valid Email Address"
 											max-length="255">
-                            </lightning-input>
+							</lightning-input>
 							</lightning-layout-item>
 
 							<!-- contactPhoneNumber -->
 							<lightning-layout-item size="9">														
-                            <lightning-input label="Contact phone number (optional)" 
+							<lightning-input label="Contact phone number (optional)" 
 											value={contactPhoneNumber} 
 											data-id="contactPhoneNumber"
-                                			onchange={onChangeField} 
+											onchange={onChangeField} 
 											name="contactPhoneNumber" 
 											type="text"
-                                			placeholder="Enter the contact phone number"
-                                			class="brand-form-input slds-p-bottom_x-large" 
+											placeholder="Enter the contact phone number"
+											class="brand-form-input slds-p-bottom_x-large" 
 											max-length="255">
-                            </lightning-input>
+							</lightning-input>
 							</lightning-layout-item>
 
-                            <!-- Claim description HEADING -->
+							<!-- Claim description HEADING -->
 							<lightning-layout-item size="12">								
-                            <div>								
-                                <h3 class="slds-p-vertical_large">Claim description</h3>
-                            </div>
+							<div>								
+								<h3 class="slds-p-vertical_large">Claim description</h3>
+							</div>
 							</lightning-layout-item>
 
-                            <!-- accountHeldWith -->
+							<!-- accountHeldWith -->
 							<lightning-layout-item size="9">								
-                            <lightning-combobox label="Account held with" 
+							<lightning-combobox label="Account held with" 
 											data-id="accountHeldWith" 
 											value={accountHeldWith}
 											placeholder="Make a selection" 
@@ -142,12 +144,12 @@
 											message-when-value-missing="Please enter Account Held With" 
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
-                            </lightning-combobox>
+							</lightning-combobox>
 							</lightning-layout-item>
 
 							<!-- disputeType -->
 							<lightning-layout-item size="9">
-                            <lightning-combobox label="Dispute type" 
+							<lightning-combobox label="Dispute type" 
 											data-id="disputeType" 
 											value={disputeType}
 											placeholder="Select a dispute type" 
@@ -157,12 +159,12 @@
 											message-when-value-missing="Please enter Dispute type" 
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
-                            </lightning-combobox>
+							</lightning-combobox>
 							</lightning-layout-item>
 							
 							<!-- reasonForCreditClaim -->
 							<lightning-layout-item size="9">
-                            <lightning-combobox label="Reason for credit claim" 
+							<lightning-combobox label="Reason for credit claim" 
 											data-id="reasonClaim" 
 											value={reasonClaim}
 											placeholder="Select a reason" 
@@ -172,31 +174,31 @@
 											message-when-value-missing="Please enter a reason" 
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
-                            </lightning-combobox>
+							</lightning-combobox>
 							</lightning-layout-item>
 
-                            <!-- claimAmount -->
+							<!-- claimAmount -->
 							<lightning-layout-item size="9">
-                            <lightning-input label="Total amount claimed ($) (optional)" value={claimAmount}
-                                             data-id="claimAmount"
-                                             onchange={onChangeField}
-                                             name="claimAmount"
-                                             type="number"
-                                             formatter="currency"
-                                             onfocus={handleFocus}
-                                             message-when-value-missing="Enter the total amount"
-                                             message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
-                                             message-when-range-underflow="Total amount cannot be a negative value"
-                                             min=".01"
-                                             step=".01"
-                                             class="brand-form-input slds-p-bottom_x-large" 
-											 max-length="20">
-                            </lightning-input>				
+							<lightning-input label="Total amount claimed ($) (optional)" value={claimAmount}
+												data-id="claimAmount"
+												onchange={onChangeField}
+												name="claimAmount"
+												type="number"
+												formatter="currency"
+												onfocus={handleFocus}
+												message-when-value-missing="Enter the total amount"
+												message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
+												message-when-range-underflow="Total amount cannot be a negative value"
+												min=".01"
+												step=".01"
+												class="brand-form-input slds-p-bottom_x-large" 
+												max-length="20">
+							</lightning-input>				
 							</lightning-layout-item>			
 
-                            <!-- description -->
+							<!-- description -->
 							<lightning-layout-item size="9">
-                            <lightning-textarea label="Description" 
+							<lightning-textarea label="Description" 
 											data-id="description"
 											type="text" 
 											value={description} 
@@ -206,7 +208,7 @@
 											required 
 											class="brand-form-input slds-p-bottom_x-large" 
 											max-length="32000">
-                            </lightning-textarea>
+							</lightning-textarea>
 							</lightning-layout-item>
 
 							<template if:true={showDisputedTransactionSection}>
@@ -223,49 +225,49 @@
 								</lightning-layout-item>
 							</template>
 
-                            <!-- Supporting documents HEADING -->
+							<!-- Supporting documents HEADING -->
 							<lightning-layout-item size="12">			
-                            <div>
-                                <h3 class="slds-p-vertical_large">Supporting documents</h3>
-                            </div>
+							<div>
+								<h3 class="slds-p-vertical_large">Supporting documents</h3>
+							</div>
 							</lightning-layout-item>
 
-                            <!--  Files upload 
+							<!--  Files upload 
 							<lightning-layout-item size="12">			
-                            <c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
+							<c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
 							</lightning-layout-item>
 							-->
 
 							</lightning-layout>
 
-                            <!-- Buttons -->
-                            <div class="slds-p-top_x-large">
-                                <span class="slds-text-color_error">*</span>&nbsp;Required information
-                            </div>
+							<!-- Buttons -->
+							<div class="slds-p-top_x-large">
+								<span class="slds-text-color_error">*</span>&nbsp;Required information
+							</div>
 
-                            <div class="slds-p-top_x-large">
+							<div class="slds-p-top_x-large">
 
-                                <lightning-button label="Cancel" title="Cancel"
-                                    class="brand-tertiary-button slds-p-right_medium" variant="Neutral"
-                                    onclick={navigateHome}>
-                                </lightning-button>
-                                <lightning-button label="Submit" title="Submit"
-                                    class="brand-primary-button" variant="destructive" onclick={onSubmitRequest}>
-                                </lightning-button>
-                            </div>
-                        </div>
-                    </lightning-card>
+								<lightning-button label="Cancel" title="Cancel"
+									class="brand-tertiary-button slds-p-right_medium" variant="Neutral"
+									onclick={navigateHome}>
+								</lightning-button>
+								<lightning-button label="Submit" title="Submit"
+									class="brand-primary-button" variant="destructive" onclick={onSubmitRequest}>
+								</lightning-button>
+							</div>
+						</div>
+					</lightning-card>
 
-                </template>
+				</template>
 
-                <!--Case creation Success
-                <template if:true={successCreation}>
-                    <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} edd={searchResult.APConsignmentExpDeliveryDate} contains-essential-medicine={isContainsMedication} has-sentimental-value={isSentimental} page-type={enquiryType}>
-                    </c-bsp-enquiry-creation-success>
-                </template>
+				<!--Case creation Success
+				<template if:true={successCreation}>
+					<c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} edd={searchResult.APConsignmentExpDeliveryDate} contains-essential-medicine={isContainsMedication} has-sentimental-value={isSentimental} page-type={enquiryType}>
+					</c-bsp-enquiry-creation-success>
+				</template>
 				-->
 
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </template>
