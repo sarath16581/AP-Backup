@@ -35,9 +35,9 @@
                 <behavior>Edit</behavior>
                 <field>SalesDirectorLevel__c</field>
             </layoutItems>
-            <layoutItems>
+			<layoutItems>
                 <behavior>Edit</behavior>
-                <field>SalesDirectorPortfolioLevel__c</field>
+                <field>SalesDirectorPortfolioCode__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

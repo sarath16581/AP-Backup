@@ -5,14 +5,13 @@
  * @description A class which test Proposal creation on a click of button "Add Product" is clicked from the
 				   opportunity page which is called form lightning "aPT_AddProductLWC" class
  * @changelog
- * 2023-07-06 Ken McGuire replaced Apttus_Proposal__Opportunity__r.IsStartrackProposal__c
  */
 @IsTest
 public with sharing class APT_LandingCartController_Test {
 
-	 /**
-	 * Test: Data created when opportunity gets created but IsStartrackProposal__c is having no values to check the error condition
-	 */
+	/**
+	* Test: Data created when opportunity gets created but IsStartrackProposal__c is having no values to check the error condition
+	*/
 
 	@IsTest
 	public static void testValidationCheckStarTrackProposal(){
@@ -38,8 +37,8 @@ public with sharing class APT_LandingCartController_Test {
 	}
 
 	/**
-	 * Test: Data created when opportunity gets created with stagename as 'Closed Lost' so user cannot create proposal and error is thown
-	 */
+	* Test: Data created when opportunity gets created with stagename as 'Closed Lost' so user cannot create proposal and error is thown
+	*/
 	@IsTest
 	public static void testValidationCheckStageName(){
 		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
@@ -67,8 +66,8 @@ public with sharing class APT_LandingCartController_Test {
 	}
 
 	/**
-	 * Test: Data created when opportunity gets created with IsStartrackProposal__c as 'yes' but no values for minimum spend and Post Code, so user cannot create proposal and error is thown
-	 */
+	* Test: Data created when opportunity gets created with IsStartrackProposal__c as 'yes' but no values for minimum spend and Post Code, so user cannot create proposal and error is thown
+	**/
 
 	@IsTest
 	public static void testValidationCheckStarTrackProposalYes(){
@@ -95,8 +94,8 @@ public with sharing class APT_LandingCartController_Test {
 	}
 
 	/**
-	 * Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' and proposal gets created and land to Cart
-	 *  */
+	* Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' and proposal gets created and land to Cart
+	**/
 
 	@IsTest
 	public static void testValidationCheckStarTrackProposalNo(){
@@ -125,9 +124,9 @@ public with sharing class APT_LandingCartController_Test {
 		system.assertEquals(opp.IsStartrackProposal__c,'No');
 	}
 
-	 /**
-	 * Test: Data created when opportunity gets created with IsStartrackProposal__c as 'yes' values for minimum spend and Post Code are provided,proposal gets created and land to Cart page.
-	 *  */
+	/**
+	* Test: Data created when opportunity gets created with IsStartrackProposal__c as 'yes' values for minimum spend and Post Code are provided,proposal gets created and land to Cart page.
+	**/
 
 	@IsTest
 	public static void testValidationCheckStarTrackProposaValues(){
@@ -166,8 +165,8 @@ public with sharing class APT_LandingCartController_Test {
 	}
 
 	/**
-	 * Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' but there existing a proposal and system does not create proposal and land to cart page.
-	 *  */
+	* Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' but there existing a proposal and system does not create proposal and land to cart page.
+	**/
 
 	@IsTest
 	public static void testValidationCheckNoWithExistingProposal(){
@@ -217,9 +216,9 @@ public with sharing class APT_LandingCartController_Test {
 			}
 		}
 	}
-	 /**
-	 * Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' but there existing a proposal with status not 'Accepted' or 'Denied' and system does not create proposal and land to cart page.
-	 *  */
+	/**
+	* Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' but there existing a proposal with status not 'Accepted' or 'Denied' and system does not create proposal and land to cart page.
+	**/
 
 	@IsTest
 	public static void testValidationCheckWithExistingProposalNotAccepted(){
@@ -258,9 +257,9 @@ public with sharing class APT_LandingCartController_Test {
 	}
 
 	/**
-	 * Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' with user profile as pricing management.
-	 *
-	 *  */
+	* Test: Data created when opportunity gets created with IsStartrackProposal__c as 'No' with user profile as pricing management.
+	*
+	**/
 
 	@IsTest
 	public static void testValidationCheckPricingManagementProfile(){

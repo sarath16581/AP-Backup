@@ -103,7 +103,8 @@ public with sharing class AtRiskBusinessController {
 		Decimal addedRevenue = 0;
 
 		for (String month: monthNames) {
-			addedRevenue += ((Decimal)revenueRecord.get(month + '_Revenue_Amount__c'));
+			Decimal monthRevenue = ((Decimal)revenueRecord.get(month + '_Revenue_Amount__c'));
+			addedRevenue += (monthRevenue != null ? monthRevenue : 0);
 		}
 
 		return (existingRevenue != null ? (existingRevenue + addedRevenue) : addedRevenue);

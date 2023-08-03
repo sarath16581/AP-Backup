@@ -44,7 +44,7 @@ private class TestEmailMessageUtil {
     @testSetup static void createUser(){
        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
        UserRole r = [SELECT Id FROM UserRole WHERE Name = 'User Support - Business Systems Consultant'];
-       User systemSupport = new User(Alias = 'ssupp', Email='systemsupport@testorg.a', EmailEncodingKey='UTF-8', FirstName = 'System', LastName='Support', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='systemsupport@testorg.a');
+       User systemSupport = new User(Alias = 'ssuppss', Email='systemsupport@testorg.a', EmailEncodingKey='UTF-8', FirstName = 'System', LastName='Support', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='systemsupport@testorg.a', Work_Center_Code__c='123456');
        Database.insert(systemSupport);
     }
     
@@ -86,7 +86,7 @@ private class TestEmailMessageUtil {
     }
     
     static testmethod void testStarTrackDuplicateInboundEmail(){
-        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssupp' LIMIT 1];
+        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssuppss' LIMIT 1];
         
         System.runAs(systemSupport){
             Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId();
@@ -117,7 +117,7 @@ private class TestEmailMessageUtil {
         }
     
     static testmethod void testVOCInboundEmail(){
-        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssupp' LIMIT 1];
+        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssuppss' LIMIT 1];
         
         System.runAs(systemSupport){
             Test.startTest();
@@ -136,7 +136,7 @@ private class TestEmailMessageUtil {
 
     // Added below method for Secure Post
     static testmethod void testSecurePost(){
-        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssupp' LIMIT 1];
+        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssuppss' LIMIT 1];
 
         System.runAs(systemSupport){
             Id onboardRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Customer Onboarding').getRecordTypeId();

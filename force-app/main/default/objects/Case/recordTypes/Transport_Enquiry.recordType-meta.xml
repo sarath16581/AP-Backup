@@ -2140,7 +2140,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>ETA</fullName>
+            <fullName>ETA request</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2176,7 +2176,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Returns</fullName>
+            <fullName>Return</fullName>
             <default>false</default>
         </values>
         <values>
@@ -10260,23 +10260,11 @@
     <picklistValues>
         <picklist>ResolutionCode__c</picklist>
         <values>
-            <fullName>Actioned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Completed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Duplicate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Information provided</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Rebooked</fullName>
+            <fullName>Invalid%2FDuplicate</fullName>
             <default>false</default>
         </values>
         <values>
@@ -10284,11 +10272,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Refused</fullName>
+            <fullName>Request completed</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unable to service</fullName>
+            <fullName>Request rejected</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -1,5 +1,6 @@
 /**
  * 2020-05-27 - Nathan Franklin - Included the search billing account selector table and fixed some minor UI bugs
+ * 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
  */
 ({
 	onInitLoad : function(component, event, helper) {
@@ -30,9 +31,8 @@
 					helper.parseApplications(component,
 						objResponse.applications,
 						objResponse.contactApplications,
-						objResponse.contactRolesPerApplication);
-
-					helper.parseBillingAccounts(component, objResponse.billingAccounts);
+						objResponse.contactRolesPerApplication,
+						objResponse.billingAccountsByApplication);
 
 					new Promise($A.getCallback(function (result) {
 						setTimeout($A.getCallback(function () {

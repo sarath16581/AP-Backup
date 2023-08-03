@@ -7,6 +7,11 @@
         <namespace>Apttus</namespace>
     </packageVersions>
     <packageVersions>
+        <majorNumber>14</majorNumber>
+        <minorNumber>176</minorNumber>
+        <namespace>Apttus_CMConfig</namespace>
+    </packageVersions>
+    <packageVersions>
         <majorNumber>9</majorNumber>
         <minorNumber>65</minorNumber>
         <namespace>Apttus_QPComply</namespace>

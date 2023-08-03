@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Events_Queue</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.EMAIL</columns>
+    <columns>LEAD.COMPANY</columns>
+    <columns>LEAD.STATE</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.UNREAD</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Queue</filterScope>
+    <label>Business Events Queue</label>
+    <queue>Business_Events</queue>
+    <sharedTo>
+        <group>Account_Managers</group>
+        <group>Sales_Group_Specialist</group>
+        <group>Sales_Managers</group>
+        <role>Marketing</role>
+    </sharedTo>
+</ListView>

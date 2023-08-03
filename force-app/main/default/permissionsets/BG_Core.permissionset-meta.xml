@@ -13,6 +13,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AtRiskBusinessController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>BG_LeadUtility</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -301,6 +305,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>At_Risk_Business__c.Product_IDs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>At_Risk_Business__c.Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Authorization_Rule__c.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -387,6 +401,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.OtherDPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.Pref_Method_of_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1851,12 +1870,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Deal_Support_Request__c.Sales_Director__c</field>
+        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
-        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
+        <field>Deal_Support_Request__c.Sales_Director__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2591,7 +2610,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
+        <field>PortfolioAssignment__c.SalesDirectorPortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3092,7 +3111,7 @@
         <tab>Pick_Up_Location__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
-	<tabSettings>
+    <tabSettings>
         <tab>PortfolioAssignment__c</tab>
         <visibility>Available</visibility>
     </tabSettings>

@@ -14,4 +14,3 @@
 
 	<c:oppProductDataTable oppId="{!v.recordId}"/>
 </aura:component>
-

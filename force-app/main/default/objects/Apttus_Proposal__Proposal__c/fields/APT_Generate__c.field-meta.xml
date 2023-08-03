@@ -1,38 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Generate__c</fullName>
+    <description>Displays a button on proposal to Create proposal document</description>
     <externalId>false</externalId>
-	<description>Displays a button on proposal to Create proposal document</description>
-	<inlineHelpText>Creates Proposal Document</inlineHelpText>
-    <formula>IF ( 
-	AND(
-                       NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Accepted without proposal document&apos;)) ,
-			(
-				AND(
-					NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Approval Required&apos;)) 
-					&amp;&amp; NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c)) 
-					&amp;&amp;  (
-						ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;Approved&apos;) 
-						|| ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;&apos;)
-						)
-					)  
-					|| ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Approved&apos;)
-			)
-			, NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c))
-			, NOT(APT_Document_Generation_in_Progress__c)
-			, NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;In Review&apos;))
-			, OR(
-					(APT_Use_Offline_Rates__c &amp;&amp; Is_Exempted_Prod__c)
-				,	( NOT(APT_Use_Offline_Rates__c) &amp;&amp; NOT(Is_Exempted_Prod__c))
-				,	(ISPICKVAL(Exempted_Product_Type__c,&apos;StarTrack&apos;))
-				,	(ISPICKVAL(Exempted_Product_Type__c,&apos;Track Mail&apos;))
-				,	(ISPICKVAL(Exempted_Product_Type__c,&apos;Parcel Contract&apos;))
-				)
-			,NOT(ISBLANK(Apttus_Proposal__Primary_Contact__c))
-		) 
-	, HYPERLINK(&quot;/apex/c__APT_ViewRatecardBatchExecute?id=&quot;&amp;Id&amp;&apos;&amp;isRCCall=false&apos; , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;)
-	, Null
-	)</formula>
+    <formula>IF ( AND( NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Accepted without proposal document&apos;)) , ( AND( NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Approval Required&apos;)) &amp;&amp; NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c)) &amp;&amp; ( ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;Approved&apos;) || ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;&apos;) ) ) || ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Approved&apos;) ) , NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c)) , NOT(APT_Document_Generation_in_Progress__c) , NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;In Review&apos;)) , OR( (APT_Use_Offline_Rates__c &amp;&amp; Is_Exempted_Prod__c) , ( NOT(APT_Use_Offline_Rates__c) &amp;&amp; NOT(Is_Exempted_Prod__c)) , (ISPICKVAL(Exempted_Product_Type__c,&apos;StarTrack&apos;)) , (ISPICKVAL(Exempted_Product_Type__c,&apos;Track Mail&apos;)) , (ISPICKVAL(Exempted_Product_Type__c,&apos;Parcel Contract&apos;)) ) ,NOT(ISBLANK(Apttus_Proposal__Primary_Contact__c)) ) , HYPERLINK(&quot;/apex/c__APT_ViewRatecardBatchExecute?id=&quot;&amp;Id&amp;&apos;&amp;isRCCall=false&apos; , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;) , Null )</formula>
+    <inlineHelpText>Creates Proposal Document</inlineHelpText>
     <label>Create Proposal</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

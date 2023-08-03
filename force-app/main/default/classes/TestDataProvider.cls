@@ -260,6 +260,19 @@ public class TestDataProvider
         return t;
     }
 
+    public static Event createEvent(Id relateTo, Id whoId, String recordTypeName) {
+        Event e = new Event();
+        RecordType rt = RecordTypes.getRecordTypeByName(recordTypeName, 'Event');
+        if (rt != null)
+        {
+            e.RecordTypeId = rt.Id;
+        }
+        e.OwnerId = UserInfo.getUserId();
+        e.WhatId = relateTo;
+        e.WhoId = whoId;
+        return e;
+    }
+
     public static Task createAndSaveTask(Id relateTo, Id whoId, String recordTypeName)
     {
         Task t = createTask(relateTo, whoId, recordTypeName);

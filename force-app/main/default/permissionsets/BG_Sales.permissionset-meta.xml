@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>AtRiskBusinessController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>BG_LeadUtility</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -55,6 +59,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>AccountRelationship__c.Relationship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>At_Risk_Business__c.Product_IDs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>At_Risk_Business__c.Products__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1882,76 +1896,6 @@
         <field>Opportunity.Amount</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>OpportunityLineItem.OPCOverride__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.AccountManager__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesDirectorLevel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesDirector__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesEGMLevel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesEGMPortfolioCode__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesEGM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesGMLevel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesGM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesManagerPortfolioCode__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesTeamOwner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesTeam__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>PortfolioAssignment__c.Sales_GM_Portfolio_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Amount_Won_Opportunity__c</field>
@@ -3109,6 +3053,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>OpportunityLineItem.OPCOverride__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>PortfolioAssignment__c.AccountManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3119,7 +3068,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
+        <field>PortfolioAssignment__c.SalesDirectorPortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3262,8 +3211,8 @@
         <tab>BG_One_Stop_Shop_Sales</tab>
         <visibility>Visible</visibility>
     </tabSettings>
-		<tabSettings>
-    <tab>PortfolioAssignment__c</tab>
+    <tabSettings>
+        <tab>PortfolioAssignment__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>

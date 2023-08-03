@@ -6,6 +6,7 @@
  * @changelog
  * 2019-08-12    ajudd@salesforce.com Added BAM Record Type Id conditions
  * 2020-05-25 - Nathan Franklin - added changes to support new structures
+ * 2023-07-188 - Mahesh Parvathaneni - updated test test_saveProvisionRequestsCreateUser
  */
 @isTest
 public class BAMOnboardContactController_Test {
@@ -322,6 +323,21 @@ public class BAMOnboardContactController_Test {
                 AND ContactApplication__r.Application__c = :applicationId
         ];
         System.assertEquals(0, resultContactRoles.size(), 'SAVE TEST 3:Expected Contact roles to be removed, result = ' + resultContactRoles);
+
+		// TEST 4: save again, adding a filter to billing account and selected billing accounts not match with the filter
+		// exception to be thrown
+		app.BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false}';
+		update app;
+
+		Map<String, Object> appStateTest4 = makeAppStatePayload(app.Id, appRole.Id, new List<String> {testBillingAccount.Id}, null, null);
+        pageState = new List<Map<String, Object>> {appStateTest4};
+		Boolean exceptionThrown = false;
+		try{
+			BAMOnboardContactController.saveProvisionRequests(testContact.Id, pageState, testBillingAccount.Id);
+		} catch(Exception ex) {
+			exceptionThrown = true;
+		}
+		System.assertEquals(true, exceptionThrown, 'There should be an exception thrown');
 
         Test.stopTest();
     }

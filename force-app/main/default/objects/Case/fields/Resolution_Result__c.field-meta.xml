@@ -3,7 +3,7 @@
     <fullName>Resolution_Result__c</fullName>
     <description>.</description>
     <externalId>false</externalId>
-    <label>Resolution Result</label>
+    <label>Enterprise Resolution Result</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -11,7 +11,6 @@ CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;),
 ArticleRecordType__c &lt;&gt; &quot;Consignment&quot;,
 Bypass_Data_enforcement__c = FALSE,
 Email_Bypass_Data_enforcement__c = FALSE, 
-$Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;, 
 OR ( 
 AND ( OR (ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),ISPICKVAL (ProductCategory__c, &quot;Domestic Letters&quot;)), 
 OR( 

@@ -128,6 +128,17 @@
         <template>unfiled$public/Deal_Support_Request_Additional_Information_Request</template>
     </alerts>
     <alerts>
+        <fullName>Deal_Support_Request_Closed</fullName>
+        <description>Deal Support Request Closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Closed</template>
+    </alerts>
+    <alerts>
         <fullName>Deal_Support_Request_Completion_Notification</fullName>
         <description>Deal Support Request Completion Notification</description>
         <protected>false</protected>
