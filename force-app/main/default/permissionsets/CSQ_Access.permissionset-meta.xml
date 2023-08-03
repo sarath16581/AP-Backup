@@ -589,4 +589,8 @@
         <tab>standard-Opportunity</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+	<classAccesses>
+		<apexClass>CSQApprovalsController</apexClass>
+		<enabled>true</enabled>
+	</classAccesses>
 </PermissionSet>

@@ -1,0 +1,36 @@
+<template>
+	<lightning-modal-header
+		label={title}
+	></lightning-modal-header>
+
+	<lightning-modal-body>
+		<!-- Display the input boxes -->
+		<lightning-input type="checkbox" required label="Checkbox 1" name="cb1" data-name="input"></lightning-input>
+		<lightning-input type="checkbox" required label="Checkbox 2" name="cb2" data-name="input"></lightning-input>
+		<lightning-input type="checkbox" required label="Checkbox 3" name="cb3" data-name="input"></lightning-input>
+		<lightning-input type="checkbox" required label="Checkbox 4" name="cb4" data-name="input"></lightning-input>
+		<lightning-input type="checkbox" required label="Checkbox 5" name="cb5" data-name="input"></lightning-input>
+		<lightning-textarea
+			name="comments"
+			label="Comments"
+			data-name="input"
+			max-length="4000"
+		></lightning-textarea>
+	</lightning-modal-body>
+	
+	<lightning-modal-footer>
+		<!-- Display buttons in the footer -->
+		<lightning-button
+			label="Cancel"
+			name="btnCancel"
+			onclick={handleClick}
+			class="slds-var-m-right_x-small"
+		></lightning-button>
+		<lightning-button
+			label="Submit"
+			name="btnSubmit"
+			variant="brand"
+			onclick={handleClick}
+		></lightning-button>
+	</lightning-modal-footer>	 
+</template>

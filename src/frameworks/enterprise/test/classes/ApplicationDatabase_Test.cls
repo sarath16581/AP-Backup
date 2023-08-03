@@ -48,4 +48,23 @@ private with sharing class ApplicationDatabase_Test {
 		Test.stopTest();
 	}
 
+	/**
+	 * Sole purpose of the below method is coverage for Approval Process related methods
+	 */
+	@IsTest
+	private static void testApproval() {
+		List<Id> recordIds = new List<Id>();
+		Id fakeAccId = fflib_IDGenerator.generate(Account.SObjectType);
+
+		try {
+			ApplicationDatabase.getInstance().submitForApproval(
+				fakeAccId,
+				'comments'
+			);
+
+			System.assert(false, 'Exception expected');
+		} catch (Exception ex) {
+			System.assert(true, 'Expected exception caught');
+		}
+	}
 }

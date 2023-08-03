@@ -591,4 +591,8 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
         <tab>standard-Opportunity</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+	<classAccesses>
+		<apexClass>CSQApprovalsController</apexClass>
+		<enabled>true</enabled>
+	</classAccesses>
 </PermissionSet>

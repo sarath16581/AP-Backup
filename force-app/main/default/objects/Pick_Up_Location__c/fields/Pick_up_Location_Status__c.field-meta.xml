@@ -32,6 +32,16 @@
                 <default>false</default>
                 <label>Rejected</label>
             </value>
+            <value>
+                <fullName>Pending Information</fullName>
+                <default>false</default>
+                <label>Pending Information</label>
+            </value>
+            <value>
+                <fullName>Received Information</fullName>
+                <default>false</default>
+                <label>Received Information</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

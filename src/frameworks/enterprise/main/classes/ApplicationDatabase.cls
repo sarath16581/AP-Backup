@@ -119,4 +119,16 @@ public inherited sharing class ApplicationDatabase {
 	public Boolean revokeTokenAccess(Id ssoProviderId, String providerName, Id userId, String remoteIdentifier) {
 		return Auth.AuthToken.revokeAccess(ssoProviderId, providerName.toLowerCase(), userId, remoteIdentifier);
 	}
+
+	/**
+	 * Submit a records for approval with provided comments
+	 * @param recordId
+	 * @param comments
+	 */
+	public Approval.ProcessResult submitForApproval(Id recordId, String comments) {
+		Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
+		req.setComments(comments);
+		req.setObjectId(recordId);
+		return Approval.process(req);
+	}
 }
