@@ -1,13 +1,13 @@
 <!--
-@author Hasantha Liyanage
-@date 2023-07-17
-@group VisualForce
-@tag Controller
-@tag Attachments
-@domain ui
-@description Support attachments for compensation record in console level
-@changelog
-2023-07-17 - hasantha.liyanage@auspost.com.au - Created
+    @author Hasantha Liyanage
+    @date 2023-07-17
+    @group VisualForce
+    @tag Controller
+    @tag Attachments
+    @domain ui
+    @description Support attachments for compensation record in console level
+    @changelog
+    2023-07-17 - hasantha.liyanage@auspost.com.au - Created
  -->
 
 <apex:page id="CompensationAttachments" standardStylesheets="true" standardController="Compensation__c"
@@ -26,7 +26,6 @@
                             componentAttributes="{&quot;recordId&quot;:&quot;{!record.id}&quot;}"/>
     </div>
     </body>
-
     <script>
 
         jQuery(function ($) {
@@ -41,7 +40,7 @@
 
         function previewFile(detail) {
             var redirectUrl;
-            if(detail.isAttachment === true) {
+            if (detail.isAttachment === true) {
                 redirectUrl = "/servlet/servlet.FileDownload?file=" + detail.attachmentId;
             } else {
                 redirectUrl = detail.attachmentId;

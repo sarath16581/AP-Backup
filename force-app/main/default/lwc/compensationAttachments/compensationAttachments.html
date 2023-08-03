@@ -7,16 +7,13 @@
                 onclick={handleCreateAttachments}
                 disabled={isDisableSelection}
                 class="brand-tertiary-button slds-p-right_medium"
-
         ></lightning-button>
-
         <template if:true={messages.showError}>
             <div class="slds-p-around_medium">
                 {messages.message}
             </div>
         </template>
         <template if:true={messages.showSuccess}>
-
             <div class="slds-notify slds-notify_alert slds-theme_success" role="alert" data-id="successMessage">
                 <button class="slds-button slds-button_icon slds-notify__close" title="Close" onclick={handleClose}>
                     <lightning-icon icon-name="utility:close" alternative-text="Close"></lightning-icon>
@@ -28,17 +25,17 @@
             </div>
         </template>
         <template if:true={attachments}>
-            <lightning-datatable
-                    key-field="Id"
-                    data={attachments}
-                    columns={columns}
-                    onrowaction={handleRowAction}
-                    hide-checkbox-column="true"
-                    selected-rows={selectedRows}
-            ></lightning-datatable>
+            <div class="slds-border_top slds-p-horizontal_medium slds-scrollable_y fixed-max-height">
+                <lightning-datatable
+                        key-field="Id"
+                        data={attachments}
+                        columns={columns}
+                        onrowaction={handleRowAction}
+                        hide-checkbox-column="true"
+                        class="slds-table_header-fixed_container slds-border_top"
+                ></lightning-datatable>
+            </div>
         </template>
-
-
         <template if:true={isLoading}>
             <!--LOAD SPINNER-->
             <lightning-spinner

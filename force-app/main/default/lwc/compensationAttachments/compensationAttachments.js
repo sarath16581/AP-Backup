@@ -20,8 +20,8 @@ import getPageConfig from '@salesforce/apex/CompensationAttachmentsController.ge
 
 // Data table columns
 const columns = [
-    {label: 'Attachment Name', fieldName: 'Name'},
-    {label: 'Type', fieldName: 'ContentType'},
+    {label: 'Attachment Name', fieldName: 'name'},
+    {label: 'Type', fieldName: 'contentType'},
     {
         label: 'Size (KB)', fieldName: 'BodyLength', type: 'number',
         cellAttributes: {alignment: 'center'}
@@ -84,7 +84,7 @@ export default class CompensationAttachments extends LightningElement {
                 if (this.attachments) {
                     // render the selection button icons based on the selections
                     this.attachments = this.attachments.map(row => {
-                        if (actionedRow.Id === row.Id) {
+                        if (actionedRow.id === row.id) {
                             let isSelectedNew = !row.isSelectedNew
                             let buttonIconName = isSelectedNew ? 'utility:check' : 'utility:add';
                             return {...row, isSelectedNew, buttonIconName};
@@ -103,7 +103,7 @@ export default class CompensationAttachments extends LightningElement {
             case 'Preview':
                 // dispatch an event to vf page to preview file action
                 const detail = {
-                    attachmentId: actionedRow.Id,
+                    attachmentId: actionedRow.id,
                     isAttachment: actionedRow.isAttachment
 
                 }

@@ -14,6 +14,7 @@ private class CompensationUtilityModule_Test {
         Test.startTest();
         // create a super user
         TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
+        TestDataFactory.insertUserFuture('SSSW - Service Agent',null,'normalUser','CEO/Reporting');
         Test.stopTest();
     }
     /**
@@ -57,6 +58,7 @@ private class CompensationUtilityModule_Test {
         // =====================================
         // Data Preparation
         // =====================================
+        User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
         List<Case> cases = ApplicationTestDataFactory.getCases(2, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
@@ -95,7 +97,9 @@ private class CompensationUtilityModule_Test {
         // Testing
         // =====================================
         Test.startTest();
-        module.onBeforeInsert(compensations, uow);
+        system.runAs(normalUser) {
+            module.onBeforeInsert(compensations, uow);
+        }
         Test.stopTest();
         for(Compensation__c  comp : compensations){
             System.assertEquals(
@@ -115,7 +119,7 @@ private class CompensationUtilityModule_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        User Superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
         List<Case> cases = ApplicationTestDataFactory.getCases(2, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
@@ -154,7 +158,7 @@ private class CompensationUtilityModule_Test {
         // Testing
         // =====================================
         Test.startTest();
-        system.runAs(Superagent) {
+        system.runAs(superagent) {
             module.onBeforeInsert(compensations, uow);
         }
         Test.stopTest();
