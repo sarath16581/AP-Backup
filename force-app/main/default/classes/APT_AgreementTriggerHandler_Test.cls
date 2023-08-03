@@ -1173,12 +1173,15 @@ private class APT_AgreementTriggerHandler_Test{
 	public static void agreementDatesLogicOnCreateTest() {
 		Opportunity opp = [SELECT ID FROM Opportunity LIMIT 1];
 		Contact con = [SELECT ID FROM Contact LIMIT 1];
-		Apttus__APTS_Agreement__c agg = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
+		Apttus__APTS_Agreement__c agg =  ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
+		agg.Apttus__Contract_Start_Date__c = system.today()-2;
+		agg.Contract_Expiration_Date__c = system.today()-1;
 		Test.startTest();
 			agg.Term__c = APT_Constants.TERM_OPEN_ENDED ;
 			insert agg;
 		Test.stoptest();
-
+		agg.Contract_Fully_Signed_Date__c = system.today();
+		update agg;
 		Apttus__APTS_Agreement__c finalAgg = [SELECT Apttus__Contract_End_Date__c FROM Apttus__APTS_Agreement__c
 											 LIMIT 1];
 		System.AssertEquals(finalAgg.Apttus__Contract_End_Date__c, Date.newInstance(2999, 12,31),

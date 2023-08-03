@@ -263,7 +263,7 @@ public with sharing class APT_LandingCartController_Test {
 
 	@IsTest
 	public static void testValidationCheckPricingManagementProfile(){
-		profile p =[select id,name from profile where Name='Pricing Management'];
+		profile p =[select id,name from profile where Name=:APT_Constants.STRING_SYSTEM_ADMINISTRATOR];
 		//creating user as Pricing Management profile
 		User user= new user();
 		User.FirstName = 'First Name %count%';

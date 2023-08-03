@@ -6,7 +6,8 @@
  * 	-A custom checkout action in Apttus Shopping cart (aPT_CheckOutLWC),
  *  -A formula field 'Create Contract' on Proposal to trigger Contract Generation Process
  * Objective: It is used to create contract and service details creation.
- *
+ * Change log: 
+ * 9-04-2023 : Yatika Bansal : Added logic for amend/renew
 */
 import { LightningElement, api, wire, track} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -39,6 +40,8 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	@api proposalId; // receive as paramenters from Parent
 	@api isST; // receive as paramenters from Parent
 	@api isManualContract; // receive as paramenters from Parent
+	@api isAmend;  // receive as paramenters from Parent
+	@api isRenew;  // receive as paramenters from Parent
 	isAppc;
 	error;
 	contractId;
@@ -63,6 +66,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	termFieldDisabled;
 	termFieldRequired;
 	startDateRequired;
+	aggstartDateDisabled;
 	// store url for navigation
 	contractValidationUrl = '/apex/APT_CreateContractValidation?id=' ;
 	linkBillingAccUrl = '/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=';
@@ -80,7 +84,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 
 	serviceStartField = SERVICE_START_FIELD;
 	serviceEndField =SERVICE_END_FIELD;
-
 	//stores values of fields
 	ownerValue;
 	startDateValue;
@@ -98,6 +101,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	startDatePopulateMsg = 'To nominate service commencement date, Agreement Commencement Date cannot be blank or after the service commencement date';
 	scdRequiredMsg = 'Service Commencement Date cannot be blank';
 	scdCantBeInPastMsg = 'Service Commencement Date cannot be in the past';
+	scdCantBeAfterOfferExpMsg = 'Service commencement date is outside the proposal/offer expiration date. You need to review the service commencement date to proceed';
 	expDateMsg = 'Agreement commencement date cannot be after offer expiration date';
 	startDateRequiredMsg = 'Agreement Commencement Date cannot be blank';
 	acdCantBeInPastMsg = 'Agreement Commencement Date cannot be in the past';
@@ -220,7 +224,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			this.readyToShowComponent = true;
 		})
 		.catch((error) => {
-			this.error = error.body.message;
+			this.error = error;
 			this.isLoading = false;
 		});
 	}
@@ -253,11 +257,19 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		}
 
 		//ACD should be set to today on a new contract
-		if(!this.existingContractId){
+		if(!this.existingContractId && this.isAmend !== 'true'){
 			this.template.querySelector('.startDateField').value = this.calculateToday();
 		}
 
 		//Initialize values onLoad
+		if(this.isAmend === 'true'){
+			this.aggstartDateDisabled = true;
+		}
+		if(!this.existingContractId && this.isRenew === 'true'){
+			this.template.querySelector('.condField').value = this.fixedTerm;
+			this.template.querySelector('.endDateField').value = null;
+		}
+
 		this.startDateValue = this.template.querySelector('.startDateField').value;
 		this.endDateValue = this.template.querySelector('.endDateField').value;
 		this.expDateValue = this.template.querySelector('.expDateField').value;
@@ -271,11 +283,9 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* function to perform some logic onload of service form
 	*/
 	handleOnLoadService(){
-		//SCD should be set to today on a new contract
-		if(!this.existingContractId){
-			this.template.querySelector('.serviceStartField').value = this.calculateToday();
+		if(!this.existingContractId && this.isRenew === 'true'){
+			this.template.querySelectorAll('.serviceEndField').forEach((cmp) => {cmp.value = null});
 		}
-
 		this.serviceStartValue = this.template.querySelector('.serviceStartField').value;
 		this.serviceEndValue = this.template.querySelector('.serviceEndField').value;
 	}
@@ -288,7 +298,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		this.checkContractConditions(event.target.value);
 
 		//Run dependent validations when conditions are changed
-		if(this.serviceStartValue !== undefined && this.serviceEndValue !== undefined){
 			if(event.target.value === this.openEnd){
 				//Run dependent validations
 				this.validateAggStartDate(this.template.querySelector('.startDate'));
@@ -296,17 +305,16 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 
 				this.template.querySelector('.endDate').value = '2999-12-31';
 				this.template.querySelector('.term').value = '';
-				this.template.querySelector('.serviceEnd').value = '2999-12-31';
+			this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {cmp.value = '2999-12-31'});
 			}
 			else if(event.target.value === this.fixedTerm){
 				//Reset dependent fields
 				this.template.querySelector('.endDate').value = null;
-				this.template.querySelector('.serviceEnd').value = null;
-			}
-
-			this.validateStartDate(this.template.querySelector('.serviceStart'));
-			this.validateEndDate(this.template.querySelector('.serviceEnd'));
+			this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {cmp.value = null});
 		}
+
+		this.validateStartDate();
+		this.validateEndDate();
 	}
 
 	/**
@@ -332,8 +340,8 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		}
 
 		//Run dependent validations
-		this.validateStartDate(this.template.querySelector('.serviceStart'));
-		this.validateEndDate(this.template.querySelector('.serviceEnd'));
+		this.validateStartDate();
+		this.validateEndDate();
 	}
 
 	/**
@@ -349,8 +357,8 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		}
 
 		//Run dependent validations
-		this.validateStartDate(this.template.querySelector('.serviceStart'));
-		this.validateEndDate(this.template.querySelector('.serviceEnd'));
+		this.validateStartDate();
+		this.validateEndDate();
 	}
 
 	/**
@@ -358,10 +366,10 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* @param event
 	*/
 	handleStartDateChange(event){
-		this.validateStartDate(event.target);
+		this.validateStartDate();
 
 		//Run dependent validations
-		this.validateEndDate(this.template.querySelector('.serviceEnd'));
+		this.validateEndDate();
 	}
 
 	/**
@@ -369,7 +377,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* @param event
 	*/
 	handleEndDateChange(event){
-		this.validateEndDate(event.target);
+		this.validateEndDate();
 	}
 
 	/**
@@ -379,12 +387,11 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		//run validations again
 		this.validateAggStartDate(this.template.querySelector('.startDate'));
 		this.validateTerm(this.template.querySelector('.term'));
-		this.validateEndDate(this.template.querySelector('.serviceEnd'));
+		this.validateEndDate();
 
 		if(!this.startError && !this.endError && !this.termError && !this.datesError && !this.error){
 			//Set Values
 			this.setFinalValues();
-
 			this.isLoading = true;
 			this.template.querySelectorAll('lightning-record-edit-form').forEach((form) => {form.submit()});
 			this.updateAddress(this.address);
@@ -461,7 +468,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* @param value
 	*/
 	checkContractConditions(value){
-		if(value === this.openEnd){
+		if(value === this.openEnd || this.isAmend === 'true'){
 			this.termFieldRequired = false;
 			this.termFieldDisabled = true;
 		}else if(value === this.fixedTerm){
@@ -487,7 +494,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			cmp.setCustomValidity(this.startDateRequiredMsg);
 			this.datesError = true;
 		}
-		if(cmp.value !== null && cmp.value !== '' && cmp.value < this.calculateToday() ){
+		if(this.isAmend !== 'true' && cmp.value !== null && cmp.value !== '' && cmp.value < this.calculateToday() ){
 			cmp.setCustomValidity(this.acdCantBeInPastMsg);
 			this.datesError = true;
 		}
@@ -498,12 +505,14 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* function to handle validations on service start date
 	* @param cmp
 	*/
-	validateStartDate(cmp){
-		cmp.setCustomValidity("");
+	validateStartDate(){
 		this.startError = false;
+		this.template.querySelectorAll('.serviceStart').forEach((cmp) => {
+			cmp.setCustomValidity("");
 
 		let contractStartDate = this.template.querySelector('.startDate').value;
 		let contractEndDate = this.template.querySelector('.endDate').value;
+		let offerExpDate = this.template.querySelector('.expDate').value;
 
 		if((cmp.value === null  || cmp.value === '') ){
 			cmp.setCustomValidity(this.scdRequiredMsg);
@@ -522,17 +531,23 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			cmp.setCustomValidity(this.scdCantBeInPastMsg);
 			this.startError = true;
 		}
+		if((this.isAmend === 'true' || this.isRenew === 'true' ) && cmp.value !== null && cmp.value !== '' && cmp.value > offerExpDate ){
+			cmp.setCustomValidity(this.scdCantBeAfterOfferExpMsg);
+			this.startError = true;
+		}
 
 		cmp.reportValidity();
+		});
 	}
 
 	/**
 	* function to handle validations on service end date
 	* @param cmp
 	*/
-	validateEndDate(cmp){
-		cmp.setCustomValidity("");
+	validateEndDate(){
 		this.endError = false;
+		this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {
+			cmp.setCustomValidity("");
 
 		let serviceStartDate = this.template.querySelector('.serviceStart').value;
 		let contractStartDate = this.template.querySelector('.startDate').value;
@@ -553,6 +568,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			this.endError = true;
 		}
 		cmp.reportValidity();
+		});
 	}
 
 	/**
@@ -584,26 +600,26 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* function to set final field values
 	*/
 	setFinalValues(){
+		//If SCD/SED is blank set it to ACD/AED
+		this.template.querySelectorAll('.serviceStart').forEach((cmp) => {
+			if(cmp.value === null || cmp.value ==='' ){
+				cmp.value = this.template.querySelector('.startDate').value;
+			}
+		});
+		this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {
+			if(cmp.value === null || cmp.value ===''){
+				cmp.value = this.template.querySelector('.endDate').value;
+			}
+		});
+
 		this.template.querySelector('.startDateField').value = this.template.querySelector('.startDate').value ;
 		this.template.querySelector('.serviceStartField').value = this.template.querySelector('.serviceStart').value ;
 		this.template.querySelector('.serviceEndField').value = this.template.querySelector('.serviceEnd').value ;
 		this.template.querySelector('.endDateField').value = this.template.querySelector('.endDate').value;
 
-		console.log('BRP setFinalValues() CHECK');
-		console.log('BRP ::: ACD = ' + this.template.querySelector('.startDateField').value + ' <> ' + this.template.querySelector('.startDate').value);
-		console.log('BRP ::: SCD = ' + this.template.querySelector('.serviceStartField').value + ' <> ' + this.template.querySelector('.serviceStartField').value);
-
 		//temp value should not be saved
 		if(this.template.querySelector('.term').value !== 0){
 			this.template.querySelector('.termField').value = this.template.querySelector('.term').value ;
-		}
-
-		//If SCD/SED is blank set it to ACD/AED
-		if(this.template.querySelector('.serviceStart').value === null || this.template.querySelector('.serviceStart').value ==='' ){
-			this.template.querySelector('.serviceStartField').value = this.template.querySelector('.startDateField').value;
-		}
-		if(this.template.querySelector('.serviceEnd').value === null || this.template.querySelector('.serviceEnd').value ===''){
-			this.template.querySelector('.serviceEndField').value = this.template.querySelector('.endDateField').value;
 		}
 	}
 
@@ -611,7 +627,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* function to calculate AED
 	*/
 	calculateAED(){
-		console.log('BRP :: calculateAED() Term value = ' + this.template.querySelector('.term').value)
 		if(this.template.querySelector('.startDate').value !== null && this.template.querySelector('.startDate').value !== '' && this.template.querySelector('.term').value !== '' && this.template.querySelector('.term').value !== null){
 			let parts =this.template.querySelector('.startDate').value.split('-');
 			let startDT = new Date(parts[0], parts[1]-1, parts[2]);
