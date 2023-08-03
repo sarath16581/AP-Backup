@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>APT_Edit_Contract_Details</fullName>
-    <availability>online</availability>
-    <description>Uses Contract LWC to edit contract details</description>
-    <displayType>button</displayType>
-    <encodingKey>UTF-8</encodingKey>
-    <hasMenubar>false</hasMenubar>
-    <hasScrollbars>true</hasScrollbars>
-    <hasToolbar>false</hasToolbar>
-    <height>600</height>
-    <isResizable>true</isResizable>
-    <linkType>url</linkType>
-    <masterLabel>Edit Contract Details</masterLabel>
-    <openType>newWindow</openType>
-    <position>none</position>
-    <protected>false</protected>
-    <showsLocation>false</showsLocation>
-    <showsStatus>false</showsStatus>
-    <url>/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__existingContractId={!Apttus__APTS_Agreement__c.Id}&amp;c__currentStatus={!Apttus__APTS_Agreement__c.Apttus__Status__c}</url>
+<fullName>APT_Edit_Contract_Details</fullName>
+<availability>online</availability>
+<description>Uses Contract LWC to edit contract details</description>
+<displayType>button</displayType>
+<encodingKey>UTF-8</encodingKey>
+<hasMenubar>false</hasMenubar>
+<hasScrollbars>true</hasScrollbars>
+<hasToolbar>false</hasToolbar>
+<height>600</height>
+<isResizable>true</isResizable>
+<linkType>url</linkType>
+<masterLabel>Edit Contract Details</masterLabel>
+<openType>newWindow</openType>
+<position>none</position>
+<protected>false</protected>
+<showsLocation>false</showsLocation>
+<showsStatus>false</showsStatus>
+<url>/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__existingContractId={!Apttus__APTS_Agreement__c.Id}&amp;c__currentStatus={!Apttus__APTS_Agreement__c.Apttus__Status__c}&amp;c__isAmend={!IF ((ISPICKVAL( Apttus__APTS_Agreement__c.APT_Contract_Type__c , &apos;DoV Contract&apos;)), true, false)}&amp;c__isRenew={!IF ((ISPICKVAL( Apttus__APTS_Agreement__c.APT_Contract_Type__c , &apos;Renewal Contract&apos;)), true, false)}</url>
 </WebLink>

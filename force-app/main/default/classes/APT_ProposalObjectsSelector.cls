@@ -16,10 +16,11 @@
 *2023-04-11 - Nasir Jawed -Added method newInstance for fieldOverride
 *2023-07-06 - Yatika bansal Added new field APT_Contract_Number__c
 * 2023-07-20 - Yatika bansal Added new field APT_Postbillpay_Included__c
+* 2023-07-25 - Nasir Jawed Added new option WITH_OPPORTUNITY
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_ORGANISATION,WITH_ACCOUNT
+		WITH_ORGANISATION,WITH_ACCOUNT,WITH_OPPORTUNITY
 	}
 
 	public static APT_ProposalObjectsSelector newInstance() {
@@ -145,6 +146,9 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
 		}
 		if(selectorOptions.contains(Options.WITH_ACCOUNT)) {
 			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Apttus_Proposal__Account__r');
+		}
+		if(selectorOptions.contains(Options.WITH_OPPORTUNITY)) {
+			builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Apttus_Proposal__Opportunity__r');
 		}
 		return builder;
 	}
