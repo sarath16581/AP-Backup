@@ -32,7 +32,7 @@ public with sharing class ChasRegHandlerService {
 
 	public static final Map<SObjectField, String> USER_SOBJECT_CREATEABLE_ATTRIBUTE_MAPPINGS = new Map<SObjectField, String>{
 		User.FirstName => 'given_name',
-		User.LastName => 'given_name',
+		User.LastName => 'family_name',
 		User.Email => 'email',
 		User.Username => 'augmented_username', // defined in reg handler
 		User.FederationIdentifier => 'augmented_username' // defined in reg handler
