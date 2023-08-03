@@ -64,7 +64,8 @@ public with sharing class CompensationUtilityModule extends ApplicationModule {
         for (Compensation__c compensation : compensations) {
             List<Compensation__c> compensationsForCaseId = groupedCompensationByCaseIds.get(compensation.Case__c);
             if (!compensationsForCaseId.isEmpty() && compensationsForCaseId.size() > 0) {
-                compensation.addError('The Reference ID already have a compensation record and only supervisor can create more than one.');
+                // add message The Reference ID already have a compensation record and only supervisor can create more than one.
+                compensation.addError(Label.CompensationMsgMoreThanOnePerCaseReference);
             }
         }
     }

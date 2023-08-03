@@ -526,7 +526,7 @@ public with sharing class EFTBankDetailsController_Test {
         }
         Test.stopTest();
         System.assertEquals(
-                'You do not have privilege to manually enter the bank account details',
+                Label.CompensationMsgUserCannotUpdateBankDetails,
                 ApexPages.getMessages()[0].getSummary(),
                 'testValidateCompensationUserPermissionBankDetailNoPermission: You do not have privilege to manually enter the bank account details'
         );
@@ -631,7 +631,7 @@ public with sharing class EFTBankDetailsController_Test {
         Test.stopTest();
 
         System.assertEquals(
-                'You do not have privilege to send email to customer',
+                Label.CompensationMsgUserIsNotAllowedToSendEmail,
                 ApexPages.getMessages()[0].getSummary(),
                 'testValidateCompensationSendEmailNoPermission: You do not have privilege to send email to customer'
         );
@@ -763,7 +763,7 @@ public with sharing class EFTBankDetailsController_Test {
         Test.stopTest();
 
         System.assertEquals(
-                'You do not have privilege to create/update compensation records.',
+                Label.CompensationMsgNoPrivilege,
                 ApexPages.getMessages()[0].getSummary(),
                 'validateOnLoadCreateUpdateWithoutPermission: User do not have privilege to create/update compensation records.'
         );
@@ -822,7 +822,7 @@ public with sharing class EFTBankDetailsController_Test {
         Test.stopTest();
 
         System.assertEquals(
-                'The Reference ID already have a compensation record and only supervisor can create more than one.',
+                Label.CompensationMsgMoreThanOnePerCaseReference,
                 ApexPages.getMessages()[0].getSummary(),
                 'validateOnLoadCreateDuplicateCompensationWithoutPermission: User should not be able to create another compensation record'
         );

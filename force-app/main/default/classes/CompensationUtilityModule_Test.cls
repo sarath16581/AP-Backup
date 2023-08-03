@@ -103,7 +103,7 @@ private class CompensationUtilityModule_Test {
         Test.stopTest();
         for(Compensation__c  comp : compensations){
             System.assertEquals(
-                'The Reference ID already have a compensation record and only supervisor can create more than one.',
+                Label.CompensationMsgMoreThanOnePerCaseReference,
                 comp.getErrors()[0].getMessage(),
                 'TestValidateMoreThanOneCompensationsPerReferenceId: User should not be able to create more than one compensation record');
         }

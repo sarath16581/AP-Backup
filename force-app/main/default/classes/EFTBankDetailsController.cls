@@ -261,11 +261,11 @@ public without sharing class EFTBankDetailsController {
         Compensation__c record = (Compensation__c) this.stdCon.getRecord();
         if (record.id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
             isAllowedToCreateCompensation = false;
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to create/update compensation records.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgNoPrivilege));
         } else if (record.id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
             // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
             isAllowedToCreateCompensation = false;
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'The Reference ID already have a compensation record and only supervisor can create more than one.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgMoreThanOnePerCaseReference));
         }
     }
 
@@ -305,13 +305,13 @@ public without sharing class EFTBankDetailsController {
             // check is only against EFT and Load and Go record Types as those are the only 2 record types which accepts bank details
             Compensation__c record = (Compensation__c) this.stdCon.getRecord();
             if(RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES.contains(record.recordTypeId) && !isCompensationSupervisor) {
-                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to manually enter the bank account details'));
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserCannotUpdateBankDetails));
             }
 
         } else  if(!isCompensationUser && !isCompensationSupervisor) {
             // User DOESN't have the system permission “CC Compensation Agent” OR,
             // the system permission “CC Compensation Supervisor” he is not allowed to send email
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to send email to customer'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserIsNotAllowedToSendEmail));
         }
 
         if(ApexPages.getMessages().size() > 0) {
