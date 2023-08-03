@@ -4,7 +4,8 @@ public with sharing class CSQApprovalsController_Test {
 		APPROVAL_PROC_RESULT_POS = '{ "success" : true  }',
 		APPROVAL_PROC_RESULT_NEG = '{ "success" : false, "errors" : [{ "fields" : ["Status__c"], "message" : "Incorrect value for restricted picklist" }] }';
 
-	private static testMethod void runTestPositive(){
+	@isTest
+	private static void runTestPositive(){
 		Customer_Scoping_Questionnaire__c csq = new Customer_Scoping_Questionnaire__c(
 			Id = fflib_IDGenerator.generate(Customer_Scoping_Questionnaire__c.SObjectType)
 		);
@@ -14,7 +15,8 @@ public with sharing class CSQApprovalsController_Test {
 			CSQ__c = csq.Id
 		);
 
-		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		// ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		MockUtility.mockUnitOfWork();
 		ApplicationDatabase mockDatabaseApproval = MockUtility.mockDatabase();
 		UserRecordAccessSelector mockURASelector = (UserRecordAccessSelector)MockUtility.mockSelector(
 			UserRecordAccessSelector.class
@@ -61,13 +63,16 @@ public with sharing class CSQApprovalsController_Test {
 			CSQApprovalsController.updatePickupLocationStatus(puLoc.Id, 'pending', 'comments');
 			System.assert(true, 'No exception expected');
 		} catch(Exception ex) {
+			System.debug(ex);
+			System.debug(ex.getStackTraceString());
 			System.assert(false, 'No exception expected');
 		}
 
 		Test.stopTest();		
 	}
 
-	private static testMethod void runTestNegative(){
+	@isTest
+	private static void runTestNegative(){
 		Customer_Scoping_Questionnaire__c csq = new Customer_Scoping_Questionnaire__c(
 			Id = fflib_IDGenerator.generate(Customer_Scoping_Questionnaire__c.SObjectType)
 		);
@@ -82,7 +87,7 @@ public with sharing class CSQApprovalsController_Test {
 			Approval.ProcessResult.class
 		);
 
-		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		// ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ApplicationDatabase mockDatabaseApproval = MockUtility.mockDatabase();
 		UserRecordAccessSelector mockURASelector = (UserRecordAccessSelector)MockUtility.mockSelector(
 			UserRecordAccessSelector.class

@@ -83,9 +83,12 @@ export default class SubmitRecord {
 		let startTime = new Date();
 
 		thisArg.backgroundTasks.isDestroyed.promise.then(
-			() => isDestroyed = true
+			() => {
+				isDestroyed = true;
+				return null;
+			}
 		);
-		
+
 		const onstatus = (args) => {
 			console.log({
 				'duration (ms)': new Date() - startTime,
@@ -108,9 +111,11 @@ export default class SubmitRecord {
 			// hide spinner
 			thisArg.isWorking = false;
 
-			message instanceof Error
-				? console.error(message)
-				: console.warn(message);
+			if (message instanceof Error) {
+				console.error(message);
+			} else {
+				console.warn(message);
+			}
 
 			return UIToasts.showToastError({ 
 				message,

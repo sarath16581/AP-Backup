@@ -50,7 +50,7 @@ export default class Main {
 				});
 			}
 
-			process.run();
+			return process.run();
 		});
 	}
 }

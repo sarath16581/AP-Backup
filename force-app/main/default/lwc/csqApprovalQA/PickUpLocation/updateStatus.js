@@ -105,7 +105,10 @@ export default class UpdateStatus {
 		let startTime = new Date();
 
 		thisArg.backgroundTasks.isDestroyed.promise.then(
-			() => isDestroyed = true
+			() => {
+				isDestroyed = true;
+				return null;
+			}
 		);
 		
 		const onstatus = (args) => {
@@ -130,9 +133,11 @@ export default class UpdateStatus {
 			// hide spinner
 			thisArg.isWorking = false;
 
-			message instanceof Error
-				? console.error(message)
-				: console.warn(message);
+			if (message instanceof Error) {
+				console.error(message);
+			} else {
+				console.warn(message);
+			}
 
 			return UIToasts.showToastError({ 
 				message,
@@ -150,63 +155,3 @@ export default class UpdateStatus {
 		sequencedTasks.run(thisArg.args);
 	}
 }
-
-/*class RecordUpdates {
-	static fieldUpdatesByType = {
-		// update regardless of type
-		default : [ 
-			{ 	// Overall CSQ status = Approved_by_SM
-				...Schema.Customer_Scoping_Questionnaire__c.fields.CSQ_Status__c,
-				assign : 'Approved_by_SM'
-			}
-		],
-		pending : [
-			{	 // Pickup Location status = Pending Information
-				...Schema.Pick_Up_Location__c.fields.Pick_up_Location_Status__c,
-				assign : 'Pending Information'
-			}
-		],
-		received : [			
-			{	 // Pickup Location status = Received Information
-				...Schema.Pick_Up_Location__c.fields.Pick_up_Location_Status__c,
-				assign : 'Received Information'
-			}
-		]
-	}
-
-	/ **
-	 * Populate the required record updates based on provided status. Using parentRecord for recordId references
-	 * @param {*} status can either be pending or received
-	 * @param {*} parentRecord.id contains the parent recordId
-	 * @param {*} parentRecord.fields.CSQ__c.value contains the recordId for the parent CSQ recordId
-	 * @returns list of records with fields to be updated in serialisable SObject format
-	 * /
-	static getUpdates = ({ status, parentRecord }) => {
-		const fieldUpdates = [
-			...RecordUpdates.fieldUpdatesByType.default,
-			...(RecordUpdates.fieldUpdatesByType[status] || [ ])
-		];
-
-		const getRecordDetails = (field) => {
-			return {
-				Id : field.objectApiName === Schema.Pick_Up_Location__c.objectApiName
-					? parentRecord.id
-					: parentRecord.fields.CSQ__c?.value
-			};
-		}
-
-		return Object.values(
-			fieldUpdates.reduce((res, field) => {
-				const record = getRecordDetails(field);
-				return Object.assign( 
-					res, {
-						[ record.Id ] : Object.assign(
-							res[record.Id] || record,
-							{ [field.fieldApiName] : field.assign }
-						)
-					}
-				)
-			}, { })
-		);
-	}
-}*/

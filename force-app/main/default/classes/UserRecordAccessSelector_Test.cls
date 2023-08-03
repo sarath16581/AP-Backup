@@ -28,21 +28,25 @@
 @IsTest
 public with sharing class UserRecordAccessSelector_Test {
 
-	// Checks that the query params and condition orders are set correctly.
+	public static final Set<RecordAccess>
+		ACCESS_FULL = new Set<RecordAccess>(RecordAccess.values()),
+		ACCESS_RO = new Set<RecordAccess>{ RecordAccess.HasReadAccess };
+
+	// Basic coverage for USerRecordAccessSelector class.
 	@IsTest
 	static void testSelector() {
-		// Requesting UserRecordAccess for and by Current User record
-		UserRecordAccess ura = UserRecordAccessSelector.newInstance().selectById(
-			UserInfo.getUserId()
-		);
-
-		System.Assert.isFalse(ura == null, 'Should return record');		
-		System.Assert.isTrue(ura.HasReadAccess, 'User always has read access to its own user record');
-
 		// Covering newInstance overloads
 		UserRecordAccessSelector.newInstance(0);
 		UserRecordAccessSelector.newInstance(0, new Set<SObjectField>());
 		UserRecordAccessSelector.newInstance(0, new Map<SObjectType,Set<SObjectField>>());
+
+		// Requesting UserRecordAccess for and by Current User record
+		UserRecordAccess ura = UserRecordAccessSelector.newInstance().selectById(
+			UserInfo.getUserId()
+		);
+		
+		System.assert(ura != null, 'Should return record');		
+		System.assert(ura.HasReadAccess, 'User always has read access to its own user record');
 	}
 
 	/**
@@ -130,6 +134,7 @@ public with sharing class UserRecordAccessSelector_Test {
 		);
 	}
 
+	// Keep enum names equal to field names for easy conversion
 	public Enum RecordAccess {
 		HasReadAccess,
 		HasEditAccess,
@@ -137,7 +142,4 @@ public with sharing class UserRecordAccessSelector_Test {
 		HasTransferAccess,
 		HasAllAccess
 	}
-
-	public static final Set<RecordAccess> ACCESS_FULL = new Set<RecordAccess>(RecordAccess.values());
-	public static final Set<RecordAccess> ACCESS_RO = new Set<RecordAccess>{ RecordAccess.HasReadAccess };
 }

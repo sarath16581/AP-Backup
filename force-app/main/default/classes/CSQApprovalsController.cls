@@ -1,11 +1,11 @@
 public with sharing class CSQApprovalsController {
 	@AuraEnabled
 	/**
-     * Submit record for approval with provided comments
-     * @param recordId - The record's identifier
-     * @param comments - Optional comments on the approval 
-     * @exception AuraHandledException - Any errors upon submission
-     */ 
+	 * Submit record for approval with provided comments
+	 * @param recordId - The record's identifier
+	 * @param comments - Optional comments on the approval 
+	 * @exception AuraHandledException - Any errors upon submission
+	 */ 
 	public static void submitForApproval(Id recordId, String comments) {
 		try {
 			Exception prResult = convertProcessResult(
@@ -44,16 +44,16 @@ public with sharing class CSQApprovalsController {
 
 	@AuraEnabled
 	/**
-     * Submit record for approval with provided comments
-     * @param recordId - The record's identifier
-     * @param status - newly assigned approval status 
-     * @param comments - Optional comments on the update 
-     * @exception AuraHandledException - Any errors upon submission
-     */ 
+	 * Submit record for approval with provided comments
+	 * @param recordId - The record's identifier
+	 * @param status - newly assigned approval status 
+	 * @param comments - Optional comments on the update 
+	 * @exception AuraHandledException - Any errors upon submission
+	 */ 
 	public static void updatePickupLocationStatus(Id recordId, String status, String comments) {
 		Map<ProcessStatus,String> approvalStatusMap = new Map<ProcessStatus,String>{
-			ProcessStatus.Pending => 'Pending Information',
-			ProcessStatus.Received => 'Received Information'
+			ProcessStatus.PENDING => 'Pending Information',
+			ProcessStatus.RECEIVED => 'Received Information'
 		};
 
 		try {
@@ -81,8 +81,8 @@ public with sharing class CSQApprovalsController {
 	}
 
 	private Enum ProcessStatus {
-		Pending,
-		Received
+		PENDING,
+		RECEIVED
 	}
 
 	private static ApplicationUnitOfWork unitOfWork {

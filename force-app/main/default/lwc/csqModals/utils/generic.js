@@ -16,9 +16,11 @@ export default class Utils {
 	static format = (text, ...args) => {
 		return text?.replace(
 			/{(\d+)}/g,
-			(match, number) => typeof args[number] !== 'undefined'
-				? args[number]
-				: match
+			(match, number) => {
+				return typeof args[number] !== 'undefined'
+					? args[number]
+					: match;
+			}
 		);
 	}
 

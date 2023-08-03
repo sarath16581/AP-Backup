@@ -119,10 +119,10 @@ class ASyncTask {
 	get promise() {
 		return new Promise(
 			(res, rej) => {
-                return this._status
-                    ? this._fulfill({ res, rej })
-                    : this.observers.push({ res, rej });
-            }
+				return this._status
+					? this._fulfill({ res, rej })
+					: this.observers.push({ res, rej });
+			}
 		);
 	}
 
@@ -177,7 +177,7 @@ class ASyncTask {
 		try {
 			callback(this._result);
 		} catch (ex) {
-            // Exception occurred within consuming method
+			// Exception occurred within consuming method
 			console.error(ex);
 		}
 	}
