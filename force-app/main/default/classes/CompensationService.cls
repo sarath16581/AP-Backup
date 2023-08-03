@@ -7,21 +7,14 @@
  * 2023-07-25 - Hasantha Liyanage - Created
  */
 public with sharing class CompensationService {
-    public static Set<String> COMPENSATION_APPROVED_STATUSES = new Set<String>{
-            'APPROVED',
-            'PROCESSING',
-            'ALTERNATE COMPENSATION',
-            'AWAITING MONEY ORDER NUMBER',
-            'PAYMENT SUCCESSFUL',
-            'APPROVED AWAITING CUSTOMER'
-    };
     public static CompensationService getInstance() {
         return (CompensationService) Application.Utilities.getInstance(CompensationService.class);
     }
 
-    /** any updates to compensation record when creation of the record
- * @param compensations
- */
+    /**
+     * any updates to compensation record when creation of the record
+     * @param compensations
+     */
     public void updateCurrentArticleInfoOnCompensationRecord(List<Compensation__c> compensations) {
         Set<Id> relatedCases = new Set<Id>();
         for (Compensation__c compensation : compensations) {
@@ -35,5 +28,49 @@ public with sharing class CompensationService {
         for (Compensation__c compensation : compensations) {
             compensation.CurrentArticleId__c = cases.get(compensation.Case__c)?.ReferenceID__c;
         }
+    }
+
+
+    /**
+      * Grouping compensations per case Id based on the passed reference ID, this will
+      * @param relatedCaseIds
+      *
+      * @return Boolean
+      */
+    public Map<Id, List<Compensation__c>> getCompensationRecordByCaseIds(Set<Id> relatedCaseIds) {
+        Map<Id, List<Compensation__c>> compensationsByCase;
+        if (relatedCaseIds == null || relatedCaseIds.isEmpty()) {
+            return new Map<Id, List<Compensation__c>>();
+        }
+        // get the related cases
+        List<Case> cases = CasesSelector.newInstance(1).selectById(relatedCaseIds).values();
+        // find the reference IDs
+        Set<String> referenceIds = new Set<String>();
+        for (Case cse : cases) {
+            referenceIds.add(cse.ReferenceID__c);
+        }
+        // with the reference ID let's find how many cases available
+        Map<Id, Case> allCases = CasesSelector.newInstance().selectByReferenceIdOrderByCreatedDate(referenceIds);
+        // on all the cases found are there one or more compensation(s) already exists?
+        List<Compensation__c> allCompensations = CompensationSelector.newInstance().selectByCaseIds(allCases.keySet(), new Set<Object>{
+                CompensationSelector.Options.WITH_CASE
+        });
+        // group them by case reference
+        compensationsByCase = new Map<Id, List<Compensation__c>>();
+        if(allCompensations == null) {
+            return compensationsByCase;
+        }
+        for (Compensation__c comp : allCompensations) {
+            List<Compensation__c> compensationsGroup = compensationsByCase.get(comp.Case__c);
+            if (compensationsGroup == null) {
+                compensationsByCase.put(comp.Case__c, new List<Compensation__c>{
+                        comp
+                });
+                continue;
+            }
+            compensationsGroup.add(comp);
+        }
+
+        return compensationsByCase;
     }
 }

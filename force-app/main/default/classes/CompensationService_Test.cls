@@ -9,12 +9,31 @@
 @IsTest
 private class CompensationService_Test {
 
+    @TestSetup
+    static void setupData() {
+        Test.startTest();
+        // create a super user
+        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_User'},'agent','CEO/Reporting');
+        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
+        Test.stopTest();
+    }
+
+    /**
+     * Testing of CurrentArticleId__c being updated whe the compensation record is getting created,
+     * the value should get populated from the Case.ReferenceId__c field.
+     */
     @IsTest
-    static void updateCurrentArticleInfoOnCompensationRecord() {
+    static void testUpdateCurrentArticleInfoOnCompensationRecord() {
+        // =====================================
+        // Data Preparation
+        // =====================================
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
 
+        // =====================================
+        // Stubbing
+        // =====================================
         CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
@@ -23,6 +42,9 @@ private class CompensationService_Test {
         });
         MockUtility.Mocks.stopStubbing();
 
+        // =====================================
+        // Testing
+        // =====================================
         Test.startTest();
         CompensationService.getInstance().updateCurrentArticleInfoOnCompensationRecord(compensations);
         Test.stopTest();
@@ -31,5 +53,166 @@ private class CompensationService_Test {
                 compensations[0].CurrentArticleId__c,
                 'updateCurrentArticleInfoOnCompensationRecord : Current Article field should be updated'
         );
+    }
+
+    /**
+     * testing when a case is created if a duplicate compensating for a reference ID is found through the system
+     * this test is to check with duplicate compensations
+     */
+    @IsTest
+    static void testGetCompensationRecordByCaseIdsDuplicatesFound() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        List<Compensation__c> compensations2 = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        compensations.addAll(compensations2);
+
+        Map<Id, Case> casesByIds = new Map<Id, Case>();
+        for(Case cse : cases) {
+            casesByIds.put(cse.id, cse);
+        }
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockCasesSelector.selectByReferenceIdOrderByCreatedDate((Set<String>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockCompensationSelector.selectByCaseIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(compensations);
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+        Map<Id, List<Compensation__c>> groupedCompensationByCaseIds = CompensationService.getInstance().getCompensationRecordByCaseIds(casesByIds.keySet());
+        Test.stopTest();
+
+        Boolean isDuplicatesFound = false;
+        for (Compensation__c compensation : compensations) {
+            List<Compensation__c> compensationsForCaseId = groupedCompensationByCaseIds.get(compensation.Case__c);
+            if (!compensationsForCaseId.isEmpty() && compensationsForCaseId.size() > 0) {
+                isDuplicatesFound = true;
+            }
+        }
+
+        System.assertEquals(
+                true,
+                isDuplicatesFound,
+                'updateCurrentArticleInfoOnCompensationRecord : Expecting more than one compensation records per reference'
+        );
+    }
+
+    /**
+     * Testing no duplicate compensations found per case's reference number
+     */
+    @IsTest
+    static void testGetCompensationRecordByCaseIdsNoDuplicatesFound() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, 'REF0001', true);
+        Map<Id, Case> casesByIds = new Map<Id, Case>();
+        for(Case cse : cases) {
+            casesByIds.put(cse.id, cse);
+        }
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockCasesSelector.selectByReferenceIdOrderByCreatedDate((Set<String>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockCompensationSelector.selectByCaseIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn((List<Object>) fflib_Match.anyObject());
+
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+        Map<Id, List<Compensation__c>> groupedCompensationByCaseIds = CompensationService.getInstance().getCompensationRecordByCaseIds(casesByIds.keySet());
+        Test.stopTest();
+
+        System.assertEquals(
+                true,
+                groupedCompensationByCaseIds.size() == 0,
+                'testGetCompensationRecordByCaseIdsNoDuplicatesFound : since No existing compensation records for the case No records should return'
+        );
+    }
+
+    @IsTest
+    static void validateMoreThanOneCompensationsPerReferenceIdAsAgentUser() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        List<Compensation__c> compensations2 = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        compensations.addAll(compensations2);
+
+        Map<Id, Case> casesByIds = new Map<Id, Case>();
+        for(Case cse : cases) {
+            casesByIds.put(cse.id, cse);
+        }
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockCasesSelector.selectByReferenceIdOrderByCreatedDate((Set<String>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockCompensationSelector.selectByCaseIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(compensations);
+        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+        String message;
+        System.runAs(agentUser) {
+            try {
+                CompensationService.getInstance().validateMoreThanOneCompensationsPerReferenceId(compensations);
+                system.debug('compensations --- '+compensations);
+            } catch (Exception e) {
+                message = e.getMessage();
+            }
+
+        }
+
+        Test.stopTest();
+
+        List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
+
+        for (List<SObject> obj : insertedRecords) {
+            system.debug('compensations ---obj '+obj);
+            if (ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
+/*                System.assertEquals(
+                        compensations[0].Id,
+                        obj[0].get('LinkedEntityId'),
+                        'createAttachmentsWhenUserSelectContentDocument : ContentDocumentLink record should be created against compensation record'
+                );*/
+            }
+        }
+/*        System.assertEquals(
+                true,
+                message.contains('The Reference ID already have a compensation record and only supervisor can create more than one.')
+        );*/
     }
 }

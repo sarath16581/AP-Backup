@@ -1,3 +1,11 @@
+/***
+ * @author
+ * @date
+ * @domain Core
+ * @description Test class for CompensationSelector
+ * @changelog
+ * 2023-07-25 - Hasantha Liyanage - Modified
+ */
 @isTest
 private with sharing class CompensationSelectorTest
 {

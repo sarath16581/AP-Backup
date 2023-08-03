@@ -1,15 +1,13 @@
 /**
- *
- *     @author Hasantha Liyanage
- *     @date 2023-07-17
- *     @group lwc
- *     @tag apex controller
- *     @tag Attachments
- *     @domain ui
- *     @description support listing attachments and selecting them for the compensation record
- *     @changelog
- *     2023-07-17 - hasantha.liyanage@auspost.com.au - Created
- *
+ * @author Hasantha Liyanage
+ * @date 2023-07-17
+ * @group lwc
+ * @tag apex controller
+ * @tag Attachments
+ * @domain ui
+ * @description support listing attachments and selecting them for the compensation record
+ * @changelog
+ * 2023-07-17 - hasantha.liyanage@auspost.com.au - Created
  */
 public with sharing class CompensationAttachmentsController {
 
@@ -119,19 +117,6 @@ public with sharing class CompensationAttachmentsController {
     }
 
     /**
-     * Get Attachments related to passed Id
-     * @param recordId
-     *
-     * @return
-     */
-    private static List<Attachment> getAttachments(Id recordId) {
-        Map<Id, Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                recordId
-        });
-        return caseAttachments != null ? caseAttachments.values() : new List<Attachment>();
-    }
-
-    /**
      * get attachment details
      * @param compensation current compensation record
      * @param attachmentDetails to storeattachment details
@@ -139,9 +124,13 @@ public with sharing class CompensationAttachmentsController {
     @TestVisible
     private static void getAttachmentDetails(Compensation__c compensation, List<AttachmentDetail> attachmentDetails) {
         // get attachments related to related case
-        List<Attachment> caseAttachments = getAttachments(compensation.Case__c);
+        List<Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
+                compensation.Case__c
+        });
         // get attachments related to compensation, this will allow us to find any existing attachments
-        List<Attachment> compensationAttachments = getAttachments(compensation.Id);
+        List<Attachment> compensationAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
+                compensation.Id
+        });
 
         // compare attachments and prepare the attachment details
         for (Attachment caseAttachment : caseAttachments) {
@@ -153,9 +142,11 @@ public with sharing class CompensationAttachmentsController {
             detail.Name = caseAttachment.Name;
             detail.ParentId = caseAttachment.ParentId;
             detail.isAttachment = true;
-            for (Attachment compensationAttachment : compensationAttachments) {
-                if (caseAttachment.Name == compensationAttachment.Name) {
-                    detail.isSelected = true;
+            if(compensationAttachments != null) {
+                for (Attachment compensationAttachment : compensationAttachments) {
+                    if (caseAttachment.Name == compensationAttachment.Name) {
+                        detail.isSelected = true;
+                    }
                 }
             }
             attachmentDetails.add(detail);

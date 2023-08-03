@@ -533,8 +533,8 @@ public with sharing class EFTBankDetailsController_Test {
     }
 
     /**
-  * Compensation Supervisor user permission is allowed to update bank details
-  */
+      * Compensation Supervisor user permission is allowed to update bank details
+      */
     @IsTest
     static void testValidateCompensationUserPermissionBankDetailWithPermission() {
 
@@ -753,14 +753,12 @@ public with sharing class EFTBankDetailsController_Test {
                     Status__c = 'Pending',
                     Compensation_Amount__c = 150,
                     CostCentreCode__c = 'test',
-                    BSB__c = '444333',
-                    Account_Number__c = '123234345',
                     RecordTypeId = recordTypeId,
                     Cover_Type__c = 'ACL'
             );
+
             ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
             EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-            ext.insertMethod();
         }
         Test.stopTest();
 

@@ -92,7 +92,7 @@ public without sharing class EFTBankDetailsController {
 
         //if standard controller id is null create new compensation. this occurs when creating new records.
         if(stdController.getId() == null) {
-            record = (Compensation__c) stdController.getRecord();
+            record = new Compensation__c();
 
         }
         else {
@@ -258,10 +258,11 @@ public without sharing class EFTBankDetailsController {
      * Validate checks on load of the page
      */
     private void validateOnLoad() {
-        if (this.record.Id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(this.record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+        Compensation__c record = (Compensation__c) this.stdCon.getRecord();
+        if (record.id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
             isAllowedToCreateCompensation = false;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to create/update compensation records.'));
-        } else if (this.record.Id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
+        } else if (record.id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
             // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
             isAllowedToCreateCompensation = false;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'The Reference ID already have a compensation record and only supervisor can create more than one.'));
@@ -302,7 +303,8 @@ public without sharing class EFTBankDetailsController {
             // compensation Agent permission do not have the method to manually enter the bank account details
             // and should continue using the current email method to acquire bank account details from the customer.
             // check is only against EFT and Load and Go record Types as those are the only 2 record types which accepts bank details
-            if(RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES.contains(this.record.recordTypeId) && !isCompensationSupervisor) {
+            Compensation__c record = (Compensation__c) this.stdCon.getRecord();
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES.contains(record.recordTypeId) && !isCompensationSupervisor) {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'You do not have privilege to manually enter the bank account details'));
             }
 
@@ -326,29 +328,18 @@ public without sharing class EFTBankDetailsController {
      *
      * @return Boolean
      */
-    private Boolean isMoreThanOneCompensationRecord(String caseId) {
-        // get the related case
-        List<Case> cases = CasesSelector.newInstance(1).selectById(new Set<Id>{
-                Id.valueOf(caseId)
-        }).values();
-        // find the reference ID
-        String referenceId = cases[0].ReferenceID__c;
-        // if no reference ID found return false, which means user will be able to create the compensation record
-        if(referenceId == null) {
-            return false;
-        }
+    public Boolean isMoreThanOneCompensationRecord(Id relatedCaseId) {
+        if (String.isNotEmpty(relatedCaseId)) {
+            Map<Id, List<Compensation__c>> groupedCompensationByCaseIds = CompensationService.getInstance().getCompensationRecordByCaseIds(new Set<Id>{relatedCaseId});
 
-        // with the reference ID let's find how many cases available
-        Map<Id, Case> allCases = CasesSelector.newInstance().selectByReferenceIdOrderByCreatedDate(new Set<String>{referenceId});
-        // on all the cases found are there one or more compensation(s) already exists?
-        List<Compensation__c> allCompensationsPerArticle = CompensationSelector.newInstance().selectByCaseIds(allCases.keySet(), new Set<Object>());
-        // if compensations already exists!
-        if(allCompensationsPerArticle.size() > 0) {
-            return true;
+            if (groupedCompensationByCaseIds != null && groupedCompensationByCaseIds.containsKey(relatedCaseId)) {
+                List<Compensation__c> compensationList = groupedCompensationByCaseIds.get(relatedCaseId);
+                return compensationList.size() > 0;
+            }
         }
-
         return false;
     }
+
 
     /**
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by

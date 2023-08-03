@@ -135,7 +135,7 @@ public with sharing class AttachmentsSelector_Test {
         Test.startTest();
 
         AttachmentsSelector selector = AttachmentsSelector.newInstance(1);
-        Map<Id, Attachment> results = selector.selectByParentId(new Set<Id>{account.Id});
+        List<Attachment> results = selector.selectByParentId(new Set<Id>{account.Id});
         System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 

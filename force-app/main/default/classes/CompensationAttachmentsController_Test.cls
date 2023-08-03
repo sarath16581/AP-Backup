@@ -20,8 +20,13 @@ private class CompensationAttachmentsController_Test {
         Test.stopTest();
     }
 
+    /**
+     * Testing the logged in agent has one of Is_Compensation_User or Is_Compensation_Supervisor custom permission sets
+     * if the user do have access isAllowedToCreateCompensation should set to true as we use this variable to determine
+     * access throughout component
+     */
     @IsTest
-    static void getPageConfig001() {
+    static void getPageConfigIsAllowedToCreate() {
 
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
 
@@ -35,12 +40,16 @@ private class CompensationAttachmentsController_Test {
         System.assertEquals(
                 true,
                 config.isAllowedToCreateCompensation,
-                'getPageConfig_001: User should be able to perform compensation super user actions'
+                'getPageConfigIsAllowedToCreate: User should be able to perform compensation super user actions'
         );
     }
 
+    /**
+     * Testing the logged in agent has one of Is_Compensation_User or Is_Compensation_Supervisor custom permission sets
+     * If the user does NOT have the permission sets assigned isAllowedToCreateCompensation has to be false
+     */
     @IsTest
-    static void getPageConfig002() {
+    static void getPageConfigIsNotAllowedToCreate() {
 
         Test.startTest();
         CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig();
@@ -49,12 +58,17 @@ private class CompensationAttachmentsController_Test {
         System.assertEquals(
                 false,
                 config.isAllowedToCreateCompensation,
-                'getPageConfig_002: User should NOT be able to perform compensation super user/agent user actions'
+                'getPageConfigIsNotAllowedToCreate: User should NOT be able to perform compensation super user/agent user actions'
         );
     }
 
+    /**
+     * ContentDocuments linked to case which are already NOT linked to the compensation should be able to selected by the user
+     * hence the isSelected parameter should set to false to attachment details wrapper instance.
+     * based on the isSelected parameter being false, we will allow user to select the record in the UI
+     */
     @IsTest
-    static void getFileAttachmentDetails001() {
+    static void getFileAttachmentDetailsWhenContentDocumentIsNotAlreadySelected() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -95,19 +109,23 @@ private class CompensationAttachmentsController_Test {
         System.assertEquals(
                 documentLinkRecordForCase.ContentDocumentId,
                 attachmentDetails[0].Id,
-                'getFileAttachmentDetails_001 : File Details should be populated from the related content document details'
+                'getFileAttachmentDetailsWhenContentDocumentIsNotAlreadySelected : File Details should be populated from the related content document details'
         );
 
         System.assertEquals(
                 false,
                 attachmentDetails[0].isSelected,
-                'getFileAttachmentDetails_001 : isSelected field should be set to true as compensation record already does not have the same attachment'
+                'getFileAttachmentDetailsWhenContentDocumentIsNotAlreadySelected : isSelected field should be set to false as compensation record already does not have the same attachment'
         );
 
     }
 
+    /**
+     * When ContentDocument record linked to the case is already linked to the compensation record,
+     * User will not be able to select it again by disabling the select button when isSelected is true
+     */
     @IsTest
-    static void getFileAttachmentDetails002() {
+    static void getFileAttachmentDetailsWhenContentDocumentIsAlreadySelected() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -159,19 +177,24 @@ private class CompensationAttachmentsController_Test {
         System.assertEquals(
                 documentLinkRecordForCase.ContentDocumentId,
                 attachmentDetails[0].Id,
-                'getFileAttachmentDetails_002 : File Details should be populated from the case\'s related content document details'
+                'getFileAttachmentDetailsWhenContentDocumentIsAlreadySelected : File Details should be populated from the case\'s related content document details'
         );
 
         System.assertEquals(
                 true,
                 attachmentDetails[0].isSelected,
-                'getFileAttachmentDetails_002 : isSelected field should be set to false as compensation record already have the same attachment'
+                'getFileAttachmentDetailsWhenContentDocumentIsNotAlreadySelected : isSelected field should be set to true as compensation record already have the same attachment'
         );
 
     }
 
+    /**
+     * Attachment records available against Case is not already duplicated against the compensations should
+     * allow the user to select them against compensation, hence the isSelected should be false when it is not already created
+     * for compensation
+     */
     @IsTest
-    static void getAttachmentDetails001() {
+    static void getFileAttachmentDetailsWhenAttachmentRecordIsNotAlreadySelected() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -191,9 +214,7 @@ private class CompensationAttachmentsController_Test {
                 .selectByParentId(new Set<Id>{
                         cases[0].Id
                 }))
-                .thenReturn(new Map<Id, Attachment>{
-                        attachmentForCase.Id => attachmentForCase
-                });
+                .thenReturn(new List<Attachment>{ attachmentForCase});
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -207,18 +228,22 @@ private class CompensationAttachmentsController_Test {
         System.assertEquals(
                 attachmentForCase.ParentId,
                 attachmentDetails[0].ParentId,
-                'getAttachmentDetails_001 : Attachment Details should be populated from the case\'s related content document details'
+                'getFileAttachmentDetailsWhenAttachmentRecordIsNotAlreadySelected : Attachment Details should be populated from the case\'s related content document details'
         );
 
         System.assertEquals(
                 false,
                 attachmentDetails[0].isSelected,
-                'getAttachmentDetails_001 : isSelected field should NOT be set to true as compensation record already does NOT have the same attachment duplicated'
+                'getFileAttachmentDetailsWhenAttachmentRecordIsNotAlreadySelected : isSelected field should NOT be set to true as compensation record already does NOT have the same attachment duplicated'
         );
     }
 
+    /**
+     * When the attachment record is already created against the compensation record user is not allowed to select it again.
+     * hence the isSelected should be set to true then the Ui will disable the button
+     */
     @IsTest
-    static void getAttachmentDetails002() {
+    static void getFileAttachmentDetailsWhenAttachmentRecordIsAlreadySelected() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -239,18 +264,13 @@ private class CompensationAttachmentsController_Test {
                 .selectByParentId(new Set<Id>{
                         cases[0].Id
                 }))
-                .thenReturn(new Map<Id, Attachment>{
-                        attachmentForCase.Id => attachmentForCase
-                });
+                .thenReturn(new List<Attachment>{ attachmentForCase});
         MockUtility.Mocks.when(mockAttachmentsSelector
                 .selectByParentId(new Set<Id>{
                         compensations[0].Id
                 }))
-                .thenReturn(new Map<Id, Attachment>{
-                        attachmentForCompensation.Id => attachmentForCompensation
-                });
+                .thenReturn(new List<Attachment>{ attachmentForCompensation});
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -262,12 +282,16 @@ private class CompensationAttachmentsController_Test {
         System.assertEquals(
                 true,
                 attachmentDetails[0].isSelected,
-                'getAttachmentDetails_002 : isSelected field should be set to true as compensation record already has the same attachment duplicated'
+                'getFileAttachmentDetailsWhenAttachmentRecordIsAlreadySelected : isSelected field should be set to true as compensation record already has the same attachment duplicated'
         );
     }
 
+    /**
+     * If the user select a new ContentDocument isSelectedNew will be set to true in the ui then once the selection is saved,
+     * new ContentDocumentLink link record should get created against compensation record
+     */
     @IsTest
-    static void createAttachments001() {
+    static void createAttachmentsLinkSelectedContentDocumentToCompensationRecord() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -294,9 +318,8 @@ private class CompensationAttachmentsController_Test {
                 .selectByParentId(new Set<Id>{
                         cases[0].Id
                 }))
-                .thenReturn(new Map<Id, Attachment>{
-                        attachmentForCase.Id => attachmentForCase
-                });
+                .thenReturn(new List<Attachment>{ attachmentForCase});
+
         MockUtility.Mocks.when(mockAttachmentsSelector
                 .selectById(new Set<Id>{
                         attachmentForCase.Id
@@ -345,7 +368,7 @@ private class CompensationAttachmentsController_Test {
                 System.assertEquals(
                         compensations[0].Id,
                         obj[0].get('ParentId'),
-                        'createAttachments_001 : Attachment record should be created against compensation record'
+                        'createAttachmentsLinkSelectedContentDocumentToCompensationRecord : ContentDocumentLink record should be created against compensation record'
                 );
             }
 
@@ -353,14 +376,18 @@ private class CompensationAttachmentsController_Test {
                 System.assertEquals(
                         compensations[0].Id,
                         obj[0].get('LinkedEntityId'),
-                        'createAttachments_001 : ContentDocumentLink record should be created against compensation record'
+                        'createAttachmentsLinkSelectedContentDocumentToCompensationRecord : ContentDocumentLink record should be created against compensation record'
                 );
             }
         }
     }
 
+    /**
+     * When both attachments and Files are available to be selected by the user, then user select a file (Not attachment)
+     * Then a new ContentDocumentLink record should get created against the compensation record
+     */
     @IsTest
-    static void createAttachments002() {
+    static void createAttachmentsWhenUserSelectContentDocument() {
         // =====================================
         // Data Preparation
         // =====================================
@@ -387,8 +414,8 @@ private class CompensationAttachmentsController_Test {
                 .selectByParentId(new Set<Id>{
                         cases[0].Id
                 }))
-                .thenReturn(new Map<Id, Attachment>{
-                        attachmentForCase.Id => attachmentForCase
+                .thenReturn(new List<Attachment>{
+                        attachmentForCase
                 });
         MockUtility.Mocks.when(mockAttachmentsSelector
                 .selectById(new Set<Id>{
@@ -442,7 +469,7 @@ private class CompensationAttachmentsController_Test {
                 System.assertEquals(
                         compensations[0].Id,
                         obj[0].get('LinkedEntityId'),
-                        'createAttachments_002 : ContentDocumentLink record should be created against compensation record'
+                        'createAttachmentsWhenUserSelectContentDocument : ContentDocumentLink record should be created against compensation record'
                 );
             }
         }

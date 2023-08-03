@@ -92,13 +92,13 @@ public virtual inherited sharing class AttachmentsSelector extends ApplicationSe
 		return new Map<Id, Attachment>((List<Attachment>)Database.query(qb.toSoqlString()));
 	}
 
-	public virtual Map<Id, Attachment> selectByParentId(Set<Id> ids) {
+	public virtual List<Attachment> selectByParentId(Set<Id> ids) {
 		return selectByParentId(ids, new Set<Object>());
 	}
 
-	public virtual Map<Id, Attachment> selectByParentId(Set<Id> ids, Set<Object> selectorOptions) {
+	public virtual List<Attachment> selectByParentId(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Attachment.ParentId + ' in :ids')).endConditions();
-		return new Map<Id, Attachment>((List<Attachment>)Database.query(qb.toSoqlString()));
+		return (List<Attachment>)Database.query(qb.toSoqlString());
 	}
 
 	public virtual override QueryBuilder newQueryBuilder() {

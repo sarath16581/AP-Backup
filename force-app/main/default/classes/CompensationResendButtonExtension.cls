@@ -1,15 +1,13 @@
 /**
- *
- *     @author Hasantha Liyanage
- *     @date 2023-07-17
- *     @group Controller Extention
- *     @tag apex controller
- *     @tag Attachments
- *     @domain ui
- *     @description Handling the resend email functionality based on the custom permission set assigned to user
- *     @changelog
- *     2023-07-17 - hasantha.liyanage@auspost.com.au - Created
- *
+ * @author Hasantha Liyanage
+ * @date 2023-07-17
+ * @group Controller Extention
+ * @tag apex controller
+ * @tag Attachments
+ * @domain ui
+ * @description Handling the resend email functionality based on the custom permission set assigned to user
+ * @changelog
+ * 2023-07-17 - hasantha.liyanage@auspost.com.au - Created
  */
 public with sharing class CompensationResendButtonExtension
 {
