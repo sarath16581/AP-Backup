@@ -10,15 +10,17 @@ export default class Utils {
 	/**
 	 * Formatting text where the first argument is the template: format('{0}! I am {1}', 'Hello', 'Paul') => 'Hello! I am Paul'
 	 * @param {*} text Template to be merged with provided parameters by index
-	 * @param  {...any} args Parameter value to be merged
+	 * @param {...any} args Parameter value to be merged
 	 * @returns String with formatted result
 	 */
-	static format = (text, ...args) => text?.replace(
-		/{(\d+)}/g,
-		(match, number) => typeof args[number] !== 'undefined'
-			? args[number]
-			: match		  
-	)
+	static format = (text, ...args) => {
+		return text?.replace(
+			/{(\d+)}/g,
+			(match, number) => typeof args[number] !== 'undefined'
+				? args[number]
+				: match
+		);
+	}
 
 	/**
 	 * Construct an html element: wrapHtml('click here', 'a', { href : 'www.salesforce.com' }) => '<a href="www.salesforce.com">click here</a>'

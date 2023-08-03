@@ -64,8 +64,8 @@ export default class UpdateStatus {
 			const { thisArg } = this;
 			
 			return updatePickupLocationStatus({
-				recordId :  thisArg.recordId,
-				status : this.status, //recordUpdates,
+				recordId : thisArg.recordId,
+				status : this.status,
 				comments
 			});
 		},
@@ -161,13 +161,13 @@ export default class UpdateStatus {
 			}
 		],
 		pending : [
-			{   // Pickup Location status = Pending Information
+			{	 // Pickup Location status = Pending Information
 				...Schema.Pick_Up_Location__c.fields.Pick_up_Location_Status__c,
 				assign : 'Pending Information'
 			}
 		],
 		received : [			
-			{   // Pickup Location status = Received Information
+			{	 // Pickup Location status = Received Information
 				...Schema.Pick_Up_Location__c.fields.Pick_up_Location_Status__c,
 				assign : 'Received Information'
 			}

@@ -45,6 +45,8 @@ export default class TaskWorker {
 						return actionWorker(nextTask);
 					}
 				}
+
+				return null;
 			}).catch(reportError);
 		}
 

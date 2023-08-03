@@ -60,5 +60,7 @@ export default class CsqModals extends LightningModal {
 		if (this.instance[method]) {
 			return this.instance[method](...args);
 		}
+		
+		return null;
 	}
 }

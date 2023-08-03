@@ -44,7 +44,7 @@ export default class SubmitRecord {
 			const { thisArg } = this;			
 			
 			return submitForApproval({
-				recordId :  thisArg.recordId,
+				recordId : thisArg.recordId,
 				comments
 			});
 		},

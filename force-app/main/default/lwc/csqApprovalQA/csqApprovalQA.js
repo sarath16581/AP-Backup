@@ -51,7 +51,7 @@ export default class CsqApprovalQA extends LightningElement {
 	
 	// Using currentPageReference to obtain recordId and objectApiName
 	@wire(CurrentPageReference)
-    getPageReferenceParameters(pageRef) {
+		getPageReferenceParameters(pageRef) {
 		if (pageRef && !this.recordId) {
 			// populate this first
 			objectApiName = pageRef.attributes?.objectApiName;
@@ -62,7 +62,7 @@ export default class CsqApprovalQA extends LightningElement {
 			// setting recordId will invoke wired getRecord operation
 			this.recordId = pageRef.attributes?.recordId || null;
 		}
-    }
+		}
 
 	@wire(getRecord, {
 		recordId: '$recordId',

@@ -53,12 +53,9 @@ private with sharing class ApplicationDatabase_Test {
 	 */
 	@IsTest
 	private static void testApproval() {
-		List<Id> recordIds = new List<Id>();
-		Id fakeAccId = fflib_IDGenerator.generate(Account.SObjectType);
-
 		try {
 			ApplicationDatabase.getInstance().submitForApproval(
-				fakeAccId,
+				fflib_IDGenerator.generate(Account.SObjectType),
 				'comments'
 			);
 

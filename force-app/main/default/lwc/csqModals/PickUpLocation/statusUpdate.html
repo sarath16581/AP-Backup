@@ -10,13 +10,13 @@
 			></lightning-formatted-rich-text>
 		</div>
 		<!-- Display the input boxes -->
-    <!-- Max Length of 32768 aligns with the Notes__c max field length"  -->
+		<!-- Max Length of 32768 aligns with the Notes__c max field length" -->
 		<lightning-textarea
 			name="comments"
 			label="Notes"
 			data-name="input"
 			max-length="32768" 
-      value={instance.notes}
+			value={instance.notes}
 		></lightning-textarea>
 	</lightning-modal-body>
 	
@@ -33,7 +33,7 @@
 			name="btnSave"
 			variant="brand"
 			onclick={handleClick}
-      class="focusDefault"
+			class="focusDefault"
 		></lightning-button>
 	</lightning-modal-footer>	 
 </template>

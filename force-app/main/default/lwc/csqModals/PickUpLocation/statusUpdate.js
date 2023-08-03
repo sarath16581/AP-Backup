@@ -42,6 +42,7 @@ export default class StatusUpdate {
 			const elem = this.thisRef.template.querySelector('.focusDefault');
 			if (elem && elem.focus) {
 				delete this.rcbPending;
+				// Immediate focus doesn't work as the component is still in it's rendering phase
 				setTimeout(() => elem.focus(), 50);
 			}
 		}
@@ -60,7 +61,10 @@ export default class StatusUpdate {
 
 			if (invalidItems.length) {
 				// Focus the first invalid element
-				invalidItems[0].focus && invalidItems[0].focus();
+				if (invalidItems[0].focus) {
+					invalidItems[0].focus();
+				}
+				
 				return;
 			} 
 

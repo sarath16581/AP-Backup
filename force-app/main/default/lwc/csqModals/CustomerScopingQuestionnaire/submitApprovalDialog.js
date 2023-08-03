@@ -17,7 +17,7 @@ export default class SubmitApproval {
 	render = () => SubmitApprovalDialog;
 
 	connectedCallback() {
-		if (!this.thisRef.title)  {
+		if (!this.thisRef.title) {
 			this.thisRef.title = 'Submit for Approval';
 		}
 	}
@@ -40,7 +40,10 @@ export default class SubmitApproval {
 
 			if (invalidItems.length) {
 				// Focus the first invalid element
-				invalidItems[0].focus && invalidItems[0].focus();
+				if (invalidItems[0].focus) {
+					invalidItems[0].focus();
+				}
+				
 				return;
 			} 
 
