@@ -175,6 +175,11 @@ public with sharing class ChasRegHandlerService {
 			// NOTE: the FILTER_PERSON_ACCOUNT_ONLY force only person account records to be returned so this value will always be populated
 			Id personContactId = accounts.values()[0].PersonContactId;
 
+			//throw an error if it is inactive customer
+			if(accounts.values()[0].is_Inactive_Customer__pc != null && accounts.values()[0].is_Inactive_Customer__pc) {
+				throw new RegHandlerException('Customer is Inactive');
+			}
+
 			System.debug('Existing PersonAccount record found: ' + accounts);
 
 			// now the PersonAccount is out of the way we move onto the User record
@@ -218,7 +223,13 @@ public with sharing class ChasRegHandlerService {
 	 * NOTE, this will only update a small set of attributes on the user record.
 	 */
 	public User updateForExistingUser(Id userId, Map<String, String> attributes) {
-		User existingUser = UsersSelector.newInstance().selectById(new Set<Id>{userId}).values()[0];
+		//field overrides
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+			User.SObjectType => UsersSelector.newInstance().getSObjectFieldList(),
+			Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
+		};
+
+		User existingUser = UsersSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{userId}, new Set<Object>{ UsersSelector.Options.WITH_COMMUNITY_ACCOUNT }).values()[0];
 		return updateForExistingUser(existingUser, attributes);
 	}
 
@@ -235,6 +246,12 @@ public with sharing class ChasRegHandlerService {
 
 		if(!userIsFederatedMatch(userRecord, attributes.get('augmented_username'))) {
 			throw new RegHandlerException('Could not find a federated match for an existing user.');
+		}
+
+		//throw an error if it is inactive customer
+		Boolean isInactiveCustomer = userRecord?.Contact?.Account?.is_Inactive_Customer__pc;
+		if(isInactiveCustomer != null && isInactiveCustomer) {
+			throw new RegHandlerException('Customer is Inactive');
 		}
 
 		// populate a user record for update
