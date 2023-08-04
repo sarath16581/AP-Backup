@@ -7,8 +7,8 @@
         <namespace>Apttus</namespace>
     </packageVersions>
     <packageVersions>
-        <majorNumber>11</majorNumber>
-        <minorNumber>120</minorNumber>
+        <majorNumber>12</majorNumber>
+        <minorNumber>146</minorNumber>
         <namespace>Apttus_CMConfig</namespace>
     </packageVersions>
     <packageVersions>
@@ -27,8 +27,8 @@
         <namespace>Apttus_QPApprov</namespace>
     </packageVersions>
     <packageVersions>
-        <majorNumber>8</majorNumber>
-        <minorNumber>52</minorNumber>
+        <majorNumber>9</majorNumber>
+        <minorNumber>65</minorNumber>
         <namespace>Apttus_QPComply</namespace>
     </packageVersions>
     <packageVersions>

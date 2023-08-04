@@ -12,12 +12,11 @@
     <permissionSets>View Sales Manager Coaching Records</permissionSets>
     <permissionSets>Create Sales Manager Coaching Records</permissionSets>
     <permissionSets>SSSW Knowledge for inside sales</permissionSets>
-    <profiles>Customer Team</profiles>
-    <profiles>Customer Onboarding</profiles>
+    <profiles>Sales Operations</profiles>
     <profiles>BG Base</profiles>
     <profiles>Coverage Sales</profiles>
     <profiles>Marketing User</profiles>
-    <profiles>Sales Operations</profiles>
+    <profiles>Customer Team</profiles>
     <profiles>Solution Sales</profiles>
     <profiles>Product Sales</profiles>
     <profiles>Marketing Super Users</profiles>

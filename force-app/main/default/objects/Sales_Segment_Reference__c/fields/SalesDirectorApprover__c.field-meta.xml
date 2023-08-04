@@ -5,7 +5,7 @@
     <description>Select Sales Director for approvals</description>
     <externalId>false</externalId>
     <inlineHelpText>Select Sales Director for approvals</inlineHelpText>
-    <label>Sales Director Approver</label>
+    <label>Sales Director</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Segment_Approvers</relationshipName>
     <required>false</required>
