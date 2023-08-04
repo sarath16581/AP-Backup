@@ -17,6 +17,7 @@
 	2023-06-07 Deepak Kemidi Adding logic to populate the Agreement Product Attributes values fields on the contract line items for Metro product.
 	2023.04.19 Ken McGuire  Proposal field migration to opportunity
 	2023-05-10 - Yatika Bansal - Added code to populate service expiry date.
+	2023-07-17 - Yatika Bansal - Modified method populateServiceExpiryDate to consider amendment scenario
 	**************************************************/
 
 	public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -725,21 +726,76 @@
 	*/
 	private static void populateServiceExpiryDate(List<Apttus__AgreementLineItem__c> aliList) {
 		Set<Id> aggIds = new Set<Id>();
-		List<Apttus__AgreementLineItem__c> filteredAli = new List<Apttus__AgreementLineItem__c>();
-
+		List<Apttus__AgreementLineItem__c> bundleAli = new List<Apttus__AgreementLineItem__c>();
 		for (Apttus__AgreementLineItem__c ali : aliList) {
-			if( ali.Apttus_CMConfig__LineType__c != APT_Constants.LABEL_LINE_TYPE_OPTION &&
-			   ali.Apttus_CMConfig__ChargeType__c == APT_Constants.CHARGE_TYPE_STANDARD_PRICE ){
+			if( ali.Apttus_CMConfig__LineType__c != APT_Constants.LABEL_LINE_TYPE_OPTION ){
 				   aggIds.add(ali.Apttus__AgreementId__c);
-				   filteredAli.add(ali);
+				   bundleAli.add(ali);
 			   }
 		}
 
-		if(!aggIds.isEmpty()){
-			Map<Id, Apttus__APTS_Agreement__c> parentAggs = ApttusContractsSelector.newInstance(1).selectById(aggIds);
+		//Get Ali to be updated
+		List<Apttus__AgreementLineItem__c> filteredAli  = APT_ContractServiceDetailsController.getServiceDetailALI(bundleAli);
 
+		if(!filteredAli.isEmpty()){
+			//Amend Scenario
+			//Get parent agreement
+			Map<Id, Apttus__APTS_Agreement__c> parentAggs = ApttusContractsSelector.newInstance(1).selectById(aggIds, new Set<Object> {ApttusContractsSelector.Options.WITH_PROPOSAL});
+
+			//Get source agreement
+			Map<Id, Map<Id, Date>> mapSourceProductAndExpiryDateByAgg = new Map<Id, Map<Id, Date>>();
+			Set<String> contractNumbers =  new Set<String>();
+			for(Apttus__APTS_Agreement__c parentAgg : parentAggs.values()){
+				if(parentAgg.APT_Contract_Type__c == APT_Constants.RECORD_TYPE_DOV_CONTRACT){
+					contractNumbers.add(parentAgg.Apttus_QPComply__RelatedProposalId__r.APT_Contract_Number__c);
+				}
+			}
+
+			Set<Id> sourceAggIds = new Set<Id>();
+			List<Apttus__APTS_Agreement__c> sourceAgreements = ApttusContractsSelector.newInstance(1).selectByAgreementNumber(contractNumbers, new Set<Object>());
+			for (Apttus__APTS_Agreement__c agg : sourceAgreements) {
+				sourceAggIds.add(agg.Id);
+			}
+
+			//Get ali of source agreement
+			List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
+													.selectByContractIdsAndLineType(sourceAggIds,
+													 new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
+													 new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_CONTRACT});
+			List<Apttus__AgreementLineItem__c> filteredSourceAli = APT_ContractServiceDetailsController.getServiceDetailALI(alis);
+
+			Map<String, List<Apttus__AgreementLineItem__c>> mapAlisByAgreementNum = new Map<String, List<Apttus__AgreementLineItem__c>>();
+			for(Apttus__AgreementLineItem__c ali : filteredSourceAli){
+				if(mapAlisByAgreementNum.containsKey(ali.Apttus__AgreementId__r.Apttus__FF_Agreement_Number__c)){
+					mapAlisByAgreementNum.get(ali.Apttus__AgreementId__r.Apttus__FF_Agreement_Number__c).add(ali);
+				}else{
+					mapAlisByAgreementNum.put(ali.Apttus__AgreementId__r.Apttus__FF_Agreement_Number__c, new List<Apttus__AgreementLineItem__c>{ali});
+				}
+			}
+
+			for(Apttus__APTS_Agreement__c parentAgg : parentAggs.values()){
+				if(parentAgg.APT_Contract_Type__c == APT_Constants.RECORD_TYPE_DOV_CONTRACT){
+					Map<Id, Date> mapExpiryDateByProduct =  new  Map<Id, Date>();
+					for(Apttus__AgreementLineItem__c ali : mapAlisByAgreementNum.get(parentAgg.Apttus_QPComply__RelatedProposalId__r.APT_Contract_Number__c)){
+						mapExpiryDateByProduct.put(ali.Apttus__ProductId__c, ali.Apttus_CMConfig__EndDate__c);
+					}
+
+					mapSourceProductAndExpiryDateByAgg.put(parentAgg.id, mapExpiryDateByProduct);
+				}
+			}
+
+			//Set Service dates
 			for(Apttus__AgreementLineItem__c ali : filteredAli) {
-				ali.Apttus_CMConfig__EndDate__c = parentAggs.get(ali.Apttus__AgreementId__c).Apttus__Contract_End_Date__c;
+				Apttus__APTS_Agreement__c parentAgg = parentAggs.get(ali.Apttus__AgreementId__c);
+				ali.Apttus_CMConfig__EffectiveDate__c = System.today();
+
+				//In case of amend SED should follow original SED
+				if(!mapSourceProductAndExpiryDateByAgg.isEmpty() && mapSourceProductAndExpiryDateByAgg.containsKey(parentAgg.id)
+				   && (mapSourceProductAndExpiryDateByAgg.get(parentAgg.id)).containsKey(ali.Apttus__ProductId__c)){
+					ali.Apttus_CMConfig__EndDate__c = (mapSourceProductAndExpiryDateByAgg.get(parentAgg.id)).get(ali.Apttus__ProductId__c);
+				}else{
+					ali.Apttus_CMConfig__EndDate__c = parentAgg.Apttus__Contract_End_Date__c;
+				}
 			}
 		}
 	}
