@@ -171,7 +171,7 @@ public with sharing class APT_LandingCartController {
 		//checking if there is a existing proposal record which status Accepted, Denied and Accepted without proposal document, then update the proposal with Primary to false.
 		if(existingProposalList.size() >0){
 			for(Apttus_Proposal__Proposal__c existingProposalPrimary: existingProposalList){
-				if((existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == 'Denied') && existingProposalPrimary.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
+				if((existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_DENIED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC) && existingProposalPrimary.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
 					existingProposalPrimary.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
 					updatePrimaryFalse.add(existingProposalPrimary);
 					}else{
