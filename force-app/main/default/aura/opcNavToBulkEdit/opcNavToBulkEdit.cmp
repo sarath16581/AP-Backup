@@ -1,0 +1,16 @@
+<!--
+ @description
+ Aura wrapper to navigate to bulk edit screen
+ @author Harry Wang
+ @date 2023-05-09
+ @changelog
+ 2023-05-09 - Harry Wang created
+-->
+<aura:component implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to oppProductDataTable component">
+	<aura:attribute name="recordId" type="String" />
+
+	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
+	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+
+	<c:oppProductDataTable oppId="{!v.recordId}"/>
+</aura:component>

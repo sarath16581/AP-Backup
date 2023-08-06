@@ -15,7 +15,7 @@ History:
 2020-08-02 - Nathan Franklin - Updated test class for refactoring OpportunityUtility.updateOwnerEmployeeNumber into OpportunityUtility_part2.registerOpptyOwner
 2020-11-20  Seth Heang   - Updated test method testUserRolePopulateOnOpptyOwnerChange() to bypass the custom validation on Opportunity due to Opportunity Split
 2020-11-30  Seth Heang   - Added test method testCloseDateUpdateOnOppClosure() to test the 'Close Date' field auto-populated to Today's date during Opportunity Closure
-1011-07-22      ken.mcguire                         OPC Uplift.
+2022-07-22      ken.mcguire                         OPC Uplift.
 *****************************************************************************************/
 
 @isTest

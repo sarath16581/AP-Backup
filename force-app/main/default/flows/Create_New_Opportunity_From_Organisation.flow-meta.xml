@@ -28,7 +28,7 @@
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <assignments>
         <name>Assign_Type_to_Existing_Customer</name>
         <label>Assign Type to Existing Customer</label>
@@ -467,7 +467,7 @@ Then, navigate to new opportunity record.</description>
             <targetReference>LPO_Get_Account</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>choice_Type</name>
         <dataType>Picklist</dataType>

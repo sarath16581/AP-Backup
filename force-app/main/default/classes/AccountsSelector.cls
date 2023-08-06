@@ -24,12 +24,14 @@
  * 2023-03-17 - Naveen Rajanna - SMWD-397 - Added enums WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
  * 2023-05-01 - Naveen Rajanna - REQ2916371 - Changes to search function and Added enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
  * 2023-06-21 - Naveen Rajanna - REQ2916371 - Modified selectByAPCNAndIdAndPersonAccount to have it's own logic instead of using search
+ * 2023-04-08 - Yatika bansal - added new SObject Field
+ * 2023-06-17 - Harry Wang - added new method selectByIdWithContactsAndOpportunities
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS, WITH_ORGANISATION_ROLES, WITH_ORGANISATION_ROLES_PROSPECT_KNOWN, WITH_HOLDINGROLE,
-		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT, 
-		WITH_GRANDPARENT, WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY, WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, 
+		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT,
+		WITH_GRANDPARENT, WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY, WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS,
 		WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
 	}
 
@@ -70,7 +72,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				Account.ACN__c, Account.Primary_Business_Solutions_Contact__c, Account.BillingCountry, Account.Role_Type_Roll_Up__c,
 				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState, Account.ShippingPostalCode, Account.ShippingCountry,
 				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c,
-				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c
+				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c, Account.Sales_Segment__c
 		};
 	}
 
@@ -105,7 +107,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	}
 
 	/**
-	 * @description Run a simple query to get records based on 
+	 * @description Run a simple query to get records based on
 	 */
 	public Map<Id, Account> selectByLikedNameAndPersonAccountOrderByName(string name, boolean isPersonAccount) {
 		return selectByLikedNameAndPersonAccountOrderByName(name, isPersonAccount, new Set<Object>());
@@ -187,7 +189,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 							parentIdsLevel2 refers to Parent.ParentId (1st level Parent's parentIds)
 							parentIdsLevel3 refers to Parent.Parent.ParentId (2nd level Parent's parentIds) and so on
 	* @param selectorOptions Selector Options
-	* @param searchConditions String containing condition order ex: (1 AND 2) OR 3 
+	* @param searchConditions String containing condition order ex: (1 AND 2) OR 3
 	* @param orderByField Account Field
 	* @param sortDirection ASC or DESC
 	* @return  `List<Account>`
@@ -212,7 +214,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		Set<Id> parentIdsLevel4 = (Set<Id>)(searchParams.get('parentIdsLevel4') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel4') instanceof Set<Id> ? searchParams.get('parentIdsLevel4') : new Set<Id>{(Id)searchParams.get('parentIdsLevel4')}));
 		Set<Id> parentIdsLevel5 = (Set<Id>)(searchParams.get('parentIdsLevel5') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel5') instanceof Set<Id> ? searchParams.get('parentIdsLevel5') : new Set<Id>{(Id)searchParams.get('parentIdsLevel5')}));
 		Set<Id> parentIdsLevel6 = (Set<Id>)(searchParams.get('parentIdsLevel6') == null ? new Set<Id>() : (searchParams.get('parentIdsLevel6') instanceof Set<Id> ? searchParams.get('parentIdsLevel6') : new Set<Id>{(Id)searchParams.get('parentIdsLevel6')}));
-		
+
 		if (!apcns.isEmpty()) {
 			conditions.add(new QueryBuilder.SimpleCondition(Account.apcn__pc + ' IN :apcns'));
 		}
@@ -290,6 +292,21 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				.add(new QueryBuilder.SimpleCondition('Account.Post_Office_Assigned__r.Org_ID__c != NULL'))
 				.endConditions();
 		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Select Accounts with related contacts and opportunities given IDs of accounts, contacts and opportunities.
+	 * @param contactIds IDs of related contacts
+	 * @param oppIds IDs of related opportunities
+	 * @param accIds IDs of accounts
+	 * @param selectorOptions selector options
+	 * @return list of account records by IDs
+	 */
+	public List<Account> selectByIdWithContactsAndOpportunities(Set<Id> contactIds, Set<Id> oppIds, Set<Id> accIds,  Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds')).endConditions();
+		qb.addSubQuery(ContactsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Contact.Id + ' IN :contactIds')).endConditions(), 'Contacts');
+		qb.addSubQuery(OpportunitySelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Opportunity.Id + ' IN :oppIds')).endConditions(), 'Opportunities');
+		return Database.query(qb.toSoqlString());
 	}
 
 	/**

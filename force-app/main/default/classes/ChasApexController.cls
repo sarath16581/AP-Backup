@@ -57,8 +57,6 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
-* 2023-06-13 hasantha.liyanage@auspost.com.au DDS-11010 VODV case routing for Missing Item
-* 2023-06-26 SL DDS-11010 VODV case routing for Delivery Issue
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -225,8 +223,6 @@ public with sharing class ChasApexController extends ChasBase{
              List<TrackingNumberDetails> selectedArticles = new List<TrackingNumberDetails>(); // hold the selected articles
              List<TrackingNumberDetails> allArticles = new List<TrackingNumberDetails>(); // hold the selected articles
 
-             // article recognised as victim of violence
-             Boolean isVodv = (String.isNotEmpty(wizardData.get('isVodv'))) && 'true'.equalsIgnoreCase(wizardData.get('isVodv'));
              // are all the articles succesful in the consignment?
              allArticlesSuccessful = (String.isNotEmpty(wizardData.get('allArticlesSuccessful'))) && 'true'.equalsIgnoreCase(wizardData.get('allArticlesSuccessful'));
 
@@ -291,35 +287,35 @@ public with sharing class ChasApexController extends ChasBase{
              }
 
              Boolean isEligibleForMyNetwork = false;
-             if(!isVodv) {
-                 // DDS-8586 allow network for single delivery centers : more than one tracking id and tracking ids are all delivered from same delivery centre (non medication/medication priority set above in existing logic)
-                 if (isEligibleForMultipleArticleSelection) {
-                     // DDS-8586 2. if multiple articles selected and not delivered by different delivery centers and all articles are in delivered status
-                     if (isMultipleArticlesSelected && !isDeliveredByMultipleDeliveryCenters && isAllArticlesSelectedAreEligibleForNetwork) {
-                         isEligibleForMyNetwork = true;
-                     }
 
-                     // DDS-8586 5. Single article selected and, the selected article is eligible for network: assign to network
-                     if (!isMultipleArticlesSelected && isEligibleForMyNetworkAssignmentWizardLevel) {
+             // DDS-8586 allow network for single delivery centers : more than one tracking id and tracking ids are all delivered from same delivery centre (non medication/medication priority set above in existing logic)
+             if (isEligibleForMultipleArticleSelection) {
+                 // DDS-8586 2. if multiple articles selected and not delivered by different delivery centers and all articles are in delivered status
+                 if (isMultipleArticlesSelected && !isDeliveredByMultipleDeliveryCenters && isAllArticlesSelectedAreEligibleForNetwork) {
+                     isEligibleForMyNetwork = true;
+                 }
+
+                 // DDS-8586 5. Single article selected and, the selected article is eligible for network: assign to network
+                 if (!isMultipleArticlesSelected && isEligibleForMyNetworkAssignmentWizardLevel) {
+                     isEligibleForMyNetwork = true;
+                 }
+             } else { // if NOT eligible for multiple article selection
+                 // only if a single article is selected when multiple article selection is not allowed.
+                 // this is to cater the old behaviour where we treat the search as one sigle article
+                 if (allArticles.size() == 1) {
+                     // DDS-6115 Direct to Network - Do not assign directly unless manifest matches address
+                     Boolean dpidNotMatched = (String.isNotBlank(allArticles[0].dpid) && String.isNotBlank(wizardData.get('recipientDPID'))) && allArticles[0].dpid != wizardData.get('recipientDPID');
+                     // if user selected address anf the manifest address is available and they doesn't match, then do not let the logic to assign to network.
+                     isEligibleForMyNetwork = (dpidNotMatched ? false : isEligibleForMyNetworkAssignmentWizardLevel);
+                 } else if (allArticles.size() > Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c)) {
+                     // in case if the search is not allowed multiple selection and consignment has more than 5 articles.
+                     // this is the only place we check for allArticlesSuccessful
+                     if (isEligibleForMyNetworkAssignmentWizardLevel && allArticlesSuccessful) {
                          isEligibleForMyNetwork = true;
-                     }
-                 } else { // if NOT eligible for multiple article selection
-                     // only if a single article is selected when multiple article selection is not allowed.
-                     // this is to cater the old behaviour where we treat the search as one sigle article
-                     if (allArticles.size() == 1) {
-                         // DDS-6115 Direct to Network - Do not assign directly unless manifest matches address
-                         Boolean dpidNotMatched = (String.isNotBlank(allArticles[0].dpid) && String.isNotBlank(wizardData.get('recipientDPID'))) && allArticles[0].dpid != wizardData.get('recipientDPID');
-                         // if user selected address anf the manifest address is available and they doesn't match, then do not let the logic to assign to network.
-                         isEligibleForMyNetwork = (dpidNotMatched ? false : isEligibleForMyNetworkAssignmentWizardLevel);
-                     } else if (allArticles.size() > Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c)) {
-                         // in case if the search is not allowed multiple selection and consignment has more than 5 articles.
-                         // this is the only place we check for allArticlesSuccessful
-                         if (isEligibleForMyNetworkAssignmentWizardLevel && allArticlesSuccessful) {
-                             isEligibleForMyNetwork = true;
-                         }
                      }
                  }
-            }
+             }
+
 
             // if the case is eligible for my network , assign the type to INVESTIGATION and enquirySubType to Disputed delivery scan
             if(isEligibleForMyNetwork) {
@@ -1432,7 +1428,6 @@ commentBody = commentBody  + 'False';
             String parcelOrLetter =  (String) wizardData.get('selectedRadio2Name');
             String trackingNumber =  (String) wizardData.get('trackingId');
             String issueDateStr =  (String) wizardData.get('issueDate');
-            Boolean isVodv = String.isNotEmpty(wizardData.get('isVodv')) && 'true'.equalsIgnoreCase(wizardData.get('isVodv'));
             
             //--  address
             String addLine1 =  (String) wizardData.get('deliveryAddressLine1');
@@ -1670,8 +1665,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             }
             //-- change made for roll out of delivery issues network assignment automation
             String wcid = (String) wizardData.get('latestDeliveredScanWcid');
-            String isEligibleForMyNetworkAssignment = Boolean.valueOf((String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue')) && !isVodv ? 'true' : 'false';
-            if(isEligibleForMyNetworkAssignment.equalsIgnoreCase('true'))
+            String isEligibleForMyNetworkAssignment = (String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue');
+            if(isEligibleForMyNetworkAssignment == 'true')
             {
                 //-- set the value for isEligibleForMyNetworkAssignment to the case field
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
@@ -1685,14 +1680,18 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 {
                     toBeCreateCase.Description = toBeCreateCase.Description + Label.HS_Issue_Details_Warning +'\n\n'+ issueDescription + '\n\n';
                 }
-            }
 
-            //REQ2361513 -- Modified by Paul Swarnapandian
-            if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
-                commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
-            } else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
-                commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
             }
+             //REQ2361513 -- Modified by Paul Swarnapandian
+                if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
+                    commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';
+                }
+                else if ((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment != 'true'){
+                    commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'No';
+                }
+
+
+
 
             if(convertedIssueDate !=null){
                 toBeCreateCase.DateofIncident__c=convertedIssueDate;
@@ -1871,8 +1870,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                         trackingNumDetailsWrapperObj.duplicateCase = article.duplicateCase;
                         //set RTS scan flag if any
                         trackingNumDetailsWrapperObj.isReturnToSender = article.isReturnToSender;
-                        // is victim of violence
-                        trackingNumDetailsWrapperObj.isVodv = article.isVodv;
                         //set signature flag if any
                         trackingNumDetailsWrapperObj.hasSignature = article.hasSignature;
                         //set isParcelAwaitingCollection flag if any
@@ -2259,17 +2256,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                     return false;
                 } else {
                     return isDelivered;
-                }
-            }
-            set;
-        }
-        // is victim of violance article
-        @AuraEnabled public Boolean isVodv {
-            get {
-                if (isVodv == null) {
-                    return false;
-                } else {
-                    return isVodv;
                 }
             }
             set;

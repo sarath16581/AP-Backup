@@ -103,7 +103,8 @@ public with sharing class AtRiskBusinessController {
 		Decimal addedRevenue = 0;
 
 		for (String month: monthNames) {
-			addedRevenue += ((Decimal)revenueRecord.get(month + '_Revenue_Amount__c'));
+			Decimal monthRevenue = ((Decimal)revenueRecord.get(month + '_Revenue_Amount__c'));
+			addedRevenue += (monthRevenue != null ? monthRevenue : 0);
 		}
 
 		return (existingRevenue != null ? (existingRevenue + addedRevenue) : addedRevenue);
@@ -130,9 +131,7 @@ public with sharing class AtRiskBusinessController {
 				arb.Products__c = String.join(productNames, ';');
 			}
 			
-			if (!Test.isRunningTest()) {
-				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
-			}
+			ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
@@ -141,13 +140,11 @@ public with sharing class AtRiskBusinessController {
 	@AuraEnabled
 	public static void recalculateRevenue(Id arbId) {
 		try {
-			At_Risk_Business__c arb = AtRiskBusinessSelector.newInstance().selectById(new Set<Id>{arbId})[0];
+			List<At_Risk_Business__c> arb = AtRiskBusinessSelector.newInstance(new Set<SObjectField>{At_Risk_Business__c.Recalculate_Revenue__c}).selectById(new Set<Id>{arbId});
 
-			arb.Recalculate_Revenue__c = true;
+			arb[0].Recalculate_Revenue__c = true;
 
-			if (!Test.isRunningTest()) {
-				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{arb});
-			}
+			ApplicationDatabase.getInstance().dmlUpdate(arb);
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}

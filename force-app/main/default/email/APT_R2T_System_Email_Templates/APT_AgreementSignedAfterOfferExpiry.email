@@ -1,0 +1,17 @@
+<p>Dear {!Apttus__APTS_Agreement__c.APT_Opportunity_Owner_Name__c},</p>
+
+<p>This is a system generated notification.</p>
+
+<p>Your contract  <a href="{!Apttus__APTS_Agreement__c.Link}">{!Apttus__APTS_Agreement__c.Name}</a> for opportunity
+<a href="{!Left(Apttus__APTS_Agreement__c.Link,find('.com',Apttus__APTS_Agreement__c.Link))}com/{!Apttus__APTS_Agreement__c.Apttus__Related_OpportunityId__c}">{!Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c}</a>  has been signed outside the offer validity.
+The offer is valid until {!Apttus__APTS_Agreement__c.Contract_Expiration_Date__c}</p>
+
+<p>Recommended action.</p>
+	<p>•	Follow up with your customer and determine next steps</p>
+	<p>•	If your customer wishes to proceed, reissue the pricing, and contract document</p>
+	<p>•	Note: Pricing may be differ from the original offer</p>
+	</p>
+	<p>What happens if no action taken:</p>
+	<p>•	The offer and associated pricing is no longer valid and will not          be accepted</p>
+	<p>•	Customer Onboarding team will not provision the signed contract      (including pricing), and will cancel the apttus contract record</p>
+	</p>

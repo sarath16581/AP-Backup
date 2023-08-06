@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Contract_Signed_After_Offer_Expiry__c</fullName>
+    <description>Field to check if the agreement was signed after offer expiration date</description>
+    <externalId>false</externalId>
+    <formula>If(Contract_Fully_Signed_Date__c &gt; Contract_Expiration_Date__c , &quot;true&quot;, &quot;false&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Checks if the agreement was signed after offer expiration date</inlineHelpText>
+    <label>Contract signed after offer expiry</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

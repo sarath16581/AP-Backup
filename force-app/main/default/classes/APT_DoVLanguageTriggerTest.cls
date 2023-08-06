@@ -7,6 +7,7 @@
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   05-21-2021   Mansi Shah   Initial Version
+ * 2023.04.19 Ken McGuire  Proposal field migration to opportunity
 **/
 @isTest
 public class APT_DoVLanguageTriggerTest {
@@ -51,6 +52,7 @@ public class APT_DoVLanguageTriggerTest {
         insert billacc;
 
         Opportunity opp1 = APT_TestUtils.createOpportunity(tempacct.id);
+        opp1.APTMinimumMonthlySpend__c = 1000;
         insert opp1;
 
         List<Product2> productList = new List<Product2>();
@@ -87,7 +89,7 @@ public class APT_DoVLanguageTriggerTest {
         insert priceListItem;
 
         Apttus_Proposal__Proposal__c proposal = APT_TestUtils.getQuoteProposal(tempacct.id,opp1.Id,'Proposal','Test',priceList.id);
-        proposal.APT_minimum_monthly_spend__c = 1000;
+
         proposal.Apttus_Proposal__Approval_Stage__c = 'Accepted';
         insert proposal;
 

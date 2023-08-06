@@ -7,6 +7,7 @@
  * @date 2023-05-17
  * @test CaseRoutingService_Test, AgentWorkAPCaseAutomationModule_Test
  * @changelog
+ * 2023-07-25 - Nathan Franklin - Change to force routing for all cases moving from closed -> open 
  */
 public inherited sharing class CaseRoutingService {
 
@@ -32,7 +33,6 @@ public inherited sharing class CaseRoutingService {
 			if(socialAndSsswRecordTypeIds == null) {
 				// Get social Record types
 				Set<Id> socialRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), 'Social');
-
 				socialAndSsswRecordTypeIds = new Set<Id>(validRecTypes);
 				socialAndSsswRecordTypeIds.addAll(socialRecTypes);
 			}
@@ -269,15 +269,14 @@ public inherited sharing class CaseRoutingService {
 				populateRoutingDebug(csRec, 'routing bypassed on creation');
 			}
 
-			// We need to force route a case if it was previously closed and now opened and it belongs to the omni closed case queue
+			// We need to force route a case if it was previously closed and now opened
 			if (!csRec.AllocateToQueue__c && changedFields.contains(Case.Status) && 
-					!closedStatuses.contains(csRec.Status) && closedStatuses.contains(String.valueOf(previousState.get('Status'))) &&
-					csRec.OwnerId == omniService.omniClosedCaseQueueId) {
+					!closedStatuses.contains(csRec.Status) && closedStatuses.contains(String.valueOf(previousState.get('Status')))) {
 
 				csRec.AllocateToQueue__c = true;
 
 				// debug messaging to inform admin of routing path
-				populateRoutingDebug(csRec, 'routing initiated: case reopened and belongs to omni closed queue');
+				populateRoutingDebug(csRec, 'routing initiated: case reopened');
 				
 			}
 

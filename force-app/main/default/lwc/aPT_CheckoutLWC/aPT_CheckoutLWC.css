@@ -1,0 +1,49 @@
+.disabledLink {
+	pointer-events: none;
+	cursor: default;
+}
+
+.disableSection{
+	opacity: 0.5;
+	pointer-events: none;
+	cursor: default;
+}
+
+.clickable{
+	cursor:pointer;
+	border: thin solid #dddbda;
+	border-radius: 4px;
+}
+
+.clickable:hover{
+	background-color: #f4f6f9;
+}
+
+.footerStyle{
+	background-color: #f4f6f9;
+}
+
+.headerTextStyle {
+	font-weight: bold;
+	position: relative;
+	top: -10px;
+}
+
+.slds-scope .slds-card {
+	border-style: initial !important;
+}
+
+.slds-scope .slds-icon-standard-checkout .slds-icon-standard-contract .slds-icon-standard-quotes  .slds-icon-standard-custom18 {
+	background-color: var(--slds-c-icon-color-background, var(--sds-c-icon-color-background, #6ec06e)) !important;
+}
+
+.slds-truncate {
+	white-space: pre-wrap !important;
+	text-align: justify !important;
+	font-size: 11px !important;
+	font-weight: normal !important;
+}
+
+.boldTextStyle {
+	font-weight: 600 !important;
+}

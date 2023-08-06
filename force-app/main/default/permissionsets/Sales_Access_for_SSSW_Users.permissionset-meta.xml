@@ -7688,6 +7688,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sales_Segment_Reference__c.GeneralManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Segment_Reference__c.SalesDirectorApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Sales_Segment_Reference__c.Sales_Director__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -279,6 +279,26 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Share_Organisations_with_Internal_National_RNP_Managers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Read/Write access to Role of PartnerInfo National RNP Manager and its Internal Subordinates, when the Account Record Type is Organisation</description>
+        <label>Share Organisations with Internal National RNP Managers</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>PartnerInfo_National_RNP_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Share_Read_Organisations_to_LBPs</fullName>
         <accessLevel>Read</accessLevel>
         <accountSettings>

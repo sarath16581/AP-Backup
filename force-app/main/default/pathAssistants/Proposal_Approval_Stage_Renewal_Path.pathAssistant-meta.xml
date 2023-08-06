@@ -5,65 +5,45 @@
     <fieldName>Apttus_Proposal__Approval_Stage__c</fieldName>
     <masterLabel>Proposal - Approval Stage Renewal Path</masterLabel>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;Do you have a Billing Account for this service – if not and you need one, or for further help with Credit Assessments you can view more here&lt;span style=&quot;font-size: 13px;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:b:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Lead2Cash%20Sales%20Training%20Guides/Sales%20-%20Credit%20Assessment%20-%20Step%20Guide%20v2.0.pdf&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt; &lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;On the right-hand side, click on the &amp;#39;create contract&amp;#39; to continue to the Agreement stage&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Accepted</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
+        <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
+        <picklistValueName>Accepted without proposal document</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;If you encounter this error when exiting the shopping cart, please go back to your shopping cart (by clicking the &amp;#39;add&amp;#39; button) and click the &amp;#39;submit for approval&amp;#39; button&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;</info>
         <picklistValueName>Approval Required</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;This proposal is now approved, you can click on the &amp;#39;create&amp;#39; button to generate the proposal document&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Approved</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;p&gt;The quote has been denied. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;</info>
         <picklistValueName>Denied</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Click on the &amp;#39;add&amp;#39; button in order to access the shopping cart to add your products&lt;/span&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;If the &amp;#39;add&amp;#39; button is missing, ensure this proposal is marked as &amp;#39;active&amp;#39; and key fields are populated to be able to add products to your shopping cart&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;All products you have added via the Shopping Cart have green spanners with no red exclamation marks&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;When generating rates, ensure the postcode entered refers to the lodgement point and not the customers physical address&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help, refer to the following &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Draft</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;To ensure you’ve checked all necessary items within the rate card, go to troubleshooting section “What Rate Card Templates look like” within the &amp;#39;Sales - Working with Proposals Step Guide.pdf (via the link below)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Ensure price points have figures and not $0&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Ensure the headings are correct&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Now that the proposal document has been generated, you can click on the &amp;#39;present&amp;#39; button to send to the customer for review&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Generated</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;p&gt;The quote is in the process of being Approved or Denied. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;</info>
         <picklistValueName>In Review</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Is_Startrack_Proposal__c</fieldNames>
-        <fieldNames>APT_Postcode_Suburb__c</fieldNames>
-        <fieldNames>APT_Minimum_Monthly_Spend__c</fieldNames>
         <fieldNames>Apttus_Proposal__Primary_Contact__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Does the customer Accept the Rates? Yes - Continue to the next steps by clicking on the &amp;#39;accept&amp;#39; button&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;No - Go to the troubleshooting Section titled ‘Making changes to a Presented Proposal’ within the &amp;#39;Sales - Working with Proposals Step Guide.pdf (via the link below) link below&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Presented</picklistValueName>

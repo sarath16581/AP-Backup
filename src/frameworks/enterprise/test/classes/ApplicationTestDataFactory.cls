@@ -32,6 +32,8 @@
  * 2023-05-11 - Mahesh Parvathaneni - Added methods getPostcodes/getPostcodeMappings/getNetworkBypasses
  * 2023-05-31 - Mahesh Parvathaneni - Added method getEmailToCaseMappings
  * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
+ * 2023-07-16 - SteveL- Added getEvents
+ * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -307,7 +309,13 @@ public with sharing class ApplicationTestDataFactory {
 				Task.Priority => 'New'
 		}, count), generateIds);
 	 }
-	 
+
+	public static List<Event> getEvents(Integer count, Id whatId, Boolean generateIds) {
+		return (List<Event>)maybeGenerateIds(populateSObjects(Event.SObjectType, new Map<SObjectField, Object> {
+				Event.WhatId => whatId
+		}, count), generateIds);
+	}
+
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
 	 */
@@ -881,13 +889,24 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Sep_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Oct_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Nov_Revenue_Amount__c => 1000,
-			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000 
+			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
 
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
+		}, count), generateIds);
+	}
+
+	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
+		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
+			BAMApplication__c.Name => appName,
+			BAMApplication__c.ConfigurationModel__c => 'Per Customer',
+			BAMApplication__c.Status__c => 'Active',
+			BAMApplication__c.Product__c =>  productId,
+			BAMApplication__c.appKey__c => appName.substring(0,Math.min(appName.length(), 9)),
+			BAMApplication__c.ServiceType__c =>  'Salesforce'
 		}, count), generateIds);
 	}
 
@@ -1186,6 +1205,16 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
+	public static Id surchargeExemptionRequestRecordType {
+		get {
+			if (surchargeExemptionRequestRecordType == null) {
+				surchargeExemptionRequestRecordType = [Select Id From RecordType Where DeveloperName = 'Surcharge_Exemption_Request' And SObjectType = 'Deal_Support_Request__c'].Id;
+			}
+			return surchargeExemptionRequestRecordType;
+		}
+		private set;
+	}
+	
 	public static Id defaultCommunityUserProfileId {
 		get {
 			if(defaultCommunityUserProfileId == null) {

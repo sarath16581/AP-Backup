@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RelatedProduct__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The product that is related to the parent product</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Choose the product that is related to the parent product.</inlineHelpText>
+    <label>Related Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Parent Products</relationshipLabel>
+    <relationshipName>ChildProductRelationships</relationshipName>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

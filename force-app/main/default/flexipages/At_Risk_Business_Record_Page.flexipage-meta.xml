@@ -164,126 +164,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Product_1__c</fieldItem>
-                <identifier>RecordProduct_1__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>ABN Change - Same Owners</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Business Sold - New Owners</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Product Migration</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>3rd Party Channel shift</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Auspost Decision - Freight profile</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Scale__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_1__c</fieldItem>
-                <identifier>RecordProduct_1__cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5) AND 6</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>ABN Change - Same Owners</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Business Sold - New Owners</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Migration</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>3rd Party Channel shift</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Reason__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Auspost Decision - Freight profile</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Scale__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_2__c</fieldItem>
-                <identifier>RecordProduct_2__cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Scale__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_3__c</fieldItem>
-                <identifier>RecordProduct_3__cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Scale__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Products__c</fieldItem>
                 <identifier>RecordProducts_cField</identifier>
                 <visibilityRule>
@@ -576,30 +456,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Product_1__c</fieldItem>
-                <identifier>RecordProduct_1__cField3</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_2__c</fieldItem>
-                <identifier>RecordProduct_2__cField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_3__c</fieldItem>
-                <identifier>RecordProduct_3__cField2</identifier>
+                <fieldItem>Record.Products__c</fieldItem>
+                <identifier>RecordProducts_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

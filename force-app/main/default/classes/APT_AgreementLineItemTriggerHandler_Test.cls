@@ -1,5 +1,6 @@
 /**
  * This apex class is test class for agreement line item trigger and trigger handler. 
+ * 2023.04.19 Ken McGuire  Proposal field migration to opportunity
  * 
 */
 @isTest

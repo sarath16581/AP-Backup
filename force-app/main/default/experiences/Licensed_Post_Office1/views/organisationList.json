@@ -12,6 +12,7 @@
     "components" : [ {
       "componentAttributes" : {
         "listViewAPIName" : "LPO_My_Organisations",
+        "mobileListViewAPIName" : "LPO_My_Organisations_Mobile",
         "showActionBar" : false,
         "showSearchBar" : true
       },

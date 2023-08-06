@@ -2,223 +2,223 @@
 2020-05-25 - Nathan Franklin - Changed the dual listbox to the multi billing account selector
 -->
 <template>
-    <template if:false={dataLoaded}>
-        <div class="spinner-container slds-is-fixed">
-            <lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
-        </div>
-    </template>
-    <template if:true={hasPageAccess}>
-        <template if:false={myAccessMode}>
-            <lightning-button variant="base" label="Back to User access management" onclick={showConfirmDiscardModal} icon-name="utility:back" class="back-feature slds-m-bottom_medium slds-show_inline-block"></lightning-button>
-        </template>
-        <template if:true={myAccessMode}>
-            <lightning-button variant="base" label="Back to Merchant Portal" onclick={navigateToHome} icon-name="utility:back" class="back-feature slds-m-bottom_medium slds-show_inline-block"></lightning-button>
-        </template>
-        <h1 class="slds-text-heading_large">{pageHeader}</h1>
+	<template if:false={dataLoaded}>
+		<div class="spinner-container slds-is-fixed">
+			<lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
+		</div>
+	</template>
+	<template if:true={hasPageAccess}>
+		<template if:false={myAccessMode}>
+			<lightning-button variant="base" label="Back to User access management" onclick={showConfirmDiscardModal} icon-name="utility:back" class="back-feature slds-m-bottom_medium slds-show_inline-block"></lightning-button>
+		</template>
+		<template if:true={myAccessMode}>
+			<lightning-button variant="base" label="Back to Merchant Portal" onclick={navigateToHome} icon-name="utility:back" class="back-feature slds-m-bottom_medium slds-show_inline-block"></lightning-button>
+		</template>
+		<h1 class="slds-text-heading_large">{pageHeader}</h1>
 
-        <div class="container slds-grid slds-gutters">
-            <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
-                <template if:false={myAccessMode}>
-                    <c-custom-card title="User details" class="no-footer">
-                        <div class="slds-p-horizontal_xx-large slds-m-around_large">
-                            <template if:true={hasBamCSSOError}>
-                                <div class="slds-text-color_destructive error-message-text">{bamCSSOErrorMessage}</div>
-                            </template>
-                            <lightning-input required={isCreateMode} class="form-input slds-m-bottom_medium" label="Given name" name="FirstName" value={contact.FirstName} onchange={handleRecepientChange} disabled={userInputsDisabled}></lightning-input>
-                            <lightning-input required={isCreateMode} class="form-input slds-m-bottom_medium" label="Surname" name="LastName" value={contact.LastName} onchange={handleRecepientChange} disabled={userInputsDisabled}></lightning-input>
-                            <lightning-input required={isEmailInputRequired} class="form-input slds-m-bottom_medium" label="Email address" name="Email" value={contact.Email} onchange={handleRecepientChange} disabled={isEmailInputDisabled}></lightning-input>
-                        </div>
-                    </c-custom-card>
-                    <div class="slds-m-vertical_large">
-                    </div>
-                </template>
-                <c-custom-card class="apps-roles" title="Applications and roles">
-                    <div class="slds-m-horizontal_medium slds-m-vertical_small">
-                        <template for:each={applications} for:item="application">
-                            <!-- APPLICATIONS AND ROLES LIST ITEM -->
-                            <c-custom-accordion key={application.Id} class="app-config-accordion">
-                                <!-- In My Access page we keep the accordions open by default so the user can view their access easily -->
-                                <c-custom-accordion-section title={application.Name} default-open={myAccessMode}>
-                                    <!-- We do not display the error message or the pending pad lock in the My Access page since that page displays the logged in user's current active access -->
-                                    <template if:false={myAccessMode}>
-                                        <template if:true={application.isPending}>
-                                            <div class="slds-text-align_right slds-m-horizontal_large slds-p-horizontal_medium slds-grid_vertical-align-center">
-                                                <span class="slds-m-horizontal_small slds-text-color_weak">Application has pending changes</span>
-                                                <lightning-icon icon-name="utility:lock" size="small" class="pending-lock"></lightning-icon>
-                                            </div>
-                                        </template>
-                                        <template if:true={application.displayErrorMessage}>
-                                            <div class="slds-m-horizontal_large slds-text-color_destructive error-message-text">{application.errorMessage}</div>
-                                        </template>
-                                    </template>
-                                    <div class="slds-m-around_medium slds-p-horizontal_x-small">
-                                        <lightning-radio-group
-                                            class={application.disabledClass}
-                                            label="Select group"
-                                            options={application.rolePickerOptions}
-                                            value={application.selectedAppRoleId}
-                                            name={application.Id}
-                                            type="button"
-                                            onchange={handleRoleChange}
-                                            disabled={application.disabledInput}
-                                            >
-                                        </lightning-radio-group>
-                                        <p class="slds-m-vertical_small slds-text-body_small">{application.selectedRoleOption.description}</p>
-                                        <div class={application.displayIfRoleHasShowBillingAccounts}>
-                                            <!--<lightning-dual-listbox
-                                                class="slds-m-vertical_small form-input"
-                                                label="Select Billing Accounts"
-                                                options={billingAccountsOptions}
-                                                value={application.selectedBillingAccountIds}
-                                                onchange={handleBillingAccountSelect}
-                                                name={application.Id}
-                                                disabled={application.disabledInput}
-                                                required={application.selectedRoleOption.showBillingAccounts}
-                                            >
-                                            </lightning-dual-listbox>-->
+		<div class="container slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+				<template if:false={myAccessMode}>
+					<c-custom-card title="User details" class="no-footer">
+						<div class="slds-p-horizontal_xx-large slds-m-around_large">
+							<template if:true={hasBamCSSOError}>
+								<div class="slds-text-color_destructive error-message-text">{bamCSSOErrorMessage}</div>
+							</template>
+							<lightning-input required={isCreateMode} class="form-input slds-m-bottom_medium" label="Given name" name="FirstName" value={contact.FirstName} onchange={handleRecepientChange} disabled={userInputsDisabled}></lightning-input>
+							<lightning-input required={isCreateMode} class="form-input slds-m-bottom_medium" label="Surname" name="LastName" value={contact.LastName} onchange={handleRecepientChange} disabled={userInputsDisabled}></lightning-input>
+							<lightning-input required={isEmailInputRequired} class="form-input slds-m-bottom_medium" label="Email address" name="Email" value={contact.Email} onchange={handleRecepientChange} disabled={isEmailInputDisabled}></lightning-input>
+						</div>
+					</c-custom-card>
+					<div class="slds-m-vertical_large">
+					</div>
+				</template>
+				<c-custom-card class="apps-roles" title="Applications and roles">
+					<div class="slds-m-horizontal_medium slds-m-vertical_small">
+						<template for:each={applications} for:item="application">
+							<!-- APPLICATIONS AND ROLES LIST ITEM -->
+							<c-custom-accordion key={application.Id} class="app-config-accordion">
+								<!-- In My Access page we keep the accordions open by default so the user can view their access easily -->
+								<c-custom-accordion-section title={application.Name} default-open={myAccessMode}>
+									<!-- We do not display the error message or the pending pad lock in the My Access page since that page displays the logged in user's current active access -->
+									<template if:false={myAccessMode}>
+										<template if:true={application.isPending}>
+											<div class="slds-text-align_right slds-m-horizontal_large slds-p-horizontal_medium slds-grid_vertical-align-center">
+												<span class="slds-m-horizontal_small slds-text-color_weak">Application has pending changes</span>
+												<lightning-icon icon-name="utility:lock" size="small" class="pending-lock"></lightning-icon>
+											</div>
+										</template>
+										<template if:true={application.displayErrorMessage}>
+											<div class="slds-m-horizontal_large slds-text-color_destructive error-message-text">{application.errorMessage}</div>
+										</template>
+									</template>
+									<div class="slds-m-around_medium slds-p-horizontal_x-small">
+										<lightning-radio-group
+											class={application.disabledClass}
+											label="Select group"
+											options={application.rolePickerOptions}
+											value={application.selectedAppRoleId}
+											name={application.Id}
+											type="button"
+											onchange={handleRoleChange}
+											disabled={application.disabledInput}
+											>
+										</lightning-radio-group>
+										<p class="slds-m-vertical_small slds-text-body_small">{application.selectedRoleOption.description}</p>
+										<div class={application.displayIfRoleHasShowBillingAccounts}>
+											<!--<lightning-dual-listbox
+												class="slds-m-vertical_small form-input"
+												label="Select Billing Accounts"
+												options={billingAccountsOptions}
+												value={application.selectedBillingAccountIds}
+												onchange={handleBillingAccountSelect}
+												name={application.Id}
+												disabled={application.disabledInput}
+												required={application.selectedRoleOption.showBillingAccounts}
+											>
+											</lightning-dual-listbox>-->
 
-                                            <c-bam-billing-account-selector billing-accounts={billingAccounts}
-                                                                            is-disabled={application.disabledInput}
-                                                                            selected={application.selectedBillingAccountIds}
-                                                                            application-id={application.Id}
-                                                                            onbillingaccountchange={handleBillingAccountSelect}
-                                            >
-                                            </c-bam-billing-account-selector>
+											<c-bam-billing-account-selector billing-accounts={application.billingAccounts}
+																			is-disabled={application.disabledInput}
+																			selected={application.selectedBillingAccountIds}
+																			application-id={application.Id}
+																			onbillingaccountchange={handleBillingAccountSelect}
+											>
+											</c-bam-billing-account-selector>
 
-                                        </div>
-                                        <div class={application.displayIfAppIsBSPWithAccess}>
-                                            <lightning-combobox
-                                                class="form-input"
-                                                required={application.isBSPWithAccess}
-                                                name="Primary billing account"
-                                                value={contact.BillingAccount__c}
-                                                label="Select primary billing account"
-                                                placeholder=""
-                                                options={billingAccountsOptions}
-                                                disabled={application.disabledInput}
-                                                onchange={handlePrimaryBillingAccountChange} >
-                                            </lightning-combobox>
-                                        </div>
-                                        <div class={application.displayIfAppIsBSPWithAccessButNotSuperAdmin}>
-                                            <div class="slds-m-top_medium">Consignment Searching</div>
-                                            <lightning-input
-                                                disabled={application.disabledInput}
-                                                type="checkbox"
-                                                label="Allow access to search all consignments for this organisation"
-                                                title="Allow access to search all consignments for this organisation"
-                                                name={application.Id}
-                                                checked={application.allowBSPConsignmentSearch}
-                                                onchange={handleToggleAllowBSPConsignmentSearch}>
-                                            </lightning-input>
-                                        </div>
-                                    </div>
-                                </c-custom-accordion-section>
-                            </c-custom-accordion>
-                        </template>
-                    </div>
-                </c-custom-card>
+										</div>
+										<div class={application.displayIfAppIsBSPWithAccess}>
+											<lightning-combobox
+												class="form-input"
+												required={application.isBSPWithAccess}
+												name="Primary billing account"
+												value={contact.BillingAccount__c}
+												label="Select primary billing account"
+												placeholder=""
+												options={application.billingAccountsOptions}
+												disabled={application.disabledInput}
+												onchange={handlePrimaryBillingAccountChange} >
+											</lightning-combobox>
+										</div>
+										<div class={application.displayIfAppIsBSPWithAccessButNotSuperAdmin}>
+											<div class="slds-m-top_medium">Consignment Searching</div>
+											<lightning-input
+												disabled={application.disabledInput}
+												type="checkbox"
+												label="Allow access to search all consignments for this organisation"
+												title="Allow access to search all consignments for this organisation"
+												name={application.Id}
+												checked={application.allowBSPConsignmentSearch}
+												onchange={handleToggleAllowBSPConsignmentSearch}>
+											</lightning-input>
+										</div>
+									</div>
+								</c-custom-accordion-section>
+							</c-custom-accordion>
+						</template>
+					</div>
+				</c-custom-card>
 
-                <template if:false={myAccessMode}>
-                    <div class="slds-m-vertical_large slds-p-around_large slds-card">
-                        <div class="slds-grid slds-grid--align-spread slds-grid--vertical-align-center">
-                            <div class="slds-col"><lightning-button variant="base" label="Cancel" title="Cancel" class="cancel" onclick={showConfirmDiscardModal}></lightning-button></div>
-                            <div class="slds-col"><lightning-button variant="brand" onclick={sendInvite} label={provisionButtonLabel} title={provisionButtonLabel} class="slds-m-left_x-small"></lightning-button></div>
-                        </div>
-                    </div>
-                </template>
-            </div>
+				<template if:false={myAccessMode}>
+					<div class="slds-m-vertical_large slds-p-around_large slds-card">
+						<div class="slds-grid slds-grid--align-spread slds-grid--vertical-align-center">
+							<div class="slds-col"><lightning-button variant="base" label="Cancel" title="Cancel" class="cancel" onclick={showConfirmDiscardModal}></lightning-button></div>
+							<div class="slds-col"><lightning-button variant="brand" onclick={sendInvite} label={provisionButtonLabel} title={provisionButtonLabel} class="slds-m-left_x-small"></lightning-button></div>
+						</div>
+					</div>
+				</template>
+			</div>
 
-            <!-- JUICY CART BOX -->
-            <div class="juicy slds-col slds-size_4-of-12 slds-show_large">
-                <div class="" style="position: -webkit-sticky; position: sticky; top: 1.5rem;">
+			<!-- JUICY CART BOX -->
+			<div class="juicy slds-col slds-size_4-of-12 slds-show_large">
+				<div class="" style="position: -webkit-sticky; position: sticky; top: 1.5rem;">
 
-                    <!--Super admins section -->
-                    <template if:true={myAccessMode}>
-                        <c-custom-card title="Super Admins" class={cardCssClass}>
-                            <div class="slds-m-horizontal_large">
-                                <div class="slds-p-bottom--medium slds-p-top--medium" >
-                                <template iterator:it={superAdmins}>
-                                    <div class="slds-p-vertical_xx-small" key={it.value.Id}>
-                                        <div class="slds-text-body_regular">
-                                            <b>{it.value.bamContactRole.ContactApplication__r.Contact__r.Name}</b>
-                                            <template if:true={it.value.isCurrentUser}>
-                                                <span class="slds-m-left_small super-admin-you-text">You</span>
-                                            </template>
-                                            <br/>
-                                            {it.value.bamContactRole.ContactApplication__r.Contact__r.Email}
-                                        </div>
-                                    </div>
-                                </template>
-                                </div>
-                            </div>
-                        </c-custom-card>
-                    </template>
+					<!--Super admins section -->
+					<template if:true={myAccessMode}>
+						<c-custom-card title="Super Admins" class={cardCssClass}>
+							<div class="slds-m-horizontal_large">
+								<div class="slds-p-bottom--medium slds-p-top--medium" >
+								<template iterator:it={superAdmins}>
+									<div class="slds-p-vertical_xx-small" key={it.value.Id}>
+										<div class="slds-text-body_regular">
+											<b>{it.value.bamContactRole.ContactApplication__r.Contact__r.Name}</b>
+											<template if:true={it.value.isCurrentUser}>
+												<span class="slds-m-left_small super-admin-you-text">You</span>
+											</template>
+											<br/>
+											{it.value.bamContactRole.ContactApplication__r.Contact__r.Email}
+										</div>
+									</div>
+								</template>
+								</div>
+							</div>
+						</c-custom-card>
+					</template>
 
-                    <!--Summary section -->
-                    <template if:false={myAccessMode}>
-                        <c-custom-card title="Summary" class={cardCssClass}>
-                            <div class="slds-m-horizontal_medium">
-                                <div class="slds-p-vertical_medium">
-                                    <h5 class="slds-text-heading_small regular">Details</h5>
-                                    <template if:true={isNamePopulated}>
-                                        <div class="slds-text-body_regular">
-                                            <b>{contactName}</b><br/>
-                                            {contactEmail}
-                                        </div>
-                                    </template>
-                                    <template if:false={isNamePopulated}>
-                                        <b>Enter invitee details</b>
-                                    </template>
-                                </div>
-                                <div class="section-separator"></div>
-                                <div class="slds-p-vertical_medium">
-                                    <h5 class="slds-text-heading_small regular">Permissions</h5>
-                                    <template if:true={hasAtLeastOneApplicationAccess}>
-                                        <div class="fixed-max-height">
-                                            <template for:each={applications} for:item="application">
-                                                <template if:true={application.isRoleSelected}>
-                                                    <div class="slds-p-bottom_x-small" key={application.Id}>
-                                                        <div class="slds-text-body">
-                                                            <b>{application.Name}</b>
-                                                            <p class="slds-p-vertical_x-small">
-                                                                <lightning-badge label={application.selectedRoleOption.label} class="slds-badge_inverse role-badge"></lightning-badge>
-                                                            </p>
-                                                        </div>
-                                                        <template if:true={application.showBillingAccount}>
-                                                            <c-bam-user-detail-summary-billing-accounts billing-accounts={application.selectedBillingAccounts}></c-bam-user-detail-summary-billing-accounts>
-                                                        </template>
-                                                    </div>
-                                                </template>
-                                            </template>
-                                        </div>
-                                    </template>
-                                    <template if:false={hasAtLeastOneApplicationAccess}>
-                                        <div class="slds-text-body"><b>Set permissions</b></div>
-                                    </template>
-                                </div>
-                            </div>
-                            <template if:false={myAccessMode}>
-                                <div slot="footer" class="slds-text-align_center slds-m-vertical_x-small slds-m-horizontal_small">
-                                    <lightning-button title={provisionButtonLabel} label={provisionButtonLabel} variant="brand" class="slds-button_full-width" onclick={sendInvite}></lightning-button>
-                                </div>
-                            </template>
-                        </c-custom-card>
-                    </template>
-                </div>
-            </div>
+					<!--Summary section -->
+					<template if:false={myAccessMode}>
+						<c-custom-card title="Summary" class={cardCssClass}>
+							<div class="slds-m-horizontal_medium">
+								<div class="slds-p-vertical_medium">
+									<h5 class="slds-text-heading_small regular">Details</h5>
+									<template if:true={isNamePopulated}>
+										<div class="slds-text-body_regular">
+											<b>{contactName}</b><br/>
+											{contactEmail}
+										</div>
+									</template>
+									<template if:false={isNamePopulated}>
+										<b>Enter invitee details</b>
+									</template>
+								</div>
+								<div class="section-separator"></div>
+								<div class="slds-p-vertical_medium">
+									<h5 class="slds-text-heading_small regular">Permissions</h5>
+									<template if:true={hasAtLeastOneApplicationAccess}>
+										<div class="fixed-max-height">
+											<template for:each={applications} for:item="application">
+												<template if:true={application.isRoleSelected}>
+													<div class="slds-p-bottom_x-small" key={application.Id}>
+														<div class="slds-text-body">
+															<b>{application.Name}</b>
+															<p class="slds-p-vertical_x-small">
+																<lightning-badge label={application.selectedRoleOption.label} class="slds-badge_inverse role-badge"></lightning-badge>
+															</p>
+														</div>
+														<template if:true={application.showBillingAccount}>
+															<c-bam-user-detail-summary-billing-accounts billing-accounts={application.selectedBillingAccounts}></c-bam-user-detail-summary-billing-accounts>
+														</template>
+													</div>
+												</template>
+											</template>
+										</div>
+									</template>
+									<template if:false={hasAtLeastOneApplicationAccess}>
+										<div class="slds-text-body"><b>Set permissions</b></div>
+									</template>
+								</div>
+							</div>
+							<template if:false={myAccessMode}>
+								<div slot="footer" class="slds-text-align_center slds-m-vertical_x-small slds-m-horizontal_small">
+									<lightning-button title={provisionButtonLabel} label={provisionButtonLabel} variant="brand" class="slds-button_full-width" onclick={sendInvite}></lightning-button>
+								</div>
+							</template>
+						</c-custom-card>
+					</template>
+				</div>
+			</div>
 
-        </div>
-        <!-- Discard changes confirmation modal -->
-        <c-modal title="Leave page?" show-modal={showModal} close-modal-callback={closeModal}>
-            <p>Your changes will be lost</p>
-            <lightning-button class="slds-m-left_x-small" variant="base" label="Go back" slot="footer" onclick={closeModal}>
-            </lightning-button>
-            <lightning-button class="slds-m-left_x-small" variant="brand" label="Leave" slot="footer" onclick={navigateToUsers}>
-            </lightning-button>
-        </c-modal>
-    </template>
-    <template if:false={hasPageAccess}>
-        <c-community-custom-error error-message={noAccessMessage}></c-community-custom-error>
-    </template>
-    <c-bam-confetti></c-bam-confetti>
+		</div>
+		<!-- Discard changes confirmation modal -->
+		<c-modal title="Leave page?" show-modal={showModal} close-modal-callback={closeModal}>
+			<p>Your changes will be lost</p>
+			<lightning-button class="slds-m-left_x-small" variant="base" label="Go back" slot="footer" onclick={closeModal}>
+			</lightning-button>
+			<lightning-button class="slds-m-left_x-small" variant="brand" label="Leave" slot="footer" onclick={navigateToUsers}>
+			</lightning-button>
+		</c-modal>
+	</template>
+	<template if:false={hasPageAccess}>
+		<c-community-custom-error error-message={noAccessMessage}></c-community-custom-error>
+	</template>
+	<c-bam-confetti></c-bam-confetti>
 </template>

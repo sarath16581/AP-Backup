@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for notification that a DSR record Stage is set to Closed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Deal Support Request Closed</name>
+    <style>none</style>
+    <subject>Deal Support Request ({!Deal_Support_Request__c.Name}) has been {!Deal_Support_Request__c.Stage__c} - {!Deal_Support_Request__c.Status__c}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

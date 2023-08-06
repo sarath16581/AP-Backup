@@ -6,6 +6,7 @@ August 2, 2018 - Created by conrad.c.v.borbon (Created logic)
 Modified by daric.antoni.a.dava (Integreded test data factory)
 18.01.2019      John.Mapanao@auspost.com.au     Added test methods to cover logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
 11.02.2021      Madhuri.awasthi@auspost.com.au	: REQ2368013 Create Revuenue Schedule test data
+02/05/2023 Ken McGuire modified opc recalculation calls to newly refactored methods.
 **************************************************/
 // Created by conrad.c.v.borbon - August 2, 2018 - START
 @IsTest

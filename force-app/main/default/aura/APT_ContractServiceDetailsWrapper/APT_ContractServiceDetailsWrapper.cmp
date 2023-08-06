@@ -1,0 +1,22 @@
+<!--
+ @description Lightning Component wrapper to launch a child LWC component for Create Contract/Service functionality.
+				It passes the proposal Id, proposal field(Is_Startrack_Proposal__c) and a boolean to indicate manual contract generation
+				 parameter from formula field down to the property of the child LWC.
+	@changelog
+	2023-04-17 - Yatika Bansal - Created
+	2023-07-27 - Yatika Bansal - Added parameters to indicate amend/renew
+-->
+<aura:component implements="force:hasRecordId,lightning:isUrlAddressable">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute type="id" name="proposalId" />
+	<aura:attribute type="id" name="existingContractId" />
+	<aura:attribute type="string" name="isST" />
+	<aura:attribute type="boolean" name="isManualContract" />
+	<aura:attribute type="boolean" name="isAmend" />
+	<aura:attribute type="boolean" name="isRenew" />
+	<aura:attribute type="string" name="currentStatus" />
+	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChanged}" />
+	<div class="slds-box slds-theme_default">
+	 <c:aPT_ContractServiceDetailsLWC currentStatus="{!v.currentStatus}" existingContractId="{!v.existingContractId}" proposalId="{!v.proposalId}" isST="{!v.isST}" isManualContract="{!v.isManualContract}" isAmend="{!v.isAmend}" isRenew="{!v.isRenew}"/>
+	</div>
+</aura:component>

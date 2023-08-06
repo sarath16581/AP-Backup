@@ -634,29 +634,9 @@
                 <label>Wet</label>
             </value>
             <value>
-                <fullName>Volume update</fullName>
-                <default>false</default>
-                <label>Volume update</label>
-            </value>
-            <value>
                 <fullName>Amendment</fullName>
                 <default>false</default>
                 <label>Amendment</label>
-            </value>
-            <value>
-                <fullName>Cancellation</fullName>
-                <default>false</default>
-                <label>Cancellation</label>
-            </value>
-            <value>
-                <fullName>Review</fullName>
-                <default>false</default>
-                <label>Review</label>
-            </value>
-            <value>
-                <fullName>Missed</fullName>
-                <default>false</default>
-                <label>Missed</label>
             </value>
             <value>
                 <fullName>Booking</fullName>
@@ -664,9 +644,19 @@
                 <label>Booking</label>
             </value>
             <value>
+                <fullName>Cancellation</fullName>
+                <default>false</default>
+                <label>Cancellation</label>
+            </value>
+            <value>
                 <fullName>Equipment</fullName>
                 <default>false</default>
                 <label>Equipment</label>
+            </value>
+            <value>
+                <fullName>ETA request</fullName>
+                <default>false</default>
+                <label>ETA request</label>
             </value>
             <value>
                 <fullName>Labels</fullName>
@@ -677,6 +667,11 @@
                 <fullName>LQS</fullName>
                 <default>false</default>
                 <label>LQS</label>
+            </value>
+            <value>
+                <fullName>Missed</fullName>
+                <default>false</default>
+                <label>Missed</label>
             </value>
             <value>
                 <fullName>New customer</fullName>
@@ -694,14 +689,29 @@
                 <label>Pallet request</label>
             </value>
             <value>
+                <fullName>Peak planning</fullName>
+                <default>false</default>
+                <label>Peak planning</label>
+            </value>
+            <value>
+                <fullName>Return</fullName>
+                <default>false</default>
+                <label>Return</label>
+            </value>
+            <value>
+                <fullName>Review</fullName>
+                <default>false</default>
+                <label>Review</label>
+            </value>
+            <value>
                 <fullName>Switch to another service</fullName>
                 <default>false</default>
                 <label>Switch to another service</label>
             </value>
             <value>
-                <fullName>Peak planning</fullName>
+                <fullName>Volume update</fullName>
                 <default>false</default>
-                <label>Peak planning</label>
+                <label>Volume update</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -782,7 +792,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>In Transit</controllingFieldValue>
-            <controllingFieldValue>Collection</controllingFieldValue>
             <valueName>ETA</valueName>
         </valueSettings>
         <valueSettings>
@@ -937,12 +946,12 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
-            <valueName>Volume update</valueName>
+            <controllingFieldValue>Site inspection</controllingFieldValue>
+            <valueName>Amendment</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
-            <controllingFieldValue>Site inspection</controllingFieldValue>
-            <valueName>Amendment</valueName>
+            <valueName>Booking</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
@@ -951,7 +960,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
-            <valueName>Review</valueName>
+            <valueName>ETA request</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
@@ -959,7 +968,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
-            <valueName>Booking</valueName>
+            <valueName>Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Collection</controllingFieldValue>
+            <valueName>Volume update</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Consumable Orders</controllingFieldValue>
@@ -990,6 +1003,10 @@
             <valueName>LQS</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Return</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Site inspection</controllingFieldValue>
             <valueName>New customer</valueName>
         </valueSettings>
@@ -1003,11 +1020,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other Enquiry</controllingFieldValue>
-            <valueName>Switch to another service</valueName>
+            <valueName>Peak planning</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other Enquiry</controllingFieldValue>
-            <valueName>Peak planning</valueName>
+            <valueName>Switch to another service</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Driver ETA</controllingFieldValue>

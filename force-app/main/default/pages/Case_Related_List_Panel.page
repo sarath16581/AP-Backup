@@ -10,7 +10,7 @@ History
 12/07/2019  ronnie.yang@sodastrategic.com.au	 Rearranged the order of elements the Network Response tab REQ1850466
 2021-10-06 - Nathan Franklin - Changed Safe Drop capability to Delivery Proof (with a PDF)
 -->
-<apex:page standardController="Case" extensions="CaseRelatedListPanelContExt" standardStylesheets="false" showHeader="false" sidebar="false">
+<apex:page standardController="Case" extensions="CaseRelatedListPanelContExt" standardStylesheets="false" showHeader="false" sidebar="false" readonly="true">
 
 	<c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.layout,ssswconsole,interaction,integration,bootstrap"
 					cssLibraries="jqueryui,bootstrap,jquery.layout,ssswconsole" />

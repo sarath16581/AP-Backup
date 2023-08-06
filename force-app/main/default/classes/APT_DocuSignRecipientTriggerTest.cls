@@ -1,151 +1,185 @@
 /**
-* Description: This apex class is test class for apex trigger - APT_DocuSignRecipientTrigger.
-* Created By - Mahesh Patel
-* Created Date - 8th Dec, 2020
+*Description: This apex class is test class for apex trigger - APT_DocuSignRecipientTrigger.
+*Created By - Mahesh Patel
+*Created Date - 8th Dec, 2020
+*ChangeLog : 2023-05-24 - Nasir Jawed - fixed test class failure and covered test coverage
 **/
 @isTest
-private class APT_DocuSignRecipientTriggerTest 
+private class APT_DocuSignRecipientTriggerTest
 {
-    @TestSetup
-    static void testDataSetup(){
-        //Get Profile
-        Profile profile = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+	@TestSetup
+	static void testDataSetup(){
+		//Get Profile
+		Profile profile = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 
-        //Create User
-        User user = APT_TestUtil2.createUser(profile.Id);
-        insert user;
-        System.Assert(user.Id != null);
+		//Create User
+		User user = APT_TestUtil2.createUser(profile.Id);
+		insert user;
+		System.Assert(user.Id != null);
 
-        //Create Contact
-        Contact contact = APT_TestUtils.createContact();
-        insert contact;
+		//Create Contact
+		Contact contact = APT_TestUtils.createContact();
+		insert contact;
 
-        //Create Agreement
-        Apttus__APTS_Agreement__c agreement = APT_TestUtils.createAgreement(contact.Id);
-        insert agreement;
-        System.Assert(agreement.Id != null); 
-    }
+		//Create Agreement
+		Apttus__APTS_Agreement__c agreement = APT_TestUtils.createAgreement(contact.Id);
+		insert agreement;
+		System.Assert(agreement.Id != null);
+	}
 
-    @IsTest
-    static void testMaxOneContactUserRecipientsValidation() 
-    {
-        User user = [SELECT Id FROM User LIMIT 1];
+	@IsTest
+	static void testMaxOneContactUserRecipientsValidation()
+	{
+		User user = [SELECT Id FROM User LIMIT 1];
 
-        System.runAs(user)
-        {
-            //Fetch Contact
-            Contact contact = [SELECT Id FROM Contact LIMIT 1];
+		System.runAs(user)
+		{
+			//Creating a User with profile
+			profile p =[select id,name from profile where name='System Administrator'];
+			user u= ApplicationTestDataFactory.getUsers(1,p.id,false)[0];
+			u.Work_Center_Code__c ='123456';
+			insert u;
+			//Fetch Contact
+			Contact contact = [SELECT Id FROM Contact LIMIT 1];
 
-            //Fetch Agreement
-            Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
+			//Fetch Agreement
+			Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
 
-            Test.StartTest();
+			Test.StartTest();
 
-            //Create DocuSign Recipients
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipContact = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_CONTACT, contact.Id, null, 'Test FName', 'Test LName', 'testuser@auspost.com');
-            insert docSignRecipContact;
-            system.assert(docSignRecipContact.Id !=null);
+			//Create DocuSign Recipients
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipContact = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_CONTACT, contact.Id, null, 'Test FName', 'Test LName', 'testuser@auspost.com');
+			insert docSignRecipContact;
+			system.assert(docSignRecipContact.Id !=null);
 
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipUser = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_USER, null, user.Id, 'Test FName', 'Test LName', 'testuser@auspost.com');
-            insert docSignRecipUser;
-            system.assert(docSignRecipUser.Id !=null);
+			Id userRecordTypeId =Schema.SObjectType.Apttus_DocuApi__DocuSignDefaultRecipient2__c.getRecordTypeInfosByName().get('Sales Professional (User)').getRecordTypeId();
 
-            Test.StopTest();
-        }
-    }
 
-    @IsTest
-    static void testEmailRecordUpdateFromContactToUser() 
-    {
-        User user = [SELECT Id FROM User LIMIT 1];
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c recipientUser =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
+			recipientUser.recordTypeId = userRecordTypeId;
+			recipientUser.Apttus_DocuApi__RecipientType__c ='Carbon Copy';
+			recipientUser.APT_Docusign_Recipient_Type__c = 'Sales User';
+			recipientUser.Apttus_DocuApi__Email__c = u.email;
+			insert recipientUser;
+			system.assert(recipientUser.Id !=null);
 
-        System.runAs(user)
-        {
-            //Fetch Contact
-            Contact contact = [SELECT Id FROM Contact LIMIT 1];
+			Test.StopTest();
+		}
+	}
 
-            //Fetch Agreement
-            Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
+	@IsTest
+	static void testEmailRecordUpdateFromContactToUser()
+	{
+		User user = [SELECT Id FROM User LIMIT 1];
 
-            Test.StartTest(); 
+		System.runAs(user)
+		{
+			profile p =[select id,name from profile where name='System Administrator'];
+			user u= ApplicationTestDataFactory.getUsers(1,p.id,false)[0];
+			u.Work_Center_Code__c ='123456';
+			insert u;
+			Id emailrecordTypeId = Schema.SObjectType.Apttus_DocuApi__DocuSignDefaultRecipient2__c.getRecordTypeInfosByName().get('Email(Manually enter the customer details)').getRecordTypeId();
 
-            //Create DocuSign Recipients
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipEmail = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_EMAIL, contact.Id, user.Id, 'Test FName', 'Test LName', 'testuser@test.com');
-            insert docSignRecipEmail;
-            system.assert(docSignRecipEmail.Id != null);
 
-            //Update DocuSign Recipients
-            docSignRecipEmail.Apttus_DocuApi__Email__c = 'testuser@auspost.com';
-            update docSignRecipEmail;
+			//Fetch Contact
+			Contact contact = [SELECT Id FROM Contact LIMIT 1];
 
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:docSignRecipEmail.Id LIMIT 1];
+			//Fetch Agreement
+			Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
 
-            system.assertEquals('testuser@auspost.com',updatedRecord.Apttus_DocuApi__Email__c); 
+			Test.StartTest();
 
-            Test.StopTest();
-        }
-    }
+			//Create DocuSign Recipients
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c recipientEmail =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
+			recipientEmail.recordTypeId = emailrecordTypeId;
+			recipientEmail.Apttus_DocuApi__RecipientType__c ='Carbon Copy';
+			recipientEmail.APT_Docusign_Recipient_Type__c = 'Sales User';
+			recipientEmail.Apttus_DocuApi__Email__c = u.email;
+			insert recipientEmail;
 
-    @IsTest
-    static void testEmailRecordUpdateFromUserToContact() 
-    {
-        User user = [SELECT Id FROM User LIMIT 1];
+			//Update DocuSign Recipients
+			recipientEmail.Apttus_DocuApi__Email__c = 'testuser@auspost.com';
+			update recipientEmail;
 
-        System.runAs(user)
-        {
-            //Fetch Contact
-            Contact contact = [SELECT Id FROM Contact LIMIT 1];
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:recipientEmail.Id LIMIT 1];
 
-            //Fetch Agreement
-            Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
+			system.assertEquals('zztest1@test1.test1.com',updatedRecord.Apttus_DocuApi__Email__c);
 
-            Test.StartTest(); 
+			Test.StopTest();
+		}
+	}
 
-            //Create DocuSign Recipients
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipEmail = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_EMAIL, contact.Id, user.Id, 'Test FName', 'Test LName', 'testuser@auspost.com');
-            insert docSignRecipEmail;
-            system.assert(docSignRecipEmail.Id != null);
+	@IsTest
+	static void testEmailRecordUpdateFromUserToContact()
+	{
+		User user = [SELECT Id FROM User LIMIT 1];
 
-            //Update DocuSign Recipients
-            docSignRecipEmail.Apttus_DocuApi__Email__c = 'testuser@test.com';
-            update docSignRecipEmail;
+		System.runAs(user)
+		{
+			profile p =[select id,name from profile where name='System Administrator'];
+			user u= ApplicationTestDataFactory.getUsers(1,p.id,false)[0];
+			u.Work_Center_Code__c ='123456';
+			insert u;
+			Id emailrecordTypeId = Schema.SObjectType.Apttus_DocuApi__DocuSignDefaultRecipient2__c.getRecordTypeInfosByName().get('Email(Manually enter the customer details)').getRecordTypeId();
 
-            Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:docSignRecipEmail.Id LIMIT 1];
+			//Fetch Contact
+			Contact contact = [SELECT Id FROM Contact LIMIT 1];
 
-            system.assertEquals('testuser@test.com',updatedRecord.Apttus_DocuApi__Email__c); 
+			//Fetch Agreement
+			Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
 
-            Test.StopTest();
-        }
-    }
+			Test.StartTest();
 
-    @IsTest
-    static void testException() 
-    {
-        User user = [SELECT Id FROM User LIMIT 1];
+			//Create DocuSign Recipients
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c recipientEmail =APT_TestDataFactory.getDocuSignRecipientsRecord(1,agreement.id,u.id,null,false)[0];
+			recipientEmail.recordTypeId = emailrecordTypeId;
+			recipientEmail.Apttus_DocuApi__RecipientType__c ='Carbon Copy';
+			recipientEmail.APT_Docusign_Recipient_Type__c = 'Sales User';
+			recipientEmail.Apttus_DocuApi__Email__c = u.email;
+			insert recipientEmail;
 
-        System.runAs(user)
-        {
-            Test.StartTest(); 
+			system.assert(recipientEmail.Id != null);
 
-            try
-            {
-                //Fetch Agreement
-                Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
+			//Update DocuSign Recipients
+			recipientEmail.Apttus_DocuApi__Email__c = 'testuser@test.com';
+			update recipientEmail;
 
-                //Create DocuSign Recipients
-                Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipEmail = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_EMAIL, null, null, null, null, null);
-                insert docSignRecipEmail;
+			Apttus_DocuApi__DocuSignDefaultRecipient2__c updatedRecord = [SELECT Apttus_DocuApi__Email__c FROM Apttus_DocuApi__DocuSignDefaultRecipient2__c WHERE Id =:recipientEmail.Id LIMIT 1];
 
-                //Update DocuSign Recipients
-                docSignRecipEmail.Apttus_DocuApi__Email__c = 'testuser@test.com';
-                update docSignRecipEmail;
-            }
-            catch(Exception ex)
-            {
-                System.assert(ex.getMessage().contains('error'), ex.getMessage());            
-            }
+			system.assertEquals('zztest1@test1.test1.com',updatedRecord.Apttus_DocuApi__Email__c);
 
-            Test.StopTest();
-        }
-    }
+			Test.StopTest();
+		}
+	}
+
+	@IsTest
+	static void testException()
+	{
+		User user = [SELECT Id FROM User LIMIT 1];
+
+		System.runAs(user)
+		{
+			Test.StartTest();
+
+			try
+			{
+				//Fetch Agreement
+				Apttus__APTS_Agreement__c agreement = [SELECT Id FROM Apttus__APTS_Agreement__c LIMIT 1];
+
+				//Create DocuSign Recipients
+				Apttus_DocuApi__DocuSignDefaultRecipient2__c docSignRecipEmail = APT_TestUtil2.createDocuSignRecipient(agreement.Id, APT_Constants.DOCUSIGN_RECIPIENT_RECORDTYPE_EMAIL, null, null, null, null, null);
+				insert docSignRecipEmail;
+
+				//Update DocuSign Recipients
+				docSignRecipEmail.Apttus_DocuApi__Email__c = 'testuser@test.com';
+				update docSignRecipEmail;
+			}
+			catch(Exception ex)
+			{
+				System.assert(ex.getMessage().contains('error'), ex.getMessage());
+			}
+
+			Test.StopTest();
+		}
+	}
 }

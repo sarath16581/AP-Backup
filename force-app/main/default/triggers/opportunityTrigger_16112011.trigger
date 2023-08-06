@@ -1,26 +1,26 @@
-trigger opportunityTrigger_16112011 on Opportunity (before insert, before update, after insert, after update, after delete, after undelete, before delete) {
 /**************************************************
-Type:	   Trigger for Opportunity Object
-Purpose:	For inserts/updates, roll up Opportunity Amount
-			to corresponding Account Plan Opportunity Value
-History:
---------------------------------------------------
-16.11.2011	  Carl Vescovi					Created - clone of SFDC PS trigger
-												Added additional processing for adding previous oppty owner to sales team at handover
-05.15.2011	  M. Isidro (Cloud Sherpas)	   Added after delete and after undelete
-07.06.2012	  Joseph Barrameda				Added before insert and before update to update EmployeeNumber field
-22.06.2012	  Joseph Barrameda				Added after insert to assign Sales Representative
-25.06.2012	  Joseph Barrameda				Added after insert to update Personal Account field
-06.08.2012	  Richard Enojas (Salesforce.com) Added after insert to generate revenue schedules upon setting stage to 'Closed Won'
-15.08.2012	  Richard Enojas (Salesforce.com) Added before insert to set Hidden Close Date via code since WF rule is causing issues
-16.08.2012	  Richard Enojas (Salesforce.com) Added logic to ignore BAU WF update to Modified Contract Start Date
-18.01.2019	  John.Mapanao@auspost.com.au	 Added logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
-2020-08-02 - Nathan Franklin - Refactored some logic around updateOwnerEmployeeNumber on this extremely dodgy trigger
-2021-02-22 - arjun.singh@auspost.com.au - Modified to update Direct Contribution details on closed opportunity owner change
-2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
-2023-06-20 - Boris Bachovski - Introduce extension to a new module framework and establish a baseline for future refactoring of existing trigger code.
-**************************************************/
-
+	Type:	   Trigger for Opportunity Object
+	Purpose:	For inserts/updates, roll up Opportunity Amount
+				to corresponding Account Plan Opportunity Value
+	History:
+	--------------------------------------------------
+	16.11.2011	  Carl Vescovi					Created - clone of SFDC PS trigger
+	Added additional processing for adding previous oppty owner to sales team at handover
+	05.15.2011	  M. Isidro (Cloud Sherpas)	   Added after delete and after undelete
+	07.06.2012	  Joseph Barrameda				Added before insert and before update to update EmployeeNumber field
+	22.06.2012	  Joseph Barrameda				Added after insert to assign Sales Representative
+	25.06.2012	  Joseph Barrameda				Added after insert to update Personal Account field
+	06.08.2012	  Richard Enojas (Salesforce.com) Added after insert to generate revenue schedules upon setting stage to 'Closed Won'
+	15.08.2012	  Richard Enojas (Salesforce.com) Added before insert to set Hidden Close Date via code since WF rule is causing issues
+	16.08.2012	  Richard Enojas (Salesforce.com) Added logic to ignore BAU WF update to Modified Contract Start Date
+	18.01.2019	  John.Mapanao@auspost.com.au	 Added logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
+	2020-08-02 - Nathan Franklin - Refactored some logic around updateOwnerEmployeeNumber on this extremely dodgy trigger
+	2021-02-22 - arjun.singh@auspost.com.au - Modified to update Direct Contribution details on closed opportunity owner change
+	2023-04-27 - nasir.jawed2@auspost.com.au - update the field APT_Proposal_Status_Accepted_Denied__c to true on record creation by clone or normal.
+	2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
+	2023-06-20 - Boris Bachovski - Introduce extension to a new module framework and establish a baseline for future refactoring of existing trigger code.
+	**************************************************/
+trigger opportunityTrigger_16112011 on Opportunity (before insert, before update, after insert, after update, after delete, after undelete, before delete) {
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){ // verify if triggers are disabled
 		(new OpportunityAutomationTriggerHandler()).dispatch();
 
@@ -30,20 +30,24 @@ History:
 	}
 
 	if (Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
-		System.debug('***** BEFORE INSERT/BEFORE UPDATE *****');
 
 		OpportunityUtility_part2.registerOpptyOwner(Trigger.new, Trigger.oldMap);
 
 		// Refactored into OpportunityUtility_part2.registerOpptyOwner
 		//OpportunityUtility.updateOwnerEmployeeNumber(Trigger.new, Trigger.oldMap);
+
+		//This logic is to make the field 'APT_Proposal_Status_Accepted_Denied__c' to true when some user tries to clone the Opportunity record or create a new Opp Record	
+		if(Trigger.isInsert){	
+			for(Opportunity opp : trigger.new){	
+				opp.APT_Proposal_Status_Accepted_Denied__c= APT_Constants.BOOL_TRUE;	
+			}	
+		}
 	}
 
-/* this is the original trigger content from SFDC PS */
+	/* this is the original trigger content from SFDC PS */
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isAfter){
 			if(trigger.isInsert || trigger.isUpdate){
-
-				system.debug('***** AFTER INSERT/AFTER UPDATE *****');
 
 				Set<Id> acctplanIds = new Set<Id>();
 				List<Id> closedoppIds = new List<Id>();
@@ -70,7 +74,6 @@ History:
 				//Phase 2
 				if(!closedoppIds.isEmpty()){
 					if (!OpportunityProductClassificationUtil.hasCreatedSchedules()) {
-					system.debug('*****closedoppIds: ' + closedoppIds);
 
 					List<OpportunityLineItem> oliList = [SELECT Id, OpportunityId, PricebookEntryId, TotalPrice,
 																Classification__c, Contract_Start_Date__c, Contract_End_Date__c
@@ -79,8 +82,6 @@ History:
 													AND Contract_Start_Date__c <> null
 													AND Contract_End_Date__c <> null];
 
-					system.debug('*****oliList: ' + oliList);
-					system.debug('*****generateRevenueSchedule*****');
 					OpportunityProductClassificationUtil.generateRevenueSchedule(oliList);
 					//set static variable to prevent infinite loop
 					OpportunityProductClassificationUtil.setAlreadyCreatedSchedules();
@@ -93,12 +94,9 @@ History:
 	/* this is the end of the original trigger content from SFDC */
 
 	/* this is the extension by CV on 16.11.2011, to insert sales team members on ownership change */
-
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isAfter){
 			if(trigger.isUpdate){
-
-				system.debug('***** AFTER UPDATE *****');
 
 				OpportunityUtility_part2.insertSalesTeamMember(trigger.new, trigger.oldMap);
 				OpportunityUtility_part2.validateAndUpdateDirectContribution(trigger.new, trigger.oldMap);
@@ -113,8 +111,6 @@ History:
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isBefore){
 			if(trigger.isUpdate){
-
-				system.debug('***** BEFORE UPDATE *****');
 
 				// Added logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
 				// Eligibility Criteria - business rules
@@ -135,26 +131,15 @@ History:
 
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if (trigger.isBefore && trigger.isDelete){
-
-			system.debug('***** BEFORE DELETE *****');
-
-			system.debug('***trigger.old: ' + trigger.old);
 			DeletedRecordUtil.createDeletedRecord(trigger.old, 'Opportunity');
 		}
 
 		if (trigger.isAfter && trigger.isUnDelete){
-
-			system.debug('***** AFTER UNDELETE *****');
-
-			system.debug('***trigger.new: ' + trigger.new);
 			DeletedRecordUtil.undeleteDeletedRecord(trigger.new);
 		}
 
 		if (trigger.isAfter && trigger.isInsert){
 
-			system.debug('***** AFTER INSERT *****');
-
-			system.debug('***Assign Sales Rep***');
 			OpportunityUtility.assignSalesRep(trigger.new);
 			//OpportunityUtility.assignOpportunityOwner(trigger.new);
 			//OpportunityUtility.updatePersonalAccount(trigger.new);
@@ -162,14 +147,13 @@ History:
 	}
 
 
-	 // Added by Apttus Managed Services for case# 00210442
+		// Added by Apttus Managed Services for case# 00210442
 	// --------------------------------------------------Apttus Code Starts---------------------------------------------------
 	// ADD1	 Jeoffrey Palmero		06/05/2019		  Added triggers for User Profile validation
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		if(trigger.isAfter){
 			if(trigger.isUpdate){
 				if(APTMS_AvoidRecursion.isFirstRun()){
-					system.debug('***** AFTER UPDATE Apttus Trigger called *****');
 					APTMS_OpportunityHandler.updateRecordTypeOfOPLs(trigger.new, trigger.oldMap);
 				}
 				OpportunityHandler.afterUpdateAction(trigger.new, trigger.oldMap);

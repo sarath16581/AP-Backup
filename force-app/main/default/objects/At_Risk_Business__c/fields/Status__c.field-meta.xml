@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
+    <description>Identifies where the risk is at in the stages</description>
     <externalId>false</externalId>
     <inlineHelpText>Identifies where the risk is at in the stages</inlineHelpText>
     <label>Status</label>
@@ -54,6 +55,16 @@
                 <default>false</default>
                 <label>Business Migrated</label>
             </value>
+            <value>
+                <fullName>Approved by Service Performance Manager</fullName>
+                <default>false</default>
+                <label>Approved by Service Performance Manager</label>
+            </value>
+            <value>
+                <fullName>Rejected by Service Performance Manager</fullName>
+                <default>false</default>
+                <label>Rejected by Service Performance Manager</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>New</controllingFieldValue>
@@ -74,6 +85,14 @@
         <valueSettings>
             <controllingFieldValue>Work In Progress</controllingFieldValue>
             <valueName>Escalated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Approved by Service Performance Manager</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Rejected by Service Performance Manager</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>

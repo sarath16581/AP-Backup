@@ -1,6 +1,7 @@
 /*
- * Class to test
+ * @changelog
  * AJ 16 Aug 2019 - Set email on second contact create to dummy email2 in various test to prevent duplicate rule error
+ * 2023-07-18 - Mahesh Parvathaneni - updated test test_retrieveAplicationData
  */
 @isTest
 public class BAMUserController_Test {
@@ -230,6 +231,7 @@ public class BAMUserController_Test {
         Map<String,Id> recordIdMap = BAMTestUtility.createBamBasicRecords();
         //Get contact Id
         Id orgId = recordIdMap.get('acc'); 
+		Id conId = recordIdMap.get('con'); 
         //Get contact role Id
         Id billingAccId = recordIdMap.get('ba');
         // get Applicaiton Id 
@@ -237,12 +239,12 @@ public class BAMUserController_Test {
         // get Applicaiton Role Id 
         Id appRoleId = recordIdMap.get('approle');
 
-        String sResult = BAMUserController.retrieveAplicationData(orgId);
+        String sResult = BAMUserController.retrieveAplicationData(orgId, conId);
         System.assertNotEquals('', sResult, 'retrieveAplicationData() Expected Aplication data JSON returned, got: ' + sResult);
         BAMUserController.ApplicationDataWrapper appData = (BAMUserController.ApplicationDataWrapper) JSON.deserialize(sResult, BAMUserController.ApplicationDataWrapper.class);
         // assert correct billing account is populated in application data wrapper
-        System.assertEquals(1, appData.billingAccounts.size());
-        System.assertEquals(billingAccId, appData.billingAccounts[0].Id);
+        System.assertEquals(1, appData.appBillingAccountDataWrapper.size());
+        System.assertEquals(billingAccId, appData.appBillingAccountDataWrapper[0].billingAccounts[0].Id);
         // assert correct app with the correct application role is included in the app data wrapper
         System.assertEquals(1, appData.applicationsWithRoles.size());
         System.assertEquals(appId, appData.applicationsWithRoles[0].Id);

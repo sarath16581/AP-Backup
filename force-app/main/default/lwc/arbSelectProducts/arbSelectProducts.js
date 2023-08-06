@@ -1,5 +1,4 @@
 import { LightningElement, track, api } from 'lwc';
-import { CloseActionScreenEvent } from 'lightning/actions';
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 
 import getProducts from '@salesforce/apex/AtRiskBusinessController.getProducts';
@@ -222,7 +221,7 @@ export default class BarSelectProducts extends LightningElement {
 		this.editing = true;
 		this.viewing = false;
 		this.empty = false;
-
+ 
 		this.loadProducts(true, false);
 	}
 

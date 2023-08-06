@@ -10,7 +10,8 @@
  * @changelog
  * 2019-01-30 - gdevasurendra@auspost.com.au - Capability to update Primary Billing Account (REQ2044525)
  * 2020-05-24 - Nathan Franklin - Fixed a few small bugs where pending deletes = true were preventing subsequent selection
- * * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts 
+ * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts
+ * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
  */
 public without sharing class BAMOnboardContactController {
 
@@ -23,6 +24,7 @@ public without sharing class BAMOnboardContactController {
     public static String FIELD_BILLING_ACCOUNTS = 'billingAccounts';
     public static String FIELD_CONTACT_APPLICATIONS = 'contactApplications';
     public static String FIELD_CONTACT_ROLES_PER_APPLICATION = 'contactRolesPerApplication';
+	public static String FIELD_BILLING_ACCOUNTS_BY_APPLICATION = 'billingAccountsByApplication';
     public static List<String> INVALID_BILLING_ACCOUNT_TYPES = new List<String>{
             'SBBA', 'CASH'
     };
@@ -93,7 +95,7 @@ public without sharing class BAMOnboardContactController {
 
         // get all Applications, which is our STATIC DATA
         List<BAMApplication__c> allApplications = [
-                SELECT Id, Name, Status__c, Product__c,
+                SELECT Id, Name, Status__c, Product__c, BillingAccountFilter__c,
                 (
                         SELECT Id, Name, Role__c, Application__c, ShowBillingAccount__c, ShowGroup__c
                         FROM ApplicationRoles__r
@@ -111,19 +113,16 @@ public without sharing class BAMOnboardContactController {
     }
 	
     //REQ2279110 added filter criteria to remove Peoplesoft accounts 
-    private static List<Billing_Account__c> loadBillingAccounts(Id accountId)
+    private static List<Billing_Account__c> loadBillingAccounts(Id accountId, List<BAMApplication__c> allApps)
     {
         List<Billing_Account__c> output = new List<Billing_Account__c>();
-        for(Billing_Account__c billingAccount : [SELECT Id, Name, Organisation__c, SAP_marked_for_deletion__c
-                                                            , Type__c, MLID__c, LEGACY_ID__c, State__c, Suburb__c
-                                                    FROM Billing_Account__c
-                                                    WHERE Organisation__c = :accountId
-                                                    AND SAP_marked_for_deletion__c = false
-                                                    AND Type__c NOT IN:INVALID_BILLING_ACCOUNT_TYPES
-                                                 	AND Source_System__c !='PeopleSoft'
-                                                    ORDER BY Name]) {
-            output.add(billingAccount);
-        }
+		if (accountId != null) {
+			Map<Id, BAMApplication__c> bamApplicationMap = new Map<Id, BAMApplication__c>(allApps);
+			//get fieldoverrides for billing accounts - this includes basic fiels plus any fields defined in BillingAccountFilter__c field
+			Set<SObjectField> fieldOverrides = BAMUserUtility.getBillingAccountFieldOverridesWithFilterFields(bamApplicationMap);
+			output =  BillingAccountsSelector.newInstance('Name', 'Asc', fieldOverrides).selectByOrgId(new Set<Id>{accountId}, 
+								new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT}).values();
+		}
         return output;
     }
 
@@ -196,59 +195,59 @@ public without sharing class BAMOnboardContactController {
         return mapApplicationRoles;
     }
 
-    @AuraEnabled
-    public static Map<String, Object> loadInitialState(Id contactId)
-    {
-        Map<String, Object> mapResults = new Map<String, Object> ();
+	@AuraEnabled
+	public static Map<String, Object> loadInitialState(Id contactId)
+	{
+		Map<String, Object> mapResults = new Map<String, Object> ();
 
-        // check user access for the contact
-        UserRecordAccess readContact = getRecordAccess(contactId);
-//        if(readContact == null || readContact.HasReadAccess == false)
-//        {
-//            // early out - no access
-//            mapResults.put(FIELD_MESSAGE, MSG_NO_ACCESS);
-//            System.debug('No Record access for user');
-//            return mapResults;
-//        }
+		// check user access for the contact
+		UserRecordAccess readContact = getRecordAccess(contactId);
+		//field overrides 
+		Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>> {
+			Contact.SObjectType => new Set<SObjectField> {
+				Contact.Id, Contact.AccountId, Contact.Name, Contact.Phone, Contact.Email, Contact.OID_ID__c, Contact.Status__c, Contact.CRMCSSOID__c, Contact.BillingAccount__c,
+				Contact.BAMCSSOErrorMessage__c, Contact.BAMCSSOError__c, Contact.BAMInviteAcceptedDate__c, Contact.BAMInviteRequestDate__c
+			},
+			Billing_Account__c.SObjectType => new Set<SObjectField> {
+				Billing_Account__c.Name
+			}
+		};
+		// get the contact record
+		List<Contact> contacts = ContactsSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{contactId}, new Set<Object>{ContactsSelector.Options.WITH_BILLING_ACCOUNT}).values();
 
-        // get the contact record
-        List<Contact> contacts = [
-                SELECT Id, AccountId, Name, Phone, Email, OID_ID__c, Status__c, CRMCSSOID__c,
-                        BillingAccount__c, BillingAccount__r.Name, BAMCSSOErrorMessage__c, BAMCSSOError__c,
-                        BAMInviteAcceptedDate__c, BAMInviteRequestDate__c
-                FROM Contact
-                WHERE id = :contactId
-        ];
+		if(contacts.size() == 1)
+		{
+			Contact currContact = contacts[0];
+			mapResults.put(FIELD_CONTACT, currContact);
 
-        if(contacts.size() == 1)
-        {
-            Contact currContact = contacts[0];
-            mapResults.put(FIELD_CONTACT, currContact);
+			// load static data
 
-            // load static data
+			//1. Applications and Roles
+			List<BAMApplication__c> allApplications = loadAllApplications(currContact.AccountId);
+			mapResults.put(FIELD_APPLICATIONS, allApplications);
 
-            //1. Applications and Roles
-            List<BAMApplication__c> allApplications = loadAllApplications(currContact.AccountId);
-            mapResults.put(FIELD_APPLICATIONS, allApplications);
+			//2. Billing Accounts
+			List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId, allApplications);
 
-            //2. Billing Accounts
-            List<Billing_Account__c> billingAccounts = loadBillingAccounts(currContact.AccountId);
-            mapResults.put(FIELD_BILLING_ACCOUNTS, billingAccounts);
+			// load contact data
+			// 1. Latest External request, this determines if we show error or pending
+			Map<String, BAMContactApplication__c> externalRequestsByApp = loadContactApplications(contactId);
+			mapResults.put(FIELD_CONTACT_APPLICATIONS, externalRequestsByApp);
 
-            // load contact data
-            // 1. Latest External request, this determines if we show error or pending
-            Map<String, BAMContactApplication__c> externalRequestsByApp = loadContactApplications(contactId);
-            mapResults.put(FIELD_CONTACT_APPLICATIONS, externalRequestsByApp);
+			// 2. Contact Roles per Application
+			Map<String, BAMContactRole__c> rolesPerApp = loadContactRolePerApplication(contactId);
+			mapResults.put(FIELD_CONTACT_ROLES_PER_APPLICATION, rolesPerApp);
 
-            // 2. Contact Roles per Application
-            Map<String, BAMContactRole__c> rolesPerApp = loadContactRolePerApplication(contactId);
-            mapResults.put(FIELD_CONTACT_ROLES_PER_APPLICATION, rolesPerApp);
+			//3. Filter Billing Accounts per application
+			Map<Id, Set<Id>> existingBillingAccountsKeyedByAppId = BAMUserUtility.getBillingAccountIdsKeyedByAppId(rolesPerApp);
+			List<BAMUserUtility.ApplicationBillingAccountDataWrapper> billingAccountsByApp = BAMUserUtility.getAppBillingAccountDataWrapper(allApplications, billingAccounts, existingBillingAccountsKeyedByAppId);
+			mapResults.put(FIELD_BILLING_ACCOUNTS_BY_APPLICATION, billingAccountsByApp);
 
-        }
+		}
 
-        return mapResults;
+		return mapResults;
 
-    }
+	}
 
     @AuraEnabled
     public static Map<String, Object> saveProvisionRequests(Id contactId, List<Map<String, Object>> pageState, Id primaryBillingAccount) {
@@ -273,6 +272,7 @@ public without sharing class BAMOnboardContactController {
         // loop through the updates for each application
         List<Id> upsertApplicationIds = new List<Id>();
         List<Map<Object, Object>> upsertApplicationRoles = new List<Map<Object, Object>>();
+		Map<Id, List<Map<Object, Object>>> applicationRolesKeyedByAppId = new Map<Id, List<Map<Object, Object>>>();
 
         // for delete/deactivation
         List<Map<Object, Object>> deleteApplicationRoles = new List<Map<Object, Object>>();
@@ -287,10 +287,15 @@ public without sharing class BAMOnboardContactController {
             if (upserts.size() > 0) {
                 upsertApplicationIds.add(appId);
 
+				if (applicationRolesKeyedByAppId.get(appId) == null) {
+					applicationRolesKeyedByAppId.put(appId, new List<Map<Object, Object>>());
+				}
+
                 // loop through and add the application-role Ids to upsert
                 for (Object objAppRole : upserts) {
                     Map<Object, Object> mapApplicationRole = (Map<Object, Object>) objAppRole;
                     upsertApplicationRoles.add(mapApplicationRole);
+					applicationRolesKeyedByAppId.get(appId).add(mapApplicationRole);
                 }
             }
 
@@ -318,6 +323,8 @@ public without sharing class BAMOnboardContactController {
                 }
             }
         }
+
+		validateBillingAccountsByApp(contactId, applicationRolesKeyedByAppId);
 
         try
         {
@@ -402,6 +409,86 @@ public without sharing class BAMOnboardContactController {
 
             return mapResults;
         }
+    }
+
+	/**
+	 * @description This method validates the selected billing accounts are as per the filter defined at application level
+	 * It ignores the validation on already existing billing accounts for the contact that are deviated to filter
+	 * @param  contactId 
+	 * @param  applicationRolesKeyedByAppId 
+	 */
+	private static void validateBillingAccountsByApp(Id contactId, Map<Id, List<Map<Object, Object>>> applicationRolesKeyedByAppId) {
+        Set<Id> appIds = new Set<Id>();
+        Set<Id> selectedBillingAccountIds = new Set<Id>();
+		Map<Id, List<Billing_Account__c>> billingAccountsKeyedByAppId = new Map<Id, List<Billing_Account__c>>();
+        Map<Id, Billing_Account__c> billingAccountMap = new Map<Id, Billing_Account__c>();
+        Map<Id,BAMApplication__c> appMap = new Map<Id,BAMApplication__c>();
+
+		//get the existing contact roles with linked entities if any
+		Map<String, BAMContactRole__c> contactRolesKeyedByAppId = BAMUserUtility.loadContactRolePerApplication(contactId);
+		Map<Id, Set<Id>> existingBillingAccountsKeyedByAppId = BAMUserUtility.getBillingAccountIdsKeyedByAppId(contactRolesKeyedByAppId);
+
+		//get all the selected billing account ids from the appRoles pageState
+		//get the appIds that have billing accounts selected
+        for(Id appId : applicationRolesKeyedByAppId.keySet()) {
+            List<Map<Object, Object>> appRoles = applicationRolesKeyedByAppId.get(appId);
+            for(Map<Object, Object> objAppRole : appRoles) {
+                List<Object> listLinkedEntities = (List<Object>) objAppRole.get(FIELD_SELECTED_ENTITIES);
+                if(!listLinkedEntities.isEmpty()) {
+                    appIds.add(appId);
+                    for(Object leId : listLinkedEntities) {
+                        selectedBillingAccountIds.add((Id)leId);
+                    }
+                }
+            }
+        }
+
+		//get the applications
+        if(!appIds.isEmpty()){
+            appMap = new Map<Id,BAMApplication__c>([SELECT Id, Name, Status__c, Product__c, BillingAccountFilter__c FROM BAMApplication__c WHERE Status__c='Active' AND ID IN:appIds]);
+        }
+
+        if (!selectedBillingAccountIds.isEmpty()) {
+			//get fieldoverrides for billing accounts - this includes basic fiels plus any fields defined in BillingAccountFilter__c field
+			Set<SObjectField> fieldOverrides = BAMUserUtility.getBillingAccountFieldOverridesWithFilterFields(appMap);
+            //get the billing accounts
+			billingAccountMap = BillingAccountsSelector.newInstance(0, fieldOverrides).selectById(selectedBillingAccountIds, 
+				new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
+        }
+
+		//create a map of billing accounts keyedby App Id
+        for(Id appId : appMap.keySet()) {
+            if (billingAccountsKeyedByAppId.get(appId) == null) {
+				billingAccountsKeyedByAppId.put(appId, new List<Billing_Account__c>());
+			}
+            List<Map<Object, Object>> appRoles = applicationRolesKeyedByAppId.get(appId);
+            for(Map<Object, Object> objAppRole : appRoles) {
+                List<Object> listLinkedEntities = (List<Object>) objAppRole.get(FIELD_SELECTED_ENTITIES);
+                for(Object leId : listLinkedEntities) {
+                    if (billingAccountMap.containsKey((Id)leId)) {
+                        billingAccountsKeyedByAppId.get(appId).add(billingAccountMap.get((Id)leId));
+                    }
+                }
+            }
+        }
+
+		for (Id appId : billingAccountsKeyedByAppId.keySet()) {
+			Set<Id> existingBillingAccountIds = new Set<Id>();
+			if (existingBillingAccountsKeyedByAppId.containsKey(appId)) {
+				existingBillingAccountIds = existingBillingAccountsKeyedByAppId.get(appId);
+			}
+			//check if any billing account filter defined at application level
+			if (String.isNotBlank(appMap.get(appId).BillingAccountFilter__c)) {
+				//deserialise the json filter
+				Map<String, Object> billingAccountFilterMap = (Map<String, Object>)JSON.deserializeUntyped(appMap.get(appId).BillingAccountFilter__c);
+				//validate the billing accounts selected are satisfied with the  conditions set at application level
+				List<Billing_Account__c> filteredAccounts = BAMUserUtility.getBillingAccountsByAppFilter(billingAccountsKeyedByAppId.get(appId), billingAccountFilterMap, existingBillingAccountIds);
+				//throw an exception if filtered accounts not matched with the selected billing accounts
+				if (filteredAccounts.size() != billingAccountsKeyedByAppId.get(appId).size()) {
+					throw new AuraHandledException('Billing accounts selected are not valid as per the filter at application level');
+				}
+			}
+		}
     }
 
     /**

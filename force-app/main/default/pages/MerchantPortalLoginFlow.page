@@ -97,7 +97,7 @@
 
                     <div style="margin: 2rem 0;" class="login-checkbox">
                         <label>
-                            <span><apex:inputCheckbox value="{!agreeTsAndCs}" /></span><span>I confirm I have read and accept the<br/><a href="https://auspost.com.au/terms-conditions/api-licence-terms-and-conditions" target="_blank">Application License Terms and Conditions</a></span>
+                            <span><apex:inputCheckbox value="{!agreeTsAndCs}" /></span><span>I confirm I have read and accept the<br/><a href="https://auspost.com.au/terms-conditions/australia-post-user-account-terms-of-use" target="_blank">Application License Terms and Conditions</a></span>
                         </label>
                     </div>
 
@@ -115,7 +115,7 @@
             <div class="left">
                 <ul class="slds-list_horizontal slds-has-inline-block-links_space">
                     <li>
-                        <a href="https://auspost.com.au/terms-conditions/api-licence-terms-and-conditions" target="_blank">Terms &amp; Conditions</a>
+                        <a href="https://auspost.com.au/terms-conditions/australia-post-user-account-terms-of-use" target="_blank">Terms &amp; Conditions</a>
                     </li>
                     <li>
                         <a href="https://auspost.com.au/general/merchant-portal-privacy-notice" target="_blank">Privacy Policy</a>

@@ -7,6 +7,8 @@
  * @domain EmailMessageCasesDomain
  * @changelog
  * 29/06/2023 - Mahesh Parvathaneni - Updated email headers logic related to Microsoft Exchange
+ * 21/07/2023 - Mahesh Parvathaneni - updated email comparison to lowercase
+ * 25/07/2023 - Mahesh Parvathaneni - case field updates fix
  */
 
 public inherited sharing class TransportEnquiryEmailMessagesModule extends ApplicationDomain.Module {
@@ -116,11 +118,11 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 
 			Datetime currentTimeStamp = currentTime;
 			//field overrides for cases
-			Set<SObjectField> fieldOverrides = new Set<SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.Network__c, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c};
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.Network__c, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin};
 
 			for (Case cs : CasesSelector.newInstance(fieldOverrides).selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER}).values()) {
 				casesMap.put(cs.Id, cs);
-				if(!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && cs.EmailMessages.size() > 1 && String.isNotBlank(cs.EmailToCaseAddress__c)) {
+				if(!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && (String.isNotBlank(cs.EmailToCaseAddress__c) || cs.Origin != 'Email')) {
 					// New email received - update Case_Update__c field 
 					Case caseRecord =  new Case(Id = cs.Id, Case_Update__c = TransportEnquiryCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp);
 					// Re-open the case if there is incoming email message to closed case
@@ -128,7 +130,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 						caseRecord.Status = TransportEnquiryCaseService.NEW_STATUS;
 					}
 					casesToUpdate.add(caseRecord);
-				} else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id)) {
+				} else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && cs.Origin == 'Email') {
 					//update the case fields if it is new case created from email-to-case
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));
 				} 
@@ -203,7 +205,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 		for (String header : emailHeaders) {
 			if (String.isBlank(emailAddress) && headerToEmailsMap.size() > 0 && headerToEmailsMap.containsKey(header)) {
 				for (String email : headerToEmailsMap.get(header)) {
-					if (emailToCaseMappingMap.containsKey(email)) {
+					if (emailToCaseMappingMap.containsKey(email.toLowerCase())) {
 						emailAddress = email.toLowerCase();
 						break;
 					}

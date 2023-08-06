@@ -8,7 +8,8 @@
  * @changelog
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
  * 2022-05-09 - NAsir Jawed - Added selectByConfigId, selectByProposalId methods
- * 2022-11-30 - NAsir Jawed - Added methods selectByProposalIdAndStatusWithOrder
+ * 22-11-30 - NAsir Jawed - Added methods selectByProposalIdAndStatusWithOrder
+ * 2023-07-26 - NAsir Jawed - Added OwnerId field to query
  */
 public virtual inherited sharing class ProductConfigurationSelector extends ApplicationSelector {
 	public enum Options {
@@ -33,7 +34,7 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *                          This approach removes data consistency and prevents possible caching of results
+	 *This approach removes data consistency and prevents possible caching of results
 	 */
 	public static ProductConfigurationSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		ProductConfigurationSelector selector = (ProductConfigurationSelector)Application.Selectors.newInstance(ProductConfigurationSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
@@ -46,8 +47,8 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-				Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name, 
-				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c
+				Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name,
+				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c,Apttus_Config2__ProductConfiguration__c.OwnerId
 		};
 	}
 
@@ -114,8 +115,8 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 	* @description Run a simple query to get records based on Proposal Id and status on Configuration record
 	*/
 	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByProposalIdAndStatusWithOrder(Set<Id> proposalIds,Set<String> status, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions);     
-		
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+
 		qb.addConditions()
 			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c + ' = :proposalIds'))
 			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c+ '=:status'))
