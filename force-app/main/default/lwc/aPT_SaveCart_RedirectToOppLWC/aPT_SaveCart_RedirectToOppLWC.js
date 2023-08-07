@@ -26,10 +26,10 @@ export default class APT_SaveCart_RedirectToOppLWC extends NavigationMixin(Light
 	@api recordId;
 	connectedCallback() {
 		console.log('APT_SaveCart_RedirectToOppLWC.connectedCallback.start');
-		let opportunityLineItemsURL = '/lightning/r/Opportunity/'+this.recordId + '/related/OpportunityLineItems/view';
+		let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.recordId;
 		setTimeout(() => {
 			console.log('APT_SaveCart_RedirectToOppLWC.connectedCallback.stop');
 			window.location.href = opportunityLineItemsURL;
-		}, 3000);
+		}, 5000);
 	}
 }
