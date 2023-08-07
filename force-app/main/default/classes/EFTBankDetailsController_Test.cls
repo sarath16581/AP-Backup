@@ -65,7 +65,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
         Insert comp;
 
         EFTBankDetailsController ext;
@@ -103,7 +103,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Bank_Detail_Provided_By_Customer__c = true, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '', Account_Number__c = '' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Bank_Detail_Provided_By_Customer__c = true, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '', Account_Number__c = '' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
         Insert comp;
 
         Test.startTest();
@@ -205,7 +205,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
 
         Test.startTest();
         //insert compensation
@@ -241,7 +241,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test' , RecordTypeId = recordTypeId, Cover_Type__c = 'T&C Cover');
 
         Test.startTest();
         //admin user will not be able to create the record without custom permission set, hence need a run as
@@ -282,7 +282,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id, Batch_ID__c = 1, Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345', RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id, Batch_ID__c = 1, Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345', RecordTypeId = recordTypeId);
 
         Test.startTest();
         //admin user will not be able to create the record without custom permission set, hence need a run as
@@ -320,7 +320,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
 
         Test.startTest();
@@ -360,7 +360,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
 
         Test.startTest();
         //admin user will not be able to create the record without custom permission set, hence need a run as
@@ -399,7 +399,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
 
         Test.startTest();
@@ -439,7 +439,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
 
         Test.startTest();
         //admin user will not be able to create the record without custom permission set, hence need a run as
@@ -478,7 +478,7 @@ public with sharing class EFTBankDetailsController_Test {
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
-        Compensation__c comp = new Compensation__c(Contact__c = contact.id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+        Compensation__c comp = new Compensation__c(Contact__c = contact.Id, Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
         //Insert comp;
 
         Test.startTest();
