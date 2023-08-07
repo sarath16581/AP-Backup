@@ -130,6 +130,12 @@ public with sharing class ChasRegHandlerService {
 			// we found the person account record
 			personAccountRecord = (Account)existingRecords.get(Account.SObjectType);
 			personContactId = personAccountRecord.PersonContactId;
+
+			//throw an error if it is inactive customer
+			if(personAccountRecord.is_Inactive_Customer__pc != null && personAccountRecord.is_Inactive_Customer__pc) {
+				throw new RegHandlerException('Customer is Inactive');
+			}
+
 		} else {
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
@@ -174,11 +180,6 @@ public with sharing class ChasRegHandlerService {
 			// grab the person contact id since we need it below
 			// NOTE: the FILTER_PERSON_ACCOUNT_ONLY force only person account records to be returned so this value will always be populated
 			Id personContactId = accounts.values()[0].PersonContactId;
-
-			//throw an error if it is inactive customer
-			if(accounts.values()[0].is_Inactive_Customer__pc != null && accounts.values()[0].is_Inactive_Customer__pc) {
-				throw new RegHandlerException('Customer is Inactive');
-			}
 
 			System.debug('Existing PersonAccount record found: ' + accounts);
 
@@ -225,7 +226,7 @@ public with sharing class ChasRegHandlerService {
 	public User updateForExistingUser(Id userId, Map<String, String> attributes) {
 		//field overrides
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-			User.SObjectType => UsersSelector.newInstance().getSObjectFieldList(),
+			User.SObjectType => UsersSelector.getAuthenticationSObjectFieldList(),
 			Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
 		};
 
