@@ -9,10 +9,10 @@
     @changelog
     2023-07-17 - hasantha.liyanage@auspost.com.au - Created
  -->
-
 <apex:page id="CompensationAttachments" standardStylesheets="true" standardController="Compensation__c"
            extensions="EFTBankDetailsController">
     <apex:includeLightning/>
+    <c:ScriptLoader jsLibraries="integration,jquery" csslibraries="ssswconsole"/>
     <div id="content">
         <div id="lightningComponent"/>
     </div>
@@ -26,17 +26,17 @@
     </div>
     </body>
     <script>
-
         jQuery(function ($) {
-            // define our dom events we will receive from the Happy Parcels lightning component
+            // define our dom events we will receive from the compensation attachment lightning component
             document.getElementById('wrapper').addEventListener('preview', handlePreview);
-
         });
 
+        // handler for preview file
         function handlePreview(e) {
             previewFile(e.detail);
         }
 
+        // load the preview in a new tab
         function previewFile(detail) {
             var redirectUrl;
             if (detail.isAttachment === true) {
@@ -55,6 +55,5 @@
                 window.top.location.href = '/' + redirectUrl
             }
         }
-
     </script>
 </apex:page>

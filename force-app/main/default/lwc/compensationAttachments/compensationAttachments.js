@@ -66,15 +66,12 @@ export default class CompensationAttachments extends LightningElement {
     config = {};
     @wire(getObjectInfo, {objectApiName: 'Attachment'})
     attachmentObjectInfo;
-
     attachments = [];
-
     connectedCallback() {
         this.isLoading = true;
         this.messages = {};
         this.loadAttachments();
     }
-
     async handleRowAction(event) {
         const actionName = event.detail.action.name;
         const actionedRow = event.detail.row;
@@ -92,12 +89,11 @@ export default class CompensationAttachments extends LightningElement {
                         return {...row};
 
                     });
-
+                    // user should have permissions to link files or create attachments
                     if (this.config.isAllowedToCreateCompensation) {
                         // enable/disable the attachment button based on the selection
                         this.isDisableSelection = !(this.attachments.some(row => row.isSelectedNew === true));
                     }
-
                 }
                 break;
             case 'Preview':
@@ -105,23 +101,18 @@ export default class CompensationAttachments extends LightningElement {
                 const detail = {
                     attachmentId: actionedRow.id,
                     isAttachment: actionedRow.isAttachment
-
                 }
-
                 this.dispatchEvent(new CustomEvent('preview', {detail: detail, bubbles: true, composed: true}));
-
                 break;
             default:
                 break;
         }
-
     }
 
     /**
      * Initial load of the attachments
      */
     loadAttachments() {
-
         getPageConfig({})
             .then((result) => {
                 this.config = result;
@@ -134,6 +125,7 @@ export default class CompensationAttachments extends LightningElement {
             this.isLoading = false;
         });
 
+        // load all the attachments and the files related to the case
         getAttachmentsByParentId({recordId: this.recordId})
             .then((result) => {
                 this.attachments = result;
@@ -145,8 +137,6 @@ export default class CompensationAttachments extends LightningElement {
                         return {...row, buttonIconName}
                     })
                 }
-
-
             })
             .catch((error) => {
                 console.error(error);
@@ -156,7 +146,6 @@ export default class CompensationAttachments extends LightningElement {
             this.isLoading = false;
         });
     }
-
 
     /**
      * Create/link selected attachments/files against the compensation record
@@ -187,5 +176,4 @@ export default class CompensationAttachments extends LightningElement {
             successMessage.style.display = 'none';
         }
     }
-
 }
