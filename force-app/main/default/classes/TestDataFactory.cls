@@ -1,3 +1,11 @@
+/**
+* @author
+* @date
+* @group TestData
+* @domain Test
+* @description Test data factory
+* 2023-08-07 - hasantha.liyanage@auspost.com.au Modified added InsertUsersQueueable
+*/
 @isTest
 public class TestDataFactory {
 
@@ -55,27 +63,90 @@ public class TestDataFactory {
         return testCommunityUser;
     }
 
-    @future
-    public static void insertUserFuture(String profileName, Set<String> permissionSets, String userName, String role) {
-        Profile p = [SELECT Id FROM Profile WHERE Name=: profileName];
-        UserRole r = [SELECT Id FROM UserRole WHERE Name =: role];
-
-        User futureUser = new User(firstname = userName, lastname = userName,
-                alias = 'future', defaultgroupnotificationfrequency = 'N',
-                digestfrequency = 'N', email = 'test@test.org',
-                emailencodingkey = 'UTF-8', languagelocalekey='en_US',
-                localesidkey='en_US', profileid = p.Id,
-                timezonesidkey = 'America/Los_Angeles',
-                username = UserName+'@test.org',
-                userpermissionsmarketinguser = false,
-                userpermissionsofflineuser = false, userroleid = r.Id);
-        insert(futureUser);
-        list<PermissionSetAssignment> permissionSetAssignmentList = new list<PermissionSetAssignment>();
-        List<PermissionSet> permissionSetsToAssign = [SELECT Id FROM PermissionSet WHERE Name IN: permissionSets] ;
-        for(PermissionSet permSet: permissionSetsToAssign) {
-            permissionSetAssignmentList.add(new PermissionSetAssignment (PermissionSetId = permSet.Id, AssigneeId = futureUser.Id));
+    /**
+     * Queueable insertion of users with permissionSets to avoid mixed dml operations issues in unit tests
+     * pass a list of UserDTOs will generate the users with permission set assignments
+     */
+    public class InsertUsersQueueable implements Queueable {
+        private List<UserDTO> userDTOs;
+        public InsertUsersQueueable(List<UserDTO> userDTOs) {
+            this.userDTOs = userDTOs;
         }
 
-        insert permissionSetAssignmentList;
+        public void execute(QueueableContext context) {
+            List<User> usersToInsert = new List<User>();
+            List<PermissionSetAssignment> permissionSetAssignmentList = new List<PermissionSetAssignment>();
+            // get permission sets to be assigned
+            List<String> permissionSetNames = new List<String>();
+            List<String> profiles = new List<String>();
+            List<String> roles = new List<String>();
+            for (UserDTO userDTO : userDTOs) {
+                if(userDTO.permissionSetNames != null) {
+                    permissionSetNames.addAll(userDTO.permissionSetNames);
+                }
+                profiles.add(userDTO.profileName);
+                roles.add(userDTO.role);
+            }
+
+            // Get profiles using Name-to-Profile map
+            Map<String, Id> profileNameToId = new Map<String, Id>();
+            for (Profile profile : [SELECT Id, Name FROM Profile WHERE Name IN :profiles]) {
+                profileNameToId.put(profile.Name, profile.Id);
+            }
+
+            // Get roles using Name-to-UserRole map
+            Map<String, Id> roleNameToId = new Map<String, Id>();
+            for (UserRole role : [SELECT Id, Name FROM UserRole WHERE Name IN :roles]) {
+                roleNameToId.put(role.Name, role.Id);
+            }
+
+            // Get permissionSets using Name-to-ps map
+            Map<String, PermissionSet> permissionSetNameToRecord = new Map<String, PermissionSet>();
+            for (PermissionSet permSet : [SELECT Id, Name FROM PermissionSet WHERE Name IN :permissionSetNames]) {
+                permissionSetNameToRecord.put(permSet.Name, permSet);
+            }
+
+            // prepare users
+            for (UserDTO userDTO : userDTOs) {
+                User futureUser = new User(
+                        firstname = userDTO.userName,
+                        lastname = userDTO.userName,
+                        alias = 'future',
+                        defaultgroupnotificationfrequency = 'N',
+                        digestfrequency = 'N',
+                        email = 'test@test.org',
+                        emailencodingkey = 'UTF-8',
+                        languagelocalekey = 'en_US',
+                        localesidkey = 'en_US',
+                        profileid = profileNameToId.get(userDTO.profileName),
+                        timezonesidkey = 'America/Los_Angeles',
+                        username = userDTO.userName + '@test.org',
+                        userpermissionsmarketinguser = false,
+                        userpermissionsofflineuser = false,
+                        userroleid = roleNameToId.get(userDTO.role)
+                );
+                usersToInsert.add(futureUser);
+            }
+            insert usersToInsert;
+
+            // once users are created assign the perm sets
+            for (User usr : usersToInsert) {
+                for (UserDTO userDTO : userDTOs) {
+                    if (userDTO.permissionSetNames != null && !userDTO.permissionSetNames.isEmpty() && userDTO.userName == usr.FirstName) {
+                        for (String permSetName : userDTO.permissionSetNames) {
+                            permissionSetAssignmentList.add(new PermissionSetAssignment(PermissionSetId = permissionSetNameToRecord.get(permSetName).Id, AssigneeId = usr.Id));
+                        }
+                    }
+                }
+            }
+            insert permissionSetAssignmentList;
+        }
+    }
+
+    public class UserDTO {
+        public String profileName { get; set; }
+        public Set<String> permissionSetNames { get; set; }
+        public String userName { get; set; }
+        public String role { get; set; }
     }
 }

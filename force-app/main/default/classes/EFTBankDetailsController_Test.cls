@@ -18,10 +18,31 @@ public with sharing class EFTBankDetailsController_Test {
     @TestSetup
     static void setupData() {
         Test.startTest();
-        // create a super user
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_User'},'agent','CEO/Reporting');
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',null,'normalUser','CEO/Reporting');
+        List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
+        TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
+        agent.profileName = 'SSSW - Service Agent';
+        agent.permissionSetNames = new Set<String>{'CC_Compensation_User'};
+        agent.userName = 'agent';
+        agent.role = 'CEO/Reporting';
+        userDTOs.add(agent);
+
+        TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
+        superAgent.profileName = 'SSSW - Service Agent';
+        superAgent.permissionSetNames = new Set<String>{'CC_Compensation_Supervisor'};
+        superAgent.userName = 'Superagent';
+        superAgent.role = 'CEO/Reporting';
+        userDTOs.add(superAgent);
+
+        TestDataFactory.UserDTO normalUser = new TestDataFactory.UserDTO();
+        normalUser.profileName = 'SSSW - Service Agent';
+        normalUser.permissionSetNames = null;
+        normalUser.userName = 'normalUser';
+        normalUser.role = 'CEO/Reporting';
+        userDTOs.add(normalUser);
+
+        TestDataFactory.InsertUsersQueueable queueable = new TestDataFactory.InsertUsersQueueable(userDTOs);
+        System.enqueueJob(queueable);
+
         Test.stopTest();
     }
 	/********************************************
@@ -481,15 +502,13 @@ public with sharing class EFTBankDetailsController_Test {
      */
     @IsTest
     static void testValidateCompensationUserPermissionBankDetailNoPermission() {
-
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
                 Case__c = testCase.Id,
@@ -507,10 +526,8 @@ public with sharing class EFTBankDetailsController_Test {
         Test.startTest();
         String message = '';
         System.runAs(agentUser) {
-
             ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
             EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-
             ext.accountNumber = '11111111';
             ext.accountBSB = '111111';
             ext.accountName = 'New Account';
@@ -521,8 +538,6 @@ public with sharing class EFTBankDetailsController_Test {
             } catch (Exception e) {
                 message = e.getMessage();
             }
-
-
         }
         Test.stopTest();
         System.assertEquals(
@@ -537,16 +552,13 @@ public with sharing class EFTBankDetailsController_Test {
       */
     @IsTest
     static void testValidateCompensationUserPermissionBankDetailWithPermission() {
-
         User superUser = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
                 Case__c = testCase.Id,
@@ -554,9 +566,10 @@ public with sharing class EFTBankDetailsController_Test {
                 Status__c = 'Pending',
                 Compensation_Amount__c = 150,
                 CostCentreCode__c = 'test',
-                BSB__c = '444333', Account_Number__c = '123234345', RecordTypeId = recordTypeId, Cover_Type__c = 'ACL');
-
-
+                BSB__c = '444333',
+                Account_Number__c = '123234345',
+                RecordTypeId = recordTypeId,
+                Cover_Type__c = 'ACL');
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
         context.upsertRecords(new List<SObject>{
                 comp
@@ -564,18 +577,14 @@ public with sharing class EFTBankDetailsController_Test {
 
         Test.startTest();
         System.runAs(superUser) {
-
             ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
             EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
-
             ext.accountNumber = '11111111';
             ext.accountBSB = '111111';
             ext.accountName = 'New Account';
             ext.privacyCheck = true;
             ext.confirmDetails = true;
             ext.insertMethod();
-
-
         }
         Test.stopTest();
 
@@ -591,16 +600,13 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void testValidateCompensationSendEmailNoPermission() {
-
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
                 Case__c = testCase.Id,
@@ -613,8 +619,6 @@ public with sharing class EFTBankDetailsController_Test {
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
-
-
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
         context.upsertRecords(new List<SObject>{
                 comp
@@ -622,7 +626,6 @@ public with sharing class EFTBankDetailsController_Test {
 
         Test.startTest();
         System.runAs(normalUser) {
-
             ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
             EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
             ext.compensationEmail = true;
@@ -642,16 +645,13 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void testValidateCompensationSendEmailNormalUser() {
-
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
-
         Compensation__c comp = new Compensation__c(
                 Contact__c = contact.Id,
                 Case__c = testCase.Id,
@@ -664,8 +664,6 @@ public with sharing class EFTBankDetailsController_Test {
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
-
-
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
         context.upsertRecords(new List<SObject>{
                 comp
@@ -673,7 +671,6 @@ public with sharing class EFTBankDetailsController_Test {
 
         Test.startTest();
         System.runAs(agentUser) {
-
             ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
             EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
             ext.compensationEmail = true;
@@ -693,12 +690,10 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void validateOnLoadCreateUpdateWithAgentPermission() {
-
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
@@ -734,12 +729,10 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void validateOnLoadCreateUpdateWithoutPermission() {
-
         User normalUser = [SELECT Id FROM User WHERE FirstName = 'normalUser'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
@@ -774,12 +767,10 @@ public with sharing class EFTBankDetailsController_Test {
      */
     @IsTest
     static void validateOnLoadCreateDuplicateCompensationWithoutPermission() {
-
         User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         testCase.ReferenceID__c = 'REF01';
         insert testCase;
@@ -796,12 +787,11 @@ public with sharing class EFTBankDetailsController_Test {
                 RecordTypeId = recordTypeId,
                 Cover_Type__c = 'ACL'
         );
-
-
         EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
         context.upsertRecords(new List<SObject>{
                 comp
         });
+
         Test.startTest();
         System.runAs(agentUser) {
             Compensation__c comp2 = new Compensation__c(
@@ -833,12 +823,10 @@ public with sharing class EFTBankDetailsController_Test {
      */
     @IsTest
     static void validateOnLoadCreateDuplicateCompensationWithPermission() {
-
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
-
+        //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
-        //create test data
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
         testCase.ReferenceID__c = 'REF01';
         insert testCase;
@@ -856,13 +844,12 @@ public with sharing class EFTBankDetailsController_Test {
                 Cover_Type__c = 'ACL'
         );
 
-
-        EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
-        context.upsertRecords(new List<SObject>{
-                comp
-        });
         Test.startTest();
         System.runAs(superagent) {
+            EFTBankDetailsController.ElevatedSharingContext context = new EFTBankDetailsController.ElevatedSharingContext();
+            context.upsertRecords(new List<SObject>{
+                    comp
+            });
             Compensation__c comp2 = new Compensation__c(
                     Contact__c = contact.Id,
                     Case__c = testCase.Id,
@@ -886,5 +873,4 @@ public with sharing class EFTBankDetailsController_Test {
                 'validateOnLoadCreateDuplicateCompensationWithPermission: Only supervisor user should be able to create duplicate compensation records'
         );
     }
-
 }

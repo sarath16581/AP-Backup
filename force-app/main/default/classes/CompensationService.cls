@@ -30,7 +30,6 @@ public with sharing class CompensationService {
         }
     }
 
-
     /**
       * Grouping compensations per case Id based on the passed reference ID, this will
       * @param relatedCaseIds
@@ -70,7 +69,6 @@ public with sharing class CompensationService {
             }
             compensationsGroup.add(comp);
         }
-
         return compensationsByCase;
     }
 }

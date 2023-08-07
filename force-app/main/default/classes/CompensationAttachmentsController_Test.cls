@@ -14,9 +14,16 @@ private class CompensationAttachmentsController_Test {
     static void setupData() {
         Test.startTest();
         //Creating users in future to avoid mix DML issues
-        TestDataFactory.insertUserFuture('SSSW - Service Agent', new Set<String>{
-                'CC_Compensation_Supervisor'
-        }, 'Superagent', 'CEO/Reporting');
+        List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
+        TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
+        superAgent.profileName = 'SSSW - Service Agent';
+        superAgent.permissionSetNames = new Set<String>{'CC_Compensation_Supervisor'};
+        superAgent.userName = 'Superagent';
+        superAgent.role = 'CEO/Reporting';
+        userDTOs.add(superAgent);
+
+        TestDataFactory.InsertUsersQueueable queueable = new TestDataFactory.InsertUsersQueueable(userDTOs);
+        System.enqueueJob(queueable);
         Test.stopTest();
     }
 
@@ -27,9 +34,7 @@ private class CompensationAttachmentsController_Test {
      */
     @IsTest
     static void getPageConfigIsAllowedToCreate() {
-
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
-
         Test.startTest();
         CompensationAttachmentsController.PageConfig config;
         System.runAs(superagent) {
@@ -50,7 +55,6 @@ private class CompensationAttachmentsController_Test {
      */
     @IsTest
     static void getPageConfigIsNotAllowedToCreate() {
-
         Test.startTest();
         CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig();
         Test.stopTest();
@@ -132,13 +136,11 @@ private class CompensationAttachmentsController_Test {
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
         ContentDocumentLink documentLinkRecordForCompensation = ApplicationTestDataFactory.getContentDocumentLinks(1, compensations[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
-
         // =====================================
         // Stubbing
         // =====================================
@@ -165,7 +167,6 @@ private class CompensationAttachmentsController_Test {
                         documentLinkRecordForCompensation.Id => documentLinkRecordForCompensation
                 });
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -202,7 +203,6 @@ private class CompensationAttachmentsController_Test {
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         // =====================================
         // Stubbing
         // =====================================
@@ -216,7 +216,6 @@ private class CompensationAttachmentsController_Test {
                 }))
                 .thenReturn(new List<Attachment>{ attachmentForCase});
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -252,7 +251,6 @@ private class CompensationAttachmentsController_Test {
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
         Attachment attachmentForCompensation = ApplicationTestDataFactory.getAttachments(1, compensations[0].Id, true)[0];
-
         // =====================================
         // Stubbing
         // =====================================
@@ -299,14 +297,12 @@ private class CompensationAttachmentsController_Test {
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
         // =====================================
         // Stubbing
         // =====================================
-
         CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
         AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector) MockUtility.mockSelector(AttachmentsSelector.class);
         ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
@@ -344,9 +340,7 @@ private class CompensationAttachmentsController_Test {
                         documentLinkRecordForCase.Id => documentLinkRecordForCase
                 });
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -361,7 +355,6 @@ private class CompensationAttachmentsController_Test {
 
         // make sure the dml is performed
         List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 2);
-
         // not that it is verified, let's check for the result
         for (List<SObject> obj : insertedRecords) {
             if (Attachment.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
@@ -395,14 +388,12 @@ private class CompensationAttachmentsController_Test {
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         Attachment attachmentForCase = ApplicationTestDataFactory.getAttachments(1, cases[0].Id, true)[0];
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
         ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, cases[0].Id, documentId, true)[0];
         documentLinkRecordForCase.Visibility = 'AllUsers';
         // =====================================
         // Stubbing
         // =====================================
-
         CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
         AttachmentsSelector mockAttachmentsSelector = (AttachmentsSelector) MockUtility.mockSelector(AttachmentsSelector.class);
         ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
@@ -441,9 +432,7 @@ private class CompensationAttachmentsController_Test {
                         documentLinkRecordForCase.Id => documentLinkRecordForCase
                 });
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -462,7 +451,6 @@ private class CompensationAttachmentsController_Test {
 
         // make sure the dml is performed
         List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
-
         // not that it is verified, let's check for the result
         for (List<SObject> obj : insertedRecords) {
             if (ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {

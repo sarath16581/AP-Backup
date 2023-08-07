@@ -308,7 +308,7 @@ public without sharing class EFTBankDetailsController {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserCannotUpdateBankDetails));
             }
 
-        } else  if(!isCompensationUser && !isCompensationSupervisor) {
+        } else if(!isCompensationUser && !isCompensationSupervisor) {
             // User DOESN't have the system permission “CC Compensation Agent” OR,
             // the system permission “CC Compensation Supervisor” he is not allowed to send email
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserIsNotAllowedToSendEmail));
@@ -340,14 +340,12 @@ public without sharing class EFTBankDetailsController {
         return false;
     }
 
-
     /**
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
 	* sharing settings.
 	*/
     @TestVisible
     private without sharing class ElevatedSharingContext {
-
         /**
 		 * Insert a list of sObject records in system mode
 		 * @param List<sObject>

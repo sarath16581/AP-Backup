@@ -50,8 +50,23 @@ private with sharing class CompensationResendButtonExtensionTest
 
         Test.startTest();
         // create a user
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',null,'normalUser','CEO/Reporting');
+        List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
+        TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
+        superAgent.profileName = 'SSSW - Service Agent';
+        superAgent.permissionSetNames = new Set<String>{'CC_Compensation_Supervisor'};
+        superAgent.userName = 'Superagent';
+        superAgent.role = 'CEO/Reporting';
+        userDTOs.add(superAgent);
+
+        TestDataFactory.UserDTO normalUser = new TestDataFactory.UserDTO();
+        normalUser.profileName = 'SSSW - Service Agent';
+        normalUser.permissionSetNames = null;
+        normalUser.userName = 'normalUser';
+        normalUser.role = 'CEO/Reporting';
+        userDTOs.add(normalUser);
+
+        TestDataFactory.InsertUsersQueueable queueable = new TestDataFactory.InsertUsersQueueable(userDTOs);
+        System.enqueueJob(queueable);
         Test.stopTest();
     }
 
@@ -106,7 +121,6 @@ private with sharing class CompensationResendButtonExtensionTest
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         // =====================================
         // Testing
         // =====================================
@@ -141,7 +155,6 @@ private with sharing class CompensationResendButtonExtensionTest
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         // =====================================
         // Testing
         // =====================================

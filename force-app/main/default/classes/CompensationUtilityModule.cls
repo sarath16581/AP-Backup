@@ -39,7 +39,6 @@ public with sharing class CompensationUtilityModule extends ApplicationModule {
                 CompensationService.getInstance().updateCurrentArticleInfoOnCompensationRecord ((List<Compensation__c>) records);
                 validateMoreThanOneCompensationsPerReferenceId ((List<Compensation__c>) records);
             }
-
         } catch (Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Australia Post', CompensationUtilityModule.class.getName(), 'onBeforeInsert', 'Compensation Trigger', LoggingLevel.ERROR);

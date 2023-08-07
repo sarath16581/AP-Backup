@@ -13,8 +13,23 @@ private class CompensationService_Test {
     static void setupData() {
         Test.startTest();
         // create a super user
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_User'},'agent','CEO/Reporting');
-        TestDataFactory.insertUserFuture('SSSW - Service Agent',new Set<String>{'CC_Compensation_Supervisor'},'Superagent','CEO/Reporting');
+        List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
+        TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
+        agent.profileName = 'SSSW - Service Agent';
+        agent.permissionSetNames = new Set<String>{'CC_Compensation_User'};
+        agent.userName = 'agent';
+        agent.role = 'CEO/Reporting';
+        userDTOs.add(agent);
+
+        TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
+        superAgent.profileName = 'SSSW - Service Agent';
+        superAgent.permissionSetNames = new Set<String>{'CC_Compensation_Supervisor'};
+        superAgent.userName = 'Superagent';
+        superAgent.role = 'CEO/Reporting';
+        userDTOs.add(superAgent);
+
+        TestDataFactory.InsertUsersQueueable queueable = new TestDataFactory.InsertUsersQueueable(userDTOs);
+        System.enqueueJob(queueable);
         Test.stopTest();
     }
 
@@ -30,7 +45,6 @@ private class CompensationService_Test {
         List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
-
         // =====================================
         // Stubbing
         // =====================================
@@ -41,7 +55,6 @@ private class CompensationService_Test {
                 cases[0].Id => cases[0]
         });
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -74,7 +87,6 @@ private class CompensationService_Test {
         for(Case cse : cases) {
             casesByIds.put(cse.id, cse);
         }
-
         // =====================================
         // Stubbing
         // =====================================
@@ -86,7 +98,6 @@ private class CompensationService_Test {
         MockUtility.Mocks.when(mockCasesSelector.selectByReferenceIdOrderByCreatedDate((Set<String>) fflib_Match.anyObject())).thenReturn(casesByIds);
         MockUtility.Mocks.when(mockCompensationSelector.selectByCaseIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(compensations);
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
@@ -122,7 +133,6 @@ private class CompensationService_Test {
         for(Case cse : cases) {
             casesByIds.put(cse.id, cse);
         }
-
         // =====================================
         // Stubbing
         // =====================================
@@ -133,9 +143,7 @@ private class CompensationService_Test {
         MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
         MockUtility.Mocks.when(mockCasesSelector.selectByReferenceIdOrderByCreatedDate((Set<String>) fflib_Match.anyObject())).thenReturn(casesByIds);
         MockUtility.Mocks.when(mockCompensationSelector.selectByCaseIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn((List<Object>) fflib_Match.anyObject());
-
         MockUtility.Mocks.stopStubbing();
-
         // =====================================
         // Testing
         // =====================================
