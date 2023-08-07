@@ -12,7 +12,7 @@ private class CompensationUtilityModule_Test {
     @TestSetup
     static void setupData() {
         Test.startTest();
-        // create a super user
+        // create a super user: allows to create compensation records, update bank account details, create multiple compensations, send emails
         List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
         TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
         superAgent.profileName = 'SSSW - Service Agent';
@@ -21,6 +21,7 @@ private class CompensationUtilityModule_Test {
         superAgent.role = 'CEO/Reporting';
         userDTOs.add(superAgent);
 
+        // user with SSSW agent profile and without any permission sets assigned
         TestDataFactory.UserDTO normalUser = new TestDataFactory.UserDTO();
         normalUser.profileName = 'SSSW - Service Agent';
         normalUser.permissionSetNames = null;

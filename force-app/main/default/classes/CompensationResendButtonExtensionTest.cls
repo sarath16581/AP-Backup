@@ -49,7 +49,8 @@ private with sharing class CompensationResendButtonExtensionTest
         update compensation;
 
         Test.startTest();
-        // create a user
+        //Creating users in future to avoid mix DML issues
+        // create a super user: allows to create compensation records, update bank account details, create multiple compensations, send emails
         List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
         TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
         superAgent.profileName = 'SSSW - Service Agent';
@@ -58,6 +59,7 @@ private with sharing class CompensationResendButtonExtensionTest
         superAgent.role = 'CEO/Reporting';
         userDTOs.add(superAgent);
 
+        // user with SSSW agent profile and without any permission sets assigned
         TestDataFactory.UserDTO normalUser = new TestDataFactory.UserDTO();
         normalUser.profileName = 'SSSW - Service Agent';
         normalUser.permissionSetNames = null;

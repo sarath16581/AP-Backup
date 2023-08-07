@@ -12,7 +12,8 @@ private class CompensationService_Test {
     @TestSetup
     static void setupData() {
         Test.startTest();
-        // create a super user
+        // Creating users in async context to avoid mix DML issues
+        // create a compensation user: allows to create compensation records but not allowed to create dupes or update bank account details
         List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
         TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
         agent.profileName = 'SSSW - Service Agent';
@@ -21,6 +22,7 @@ private class CompensationService_Test {
         agent.role = 'CEO/Reporting';
         userDTOs.add(agent);
 
+        // create a super user: allows to create compensation records, update bank account details, create multiple compensations, send emails
         TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
         superAgent.profileName = 'SSSW - Service Agent';
         superAgent.permissionSetNames = new Set<String>{'CC_Compensation_Supervisor'};

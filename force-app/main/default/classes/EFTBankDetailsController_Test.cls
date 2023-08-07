@@ -18,6 +18,8 @@ public with sharing class EFTBankDetailsController_Test {
     @TestSetup
     static void setupData() {
         Test.startTest();
+        // Creating users in async context to avoid mix DML issues
+        // create a compensation user: allows to create compensation records but not allowed to create dupes or update bank account details
         List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
         TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
         agent.profileName = 'SSSW - Service Agent';
@@ -26,6 +28,7 @@ public with sharing class EFTBankDetailsController_Test {
         agent.role = 'CEO/Reporting';
         userDTOs.add(agent);
 
+        // create a super user: allows to create compensation records, update bank account details, create multiple compensations, send emails
         TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
         superAgent.profileName = 'SSSW - Service Agent';
         superAgent.permissionSetNames = new Set<String>{'CC_Compensation_Supervisor'};
@@ -33,6 +36,7 @@ public with sharing class EFTBankDetailsController_Test {
         superAgent.role = 'CEO/Reporting';
         userDTOs.add(superAgent);
 
+        // user with SSSW agent profile and without any permission sets assigned
         TestDataFactory.UserDTO normalUser = new TestDataFactory.UserDTO();
         normalUser.profileName = 'SSSW - Service Agent';
         normalUser.permissionSetNames = null;

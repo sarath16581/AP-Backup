@@ -14,6 +14,7 @@ private class CompensationAttachmentsController_Test {
     static void setupData() {
         Test.startTest();
         //Creating users in future to avoid mix DML issues
+        // create a super user: allows to create compensation records, update bank account details, create multiple compensations, send emails
         List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
         TestDataFactory.UserDTO superAgent = new TestDataFactory.UserDTO();
         superAgent.profileName = 'SSSW - Service Agent';
