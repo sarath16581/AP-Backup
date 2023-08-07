@@ -16,6 +16,7 @@
  * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
  * 2023-01-27 - Naveen Rajanna - Updated api version and test methods for selectUsersEligibleForDeactivationQueryLocator
  * 2022-02-01 - Noel Lim - updated testSelectorIntegration method, added test for new selectActiveUserById()
+ * 2023-08-08 - Mahesh Parvathaneni - added tests for getAuthenticationSObjectFieldList
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -113,6 +114,11 @@ public with sharing class UsersSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)UserRole\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select UserRole fields');
 		System.assertEquals(true, Pattern.compile('(?ism)Profile\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select Profile fields');
+
+		Set<SObjectField> authenticationFields = UsersSelector.getAuthenticationSObjectFieldList();
+		System.assertEquals(true, authenticationFields.contains(User.FirstName), 'Expected FirstName to be returned in the field list');
+		System.assertEquals(true, authenticationFields.contains(User.FederationIdentifier), 'Expected FederationIdentifier to be returned in the field list');
+		System.assertEquals(false, authenticationFields.contains(User.Current_Owner_Role__c), 'Expected Current_Owner_Role__c not to be returned in the field list');
 
 		Test.stopTest();
 
