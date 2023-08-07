@@ -13,7 +13,6 @@
 <apex:page id="CompensationAttachments" standardStylesheets="true" standardController="Compensation__c"
            extensions="EFTBankDetailsController">
     <apex:includeLightning/>
-    <c:ScriptLoader jsLibraries="integration,jquery" csslibraries="ssswconsole"/>
     <div id="content">
         <div id="lightningComponent"/>
     </div>
