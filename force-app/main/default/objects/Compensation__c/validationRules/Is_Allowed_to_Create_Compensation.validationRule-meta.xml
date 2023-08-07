@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Allowed_to_Create_Compensation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  NOT(
+    OR($Permission.Is_Compensation_User
+      , $Permission.Is_Compensation_Supervisor
+      , $Profile.Name = &apos;Consumer Help and Support Profile&apos;
+      , CONTAINS($Profile.Name , &quot;Administrator&quot;))
+  ), 
+  OR(
+    RecordType.DeveloperName = &apos;EFT&apos;,
+    RecordType.DeveloperName = &apos;Load_and_Go&apos;,
+    RecordType.DeveloperName = &apos;Money_Order&apos;,
+    RecordType.DeveloperName = &apos;Money_Order_Number_Required&apos;
+    )
+  )</errorConditionFormula>
+    <errorDisplayField>Account_Name__c</errorDisplayField>
+    <errorMessage>You do not have privilege to create/update compensation records.</errorMessage>
+</ValidationRule>

@@ -11,10 +11,11 @@ the controller runs on system mode to enable agents to enter and edit compensati
 * 2020-08-07 - dheeraj.mandavilli@auspost.com.au Added Logic to accomodate Load & Go Record Type.
 * 2020-08-21 - dheeraj.mandavilli@auspost.com.au Removed Logic associated with Load & Go Record Type.
 * 2021-08-25 - phap.mai@auspost.com.au Modified the validate method to ignore checking if compensation email checkbox is ticked
+* 2023-07-01 - hasantha.liyanage@auspost.com.au Modified: Compensation MW changes based on the custom permissions control the UI accessibility
 */
 
 public without sharing class EFTBankDetailsController {
-    public Compensation__c record {get;set;}
+    public Compensation__c record  {get;set;}
     public Boolean showEditScreen {get;set;}
     public Boolean showEditButton {get;set;}
     public Boolean detailsProvided {get;set;}
@@ -35,22 +36,70 @@ public without sharing class EFTBankDetailsController {
     // DDS-8012: attribute indicate the route of customer provide or agent provide bank details
     public final String BANK_DETAILS_VIA_FORM = 'CustomerProvide';
     public final String BANK_DETAILS_VIA_AGENT = 'AgentProvide';
-    
+
+    public static Boolean isAllowedToCreateCompensation {
+        get {
+            if(isAllowedToCreateCompensation == null) {
+                return true;
+            }
+            return isAllowedToCreateCompensation;
+        }
+        private set;
+    }
+
+    public static Set<Id> RESTRICTED_COMPENSATION_RECORD_TYPES {
+        get {
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES == null) {
+                RESTRICTED_COMPENSATION_RECORD_TYPES = RecordTypesSelector.newInstance().selectByDeveloperName('Compensation__c', new Set<String>{'EFT','Load_and_Go','Money_Order','Money_Order_Number_Required'}).keySet();
+            }
+            return RESTRICTED_COMPENSATION_RECORD_TYPES;
+        }
+        private set;
+    }
+
+    public static Set<Id> RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES {
+        get {
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES == null) {
+                RESTRICTED_COMPENSATION_RECORD_TYPES = RecordTypesSelector.newInstance().selectByDeveloperName('Compensation__c', new Set<String>{'EFT','Load_and_Go'}).keySet();
+            }
+            return RESTRICTED_COMPENSATION_RECORD_TYPES;
+        }
+        private set;
+    }
+    public Boolean isCompensationUser {
+        get {
+            if(isCompensationUser == null) {
+                isCompensationUser = FeatureManagement.checkPermission('Is_Compensation_User');
+            }
+            return isCompensationUser;
+        }
+        private set;
+    }
+    public Boolean isCompensationSupervisor {
+        get {
+            if(isCompensationSupervisor == null) {
+                isCompensationSupervisor = FeatureManagement.checkPermission('Is_Compensation_Supervisor');
+            }
+            return isCompensationSupervisor;
+        }
+        private set;
+    }
     
     public EFTBankDetailsController(ApexPages.StandardController stdController) {
         showEditButton = true;
         stdCon = stdController;
         eftRecordTypeID = [select Id,Name from RecordType where SobjectType='Compensation__c' and RecordType.DeveloperName = 'EFT'].Id;
-        System.debug('stdController : '+stdController);
+
         //if standard controller id is null create new compensation. this occurs when creating new records.
         if(stdController.getId() == null) {
             record = new Compensation__c();
+
         }
         else {
             //quary the compensation record passed in through the std controller
-            record = [SELECT Id, Case__c, CostCentreCode__c,Status__c, Compensation_Amount__c, Proof_of_Value__c, Service_Value__c,
+            record = [SELECT Id, Case__c, Case__r.ArticleTest__c, CostCentreCode__c,Status__c, Compensation_Amount__c, Proof_of_Value__c, Service_Value__c,
                       Other__c, Discretionary_Compensation__c, Account_Name__c, Account_Number__c, BSB__c, Privacy_Check__c ,
-                      Cover_Type__c , Contact__c, Legal_Entity_Name__c , Business_Account_Number__c, HasExtraCover__c, Bank_Detail_Provided_By_Customer__c
+                      Cover_Type__c , Contact__c, Legal_Entity_Name__c , Business_Account_Number__c, HasExtraCover__c, Bank_Detail_Provided_By_Customer__c, RecordTypeId
                       FROM Compensation__c
                       WHERE Id = :stdController.getId()];
         }
@@ -73,8 +122,12 @@ public without sharing class EFTBankDetailsController {
         if(record.Status__c == 'Processing') {
             showEditButton = false;
         }
+
+        // compensation restrictions
+        validateOnLoad();
+
     }
-    
+
     public PageReference editMethod() {
         //display edit screen and hide the edit button on edit button press
         showEditScreen = true;
@@ -100,7 +153,9 @@ public without sharing class EFTBankDetailsController {
                     record.Bank_Details_Confirmed__c = confirmDetails;
                 }
                 record.Bank_Detail_Provided_By_Customer__c = this.compensationEmail;
-                Upsert record;
+
+                ElevatedSharingContext context = new ElevatedSharingContext();
+                context.upsertRecords(new List<SObject>{record});
                 //return to the record default details page
                 return new pagereference('/' + record.id);
             }
@@ -115,7 +170,6 @@ public without sharing class EFTBankDetailsController {
     }
     public PageReference saveMethod()
     {
-        System.Debug(accountNumber+'-'+accountBSB+'-'+accountName);
 
         String currentRoute = this.compensationEmail? BANK_DETAILS_VIA_FORM : BANK_DETAILS_VIA_AGENT;
         String newRoute;
@@ -161,7 +215,8 @@ public without sharing class EFTBankDetailsController {
                 record.Account_Name__c = accountName;
                 record.Privacy_Check__c = privacyCheck;
                 record.Bank_Details_Confirmed__c = confirmDetails;
-                Upsert record;
+                ElevatedSharingContext context = new ElevatedSharingContext();
+                context.upsertRecords(new List<SObject>{record});
                 //show edit button and return to view screen
                 showEditButton = true;
                 showEditScreen = false;
@@ -198,10 +253,25 @@ public without sharing class EFTBankDetailsController {
         showEditScreen = false;
         return null;
     }
-    
+
+    /**
+     * Validate checks on load of the page
+     */
+    private void validateOnLoad() {
+        Compensation__c record = (Compensation__c) this.stdCon.getRecord();
+        if (record.id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+            isAllowedToCreateCompensation = false;
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgNoPrivilege));
+        } else if (record.id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
+            // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
+            isAllowedToCreateCompensation = false;
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgMoreThanOnePerCaseReference));
+        }
+    }
+
     //used to validate the bank details enterd by user
     public boolean validateDetails() {
-        System.Debug('inside validate');
+
         // DDS-6866: if user tick the send compensation email checkbox, bank details at this step is not mandatory
         if (!this.compensationEmail)
         {
@@ -229,12 +299,60 @@ public without sharing class EFTBankDetailsController {
             if(String.isNotBlank(accountNumber) && accountNumber.length() > 9) {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Account Number should not exceed beyond 9 digits'));
             }
+
+            // compensation Agent permission do not have the method to manually enter the bank account details
+            // and should continue using the current email method to acquire bank account details from the customer.
+            // check is only against EFT and Load and Go record Types as those are the only 2 record types which accepts bank details
+            Compensation__c record = (Compensation__c) this.stdCon.getRecord();
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES_WITH_BANK_DETAILS_APPLIES.contains(record.recordTypeId) && !isCompensationSupervisor) {
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserCannotUpdateBankDetails));
+            }
+
+        } else if(!isCompensationUser && !isCompensationSupervisor) {
+            // User DOESN't have the system permission “CC Compensation Agent” OR,
+            // the system permission “CC Compensation Supervisor” he is not allowed to send email
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserIsNotAllowedToSendEmail));
         }
+
         if(ApexPages.getMessages().size() > 0) {
             return true;
         }
         else {
             return false;
+        }
+    }
+
+    /**
+     * Checking whether If there are more than one compensation per reference ID,
+     * @param caseId
+     *
+     * @return Boolean
+     */
+    public Boolean isMoreThanOneCompensationRecord(Id relatedCaseId) {
+        if (String.isNotEmpty(relatedCaseId)) {
+            Map<Id, List<Compensation__c>> groupedCompensationByCaseIds = CompensationService.getInstance().getCompensationRecordByCaseIds(new Set<Id>{relatedCaseId});
+
+            if (groupedCompensationByCaseIds != null && groupedCompensationByCaseIds.containsKey(relatedCaseId)) {
+                List<Compensation__c> compensationList = groupedCompensationByCaseIds.get(relatedCaseId);
+                return compensationList.size() > 0;
+            }
+        }
+        return false;
+    }
+
+    /**
+	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
+	* sharing settings.
+	*/
+    @TestVisible
+    private without sharing class ElevatedSharingContext {
+        /**
+		 * Insert a list of sObject records in system mode
+		 * @param List<sObject>
+		*/
+        @TestVisible
+        private void upsertRecords(List<sObject> recordList) {
+            ApplicationDatabase.getInstance().dmlUpsert(recordList, Compensation__c.Id,true);
         }
     }
 }

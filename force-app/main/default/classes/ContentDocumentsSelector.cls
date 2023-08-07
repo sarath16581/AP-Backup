@@ -6,7 +6,7 @@
  * @domain Core
  * @changelog
  * -----------------------------------------------------------------------------------
-
+ * 15-07-2023 hasantha.liyanage@auspost.com.au Added extra field to getSObjectFieldList
 */
 
 public virtual inherited sharing class ContentDocumentsSelector extends ApplicationSelector {
@@ -22,7 +22,7 @@ public virtual inherited sharing class ContentDocumentsSelector extends Applicat
 
     protected override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-                ContentDocument.Id, ContentDocument.Title, ContentDocument.Description
+                ContentDocument.CreatedDate, ContentDocument.Id, ContentDocument.Title, ContentDocument.FileType, ContentDocument.ContentSize
         };
     }
 

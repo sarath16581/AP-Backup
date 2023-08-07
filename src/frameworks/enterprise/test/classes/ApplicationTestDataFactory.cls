@@ -302,6 +302,15 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<Case> getCases(Integer count, String referenceId , Boolean generateIds) {
+		return (List<Case>)maybeGenerateIds(populateSObjects(Case.SObjectType, new Map<SObjectField, Object> {
+				Case.ReferenceID__c => referenceId,
+				Case.Subject => 'Case Subject %count%',
+				Case.Description => 'Case Description %count%',
+				Case.Status => 'New'
+		}, count), generateIds);
+	}
+
 	// Added by Madhusudan
 	public static List<Task> getTasks(Integer count, Id whatId, Boolean generateIds) {
 		return (List<Task>)maybeGenerateIds(populateSObjects(Task.SObjectType, new Map<SObjectField, Object> {
@@ -962,6 +971,19 @@ public with sharing class ApplicationTestDataFactory {
 		}
 
 		return records;
+	}
+
+	public static List<Compensation__c> getCompensation(Integer count, Id caseId, String recordTypeId, Boolean generateIds) {
+		return (List<Compensation__c>)maybeGenerateIds(populateSObjects(Compensation__c.SObjectType, new Map<SObjectField, Object> {
+				Compensation__c.Case__c => caseId,
+				Compensation__c.Batch_ID__c => 1,
+				Compensation__c.Compensation_Amount__c => 50,
+				Compensation__c.Cover_Type__c => 'T&C Cover',
+				Compensation__c.CostCentreCode__c => 'test',
+				Compensation__c.BSB__c => '444333',
+				Compensation__c.Account_Number__c => '123234345',
+				Compensation__c.recordTypeId => recordTypeId
+		}, count), generateIds);
 	}
 
 	/**

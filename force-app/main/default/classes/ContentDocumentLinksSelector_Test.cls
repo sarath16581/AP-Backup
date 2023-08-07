@@ -5,6 +5,7 @@
  * @group Tests
  * @domain Core
  * @changelog
+ * 21-07-2023 : hasantha.liyanage@auspost.com.au Added with contentDocument test
  */
 @IsTest
 private class ContentDocumentLinksSelector_Test {
@@ -64,13 +65,15 @@ private class ContentDocumentLinksSelector_Test {
 		Test.startTest();
 
 		ContentDocumentLinksSelector selector = ContentDocumentLinksSelector.newInstance();
-		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTVERSION});
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{ContentDocumentLinksSelector.Options.WITH_CONTENTVERSION, ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT});
 		String soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)ContentDocument\\.LatestPublishedVersion\\..*?\\bfrom ContentDocumentLink\\b').matcher(soql).find(), 'Resulting query does not select ContentVersion fields: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)ContentDocument\\.Title.*?\\bfrom ContentDocumentLink\\b').matcher(soql).find(), 'Resulting query does not select ContentDocument fields: ' + soql);
 
 		Test.stopTest();
 
 	}
+
 
 	/**
 	 * Test:

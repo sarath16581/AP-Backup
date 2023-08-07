@@ -5,6 +5,7 @@
 06-08-2020 dheeraj.mandavilli@auspost.com.au - Added Logic to accomodate "Load & Go" new record type as part of Load  & Go Project
 21-08-2020 dheeraj.mandavilli@auspost.com.au - Modified Logic to use "Load & Go" new record type using Custom Label for Load  & Go Project
 25-08-2021 phap.mai@auspost.com.au - Added the checkbox for sending compensation email and logic to disable bank details input if this checkbox is ticked
+25-07-202 hasantha.liyanage@auspost.com.au - Added isAllowedToCreateCompensation check to render the UI based on the user's permissions
 -->
 <apex:page standardController="Compensation__c" extensions="EFTBankDetailsController" doctype="html-5.0">
     <apex:includeScript value="/support/console/32.0/integration.js" />
@@ -31,7 +32,10 @@
     };
     </script>  
     <apex:form >
-        <apex:pageBlock >
+        <apex:pageBlock rendered="{!NOT(isAllowedToCreateCompensation)}">
+            <apex:pagemessages id="errors" />
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!isAllowedToCreateCompensation}" >
             <apex:pagemessages id="errors" />
             <apex:pageBlockButtons >
                 <apex:actionStatus id="processing" startText="Processing.. Please wait..">
@@ -255,5 +259,13 @@
                 }
             }
         }
+
+
+        window.onload = function(){
+            var isCompensationUser = {!isCompensationUser};
+            let compensationEmail = document.getElementsByClassName('compensationEmail');
+            compensationEmail.disabled = true;
+        }
+        //
     </script>
 </apex:page>

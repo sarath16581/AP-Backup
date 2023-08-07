@@ -1,3 +1,11 @@
+/***
+ * @author
+ * @date
+ * @domain Core
+ * @description Test class for CompensationSelector
+ * @changelog
+ * 2023-07-25 - Hasantha Liyanage - Modified
+ */
 @isTest
 private with sharing class CompensationSelectorTest
 {
@@ -181,6 +189,22 @@ private with sharing class CompensationSelectorTest
         List<Compensation__c> compensations = selector.getById(compensation.Id + '_', options);
 
         System.assertEquals(0, compensations.size());
+    }
+
+
+    @isTest
+    private static void testSelectByCaseIds(){
+
+        String subject = 'subject';
+        Case cse = [SELECT Id FROM Case];
+        cse.Subject = subject;
+
+        CompensationSelector selector = new CompensationSelector();
+
+        List<Compensation__c> compensations = selector.selectByCaseIds(new Set<Id>{cse.Id}, new Set<Object>());
+
+        System.assertEquals(1, compensations.size());
+
     }
 
     // @isTest

@@ -3839,6 +3839,38 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Please try again later. If you need help, call us on:&lt;br/&gt;&lt;b&gt;13 76 78 (13 Post)&lt;/b&gt; in Australia from 8am - 6pm (local time)&lt;br/&gt;&lt;b&gt;+61 3 8847 9045&lt;/b&gt; from overseas from 7am - 6pm (AEST)</value>
     </labels>
     <labels>
+        <fullName>CompensationMsgMoreThanOnePerCaseReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
+        <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgNoPrivilege</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation: User do not have privilege to create/update</shortDescription>
+        <value>You do not have privilege to create/update compensation records.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgUserCannotUpdateBankDetails</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : User do not have privilege to manually enter bank details</shortDescription>
+        <value>You do not have privilege to manually enter the bank account details</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgUserIsNotAllowedToSendEmail</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : User cannot send emails to customer</shortDescription>
+        <value>You do not have privilege to send email to customer</value>
+    </labels>
+    <labels>
         <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
         <categories>Sales</categories>
         <language>en_US</language>
