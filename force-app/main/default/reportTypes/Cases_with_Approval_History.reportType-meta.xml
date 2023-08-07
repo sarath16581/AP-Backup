@@ -115,6 +115,26 @@
             <field>ProcessDefinition.LastModifiedBy.Account.CreatedDate</field>
             <table>ProcessInstance</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.CreatedBy.Account.Name</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.CreatedBy.Account.TextName</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.CreatedBy.Account.AccountNumber</field>
+            <table>ProcessInstance</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProcessDefinition.CreatedBy.Account.Network_Facility__c.Name</field>
+            <table>ProcessInstance</table>
+        </columns>
         <masterLabel>Process Instance</masterLabel>
     </sections>
     <sections>

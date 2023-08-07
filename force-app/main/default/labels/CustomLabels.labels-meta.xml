@@ -14,7 +14,7 @@
         <shortDescription>Apttus Object Initials for Proposal</shortDescription>
         <value>a8O</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>Abandon_Shopping_Cart_Error</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2257,7 +2257,7 @@ Compass quote end date has passed, please request re-activation</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>https://helpandsupport.auspost.com.au</value>
+        <value>ptest.npe.helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
@@ -8360,14 +8360,6 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Add_Product_On_Closed_Opportunity</shortDescription>
         <value>You cannot create Proposal when Opportunity is &quot;Close Lost&quot;</value>
-    </labels>
-    <labels>
-        <fullName>SaveCartEditOpportunityProducts</fullName>
-        <categories>Button, Cart</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>SaveCartEditOpportunityProducts</shortDescription>
-        <value>Save &amp; Add Products to Opportunity</value>
     </labels>
     <labels>
         <fullName>Send_for_eSignature_Custom_Message</fullName>

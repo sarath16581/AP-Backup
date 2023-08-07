@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-	<available>true</available>
-	<description>Email Notification to Opp Driver when Agreement signed outside offer validity</description>
-	<encodingKey>ISO-8859-1</encodingKey>
-	<name>AgreementSignedAfterOfferExpiry</name>
-	<style>none</style>
-	<subject>Agreement signed outside offer validity</subject>
-	<textOnly>Dear {!Opportunity.OwnerFullName},
+    <available>true</available>
+    <description>Email Notification to Opp Driver when Agreement signed outside offer validity</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AgreementSignedAfterOfferExpiry</name>
+    <style>none</style>
+    <subject>Agreement signed outside offer validity</subject>
+    <textOnly>Dear {!Opportunity.OwnerFullName},
 
 
 
@@ -29,6 +29,6 @@ What happens if no action taken:
 The offer and associated pricing is no longer valid and will not be accepted
 
 Customer Onboarding team will not provision the signed contract (including pricing), and will cancel the apttus contract record</textOnly>
-	<type>custom</type>
-	<uiType>Aloha</uiType>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

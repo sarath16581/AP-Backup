@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>APT_Create_Amendment_Contract__c</fullName>
-	<description>Displays a button on proposal to Contract Amendment</description>
-	<externalId>false</externalId>
-	<formula>IF (
+    <fullName>APT_Create_Amendment_Contract__c</fullName>
+    <description>Displays a button on proposal to Contract Amendment</description>
+    <externalId>false</externalId>
+    <formula>IF (
 (
-ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;)
-&amp;&amp; RecordType.Name = &apos;Amendment Quote&apos;
-&amp;&amp; APT_Contracted_Product_Count__c &gt; 0
-&amp;&amp;  NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c, &apos;Pending Approval&apos;))
-&amp;&amp; NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c, &apos;Rejected&apos;))
-&amp;&amp;  NOT(ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;Pending Approval&apos;))
+ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) 
+&amp;&amp; RecordType.Name = &apos;Amendment Quote&apos; 
+&amp;&amp; APT_Contracted_Product_Count__c &gt; 0 
+&amp;&amp;  NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c, &apos;Pending Approval&apos;)) 
+&amp;&amp; NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c, &apos;Rejected&apos;)) 
+&amp;&amp;  NOT(ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;Pending Approval&apos;)) 
 &amp;&amp; NOT(ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;Rejected&apos;))
-)
-||
+) 
+|| 
 (
 ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Draft&quot;)
-&amp;&amp; RecordType.Name = &apos;Amendment Quote&apos;
+&amp;&amp; RecordType.Name = &apos;Amendment Quote&apos; 
 &amp;&amp; APT_DoV_Category__c = &apos;Removing a Product&apos;
-&amp;&amp; NOT(ISBLANK(Apttus_QPConfig__ConfigurationFinalizedDate__c))
+&amp;&amp; NOT(ISBLANK(Apttus_QPConfig__ConfigurationFinalizedDate__c)) 
 )
-, HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=&quot;&amp;Id&amp;&apos;&amp;c__isST=&apos;&amp;TEXT(Is_Startrack_Proposal__c)&amp;&apos;&amp;c__isManualContract=false&amp;c__isAmend=true&apos;,
+, HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=&quot;&amp;Id&amp;&apos;&amp;c__isST=&apos;&amp;TEXT(Is_Startrack_Proposal__c)&amp;&apos;&amp;c__isManualContract=false&amp;c__isAmend=true&apos;, 
 IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
-	<formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-		<inlineHelpText>Creates Contract Amendment</inlineHelpText>
-	<label>Create Contract Amendment</label>
-	<required>false</required>
-	<securityClassification>INTERNAL</securityClassification>
-	<trackHistory>false</trackHistory>
-	<trackTrending>false</trackTrending>
-	<type>Text</type>
-	<unique>false</unique>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Creates Contract Amendment</inlineHelpText>
+    <label>Create Contract Amendment</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

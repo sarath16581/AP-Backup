@@ -384,7 +384,7 @@ public without sharing class APT_ProposalTriggerHandler {
 				if(null != prop.Apttus_Proposal__Opportunity__c)
 				{
 					oppty = new Opportunity(ID = prop.Apttus_Proposal__Opportunity__c);
-					List<string> proposalStatus = new List<string>{'Accepted','Denied'};
+					List<string> proposalStatus = new List<string>{'Accepted','Denied','Accepted without proposal document'};
 					//This logic is update the boolean field on Opportunity which decides to create a new proposal or redirect to the cart of existing proposal
 					if(!proposalStatus.contains(prop.Apttus_Proposal__Approval_Stage__c)){
 					oppty.APT_Proposal_Status_Accepted_Denied__c = APT_Constants.BOOL_TRUE;

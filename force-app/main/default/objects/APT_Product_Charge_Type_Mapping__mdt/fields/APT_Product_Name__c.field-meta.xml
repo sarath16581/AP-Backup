@@ -9,7 +9,6 @@
     <label>Product Name</label>
     <length>255</length>
     <required>true</required>
-	<securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>true</unique>
 </CustomField>

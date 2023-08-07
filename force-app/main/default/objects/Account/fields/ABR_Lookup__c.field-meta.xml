@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ABR_Lookup__c</fullName>
     <externalId>false</externalId>
-    <formula>IF( ISNULL(ABN__c) || ISBLANK(ABN__c),  HYPERLINK(&quot;http://www.abr.business.gov.au/SearchByName.aspx?SearchText=&quot; &amp;    Name  , &quot;Click here for details&quot;), HYPERLINK(&quot;http://www.abr.business.gov.au/SearchByABN.aspx?SearchText=&quot; &amp;  ABN__c , &quot;Click here for details&quot;))</formula>
+    <formula>IF( ISNULL(ABN__c) || ISBLANK(ABN__c),  HYPERLINK(&quot;https://www.abr.business.gov.au/SearchByName.aspx?SearchText=&quot; &amp;    Name  , &quot;Click here for details&quot;), HYPERLINK(&quot;https://www.abr.business.gov.au/SearchByABN.aspx?SearchText=&quot; &amp;  ABN__c , &quot;Click here for details&quot;))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>ABR Lookup</label>
     <required>false</required>

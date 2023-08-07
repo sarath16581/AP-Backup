@@ -1227,6 +1227,16 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
+	public static Id surchargeExemptionRequestRecordType {
+		get {
+			if (surchargeExemptionRequestRecordType == null) {
+				surchargeExemptionRequestRecordType = [Select Id From RecordType Where DeveloperName = 'Surcharge_Exemption_Request' And SObjectType = 'Deal_Support_Request__c'].Id;
+			}
+			return surchargeExemptionRequestRecordType;
+		}
+		private set;
+	}
+	
 	public static Id defaultCommunityUserProfileId {
 		get {
 			if(defaultCommunityUserProfileId == null) {

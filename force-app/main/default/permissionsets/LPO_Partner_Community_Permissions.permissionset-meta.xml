@@ -5,10 +5,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ActivityTimelineController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AddressLookupWrapperController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -141,7 +137,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.BillingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1953,11 +1949,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>At_Risk_Business__c.Value_of_Business_at_Risk__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Billing_Account__c.Credit_Representative_Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3928,11 +3919,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.SBU__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Deal_Support_Request__c.SalesTeamGeneralManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

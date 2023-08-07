@@ -79,7 +79,7 @@
         <label>Enquiry Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Subject</field>
             </layoutItems>
             <layoutItems>
@@ -89,7 +89,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Support_Work_Type__c</field>
             </layoutItems>
         </layoutColumns>
@@ -102,7 +102,7 @@
         <label>Description</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Description</field>
             </layoutItems>
         </layoutColumns>
