@@ -279,7 +279,7 @@ public with sharing class ChasRegHandlerService {
 
 		// we need to synchronise the user record with the claims from oidc
 		// NOTE: it's possible if the record details contain completely different data then we may overwrite it by doing this
-		//          It's assumed that the data in the db is right and no-one has manually tampered with it
+		//		 It's assumed that the data in the db is right and no-one has manually tampered with it
 		if(isUserDirty) {
 			ApplicationDatabase.getInstance().dmlUpdate(new List<User>{claimsGeneratedUserRecord});
 		}
