@@ -16,6 +16,7 @@
  * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
  * 2023-01-27 - Naveen Rajanna - Updated api version and test methods for selectUsersEligibleForDeactivationQueryLocator
  * 2022-02-01 - Noel Lim - updated testSelectorIntegration method, added test for new selectActiveUserById()
+ * 2023-08-04 - Mahesh Parvathaneni - Added tests for search params
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -175,6 +176,24 @@ public with sharing class UsersSelector_Test {
 
 		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
 		System.assertEquals(true, Pattern.compile('(?ism)\\s+from user\\s+where\\b.*?\\bId\\s+In\\s*\\(\\s*SELECT\\s+MemberId\\s+FROM\\s+NetworkMember\\s+WHERE\\s+NetworkId\\s+IN\\s*\\(.*?\\)\\s*\\)').matcher(soql).find(), 'Resulting query does not limit Networks');
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, true);
+
+		searchParams = new Map<String, Object>{
+			'userTypes' => new Set<String>{'CspLitePortal'},
+			'isPersonAccount' => false,
+			'contactCNumbers'  => new Set<String>{'C12345'},
+			'contactStatuses' => new  Set<String>{'Active'},
+			'activeOrMerchantPortalProfile' => true
+		};
+
+		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from user\\s+where\\b.*?\\bUserType\\s+In\\b').matcher(soql).find(), 'Resulting query does not limit UserType');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from user\\s+where\\b.*?\\bContact.IsPersonAccount\\s*=\\s*').matcher(soql).find(), 'Resulting query does not limit Contact.IsPersonAccount');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from user\\s+where\\b.*?\\bContact\\.Status__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not limit Contact.Status__c');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from user\\s+where\\b.*?\\bContact\\.OID_ID__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not limit Contact.OID_ID__c');
 
 		// make sure the query is valid (even though no records will be returned)
 		// note if the query fails, an exception will be thrown
