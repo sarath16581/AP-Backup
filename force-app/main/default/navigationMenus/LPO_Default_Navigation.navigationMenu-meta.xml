@@ -35,13 +35,6 @@
         <type>SalesforceObject</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Seismic</label>
-        <position>5</position>
-        <publiclyAvailable>false</publiclyAvailable>
-        <target>/seismic</target>
-        <type>InternalLink</type>
-    </navigationMenuItem>
-    <navigationMenuItem>
         <label>Happy Parcels</label>
         <position>6</position>
         <publiclyAvailable>false</publiclyAvailable>
