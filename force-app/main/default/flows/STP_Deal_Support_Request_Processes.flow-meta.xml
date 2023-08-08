@@ -803,132 +803,6 @@
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
-            <name>emailAlertSelection</name>
-            <value>
-                <stringValue>Deal_Support_Request_Closed</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>myRule_81_A2</name>
-        <label>Deal Support Request Closed Email</label>
-        <locationX>8100</locationX>
-        <locationY>300</locationY>
-        <actionName>Deal_Support_Request__c.Deal_Support_Request_Closed</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>myAssignment_myRule_81_A3</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <processMetadataValues>
-            <name>customNotifTypeName</name>
-            <value>
-                <stringValue>Custom_Notification</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>recipientCategory</name>
-            <value>
-                <stringValue>user</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>recipientType</name>
-            <value>
-                <stringValue>reference</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>myRule_81_A3</name>
-        <label>Deal Support Request Closed Notification</label>
-        <locationX>8100</locationX>
-        <locationY>400</locationY>
-        <actionName>customNotificationAction</actionName>
-        <actionType>customNotificationAction</actionType>
-        <connector>
-            <targetReference>myDecision85</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>customNotifTypeId</name>
-            <value>
-                <stringValue>000000000000000</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>customNotifTypeName</name>
-            <value>
-                <stringValue>Custom_Notification</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>title</name>
-            <value>
-                <stringValue>Deal Support Request Closed</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>body</name>
-            <value>
-                <stringValue>Deal Support Request ({!myVariable_current.Name}) has been {!myVariable_current.Stage__c} - {!myVariable_current.Status__c}</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>targetId</name>
-            <value>
-                <stringValue>{!myVariable_current.Id}</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>String</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>recipientIds</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>maxOccurs</name>
-                <value>
-                    <numberValue>500.0</numberValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>objectType</name>
-                <value>
-                    <stringValue></stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>String</stringValue>
-                </value>
-            </processMetadataValues>
-            <name>recipientIds</name>
-            <value>
-                <elementReference>myCollection_myRule_81_A3recipientIds</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <processMetadataValues>
             <name>ActionCallType</name>
             <value>
                 <stringValue>flow</stringValue>
@@ -1329,23 +1203,130 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
-    <assignments>
-        <name>myAssignment_myRule_81_A3</name>
-        <label>myAssignment_myRule_81_A3</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myCollection_myRule_81_A3recipientIds</assignToReference>
-            <operator>Add</operator>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
             <value>
-                <elementReference>myVariable_current.Requestor__r.Id</elementReference>
+                <stringValue>Deal_Support_Request_Closed</stringValue>
             </value>
-        </assignmentItems>
+        </processMetadataValues>
+        <name>myRule_98_A1</name>
+        <label>Deal Support Request Closed Email</label>
+        <locationX>8800</locationX>
+        <locationY>200</locationY>
+        <actionName>Deal_Support_Request__c.Deal_Support_Request_Closed</actionName>
+        <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myRule_81_A3</targetReference>
+            <targetReference>myAssignment_myRule_98_A2</targetReference>
         </connector>
-    </assignments>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>customNotifTypeName</name>
+            <value>
+                <stringValue>Custom_Notification</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>recipientCategory</name>
+            <value>
+                <stringValue>user</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>recipientType</name>
+            <value>
+                <stringValue>reference</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_98_A2</name>
+        <label>Deal Support Request Closed Notification</label>
+        <locationX>8800</locationX>
+        <locationY>300</locationY>
+        <actionName>customNotificationAction</actionName>
+        <actionType>customNotificationAction</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>customNotifTypeId</name>
+            <value>
+                <stringValue>000000000000000</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>customNotifTypeName</name>
+            <value>
+                <stringValue>Custom_Notification</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>title</name>
+            <value>
+                <stringValue>Deal Support Request Closed</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <stringValue>Deal Support Request ({!myVariable_current.Name}) has been {!myVariable_current.Stage__c} - {!myVariable_current.Status__c}</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <stringValue>{!myVariable_current.Id}</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>recipientIds</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>500.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>recipientIds</name>
+            <value>
+                <elementReference>myCollection_myRule_98_A2recipientIds</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>52.0</apiVersion>
     <assignments>
         <name>myAssignment_myRule_88_A2</name>
         <label>myAssignment_myRule_88_A2</label>
@@ -1376,6 +1357,22 @@
         </assignmentItems>
         <connector>
             <targetReference>myRule_90_A2</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>myAssignment_myRule_98_A2</name>
+        <label>myAssignment_myRule_98_A2</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>myCollection_myRule_98_A2recipientIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>myVariable_current.Requestor__r.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>myRule_98_A2</targetReference>
         </connector>
     </assignments>
     <decisions>
@@ -3811,6 +3808,9 @@
         <label>myDecision94</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision97</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_95</name>
@@ -3889,6 +3889,58 @@
             <label>Credit Management Request - Update Credit Assessment Status</label>
         </rules>
     </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>36.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision97</name>
+        <label>myDecision97</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_98</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Surcharge_Exemption_Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_98_A1</targetReference>
+            </connector>
+            <label>Check if Surcharge Closed</label>
+        </rules>
+    </decisions>
     <description>This Process builder is to implement functionality on Deal Support Request Object</description>
     <formulas>
         <processMetadataValues>
@@ -3900,7 +3952,7 @@ OR(
 ,&apos;Product Specialist Team&apos;,&apos;Pricing Team&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_12_myRule_11_A1_3227857497</name>
+        <name>formula_12_myRule_11_A1_3849257203</name>
         <dataType>String</dataType>
         <expression>IF(
 OR(
@@ -3916,7 +3968,7 @@ OR(
 ,&apos;00G2v000005RttvEAC&apos;,&apos;00G2v000005RttuEAC&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_13_myRule_11_A1_6597316370</name>
+        <name>formula_13_myRule_11_A1_2110318737</name>
         <dataType>String</dataType>
         <expression>IF(OR(
 ({!myVariable_current.Organisation__r.Total_Intermediary_Account_for_StarTrack__c}&gt; 0),({!myVariable_current.Organisation__r.Is_Strategic_Account_StarTrack__c}))
@@ -3929,7 +3981,7 @@ OR(
                 <stringValue>IF([Deal_Support_Request__c].Organisation__c.Is_Strategic_Account__c , &quot;Product Specialist Team&quot;,&quot;Pricing Team&quot;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_22_myRule_21_A1_7334320952</name>
+        <name>formula_22_myRule_21_A1_5332400644</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Organisation__r.Is_Strategic_Account__c} , &quot;Product Specialist Team&quot;,&quot;Pricing Team&quot;)</expression>
     </formulas>
@@ -3941,7 +3993,7 @@ OR(
 </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_23_myRule_21_A1_7201207132</name>
+        <name>formula_23_myRule_21_A1_3140084071</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Organisation__r.Is_Strategic_Account__c},&apos;00G2v000005RttvEAC&apos;,&apos;00G2v000005RttsEAC&apos;)</expression>
     </formulas>
@@ -3952,7 +4004,7 @@ OR(
                 <stringValue>IF([Deal_Support_Request__c].Commercial_Analytics_Product_Specialist__c  , &quot;Product Specialist Team&quot;, &quot;Pricing Team&quot;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_30_myRule_29_A1_6349044778</name>
+        <name>formula_30_myRule_29_A1_4386655962</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Commercial_Analytics_Product_Specialist__c}  , &quot;Product Specialist Team&quot;, &quot;Pricing Team&quot;)</expression>
     </formulas>
@@ -3970,7 +4022,7 @@ OR(
 )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_31_myRule_29_A1_1451652767</name>
+        <name>formula_31_myRule_29_A1_8050294311</name>
         <dataType>String</dataType>
         <expression>IF(
 	OR(
@@ -3988,7 +4040,7 @@ OR(
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_52_myRule_50_A3_4991543257</name>
+        <name>formula_52_myRule_50_A3_7130284200</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -3999,7 +4051,7 @@ OR(
                 <stringValue>NOW()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_56_myRule_54_A3_5021829667</name>
+        <name>formula_56_myRule_54_A3_4912870923</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -4010,7 +4062,7 @@ OR(
                 <stringValue>[Deal_Support_Request__c].CreatedById </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_61_myRule_60_A1_3107654133</name>
+        <name>formula_61_myRule_60_A1_2323480141</name>
         <dataType>String</dataType>
         <expression>{!myVariable_current.CreatedById}</expression>
     </formulas>
@@ -4021,7 +4073,7 @@ OR(
                 <stringValue>[Deal_Support_Request__c].Request_for_Review_Counter__c +1</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_71_myRule_70_A1_0704756074</name>
+        <name>formula_71_myRule_70_A1_9555358546</name>
         <dataType>Number</dataType>
         <expression>{!myVariable_current.Request_for_Review_Counter__c} +1</expression>
         <scale>18</scale>
@@ -4033,7 +4085,7 @@ OR(
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_83_myRule_81_A1_4807187919</name>
+        <name>formula_83_myRule_81_A1_4429935229</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -4044,7 +4096,7 @@ OR(
                 <stringValue>NOW()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_84_myRule_81_A1_2365709979</name>
+        <name>formula_84_myRule_81_A1_3523605185</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -4499,7 +4551,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <dataType>Boolean</dataType>
         <expression>ISNEW() &amp;&amp;  {!myVariable_current.RecordType.DeveloperName} = &apos;Commit_To_Action_Pursue&apos;</expression>
     </formulas>
-    <interviewLabel>STP_Deal_Support_Request_Processes-24_InterviewLabel</interviewLabel>
+    <interviewLabel>STP_Deal_Support_Request_Processes-25_InterviewLabel</interviewLabel>
     <label>STP Deal Support Request Processes</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -4735,7 +4787,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_12_myRule_11_A1_3227857497</elementReference>
+                <elementReference>formula_12_myRule_11_A1_3849257203</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4771,7 +4823,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_13_myRule_11_A1_6597316370</elementReference>
+                <elementReference>formula_13_myRule_11_A1_2110318737</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5215,7 +5267,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_22_myRule_21_A1_7334320952</elementReference>
+                <elementReference>formula_22_myRule_21_A1_5332400644</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -5251,7 +5303,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_23_myRule_21_A1_7201207132</elementReference>
+                <elementReference>formula_23_myRule_21_A1_3140084071</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5515,7 +5567,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_30_myRule_29_A1_6349044778</elementReference>
+                <elementReference>formula_30_myRule_29_A1_4386655962</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -5551,7 +5603,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_31_myRule_29_A1_1451652767</elementReference>
+                <elementReference>formula_31_myRule_29_A1_8050294311</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5845,7 +5897,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requested_Information__c</field>
             <value>
-                <elementReference>formula_52_myRule_50_A3_4991543257</elementReference>
+                <elementReference>formula_52_myRule_50_A3_7130284200</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5929,7 +5981,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requested_Information__c</field>
             <value>
-                <elementReference>formula_56_myRule_54_A3_5021829667</elementReference>
+                <elementReference>formula_56_myRule_54_A3_4912870923</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6187,7 +6239,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requestor__c</field>
             <value>
-                <elementReference>formula_61_myRule_60_A1_3107654133</elementReference>
+                <elementReference>formula_61_myRule_60_A1_2323480141</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6439,7 +6491,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Request_for_Review_Counter__c</field>
             <value>
-                <elementReference>formula_71_myRule_70_A1_0704756074</elementReference>
+                <elementReference>formula_71_myRule_70_A1_9555358546</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6564,7 +6616,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <locationX>8100</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myRule_81_A2</targetReference>
+            <targetReference>myDecision85</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -6613,7 +6665,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>DateClosed__c</field>
             <value>
-                <elementReference>formula_83_myRule_81_A1_4807187919</elementReference>
+                <elementReference>formula_83_myRule_81_A1_4429935229</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -6649,7 +6701,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Date_Time_Closed__c</field>
             <value>
-                <elementReference>formula_84_myRule_81_A1_2365709979</elementReference>
+                <elementReference>formula_84_myRule_81_A1_3523605185</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6945,13 +6997,6 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
     <startElementReference>isChangedDecision34_myRule_33_Stage_c</startElementReference>
     <status>Active</status>
     <variables>
-        <name>myCollection_myRule_81_A3recipientIds</name>
-        <dataType>String</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>myCollection_myRule_88_A2recipientIds</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
@@ -6960,6 +7005,13 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
     </variables>
     <variables>
         <name>myCollection_myRule_90_A2recipientIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>myCollection_myRule_98_A2recipientIds</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
