@@ -18,7 +18,7 @@
                  <lightning-card title={addr.cTitle} icon-name="standard:record" key={addr.addressType}>
                     <template if:true={addr.currentAddress}>
                         <div class="slds-align_absolute-center">
-                            <p>Current Address: <lightning-formatted-text value={addr.currentAddress} linkify></lightning-formatted-text></p>
+                            <h3><strong>Current Address: <lightning-formatted-text value={addr.currentAddress} linkify></lightning-formatted-text></strong></h3>
                         </div>
                     </template>
                 <c-ame-address-validation1
