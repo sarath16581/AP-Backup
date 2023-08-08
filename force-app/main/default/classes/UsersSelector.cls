@@ -18,6 +18,7 @@
  * 2023-02-01 - Noel Lim - added method selectActiveUserById 
  * 2023-03-01 - Nathan Franklin - add search conditions, new fields, and field overrides to related Profile selector
  * 2023-07-14 - Nathan Franklin - add search params and param validation
+ * 2023-08-08 - Mahesh Parvathaneni - added method getAuthenticationSObjectFieldList for user authentication fields
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
@@ -62,6 +63,13 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 				User.Id,User.Name, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.UserRoleId, User.UserPermissionsLiveAgentUser,
 				User.OID_ID__c, User.UserType, User.Current_Owner_Role__c, User.LocaleSidKey, User.LanguageLocaleKey, User.TimeZoneSidKey, User.TimeZoneSidKey, User.Alias, User.IsActive,
 				User.ContactId, User.APCN__c, User.EmployeeNumber, User.IsPortalEnabled
+		};
+	}
+
+	public static Set<SObjectField> getAuthenticationSObjectFieldList() {
+		return new Set<SObjectField> {
+			User.Id, User.Name, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.LocaleSidKey, User.LanguageLocaleKey, User.TimeZoneSidKey, 
+			User.Alias, User.IsActive, User.ContactId, User.IsPortalEnabled
 		};
 	}
 

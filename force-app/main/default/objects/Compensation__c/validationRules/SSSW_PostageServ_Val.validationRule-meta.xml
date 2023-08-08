@@ -3,10 +3,16 @@
     <fullName>SSSW_PostageServ_Val</fullName>
     <active>true</active>
     <description>REQ0520627 - MyCustomers should not be allowing any profile (except SSSW Admin) to modify properties of the case once Comp case is in the Status of : &quot;Awaiting Money Order Number&quot;.</description>
-    <errorConditionFormula>ISCHANGED( Service_Value__c )  &amp;&amp;  
+    <errorConditionFormula>OR(ISCHANGED( Service_Value__c )  &amp;&amp;  
 ISPICKVAL( Status__c , &apos;Awaiting Money Order Number&apos;) &amp;&amp; 
  NOT(  CONTAINS($Profile.Name , &quot;Administrator&quot;)  )  &amp;&amp; 
- NOT( $Permission.SSSW_CP_Admin)</errorConditionFormula>
-    <errorDisplayField>Service_Value__c</errorDisplayField>
-    <errorMessage>Modifying this field is not allowed at this current status.</errorMessage>
+ NOT( $Permission.SSSW_CP_Admin),
+ 
+OR(ISCHANGED( Service_Value__c ), ISCHANGED(Compensation_Amount__c), ISCHANGED(Other__c))   &amp;&amp;  
+NOT(OR(ISPICKVAL( Status__c , &apos;Pending&apos;), ISPICKVAL( Status__c , &apos;Contact Customer for Proof of Value&apos;) ))&amp;&amp; 
+ NOT(  CONTAINS($Profile.Name , &quot;Administrator&quot;)  )  &amp;&amp; 
+ NOT( $Permission.SSSW_CP_Admin)
+ 
+ )</errorConditionFormula>
+    <errorMessage>Cannot change any of the Value of Contents, Postage / Service Value or Other Value after approval.</errorMessage>
 </ValidationRule>
