@@ -9,8 +9,8 @@ Ken McGuire 2023.04.19 Proposal field migration to opportunity
 *Modifications Log
  *1.0 : 07-06-2023 : Yatika bansal : Added test method for createAmendContract method, made some changes to increase coverage
 * 27-07-2023 : Yatika bansal : Added test method for createRenewalContract method
-
-*/
+* 08-04-2023 : Yatika bansal : Added test method for updateAlis method
+ */
 @IsTest
 public class APT_ContractServiceDetailsControllerTest {
 
@@ -40,8 +40,8 @@ public class APT_ContractServiceDetailsControllerTest {
 		APT_CreditAssessmentSelector mockSelector1 = (APT_CreditAssessmentSelector) MockUtility.mockSelector(APT_CreditAssessmentSelector.class);
 		ApplicationDatabase mockDatabase1 = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSelector1.selectByProposalAndAssessStatus(new Set<Id>{(ID)quote.Id},
-														new Set<String> {APT_Constants.CREDIT_ASSESSMENT_STATUS_APPROVED, APT_Constants.CREDIT_ASSESSMENT_STATUS_AUTO_APPROVED})).thenReturn(
+		MockUtility.Mocks.when(mockSelector1.selectByProposalAndAssessStatus((set<Id>)fflib_Match.eq(new Set<Id>{(ID)quote.Id}),
+										(set<String>)fflib_Match.eq(new Set<String> {APT_Constants.CREDIT_ASSESSMENT_STATUS_APPROVED, APT_Constants.CREDIT_ASSESSMENT_STATUS_AUTO_APPROVED}))).thenReturn(
 			new List<APT_Credit_Assessment__c>(new List<APT_Credit_Assessment__c>{cred}));
 		MockUtility.Mocks.stopStubbing();
 
@@ -115,10 +115,10 @@ public class APT_ContractServiceDetailsControllerTest {
 		//Apttus__AgreementLineItem__c ali = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
 
 		Test.startTest();
-			List<Id> ids = APT_ContractServiceDetailsController.getServiceDetail(apttusContracts.id);
+			List<APT_ContractServiceDetailsController.ServiceDetailRecord> recs = APT_ContractServiceDetailsController.getServiceDetail(apttusContracts.id);
 		Test.stoptest();
-
-		System.assert(ids.size() == 0, 'Output returned should be correct');
+		
+		System.assert(recs.size() == 0, 'Output returned should be correct');
 	}
 
 	/**
@@ -171,5 +171,32 @@ public class APT_ContractServiceDetailsControllerTest {
 			String output = APT_ContractServiceDetailsController.createContractRecord(quote.Id);
 		Test.stoptest();
 		System.assert(output.contains('a7G'), 'Contract Record should be created');
+	}
+	
+	/**
+	*Test: when the method updateAlis is called method runs successfully
+	*/
+	@IsTest
+	public static void updateAlisTest() {
+		Account tempacct = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, tempacct.Id, true)[0];
+		Contact con = ApplicationTestDataFactory.getContacts(1, tempacct.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, true)[0];
+		Apttus__AgreementLineItem__c ali = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+		ali.Apttus_CMConfig__ChargeType__c = APT_Constants.CHARGE_TYPE_STANDARD_PRICE;
+			
+		APT_AgreementLineItemsSelector mockSelectorOS = (APT_AgreementLineItemsSelector) MockUtility.mockSelector(APT_AgreementLineItemsSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelectorOS.selectByContractIdsAndLineType((set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.id}),
+																			(set<String>)fflib_Match.eq(new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc}),
+																			(set<Object>)fflib_Match.eq(new Set<Object>{APT_AgreementLineItemsSelector.Options.WITH_PRODUCT}))).thenReturn(
+			new List<Apttus__AgreementLineItem__c>(new List<Apttus__AgreementLineItem__c>{ali}));
+		MockUtility.Mocks.stopStubbing(); 
+		
+		Test.startTest();
+		String output = APT_ContractServiceDetailsController.updateAlis(apttusContracts.id, new List<Id>{ali.Id});
+		Test.stoptest();
+		
+		System.assert(output.contains(APT_Constants.SUCCESS_LABEL_SMALL), 'Output returned should be correct');
 	}
 }
