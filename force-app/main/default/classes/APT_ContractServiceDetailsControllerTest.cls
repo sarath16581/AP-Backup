@@ -9,7 +9,6 @@ Ken McGuire 2023.04.19 Proposal field migration to opportunity
 *Modifications Log
  *1.0 : 07-06-2023 : Yatika bansal : Added test method for createAmendContract method, made some changes to increase coverage
 * 27-07-2023 : Yatika bansal : Added test method for createRenewalContract method
-
 * 08-04-2023 : Yatika bansal : Added test method for updateAlis method
  */
 @IsTest
@@ -172,7 +171,7 @@ public class APT_ContractServiceDetailsControllerTest {
 			String output = APT_ContractServiceDetailsController.createContractRecord(quote.Id);
 		Test.stoptest();
 		System.assert(output.contains('a7G'), 'Contract Record should be created');
-	}    
+	}
 	
 	/**
 	*Test: when the method updateAlis is called method runs successfully
