@@ -8,11 +8,13 @@
  * -----------------------------------------------------------------------------------
  * 12-10-2020  Jansi added newInstance method with recordLimit, offsetLimit params
  * 13-10-2020 added sortOrder, sortfieldAPIName class variables
+ * 21-07-2023 hasantha.liyanage@auspost.com.au Added with with contentDocument option
 */
 public virtual inherited sharing class ContentDocumentLinksSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_CONTENTVERSION
+		WITH_CONTENTVERSION,
+		WITH_CONTENTDOCUMENT
 	}
 
 	public String sortOrder ='Desc';
@@ -93,8 +95,6 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 		// add our tracking query
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
-		System.debug('searchParams: ' + searchParams);
-
 		Set<Id> entityIds = (Set<Id>)(searchParams.get('entityIds') == null ? new Set<Id>() : (searchParams.get('entityIds') instanceof Set<Id> ? searchParams.get('entityIds') : new Set<Id>{(Id)searchParams.get('entityIds')}));
 		Set<Id> documentIds = (Set<Id>)(searchParams.get('documentIds') == null ? new Set<Id>() : (searchParams.get('documentIds') instanceof Set<Id> ? searchParams.get('documentIds') : new Set<Id>{(Id)searchParams.get('documentIds')}));
 		Set<String> titles = (Set<String>)(searchParams.get('titles') == null ? new Set<String>() : (searchParams.get('titles') instanceof Set<String> ? searchParams.get('titles') : new Set<String>{String.valueOf(searchParams.get('titles'))}));
@@ -153,7 +153,7 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 		conditions.setConditionOrder(conditionOrder);
 
 		String soql = conditions.endConditions().toSoqlString();
-		System.debug(soql);
+
 		return new Map<Id, ContentDocumentLink>((List<ContentDocumentLink>)Database.query(soql));
 	}
 
@@ -162,6 +162,10 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 
 		if(selectorOptions.contains(Options.WITH_CONTENTVERSION)) {
 			builder.addRelatedFields(ContentVersionsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContentDocument.LatestPublishedVersion');
+		}
+
+		if(selectorOptions.contains(Options.WITH_CONTENTDOCUMENT)) {
+			builder.addRelatedFields(ContentDocumentsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContentDocument');
 		}
 
 		return builder;

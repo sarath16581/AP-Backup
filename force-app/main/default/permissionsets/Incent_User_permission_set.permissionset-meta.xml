@@ -353,6 +353,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Contact.IncentCredential__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Contact.Individual_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -8,6 +8,7 @@
  * @description Compensation selector class
  * @changelog
  * 2021-07-12 - Phap Mai - Init
+ * 2023-07-25 - Hasantha Liyanage - Modified: added SelectByCaseIds
  */
 public virtual inherited sharing class CompensationSelector extends ApplicationSelector
 {
@@ -45,6 +46,7 @@ public virtual inherited sharing class CompensationSelector extends ApplicationS
             }
         };
     }
+
 
     public static CompensationSelector newInstance()
     {
@@ -121,6 +123,11 @@ public virtual inherited sharing class CompensationSelector extends ApplicationS
             builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(), 'RecordType');
 
         return builder;
+    }
+
+    public virtual List<Compensation__c> selectByCaseIds(Set<Id> ids, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Compensation__c.Case__c + ' in :ids')).endConditions();
+        return (List<Compensation__c>)Database.query(qb.toSoqlString());
     }
 
     public virtual List<Compensation__c> getByToken(String token, Set<Object> selectorOptions)

@@ -42,6 +42,10 @@ Last Modified Date - 7th Feb, 2023 | remove minimum spend field reference from a
 2023-04-05 - Yatika Bansal - Updated code to populate agreement dates
 2023.04.19 Ken McGuire Proposal field migration to opportunity
 2023-05-10 - Yatika Bansal - Added code to populate service dates on agreement line items.
+2023-05-31 - Yatika Bansal - Updated code to update proposal stage
+2023-06-21 - nasir.jawed2@auspost.com.au fixed code for method sendEmailToDriver() which send mail to opportunity owner when fully signed date is greater than expiry date
+2023-07-27 - Bharat Patel update populateServiceDatesOnUpdate() - added condition (Apttus_CMConfig__EffectiveDate__c < Contract_Fully_Signed_Date__c) to filter ALI to update Apttus_CMConfig__EffectiveDate__c
+2023-07-28 - Yatika Bansal - update populateServiceDatesOnUpdate() - added charge type logic to filter alis
 **/
 public with sharing class APT_AgreementTriggerHandler{
 
@@ -301,7 +305,7 @@ public with sharing class APT_AgreementTriggerHandler{
 				Map<ID,Schema.RecordTypeInfo> recordTypeMap = new Map<ID, Schema.RecordTypeInfo>();
 				Map<ID,RecordType> opSchedRecTypeMap = new Map<ID, RecordType>();
 				recordTypeMap = Apttus__APTS_Agreement__c.sObjectType.getDescribe().getRecordTypeInfosById();
-				opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE});    //CI:126 Added APPC Record Type   
+				opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE});    //CI:126 Added APPC Record Type
 				List<APT_Operational_Schedule__c> listOprSchedule = new List<APT_Operational_Schedule__c>();
 				Set<ID> proposalIDSet = new Set<ID>();
 				APT_Operational_Schedule__c opSchedule = new APT_Operational_Schedule__c();
@@ -1016,7 +1020,7 @@ public with sharing class APT_AgreementTriggerHandler{
 				settlementProfileValue = 90;
 			} else if((APT_Constants.SETTLEMENT_PROFILE_120).equalsIgnoreCase(settlementProfile)){
 				settlementProfileValue = 120;
-			} 
+			}
 			return settlementProfileValue;
 		}
 		/**
@@ -1075,6 +1079,63 @@ public with sharing class APT_AgreementTriggerHandler{
 			 }
 		}
 	}
+	/**
+	* Method to send email to Opp Driver if the signed date is after proposal/expiry date
+	* @param String old agreement map, new agreement map
+	* @return void
+	*/
+
+	public static void sendEmailToDriver(Map<ID, Apttus__APTS_Agreement__c> oldAgreementMap, Map<ID, Apttus__APTS_Agreement__c> newAgreementMap){
+
+		try{
+			List<string> toAddress = new List<string>();
+		Map<Id, Apttus__APTS_Agreement__c> filteredAggsById = new Map<Id, Apttus__APTS_Agreement__c>();
+			Map<id, id> aggIDOppIdMap = new Map<id, id>();
+			set<id> oppId = new set<id>();
+		for(Id agreementId : newAgreementMap.keySet()){
+			Apttus__APTS_Agreement__c newAgg = newAgreementMap.get(agreementId);
+			if(oldAgreementMap.get(agreementId).Contract_Fully_Signed_Date__c != newAgg.Contract_Fully_Signed_Date__c
+			   && newAgg.Contract_Fully_Signed_Date__c != null){
+				   if(newAgg.Contract_Fully_Signed_Date__c > newAgg.Contract_Expiration_Date__c){
+					   filteredAggsById.put(newAgg.Id, newAgg);
+						aggIDOppIdMap.put(newAgg.id,newAgg.Apttus__Related_Opportunity__c);
+						oppId.add(newAgg.Apttus__Related_Opportunity__c);
+				   }
+			   }
+		}
+
+		if(!filteredAggsById.isEmpty()){
+			List<Messaging.SingleEmailMessage> allMail = new List<Messaging.SingleEmailMessage>();
+
+			EmailTemplate et = EmailTemplatesSelector.newInstance(1)
+				.selectByDeveloperName(APT_Constants.EMAIL_TEMP_AGREEMENT_SIGNED_AFTER_EXPIRY).values()[0];
+
+			OrgWideEmailAddress owea = OrgWideEmailAddressSelector.newInstance(1)
+				.selectByAddress(APT_Constants.ORG_WIDE_EMAIL_NO_REPLY).values()[0];
+
+				Map<Id, Opportunity> mapOppById = OpportunitySelector.newInstance()
+					.selectById(oppId,new Set<Object>{OpportunitySelector.Options.WITH_OWNER});
+
+			for(Id agreementId : filteredAggsById.keySet()){
+				toAddress.add(mapOppById.get(aggIDOppIdMap.get(agreementId)).Owner.Email);
+				Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+				mail.setToAddresses(toAddress);
+				mail.setOrgWideEmailAddressId(owea.Id);
+				mail.setTargetObjectId(mapOppById.get(aggIDOppIdMap.get(agreementId)).KeyContact__c);
+				mail.setTreatTargetObjectAsRecipient(false);
+				mail.setTemplateId(et.id);
+				mail.setSaveAsActivity(false);
+				mail.setWhatId(agreementId);
+				allMail.add(mail);
+			}
+				if(allMail.size()> 0){
+					Messaging.SendEmailResult[] results = Messaging.sendEmail(allMail);
+			}
+		}
+		}catch(Exception ex){
+			UTIL_LoggingService.logHandledException(ex, ORGID, 'Sales', 'APT_AgreementTriggerHandler' , 'sendEmailToDriver', 'None', LoggingLevel.ERROR);
+		}
+	}
 
 	/**
 	Method for populating Agreement Dates on insert
@@ -1130,18 +1191,22 @@ public with sharing class APT_AgreementTriggerHandler{
 
 		//filter Ali to be updated
 		List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
-			.selectByContractIdLineTypeAndChargeType(aggIds,
+			.selectByContractIdsAndLineType(aggIds,
 													new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
-													new Set<String>{APT_Constants.CHARGE_TYPE_STANDARD_PRICE} ,
 													new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_PRODUCT});
 
+		//Get Bundle ALI with correct charge type
+		List<Apttus__AgreementLineItem__c> filteredAli = APT_ContractServiceDetailsController.getServiceDetailALI(alis);
+
 		//update ali start date with signed date
-		for(Apttus__AgreementLineItem__c ali : alis){
-			ali.Apttus_CMConfig__EffectiveDate__c = (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c;
+		for(Apttus__AgreementLineItem__c ali : filteredAli){
+			if(ali.Apttus_CMConfig__EffectiveDate__c < (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c){
+				ali.Apttus_CMConfig__EffectiveDate__c = (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c;
+			}
 		}
 
-		if(alis.size() > 0 ){
-			ApplicationDatabase.getInstance().dmlUpdate(alis);
+		if(filteredAli.size() > 0 ){
+			ApplicationDatabase.getInstance().dmlUpdate(filteredAli);
 		}
 	}
 }

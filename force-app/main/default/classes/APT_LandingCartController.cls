@@ -7,6 +7,8 @@
 		opportunity page which is called form lightning "aPT_AddProductLWC" class
 *@changelog
 *2023-02-28 Bharat Patel : Replace hard-code values from code (coding standard practice)
+*2023-07-24 Nasir Jawed : Added new picklist value "Accepted without proposal document" to the condition, so that new proposal can be created when status is "Accepted without proposal document".
+*2023-07-27 Nasir Jawed : Added error code related to Access to BG Base user.
 */
 public with sharing class APT_LandingCartController {
 	/**
@@ -16,13 +18,19 @@ public with sharing class APT_LandingCartController {
 	*/
 	@AuraEnabled
 	public static string validationCheck(ID recordId){
-		AuraHandledException exceptionHandler;
+		auraHandledException exceptionHandler;
 		id userProfileID = userinfo.getProfileId();
 		id proposalId;
 		string returnValue;
+		Id opportunityOwnerId;
+		string profileName;
+		Id loggedInUserId;
+		string readWritePermisssion = 'false';
 		//getting the profile id of current user
 		map<Id,Profile>  getProfile = ProfilesSelector.newInstance(1).selectById(new Set<Id>{userProfileID});
 		profile p = getProfile.get(userProfileID);
+		profileName = getProfile.get(userProfileID).name;
+		loggedInUserId = UserInfo.getUserId();
 		List<Apttus_Proposal__Proposal__c> proposalList = new List<Apttus_Proposal__Proposal__c>();
 		Apttus_Proposal__Proposal__c proposal;
 		List<Database.SaveResult> proposalInsert = new List<Database.SaveResult>();
@@ -38,7 +46,20 @@ public with sharing class APT_LandingCartController {
 			if(recordId != null){
 				oppMap = OpportunitySelector.newInstance().selectById(new Set<Id>{recordId});
 				Opportunity opp = oppMap.get(recordId);
-
+				opportunityOwnerId = oppMap.get(recordId).OwnerId;
+				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR){
+					readWritePermisssion = 'true';
+				}
+				else if(loggedInUserId == opportunityOwnerId ){
+					readWritePermisssion = 'true';
+				}
+				else{
+					readWritePermisssion = 'false';
+					exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
+					exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
+					throw exceptionHandler;
+				}
+				if(readWritePermisssion == 'true'){
 				//Checking error condition as per business requirement
 				//USer should not be permitted to create proposal if IsStartrackProposal__c field is empty or null
 				if(opp.IsStartrackProposal__c == '' || opp.IsStartrackProposal__c == null){
@@ -60,20 +81,22 @@ public with sharing class APT_LandingCartController {
 				}
 				//User should be able to create proposal if field IsStartrackProposal__c is having values and stagename field is not 'closed Lost'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_NO  && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-					proposal = createProposalRecord(opp);
+					proposal = createProposalRecord(opp,profileName,loggedInUserId);
 					proposalList.add(proposal);
 				}
 				//User should be able to create proposal if IsStartrackProposal__c is yes and  field APTMinimumMonthlySpend__c and APTPostcodeSuburb__c having values'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && opp.APTPostcodeSuburb__c != null && opp.APTMinimumMonthlySpend__c != null && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-					proposal = createProposalRecord(opp);
+						proposal = createProposalRecord(opp,profileName,loggedInUserId);
 					proposalList.add(proposal);
 				}
+			}
+
 			}
 			//Querying the proposal record by using the proposal id returned from the method createProposalRecord().
 			List<Apttus_Proposal__Proposal__c> existingProposalRedirect = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new Set<Id>{proposal.id});
 
 			if(existingProposalRedirect != null && existingProposalRedirect.size()> 0){
-				if( existingProposalRedirect[0].Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE  && (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED) || (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != 'Denied')){
+				if( existingProposalRedirect[0].Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE  && (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED) || (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_DENIED) || (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)){
 					proposalExist= APT_Constants.BOOL_TRUE;
 					proposalID = existingProposalRedirect[0].id;
 				}
@@ -133,28 +156,48 @@ public with sharing class APT_LandingCartController {
 	*@param String OpportunityId
 	*@return proposal record
 	*/
-	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp){
-
+	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp,string profileName,ID loggedInUserId){
+		auraHandledException exceptionHandler;
 		boolean newProposal= APT_Constants.BOOL_FALSE;
 		string proposalRecordId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Proposal').getRecordTypeId();
 		Apttus_Proposal__Proposal__c proposal ;
 		List<Apttus_Proposal__Proposal__c> updatePrimaryFalse = new List<Apttus_Proposal__Proposal__c>();
+		set<Id> proposalPrimaryTrueId = new set<Id>();
 		List<Database.SaveResult> proposalupdatePrimaryfalse = new List<Database.SaveResult>();
 
 		//Querying the proposal record by using the opportunity id passed to the method createProposalRecord() to check if there existing any proposal on the opportunity.
 		List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opp.id});
 
-		//checking if there is a existing proposal record which status Accepted or Denied, the updated the proposal with Primary to false.
+		//checking if there is a existing proposal record which status Accepted, Denied and Accepted without proposal document, then update the proposal with Primary to false.
 		if(existingProposalList.size() >0){
 			for(Apttus_Proposal__Proposal__c existingProposalPrimary: existingProposalList){
-				if((existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == 'Denied') && existingProposalPrimary.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
+				if((existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_DENIED || existingProposalPrimary.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC) && existingProposalPrimary.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
 					existingProposalPrimary.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
 					updatePrimaryFalse.add(existingProposalPrimary);
+					}else{
+						proposalPrimaryTrueId.add(existingProposalPrimary.id);
+					}
 				}
-			}
-			if(updatePrimaryFalse.size()>0){
-				proposalupdatePrimaryfalse = ApplicationDatabase.getInstance().dmlupdate(updatePrimaryFalse);
-			}
+				//Querying the product config record by using the proposal id to show the error if user don't have access to Prod config.
+				if(proposalPrimaryTrueId.size() >0){
+					//Querying the product config record by using the proposal id to show the error if user don't have access to Prod config.
+					List<Apttus_Config2__ProductConfiguration__c> prodConfig = ProductConfigurationSelector.newInstance().selectByProposalId(proposalPrimaryTrueId);
+					Id prodConfigOwnerId;
+					if(prodConfig.size() > 0){
+						for(Apttus_Config2__ProductConfiguration__c pc:prodConfig){
+							prodConfigOwnerId = pc.OwnerId;
+						}
+						if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
+							exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
+							exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
+							throw exceptionHandler;
+						}
+					}
+
+				}
+				if(updatePrimaryFalse.size()>0){
+					proposalupdatePrimaryfalse = ApplicationDatabase.getInstance().dmlupdate(updatePrimaryFalse);
+				}
 			}else{
 				newProposal= APT_Constants.BOOL_TRUE;
 			}
@@ -164,11 +207,10 @@ public with sharing class APT_LandingCartController {
 
 			if(existingProposalListupdated.size() >0){
 				for(Apttus_Proposal__Proposal__c existingProposal: existingProposalListupdated){
-					if((existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_DENIED) && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_FALSE){
+					if((existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_DENIED || existingProposal.Apttus_Proposal__Approval_Stage__c == APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC) && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_FALSE){
 						newProposal= APT_Constants.BOOL_TRUE;
 					}
-
-					if((existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_DENIED) && newProposal == APT_Constants.BOOL_FALSE && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
+					if((existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED || existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_DENIED || existingProposal.Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC) && newProposal == APT_Constants.BOOL_FALSE && existingProposal.Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE){
 						return existingProposal;
 					}
 				}

@@ -759,11 +759,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Deal_Support_Request__c.Choose_Next_Approver__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.CommentsApprovedBudget__c</field>
         <readable>true</readable>

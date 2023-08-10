@@ -44,6 +44,7 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 2023-04-08 - Yatika bansal - Added Constants for error message ,email and Contract status
 2023-04-27 - Yatika bansal - Added Constant for Proposal Stage
 2023-05-29 - Yatika bansal - Added Constant for credit assessment auto-approval status
+2023-07-27 - Nasir JAwed - Added Constant BG BASE and Enterprize Onboarding
 **/
 public with sharing class APT_Constants {
 	//label
@@ -1285,6 +1286,8 @@ public with sharing class APT_Constants {
 	public static final String STRING_FROM_APTUS_CONFIG = ' FROM Apttus_Config2__LineItem__c WHERE Id != null';
 
 	public static final String STRING_SYSTEM_ADMINISTRATOR = 'System Administrator';
+	public static final String STRING_BG_BASE = 'BG Base';
+	public static final String STRING_ONBOARDING = 'Enterprise Onboarding';
 	public static final String STRING_TEST_ATTACHMENT_FOR_PARENT = 'Test Attachment for Parent';
 	public static final String STRING_TEST_DATA = 'Test Data';
 	public static final String STRING_TEMPLATE = 'Template';
@@ -1670,14 +1673,14 @@ public with sharing class APT_Constants {
 	public static final String APT_KG_Rate = '_KR';
 	public static final String APT_Basic_Rate = '_BR';
 	public static final String RATING_MODEL_PD = 'PD';
-    public static final String TC_PRICEPOINT_ALWAYS_ON='TCOVER-NR';
-    public static final String TC_IDENTIFIER_ALWAYS_ON='TCOVER-NR'+'_'+'FE002';
-    public static final String TC_PRICEPOINT_ADHOC='TCOVER-1';
-    public static final String TC_IDENTIFIER_ADHOC='TCOVER-1'+'_'+'FE002';
-    public static final String TC_COVER_TYPE_ALWAYS_ON='Always On';
-    public static final String TC_COVER_TYPE_ADHOC='Adhoc';
-    public static final set<string> TRANSIT_COVER_PRODUCTS=new set<string>{'Standard Parcel Transit Cover','Premium Express Parcel Transit Cover'};
-    public static final map<string,string> TC_PP_TYPE_MAP = new map<string,string>{'TCOVER-1_FE002'=>'Adhoc','TCOVER-NR_FE002'=>'Always On'};
+	public static final String TC_PRICEPOINT_ALWAYS_ON='TCOVER-NR';
+	public static final String TC_IDENTIFIER_ALWAYS_ON='TCOVER-NR'+'_'+'FE002';
+	public static final String TC_PRICEPOINT_ADHOC='TCOVER-1';
+	public static final String TC_IDENTIFIER_ADHOC='TCOVER-1'+'_'+'FE002';
+	public static final String TC_COVER_TYPE_ALWAYS_ON='Always On';
+	public static final String TC_COVER_TYPE_ADHOC='Adhoc';
+	public static final set<string> TRANSIT_COVER_PRODUCTS=new set<string>{'Standard Parcel Transit Cover','Premium Express Parcel Transit Cover'};
+	public static final map<string,string> TC_PP_TYPE_MAP = new map<string,string>{'TCOVER-1_FE002'=>'Adhoc','TCOVER-NR_FE002'=>'Always On'};
 
 	public static final String OPPORTUNITY_STAGENAME_CLOSED_LOST = 'Closed Lost';
 	public static final Integer OTHER_ROLE_BUFFER_DAYS = 10;

@@ -26,7 +26,7 @@ public without sharing class LpoCpoAccessHandlerQueueable implements Queueable {
 			if (contactIdsToRemoveMembership != null && !contactIdsToRemoveMembership.isEmpty()) {
 				Map<Id, User> usersMap = UsersSelector.newInstance().selectUserByContactIdAndProfileName(contactIdsToRemoveMembership, 'LPO Partner Community User', new Set<Object>());
 				if (!usersMap.isEmpty()) {
-					List<AccountTeamMember> membershipsToRemove = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds('Assigned LPO', null, usersMap.keySet(), new Set<Object>()).values();
+					List<AccountTeamMember> membershipsToRemove = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds('Post Office User', null, usersMap.keySet(), new Set<Object>()).values();
 					handleMembership(membershipsToRemove, true, contactIdsByNetworkFacility);
 				}
 				return;
@@ -66,7 +66,7 @@ public without sharing class LpoCpoAccessHandlerQueueable implements Queueable {
 								new AccountTeamMember(
 										AccountId = acc.Id,
 										UserId = contactUser.Id,
-										TeamMemberRole = 'Assigned LPO',
+										TeamMemberRole = 'Post Office User',
 										AccountAccessLevel = 'Edit',
 										OpportunityAccessLevel = 'Read',
 										CaseAccessLevel = 'Read'

@@ -15,6 +15,21 @@
         <value>a8O</value>
     </labels>
     <labels>
+        <fullName>Abandon_Shopping_Cart_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Abandon_Shopping_Cart_Error</shortDescription>
+        <value>You do not have access to this record. Please reach out to the opportunity driver and/or system administrator team for access</value>
+    </labels>
+    <labels>
+        <fullName>SaveCartEditOpportunityProducts</fullName>
+        <categories>Button, Cart</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SaveCartEditOpportunityProducts</shortDescription>
+        <value>Save Cart &amp; Edit Opportunity Products</value>
+    </labels>
+    <labels>
         <fullName>EXPIRED_QUOTE</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2242,7 +2257,7 @@ Compass quote end date has passed, please request re-activation</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>https://helpandsupport.auspost.com.au</value>
+        <value>ptest.npe.helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
@@ -3822,6 +3837,38 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <protected>false</protected>
         <shortDescription>Internal system error for compensation</shortDescription>
         <value>Please try again later. If you need help, call us on:&lt;br/&gt;&lt;b&gt;13 76 78 (13 Post)&lt;/b&gt; in Australia from 8am - 6pm (local time)&lt;br/&gt;&lt;b&gt;+61 3 8847 9045&lt;/b&gt; from overseas from 7am - 6pm (AEST)</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgMoreThanOnePerCaseReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
+        <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgNoPrivilege</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation: User do not have privilege to create/update</shortDescription>
+        <value>You do not have privilege to create/update compensation records.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgUserCannotUpdateBankDetails</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : User do not have privilege to manually enter bank details</shortDescription>
+        <value>You do not have privilege to manually enter the bank account details</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgUserIsNotAllowedToSendEmail</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : User cannot send emails to customer</shortDescription>
+        <value>You do not have privilege to send email to customer</value>
     </labels>
     <labels>
         <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
@@ -8313,14 +8360,6 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Add_Product_On_Closed_Opportunity</shortDescription>
         <value>You cannot create Proposal when Opportunity is &quot;Close Lost&quot;</value>
-    </labels>
-    <labels>
-        <fullName>SaveCartEditOpportunityProducts</fullName>
-        <categories>Button, Cart</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>SaveCartEditOpportunityProducts</shortDescription>
-        <value>Save &amp; Add Products to Opportunity</value>
     </labels>
     <labels>
         <fullName>Send_for_eSignature_Custom_Message</fullName>
