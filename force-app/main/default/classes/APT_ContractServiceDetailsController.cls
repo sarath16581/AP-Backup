@@ -7,6 +7,8 @@
 * 17-07-2023 : Yatika bansal : Modified method for Creating Amendment Contract on 'Generate Agreement' action from LWC
  * 20-07-2023 - Yatika bansal : Modified createContract method to include post billpay
  * 27-07-2023 - Yatika bansal : Added method for Creating Renewal Contract on 'Generate Agreement' action from LWC, Modified existing methods
+* 02-08-2023 - Yatika bansal : Set Contract Fields for new contract/renewal contract
+* 04-08-2023 - Yatika bansal : Added method to update alis with same Product Lines to have same Service Dates
 **/
 public without sharing class APT_ContractServiceDetailsController {
 
@@ -28,6 +30,7 @@ public without sharing class APT_ContractServiceDetailsController {
 		aggreement.APT_Sales_Team__c = proposal.Apttus_Proposal__Account__r.Sales_Segment__c ;
 		aggreement.OwnerId = proposal.OwnerId;
 		aggreement.Apttus__Primary_Contact__c = proposal.APT_Opportunity_Key_contact__c;
+		aggreement.Apttus__Contract_Start_Date__c = System.today();
 		if(proposal.APT_Postbillpay_Included__c > 0){
 			aggreement.recordTypeId = System.Label.APT_PBPRecordTypeID;
 		}else{
@@ -87,11 +90,11 @@ public without sharing class APT_ContractServiceDetailsController {
 	* @description: This method returns service details of an agreement.
 	* @author Yatika Bansal
 	* @param String contractId
-	* @return list of alis //(cacheable = true)
+	* @return list of Service Detail Record wrapper//(cacheable = true)
 	**/
 	@AuraEnabled
-	public static List<Id> getServiceDetail(String contractId){
-		List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
+	public static List<ServiceDetailRecord> getServiceDetail(String contractId){
+		 List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
 			.selectByContractIdsAndLineType(new Set<Id> {contractId},
 													 new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
 													 new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_PRODUCT});
@@ -100,14 +103,19 @@ public without sharing class APT_ContractServiceDetailsController {
 		List<Apttus__AgreementLineItem__c> filteredAli = getServiceDetailALI(alis);
 
 		Set<String> uniqueProductLines = new Set<String>();
-		List<Id> serviceDetailRecs = new List<Id>();
+		List<ServiceDetailRecord> serviceDetailRecs = new List<ServiceDetailRecord>();
 		for(Apttus__AgreementLineItem__c ali : filteredAli){
 			if(!uniqueProductLines.contains(ali.Apttus__ProductId__r.APT_Product_Lines__c)){
 				uniqueProductLines.add(ali.Apttus__ProductId__r.APT_Product_Lines__c);
-				serviceDetailRecs.add(ali.Id);
+				
+				ServiceDetailRecord rec = new ServiceDetailRecord();
+				rec.productLine = ali.Apttus__ProductId__r.APT_Product_Lines__c;
+				rec.serviceId = ali.Id;
+				
+				serviceDetailRecs.add(rec);
 			}
 		}
-
+		
 		return serviceDetailRecs;
 	}
 
@@ -212,9 +220,11 @@ public without sharing class APT_ContractServiceDetailsController {
 			renewedAgreement.APT_Commercial_Contact__c = proposal.APT_Opportunity_Key_contact__c;
 			renewedAgreement.APT_Operational_contact__c = proposal.APT_Opportunity_Key_contact__c;
 			renewedAgreement.APT_System_User__c = proposal.APT_Opportunity_Key_contact__c;
-
+			renewedAgreement.Term__c = APT_Constants.TERM_FIXED_TERM;
+			renewedAgreement.Apttus__Contract_Start_Date__c = System.today();
+			
 			ApplicationDatabase.getInstance().dmlInsert(new List<Apttus__APTS_Agreement__c>{renewedAgreement});
-
+			
 			//after inserting agreement record, build relationship with original agreement using existing function
 			Boolean isRenewRelationShipBuild = APT_AmendRenewUtility.afterRenew(sourceAgreement.Id, renewedAgreement.Id, false);
 			if(isRenewRelationShipBuild){
@@ -226,7 +236,50 @@ public without sharing class APT_ContractServiceDetailsController {
 				return APT_Constants.ERROR_PREFIX + APT_Constants.RENEWAL_AGREEMENT_FAILED ;
 	  	}
 	}
-
+	
+	/**
+	* @description: This method updates all alis with same Product Lines to have same Service Dates
+	* @param contractId
+	* @param serviceIds
+	* @author Yatika Bansal
+	* @return Success/Error
+	**/
+	@AuraEnabled
+	public static String updateAlis(String contractId, List<Id> serviceIds){
+		try{ 
+			//Get ali
+			List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
+				.selectByContractIdsAndLineType(new Set<Id> {contractId},
+												new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
+												new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_PRODUCT});
+			
+			List<Apttus__AgreementLineItem__c> filteredAli = getServiceDetailALI(alis);
+			
+			Map<String, List<Date>> mapDatesByProductLine = new Map<String, List<Date>>();
+			List<Apttus__AgreementLineItem__c> aliToBeUpdated = new  List<Apttus__AgreementLineItem__c>();
+			for(Apttus__AgreementLineItem__c ali : filteredAli){
+				if(serviceIds.contains(ali.Id)){
+					mapDatesByProductLine.put(ali.Apttus__ProductId__r.APT_Product_Lines__c, new List<Date>{ali.Apttus_CMConfig__EffectiveDate__c , ali.Apttus_CMConfig__EndDate__c});
+				}else{
+					aliToBeUpdated.add(ali);
+				}
+			}
+						
+			//Update Ali with same product line
+			for(Apttus__AgreementLineItem__c ali : aliToBeUpdated){
+				List<Date> dates = mapDatesByProductLine.get(ali.Apttus__ProductId__r.APT_Product_Lines__c);
+				ali.Apttus_CMConfig__EffectiveDate__c = dates[0];
+				ali.Apttus_CMConfig__EndDate__c = dates[1];
+			}
+			
+			ApplicationDatabase.getInstance().dmlUpdate(aliToBeUpdated);
+			return APT_Constants.SUCCESS_LABEL_SMALL;
+		}
+		Catch(Exception ex){
+			return APT_Constants.ERROR_PREFIX + ex.getMessage() ;
+		}
+	}
+	
 	/**
 	* @description: This method returns alis to be displayed as service detail sections.
 	* @author Yatika Bansal
@@ -249,5 +302,13 @@ public without sharing class APT_ContractServiceDetailsController {
 			}
 		}
 		return filteredAlis;
+	}
+	
+	//Wrapper Class to return Ali fields
+	public class ServiceDetailRecord {
+		@AuraEnabled
+		public String productLine {get;set;}
+		@AuraEnabled
+		public Id serviceId {get;set;}
 	}
 }

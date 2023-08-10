@@ -18,6 +18,7 @@
 	2023.04.19 Ken McGuire  Proposal field migration to opportunity
 	2023-05-10 - Yatika Bansal - Added code to populate service expiry date.
 	2023-07-17 - Yatika Bansal - Modified method populateServiceExpiryDate to consider amendment scenario
+	2023-08-02 - Yatika Bansal - Modified method populateServiceExpiryDate to consider FT
 	**************************************************/
 
 	public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -794,7 +795,12 @@
 				   && (mapSourceProductAndExpiryDateByAgg.get(parentAgg.id)).containsKey(ali.Apttus__ProductId__c)){
 					ali.Apttus_CMConfig__EndDate__c = (mapSourceProductAndExpiryDateByAgg.get(parentAgg.id)).get(ali.Apttus__ProductId__c);
 				}else{
-					ali.Apttus_CMConfig__EndDate__c = parentAgg.Apttus__Contract_End_Date__c;
+					if(parentAgg.Term__c == APT_Constants.TERM_FIXED_TERM){
+						ali.Apttus_CMConfig__EndDate__c = null;
+					}
+					else{
+						ali.Apttus_CMConfig__EndDate__c = parentAgg.Apttus__Contract_End_Date__c;
+					}
 				}
 			}
 		}

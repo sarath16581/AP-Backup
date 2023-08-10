@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "759d5f05-f5f7-439b-afd5-07d8f10f874a",
+    "propertyOverrides" : {
+      "activeViewId" : "4f08d8ed-3976-43a0-a938-528286b56a96"
+    },
+    "targetId" : "b8327634-56da-421b-bdbd-fa3b36f6934e",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Billing_Account_Detail_Billing_Account_With_Revenue_Page",
+  "id" : "2e074d9c-2da0-46e9-848b-0b6c5cb6eae9",
+  "type" : "experienceVariation"
+}

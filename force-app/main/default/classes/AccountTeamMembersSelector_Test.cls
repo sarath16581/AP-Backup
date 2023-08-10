@@ -36,7 +36,7 @@ private class AccountTeamMembersSelector_Test {
 		insert u1;
 		AccountTeamMember teamMember = new AccountTeamMember();
 		teamMember.UserId = u1.Id;
-		teamMember.TeamMemberRole = 'Assigned LPO';
+		teamMember.TeamMemberRole = 'Post Office User';
 		teamMember.AccountId = orgAaccounts.get(0).Id;
 		insert teamMember;
 	}
@@ -46,7 +46,7 @@ private class AccountTeamMembersSelector_Test {
 		Account acc = [SELECT Id FROM Account LIMIT 1];
 		Test.startTest();
 		List<AccountTeamMember> teamMembers = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds(
-				'Assigned LPO', new Set<Id>{
+				'Post Office User', new Set<Id>{
 						acc.Id
 				}, new Set<Object>()).values();
 		Test.stopTest();
@@ -59,7 +59,7 @@ private class AccountTeamMembersSelector_Test {
 		User testUser = [SELECT Id FROM User WHERE Email = 'testlpo1x@auspost.com.au' LIMIT 1];
 		Test.startTest();
 		List<AccountTeamMember> teamMembers = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds(
-				'Assigned LPO', new Set<Id>{
+				'Post Office User', new Set<Id>{
 						acc.Id
 				}, new Set<Id>{
 						testUser.Id

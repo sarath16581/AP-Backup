@@ -6,6 +6,7 @@
 *Change log:9-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *			9-04-2023 : Nasir Jawed: Added Getter workForceWithManualAgreement for checkWorkVerification
 *			27-07-2023 : Yatika Bansal : Included logic for amend/renew
+*			08-08-2023 : Yatika Bansal : Modified checkout only action to redirect to opportunity
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -56,7 +57,6 @@ export default class APT_CheckoutLWC extends LightningElement {
 	isRenew;
 	renewRecordType = 'Renewal Quote';
 	renewRecordTypeId;
-	redirectObj = 'Proposal';
 
 	@api
 	get errorMsg() {
@@ -115,10 +115,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 		if(data){
 			if(getFieldValue(data, PROP_RT_ID) === this.amendRecordTypeId){
 				this.isAmend = true;
-				this.redirectObj = 'Opportunity';
 			}else if(getFieldValue(data, PROP_RT_ID) === this.renewRecordTypeId){
 				this.isRenew = true;
-				this.redirectObj = 'Opportunity';
 			}
 			let approvalStage = getFieldValue(data, PROP_APPROVAL_REQ_STATUS);
 			if(approvalStage === this.approvalReqStage || approvalStage === this.inReviewStage){
@@ -292,12 +290,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
-					//Amend Process
-					if(this.isAmend || this.isRenew){
-						this.navigateToUrl('/' + this.oppId);
-					}else{
-					this.navigateToUrl('/' + this.proposalId);
-					}
+					this.navigateToUrl('/' + this.oppId);
 				} else {
 					this.error = result;
 				}

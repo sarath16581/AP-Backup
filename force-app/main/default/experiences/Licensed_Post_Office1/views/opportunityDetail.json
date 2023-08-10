@@ -39,13 +39,6 @@
             "tabKey" : "2",
             "tabName" : "Related"
           }, {
-            "UUID" : "81ba1f59-5afe-4a2e-9172-ebb9b8324a3d",
-            "allowGuestUser" : false,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "3",
-            "tabName" : "Seismic"
-          }, {
             "UUID" : "f452eaf6-73a6-44f4-93eb-ff8bd251da20",
             "allowGuestUser" : false,
             "locked" : false,
