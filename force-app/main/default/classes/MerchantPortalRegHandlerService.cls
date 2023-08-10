@@ -54,11 +54,6 @@ public inherited sharing class MerchantPortalRegHandlerService {
 			output.add('CNumber attribute is missing');
 		}
 
-		// fail early if possible
-		if(!output.isEmpty()) {
-			return output;
-		}
-
 		return output;
 	}
 

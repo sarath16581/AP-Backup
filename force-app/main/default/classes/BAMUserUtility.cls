@@ -618,8 +618,10 @@ public with sharing class BAMUserUtility {
 						'memberIds' => queryResults.keySet(),
 						'networkIds' => networkId
 					};
-                    for(NetworkMember member : NetworkMembersSelector.newInstance().search(memberSearchParams, true)) { 
-                        users.add(queryResults.get(member.MemberId));
+                    for(NetworkMember member : NetworkMembersSelector.newInstance().search(memberSearchParams, true)) {
+						if(queryResults.containsKey(member.MemberId)) {
+							users.add(queryResults.get(member.MemberId));
+						} 
                     }
 
                     for (User u : users) {
