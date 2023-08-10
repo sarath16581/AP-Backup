@@ -32,7 +32,7 @@ public inherited sharing class NetworkMembersSelector extends ApplicationSelecto
 	}
 
 	public List<NetworkMember> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(GroupMember.Id + ' in :ids')).endConditions();
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(GroupMember.Id + ' in :ids')).endConditions();
 		return (List<NetworkMember>)Database.query(qb.toSoqlString());
 	}
 

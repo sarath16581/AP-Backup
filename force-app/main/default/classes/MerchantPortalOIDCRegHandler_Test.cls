@@ -444,7 +444,6 @@ private class MerchantPortalOIDCRegHandler_Test {
 		userData.attributeMap.remove('https://auspost/cnumber');
 		userData.attributeMap.put('https://auspost/cnumber', 'C00002');
 		String cNumber = userData.attributeMap.get('https://auspost/cnumber');
-		String fedId = cNumber + '.merchant';
 		// the original user record the TPAL record is still linked to
 		User oldUserRecord = ApplicationTestDataFactory.getUsers(1, true)[0];
 		Id oldUserId = oldUserRecord.Id;
