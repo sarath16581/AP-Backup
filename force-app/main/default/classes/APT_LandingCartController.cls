@@ -47,7 +47,7 @@ public with sharing class APT_LandingCartController {
 				oppMap = OpportunitySelector.newInstance().selectById(new Set<Id>{recordId});
 				Opportunity opp = oppMap.get(recordId);
 				opportunityOwnerId = oppMap.get(recordId).OwnerId;
-				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR){
+				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING){
 					readWritePermisssion = 'true';
 				}
 				else if(loggedInUserId == opportunityOwnerId ){
@@ -183,17 +183,31 @@ public with sharing class APT_LandingCartController {
 					//Querying the product config record by using the proposal id to show the error if user don't have access to Prod config.
 					List<Apttus_Config2__ProductConfiguration__c> prodConfig = ProductConfigurationSelector.newInstance().selectByProposalId(proposalPrimaryTrueId);
 					Id prodConfigOwnerId;
+					Id prodConfigOwnerId2;
 					if(prodConfig.size() > 0){
 						for(Apttus_Config2__ProductConfiguration__c pc:prodConfig){
-							prodConfigOwnerId = pc.OwnerId;
+							if(pc.Apttus_Config2__Status__c == 'New'){
+								prodConfigOwnerId = pc.OwnerId;
+							}
+							if(pc.Apttus_Config2__Status__c == 'Saved'){
+								prodConfigOwnerId2 = pc.OwnerId;
+							}
 						}
-						if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
-							exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
-							exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
-							throw exceptionHandler;
+						if(prodConfigOwnerId != null){
+							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
+								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
+								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
+								throw exceptionHandler;
+							}
+						}
+						if(prodConfigOwnerId2 != null){
+							if(prodConfigOwnerId2 != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING){
+								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
+								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
+								throw exceptionHandler;
+							}
 						}
 					}
-
 				}
 				if(updatePrimaryFalse.size()>0){
 					proposalupdatePrimaryfalse = ApplicationDatabase.getInstance().dmlupdate(updatePrimaryFalse);
