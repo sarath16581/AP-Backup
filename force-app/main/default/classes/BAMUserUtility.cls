@@ -614,8 +614,8 @@ public with sharing class BAMUserUtility {
 					// this is an extra paranoid check to make sure we force the right users
 					for(Id uId: queryResults.keySet()) {
 						User u = queryResults.get(uId);
-						//make sure contact cNumber exists and contact status is active
-						if(String.isBlank(u.contact.OID_ID__c) || !('Active'.equalsIgnoreCase(u.Contact.Status__c))) {
+						//make sure contact cNumber exists and cNumber returned is same as userContextCNumber and contact status is active
+						if(String.isBlank(u.contact.OID_ID__c) || !userContextCNumber.equalsIgnoreCase(u.contact.OID_ID__c) || !('Active'.equalsIgnoreCase(u.Contact.Status__c))) {
 							queryResults.remove(uId);
 						}
 					}

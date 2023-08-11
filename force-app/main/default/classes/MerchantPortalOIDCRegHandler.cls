@@ -89,9 +89,12 @@ global without sharing class MerchantPortalOIDCRegHandler implements Auth.Regist
 		
 		outputDebugInformation(data);
 		
-		//if tpalId is empty, we query the tpalId based on the provider name and userId. 
+		//As per salesforce (Case #44952215), TPAL Id can be null or empty until the ThirdPartyAccountLink SOQL is executed at least once.
+		//This is due to SsoFlowHandler directly checking the virtual entity. Once the SOQL is executed, tpal can be obtained correctly
+		//As a workaround, we are executing below to get the tpalId.
+		//if tpalId is empty or null, we query the tpalId based on the provider name and userId. 
 		//we return the userId if it still doesn't exist
-		if(String.isEmpty(String.valueOf(tpalId))) {
+		if(String.isEmpty(String.valueOf(tpalId)) || tpalId == null) {
 			//get the existing tpalId for the user based on the provider name and userId
 			Map<String, Object> searchParams = new Map<String, Object>{
 						'userIds' => userId,
