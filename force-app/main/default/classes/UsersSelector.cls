@@ -17,6 +17,7 @@
  * 2023-01-27 - Naveen Rajanna - Updated api version and added method selectUsersEligibleForDeactivationQueryLocator
  * 2023-02-01 - Noel Lim - added method selectActiveUserById 
  * 2023-03-01 - Nathan Franklin - add search conditions, new fields, and field overrides to related Profile selector
+ * 2023-07-14 - Nathan Franklin - add search params and param validation
  * 2023-08-08 - Mahesh Parvathaneni - added method getAuthenticationSObjectFieldList for user authentication fields
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
@@ -24,6 +25,8 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	public enum Options {
 		WITH_ROLE, WITH_PROFILE, WITH_CONTACT, FILTER_EXTERNAL_USERS, WITH_COMMUNITY_ACCOUNT
 	}
+
+	public static final String MERCHANT_PORTAL_PROFILE_NAME = 'Merchant Portal Community User';
 
 	public static UsersSelector newInstance() {
 		return (UsersSelector)Application.Selectors.newInstance(UsersSelector.class);
@@ -203,6 +206,9 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 *						 roleIds: maps to UserRole (Set<Id>/Id)
 	 *						 profileNames: maps to Profile (Set<String>/String)
 	 *						 usernames: maps to Username (Set<String>/String)
+	 *						 userTypes: maps to UserType (Set<String>/String)
+	 *						 contactStatuses: maps to Contact.Status__c (Set<String>/String)
+	 *						 contactCNumbers: maps to Contact.OID_ID__c (Set<String>/String)
 	 *						 networkIds: Users with NetworkMember records (Set<Id>/Id)
 	 *						 isCommunityUser: maps to IsPortalEnabled (true/false)
 	 *						 isPersonAccount: maps to Contact.IsPersonAccount (true/false) - Assumes user would have to be a community user
@@ -225,6 +231,9 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 *						 roleIds: maps to UserRole (Set<Id>/Id)
 	 *						 profileNames: maps to Profile (Set<String>/String)
 	 *						 usernames: maps to Username (Set<String>/String)
+	 *						 userTypes: maps to UserType (Set<String>/String)
+	 *						 contactStatuses: maps to Contact.Status__c (Set<String>/String)
+	 *						 contactCNumbers: maps to Contact.OID_ID__c (Set<String>/String)
 	 *						 networkIds: Users with NetworkMember records (Set<Id>/Id)
 	 *						 federationField: This is the field to use when comparing federationIds is supplied. This will default to User.FederationIdentifier if no SObjectField is passed in
 	 *						 isCommunityUser: maps to IsPortalEnabled (true/false)
@@ -242,6 +251,10 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 		Set<String> federationIds = (Set<String>)(searchParams.get('federationIds') == null ? new Set<String>() : (searchParams.get('federationIds') instanceof Set<String> ? searchParams.get('federationIds') : new Set<String>{String.valueOf(searchParams.get('federationIds'))}));
 		Set<String> profileNames = (Set<String>)(searchParams.get('profileNames') == null ? new Set<String>() : (searchParams.get('profileNames') instanceof Set<String> ? searchParams.get('profileNames') : new Set<String>{String.valueOf(searchParams.get('profileNames'))}));
 		Set<String> usernames = (Set<String>)(searchParams.get('usernames') == null ? new Set<String>() : (searchParams.get('usernames') instanceof Set<String> ? searchParams.get('usernames') : new Set<String>{String.valueOf(searchParams.get('usernames'))}));
+		Set<String> userTypes = (Set<String>)(searchParams.get('userTypes') == null ? new Set<String>() : (searchParams.get('userTypes') instanceof Set<String> ? searchParams.get('userTypes') : new Set<String>{String.valueOf(searchParams.get('userTypes'))}));
+		Set<String> contactStatuses = (Set<String>)(searchParams.get('contactStatuses') == null ? new Set<String>() : (searchParams.get('contactStatuses') instanceof Set<String> ? searchParams.get('contactStatuses') : new Set<String>{String.valueOf(searchParams.get('contactStatuses'))}));
+		Set<String> contactCNumbers = (Set<String>)(searchParams.get('contactCNumbers') == null ? new Set<String>() : (searchParams.get('contactCNumbers') instanceof Set<String> ? searchParams.get('contactCNumbers') : new Set<String>{String.valueOf(searchParams.get('contactCNumbers'))}));
+		Boolean activeOrMerchantPortalProfile = (searchParams.get('activeOrMerchantPortalProfile') != null ? (Boolean)searchParams.get('activeOrMerchantPortalProfile') : false);
 		Boolean isActive = (searchParams.get('isActive') != null ? (Boolean)searchParams.get('isActive') : false);
 		Boolean isCommunityUser = (searchParams.get('isCommunityUser') != null ? (Boolean)searchParams.get('isCommunityUser') : false);
 		Boolean isPersonAccount = (searchParams.get('isPersonAccount') != null ? (Boolean)searchParams.get('isPersonAccount') : false);
@@ -254,6 +267,11 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 */
 	@TestVisible
 	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		validateSearchParams(searchParams.keySet(), new Set<String>{'profileIds', 'contactIds', 'roleIds', 'networkIds', 'federationField', 
+																	'federationIds', 'profileNames', 'usernames', 'isActive' , 'isCommunityUser', 
+																	'isPersonAccount', 'contactStatuses', 'contactCNumbers', 'userTypes',
+																	'activeOrMerchantPortalProfile'});
+
 		Set<Id> networkIds = (Set<Id>)(searchParams.get('networkIds') == null ? new Set<Id>() : (searchParams.get('networkIds') instanceof Set<Id> ? searchParams.get('networkIds') : new Set<Id>{(Id)searchParams.get('networkIds')}));
 		SObjectField federationField = (searchParams.get('federationField') != null ? (SObjectField)searchParams.get('federationField') : User.FederationIdentifier);
 
@@ -293,6 +311,18 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 			conditions.add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames'));
 			conditionCount++;
 		}
+		if(searchParams.containsKey('contactCNumbers')) {
+			conditions.add(new QueryBuilder.SimpleCondition('Contact.' + Contact.OID_ID__c + ' in :contactCNumbers'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('contactStatuses')) {
+			conditions.add(new QueryBuilder.SimpleCondition('Contact.' + Contact.Status__c + ' in :contactStatuses'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('userTypes')) {
+			conditions.add(new QueryBuilder.SimpleCondition(User.UserType + ' in :userTypes'));
+			conditionCount++;
+		}
 		if(searchParams.containsKey('isActive')) {
 			conditions.add(new QueryBuilder.SimpleCondition(User.IsActive + ' = :isActive'));
 			conditionCount++;
@@ -303,6 +333,10 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 		}
 		if(searchParams.containsKey('isPersonAccount')) {
 			conditions.add(new QueryBuilder.SimpleCondition('Contact.IsPersonAccount = :isPersonAccount'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('activeOrMerchantPortalProfile')) {
+			conditions.add(new QueryBuilder.SimpleCondition('(Profile.Name = :MERCHANT_PORTAL_PROFILE_NAME OR IsActive = true)'));
 			conditionCount++;
 		}
 

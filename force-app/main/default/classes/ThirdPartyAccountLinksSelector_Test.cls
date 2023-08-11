@@ -3,6 +3,7 @@
  * @author Nathan Franklin
  * @date 2023-03-21
  * @changelog
+ * 2023-08-10 - Mahesh Parvathaneni - Added tests for providerNames in searchParams
  */
 @IsTest
 private class ThirdPartyAccountLinksSelector_Test {
@@ -172,12 +173,14 @@ private class ThirdPartyAccountLinksSelector_Test {
 
 		searchParams = new Map<String, Object>{
 			'userIds' => new Set<Id>{'005000000000000'},
-			'providerIds' => new Set<Id>{'0SO000000000000000'}
+			'providerIds' => new Set<Id>{'0SO000000000000000'},
+			'providerNames' => new Set<String>{'Test Provider'}
 		};
 
 		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
 		System.assertEquals(true, Pattern.compile('(?ism)\\s+from ThirdPartyAccountLink\\s+where\\b.*?\\bUserId\\s+In\\b').matcher(soql).find(), 'Resulting query does not limit UserId');
 		System.assertEquals(true, Pattern.compile('(?ism)\\s+from ThirdPartyAccountLink\\s+where\\b.*?\\bSsoProviderId\\s+In\\b').matcher(soql).find(), 'Resulting query does not limit SsoProviderId');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from ThirdPartyAccountLink\\s+where\\b.*?\\bSsoProviderName\\s+In\\b').matcher(soql).find(), 'Resulting query does not limit SsoProviderName');
 		System.assertEquals(true, Pattern.compile('(?ism)\\s+from ThirdPartyAccountLink\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not limit by ALL');
 
 		// make sure the query is valid (even though no records will be returned)

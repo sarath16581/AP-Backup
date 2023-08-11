@@ -3,6 +3,7 @@
  * @date 2023-03-06
  * @description A very simple selector class 
  * @changelog
+ * 2023-08-10 - Mahesh Parvathaneni - Added providerNames in searchParams
 */
 public virtual inherited sharing class ThirdPartyAccountLinksSelector extends ApplicationSelector {
 
@@ -80,8 +81,9 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	 * Run a SOQL based on the search parameters passed in
 	 *
 	 * @param searchParams A map containing searchable values:
-	 *						 userIds: maps to AssigneeId (Set<String>/String)
-	 *						 providerIds: maps to PermissionSetId (Set<Id>/Id)
+	 *						 userIds: maps to UserId (Set<Id>/Id)
+	 *						 providerIds: maps to SsoProviderId (Set<Id>/Id)
+	 *						 providerNames: maps to SsoProviderName (Set<String>/String)
 	 *
 	 *
 	 * @param selectorOptions Selector Options
@@ -95,8 +97,9 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	 * Run a SOQL based on the search parameters passed in
 	 *
 	 * @param searchParams A map containing searchable values:
-	 *						 userIds: maps to AssigneeId (Set<String>/String)
-	 *						 providerIds: maps to PermissionSetId (Set<Id>/Id)
+	 *						 userIds: maps to UserId (Set<Id>/Id)
+	 *						 providerIds: maps to SsoProviderId (Set<Id>/Id)
+	 *						 providerNames: maps to SsoProviderName (Set<String>/String)
 	 *
 	 *
 	 * @param selectorOptions Selector Options
@@ -105,6 +108,7 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	public List<ThirdPartyAccountLink> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 		Set<Id> userIds = (Set<Id>)(searchParams.get('userIds') == null ? new Set<Id>() : (searchParams.get('userIds') instanceof Set<Id> ? searchParams.get('userIds') : new Set<Id>{(Id)searchParams.get('userIds')}));
 		Set<Id> providerIds = (Set<Id>)(searchParams.get('providerIds') == null ? new Set<Id>() : (searchParams.get('providerIds') instanceof Set<Id> ? searchParams.get('providerIds') : new Set<Id>{(Id)searchParams.get('providerIds')}));
+		Set<String> providerNames = (Set<String>)(searchParams.get('providerNames') == null ? new Set<String>() : (searchParams.get('providerNames') instanceof Set<String> ? searchParams.get('providerNames') : new Set<String>{(String)searchParams.get('providerNames')}));
 
 		return (List<ThirdPartyAccountLink>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
 	}
@@ -114,6 +118,7 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	 */
 	@TestVisible
 	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		validateSearchParams(searchParams.keySet(), new Set<String>{'userIds', 'providerIds', 'providerNames'});
 		
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
@@ -127,8 +132,8 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 			conditions.add(new QueryBuilder.SimpleCondition(ThirdPartyAccountLink.SsoProviderId + ' in :providerIds'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('permissionSetNames')) {
-			conditions.add(new QueryBuilder.SimpleCondition('PermissionSet.Name in :permissionSetNames'));
+		if(searchParams.containsKey('providerNames')) {
+			conditions.add(new QueryBuilder.SimpleCondition(ThirdPartyAccountLink.SsoProviderName + ' in :providerNames'));
 			conditionCount++;
 		}
 
