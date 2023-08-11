@@ -597,7 +597,7 @@ public with sharing class BAMUserUtility {
 					}
 
 					Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-						Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.AccountId, Contact.Name, Contact.Status__c, Contact.BillingAccount__c},
+						Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.AccountId, Contact.Name, Contact.Status__c, Contact.BillingAccount__c, Contact.OID_ID__c},
 						Account.SObjectType => new Set<SObjectField>{Account.Id, Account.Name, Account.LEGACY_ID__c},
 						User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive, User.ContactId, User.ProfileId, User.FederationIdentifier},
 						Profile.SObjectType => new Set<SObjectField>{Profile.Id, Profile.Name}
@@ -610,6 +610,15 @@ public with sharing class BAMUserUtility {
 					};
 
 					Map<Id, User> queryResults = new Map<Id, User>(UsersSelector.newInstance(0, fieldOverrides).search(searchParams, selectorOptions, true));
+
+					// this is an extra paranoid check to make sure we force the right users
+					for(Id uId: queryResults.keySet()) {
+						User u = queryResults.get(uId);
+						//make sure contact cNumber exists and contact status is active
+						if(String.isBlank(u.contact.OID_ID__c) || !('Active'.equalsIgnoreCase(u.Contact.Status__c))) {
+							queryResults.remove(uId);
+						}
+					}
 
                     List<User> users = new List<User>();
 

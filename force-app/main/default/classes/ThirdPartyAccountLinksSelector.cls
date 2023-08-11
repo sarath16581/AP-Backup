@@ -3,6 +3,7 @@
  * @date 2023-03-06
  * @description A very simple selector class 
  * @changelog
+ * 2023-08-10 - Mahesh Parvathaneni - Added providerNames in searchParams
 */
 public virtual inherited sharing class ThirdPartyAccountLinksSelector extends ApplicationSelector {
 
@@ -105,6 +106,7 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	public List<ThirdPartyAccountLink> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 		Set<Id> userIds = (Set<Id>)(searchParams.get('userIds') == null ? new Set<Id>() : (searchParams.get('userIds') instanceof Set<Id> ? searchParams.get('userIds') : new Set<Id>{(Id)searchParams.get('userIds')}));
 		Set<Id> providerIds = (Set<Id>)(searchParams.get('providerIds') == null ? new Set<Id>() : (searchParams.get('providerIds') instanceof Set<Id> ? searchParams.get('providerIds') : new Set<Id>{(Id)searchParams.get('providerIds')}));
+		Set<String> providerNames = (Set<String>)(searchParams.get('providerNames') == null ? new Set<String>() : (searchParams.get('providerNames') instanceof Set<String> ? searchParams.get('providerNames') : new Set<String>{(String)searchParams.get('providerNames')}));
 
 		return (List<ThirdPartyAccountLink>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
 	}
@@ -129,6 +131,10 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 		}
 		if(searchParams.containsKey('permissionSetNames')) {
 			conditions.add(new QueryBuilder.SimpleCondition('PermissionSet.Name in :permissionSetNames'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('providerNames')) {
+			conditions.add(new QueryBuilder.SimpleCondition(ThirdPartyAccountLink.SsoProviderName + ' in :providerNames'));
 			conditionCount++;
 		}
 

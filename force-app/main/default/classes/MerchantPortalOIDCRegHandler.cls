@@ -89,12 +89,21 @@ global without sharing class MerchantPortalOIDCRegHandler implements Auth.Regist
 		
 		outputDebugInformation(data);
 		
-		// TODO: Log a Salesforce case to understand why this might be empty...
-		// 			I have seen this being empty during development
+		//if tpalId is empty, we query the tpalId based on the provider name and userId. 
+		//we return the userId if it still doesn't exist
 		if(String.isEmpty(String.valueOf(tpalId))) {
-			System.debug('ThirdPartyAccountLink record id is empty!!!');
-			System.debug('Returning user id: ' + userId);
-			return userId;
+			//get the existing tpalId for the user based on the provider name and userId
+			Map<String, Object> searchParams = new Map<String, Object>{
+						'userIds' => userId,
+						'providerNames' => data.provider
+			};
+			List<ThirdPartyAccountLink> exisitngThirdPartyAccountLinks = ThirdPartyAccountLinksSelector.newInstance().search(searchParams, true);
+			//make sure we've only one tpalId for the user and provider
+			if(exisitngThirdPartyAccountLinks.size() == 1) {
+				tpalId = exisitngThirdPartyAccountLinks[0].Id;
+			} else {
+				return userId;
+			}
 		}
 
 		MerchantPortalRegHandlerService service = MerchantPortalRegHandlerService.getInstance();

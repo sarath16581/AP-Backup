@@ -27,6 +27,8 @@ private class MerchantPortalOIDCRegHandler_Test {
 		contacts.addAll(ApplicationTestDataFactory.getContacts(1, accounts[1].Id, true));
 		contacts[0].Status__c = 'Active';
 		contacts[1].Status__c = 'Active';
+		contacts[0].OID_ID__c = 'C0000000001';
+		contacts[1].OID_ID__c = 'C0000000001';
 		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
 		contacts[1] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[1], new Map<String, Object>{'Account' => accounts[1]});
 
@@ -110,6 +112,8 @@ private class MerchantPortalOIDCRegHandler_Test {
 		contacts.addAll(ApplicationTestDataFactory.getContacts(1, accounts[1].Id, true));
 		contacts[0].Status__c = 'Active';
 		contacts[1].Status__c = 'Active';
+		contacts[0].OID_ID__c = 'C0000000001';
+		contacts[1].OID_ID__c = 'C0000000001';
 		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
 		contacts[1] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[1], new Map<String, Object>{'Account' => accounts[1]});
 
@@ -197,6 +201,10 @@ private class MerchantPortalOIDCRegHandler_Test {
 		contacts.addAll(ApplicationTestDataFactory.getContacts(1, accounts[1].Id, true));
 		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
 		contacts[1] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[1], new Map<String, Object>{'Account' => accounts[1]});
+		contacts[0].OID_ID__c = 'C0000000001';
+		contacts[1].OID_ID__c = 'C0000000001';
+		contacts[0].Status__c = 'Active';
+		contacts[1].Status__c = 'Active';
 
 		List<User> users = ApplicationTestDataFactory.getCommunityUsers(2, new List<Id>{contacts[0].Id, contacts[1].Id}, merchantPortalProfile.Id, true);
 		Auth.UserData userData = getUserData(contacts[0], users[0]);
@@ -268,6 +276,10 @@ private class MerchantPortalOIDCRegHandler_Test {
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, true);
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
 		contacts.addAll(ApplicationTestDataFactory.getContacts(1, accounts[1].Id, true));
+		contacts[0].OID_ID__c = 'C0000000001';
+		contacts[1].OID_ID__c = 'C0000000001';
+		contacts[0].Status__c = 'Active';
+		contacts[1].Status__c = 'Active';
 		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
 		contacts[1] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[1], new Map<String, Object>{'Account' => accounts[1]});
 
@@ -333,6 +345,90 @@ private class MerchantPortalOIDCRegHandler_Test {
 
 		((ThirdPartyAccountLinksSelector)MockUtility.Mocks.verify(mockTPALSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{tpalId}));
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).revokeTokenAccess(fflib_Match.eqId(existingTPALRecord.SsoProviderId), fflib_Match.eqString(userData.provider), fflib_Match.eqId(oldUserId), fflib_Match.eqString(userData.identifier));
+
+		System.assertEquals(users[1].Id, foundUserId, 'Expected matched user returned based on FederationIdentifier');
+	}
+
+	/**
+	 * Scenario:
+	 * When the TPAL record is empty, make sure we get the existing TPAL record for the user and provider
+	 */
+	@IsTest
+	private static void testUnitConfirmUserCanStillAuthenticateWhenTPALIdIsEmpty() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Profile merchantPortalProfile = [SELECT Id,Name FROM Profile where Name = 'Merchant Portal Community User' LIMIT 1];
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, true);
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
+		contacts.addAll(ApplicationTestDataFactory.getContacts(1, accounts[1].Id, true));
+		contacts[0].OID_ID__c = 'C0000000001';
+		contacts[1].OID_ID__c = 'C0000000001';
+		contacts[0].Status__c = 'Active';
+		contacts[1].Status__c = 'Active';
+		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
+		contacts[1] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[1], new Map<String, Object>{'Account' => accounts[1]});
+
+		List<User> users = ApplicationTestDataFactory.getCommunityUsers(2, new List<Id>{contacts[0].Id, contacts[1].Id}, merchantPortalProfile.Id, true);
+		Auth.UserData userData = getUserData(contacts[0], users[0]);
+		String cNumber = userData.attributeMap.get('https://auspost/cnumber');
+		String fedId = cNumber + '.merchant';
+
+		// the user record found during the personas call
+		// set fed id for the user for matching
+		users[1].FederationIdentifier = fedId;
+		users[1].IsActive = true;
+		users[0] = (User) ApplicationTestDataFactory.setUnwritableFields(users[0], new Map<String, Object>{'Profile' => merchantPortalProfile, 'Contact' => contacts[0]});
+		users[1] = (User) ApplicationTestDataFactory.setUnwritableFields(users[1], new Map<String, Object>{'Profile' => merchantPortalProfile, 'Contact' => contacts[1]});
+
+		List<NetworkMember> networkMembers = ApplicationTestDataFactory.getNetworkMembers(1, Network.getNetworkId(), users[0].Id, true);
+		networkMembers.addAll(ApplicationTestDataFactory.getNetworkMembers(1, Network.getNetworkId(), users[1].Id, true));
+
+		Id tpalId;
+		Id ssoProviderId = '0Jr000000000000001';
+		ThirdPartyAccountLink existingTPALRecord = new ThirdPartyAccountLink(Id = tpalId, SsoProviderId = ssoProviderId, UserId = users[1].Id);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		MerchantPortalRegHandlerService mockService = (MerchantPortalRegHandlerService)MockUtility.mockUtility(MerchantPortalRegHandlerService.class);
+		UsersSelector mockUsersSelector = (UsersSelector) MockUtility.mockSelector(UsersSelector.class);
+		NetworkMembersSelector mockNetworkMembersSelector = (NetworkMembersSelector) MockUtility.mockSelector(NetworkMembersSelector.class);
+		ThirdPartyAccountLinksSelector mockTPALSelector = (ThirdPartyAccountLinksSelector)MockUtility.mockSelector(ThirdPartyAccountLinksSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockService.getAugmentedAttributes((Map<String, String>)fflib_Match.anyObject())).thenReturn(userData.attributeMap);
+		MockUtility.Mocks.when(mockUsersSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(users);
+		MockUtility.Mocks.when(mockNetworkMembersSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(networkMembers);
+		MockUtility.Mocks.when(mockTPALSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<ThirdPartyAccountLink>{existingTPALRecord});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		MerchantPortalOIDCRegHandler loginHandler = new MerchantPortalOIDCRegHandler();
+		Id foundUserId = loginHandler.confirmUser(users[1].Id, tpalId, null, userData);
+
+		Test.stopTest();
+
+		// =====================================
+		// VERIFY
+		// =====================================
+
+		fflib_ArgumentCaptor augmentedAttributesCaptor = fflib_ArgumentCaptor.forClass(Map<String, String>.class);
+		
+		// VERIFY: getAugmentedAttributes
+		((MerchantPortalRegHandlerService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getAugmentedAttributes((Map<String, String>)augmentedAttributesCaptor.capture());
+		Map<String, String> augmentedAttributes = (Map<String, String>)augmentedAttributesCaptor.getValue();
+		System.assertEquals(fedId, String.valueOf(augmentedAttributes.get('federation_identifier')));
+		System.assertEquals(cNumber, String.valueOf(augmentedAttributes.get('cnumber')));
+
+		((ThirdPartyAccountLinksSelector)MockUtility.Mocks.verify(mockTPALSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 
 		System.assertEquals(users[1].Id, foundUserId, 'Expected matched user returned based on FederationIdentifier');
 	}
