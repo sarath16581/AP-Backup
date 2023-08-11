@@ -826,6 +826,58 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Number_of_Activities_Current_FY__c</fieldItem>
+                <identifier>RecordNumber_of_Activities_Current_FY_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-28fa7128-581b-42f4-b81a-4522d3287ea4</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Number_of_Service_Issues_Current_FY__c</fieldItem>
+                <identifier>RecordNumber_of_Service_Issues_Current_FY_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-ccd4dbd0-1eff-402e-b3d9-75e86c5faaee</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-28fa7128-581b-42f4-b81a-4522d3287ea4</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column15</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-ccd4dbd0-1eff-402e-b3d9-75e86c5faaee</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column16</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-576f1270-42ee-448f-ab9d-8897dbc41544</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Key_Sales_Owner__c</fieldItem>
                 <identifier>RecordKey_Sales_Owner__cField</identifier>
             </fieldInstance>
@@ -1182,7 +1234,48 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection4</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Stage__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>New</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Rejected by SM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>CEO/Reporting</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-576f1270-42ee-448f-ab9d-8897dbc41544</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Account Management &amp; Service Performance.</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection9</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>CEO/Reporting</rightValue>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.Stage__c}</leftValue>
                         <operator>NE</operator>

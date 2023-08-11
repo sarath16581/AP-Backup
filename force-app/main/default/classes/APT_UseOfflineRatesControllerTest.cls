@@ -72,10 +72,12 @@ private class APT_UseOfflineRatesControllerTest {
 
 			Test.startTest();
 				String configId = prodconfig.Id;
+				Map<String, String> finalizeCartFailed = APT_UseOfflineRatesController.finalizeCart('');
 				Map<String, String> finalizeCart = APT_UseOfflineRatesController.finalizeCart(configId);
 				Map<String, String> outputMap = APT_UseOfflineRatesController.save(configId, proposal);
 				System.assertEquals('success', outputMap.get('result'));
 				System.assertEquals('success', finalizeCart.get('result'));
+				System.assertEquals('error', finalizeCartFailed.get('result'));
 			Test.stopTest();
 		}
 	}

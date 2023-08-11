@@ -2028,6 +2028,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Strategic Onboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Termination of Contract</fullName>
             <default>false</default>
         </values>

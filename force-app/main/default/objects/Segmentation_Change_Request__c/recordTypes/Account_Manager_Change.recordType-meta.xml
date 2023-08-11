@@ -44,13 +44,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Proposed_Sales_Team__c</picklist>
-        <values>
-            <fullName>Federal Government</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Reason_for_Change__c</picklist>
         <values>
             <fullName>Acc Mgr %E2%80%93 Director re-allocation of sales reps portfolio</fullName>

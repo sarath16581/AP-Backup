@@ -11921,11 +11921,6 @@
         <field>Apttus__APTS_Agreement__c.APT_Contract_Distribution_Center__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus__APTS_Agreement__c.APT_Contract_Signed_After_Offer_Expiry__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus__APTS_Agreement__c.APT_Contract_End_Date_Display_Template__c</field>
@@ -11939,6 +11934,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.APT_Contract_On_Hold__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.APT_Contract_Signed_After_Offer_Expiry__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

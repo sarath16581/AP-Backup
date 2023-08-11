@@ -25,11 +25,6 @@
                 <label>Intermediaries</label>
             </value>
             <value>
-                <fullName>Key Retail &amp; Healthcare VIC</fullName>
-                <default>false</default>
-                <label>Key Retail &amp; Healthcare VIC</label>
-            </value>
-            <value>
                 <fullName>eCommerce Partnerships</fullName>
                 <default>false</default>
                 <label>eCommerce Partnerships</label>

@@ -28,7 +28,7 @@
 		<template if:true={editing}>
 			<lightning-button variant="destructive-text" label="Cancel" onclick={close}></lightning-button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<lightning-button variant="brand" label="Save" onclick={saveSelection}></lightning-button>
+			<lightning-button variant="brand" label="Save" onclick={saveSelection} disabled={disableSave}></lightning-button>
 		</template>
 	</div>
 </template>
