@@ -81,8 +81,9 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	 * Run a SOQL based on the search parameters passed in
 	 *
 	 * @param searchParams A map containing searchable values:
-	 *						 userIds: maps to AssigneeId (Set<String>/String)
-	 *						 providerIds: maps to PermissionSetId (Set<Id>/Id)
+	 *						 userIds: maps to UserId (Set<Id>/Id)
+	 *						 providerIds: maps to SsoProviderId (Set<Id>/Id)
+	 *						 providerNames: maps to SsoProviderName (Set<String>/String)
 	 *
 	 *
 	 * @param selectorOptions Selector Options
@@ -96,8 +97,9 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	 * Run a SOQL based on the search parameters passed in
 	 *
 	 * @param searchParams A map containing searchable values:
-	 *						 userIds: maps to AssigneeId (Set<String>/String)
-	 *						 providerIds: maps to PermissionSetId (Set<Id>/Id)
+	 *						 userIds: maps to UserId (Set<Id>/Id)
+	 *						 providerIds: maps to SsoProviderId (Set<Id>/Id)
+	 *						 providerNames: maps to SsoProviderName (Set<String>/String)
 	 *
 	 *
 	 * @param selectorOptions Selector Options
@@ -116,6 +118,7 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 	 */
 	@TestVisible
 	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		validateSearchParams(searchParams.keySet(), new Set<String>{'userIds', 'providerIds', 'providerNames'});
 		
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
@@ -127,10 +130,6 @@ public virtual inherited sharing class ThirdPartyAccountLinksSelector extends Ap
 		}
 		if(searchParams.containsKey('providerIds')) {
 			conditions.add(new QueryBuilder.SimpleCondition(ThirdPartyAccountLink.SsoProviderId + ' in :providerIds'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('permissionSetNames')) {
-			conditions.add(new QueryBuilder.SimpleCondition('PermissionSet.Name in :permissionSetNames'));
 			conditionCount++;
 		}
 		if(searchParams.containsKey('providerNames')) {
