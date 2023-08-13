@@ -12,7 +12,7 @@
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
         </componentList>
-        <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
+        <detailPageRefreshMethod>none</detailPageRefreshMethod>
         <keyboardShortcuts>
             <defaultShortcuts>
                 <action>FOCUS_CONSOLE</action>
@@ -285,7 +285,7 @@
         <enablePinTabs>true</enablePinTabs>
         <enableTabHover>false</enableTabHover>
         <enableTabLimits>false</enableTabLimits>
-        <saveUserSessions>true</saveUserSessions>
+        <saveUserSessions>false</saveUserSessions>
     </preferences>
     <tabs>standard-Case</tabs>
     <tabs>MyCustomersSearch</tabs>

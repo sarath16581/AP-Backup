@@ -1,7 +1,7 @@
 <template>
 	<!-- Close Icon-->
-	<p class="slds-p-around_x-small slds-text-align_right">
-		<lightning-button-icon icon-name="utility:close" onclick={handleClose} alternative-text="Close" title="Closing the page without saving any changes" size="large" variant="bare"></lightning-button-icon>
+	<p class="slds-p-around_x-small slds-text-align_right">            
+		<lightning-button-icon icon-name="utility:close" disabled={disableClose} onclick={handleClose} alternative-text="Close" title="Closing the page without saving any changes" size="large" variant="bare"></lightning-button-icon>
 	</p>
 
 	<!--Hide component for sales if contract is sent for signing-->
@@ -81,25 +81,24 @@
 		</lightning-record-edit-form >
 
 		<!--Service Details-->
-
-		<template if:true={serviceIds}>
-			<template for:each={serviceIds} for:item="serviceId">
-				<div key={serviceId} class="slds-p-around_x-large slds-page-header__title slds-align_absolute-center">Service Details</div>
-
-				<lightning-record-edit-form key={serviceId} object-api-name={aliObjName} record-id={serviceId} onload={handleOnLoadService}>
+			<template for:each={serviceRecords} for:item="serviceRec">
+				<lightning-record-edit-form key={serviceRec.serviceId} object-api-name={aliObjName} record-id={serviceRec.serviceId} onload={handleOnLoadService}>
 
 					<lightning-messages></lightning-messages>
+
+					<div class="slds-p-around_x-large slds-page-header__title slds-align_absolute-center">{serviceRec.productLine} Service Details</div>
+					
 					<div class="slds-grid slds-gutters_xx-small">
 						<div class="slds-col slds-size_1-of-2">
-							<lightning-input-field field-name={serviceStartField} class="serviceStartField"
+							<lightning-input-field data-id={serviceRec.serviceId} field-name={serviceStartField} class="serviceStartField"
 							style="display:none;"> </lightning-input-field>
-							<lightning-input type="date" value={serviceStartValue} label="Service Commencement Date"
+							<lightning-input type="date" data-title={serviceRec.serviceId} label="Service Commencement Date" data-id={serviceRec.serviceId}
 							date-style="short" class="serviceStart" required="true" onchange ={handleStartDateChange}></lightning-input>
 						</div>
 						<div class="slds-col slds-size_1-of-2">
-							<lightning-input-field field-name={serviceEndField} class="serviceEndField"
+							<lightning-input-field data-id={serviceRec.serviceId} field-name={serviceEndField} class="serviceEndField"
 							style="display:none;"> </lightning-input-field>
-							<lightning-input type="date" value={serviceEndValue} label="Service Expiry Date"
+							<lightning-input type="date"  label="Service Expiry Date" data-id={serviceRec.serviceId}
 							date-style="short" class="serviceEnd" onchange ={handleEndDateChange}></lightning-input>
 						</div>
 					</div>
@@ -122,8 +121,6 @@
 				</div>
 			</template>
 		</template>
-
-	</template>
 
 		<!--Footer-->
 		<p class="slds-p-around_x-small slds-text-align_right slds-border_top">

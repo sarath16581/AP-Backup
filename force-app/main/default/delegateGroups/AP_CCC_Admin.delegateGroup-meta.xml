@@ -19,6 +19,8 @@
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSets>AP Contact Centre - Omni Skills Report</permissionSets>
+    <permissionSets>CC Compensation Supervisor</permissionSets>
+    <permissionSets>CC Compensation User</permissionSets>
     <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>
     <permissionSets>SSSW Allow Quick Text</permissionSets>
     <permissionSets>SSSW Callback Reminder Manager</permissionSets>
