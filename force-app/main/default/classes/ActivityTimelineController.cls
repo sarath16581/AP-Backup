@@ -30,12 +30,15 @@ public without sharing class ActivityTimelineController {
         recordId = String.escapeSingleQuotes(recordId);
         sObjectName = String.escapeSingleQuotes(sObjectName);
 
-        Map<Id,Task> tasks = TasksSelector.newInstance(recordLimit,offsetLimit,'CreatedDate','DESC').selectByWhatId(new Set<Id>{recordId},new Set<Object>{TasksSelector.Options.WITH_OWNER,TasksSelector.Options.WITH_CONTACT});
-        Map<Id,Event> events = EventsSelector.newInstance(recordLimit, offsetLimit).selectByWhatId(new Set<Id>{recordId},new Set<Object>{EventsSelector.Options.WITH_OWNER,EventsSelector.Options.WITH_CONTACT});
+        Map<Id,Task> tasks = TasksSelector.newInstance(recordLimit,offsetLimit,'CreatedDate','DESC').selectByWhatId(new Set<Id>{recordId},new Set<Object>{TasksSelector.Options.WITH_OWNER,TasksSelector.Options.WITH_CONTACT}, true);
+        Map<Id,Event> events = EventsSelector.newInstance(recordLimit, offsetLimit).selectByWhatId(new Set<Id>{recordId},new Set<Object>{EventsSelector.Options.WITH_OWNER,EventsSelector.Options.WITH_CONTACT}, true);
 
         List<RecordActivity> allActivities = new List<RecordActivity>();
 
         for (Task task : tasks.values()) {
+            if (task.IsDeleted) {
+                continue;
+            }
             RecordActivity recordActivity = new RecordActivity();
             recordActivity.actId = task.Id;
             if (!String.isEmpty(task.TaskSubtype)) {
@@ -59,6 +62,9 @@ public without sharing class ActivityTimelineController {
         }
 
         for (Event event : events.values()) {
+            if (event.IsDeleted) {
+                continue;
+            }
             RecordActivity recordActivity = new RecordActivity();
             recordActivity.actId = event.Id;
             recordActivity.icon = 'standard:event';

@@ -8,6 +8,7 @@
  * @description Test Class covering EventSelector
  * @changelog
  * 2023-07-15- Steve L - Created
+ * 2020-03-03 - Steve L - added testSelectorAllRows
  */
 @IsTest
 private class EventsSelector_Test {
@@ -125,6 +126,44 @@ private class EventsSelector_Test {
         EventsSelector selectorWithOffset = EventsSelector.newInstance(0,1);
         eventMap = selectorWithOffset.selectById(new Set<Id>{events[0].Id, events[1].Id}, new Set<Object>{});
         System.assertEquals(1, eventMap.size(), 'Expected 1 result');
+
+        Test.stopTest();
+    }
+
+    /**
+	 * Executes a query to ensure it returns expected results with ALL ROWS
+	 */
+    @IsTest
+    public static void testSelectorSelectAllRows() {
+        final Integer eventSize = 20;
+        // =====================================
+        // Data Preparation
+        // =====================================
+        MockUtility.disableTriggerExecution();
+
+        List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+        List<Event> events = new List<Event>{ApplicationTestDataFactory.getEvents(eventSize, accounts[0].Id,  true)[0]};
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+        EventsSelector eventsSelector = (EventsSelector)MockUtility.mockSelector(EventsSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+
+        MockUtility.Mocks.when(eventsSelector.selectByWhatId((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject())).thenReturn(new Map<Id,Event>(events));
+        MockUtility.Mocks.when(mockUow.registerNew((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+        Map<Id,Event> eventMap = eventsSelector.selectByWhatId(new Set<Id>{accounts[0].Id}, new Set<Object>(), true);
+        System.assertEquals(events.size(), eventMap.size(), 'Expected ' + String.valueOf(eventSize) + ' result');
 
         Test.stopTest();
     }

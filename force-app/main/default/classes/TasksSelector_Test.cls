@@ -8,6 +8,7 @@
  * @description Test Class covering TasksSelector
  * @changelog
  * 2020-03-03 - Steve W - Created
+ * 2023-08-11 - Steve L - added testSelectorAllRows
  */
 @IsTest
 public with sharing class TasksSelector_Test {
@@ -148,6 +149,44 @@ public with sharing class TasksSelector_Test {
 		TasksSelector selectorWithOffsetLimitSorts = TasksSelector.newInstance(0,1,'CreatedDate','DESC');
 		taskMap = selectorWithOffsetLimitSorts.selectById(new Set<Id>{tasks[0].Id, tasks[1].Id}, new Set<Object>{});
 		System.assertEquals(1, taskMap.size(), 'Expected 1 result');
+
+		Test.stopTest();
+	}
+
+	/**
+	 * Executes a query to ensure it returns expected results with ALL ROWS
+	 */
+	@IsTest
+	public static void testSelectorSelectAllRows() {
+		final Integer taskSize = 20;
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		List<Task> tasks = new List<Task>{ApplicationTestDataFactory.getTasks(taskSize, accounts[0].Id,  true)[0]};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		TasksSelector tasksSelector = (TasksSelector)MockUtility.mockSelector(TasksSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(tasksSelector.selectByWhatId((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject())).thenReturn(new Map<Id,Task>(tasks));
+		MockUtility.Mocks.when(mockUow.registerNew((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Map<Id,Task> taskMap = tasksSelector.selectByWhatId(new Set<Id>{accounts[0].Id}, new Set<Object>(), true);
+		System.assertEquals(tasks.size(), taskMap.size(), 'Expected ' + String.valueOf(taskSize) + ' result');
 
 		Test.stopTest();
 	}
