@@ -49,7 +49,7 @@
 								</lightning-input>
 							</td>
 							<template if:true={showTransactionId}>
-								<td class="slds-truncate slds-grid_vertical-align-start" style="text-wrap: wrap;">
+								<td class="slds-truncate" style="text-wrap: wrap;">
 									<lightning-input
 										variant="label-hidden" 
 										type="text" 
@@ -66,7 +66,7 @@
 								</td>
 							</template>					
 							<template if:true={showConnote}>
-								<td class="slds-truncate slds-grid_vertical-align-start" style="text-wrap: wrap;">
+								<td class="slds-truncate" style="text-wrap: wrap;">
 									<lightning-input 
 										variant="label-hidden"
 										type="text" 
@@ -82,7 +82,7 @@
 									</lightning-input>
 								</td>
 							</template>
-							<td class="slds-truncate slds-grid_vertical-align-start">
+							<td class="slds-truncate">
 								<lightning-input
 									variant="label-hidden"
 									value={disputeItem.Amount_Claimed__c}
@@ -100,7 +100,7 @@
 									data-field="Amount_Claimed__c">
 								</lightning-input>
 							</td>
-							<td class="slds-truncate  slds-grid_vertical-align-start">
+							<td class="slds-truncate">
 								<lightning-input
 									variant="label-hidden"							
 									value={disputeItem.Amount__c}
@@ -118,7 +118,7 @@
 									data-field="Amount__c">
 								</lightning-input>
 							</td>
-							<td class="slds-truncate slds-grid_vertical-align-start">
+							<td class="slds-truncate">
 								<lightning-button-icon 
 									icon-name="utility:delete"
 									alternative-text="Delete" 
