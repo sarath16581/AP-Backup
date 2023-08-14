@@ -11,6 +11,7 @@
  * 2021-06-24 - Raman Saxena(Salesforce) - Added Priority field in getSObjectFieldList method and created a new method selectByWhatId - PBRP
  * 2021-12-22 - Ashapriya Gadi - Added method selectList to retrieve tasks based on WhatIds and ownerIds
  * 2022-02-02 - Nathan Franklin - Update search method and fixed injection attack vector
+ * 2023-08-11 - SteveL - added selectByWhatIdAllRows
  */
 public virtual inherited sharing class TasksSelector extends ApplicationSelector {
 
@@ -29,8 +30,8 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		return (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setOffset(offsetLimit);
 	}
 
-	public static TasksSelector newInstance(Integer recordLimit, Integer offsetLimit, String sortField, String sortOrder) {
-		TasksSelector selector = (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setLimit(recordLimit).setOffset(offsetLimit);
+	public static TasksSelector newInstance(Integer recordLimit, Integer offsetLimit, String sortField, String sortOrder, Set<SObjectField> fieldOverrides) {
+		TasksSelector selector = (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setLimit(recordLimit).setOffset(offsetLimit).setFieldOverrides(fieldOverrides);
 		selector.sortField = sortField;
 		selector.sortOrder = sortOrder;
 		return selector;
@@ -100,10 +101,11 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 			conditions.add(new QueryBuilder.SimpleCondition('Subject in :subjects'));
 			conditionCount++;
 		}
-        if(searchParams.containsKey('ownerIds')) {
-            conditions.add(new QueryBuilder.SimpleCondition('OwnerId in :ownerIds'));
-            conditionCount++;
-        }
+
+		if(searchParams.containsKey('ownerIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition('OwnerId in :ownerIds'));
+			conditionCount++;
+		}
 		
 		// build our condition string which would end up being something liek the following:
 		// 1 AND 2 AND 3
@@ -144,8 +146,16 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 	 * @description Run a simple query to get records based on what Ids | PBRP
 	 */
 	public Map<Id, Task> selectByWhatId(Set<Id> whatIds, Set<Object> selectorOptions) {
+		return selectByWhatId(whatIds, selectorOptions, false);
+	}
+
+	/**
+	 * @description Run a simple query to get records based on what Ids with ALL ROWS
+	 */
+	public Map<Id, Task> selectByWhatId(Set<Id> whatIds, Set<Object> selectorOptions, Boolean allRows) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Task.WhatId + ' in :whatIds')).endConditions();
-		return new Map<Id, Task>((List<Task>)Database.query(qb.toSoqlString()));
+		String qString = allRows ? qb.toSoqlString() + ' ALL ROWS' : qb.toSoqlString();
+		return new Map<Id, Task>((List<Task>)Database.query(qString));
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
