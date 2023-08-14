@@ -206,6 +206,7 @@ public inherited sharing class OpportunityLineItemService {
 	
 		if (items == null || items.isEmpty() || items[0].Opportunity.AccountId == null) {
 			return items;
+		}
 		 
 
 		// recalculate OPC for the opporutnity line items
