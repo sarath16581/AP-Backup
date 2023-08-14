@@ -36,13 +36,14 @@
 			<tbody>
 					<template for:each={disputeItemList} for:item="disputeItem" for:index="index">
 						<tr key={disputeItem.Id} class="slds-hint-parent">						
-							<td class="slds-truncate">
+							<td class="slds-truncate ">
 								<lightning-input 
 									variant="label-hidden"
 									type="text" 
 									value={disputeItem.Invoice_Number__c} 
 									onchange={onChangeField} 
 									max-length="12"
+									placeholder="Invoice Number"
 									data-id={disputeItem.Id} 
 									data-field="Invoice_Number__c">
 								</lightning-input>
@@ -95,6 +96,7 @@
 									min=".01"
 									step=".01"								
 									max-length="20"
+									placeholder="Amount Claimed"
 									data-field="Amount_Claimed__c">
 								</lightning-input>
 							</td>
@@ -112,6 +114,7 @@
 									min=".01"
 									step=".01"								
 									max-length="20"
+									placeholder="Amount Charged"
 									data-field="Amount__c">
 								</lightning-input>
 							</td>
