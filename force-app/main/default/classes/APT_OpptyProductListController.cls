@@ -8,19 +8,17 @@
  * @changelog
  * 2021-03-21 - Mathew Jose - Created
  * 2023-04-12 - Harry Wang - Updated getOpptyProducts using selector
+ * 14/8/2023 fix for additional fields queried by selector class
 */
 public with sharing class APT_OpptyProductListController {
 	/**
-	 * This method is used to retrieve OpportunityLineItems under a given opportunity
-	 * @param oppId ID of the opportunity
-	 * @param recalculate if recalculate is required
-	 * @return list of OpportunityLineItems
-	 */
+	* This method is used to retrieve OpportunityLineItems under a given opportunity
+	* @param oppId ID of the opportunity
+	* @param recalculate if recalculate is required
+	* @return list of OpportunityLineItems
+	*/
 	@AuraEnabled(Cacheable=true)
 	public static List<OpportunityLineItem> getOpptyProducts(Id oppId, Boolean recalculate){
-		if (recalculate) {
-			return OpportunityLineItemService.getPreClassifiedLineItems(oppId);
-		}
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				OpportunityLineItem.SObjectType => new Set<SObjectField>{
 						OpportunityLineItem.Id, OpportunityLineItem.Name, OpportunityLineItem.Classification__c, OpportunityLineItem.Change_Classification__c,
@@ -28,9 +26,13 @@ public with sharing class APT_OpptyProductListController {
 						OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c,
 						OpportunityLineItem.Contract_Product__c, OpportunityLineItem.Contract_Number__c},
 				Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name}
+				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
 		};
-		return OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(new Set<Id>{oppId}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
+		List<OpportunityLineItem> items = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(new Set<Id>{oppId}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
+		if (recalculate) {
+			return OpportunityLineItemService.getPreClassifiedLineItems(items);
+		}
+		return items;
 	}
 
 	/**
