@@ -146,7 +146,8 @@ public with sharing class TasksSelector_Test {
         taskMap = selectorWithOffset.selectById(new Set<Id>{tasks[0].Id, tasks[1].Id}, new Set<Object>{});
 		System.assertEquals(1, taskMap.size(), 'Expected 1 result');
 
-		TasksSelector selectorWithOffsetLimitSorts = TasksSelector.newInstance(0,1,'CreatedDate','DESC');
+		Set<SObjectField> taskFieldOverrides = new Set<SObjectField> {Task.Id};
+		TasksSelector selectorWithOffsetLimitSorts = TasksSelector.newInstance(0,1,'CreatedDate','DESC',taskFieldOverrides);
 		taskMap = selectorWithOffsetLimitSorts.selectById(new Set<Id>{tasks[0].Id, tasks[1].Id}, new Set<Object>{});
 		System.assertEquals(1, taskMap.size(), 'Expected 1 result');
 

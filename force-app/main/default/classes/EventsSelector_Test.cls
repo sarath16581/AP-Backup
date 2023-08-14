@@ -123,7 +123,8 @@ private class EventsSelector_Test {
 		eventMap = selector.selectById(new Set<Id>{events[0].Id});
 		System.assertEquals(1, eventMap.size(), 'Expected 1 result');
 
-		EventsSelector selectorWithOffset = EventsSelector.newInstance(0,1);
+		Set<SObjectField> eventFieldOverrides = new Set<SObjectField> {Event.Id};
+		EventsSelector selectorWithOffset = EventsSelector.newInstance(0,1,eventFieldOverrides);
 		eventMap = selectorWithOffset.selectById(new Set<Id>{events[0].Id, events[1].Id}, new Set<Object>{});
 		System.assertEquals(1, eventMap.size(), 'Expected 1 result');
 

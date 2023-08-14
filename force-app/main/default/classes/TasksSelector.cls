@@ -30,8 +30,8 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		return (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setOffset(offsetLimit);
 	}
 
-	public static TasksSelector newInstance(Integer recordLimit, Integer offsetLimit, String sortField, String sortOrder) {
-		TasksSelector selector = (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setLimit(recordLimit).setOffset(offsetLimit);
+	public static TasksSelector newInstance(Integer recordLimit, Integer offsetLimit, String sortField, String sortOrder, Set<SObjectField> fieldOverrides) {
+		TasksSelector selector = (TasksSelector)Application.Selectors.newInstance(TasksSelector.class).setLimit(recordLimit).setOffset(offsetLimit).setFieldOverrides(fieldOverrides);
 		selector.sortField = sortField;
 		selector.sortOrder = sortOrder;
 		return selector;
@@ -45,7 +45,7 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		return new Set<SObjectField> {
 				Task.Id, Task.Subject, Task.Description, Task.ActivityDate, Task.OwnerId, Task.WhatId,
 				Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.TaskSubtype, Task.IsClosed,
-				Task.Priority, Task.OwnerId, Task.Operations_Outcome_Comment__c, Task.CreatedDate, Task.IsDeleted, Task.IsArchived
+				Task.Priority, Task.OwnerId, Task.Operations_Outcome_Comment__c, Task.CreatedDate
 		};
 	}
 

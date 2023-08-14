@@ -26,8 +26,8 @@ public virtual inherited sharing class EventsSelector extends ApplicationSelecto
 		return (EventsSelector)Application.Selectors.newInstance(EventsSelector.class).setOffset(offsetLimit);
 	}
 
-	public static EventsSelector newInstance(Integer recordLimit,Integer offsetLimit) {
-		return (EventsSelector)Application.Selectors.newInstance(EventsSelector.class).setLimit(recordLimit).setOffset(offsetLimit);
+	public static EventsSelector newInstance(Integer recordLimit,Integer offsetLimit, Set<SObjectField> fieldOverrides) {
+		return (EventsSelector)Application.Selectors.newInstance(EventsSelector.class).setLimit(recordLimit).setOffset(offsetLimit).setFieldOverrides(fieldOverrides);
 	}
 
 	public override SObjectType getSObjectType() {
@@ -38,7 +38,7 @@ public virtual inherited sharing class EventsSelector extends ApplicationSelecto
 		return new Set<SObjectField> {
 				Event.Id, Event.Subject, Event.Description, Event.ActivityDate, Event.OwnerId, Event.WhatId,
 				Event.WhoId,Event.Category__c, Event.Type, Event.OwnerId, Event.Status__c,
-				Event.StartDateTime, Event.EndDate, Event.EndDateTime, Event.CreatedDate, Task.IsDeleted, Task.IsArchived
+				Event.StartDateTime, Event.EndDate, Event.EndDateTime, Event.CreatedDate
 		};
 	}
 

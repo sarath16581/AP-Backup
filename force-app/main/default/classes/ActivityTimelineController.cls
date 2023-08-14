@@ -30,8 +30,13 @@ public without sharing class ActivityTimelineController {
 		recordId = String.escapeSingleQuotes(recordId);
 		sObjectName = String.escapeSingleQuotes(sObjectName);
 
-		Map<Id,Task> tasks = TasksSelector.newInstance(recordLimit,offsetLimit,'CreatedDate','DESC').selectByWhatId(new Set<Id>{recordId},new Set<Object>{TasksSelector.Options.WITH_OWNER,TasksSelector.Options.WITH_CONTACT}, true);
-		Map<Id,Event> events = EventsSelector.newInstance(recordLimit, offsetLimit).selectByWhatId(new Set<Id>{recordId},new Set<Object>{EventsSelector.Options.WITH_OWNER,EventsSelector.Options.WITH_CONTACT}, true);
+		Set<SObjectField> taskFieldOverrides = getTaskFieldOverrides();
+		Map<Id,Task> tasks = TasksSelector.newInstance(recordLimit,offsetLimit,'CreatedDate','DESC',taskFieldOverrides).selectByWhatId(new Set<Id>{recordId},new Set<Object>{TasksSelector.Options.WITH_OWNER,TasksSelector.Options.WITH_CONTACT}, true);
+
+
+		Set<SObjectField> eventFieldOverrides = getEventFieldOverrides();
+		Map<Id,Event> events = EventsSelector.newInstance(recordLimit, offsetLimit, eventFieldOverrides).selectByWhatId(new Set<Id>{recordId},new Set<Object>{EventsSelector.Options.WITH_OWNER,EventsSelector.Options.WITH_CONTACT}, true);
+
 
 		List<RecordActivity> allActivities = new List<RecordActivity>();
 
@@ -81,6 +86,16 @@ public without sharing class ActivityTimelineController {
 		}
 
 		return allActivities;
+	}
+
+	@TestVisible
+	private static Set<SObjectField> getTaskFieldOverrides() {
+		return new Set<SObjectField>{Task.Id, Task.IsDeleted, Task.IsArchived, Task.TaskSubtype,Task.Subject,Task.Category__c,Task.Description,Task.Type,Task.CreatedDate,Task.ActivityDate,Task.Status,Task.Priority};
+	}
+
+	@TestVisible
+	private static Set<SObjectField> getEventFieldOverrides() {
+		return new Set<SObjectField>{Event.Id, Event.IsDeleted, Event.IsArchived, Event.StartDateTime,Event.Subject,Event.Category__c,Event.Description,Event.Type,Event.CreatedDate,Event.ActivityDate,Event.EndDateTime,Event.Status__c};
 	}
 
 	public class RecordActivity {
