@@ -101,10 +101,11 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 			conditions.add(new QueryBuilder.SimpleCondition('Subject in :subjects'));
 			conditionCount++;
 		}
-        if(searchParams.containsKey('ownerIds')) {
-            conditions.add(new QueryBuilder.SimpleCondition('OwnerId in :ownerIds'));
-            conditionCount++;
-        }
+
+		if(searchParams.containsKey('ownerIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition('OwnerId in :ownerIds'));
+			conditionCount++;
+		}
 		
 		// build our condition string which would end up being something liek the following:
 		// 1 AND 2 AND 3
