@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides access for a integration user to the BSP Community. As the existing BSP Community Access permission set is a license based, this allows access to community for integration user for SSO etc</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>BSP Community Integration Access</label>
+</PermissionSet>
