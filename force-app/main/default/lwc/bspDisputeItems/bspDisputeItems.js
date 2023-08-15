@@ -6,6 +6,10 @@ export default class bspDisputeItems extends LightningElement {
 	@track disputeItemList = [];
 	@api accountHeldWith = '';
 
+	
+	connectedCallback() {
+		this.addRow();
+	}	
 
 	addRow() {
 		const newDisputeItem = {
@@ -47,7 +51,7 @@ export default class bspDisputeItems extends LightningElement {
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
 		//--Checking the custom validation on change of a field value
 		if (inputCmp !== undefined && inputCmp.length > 0) {
-			checkCustomValidity(inputCmp[1], inputCmp[0].messageWhenValueMissing);
+			checkCustomValidity(inputCmp[1], inputCmp[1].messageWhenValueMissing);
 		}
 	}
 
@@ -76,7 +80,22 @@ export default class bspDisputeItems extends LightningElement {
 
 	@api
 	getDisputedItems(){
-		return this.disputeItemList;
+		let disputeItems = [];
+		if (this.disputeItemList) {
+			this.disputeItemList.forEach(dItem =>{
+					let disputeItem = {...dItem};
+					disputeItem.Id = null;
+					if (this.accountHeldWith === 'Australia Post'){
+						disputeItem.Connote__c = null;
+					}					
+					if (this.accountHeldWith === 'StarTrack'){
+						disputeItem.Transaction_ID__c = null;
+					}					
+					disputeItems.push(disputeItem);
+				}
+			)
+		}
+		return disputeItems;
 	}
 
 

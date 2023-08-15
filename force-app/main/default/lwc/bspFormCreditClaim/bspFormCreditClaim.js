@@ -12,6 +12,7 @@ import REASON_CREDIT_CLAIM_FIELD from '@salesforce/schema/Case.ReasonforCreditCl
 // apex methods
 import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProfileDetails';
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
+import createCreditClaim from '@salesforce/apex/bspCreditClaimController.createCreditClaim';
 
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
 
@@ -108,7 +109,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 	handleEnquiryTypeChange(event) {
 		let key = this.reasonClaimFieldData.controllerValues[event.target.value]; 
-	this.reasonClaimList = this.reasonClaimFieldData.values.filter(opt => opt.validFor.includes(key));
+		this.reasonClaimList = this.reasonClaimFieldData.values.filter(opt => opt.validFor.includes(key));
 	}
 
 	//get current user profile details
@@ -275,8 +276,45 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			return;
 		}
 
-		this.showSpinner = false;
+		this.tempCase.RecordTypeId =  this.recordTypeId;
+		this.tempCase.Billing_Number__c = this.businessAccountNumber;
+		this.tempCase.Name__c = this.contactName;
+		this.tempCase.Email_Address__c = this.contactEmailAddress;
+		this.tempCase.Phone__c = this.contactPhoneNumber;
+		this.tempCase.Business_Unit__c = this.accountHeldWith;
+		this.tempCase.Enquiry_Type__c = this.disputeType;
+		this.tempCase.ReasonforCreditClaim__c = this.reasonClaim;
+		this.tempCase.Amount_Claimed__c  = this.claimAmount;
+		this.tempCase.Origin = 'BSP';
+		this.tempCase.Status = 'New';
+		this.tempCase.Priority = 'Normal';
+		this.tempCase.Description = this.description;
+		this.tempCase.CCUEnquiryType__c = 'Credit Claim';
+		this.tempCase.Subject = 'Credit Claim';
+
+		//get disputeItems 
+		let disputeItems = inputDisputeItems.getDisputedItems();
+
+		createCreditClaim({
+			caseRecord: this.tempCase,
+			uploadedFiles: this.uploadedFiles,
+			disputeItems: disputeItems
+		}).then(result =>{
+			if(result.status == 'error'){
+				this.errorMessage = result.message;
+			} else {
+				this.tempCase = result.caseRecord;
+				this.successCreation = true;
+			}
+			this.showSpinner = false;
+		}).catch(error => {
+			console.error('error occured');
+			console.error(error);
+			this.showSpinner = false;
+		})
+
 	}
+
 
 	navigateHome(event)
 	{
