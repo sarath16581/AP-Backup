@@ -10,6 +10,7 @@ public with sharing class bspCreditClaimController{
 		CreditClaimResponseWrapper enquiryWrapper = new CreditClaimResponseWrapper();			
 
 		try {
+			ElevatedSharingContext context = new ElevatedSharingContext();
 
 			/////////////////////////////////////////////////
 			//TODO: validate Business Account Number and assign the billing account number to the case.
@@ -23,7 +24,7 @@ public with sharing class bspCreditClaimController{
 			caseRecord.AccountId = bspBaseUplift.loginAccountId;
 
 			//Fetching the assignment rules on case
-			List<AssignmentRule> assignmentRules = AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType('Case').values();
+			List<AssignmentRule> assignmentRules = context.getCaseAssignmentRules();
 			AssignmentRule assignRule; 
 			if (assignmentRules.size() >= 1) {
 				assignRule = assignmentRules[0];
@@ -33,7 +34,7 @@ public with sharing class bspCreditClaimController{
 			Database.DMLOptions dmlOptions = new Database.DMLOptions();
 			dmlOptions.assignmentRuleHeader.assignmentRuleId = assignRule.Id;
 			caseRecord.setOptions(dmlOptions);
-			ApplicationDatabase.getInstance().dmlInsert(new List<Case> {caseRecord});
+			context.insertRecords(new List<Case> {caseRecord});
 
 			//get the new case number
 			Case newCase = CasesSelector.newInstance().selectById(new Set<Id> {caseRecord.Id}).get(caseRecord.Id);
@@ -44,8 +45,7 @@ public with sharing class bspCreditClaimController{
 					for(Disputed_Item__c diRecord :disputeItems){
 						diRecord.Case__c = newCase.Id;
 					}
-
-					ApplicationDatabase.getInstance().dmlInsert(disputeItems);                       
+					context.insertRecords(disputeItems);                       
 				}				
 				// link any files
 				if(uploadedFiles !=null && !uploadedFiles.isEmpty()){
@@ -70,5 +70,27 @@ public with sharing class bspCreditClaimController{
 		@AuraEnabled public String message {get;set;}
 	}
 
+
+	/**
+	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
+	* sharing settings.
+	*/
+	private without sharing class ElevatedSharingContext {
+		/**
+		 * Insert a list of sObject records in system mode
+		 * @param List<sObject>
+		*/
+		private void insertRecords(List<sObject> recordList) {
+			ApplicationDatabase.getInstance().dmlInsert(recordList);
+		}
+
+		/**
+		 * Returns cases by ids
+		 * @param Set<Id>
+		 */
+		private List<AssignmentRule> getCaseAssignmentRules() {
+			return AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType('Case').values();
+		}
+	}
 
 }
