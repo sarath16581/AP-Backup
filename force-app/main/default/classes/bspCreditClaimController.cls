@@ -71,13 +71,12 @@ public with sharing class bspCreditClaimController{
 	}
 
 
-    /**
+	/**
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
 	* sharing settings.
 	*/
-    private without sharing class ElevatedSharingContext {
-
-        /**
+	private without sharing class ElevatedSharingContext {
+		/**
 		 * Insert a list of sObject records in system mode
 		 * @param List<sObject>
 		*/
@@ -85,13 +84,13 @@ public with sharing class bspCreditClaimController{
 			ApplicationDatabase.getInstance().dmlInsert(recordList);
 		}
 
-        /**
-         * Returns cases by ids
-         * @param Set<Id>
-         */
-        private List<AssignmentRule> getCaseAssignmentRules() {
+		/**
+		 * Returns cases by ids
+		 * @param Set<Id>
+		 */
+		private List<AssignmentRule> getCaseAssignmentRules() {
 			return AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType('Case').values();
-        }
-    }
+		}
+	}
 
 }
