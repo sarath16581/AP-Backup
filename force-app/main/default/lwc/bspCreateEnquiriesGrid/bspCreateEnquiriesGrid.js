@@ -3,7 +3,8 @@
  * @date 24/07/2020
  * @description common js methods for BSP community
  * --------------------------------------- History --------------------------------------------------
-	24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
+ * 24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
+ * 15/08/2023		hasantha.liyanage@auspost.com.au	added credit claim form tiles
 */
 
 import { LightningElement ,wire, api} from 'lwc';
@@ -45,11 +46,11 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
             return false;
     }
 
+    navigationPage;
+    enquiryType;
+    accountHeldWith;
     handleClick(event) {
         const button = event.detail;
-        let navigationPage;
-        let enquiryType;
-
         if (button === 'lateOrMissing'){
             this.navigationPage = 'BSP_AP_Enquiry_Form__c';
         }   
@@ -69,8 +70,16 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
         }    
         else if (button === 'stPickupBookings'){
             this.navigationPage = 'BSP_ST_Pickup_Booking_Enquiry__c'; 
-        }   
-        
+        }
+        else if (button === 'creditClaimAP'){
+            this.navigationPage = 'BSP_Credit_Claim_Form__c';
+            this.accountHeldWith = 'Australia Post';
+        }
+        else if (button === 'creditClaimST'){
+            this.navigationPage = 'BSP_Credit_Claim_Form__c';
+            this.accountHeldWith = 'StarTrack';
+        }
+
         this[NavigationMixin.Navigate]({
             type: 'comm__namedPage',
             attributes: {
@@ -78,7 +87,8 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
             },
             state: { 
                 enquiryType: this.enquiryType,
-                trackingId : this.trackingId
+                trackingId : this.trackingId,
+                accountHeldWith : this.accountHeldWith
             }
         }, false);
     }

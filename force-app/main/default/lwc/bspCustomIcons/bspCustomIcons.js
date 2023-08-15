@@ -4,6 +4,7 @@
  * @date 2020-08-19
  * @group Tracking
  * @changelog
+ * 15/08/2023	hasantha.liyanage@auspost.com.au	added claim icon
  */
 import {LightningElement, api} from 'lwc';
 
@@ -106,6 +107,9 @@ export default class BspCustomIcons extends LightningElement {
 	}
 	get iconIsVan() {
 		return this.icon === 'van';
+	}
+	get iconIsClaim() {
+		return this.icon === 'claim';
 	}
 	get iconIsHelp() {
 		return this.icon === 'help';

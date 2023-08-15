@@ -5,41 +5,35 @@
 --------------------------------------- History --------------------------------------------------
 22.07.2020    Jansi Rani   Created
 14.07.2021    Madhuri Awasthi : REQ2551967 (business logos to separate AusPost and Startrack Enquires)
+15.08.2023	  Hasantha Liyanage	added credit claim form tiles
 -->
 
 <template>
     <div>
         <!-- Creat an Enquiry Text Heading-->
         <h2 class="slds-p-bottom_x-small">Create a new enquiry</h2>
-
         <div class="slds-p-bottom_small">What is your enquiry about?</div>
-
         <template if:true={isVisibleApCreateEnqiries}>
             <div class="custom-logo-container">                
                 <div class="brand-logo"><c-bsp-custom-icons icon="ap-logo" size="logo"></c-bsp-custom-icons></div>                  
             </div>
             <div class="slds-grid slds-grid_vertical-stretch slds-wrap">
-                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small slds-p-right_medium enquiry-card"> 
-
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small slds-p-right_medium enquiry-card">
                     <c-bsp-create-enquiries-tile icon-name="missing-item" tile-header-text="Late or missing parcel"
                             tile-sub-text="The parcel has <b>no delivered scan</b>  from Australia Post and you're
                             not sure why it hasn't arrived yet. We'll follow it up, using the tracking number."
                             button-label="Create enquiry" button-data-id="lateOrMissing" oncreateenquiryevent={handleClick}>
                     </c-bsp-create-enquiries-tile>
                 </div>
-
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small enquiry-card"> 
                     <c-bsp-create-enquiries-tile icon-name="redeliver" tile-header-text="Return to sender"
                         tile-sub-text="<b>Return</b> a parcel that is awaiting collection from an Australia Post outlet or has
                         been addressed to a Parcel Locker, P.O. box or Parcel Collect." button-label="Create enquiry"
                         button-data-id="returnToSender" oncreateenquiryevent={handleClick}>
                     </c-bsp-create-enquiries-tile>
-                    
                 </div>
             </div>
-            
             <div class="slds-grid slds-grid_vertical-stretch slds-wrap">
-
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small slds-p-right_medium enquiry-card"> 
                     <c-bsp-create-enquiries-tile icon-name="van" tile-header-text="Delivery issue"
                         tile-sub-text="The parcel has been <b>marked as delivered</b> by Australia Post but there's a
@@ -47,16 +41,22 @@
                         button-label="Create enquiry" button-data-id="deliveryIssue" oncreateenquiryevent={handleClick}>
                     </c-bsp-create-enquiries-tile>
                 </div>
-
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small enquiry-card"> 
-                    <c-bsp-create-enquiries-tile icon-name="help" tile-header-text="General enquiry"
-                        tile-sub-text="For all other Australia Post business questions, select this option."
-                        button-label="Create enquiry" button-data-id="generalEnquiry"
+                    <c-bsp-create-enquiries-tile icon-name="claim" tile-header-text="Credit Claim"
+                        tile-sub-text="<b>Request a credit</b> for an invoice discrepancy or incorrect charge."
+                        button-label="Create enquiry" button-data-id="creditClaimAP"
                         oncreateenquiryevent={handleClick}>
                     </c-bsp-create-enquiries-tile>
-
                 </div>
-
+            </div>
+            <div class="slds-grid slds-grid_vertical-stretch slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small slds-p-right_medium enquiry-card">
+                    <c-bsp-create-enquiries-tile icon-name="help" tile-header-text="General enquiry"
+                                                 tile-sub-text="For all other Australia Post business questions, select this option."
+                                                 button-label="Create enquiry" button-data-id="generalEnquiry"
+                                                 oncreateenquiryevent={handleClick}>
+                    </c-bsp-create-enquiries-tile>
+                </div>
             </div>
         </template>
         <template if:true={isVisibleStCreateEnqiries}>
@@ -70,17 +70,20 @@
                             tile-sub-text="For all enquiries regarding articles that have been shipped but not yet delivered."
                             button-data-id="stDelivery" oncreateenquiryevent={handleClick}>
                     </c-bsp-create-enquiries-tile>
-            
                 </div>
-
                 <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small enquiry-card"> 
                     <c-bsp-create-enquiries-tile icon-name="schedule"
                         tile-header-text="StarTrack pickup bookings" tile-sub-text="For all questions regarding pickup bookings." 
                         button-label="Create enquiry" button-data-id="stPickupBookings" oncreateenquiryevent={handleClick}>
                     </c-bsp-create-enquiries-tile>
-                    
                 </div>
-
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_small slds-p-right_medium enquiry-card">
+                <c-bsp-create-enquiries-tile icon-name="claim" tile-header-text="Credit Claim"
+                                             tile-sub-text="<b>Request a credit</b> for an invoice discrepancy or incorrect charge."
+                                             button-label="Create enquiry" button-data-id="creditClaimST"
+                                             oncreateenquiryevent={handleClick}>
+                </c-bsp-create-enquiries-tile>
             </div>
         </template>
     </div>
