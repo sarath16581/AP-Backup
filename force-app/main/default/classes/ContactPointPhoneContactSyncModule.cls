@@ -62,7 +62,6 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 		try {
 			List<SObject> recordsToUpdate = ContactService.getInstance().syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records, null);
 			ContactUtility.generateReversePhoneFields((List<Contact>)recordsToUpdate);
-			ContactUtility.resetUniqueMobileFlag((List<Contact>)recordsToUpdate); // Cannot have `null` as a value for Unique_Mobile__c
 
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {

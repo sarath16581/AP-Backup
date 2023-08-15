@@ -2,7 +2,7 @@
 --------------------------------------- History --------------------------------------------------
 01.03.2020		alex.volkov@auspost.com.au    	Added setMailingAddress method
 03.10.2021		naveen.rajanna@auspost.com.au 	REQ2620830 Changed setMailingAddress method to populate mailingDPID fields and changed api version to 52
-14.08.2023		boris.bachovski2@auspost.com.au Add a method to set Unique_Mobile__c to false (currently being set to null, causing it to fail). General formatting overhaul.
+15.08.2023		boris.bachovski2@auspost.com.au General formatting overhaul.
 **/
 
 public without sharing class ContactUtility {
@@ -151,13 +151,6 @@ public without sharing class ContactUtility {
 			c.ReversePhoneFields__c += Util.reversePhoneString(c.HomePhone) + ' ';
 			c.ReversePhoneFields__c += Util.reversePhoneString(c.MobilePhone) + ' ';
 			c.ReversePhoneFields__c += Util.reversePhoneString(c.OtherPhone) + ' ';
-		}
-	}
-
-	// Explicity set the Unique Mobile flag to false (if left null it causes the transation to fail (value not of required type)
-	public static void resetUniqueMobileFlag(List<Contact> contacts) {
-		for (Contact c : contacts) {
-			c.Unique_Mobile__c = false;
 		}
 	}
 

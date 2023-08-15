@@ -495,7 +495,7 @@ public inherited sharing class ContactService {
 
 		return ct;
 	}
-	//this method is to map when there are contact point emails for contact that need to be upserted
+	//this method is to map when there are contact point phones for contact that need to be upserted
 	private Contact mapContactFromContactPointPhone(
 		ContactPointPhone cpp,
 		MAp<Id, Contact> contactMap,
@@ -506,7 +506,7 @@ public inherited sharing class ContactService {
 		if (phoneType == CPP_PHONE_TYPE.MOBILE) {
 			ct.MobilePhone = cpp.TelephoneNumber;
 			ct.VerifiedMobile__c = cpp.TelephoneNumber;
-			ct.Unique_Mobile__c = cpp.UniqueMobile__c;
+			ct.Unique_Mobile__c = cpp.UniqueMobile__c == true ? true : false; // prevent assigning null value
 
 			if ((flag == CPP_FLAGS.MOBILE_VERIFIED) || (flag == CPP_FLAGS.MOBILE_VERIFIED_AND_PREFFERED)) {
 				return ct;
@@ -518,6 +518,11 @@ public inherited sharing class ContactService {
 			}
 		} else if (phoneType == CPP_PHONE_TYPE.HOME) {
 			ct.HomePhone = cpp.TelephoneNumber;
+		}
+
+		// prevent assigning null value
+		if (ct.Unique_Mobile__c == null) {
+			ct.Unique_Mobile__c = false;
 		}
 
 		return ct;
