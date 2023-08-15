@@ -506,7 +506,7 @@ public inherited sharing class ContactService {
 		if (phoneType == CPP_PHONE_TYPE.MOBILE) {
 			ct.MobilePhone = cpp.TelephoneNumber;
 			ct.VerifiedMobile__c = cpp.TelephoneNumber;
-			ct.Unique_Mobile__c = cpp.UniqueMobile__c == true ? true : false; // prevent assigning null value
+			ct.Unique_Mobile__c = cpp.UniqueMobile__c;
 
 			if ((flag == CPP_FLAGS.MOBILE_VERIFIED) || (flag == CPP_FLAGS.MOBILE_VERIFIED_AND_PREFFERED)) {
 				return ct;
@@ -519,12 +519,7 @@ public inherited sharing class ContactService {
 		} else if (phoneType == CPP_PHONE_TYPE.HOME) {
 			ct.HomePhone = cpp.TelephoneNumber;
 		}
-
-		// prevent assigning null value
-		if (ct.Unique_Mobile__c == null) {
-			ct.Unique_Mobile__c = false;
-		}
-
+		
 		return ct;
 	}
 
