@@ -8,6 +8,7 @@
  * 2020-04-22 - Nathan Franklin - Added additional fields to soql
  * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
  * 2023-07-14 - Nathan Franklin - Uplifting some capability to frameworks and integration to Auth0
+ * 2023-08-16 - Mahesh Parvathaneni - Executing the ThirdPartyAccountLink SOQL for running user for a workaround in MerchantPortalOIDCRegHandler 
  */
 public with sharing class BAMUserUtility {
 
@@ -556,6 +557,7 @@ public with sharing class BAMUserUtility {
          */
         private String userContextCNumber { get; set; }
         private Id networkId { get; set; }
+		private List<ThirdPartyAccountLink> tpals {get;set;}
 
         /**
          * Returns a list of user records with their corresponding personas based on the logged in user's cNumber if it exists
@@ -672,6 +674,11 @@ public with sharing class BAMUserUtility {
             } else {
                 this.userContextCNumber = [Select Contact.OID_ID__c From User Where Id = :userId].Contact.OID_ID__c;
                 this.networkId = networkId;
+				//prime the thirdparty account links for the login user, so for the  subsequent logins we make sure 
+				//confirmUser method in MerchantPortalOIDCRegHandler has always tpalId. This is due to the bug in salesforce (Case #44952215), 
+				//TPAL Id can be null or empty until the ThirdPartyAccountLink SOQL is executed at least once.
+				//This is due to SsoFlowHandler directly checking the virtual entity. Once the SOQL is executed, tpal can be obtained correctly
+				this.tpals = ThirdPartyAccountLinksSelector.newInstance(0, new Set<SObjectField>{ThirdPartyAccountLink.Id}).selectByUser(new Set<Id>{userId});
             }
         }
 
