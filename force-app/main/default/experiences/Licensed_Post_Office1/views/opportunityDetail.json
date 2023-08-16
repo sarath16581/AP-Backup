@@ -153,23 +153,6 @@
       }, {
         "components" : [ {
           "componentAttributes" : {
-            "height" : "600",
-            "pageName" : "SeismicOpportunity",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "forceCommunity:visualforcePage",
-          "id" : "6237186f-8d68-4457-88fa-99366a167c84",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "81ba1f59-5afe-4a2e-9172-ebb9b8324a3d",
-        "regionLabel" : "Seismic",
-        "regionName" : "3",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
             "relatedListApiName" : "Deal_Support_Request__r",
             "relatedListComponentOverride" : "GRID",
             "width" : "MEDIUM"
