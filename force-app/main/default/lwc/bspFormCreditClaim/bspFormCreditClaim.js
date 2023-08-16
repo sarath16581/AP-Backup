@@ -1,3 +1,13 @@
+/**
+ * @author Thang Nguyen
+ * @date 2023-08-11
+ * @group lwc
+ * @domain BSP
+ * @description lwc for the BSP Credit Claim form
+ * @changelog
+ * 2023-08-11 - Thang Nguyen - Created
+ * 2023-08-16 - Hasantha Liyanage - auto populate account held with
+ */
 import {LightningElement, track, wire, api} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
 import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight} from 'c/bspCommonJS';
@@ -12,7 +22,7 @@ import REASON_CREDIT_CLAIM_FIELD from '@salesforce/schema/Case.ReasonforCreditCl
 // apex methods
 import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProfileDetails';
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
-import createCreditClaim from '@salesforce/apex/bspCreditClaimController.createCreditClaim';
+import createCreditClaim from '@salesforce/apex/BSPCreditClaimController.createCreditClaim';
 
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
 
@@ -140,7 +150,16 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	setCurrentPageReference(currentPageReference) {
 		this.currentPageReference = currentPageReference;
 		// set the account held with field
-		this.accountHeldWith = this.currentPageReference.state.accountHeldWith;
+		switch (this.currentPageReference.state.accountHeldWith) {
+			case 'ap':
+				this.accountHeldWith = 'Australia Post';
+				break;
+			case 'st':
+				this.accountHeldWith = 'StarTrack';
+				break;
+			default:
+				break;
+		}
 	}
 
 	renderedCallback() {

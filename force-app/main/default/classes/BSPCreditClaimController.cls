@@ -1,4 +1,14 @@
-public with sharing class bspCreditClaimController{
+/**
+ * @author Thang Nguyen
+ * @date 2023-08-11
+ * @group Controller
+ * @domain BSP
+ * @description Controller apex for the BSP Credit Claim component
+ * @changelog
+ * 2023-08-11 - Thang Nguyen - Created
+ * 2023-08-16 - Hasantha Liyanage - Added validate case functionality.
+ */
+public with sharing class BSPCreditClaimController {
 
 	public static String STATUS_OK = 'ok';
 	public static String STATUS_ERROR = 'error';
@@ -15,8 +25,6 @@ public with sharing class bspCreditClaimController{
 			/////////////////////////////////////////////////
 			//TODO: validate Business Account Number and assign the billing account number to the case.
 			/////////////////////////////////////////////////
-
-
 
 			//set case contact id
 			caseRecord.ContactId = bspBaseUplift.loginContactId;
@@ -55,6 +63,8 @@ public with sharing class bspCreditClaimController{
 				enquiryWrapper.status = STATUS_OK;
 				enquiryWrapper.message = '';
 			}
+
+			validateCase(newCase);
 			
 		} catch (Exception ex) {
 			enquiryWrapper.status = STATUS_ERROR;
@@ -92,5 +102,54 @@ public with sharing class bspCreditClaimController{
 			return AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType('Case').values();
 		}
 	}
+
+	/**
+	 * @param caseRecord
+	 * Validate the case record details before save
+	 */
+	public static void validateCase(Case caseRecord){
+		Map<Id,Billing_Account__c> billingAccountsByIds =  BillingAccountsSelector.newInstance().selectByOrgId(new Set<Id>{caseRecord.AccountId});
+		if(billingAccountsByIds == null || billingAccountsByIds.isEmpty() || getBillingAccountFromMap(caseRecord.Billing_Number__c , billingAccountsByIds) == null) {
+			throw new bspCreditClaimControllerException(BSPErrorMessages__c.getValues('Invalid Billing Account Credit Claim').Message__c);
+		}
+	}
+
+	/**
+	 * get a map of billing accounts by legacy Id
+	 *
+	 * @param billingAccountsByIds
+	 *
+	 * @return map of billing accounts by Legacy Id
+	 */
+	public static Map<String, Billing_Account__c> getBillingAccountByLegacyId(Map<Id,Billing_Account__c> billingAccountsByIds) {
+		Map<String, Billing_Account__c> billingAccountByLegacyId = new Map<String, Billing_Account__c>();
+		for (Billing_Account__c account : billingAccountsByIds.values()) {
+			billingAccountByLegacyId.put(account.Legacy_ID__c, account);
+		}
+
+		return billingAccountByLegacyId;
+	}
+
+	/**
+	 * Check on Billing account number existence without the prefix
+	 * @param billingAcctNo
+	 * @param billingAccountsByIds
+	 *
+	 * @return Id of the billing account if exists
+	 */
+	public static Id getBillingAccountFromMap(String billingAcctNo, Map<Id,Billing_Account__c> billingAccountsByIds) {
+		Map<String, Billing_Account__c> billingAccountByLegacyId = getBillingAccountByLegacyId(billingAccountsByIds);
+		Id billAcct = null;
+		if (billingAccountByLegacyId.get('P' + billingAcctNo) != null) {
+			billAcct = billingAccountByLegacyId.get('P' + billingAcctNo).Id;
+		} else if (billingAccountByLegacyId.get('T' + billingAcctNo) != null) {
+			billAcct = billingAccountByLegacyId.get('T' + billingAcctNo).Id;
+		} else if (billingAccountByLegacyId.get(billingAcctNo) != null) {
+			billAcct = billingAccountByLegacyId.get(billingAcctNo).Id;
+		}
+		return billAcct;
+	}
+
+	public class bspCreditClaimControllerException extends Exception {}
 
 }
