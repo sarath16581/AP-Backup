@@ -551,12 +551,12 @@ public with sharing class BAMUserUtility {
         // used to minimise the need to run additional soql's
         private Map<Id, String> cNumberUserMap = new Map<Id, String>();
 
-        /**
-         * Set by the setUserContext method. An instance can have only a CNumber or user Id.
-         * A community user can only set their own user id which is translated to their own cnumber
-         */
-        private String userContextCNumber { get; set; }
-        private Id networkId { get; set; }
+		/**
+		 * Set by the setUserContext method. An instance can have only a CNumber or user Id.
+		 * A community user can only set their own user id which is translated to their own cnumber
+		 */
+		private String userContextCNumber { get; set; }
+		private Id networkId { get; set; }
 		private List<ThirdPartyAccountLink> tpals {get;set;}
 
         /**
@@ -664,23 +664,23 @@ public with sharing class BAMUserUtility {
             private set;
         }
 
-        /**
-         * New instance of the persona switch utility based on a user id
-         * NOTE: this instance will always be in the context of a network or community
-         */
-        public BAMPersonaSwitchUtility(Id userId, Id networkId) {
-            if((PORTAL_PERSONA_USER_TYPES.contains(UserInfo.getUserType()) && Id.valueOf(userId) != Id.valueOf(UserInfo.getUserId()))) {
-                throw new InvalidPersonaException('Not authorised to change user context.');
-            } else {
-                this.userContextCNumber = [Select Contact.OID_ID__c From User Where Id = :userId].Contact.OID_ID__c;
-                this.networkId = networkId;
+		/**
+		 * New instance of the persona switch utility based on a user id
+		 * NOTE: this instance will always be in the context of a network or community
+		 */
+		public BAMPersonaSwitchUtility(Id userId, Id networkId) {
+			if((PORTAL_PERSONA_USER_TYPES.contains(UserInfo.getUserType()) && Id.valueOf(userId) != Id.valueOf(UserInfo.getUserId()))) {
+				throw new InvalidPersonaException('Not authorised to change user context.');
+			} else {
+				this.userContextCNumber = [Select Contact.OID_ID__c From User Where Id = :userId].Contact.OID_ID__c;
+				this.networkId = networkId;
 				//prime the thirdparty account links for the login user, so for the  subsequent logins we make sure 
 				//confirmUser method in MerchantPortalOIDCRegHandler has always tpalId. This is due to the bug in salesforce (Case #44952215), 
 				//TPAL Id can be null or empty until the ThirdPartyAccountLink SOQL is executed at least once.
 				//This is due to SsoFlowHandler directly checking the virtual entity. Once the SOQL is executed, tpal can be obtained correctly
 				this.tpals = ThirdPartyAccountLinksSelector.newInstance(0, new Set<SObjectField>{ThirdPartyAccountLink.Id}).selectByUser(new Set<Id>{userId});
-            }
-        }
+			}
+		}
 
         /**
          * New instance of the persona switch utility based on a cnumber
