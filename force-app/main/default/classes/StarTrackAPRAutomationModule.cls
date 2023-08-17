@@ -6,6 +6,7 @@
  * @domain APR
  * @changelog
  * 2022-04-15	Naveen Rajanna	REQ2811129 - created
+ * 2023-08-18 Jacob Isaac REQ3267427
  */
 
 public inherited sharing class StarTrackAPRAutomationModule extends ApplicationDomain.Module {
@@ -86,24 +87,27 @@ public inherited sharing class StarTrackAPRAutomationModule extends ApplicationD
 
 			//Status has been set or Changed
 			if (apr.Status__c != null && (isInsert || (oldAPR != null && (oldAPR.Status__c != apr.Status__c)))) {
-				//Status is Open or Unresolved - Update Effective Date and Conclusion Date to null
-				if (APRConstants.STATUS_OPEN_UNRESOLVED.contains(apr.Status__c)) {
-					apr.Confirmed_Date__c = null;
-					apr.Confirmed_Rate__c = null;
-					apr.Conclusion_Date__c = null;
-				}
 
-				//Status is one of Accepted,Account Lost,Reduction,Exemption - Update Effective Date and Conclusion Date
+				//REQ3267427 - Removed logic to nullify the fields since there are new validation rules being added
+				//Status is Open or Unresolved - Update Effective Date and Conclusion Date to null
+				// if (APRConstants.STATUS_OPEN_UNRESOLVED.contains(apr.Status__c)) {
+				// 	apr.Confirmed_Date__c = null;
+				// 	apr.Confirmed_Rate__c = null;
+				// 	apr.Conclusion_Date__c = null;
+				// }
+
+				//Status is one of Account Lost - Update Effective Date and Conclusion Date
 				if (APRConstants.STATUS_VERFIED_MULTIPLE.contains(apr.Status__c)) {
 					if(apr.Published_Date__c != null) {
 						apr.Conclusion_Date__c = date.valueOf((apr.Published_Date__c.year() + 1) + '-10-31');
 						apr.Confirmed_Date__c = apr.Published_Date__c;
 					}
 
+					//REQ3267427 - Removed Status value and inactivating logic
 					//Status is Exemption - Update Confirmed Rate to 0
-					if (APRConstants.STATUS_EXEMPTION.equalsIgnoreCase(apr.Status__c)) {
-						apr.Confirmed_Rate__c = 0;
-					}
+					// if (APRConstants.STATUS_EXEMPTION.equalsIgnoreCase(apr.Status__c)) {
+					// 	apr.Confirmed_Rate__c = 0;
+					// }
 				}
 			}
 
