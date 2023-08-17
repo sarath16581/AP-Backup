@@ -3,13 +3,13 @@ Description: The base class for all BSP related functionality
 History:
 --------------------------------------------------
 2019-04-13  nathan.franklin@auspost.com.au  Created
-2020-10-16   avula.jansirani@auspost.com.au  updated insertFiles() and added a method convertFilesToAttachmentsAndDeleteFiles()
-2020-11-26    Jansi Rani. avula.jansirani@auspost.com.au  Removed System.debug lines
-2021-07-05   Victor.Cheng@auspost.com.au Added the initThemeComp
+2020-10-16  avula.jansirani@auspost.com.au  updated insertFiles() and added a method convertFilesToAttachmentsAndDeleteFiles()
+2020-11-26  Jansi Rani. avula.jansirani@auspost.com.au  Removed System.debug lines
+2021-07-05  Victor.Cheng@auspost.com.au Added the initThemeComp
+2023-08-17  mahesh.parvathaneni@auspost.com.au Changed isCSSOLogin to check for AuthProvider instead of SAML
 **************************************************/
 public with sharing virtual class bspBaseUplift {
 
-	public static final String CSSO_SAML_CONFIG = 'BSP_CSSO';
 
 	// store the logged in user in a static context to minimise number of queries run in a single transaction
 	private static User loggedInUser = null;
@@ -719,8 +719,8 @@ public with sharing virtual class bspBaseUplift {
 					if (attribs.get('LoginHistoryId') != null) {
 						List<LoginHistory> history = [Select AuthenticationServiceId From LoginHistory Where Id = :attribs.get('LoginHistoryId')];
 						if (!history.isEmpty() && history[0].AuthenticationServiceId != null) {
-							List<SamlSsoConfig> configs = [Select DeveloperName From SamlSsoConfig Where Id = :history[0].AuthenticationServiceId];
-							if (!configs.isEmpty() && configs[0].DeveloperName == CSSO_SAML_CONFIG) {
+							List<AuthProvider> configs = [Select DeveloperName From AuthProvider Where Id = :history[0].AuthenticationServiceId];
+							if (!configs.isEmpty()) {
 								isCSSOLogin = true;
 							}
 						}
