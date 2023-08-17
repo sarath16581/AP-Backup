@@ -68,7 +68,7 @@ public with sharing class APT_LandingCartController {
 					throw exceptionHandler;
 				}
 				//User should not be permitted to create proposal if KeyContact field is blank or null
-				if(opp.KeyContact__c == '' || opp.KeyContact__c == null ){
+				if(opp.KeyContact__c == null ){
 					exceptionHandler = new AuraHandledException(System.Label.KeyContactError);
 					exceptionHandler.setMessage(System.Label.KeyContactError);
 					throw exceptionHandler;
