@@ -73,11 +73,11 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
         }
         else if (button === 'creditClaimAP'){
             this.navigationPage = 'BSP_Credit_Claim_Form__c';
-            this.accountHeldWith = 'Australia Post';
+            this.accountHeldWith = 'ap';
         }
         else if (button === 'creditClaimST'){
             this.navigationPage = 'BSP_Credit_Claim_Form__c';
-            this.accountHeldWith = 'StarTrack';
+            this.accountHeldWith = 'st';
         }
 
         this[NavigationMixin.Navigate]({
