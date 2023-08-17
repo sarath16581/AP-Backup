@@ -67,6 +67,12 @@ public with sharing class APT_LandingCartController {
 					exceptionHandler.setMessage(System.Label.isStarTrackProduct);
 					throw exceptionHandler;
 				}
+				//User should not be permitted to create proposal if KeyContact field is blank or null
+				if(opp.KeyContact__c == '' || opp.KeyContact__c == null ){
+					exceptionHandler = new AuraHandledException(System.Label.KeyContactError);
+					exceptionHandler.setMessage(System.Label.KeyContactError);
+					throw exceptionHandler;
+				}
 				//User should not be permitted to create proposal if stagename field is 'closed Lost'
 				if(opp.stagename == APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST && opp.stagename != null ){
 					exceptionHandler = new AuraHandledException(System.Label.Add_Product_On_Closed_Opportunity);
@@ -193,6 +199,7 @@ public with sharing class APT_LandingCartController {
 								prodConfigOwnerId2 = pc.OwnerId;
 							}
 						}
+						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
 						if(prodConfigOwnerId != null){
 							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
