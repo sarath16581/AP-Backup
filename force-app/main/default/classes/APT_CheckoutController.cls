@@ -6,8 +6,9 @@
 *1.0 : 09-03-2023 : Bharat Patel : Added method for OOTB finalize API to finalize the Proposal on 'Checkout Only' action from LWC
 *1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
+*1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
 **/
-public class APT_CheckoutController{
+public without sharing class APT_CheckoutController{
 
 	public String configId {get; set;}
 	public String proposalId {get; set;}
@@ -142,5 +143,26 @@ public class APT_CheckoutController{
 			}
 		}
 		return checkWorkVerification;
+	}
+
+	/**
+	*@description: This method checks if document generation is required before agreement generation.
+	*@author Yatika Bansal
+	*@param String configId
+	*@return boolean
+	**/
+	@AuraEnabled
+	public static Boolean docGenerationRequired(string configId){
+		Set<String> productNames = new Set<String>();
+		for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
+			productNames.add(proposalProduct.APT_Product_Name__c);
+		}
+		
+		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
+		if(lineItem.size() > 0){
+			return true;
+		}
+		
+		return false;
 	}
 }
