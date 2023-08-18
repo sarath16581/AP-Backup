@@ -37,44 +37,44 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	currentPageReference;
 	submitClicked = false;
 
-	@track formTitle = 'Create a credit claim';
+	formTitle = 'Create a credit claim';
 
 	// spinner control
-	@track showSpinner = false;
-	@track successCreation = false;
+	showSpinner = false;
+	successCreation = false;
 	// error messages
-	@track errorMessage = false;
+	errorMessage = false;
 	// output logs
-	@track logs = [];
+	logs = [];
 
 	// user object
-	@track uploadedFiles = [];
+	uploadedFiles = [];
 	// the temp Case to hold values for submission
-	@track tempCase = {};
+	tempCase = {};
 
 	// form fields
 	// ui options
-	@track accountHeldWithList = [];
-	@track disputeTypeList = [];
-	@track reasonClaimList = [];
+	accountHeldWithList = [];
+	disputeTypeList = [];
+	reasonClaimList = [];
 	// dislay value
-	@track businessName;
-	@track businessAccountNumber;
-	@track contactName;
-	@track contactEmailAddress;
-	@track contactPhoneNumber;
-	@track accountHeldWith;
-	@track disputeType;
-	@track reasonClaim;
-	@track claimAmount;
-	@track description;
+	businessName;
+	businessAccountNumber;
+	contactName;
+	contactEmailAddress;
+	contactPhoneNumber;
+	accountHeldWith;
+	disputeType;
+	reasonClaim;
+	claimAmount;
+	description;
 
 	//temporary data
-	@track recordTypeId;
-	@track reasonClaimFieldData;
+	recordTypeId;
+	reasonClaimFieldData;
 
 	//login user details
-	@track user = {
+	user = {
 		FirstName: '',
 		LastName: '',
 		Email: '',

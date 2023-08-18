@@ -109,21 +109,22 @@ public class TestDataFactory {
             // prepare users
             for (UserDTO userDTO : userDTOs) {
                 User futureUser = new User(
-                        firstname = userDTO.userName,
-                        lastname = userDTO.userName,
-                        alias = 'future',
-                        defaultgroupnotificationfrequency = 'N',
-                        digestfrequency = 'N',
-                        email = 'test@test.org',
-                        emailencodingkey = 'UTF-8',
-                        languagelocalekey = 'en_US',
-                        localesidkey = 'en_US',
-                        profileid = profileNameToId.get(userDTO.profileName),
-                        timezonesidkey = 'America/Los_Angeles',
-                        username = userDTO.userName + '@test.org',
-                        userpermissionsmarketinguser = false,
-                        userpermissionsofflineuser = false,
-                        userroleid = roleNameToId.get(userDTO.role)
+                        FirstName = userDTO.userName,
+                        LastName = userDTO.userName,
+                        Alias = 'future',
+                        DefaultGroupNotificationFrequency = 'N',
+                        DigestFrequency = 'N',
+                        Email = 'test@test.org',
+                        EmailEncodingKey = 'UTF-8',
+                        LanguageLocaleKey = 'en_US',
+                        LocaleSidKey = 'en_US',
+                        ProfileId = profileNameToId.get(userDTO.profileName),
+                        TimeZoneSidKey = 'America/Los_Angeles',
+                        Username = userDTO.userName + '@test.org',
+                        UserPermissionsMarketingUser = false,
+                        UserPermissionsOfflineUser = false,
+                        UserRoleId = roleNameToId.get(userDTO.role),
+                        ContactId = userDTO.contactId
                 );
                 usersToInsert.add(futureUser);
             }
@@ -148,5 +149,6 @@ public class TestDataFactory {
         public Set<String> permissionSetNames { get; set; }
         public String userName { get; set; }
         public String role { get; set; }
+        public Id contactId { get; set; }
     }
 }
