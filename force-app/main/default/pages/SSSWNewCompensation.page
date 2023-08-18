@@ -66,7 +66,6 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Other__c}"/>
                   <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> -->  
@@ -85,7 +84,6 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Other__c}"/>
                   <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
@@ -125,7 +123,6 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Other__c}"/>
                    <!-- <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> --> 
@@ -146,7 +143,6 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
                     <apex:inputField value="{!Compensation__c.Other__c}"/>
                   <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
@@ -178,7 +174,7 @@
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Replacement_Products__c}"/>
                     <apex:inputField value="{!Compensation__c.Replacement_Product_Quantity__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    
                     <!-- <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
                     <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/> 
                 </apex:pageBlockSection>
