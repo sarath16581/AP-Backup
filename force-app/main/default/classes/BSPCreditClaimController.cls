@@ -9,27 +9,33 @@
  * 2023-08-16 - Hasantha Liyanage - Added validate case functionality.
  */
 public with sharing class BSPCreditClaimController {
-
 	public static String STATUS_OK = 'ok';
 	public static String STATUS_ERROR = 'error';
 
 	@AuraEnabled
-	public static CreditClaimResponseWrapper createCreditClaim(Case caseRecord, List<Map<String, String>> uploadedFiles, List<Disputed_Item__c> disputeItems) {				
-
+	public static CreditClaimResponseWrapper createCreditClaim(Case caseRecord, List<Map<String, String>> uploadedFiles, List<Disputed_Item__c> disputeItems) {
 		// return object
 		CreditClaimResponseWrapper enquiryWrapper = new CreditClaimResponseWrapper();			
 
 		try {
 			ElevatedSharingContext context = new ElevatedSharingContext();
-
-			/////////////////////////////////////////////////
-			//TODO: validate Business Account Number and assign the billing account number to the case.
-			/////////////////////////////////////////////////
-
 			//set case contact id
 			caseRecord.ContactId = bspBaseUplift.loginContactId;
 			//set case account id
 			caseRecord.AccountId = bspBaseUplift.loginAccountId;
+			Billing_Account__c billingAccount = getBillingAccountRecord(caseRecord);
+			//if no billing account found user is not allowed to proceed,
+			//this validation to be removed when the auto select dropdown is implemented which allows the user to select a billing accounts which the user has access to
+			if(billingAccount == null) {
+				Set<SObjectField> fields = new Set<SObjectField>{BSPErrorMessages__c.Message__c};
+				CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(BSPErrorMessages__c.SObjectType, fields);
+				Set<String> settingNames = new Set<String> {'Invalid Billing Account Credit Claim'};
+				Map<String, SObject> bspMessagesSettings = (Map<String, SObject>) settingsSelector.selectByNames(settingNames);
+				BSPErrorMessages__c networkFilterSetting = (BSPErrorMessages__c) bspMessagesSettings.get('Invalid Billing Account Credit Claim');
+				throw new bspCreditClaimControllerException(networkFilterSetting.Message__c);
+			}
+			//assign the billing account record to case
+			caseRecord.Related_Billing_Account__c = billingAccount.Id;
 
 			//Fetching the assignment rules on case
 			List<AssignmentRule> assignmentRules = context.getCaseAssignmentRules();
@@ -63,14 +69,10 @@ public with sharing class BSPCreditClaimController {
 				enquiryWrapper.status = STATUS_OK;
 				enquiryWrapper.message = '';
 			}
-
-			validateCase(newCase);
-			
 		} catch (Exception ex) {
 			enquiryWrapper.status = STATUS_ERROR;
 			enquiryWrapper.message = ex.getMessage();
-		} 
-
+		}
 		return enquiryWrapper;
 	}
 
@@ -85,6 +87,7 @@ public with sharing class BSPCreditClaimController {
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
 	* sharing settings.
 	*/
+
 	private without sharing class ElevatedSharingContext {
 		/**
 		 * Insert a list of sObject records in system mode
@@ -105,13 +108,15 @@ public with sharing class BSPCreditClaimController {
 
 	/**
 	 * @param caseRecord
-	 * Validate the case record details before save
+	 * get the case record details before save
 	 */
-	public static void validateCase(Case caseRecord){
+	public static Billing_Account__c getBillingAccountRecord(Case caseRecord){
 		Map<Id,Billing_Account__c> billingAccountsByIds =  BillingAccountsSelector.newInstance().selectByOrgId(new Set<Id>{caseRecord.AccountId});
-		if(billingAccountsByIds == null || billingAccountsByIds.isEmpty() || getBillingAccountFromMap(caseRecord.Billing_Number__c , billingAccountsByIds) == null) {
-			throw new bspCreditClaimControllerException(BSPErrorMessages__c.getValues('Invalid Billing Account Credit Claim').Message__c);
+		system.debug('HASANTHA MSG billingAccountsByIds '+billingAccountsByIds);
+		if(billingAccountsByIds != null && !billingAccountsByIds.isEmpty()) {
+			return getBillingAccountFromMap(caseRecord.Billing_Number__c , billingAccountsByIds);
 		}
+		return null;
 	}
 
 	/**
@@ -126,7 +131,6 @@ public with sharing class BSPCreditClaimController {
 		for (Billing_Account__c account : billingAccountsByIds.values()) {
 			billingAccountByLegacyId.put(account.Legacy_ID__c, account);
 		}
-
 		return billingAccountByLegacyId;
 	}
 
@@ -137,15 +141,15 @@ public with sharing class BSPCreditClaimController {
 	 *
 	 * @return Id of the billing account if exists
 	 */
-	public static Id getBillingAccountFromMap(String billingAcctNo, Map<Id,Billing_Account__c> billingAccountsByIds) {
+	public static Billing_Account__c getBillingAccountFromMap(String billingAcctNo, Map<Id,Billing_Account__c> billingAccountsByIds) {
 		Map<String, Billing_Account__c> billingAccountByLegacyId = getBillingAccountByLegacyId(billingAccountsByIds);
-		Id billAcct = null;
+		Billing_Account__c billAcct = null;
 		if (billingAccountByLegacyId.get('P' + billingAcctNo) != null) {
-			billAcct = billingAccountByLegacyId.get('P' + billingAcctNo).Id;
+			billAcct = billingAccountByLegacyId.get('P' + billingAcctNo);
 		} else if (billingAccountByLegacyId.get('T' + billingAcctNo) != null) {
-			billAcct = billingAccountByLegacyId.get('T' + billingAcctNo).Id;
+			billAcct = billingAccountByLegacyId.get('T' + billingAcctNo);
 		} else if (billingAccountByLegacyId.get(billingAcctNo) != null) {
-			billAcct = billingAccountByLegacyId.get(billingAcctNo).Id;
+			billAcct = billingAccountByLegacyId.get(billingAcctNo);
 		}
 		return billAcct;
 	}
