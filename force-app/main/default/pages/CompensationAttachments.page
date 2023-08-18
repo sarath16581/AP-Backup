@@ -29,7 +29,17 @@
         jQuery(function ($) {
             // define our dom events we will receive from the compensation attachment lightning component
             document.getElementById('wrapper').addEventListener('preview', handlePreview);
+            document.getElementById('wrapper').addEventListener('selfRefresh', selfRefresh);
         });
+
+        // refresh the compensation tab once attachment is completed then the POV check box's value update wil surface
+        function selfRefresh(detail) {
+            console.log('detail '+detail);
+            // Get the enclosing primary tab ID
+            sforce.console.getEnclosingTabId(function(result) {
+                sforce.console.refreshSubtabById(result.id, false);
+            });
+        }
 
         // handler for preview file
         function handlePreview(e) {
@@ -38,13 +48,7 @@
 
         // load the preview in a new tab
         function previewFile(detail) {
-            var redirectUrl;
-            if (detail.isAttachment === true) {
-                redirectUrl = "/servlet/servlet.FileDownload?file=" + detail.attachmentId;
-            } else {
-                redirectUrl = detail.attachmentId;
-            }
-
+            const redirectUrl = detail.attachmentId;
             if (sforce.console.isInConsole()) {
                 sforce.console.getEnclosingTabId(function (enclosingResult) {
                     sforce.console.getEnclosingPrimaryTabId(function (primaryResult) {
