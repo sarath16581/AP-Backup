@@ -267,6 +267,7 @@ public inherited sharing class ContactService {
 			contactExistingMap = selectorContacts.selectById(contactIds);
 			//query CPPhones
 			List<ContactPointPhone> cpPhones = selectorPhones.selectByContact(contactIds, new Set<Object>());
+
 			if (!cpPhones.isEmpty()) {
 				cpPhonesExistingMap = getContactMapFromCPPhones(cpPhones);
 			}
@@ -519,7 +520,7 @@ public inherited sharing class ContactService {
 		} else if (phoneType == CPP_PHONE_TYPE.HOME) {
 			ct.HomePhone = cpp.TelephoneNumber;
 		}
-		
+
 		return ct;
 	}
 
@@ -529,7 +530,7 @@ public inherited sharing class ContactService {
 		if (contactMap.containsKey(cpp.contact__c)) {
 			ct = contactMap.get(cpp.contact__c);
 		} else {
-			ct = new Contact(id = cpp.contact__c);
+			ct = new Contact(Id = cpp.contact__c);
 		}
 		return ct;
 	}
