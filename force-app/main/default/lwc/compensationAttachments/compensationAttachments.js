@@ -70,7 +70,6 @@ export default class CompensationAttachments extends LightningElement {
     sortedDirection;
     @wire(getObjectInfo, {objectApiName: 'Attachment'})
     attachmentObjectInfo;
-    attachments = [];
     connectedCallback() {
         this.isLoading = true;
         this.messages = {};
@@ -173,6 +172,9 @@ export default class CompensationAttachments extends LightningElement {
         });
     }
 
+    /**
+     * notify to vf page then the vf page will refresh the tab
+     */
     notifyParent(){
         const detail = {}
         this.dispatchEvent(new CustomEvent('selfRefresh', {detail: detail, bubbles: true, composed: true}));
@@ -188,12 +190,21 @@ export default class CompensationAttachments extends LightningElement {
         }
     }
 
+    /**
+     * sort the sortable columns on the table
+     * @param event
+     */
     onSort(event) {
         this.sortedBy = event.detail.fieldName;
         this.sortedDirection = event.detail.sortDirection;
         this.sortData(this.sortedBy, this.sortedDirection);
     }
 
+    /**
+     * Sorting table data based on the given field name and direction
+     * @param fieldName
+     * @param direction
+     */
     sortData(fieldName, direction) {
         let parseData = JSON.parse(JSON.stringify(this.attachments));
         let keyValue = (a) => {
