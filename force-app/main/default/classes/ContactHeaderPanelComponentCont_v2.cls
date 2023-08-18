@@ -14,6 +14,7 @@ May-2015:  scherukuwada@salesforce.com  Added LIMIT 100
 2020-04-19 snigdha.sahu@auspost.com.au - REQ2140009 : Updated Phone number to be fetched
 2020-06-11 Disha.Kariya@auspost.com.au - MW0003891  : Updated to use response from maritz for business contacts and from NPS Survey for consumers
 2021-05-12	Madhuri.awasthi@auspost.com.au			: Add a preferred name field in contact areas of Salesforce (REQ2476162)
+2023-08-18 boris.bachovski2@auspost.com.au 			: Add Closed Account info (Flag, Reason and Date) for closed accounts.
 
 **************************************************/
 
@@ -128,7 +129,8 @@ public with sharing class ContactHeaderPanelComponentCont_v2 {
 			SELECT Salutation, Name, Email,Preferred_Name__c, MobilePhone, HomePhone, Phone, Fax, MailingStreet, MailingStreet2__c, MailingCity, MailingPostalCode, MailingState,
 				MailingCountry, MailingDPID__c, Individual_Number__c, Birthdate, Birth_Place__c, AccountId, Account.Name,
 				Account.AccountNumber, Account.Type, Account.ServiceSLA__c, Account.Role_Type_Roll_Up__c, APCN__c, Special_Treatment_Notes__c, SpecialTreatment__c, CRMCSSOID__c,
-				ServiceType__c,Account.IsPersonAccount,Account.IsVIP__c,Account.LevelOfAssurance__pc   // Nandan N - 22/07/2015 : Added VIP fields for Icon
+				ServiceType__c, Account.IsPersonAccount, Account.IsVIP__c, Account.LevelOfAssurance__pc,   // Nandan N - 22/07/2015 : Added VIP fields for Icon
+				Is_Inactive_Customer__c, ClosedDateTime__c, ClosedReason__c
 			FROM Contact
 			WHERE Id = :contId
 		];
