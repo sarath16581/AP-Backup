@@ -2,8 +2,9 @@
  * @description       : This is the method called from the Customer Data Sync Platform Event Trigger
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 08-15-2022
- * @last modified by  : Sreenish Krishnan
+ * @changelog
+ * 2022-08-15 			Sreenish Krishnan - Created
+ * 2023-08-14 			Boris Bachovski - Turned off logging exceptions for events with an old timestamp (expected behaviour)
  **/
 
 public inherited sharing class CustomerDataSyncEventHandler {
@@ -304,24 +305,12 @@ public inherited sharing class CustomerDataSyncEventHandler {
 		}
 	}
 
-	//this method filters evenst  based on the intergration mod timesamp
+	// This method filters events based on the intergration mod timesamp
 	private void filterEvents(CustomerDataSync__e e) {
-		if (filteredEvents.containsKey(e.apcn__c)) {
-			if (e.integrationServiceModDate__c > (filteredEvents.get(e.apcn__c)).integrationServiceModDate__c) {
+		if (!filteredEvents.containsKey(e.apcn__c) || 
+			(filteredEvents.containsKey(e.apcn__c) && e.integrationServiceModDate__c > (filteredEvents.get(e.apcn__c)).integrationServiceModDate__c)) {
 				filteredEvents.put(e.apcn__c, e);
-			} else {
-				throw new CustomerDataSyncException(
-					'This event ' +
-					e +
-					' has been discarded as the integration timestamp is older for the apcn ' +
-					e.apcn__c
-				);
-			}
-		} else {
-			filteredEvents.put(e.apcn__c, e);
 		}
-
-		System.debug('filteredEvents are' + filteredEvents);
 	}
 
 	//this method queries Account and generates Customer Refernce Map
