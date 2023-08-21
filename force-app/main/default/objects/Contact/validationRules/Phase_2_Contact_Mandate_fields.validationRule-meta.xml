@@ -23,7 +23,9 @@
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;Customer Team&quot;))
     &amp;&amp;
-    Not( ISPICKVAL( Status__c , &quot;Inactive&quot;) )</errorConditionFormula>
+    Not( ISPICKVAL( Status__c , &quot;Inactive&quot;) )
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;LPO Partner Community User&quot;))</errorConditionFormula>
     <errorMessage>A contact must have a mailing address.
 If you are changing the Status to &apos;Left Organisation&apos; the mailing address remains mandatory, please ensure that the contact meets the minimum mailing address requirements.</errorMessage>
 </ValidationRule>

@@ -5,6 +5,8 @@
 Did you know you can request refunds for unused labels from your MyPost Dashboard? From your order, click View, select the label, click View again. You&apos;ll see a refund option for eligible labels.
 
 Hi {!LiveAgent_VisitorName}, how can I help you today?</autoGreeting>
+    <chasitorIdleTimeout>90</chasitorIdleTimeout>
+    <chasitorIdleTimeoutWarning>60</chasitorIdleTimeoutWarning>
     <chatPage>bspLiveChatWindow</chatPage>
     <customAgentName>{!User_FirstName}</customAgentName>
     <deployments/>
@@ -12,7 +14,7 @@ Hi {!LiveAgent_VisitorName}, how can I help you today?</autoGreeting>
     <isActive>true</isActive>
     <label>MPBSP H&amp;S Portal Chat Button</label>
     <optionsCustomRoutingIsEnabled>false</optionsCustomRoutingIsEnabled>
-    <optionsHasChasitorIdleTimeout>false</optionsHasChasitorIdleTimeout>
+    <optionsHasChasitorIdleTimeout>true</optionsHasChasitorIdleTimeout>
     <optionsHasInviteAfterAccept>false</optionsHasInviteAfterAccept>
     <optionsHasInviteAfterReject>false</optionsHasInviteAfterReject>
     <optionsHasRerouteDeclinedRequest>false</optionsHasRerouteDeclinedRequest>

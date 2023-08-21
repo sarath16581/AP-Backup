@@ -14,4 +14,3 @@
     <aura:attribute name="recordId" type="object"/>
     <c:compensationAttachments recordId="{!v.recordId}"/>
 </aura:component>
-

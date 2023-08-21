@@ -236,6 +236,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>At_Risk_Business__c.Date_of_Revenue_Calculation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>At_Risk_Business__c.Product_IDs__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2700,10 +2705,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.Business_Sales_Implementation_Request</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Commercial_Analytics_Modelling</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -2721,10 +2722,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Deal_Enablement_Centre</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.E_G_Sales_Implementation_Request</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

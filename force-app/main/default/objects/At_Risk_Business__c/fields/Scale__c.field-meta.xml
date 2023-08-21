@@ -15,9 +15,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Product Specific (Please Specify)</fullName>
+                <fullName>Product Specific (Please Specify after save)</fullName>
                 <default>false</default>
-                <label>Product Specific (Please Specify)</label>
+                <label>Product Specific (Please Specify after save)</label>
             </value>
             <value>
                 <fullName>Whole of Business</fullName>

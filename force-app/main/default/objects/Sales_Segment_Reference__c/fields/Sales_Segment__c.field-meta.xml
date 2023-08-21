@@ -102,16 +102,6 @@
                 <label>Intermediaries - Not Active</label>
             </value>
             <value>
-                <fullName>LBP CPO/BC North</fullName>
-                <default>false</default>
-                <label>LBP CPO/BC North</label>
-            </value>
-            <value>
-                <fullName>LBP CPO/BC South</fullName>
-                <default>false</default>
-                <label>LBP CPO/BC South</label>
-            </value>
-            <value>
                 <fullName>LBP Post Offices NSW/ACT &amp; QLD/NT</fullName>
                 <default>false</default>
                 <label>LBP Post Offices NSW/ACT &amp; QLD/NT</label>
@@ -187,14 +177,24 @@
                 <label>LBP Sales Manager WA 2</label>
             </value>
             <value>
-                <fullName>LBP Tier 2 North</fullName>
+                <fullName>LBP Tier 2 CPO North</fullName>
                 <default>false</default>
-                <label>LBP Tier 2 North</label>
+                <label>LBP Tier 2 CPO North</label>
             </value>
             <value>
-                <fullName>LBP Tier 2 South</fullName>
+                <fullName>LBP Tier 2 CPO South</fullName>
                 <default>false</default>
-                <label>LBP Tier 2 South</label>
+                <label>LBP Tier 2 CPO South</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 LPO North</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 LPO North</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 LPO South</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 LPO South</label>
             </value>
             <value>
                 <fullName>Medium Business - Not Active</fullName>
