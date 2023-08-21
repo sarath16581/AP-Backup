@@ -7,7 +7,7 @@
  * @domain ContactPointPhone
  * @changelog
  * 2022-05-22 - George Nguyen - Created.
- *
+ * 2023-08-21 - Boris Bachovski - Bugfix for issue when removing a contact point phone record (INVALID_TYPE_ON_FIELD_IN_RECORD)
  */
 public inherited sharing class ContactPointPhoneContactSyncModule extends ApplicationDomain.Module {
 	public static ContactPointPhoneContactSyncModule newInstance() {
