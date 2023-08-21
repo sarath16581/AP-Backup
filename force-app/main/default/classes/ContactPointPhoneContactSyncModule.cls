@@ -7,7 +7,7 @@
  * @domain ContactPointPhone
  * @changelog
  * 2022-05-22 - George Nguyen - Created.
- * 2023-08-21 - Boris Bachovski - Bugfix for issue when removing a contact point phone record (INVALID_TYPE_ON_FIELD_IN_RECORD)
+ * 2023-08-21 - Boris Bachovski - Temporary bugfix for an issue when removing a contact point phone record (avoid registering dirty field when not required - Contact.Unique_Mobile__c)
  */
 public inherited sharing class ContactPointPhoneContactSyncModule extends ApplicationDomain.Module {
 	public static ContactPointPhoneContactSyncModule newInstance() {
@@ -72,8 +72,8 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 			List <SObject> recordsWithUniqueMobile = new List <SObject> ();
 			List <SObject> recordsWithoutUniqueMobile = new List <SObject> ();
 
-			for (SObject contact : recordsToUpdate) {
-				if (contact.get('Unique_Mobile__c') == null) {
+			for (Contact contact : (List<Contact>)recordsToUpdate) {
+				if (contact.Unique_Mobile__c == null) {
 					recordsWithoutUniqueMobile.add(contact);
 				} else {
 					recordsWithUniqueMobile.add(contact);
