@@ -72,8 +72,8 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 			List <SObject> recordsWithUniqueMobile = new List <SObject> ();
 			List <SObject> recordsWithoutUniqueMobile = new List <SObject> ();
 
-			for (Contact contact : (List<Contact>)recordsToUpdate) {
-				if (contact.Unique_Mobile__c == null) {
+			for (SObject contact : recordsToUpdate) {
+				if (contact.get('Unique_Mobile__c') == null) {
 					recordsWithoutUniqueMobile.add(contact);
 				} else {
 					recordsWithUniqueMobile.add(contact);
