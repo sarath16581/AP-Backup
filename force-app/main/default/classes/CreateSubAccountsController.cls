@@ -1,28 +1,35 @@
 /*
-	* @date 2021-05-12
-	* @group BillingAccounts
-	* @tag BillingAccount
-	* @domain Core
-	* @description Controller for createSubAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
-	* @changelog
-	* 2021-05-12 - seth.heang@auspost.com.au - created
-	* 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
-	* 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
-	* 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
-	*                                                 the lodegement zones of proposals.
-	* 01/08/2022 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
-	* 27/01/2023 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
-	* 								Lines Removed 125-129
-	* 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
-	* 01/03/2023 - Deepak Kemidi - CI-703 Add Method checkAPPCContracts to check if atleast one related APPC contracts have Contract Relationship as Billing Account
-	*/
-	public with sharing class CreateSubAccountsController {
+ * @date 2021-05-12
+ * @group BillingAccounts
+ * @tag BillingAccount
+ * @domain Core
+ * @description Controller for createSubAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
+ * @changelog
+ * 2021-05-12 - seth.heang@auspost.com.au - created
+ * 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
+ * 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
+ * 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
+ *                                                 the lodegement zones of proposals.
+ * 2022-08-01 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
+ * 2023-01-27 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
+ * 								Lines Removed 125-129
+ * 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
+ * 2023-03-01 - Deepak Kemidi - CI-703 Add Method checkAPPCContracts to check if atleast one related APPC contracts have Contract Relationship as Billing Account
+ * 2023-08-18 - Harry Wang - Refactoring getBillingAccountDetails using selector
+ */
+public with sharing class CreateSubAccountsController {
+	private static final Map<SObjectType, Set<SObjectField>> BILLING_ACCOUNT_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
+			Billing_Account__c.SObjectType => new Set<SObjectField>{Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c,
+					Billing_Account__c.Name, Billing_Account__c.SAP_marked_for_deletion__c, Billing_Account__c.Source_System__c,
+					Billing_Account__c.Type__c, Billing_Account__c.PAYER_ACCOUNT_ID__c, Billing_Account__c.LeaderAccount__c},
+			Account.SObjectType => new Set<SObjectField>{Account.Name}
+	};
 
 	@TestVisible private static stateInfo stateInfoVar;
+
 	@AuraEnabled
 	public static Billing_Account__c getBillingAccountDetails(String billingAccountRecord){
-		System.debug('billingAccountRecord>>>'+billingAccountRecord);
-		return [Select Id , LEGACY_ID__c, Name, Organisation__r.Name, SAP_marked_for_deletion__c, Source_System__c, Type__c, PAYER_ACCOUNT_ID__c From Billing_Account__c Where Id=: billingAccountRecord];
+		return BillingAccountsSelector.newInstance(1, BILLING_ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id> {billingAccountRecord}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION}).values()[0];
 	}
 
 	//CI-703 Method to check if all the APPC contracts have Contract Relationship as Billing Account
@@ -132,7 +139,7 @@
 	}
 
 	@AuraEnabled
-		public static APT_Sub_Account__c createSubAccounts(APT_Sub_Account__c subAccountRec,String lodgementPointWCCs) {
+	public static APT_Sub_Account__c createSubAccounts(APT_Sub_Account__c subAccountRec,String lodgementPointWCCs) {
 
 		//boolean recCreated = false;
 		system.debug('Record from LWC:::'+subAccountRec);
@@ -140,7 +147,7 @@
 
 
 		//if(lodgementPointWCCs!=null && existingLodgementPoints == null){
-			if(lodgementPointWCCs!=null ){
+		if(lodgementPointWCCs!=null ){
 			// deserialise the JSON and convert to the custom Sboject
 			List<SObjectResult> responseDetail = (List<SObjectResult>)System.JSON.deserialize(lodgementPointWCCs, List<SObjectResult>.class);
 			system.debug('Lodgement Points after conversion :::'+responseDetail);
