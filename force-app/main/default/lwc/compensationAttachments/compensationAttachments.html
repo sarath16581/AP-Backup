@@ -19,13 +19,16 @@
                     <lightning-icon icon-name="utility:close" alternative-text="Close"></lightning-icon>
                 </button>
                 <span class="slds-icon_container slds-icon-utility-success slds-m-right_small">
-                  <lightning-icon icon-name="utility:success" alternative-text="Success"></lightning-icon>
+                    <lightning-icon icon-name="utility:success" alternative-text="Success"></lightning-icon>
                 </span>
-                <h2 class="slds-text-heading_small">{messages.message}</h2>
+                <div class="slds-m-top_small"> <!-- Use margin-top for spacing -->
+                    <h2 class="slds-text-heading_small">{messages.message}</h2>
+                    <p class="slds-text-body_small">Please refresh the page <a class="slds-text-link" onclick={notifyParent}>here</a> to see the updated view.</p>
+                </div>
             </div>
         </template>
         <template if:true={attachments}>
-            <div class="slds-border_top slds-p-horizontal_medium slds-scrollable_y fixed-max-height">
+            <div class="slds-border_top slds-p-horizontal_medium fixed-max-height">
                 <lightning-datatable
                         key-field="Id"
                         data={attachments}
@@ -33,6 +36,9 @@
                         onrowaction={handleRowAction}
                         hide-checkbox-column="true"
                         class="slds-table_header-fixed_container slds-border_top"
+                        sorted-by={sortedBy}
+                        sorted-direction={sortedDirection}
+                        onsort={onSort}
                 ></lightning-datatable>
             </div>
         </template>
@@ -45,4 +51,3 @@
         </template>
     </lightning-card>
 </template>
-

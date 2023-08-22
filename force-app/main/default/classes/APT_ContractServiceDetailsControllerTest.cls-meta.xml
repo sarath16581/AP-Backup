@@ -7,6 +7,11 @@
         <namespace>Apttus</namespace>
     </packageVersions>
     <packageVersions>
+        <majorNumber>12</majorNumber>
+        <minorNumber>146</minorNumber>
+        <namespace>Apttus_CMConfig</namespace>
+    </packageVersions>
+    <packageVersions>
         <majorNumber>10</majorNumber>
         <minorNumber>227</minorNumber>
         <namespace>Apttus_Proposal</namespace>

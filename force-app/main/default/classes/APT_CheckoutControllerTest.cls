@@ -6,6 +6,7 @@
 * @domain Apttus
 * @description A test class for APT_CheckoutController
 1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
+	2023-08-14 - Yatika Bansal - Added test for docGenerationRequired 
 */
 @IsTest
 public class APT_CheckoutControllerTest {
@@ -75,9 +76,17 @@ public class APT_CheckoutControllerTest {
 			new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));
 		MockUtility.Mocks.stopStubbing();
 
+		LineItemsSelector mockSelector2 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
+		ApplicationDatabase mockDatabase2 = MockUtility.mockDatabase();
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelector2.selectByProdConfIdAndProductName(new set<ID>{(ID)prodConfig.Id}, new set<String>{'Australia Post Parcel Contract'})).thenReturn(
+			new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));
+		MockUtility.Mocks.stopStubbing();
+
 		Test.startTest();
 			String output = APT_CheckoutController.checkoutOnly(prodConfig.id);
 			Boolean checkWorkVeri = APT_CheckoutController.checkWorkVerification(prodConfig.id);
+			Boolean docGenReq = APT_CheckoutController.docGenerationRequired(prodConfig.id);
 		Test.stoptest();
 
 		System.assert(output.contains('Error'), 'Checkout operation should not be completed due to missing data');

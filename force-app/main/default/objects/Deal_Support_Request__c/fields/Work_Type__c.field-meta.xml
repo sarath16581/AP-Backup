@@ -777,6 +777,11 @@
                 <default>false</default>
                 <label>Change OE APR rate</label>
             </value>
+            <value>
+                <fullName>Strategic Onboarding</fullName>
+                <default>false</default>
+                <label>Strategic Onboarding</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

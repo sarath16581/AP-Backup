@@ -47,10 +47,10 @@ public with sharing class APT_LandingCartController {
 				oppMap = OpportunitySelector.newInstance().selectById(new Set<Id>{recordId});
 				Opportunity opp = oppMap.get(recordId);
 				opportunityOwnerId = oppMap.get(recordId).OwnerId;
-				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR){
+				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING){
 					readWritePermisssion = 'true';
 				}
-				else if(loggedInUserId == opportunityOwnerId ){
+				else if(loggedInUserId == opportunityOwnerId || (loggedInUserId != opportunityOwnerId && (profileName == APT_Constants.STRING_BG_BASE || profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING))){
 					readWritePermisssion = 'true';
 				}
 				else{
@@ -65,6 +65,12 @@ public with sharing class APT_LandingCartController {
 				if(opp.IsStartrackProposal__c == '' || opp.IsStartrackProposal__c == null){
 					exceptionHandler = new AuraHandledException(System.Label.isStarTrackProduct);
 					exceptionHandler.setMessage(System.Label.isStarTrackProduct);
+					throw exceptionHandler;
+				}
+				//User should not be permitted to create proposal if KeyContact field is blank or null
+				if(opp.KeyContact__c == null){
+					exceptionHandler = new AuraHandledException(System.Label.KeyContactError);
+					exceptionHandler.setMessage(System.Label.KeyContactError);
 					throw exceptionHandler;
 				}
 				//User should not be permitted to create proposal if stagename field is 'closed Lost'
@@ -183,17 +189,32 @@ public with sharing class APT_LandingCartController {
 					//Querying the product config record by using the proposal id to show the error if user don't have access to Prod config.
 					List<Apttus_Config2__ProductConfiguration__c> prodConfig = ProductConfigurationSelector.newInstance().selectByProposalId(proposalPrimaryTrueId);
 					Id prodConfigOwnerId;
+					Id prodConfigOwnerId2;
 					if(prodConfig.size() > 0){
 						for(Apttus_Config2__ProductConfiguration__c pc:prodConfig){
-							prodConfigOwnerId = pc.OwnerId;
+							if(pc.Apttus_Config2__Status__c == 'New'){
+								prodConfigOwnerId = pc.OwnerId;
+							}
+							if(pc.Apttus_Config2__Status__c == 'Saved'){
+								prodConfigOwnerId2 = pc.OwnerId;
+							}
 						}
-						if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
-							exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
-							exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
-							throw exceptionHandler;
+						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
+						if(prodConfigOwnerId != null){
+							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR){
+								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
+								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
+								throw exceptionHandler;
+							}
+						}
+						if(prodConfigOwnerId2 != null){
+							if(prodConfigOwnerId2 != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING){
+								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
+								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
+								throw exceptionHandler;
+							}
 						}
 					}
-
 				}
 				if(updatePrimaryFalse.size()>0){
 					proposalupdatePrimaryfalse = ApplicationDatabase.getInstance().dmlupdate(updatePrimaryFalse);

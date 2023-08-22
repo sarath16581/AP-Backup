@@ -7,6 +7,7 @@
  * 2019-07-04  nathan.franklin@auspost.com.au  Added additional API helper methods
  * 2020-04-22 - Nathan Franklin - Added additional fields to soql
  * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
+ * 2023-07-14 - Nathan Franklin - Uplifting some capability to frameworks and integration to Auth0
  */
 public with sharing class BAMUserUtility {
 
@@ -15,7 +16,7 @@ public with sharing class BAMUserUtility {
     public static final String BAM_EXTERNAL_ONBOARDING_REQUEST_RECORD_TYPE_NAME = 'BAM';
     public static final Integer ACCESS_MANAGEMENT_MAX_PER_ORG = 3;
 
-    public static final String CONTACT_STATUS_ACTIVE = 'Active';
+	public static final String CONTACT_STATUS_ACTIVE = 'Active';
     public static final String MERCHANT_PORTAL_PROFILE_NAME = 'Merchant Portal Community User';
 	public static final String KEY_NOT_CONTAINS = 'notContains';
 	public static final String KEY_EQUALS = 'equals';
@@ -72,6 +73,7 @@ public with sharing class BAMUserUtility {
         @AuraEnabled public Boolean isActive { get; set; }
         @AuraEnabled public Boolean userActive { get; set; }
         @AuraEnabled public Id primaryBillingAccount { get; set; }
+		@AuraEnabled public String federationIdentifier { get; set; }
     }
 
     /**
@@ -104,12 +106,12 @@ public with sharing class BAMUserUtility {
      */
     public static List<BAMContactApplication__c> getContactApplicationConfig(Id contactId) {
         List<BAMContactApplication__c> output = [Select Id, BSPCanViewAllConsignments__c,
-                Application__c, Status__c, Application__r.AppKey__c, Application__r.Name, Application__r.Status__c, Application__r.SVGRefId__c,
-                Application__r.AccessUrl__c, Application__r.LaunchApplicationInNewWindow__c, Application__r.Description__c, Application__r.ShortDescription__c
-        From BAMContactApplication__c
-        Where Application__r.Status__c = 'Active'
-        And Status__c In ('Active', 'Pending')
-        And Contact__c = :contactId];
+														Application__c, Status__c, Application__r.AppKey__c, Application__r.Name, Application__r.Status__c, Application__r.SVGRefId__c,
+														Application__r.AccessUrl__c, Application__r.LaunchApplicationInNewWindow__c, Application__r.Description__c, Application__r.ShortDescription__c
+												From BAMContactApplication__c
+												Where Application__r.Status__c = 'Active'
+												And Status__c In ('Active', 'Pending')
+												And Contact__c = :contactId];
         return output;
     }
 
@@ -120,11 +122,11 @@ public with sharing class BAMUserUtility {
      */
     public static BAMContactApplication__c getContactApplicationConfig(Id contactId, String appKey) {
         List<BAMContactApplication__c> output = [Select Id, Contact__c, BSPCanViewAllConsignments__c
-        From BAMContactApplication__c
-        Where Application__r.AppKey__c = :appKey
-        And Application__r.Status__c = 'Active'
-        And Status__c = 'Active'
-        And Contact__c = :contactId];
+													From BAMContactApplication__c
+													Where Application__r.AppKey__c = :appKey
+													And Application__r.Status__c = 'Active'
+													And Status__c = 'Active'
+													And Contact__c = :contactId];
         if(output.isEmpty()) {
             return null;
         } else {
@@ -559,16 +561,11 @@ public with sharing class BAMUserUtility {
          * Returns a list of user records with their corresponding personas based on the logged in user's cNumber if it exists
          * This is necessary since a Salesforce contact is a persona of an individual and a User record can only be related to a single contact
          * This returns persona's in the context of the community the user is accessing.
+		 * 
+		 * Remember: a Persona is only returned if the user has access to the Community
+		 * 				a persona with the federation id set may not be returned in this list if that user record is enabled for the current community
          *
-         * RULES:
-         * BusinessPortal:
-         *  1. User is either someone with just Merchant Portal Community User (IsActive irrelevent because JIT will handle the activation) OR
-         *  2.  The user has an active account for any non Merchant Portal Community User profile
-         *
-         * All other communities supported with personas:
-         *  1. User account must be active
-         *
-         * Any user must have access to the community using NetworkMemberx
+         * Check https://australiapost.jira.com/wiki/spaces/SF/pages/2837905683/Salesforce+Merchant+Portal+Persona+Data+Architecture for the definition of a Persona
          */
         public Map<Id, UserPersona> personas {
             get {
@@ -579,30 +576,61 @@ public with sharing class BAMUserUtility {
                         throw new InvalidPersonaException('User Context is Invalid');
 
                     personas = (Map<Id, UserPersona>)CacheManager.get('BAM_USER_PERSONA_CONTEXT', userContextCNumber + networkId);
-                    if (personas != null && !personas.isEmpty())
+                    if (personas != null && !personas.isEmpty()) {
                         return personas;
+					}
 
                     personas = new Map<Id, UserPersona>();
 
-                    // grab a list of contacts/users that match the CNumber based on the rules defined in the comments of the property
-                    String soql = 'Select Id, IsActive, ContactId, Contact.Id, Contact.AccountId, Contact.Account.Name, Contact.Account.LEGACY_ID__c, Contact.Name, Contact.Status__c, Contact.BillingAccount__c, Contact.Account.Id, ProfileId, Profile.Name ' +
-                            'From User ' +
-                            ' Where Contact.IsPersonAccount = false ' +
-                            ' And UserType In :PORTAL_PERSONA_USER_TYPES ' +
-                            ' And Contact.OID_ID__c = :userContextCNumber ' +
-                            ' And Contact.Status__c = \'Active\' ' +
-                            (MERCHANT_PORTAL_NETWORK_ID != networkId ? ' And IsActive = true ' : '') + // any non Merchant Portal profile must be active since it's most likely related to another org
-                            (MERCHANT_PORTAL_NETWORK_ID == networkId ? ' And (Profile.Name = :MERCHANT_PORTAL_PROFILE_NAME Or IsActive = true) ' : ''); // if the user profile is merchant portal then it doesn't matter if it's active or not... The contact Status is used to ensure the persona is 'active'
+					Map<String, Object> searchParams = new Map<String, Object>();
+					searchParams.put('isPersonAccount', false);
+					searchParams.put('contactCNumbers', userContextCNumber);
+					searchParams.put('contactStatuses', 'Active');
+					searchParams.put('userTypes', PORTAL_PERSONA_USER_TYPES);
+					if(networkId != MERCHANT_PORTAL_NETWORK_ID) {
+						searchParams.put('isActive', true);
+					} else {
+						// they are logging into Merchant Portal community. Since we provision all merchant portal users as inactive initiatially, IsActive become a secondary check
+						// We will activate an inactive user (inside the reg handler) if they are loggin into merchant portal and their user is inactive
+						// NOTE: we only do this for Merchant Portal community and NOT other communities
+						searchParams.put('activeOrMerchantPortalProfile', true);
+					}
 
-                    System.debug('>> PERSONA SOQL: ' + soql);
+					Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+						Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.AccountId, Contact.Name, Contact.Status__c, Contact.BillingAccount__c, Contact.OID_ID__c},
+						Account.SObjectType => new Set<SObjectField>{Account.Id, Account.Name, Account.LEGACY_ID__c},
+						User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive, User.ContactId, User.ProfileId, User.FederationIdentifier},
+						Profile.SObjectType => new Set<SObjectField>{Profile.Id, Profile.Name}
+					};
 
+					Set<Object> selectorOptions = new Set<Object>{
+						UsersSelector.Options.WITH_CONTACT,
+						UsersSelector.Options.WITH_PROFILE,
+						ContactsSelector.Options.WITH_ACCOUNT
+					};
 
-                    Map<Id, User> queryResults = new Map<Id, User>((List<User>)Database.query(soql));
+					Map<Id, User> queryResults = new Map<Id, User>(UsersSelector.newInstance(0, fieldOverrides).search(searchParams, selectorOptions, true));
+
+					// this is an extra paranoid check to make sure we force the right users
+					for(Id uId: queryResults.keySet()) {
+						User u = queryResults.get(uId);
+						//make sure contact cNumber exists and cNumber returned is same as userContextCNumber and contact status is active
+						if(String.isBlank(u.contact.OID_ID__c) || !userContextCNumber.equalsIgnoreCase(u.contact.OID_ID__c) || !('Active'.equalsIgnoreCase(u.Contact.Status__c))) {
+							queryResults.remove(uId);
+						}
+					}
+
                     List<User> users = new List<User>();
 
                     // final check is to filter out any of the personas that do not have access to the specified community by checking the network member
-                    for(NetworkMember member : [Select MemberId From NetworkMember Where MemberId In :queryResults.keySet() And NetworkId = :networkId]) {
-                        users.add(queryResults.get(member.MemberId));
+					Map<String, Object> memberSearchParams = new Map<String, Object>{
+						'memberIds' => queryResults.keySet(),
+						'networkIds' => networkId
+					};
+                    for(NetworkMember member : NetworkMembersSelector.newInstance().search(memberSearchParams, true)) {
+						if(queryResults.containsKey(member.MemberId)) {
+							users.add(queryResults.get(member.MemberId));
+						} 
                     }
 
                     for (User u : users) {
@@ -618,6 +646,7 @@ public with sharing class BAMUserUtility {
                             persona.userActive = u.IsActive;
                             persona.userProfile = u.Profile.Name;
                             persona.primaryBillingAccount = u.Contact.BillingAccount__c;
+							persona.federationIdentifier = u.FederationIdentifier;
                             personas.put(u.Id, persona);
                         }
                     }

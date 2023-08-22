@@ -34,6 +34,7 @@
  * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
  * 2023-07-16 - SteveL- Added getEvents
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
+ * 2023-08-09 - Mahesh Parvathaneni - Added method getNetworkMembers
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -98,6 +99,17 @@ public with sharing class ApplicationTestDataFactory {
 				Facility_User__c.Network__c => networkId,
 				Facility_User__c.User__c => userId
 				}, count), generateIds);
+	}
+
+	public static List<NetworkMember> getNetworkMembers(Integer count, Id networkId, Id memberId, Boolean generateIds) {
+		List<NetworkMember> output = (List<NetworkMember>)maybeGenerateIds(populateSObjects(NetworkMember.SObjectType, new Map<SObjectField, Object> {
+				}, count), generateIds);
+
+		for(Integer i = 0; i < output.size(); i++) {
+			output[i] = (NetworkMember)setUnwritableFields(output[i], new Map<String, Object>{'NetworkId' => networkId, 'MemberId' => memberId});
+		}
+
+		return output;
 	}
 
 	public static List<FeedItem> getChatterFeeds(Integer count, Id parentId, Boolean generateIds) {

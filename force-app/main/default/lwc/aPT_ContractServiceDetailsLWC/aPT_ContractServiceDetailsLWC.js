@@ -9,6 +9,7 @@
  * Change log: 
  * 9-04-2023 : Yatika Bansal : Added logic for amend/renew
  * 8-02-2023 : Yatika Bansal : Modified logic for close button and dates
+ * 8-08-2023 : Yatika Bansal : Added logic to show spinner until page fully loads
 */
 import { LightningElement, api, wire} from 'lwc';
 import { getRecord, getFieldValue, updateRecord  } from 'lightning/uiRecordApi';
@@ -132,6 +133,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 				//function to create Contract Record onLoad
 				createContractRecord({proposalId : this.proposalId})
 				.then((result) => {
+					debugger;
 					if (result.includes('Incomplete')) {
 						//prompt to complete cred assess
 						LightningAlert.open({
@@ -173,6 +175,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			else{
 				this.contractId = this.existingContractId;
 				this.disableClose = false;
+				debugger;
 				this.getServiceDetails();
 			}
 		}
@@ -220,9 +223,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 				//Get current address only in case of edit
 				if(this.existingContractId){
 					this.getCurrentCollectionAddress();
-				}else{
-					this.isLoading = false;
-					this.hasRendered = true;
 				}
 			}
 			this.readyToShowComponent = true;
@@ -253,7 +253,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* function to perform some logic onload of contract form
 	*/
 	handleOnLoad(){
-
 		//Check for APPC
 		let prodLine = this.template.querySelector('.prodLinesField').value;
 		if(prodLine !== null){
@@ -288,6 +287,12 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		if(this.template.querySelector('.condField').value != null){
 			this.checkContractConditions(this.template.querySelector('.condField').value);
 		}
+
+		//Only stop loading when all the field calculations are done
+		if(this.template.querySelector('.serviceEnd') !== null && this.template.querySelector('.serviceEnd').value !== undefined && this.startDateValue !== undefined){
+			this.isLoading = false;
+			this.hasRendered = true;
+		}
 	}
 
 	/**
@@ -316,6 +321,12 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {
 				cmp.value = mapServiceEndDateById.get(cmp.dataset.id);
 			});
+		}
+
+		//Only stop loading when all the field calculations are done
+		if(this.template.querySelector('.serviceEnd').value !== undefined && this.startDateValue !== undefined){
+			this.isLoading = false;
+			this.hasRendered = true;
 		}
 	}
 

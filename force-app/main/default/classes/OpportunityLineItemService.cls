@@ -12,6 +12,7 @@ History
 03/03/2022 KMcGuire Created opc precalculation method
 14/03/2023 Nasir Jawed Added function logic populateRevenueDate() to populate the Revenue start/End Date when an OLI in inserted
 17/4/2023 Ken McGurire Modified for related products
+14/8/2023 Ken McGuire modified for consuming class use of selector class
 ------------------------------------------------------------*/
 public inherited sharing class OpportunityLineItemService {
 	public static final String CLASSNAME = 'OpportunityLineItemService';
@@ -193,32 +194,28 @@ public inherited sharing class OpportunityLineItemService {
 		}
 	}
 
-	 /*********************************
+	/*********************************
 	 * Description: Retireves opportunity line items for a a single opportunity
 	 * after re-calculating OPC values
 	 * Author: Ken McGuire
 	 * History:
 	 * 03/03/2022 Created
+	 * 14/8/2023 modified for consuming class use of selector class
 	 ********************************/
-	public static List<OpportunityLineItem> getPreClassifiedLineItems(Id opportunityId) {
-
-		// Retrieve from DB - future refactoring note - this should use a selector
-		List<Opportunity> opps = [SELECT Id, AccountId,
-				(SELECT Id, Contract_Start_Date__c, Contract_End_Date__c, Product2.Name,
-				Opportunity.Name, Contract_Product__c, Change_Classification__c,
-				Classification__c,Quantity,UnitPrice,TotalPrice,Contract_Number__c,OPCOverride__c
-				FROM OpportunityLineItems)
-				FROM Opportunity
-				WHERE Id = :opportunityId
-				LIMIT 1];
+	public static List<OpportunityLineItem> getPreClassifiedLineItems(List<OpportunityLineItem> items) {
+	
+		if (items == null || items.isEmpty() || items[0].Opportunity.AccountId == null) {
+			return items;
+		}
+		 
 
 		// recalculate OPC for the opporutnity line items
 		Map<Id,Id> optyOrgMap = new Map<Id,Id>();
-		optyOrgMap.put(opps[0].id,opps[0].AccountId);
-		calculateClassification(excludeOverride(opps[0].OpportunityLineItems,true),optyOrgMap);
+		optyOrgMap.put(items[0].Opportunity.id,items[0].Opportunity.AccountId);
+		calculateClassification(excludeOverride(items,true),optyOrgMap);
 
 		// return the opportunity line items with freshly cacluated OPC values
-		return opps[0].OpportunityLineItems;
+		return items;
 	}
 
 	// PERFORMS OPC CALCULATIONS
@@ -229,7 +226,7 @@ public inherited sharing class OpportunityLineItemService {
 	 * @parameter optyOrgMap - a map linking an opportunity Id with its associated account Id.
 	 * 22/07/2022 Ken McGuire Modified
 	 ****************************/
- private static List<OpportunityLineItem> calculateClassification(List<OpportunityLineItem> recordsToCalculate,Map<Id, Id> optyOrgMap ){
+ 	private static List<OpportunityLineItem> calculateClassification(List<OpportunityLineItem> recordsToCalculate,Map<Id, Id> optyOrgMap ){
 
 	// Track the opportunity line items that have a new or different classification.
 	 List<OpportunityLineItem> calculatedLineItems = new List<OpportunityLineItem>();
