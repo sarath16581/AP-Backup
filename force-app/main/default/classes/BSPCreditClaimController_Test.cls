@@ -117,7 +117,7 @@ private class BSPCreditClaimController_Test {
 
         // make sure the dml is performed
         List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 2);
-        system.debug('HASANTHA MSG insertedRecords ' + insertedRecords);
+
         for (List<SObject> obj : insertedRecords) {
             if (Case.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
                 System.assertNotEquals(
@@ -126,15 +126,15 @@ private class BSPCreditClaimController_Test {
                         'createCreditClaimSuccessTest : Case Id should be populated as it is created'
                 );
 
-                System.assertNotEquals(
-                        accountForBillingAccount.Id,
+                System.assertEquals(
+                        billingAccountRecords[0].Id,
                         obj[0].get('Related_Billing_Account__c'),
                         'createCreditClaimSuccessTest : Related billing account Id should be populated'
                 );
             }
 
             if (Disputed_Item__c.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
-                System.assertNotEquals(
+                System.assertEquals(
                         cse.Id,
                         obj[0].get('Case__c'),
                         'createCreditClaimSuccessTest : Disputed Items should be created against the case record'
