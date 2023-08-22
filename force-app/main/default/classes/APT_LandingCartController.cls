@@ -50,7 +50,7 @@ public with sharing class APT_LandingCartController {
 				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING){
 					readWritePermisssion = 'true';
 				}
-				else if(loggedInUserId == opportunityOwnerId ){
+				else if(loggedInUserId == opportunityOwnerId || (loggedInUserId != opportunityOwnerId && (profileName == APT_Constants.STRING_BG_BASE || profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING))){
 					readWritePermisssion = 'true';
 				}
 				else{
@@ -65,6 +65,12 @@ public with sharing class APT_LandingCartController {
 				if(opp.IsStartrackProposal__c == '' || opp.IsStartrackProposal__c == null){
 					exceptionHandler = new AuraHandledException(System.Label.isStarTrackProduct);
 					exceptionHandler.setMessage(System.Label.isStarTrackProduct);
+					throw exceptionHandler;
+				}
+				//User should not be permitted to create proposal if KeyContact field is blank or null
+				if(opp.KeyContact__c == null){
+					exceptionHandler = new AuraHandledException(System.Label.KeyContactError);
+					exceptionHandler.setMessage(System.Label.KeyContactError);
 					throw exceptionHandler;
 				}
 				//User should not be permitted to create proposal if stagename field is 'closed Lost'
@@ -193,8 +199,9 @@ public with sharing class APT_LandingCartController {
 								prodConfigOwnerId2 = pc.OwnerId;
 							}
 						}
+						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
 						if(prodConfigOwnerId != null){
-							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR ){
+							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
