@@ -14,7 +14,7 @@ History:
 2022-07-15 Nasir Jawed CI-552 Populating the Agreement Line Item fields when its FSR product for lodgement fields.
 2022-09-01 Nasir Jawed CI-288 commenting the code which populate the Agreement Product Attributes values fields as this is done Out of the Box product.
 2022-11-04 Harry Wang MW0004978 Adding logic to populating DOS for Startrack products
-	2023-06-07 Deepak Kemidi Adding logic to populate the Agreement Product Attributes values fields on the contract line items for Metro product.
+2023-06-07 Deepak Kemidi Adding logic to populate the Agreement Product Attributes values fields on the contract line items for Metro product.
 2023.04.19 Ken McGuire  Proposal field migration to opportunity
 2023-05-10 - Yatika Bansal - Added code to populate service expiry date.
 2023-07-17 - Yatika Bansal - Modified method populateServiceExpiryDate to consider amendment scenario
@@ -22,7 +22,7 @@ History:
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
-
+	
 	/**
 	 * before insert trigger event
 	 */
@@ -32,33 +32,33 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 			for(Apttus__AgreementLineItem__c ali : aliList) {
 				if(ali.APT_Mark_All_Agreement_Line_Items_as_Old__c) {
 					ali.APT_New__c = false;
-				}
+				} 
 			}
-
+			
 			//Added By Yatika - 8052
 			populateServiceExpiryDate(aliList);
-
+			
 			//1084
 			return APT_Constants.SUCCESS_LABEL;
 		} catch(system.exception ex) {
 			return ex.getMessage();
 		}
-	}
+	}    
 	/**
 	 * after insert agreement line item
 	 */
 	public static String afterInsertOrDeleteEvent(List<Apttus__AgreementLineItem__c> aliList, Boolean isInsert, Boolean isDelete) {
 		try {
-
+			
 			//process builder to trigger
 			set<Id> setAgreementLineItemId = new set<Id>();
 			List<Apttus__AgreementLineItem__c> listAliToUpdate = new List<Apttus__AgreementLineItem__c>();
 
 			//CI-552 When the product is FSR update price structure to Z1
-			Map<String,APT_FSR_Product__c> allCodes = APT_FSR_Product__c.getAll();
+			Map<String,APT_FSR_Product__c> allCodes = APT_FSR_Product__c.getAll();              
 			list<String> fsrProducts= new list<String>();
 			for(APT_FSR_Product__c fsr: allCodes.values()){
-				fsrProducts.add(fsr.name);
+				fsrProducts.add(fsr.name);    
 			}
 			//CI-552
 
@@ -75,7 +75,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 			List<Priority_Product_Name__mdt> priorityProdNames = [SELECT MasterLabel, QualifiedApiName FROM Priority_Product_Name__mdt];
 
 			// map used for 'Local Pickup and Delivery Services' Product that associate Agreement Line Item and Agreement Product Attribute Value
-				map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapAgreementLineItemToPav = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
+			map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapAgreementLineItemToPav = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
 			 for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
 													Apttus_CMConfig__ChargeType__c, Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c,
 													Apttus_CMConfig__OptionId__c, Apttus_CMConfig__OptionId__r.Name, Apttus_CMConfig__OptionId__r.ProductCode,
@@ -93,8 +93,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c,
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c,
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Status__c,
-													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Factor__c,
-													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c,
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Factor__c,  
+													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c, 
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Estimated_Revenue__c,
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Distance_Facility_Provided_In_Km__c,
 													Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Multiple_Frequency__c,
@@ -137,17 +137,17 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 													Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c
 													FROM Apttus__AgreementLineItem__c
 													WHERE Id IN :setAgreementLineItemId]) {
-
+				
 				//CI-552 When the product is FSR update price structure to Z001
 				if(fsrProducts.contains(ali.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c)){
 					Apttus__AgreementLineItem__c ref = new Apttus__AgreementLineItem__c();
 					ref.Id = ali.Id;
 					ref.APT_Lodgement_Zone_Code__c = ali.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c;  //'AN';
 					ref.APT_Lodgement_Zone__c = ali.Apttus_CMConfig__OptionId__r.Lodgement_zone__c ;   //'Anywhere';
-					listAliToUpdate.add(ref);
+					listAliToUpdate.add(ref);                   
 				}
 
-
+			   
 				if(mapOS.get(ali.Apttus__AgreementId__r.Operational_Schedule__c) != null) {
 					os = mapOS.get(ali.Apttus__AgreementId__r.Operational_Schedule__c);
 				} else {
@@ -160,43 +160,43 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 				}else{
 					newApav = new Apttus_CMConfig__AgreementProductAttributeValue__c();
 				}
-
+				
 				//UMS
 				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_UNADDRESSED_MAIL_SERVICES)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Unaddressed_Mail__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Unaddressed_Mail__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//Print post
 				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_PRINT_POST)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Print_Post__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Print_Post__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//Post Bill Pay product value attribute assignmemt to agreement line items
 				if(String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) &&
 					ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_POSTBILLPAY) && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c)) {
@@ -225,24 +225,24 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					mapAgreementLineItemToPav.put(ali, newApav);
 				}
 
-				//Local Pickup
-				if((String.isBlank(ali.Apttus_CMConfig__OptionId__c)
-					&& String.isNotBlank(ali.Apttus__ProductId__c)
-					&& null != ali.Apttus__ProductId__r.ProductCode
-					&& String.isNotBlank(ali.Apttus__ProductId__r.ProductCode)
+				//Local Pickup 
+				if((String.isBlank(ali.Apttus_CMConfig__OptionId__c) 
+					&& String.isNotBlank(ali.Apttus__ProductId__c) 
+					&& null != ali.Apttus__ProductId__r.ProductCode 
+					&& String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) 
 					&& (ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_LOCAL_PICKUP_DELIVERY))
-					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name)
+					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) 
 					&& ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
-					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c
-					&& String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c)
+					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c 
+					&& String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) 
 					&& ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
-					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c
+					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)
-					) || (
+					) || ( 
 						// Chaitanya 23-05-2022: Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
-						ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC
-					))
-					{
+						ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC 
+					))                   
+					{                       
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Parcel__c = true; //US-126
@@ -268,9 +268,9 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 						newApav.APT_Cubic_Factor__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Factor__c;
 						newApav.APT_Cubic_Status__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Status__c;
 						newApav.APT_Existing_APPC_Customer__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c;
-
-
-						//Populate Agreement product attribute values field from Derived field
+						
+						
+						//Populate Agreement product attribute values field from Derived field 
 						newApav.APT_Transit_Cover_Type__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Transit_Cover_Type__c;
 						newApav.Transit_cover__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Transit_cover__c;
 						newApav.APT_Customer_Tier__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Customer_Tier__c;
@@ -278,8 +278,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 						newApav.SAP_Rating_Group__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Group__c;
 						newApav.SAP_Rating_Model__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Model__c;
 						newApav.SAP_Rating_Plan_DWT_Conversion_Factor__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Plan_DWT_Conversion_Factor__c;
-						newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c;
-
+						newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c; 
+											   
 						newApav.APT_Selected_Lodgement_Zone__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Selected_Lodgement_Zone__c;
 						newApav.APT_Additional_Lodgement_Zone_1__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_1__c;
 						newApav.APT_Additional_Lodgement_Zone_2__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_2__c;
@@ -310,7 +310,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 								   os.APT_LPD_Service_Type_and_Frequency__c += os.APT_LPD_Service_Type__c + '; ';
 							   }
 						}
-
+						
 						// Populate the other relevent attribute values
 						os.APT_LPD_Distance_Facility_Provided_In_Km__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Distance_Facility_Provided_In_Km__c;
 						os.APT_LPD_Collection_Address_From_1__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_From_1__c;
@@ -321,8 +321,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 						os.APT_LPD_To_Time_24_hour_clock_2__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_To_Time_24_hour_clock_2__c;
 						os.APT_LPD_Collection_Address_To_1__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_To_1__c;
 						os.APT_LPD_Collection_Address_To_2__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_To_2__c;
-					}
-
+					} 
+								   
 					if(isDelete) {
 						os.APT_Courier__c = false;
 					}
@@ -336,21 +336,21 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_BUNDLE)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c
 				  ) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
+					if(isInsert) {                        
 						os.APT_Parcel_Services_eParcel__c = true;
 						os.APT_Parcel__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcel_Services_eParcel__c = false;
 						os.APT_Parcel__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//eparcel and dangerous goods flag = true
 				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
@@ -359,119 +359,119 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					&& null != ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c && String.isNotBlank(ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c)
 					&& ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Dangerous_Goods_Flag__c
 					&& null != ali.Apttus_CMConfig__ChargeType__c && String.isNotBlank(ali.Apttus_CMConfig__ChargeType__c) && ali.Apttus_CMConfig__ChargeType__c.equalsIgnoreCase(APT_Constants.CHARGE_TYPE_STANDARD_PRICE)) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Parcel_Services_Special_Parcel__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcel_Services_Special_Parcel__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//eparcel call for return
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_EPARCEL_CALL_FOR_RETURN)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_EPARCEL_CALL_FOR_RETURN) 
 					&& null != ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_OPTION)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Parcel_Srvics_eParcel_Call_for_Retrn__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcel_Srvics_eParcel_Call_for_Retrn__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//eParcel Post Return
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_EPARCEL_POST_RETURN)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_EPARCEL_POST_RETURN) 
 					&& null != ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Parcel_Servcs_eParcel_Retrns_Service__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcel_Servcs_eParcel_Retrns_Service__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				/**
 				//defect 1512
 				//Identity on Delivery Service
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_IDENTITY_ON_DELIVERY_SERVICE)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_IDENTITY_ON_DELIVERY_SERVICE) 
 					&& String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_OPTION)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Parcl_Servcs_eParcl_Identity_on_Deli__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcl_Servcs_eParcl_Identity_on_Deli__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
 				**/
-
+				
 				//eparcel express
 				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_BUNDLE)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c
 					&& null != ali.Apttus_CMConfig__ChargeType__c && null != ali.Apttus_CMConfig__ChargeType__c && String.isNotBlank(ali.Apttus_CMConfig__ChargeType__c) && ali.Apttus_CMConfig__ChargeType__c.equalsIgnoreCase(APT_Constants.CHARGE_TYPE_STANDARD_PRICE)) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_Parcel_Services_Express_Post_Parcel__c = true;
 						os.APT_Parcel_Services_Express_eParcel__c = true;
 						os.APT_Parcel__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcel_Services_Express_Post_Parcel__c = false;
 						os.APT_Parcel_Services_Express_eParcel__c = false;
 						os.APT_Parcel__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//international postal
-				//mathew.jose@auspost.com.au updated the if condition to include all the different international product codes & charge types.
-				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c)
-					&& null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode)
-					&& (ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE) ||
+				//mathew.jose@auspost.com.au updated the if condition to include all the different international product codes & charge types.                
+				if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) 
+					&& null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode)                      
+					&& (ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE) || 
 						ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS_airmail) ||
-						ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS))
+						ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS)) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
-					&& null != ali.Apttus_CMConfig__ChargeType__c && String.isNotBlank(ali.Apttus_CMConfig__ChargeType__c)
+					&& null != ali.Apttus_CMConfig__ChargeType__c && String.isNotBlank(ali.Apttus_CMConfig__ChargeType__c)   
 					&& (ali.Apttus_CMConfig__ChargeType__c.equalsIgnoreCase(APT_Constants.BUNDLE_NAME_INTERNATIONAL) ||
 						ali.Apttus_CMConfig__ChargeType__c.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS_airmail_new) ||
 						ali.Apttus_CMConfig__ChargeType__c.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMSNew))
 					&& null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_BUNDLE)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_International_Postal__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_International_Postal__c = false;
 					}
@@ -481,112 +481,112 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 						os.APT_IP_Minimum_Revenue_per_annum__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Estimated_Revenue__c;
 					}
 					*/
-
+					
 					mapOS.put(os.Id, os);
 				}
-
-
+				
+				
 				//registered post
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
 					if(isInsert) {
 						os.APT_IP_Services_Registered_Post__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_IP_Services_Registered_Post__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//express courier international
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.ECIPCL_INTERNATIONAL_PRODUCT)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.ECIPCL_INTERNATIONAL_PRODUCT) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
+					if(isInsert) { 
 						os.APT_IP_Servcs_Exprss_Courier_Internatnal__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_IP_Servcs_Exprss_Courier_Internatnal__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//air mail
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
+					if(isInsert) {  
 						os.APT_IP_Services_Airmail__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_IP_Services_Airmail__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
-				 //US-379
-				  //International Returns
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_RETURNS)
+				
+				 //US-379               
+				  //International Returns 
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_RETURNS) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
+					if(isInsert) {  
 						os.APT_International_Returns__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_International_Returns__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//pack and track
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
+					if(isInsert) {  
 						os.APT_IP_Services_Pack_and_Track__c = true;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_IP_Services_Pack_and_Track__c = false;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
-
+				
 				//min collection value
-				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_MIN_COLLECTION_VALUE)
+				if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_MIN_COLLECTION_VALUE) 
 					&& String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
 					&& null != ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_OPTION)
 					&& null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
-
+					
 					os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-					if(isInsert) {
+					if(isInsert) {  
 						os.APT_Parcel_Minimum_Collection_Value__c = ali.List_Price_Text__c;
-					}
-
+					} 
+					
 					if(isDelete) {
 						os.APT_Parcel_Minimum_Collection_Value__c = null;
 					}
-
+					
 					mapOS.put(os.Id, os);
 				}
 
@@ -615,7 +615,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 
 					if(isDelete) {
 							os.Regular_Speed_Service__c = false;
-							os.Premium_Express_Speed_Service__c = false;
+							os.Premium_Express_Speed_Service__c = false; 
 					}
 
 					mapOS.put(os.Id, os);
@@ -711,7 +711,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					 }
 				 }
 			}
-
+			
 			if(mapOS != null && mapOS.values().size() > 0) {
 				//update mapOS.values();
 				ApplicationDatabase.getInstance().dmlUpdate(mapOS.values());
@@ -719,8 +719,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 			//process builder to trigger
 
 			// Create New Agreement Product Attribute Value on Agreement Line Item object from Line Item's Attribute Value fields
-				if(!mapAgreementLineItemToPav.isEmpty()){
-					insert mapAgreementLineItemToPav.values();
+			if(!mapAgreementLineItemToPav.isEmpty()){
+				insert mapAgreementLineItemToPav.values();
 				List<Apttus__AgreementLineItem__c> listAli = new List<Apttus__AgreementLineItem__c>();
 				// Update Agreement line item to attach associated agreement product attribute object from the map
 				for(Apttus__AgreementLineItem__c newALI : mapAgreementLineItemToPav.keySet()){
@@ -730,39 +730,39 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 				ApplicationDatabase.getInstance().dmlUpdate(listAli);
 			}
 
-			if(listAliToUpdate.size() > 0 ) {
+			if(listAliToUpdate.size() > 0 ) {  
 				ApplicationDatabase.getInstance().dmlUpdate(listAliToUpdate);
 			}
 
-
-
+		   
+			
 			return APT_Constants.SUCCESS_LABEL;
 		} catch(system.exception ex) {
 			return ex.getMessage();
 		}
 	}
-
+	
 	/**
 	 * Method for populating Service Expiry Date on creation
 	 */
 	private static void populateServiceExpiryDate(List<Apttus__AgreementLineItem__c> aliList) {
 		Set<Id> aggIds = new Set<Id>();
-		List<Apttus__AgreementLineItem__c> bundleAli = new List<Apttus__AgreementLineItem__c>();
-		for (Apttus__AgreementLineItem__c ali : aliList) {
+		List<Apttus__AgreementLineItem__c> bundleAli = new List<Apttus__AgreementLineItem__c>();        
+		for (Apttus__AgreementLineItem__c ali : aliList) {            
 			if( ali.Apttus_CMConfig__LineType__c != APT_Constants.LABEL_LINE_TYPE_OPTION ){
 				   aggIds.add(ali.Apttus__AgreementId__c);
 				   bundleAli.add(ali);
 			   }
 		}
-
+		
 		//Get Ali to be updated
 		List<Apttus__AgreementLineItem__c> filteredAli  = APT_ContractServiceDetailsController.getServiceDetailALI(bundleAli);
-
+		
 		if(!filteredAli.isEmpty()){
 			//Amend Scenario
 			//Get parent agreement
 			Map<Id, Apttus__APTS_Agreement__c> parentAggs = ApttusContractsSelector.newInstance(1).selectById(aggIds, new Set<Object> {ApttusContractsSelector.Options.WITH_PROPOSAL});
-
+			
 			//Get source agreement
 			Map<Id, Map<Id, Date>> mapSourceProductAndExpiryDateByAgg = new Map<Id, Map<Id, Date>>();
 			Set<String> contractNumbers =  new Set<String>();
@@ -771,20 +771,20 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					contractNumbers.add(parentAgg.Apttus_QPComply__RelatedProposalId__r.APT_Contract_Number__c);
 				}
 			}
-
+			
 			Set<Id> sourceAggIds = new Set<Id>();
 			List<Apttus__APTS_Agreement__c> sourceAgreements = ApttusContractsSelector.newInstance(1).selectByAgreementNumber(contractNumbers, new Set<Object>());
-			for (Apttus__APTS_Agreement__c agg : sourceAgreements) {
+			for (Apttus__APTS_Agreement__c agg : sourceAgreements) {            
 				sourceAggIds.add(agg.Id);
 			}
-
+			
 			//Get ali of source agreement
 			List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
 													.selectByContractIdsAndLineType(sourceAggIds,
 													 new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
-													 new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_CONTRACT});
+													 new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_CONTRACT});            
 			List<Apttus__AgreementLineItem__c> filteredSourceAli = APT_ContractServiceDetailsController.getServiceDetailALI(alis);
-
+			
 			Map<String, List<Apttus__AgreementLineItem__c>> mapAlisByAgreementNum = new Map<String, List<Apttus__AgreementLineItem__c>>();
 			for(Apttus__AgreementLineItem__c ali : filteredSourceAli){
 				if(mapAlisByAgreementNum.containsKey(ali.Apttus__AgreementId__r.Apttus__FF_Agreement_Number__c)){
@@ -793,28 +793,28 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 					mapAlisByAgreementNum.put(ali.Apttus__AgreementId__r.Apttus__FF_Agreement_Number__c, new List<Apttus__AgreementLineItem__c>{ali});
 				}
 			}
-
+			
 			for(Apttus__APTS_Agreement__c parentAgg : parentAggs.values()){
-				if(parentAgg.APT_Contract_Type__c == APT_Constants.RECORD_TYPE_DOV_CONTRACT){
+				if(parentAgg.APT_Contract_Type__c == APT_Constants.RECORD_TYPE_DOV_CONTRACT){               
 					Map<Id, Date> mapExpiryDateByProduct =  new  Map<Id, Date>();
 					for(Apttus__AgreementLineItem__c ali : mapAlisByAgreementNum.get(parentAgg.Apttus_QPComply__RelatedProposalId__r.APT_Contract_Number__c)){
 						mapExpiryDateByProduct.put(ali.Apttus__ProductId__c, ali.Apttus_CMConfig__EndDate__c);
 					}
-
+					
 					mapSourceProductAndExpiryDateByAgg.put(parentAgg.id, mapExpiryDateByProduct);
-				}
+				}    
 			}
-
+			
 			//Set Service dates
 			for(Apttus__AgreementLineItem__c ali : filteredAli) {
 				Apttus__APTS_Agreement__c parentAgg = parentAggs.get(ali.Apttus__AgreementId__c);
 				ali.Apttus_CMConfig__EffectiveDate__c = System.today();
-
+					
 				//In case of amend SED should follow original SED
-				if(!mapSourceProductAndExpiryDateByAgg.isEmpty() && mapSourceProductAndExpiryDateByAgg.containsKey(parentAgg.id)
+				if(!mapSourceProductAndExpiryDateByAgg.isEmpty() && mapSourceProductAndExpiryDateByAgg.containsKey(parentAgg.id) 
 				   && (mapSourceProductAndExpiryDateByAgg.get(parentAgg.id)).containsKey(ali.Apttus__ProductId__c)){
 					ali.Apttus_CMConfig__EndDate__c = (mapSourceProductAndExpiryDateByAgg.get(parentAgg.id)).get(ali.Apttus__ProductId__c);
-				}else{
+				}else{ 
 					if(parentAgg.Term__c == APT_Constants.TERM_FIXED_TERM){
 						ali.Apttus_CMConfig__EndDate__c = null;
 					}
@@ -822,7 +822,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 						ali.Apttus_CMConfig__EndDate__c = parentAgg.Apttus__Contract_End_Date__c;
 					}
 				}
-			}
+			} 
 		}
-	}
+	}   
 }
