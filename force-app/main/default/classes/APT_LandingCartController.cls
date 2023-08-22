@@ -67,12 +67,6 @@ public with sharing class APT_LandingCartController {
 					exceptionHandler.setMessage(System.Label.isStarTrackProduct);
 					throw exceptionHandler;
 				}
-				//User should not be permitted to create proposal if KeyContact field is null
-				if(opp.KeyContact__c == null ){
-					exceptionHandler = new AuraHandledException(System.Label.KeyContactError);
-					exceptionHandler.setMessage(System.Label.KeyContactError);
-					throw exceptionHandler;
-				}
 				//User should not be permitted to create proposal if stagename field is 'closed Lost'
 				if(opp.stagename == APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST && opp.stagename != null ){
 					exceptionHandler = new AuraHandledException(System.Label.Add_Product_On_Closed_Opportunity);
