@@ -48,26 +48,32 @@ public with sharing class BSPCreditClaimController {
 			Database.DMLOptions dmlOptions = new Database.DMLOptions();
 			dmlOptions.assignmentRuleHeader.assignmentRuleId = assignRule.Id;
 			caseRecord.setOptions(dmlOptions);
-			context.insertRecords(new List<Case> {caseRecord});
-
-			//get the new case number
-			Case newCase = CasesSelector.newInstance().selectById(new Set<Id> {caseRecord.Id}).get(caseRecord.Id);
-
-			if(newCase != null){
-				//Creating the dispute items
-				if(disputeItems !=null && !disputeItems.isEmpty()){
-					for(Disputed_Item__c diRecord :disputeItems){
-						diRecord.Case__c = newCase.Id;
+			Database.SaveResult[] srFiles = context.insertRecords(new List<Case> {caseRecord});
+			if(srFiles[0].isSuccess()){
+				//get the new case number
+				Map<Id,Case> cse = context.getCasesById(new Set<Id> {caseRecord.Id});
+				Case newCase = cse.get(caseRecord.Id);
+				if(newCase != null){
+					//Creating the dispute items
+					if(disputeItems !=null && !disputeItems.isEmpty()){
+						for(Disputed_Item__c diRecord :disputeItems){
+							diRecord.Case__c = newCase.Id;
+						}
+						context.insertRecords(disputeItems);
 					}
-					context.insertRecords(disputeItems);                       
-				}				
-				// link any files
-				if(uploadedFiles !=null && !uploadedFiles.isEmpty()){
-					bspBaseUplift.insertFiles(newCase.Id, uploadedFiles);
-				}					
-				enquiryWrapper.caseRecord = newCase;
-				enquiryWrapper.status = STATUS_OK;
-				enquiryWrapper.message = '';
+					// link any files
+					if(uploadedFiles !=null && !uploadedFiles.isEmpty()){
+						bspBaseUplift.insertFiles(newCase.Id, uploadedFiles);
+					}
+					enquiryWrapper.caseRecord = newCase;
+					enquiryWrapper.status = STATUS_OK;
+					enquiryWrapper.message = '';
+				}
+			} else {
+				for(Database.Error err : srFiles[0].getErrors()) {
+					enquiryWrapper.status = STATUS_ERROR;
+					enquiryWrapper.message = err.getStatusCode() + ': ' + err.getMessage();
+				}
 			}
 		} catch (Exception ex) {
 			enquiryWrapper.status = STATUS_ERROR;
@@ -82,7 +88,6 @@ public with sharing class BSPCreditClaimController {
 		@AuraEnabled public String message {get;set;}
 	}
 
-
 	/**
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by
 	* sharing settings.
@@ -93,8 +98,8 @@ public with sharing class BSPCreditClaimController {
 		 * Insert a list of sObject records in system mode
 		 * @param List<sObject>
 		*/
-		private void insertRecords(List<sObject> recordList) {
-			ApplicationDatabase.getInstance().dmlInsert(recordList);
+		private List<Database.SaveResult> insertRecords(List<sObject> recordList) {
+			return ApplicationDatabase.getInstance().dmlInsert(recordList);
 		}
 
 		/**
@@ -104,6 +109,16 @@ public with sharing class BSPCreditClaimController {
 		private List<AssignmentRule> getCaseAssignmentRules() {
 			return AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType('Case').values();
 		}
+
+		/**
+		 * get cases
+		 * @param ids
+		 *
+		 * @return cases by ids
+		 */
+		private Map<Id, Case> getCasesById(Set<Id> ids) {
+			return CasesSelector.newInstance().selectById(ids);
+		}
 	}
 
 	/**
@@ -112,7 +127,6 @@ public with sharing class BSPCreditClaimController {
 	 */
 	public static Billing_Account__c getBillingAccountRecord(Case caseRecord){
 		Map<Id,Billing_Account__c> billingAccountsByIds =  BillingAccountsSelector.newInstance().selectByOrgId(new Set<Id>{caseRecord.AccountId});
-		system.debug('HASANTHA MSG billingAccountsByIds '+billingAccountsByIds);
 		if(billingAccountsByIds != null && !billingAccountsByIds.isEmpty()) {
 			return getBillingAccountFromMap(caseRecord.Billing_Number__c , billingAccountsByIds);
 		}
