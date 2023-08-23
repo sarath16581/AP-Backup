@@ -78,7 +78,7 @@
 			<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 			<td>
-			<img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZy8&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Australia Post" />			
+			<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZy8&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Australia Post" />			
 			</td>
 			</tr>
 			</table>
@@ -149,7 +149,7 @@
 
 		<tr>
 		<td>
-		<a href="https://www.getfeedback.com/r/15P8bYRp?ContactId={!Contact.Id}&Casenumber={!Case.CaseNumber}&Accountid={!Case.AccountId}&Caseid={!Case.Id}" title="Send feedback link"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxe &oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Send Survey" /></a>																
+		<a href="https://www.getfeedback.com/r/15P8bYRp?ContactId={!Contact.Id}&Casenumber={!Case.CaseNumber}&Accountid={!Case.AccountId}&Caseid={!Case.Id}" title="Send feedback link"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxe &oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Send Survey" /></a>																
 		</tr>
 		</td>
 
@@ -199,11 +199,11 @@
 
 				<tr>
 				<td>
-<a href="https://twitter.com/auspost"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxt&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Twitter" /></a>
+<a href="https://twitter.com/auspost"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxt&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Twitter" /></a>
 
-<a href="https://www.facebook.com/australiapost"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxy&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Facebook" /></a>
+<a href="https://www.facebook.com/australiapost"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxy&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Facebook" /></a>
 
-<a href="https://www.linkedin.com/company/australia-post"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZyD&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via LinkedIn" /></a>
+<a href="https://www.linkedin.com/company/australia-post"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZyD&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via LinkedIn" /></a>
 				<br/>
 				<br/>
 				</td>
@@ -232,7 +232,7 @@
 
 	<tr>	
 	<td style="padding:0px 0px 5px; font:14px/16px Arial, Helvetica, sans-serif; color:#5c514d;">
-	<img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCa0Y&oid=00D30000001GGce" border="0" style="vertical-align:top; alt="Australia Post" />	
+	<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCa0Y&oid=00D30000001GGce" border="0" style="vertical-align:top; alt="Australia Post" />	
 
 	
 	</td>

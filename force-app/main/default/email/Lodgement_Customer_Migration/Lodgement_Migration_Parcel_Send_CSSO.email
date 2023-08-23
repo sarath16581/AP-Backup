@@ -206,7 +206,7 @@
 			<!-- <table class="device-width" width="500" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px;">
 				<tr>
 					<td class="container-sides-padding" style="padding:35px 60px 28px 60px;">
-						<img width="380" class="device-width-inner" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DbDSS&oid=00D30000001GGce" border="0" margin="0" alt="" style="display:block; width:380px;"/>	
+						<img width="380" class="device-width-inner" src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DbDSS&oid=00D30000001GGce" border="0" margin="0" alt="" style="display:block; width:380px;"/>	
 					</td>
 				</tr>
 			</table>
@@ -279,7 +279,7 @@
 								<td class="device-width-inner" align="left" style="padding:0 0 20px;">
 
 									<!-- Australia Post logo -->
-									<a href="https://auspost.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000EgzLd&oid=00D30000001GGce"  border="0" margin="0" alt="Australia Post" display:block;" /></a>
+									<a href="https://auspost.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000EgzLd&oid=00D30000001GGce"  border="0" margin="0" alt="Australia Post" display:block;" /></a>
 								</td>
 							</tr>
 
