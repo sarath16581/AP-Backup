@@ -89,8 +89,9 @@ public without sharing class APT_CheckoutController{
 	public static boolean getProposalDocGenerationProgress(String proposalId){
 		List<Apttus_Proposal__Proposal__c> proposalDetails = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new set<ID>{(ID)proposalId});
 		Boolean isDocGenerationRunning = false;
-		if(proposalDetails != null)
+		if(proposalDetails != null){
 			isDocGenerationRunning = proposalDetails[0].APT_Document_Generation_in_Progress__c;
+		}
 		return isDocGenerationRunning;
 	}
 

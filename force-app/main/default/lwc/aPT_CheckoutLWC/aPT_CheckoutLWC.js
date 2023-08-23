@@ -201,7 +201,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
 			.then((result) => {
 
-				if(result == true) {
+				if(result === true) {
 					//still proposal doc generation is running, recheck after few seconds
 					this._interval = setTimeout(() => {
 						this.checkProposalDocGenerationProgress(this.proposalId);
