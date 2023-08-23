@@ -7,7 +7,7 @@
 *1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
 *1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
-*1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to
+*1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to validate doc generation process status
 **/
 public without sharing class APT_CheckoutController{
 
