@@ -7,6 +7,7 @@
  * @changelog
  * 2023-08-11 - Thang Nguyen - Created
  * 2023-08-16 - Hasantha Liyanage - Added validate case functionality.
+ * 2023-08-23 - Hasantha Liyanage - Added accepted file formats to be passed to file upload custom component
  */
 public with sharing class BSPCreditClaimController {
 	public static String STATUS_OK = 'ok';
@@ -63,7 +64,7 @@ public with sharing class BSPCreditClaimController {
 					}
 					// link any files
 					if(uploadedFiles !=null && !uploadedFiles.isEmpty()){
-						bspBaseUplift.insertFiles(newCase.Id, uploadedFiles);
+						bspBaseUplift.linkFiles(newCase.Id, uploadedFiles);
 					}
 					enquiryWrapper.caseRecord = newCase;
 					enquiryWrapper.status = STATUS_OK;

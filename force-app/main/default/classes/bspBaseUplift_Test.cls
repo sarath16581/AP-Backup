@@ -3,9 +3,11 @@
  History:
  --------------------------------------------------
  2020-09-07 vinoth.raja@crmit.com Created
+ 2023-08-23 hasantha.liyanage@auspost.com.au added linkFiles_test
  **************************************************/
 @isTest
 public class bspBaseUplift_Test{
+
 	@testSetup
 	public static void testSetup(){
 
@@ -108,6 +110,23 @@ public class bspBaseUplift_Test{
 		newCases.add(newCase);
 
 		Database.insert(newCases);
+
+		Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		insert account;
+		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
+		contact.FirstName = 'bspuser';
+		insert contact;
+		List<TestDataFactory.UserDTO> userDTOs = new List<TestDataFactory.UserDTO>();
+		TestDataFactory.UserDTO bspUser = new TestDataFactory.UserDTO();
+		bspUser.profileName = 'Merchant Portal Community User';
+		bspUser.permissionSetNames = new Set<String>{'BSP_Community_Access'};
+		bspUser.userName = 'BSPUserForCreditClaim';
+		bspUser.role = '';
+		bspUser.contactId = contact.Id;
+		userDTOs.add(bspUser);
+
+		TestDataFactory.InsertUsersQueueable queueable = new TestDataFactory.InsertUsersQueueable(userDTOs);
+		System.enqueueJob(queueable);
 	}
 
 	/********************************************************************************
@@ -676,4 +695,62 @@ public class bspBaseUplift_Test{
 
         Test.stopTest();
     }
+
+	/**
+	 * This is to test the link files method, when the user submit the form, linkFiles method is excecuted
+	 * with passing the document ids and these documents will be linked to the newly created case.
+	 */
+	@IsTest
+	static void linkFiles_test() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		User bspUser = [SELECT Id FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+		Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
+		ContentDocumentLink documentLinkRecordForCase = ApplicationTestDataFactory.getContentDocumentLinks(1, bspUser.Id, documentId, true)[0];
+		documentLinkRecordForCase.Visibility = 'AllUsers';
+		// =====================================
+		// Stubbing
+		// =====================================
+		ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		List<Map<String, String>> uploadedFiles = new List<Map<String, String>> ();
+		uploadedFiles.add(new Map<String, String>{'documentId'=> documentLinkRecordForCase.contentDocumentId});
+		// Selectors
+		MockUtility.Mocks.when(mockContentDocumentLinksSelector
+				.search(new Map<String, Object>{
+						'entityIds' => cases[0].Id
+				}, new Set<Object>{
+						ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+				}, true))
+				.thenReturn(new Map<Id, ContentDocumentLink>{
+						documentLinkRecordForCase.Id => documentLinkRecordForCase
+				});
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+
+		Test.startTest();
+		System.runAs(bspUser) {
+			bspBaseUplift.linkFiles(cases[0].Id, uploadedFiles);
+		}
+		Test.stopTest();
+
+		List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
+		// now that it is verified, let's check for the result
+		for (List<SObject> obj : insertedRecords) {
+			if (ContentDocumentLink.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
+				System.assertEquals(
+						cases[0].Id,
+						obj[0].get('LinkedEntityId'),
+						'linkFiles_test : ContentDocumentLink record should be created against case record'
+				);
+			}
+		}
+	}
 }

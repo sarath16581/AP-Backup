@@ -6,10 +6,13 @@ History:
 2020-10-16   avula.jansirani@auspost.com.au  updated insertFiles() and added a method convertFilesToAttachmentsAndDeleteFiles()
 2020-11-26    Jansi Rani. avula.jansirani@auspost.com.au  Removed System.debug lines
 2021-07-05   Victor.Cheng@auspost.com.au Added the initThemeComp
+2023-08-23   hasantha liyanage added new method linkFiles
 **************************************************/
 public with sharing virtual class bspBaseUplift {
 
 	public static final String CSSO_SAML_CONFIG = 'BSP_CSSO';
+	public static final string SHARE_TYPE_V = 'V';
+	public static final String ALL_USERS = 'AllUsers';
 
 	// store the logged in user in a static context to minimise number of queries run in a single transaction
 	private static User loggedInUser = null;
@@ -999,6 +1002,7 @@ public with sharing virtual class bspBaseUplift {
 	 * Insert file from bspEnquiryDetail page
 	 * @param parentId
 	 * @param uploadedFiles
+	 * @deprecated do not use this method as this will delete the files and create attachments please use linkFiles() instead
 	 */
 	@AuraEnabled
 	public static Map<String,String> insertFiles(Id parentId, List<Map<String, String>> uploadedFiles){
@@ -1015,8 +1019,30 @@ public with sharing virtual class bspBaseUplift {
 		
 		return insertedAttMap;
     }
-    
-    
+
+	/**
+	 * This method is to link files to the parent id given
+	 * @param parentId
+	 * @param uploadedFiles
+	 *
+	 * @return
+	 */
+	@AuraEnabled
+	public static List<ContentDocumentLink> linkFiles(Id parentId, List<Map<String, String>> uploadedFiles){
+		List<ContentDocumentLink> contentDocToBeInserted = new List<ContentdocumentLink>();
+		//Iterate through related sf contracts
+		for(Map<String, String> mapFile:uploadedFiles) {
+			ContentDocumentLink contentDocumentLink = new ContentDocumentLink();
+			contentDocumentLink.ContentDocumentId = (Id) mapFile.get('documentId');
+			contentDocumentLink.LinkedEntityId = parentId;
+			contentDocumentLink.ShareType = SHARE_TYPE_V;
+			contentDocumentLink.Visibility = ALL_USERS;
+			contentDocToBeInserted.add(contentDocumentLink);
+		}
+		ApplicationDatabase.getInstance().dmlInsert(contentDocToBeInserted);
+		return contentDocToBeInserted;
+	}
+
 	/**
 	 * While creating case get the contentversoin ids, convert the
 	 * files to attachments, attach it to case and delete the files
