@@ -7,6 +7,7 @@
 *1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
 *1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
+*1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to
 **/
 public without sharing class APT_CheckoutController{
 
@@ -76,6 +77,21 @@ public without sharing class APT_CheckoutController{
 		Catch(Exception ex){
 			return APT_Constants.ERROR_PREFIX + ex.getMessage() ;
 		}
+	}
+
+	/**
+	* @description: This method will use to check the current status of proposal doc generation progress
+	* @author Bharat Patel
+	* @param String proposalId
+	* @return boolean
+	**/
+	@AuraEnabled
+	public static boolean getProposalDocGenerationProgress(String proposalId){
+		List<Apttus_Proposal__Proposal__c> proposalDetails = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new set<ID>{(ID)proposalId});
+		Boolean isDocGenerationRunning = false;
+		if(proposalDetails != null)
+			isDocGenerationRunning = proposalDetails[0].APT_Document_Generation_in_Progress__c;
+		return isDocGenerationRunning;
 	}
 
 	/**
@@ -157,12 +173,12 @@ public without sharing class APT_CheckoutController{
 		for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
 			productNames.add(proposalProduct.APT_Product_Name__c);
 		}
-		
+
 		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
 		if(lineItem.size() > 0){
 			return true;
 		}
-		
+
 		return false;
 	}
 }
