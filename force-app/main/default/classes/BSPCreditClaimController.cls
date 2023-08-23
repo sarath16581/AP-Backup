@@ -63,7 +63,7 @@ public with sharing class BSPCreditClaimController {
 					}
 					// link any files
 					if(uploadedFiles !=null && !uploadedFiles.isEmpty()){
-						bspBaseUplift.insertFiles(newCase.Id, uploadedFiles);
+						bspBaseUplift.linkFiles(newCase.Id, uploadedFiles);
 					}
 					enquiryWrapper.caseRecord = newCase;
 					enquiryWrapper.status = STATUS_OK;

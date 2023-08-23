@@ -1015,8 +1015,24 @@ public with sharing virtual class bspBaseUplift {
 		
 		return insertedAttMap;
     }
-    
-    
+	public static final string SHARE_TYPE_V = 'V';
+	public static final String ALL_USERS = 'AllUsers';
+	@AuraEnabled
+	public static List<ContentDocumentLink> linkFiles(Id parentId, List<Map<String, String>> uploadedFiles){
+		List<ContentDocumentLink> contentDocToBeInserted = new List<ContentdocumentLink>();
+		//Iterate through related sf contracts
+		for(Map<String, String> mapFile:uploadedFiles) {
+			ContentDocumentLink contentDocumentLink = new ContentDocumentLink();
+			contentDocumentLink.ContentDocumentId = (Id) mapFile.get('documentId');
+			contentDocumentLink.LinkedEntityId = parentId;
+			contentDocumentLink.ShareType = SHARE_TYPE_V;
+			contentDocumentLink.Visibility = ALL_USERS;
+			contentDocToBeInserted.add(contentDocumentLink);
+		}
+		ApplicationDatabase.getInstance().dmlInsert(contentDocToBeInserted);
+		return contentDocToBeInserted;
+	}
+
 	/**
 	 * While creating case get the contentversoin ids, convert the
 	 * files to attachments, attach it to case and delete the files
