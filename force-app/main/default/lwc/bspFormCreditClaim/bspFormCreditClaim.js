@@ -23,7 +23,7 @@ import REASON_CREDIT_CLAIM_FIELD from '@salesforce/schema/Case.ReasonforCreditCl
 import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProfileDetails';
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
 import createCreditClaim from '@salesforce/apex/BSPCreditClaimController.createCreditClaim';
-
+import acceptedFileFormats from '@salesforce/label/c.BSP_Accepted_file_formats_credit_claim';
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
 
 	//	enquiryType = 'Missing Item';
@@ -81,7 +81,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		Phone: '',
 		MobilePhone: ''
 	};
-	acceptedFileFormats = '.doc,.docx,.eml,.jpeg,.jpg,.msg,.pdf,.png,.ppt,.pptx,.txt,.xls,.xlsx,.zip';
+	acceptedFileFormats = acceptedFileFormats;
 
 	@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
 	wiredObjectInfo({data, error}) {
