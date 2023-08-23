@@ -33,7 +33,7 @@ replyTo="customerservice@testauspost.com.au" >
 </tr>
 <tr>
 <td><strong>Licensee Advisory Council Membership &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong></td>
-<td><apex:image id="APLACLogo" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/>
+<td><apex:image id="APLACLogo" value="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/>
 </td>
 </tr>
 <tr>

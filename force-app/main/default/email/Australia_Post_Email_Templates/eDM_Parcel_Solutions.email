@@ -9,14 +9,14 @@
     docType="html-5.0"
 >
 
-<apex:stylesheet value="https://c.cs6.visual.force.com/resource/GsForm_Assets/css/style.css"/>
+<apex:stylesheet value="https://auspost--c.vf.force.com/resource/GsForm_Assets/css/style.css"/>
 
 
 
 <div class="body" style="width:100%;margin:0pc; padding:0px; border:0px solid; text-align:center;background-color:#FFF;font-family: Helvetica; font-size: 10pt;">
 <div class="edmBody" style="width:600px; margin:0px auto; text-align:left; font-size:1em;">   
     <div class="header" style="background-color:#D3DAE0; padding:20px;">
-        <apex:image styleClass="logo" url="https://c.cs6.visual.force.com/resource/GsForm_Assets/css/images/auspost.png" style="margin:5px; float:right;"/>
+        <apex:image styleClass="logo" url="https://auspost--c.vf.force.com/resource/GsForm_Assets/css/images/auspost.png" style="margin:5px; float:right;"/>
         <h1 style="clear:both; margin:0px;font-size:1.5em;">Parcel solutions to suit your business.</h1>
     </div>
     

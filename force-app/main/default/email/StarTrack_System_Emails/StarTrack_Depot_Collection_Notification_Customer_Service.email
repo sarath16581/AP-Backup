@@ -16,7 +16,7 @@
         <td style="padding:19px 5px 30px;">
           <table class="flexible" align="center" width="510" cellpadding="0" cellspacing="0">
             <!--
-				<tr><td style="padding:0 0 25px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="100%" valign="bottom" halign="right"><table width="100%" cellpadding="0" cellspacing="0"><tr><td><a href="http://www.startrack.com.au/"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0152v00000H2sK3&oid=00D30000001GGce" border="0" style="vertical-align:top;" align="right",width="50%" height="50%" alt="StarTrack" /></a></td></tr><tr><td height="5" style="font-size:0; line-height:0;">&nbsp;</td></tr></table></td></tr></table></td></tr>
+				<tr><td style="padding:0 0 25px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="100%" valign="bottom" halign="right"><table width="100%" cellpadding="0" cellspacing="0"><tr><td><a href="http://www.startrack.com.au/"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0152v00000H2sK3&oid=00D30000001GGce" border="0" style="vertical-align:top;" align="right",width="50%" height="50%" alt="StarTrack" /></a></td></tr><tr><td height="5" style="font-size:0; line-height:0;">&nbsp;</td></tr></table></td></tr></table></td></tr>
 				-->
             <tr>
               <td>
@@ -72,7 +72,7 @@
                         <tr>
                           <td>
                             <a href="http://www.startrack.com.au/">
-                              <img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0152v00000H2sK3&oid=00D30000001GGce" border="0" style="vertical-align:top;" align="left" ,width="50%" height="50%" alt="StarTrack" />
+                              <img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0152v00000H2sK3&oid=00D30000001GGce" border="0" style="vertical-align:top;" align="left" ,width="50%" height="50%" alt="StarTrack" />
                             </a>
                           </td>
                         </tr>
