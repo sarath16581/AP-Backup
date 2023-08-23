@@ -81,6 +81,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		Phone: '',
 		MobilePhone: ''
 	};
+	acceptedFileFormats = '.doc,.docx,.eml,.jpeg,.jpg,.msg,.pdf,.png,.ppt,.pptx,.txt,.xls,.xlsx,.zip';
 
 	@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
 	wiredObjectInfo({data, error}) {

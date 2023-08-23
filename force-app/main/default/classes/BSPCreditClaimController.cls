@@ -7,6 +7,7 @@
  * @changelog
  * 2023-08-11 - Thang Nguyen - Created
  * 2023-08-16 - Hasantha Liyanage - Added validate case functionality.
+ * 2023-08-23 - Hasantha Liyanage - Added accepted file formats to be passed to file upload custom component
  */
 public with sharing class BSPCreditClaimController {
 	public static String STATUS_OK = 'ok';
