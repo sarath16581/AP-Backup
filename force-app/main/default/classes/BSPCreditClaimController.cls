@@ -27,7 +27,7 @@ public with sharing class BSPCreditClaimController {
 			//if no billing account found user is not allowed to proceed,
 			//this validation to be removed when the auto select dropdown is implemented which allows the user to select a billing accounts which the user has access to
 			if(billingAccount == null) {
-				Set<SObjectField> fields = new Set<SObjectField>{BSPErrorMessages__c.Message__c};
+				Set<SObjectField> fields = new Set<SObjectField>{BSPErrorMessages__c.Message__c, BSPErrorMessages__c.Name};
 				CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(BSPErrorMessages__c.SObjectType, fields);
 				Set<String> settingNames = new Set<String> {'Invalid Billing Account Credit Claim'};
 				Map<String, SObject> bspMessagesSettings = (Map<String, SObject>) settingsSelector.selectByNames(settingNames);
