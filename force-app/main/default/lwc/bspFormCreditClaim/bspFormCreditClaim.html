@@ -262,9 +262,12 @@
 
 				<!--Case creation Success -->
 				<template if:true={successCreation}>
-					<c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber}>
+					<c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} page-type="credit claim">
 					</c-bsp-enquiry-creation-success>
 				</template>
+
+				<c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number='2323223' page-type="credit claim">
+				</c-bsp-enquiry-creation-success>
 				
 
 			</div>
