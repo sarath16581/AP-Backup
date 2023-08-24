@@ -4,26 +4,21 @@
 
 <!-- Bsp Form Credit Claim -->
 <template>
-
 	<!-- Navigation links-->
 	<c-bsp-breadcrumb bread-crumb-text={formTitle}></c-bsp-breadcrumb>
-
 	<div>
 		<!-- Case Creation Form -->
 		<div class="slds-grid slds-grid_align-center">
 			<div
 				class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_9-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
 				<template if:false={successCreation}>
-
 					<!-- spinner -->
 					<template if:true={showSpinner}>
 						<lightning-spinner variant="brand" size="medium" alternative-text="loading...">
 						</lightning-spinner>
 					</template>
-
 					<lightning-card title="">
 						<div class="slds-p-horizontal_x-large slds-p-bottom_large">
-
 							<!-- Form Title-->
 							<div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
 								<h2>{formTitle}</h2>
@@ -32,11 +27,7 @@
 							<template if:true={errorMessage}>
 								<c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
 							</template>
-
-							
-
 							<lightning-layout multiple-rows="true">
-
 							<!-- Business and contact details HEADING -->
 							<div>
 								<h3 class="slds-p-vertical_large">Business and contact details</h3>
@@ -57,7 +48,6 @@
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
-							
 							<!-- businessAccountNumber -->
 							<lightning-layout-item size="9">
 							<lightning-input label="Business account number" 
@@ -74,7 +64,6 @@
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
-
 							<!-- contactName -->
 							<lightning-layout-item size="9">
 							<lightning-input label="Contact name" 
@@ -91,7 +80,6 @@
 											max-length="255">
 							</lightning-input>							
 							</lightning-layout-item>
-
 							<!-- contactEmailAddress -->
 							<lightning-layout-item size="9">							
 							<lightning-input label="Contact email address" 
@@ -110,7 +98,6 @@
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
-
 							<!-- contactPhoneNumber -->
 							<lightning-layout-item size="9">														
 							<lightning-input label="Contact phone number (optional)" 
@@ -124,14 +111,12 @@
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
-
 							<!-- Claim description HEADING -->
 							<lightning-layout-item size="12">								
 							<div>								
 								<h3 class="slds-p-vertical_large">Claim description</h3>
 							</div>
 							</lightning-layout-item>
-
 							<!-- accountHeldWith -->
 							<lightning-layout-item size="9">								
 							<lightning-combobox label="Account held with" 
@@ -146,7 +131,6 @@
 											class="brand-form-input slds-p-bottom_x-large">
 							</lightning-combobox>
 							</lightning-layout-item>
-
 							<!-- disputeType -->
 							<lightning-layout-item size="9">
 							<lightning-combobox label="Dispute type" 
@@ -161,7 +145,6 @@
 											class="brand-form-input slds-p-bottom_x-large">
 							</lightning-combobox>
 							</lightning-layout-item>
-							
 							<!-- reasonForCreditClaim -->
 							<lightning-layout-item size="9">
 							<lightning-combobox label="Reason for credit claim" 
@@ -176,7 +159,6 @@
 											class="brand-form-input slds-p-bottom_x-large">
 							</lightning-combobox>
 							</lightning-layout-item>
-
 							<!-- claimAmount -->
 							<lightning-layout-item size="9">
 							<lightning-input label="Total amount claimed ($) (optional)" value={claimAmount}
@@ -194,8 +176,7 @@
 												class="brand-form-input slds-p-bottom_x-large" 
 												max-length="20">
 							</lightning-input>				
-							</lightning-layout-item>			
-
+							</lightning-layout-item>
 							<!-- description -->
 							<lightning-layout-item size="9">
 							<lightning-textarea label="Description" 
@@ -210,7 +191,6 @@
 											max-length="32000">
 							</lightning-textarea>
 							</lightning-layout-item>
-
 							<template if:true={showDisputedTransactionSection}>
 								<!--  Disputed Transactions HEADING -->
 								<lightning-layout-item size="12">								
@@ -218,35 +198,27 @@
 									<h3 class="slds-p-vertical_large">Disputed Transactions</h3>
 								</div>
 								</lightning-layout-item>
-
 								<!--  Files upload -->
 								<lightning-layout-item size="12">
 								<c-bsp-dispute-items account-held-with={accountHeldWith}></c-bsp-dispute-items>								
 								</lightning-layout-item>
 							</template>
-
 							<!-- Supporting documents HEADING -->
 							<lightning-layout-item size="12">			
 							<div>
 								<h3 class="slds-p-vertical_large">Supporting documents</h3>
 							</div>
 							</lightning-layout-item>
-
 							<!--  Files upload -->
 							<lightning-layout-item size="12">			
 							<c-bsp-upload-files onfileupload={onUploadFinished} accepted-format-over-write={acceptedFileFormats}></c-bsp-upload-files>
 							</lightning-layout-item>
-
-
 							</lightning-layout>
-
 							<!-- Buttons -->
 							<div class="slds-p-top_x-large">
 								<span class="slds-text-color_error">*</span>&nbsp;Required information
 							</div>
-
 							<div class="slds-p-top_x-large">
-
 								<lightning-button label="Cancel" title="Cancel"
 									class="brand-tertiary-button slds-p-right_medium" variant="Neutral"
 									onclick={navigateHome}>
@@ -257,19 +229,12 @@
 							</div>
 						</div>
 					</lightning-card>
-
 				</template>
-
 				<!--Case creation Success -->
 				<template if:true={successCreation}>
 					<c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber} page-type="credit claim">
 					</c-bsp-enquiry-creation-success>
 				</template>
-
-				<c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number='2323223' page-type="credit claim">
-				</c-bsp-enquiry-creation-success>
-				
-
 			</div>
 		</div>
 	</div>
