@@ -176,7 +176,7 @@ public without sharing class APT_CheckoutController{
 		}
 
 		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
-		if(lineItem.size() > 0){
+		if(lineItem != null && lineItem.size() > 0){
 			return true;
 		}
 
