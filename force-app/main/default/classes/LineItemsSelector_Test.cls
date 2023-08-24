@@ -11,6 +11,7 @@
 * 2022-07-28 - Nasir Jawed - Added code for covering LineItem to provide correct record.
 * 2023-01-19 - Mahesh Parvathaneni - Added tests for WITH_PRODUCT selector option
 * 2023-05-23 - Yatika bansal - Added tests for selectByProdConfigLineTypeAndStatus method.
+* 2023-08-14 - Yatika Bansal - Added coverage for selectByProdConfIdAndProductName 
 */
 @IsTest
 public with sharing class LineItemsSelector_Test {
@@ -267,6 +268,8 @@ public with sharing class LineItemsSelector_Test {
 		LineItemsSelector  selector = LineItemsSelector.newInstance();
 		List<Apttus_Config2__LineItem__c> LineItemRec=selector.selectByProdConfId(new set<ID>{(ID)prodConfig.id});
 		System.assertEquals(1,LineItemRec.size(), 'Resulting query give lineitem record as 1');
+
+		selector.selectByProdConfIdAndProductName(new set<ID>{(ID)prodConfig.Id}, new set<String>{'International Digital PCMS Bundle'});
 
 		//Getting the Line item record by passing the prod config id and checking the result
 		List<Apttus_Config2__LineItem__c> LineItemProdService=selector.selectByProdConfigAndLineType(

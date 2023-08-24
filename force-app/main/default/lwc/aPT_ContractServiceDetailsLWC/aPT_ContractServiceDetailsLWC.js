@@ -9,6 +9,8 @@
  * Change log: 
  * 9-04-2023 : Yatika Bansal : Added logic for amend/renew
  * 8-02-2023 : Yatika Bansal : Modified logic for close button and dates
+ * 8-08-2023 : Yatika Bansal : Added logic to show spinner until page fully loads
+ * 8-22-2023 : Yatika Bansal : Modified AED calculation logic for renewal
 */
 import { LightningElement, api, wire} from 'lwc';
 import { getRecord, getFieldValue, updateRecord  } from 'lightning/uiRecordApi';
@@ -72,7 +74,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	startDateRequired;
 	aggstartDateDisabled;
 	// store url for navigation
-	contractValidationUrl = '/apex/APT_CreateContractValidation?id=' ;
 	linkBillingAccUrl = '/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=';
 	manageLodgementPointUrl = '/apex/APT_ManageContractLodgementPoint?agId=' ;
 
@@ -222,9 +223,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 				//Get current address only in case of edit
 				if(this.existingContractId){
 					this.getCurrentCollectionAddress();
-				}else{
-					this.isLoading = false;
-					this.hasRendered = true;
 				}
 			}
 			this.readyToShowComponent = true;
@@ -271,7 +269,8 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			this.template.querySelector('.endDateField').value = null;
 		}
 		//AED should be calculated onLoad for renew
-		if(!this.existingContractId && this.isRenew === 'true'){
+		if(!this.existingContractId && this.isRenew === 'true' && this.template.querySelector('.condField').value === this.fixedTerm){
+			this.template.querySelector('.endDateField').value = null;
 			this.renewInit = true;
 			this.calculateAED();
 		}
@@ -288,6 +287,12 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 
 		if(this.template.querySelector('.condField').value != null){
 			this.checkContractConditions(this.template.querySelector('.condField').value);
+		}
+
+		//Only stop loading when all the field calculations are done
+		if(this.template.querySelector('.serviceEnd') !== null && this.template.querySelector('.serviceEnd').value !== undefined && this.startDateValue !== undefined){
+			this.isLoading = false;
+			this.hasRendered = true;
 		}
 	}
 
@@ -317,6 +322,12 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {
 				cmp.value = mapServiceEndDateById.get(cmp.dataset.id);
 			});
+		}
+
+		//Only stop loading when all the field calculations are done
+		if(this.template.querySelector('.serviceEnd').value !== undefined && this.startDateValue !== undefined){
+			this.isLoading = false;
+			this.hasRendered = true;
 		}
 	}
 
@@ -481,16 +492,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		}else{
 			//ST product
 			if(this.isST === 'Yes'){
-				if(this.isManualContract === 'true'){
-					//navigate to contract for manual process
-					url = '/' + this.contractId;
-				}else{
-					//includes Parcel Contract
-					if(inclProdLines.includes(this.parcelContractLine)){
-						count = 1;
-					}
-					url = this.contractValidationUrl + this.contractId +'&count=' + count ;
-				}
+				url = '/' + this.contractId;				
 			}
 			// AP product
 			else{
@@ -731,6 +733,8 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 				this.template.querySelector('.endDateField').value = this.template.querySelector('.endDate').value;
 				this.renewInit = false;
 			}
+		}else{
+			this.renewInit = false;
 		}
 	}
 
@@ -749,8 +753,8 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	* function to redirect back to contract 
 	*/
 	handleClose(){
-		//Retain AED in case of renewal
-		if(!this.existingContractId && this.isRenew === 'true'){
+		//Retain AED in case of FT renewal
+		if(!this.existingContractId && this.isRenew === 'true' && this.template.querySelector('.condField').value === this.fixedTerm){
 			const fields = {};
 			fields[ID_FIELD.fieldApiName] = this.contractId;
 			fields[END_DATE_FIELD.fieldApiName] = this.template.querySelector('.endDateField').value;

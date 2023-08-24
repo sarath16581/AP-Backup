@@ -46,7 +46,10 @@ public with sharing class CompensationService {
         // find the reference IDs
         Set<String> referenceIds = new Set<String>();
         for (Case cse : cases) {
-            referenceIds.add(cse.ReferenceID__c);
+            // if the reference ID is blank do not need to check
+            if(String.isNotBlank(cse.ReferenceID__c)){
+                referenceIds.add(cse.ReferenceID__c);
+            }
         }
         // with the reference ID let's find how many cases available
         Map<Id, Case> allCases = CasesSelector.newInstance().selectByReferenceIdOrderByCreatedDate(referenceIds);

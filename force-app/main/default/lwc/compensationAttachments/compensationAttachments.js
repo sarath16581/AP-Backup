@@ -23,7 +23,7 @@ const columns = [
     {label: 'Attachment Name', fieldName: 'name'},
     {label: 'Type', fieldName: 'contentType'},
     {
-        label: 'Size (KB)', fieldName: 'BodyLength', type: 'number',
+        label: 'Size (KB)', fieldName: 'bodyLength', type: 'number', sortable: true,
         cellAttributes: {alignment: 'center'}
     },
     {
@@ -31,7 +31,7 @@ const columns = [
         typeAttributes: {
             label: 'Preview',
             name: 'Preview',
-            variant: 'brand-outline',
+            variant: 'base',
             iconName: 'utility:preview',
             iconPosition: 'right'
         },
@@ -40,6 +40,8 @@ const columns = [
     {
         label: 'Actions',
         type: 'button',
+        sortable: true,
+        fieldName: 'isSelected',
         typeAttributes: {
             iconName: {fieldName: 'buttonIconName'},
             iconPosition: 'center',
@@ -64,9 +66,10 @@ export default class CompensationAttachments extends LightningElement {
     isDisableSelection = true;
     messages = {};
     config = {};
+    sortedBy;
+    sortedDirection;
     @wire(getObjectInfo, {objectApiName: 'Attachment'})
     attachmentObjectInfo;
-    attachments = [];
     connectedCallback() {
         this.isLoading = true;
         this.messages = {};
@@ -129,7 +132,6 @@ export default class CompensationAttachments extends LightningElement {
         getAttachmentsByParentId({recordId: this.recordId})
             .then((result) => {
                 this.attachments = result;
-                console.log(result);
                 if (this.attachments) {
                     let buttonIconName;
                     this.attachments = this.attachments.map(row => {
@@ -137,6 +139,8 @@ export default class CompensationAttachments extends LightningElement {
                         return {...row, buttonIconName}
                     })
                 }
+                // list the selected files first
+                this.sortData('isSelected', 'desc');
             })
             .catch((error) => {
                 console.error(error);
@@ -145,6 +149,7 @@ export default class CompensationAttachments extends LightningElement {
             }).finally(() => {
             this.isLoading = false;
         });
+
     }
 
     /**
@@ -168,6 +173,14 @@ export default class CompensationAttachments extends LightningElement {
     }
 
     /**
+     * notify to vf page then the vf page will refresh the tab
+     */
+    notifyParent(){
+        const detail = {}
+        this.dispatchEvent(new CustomEvent('selfRefresh', {detail: detail, bubbles: true, composed: true}));
+    }
+
+    /**
      * handle close for the message box
      */
     handleClose() {
@@ -175,5 +188,34 @@ export default class CompensationAttachments extends LightningElement {
         if (successMessage) {
             successMessage.style.display = 'none';
         }
+    }
+
+    /**
+     * sort the sortable columns on the table
+     * @param event
+     */
+    onSort(event) {
+        this.sortedBy = event.detail.fieldName;
+        this.sortedDirection = event.detail.sortDirection;
+        this.sortData(this.sortedBy, this.sortedDirection);
+    }
+
+    /**
+     * Sorting table data based on the given field name and direction
+     * @param fieldName
+     * @param direction
+     */
+    sortData(fieldName, direction) {
+        let parseData = JSON.parse(JSON.stringify(this.attachments));
+        let keyValue = (a) => {
+            return a[fieldName];
+        };
+        let isReverse = direction === "asc" ? 1 : -1;
+        parseData.sort((x, y) => {
+            x = keyValue(x) ? keyValue(x) : "";
+            y = keyValue(y) ? keyValue(y) : "";
+            return isReverse * ((x > y) - (y > x));
+        });
+        this.attachments = parseData;
     }
 }
