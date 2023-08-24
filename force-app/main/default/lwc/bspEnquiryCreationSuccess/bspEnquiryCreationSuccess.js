@@ -44,6 +44,8 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
         if (this.isAPType) {
             if (this.displayEDDVariation) {
                 return 'Thanks, we\'ve received your enquiry';
+            } if (this.displayCreditClaimVariation) {
+                return 'Thanks, we\'ve received your credit claim';
             } else {
                 return 'Thank you, your enquiry has been sent.'
             }
@@ -53,6 +55,8 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
     get apBodyHeading() {
         if (this.isAPType) {
             if (this.displayEDDVariation) {
+                return 'What happens next';
+            } if (this.displayCreditClaimVariation) {
                 return 'What happens next';
             }
         }
@@ -93,11 +97,17 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
         return this.edd && this.pageType?.toLowerCase() === 'missing item';
     }
 
+    get displayCreditClaimVariation() {
+        return this.pageType?.toLowerCase() === 'credit claim';
+    }
     get parcelTense() {
         return this.edd < this.currentDate ? 'was' : 'is';
     }
 
-    eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd) {
+    eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd, creditClaim) {
+        if (this.displayCreditClaimVariation) {
+            return creditClaim;
+        }
         if (!this.displayEDDVariation) { // no edd provided, or this is being passed from the BSP LOMI form
             return noEdd;
         }
@@ -129,8 +139,9 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
          '<br><p>This parcel ' + this.parcelTense + ' expected on <b>'+ new Date(this.edd).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +'</b>.</p>';
 
         let afterEddPlus = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. We’ve sent you a confirmation email with your enquiry details.</p>';
+        let creditClaim = '<p>Your enquiry reference number is: <b>'+ this.caseNumber + '</b>. <br>We’ve sent you a confirmation email with your case details.</p></b>';
 
-        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd);
+        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd, creditClaim);
     }
 
     aPBodyContent() {
@@ -149,7 +160,9 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
             '<h3>We’ll contact you with the outcome</h3>' +
             '<p>You’ll hear back from us soon - usually within 2 business days.</p>';
 
-        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus);
+        let creditClaim =  '';
+
+        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, creditClaim);
     }
 
     aPNoteContent() {
@@ -157,8 +170,11 @@ export default class BspEnquiryCreationSuccess extends NavigationMixin(Lightning
         let beforeEdd =  '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +' - usually within 2 business days - or if this parcel is delivered.</p>';
         let beforeEddPlus = '<h1 class="slds-p-top_large">We\'ll keep you updated</h1>'+'<p>You’ll hear back from us after we review your enquiry on '+ new Date(this.eddPlusBusinessDays).toLocaleDateString('en-AU', this.dateDisplayOption).replaceAll(',','') +' - usually within 2 business days - or if this parcel is delivered.</p>';
         let afterEddPlus = '';
+        let creditClaim = '<li class="slds-p-top--large">We\'ll review your credit claim</li>';
+        creditClaim += '<li class="slds-p-top--large">Our team will investigate</li>';
+        creditClaim += '<li class="slds-p-top_large slds-p-bottom--large" >You\'ll hear back from us soon</li>';
 
-        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd);
+        return this.eddBasedAPContent(beforeEdd, beforeEddPlus, afterEddPlus, noEdd, creditClaim);
     }
 
     onClickCancel() {
