@@ -35,7 +35,7 @@
 			</thead>
 			<tbody>
 					<template for:each={disputeItemList} for:item="disputeItem" for:index="index">
-						<tr key={disputeItem.Id} class="slds-hint-parent">						
+						<tr key={disputeItem.Id} class="slds-hint-parent wrap-text row-vertical-align-top">						
 							<td class="slds-truncate ">
 								<lightning-input 
 									variant="label-hidden"
@@ -49,7 +49,7 @@
 								</lightning-input>
 							</td>
 							<template if:true={showTransactionId}>
-								<td class="slds-truncate" style="text-wrap: wrap;">
+								<td class="slds-truncate wrap-text">
 									<lightning-input
 										variant="label-hidden" 
 										type="text" 
@@ -58,7 +58,7 @@
 										required
 										onchange={onChangeField}
 										placeholder="Transaction ID"
-										message-when-value-missing="Please enter a Transaction ID which can be found on the invoice"	 
+										message-when-value-missing="Please enter a transaction id which can be found on the invoice"	 
 										max-length="50"
 										data-id={disputeItem.Id} 
 										data-field="Transaction_ID__c">
@@ -66,7 +66,7 @@
 								</td>
 							</template>					
 							<template if:true={showConnote}>
-								<td class="slds-truncate" style="text-wrap: wrap;">
+								<td class="slds-truncate wrap-text">
 									<lightning-input 
 										variant="label-hidden"
 										type="text" 
@@ -75,7 +75,7 @@
 										required
 										onchange={onChangeField}
 										placeholder="Connote #"
-										message-when-value-missing="Please enter a Consignment Note Number which can be found on the invoice"	 
+										message-when-value-missing="Please enter a consignment note number which can be found on the invoice"	 
 										max-length="20"
 										data-id={disputeItem.Id} 
 										data-field="Connote__c">
