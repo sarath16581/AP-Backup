@@ -297,6 +297,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		}
 
 		this.tempCase.RecordTypeId =  this.recordTypeId;
+		this.tempCase.Business_Name__c = this.businessName;
 		this.tempCase.Billing_Number__c = this.businessAccountNumber;
 		this.tempCase.Name__c = this.contactName;
 		this.tempCase.Email_Address__c = this.contactEmailAddress;
