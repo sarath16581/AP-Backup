@@ -25,7 +25,7 @@
 											
 
 <td halign="Left" valign="bottom"> 
-<a href="http://www.startrack.com.au/"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DVyDF&oid=00D30000001GGce" border="0" style="vertical-align:"right";" align="right",width="100%" height="100%" alt="StarTrack" /></a>
+<a href="http://www.startrack.com.au/"><img  src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DVyDF&oid=00D30000001GGce" border="0" style="vertical-align:"right";" align="right",width="100%" height="100%" alt="StarTrack" /></a>
 </td >
 										</tr>
 										<tr><td height="5" style="font-size:0; line-height:0;">&nbsp;</td></tr>
@@ -66,7 +66,7 @@ Reference Subject: <b>{!Case.Subject}</b><br>
 </b><br>
 Please click below to provide your feedback with 4 simple questions.<br><br>
 
-<b><a href="https://www.getfeedback.com/r/0LKjuCZU?ContactId={!Contact.Id}&Casenumber={!Case.CaseNumber}&Accountid={!Case.AccountId}&Caseid={!Case.Id}&Requestorid={!Case.RequestorId__c}" title="Send feedback link"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxe &oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Send Survey" /></a>	</b><br><br>  
+<b><a href="https://www.getfeedback.com/r/0LKjuCZU?ContactId={!Contact.Id}&Casenumber={!Case.CaseNumber}&Accountid={!Case.AccountId}&Caseid={!Case.Id}&Requestorid={!Case.RequestorId__c}" title="Send feedback link"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxe &oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Send Survey" /></a>	</b><br><br>  
 Thank you,
                                                              </td>
                                                   </tr> 									
@@ -76,7 +76,7 @@ Thank you,
                                                      
 
 
-									</tr><td> <br><a href="http://www.startrack.com.au/"><img width = "200"  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000ERObm&oid=00D30000001GGce&lastMod=1529568248000" border="0" style="vertical-align:"bottom";" align="left",width="141" height="120" alt="StarTrack" /></a></td> <br>
+									</tr><td> <br><a href="http://www.startrack.com.au/"><img width = "200"  src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000ERObm&oid=00D30000001GGce&lastMod=1529568248000" border="0" style="vertical-align:"bottom";" align="left",width="141" height="120" alt="StarTrack" /></a></td> <br>
                                                                 <tr>
  <td style=" font:2px/3px Arial; color:White;"> {!Case.Thread_Id} <br>
                                                               </td>
