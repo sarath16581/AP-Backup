@@ -33,7 +33,7 @@
 								<h3 class="slds-p-vertical_large">Business and contact details</h3>
 							</div>
 							<!-- businessName -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-input label="Business name" 
 											value={businessName}
 											data-id="businessName"
@@ -42,14 +42,14 @@
 											type="text"
 											required
 											placeholder="Enter the Business Name"											 
-											message-when-value-missing="Please enter Business Name"
+											message-when-value-missing="Please enter business name"
 											class="brand-form-input slds-p-bottom_x-large"
 											disabled
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
 							<!-- businessAccountNumber -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-input label="Business account number" 
 											value={businessAccountNumber}
 											data-id="businessAccountNumber"
@@ -59,13 +59,13 @@
 											onfocus={handleFocus}
 											required
 											placeholder="Enter the business account number"											 
-											message-when-value-missing="Please enter Business Account Number"
+											message-when-value-missing="Please enter business account number"
 											class="brand-form-input slds-p-bottom_x-large"
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
 							<!-- contactName -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-input label="Contact name" 
 											value={contactName}
 											data-id="contactName"
@@ -75,13 +75,13 @@
 											onfocus={handleFocus}
 											required
 											placeholder="Enter the contact name"											 
-											message-when-value-missing="Please enter Contact Name"
+											message-when-value-missing="Please enter contact name"
 											class="brand-form-input slds-p-bottom_x-large"
 											max-length="255">
 							</lightning-input>							
 							</lightning-layout-item>
 							<!-- contactEmailAddress -->
-							<lightning-layout-item size="9">							
+							<lightning-layout-item size="12" large-device-size="9">							
 							<lightning-input label="Contact email address" 
 											value={contactEmailAddress}
 											data-id="contactEmailAddress"
@@ -91,15 +91,15 @@
 											onfocus={handleFocus}
 											required
 											placeholder="Enter the contact email address"											 
-											message-when-value-missing="Please enter a valid Email Address"
+											message-when-value-missing="Please enter a valid email address"
 											class="brand-form-input slds-p-bottom_x-large"
 											pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-											message-when-pattern-mismatch="Please enter a valid Email Address"
+											message-when-pattern-mismatch="Please enter a valid email address"
 											max-length="255">
 							</lightning-input>
 							</lightning-layout-item>
 							<!-- contactPhoneNumber -->
-							<lightning-layout-item size="9">														
+							<lightning-layout-item size="12" large-device-size="9">														
 							<lightning-input label="Contact phone number (optional)" 
 											value={contactPhoneNumber} 
 											data-id="contactPhoneNumber"
@@ -118,7 +118,7 @@
 							</div>
 							</lightning-layout-item>
 							<!-- accountHeldWith -->
-							<lightning-layout-item size="9">								
+							<lightning-layout-item size="12" large-device-size="9">								
 							<lightning-combobox label="Account held with" 
 											data-id="accountHeldWith" 
 											value={accountHeldWith}
@@ -126,13 +126,13 @@
 											options={accountHeldWithList} 
 											onchange={onChangeField} 
 											onfocus={handleFocus}
-											message-when-value-missing="Please enter Account Held With" 
+											message-when-value-missing="Please enter account held with" 
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
 							</lightning-combobox>
 							</lightning-layout-item>
 							<!-- disputeType -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-combobox label="Dispute type" 
 											data-id="disputeType" 
 											value={disputeType}
@@ -140,13 +140,13 @@
 											options={disputeTypeList} 
 											onchange={onChangeField} 
 											onfocus={handleFocus}
-											message-when-value-missing="Please enter Dispute type" 
+											message-when-value-missing="Please enter dispute type" 
 											required 
 											class="brand-form-input slds-p-bottom_x-large">
 							</lightning-combobox>
 							</lightning-layout-item>
 							<!-- reasonForCreditClaim -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-combobox label="Reason for credit claim" 
 											data-id="reasonClaim" 
 											value={reasonClaim}
@@ -160,7 +160,7 @@
 							</lightning-combobox>
 							</lightning-layout-item>
 							<!-- claimAmount -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-input label="Total amount claimed ($) (optional)" value={claimAmount}
 												data-id="claimAmount"
 												onchange={onChangeField}
@@ -178,13 +178,13 @@
 							</lightning-input>				
 							</lightning-layout-item>
 							<!-- description -->
-							<lightning-layout-item size="9">
+							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-textarea label="Description" 
 											data-id="description"
 											type="text" 
 											value={description} 
 											onchange={onChangeField} 
-											message-when-value-missing="Please enter a Description of your claim" 
+											message-when-value-missing="Please enter a description of your claim" 
 											onfocus={handleFocus}
 											required 
 											class="brand-form-input slds-p-bottom_x-large" 
