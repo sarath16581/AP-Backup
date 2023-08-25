@@ -325,6 +325,7 @@ public without sharing class BCAFormHelper {
 	/**
 	 * Keep track of retrieved settings to minimise DB roundtrips
 	 */
+	@TestVisible
 	private static Map<String,SObject> bcaSettings {
 		get {
 			if (bcaSettings == null) {

@@ -4,6 +4,7 @@
  * @tag CreditSuspect
  * @domain Core
  * @description Selector class for CreditSuspect
+ * @testclass CreditSuspectSelector_Test
  */
 public virtual inherited sharing class CreditSuspectSelector extends ApplicationSelector {
 	public enum Options { }

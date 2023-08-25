@@ -1,8 +1,8 @@
 /**
-* @description       : Proxy class for Datacloud classes that cannot be constructed (mocked)
+* @description       : Proxy class for Datacloud classes (that cannot be constructed / mocked without a proxy)
 * @author            : Paul Perry
 * @group             : 
-* @testclass         : DatacloudProxyTest (ToDo)
+* @testclass         : DatacloudProxy_Test
 **/
 public inherited sharing class DatacloudProxy {
 
