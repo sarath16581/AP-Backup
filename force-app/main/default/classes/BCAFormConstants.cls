@@ -2,6 +2,7 @@
 * @description	   : BCAFormController helper class
 * @author			: avula.jansirani@auspost.com.au
 * @group			 : 
+* @test 			 : BCAFormController_Test
 * @last modified on  : 06-09-2021
 * @last modified by  : ankur.gandhi@auspost.com.au
 * Modifications Log 

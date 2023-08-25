@@ -2,6 +2,7 @@
 * @description	   : A class for bcaForm LWC component
 * @author			: Victor Cheng
 * @group			 : 
+* @test 			 : BCAFormController_Test
 * @last modified on  : 06-09-2021
 * @last modified by  : ankur.gandhi@auspost.com.au
 * Modifications Log 
