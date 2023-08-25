@@ -6,7 +6,7 @@
 **/
 public inherited sharing class DatacloudProxy {
 
-    public class FindDuplicatesResult { 
+	public class FindDuplicatesResult { 
 		public List<DuplicateResult> duplicateResults;
 		public List<Database.Error> errors;
 		public Boolean success;
