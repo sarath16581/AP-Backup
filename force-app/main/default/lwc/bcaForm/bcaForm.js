@@ -522,6 +522,7 @@ export default class BcaForm extends LightningElement {
             this.creditAssessment.showSpinner = true;
             var needEquifaxValidation = false;
             var creditAssId;
+			console.log('Saving Credit Assessment', JSON.parse(JSON.stringify(this.creditAssessment)));
             await saveAssessment({ creditAssessmentStr:  JSON.stringify(this.creditAssessment)})
                 .then(result => {
                    

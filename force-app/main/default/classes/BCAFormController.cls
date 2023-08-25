@@ -474,4 +474,23 @@ public without sharing class BCAFormController {
 			return res;
 		}
 	}
+
+	/**
+	 * Verify the entities on the Credit Assessment record against the Suspect Register
+	 * @return True if referred or False if not matched /w threshold
+	 * @exception AuraHandledException upon insufficient record access
+	 */
+	@AuraEnabled
+	public static Boolean performSuspectRegisterCheck(Id creditAssessmentId) {
+		try {
+			// Without Sharing class -> Perform Record Access Check
+			if (!UserRecordAccessSelector.newInstance().selectById(creditAssessmentId).HasReadAccess) {
+				throw new NoAccessException();
+			}
+
+			return !BCAFormHelper.performSuspectRegisterCheck(creditAssessmentId).isEmpty();
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
 }

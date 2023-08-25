@@ -39,7 +39,7 @@ public with sharing class BCAFormConstants {
 	public static final String ENTITY_TYPE_OTHER_INCORPORATED = 'OTHER_INCORPORATED';
 	public static final String ENTITY_TYPE_INDV = 'INDV';
 	
-	//public static final String CREDIT_ASSESSMENT_STATUS_REFERRED = 'Referred';
+	public static final String CREDIT_ASSESSMENT_STATUS_REFERRED = 'Referred';
 	public static final String CREDIT_ASSESSMENT_STATUS_AUTO_APPROVED = 'Auto-Approved';
 	public static final String CREDIT_ASSESSMENT_STATUS_REJECTED = 'Rejected';
 	public static final String CREDIT_ASSESSMENT_STATUS_WORK_IN_PROGRESS = 'Work-In-Progress';
@@ -60,6 +60,7 @@ public with sharing class BCAFormConstants {
 	public static final String PARTNERSHIP_REFERRAL_REASON = 'Veda Entity type is Partnership';
 	public static final String HOTLISTED_CUSTOMER_REFERRAL_REASON = 'Hotlisted Customer';
 	public static final String PREVIOUS_C_A_REJECTED_REFERRAL_REASON = 'Credit Assessment has been previously rejected.';
+	public static final String CREDIT_SUSPECT_REFERRAL_REASON = 'Credit Suspect Match';
 
 	public static final String ASSESSMENT_INITIATION_TYPE_ONLINE = 'Online';
 	
@@ -85,4 +86,10 @@ public with sharing class BCAFormConstants {
 	
 	public static final String SUMMARY_PDF_FILE_NAME ='bcaAppSummary';
 	public static final String INTEGRATION_STATUS_REQUESTED = 'Requested';
+
+	public static final String CREDIT_SUSPECT_MATCH_THRESHOLD = 'Credit Suspect Match Threshold';
+	public static final String FAIL_REASON_CREDIT_SUSPECT = 'Credit suspect identified in the application';
+
+	public static final String BCASETTING_AUTO_APPROVAL_MAX_CREDIT_LIMIT = 'Auto_Approval_Max_Credit_Limit';
+	public static final String BCASETTING_CREDIT_SUSPECT_MATCH_THRESHOLD = 'Credit Suspect Match Threshold';
 }
