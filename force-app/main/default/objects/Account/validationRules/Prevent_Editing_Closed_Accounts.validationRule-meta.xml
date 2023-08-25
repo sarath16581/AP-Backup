@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Editing_Closed_Accounts</fullName>
+    <active>true</active>
+    <description>Prevent users from editing closed consumer accounts</description>
+    <errorConditionFormula>AND(
+$Profile.Name != &quot;System Administrator&quot;,
+$Profile.Name != &quot;AusPost Integration&quot;,
+NOT(ISNEW()),
+IsPersonAccount,
+is_Inactive_Customer__pc 
+)</errorConditionFormula>
+    <errorMessage>You cannot make changes to a closed (inactive) consumer record. Contact your system administrator</errorMessage>
+</ValidationRule>
