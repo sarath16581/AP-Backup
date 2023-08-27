@@ -82,7 +82,6 @@ private class AuthProviderCookieHndlrController_Test {
 		// Verification
 		// =====================================
 		System.Cookie cookieDeleted = output.getCookies().get(AuthProviderCookieHandlerController.COOKIE_NAME);
-		String url = output.getUrl();
 		Map<String, String> params = output.getParameters();
 		System.assertEquals(0, cookieDeleted.getMaxAge(), 'Expected cookie to be deleted');
 		System.assertEquals(true, !params.containsKey('prompt'), 'Expected prompt param to be removed from the Auth Url');

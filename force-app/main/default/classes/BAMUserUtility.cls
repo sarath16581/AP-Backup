@@ -574,8 +574,9 @@ public with sharing class BAMUserUtility {
                 if(personas == null || personas.isEmpty()) {
                     personas = new Map<Id, UserPersona>();
 
-                    if(String.isEmpty(userContextCNumber))
-                        throw new InvalidPersonaException('User Context is Invalid');
+                    if(String.isEmpty(userContextCNumber)) {
+						throw new InvalidPersonaException('User Context is Invalid');
+					}
 
                     personas = (Map<Id, UserPersona>)CacheManager.get('BAM_USER_PERSONA_CONTEXT', userContextCNumber + networkId);
                     if (personas != null && !personas.isEmpty()) {

@@ -88,17 +88,17 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 						'&audience=' + EncodingUtil.urlEncode(audience, 'UTF-8') +
 						'&redirect_uri=' + EncodingUtil.urlEncode(redirectUri, 'UTF-8') +
 						'&prompt=login' +
-            			'&state=' + EncodingUtil.urlEncode(stateToPropagate, 'UTF-8');
+						'&state=' + EncodingUtil.urlEncode(stateToPropagate, 'UTF-8');
 
 		String url = authoriseEndpointUrl + '?' + qs;
 
 		String pageReferenceUrl = '';
 		if(!String.isEmpty(visualforceProxyUrl)) {
 			//redirect to vf page prior to forward to Auth0. We read the cookie if set and manipulate prompt=login if required
-            pageReferenceUrl = visualforceProxyUrl + '?action=post&next=' + EncodingUtil.urlEncode(url, 'UTF-8');
+			pageReferenceUrl = visualforceProxyUrl + '?action=post&next=' + EncodingUtil.urlEncode(url, 'UTF-8');
 		} else {
 			//forward to Auth0
-            pageReferenceUrl = url;
+			pageReferenceUrl = url;
 		}
 
 		return new PageReference(pageReferenceUrl);

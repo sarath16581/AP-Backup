@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VisualforceProxyURL__c</fullName>
-    <description>This URL is used to redirect the user to a Visualforce prior to forwarding to Auth0. This allows for pre processing to occur and manipulation of the querystring parameters sent to Auth0. The current use case of this is to read a cookie to determine whether or not the prompt=login attribute should be applied to the Auth0 redirect or not. There are a small number of scenarios where a &apos;transparent&apos; relogin should occur (Merchant Portal persona switching for example). If empty, a direct redirect will occur.</description>
-    <externalId>false</externalId>
-    <fieldManageability>DeveloperControlled</fieldManageability>
-    <inlineHelpText>This URL is used to redirect the user to a Visualforce prior to forwarding to Auth0. This allows for pre processing to occur and manipulation of the querystring parameters sent to Auth0. The current use case of this is to read a cookie to determine whether or not the prompt=login attribute should be applied to the Auth0 redirect or not. There are a small number of scenarios where a &apos;transparent&apos; relogin should occur (Merchant Portal persona switching for example). If empty, a direct redirect will occur.</inlineHelpText>
-    <label>Visualforce Proxy URL</label>
-    <length>150</length>
-    <required>false</required>
-    <type>Text</type>
-    <unique>false</unique>
+	<fullName>VisualforceProxyURL__c</fullName>
+	<description>This URL is used to redirect the user to a Visualforce prior to forwarding to Auth0. This allows for pre processing to occur and manipulation of the querystring parameters sent to Auth0. The current use case of this is to read a cookie to determine whether or not the prompt=login attribute should be applied to the Auth0 redirect or not. There are a small number of scenarios where a &apos;transparent&apos; relogin should occur (Merchant Portal persona switching for example). If empty, a direct redirect will occur.</description>
+	<externalId>false</externalId>
+	<fieldManageability>DeveloperControlled</fieldManageability>
+	<inlineHelpText>This URL is used to redirect the user to a Visualforce prior to forwarding to Auth0. This allows for pre processing to occur and manipulation of the querystring parameters sent to Auth0. The current use case of this is to read a cookie to determine whether or not the prompt=login attribute should be applied to the Auth0 redirect or not. There are a small number of scenarios where a &apos;transparent&apos; relogin should occur (Merchant Portal persona switching for example). If empty, a direct redirect will occur.</inlineHelpText>
+	<label>Visualforce Proxy URL</label>
+	<length>150</length>
+	<required>false</required>
+	<securityClassification>INTERNAL</securityClassification>
+	<type>Text</type>
+	<unique>false</unique>
 </CustomField>

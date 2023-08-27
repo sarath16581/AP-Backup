@@ -37,7 +37,7 @@ public with sharing class AuthProviderCookieHandlerController {
 	 * It manipualtes the queryparams if required and then redirects the Auth0 
 	 * @return   return PageReference
 	 */
-    public PageReference processCookieAndRedirect() {
+	public PageReference processCookieAndRedirect() {
 		PageReference output = null;
 		Map<String, String> parameters = ApexPages.currentPage().getParameters();
 
