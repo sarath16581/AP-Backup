@@ -3,6 +3,7 @@
  History:
  --------------------------------------------------
  2020-09-07 vinoth.raja@crmit.com Created
+ 2023-08-27 Mahesh Parvathaneni - Added tests for testGetMerchantPortalCookieHandlerProxyUrl
  **************************************************/
 @isTest
 public class bspBaseUplift_Test{
@@ -676,4 +677,38 @@ public class bspBaseUplift_Test{
 
         Test.stopTest();
     }
-}
+
+	/**
+	 * Test:
+	 * Making sure that merchant portal cookie handler proxy url is returned from the custom settings 
+	 */
+	@IsTest
+	private static void testGetMerchantPortalCookieHandlerProxyUrl() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		String url = 'https://auspost--devnathan.sandbox.my.site.com/merchantportal/AuthProviderCookieHandler?action=pre&community=https://auspost--devnathan.sandbox.my.site.com/merchantportal';
+		MerchantPortalSettings__c settings = new MerchantPortalSettings__c();
+		settings.CookieHandlerProxyUrl__c = url;
+		settings.ContactOwnerUsername__c = 'apintegration@auspost.com.au';
+		insert settings;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String outputUrl = bspBaseUplift.getMerchantPortalCookieHandlerProxyUrl();
+		Test.stopTest();
+
+		// =====================================
+		// Verification
+		// =====================================
+		System.assertNotEquals(null, outputUrl, 'Expected url to be returned');
+		System.assertEquals(url, outputUrl, 'Incorrect url returned');
+	}
+ }

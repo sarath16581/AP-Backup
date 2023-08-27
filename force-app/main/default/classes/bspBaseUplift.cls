@@ -7,6 +7,7 @@ History:
 2020-11-26  Jansi Rani. avula.jansirani@auspost.com.au  Removed System.debug lines
 2021-07-05  Victor.Cheng@auspost.com.au Added the initThemeComp
 2023-08-17  mahesh.parvathaneni@auspost.com.au Changed isCSSOLogin to check for AuthProvider instead of SAML
+2023-08-25  mahesh.parvathaneni@auspost.com.au Added method getMerchantPortalCookieHandlerProxyUrl
 **************************************************/
 public with sharing virtual class bspBaseUplift {
 
@@ -1089,5 +1090,15 @@ public with sharing virtual class bspBaseUplift {
             announcementMessage = announcementList[0].What_do_I_tell_customers__c;
         return announcementMessage;   
     }
+
+	/**
+	 * @description This method returns the url configured for AuthProviderCookieHandler VF page for 
+	 * Merchant Portal for transparent login
+	 * @return   return merchant portal AuthProviderCookieHandler VF page URL
+	 */
+	@AuraEnabled(cacheable=true)
+	public static String getMerchantPortalCookieHandlerProxyUrl() {
+		return MerchantPortalSettings__c.getInstance().CookieHandlerProxyUrl__c;
+	}
 
 }

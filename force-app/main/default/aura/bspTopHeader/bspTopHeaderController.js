@@ -2,6 +2,7 @@
     doInit: function (cmp, event, helper) {
         helper.setLoggedInUserName(cmp);
         helper.getCommunityUrl(cmp);
+		helper.getMerchantPortalCookieHandlerProxyUrl(cmp);
     },
     openDesktopLogin: function (cmp, event, helper) {
         $A.util.addClass(cmp.find('desktopLogin'), 'is-open');
@@ -41,5 +42,11 @@
     },
     logout: function(cmp, event, helper) {
         window.location.replace(cmp.get('v.communityUrl') + "/secur/logout.jsp");
-    }
+    },
+	goToMerchantPortal: function(cmp, event, helper) {
+		let merchantPortalCookieHdlrProxyUrl = cmp.get("v.merchantPortalCookieHdlrProxyUrl");
+		if(merchantPortalCookieHdlrProxyUrl !== null && merchantPortalCookieHdlrProxyUrl !== undefined) {
+			window.location.replace(cmp.get('v.merchantPortalCookieHdlrProxyUrl'));
+		}
+	}
 })

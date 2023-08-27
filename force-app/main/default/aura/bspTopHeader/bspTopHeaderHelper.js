@@ -57,5 +57,17 @@
             }
         });
         $A.enqueueAction(action);
-    }
+    },
+
+	getMerchantPortalCookieHandlerProxyUrl: function (component) {
+		var action = component.get("c.getMerchantPortalCookieHandlerProxyUrl");
+		action.setStorable();
+		action.setCallback(this, function (response) {
+			var state = response.getState();
+			if (state === "SUCCESS") {
+				component.set("v.merchantPortalCookieHdlrProxyUrl", response.getReturnValue());
+			}
+		});
+		$A.enqueueAction(action);
+	}
 })
