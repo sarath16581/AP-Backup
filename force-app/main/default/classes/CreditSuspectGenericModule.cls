@@ -59,14 +59,17 @@ public inherited sharing class CreditSuspectGenericModule extends ApplicationDom
 	 * @return  `Boolean`
 	 */
 	private static Boolean isChanged(SObject record, Map<Id,SObject> existingRecords, Set<SObjectField> fields) {
+		Boolean result = false;
+
 		for (SObjectField field :fields) {
 			Object value = record.get(field);
 			
 			if (value != existingRecords.get(record.Id)?.get(field)) {
-				return true;
+				result = true;
+				break;
 			}
 		}
 
-		return false;
+		return result;
 	}
 }
