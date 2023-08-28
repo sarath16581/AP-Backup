@@ -1,3 +1,7 @@
+<!--
+@changeLog:
+2023-08-28 Mahesh Parvathaneni - Added Merchant Portal link in top header 
+-->
 <aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller='bspBaseUplift' description="Bsp Custom Header">
 	<aura:attribute name="loggedInUserName" type="String" default="Log in" />
 	<aura:attribute name="communityUrl" type="String" default="" />

@@ -21,14 +21,14 @@ public with sharing virtual class bspBaseUplift {
 		}
 	}
 
-        //mapping file extensions and mime types used while converting attachment to files and vice versa
-    public static final map<string,string> mimeTypeMapping = new map<string,string>{
-            'png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'htm' => 'text/html', 'html' => 'text/html',
-            'pdf' => 'application/pdf', 'doc' => 'application/msword', 'docx' => 'application/msword',
-            'xls' => 'application/vnd.ms-excel', 'xlsx' => 'application/vnd.ms-excel', 'ppt' => 'application/vnd.ms-powerpoint',
-            'pptx' => 'application/vnd.ms-powerpoint', 'txt' => 'text/plain'
-    };
-	
+		//mapping file extensions and mime types used while converting attachment to files and vice versa
+	public static final map<string,string> mimeTypeMapping = new map<string,string>{
+			'png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'htm' => 'text/html', 'html' => 'text/html',
+			'pdf' => 'application/pdf', 'doc' => 'application/msword', 'docx' => 'application/msword',
+			'xls' => 'application/vnd.ms-excel', 'xlsx' => 'application/vnd.ms-excel', 'ppt' => 'application/vnd.ms-powerpoint',
+			'pptx' => 'application/vnd.ms-powerpoint', 'txt' => 'text/plain'
+	};
+
 	/**
 	 * Return the billing account scope of a user based on which side of the business the customer deals with (maybe both)
 	 * Either ST/AP or ALL
@@ -94,7 +94,7 @@ public with sharing virtual class bspBaseUplift {
 	 * 2. Any 'Super' roles (configured at the org level) will only ever return the contacts linked to the current users Organisation irrespective of the configuration in Linked Entities (even if linked entities are defined the cross organisation, we supress them from being loaded to prevent any possible security implications)
 	 * 3. The primary billing account will be added as a User role by default, it also can be overriden in BAM by explicity setting it to a higher level role.
 	 * 4. Since we are supporting legacy and the ability to onboard to BSP outside of BAM, we do not check for Contact status or whether the Org has the BSP asset in order to surface Rules, this will be handled as the user logs into BSP via the CSSO Login Handler (BAMJitLoginHandler)
-	 *      This is because these limitation should only be enforced in the Merchant Portal CSSO login context
+	 * This is because these limitation should only be enforced in the Merchant Portal CSSO login context
 	 *
 	 * These rules are introduced to provide governance and to prevent any data accidently leaking
 	 */
@@ -222,7 +222,7 @@ public with sharing virtual class bspBaseUplift {
 					// the end result here is that we now have a list of billing accounts and organisations that the current contact has access to
 					// the above also ensures that for each billing account the most open was applied
 					accessRules = accessRuleMap.values();
-     				CacheManager.put('BSP_UPLIFT_ACCESS_ROLES', accessRules);
+					CacheManager.put('BSP_UPLIFT_ACCESS_ROLES', accessRules);
 				}
 			}
 
@@ -232,13 +232,13 @@ public with sharing virtual class bspBaseUplift {
 	}
 
 	/**
-     * This will return a list of all the billing accounts that the logged in user has access to
-     * This is irrespective of the role linked to each of these billing accounts
-     * Scenarios:
-     *  Super Admin or Super User... where an Org is specified (NOTE: We force here that a user may only have access to their own org which is currently enforced in accessRules property)
-     *  Admin or User... where access is determined by individual billing accounts
-     *
-     */
+	 * This will return a list of all the billing accounts that the logged in user has access to
+	 * This is irrespective of the role linked to each of these billing accounts
+	 * Scenarios:
+	 *  Super Admin or Super User... where an Org is specified (NOTE: We force here that a user may only have access to their own org which is currently enforced in accessRules property)
+	 *  Admin or User... where access is determined by individual billing accounts
+	 *
+	 */
 	public static Map<Id, Billing_Account__c> accessibleBillingAccounts {
 		get {
 			if(accessibleBillingAccounts == null) {
@@ -676,9 +676,9 @@ public with sharing virtual class bspBaseUplift {
 			} else if('Admin'.equalsIgnoreCase(rule.roleName) && 'Billing_Account__c'.equalsIgnoreCase(rule.entityType)) {
 				// check the related billing account on the case
 				// NOTE: Updated 2019-07-29 - The billing account of the user raising the case will now be factored in as to whether a case should be shown to a current user.
-				//                              This requirement has been identified as an AP only requirement so it has only been implemented when searching AP billing accounts
-				//                              Example: if primary billing account of user creating case is 1234 and the article linked to that case is linked to billing account 5678
-				//                                          the case will be accessible to admins of 1234 and also 5678
+				// This requirement has been identified as an AP only requirement so it has only been implemented when searching AP billing accounts
+				// Example: if primary billing account of user creating case is 1234 and the article linked to that case is linked to billing account 5678
+				// the case will be accessible to admins of 1234 and also 5678
 				if((rule.entity.Id == c.Related_Billing_Account__c) || (c.Contact != null && c.Contact.BillingAccount__c != null && rule.entity.Id == c.Contact.BillingAccount__c)) {
 					return true;
 				}
@@ -686,7 +686,7 @@ public with sharing virtual class bspBaseUplift {
 		}
 
 		// since there were no other rules matched above,
-		//      give access to the case if it was created by the logged in user or if the contact matches
+		// give access to the case if it was created by the logged in user or if the contact matches
 		if(c.ContactId == loginContactId || c.CreatedById == loginUserId) {
 			return true;
 		}
@@ -695,8 +695,8 @@ public with sharing virtual class bspBaseUplift {
 	}
 
 	/**
-     * Grabs an error message for BSP stored in custom settings.
-     */
+	 * Grabs an error message for BSP stored in custom settings.
+	 */
 	public static String getErrorMessage(String errorKey) {
 		if(BSPErrorMessages__c.getValues(errorKey) == null) {
 			return '';
@@ -706,9 +706,9 @@ public with sharing virtual class bspBaseUplift {
 	}
 
 	/**
-     * Determines whether the user logged in via CSSO or not
-     * Test classes are required to set this value manually
-     */
+	 * Determines whether the user logged in via CSSO or not
+	 * Test classes are required to set this value manually
+	 */
 	@TestVisible
 	public static Boolean isCSSOLogin {
 		get {
@@ -911,27 +911,27 @@ public with sharing virtual class bspBaseUplift {
 	 * This function returns the logged in user information with if user is SSO logged and has cognition access.
 	 */
 	@AuraEnabled(cacheable=true)
-    public static UserDetails getLoggedInUserInfo(){
-        UserDetails userDetail = new UserDetails();
-        userDetail.isUserAuthenticated = false;
+	public static UserDetails getLoggedInUserInfo(){
+		UserDetails userDetail = new UserDetails();
+		userDetail.isUserAuthenticated = false;
 
-        try{
-            //-- iIf user is logged in then
-            if(UserInfo.getUserId() != null && !UserInfo.getUserType().equalsIgnoreCase('Guest')){
-                userDetail.isUserAuthenticated = true;
-                userDetail.userFullName = UserInfo.getName();
-                userDetail.userEmail = UserInfo.getUserEmail();
-                userDetail.userFullName = UserInfo.getName();
-                userDetail.userFirstName = UserInfo.getFirstName();
-                userDetail.userLastName = UserInfo.getLastName();
+		try{
+			//-- iIf user is logged in then
+			if(UserInfo.getUserId() != null && !UserInfo.getUserType().equalsIgnoreCase('Guest')){
+				userDetail.isUserAuthenticated = true;
+				userDetail.userFullName = UserInfo.getName();
+				userDetail.userEmail = UserInfo.getUserEmail();
+				userDetail.userFullName = UserInfo.getName();
+				userDetail.userFirstName = UserInfo.getFirstName();
+				userDetail.userLastName = UserInfo.getLastName();
 				userDetail.userType = UserInfo.getUserType();
 				userDetail.isUserSSOAuthenticated = isCSSOLogin;
-                String userId = UserInfo.getUserId();
-                //-- Querying User ContactId
-                User userObj = [SELECT contactId, contact.Phone, contact.Email, contact.Name, contact.FirstName, contact.LastName FROM User WHERE Id= :userId LIMIT 1];
+				String userId = UserInfo.getUserId();
+				//-- Querying User ContactId
+				User userObj = [SELECT contactId, contact.Phone, contact.Email, contact.Name, contact.FirstName, contact.LastName FROM User WHERE Id= :userId LIMIT 1];
 
-                if(userObj.contactId !=null){
-                     if(userObj.contact.Email != null){
+				if(userObj.contactId !=null){
+						if(userObj.contact.Email != null){
 						userDetail.userContactEmail = userObj.contact.Email;
 					}
 					if(userObj.contact.Phone != null){
@@ -944,13 +944,13 @@ public with sharing virtual class bspBaseUplift {
 						userDetail.userContactLastName = userObj.contact.LastName;
 					}
 					userDetail.isCognitionUser = isCognitionUser(userObj.contactId);
-                }
-            }
-        }catch(Exception ex){
-            System.debug(LoggingLevel.ERROR,'bspBase: getLoggedInUserInfo() ===>'+ex);
-        }
+				}
+			}
+		}catch(Exception ex){
+			System.debug(LoggingLevel.ERROR,'bspBase: getLoggedInUserInfo() ===>'+ex);
+		}
 
-        return userDetail;
+		return userDetail;
 
 	}
 
@@ -959,31 +959,31 @@ public with sharing virtual class bspBaseUplift {
 	 */
 	@AuraEnabled(cacheable=true)
 	public static Boolean isCognitionUser(string loginContactId) {
-        List<Authorization_Rule__c> cognitionRules = [SELECT ID FROM Authorization_Rule__c WHERE AccessRole__c = :Label.Cognition_User AND Contact__c = :loginContactId LIMIT 1];
+		List<Authorization_Rule__c> cognitionRules = [SELECT ID FROM Authorization_Rule__c WHERE AccessRole__c = :Label.Cognition_User AND Contact__c = :loginContactId LIMIT 1];
 		
 		if (!cognitionRules.isEmpty()) {
 			return true;
 		} 
 
 		return false;
-    }
-	
+	}
+
 	/**
 	 * Retrieves the current community URL
 	 */
 	@AuraEnabled(cacheable=true)
-    public static String retrieveCommunityURL(){
-        try {
-            return ConnectApi.Communities.getCommunity(Network.getNetworkId()).siteUrl;
-        } catch (Exception er) {
-            throw new AuraHandledException(er.getMessage());
-        }
-    }
-	
+	public static String retrieveCommunityURL(){
+		try {
+			return ConnectApi.Communities.getCommunity(Network.getNetworkId()).siteUrl;
+		} catch (Exception er) {
+			throw new AuraHandledException(er.getMessage());
+		}
+	}
+
 	/**
 	 * Wrapper class for AccessRules
 	 */
-    public class AccessRule {
+	public class AccessRule {
 		public String roleName;
 		public SObject entity;
 		public String entityType { get; private set; }
@@ -994,7 +994,7 @@ public with sharing virtual class bspBaseUplift {
 			this.entityType = CommonUtils.getObjectAPINameByRecordId(entity.Id);
 		}
 	}
-    
+
 	//[Jansi: added this method for LWC file upload]
 	/**
 	 * Insert file from bspEnquiryDetail page
@@ -1005,91 +1005,91 @@ public with sharing virtual class bspBaseUplift {
 	public static Map<String,String> insertFiles(Id parentId, List<Map<String, String>> uploadedFiles){
 		Map<String, String> insertedAttMap = new  Map<String, String>();
 		if(uploadedFiles.size() > 0)
-        {
-            Set<Id> contentDocIdSet = new Set<Id>();
-            for(Map<String, String> mapFile:uploadedFiles) {
-                contentDocIdSet.add((Id) mapFile.get('documentId'));
-            }
-            if(contentDocIdSet.size() > 0)
+		{
+			Set<Id> contentDocIdSet = new Set<Id>();
+			for(Map<String, String> mapFile:uploadedFiles) {
+				contentDocIdSet.add((Id) mapFile.get('documentId'));
+			}
+			if(contentDocIdSet.size() > 0)
 				insertedAttMap = convertFilesToAttachmentsAndDeleteFiles(parentId, true, contentDocIdSet );
 		}
 		
 		return insertedAttMap;
-    }
-    
-    
+	}
+
+
 	/**
 	 * While creating case get the contentversoin ids, convert the
 	 * files to attachments, attach it to case and delete the files
 	 * @param parentId
 	 * @param createAttachments
 	 */
-    public static Map<String,String> convertFilesToAttachmentsAndDeleteFiles(String parentId, boolean createAttachments, Set<Id> contentDocIds){
+	public static Map<String,String> convertFilesToAttachmentsAndDeleteFiles(String parentId, boolean createAttachments, Set<Id> contentDocIds){
 		Map<String, String> insertedAttMap = new  Map<String, String>();
 		try{
-            //convert files to attachments saved from dropzone and link to the created case
-            if(createAttachments){
-                List<Attachment> attacmentToInsert = new List<Attachment>();
-                for(ContentVersion cv :[SELECT Id, Pathonclient, VersionData, FileExtension, Title FROM ContentVersion WHERE ContentDocumentId = :contentDocIds AND IsLatest = true]){// WHERE Id =: contentDocVersionIds]){
-                    Attachment att = new Attachment();
-                    att.Body = cv.VersionData;
-                    att.Name = cv.Title + '.' + cv.FileExtension;
-                    att.ParentId = parentId;
-                    if(mimeTypeMapping.containsKey(cv.FileExtension)){
-                        att.ContentType = mimeTypeMapping.get(cv.FileExtension);
-                    }
-                    attacmentToInsert.add(att);
-                }
-                if(attacmentToInsert != null && attacmentToInsert.size() >0){
+			//convert files to attachments saved from dropzone and link to the created case
+			if(createAttachments){
+				List<Attachment> attacmentToInsert = new List<Attachment>();
+				for(ContentVersion cv :[SELECT Id, Pathonclient, VersionData, FileExtension, Title FROM ContentVersion WHERE ContentDocumentId = :contentDocIds AND IsLatest = true]){// WHERE Id =: contentDocVersionIds]){
+					Attachment att = new Attachment();
+					att.Body = cv.VersionData;
+					att.Name = cv.Title + '.' + cv.FileExtension;
+					att.ParentId = parentId;
+					if(mimeTypeMapping.containsKey(cv.FileExtension)){
+						att.ContentType = mimeTypeMapping.get(cv.FileExtension);
+					}
+					attacmentToInsert.add(att);
+				}
+				if(attacmentToInsert != null && attacmentToInsert.size() >0){
 					insert attacmentToInsert;
 					for(Attachment att : attacmentToInsert){
 						insertedAttMap.put(att.Id, att.Name);
 					}
-                }
-            }
-            //query content document from the contentversion and delete the records after
-            //inserting attachments
-            /*set<Id> contentDocumentId = new set<Id>();
-            for(ContentVersion cv :[SELECT Id, contentDocumentId FROM ContentVersion WHERE Title LIKE :fileKeyCompareString ]){
-                contentDocumentId.add(cv.contentDocumentId);
-            }*/
-            delete [SELECT Id FROM ContentDocument WHERE Id =:contentDocIds];
+				}
+			}
+			//query content document from the contentversion and delete the records after
+			//inserting attachments
+			/*set<Id> contentDocumentId = new set<Id>();
+			for(ContentVersion cv :[SELECT Id, contentDocumentId FROM ContentVersion WHERE Title LIKE :fileKeyCompareString ]){
+				contentDocumentId.add(cv.contentDocumentId);
+			}*/
+			delete [SELECT Id FROM ContentDocument WHERE Id =:contentDocIds];
 
-        }
-        catch(exception ex){
-            system.debug('exception in converting file to attachment '+ex.getMessage()+' at line '+ex.getstacktraceString());
+		}
+		catch(exception ex){
+			system.debug('exception in converting file to attachment '+ex.getMessage()+' at line '+ex.getstacktraceString());
 		}
 
 		return insertedAttMap;
-    }
+	}
 
 	//-- User Information Wrapper Class
-    public class UserDetails{
-        @AuraEnabled public String userFullName{get;set;}
-        @AuraEnabled public String userEmail{get;set;}
-        @AuraEnabled public String userContactPhone{get;set;}
-        @AuraEnabled public String userContactEmail{get;set;}
-        @AuraEnabled public String userFirstName{get;set;}
-        @AuraEnabled public String userLastName{get;set;}
-        @AuraEnabled public String userContactFirstName{get;set;}
-        @AuraEnabled public String userContactLastName{get;set;}
+	public class UserDetails{
+		@AuraEnabled public String userFullName{get;set;}
+		@AuraEnabled public String userEmail{get;set;}
+		@AuraEnabled public String userContactPhone{get;set;}
+		@AuraEnabled public String userContactEmail{get;set;}
+		@AuraEnabled public String userFirstName{get;set;}
+		@AuraEnabled public String userLastName{get;set;}
+		@AuraEnabled public String userContactFirstName{get;set;}
+		@AuraEnabled public String userContactLastName{get;set;}
 		@AuraEnabled public String userType{get;set;}
 		@AuraEnabled public Boolean isUserAuthenticated{get;set;}
 		@AuraEnabled public Boolean isUserSSOAuthenticated{get;set;}
 		@AuraEnabled public Boolean isCognitionUser{get;set;}
-    }
-    
-    /**
+	}
+
+	/**
 	 * Method to retrieve the announcement message from BSP_Announcement_kav knowledge article
 	 */
-    @AuraEnabled(cacheable=true)
-    public static String getAnnouncementMessage() {
-        String announcementMessage;
-        BSP_Announcement__kav[] announcementList = [Select Id, What_do_I_tell_customers__c from BSP_Announcement__kav WHERE PublishStatus = 'Online' AND language = 'en_US' ORDER BY LastModifiedDate DESC LIMIT 1];
-        if(announcementList != null && announcementList.size() > 0)
-            announcementMessage = announcementList[0].What_do_I_tell_customers__c;
-        return announcementMessage;   
-    }
+	@AuraEnabled(cacheable=true)
+	public static String getAnnouncementMessage() {
+		String announcementMessage;
+		BSP_Announcement__kav[] announcementList = [Select Id, What_do_I_tell_customers__c from BSP_Announcement__kav WHERE PublishStatus = 'Online' AND language = 'en_US' ORDER BY LastModifiedDate DESC LIMIT 1];
+		if(announcementList != null && announcementList.size() > 0)
+			announcementMessage = announcementList[0].What_do_I_tell_customers__c;
+		return announcementMessage;
+	}
 
 	/**
 	 * @description This method returns the url configured for AuthProviderCookieHandler VF page for 
