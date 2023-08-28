@@ -675,11 +675,7 @@ public with sharing class BAMUserUtility {
 			} else {
 				this.userContextCNumber = [Select Contact.OID_ID__c From User Where Id = :userId].Contact.OID_ID__c;
 				this.networkId = networkId;
-				//prime the thirdparty account links for the login user, so for the  subsequent logins we make sure 
-				//confirmUser method in MerchantPortalOIDCRegHandler has always tpalId. This is due to the bug in salesforce (Case #44952215), 
-				//TPAL Id can be null or empty until the ThirdPartyAccountLink SOQL is executed at least once.
-				//This is due to SsoFlowHandler directly checking the virtual entity. Once the SOQL is executed, tpal can be obtained correctly
-				this.tpals = ThirdPartyAccountLinksSelector.newInstance(0, new Set<SObjectField>{ThirdPartyAccountLink.Id}).selectByUser(new Set<Id>{userId});
+				primeThirdPartyAccontLinks(userId);
 			}
 		}
 
@@ -740,6 +736,17 @@ public with sharing class BAMUserUtility {
                 throw new InvalidPersonaException('No authorisation to switch to this persona.');
             }
         }
+
+		/**
+		 * @description This method primes the thirdparty account links for the login user
+		 */
+		public void primeThirdPartyAccontLinks(Id userId) {
+			//prime the thirdparty account links for the login user, so for the  subsequent logins we make sure 
+			//confirmUser method in MerchantPortalOIDCRegHandler has always tpalId. This is due to the bug in salesforce (Case #44952215), 
+			//TPAL Id can be null or empty until the ThirdPartyAccountLink SOQL is executed at least once.
+			//This is due to SsoFlowHandler directly checking the virtual entity. Once the SOQL is executed, tpal can be obtained correctly
+			this.tpals = ThirdPartyAccountLinksSelector.newInstance(0, new Set<SObjectField>{ThirdPartyAccountLink.Id}).selectByUser(new Set<Id>{userId});
+		}
 
         /**
          * TODO: Store format better and harden
