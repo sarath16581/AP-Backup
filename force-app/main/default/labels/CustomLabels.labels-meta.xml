@@ -30,6 +30,14 @@
         <value>Save Cart &amp; Edit Opportunity Products</value>
     </labels>
     <labels>
+        <fullName>REC_TYPE_DEV_LEAD_BGSTANDARD</fullName>
+        <categories>Record Type</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_LEAD_BGSTANDARD</shortDescription>
+        <value>BG_Standard</value>
+    </labels>
+    <labels>
         <fullName>EXPIRED_QUOTE</fullName>
         <language>en_US</language>
         <protected>false</protected>
