@@ -8,4 +8,7 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
+	<description>This field is used to capture Credit Suspect's Last Name</description>
+	<inlineHelpText>This field is used to capture Credit Suspect's Last Name</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

@@ -281,8 +281,9 @@ public without sharing class BCAFormController {
 			state = networkObject.State__c;
 			postcode = networkObject.Post_Code__c;
 
-			if(!Test.isRunningTest())
+			if(!Test.isRunningTest()) {
 				distance = (Decimal) networkObject.get('dist');
+			}
 		}
 	}
 

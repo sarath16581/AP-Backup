@@ -6,4 +6,7 @@
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Phone</type>
+	<description>This field is used to capture Credit Suspect's Phone Number</description>
+	<inlineHelpText>This field is used to capture Credit Suspect's Phone Number</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

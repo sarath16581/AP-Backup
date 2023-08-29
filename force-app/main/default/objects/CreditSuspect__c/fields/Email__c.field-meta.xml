@@ -7,4 +7,7 @@
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>
+	<description>This field is used to capture Credit Suspect's Email address</description>
+	<inlineHelpText>This field is used to capture Credit Suspect's Email address</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

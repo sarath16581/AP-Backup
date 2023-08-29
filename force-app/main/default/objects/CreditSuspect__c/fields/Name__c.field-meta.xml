@@ -4,10 +4,11 @@
     <description>Full name</description>
     <externalId>false</externalId>
     <formula>FirstName__c  &amp; &apos; &apos; &amp; LastName__c</formula>
-    <inlineHelpText>Full name</inlineHelpText>
     <label>Name</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
+	<inlineHelpText>This field will output the Credit Suspect's Full Name</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

@@ -58,4 +58,7 @@
             </value>
         </valueSetDefinition>
     </valueSet>
+	<description>This field is used to capture Credit Suspect's State</description>
+	<inlineHelpText>This field is used to capture Credit Suspect's State</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

@@ -8,4 +8,7 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
+	<description>This field is used to capture Credit Suspect's Postal Code</description>
+	<inlineHelpText>This field is used to capture Credit Suspect's Postal Code</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
 </CustomField>
