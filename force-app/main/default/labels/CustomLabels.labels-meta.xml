@@ -3854,6 +3854,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
     </labels>
     <labels>
+        <fullName>CompensationMsgCaseMustHaveReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : Case must have a reference to create a compensation</shortDescription>
+        <value>Case must have a reference prior creating a compensation record.</value>
+    </labels>
+    <labels>
         <fullName>CompensationMsgNoPrivilege</fullName>
         <categories>Compensation</categories>
         <language>en_US</language>
@@ -6862,41 +6870,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>true</protected>
         <shortDescription>ResultBlockTitle</shortDescription>
         <value>Results</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocExpandingOverseas</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocExpandingOverseas</shortDescription>
-        <value>0159000000Cgncl</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocGrowingOnline</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocGrowingOnline</shortDescription>
-        <value>0159000000Cgncm</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocStartingABusiness</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocStartingABusiness</shortDescription>
-        <value>0159000000Cgncn</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocStartingABusinessOnline</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocStartingABusinessOnline</shortDescription>
-        <value>0159000000Cgnco</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocTakingAnEstablishedStoreOnline</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocTakingAnEstablishedStoreOnline</shortDescription>
-        <value>0159000000Cgncp</value>
     </labels>
     <labels>
         <fullName>SCCR_One_Submission</fullName>

@@ -9,6 +9,8 @@
  * 27-07-2023 - Yatika bansal : Added method for Creating Renewal Contract on 'Generate Agreement' action from LWC, Modified existing methods
 * 02-08-2023 - Yatika bansal : Set Contract Fields for new contract/renewal contract
 * 04-08-2023 - Yatika bansal : Added method to update alis with same Product Lines to have same Service Dates
+* 22-08-2023 - Yatika bansal : Updated createRenewalContract method to set renewal condition same as original contract
+* 24-08-2023 - Yatika bansal : Updated createRenewalContract method to set ACD same as original contract
 **/
 public without sharing class APT_ContractServiceDetailsController {
 
@@ -220,8 +222,8 @@ public without sharing class APT_ContractServiceDetailsController {
 			renewedAgreement.APT_Commercial_Contact__c = proposal.APT_Opportunity_Key_contact__c;
 			renewedAgreement.APT_Operational_contact__c = proposal.APT_Opportunity_Key_contact__c;
 			renewedAgreement.APT_System_User__c = proposal.APT_Opportunity_Key_contact__c;
-			renewedAgreement.Term__c = APT_Constants.TERM_FIXED_TERM;
-			renewedAgreement.Apttus__Contract_Start_Date__c = System.today();
+			renewedAgreement.Term__c = sourceAgreement.Term__c;
+			renewedAgreement.Apttus__Contract_Start_Date__c = sourceAgreement.Apttus__Contract_Start_Date__c;
 			
 			ApplicationDatabase.getInstance().dmlInsert(new List<Apttus__APTS_Agreement__c>{renewedAgreement});
 			

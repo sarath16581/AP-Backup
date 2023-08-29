@@ -57,6 +57,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
+                <field>Opportunity_SubType__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
                 <field>StageName</field>
             </layoutItems>
             <layoutItems>
@@ -156,10 +160,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>BusinessCustomerType__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Opportunity_SubType__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
