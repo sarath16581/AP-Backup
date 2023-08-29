@@ -3,6 +3,7 @@
     <fullName>Proof_of_Value__c</fullName>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
+    <inlineHelpText>Please attach a POV document from the CASE. The system will automatically tick this checkbox for you.Please attach a POV document from the CASE. The system will automatically tick this checkbox for you.</inlineHelpText>
     <label>Proof of Value</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
