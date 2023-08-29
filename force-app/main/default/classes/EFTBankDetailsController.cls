@@ -182,13 +182,7 @@ public without sharing class EFTBankDetailsController {
         }
 
         // DDS-8012: set the flag and route accordingly to bank details
-        if (String.isEmpty(accountName) && String.isEmpty(accountNumber) && String.isEmpty(accountBSB))
-        {
-            // if agent leave the input blank and click save, do nothing and keep the current route
-            // if current route is agent provide: validateDetails() will pop up error and remind agent to put in bank details
-            // if current route is customer provide: the edit panel will closed without any change to compensation
-        }
-        else
+        if (String.isNotEmpty(accountName) || String.isNotEmpty(accountNumber) || String.isNotEmpty(accountBSB))
         {
             // if agent provide bank details, set the route to agent provide and uncheck the checkbox
             record.Bank_Detail_Provided_By_Customer__c = false;
