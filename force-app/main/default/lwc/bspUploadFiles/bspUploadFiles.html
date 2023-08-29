@@ -8,7 +8,7 @@
 <template>
     <div>
         <div class="">
-            <lightning-file-upload label="Attach a document or image (e.g. Proof of delivery or wholesale invoice)"
+            <lightning-file-upload label={fileUploadLabel}
                 name="fileUploader" accept={acceptedFormats} record-id={parentId}
                 onuploadfinished={onUploadFinished} multiple>
             </lightning-file-upload>
