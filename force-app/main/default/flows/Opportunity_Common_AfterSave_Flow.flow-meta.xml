@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Lead_Driver_Network_Lead_Status_change_Unsuccessful</name>
         <label>Lead Driver Network - Lead Status change - Unsuccessful</label>
-        <locationX>176</locationX>
-        <locationY>539</locationY>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
         <actionName>Lead.Lead_Driver_Network_Lead_Status_change_Unsuccessful</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -18,8 +18,8 @@
     <actionCalls>
         <name>Lead_Driver_Network_Opportunity_Status_change_Success</name>
         <label>Lead Driver Network - Opportunity Status change - Success</label>
-        <locationX>440</locationX>
-        <locationY>539</locationY>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
         <actionName>Opportunity.Lead_Driver_Network_Opportunity_Status_change_Success</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -34,8 +34,8 @@
     <decisions>
         <name>Driver_Network_Emails</name>
         <label>Driver Network Emails</label>
-        <locationX>440</locationX>
-        <locationY>431</locationY>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Stage_Change_Closed_Lost</name>
@@ -92,23 +92,45 @@
     <decisions>
         <name>Identify_RecordType_Domain</name>
         <label>Identify RecordType Domain</label>
-        <locationX>176</locationX>
+        <locationX>776</locationX>
         <locationY>323</locationY>
-        <defaultConnector>
-            <targetReference>Driver_Network_Emails</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>Blank_RecordTypes</name>
+            <name>All</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
-                    <booleanValue>true</booleanValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <label>Blank RecordTypes</label>
+            <connector>
+                <targetReference>Is_Converted_Lead_Opportunity</targetReference>
+            </connector>
+            <label>All</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Converted_Lead_Opportunity</name>
+        <label>Is Converted Lead Opportunity</label>
+        <locationX>534</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Lead_Source_populated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Driver_Network_Emails</targetReference>
+            </connector>
+            <label>Lead Source populated</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -134,7 +156,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>50</locationX>
+        <locationX>650</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Identify_RecordType_Domain</targetReference>
