@@ -182,7 +182,7 @@ public without sharing class EFTBankDetailsController {
         }
 
         // DDS-8012: set the flag and route accordingly to bank details
-        if (String.isNotEmpty(accountName) || String.isNotEmpty(accountNumber) || String.isNotEmpty(accountBSB))
+        if (String.isNotEmpty(accountName) && String.isNotEmpty(accountNumber) && String.isNotEmpty(accountBSB))
         {
             // if agent provide bank details, set the route to agent provide and uncheck the checkbox
             record.Bank_Detail_Provided_By_Customer__c = false;
