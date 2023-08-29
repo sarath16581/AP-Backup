@@ -4,6 +4,7 @@
     <description>Datetime this person account was flagged as closed in SAP CRM</description>
     <externalId>false</externalId>
     <inlineHelpText>Datetime this person account was flagged as closed in SAP CRM</inlineHelpText>
+	<description>Datetime this person account was flagged as closed in SAP CRM</description>
     <label>Closed Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -5,6 +5,8 @@
     <externalId>false</externalId>
     <label>is Inactive Customer</label>
     <securityClassification>INTERNAL</securityClassification>
+	<description>Indiacates a closed account, ready to be archived and deleted. Examples - customer request, deceased etc. Set by SAP CRM via SSSW.</description>
+	<inlineHelpText>Closed account, soon to be archived and deleted. Examples include deceased, customer request etc.</inlineHelpText>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>
