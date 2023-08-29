@@ -34,7 +34,7 @@ public with sharing class CompensationService {
      * get grouped compensation records per case by passing the Id
      * @param relatedCaseIds
      *
-     * @return
+     * @return Map<Id, List<Compensation__c>> compensations grouped by case
      */
     public Map<Id, List<Compensation__c>> getCompensationRecordByCaseIds(Set<Id> relatedCaseIds) {
         if (relatedCaseIds == null || relatedCaseIds.isEmpty()) {
@@ -51,7 +51,7 @@ public with sharing class CompensationService {
       * be called with case Id
       * @param cases
       *
-      * @return Boolean
+      * @return Map<Id, List<Compensation__c>> compensations grouped by case
       */
     public Map<Id, List<Compensation__c>> getCompensationRecordByCase(List<Case> cases) {
         Map<Id, List<Compensation__c>> compensationsByCase;
