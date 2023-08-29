@@ -31,18 +31,30 @@ public with sharing class CompensationService {
     }
 
     /**
-      * Grouping compensations per case Id based on the passed reference ID, this will
-      * @param relatedCaseIds
-      *
-      * @return Boolean
-      */
+     * get grouped compensation records per case by passing the Id
+     * @param relatedCaseIds
+     *
+     * @return
+     */
     public Map<Id, List<Compensation__c>> getCompensationRecordByCaseIds(Set<Id> relatedCaseIds) {
-        Map<Id, List<Compensation__c>> compensationsByCase;
         if (relatedCaseIds == null || relatedCaseIds.isEmpty()) {
             return new Map<Id, List<Compensation__c>>();
         }
         // get the related cases
         List<Case> cases = CasesSelector.newInstance(1).selectById(relatedCaseIds).values();
+        return getCompensationRecordByCase(cases);
+    }
+
+    /**
+      * Grouping compensations per case based on the reference ID, used a list of case to prevent multiple
+      * caseSelector calls to retrieve cases and overridden by getCompensationRecordByCaseIds method to
+      * be called with case Id
+      * @param cases
+      *
+      * @return Boolean
+      */
+    public Map<Id, List<Compensation__c>> getCompensationRecordByCase(List<Case> cases) {
+        Map<Id, List<Compensation__c>> compensationsByCase;
         // find the reference IDs
         Set<String> referenceIds = new Set<String>();
         for (Case cse : cases) {
