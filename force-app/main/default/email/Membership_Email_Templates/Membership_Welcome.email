@@ -33,7 +33,7 @@ replyTo="customerservice@testauspost.com.au" >
 </tr>
 <tr>
 <td><strong>Licensee Advisory Council Membership &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong></td>
-<td><apex:image id="APLACLogo" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/>
+<td><apex:image id="APLACLogo" value="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/>
 </td>
 </tr>
 <tr>
@@ -80,7 +80,7 @@ replyTo="customerservice@testauspost.com.au" >
 <table>
 <tbody>
 <tr>
-<td><apex:image id="ChairPersonSignature" value="https://auspost--ptest--c.documentforce.com/servlet/servlet.ImageServer?id=0150p000000MXYf&oid=00D0p0000001xRS&" width="264" height="80"/></td>
+<td><apex:image id="ChairPersonSignature" value="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0150p000000MXYf&oid=00D0p0000001xRS&" width="264" height="80"/></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>

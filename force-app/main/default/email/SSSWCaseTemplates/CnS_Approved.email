@@ -85,7 +85,7 @@ ul
     <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=550>
      <tr>
       <td style='padding:0cm 0cm 12.0pt 0cm'>
-      <p class=MsoNormal><img width=144 height=68 id="Picture 30" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehBf&oid=00D30000001GGce"  alt="Australia Post"></p>
+      <p class=MsoNormal><img width=144 height=68 id="Picture 30" src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000AehBf&oid=00D30000001GGce"  alt="Australia Post"></p>
       </td>
      </tr>
      <tr>
@@ -135,7 +135,7 @@ ul
     <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=550>
      <tr>
       <td style='padding:0cm 0cm 0cm 0cm'>
-      <p class=MsoNormal style='line-height:0%'><img width=550 height=14 src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehCs&oid=00D30000001GGce" align=left alt="http://auspost.com.au/images/emails/cs/cs2014/img-block-t.png"></p>
+      <p class=MsoNormal style='line-height:0%'><img width=550 height=14 src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000AehCs&oid=00D30000001GGce" align=left alt="http://auspost.com.au/images/emails/cs/cs2014/img-block-t.png"></p>
       </td>
      </tr>
      <tr>
@@ -240,7 +240,7 @@ ul
             <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0>
              <tr>
               <td valign=top style='padding:0cm 7.5pt 0cm 0cm'>
-              <p class=MsoNormal><a href="https://www.clickandsend.com.au/home/NISS_frm_home.php?sz_Client=AustraliaPost&amp;ilink=cs-edm-bus250-approved-login-btn" target="_blank"><span style='color:#666666;text-decoration:none'><img border=0 width=88 height=31 id="Picture 29" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehBz&oid=00D30000001GGce" alt=Login></span></a></p>
+              <p class=MsoNormal><a href="https://www.clickandsend.com.au/home/NISS_frm_home.php?sz_Client=AustraliaPost&amp;ilink=cs-edm-bus250-approved-login-btn" target="_blank"><span style='color:#666666;text-decoration:none'><img border=0 width=88 height=31 id="Picture 29" src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000AehBz&oid=00D30000001GGce" alt=Login></span></a></p>
               </td>
              </tr>
             </table>
@@ -262,7 +262,7 @@ ul
      </tr>
      <tr>
       <td style='padding:0cm 0cm 0cm 0cm'>
-      <p class=MsoNormal style='line-height:0%'><img width=550 height=18 src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehCx&oid=00D30000001GGce" align=left alt="http://auspost.com.au/images/emails/cs/cs2014/img-block-b.png"></p>
+      <p class=MsoNormal style='line-height:0%'><img width=550 height=18 src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000AehCx&oid=00D30000001GGce" align=left alt="http://auspost.com.au/images/emails/cs/cs2014/img-block-b.png"></p>
       </td>
      </tr>
     </table>
