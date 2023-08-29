@@ -10,5 +10,5 @@ NOT(ISNEW()),
 IsPersonAccount,
 is_Inactive_Customer__pc 
 )</errorConditionFormula>
-    <errorMessage>You cannot make changes to a closed (inactive) consumer record. Contact your system administrator</errorMessage>
+    <errorMessage>You cannot make changes to a closed (inactive) record. Please contact your System Administrator.</errorMessage>
 </ValidationRule>

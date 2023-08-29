@@ -7,7 +7,7 @@
     <label>Closed Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
+    <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>
 </CustomField>
