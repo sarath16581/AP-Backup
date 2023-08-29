@@ -109,22 +109,21 @@ private with sharing class MPBRegHandlerService_Test {
 		List<Product2> prod = ApplicationTestDataFactory.getPSRProducts(1, true);
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
-		contacts.addAll(ApplicationTestDataFactory.getContacts(1, accounts[1].Id, true));
 		contacts[0].Status__c = 'Active';
 		contacts[0].OID_ID__c = 'C0000000001';
 		//get assets
-		List<Asset> assets = ApplicationTestDataFactory.getPSRTransactionalAssets(1, acc.Id, prod[0].Id, false,'Agreed', true);
-		assets.addAll(ApplicationTestDataFactory.getPSRTransactionalAssets(1, acc.Id, prod[0].Id, false,'Agreed', true));
+		List<Asset> assets = ApplicationTestDataFactory.getPSRTransactionalAssets(1, accounts[0].Id, prod[0].Id, false,'Agreed', true);
+		assets.addAll(ApplicationTestDataFactory.getPSRTransactionalAssets(1, accounts[0].Id, prod[0].Id, false,'Agreed', true));
 		assets[0].Name = 'PSRTandC';
 		//relate the assets and account to contact
-		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0], 'Assets' => assets});
+		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
+		contacts[0] = (Contact)ApplicationTestDataFactory.setChildRelationships(contacts[0], new Map<String, List<SObject>>{'Assets' => assets});
 		List<User> users = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{contacts[0].Id}, mpbProfile.Id, true);
-		users[0].Active = true;
+		users[0].IsActive = true;
 		users[0] = (User) ApplicationTestDataFactory.setUnwritableFields(users[0], new Map<String, Object>{'Contact' => contacts[0]});
 		Auth.UserData userData = getUserData(contacts[0], users[0]);
 		Map<String, String> attributeMap = userData.attributeMap;
 		attributeMap.put('cnumber', 'C0000000001');
-		Map<Id, User> userMap = new Map<Id, User>(users);
 
 		List<NetworkMember> networkMembers = ApplicationTestDataFactory.getNetworkMembers(1, Network.getNetworkId(), users[0].Id, true);
 
@@ -137,7 +136,7 @@ private with sharing class MPBRegHandlerService_Test {
 
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockUsersSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(userMap);
+		MockUtility.Mocks.when(mockUsersSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(users);
 		MockUtility.Mocks.when(mockAssetsSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<Asset>{assets[0]});
 		MockUtility.Mocks.when(mockNetworkMembersSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(networkMembers);
 		MockUtility.Mocks.stopStubbing();
@@ -153,23 +152,20 @@ private with sharing class MPBRegHandlerService_Test {
 		// =====================================
 		// VERIFY
 		// =====================================
-		// //no valid attributes are passed, expected validation errors
-		// System.assert(validationErrors.size() > 0, 'Expected validation errors to be returned');
-		// System.assertEquals(true, validationErrors.contains('First Name attribute is missing'), 'Expected validation error for First Name');
-		// System.assertEquals(true, validationErrors.contains('Last Name attribute is missing'), 'Expected validation error for Last Name');
+		fflib_ArgumentCaptor usersSearchParamsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, 1)).search((Map<String, Object>)usersSearchParamsCaptor.capture(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
+		Map<String, Object> userSearchParameters = (Map<String, Object>) usersSearchParamsCaptor.getValue();
 
-		// //test again with attributes
-		// validationErrors = service.validateAssertion(userData.attributeMap);
-		// // cnumber attribute is missing, expected validation errors
-		// System.assertEquals(1, validationErrors.size(), 'Expected validation errors to be returned');
-		// System.assertEquals(true, validationErrors.contains('CNumber attribute is missing'), 'Expected validation error for CNumber');
+		System.assert(userSearchParameters.containsKey('isPersonAccount'), 'Expected to pass isPersonAccount as a parameters into search method');
+		System.assertEquals(contacts[0].OID_ID__c, userSearchParameters.get('contactCNumbers'), 'Expected to pass correct cNumber for a contact');
 
-		// //test again with augmented attributes
-		// Map<String, String> augmentedAttributes = service.getAugmentedAttributes(userData.attributeMap);
-		// validationErrors = service.validateAssertion(augmentedAttributes);
-		// // cnumber attribute is populated, expected no validation errors
-		// System.assertEquals(0, validationErrors.size(), 'Expected validation errors to be returned');
-		// System.assertEquals(false, validationErrors.contains('CNumber attribute is missing'), 'Expected validation error for CNumber');
+		fflib_ArgumentCaptor assetsSearchParamsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((AssetsSelector)MockUtility.Mocks.verify(mockAssetsSelector, 1)).search((Map<String, Object>)assetsSearchParamsCaptor.capture(), fflib_Match.anyBoolean());
+		Map<String, Object> assetsSearchParameters = (Map<String, Object>) assetsSearchParamsCaptor.getValue();
+
+		System.assert(assetsSearchParameters.containsKey('assetNames'), 'Expected to pass assetNames as a parameters into search method');
+
+		System.assertEquals(user.Id, users[0].Id, 'Expected correct user to be returned');
 	}
 
 	private static Auth.UserData getUserData(Contact contact, User user) {

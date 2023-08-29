@@ -1,5 +1,6 @@
 /**
  * @description Service class for low level functions for MyPost Business integrated experiences requiring authentication via OIDC
+ * @author Mahesh Parvathaneni
  * @date 2023-08-22
  * @changelog
  */

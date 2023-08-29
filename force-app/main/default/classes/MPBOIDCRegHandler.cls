@@ -110,16 +110,6 @@ global without sharing class MPBOIDCRegHandler implements Auth.RegistrationHandl
 		System.debug('updateUser');
 
 		outputDebugInformation(data);
-
-		User matchedUser = UsersSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
-			User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive}
-		}).selectById(new Set<Id>{userId}).values()[0];
-
-		//update the user if not active
-		if(!matchedUser.IsActive) {
-			matchedUser.IsActive = true;
-			ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{matchedUser});
-		}
 	}
 
 	private void outputDebugInformation(Auth.UserData data) {
