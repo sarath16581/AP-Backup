@@ -69,7 +69,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Proof_of_Value__c</field>
             </layoutItems>
             <layoutItems>
