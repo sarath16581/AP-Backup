@@ -259,17 +259,30 @@ public without sharing class EFTBankDetailsController {
      */
     private void validateOnLoad() {
         Compensation__c record = (Compensation__c) this.stdCon.getRecord();
-        if (record.id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+        // validate is required only when create record
+        if(record.id != null) {
+            return;
+        }
+        // get the related case, there must be a case as the relationship is a master detail
+        Case cse = CasesSelector.newInstance(1).selectById(new Set<Id>{record.Case__c}).values()[0];
+        if (RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
             isAllowedToCreateCompensation = false;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgNoPrivilege));
-        } else if (record.id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
-            // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
-            isAllowedToCreateCompensation = false;
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgMoreThanOnePerCaseReference));
+        } else if (!isCompensationSupervisor) {
+            // when the user is not the supervisor perform validations
+            if(String.isBlank(cse.ReferenceID__c)) {
+                // when the reference id is blank user should not be able to create a compensation record except supervisor
+                isAllowedToCreateCompensation = false;
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgCaseMustHaveReference));
+            } else if (isMoreThanOneCompensationRecord(record.Case__c)) {
+                // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
+                isAllowedToCreateCompensation = false;
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgMoreThanOnePerCaseReference));
+            }
         }
     }
 
-    //used to validate the bank details enterd by user
+    //used to validate the bank details entered by user
     public boolean validateDetails() {
 
         // DDS-6866: if user tick the send compensation email checkbox, bank details at this step is not mandatory
