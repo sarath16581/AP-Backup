@@ -21,6 +21,14 @@ private class CompensationUtilityModule_Test {
         superAgent.role = 'CEO/Reporting';
         userDTOs.add(superAgent);
 
+        // create a compensation user: allows to create compensation records but not allowed to create dupes or update bank account details
+        TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
+        agent.profileName = 'SSSW - Service Agent';
+        agent.permissionSetNames = new Set<String>{'CC_Compensation_User'};
+        agent.userName = 'agent';
+        agent.role = 'CEO/Reporting';
+        userDTOs.add(agent);
+
         // user with SSSW agent profile and without any permission sets assigned
         TestDataFactory.UserDTO normalUser = new TestDataFactory.UserDTO();
         normalUser.profileName = 'SSSW - Service Agent';
@@ -100,9 +108,11 @@ private class CompensationUtilityModule_Test {
         CompensationUtilityModule module = CompensationUtilityModule.newInstance();
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         CompensationService mockService = (CompensationService) MockUtility.mockUtility(CompensationService.class);
+        CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockService.getCompensationRecordByCaseIds((Set<Id>) fflib_Match.anyObject())).thenReturn(compensationsByCase);
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockService.getCompensationRecordByCase((List<Case>) fflib_Match.anyObject())).thenReturn(compensationsByCase);
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
         MockUtility.Mocks.stopStubbing();
         // =====================================
@@ -176,6 +186,114 @@ private class CompensationUtilityModule_Test {
                 false,
                 comp.hasErrors(),
                 'TestValidateMoreThanOneCompensationsPerReferenceId: User with super user permissions should be able to create duplicate compensations');
+        }
+    }
+
+    /**
+     * Testing of agent user trying to create a compensation record where the related case doesn't have a
+     * reference value
+     */
+    @IsTest
+    static void TestValidateRelatedCaseDoesNotHaveAReferenceAsAnAgentUser() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, (String)null, true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, false);
+        Map<Id, List<Compensation__c>> compensationsByCase = new Map<Id, List<Compensation__c>>();
+        for (Compensation__c comp : compensations) {
+            List<Compensation__c> compensationsGroup = compensationsByCase.get(comp.Case__c);
+            if (compensationsGroup == null) {
+                compensationsByCase.put(comp.Case__c, new List<Compensation__c>{
+                        comp
+                });
+                continue;
+            }
+            compensationsGroup.add(comp);
+        }
+
+        Map<Id, Case> casesByIds = new Map<Id, Case>();
+        for(Case cse : cases) {
+            casesByIds.put(cse.id, cse);
+        }
+        // =====================================
+        // Stubbing
+        // =====================================
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CompensationTriggerHandler.getUnitOfWorkSObjectTypes());
+        CompensationUtilityModule module = CompensationUtilityModule.newInstance();
+        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+        CompensationService mockService = (CompensationService) MockUtility.mockUtility(CompensationService.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockService.getCompensationRecordByCaseIds((Set<Id>) fflib_Match.anyObject())).thenReturn(compensationsByCase);
+        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+        MockUtility.Mocks.stopStubbing();
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+        system.runAs(agentUser) {
+            module.onBeforeInsert(compensations, uow);
+        }
+        Test.stopTest();
+
+        for(Compensation__c  comp : compensations){
+            System.assertEquals(
+                Label.CompensationMsgCaseMustHaveReference,
+                comp.getErrors()[0].getMessage(),
+                'TestValidateRelatedCaseDoesNotHaveAReferenceAsAnAgentUser: User with super user permissions should be able to create duplicate compensations'
+            );
+        }
+    }
+
+    /**
+     * Testing of super user trying to create a compensation record where the related case doesn't have a
+     * reference value should allow the user to create the record
+     */
+    @IsTest
+    static void TestValidateRelatedCaseDoesNotHaveAReferenceAsASuperUser() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, (String)null, true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, false);
+        Map<Id, Case> casesByIds = new Map<Id, Case>();
+        for(Case cse : cases) {
+            casesByIds.put(cse.id, cse);
+        }
+        // =====================================
+        // Stubbing
+        // =====================================
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CompensationTriggerHandler.getUnitOfWorkSObjectTypes());
+        CompensationUtilityModule module = CompensationUtilityModule.newInstance();
+        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>) fflib_Match.anyObject())).thenReturn(casesByIds);
+        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+        MockUtility.Mocks.stopStubbing();
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+        system.runAs(superagent) {
+            module.onBeforeInsert(compensations, uow);
+        }
+        Test.stopTest();
+
+        for(Compensation__c  comp : compensations){
+            System.assertEquals(
+                    false,
+                    comp.hasErrors(),
+                    'TestValidateRelatedCaseDoesNotHaveAReferenceAsASuperUser: User with super user permissions should be able to create compensations without reference ID'
+            );
         }
     }
 }
