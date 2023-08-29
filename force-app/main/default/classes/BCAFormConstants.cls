@@ -10,6 +10,7 @@
 * -------------------------------------------------------------------------
 * 1.0   29-03-2021  avula.jansirani@auspost.com.au   Initial Version
 * 2023-05-05	Naveen Rajanna	REQ3184691	changed api version and added new constant for custom settings DIGITAL_ID_IS_PRODUCTION
+* 2023-08-29	Paul Perry		MW0005478	Added constant values for Credit Suspect verification
 **/
 public with sharing class BCAFormConstants {
 

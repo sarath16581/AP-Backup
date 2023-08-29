@@ -11,6 +11,7 @@
 * 1.0   10-12-2020  Victor Cheng   Initial Version
 * 1.0   14-04-2021  Victor Cheng   Changes after Unit Test class
 * 2023-05-05	Naveen Rajanna	REQ3184691	Modified getDigitalIdClientId to return a wrapper
+* 2023-08-29	Paul Perry		MW0005478	Logic for Credit Suspect Register verification
 **/
 
 public without sharing class BCAFormController {
