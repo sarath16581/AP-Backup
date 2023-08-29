@@ -2222,7 +2222,7 @@ Compass quote end date has passed, please request re-activation</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>BSP_Accepted_file_formats_credit_claim</shortDescription>
-        <value>.doc,.docx,.eml,.jpeg,.jpg,.msg,.pdf,.png,.ppt,.pptx,.txt,.xls,.xlsx,.zip</value>
+        <value>.doc, .docx, .eml, .jpeg, .jpg, .msg, .pdf, .png, .ppt, .pptx, .txt, .xls, .xlsx, .zip</value>
     </labels>
     <labels>
         <fullName>CFF_Last_Survey_Date</fullName>

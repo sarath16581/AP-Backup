@@ -31,6 +31,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	errorGeneric = 'An error has occurred';
 	//	errorOnSearch = 'An error has occurred while searching';
 	errorOnValidate = 'Please correct the errors in your input';
+	fileUploadLabel = 'Attach a document or image to support your claim';
 
 	showLog = false;
 	// page parameters

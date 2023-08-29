@@ -16,18 +16,23 @@ export default class BspUploadFiles extends LightningElement {
     // @api existingFiles;
     currentUserId = userId;
     acceptedFormats = acceptedFileFormats;
+	fileUploadLabel = 'Attach a document or image (e.g. Proof of delivery or wholesale invoice)';
     isLoading = false;
 
     @track uploadedFiles = [];
     //-- the recod to which file is attached
     @api recordId;
     @api acceptedFormatOverWrite;
+	@api labelOverWrite;
 
     currentFiles = [];
 
     connectedCallback() {
         if(this.acceptedFormatOverWrite) {
             this.acceptedFormats = this.acceptedFormatOverWrite;
+        }
+		if(this.labelOverWrite) {
+            this.fileUploadLabel = this.labelOverWrite;
         }
     }
 

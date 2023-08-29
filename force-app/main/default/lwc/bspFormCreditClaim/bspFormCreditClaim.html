@@ -207,11 +207,16 @@
 							<lightning-layout-item size="12">			
 							<div>
 								<h3 class="slds-p-vertical_large">Supporting documents</h3>
+								<div>
+									Allowed file types are {acceptedFileFormats}
+									<br>
+									Maximum file size for each attachment is 10MB
+								</div>
 							</div>
 							</lightning-layout-item>
 							<!--  Files upload -->
 							<lightning-layout-item size="12">			
-							<c-bsp-upload-files onfileupload={onUploadFinished} accepted-format-over-write={acceptedFileFormats}></c-bsp-upload-files>
+							<c-bsp-upload-files onfileupload={onUploadFinished} accepted-format-over-write={acceptedFileFormats} label-over-write={fileUploadLabel}></c-bsp-upload-files>
 							</lightning-layout-item>
 							</lightning-layout>
 							<!-- Buttons -->
