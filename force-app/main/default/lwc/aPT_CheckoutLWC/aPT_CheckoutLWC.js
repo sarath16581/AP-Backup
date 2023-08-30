@@ -7,6 +7,7 @@
 *			9-04-2023 : Nasir Jawed: Added Getter workForceWithManualAgreement for checkWorkVerification
 *			27-07-2023 : Yatika Bansal : Included logic for amend/renew
 *			08-08-2023 : Yatika Bansal : Modified checkout only action to redirect to opportunity
+*			22-08-2023 : Bharat Patel : added getProposalDocGenerationProgress() to address (STP-9482), redirect after proposal document generation completion
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -22,6 +23,9 @@ import validateConfiguration from '@salesforce/apex/APT_CheckoutController.valid
 import creditAndRateCardLogic from '@salesforce/apex/APT_CheckoutController.checkCreditAssessmentAndExecuteRateCardLogic';
 import checkWorkVerification from '@salesforce/apex/APT_CheckoutController.checkWorkVerification';
 import initiateRateCardGeneration from '@salesforce/apex/APT_CheckoutController.initiateRateCardGeneration';
+import docGenerationRequired from '@salesforce/apex/APT_CheckoutController.docGenerationRequired';
+import getProposalDocGenerationProgress from '@salesforce/apex/APT_CheckoutController.getProposalDocGenerationProgress';
+
 
 import PROP_OPP_FIELD from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c';
 import PROP_IS_ST_FIELD from '@salesforce/schema/Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c';
@@ -188,20 +192,75 @@ export default class APT_CheckoutLWC extends LightningElement {
 	}
 
 	/**
+	*function will request to check the progress of proposal document generation
+	*@param proposalId
+	*/
+	checkProposalDocGenerationProgress(proposalIdValue) {
+		debugger;
+		//check for proposal APT_Document_Generation_in_Progress__c = false
+		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
+			.then((result) => {
+
+				if(result === true) {
+					//still proposal doc generation is running, recheck after few seconds
+					this._interval = setTimeout(() => {
+						this.checkProposalDocGenerationProgress(this.proposalId);
+					}, 3000);
+				}
+				else {
+						this.isLoading = false;
+						//Show contract and service section
+						this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
+						this.error = viewRateCardControllerError;
+						this.isLoading = false;
+				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+			});
+		}
+
+	/**
 	*function will request to initiate proposal document generation
 	*@param proposalId
 	*/
 	initiateProposalDocGeneration(proposalIdValue) {
 		this.isLoading = true;
+		let that = this;
 		initiateRateCardGeneration({ proposalId: proposalIdValue })
 			.then((result) => {
 				if(result === true){
-					//Show contract and service section
-					this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
-					this.error = viewRateCardControllerError;
-					this.isLoading = false;
+					//some delay before proposal generation to avoid lock error on proposal
+					setTimeout(() => {
+						that.checkProposalDocGenerationProgress(that.proposalId);
+					}, that.waitTime);
 				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+		});
+	}
 
+	/**
+	*function will check if document generation is required
+	*/
+	docGenerationRequired() {
+		this.isLoading = true;
+		docGenerationRequired({ configId : this.configId })
+			.then((result) => {
+				//some delay to ensure creation of proposal line items
+				this._interval = setTimeout(() => {
+					if(result === true){
+						//request proposal doc generation request
+						this.initiateProposalDocGeneration(this.proposalId);
+					}else{
+						//Show contract and service section
+						this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
+						this.isLoading = false;
+					}
+				}, this.waitTime);
 			})
 			.catch((error) => {
 				this.error = error;
@@ -223,8 +282,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 						this.creditAssessAndRateCardLogic();
 					}
 					else {
-						//request proposal doc generation request
-						this.initiateProposalDocGeneration(this.proposalId);
+						//checks if doc generation is required
+						this.docGenerationRequired();
 					}
 
 				} else {

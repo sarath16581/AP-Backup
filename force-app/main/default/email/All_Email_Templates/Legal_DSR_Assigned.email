@@ -6,7 +6,7 @@
             <body>
                 <p>Dear {!relatedTo.Assigned_Lawyer__r.FirstName},</p>
                 <p>A Legal Deal Support Request for <b>{!relatedTo.Organisation__r.Name}</b> has been assigned to you for your attention.</p>
-                <p>To view this DSR in full, please follow this link: <a href = "https://auspost--ss.sandbox.my.salesforce.com/{!relatedTo.id}">{!relatedTo.Name}</a>
+                <p>To view this DSR in full, please follow this link: <a href = "https://auspost.my.salesforce.com/{!relatedTo.id}">{!relatedTo.Name}</a>
                 </p> 
                 <p>Thank you.</p>           
             </body>

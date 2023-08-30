@@ -8,7 +8,7 @@
         <outerJoin>true</outerJoin>
         <relationship>OpportunityLineItems</relationship>
     </join>
-    <label>Oppties With or Without Products</label>
+    <label>Opportunities With or Without Products</label>
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>

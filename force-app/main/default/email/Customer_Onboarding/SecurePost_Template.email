@@ -55,7 +55,7 @@
 				<tr>
 					<td style="padding:0 0 25px;">
 						<table width="100%" cellpadding="0" cellspacing="0">
-							<tr><td><a href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img src="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000EgzLd&oid=00D30000001GGce" border="0" style="vertical-align:top;" width="100" height="35" /></a></td>
+							<tr><td><a href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000EgzLd&oid=00D30000001GGce" border="0" style="vertical-align:top;" width="100" height="35" /></a></td>
 								<td valign="bottom" style="font:bold 16px/20px Arial, Helvetica, sans-serif; color:#382f2d;"></td>
 								<td width="10"></td>
 								<td width="60" valign="bottom">
@@ -165,8 +165,8 @@
 <br/> <br/>
 <tr>
 	<td>
-				<a href="https://twitter.com/auspost"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxt&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Twitter" /></a>
-				<a href="https://www.facebook.com/australiapost"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxy&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Facebook" /></a>
+				<a href="https://twitter.com/auspost"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxt&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Twitter" /></a>
+				<a href="https://www.facebook.com/australiapost"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxy&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Facebook" /></a>
 				<br/>
 				<br/>
 				</td>
@@ -174,7 +174,7 @@
 
 	<tr>	
 	<td style="padding:0px 0px 5px; font:14px/16px Arial, Helvetica, sans-serif; color:#5c514d;">
-	<img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCa0Y&oid=00D30000001GGce" border="0" style="vertical-align:top; alt="Australia Post will never send you an email asking for your password, credit card details or account information." />	
+	<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCa0Y&oid=00D30000001GGce" border="0" style="vertical-align:top; alt="Australia Post will never send you an email asking for your password, credit card details or account information." />	
 	</td>
 	</tr>
 

@@ -66,11 +66,10 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
-                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
-                    <apex:inputField value="{!Compensation__c.Other__c}"/>
-                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> -->  
                     <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Customer Details">
                     <apex:inputField value="{!Compensation__c.Contact__c}"/>
@@ -83,13 +82,12 @@
                     <apex:inputField value="{!Compensation__c.Case__c}"/>
                     <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
                 </apex:pageBlockSection>
-                <apex:pageBlockSection title="Compensation Details">
+                <apex:pageBlockSection columns="2" title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
-                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
-                    <apex:inputField value="{!Compensation__c.Other__c}"/>
-                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
                     <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Customer Details">
                     <apex:inputField value="{!Compensation__c.Contact__c}"/>
@@ -125,11 +123,10 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
                     <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:outputLabel value=""/>
                     <apex:inputField value="{!Compensation__c.Other__c}"/>
-                   <!-- <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> --> 
-                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/> 
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Customer Details">
                     <apex:inputField value="{!Compensation__c.Contact__c}"/>
@@ -146,13 +143,12 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
-                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
-                    <apex:inputField value="{!Compensation__c.Other__c}"/>
-                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
                     <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:outputLabel value=""/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
+                    <apex:outputLabel value=""/>
                     <apex:inputField value="{!Compensation__c.SDR_Value__c}"/>
-                    
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Additional Details">
                     <apex:inputField value="{!Compensation__c.Destination__c}"/>
@@ -178,8 +174,6 @@
                 <apex:pageBlockSection title="Compensation Details">
                     <apex:inputField value="{!Compensation__c.Replacement_Products__c}"/>
                     <apex:inputField value="{!Compensation__c.Replacement_Product_Quantity__c}"/>
-                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
-                    <!-- <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
                     <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/> 
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Customer Details">
@@ -195,9 +189,8 @@
                 </apex:pageBlockSection>
                 <apex:pageBlockSection title="Compensation Details" columns="2"> 
                     <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
-                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> -->
+                    <apex:inputField id="CoverTypeID" required="true" value="{!Compensation__c.Cover_Type__c}"/>
                     <apex:inputField value="{!Compensation__c.Other__c}"/>
-                    <apex:inputField id="CoverTypeID" required="true" value="{!Compensation__c.Cover_Type__c}"/>   
                 </apex:pageBlockSection>    
             </apex:outputPanel>
             <apex:outputPanel title="Load and Go" rendered="{!Compensation__c.RecordTypeId==$Label.CompensationLoadGoRecordTypeId}">

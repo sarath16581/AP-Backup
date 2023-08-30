@@ -67,13 +67,13 @@
               <tr>
                 <td>                
                 <!-- Australia Post and SecurePay Logo -->
-                <a href="https://www.securepay.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0152v00000HBqcg&oid=00D30000001GGce" height="60" border="0" margin="0" alt="Australia Post | SecurePay=" style="display:block; min-width:183px; min-height:38px;"  /></a></td>
+                <a href="https://www.securepay.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0152v00000HBqcg&oid=00D30000001GGce" height="60" border="0" margin="0" alt="Australia Post | SecurePay=" style="display:block; min-width:183px; min-height:38px;"  /></a></td>
               </tr>			
 
               <tr>
                 <td>                
                 <!-- Welcome to SecurePay Header Banner -->
-                <a href="https://www.securepay.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0152v00000GUjLD&oid=00D30000001GGce" width="750" border="0" margin="0" alt="SecurePay=" style="display:block; min-width:750px; overflow=hidden;"  /></a>
+                <a href="https://www.securepay.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0152v00000GUjLD&oid=00D30000001GGce" width="750" border="0" margin="0" alt="SecurePay=" style="display:block; min-width:750px; overflow=hidden;"  /></a>
               </tr>			  
             </table>
         </td>

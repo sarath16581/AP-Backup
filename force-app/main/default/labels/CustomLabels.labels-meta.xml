@@ -3847,6 +3847,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
     </labels>
     <labels>
+        <fullName>CompensationMsgCaseMustHaveReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : Case must have a reference to create a compensation</shortDescription>
+        <value>Case must have a reference prior creating a compensation record.</value>
+    </labels>
+    <labels>
         <fullName>CompensationMsgNoPrivilege</fullName>
         <categories>Compensation</categories>
         <language>en_US</language>
@@ -6857,41 +6865,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Results</value>
     </labels>
     <labels>
-        <fullName>RetailSMBDocExpandingOverseas</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocExpandingOverseas</shortDescription>
-        <value>0159000000Cgncl</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocGrowingOnline</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocGrowingOnline</shortDescription>
-        <value>0159000000Cgncm</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocStartingABusiness</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocStartingABusiness</shortDescription>
-        <value>0159000000Cgncn</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocStartingABusinessOnline</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocStartingABusinessOnline</shortDescription>
-        <value>0159000000Cgnco</value>
-    </labels>
-    <labels>
-        <fullName>RetailSMBDocTakingAnEstablishedStoreOnline</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>RetailSMBDocTakingAnEstablishedStoreOnline</shortDescription>
-        <value>0159000000Cgncp</value>
-    </labels>
-    <labels>
         <fullName>SCCR_One_Submission</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -8379,18 +8352,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Yes_Its_StarTrackProduct</shortDescription>
         <value>Please fill the values for the field &quot;Primary pickup location&quot; and &quot;Minimum Monthly Spend&quot; when values for the field &quot;StarTrack Product&quot; is Yes</value>
     </labels>
-    <labels>
+   <labels>
         <fullName>isStarTrackProduct</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>isStarTrackProduct</shortDescription>
-        <value>You cannot go to the Product Catalog without having completed the following fields:
-
-Is this Opportunity for a Startrack product? “
-
-If this opportunity is for Startrack product, then you are required to provide:
-
-“Minimum monthly Spend” and “Primary Postcode</value>
+        <value>You cannot access Product Catalogue without having completed the following fields: "StarTrack Opportunity?" and "Key Contact". If this opportunity is for StarTrack Product(s), then you are required to provide "StarTrack Minimum Monthly Spend" and "StarTrack Primary Pickup (Postcode)”</value>
     </labels>
     <labels>
         <fullName>keyContactErrorMsg</fullName>
@@ -8398,6 +8365,13 @@ If this opportunity is for Startrack product, then you are required to provide:
         <protected>false</protected>
         <shortDescription>keyContactErrorMsg</shortDescription>
         <value>Your opportunity record is missing Key Contact information</value>
+    </labels>
+	<labels>
+        <fullName>KeyContactError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KeyContactError</shortDescription>
+        <value>You cannot access Product Catalogue without having completed the following fields: "StarTrack Opportunity?" and "Key Contact". If this opportunity is for StarTrack Product(s), then you are required to provide "StarTrack Minimum Monthly Spend" and "StarTrack Primary Pickup (Postcode)”</value>
     </labels>
     <labels>
         <fullName>viewRateCardControllerError</fullName>

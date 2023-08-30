@@ -937,7 +937,7 @@
         </values>
         <values>
             <fullName>New</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Re-Contract</fullName>

@@ -182,13 +182,7 @@ public without sharing class EFTBankDetailsController {
         }
 
         // DDS-8012: set the flag and route accordingly to bank details
-        if (String.isEmpty(accountName) && String.isEmpty(accountNumber) && String.isEmpty(accountBSB))
-        {
-            // if agent leave the input blank and click save, do nothing and keep the current route
-            // if current route is agent provide: validateDetails() will pop up error and remind agent to put in bank details
-            // if current route is customer provide: the edit panel will closed without any change to compensation
-        }
-        else
+        if (String.isNotEmpty(accountName) && String.isNotEmpty(accountNumber) && String.isNotEmpty(accountBSB))
         {
             // if agent provide bank details, set the route to agent provide and uncheck the checkbox
             record.Bank_Detail_Provided_By_Customer__c = false;
@@ -259,17 +253,30 @@ public without sharing class EFTBankDetailsController {
      */
     private void validateOnLoad() {
         Compensation__c record = (Compensation__c) this.stdCon.getRecord();
-        if (record.id == null && RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
+        // validate is required only when create record
+        if(record.id != null) {
+            return;
+        }
+        // get the related case, there must be a case as the relationship is a master detail
+        Case cse = CasesSelector.newInstance(1).selectById(new Set<Id>{record.Case__c}).values()[0];
+        if (RESTRICTED_COMPENSATION_RECORD_TYPES.contains(record.recordTypeId) && (!isCompensationUser && !isCompensationSupervisor)) {
             isAllowedToCreateCompensation = false;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgNoPrivilege));
-        } else if (record.id == null && !isCompensationSupervisor && isMoreThanOneCompensationRecord(record.Case__c)) {
-            // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
-            isAllowedToCreateCompensation = false;
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgMoreThanOnePerCaseReference));
+        } else if (!isCompensationSupervisor) {
+            // when the user is not the supervisor perform validations
+            if(String.isBlank(cse.ReferenceID__c)) {
+                // when the reference id is blank user should not be able to create a compensation record except supervisor
+                isAllowedToCreateCompensation = false;
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgCaseMustHaveReference));
+            } else if (isMoreThanOneCompensationRecord(record.Case__c)) {
+                // Check eligibility to create more than one Compensation record per Article, this is only allowed for Compensation Supervisor
+                isAllowedToCreateCompensation = false;
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgMoreThanOnePerCaseReference));
+            }
         }
     }
 
-    //used to validate the bank details enterd by user
+    //used to validate the bank details entered by user
     public boolean validateDetails() {
 
         // DDS-6866: if user tick the send compensation email checkbox, bank details at this step is not mandatory
