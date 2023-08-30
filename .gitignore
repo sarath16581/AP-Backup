@@ -49,6 +49,9 @@ $RECYCLE.BIN/
 # Local environment variables
 .env
 
+# Editor config files
+.editorconfig
+
 # Jetbrains / Illuminated Cloud
 IlluminatedCloud/
 .idea/
