@@ -1,437 +1,451 @@
 <!--
-    2017-09-17 nathan.franklin@auspost.com.au Moving integration toolkit to page definition
-    2019-03-13 swati.mogadala@auspost.com.au edited css class stn to wrap Special Treatment notes when displayed REQ1727141
-    2019-05-30 snigdha.sahu@auspost.com.au edited to make Special Treatment notes red in color REQ1810508
+	2017-09-17 nathan.franklin@auspost.com.au Moving integration toolkit to page definition
+	2019-03-13 swati.mogadala@auspost.com.au edited css class stn to wrap Special Treatment notes when displayed REQ1727141
+	2019-05-30 snigdha.sahu@auspost.com.au edited to make Special Treatment notes red in color REQ1810508
 	2020-04-19 snigdha.sahu@auspost.com.au Edited to change the header for REQ2160824
 	2021-05-12	Madhuri.awasthi@auspost.com.au : Add a preferred name field in contact areas of Salesforce (REQ2476162)
+	2023-08-18 boris.bachovski2@auspost.com.au : Add Closed Account info (Flag, Reason and Date) for closed accounts.
 -->
 <apex:component controller="ContactHeaderPanelComponentCont_v2">
-    <apex:attribute name="recordId" description="the selected account/contact id" type="string" required="true" assignTo="{!recId}"/>
+	<apex:attribute name="recordId" description="the selected account/contact id" type="string" required="true" assignTo="{!recId}"/>
 
-    <c:ScriptLoader jsLibraries="jquery,integration" />
+	<c:ScriptLoader jsLibraries="jquery,integration" />
 
-    <style type="text/css">
-        body {
-            font-size: 12px;
-            font-weight: normal;
-            color: #333;
-        }
-        
-        table, th, td {
-            border: 0px;
-            vertical-align : top;
-            color: #333;
-        }
-        
-        table {
-            height: 100%;
-        }
-        
-        table.panelContainer {
-            width : 100%;
-            height : 100%;
-            padding : 1px;
-            overflow: hidden;
-        }
-        
-        table.detailtable {
-            width : 100%;
-            height : 100%;
-            margin-right : 5px;
-            border-collapse : collapse;
-            spacing : 3px;
-        }
-        
-        table.detailtable td {      
-            text-align : left;
-            vertical-align : top;
-        }
-        
-        table.detailtable th {
-            margin: 0;
-            height: 20px;
-            font-size: 12px;
-            color: #0096bf;     
-            text-align : left;
-            vertical-align : top;
-        }
-        
-        td.fieldvalue {
-            font-size: 12px;
-            font-weight: normal;
-        }
-        
-        .fieldvalue {
-            font-size: 12px;
-            font-weight: normal;
-            margin: 2px;
-        }
-        
-        td.nameColumn {
-            vertical-align : top;
-        }
-        .name {
-            font-size: 23px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            font-weight: normal;
-        }
-        
-        div.charttitle {
-            font-size : 12px;
-            color : #0096bf;
-            width : 150px;
-            margin-left : auto;
-            margin-right : auto;
-        }
-        
-        .titileIcon {
-            vertical-align : middle;
-        }
-        
-        .chartContainer {
-            overflow: hidden;
-        }
-        .chart {
-            min-width : 150px;
-            width : 100%;
-            min-height : 90px;
-            overflow: hidden;
-        }
-        
-        .underline {
-            border-bottom : 1px solid rgba(0, 0, 0, 0.3);
-            margin-bottom: 5px;
-        }
-        
-        .npsText {
-            font-size : 16px;
-            vertical-align : middle;
-        }
-        .nps {
-            margin-top: 10px;
-            margin-bottom: 24px;
-        }
-        .DETRACTOR {
-            color : rgba(172, 38, 27, 0.5);
-        }
-        .NEUTRAL {      
-            color : rgba(159, 109 , 27, 0.5);
-        }       
-        .PROMOTER {     
-            color : rgba(70, 131, 90, 0.5);
-        }
-        //REQ1727141 included word-wrap as per request
-        .stn .value {
-             white-space: normal;
-             word-wrap: break-word;
-        }
-        
-        .accountContainer, .historyContainer, .moneyContainer, .chartContainer, .detailContainer {
-            display: table;
-        }
-        .account, .history, .money {
-            width: 100%;
-            height: 50%;
-        }
-        .title {
-            font-weight: bold;
-            font-size : 12px;
-            color : #0096bf;
-        }
-        .account>.value, .history>.value, .money>.value {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            padding: 5px;
-            vertical-align: middle;
-        }
-        .gray {
-            color: #AAAAAA;
-        }
-        
-        .icon {
-            margin-right: 5px;
-            display: inline-block;
-            vertical-align : middle;
-            width: 16px; 
-            height: 16px;
-        }
-        .icon-med {
-            width: 24px; 
-            height: 24px;
-        }       
-        
-        .contactIcon {
-            background-image: url(/img/icon/profile24.png);
-            margin-right: 5px;
-            display: inline-block;
-            vertical-align : middle;
-            width: 24px; 
-            height: 24px;
-        }
-        .consumerIcon {
-            background-image: url(/resource/SSSWIcons/icon-segment_consumer_24px.png);
-        }
-        .enterpriseIcon {
-            background-image: url(/resource/SSSWIcons/icon-segment_enterprise_24px.png);
-        }
-        .smbIcon {
-            background-image: url(/resource/SSSWIcons/icon-segment_smb_24px.png);
-        }
-        .consumerSMBIcon {
-            background-image: url(/resource/SSSWIcons/icon-segment_smb_consumer_24px.png);
-        }
-        
-        .vipIcon {
-            background-image: url(/resource/SSSWIcons/vip.png);
-        }
-        
-        .newIcon {
-            background-image: url(/resource/SSSWIcons/newImage.png);
-        }
-        
-        .activityIcon {
-            background-image: url(/img/icon/questions16.png);
-        }
-        .caseIcon {
-            background-image: url(/img/sprites/master.png);
-            background-position: 0 -62px; 
-            width: 16px; 
-            height: 16px; 
-        }
-        .revenueIcon {
-            background-image: url(/img/icon/cash16.png);
-        }
-        .compensationIcon {
-            background-image: url(/img/icon/custom51_100/redcross16.png);
-        }
-        .pieChartIcon {
-            background-image: url(/img/icon/reports16.png);
-        }
-        .creditIcon {
-            background-image: url(/resource/SSSWIcons/icon-misc_credit-verygood_16px.png);
-        }
-        .greenFlagIcon {
-            background-image: url(/resource/SSSWIcons/icon-misc_credit-good_24px.png);
-        }
-        .redFlagIcon {
-            background-image: url(/resource/SSSWIcons/icon-misc_credit-bad_24px.png);
-            margin-left: 10px;
-        }
-        .greenFlagIcon, .redFlagIcon {
-            margin-right: 3px;
-        }
-                
-        .noContact {
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        
-        .clickable {
-            cursor: pointer;
-        }
-        
-        .comp-count {
-            background-color: #0096bf;
-            color: white;
-            font-size: 60%;
-            padding: 3px 8px;
-            border-radius: 1em;
-            position: relative;
-            top: -0.24em;
-        }
-    </style>
-    
-    <script>
-        var $j = jQuery.noConflict();
-        
-        $j(document).ready(function() {
-            $j(".comp-value").each(function() {
-                var matchText = $j(this).text() + ' ';
-                var numPattern = new RegExp(/(\d+\.\d{1})(?:\s)/);
-                var items = numPattern.exec(matchText);
-                                
-                if (items && items.length > 0) {
-                    $j(this).text($j(this).text() + '0');
-                }
-            });
-        });
-        
-        function openReport(reportId, contactId) {  
-            window.console&&console.log('openReport clicked... ' + reportId); 
-            var openSubtab = function(result) {            
-                sforce.console.openSubtab(result.id, '/'+reportId.substring(0,15)+'?pv0='+contactId.substring(0,15), true, '', null);    
-            };
-                   
-            sforce.console.getEnclosingPrimaryTabId(openSubtab);
-        }
+	<style type="text/css">
+		body {
+			font-size: 12px;
+			font-weight: normal;
+			color: #333;
+		}
+		
+		table, th, td {
+			border: 0px;
+			vertical-align : top;
+			color: #333;
+		}
+		
+		table {
+			height: 100%;
+		}
+		
+		table.panelContainer {
+			width : 100%;
+			height : 100%;
+			padding : 1px;
+			overflow: hidden;
+		}
+		
+		table.detailtable {
+			width : 100%;
+			height : 100%;
+			margin-right : 5px;
+			border-collapse : collapse;
+			spacing : 3px;
+		}
+		
+		table.detailtable td {      
+			text-align : left;
+			vertical-align : top;
+		}
+		
+		table.detailtable th {
+			margin: 0;
+			height: 20px;
+			font-size: 12px;
+			color: #0096bf;     
+			text-align : left;
+			vertical-align : top;
+		}
+		
+		td.fieldvalue {
+			font-size: 12px;
+			font-weight: normal;
+		}
+		
+		.fieldvalue {
+			font-size: 12px;
+			font-weight: normal;
+			margin: 2px;
+		}
+		
+		td.nameColumn {
+			vertical-align : top;
+		}
+		.name {
+			font-size: 23px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			font-weight: normal;
+		}
+		
+		div.charttitle {
+			font-size : 12px;
+			color : #0096bf;
+			width : 150px;
+			margin-left : auto;
+			margin-right : auto;
+		}
+		
+		.titileIcon {
+			vertical-align : middle;
+		}
+		
+		.chartContainer {
+			overflow: hidden;
+		}
+		.chart {
+			min-width : 150px;
+			width : 100%;
+			min-height : 90px;
+			overflow: hidden;
+		}
+		
+		.underline {
+			border-bottom : 1px solid rgba(0, 0, 0, 0.3);
+			margin-bottom: 5px;
+		}
+		
+		.npsText {
+			font-size : 16px;
+			vertical-align : middle;
+		}
+		.nps {
+			margin-top: 10px;
+			margin-bottom: 24px;
+		}
+		.DETRACTOR {
+			color : rgba(172, 38, 27, 0.5);
+		}
+		.NEUTRAL {      
+			color : rgba(159, 109 , 27, 0.5);
+		}       
+		.PROMOTER {     
+			color : rgba(70, 131, 90, 0.5);
+		}
+		//REQ1727141 included word-wrap as per request
+		.stn .value {
+			 white-space: normal;
+			 word-wrap: break-word;
+		}
+		
+		.accountContainer, .historyContainer, .moneyContainer, .chartContainer, .detailContainer {
+			display: table;
+		}
+		.account, .history, .money {
+			width: 100%;
+			height: 50%;
+		}
+		.title {
+			font-weight: bold;
+			font-size : 12px;
+			color : #0096bf;
+		}
+		.account>.value, .history>.value, .money>.value {
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+			padding: 5px;
+			vertical-align: middle;
+		}
+		.gray {
+			color: #AAAAAA;
+		}
+		
+		.icon {
+			margin-right: 5px;
+			display: inline-block;
+			vertical-align : middle;
+			width: 16px; 
+			height: 16px;
+		}
+		.icon-med {
+			width: 24px; 
+			height: 24px;
+		}       
+		
+		.contactIcon {
+			background-image: url(/img/icon/profile24.png);
+			margin-right: 5px;
+			display: inline-block;
+			vertical-align : middle;
+			width: 24px; 
+			height: 24px;
+		}
+		.consumerIcon {
+			background-image: url(/resource/SSSWIcons/icon-segment_consumer_24px.png);
+		}
+		.enterpriseIcon {
+			background-image: url(/resource/SSSWIcons/icon-segment_enterprise_24px.png);
+		}
+		.smbIcon {
+			background-image: url(/resource/SSSWIcons/icon-segment_smb_24px.png);
+		}
+		.consumerSMBIcon {
+			background-image: url(/resource/SSSWIcons/icon-segment_smb_consumer_24px.png);
+		}
+		
+		.vipIcon {
+			background-image: url(/resource/SSSWIcons/vip.png);
+		}
+		
+		.newIcon {
+			background-image: url(/resource/SSSWIcons/newImage.png);
+		}
+		
+		.activityIcon {
+			background-image: url(/img/icon/questions16.png);
+		}
+		.caseIcon {
+			background-image: url(/img/sprites/master.png);
+			background-position: 0 -62px; 
+			width: 16px; 
+			height: 16px; 
+		}
+		.revenueIcon {
+			background-image: url(/img/icon/cash16.png);
+		}
+		.compensationIcon {
+			background-image: url(/img/icon/custom51_100/redcross16.png);
+		}
+		.pieChartIcon {
+			background-image: url(/img/icon/reports16.png);
+		}
+		.creditIcon {
+			background-image: url(/resource/SSSWIcons/icon-misc_credit-verygood_16px.png);
+		}
+		.greenFlagIcon {
+			background-image: url(/resource/SSSWIcons/icon-misc_credit-good_24px.png);
+		}
+		.redFlagIcon {
+			background-image: url(/resource/SSSWIcons/icon-misc_credit-bad_24px.png);
+			margin-left: 10px;
+		}
+		.greenFlagIcon, .redFlagIcon {
+			margin-right: 3px;
+		}
+				
+		.noContact {
+			width: 100%;
+			text-align: center;
+			font-weight: bold;
+			margin-top: 20px;
+		}
+		
+		.clickable {
+			cursor: pointer;
+		}
+		
+		.comp-count {
+			background-color: #0096bf;
+			color: white;
+			font-size: 60%;
+			padding: 3px 8px;
+			border-radius: 1em;
+			position: relative;
+			top: -0.24em;
+		}
+	</style>
+	
+	<script>
+		var $j = jQuery.noConflict();
+		
+		$j(document).ready(function() {
+			$j(".comp-value").each(function() {
+				var matchText = $j(this).text() + ' ';
+				var numPattern = new RegExp(/(\d+\.\d{1})(?:\s)/);
+				var items = numPattern.exec(matchText);
+								
+				if (items && items.length > 0) {
+					$j(this).text($j(this).text() + '0');
+				}
+			});
+		});
+		
+		function openReport(reportId, contactId) {  
+			window.console&&console.log('openReport clicked... ' + reportId); 
+			var openSubtab = function(result) {            
+				sforce.console.openSubtab(result.id, '/'+reportId.substring(0,15)+'?pv0='+contactId.substring(0,15), true, '', null);    
+			};
+				   
+			sforce.console.getEnclosingPrimaryTabId(openSubtab);
+		}
 
-    </script>
-    
-    <apex:outputText rendered="{!contId != null}">
-    <table class="panelContainer">
-        <tr>
-            <td class="nameColumn" style="width:30%">
-                <table class="detailtable">
-                    <tr class="name"><td colspan="2">
-                        <!--<div class="{!IF(contactRec.Account.IsVIP__c , 'vipIcon',IF(contactRec.Account.IsPersonAccount,'consumerIcon',
-                                        IF(contactRec.Account.Role_Type_Roll_Up__c=='Customer',
-                                        IF(contactRec.Account.ServiceSLA__c=='Enterprise','enterpriseIcon', 'smbIcon'),'consumerSMBIcon')
-                                    ))} icon icon-med"></div> -->
-                        <apex:outputField value="{!contactRec.ServiceType__c}"/>
-                        <!--<div class="{!IF(isPersonAccount,'consumerIcon',IF(contactRec.Account.Role_Type_Roll_Up__c=='Customer',IF(contactRec.Account.ServiceSLA__c=='Enterprise','enterpriseIcon', 'smbIcon'),'consumerSMBIcon'))} icon icon-med"></div>-->
-                        <apex:outputText styleClass="underline" value="{!contactRec.Salutation} {!contactRec.Name}"/> 
-                        <apex:outputpanel rendered="{!IF(contactRec.CRMCSSOID__c != null, 'true', 'false')}">
-                        <img src="/img/icon/custom51_100/keys16.png" />
-                        </apex:outputpanel>
-                            <!-- needs to check whether the names are locked -->
-                        <apex:outputpanel rendered="{!IF(contactRec.Account.LevelOfAssurance__pc != null && contactRec.Account.LevelOfAssurance__pc >= minLOA,'true','false')}">
-                        <img src="/img/func_icons/util/lock12.gif" title="Verified Customer"/>
-                    </apex:outputpanel>
-                    </td></tr>
-                    <tr>
-                        <td class="fieldvalue">
-                            <apex:outputpanel rendered="{!NOT(isPersonAccount)}"><strong>A:&nbsp;</strong><apex:outputText value="{!contactRec.Account.Name}" /><br/></apex:outputpanel>
-                            <strong>E:&nbsp;</strong><apex:outputText value="{!contactRec.Email}" /><br/>
-                            <strong>PN:&nbsp;</strong><apex:outputText value="{!contactRec.Preferred_Name__c}" /><br/>
-                            <!-- Change by Snigdha for REQ2160824 : Relabel HomePhone to H, add Phone field and remove Fax-->
-                            <!--<strong>P:&nbsp;</strong><apex:outputText value="{!contactRec.HomePhone}"/><br/>-->
-                            <strong>H:&nbsp;</strong><apex:outputText value="{!contactRec.HomePhone}"/><br/>
-                            <strong>P:&nbsp;</strong><apex:outputText value="{!contactRec.Phone}"/><br/>
-                            <strong>M:&nbsp;</strong><apex:outputText value="{!contactRec.MobilePhone}"/><br/>
-                            <!--<strong>F:&nbsp;</strong><apex:outputText value="{!contactRec.Fax}"/><br/>-->
-                            
-                            <!--<strong>ConID:&nbsp;</strong><apex:outputText value="{!contactRec.id}"/><br/>
-                            <strong>AcctID:&nbsp;</strong><apex:outputText value="{!contactRec.account.id}"/><br/>-->
-                         </td>
-                         <td class="fieldvalue">
-                            <strong><apex:outputText value="{!IF(isPersonAccount, 'APCN', 'Account Number')}: "/></strong>
-                            <apex:outputText value="{!IF(isPersonAccount, contactRec.APCN__c, contactRec.Account.AccountNumber)}"/><br/>
-                            <strong>Service SLA:</strong> {!contactRec.Account.ServiceSLA__c}<br/>
-                            <strong>Address:</strong><br/>  
-                            <apex:outputText value="{!contactRec.MailingStreet}, {!contactRec.MailingStreet2__c}" /><br/>
-                            <apex:outputText value="{!contactRec.MailingCity}"/>&nbsp;
-                            <apex:outputText value="{!contactRec.MailingState}"/>&nbsp;
-                            <apex:outputText value="{!contactRec.MailingPostalCode}" />&nbsp;
-                            <apex:outputText value="{!contactRec.MailingCountry}" />&nbsp;
-                            <apex:image url="{!IF(ISBLANK(contactRec.MailingDPID__c), '/img/msg_icons/error16.png', '/img/msg_icons/confirm16.png')}"
-                                title="{!IF(ISBLANK(contactRec.MailingDPID__c), 'Invalid Address', 'Valid Address')}"/>                
-                         </td>
-                     </tr>
-                </table>
-            </td>
-            <apex:outputText rendered="{!OR(NOT(ISBLANK(npsResponse)), NOT(ISBLANK(contactRec.Special_Treatment_Notes__c)), NOT(ISBLANK(contactRec.SpecialTreatment__c)))}">
-                <td style="width:15%">
-                    <div class="detailContainer">
-                        <apex:outputText rendered="{!NOT(ISBLANK(npsResponse))}">
-                            <div class="nps">
-                                <apex:image styleClass="titileIcon" url="{!URLFOR($Resource.SSSWIcons, IF(npsResponse < 7, 'Detractor.png', IF(npsResponse >= 7 && npsResponse < 9, 'Neutral.png', 'Promoter.png')))}"/>&nbsp;
-                                <b><apex:outputText styleClass="npsText {!IF(npsResponse < 7, 'DETRACTOR', IF(npsResponse >= 7 && npsResponse < 9, 'NEUTRAL', 'PROMOTER'))}" 
-                                    value="{!IF(npsResponse < 7, 'DETRACTOR', IF(npsResponse >= 7 && npsResponse < 9, 'NEUTRAL', 'PROMOTER'))}"/></b>
-                            </div>
-                        </apex:outputText>
-                        <apex:outputText rendered="{!OR(NOT(ISBLANK(contactRec.Special_Treatment_Notes__c)), NOT(ISBLANK(contactRec.SpecialTreatment__c)))}">
-                            <!--<div class="stn" style="{!IF(ISBLANK(npsResponse), 'margin-top:21%; color:rgb(172, 38, 27);', '')}">-->
-                                <div class="stn" style="margin-top:21%; color:rgb(172, 38, 27);">
-                                <strong>Special Treatment Notes:</strong><br/>
-                                <apex:outputText rendered="{!NOT(ISBLANK(contactRec.SpecialTreatment__c))}" value="{!contactRec.SpecialTreatment__c}<br/>" styleClass="value" escape="false"/>
-                                <apex:outputText value="{!contactRec.Special_Treatment_Notes__c}" styleClass="value" style="color:rgb(172, 38, 27);"/>
-                            </div>
-                        </apex:outputText>
-                    </div>
-                </td>
-            </apex:outputText>
-            <apex:outputText rendered="{!NOT(isPersonAccount)}">
-                <td style="width:15%">
-                    <div class="accountContainer">
-                        <div class="account">
-                            <div class="title">
-                                <div class="revenueIcon icon"/>Current FY - Revenue
-                            </div>
-                            <div class="value">
-                                <apex:outputText value="${0,number,###,##0.00}">
-                                    <apex:param value="{!IF(revenueForCurrentFY != null, revenueForCurrentFY, 0)}"/>
-                                </apex:outputText>
-                            </div>
-                        </div>
-                        <div class="account">
-                            <div class="title">
-                                <div class="creditIcon icon"/>Credit Status
-                            </div>
-                            <div class="value clickable" onclick="openReport('{!creditStatusReportID}','{!contactRec.AccountId}')">
-                                <div class="greenFlagIcon icon icon-med"/> {!creditStatusTrueCount}
-                                <div class="redFlagIcon icon icon-med"/> {!creditStatusFalseCount}
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </apex:outputText>
-            <td style="width:15%">
-                <div class="historyContainer">
-                    <div class="history">
-                        <div class="title">
-                            <div class="activityIcon icon"/>Activity History
-                        </div>
-                        <div class="value clickable" onclick="openReport('{!activitiesReportID}','{!contId}');">
-                            {!activityCount}
-                        </div>
-                    </div>
-                    <div class="history">
-                        <div class="title">
-                            <div class="caseIcon icon"/>Case History
-                        </div>
-                        <div class="value clickable" onclick="openReport('{!casesReportID}','{!contId}')">
-                            {!caseOpen}<span class="gray"> / {!caseTotal} </span>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td style="width:15%">
-                <div class="moneyContainer">
-                    
-                    <div class="money">
-                        <div class="title">
-                            <div class="compensationIcon icon"/>Compensation
-                        </div>
-                        <div class="value clickable" onclick="openReport('{!compensationReportID}','{!contId}')">
-                            <apex:outputText styleClass="comp-value" value="{!compensationTotal}">
-                                <apex:param value="{!compensationTotal}"/>
-                            </apex:outputText>
-                            <apex:outputText rendered="{!compensationCount != 0}">                              
-                                <span class="comp-count">{!compensationCount}</span>
-                            </apex:outputText>
-                        </div>
-                    </div>
+	</script>
+	
+	<apex:outputText rendered="{!contId != null}">
+	<table class="panelContainer">
+		<tr>
+			<td class="nameColumn" style="width:30%">
+				<table class="detailtable">
+					<tr class="name"><td colspan="2">
+						<!--<div class="{!IF(contactRec.Account.IsVIP__c , 'vipIcon',IF(contactRec.Account.IsPersonAccount,'consumerIcon',
+										IF(contactRec.Account.Role_Type_Roll_Up__c=='Customer',
+										IF(contactRec.Account.ServiceSLA__c=='Enterprise','enterpriseIcon', 'smbIcon'),'consumerSMBIcon')
+									))} icon icon-med"></div> -->
+						<apex:outputField value="{!contactRec.ServiceType__c}"/>
+						<!--<div class="{!IF(isPersonAccount,'consumerIcon',IF(contactRec.Account.Role_Type_Roll_Up__c=='Customer',IF(contactRec.Account.ServiceSLA__c=='Enterprise','enterpriseIcon', 'smbIcon'),'consumerSMBIcon'))} icon icon-med"></div>-->
+						<apex:outputText styleClass="underline" value="{!contactRec.Salutation} {!contactRec.Name}"/> 
+						<apex:outputpanel rendered="{!IF(contactRec.CRMCSSOID__c != null, 'true', 'false')}">
+						<img src="/img/icon/custom51_100/keys16.png" />
+						</apex:outputpanel>
+							<!-- needs to check whether the names are locked -->
+						<apex:outputpanel rendered="{!IF(contactRec.Account.LevelOfAssurance__pc != null && contactRec.Account.LevelOfAssurance__pc >= minLOA,'true','false')}">
+						<img src="/img/func_icons/util/lock12.gif" title="Verified Customer"/>
+					</apex:outputpanel>
+					</td></tr>
+					<apex:outputPanel rendered="{!contactRec.Is_Inactive_Customer__c}">
+						<tr>
+							<td colspan="2">
+								<strong style="color:rgb(172, 38, 27);">
+									<apex:outputText value="CLOSED - "></apex:outputText>
+									<apex:outputText value="{0, date, dd/MM/yyyy}">
+										<apex:param value="{!contactRec.ClosedDateTime__c}" /> 
+									</apex:outputText>
+									<apex:outputText value=" - {!contactRec.ClosedReason__c}"></apex:outputText>
+								</strong>
+							</td>
+						</tr>
+					</apex:outputPanel>
+					<tr>
+						<td class="fieldvalue">
+							<apex:outputpanel rendered="{!NOT(isPersonAccount)}"><strong>A:&nbsp;</strong><apex:outputText value="{!contactRec.Account.Name}" /><br/></apex:outputpanel>
+							<strong>E:&nbsp;</strong><apex:outputText value="{!contactRec.Email}" /><br/>
+							<strong>PN:&nbsp;</strong><apex:outputText value="{!contactRec.Preferred_Name__c}" /><br/>
+							<!-- Change by Snigdha for REQ2160824 : Relabel HomePhone to H, add Phone field and remove Fax-->
+							<!--<strong>P:&nbsp;</strong><apex:outputText value="{!contactRec.HomePhone}"/><br/>-->
+							<strong>H:&nbsp;</strong><apex:outputText value="{!contactRec.HomePhone}"/><br/>
+							<strong>P:&nbsp;</strong><apex:outputText value="{!contactRec.Phone}"/><br/>
+							<strong>M:&nbsp;</strong><apex:outputText value="{!contactRec.MobilePhone}"/><br/>
+							<!--<strong>F:&nbsp;</strong><apex:outputText value="{!contactRec.Fax}"/><br/>-->
+							
+							<!--<strong>ConID:&nbsp;</strong><apex:outputText value="{!contactRec.id}"/><br/>
+							<strong>AcctID:&nbsp;</strong><apex:outputText value="{!contactRec.account.id}"/><br/>-->
+						 </td>
+						 <td class="fieldvalue">
+							<strong><apex:outputText value="{!IF(isPersonAccount, 'APCN', 'Account Number')}: "/></strong>
+							<apex:outputText value="{!IF(isPersonAccount, contactRec.APCN__c, contactRec.Account.AccountNumber)}"/><br/>
+							<strong>Service SLA:</strong> {!contactRec.Account.ServiceSLA__c}<br/>
+							<strong>Address:</strong><br/>  
+							<apex:outputText value="{!contactRec.MailingStreet}, {!contactRec.MailingStreet2__c}" /><br/>
+							<apex:outputText value="{!contactRec.MailingCity}"/>&nbsp;
+							<apex:outputText value="{!contactRec.MailingState}"/>&nbsp;
+							<apex:outputText value="{!contactRec.MailingPostalCode}" />&nbsp;
+							<apex:outputText value="{!contactRec.MailingCountry}" />&nbsp;
+							<apex:image url="{!IF(ISBLANK(contactRec.MailingDPID__c), '/img/msg_icons/error16.png', '/img/msg_icons/confirm16.png')}"
+								title="{!IF(ISBLANK(contactRec.MailingDPID__c), 'Invalid Address', 'Valid Address')}"/>                
+						 </td>
+					 </tr>
+				</table>
+			</td>
+			<apex:outputText rendered="{!OR(NOT(ISBLANK(npsResponse)), NOT(ISBLANK(contactRec.Special_Treatment_Notes__c)), NOT(ISBLANK(contactRec.SpecialTreatment__c)))}">
+				<td style="width:15%">
+					<div class="detailContainer">
+						<apex:outputText rendered="{!NOT(ISBLANK(npsResponse))}">
+							<div class="nps">
+								<apex:image styleClass="titileIcon" url="{!URLFOR($Resource.SSSWIcons, IF(npsResponse < 7, 'Detractor.png', IF(npsResponse >= 7 && npsResponse < 9, 'Neutral.png', 'Promoter.png')))}"/>&nbsp;
+								<b><apex:outputText styleClass="npsText {!IF(npsResponse < 7, 'DETRACTOR', IF(npsResponse >= 7 && npsResponse < 9, 'NEUTRAL', 'PROMOTER'))}" 
+									value="{!IF(npsResponse < 7, 'DETRACTOR', IF(npsResponse >= 7 && npsResponse < 9, 'NEUTRAL', 'PROMOTER'))}"/></b>
+							</div>
+						</apex:outputText>
+						<apex:outputText rendered="{!OR(NOT(ISBLANK(contactRec.Special_Treatment_Notes__c)), NOT(ISBLANK(contactRec.SpecialTreatment__c)))}">
+							<!--<div class="stn" style="{!IF(ISBLANK(npsResponse), 'margin-top:21%; color:rgb(172, 38, 27);', '')}">-->
+								<div class="stn" style="margin-top:21%; color:rgb(172, 38, 27);">
+								<strong>Special Treatment Notes:</strong><br/>
+								<apex:outputText rendered="{!NOT(ISBLANK(contactRec.SpecialTreatment__c))}" value="{!contactRec.SpecialTreatment__c}<br/>" styleClass="value" escape="false"/>
+								<apex:outputText value="{!contactRec.Special_Treatment_Notes__c}" styleClass="value" style="color:rgb(172, 38, 27);"/>
+							</div>
+						</apex:outputText>
+					</div>
+				</td>
+			</apex:outputText>
+			<apex:outputText rendered="{!NOT(isPersonAccount)}">
+				<td style="width:15%">
+					<div class="accountContainer">
+						<div class="account">
+							<div class="title">
+								<div class="revenueIcon icon"/>Current FY - Revenue
+							</div>
+							<div class="value">
+								<apex:outputText value="${0,number,###,##0.00}">
+									<apex:param value="{!IF(revenueForCurrentFY != null, revenueForCurrentFY, 0)}"/>
+								</apex:outputText>
+							</div>
+						</div>
+						<div class="account">
+							<div class="title">
+								<div class="creditIcon icon"/>Credit Status
+							</div>
+							<div class="value clickable" onclick="openReport('{!creditStatusReportID}','{!contactRec.AccountId}')">
+								<div class="greenFlagIcon icon icon-med"/> {!creditStatusTrueCount}
+								<div class="redFlagIcon icon icon-med"/> {!creditStatusFalseCount}
+							</div>
+						</div>
+					</div>
+				</td>
+			</apex:outputText>
+			<td style="width:15%">
+				<div class="historyContainer">
+					<div class="history">
+						<div class="title">
+							<div class="activityIcon icon"/>Activity History
+						</div>
+						<div class="value clickable" onclick="openReport('{!activitiesReportID}','{!contId}');">
+							{!activityCount}
+						</div>
+					</div>
+					<div class="history">
+						<div class="title">
+							<div class="caseIcon icon"/>Case History
+						</div>
+						<div class="value clickable" onclick="openReport('{!casesReportID}','{!contId}')">
+							{!caseOpen}<span class="gray"> / {!caseTotal} </span>
+						</div>
+					</div>
+				</div>
+			</td>
+			<td style="width:15%">
+				<div class="moneyContainer">
+					
+					<div class="money">
+						<div class="title">
+							<div class="compensationIcon icon"/>Compensation
+						</div>
+						<div class="value clickable" onclick="openReport('{!compensationReportID}','{!contId}')">
+							<apex:outputText styleClass="comp-value" value="{!compensationTotal}">
+								<apex:param value="{!compensationTotal}"/>
+							</apex:outputText>
+							<apex:outputText rendered="{!compensationCount != 0}">                              
+								<span class="comp-count">{!compensationCount}</span>
+							</apex:outputText>
+						</div>
+					</div>
 					  <div class="history">
-                        <div class="title">
-                            <div class="contactIcon icon"/>Callback Reminder
-                        </div>
-                        <div class="value">
-                          <apex:outputText styleClass="comp-value" value="{!callbackCount}"/>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <!--Temp Removed by DYU Dec 2016 - Avoid concurrent issue and improve loading performance -->
-            <!--<td style="width:10%">
-                <div class="chartContainer">        
-                    <div class="chart">
-                        <div class="title">
-                            <div class="pieChartIcon icon"/>Product Category Mix
-                        </div>
-                        <div class="value">
-                            <c:ContactProductChartComponent contactId="{!contId}"/>
-                        </div>
-                    </div>
-                </div>
-            </td>-->
-        </tr>
-    </table>
-    </apex:outputText>
-    <apex:outputText rendered="{!contId == null}">
-        <div class="noContact">There is no contact.</div>
-    </apex:outputText>
+						<div class="title">
+							<div class="contactIcon icon"/>Callback Reminder
+						</div>
+						<div class="value">
+						  <apex:outputText styleClass="comp-value" value="{!callbackCount}"/>
+						</div>
+					</div>
+				</div>
+			</td>
+			<!--Temp Removed by DYU Dec 2016 - Avoid concurrent issue and improve loading performance -->
+			<!--<td style="width:10%">
+				<div class="chartContainer">        
+					<div class="chart">
+						<div class="title">
+							<div class="pieChartIcon icon"/>Product Category Mix
+						</div>
+						<div class="value">
+							<c:ContactProductChartComponent contactId="{!contId}"/>
+						</div>
+					</div>
+				</div>
+			</td>-->
+		</tr>
+	</table>
+	</apex:outputText>
+	<apex:outputText rendered="{!contId == null}">
+		<div class="noContact">There is no contact.</div>
+	</apex:outputText>
 </apex:component>
