@@ -187,7 +187,7 @@ private with sharing class MPBOIDCRegHandler_Test {
 		// =====================================
 		Test.startTest();
 
-		MerchantPortalOIDCRegHandler loginHandler = new MerchantPortalOIDCRegHandler();
+		MPBOIDCRegHandler loginHandler = new MPBOIDCRegHandler();
 		Id foundUserId = loginHandler.confirmUser(oldUserId, tpalId, null, userData);
 
 		Test.stopTest();
@@ -205,7 +205,7 @@ private with sharing class MPBOIDCRegHandler_Test {
 		Map<String, String> augmentedAttributes = (Map<String, String>)augmentedAttributesCaptor.getValue();
 		System.assertEquals(userData.attributeMap.get('https://auspost/cnumber'), String.valueOf(augmentedAttributes.get('https://auspost/cnumber')));
 		System.assertEquals(contacts[1].OID_ID__c, String.valueOf(augmentedAttributes.get('cnumber')));
-		System.assertEquals(users[0].Id, foundUserId.Id, 'Expected matched user returned based on key criteria');
+		System.assertEquals(users[1].Id, foundUserId, 'Expected matched user returned based on key criteria');
 
 		((ThirdPartyAccountLinksSelector)MockUtility.Mocks.verify(mockTPALSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{tpalId}));
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).revokeTokenAccess(fflib_Match.eqId(existingTPALRecord.SsoProviderId), fflib_Match.eqString(userData.provider), fflib_Match.eqId(oldUserId), fflib_Match.eqString(userData.identifier));
@@ -237,7 +237,7 @@ private with sharing class MPBOIDCRegHandler_Test {
 
 		Id tpalId;
 		Id ssoProviderId = '0Jr000000000000001';
-		ThirdPartyAccountLink existingTPALRecord = new ThirdPartyAccountLink(Id = tpalId, SsoProviderId = ssoProviderId, UserId = users[1].Id);
+		ThirdPartyAccountLink existingTPALRecord = new ThirdPartyAccountLink(Id = tpalId, SsoProviderId = ssoProviderId, UserId = users[0].Id);
 
 		// =====================================
 		// Stubbing
@@ -249,7 +249,7 @@ private with sharing class MPBOIDCRegHandler_Test {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockService.getAugmentedAttributes((Map<String, String>)fflib_Match.anyObject())).thenReturn(attributeMap);
 		MockUtility.Mocks.when(mockService.matchUser((Map<String, String>)fflib_Match.anyObject())).thenReturn(users[0]);
-		MockUtility.Mocks.when(mockTPALSelector.selectById((Set<Id>)fflib_Match.eq(new Set<Id>{tpalId}))).thenReturn(new List<ThirdPartyAccountLink>{existingTPALRecord});
+		MockUtility.Mocks.when(mockTPALSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<ThirdPartyAccountLink>{existingTPALRecord});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -257,7 +257,7 @@ private with sharing class MPBOIDCRegHandler_Test {
 		// =====================================
 		Test.startTest();
 
-		MerchantPortalOIDCRegHandler loginHandler = new MerchantPortalOIDCRegHandler();
+		MPBOIDCRegHandler loginHandler = new MPBOIDCRegHandler();
 		Id foundUserId = loginHandler.confirmUser(users[0].Id, tpalId, null, userData);
 
 		Test.stopTest();
@@ -275,9 +275,9 @@ private with sharing class MPBOIDCRegHandler_Test {
 		Map<String, String> augmentedAttributes = (Map<String, String>)augmentedAttributesCaptor.getValue();
 		System.assertEquals(userData.attributeMap.get('https://auspost/cnumber'), String.valueOf(augmentedAttributes.get('https://auspost/cnumber')));
 		System.assertEquals(contacts[0].OID_ID__c, String.valueOf(augmentedAttributes.get('cnumber')));
-		System.assertEquals(users[0].Id, foundUserId.Id, 'Expected matched user returned based on key criteria');
+		System.assertEquals(users[0].Id, foundUserId, 'Expected matched user returned based on key criteria');
 
-		((ThirdPartyAccountLinksSelector)MockUtility.Mocks.verify(mockTPALSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{tpalId}));
+		((ThirdPartyAccountLinksSelector)MockUtility.Mocks.verify(mockTPALSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 
 		System.assertEquals(users[0].Id, foundUserId, 'Expected matched user returned based on key criteria');
 
