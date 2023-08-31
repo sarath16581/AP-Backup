@@ -17,6 +17,7 @@ HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalI
 NULL
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <description>Click this button to create a new Agreement (Contract).</description>
     <inlineHelpText>Click this button to create a new Agreement (Contract).</inlineHelpText>
     <label>Create Agreement (Contract)</label>
     <required>false</required>
