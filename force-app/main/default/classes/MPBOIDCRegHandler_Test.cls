@@ -283,6 +283,123 @@ private with sharing class MPBOIDCRegHandler_Test {
 
 	}
 
+	/**
+	 * Scenario:
+	 * In this scenario, no user is found for the cnumber and expected an exception
+	 */
+	@IsTest
+	private static void testUnitConfirmUserShouldThrowAnExceptionSinceNoUserFound() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Profile mpbProfile = [SELECT Id,Name FROM Profile where Name = 'Mypost Business Help & Support Community User' LIMIT 1];
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
+		contacts[0].Status__c = 'Active';
+		contacts[0].OID_ID__c = 'C0000000001';
+		List<User> users = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{contacts[0].Id}, mpbProfile.Id, true);
+		users[0].IsActive = true;
+		users[0] = (User) ApplicationTestDataFactory.setUnwritableFields(users[0], new Map<String, Object>{'Contact' => contacts[0]});
+		Auth.UserData userData = getUserData(contacts[0], users[0]);
+		Map<String, String> attributeMap = userData.attributeMap;
+		attributeMap.put('cnumber', 'C0000000001');
+
+		Id tpalId = '0Jr000000000000001';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		MPBRegHandlerService mockService = (MPBRegHandlerService)MockUtility.mockUtility(MPBRegHandlerService.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockService.getAugmentedAttributes((Map<String, String>)fflib_Match.anyObject())).thenReturn(attributeMap);
+		MockUtility.Mocks.when(mockService.matchUser((Map<String, String>)fflib_Match.anyObject())).thenReturn(null);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		try {
+			MPBOIDCRegHandler loginHandler = new MPBOIDCRegHandler();
+			Id foundUserId = loginHandler.confirmUser(users[0].Id, tpalId, null, userData);
+
+			System.assert(false, 'Expected exception to be thrown since no user was found to authenticate to.');
+		} catch(MPBRegHandlerService.RegHandlerException ex) {
+			System.assert(true);
+		} catch(Exception ex) {
+			System.assert(false);
+		}
+
+		Test.stopTest();
+
+		// =====================================
+		// VERIFY
+		// =====================================
+
+		fflib_ArgumentCaptor augmentedAttributesCaptor = fflib_ArgumentCaptor.forClass(Map<String, String>.class);
+		
+		// VERIFY: getAugmentedAttributes
+		((MPBRegHandlerService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getAugmentedAttributes((Map<String, String>)augmentedAttributesCaptor.capture());
+
+		// VERIFY: matchUser
+		((MPBRegHandlerService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).matchUser((Map<String, String>)augmentedAttributesCaptor.capture());
+		Map<String, String> augmentedAttributes = (Map<String, String>)augmentedAttributesCaptor.getValue();
+		System.assertEquals(userData.attributeMap.get('https://auspost/cnumber'), String.valueOf(augmentedAttributes.get('https://auspost/cnumber')));
+		System.assertEquals(contacts[0].OID_ID__c, String.valueOf(augmentedAttributes.get('cnumber')));
+
+	}
+
+	/**
+	 * Test:
+	 *  Making sure that update user functions as expected
+	 */
+	@IsTest
+	private static void testUnitUpdateUser() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Profile mpbProfile = [SELECT Id,Name FROM Profile where Name = 'Mypost Business Help & Support Community User' LIMIT 1];
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
+		contacts[0].Status__c = 'Active';
+		contacts[0].OID_ID__c = 'C0000000001';
+		List<User> users = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{contacts[0].Id}, mpbProfile.Id, true);
+		users[0] = (User) ApplicationTestDataFactory.setUnwritableFields(users[0], new Map<String, Object>{'Contact' => contacts[0]});
+		users[0].IsActive = true;
+		Auth.UserData userData = getUserData(contacts[0], users[0]);
+		Map<String, String> attributeMap = userData.attributeMap;
+		attributeMap.put('cnumber', 'C0000000001');
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		MPBOIDCRegHandler loginHandler = new MPBOIDCRegHandler();
+		loginHandler.updateUser(users[0].Id, null, userData);
+
+		Test.stopTest();
+
+		// =====================================
+		// VERIFY
+		// =====================================
+		// None!
+		
+
+		// PMD warning
+		System.assert(true);
+	}
+
 	private static Auth.UserData getUserData(Contact contact, User user) {
 		// set our user data mock from the Auth Provider
 		Id networkId = '0DB000000000000001';
