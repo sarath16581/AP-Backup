@@ -609,6 +609,7 @@ public with sharing class EFTBankDetailsController_Test {
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
         Compensation__c comp = new Compensation__c(
@@ -654,6 +655,7 @@ public with sharing class EFTBankDetailsController_Test {
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
         Compensation__c comp = new Compensation__c(
@@ -699,6 +701,7 @@ public with sharing class EFTBankDetailsController_Test {
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
@@ -738,6 +741,7 @@ public with sharing class EFTBankDetailsController_Test {
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
 
@@ -875,6 +879,44 @@ public with sharing class EFTBankDetailsController_Test {
                 0,
                 ApexPages.getMessages().size(),
                 'validateOnLoadCreateDuplicateCompensationWithPermission: Only supervisor user should be able to create duplicate compensation records'
+        );
+    }
+
+    /**
+    * Testing on agent user trying to create a compensation record with a case which has the reference Id as blank
+    */
+    @IsTest
+    static void validateOnLoadCreateCompensationWithoutCaseReference() {
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        //create test data
+        Contact contact = TestDataProvider.createContact('test', null, 'Contact');
+        insert contact;
+        Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        insert testCase;
+        Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
+
+        Test.startTest();
+        System.runAs(agentUser) {
+            Compensation__c comp = new Compensation__c(
+                    Contact__c = contact.Id,
+                    Case__c = testCase.Id,
+                    Batch_ID__c = 1,
+                    Status__c = 'Pending',
+                    Compensation_Amount__c = 150,
+                    CostCentreCode__c = 'test',
+                    RecordTypeId = recordTypeId,
+                    Cover_Type__c = 'ACL'
+            );
+
+            ApexPages.StandardController stdCtl = new ApexPages.StandardController(comp);
+            EFTBankDetailsController ext = new EFTBankDetailsController(stdCtl);
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                Label.CompensationMsgCaseMustHaveReference,
+                ApexPages.getMessages()[0].getSummary(),
+                'validateOnLoadCreateCompensationWithoutCaseReference: User should not have privilege to create compensation record without a reference in the case.'
         );
     }
 }

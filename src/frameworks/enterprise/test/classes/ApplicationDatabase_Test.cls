@@ -48,4 +48,15 @@ private with sharing class ApplicationDatabase_Test {
 		Test.stopTest();
 	}
 
+
+	@IsTest
+	private static void testFindDuplicates() {
+		System.assertEquals(
+			true,
+			ApplicationDatabase.getInstance().findDuplicates(
+				new List<Account>{ new Account(Name = 'Test') }
+			)[0].isSuccess(),
+			'Unexpected response'
+		);
+	}
 }

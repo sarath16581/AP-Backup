@@ -11,6 +11,7 @@
  * 8-02-2023 : Yatika Bansal : Modified logic for close button and dates
  * 8-08-2023 : Yatika Bansal : Added logic to show spinner until page fully loads
  * 8-22-2023 : Yatika Bansal : Modified AED calculation logic for renewal
+ * 8-29-2023 : Yatika Bansal : Modified SCD Validation to run on next button click
 */
 import { LightningElement, api, wire} from 'lwc';
 import { getRecord, getFieldValue, updateRecord  } from 'lightning/uiRecordApi';
@@ -428,6 +429,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		//run validations again
 		this.validateAggStartDate(this.template.querySelector('.startDate'));
 		this.validateTerm(this.template.querySelector('.term'));
+		this.validateStartDate();
 		this.validateEndDate();
 
 		if(!this.startError && !this.endError && !this.termError && !this.datesError && !this.error){

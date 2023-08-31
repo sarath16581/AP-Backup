@@ -3847,6 +3847,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
     </labels>
     <labels>
+        <fullName>CompensationMsgCaseMustHaveReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : Case must have a reference to create a compensation</shortDescription>
+        <value>Case must have a reference prior creating a compensation record.</value>
+    </labels>
+    <labels>
         <fullName>CompensationMsgNoPrivilege</fullName>
         <categories>Compensation</categories>
         <language>en_US</language>

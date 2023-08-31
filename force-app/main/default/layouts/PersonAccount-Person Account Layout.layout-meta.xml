@@ -76,6 +76,10 @@
                 <behavior>Edit</behavior>
                 <field>Special_Treatment_Notes__pc</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>is_Inactive_Customer__pc</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ServiceSLA__c</field>
@@ -239,6 +243,14 @@
                 <behavior>Edit</behavior>
                 <field>LastNPSDate__pc</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ClosedDateTime__pc</field>
+            </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ArchivedDateTime__pc</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -252,6 +264,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>RequiresOrganisation__c</field>
+            </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ClosedReason__pc</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
