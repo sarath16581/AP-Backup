@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 2023-08-25
  * @changelog
+ * 2023-09-01 - Mahesh Parvathaneni - Added tests testPreActionProcessCookieAndRedirectWithNoCommunityParam
 */
 
 @IsTest
@@ -156,5 +157,45 @@ private class AuthProviderCookieHndlrController_Test {
 		// =====================================
 		System.assertNotEquals(null, controller.error, 'Expected error to be returned');
 		System.assertEquals(null, output, 'Expected no page reference to be set');
+	}
+
+	/**
+	 * Test:
+	 * Making sure that cookie is set when action is pre and community param is not passed
+	 * and redirect to Auth0
+	 */
+	@IsTest
+	private static void testPreActionProcessCookieAndRedirectWithNoCommunityParam() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		String communityUrl = 'https://auspost--devnathan.sandbox.my.site.com/merchantportal/AuthProviderCookieHandler';
+		Pagereference pageRef = new PageReference(communityUrl);
+		pageRef.getParameters().put('action','pre');
+		pageRef.getParameters().put('auth_provider','Auth0MPProvider');
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		Test.setCurrentPage(pageRef);
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		AuthProviderCookieHandlerController controller = new AuthProviderCookieHandlerController();
+		controller.COMMUNITY_URL = 'https://auspost--devnathan.sandbox.my.site.com/merchantportal';
+		Pagereference output = controller.processCookieAndRedirect();
+		Test.stopTest();
+
+		// =====================================
+		// Verification
+		// =====================================
+		System.Cookie cookie = output.getCookies().get(AuthProviderCookieHandlerController.COOKIE_NAME);
+		String url = output.getUrl();
+		System.assertEquals(1, cookie.getMaxAge(), 'Expected cookie to be set');
+		System.assertEquals(AuthProviderCookieHandlerController.COOKIE_VALUE, cookie.getValue(), 'Incorrect cookie value returned');
+		System.assertEquals(true, url.contains('Auth0MPProvider'), 'Expected redirection to Auth Provider url');
+		System.assertEquals(null, controller.error, 'Expected no error to be returned');
 	}
 }
