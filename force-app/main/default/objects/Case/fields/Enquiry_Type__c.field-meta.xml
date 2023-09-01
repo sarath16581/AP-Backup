@@ -404,6 +404,11 @@
                 <label>New customer</label>
             </value>
             <value>
+                <fullName>New customer - Inspection recommended</fullName>
+                <default>false</default>
+                <label>New customer - Inspection recommended</label>
+            </value>
+            <value>
                 <fullName>New Customer - Sales Enquiry</fullName>
                 <default>false</default>
                 <label>New Customer - Sales Enquiry</label>
@@ -1050,6 +1055,10 @@
         <valueSettings>
             <controllingFieldValue>Site inspection</controllingFieldValue>
             <valueName>New customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Site inspection</controllingFieldValue>
+            <valueName>New customer - Inspection recommended</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other Enquiry</controllingFieldValue>
