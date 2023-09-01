@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@startrack.com.au</email>
+    <name>StarTrack Shop</name>
+    <queueMembers>
+        <users>
+            <user>billy-jess.macfarlane@startrack.com.au</user>
+            <user>kayla.giancola@startrack.com.au</user>
+            <user>pap.utumauu@startrack.com.au</user>
+            <user>stephanos.dimopoulos@startrack.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>
