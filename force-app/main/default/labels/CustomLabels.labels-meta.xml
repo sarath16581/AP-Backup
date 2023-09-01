@@ -7082,21 +7082,6 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Searching ...</value>
     </labels>
     <labels>
-        <fullName>ShareInformationError1</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>ShareInformation Error 1</shortDescription>
-        <value>There was an unexpected error. Please try again later.</value>
-    </labels>
-    <labels>
-        <fullName>ShareInformationRootLabel</fullName>
-        <categories>ShareInformationController</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Share Information Root Label</shortDescription>
-        <value>Share</value>
-    </labels>
-    <labels>
         <fullName>SharingRecalculationPermissionsErrorMessage</fullName>
         <categories>Sales</categories>
         <language>en_US</language>

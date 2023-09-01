@@ -208,9 +208,6 @@ public with sharing class SSSWConstants {
     public static final String METH_CONTACT_EMAIL = 'contactViaEmail';
     public static final String METH_GENERATE_EMAILCONTENT = 'generateEmailContent';
     
-    /*** ShareInformationController Constants  ***/
-    public static final String METH_CREATE_SHAREINFO = 'createShareInfoActivity';
-    
     /*** CaseCommentTriggerHelper Constants  ***/
     public static final String CASECOMMENT_TRIGGER = 'CaseCommentTrigger';
     public static final String METH_CHECK_NPS = 'checkNPS';
