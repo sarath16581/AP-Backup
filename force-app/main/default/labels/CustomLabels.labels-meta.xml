@@ -30,6 +30,14 @@
         <value>Save Cart &amp; Edit Opportunity Products</value>
     </labels>
     <labels>
+        <fullName>REC_TYPE_DEV_LEAD_BGSTANDARD</fullName>
+        <categories>Record Type</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_LEAD_BGSTANDARD</shortDescription>
+        <value>BG_Standard</value>
+    </labels>
+    <labels>
         <fullName>EXPIRED_QUOTE</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -3845,6 +3853,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <protected>false</protected>
         <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
         <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgCaseMustHaveReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : Case must have a reference to create a compensation</shortDescription>
+        <value>Case must have a reference prior creating a compensation record.</value>
     </labels>
     <labels>
         <fullName>CompensationMsgNoPrivilege</fullName>

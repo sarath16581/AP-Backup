@@ -258,8 +258,11 @@ public with sharing class ChasApexController extends ChasBase{
              Boolean isEligibleForHold = false;
              // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
              Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
+
+			 Boolean isExpressPost = wizardData.get('selectedRadio3Name') == ChasConstants.EXPRESS_POST? true:false;
+
              // DDS-5273: article that contains pharma should not be held
-             if (!containsPharma) {
+             if (!containsPharma && !isExpressPost) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {

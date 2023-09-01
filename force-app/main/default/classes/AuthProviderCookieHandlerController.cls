@@ -8,6 +8,7 @@
  * @author Nathan Franklin
  * @date 2023-08-25
  * @changelog
+ * 2023-09-01 - Mahesh Parvathaneni - Updated to get the community URL when the community param is empty
 */
 public with sharing class AuthProviderCookieHandlerController {
 
@@ -31,6 +32,17 @@ public with sharing class AuthProviderCookieHandlerController {
 	};
 
 	public String error { get; set; }
+
+	@TestVisible
+	private String COMMUNITY_URL { // can't be declared as final since we assign this value in our test class
+		get {
+			if(COMMUNITY_URL == null) {
+				COMMUNITY_URL = ConnectApi.Communities.getCommunity(Network.getNetworkId()).siteUrl;
+			}
+			return COMMUNITY_URL;
+		}
+		private set;
+	}
 
 	/**
 	 * @description processCookieAndRedirect This function read the action from the url parameters and accordingly sets/resets the cookie.
@@ -72,6 +84,11 @@ public with sharing class AuthProviderCookieHandlerController {
 		// we need to set the cookie and then forward the user onto to their site & login provider
 		String community = parameters.get(PARAM_COMMUNITY);
 		String authProvider = parameters.get(PARAM_AUTH_PROVIDER);
+
+		if(String.isEmpty(community)) {
+			//get the community url
+			community = COMMUNITY_URL;
+		}
 
 		if(!String.isEmpty(community) && !String.isEmpty(authProvider)) {
 			try {

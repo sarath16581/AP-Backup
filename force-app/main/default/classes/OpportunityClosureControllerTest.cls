@@ -3,6 +3,7 @@
  * Author: Ken McGuire
  * History
 * 11.06.2023 Ken McGuire - cleanup
+* 2023-08-30 - Merged changes by Ranjeewa Silva in dev - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
  ********************************************/
 @isTest
 private class OpportunityClosureControllerTest {
@@ -54,22 +55,30 @@ private class OpportunityClosureControllerTest {
 		organisation.ShippingStreet = '111 Bourke Street'; 
 		insert organisation; 
 
+		// key contact is mandatory on opportunity
+		Contact keyContact = ApplicationTestDataFactory.getContacts(1, organisation.Id, false)[0];
+		insert keyContact;
+
 		Organisation_Role__c orgRole = [ Select Id, Role_Type__c, Organisation__c from Organisation_Role__c where Organisation__c =: organisation.Id LIMIT 1];
 		orgRole.Role_Type__c = 'Customer';
 		update orgRole;
 
 		//Create Opportunity 
-		Opportunity opty = new Opportunity(); 
-		opty.Name = 'opty1';
-		opty.AccountId = organisation.Id;
-		opty.Type = 'New Customer';
-		opty.StageName = 'Identify';
-		opty.CloseDate = date.Today();
-		opty.Offering_Type__c = 'Product';
-		opty.Pricebook2Id = pricebookId;
-		opty.Offline_Contract_Received__c= true;
-		opty.Pre_Entry__c = true;
-		insert opty;
+        //Create Opportunity 
+        Opportunity opty = new Opportunity(); 
+        opty.Name = 'opty1';
+        opty.AccountId = organisation.Id;
+        opty.Type = 'New Customer';
+        opty.StageName = 'Identify';
+        opty.CloseDate = date.Today();
+        opty.Offering_Type__c = 'Product';
+        opty.Pricebook2Id = pricebookId;
+        opty.Offline_Contract_Received__c  = true;
+        opty.Pre_Entry__c = true;
+        opty.Description = 'test';
+        opty.KeyContact__c = keyContact.Id;
+        opty.Monthly_Executive_Summary__c = 'test';
+        insert opty;
 
 		OpportunityLineItem lineItem = new OpportunityLineItem();
 		lineItem.OpportunityId = opty.Id;
