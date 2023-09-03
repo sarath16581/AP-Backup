@@ -12,7 +12,5 @@
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>
-	<description>This field is used to capture referred Credit Suspect confidence after performing a Credit Suspect Register check</description>
-	<inlineHelpText>This field is used to capture referred Credit Suspect confidence level</inlineHelpText>
 	<securityClassification>INTERNAL</securityClassification>
 </CustomField>
