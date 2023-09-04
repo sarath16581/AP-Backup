@@ -7113,7 +7113,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Share</value>
     </labels>
     <labels>
-        <fullName>SharingRecalculationPermissionsErrorMessage</fullName>
+	<fullName>SharingRecalculationPermissionsErrorMessage</fullName>
         <categories>Sales</categories>
         <language>en_US</language>
         <protected>false</protected>
