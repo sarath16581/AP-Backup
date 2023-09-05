@@ -5,16 +5,17 @@
  * @last modified on  : 08-05-2020 
  * @last modified by  : avula.jansirani@auspost.com.au
  * Modifications Log 
- * Ver   Date         Author                               Modification
- * 1.0   08-05-2020  avula.jansirani@auspost.com.au   Initial Version
+ * Ver	Date			Author									Modification
+ * 1.0	08-05-2020		avula.jansirani@auspost.com.au			Initial Version
 **/
 /**************************************************
 Type:          bspEnquiryDetailUplift
 History:
 --------------------------------------------------
-10-08-2020    avula.jansirani@auspost.com.au   Added uplift changes 
-16-10-2020    avula.jansirani@auspost.com.au   updated method getCaseFiles() to insert attchments
-16-10-2020    avula.jansirani@auspost.com.au   Added method saveAttachment() to insert attchments
+10-08-2020	avula.jansirani@auspost.com.au	Added uplift changes 
+16-10-2020	avula.jansirani@auspost.com.au	updated method getCaseFiles() to insert attchments
+16-10-2020	avula.jansirani@auspost.com.au	Added method saveAttachment() to insert attchments
+31-08-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields and refactor the getEnquiry function
 **************************************************/
 public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
 
@@ -121,16 +122,22 @@ public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
     * */
     private static Case getEnquiry(String enquiryNumber) {
         if(enquiryNumber !=null){
-            List<Case> enqList = new List<Case>([SELECT Id, Subject, CCUServiceUsed__c, ArticleType__c, DatePosted__c, CCUYourReference__c, Permanent_Close__c,
-                                                 ContactId, ReferenceID__c, CreatedDate, Status, LastModifiedDate, CCUEnquiryType__c, CCUItemContents__c,Address2__c, Enquiry_Type__c,
-                                                 BSP_Sender_Name__c, BSP_Sender_Company__c, BSP_Sender_Address__c, Primary_Name__c, Primary_Company__c, Address1__c, Pickup_Booking_Reference__c,
-                                                 BSP_Addressee_Name__c, BSP_Addressee_Company__c, BSP_Addressee_Address__c,Secondary_Contact__c,Secondary_Companry__c,
-                                                 CaseNumber, ProductCategory__c, ProductSubcategory__c, DescriptionOfContents__c, ArticleTest__r.Name, StarTrack_RecordType__c,
-                                                 Article_Receiver_Name__c, Article_Receiver_Address__c, StarTrack_Receiver_Name__c, Address4__c, Description, RecordType.DeveloperName, RecordType.Name,
-                                                 AccountId, Related_Billing_Account__c, CreatedById, Contact.BillingAccount__c,
-                                                 Contact.BillingAccount__r.Name, Contact.BillingAccount__r.LEGACY_ID__c, Contact.BillingAccount__r.Id, Contact.BillingAccount__r.Source_System__c,
-                                                 Related_Billing_Account__r.Name, Related_Billing_Account__r.LEGACY_ID__c, Related_Billing_Account__r.Id, Related_Billing_Account__r.Source_System__c,
-                                                 Related_Billing_Account__r.Organisation__c, Enquiry_Status__c FROM Case WHERE CaseNumber =: enquiryNumber]);
+			new Set<SObjectField>{
+				Case.Id, Case.ReferenceID__c,Case.ArticleTest__c,Case.ByPassRoutingRulesOnCreation__c,
+				Case.OwnerId,Case.Description,Case.AllocateToQueue__c, Case.PreferredAgentExpiry__c,Case.BusinessHoursId,Case.CaseLocality__c				
+			};
+
+			Set<SObjectField> caseFieldsToQuery = new Set<SObjectField>{Case.Id, Case.Subject, Case.CCUServiceUsed__c, Case.ArticleType__c, Case.DatePosted__c, Case.CCUYourReference__c, Case.Permanent_Close__c,
+																		Case.ContactId, Case.ReferenceID__c, Case.CreatedDate, Case.Status, Case.LastModifiedDate, Case.CCUEnquiryType__c, Case.CCUItemContents__c,Case.Address2__c, Case.Enquiry_Type__c,
+																		Case.BSP_Sender_Name__c, Case.BSP_Sender_Company__c, Case.BSP_Sender_Address__c, Case.Primary_Name__c, Case.Primary_Company__c, Case.Address1__c, Case.Pickup_Booking_Reference__c,
+																		Case.BSP_Addressee_Name__c, Case.BSP_Addressee_Company__c, Case.BSP_Addressee_Address__c, Case.Secondary_Contact__c, Case.Secondary_Companry__c,
+																		Case.CaseNumber, Case.ProductCategory__c, Case.ProductSubcategory__c, Case.DescriptionOfContents__c, Case.StarTrack_RecordType__c,
+																		Case.Article_Receiver_Name__c, Case.Article_Receiver_Address__c, Case.StarTrack_Receiver_Name__c, Case.Address4__c, Case.Description, 
+																		Case.AccountId, Case.Related_Billing_Account__c, Case.CreatedById, Case.Enquiry_Status__c,
+																		Case.Business_Name__c, Case.Billing_Number__c, Case.Name__c, Case.Email_Address__c, Case.Phone__c, Case.Business_Unit__c, Case.ReasonforCreditClaim__c, Case.Amount_Claimed__c
+																	};
+
+			List<Case> enqList = CasesSelector.newInstance(caseFieldsToQuery).selectByCaseNumber(new Set<String>{enquiryNumber}, new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_BILLINGACCOUNT}).values(); 											
             
             if(!enqList.isEmpty()) {
                 if(bspBaseUplift.isMpbHspFlag) {

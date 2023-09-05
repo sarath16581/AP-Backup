@@ -3,7 +3,8 @@
   * @date         : 24/08/2020
   * @description  : Component for enquiries items details.
 --------------------------------------- History --------------------------------------------------
-24.08.2020    Jansi Rani   Created
+24.08.2020	Jansi Rani   Created
+04-09-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields
 -->
 <template>
 
@@ -18,7 +19,7 @@
                 <h3> Item details</h3>
             </div>
             <!-- SSSW-->
-            <template if:true={ssw}>
+            <template if:true={isSSSW}>
                 <div class="slds-grid slds-wrap slds-p-bottom_small">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                         <b>Tracking Number:</b><br> 
@@ -69,13 +70,10 @@
                         
                     </div>
                 </div>
-
-
-
             </template>
 
             <!-- START TRACK-->
-            <template if:false={ssw}>
+            <template if:true={isStarTrack}>
 
                 <div class="slds-grid slds-wrap slds-p-bottom_small">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
@@ -120,6 +118,57 @@
 
 
             </template>
+
+            <template if:true={isCreditClaim}>
+
+                <div class="slds-grid slds-wrap slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Account number:</b><br> {caseDetailWrapper.enq.Billing_Number__c}
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Business name:</b><br> {caseDetailWrapper.enq.Business_Name__c}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Account held with:</b><br> {caseDetailWrapper.enq.Business_Unit__c}
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Dispute type:</b><br> {caseDetailWrapper.enq.Enquiry_Type__c}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Reason for credit claim:</b><br> {caseDetailWrapper.enq.ReasonforCreditClaim__c}
+                    </div>
+                </div>
+
+				<div class='slds-p-bottom_medium'>
+					<h3> Contact details</h3>
+				</div>	
+
+                <div class="slds-grid slds-wrap slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Name:</b><br> {caseDetailWrapper.enq.Name__c}
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Email:</b><br> {caseDetailWrapper.enq.Email_Address__c}
+                    </div>
+                </div>				
+
+                <div class="slds-grid slds-wrap slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <b>Phone:</b><br> {caseDetailWrapper.enq.Phone__c}
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        &nbsp;
+                    </div>
+                </div>
+
+            </template>
+
         </div>
     </template>
 </template>

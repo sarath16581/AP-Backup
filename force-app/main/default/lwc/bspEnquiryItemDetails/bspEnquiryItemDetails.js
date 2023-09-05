@@ -21,11 +21,25 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
         }
     }
 
-    get ssw() {
-        //return this.isSSW;
+    get isSSSW() {
         if ((this.caseDetailWrapper.enq.RecordType.DeveloperName).startsWith('SSSW'))
             return true;
-        else if ((this.caseDetailWrapper.enq.RecordType.DeveloperName).startsWith('StarTrack'))
+        else
+            return false;
+    }
+
+
+    get isStarTrack() {
+        if ((this.caseDetailWrapper.enq.RecordType.DeveloperName).startsWith('StarTrack'))
+            return true;
+        else
+            return false;
+    }
+
+    get isCreditClaim() {
+        if ((this.caseDetailWrapper.enq.RecordType.Name === 'Enterprise Credit Dispute Claim') && (this.caseDetailWrapper.enq.CCUEnquiryType__c === 'Credit Claim'))
+            return true;
+        else
             return false;
     }
 

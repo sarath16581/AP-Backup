@@ -4,6 +4,7 @@
   * @description  : Component for enquiries details wrapper component.
 --------------------------------------- History --------------------------------------------------
 24.08.2020    Jansi Rani   Created
+04-09-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields
 -->
 <template>
     <!-- Navigation links-->
@@ -35,39 +36,46 @@
                         </c-bsp-enquiry-item-details>
 
                         <!-- dynamic message for Resolve -->
-                        <div class="slds-p-top_xx-large slds-p-bottom_medium">{enquiryButtonMessage}</div>
+						<template if:false={isCreditClaim}>	
+                        	<div class="slds-p-top_xx-large slds-p-bottom_medium">{enquiryButtonMessage}</div>
+						</template>
+						
                         <!-- buttons-->
                         <!-- Print screen-->
                         <lightning-button label="Print screen" title="Print screen" onclick={handlePrint}
                             class="brand-secondary-button slds-p-right_medium"></lightning-button>
 
-                        <template if:true={isVisibleResolveEnquiryBtn}>
-                            <!-- Resolve enquiry-->
-                            <lightning-button label="Resolve enquiry" title="Resolve enquiry"
-                                onclick={handleResolveEnquiry}
-                                class="brand-secondary-button slds-p-right_medium slds-p-bottom_medium">
-                            </lightning-button>
-                        </template>
+						<template if:false={isCreditClaim}>							
+							<template if:true={isVisibleResolveEnquiryBtn}>
+								<!-- Resolve enquiry-->
+								<lightning-button label="Resolve enquiry" title="Resolve enquiry"
+									onclick={handleResolveEnquiry}
+									class="brand-secondary-button slds-p-right_medium slds-p-bottom_medium">
+								</lightning-button>
+							</template>
 
-                        <template if:true={isVisibleReOpenEnquiryBtn}>
-                            <!-- Re-open enquiry-->
-                            <lightning-button label="Re-open enquiry" title="Re-open enquiry"
-                                onclick={handleReOpenEnquiry}
-                                class="brand-secondary-button slds-p-right_medium slds-p-bottom_medium">
-                            </lightning-button>
-                        </template>
+							<template if:true={isVisibleReOpenEnquiryBtn}>
+								<!-- Re-open enquiry-->
+								<lightning-button label="Re-open enquiry" title="Re-open enquiry"
+									onclick={handleReOpenEnquiry}
+									class="brand-secondary-button slds-p-right_medium slds-p-bottom_medium">
+								</lightning-button>
+							</template>
+						</template>
                     </div>
 
                     <!-- comment history-->
-                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                        <c-bsp-case-comment-history-details case-status={caseDetailWrapper.enq.Status}
-                            comm-history-list={caseDetailWrapper.commHistoryList} existing-files={existingFiles}
-                            case-record-type-name={caseDetailWrapper.enq.RecordType.DeveloperName}
-                            case-id={caseDetailWrapper.enq.Id}
-                            case-permanent-close={caseDetailWrapper.enq.Permanent_Close__c}
-                            onloadingtoggle={handleLoading}>
-                        </c-bsp-case-comment-history-details>
-                    </div>
+					<template if:false={isCreditClaim}>
+						<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+							<c-bsp-case-comment-history-details case-status={caseDetailWrapper.enq.Status}
+								comm-history-list={caseDetailWrapper.commHistoryList} existing-files={existingFiles}
+								case-record-type-name={caseDetailWrapper.enq.RecordType.DeveloperName}
+								case-id={caseDetailWrapper.enq.Id}
+								case-permanent-close={caseDetailWrapper.enq.Permanent_Close__c}
+								onloadingtoggle={handleLoading}>
+							</c-bsp-case-comment-history-details>
+						</div>
+					</template>
                 </div>
             </template>
         </div>
