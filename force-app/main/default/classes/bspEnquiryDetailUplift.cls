@@ -122,11 +122,6 @@ public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
     * */
     private static Case getEnquiry(String enquiryNumber) {
         if(enquiryNumber !=null){
-			new Set<SObjectField>{
-				Case.Id, Case.ReferenceID__c,Case.ArticleTest__c,Case.ByPassRoutingRulesOnCreation__c,
-				Case.OwnerId,Case.Description,Case.AllocateToQueue__c, Case.PreferredAgentExpiry__c,Case.BusinessHoursId,Case.CaseLocality__c				
-			};
-
 			Set<SObjectField> caseFieldsToQuery = new Set<SObjectField>{Case.Id, Case.Subject, Case.CCUServiceUsed__c, Case.ArticleType__c, Case.DatePosted__c, Case.CCUYourReference__c, Case.Permanent_Close__c,
 																		Case.ContactId, Case.ReferenceID__c, Case.CreatedDate, Case.Status, Case.LastModifiedDate, Case.CCUEnquiryType__c, Case.CCUItemContents__c,Case.Address2__c, Case.Enquiry_Type__c,
 																		Case.BSP_Sender_Name__c, Case.BSP_Sender_Company__c, Case.BSP_Sender_Address__c, Case.Primary_Name__c, Case.Primary_Company__c, Case.Address1__c, Case.Pickup_Booking_Reference__c,
