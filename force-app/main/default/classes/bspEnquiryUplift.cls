@@ -12,6 +12,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
 04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
 13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
+04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
