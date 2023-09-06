@@ -132,7 +132,7 @@ public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
 																		Case.Business_Name__c, Case.Billing_Number__c, Case.Name__c, Case.Email_Address__c, Case.Phone__c, Case.Business_Unit__c, Case.ReasonforCreditClaim__c, Case.Amount_Claimed__c
 																	};
 
-			List<Case> enqList = CasesSelector.newInstance(caseFieldsToQuery).selectByCaseNumber(new Set<String>{enquiryNumber}, new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_BILLINGACCOUNT}).values(); 											
+			List<Case> enqList = CasesSelector.newInstance(caseFieldsToQuery).selectByCaseNumber(new Set<String>{enquiryNumber}, new Set<Object>{CasesSelector.Options.WITH_CONTACT, CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_BILLINGACCOUNT}).values(); 											
             
             if(!enqList.isEmpty()) {
                 if(bspBaseUplift.isMpbHspFlag) {
