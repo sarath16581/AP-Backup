@@ -125,4 +125,13 @@ export default class BspEnquiryDetailsWapper extends LightningElement {
             this.isLoading = false;
         });
     }
+
+    get isCreditClaim() {
+        //return this.isSSW;
+        if ((this.caseDetailWrapper.enq.RecordType.Name === 'Enterprise Credit Dispute Claim') && (this.caseDetailWrapper.enq.CCUEnquiryType__c === 'Credit Claim'))
+            return true;
+        else
+            return false;
+    }	
+
 }
