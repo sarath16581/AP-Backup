@@ -8,6 +8,7 @@ public inherited sharing class MPBRegHandlerService {
 
 	@TestVisible
 	private static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
+	private static final String MPB_COMMUNITY_PROFILE_NAME = 'Mypost Business Help & Support Community User';
 
 	/**
 	 * Provides a mockable interface for unit testing
@@ -54,6 +55,7 @@ public inherited sharing class MPBRegHandlerService {
 	 * The Asset related to Contact is PSRTandC
 	 * Contact status is active for the user
 	 * User is active
+	 * User profile is MyPost Business Help & Support Community user
 	 * 
 	 * @param  augmentedAttributes UserData attribute map
 	 * @return	matched user
@@ -67,6 +69,7 @@ public inherited sharing class MPBRegHandlerService {
 		searchParams.put('contactCNumbers', cNumber);
 		searchParams.put('contactStatuses', 'Active');
 		searchParams.put('isActive', true);
+		searchParams.put('profileNames', MPB_COMMUNITY_PROFILE_NAME);
 
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 			Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.Status__c, Contact.OID_ID__c},
