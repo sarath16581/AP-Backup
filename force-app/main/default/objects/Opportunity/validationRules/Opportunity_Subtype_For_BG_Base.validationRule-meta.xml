@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Subtype_For_BG_Base</fullName>
+    <active>true</active>
+    <description>Opportunity Subtype cannot be ‘Renewal’, ‘DoV Increase’ or &apos;DoV Decrease&apos; for BG Base users when not created from DoV process</description>
+    <errorConditionFormula>ISNEW() &amp;&amp; ($Profile.Name==&apos;BG Base&apos;) &amp;&amp; ISBLANK(ECLM_Original_Opportunity_No__c) &amp;&amp; OR(ISPICKVAL(Opportunity_SubType__c, &apos;Re-Contract&apos;), ISPICKVAL(Opportunity_SubType__c, &apos;DoV Increase&apos;), ISPICKVAL(Opportunity_SubType__c, &apos;DoV Decrease&apos;))</errorConditionFormula>
+    <errorMessage>To correctly create a DoV or Renewal opportunity, please navigate to the active Apttus Contract (via the Organisation) and click on the DoV or Renew button. This will create the opportunity for you and save you time.</errorMessage>
+</ValidationRule>
