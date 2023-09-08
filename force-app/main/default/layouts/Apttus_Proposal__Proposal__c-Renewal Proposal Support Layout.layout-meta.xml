@@ -202,6 +202,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>APT_Method_of_Payment__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>APT_Credit_Assessment__c</field>
             </layoutItems>
         </layoutColumns>
