@@ -182,6 +182,10 @@
                 <behavior>Edit</behavior>
                 <field>APT_Parcel_Services_Transit_Cover_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Metro_Service__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
