@@ -18,6 +18,7 @@
  * 2020-08-07   Jansi - added new value for status picklist PICKLIST_VALUE_DEFAULT_All_STATUS
  * 2021-10-13   prerna.rahangdale@auspost.com.au PARMSIm Dev fix.
  * 2021-01-17 Added new case categories for MPB
+ * 2023-09-6 hasantha.liyanage@auspost.com.au Added CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME
 */
 public class BspConstants{
     public static final String MPB_COMMUNITY_PROFILE_NAME = 'Mypost Business Help & Support Community User';
@@ -168,6 +169,7 @@ public class BspConstants{
     public static final String CASE_RECORD_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
     public static final String CASE_RECORD_TYPE_STARTRACK_PICKUP_BOOKING_ENQUIRY = 'StarTrack Pickup Booking Enquiry';
     public static final String CASE_RECORD_TYPE_PICKUP_BOOKING_ENQUIRY = 'Pickup Booking Enquiry';
+    public static final String CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME = 'Enterprise_Credit_Dispute_Claim';
 
     public static final String CASE_TYPE_INVESTIGATION = 'Investigation';
 

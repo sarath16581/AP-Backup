@@ -100,7 +100,7 @@ public without sharing class bspEnquiryUplift {
 	 * Grab the credit claim dispute record types
 	 */
 	public static void retrieveCreditClaimRecordTypes(){
-		creditClaimRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String> {'Enterprise_Credit_Dispute_Claim'}).keySet();
+		creditClaimRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String> {BspConstants.CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME}).keySet();
 	}
 
 	/**
@@ -794,9 +794,7 @@ public without sharing class bspEnquiryUplift {
 		if(mappedEntities.get('Super Admin') != null) {
 			superAdminEntities = mappedEntities.get('Super Admin');
 			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( AccountId in :superAdminEntities ) ';
-		}
-
-		if(mappedEntities.get('Admin') != null) {
+		} else if(mappedEntities.get('Admin') != null) {
 			adminEntities = mappedEntities.get('Admin');
 			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( (Related_Billing_Account__c != null And Related_Billing_Account__c IN :adminEntities) ' +
 					' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
@@ -1674,6 +1672,8 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public Case caseObj {get; set;}
 		@AuraEnabled public String sendingTo {get; set;}
 		@AuraEnabled public String caseUIStatus {get; set;}
+		@AuraEnabled public String BillingNumber {get; set;}
+		@AuraEnabled public String RecordType {get; set;}
 
 		public CaseContainer(Case c) {
 			this.caseObj = c;
@@ -1681,6 +1681,8 @@ public without sharing class bspEnquiryUplift {
 			this.isST = c.RecordType.DeveloperName.startsWith('StarTrack') ? true : false;
 			this.sendingTo = String.isNotBlank(c.BSP_Addressee_Name__c) ? c.BSP_Addressee_Name__c : c.Secondary_Contact__c;
 			this.caseUIStatus = readStatus(c);
+			this.BillingNumber = c.Billing_Number__c != null ? c.Billing_Number__c : '';
+			this.RecordType = c.RecordType.DeveloperName;
 		}
 	}
 

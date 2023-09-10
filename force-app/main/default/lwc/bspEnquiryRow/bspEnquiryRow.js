@@ -2,7 +2,7 @@ import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { navigation } from 'c/bspNavigationUtils';
 import retrieveBspCommunityURL from '@salesforce/apex/bspBaseUplift.retrieveCommunityURL';
-
+const CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME = 'Enterprise_Credit_Dispute_Claim';
 export default class BspEnquiryRow extends NavigationMixin(LightningElement) {
     @api caseWrapper;
     commUrlPrefix;
@@ -65,7 +65,11 @@ export default class BspEnquiryRow extends NavigationMixin(LightningElement) {
     }
 
     get trackingNumber() {
-        return this.caseWrapper.caseObj.ArticleTest__r ? this.caseWrapper.caseObj.ArticleTest__r.Name : '';
+        if(this.caseWrapper.RecordType === CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME) {
+            return this.caseWrapper.BillingNumber;
+        } else {
+            return this.caseWrapper.caseObj.ArticleTest__r ? this.caseWrapper.caseObj.ArticleTest__r.Name : '';
+        }
     }
 
     get service() {
