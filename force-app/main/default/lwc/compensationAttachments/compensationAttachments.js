@@ -16,6 +16,7 @@ import {LightningElement, wire, api} from 'lwc';
 import {getObjectInfo} from 'lightning/uiObjectInfoApi';
 import getAttachmentsByParentId from '@salesforce/apex/CompensationAttachmentsController.getAttachmentsByParentId';
 import createAttachments from '@salesforce/apex/CompensationAttachmentsController.createAttachments';
+import getPageConfig from '@salesforce/apex/CompensationAttachmentsController.getPageConfig';
 
 // Data table columns
 const columns = [
@@ -64,6 +65,7 @@ export default class CompensationAttachments extends LightningElement {
     columns = columns;
     isDisableSelection = true;
     messages = {};
+    config = {};
     sortedBy;
     sortedDirection;
     @wire(getObjectInfo, {objectApiName: 'Attachment'})
@@ -90,8 +92,11 @@ export default class CompensationAttachments extends LightningElement {
                         return {...row};
 
                     });
-                    // enable/disable the attachment button based on the selection
-                    this.isDisableSelection = !(this.attachments.some(row => row.isSelectedNew === true));
+                    // user should have permissions to link files or create attachments
+                    if (this.config.isAllowedToCreateCompensation) {
+                        // enable/disable the attachment button based on the selection
+                        this.isDisableSelection = !(this.attachments.some(row => row.isSelectedNew === true));
+                    }
                 }
                 break;
             case 'Preview':
@@ -111,6 +116,18 @@ export default class CompensationAttachments extends LightningElement {
      * Initial load of the attachments
      */
     loadAttachments() {
+        getPageConfig({})
+            .then((result) => {
+                this.config = result;
+            })
+            .catch((error) => {
+                console.error(error);
+                this.messages.showError = true;
+                this.messages.message = error.body.message;
+            }).finally(() => {
+            this.isLoading = false;
+        });
+
         // load all the attachments and the files related to the case
         getAttachmentsByParentId({recordId: this.recordId})
             .then((result) => {

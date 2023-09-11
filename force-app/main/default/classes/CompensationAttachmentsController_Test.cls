@@ -29,6 +29,45 @@ private class CompensationAttachmentsController_Test {
     }
 
     /**
+     * Testing the logged in agent has one of Is_Compensation_User or Is_Compensation_Supervisor custom permission sets
+     * if the user do have access isAllowedToCreateCompensation should set to true as we use this variable to determine
+     * access throughout component
+     */
+    @IsTest
+    static void getPageConfigIsAllowedToCreate() {
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        Test.startTest();
+        CompensationAttachmentsController.PageConfig config;
+        System.runAs(superagent) {
+            config = CompensationAttachmentsController.getPageConfig();
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                true,
+                config.isAllowedToCreateCompensation,
+                'getPageConfigIsAllowedToCreate: User should be able to perform compensation super user actions'
+        );
+    }
+
+    /**
+     * Testing the logged in agent has one of Is_Compensation_User or Is_Compensation_Supervisor custom permission sets
+     * If the user does NOT have the permission sets assigned isAllowedToCreateCompensation has to be false
+     */
+    @IsTest
+    static void getPageConfigIsNotAllowedToCreate() {
+        Test.startTest();
+        CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig();
+        Test.stopTest();
+
+        System.assertEquals(
+                false,
+                config.isAllowedToCreateCompensation,
+                'getPageConfigIsNotAllowedToCreate: User should NOT be able to perform compensation super user/agent user actions'
+        );
+    }
+
+    /**
      * ContentDocuments linked to case which are already NOT linked to the compensation should be able to selected by the user
      * hence the isSelected parameter should set to false to attachment details wrapper instance.
      * based on the isSelected parameter being false, we will allow user to select the record in the UI

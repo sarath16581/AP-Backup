@@ -31,6 +31,21 @@ public with sharing class CompensationAttachmentsController {
     }
 
     /**
+     * pass the common configurations for the componsnt
+     * @return PageConfig
+     */
+    @AuraEnabled
+    public static PageConfig getPageConfig() {
+        PageConfig config = new PageConfig();
+        if (isCompensationUser || isCompensationSupervisor) {
+            config.isAllowedToCreateCompensation = true;
+        } else {
+            config.isAllowedToCreateCompensation = false;
+        }
+        return config;
+    }
+
+    /**
      *  Prepare and return the AttachmentDetail wrapper after retrieving and comparing Attachments and Files linked to the case
      *  and the compensation record, any existing files/attachments linked to the compensations should not be allowed to de-select from the table
      * @param recordId compensation record ID
@@ -232,5 +247,12 @@ public with sharing class CompensationAttachmentsController {
         @AuraEnabled public String id { get; set; }
         @AuraEnabled public String name { get; set; }
         @AuraEnabled public String parentId { get; set; }
+    }
+
+    /**
+     * any configurations needs to pass to the front end
+     */
+    public class PageConfig {
+        @AuraEnabled public Boolean isAllowedToCreateCompensation { get; set; }
     }
 }
