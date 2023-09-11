@@ -9,7 +9,7 @@
     <scale>0</scale>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>
 </CustomField>

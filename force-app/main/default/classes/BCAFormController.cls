@@ -2,6 +2,7 @@
 * @description	   : A class for bcaForm LWC component
 * @author			: Victor Cheng
 * @group			 : 
+* @test 			 : BCAFormController_Test
 * @last modified on  : 06-09-2021
 * @last modified by  : ankur.gandhi@auspost.com.au
 * Modifications Log 
@@ -10,6 +11,7 @@
 * 1.0   10-12-2020  Victor Cheng   Initial Version
 * 1.0   14-04-2021  Victor Cheng   Changes after Unit Test class
 * 2023-05-05	Naveen Rajanna	REQ3184691	Modified getDigitalIdClientId to return a wrapper
+* 2023-08-29	Paul Perry		MW0005478	Logic for Credit Suspect Register verification
 **/
 
 public without sharing class BCAFormController {
@@ -280,8 +282,9 @@ public without sharing class BCAFormController {
 			state = networkObject.State__c;
 			postcode = networkObject.Post_Code__c;
 
-			if(!Test.isRunningTest())
+			if(!Test.isRunningTest()) {
 				distance = (Decimal) networkObject.get('dist');
+			}
 		}
 	}
 
@@ -472,6 +475,25 @@ public without sharing class BCAFormController {
 			res.setBody(sBody);
 			res.setStatusCode(200);
 			return res;
+		}
+	}
+
+	/**
+	 * Verify the entities on the Credit Assessment record against the Suspect Register
+	 * @return True if referred or False if not matched /w threshold
+	 * @exception AuraHandledException upon insufficient record access
+	 */
+	@AuraEnabled
+	public static Boolean performSuspectRegisterCheck(Id creditAssessmentId) {
+		try {
+			// Without Sharing class -> Perform Record Access Check
+			if (!UserRecordAccessSelector.newInstance().selectById(creditAssessmentId).HasReadAccess) {
+				throw new NoAccessException();
+			}
+
+			return !BCAFormHelper.performSuspectRegisterCheck(creditAssessmentId).isEmpty();
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
 		}
 	}
 }

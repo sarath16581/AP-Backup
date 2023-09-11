@@ -10,6 +10,7 @@ OR(
 ISPICKVAL((Stage__c),&quot;Closed&quot;),
 ISPICKVAL((Stage__c),&quot;Completed&quot;)),
 $Profile.Name &lt;&gt; &quot;Enterprise Onboarding&quot;,
+$Profile.Name &lt;&gt; &quot;Sales Operations&quot;,
 $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
 $Profile.Name &lt;&gt; &quot;Sales Admin&quot;
 )</errorConditionFormula>

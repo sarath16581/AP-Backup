@@ -35,11 +35,32 @@ private class CompensationAttachmentsController_Test {
      */
     @IsTest
     static void getPageConfigIsAllowedToCreate() {
+        // =====================================
+        // Data Preparation
+        // =====================================
         User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        // =====================================
+        // Stubbing
+        // =====================================
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        // Selectors
+
+        MockUtility.Mocks.when(mockCompensationSelector
+                .getById(compensations[0].Id, new Set<Object>()))
+                .thenReturn(new List<Compensation__c>{
+                        compensations[0]
+                });
+        MockUtility.Mocks.stopStubbing();
+
         Test.startTest();
         CompensationAttachmentsController.PageConfig config;
         System.runAs(superagent) {
-            config = CompensationAttachmentsController.getPageConfig();
+            config = CompensationAttachmentsController.getPageConfig(compensations[0].Id);
         }
         Test.stopTest();
 
@@ -56,8 +77,29 @@ private class CompensationAttachmentsController_Test {
      */
     @IsTest
     static void getPageConfigIsNotAllowedToCreate() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        // =====================================
+        // Stubbing
+        // =====================================
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        // Selectors
+
+        MockUtility.Mocks.when(mockCompensationSelector
+                .getById(compensations[0].Id, new Set<Object>()))
+                .thenReturn(new List<Compensation__c>{
+                        compensations[0]
+                });
+        MockUtility.Mocks.stopStubbing();
         Test.startTest();
-        CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig();
+        CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig(compensations[0].Id);
         Test.stopTest();
 
         System.assertEquals(
@@ -346,7 +388,7 @@ private class CompensationAttachmentsController_Test {
         // Testing
         // =====================================
         Test.startTest();
-        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0].Id);
+        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0]);
         CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
         for (CompensationAttachmentsController.AttachmentDetail detail : attachmentDetails) {
             detail.isSelectedNew = true; // user selecting the attachment/files in the UI
@@ -438,7 +480,7 @@ private class CompensationAttachmentsController_Test {
         // Testing
         // =====================================
         Test.startTest();
-        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0].Id);
+        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0]);
         CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
         for (CompensationAttachmentsController.AttachmentDetail detail : attachmentDetails) {
             if (detail.isAttachment) {

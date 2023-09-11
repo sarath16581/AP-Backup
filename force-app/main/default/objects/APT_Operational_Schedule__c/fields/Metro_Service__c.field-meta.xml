@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Metro_Service__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checkbox to be used for Metro product templates. This indicates if the Operational schedule belongs to Metro Product</description>
+    <externalId>false</externalId>
+    <label>Metro Service</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
