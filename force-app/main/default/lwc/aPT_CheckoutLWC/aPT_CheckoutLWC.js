@@ -5,10 +5,15 @@
 *			It is used to create a custom checkout button with multiple actions.
 *Change log:9-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *			9-04-2023 : Nasir Jawed: Added Getter workForceWithManualAgreement for checkWorkVerification
+*			27-07-2023 : Yatika Bansal : Included logic for amend/renew
+*			08-08-2023 : Yatika Bansal : Modified checkout only action to redirect to opportunity
+*			22-08-2023 : Bharat Patel : added getProposalDocGenerationProgress() to address (STP-9482), redirect after proposal document generation completion
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
+import PROPOSAL_OBJECT from '@salesforce/schema/Apttus_Proposal__Proposal__c';
 import Id from '@salesforce/user/Id';
 import UserProfileField from '@salesforce/schema/User.Profile.Name';
 import LightningAlert from 'lightning/alert';
@@ -18,11 +23,15 @@ import validateConfiguration from '@salesforce/apex/APT_CheckoutController.valid
 import creditAndRateCardLogic from '@salesforce/apex/APT_CheckoutController.checkCreditAssessmentAndExecuteRateCardLogic';
 import checkWorkVerification from '@salesforce/apex/APT_CheckoutController.checkWorkVerification';
 import initiateRateCardGeneration from '@salesforce/apex/APT_CheckoutController.initiateRateCardGeneration';
+import docGenerationRequired from '@salesforce/apex/APT_CheckoutController.docGenerationRequired';
+import getProposalDocGenerationProgress from '@salesforce/apex/APT_CheckoutController.getProposalDocGenerationProgress';
+
 
 import PROP_OPP_FIELD from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c';
 import PROP_IS_ST_FIELD from '@salesforce/schema/Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c';
 import PROP_APPROVAL_REQ_STATUS from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Approval_Stage__c';
 import PROP_ACCOUNT_ROLE_TYPE from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__r.Role_Type_Roll_Up__c';
+import PROP_RT_ID from '@salesforce/schema/Apttus_Proposal__Proposal__c.RecordTypeId';
 
 export default class APT_CheckoutLWC extends LightningElement {
 
@@ -46,6 +55,12 @@ export default class APT_CheckoutLWC extends LightningElement {
 	credAssessPromptMsg = 'Prospect customer requires credit assessment to be completed and approved prior generating contract document. Click "OK" to submit credit assessment.';
 	approvalReqErrorMsg = 'You can checkout after the approval request is approved';
 	waitTime = 10000;
+	amendRecordType = 'Amendment Quote';
+	amendRecordTypeId;
+	isAmend;
+	isRenew;
+	renewRecordType = 'Renewal Quote';
+	renewRecordTypeId;
 
 	@api
 	get errorMsg() {
@@ -99,9 +114,14 @@ export default class APT_CheckoutLWC extends LightningElement {
 	/**
 	*Wire function to retrieve proposal record fields
 	*/
-	@wire(getRecord, { recordId: '$proposalId', fields: [PROP_OPP_FIELD, PROP_IS_ST_FIELD, PROP_APPROVAL_REQ_STATUS, PROP_ACCOUNT_ROLE_TYPE] })
+	@wire(getRecord, { recordId: '$proposalId', fields: [PROP_OPP_FIELD, PROP_IS_ST_FIELD, PROP_APPROVAL_REQ_STATUS, PROP_ACCOUNT_ROLE_TYPE, PROP_RT_ID] })
 	getProposal({data, error}){
 		if(data){
+			if(getFieldValue(data, PROP_RT_ID) === this.amendRecordTypeId){
+				this.isAmend = true;
+			}else if(getFieldValue(data, PROP_RT_ID) === this.renewRecordTypeId){
+				this.isRenew = true;
+			}
 			let approvalStage = getFieldValue(data, PROP_APPROVAL_REQ_STATUS);
 			if(approvalStage === this.approvalReqStage || approvalStage === this.inReviewStage){
 				this.error = this.approvalReqErrorMsg;
@@ -112,6 +132,20 @@ export default class APT_CheckoutLWC extends LightningElement {
 				this.accountRoleType = getFieldValue(data, PROP_ACCOUNT_ROLE_TYPE);
 			}
 		} else if(error){
+			this.error = error;
+		}
+	}
+
+	/**
+	*Wire function to retrieve proposal record types
+	*/
+	@wire(getObjectInfo, { objectApiName: PROPOSAL_OBJECT })
+	objectInfo({ error, data }) {
+		if (data) {
+			const rtis = data.recordTypeInfos;
+			this.amendRecordTypeId = Object.keys(rtis).find(rti => rtis[rti].name === this.amendRecordType);
+			this.renewRecordTypeId = Object.keys(rtis).find(rti => rtis[rti].name === this.renewRecordType);
+		} else if (error) {
 			this.error = error;
 		}
 	}
@@ -158,21 +192,75 @@ export default class APT_CheckoutLWC extends LightningElement {
 	}
 
 	/**
+	*function will request to check the progress of proposal document generation
+	*@param proposalId
+	*/
+	checkProposalDocGenerationProgress(proposalIdValue) {
+		debugger;
+		//check for proposal APT_Document_Generation_in_Progress__c = false
+		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
+			.then((result) => {
+
+				if(result === true) {
+					//still proposal doc generation is running, recheck after few seconds
+					this._interval = setTimeout(() => {
+						this.checkProposalDocGenerationProgress(this.proposalId);
+					}, 3000);
+				}
+				else {
+						this.isLoading = false;
+						//Show contract and service section
+						this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
+						this.error = viewRateCardControllerError;
+						this.isLoading = false;
+				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+			});
+		}
+
+	/**
 	*function will request to initiate proposal document generation
 	*@param proposalId
 	*/
 	initiateProposalDocGeneration(proposalIdValue) {
 		this.isLoading = true;
+		let that = this;
 		initiateRateCardGeneration({ proposalId: proposalIdValue })
 			.then((result) => {
 				if(result === true){
-					//Show contract and service section
-					this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract);
-				}else{
-					this.error = viewRateCardControllerError;
-					this.isLoading = false;
+					//some delay before proposal generation to avoid lock error on proposal
+					setTimeout(() => {
+						that.checkProposalDocGenerationProgress(that.proposalId);
+					}, that.waitTime);
 				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+		});
+	}
 
+	/**
+	*function will check if document generation is required
+	*/
+	docGenerationRequired() {
+		this.isLoading = true;
+		docGenerationRequired({ configId : this.configId })
+			.then((result) => {
+				//some delay to ensure creation of proposal line items
+				this._interval = setTimeout(() => {
+					if(result === true){
+						//request proposal doc generation request
+						this.initiateProposalDocGeneration(this.proposalId);
+					}else{
+						//Show contract and service section
+						this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
+						this.isLoading = false;
+					}
+				}, this.waitTime);
 			})
 			.catch((error) => {
 				this.error = error;
@@ -194,8 +282,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 						this.creditAssessAndRateCardLogic();
 					}
 					else {
-						//request proposal doc generation request
-						this.initiateProposalDocGeneration(this.proposalId);
+						//checks if doc generation is required
+						this.docGenerationRequired();
 					}
 
 				} else {
@@ -229,7 +317,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				else if (result === 'Complete') {
 
 					//Show contract and service section
-					this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract);
+					this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
 				}
 				else {
 					this.error = result;
@@ -261,7 +349,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
-					this.navigateToUrl('/' + this.proposalId);
+					this.navigateToUrl('/' + this.oppId);
 				} else {
 					this.error = result;
 				}

@@ -28,11 +28,19 @@
     <div id="confirm">
         <div class="slds-scope">
             <div class="center-screen" style="text-align: center">
-                <div id="resultDetail" style="text-align: center; font-weight: bold; font-size: larger">
-                    You are about to re-send compensation email. Click “OK“ to continue, “Cancel“ to return to compensation record
-                </div>
-                <button style="margin-top: 1em" class="slds-button slds-button_brand" onclick="userConfirmed();resendEmail()">OK</button>
-                <button style="margin-top: 1em" class="slds-button slds-button_destructive" onclick="navigateToRecord()">Cancel</button>
+                <apex:outputPanel rendered="{!isAllowedToCreateCompensation}">
+                    <div id="resultDetail" style="text-align: center; font-weight: bold; font-size: larger">
+                        You are about to re-send compensation email. Click “OK“ to continue, “Cancel“ to return to compensation record
+                    </div>
+                    <button style="margin-top: 1em" class="slds-button slds-button_brand" onclick="userConfirmed();resendEmail()">OK</button>
+                    <button style="margin-top: 1em" class="slds-button slds-button_destructive" onclick="navigateToRecord()">Cancel</button>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!isAllowedToCreateCompensation}">
+                    <div id="resultDetail" style="text-align: center; font-weight: bold; font-size: larger">
+                        You do not have privilege to send compensation email.
+                    </div>
+                    <button style="margin-top: 1em" class="slds-button slds-button_destructive" onclick="navigateToRecord()">Cancel</button>
+                </apex:outputPanel>
             </div>
         </div>
     </div>

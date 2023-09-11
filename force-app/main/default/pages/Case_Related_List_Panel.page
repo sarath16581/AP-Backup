@@ -9,9 +9,8 @@ History
 26/11/2018  saiswetha.pingali@auspost.com.au	 Added new field container_Id__c for REQ1469903
 12/07/2019  ronnie.yang@sodastrategic.com.au	 Rearranged the order of elements the Network Response tab REQ1850466
 2021-10-06 - Nathan Franklin - Changed Safe Drop capability to Delivery Proof (with a PDF)
-2023-07-28 - Swati.mogadala@auspost.com.au - Added readonly- attribute for "Collection size XXXX exceeds maximum size of 1,000" error
 -->
-<apex:page standardController="Case" extensions="CaseRelatedListPanelContExt" standardStylesheets="false" showHeader="false" sidebar="false" readonly-"true">
+<apex:page standardController="Case" extensions="CaseRelatedListPanelContExt" standardStylesheets="false" showHeader="false" sidebar="false" readonly="true">
 
 	<c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.layout,ssswconsole,interaction,integration,bootstrap"
 					cssLibraries="jqueryui,bootstrap,jquery.layout,ssswconsole" />

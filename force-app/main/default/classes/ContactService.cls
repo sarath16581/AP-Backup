@@ -267,6 +267,7 @@ public inherited sharing class ContactService {
 			contactExistingMap = selectorContacts.selectById(contactIds);
 			//query CPPhones
 			List<ContactPointPhone> cpPhones = selectorPhones.selectByContact(contactIds, new Set<Object>());
+
 			if (!cpPhones.isEmpty()) {
 				cpPhonesExistingMap = getContactMapFromCPPhones(cpPhones);
 			}
@@ -495,7 +496,7 @@ public inherited sharing class ContactService {
 
 		return ct;
 	}
-	//this method is to map when there are contact point emails for contact that need to be upserted
+	//this method is to map when there are contact point phones for contact that need to be upserted
 	private Contact mapContactFromContactPointPhone(
 		ContactPointPhone cpp,
 		MAp<Id, Contact> contactMap,
@@ -529,7 +530,7 @@ public inherited sharing class ContactService {
 		if (contactMap.containsKey(cpp.contact__c)) {
 			ct = contactMap.get(cpp.contact__c);
 		} else {
-			ct = new Contact(id = cpp.contact__c);
+			ct = new Contact(Id = cpp.contact__c);
 		}
 		return ct;
 	}

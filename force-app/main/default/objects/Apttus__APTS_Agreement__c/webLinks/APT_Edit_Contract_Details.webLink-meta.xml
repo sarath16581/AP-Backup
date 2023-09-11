@@ -17,5 +17,5 @@
     <protected>false</protected>
     <showsLocation>false</showsLocation>
     <showsStatus>false</showsStatus>
-    <url>/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__existingContractId={!Apttus__APTS_Agreement__c.Id}&amp;c__currentStatus={!Apttus__APTS_Agreement__c.Apttus__Status__c}</url>
+    <url>/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__existingContractId={!Apttus__APTS_Agreement__c.Id}&amp;c__currentStatus={!Apttus__APTS_Agreement__c.Apttus__Status__c}&amp;c__isAmend={!IF ((ISPICKVAL( Apttus__APTS_Agreement__c.APT_Contract_Type__c , &apos;DoV Contract&apos;)), true, false)}&amp;c__isRenew={!IF ((ISPICKVAL( Apttus__APTS_Agreement__c.APT_Contract_Type__c , &apos;Renewal Contract&apos;)), true, false)}</url>
 </WebLink>

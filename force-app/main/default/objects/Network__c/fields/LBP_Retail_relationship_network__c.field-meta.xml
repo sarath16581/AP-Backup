@@ -13,11 +13,21 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
+            <value>
+                <fullName>CPO</fullName>
+                <default>false</default>
+                <label>CPO</label>
+            </value>
             <value>
                 <fullName>LBP Program</fullName>
                 <default>false</default>
                 <label>LBP Program</label>
+            </value>
+            <value>
+                <fullName>LPO</fullName>
+                <default>false</default>
+                <label>LPO</label>
             </value>
             <value>
                 <fullName>Retail</fullName>

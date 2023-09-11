@@ -120,7 +120,7 @@ private class LpoCpoAccessHandlerQueueable_Test {
 			insert new AccountTeamMember(
 					UserId = testUsr.Id,
 					AccountId = orgAccounts[0].Id,
-					TeamMemberRole = 'Assigned LPO'
+					TeamMemberRole = 'Post Office User'
 			);
 			Set<Id> contactIdsToRemoveExistingMembership = new Set<Id>{
 					contacts[0].Id
@@ -207,7 +207,7 @@ private class LpoCpoAccessHandlerQueueable_Test {
 			insert new AccountTeamMember(
 					UserId = testUsr.Id,
 					AccountId = orgAccounts[0].Id,
-					TeamMemberRole = 'Assigned LPO'
+					TeamMemberRole = 'Post Office User'
 			);
 			System.assertEquals(0, [SELECT COUNT() FROM AccountTeamMember WHERE UserId = :testUsr.Id AND AccountId = :orgAccounts[1].Id], 'No account team membership should have been created before the start of the test');
 			Map<String, Set<Id>> contactIdsByNetworkFacility = new Map<String, Set<Id>>{

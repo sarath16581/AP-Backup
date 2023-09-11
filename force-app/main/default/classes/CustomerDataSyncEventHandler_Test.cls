@@ -2,8 +2,9 @@
  * @description       : This is a test class for Customer Data Sync Event handler
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 08-14-2022
- * @last modified by  : Sreenish Krishnan
+ * @changelog
+ * 2022-08-14 			Sreenish Krishnan - Created
+ * 2023-08-24 			Boris Bachovski - Fix failing test method (testprocessCustomerDataEventSalesforceIDNotFound) due to changes in the actual class made in Oct '22
  **/
 @isTest
 private class CustomerDataSyncEventHandler_Test {
@@ -375,7 +376,7 @@ private class CustomerDataSyncEventHandler_Test {
 		Test.stopTest();
 
 		System.assertEquals(true, srList[0].isSuccess(), 'event published');
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(0)))
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
 			.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject());
 	}
 

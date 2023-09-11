@@ -10,10 +10,6 @@
                 <behavior>Edit</behavior>
                 <field>Work_Center_Code__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APSNumber__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

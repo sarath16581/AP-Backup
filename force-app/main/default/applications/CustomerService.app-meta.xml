@@ -12,7 +12,7 @@
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
         </componentList>
-        <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
+        <detailPageRefreshMethod>none</detailPageRefreshMethod>
         <keyboardShortcuts>
             <defaultShortcuts>
                 <action>FOCUS_CONSOLE</action>
@@ -243,8 +243,6 @@
         <whitelistedDomains>maps.googleapis.com</whitelistedDomains>
         <whitelistedDomains>code.jquery.com</whitelistedDomains>
         <whitelistedDomains>ajax.googleapis.com</whitelistedDomains>
-        <whitelistedDomains>c.ap1.visual.force.com</whitelistedDomains>
-        <whitelistedDomains>ap1.salesforce.com</whitelistedDomains>
         <whitelistedDomains>localhost</whitelistedDomains>
         <whitelistedDomains>127.0.0.1</whitelistedDomains>
         <whitelistedDomains>auspost.custhelp.com</whitelistedDomains>
@@ -266,8 +264,10 @@
         <whitelistedDomains>umcs.corp.auspost.local</whitelistedDomains>
         <whitelistedDomains>auspost.niceondemand.com</whitelistedDomains>
         <whitelistedDomains>nswamc</whitelistedDomains>
-        <whitelistedDomains>c.ap15.visual.force.com</whitelistedDomains>
-        <whitelistedDomains>ap15.salesforce.com</whitelistedDomains>
+        <whitelistedDomains>auspost.my.salesforce.com</whitelistedDomains>
+        <whitelistedDomains>auspost--c.vf.force.com</whitelistedDomains>
+        <whitelistedDomains>auspost.lightning.force.com</whitelistedDomains>
+		<whitelistedDomains>auspost.file.force.com</whitelistedDomains>
     </consoleConfig>
     <defaultLandingTab>standard-home</defaultLandingTab>
     <description>MyCustomers Console Application for CS&amp;S Agents</description>
@@ -285,7 +285,7 @@
         <enablePinTabs>true</enablePinTabs>
         <enableTabHover>false</enableTabHover>
         <enableTabLimits>false</enableTabLimits>
-        <saveUserSessions>true</saveUserSessions>
+        <saveUserSessions>false</saveUserSessions>
     </preferences>
     <tabs>standard-Case</tabs>
     <tabs>MyCustomersSearch</tabs>

@@ -58,11 +58,6 @@
         <div id="alert-container">
             <div>
                 <div class="temp-alert warning">
-                    <div class="inner">
-                        <span style='font-size:20px;color:red'>&#9432;</span>
-                                                 We’re still delivering but COVID-19 disruptions and extreme weather events may cause delays.
-                            <a  class="link global-notifications__link" href="https://auspost.com.au/service-updates" title="Learn more" data-event="site interaction" data-category="al||li" data-description="learn-more">Learn more</a>
-                    </div>
                 </div>
             </div>
         </div>

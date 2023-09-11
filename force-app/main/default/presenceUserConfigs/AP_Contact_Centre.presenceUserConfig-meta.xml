@@ -6,9 +6,13 @@
         </profiles>
     </assignments>
     <capacity>2</capacity>
+    <declineReasons>Coaching</declineReasons>
+    <declineReasons>End_of_shift</declineReasons>
+    <declineReasons>On_Break</declineReasons>
+    <declineReasons>Team_Meeting</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>true</enableDecline>
-    <enableDeclineReason>false</enableDeclineReason>
+    <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
     <label>AP Contact Centre</label>

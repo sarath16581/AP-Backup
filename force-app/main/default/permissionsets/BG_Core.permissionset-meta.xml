@@ -250,6 +250,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.ABN_ACN_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ACN_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Business_at_Risk__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -301,6 +311,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Total_Intermediary_Account_for_StarTrack__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>At_Risk_Business__c.Date_of_Revenue_Calculation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -756,11 +771,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Change_of_details_Sub_Type_ST__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Deal_Support_Request__c.Choose_Next_Approver__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3020,10 +3030,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.Business_Sales_Implementation_Request</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Commercial_Analytics_Modelling</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -3041,10 +3047,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Deal_Enablement_Centre</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.E_G_Sales_Implementation_Request</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

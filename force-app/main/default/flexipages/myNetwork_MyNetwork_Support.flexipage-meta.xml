@@ -100,7 +100,7 @@
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
 &lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png&quot;width=&quot;36&quot; height=&quot;36&quot;&gt;
-&lt;a href=&quot;https://auspost--c.ap15.content.force.com/servlet/servlet.FileDownload?file=0152v00000HpLX2&quot; title=&quot;MyNetwork Information Guide&quot; target=&quot;__blank&quot;&gt;&lt;h3&gt;MyNetwork Information Guide&lt;/h3&gt;&lt;/a&gt;
+&lt;a href=&quot;https://auspost.file.force.com/servlet/servlet.FileDownload?file=0152v00000HpLX2&quot; title=&quot;MyNetwork Information Guide&quot; target=&quot;__blank&quot;&gt;&lt;h3&gt;MyNetwork Information Guide&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -119,7 +119,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://auspost--c.ap15.content.force.com/servlet/servlet.FileDownload?file=0152v00000HpLXC&quot; title=&quot;eParcel/wine Damages User Guide&quot; target=&quot;_blank&quot;&gt;&lt;h3&gt;eParcel/wine Damages User Guide&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://auspost.file.force.com/servlet/servlet.FileDownload?file=0152v00000HpLXC&quot; title=&quot;eParcel/wine Damages User Guide&quot; target=&quot;_blank&quot;&gt;&lt;h3&gt;eParcel/wine Damages User Guide&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>

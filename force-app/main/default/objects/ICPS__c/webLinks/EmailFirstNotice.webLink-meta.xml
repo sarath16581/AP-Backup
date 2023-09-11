@@ -2,7 +2,7 @@
 <WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EmailFirstNotice</fullName>
     <availability>online</availability>
-    <description>Created by Conga Solution Manager. Record link: https://auspost--devharry--apxtconga4.visualforce.com/a4F0w0000009aRYEAY.</description>
+    <description>Created by Conga Solution Manager</description>
     <displayType>button</displayType>
     <encodingKey>UTF-8</encodingKey>
     <hasMenubar>false</hasMenubar>

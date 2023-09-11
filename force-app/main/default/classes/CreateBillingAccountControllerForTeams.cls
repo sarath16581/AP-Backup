@@ -125,7 +125,7 @@ public with sharing class CreateBillingAccountControllerForTeams {
 		billingAccountOtherValidation.creditAssessmentStatus = contractRecord.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Credit_Assessment_Status__c ;
 		billingAccountRequestVar.team.creditDetails.creditAssessNo = contractRecord.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.name ;
 		billingAccountRequestVar.team.creditDetails.creditLimit = Integer.valueOf(contractRecord.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.StarTrack_Proposed_for_New_Account__c);
-		billingAccountRequestVar.team.creditDetails.estimatedMonthlyRevenue =Integer.valueOf(contractRecord.Apttus_QPComply__RelatedProposalId__r?.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c);
+		billingAccountRequestVar.team.creditDetails.estimatedMonthlyRevenue =Integer.valueOf(contractRecord.Apttus_QPComply__RelatedProposalId__r?.APT_Minimum_Monthly_Spend__c);
 		if('Open Ended'.equalsIgnoreCase(contractRecord.Term__c)) {
 			date myDate = date.newInstance( Date.Today().Year(), 08, 01);
 			if(contractRecord.Apttus__Contract_Start_Date__c <= myDate){

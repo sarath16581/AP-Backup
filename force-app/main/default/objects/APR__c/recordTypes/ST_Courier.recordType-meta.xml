@@ -90,36 +90,12 @@
     <picklistValues>
         <picklist>Status__c</picklist>
         <values>
-            <fullName>Accepted</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Account Lost</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Deferral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Exemption</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Go early</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Open</fullName>
             <default>true</default>
-        </values>
-        <values>
-            <fullName>Reduction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unresolved</fullName>
-            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>

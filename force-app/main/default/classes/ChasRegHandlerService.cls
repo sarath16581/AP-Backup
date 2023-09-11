@@ -6,6 +6,8 @@
  * @author Nathan Franklin
  * @date 2023-03-16
  * @changelog
+ * 2023-08-01 Mahesh Parvathaneni - Added validation for backwards compabitibility for user federation id in updateForExistingUser method
+ * 2023-08-31 Mahesh Parvathaneni - Added fieldOverrides for the UsersSelector
  */
 public with sharing class ChasRegHandlerService {
 
@@ -31,7 +33,7 @@ public with sharing class ChasRegHandlerService {
 
 	public static final Map<SObjectField, String> USER_SOBJECT_CREATEABLE_ATTRIBUTE_MAPPINGS = new Map<SObjectField, String>{
 		User.FirstName => 'given_name',
-		User.LastName => 'given_name',
+		User.LastName => 'family_name',
 		User.Email => 'email',
 		User.Username => 'augmented_username', // defined in reg handler
 		User.FederationIdentifier => 'augmented_username' // defined in reg handler
@@ -119,7 +121,7 @@ public with sharing class ChasRegHandlerService {
 	public User matchOrCreate(String federationId, Map<String, String> attributes) {
 
 		// look for an existing records first
-		Map<SObjectType, SObject> existingRecords = getExistingRecords(federationId, attributes);
+		Map<SObjectType, SObject> existingRecords = getExistingRecords(attributes);
 
 		Id personContactId;
 		Account personAccountRecord;
@@ -129,10 +131,16 @@ public with sharing class ChasRegHandlerService {
 			// we found the person account record
 			personAccountRecord = (Account)existingRecords.get(Account.SObjectType);
 			personContactId = personAccountRecord.PersonContactId;
+
+			//throw an error if it is inactive customer
+			if(personAccountRecord.is_Inactive_Customer__pc != null && personAccountRecord.is_Inactive_Customer__pc) {
+				throw new RegHandlerException('Customer is Inactive');
+			}
+
 		} else {
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
-			personAccountRecord = createPersonAccount(federationId, attributes);
+			personAccountRecord = createPersonAccount(attributes);
 			personContactId = personAccountRecord.PersonContactId;
 		}
 
@@ -155,7 +163,7 @@ public with sharing class ChasRegHandlerService {
 	/**
 	 * Method will attempt to grab both the person account and user records if they exist based on the attributes passed in
 	 */
-	public Map<SObjectType, SObject> getExistingRecords(String federationId, Map<String, String> attributes) {
+	public Map<SObjectType, SObject> getExistingRecords(Map<String, String> attributes) {
 		Map<SObjectType, SObject> output = new Map<SObjectType, SObject>();
 		
 		String existingAPCN = attributes.get(ATTRIBUTE_APCN_MAPPING);
@@ -176,9 +184,15 @@ public with sharing class ChasRegHandlerService {
 
 			System.debug('Existing PersonAccount record found: ' + accounts);
 
+			//field overrides
+			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				User.SObjectType => UsersSelector.getAuthenticationSObjectFieldList(),
+				Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
+			};
+
 			// now the PersonAccount is out of the way we move onto the User record
 			// try and find an existing user based on the contact id passed in
-			List<User> users = UsersSelector.newInstance().selectByContactId(new Set<Id>{personContactId}).values();
+			List<User> users = UsersSelector.newInstance(0, fieldOverrides).selectByContactId(new Set<Id>{personContactId}, new Set<Object>{ UsersSelector.Options.WITH_COMMUNITY_ACCOUNT }).values();
 
 			if(!users.isEmpty()) {
 				// found a user that is already linked to the PersonAccount above
@@ -195,7 +209,7 @@ public with sharing class ChasRegHandlerService {
 	 * Create a new person account record for use with the community the user is logging into
 	 * This is invoked where a person account record could not be found based on the matching criteria
 	 */
-	public Account createPersonAccount(String federationId, Map<String, String> attributes) {
+	public Account createPersonAccount(Map<String, String> attributes) {
 		Account matchedAccount = (Account)populateRecord(Account.getSObjectType(), attributes, PERSONACCOUNT_SOBJECT_CREATEABLE_ATTRIBUTE_MAPPINGS);
 		matchedAccount.RecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{ChasConstants.PERSON_ACCOUNT_RECORD_TYPE_DEVELOPER_NAME}).values()[0].Id;
 
@@ -217,7 +231,13 @@ public with sharing class ChasRegHandlerService {
 	 * NOTE, this will only update a small set of attributes on the user record.
 	 */
 	public User updateForExistingUser(Id userId, Map<String, String> attributes) {
-		User existingUser = UsersSelector.newInstance().selectById(new Set<Id>{userId}).values()[0];
+		//field overrides
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+			User.SObjectType => UsersSelector.getAuthenticationSObjectFieldList(),
+			Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
+		};
+
+		User existingUser = UsersSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{userId}, new Set<Object>{ UsersSelector.Options.WITH_COMMUNITY_ACCOUNT }).values()[0];
 		return updateForExistingUser(existingUser, attributes);
 	}
 
@@ -230,6 +250,16 @@ public with sharing class ChasRegHandlerService {
 		// make sure that the user has not been disabled and disconnected from the person account
 		if(!userRecord.IsPortalEnabled) {
 			throw new RegHandlerException('User is configured incorrectly. Not a portal user.');
+		}
+
+		if(!userIsFederatedMatch(userRecord, attributes.get('augmented_username'))) {
+			throw new RegHandlerException('Could not find a federated match for an existing user.');
+		}
+
+		//throw an error if it is inactive customer
+		Boolean isInactiveCustomer = userRecord?.Contact?.Account?.is_Inactive_Customer__pc;
+		if(isInactiveCustomer != null && isInactiveCustomer) {
+			throw new RegHandlerException('Customer is Inactive');
 		}
 
 		// populate a user record for update
@@ -257,7 +287,7 @@ public with sharing class ChasRegHandlerService {
 
 		// we need to synchronise the user record with the claims from oidc
 		// NOTE: it's possible if the record details contain completely different data then we may overwrite it by doing this
-		//          It's assumed that the data in the db is right and no-one has manually tampered with it
+		//		 It's assumed that the data in the db is right and no-one has manually tampered with it
 		if(isUserDirty) {
 			ApplicationDatabase.getInstance().dmlUpdate(new List<User>{claimsGeneratedUserRecord});
 		}

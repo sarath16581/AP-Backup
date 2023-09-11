@@ -8,6 +8,7 @@
  * @test CaseRoutingService_Test, AgentWorkAPCaseAutomationModule_Test
  * @changelog
  * 2023-07-25 - Nathan Franklin - Change to force routing for all cases moving from closed -> open 
+ * 2023-08-07 - Nathan Franklin - Change to force routing for all cases moving from closed -> open (excluded certain scenarios)
  */
 public inherited sharing class CaseRoutingService {
 
@@ -157,6 +158,16 @@ public inherited sharing class CaseRoutingService {
 	private void maybeRouteCase(List<Case> caseList, Map<Id, Case> oldMap, Boolean isInsert) {
 		Set<String> closedStatuses = Utility.getCaseClosedStatus();
 		OmniChannelService omniService = OmniChannelService.getInstance();
+		QM__c queueSettings = QM__c.getInstance();
+
+		// if a case has been moved into these queues on reopening, then routing should be ignored!
+		Set<Id> excludedForceRoutingOnReopenQueues = new Set<Id>();
+		if(queueSettings != null && !String.isEmpty(queueSettings.AwaitingCustomerQueue__c)) {
+			excludedForceRoutingOnReopenQueues.add((Id)queueSettings.AwaitingCustomerQueue__c);
+		}
+		if(queueSettings != null && !String.isEmpty(queueSettings.NetworkQueueId__c)) {
+			excludedForceRoutingOnReopenQueues.add((Id)queueSettings.NetworkQueueId__c);
+		}
 
 		List<Case> casesTobeRouted = new List<Case>();
 		Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
@@ -271,7 +282,8 @@ public inherited sharing class CaseRoutingService {
 
 			// We need to force route a case if it was previously closed and now opened
 			if (!csRec.AllocateToQueue__c && changedFields.contains(Case.Status) && 
-					!closedStatuses.contains(csRec.Status) && closedStatuses.contains(String.valueOf(previousState.get('Status')))) {
+					!closedStatuses.contains(csRec.Status) && closedStatuses.contains(String.valueOf(previousState.get('Status'))) && 
+					!excludedForceRoutingOnReopenQueues.contains(csRec.OwnerId)) {
 
 				csRec.AllocateToQueue__c = true;
 

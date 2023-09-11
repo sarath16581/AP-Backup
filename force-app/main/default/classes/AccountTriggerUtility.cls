@@ -1247,7 +1247,7 @@ public with sharing class AccountTriggerUtility {
             Set<String> orgIdsToAdd = new Set<String>();
             if (!acctIdsToRemove.isEmpty()) {
                 List<AccountTeamMember> acctTeamToRemove = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds(
-                    'Assigned LPO', acctIdsToRemove, new Set<Object>()).values();
+                    'Post Office User', acctIdsToRemove, new Set<Object>()).values();
 
                 if (acctTeamToRemove.size() > 0) {
                     delete acctTeamToRemove;
@@ -1314,7 +1314,7 @@ public with sharing class AccountTriggerUtility {
                             for (Id aId : orgIdsToAccounts.get(partnerAcctsToOrgId.get(contactIdsToCheck.get(u.ContactId)))) {
                                 AccountTeamMember at = new AccountTeamMember();
                                 at.UserId = u.Id;
-                                at.TeamMemberRole = 'Assigned LPO';
+                                at.TeamMemberRole = 'Post Office User';
                                 at.AccountId = aId;
                                 at.AccountAccessLevel = 'Edit';
                                 at.OpportunityAccessLevel = 'Read';
