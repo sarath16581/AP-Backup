@@ -4146,6 +4146,11 @@
         <field>APT_Operational_Schedule__c.APT_Unaddressed_Mail__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.Metro_Service__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Opportunity_Product_Line_Item__c.APT_Classification__c</field>
