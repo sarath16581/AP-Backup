@@ -46,6 +46,7 @@ Last Modified Date - 7th Feb, 2023 | remove minimum spend field reference from a
 2023-06-21 - nasir.jawed2@auspost.com.au fixed code for method sendEmailToDriver() which send mail to opportunity owner when fully signed date is greater than expiry date
 2023-07-27 - Bharat Patel update populateServiceDatesOnUpdate() - added condition (Apttus_CMConfig__EffectiveDate__c < Contract_Fully_Signed_Date__c) to filter ALI to update Apttus_CMConfig__EffectiveDate__c
 2023-07-28 - Yatika Bansal - update populateServiceDatesOnUpdate() - added charge type logic to filter alis
+2023-09-11 - Conga Team - update populateServiceDatesOnUpdate() - add conditions before processing DML related executions to resolve STP-9614
 **/
 public with sharing class APT_AgreementTriggerHandler{
 
@@ -1190,23 +1191,25 @@ public with sharing class APT_AgreementTriggerHandler{
 		}
 
 		//filter Ali to be updated
-		List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
-			.selectByContractIdsAndLineType(aggIds,
-													new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
-													new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_PRODUCT});
+		if(aggIds.size() > 0) {
+			List<Apttus__AgreementLineItem__c> alis = APT_AgreementLineItemsSelector.newInstance()
+				.selectByContractIdsAndLineType(aggIds,
+														new Set<String>{APT_Constants.PARAM_PRODUCT_Type, APT_Constants.PARAM_PRODUCT_Type_Misc} ,
+														new Set<Object> {APT_AgreementLineItemsSelector.Options.WITH_PRODUCT});
 
-		//Get Bundle ALI with correct charge type
-		List<Apttus__AgreementLineItem__c> filteredAli = APT_ContractServiceDetailsController.getServiceDetailALI(alis);
+			//Get Bundle ALI with correct charge type
+			List<Apttus__AgreementLineItem__c> filteredAli = APT_ContractServiceDetailsController.getServiceDetailALI(alis);
 
-		//update ali start date with signed date
-		for(Apttus__AgreementLineItem__c ali : filteredAli){
-			if(ali.Apttus_CMConfig__EffectiveDate__c < (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c){
-				ali.Apttus_CMConfig__EffectiveDate__c = (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c;
+			//update ali start date with signed date
+			for(Apttus__AgreementLineItem__c ali : filteredAli){
+				if(ali.Apttus_CMConfig__EffectiveDate__c < (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c){
+					ali.Apttus_CMConfig__EffectiveDate__c = (newAgreementMap.get(ali.Apttus__AgreementId__c)).Contract_Fully_Signed_Date__c;
+				}
+			}
+
+			if(filteredAli.size() > 0 ){
+				ApplicationDatabase.getInstance().dmlUpdate(filteredAli);
 			}
 		}
-
-		if(filteredAli.size() > 0 ){
-			ApplicationDatabase.getInstance().dmlUpdate(filteredAli);
-		}
-	}
+    }
 }
