@@ -63,8 +63,8 @@
 		$A.enqueueAction(action);
 	},
 
-	getMerchantPortalCookieHandlerProxyUrl: function (component) {
-		var action = component.get("c.getMerchantPortalCookieHandlerProxyUrl");
+	getMerchantPortalAccessUrl: function (component) {
+		var action = component.get("c.getMerchantPortalAccessUrl");
 		action.setStorable();
 		action.setCallback(this, function (response) {
 			var state = response.getState();

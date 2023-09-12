@@ -7,7 +7,7 @@
 	doInit: function (cmp, event, helper) {
 		helper.setLoggedInUserName(cmp);
 		helper.getCommunityUrl(cmp);
-		helper.getMerchantPortalCookieHandlerProxyUrl(cmp);
+		helper.getMerchantPortalAccessUrl(cmp);
 	},
 	openDesktopLogin: function (cmp, event, helper) {
 		$A.util.addClass(cmp.find('desktopLogin'), 'is-open');
