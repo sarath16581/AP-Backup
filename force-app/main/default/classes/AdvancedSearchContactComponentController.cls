@@ -170,8 +170,8 @@ System.debug(a3.get('BusinessPartnerID'));
             
 
         for(Contact con:[SELECT Id, Name,APCN__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, 
-                                  Is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, 
-                                  SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, 
+                                  is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c,
+                                  SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone,
                                   OtherPhone,LevelOfAssurance__c, MobilePhone,VerifiedMobile__c, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, 
                                   MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, 
                                   Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, 

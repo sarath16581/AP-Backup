@@ -119,4 +119,12 @@ public inherited sharing class ApplicationDatabase {
 	public Boolean revokeTokenAccess(Id ssoProviderId, String providerName, Id userId, String remoteIdentifier) {
 		return Auth.AuthToken.revokeAccess(ssoProviderId, providerName.toLowerCase(), userId, remoteIdentifier);
 	}
+
+	public List<DatacloudProxy.FindDuplicatesResult> findDuplicates(List<SObject> candidates) {
+		// Average duration of serialisation roundtrip is ~2.73 msec (tested with 1 single match record * 1,000 times)
+		return (List<DatacloudProxy.FindDuplicatesResult>)JSON.deserialize(
+			JSON.serialize(Datacloud.FindDuplicates.findDuplicates(candidates)),
+			List<DatacloudProxy.FindDuplicatesResult>.class
+		);
+	}
 }

@@ -8,6 +8,6 @@
     </values>
     <values>
         <field>Value__c</field>
-        <value xsi:type="xsd:string">https://auspost--c.ap1.content.force.com/servlet/servlet.FileDownload?file=0159000000ERwSi</value>
+        <value xsi:type="xsd:string">https://auspost.file.force.com/servlet/servlet.FileDownload?file=0159000000ERwSi</value>
     </values>
 </CustomMetadata>
