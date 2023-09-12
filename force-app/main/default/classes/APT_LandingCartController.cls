@@ -9,6 +9,7 @@
 *2023-02-28 Bharat Patel : Replace hard-code values from code (coding standard practice)
 *2023-07-24 Nasir Jawed : Added new picklist value "Accepted without proposal document" to the condition, so that new proposal can be created when status is "Accepted without proposal document".
 *2023-07-27 Nasir Jawed : Added error code related to Access to BG Base user.
+*2023-09-07 Bharat Patel : Added error code related to Access to Onboarding User.
 */
 public with sharing class APT_LandingCartController {
 	/**
@@ -201,7 +202,7 @@ public with sharing class APT_LandingCartController {
 						}
 						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
 						if(prodConfigOwnerId != null){
-							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR){
+							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
