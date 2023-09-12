@@ -158,21 +158,4 @@ public with sharing class APT_ApprovalRequestTriggerHandler {
 		}
 
 	}
-	/**
-	* @description : This method will fire on before insert event
-	* @author Mansi Shah | 07-14-2021
-	* @param listOfApprovalRequests
-	**/
-	public static void onBeforeInsert(List<Apttus_Approval__Approval_Request__c> listOfApprovalRequests){
-		APT_ApprovalRequestTriggerHelper.updateAdjustmentFields(listOfApprovalRequests,null,true);
-	}
-
-	/**
-	* @description : This method will fire on before insert event
-	* @author Mansi Shah | 07-14-2021
-	* @param listOfApprovalRequests
-	**/
-	public static void onBeforeUpdate(List<Apttus_Approval__Approval_Request__c> listOfApprovalRequests,Map<Id,Apttus_Approval__Approval_Request__c> oldMap){
-		APT_ApprovalRequestTriggerHelper.updateAdjustmentFields(listOfApprovalRequests,oldMap,false);
-	}
 }

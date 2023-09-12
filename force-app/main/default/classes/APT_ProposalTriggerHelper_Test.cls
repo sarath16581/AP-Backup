@@ -9,40 +9,6 @@
 **/
 @isTest
 public with sharing class APT_ProposalTriggerHelper_Test {
-
-
-	@isTest
-	static void updateApprovalFieldsTest() {
-
-		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
-		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER, EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-		UserName=APT_Constants.EMAIL_TEST_USER);
-		System.runAs(testuser) {
-
-			Map<Id, Apttus_Proposal__Proposal__c> oldProp = new Map<Id, Apttus_Proposal__Proposal__c>();
-
-			for( Apttus_Proposal__Proposal__c prop : [SELECT Id, Name, Apttus_QPApprov__Approval_Status__c, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,Apttus_Proposal__Approval_Stage__c FROM Apttus_Proposal__Proposal__c LIMIT 1]){
-				oldProp.put(prop.Id, prop);
-			}
-
-			Apttus_Proposal__Proposal__c newRec = [SELECT Id, Name, Apttus_QPApprov__Approval_Status__c, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,Apttus_Proposal__Approval_Stage__c FROM Apttus_Proposal__Proposal__c LIMIT 1];
-			newRec.Apttus_QPApprov__Approval_Status__c = APT_Constants.APPROVAL_STATUS_REJECTED;
-			update newRec;
-
-			Map<Id, Apttus_Proposal__Proposal__c> newRecProp = new Map<Id, Apttus_Proposal__Proposal__c>();
-			for( Apttus_Proposal__Proposal__c prop : [SELECT Id, Name, Apttus_QPApprov__Approval_Status__c, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c,Apttus_Proposal__Approval_Stage__c FROM Apttus_Proposal__Proposal__c LIMIT 1]){
-				newRecProp.put(prop.Id, prop);
-			}
-			test.startTest();
-			APT_ProposalTriggerHelper.updateApprovalFields(oldProp,newRecProp);
-			test.stopTest();
-			System.assertEquals(([SELECT Id, Name, Apttus_QPApprov__Approval_Status__c, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c FROM Apttus_Proposal__Proposal__c LIMIT 1]).size(), 1);
-
-		}
-	}
-
 	@TestSetup
 	static void createData(){
 		Account acc = APT_TestUtils.createOrganisation();

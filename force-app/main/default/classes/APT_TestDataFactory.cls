@@ -50,7 +50,6 @@ public class APT_TestDataFactory {
 			Apttus_Config2__ProductAttributeValue__c.APT_International_Letters__c => false,
 			Apttus_Config2__ProductAttributeValue__c.APT_Non_Contracted_Rates_Printpost__c => false,
 			Apttus_Config2__ProductAttributeValue__c.APT_RK_Code_Applied__c => false,
-			Apttus_Config2__ProductAttributeValue__c.APT_Tier_Approved__c => false,
 			Apttus_Config2__ProductAttributeValue__c.APT_Valid_Primary_Postcode__c => true,
 			Apttus_Config2__ProductAttributeValue__c.Apttus_Config2__IsTransient__c => false,
 			Apttus_Config2__ProductAttributeValue__c.Apttus_Config2__LineItemId__c => lineItemId

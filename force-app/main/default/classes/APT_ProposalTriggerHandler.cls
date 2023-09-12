@@ -843,14 +843,4 @@ public without sharing class APT_ProposalTriggerHandler {
 		public static void onBeforeInsert(List<Apttus_Proposal__Proposal__c> listOfNewProposals){
 			APT_ProposalTriggerHelper.updateProposalOwner(listOfNewProposals);
 		}
-
-		/**
-		* @description : This method will be called from BeforeUpdate Trigger
-		* @author Mansi Shah | 06-10-2021
-		* @param oldProposalMap
-		* @param newProposalMap
-		**/
-		public static void onBeforeUpdate(Map<Id,Apttus_Proposal__Proposal__c> oldProposalMap,Map<Id,Apttus_Proposal__Proposal__c> newProposalMap){
-			APT_ProposalTriggerHelper.updateApprovalFields(oldProposalMap,newProposalMap);
-		}
 	}

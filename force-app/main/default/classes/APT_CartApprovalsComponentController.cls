@@ -70,11 +70,9 @@ public with sharing class APT_CartApprovalsComponentController {
                 APT_Approval_Required3__c,
                 APT_Apply_Round_Off__c,
                 Apttus_Config2__Description__c,
-                Apttus_Config2__AttributeValueId__r.APT_Approved_Tier_After_Adjustment__c,
                 Apttus_Config2__ConfigurationId__c,                            
                 Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c,
                 Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c,
-                Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Tier_Adjustment_Justification__c,
                 Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__c
                 FROM Apttus_Config2__LineItem__c
                 WHERE Id =:lineItemSOId];
@@ -131,7 +129,7 @@ public with sharing class APT_CartApprovalsComponentController {
     //Get all Line items to display in Table
     public List<Apttus_Config2__LineItem__c> getLineItems(){
         List<Apttus_Config2__LineItem__c> lineItems= new List<Apttus_Config2__LineItem__c>();
-        lineItems= [Select Id,Apttus_Config2__Description__c,APT_ST_Service_Type__c,Apttus_Config2__AttributeValueId__r.APT_Approved_Tier_After_Adjustment__c,
+        lineItems= [Select Id,Apttus_Config2__Description__c,APT_ST_Service_Type__c,
                     Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_STE_Pricing_Tier__c, Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Tier_Adjustment_Type__c
                     from Apttus_Config2__LineItem__c where Apttus_Config2__ConfigurationId__c=:cartSOId AND Apttus_Config2__LineType__c=:APT_Constants.LINE_TYPE_PRODUCT_SERVICE AND Apttus_Config2__Description__c !=:APT_Constants.OPERATIONAL_SCHEDULE_SECURITY_SERVICES_PRODUCT];
         return lineItems;
