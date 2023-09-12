@@ -1,6 +1,6 @@
 /**
  * @changeLog:
- * 2023-08-28 Mahesh Parvathaneni - Added Merchant Portal link in top header 
+ * 2023-09-13 Mahesh Parvathaneni - Added Merchant Portal link in top header 
 */
 ({
 	setLoggedInUserName: function (component) {
