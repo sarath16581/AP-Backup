@@ -29,6 +29,87 @@ private class CompensationAttachmentsController_Test {
     }
 
     /**
+     * Testing the logged in agent has one of Is_Compensation_User or Is_Compensation_Supervisor custom permission sets
+     * if the user do have access isAllowedToCreateCompensation should set to true as we use this variable to determine
+     * access throughout component
+     */
+    @IsTest
+    static void getPageConfigIsAllowedToCreate() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        // =====================================
+        // Stubbing
+        // =====================================
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        // Selectors
+
+        MockUtility.Mocks.when(mockCompensationSelector
+                .getById(compensations[0].Id, new Set<Object>()))
+                .thenReturn(new List<Compensation__c>{
+                        compensations[0]
+                });
+        MockUtility.Mocks.stopStubbing();
+
+        Test.startTest();
+        CompensationAttachmentsController.PageConfig config;
+        System.runAs(superagent) {
+            config = CompensationAttachmentsController.getPageConfig(compensations[0].Id);
+        }
+        Test.stopTest();
+
+        System.assertEquals(
+                true,
+                config.isAllowedToCreateCompensation,
+                'getPageConfigIsAllowedToCreate: User should be able to perform compensation super user actions'
+        );
+    }
+
+    /**
+     * Testing the logged in agent has one of Is_Compensation_User or Is_Compensation_Supervisor custom permission sets
+     * If the user does NOT have the permission sets assigned isAllowedToCreateCompensation has to be false
+     */
+    @IsTest
+    static void getPageConfigIsNotAllowedToCreate() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        User superagent = [SELECT Id FROM User WHERE FirstName = 'Superagent'];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
+        String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
+        List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, true);
+        // =====================================
+        // Stubbing
+        // =====================================
+        CompensationSelector mockCompensationSelector = (CompensationSelector) MockUtility.mockSelector(CompensationSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        // Selectors
+
+        MockUtility.Mocks.when(mockCompensationSelector
+                .getById(compensations[0].Id, new Set<Object>()))
+                .thenReturn(new List<Compensation__c>{
+                        compensations[0]
+                });
+        MockUtility.Mocks.stopStubbing();
+        Test.startTest();
+        CompensationAttachmentsController.PageConfig config = CompensationAttachmentsController.getPageConfig(compensations[0].Id);
+        Test.stopTest();
+
+        System.assertEquals(
+                false,
+                config.isAllowedToCreateCompensation,
+                'getPageConfigIsNotAllowedToCreate: User should NOT be able to perform compensation super user/agent user actions'
+        );
+    }
+
+    /**
      * ContentDocuments linked to case which are already NOT linked to the compensation should be able to selected by the user
      * hence the isSelected parameter should set to false to attachment details wrapper instance.
      * based on the isSelected parameter being false, we will allow user to select the record in the UI
@@ -307,7 +388,7 @@ private class CompensationAttachmentsController_Test {
         // Testing
         // =====================================
         Test.startTest();
-        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0].Id);
+        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0]);
         CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
         for (CompensationAttachmentsController.AttachmentDetail detail : attachmentDetails) {
             detail.isSelectedNew = true; // user selecting the attachment/files in the UI
@@ -399,7 +480,7 @@ private class CompensationAttachmentsController_Test {
         // Testing
         // =====================================
         Test.startTest();
-        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0].Id);
+        List<CompensationAttachmentsController.AttachmentDetail> attachmentDetails = CompensationAttachmentsController.getAttachmentsByParentId(compensations[0]);
         CompensationAttachmentsController.getAttachmentDetails(compensations[0], attachmentDetails);
         for (CompensationAttachmentsController.AttachmentDetail detail : attachmentDetails) {
             if (detail.isAttachment) {

@@ -234,9 +234,11 @@ public with sharing class SearchContactComponentController {
 	  Map<Id, sObject> contactEqualsResultsMap = new Map<Id, sObject>(Database.query(buildSOQL(buildWhereClause(EQUALS))));
 	  if (contactEqualsResultsMap.size() < ROW_LIMIT) {
 		ROW_LIMIT = 50 - contactEqualsResultsMap.size();
-		for (Contact con : Database.query(buildSOQL(buildWhereClause(LIKE_SQL))))
-		  if ((!con.is_Inactive_Customer__c || (con.is_Inactive_Customer__c && con.Account.isCustomerPortal)) && (!contactEqualsResultsMap.containsKey(con.Id)))
-			contactEqualsResultsMap.put(con.Id, con);
+		for (Contact con : Database.query(buildSOQL(buildWhereClause(LIKE_SQL)))) {
+			if (!contactEqualsResultsMap.containsKey(con.Id)) {
+				contactEqualsResultsMap.put(con.Id, con);
+			}
+		}
 	  }
 	  for (Sobject con: contactEqualsResultsMap.values())
 		contacts.add(new ContactListDisplay((Contact) con));
@@ -319,7 +321,7 @@ public with sharing class SearchContactComponentController {
 	  */
   
 	private String buildSOQL(String whereClause) {
-	  return 'SELECT Id, VerifiedEmail__c, Name, Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, Is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, OtherPhone, MobilePhone,VerifiedMobile__c,LevelOfAssurance__c, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases) FROM Contact' +
+		return 'SELECT Id, VerifiedEmail__c, Name, Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, OtherPhone, MobilePhone,VerifiedMobile__c,LevelOfAssurance__c, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases) FROM Contact' +
 		  (String.isNotBlank(whereClause) ? ' WHERE ' + whereClause : '') + ' ORDER BY Unique_Mobile__c DESC, Name LIMIT ' + ROW_LIMIT;
 	}
   
@@ -776,7 +778,7 @@ public with sharing class SearchContactComponentController {
 		}
 		//Grab all the other related fields we need to properly render the search results
 		duplicates = new List<Contact>([
-			SELECT Id, Name, Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, Is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c,
+			SELECT Id, Name, Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c,
 				Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, OtherPhone, MobilePhone, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name,
 				Account.IsPersonAccount, Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases)
 			FROM Contact
@@ -793,7 +795,7 @@ public with sharing class SearchContactComponentController {
 		}
 		//Grab all the other related fields we need to properly render the search results
 		duplicates = new List<Contact>([
-			SELECT Id, Name,Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, Is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c,
+			SELECT Id, Name,Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c,
 				Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, OtherPhone, MobilePhone, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name,
 				Account.IsPersonAccount, Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases)
 			FROM Contact

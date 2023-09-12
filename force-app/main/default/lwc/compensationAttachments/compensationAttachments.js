@@ -12,10 +12,10 @@
  *
  */
 
-import {LightningElement, wire, api} from 'lwc';
-import {getObjectInfo} from 'lightning/uiObjectInfoApi';
+import {LightningElement, api} from 'lwc';
 import getAttachmentsByParentId from '@salesforce/apex/CompensationAttachmentsController.getAttachmentsByParentId';
 import createAttachments from '@salesforce/apex/CompensationAttachmentsController.createAttachments';
+import getPageConfig from '@salesforce/apex/CompensationAttachmentsController.getPageConfig';
 
 // Data table columns
 const columns = [
@@ -64,14 +64,14 @@ export default class CompensationAttachments extends LightningElement {
     columns = columns;
     isDisableSelection = true;
     messages = {};
+    config = {};
     sortedBy;
     sortedDirection;
-    @wire(getObjectInfo, {objectApiName: 'Attachment'})
-    attachmentObjectInfo;
+
     connectedCallback() {
         this.isLoading = true;
         this.messages = {};
-        this.loadAttachments();
+        this.initialLoad();
     }
     async handleRowAction(event) {
         const actionName = event.detail.action.name;
@@ -90,8 +90,11 @@ export default class CompensationAttachments extends LightningElement {
                         return {...row};
 
                     });
-                    // enable/disable the attachment button based on the selection
-                    this.isDisableSelection = !(this.attachments.some(row => row.isSelectedNew === true));
+                    // user should have permissions to link files or create attachments
+                    if (this.config.isAllowedToCreateCompensation) {
+                        // enable/disable the attachment button based on the selection
+                        this.isDisableSelection = !(this.attachments.some(row => row.isSelectedNew === true));
+                    }
                 }
                 break;
             case 'Preview':
@@ -108,11 +111,43 @@ export default class CompensationAttachments extends LightningElement {
     }
 
     /**
-     * Initial load of the attachments
+     * Initial load
      */
-    loadAttachments() {
+    async initialLoad() {
+        try {
+            await this.loadConfig()
+            await this.loadAttachments()
+        } catch (e) {
+            this.messages.showError = true;
+            this.messages.message = error.body.message;
+        } finally {
+            this.isLoading = false;
+        }
+    }
+
+    /**
+     * Initial load of the configs
+     */
+    async loadConfig() {
+        return getPageConfig({recordId: this.recordId})
+            .then((result) => {
+                this.config = result;
+            })
+            .catch((error) => {
+                console.error(error);
+                this.messages.showError = true;
+                this.messages.message = error.body.message;
+            }).finally(() => {
+            this.isLoading = false;
+        });
+    }
+
+    /**
+     * load of the attachments
+     */
+    async loadAttachments() {
         // load all the attachments and the files related to the case
-        getAttachmentsByParentId({recordId: this.recordId})
+        return getAttachmentsByParentId({compensation: this.config.compensation})
             .then((result) => {
                 this.attachments = result;
                 if (this.attachments) {
@@ -130,9 +165,8 @@ export default class CompensationAttachments extends LightningElement {
                 this.messages.showError = true;
                 this.messages.message = error.body.message;
             }).finally(() => {
-            this.isLoading = false;
-        });
-
+                this.isLoading = false;
+            });
     }
 
     /**
