@@ -1,4 +1,0 @@
-<apex:component controller="APT_StarTrackApprovalHeaderFooterImage" access="global">
-     <img src="{!footerURL}" />
-<br/><br/>
-</apex:component>
