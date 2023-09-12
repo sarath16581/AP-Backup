@@ -46,7 +46,7 @@ Last Modified Date - 7th Feb, 2023 | remove minimum spend field reference from a
 2023-06-21 - nasir.jawed2@auspost.com.au fixed code for method sendEmailToDriver() which send mail to opportunity owner when fully signed date is greater than expiry date
 2023-07-27 - Bharat Patel update populateServiceDatesOnUpdate() - added condition (Apttus_CMConfig__EffectiveDate__c < Contract_Fully_Signed_Date__c) to filter ALI to update Apttus_CMConfig__EffectiveDate__c
 2023-07-28 - Yatika Bansal - update populateServiceDatesOnUpdate() - added charge type logic to filter alis
-2023-09-11 - Conga Team - update populateServiceDatesOnUpdate() - add conditions before processing DML related executions to resolve STP-9614
+2023-09-11 - Bharat Patel - update populateServiceDatesOnUpdate() - add conditions before processing DML related executions to resolve STP-9614
 **/
 public with sharing class APT_AgreementTriggerHandler{
 

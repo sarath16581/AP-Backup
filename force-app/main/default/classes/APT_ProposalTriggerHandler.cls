@@ -43,7 +43,7 @@ Last Modified Date - 2021-06-15 Darshan Chauhan Removing unessecary code for App
 2022-05-02 SaiSwetha Pingali REQ2703521 - Added logic to capture role of the user at the time of creation.
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
 2023-04-27 - Nasir Jawed - added logic on beforeUpdateEvent for the field 'APT_Proposal_Status_Accepted_Denied__c' update on opportunity
-2023-09-11 - Conga Team - STP-9618 fix: update condition with Proposal approval status (Rejected) check
+2023-09-11 - Bharat Patel - STP-9618 fix: update condition with Proposal approval status (Rejected) check
 */
 
 public without sharing class APT_ProposalTriggerHandler {
