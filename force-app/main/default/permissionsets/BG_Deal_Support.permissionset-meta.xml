@@ -44,7 +44,11 @@
         <field>APT_Operational_Schedule__c.APT_Post_Billpay_Biller_Branded_Phone__c</field>
         <readable>true</readable>
     </fieldPermissions>
-</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>APT_Operational_Schedule__c.Metro_Service__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
 <fieldPermissions>
 	<editable>true</editable>
 	<field>APT_Operational_Schedule__c.Metro_Service__c</field>
