@@ -42,18 +42,16 @@ private class OpportunityClosureControllerTest {
 
 		insert pbEntryList;
 
-		//Account Record Type 
-		Id accountRecordTypeId = [Select Id from RecordType where Name ='Organisation' and sObjectType='Account'].Id;
-		//Create Account 
+		//Create Account
 		Account organisation = new Account();
 		organisation.Name = 'org1';
-		organisation.RecordTypeId = accountRecordTypeId;
+        organisation.RecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0].Id;
 		organisation.Type = 'Enterprise';
 		organisation.ShippingCity = 'TestCity';
 		organisation.ShippingState = 'TestState';
 		organisation.ShippingPostalCode = '123456';
-		organisation.ShippingStreet = '111 Bourke Street'; 
-		insert organisation; 
+		organisation.ShippingStreet = '111 Bourke Street';
+		insert organisation;
 
 		// key contact is mandatory on opportunity
 		Contact keyContact = ApplicationTestDataFactory.getContacts(1, organisation.Id, false)[0];
@@ -63,7 +61,6 @@ private class OpportunityClosureControllerTest {
 		orgRole.Role_Type__c = 'Customer';
 		update orgRole;
 
-		//Create Opportunity 
         //Create Opportunity 
         Opportunity opty = new Opportunity(); 
         opty.Name = 'opty1';
@@ -96,26 +93,36 @@ private class OpportunityClosureControllerTest {
 		dsr1.Stage__c = 'New';
 		dsr1.Status__c = 'Draft';
 		dsr1.Start_Date__c = date.Today();
-		dsr1.Due_Date__c = date.Today().addDays(25); 
-		dsr1.Document_Type__c = 'RFP'; 
+		dsr1.Due_Date__c = date.Today().addDays(25);
+		dsr1.Document_Type__c = 'RFP';
 		dsr1.RecordTypeId = bidDSRRecordTypeId;
 		dsr1.Opportunity__c = opty.Id;
-		insert dsr1; 
+		insert dsr1;
 
-		Deal_Support_Request__c dsr2 = new Deal_Support_Request__c();
-		dsr2.Stage__c = 'New';
-		dsr2.Status__c = 'Draft';
-		dsr2.Start_Date__c = date.Today();
-		dsr2.Due_Date__c = date.Today().addDays(25); 
-		dsr2.Document_Type__c = 'RFP'; 
-		dsr2.Opportunity__c = opty.Id;
-		dsr2.RecordTypeId = busSalesImpDSRRecTypeId;
-		insert dsr2; 
-		}
+        Deal_Support_Request__c dsr2 = new Deal_Support_Request__c();
+        dsr2.Stage__c = 'New';
+        dsr2.Status__c = 'Draft';
+        dsr2.Start_Date__c = date.Today();
+        dsr2.Due_Date__c = date.Today().addDays(25); 
+        dsr2.Document_Type__c = 'RFP'; 
+        dsr2.Opportunity__c = opty.Id;
+        dsr2.RecordTypeId = busSalesImpDSRRecTypeId;
+        insert dsr2;
+
+        // recording competitors mandatory on opportunity to progress to close won
+        List<Competitor__c> competitors = ApplicationTestDataFactorySales.getCompetitors(1, opty.Id, false);
+        insert(competitors);
+
+        Task opportunityTask = ApplicationTestDataFactory.getTasks(1, opty.Id, false)[0];
+        opportunityTask.ActivityDate=System.today();
+        opportunityTask.Subject='test';
+        opportunityTask.Status = 'Completed';
+        insert opportunityTask;
+    }
 
 		@isTest
 		static void testValidateOpportunityStage() {
-		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
 		opp.StageName = 'Qualify';
 		opp.Next_Step__c = 'Confirm issues, needs and desired outcomes';
 		update opp;
@@ -124,11 +131,17 @@ private class OpportunityClosureControllerTest {
 		opp.Next_Step__c = 'Develop proposal';
 		update opp;
 
-		Test.startTest();
-		OpportunityClosureController.validateOpportunityStage('Closed Won', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', opp.Id); 
-		Test.stopTest();
+        List<Deal_Support_Request__c> supportRequests = [Select Id, Stage__c, Status__c from Deal_Support_Request__c];
+        for (Deal_Support_Request__c supportRequest: supportRequests) {
+            supportRequest.Stage__c = 'Closed';
+        }
+        update(supportRequests);
 
-		Opportunity oppUpdated = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+        Test.startTest();
+        OpportunityClosureController.validateOpportunityStage('Closed Won', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', opp.Id); 
+        Test.stopTest();
+
+		Opportunity oppUpdated = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
 
 		System.assertEquals(oppUpdated.StageName, 'Propose');
 	}
@@ -136,21 +149,21 @@ private class OpportunityClosureControllerTest {
 	@isTest
 	static void testExceptionForValidateOpportunityStage() {
 
-		Exception exceptionMessage; 
+		Exception exceptionMessage;
 
-		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
 		opp.StageName = 'Qualify';
 		opp.Next_Step__c = 'Confirm issues, needs and desired outcomes';
 		update opp;
 
 		opp.StageName = 'Propose';
 		opp.Next_Step__c = 'Develop proposal';
-		opp.CloseDate = date.Today().addDays(25); 
+		opp.CloseDate = date.Today().addDays(25);
 		update opp;
 
 		Test.startTest();
 		try {
-			OpportunityClosureController.validateOpportunityStage('NotValidStageName', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', null); 
+			OpportunityClosureController.validateOpportunityStage('NotValidStageName', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', null);
 		}
 		catch(Exception e)
 		{
@@ -159,14 +172,14 @@ private class OpportunityClosureControllerTest {
 
 		Test.stopTest();
 
-		System.assertEquals('Propose',opp.StageName, 'Exception Should be thrown');
-	}
+        System.assertNotEquals(null, exceptionMessage, 'Exception Should be thrown');
+    }
 
-
+    
 
 	@isTest
 	static void testUpdateOpportunityStage() {
-		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
 		opp.StageName = 'Qualify';
 		opp.Next_Step__c = 'Confirm issues, needs and desired outcomes';
 		update opp;
@@ -175,51 +188,57 @@ private class OpportunityClosureControllerTest {
 		opp.Next_Step__c = 'Develop proposal';
 		update opp;
 
-		Test.startTest();
-			OpportunityClosureController.updateOpportunityStage('Closed Won', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', opp.Id); 
-		Test.stopTest();
+        List<Deal_Support_Request__c> supportRequests = [Select Id, Stage__c, Status__c from Deal_Support_Request__c];
+        for (Deal_Support_Request__c supportRequest: supportRequests) {
+            supportRequest.Stage__c = 'Closed';
+        }
+        update(supportRequests);
 
-		Opportunity oppUpdated = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+        Test.startTest();
+        OpportunityClosureController.updateOpportunityStage('Closed Won', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', opp.Id); 
+        Test.stopTest();
 
-		System.assertEquals(oppUpdated.StageName, 'Closed Won');
-	}
+        Opportunity oppUpdated = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
 
-	@isTest
-	static void testExceptionForUpdateOpportunityStage() {
+        System.assertEquals(oppUpdated.StageName, 'Closed Won');
+    }
 
-		Boolean hasError = false; 
+    @isTest
+    static void testExceptionForUpdateOpportunityStage() {
 
-		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+        Exception exceptionMessage;
+
+		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
 		opp.StageName = 'Qualify';
 		opp.Next_Step__c = 'Confirm issues, needs and desired outcomes';
 		update opp;
 
 		opp.StageName = 'Propose';
 		opp.Next_Step__c = 'Develop proposal';
-		opp.CloseDate = date.Today().addDays(25); 
+		opp.CloseDate = date.Today().addDays(25);
 		update opp;
 
-		Test.startTest();
-		try {
-			OpportunityClosureController.updateOpportunityStage('NotValidStageName', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', opp.id); 
-		}
-		catch(exception e)
-		{
-			hasError = true;
-		}
+        Test.startTest();
+        try {
+            OpportunityClosureController.updateOpportunityStage('Closed Won', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', opp.Id);
+        }
+        catch(Exception e)
+        {
+            exceptionMessage = e;
+        }
 
-		Test.stopTest();
+        Test.stopTest();
 
-		System.assertEquals('Propose',opp.StageName, 'Exception Should be thrown');
-	}
+        System.assertNotEquals(null, exceptionMessage, 'Exception Should be thrown');
+    }
 
 	@isTest
 	static void testgetDealSupportRequests() {
 
-		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1]; 
+		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
 		List<OpportunityClosureController.DealSupportWrapper> lstDSR = new List<OpportunityClosureController.DealSupportWrapper>();
 		Test.startTest();
-		lstDSR = OpportunityClosureController.getOpenDealSupportRequests(opp.Id); 
+		lstDSR = OpportunityClosureController.getOpenDealSupportRequests(opp.Id);
 		Test.stopTest();
 
 		System.assertEquals(lstDSR.size(), 2);
@@ -244,8 +263,8 @@ private class OpportunityClosureControllerTest {
 		}
 
 		Test.startTest();
-		OpportunityClosureController.closeDealSupportRequests(wrapperLst); 
-		Test.stopTest(); 
+		OpportunityClosureController.closeDealSupportRequests(wrapperLst);
+		Test.stopTest();
 
 		List<Deal_Support_Request__c> lstUpdateDSR = new List<Deal_Support_Request__c>();
 		lstUpdateDSR = [Select Id, Name, Stage__c, Status__c, RecordType.Name from Deal_Support_Request__c where Opportunity__r.Name = 'opty1' and Stage__c = 'Closed'];
@@ -273,7 +292,7 @@ private class OpportunityClosureControllerTest {
 
 		Test.startTest();
 		try {
-		OpportunityClosureController.closeDealSupportRequests(wrapperLst); 
+		OpportunityClosureController.closeDealSupportRequests(wrapperLst);
 		} catch (Exception e) {
 		exceptionMessage = e;
 		}

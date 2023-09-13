@@ -9,6 +9,7 @@
 * 28/06/2022 	KMcGuire	Modified for including related account sales in OPC classification
 * 29/2/2023	Ken McGurie	allow for OPC override and forward planning
 * 2023-05-04	Ken McGuire - Resolve testing issues by making the date of opp line items relative to current FY
+* 2023-08-24 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
 ***************************************/
 @isTest
 public class OpportunityLineItemServiceTest {
@@ -69,6 +70,13 @@ public class OpportunityLineItemServiceTest {
 		accVarList.add(refactoredAccount);
 
 		insert accVarList;
+
+		// create key contact for opportunity
+		Contact keyContact = ApplicationTestDataFactory.getContacts(1, accountWithNominalRevenue.Id, false)[0];
+		keyContact.FirstName = 'testfname';
+		keyContact.LastName = 'testlname';
+		keyContact.Email = 'testemail@invalid.invalid';
+		insert keyContact;
 
 		//Create Roles
 		orgRoleList = [SELECT Id, Role_Type__c FROM Organisation_Role__c WHERE Organisation__c IN : accIdSet OR Role_Type__c =: 'Prospect'];
@@ -1104,6 +1112,7 @@ public class OpportunityLineItemServiceTest {
  
 		User testRunAs = [SELECT Id from User WHERE Alias = 'CovSal' LIMIT 1];
 		Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
+		Contact keyContact = [Select Id from Contact Where AccountId=:testOrg.Id];
 		Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'International Bundle' LIMIT 1];
 		PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
 		// Query your permission set name from Organization to bypass the validation
@@ -1145,9 +1154,21 @@ public class OpportunityLineItemServiceTest {
 			oliVar.OPCOverride__c = 'Yes';
 			INSERT oliVar;
 
+			// recording competitors mandatory on opportunity to progress to close won
+			List<Competitor__c> competitors = ApplicationTestDataFactorySales.getCompetitors(1, oppVar.Id, false);
+			insert(competitors);
+
+			Task opportunityTask = ApplicationTestDataFactory.getTasks(1, oppVar.Id, false)[0];
+			opportunityTask.ActivityDate=System.today();
+			opportunityTask.Status = 'Completed';
+			insert opportunityTask;
+
 			Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE Closed_Reason__c = 'Functionality' AND Offline_Contract_Received__c = TRUE LIMIT 1];
 			testOpty.Hidden_Restrict_Path_Closure__c =true;
 			testOpty.StageName = 'Closed Won';
+			testOpty.Description = 'test';
+			testOpty.KeyContact__c = keyContact.Id;
+			testOpty.Monthly_Executive_Summary__c = 'test';
 			UPDATE testOpty;
 
 			try{

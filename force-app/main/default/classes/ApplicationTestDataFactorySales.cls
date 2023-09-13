@@ -42,8 +42,12 @@ public with sharing class ApplicationTestDataFactorySales {
 	}
 
 	public static List<Competitor__c> getCompetitors(Integer count, Id opportunityId, Boolean generateIds) {
+		return getCompetitors(count, new Set<Id>{opportunityId}, generateIds);
+	}
+
+	public static List<Competitor__c> getCompetitors(Integer count, Set<Id> opportunityIds, Boolean generateIds) {
 		return (List<Competitor__c>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Competitor__c.SObjectType, new Map<SObjectField, Object>{
-				Competitor__c.OpportunityId__c => opportunityId,
+				Competitor__c.OpportunityId__c => opportunityIds,
 				Competitor__c.Competitor_Name__c => 'Other',
 				Competitor__c.Competitor_Type__c => 'Competitor'
 		}, count), generateIds);
