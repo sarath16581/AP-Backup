@@ -10,5 +10,5 @@
  OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) )
 )</errorConditionFormula>
     <errorDisplayField>Next_Step__c</errorDisplayField>
-    <errorMessage>Next Step. Next Step relevant to the Sales stage must be completed before progressing the opportunity.</errorMessage>
+    <errorMessage>Update the Next Step. The next sales step must be completed before progressing the opportunity.</errorMessage>
 </ValidationRule>

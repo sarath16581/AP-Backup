@@ -190,6 +190,7 @@ private class OpportunitySalesPipelineModule_Test {
 
 		// opportunities[0] has an active apttus contract
 		Apttus__APTS_Agreement__c activeContract = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunities[0].Id, true)[0];
+		activeContract.Apttus__Status_Category__c = 'In Effect';
 		activeContract.Apttus__Status__c = 'Activated';
 		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{
 				'Apttus__R00N50000001Xl0FEAS__r' => new List<Apttus__APTS_Agreement__c>{activeContract}
@@ -197,6 +198,7 @@ private class OpportunitySalesPipelineModule_Test {
 
 		// opportunities[1] has an apttus contract in "Request" status
 		Apttus__APTS_Agreement__c requestedContract = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunities[0].Id, true)[0];
+		requestedContract.Apttus__Status_Category__c = 'Request';
 		requestedContract.Apttus__Status__c = 'Request';
 		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{
 				'Apttus__R00N50000001Xl0FEAS__r' => new List<Apttus__APTS_Agreement__c>{requestedContract}

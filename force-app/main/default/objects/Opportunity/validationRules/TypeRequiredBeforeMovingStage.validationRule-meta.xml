@@ -10,5 +10,5 @@
  OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) )
 )</errorConditionFormula>
     <errorDisplayField>Type</errorDisplayField>
-    <errorMessage>Type. Please populate the Customer type for if they are a New Customer or Existing Customer.</errorMessage>
+    <errorMessage>Add the Type. Please populate the Customer type to identify if the Customer is new or existing.</errorMessage>
 </ValidationRule>

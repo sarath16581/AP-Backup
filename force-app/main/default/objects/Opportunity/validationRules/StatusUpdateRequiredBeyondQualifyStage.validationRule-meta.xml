@@ -10,5 +10,5 @@
  OR( ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) )
 )</errorConditionFormula>
     <errorDisplayField>Monthly_Executive_Summary__c</errorDisplayField>
-    <errorMessage>Status Update. Status Update must be populated with a summary of the current position of the Opportunity</errorMessage>
+    <errorMessage>Add your Status Update. The Status Update must be populated with a summary of the current position of the Opportunity</errorMessage>
 </ValidationRule>

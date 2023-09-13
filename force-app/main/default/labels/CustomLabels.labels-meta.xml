@@ -5243,7 +5243,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
 		<language>en_US</language>
 		<protected>false</protected>
 		<shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
-		<value>Apttus Contracts. The activated or in flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
+		<value>Cancel Apttus Contracts. The activated or in flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
 	</labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>

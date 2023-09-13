@@ -11,6 +11,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_COMPETITORS = new Set<String>{'Propose', 'Negotiate', 'Closed Won'};
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_NO_OPEN_DSR = new Set<String>{'Closed Won'};
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_NO_ACTIVE_CONTRACT = new Set<String>{'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'};
+	@TestVisible private static final Set<String> CONTRACT_STAGES_ACTIVE_INFLIGHT_CONTRACT = new Set<String>{'In Signatures', 'In Effect', 'Amended', 'Renewed'};
 
 	private static Set<String> MONITORED_OPPORTUNITY_STAGES {
 		get {
@@ -78,7 +79,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Id, Opportunity.StageName},
 				Competitor__c.SObjectType => new Set<SObjectField>{Competitor__c.Id},
 				Deal_Support_Request__c.SObjectType => new Set<SObjectField>{Deal_Support_Request__c.Id, Deal_Support_Request__c.Stage__c},
-				Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id, Apttus__APTS_Agreement__c.Apttus__Status__c}
+				Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id, Apttus__APTS_Agreement__c.Apttus__Status_Category__c}
 		};
 
 		Map<Id, Opportunity> opportunitiesWithChildRecords = ((OpportunitiesSelector) OpportunitiesSelector.newInstance()
@@ -114,7 +115,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 					&& !opportunityWithChildRecords.Apttus__R00N50000001Xl0FEAS__r.isEmpty()) {
 
 				for (Apttus__APTS_Agreement__c apttusContract: opportunityWithChildRecords.Apttus__R00N50000001Xl0FEAS__r) {
-					if (apttusContract.Apttus__Status__c == 'Activated' || apttusContract.Apttus__Status__c == 'Fully Signed' || apttusContract.Apttus__Status__c == 'SFDC DSR Created') {
+					if (CONTRACT_STAGES_ACTIVE_INFLIGHT_CONTRACT.contains(apttusContract.Apttus__Status_Category__c)) {
 						record.addError(Label.OpportunityWithActiveApttusContractCannotBeClosedLostErrorMessage);
 						break;
 					}
