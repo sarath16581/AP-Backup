@@ -1,182 +1,131 @@
-/* @author 
+/* @author Victor Chang
  * @date 2020-04-10
- * @group Opportunities
- * @tag Opportunity
  * @domain Core
- * @description test class for OpportunityCloseErrosController
+ * @description Attempts a DML update on the record passed in and returns system validation errors encountered
+ *				during update operation. All DML operations are rolled back at the end to ensure no changes are made
+ *				to the record. Error messages returned are surfaced on the user interface to inform users of potential
+ *				data quality issues.
+ *				Visualforce context is required so that all errors added in apex code (via SObject.addError) can be retrieved
+ *				via the Database.SaveResult. For any other request contexts only a subset of errors added via SObject.addError is
+ *				returned in Database.SaveResult (Please refer for more information:
+ *				https://salesforce.stackexchange.com/questions/237042/adderror-on-an-object-in-a-trigger-is-only-displaying-one-of-the-errors-in-objec)
+ *
  * @changelog
  * 2020-08-14 - Victor Chang - Created
  * 2020-08-16 - arjun.singh@auspost.com.au - Modified to use mocking framework for dml operations
+ * 2023-08-17 - Ranjeewa Silva - Refactored the component as part of exposing opportunity validation errors on user interface
+ *								 for all opportunity stages.
  */
 global without sharing class OpportunityCloseErrorsController {
-    /*
-        Class is implemented using without sharing , since Component needs to perform dummy opportunity update
-        to get all the possible validation errors and it needs to be done for all the user who are able to go to 
-        opportunity detail page regardless they have read access or write access.
-    */
-    public final static String KEY_STATUS = 'status';
-    public final static String KEY_ERRORS = 'errors';
-    public final static String KEY_MESSAGE = 'message';
-    public final static String OK = 'ok';
-    public final static String ERROR = 'error';
+	/*
+		Class is implemented using without sharing , since Component needs to perform dummy opportunity update
+		to get all the possible validation errors and it needs to be done for all the user who are able to go to
+		opportunity detail page regardless they have read access or write access.
+	*/
 
-    // the stage value of the opportunity
-    public final static String CURRENT_STAGE = 'currentStage';
-    public final static String NEXT_STAGE = 'nextStage';
+	// record id from standard controller
+	public Id recordId {get; set;}
+	// base url for lightning experience. used to check origin of messages received in visualforce page.
+	public String lightningExperienceBaseURL {get;set;}
 
-    public Id oppId {get; set;}
-    public string lexUrl{get;set;}
-   
-    public OpportunityCloseErrorsController(ApexPages.StandardController stdController) {
-        oppId = (Id)stdController.getId();  
-        String baseUrl = String.valueOf(System.Url.getOrgDomainUrl());
-        String baseUrlStartTrim = baseUrl.replace('Url:[delegate=','');
-        String baseUrlEndTrim = baseUrlStartTrim.replace(']','');
-        lexUrl = baseUrlEndTrim.replace('my.salesforce.com','lightning.force.com'); 
-    }
-    @RemoteAction
-    global static Map<String, Object> getCloseOpportunityErrors(String recordId){
-        // return results as a map, which makes it extendable
-        Map<String, Object> mapResults = new Map<String, Object>();
-        Map<Id, Opportunity> opportunityMap = OpportunitiesSelector.newInstance().selectById(new Set<Id>{recordId});
-        list<Opportunity> updateList = new list<Opportunity>();
-        if(opportunityMap != null) {
-            updateList.add(opportunityMap.values());
-        }
-        System.debug('updateList>>>>>'+updateList);
-        if(updateList.size() != 1)
-        {
-            // if the record is not found, return with an error
-            mapResults.put(KEY_STATUS, ERROR);
-            mapResults.put(KEY_MESSAGE, 'no opportunity for record Id:' + recordId);
-            // early out
-            return mapResults;
-        }
+	public OpportunityCloseErrorsController(ApexPages.StandardController stdController) {
+		recordId = (Id)stdController.getId();
+		lightningExperienceBaseURL = 'https://' + DomainCreator.getLightningHostname();
+	}
 
-        // get the update target
-        Opportunity theOppty = updateList[0];
-        mapResults.put(CURRENT_STAGE, theOppty.StageName);
-        String nextStage = getNextStageName(theOppty.StageName);
-        mapResults.put(NEXT_STAGE, nextStage);
+	/**
+	 * Remote action invoked by visualforce page to retrieve validation errors.
+	 *
+	 * @param record record to perform DML update
+	 * @param targetStage
+	 *
+	 * @return validation results
+	 */
+	@RemoteAction
+	global static ValidationResults getValidationResults(SObject record) {
+		ValidationResults results = new ValidationResults();
+		results.recordId = record.Id;
 
-        // set savepoint for rollback
-        Savepoint sp = ApplicationDatabase.getInstance().dmlSetSavePoint();
-        // set as the next stage
-        theOppty.StageName = nextStage;
-        Map<String, Object> mapTriggerValidationResults = new Map<String, Object>();
-        try
-        {
-            mapTriggerValidationResults = updateOpportunity(updateList);
-             // rollback regardless
-            ApplicationDatabase.getInstance().dmlRollback(sp);
-            list<string> errMsgList = new list<string>();
-            if(mapTriggerValidationResults != null){
-                // Disabling the trigger as needs to get all the possible validation messages
-                SystemSettings__c.getInstance().Disable_Triggers__c = true;
-                Map<String, Object> mapCustomValidationResults = updateOpportunity(updateList);                
-                errMsgList =(list<String>) mapTriggerValidationResults.get(KEY_ERRORS);
-                for(String mapVar: mapCustomValidationResults.keySet()){
-                    if(mapTriggerValidationResults.containsKey(mapVar) && mapVar == KEY_ERRORS){                
-                    Set<String> tmpFirstDMLErrMsg = New Set<String>(errMsgList);
-                    list<String> errValidationMsgList =(list<String>) mapCustomValidationResults.get(mapVar); 
-                        for(String errMsg: errValidationMsgList){
-                            if(!tmpFirstDMLErrMsg.contains(errMsg)){
-                                errMsgList.add(errMsg);
-                            }
-                        }
-                    
-                    }
-                }
-            }
-            if(errMsgList != null){
-                mapResults.put(KEY_ERRORS, errMsgList);
-            }
-            if(mapResults != null && mapResults.containsKey(KEY_ERRORS)){
-                mapResults.put(KEY_STATUS, ERROR);
-            }else{
-                mapResults.put(KEY_STATUS, OK);
-            }
-        }
-        catch(Exception e)
-        {
-            // return the exceptions
-            mapResults.put(KEY_ERRORS, e.getMessage());
-            // return status as error
-            mapResults.put(KEY_STATUS, ERROR);
-        }
-        ApplicationDatabase.getInstance().dmlRollback(sp);
-        System.debug('mapResults>>>>'+mapResults);
-        return mapResults;
-    }    
-    /**
-     * @description : Method is used for dummy update dml on Oppotunity to get the possible validation error messages
-     */
-    private static Map<String, Object> updateOpportunity(list<opportunity> updateList){
-        Map<String, Object> mapResults = new Map<String, Object>();
-        Set<String> ErrMsgSet = New Set<String>();
-         // mimic the save
-         List<String> saveErrors = new List<String>(); 
-        list<Database.SaveResult> svResult = ApplicationDatabase.getInstance().dmlUpdate(updateList, false);
-        System.debug('!@#$' + svResult);
-        //List<Apexpages.Message> msgs = ApexPages.getMessages();  
-        List<Apexpages.Message> msgs = ApexPageMessagesSelector.newInstance().getPageMessages();           
-        System.debug('msgsvalidation>' + msgs);
-        if(msgs != null){
-            for(Apexpages.Message msg : msgs){
-                string msgString = String.valueOf(msg);
-                string msgStringStartTrim = msgString.remove('ApexPages.Message["');
-                string msgStringStartEnd = msgStringStartTrim.removeEnd('"]');
-                saveErrors.add(string.valueOf(msgStringStartEnd));
-                ErrMsgSet.add(string.valueOf(msgStringStartEnd));
-            }
-        }
-        for(Database.SaveResult res : svResult) {
-            if (!res.isSuccess())
-            {
-                // loop through to collate error messages
-                for (Database.Error err : res.getErrors())
-                {   
-                    String errMsg = String.valueOf(err.getMessage());
-                    if(!ErrMsgSet.contains(errMsg)){
-                        String errMsgReplaceSingleQuote = errMsg.replace('\'','"');
-                        saveErrors.add(errMsgReplaceSingleQuote);
-                        System.debug('OpptyCloseError msg:' + err.getMessage());
-                    }
-                }
-            }
-        }
-        if(saveErrors.size() != 0)
-        {
-            // return it as a field
-            mapResults.put(KEY_ERRORS, saveErrors);
-        }
-        return mapResults;
-    }
-    private static String getNextStageName(String currentStage)
-    {
+		// set savepoint for rollback
+		Savepoint sp = ApplicationDatabase.getInstance().dmlSetSavePoint();
 
-        if(currentStage.indexOf('Closed') == 0)
-        {
-            // nothing to progress or check
-            return '';
-        }
+		try {
 
-        // get all the picklist values
-        Schema.DescribeFieldResult fieldResult = Opportunity.StageName.getDescribe();
-        List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
+			// attempt dml update and get any errors encountered
+			Set<String> validationResults = updateRecord(record);
+			// rollback to ensure no changes are made
+			ApplicationDatabase.getInstance().dmlRollback(sp);
 
-        // iterator
-        for(Integer i = 0; i < ple.size(); i++)
-        {
-            //System.debug('label:' + stageName.getLabel());
-            //System.debug('value:' + stageName.getValue());
-            PicklistEntry stageName = ple[i];
-            if(stageName.getValue() == currentStage)
-            {
-                return ple[i+1].getValue();
-            }
-        }
-        return null;
-    }
+			if (!validationResults.isEmpty()) {
+				// we have encountered some errors. now attempt the update again with triggers disabled.
+				// this is to get all the possible validation messages including standard validation rules.
+				SystemSettings__c.getInstance().Disable_Triggers__c = true;
+				SystemSwitch__c.getInstance().DisableTriggers__c = true;
+				SystemSwitch__c.getInstance().ObjectTriggersToBeDisabled__c = String.valueOf(record.getSObjectType());
+				validationResults.addAll(updateRecord(record));
 
+				results.validationMessages.addAll(validationResults);
+			}
+		} catch(Exception e) {
+			// unexpected exception. return the error message.
+			results.errorMessage = e.getMessage();
+		}
+
+		// ensure everything is rolled back
+		ApplicationDatabase.getInstance().dmlRollback(sp);
+
+		return results;
+	}
+
+	private static Set<String> updateRecord(SObject updatable) {
+		Set<String> results = new Set<String>();
+
+		// mimic the save
+		List<Database.SaveResult> saveResults = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{updatable}, false);
+
+		/*List<ApexPages.Message> pageMessages = ApexPageMessagesSelector.newInstance().getPageMessages();
+		if (pageMessages != null) {
+			for (ApexPages.Message pageMessage: pageMessages){
+				results.add(pageMessage.getDetail().unescapeHtml4());
+			}
+		}*/
+
+		for(Database.SaveResult saveResult: saveResults) {
+			if (!saveResult.isSuccess()) {
+				// loop through to collate error messages
+				for (Database.Error err: saveResult.getErrors()) {
+					results.add(((err.getMessage()).unescapeHtml4()));
+				}
+			}
+		}
+
+		return results;
+	}
+
+	/**
+	 * Return runtime configuration for lightning component used on user interface.
+	 * @return runtime configuration
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static Map<String, Object> loadConfig() {
+		return new Map<String, Object> {
+				'lightningHostname' => DomainCreator.getLightningHostname(),
+				'visualforceHostname' => DomainCreator.getVisualforceHostname(null)
+		};
+	}
+
+	/**
+	 * Validation results returned to visualforce layer.
+	 */
+	global class ValidationResults {
+		// id of the record to which the validation results are applicable to
+		global Id recordId {get;set;}
+		// validation messages collected for the record
+		global List<String> validationMessages {get; set;}
+		// error message in case of an unexpected technical failure
+		global String errorMessage {get; set;}
+		global ValidationResults() {
+			this.validationMessages = new List<String>();
+		}
+	}
 }
