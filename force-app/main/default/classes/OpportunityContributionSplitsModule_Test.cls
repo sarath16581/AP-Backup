@@ -8,7 +8,7 @@
  * 2023-05-04 - Ranjeewa Silva - Created
  */
 @IsTest
-private class SalesOppContributionSplitsModule_Test {
+private class OpportunityContributionSplitsModule_Test {
 
 	/**
 	 * Test to ensure async operation is registered on opportunity insert to auto assign overlay contribution splits
