@@ -1050,6 +1050,23 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>recordId</name>
+                    <value>recordId</value>
+                </componentInstanceProperties>
+                <componentName>opportunityCloseErrors</componentName>
+                <identifier>opportunityCloseErrors</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IsClosed}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>tabs</value>
                 </componentInstanceProperties>
@@ -1226,23 +1243,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>recordId</name>
-                    <value>recordId</value>
-                </componentInstanceProperties>
-                <componentName>opportunityCloseErrors</componentName>
-                <identifier>opportunityCloseErrors</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.IsClosed}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
