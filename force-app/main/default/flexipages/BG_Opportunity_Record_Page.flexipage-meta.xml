@@ -1236,9 +1236,9 @@
                 <identifier>opportunityCloseErrors</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
+                        <leftValue>{!Record.IsClosed}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Negotiate</rightValue>
+                        <rightValue>false</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
