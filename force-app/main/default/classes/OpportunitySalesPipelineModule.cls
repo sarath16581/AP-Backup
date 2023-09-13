@@ -132,7 +132,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	private void validateDSRsAreClosed(Opportunity record, List<Deal_Support_Request__c> relatedDSRs) {
 		Map<String, List<Deal_Support_Request__c>> openDSRsByRecordType = new Map<String, List<Deal_Support_Request__c>>();
 		for (Deal_Support_Request__c dsr: relatedDSRs) {
-			if (dsr.Stage__c != 'Completed' && dsr.Stage__c != 'Closed') {
+			if (dsr.RecordType.DeveloperName != 'Deal_Enablement_Centre' && dsr.Stage__c != 'Completed' && dsr.Stage__c != 'Closed') {
 				List<Deal_Support_Request__c> openDSRs = openDSRsByRecordType.get(dsr.RecordType.Name);
 				if (openDSRs == null) {
 					openDSRs = new List<Deal_Support_Request__c>();

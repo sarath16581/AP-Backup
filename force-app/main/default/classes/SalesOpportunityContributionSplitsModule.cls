@@ -9,7 +9,7 @@
  * 2023-05-04 - Ranjeewa Silva - Created.
  */
 
-public inherited sharing class SalesOpportunityContributionSplitsModule extends ApplicationDomain.Module {
+public inherited sharing class SalesOpportunityContributionSplitsModule extends ApplicationModule {
 
 	// opportunity ids already enqueued in current transaction.
 	@TestVisible private static Set<Id> enqueuedOpportunityIds = new Set<Id>();
