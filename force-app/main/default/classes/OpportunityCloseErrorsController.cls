@@ -83,12 +83,12 @@ global without sharing class OpportunityCloseErrorsController {
 		// mimic the save
 		List<Database.SaveResult> saveResults = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{updatable}, false);
 
-		/*List<ApexPages.Message> pageMessages = ApexPageMessagesSelector.newInstance().getPageMessages();
+		List<ApexPages.Message> pageMessages = ApexPageMessagesSelector.newInstance().getPageMessages();
 		if (pageMessages != null) {
 			for (ApexPages.Message pageMessage: pageMessages){
 				results.add(pageMessage.getDetail().unescapeHtml4());
 			}
-		}*/
+		}
 
 		for(Database.SaveResult saveResult: saveResults) {
 			if (!saveResult.isSuccess()) {
