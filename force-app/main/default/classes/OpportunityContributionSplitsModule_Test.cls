@@ -1,6 +1,6 @@
 /**
  * @description
- * Test class for SalesOpportunityContributionSplitsModule
+ * Test class for OpportunityContributionSplitsModule
  * @author Ranjeewa Silva
  * @group Tests
  * @domain Sales
@@ -49,7 +49,7 @@ private class OpportunityContributionSplitsModule_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesOpportunityContributionSplitsModule.newInstance().onAfterInsert(opportunities, mockUow);
+		new OpportunityContributionSplitsModule().onAfterInsert(opportunities, mockUow);
 		Test.stopTest();
 
 		// verify async operation registered with expected parameters
@@ -110,7 +110,7 @@ private class OpportunityContributionSplitsModule_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesOpportunityContributionSplitsModule.newInstance().onAfterInsert(new List<Opportunity>{opportunity}, mockUow);
+		new OpportunityContributionSplitsModule().onAfterInsert(new List<Opportunity>{opportunity}, mockUow);
 		Test.stopTest();
 
 		// verify exception is logged
@@ -193,7 +193,7 @@ private class OpportunityContributionSplitsModule_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesOpportunityContributionSplitsModule.newInstance().onBeforeUpdate(newOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
+		new OpportunityContributionSplitsModule().onBeforeUpdate(newOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
 		Test.stopTest();
 
 		// verify async operation registered with expected parameters
@@ -251,16 +251,16 @@ private class OpportunityContributionSplitsModule_Test {
 		OpportunitiesSelector mockOpportunitySelector = ((OpportunitiesSelector) MockUtility.mockSelector(OpportunitiesSelector.class));
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
-		// populate 'SalesOpportunityContributionSplitsModule.enqueuedOpportunityIds' with opportunities[0].Id. this is to
+		// populate 'OpportunityContributionSplitsModule.enqueuedOpportunityIds' with opportunities[0].Id. this is to
 		// simulate the scenario when this opportunity has already been processed by the module and async operation
 		// already registered.
-		SalesOpportunityContributionSplitsModule.enqueuedOpportunityIds = new Set<Id>{opportunities[0].Id};
+		OpportunityContributionSplitsModule.enqueuedOpportunityIds = new Set<Id>{opportunities[0].Id};
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesOpportunityContributionSplitsModule.newInstance().onBeforeUpdate(newOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
+		new OpportunityContributionSplitsModule().onBeforeUpdate(newOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
 		Test.stopTest();
 
 		// make sure selector is not invoked to query opportunities with splits
@@ -305,7 +305,7 @@ private class OpportunityContributionSplitsModule_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesOpportunityContributionSplitsModule.newInstance().onBeforeUpdate(newOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
+		new OpportunityContributionSplitsModule().onBeforeUpdate(newOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
 		Test.stopTest();
 
 		// verify exception is logged
