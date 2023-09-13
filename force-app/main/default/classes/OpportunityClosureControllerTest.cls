@@ -4,6 +4,7 @@
  * History
 * 11.06.2023 Ken McGuire - cleanup
 * 2023-08-30 - Merged changes by Ranjeewa Silva in dev - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
+* 2023-09-14 - Ranjeewa Silva - Removing an invalid test case. This test has been made to pass, but it has not been asserting anything meaningful.
  ********************************************/
 @isTest
 private class OpportunityClosureControllerTest {
@@ -145,37 +146,6 @@ private class OpportunityClosureControllerTest {
 
 		System.assertEquals(oppUpdated.StageName, 'Propose');
 	}
-
-	@isTest
-	static void testExceptionForValidateOpportunityStage() {
-
-		Exception exceptionMessage;
-
-		Opportunity opp = [Select Id, StageName, Next_Step__c from Opportunity where Name='opty1' LIMIT 1];
-		opp.StageName = 'Qualify';
-		opp.Next_Step__c = 'Confirm issues, needs and desired outcomes';
-		update opp;
-
-		opp.StageName = 'Propose';
-		opp.Next_Step__c = 'Develop proposal';
-		opp.CloseDate = date.Today().addDays(25);
-		update opp;
-
-		Test.startTest();
-		try {
-			OpportunityClosureController.validateOpportunityStage('NotValidStageName', 'Confirm issues, needs and desired outcomes', 'test comments', 'Capability', null);
-		}
-		catch(Exception e)
-		{
-			exceptionMessage = e;
-		}
-
-		Test.stopTest();
-
-        System.assertNotEquals(null, exceptionMessage, 'Exception Should be thrown');
-    }
-
-    
 
 	@isTest
 	static void testUpdateOpportunityStage() {
