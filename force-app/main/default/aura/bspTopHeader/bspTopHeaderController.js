@@ -1,13 +1,13 @@
 /**
  * @changeLog:
- * 2023-08-28 Mahesh Parvathaneni - Added Merchant Portal link in top header 
+ * 2023-09-13 Mahesh Parvathaneni - Added Merchant Portal link in top header 
 */
 
 ({
 	doInit: function (cmp, event, helper) {
 		helper.setLoggedInUserName(cmp);
 		helper.getCommunityUrl(cmp);
-		helper.getMerchantPortalCookieHandlerProxyUrl(cmp);
+		helper.getMerchantPortalAccessUrl(cmp);
 	},
 	openDesktopLogin: function (cmp, event, helper) {
 		$A.util.addClass(cmp.find('desktopLogin'), 'is-open');
