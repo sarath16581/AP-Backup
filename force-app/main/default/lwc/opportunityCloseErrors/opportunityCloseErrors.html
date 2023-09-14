@@ -4,47 +4,69 @@
  * @group Opportunities
  * @tag Opportunity
  * @description OpportunityValidationErrors capture all the possible validation messages for Opportunity
- *              which is in stage Negotiate and ready for CloseWon.User will be able to use to this information
- *              to close Won an Opportunity .
+ *				which is in stage Negotiate and ready for CloseWon.User will be able to use to this information
+ *				to close Won an Opportunity .
  * @changelog
  * 2020-07--28 vcheng Created
  * 2020-08-16 - arjun.singh@auspost.com.au - Modified to include OpportunityValidationErros vf page which in turns pass all the possibe
- *                                           validation errors to lwc component
+ *											 validation errors to lwc component
+ * 2023-08-17 - Ranjeewa Silva - Updated component markup to add card header and use slds styling
  *
- -->  
+ -->
 <template>
-    <div class="slds-card ">
+	<div class="slds-card ">
+		<div class="slds-hide">
+			<iframe width="10" height="10" src={fullUrl}></iframe>
+		</div>
+		<div class="slds-card__header slds-grid">
+			<header class="slds-media slds-media_center slds-has-flexi-truncate slds-border_bottom slds-p-bottom_medium">
+				<div class="slds-media__figure">
+					<lightning-icon icon-name="standard:sales_path" title={headerTitle} size="small" class={headerIconStyleClass}></lightning-icon>
+				</div>
+				<div class="slds-media__body card__header-title">
+					<h2 class="slds-card__header-title slds-truncate_container_75">
+						<div class="slds-truncate" title={headerTitle}>{headerTitle}</div>
+					</h2>
+				</div>
+				<div class="slds-no-flex">
+					<lightning-button-icon icon-name="utility:refresh" title="Refresh" onclick={handleRefresh} disabled={isClosed}></lightning-button-icon>
+				</div>
+			</header>
+		</div>
 
-        <template if:true={showSpinner}>
-            <lightning-spinner variant="brand" size="medium"></lightning-spinner>
-        </template>
-        <div class="slds-hide">
-            <iframe width="10" height="10" src={fullUrl}></iframe>
-        </div> 
-        <div class="slds-m-around_medium">
-            <div class="slds-text-heading_small">Opportunity Tracker</div>
-            <div class="slds-m-top_x-small">
-                <template if:true={opptyIsClosed}>
-                    <!-- if oppty is closed, nothing to see here -->
-                    <div class="slds-text-color_success">This Opportunity is already <span style="font-weight: bold">{currentStage}</span></div>
-                </template>
-                <template if:false={opptyIsClosed}>
-                    <!-- if oppty can progress -->
-                    <template if:true={validForProgress}>
-                        <div class="slds-text-color_success">You can progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></div>
-                    </template>
-                    <template if:false={validForProgress}>
-                        <div class="slds-text-color_error">If you are ready to progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></div>
-                        <ol class="slds-list_dotted slds-m-top_x-small">
-                            <template for:each={progressErrs} for:item="errClose">
-                                <li key={errClose} class="slds-m-bottom_x-small">
-                                    {errClose}
-                                </li>
-                            </template>
-                        </ol>
-                    </template>
-                </template>
-            </div>
-        </div>
-    </div>
+		<div class="slds-card__body slds-card__body_inner">
+			<div class="slds-m-top_x-small">
+				<template lwc:if={isClosed}>
+					<div class="slds-text-color_success">This Opportunity is already <span style="font-weight: bold">{currentStage}</span></div>
+				</template>
+				<template lwc:elseif={errorMessage}>
+					<div class="slds-scoped-notification slds-media slds-media_center slds-theme_error" role="status">
+						<div class="slds-media__body">
+							<p>{errorMessage}</p>
+						</div>
+					</div>
+				</template>
+				<template lwc:elseif={hasProgressErrors}>
+					<div class="slds-scoped-notification slds-media slds-media_center slds-theme_error" role="status">
+						<div class="slds-media__body">
+							<p>If you are ready to progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></p>
+						</div>
+					</div>
+					<ul class="slds-list_dotted slds-m-vertical_x-small">
+						<template for:each={progressErrs} for:item="errClose">
+							<li key={errClose} class="slds-m-bottom_x-small">
+								<span class="slds-line-clamp_small" title={errClose}>{errClose}</span>
+							</li>
+						</template>
+					</ul>
+				</template>
+				<template lwc:else>
+					<div class="slds-text-color_success">You can progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></div>
+				</template>
+			</div>
+			<template lwc:if={showSpinner}>
+				<lightning-spinner variant="brand" size="medium"></lightning-spinner>
+			</template>
+		</div>
+	</div>
 </template>

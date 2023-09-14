@@ -19,14 +19,11 @@
 	2023-04-27 - nasir.jawed2@auspost.com.au - update the field APT_Proposal_Status_Accepted_Denied__c to true on record creation by clone or normal.
 	2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
 	2023-06-20 - Boris Bachovski - Introduce extension to a new module framework and establish a baseline for future refactoring of existing trigger code.
+	2023-08-22 - Ranjeewa Silva - Removed domain trigger handler and uplifted existing domain modules to new ApplicationModule framework.
 	**************************************************/
 trigger opportunityTrigger_16112011 on Opportunity (before insert, before update, after insert, after update, after delete, after undelete, before delete) {
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){ // verify if triggers are disabled
 		(new OpportunityAutomationTriggerHandler()).dispatch();
-
-		// domain based trigger dispatch. this is considered legacy and should not be used for any future work.
-		// to be refactored to new trigger dispatch without domains.
-		(new OpportunityTriggerHandler()).dispatch();
 	}
 
 	if (Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
