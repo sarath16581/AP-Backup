@@ -706,6 +706,7 @@ public without sharing class bspEnquiryUplift {
 			};
 
 			System.debug('searchText===' + searchText  + '>>');
+			System.debug('queryWhere===' + queryWhere  + '>>');
 			if(String.isNotEmpty(searchText)) {
 
 				String queryToGetCount = 'Find \'' + String.escapeSingleQuotes(searchText) + '\' ' +
@@ -800,7 +801,7 @@ public without sharing class bspEnquiryUplift {
 		// get inquiry filtering
 		queryWhere += getEnquiryTypeWhere();
 		// general conditions which are not in UI filter
-		queryWhere += getGenericWhere(roleWhere, billingAccountSelected);
+		queryWhere += getGenericWhere(queryWhere, roleWhere, billingAccountSelected);
 		// use the user filters down to their own Cases only
 		queryWhere += getOrganisationWhere();
 		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date From filter.
@@ -881,13 +882,13 @@ public without sharing class bspEnquiryUplift {
 	 * Get the general query string which are not included in UI filter
 	 * @return String query string
 	 */
-	private static String getGenericWhere(String roleWhere, String billingAccountSelected) {
+	private static String getGenericWhere(String query, String roleWhere, String billingAccountSelected) {
 		String queryWhere = '';
-		queryWhere += (String.isNotEmpty(roleWhere) ? ' AND ' : '') + '( ' + roleWhere + ' ) ';// TODO refactor?
-		queryWhere += ((String.isNotEmpty(queryWhere) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId + '\'';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'IsChildCase__c = false';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'Origin = \'BSP\'';
+		queryWhere += (String.isNotEmpty(roleWhere) ? ' AND ( ' + roleWhere + ' ) ' : '');// TODO refactor?
+		queryWhere += (((String.isNotEmpty(queryWhere) || String.isNotEmpty(query)) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
+		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId + '\'';
+		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'IsChildCase__c = false';
+		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'Origin = \'BSP\'';
 		return queryWhere;
 	}
 
@@ -903,14 +904,20 @@ public without sharing class bspEnquiryUplift {
 				queryWhere += ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
 			}
 			when 'AP' {
-				queryWhere += ' (((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) AND Subject <> \'' + bspBaseUplift.excludeSubject + '\')';
+				queryWhere += ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))';
 			}
 			when else {
 				queryWhere += ' ( ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
 				queryWhere += ' OR ';
-				queryWhere += ' (((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) AND Subject <> \'' + bspBaseUplift.excludeSubject + '\'))';
+				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) ))';
 			}
 		}
+/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
+		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
+		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
+		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
+		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';*/
+
 		return queryWhere;
 	}
 
@@ -931,7 +938,7 @@ public without sharing class bspEnquiryUplift {
 					' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
 		}
 		if (!BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
-			roleWhere += ' OR ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
+			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') +' ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
 		}
 		return roleWhere;
 	}
