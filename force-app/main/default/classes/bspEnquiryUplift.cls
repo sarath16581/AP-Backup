@@ -12,7 +12,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
 04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
 13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
-04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing
+04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -797,7 +797,9 @@ public without sharing class bspEnquiryUplift {
 		*/
 		String queryWhere = '';
 
+		// get inquiry filtering
 		queryWhere += getEnquiryTypeWhere();
+		// general conditions which are not in UI filter
 		queryWhere += getGenericWhere(roleWhere, billingAccountSelected);
 		// use the user filters down to their own Cases only
 		queryWhere += getOrganisationWhere();
@@ -810,16 +812,23 @@ public without sharing class bspEnquiryUplift {
 		return queryWhere;
 	}
 
+	/**
+	 * Get the status query string based on the selected status filter
+	 * @return String query string
+	 */
 	private static String getStatusWhere() {
 		String queryWhere = '';
 		selectedStatuses = new Set<String>();
+
 		if (String.isNotBlank(caseRecStatus)) {
 			if (BspConstants.CASE_STATUS_ACTION.equals(caseRecStatus)) { //Validate if the status selected is "Action Required".
 				selectedStatuses.add('Waiting on customer');
 				selectedStatuses.add('Awaiting Customer Response');
+				selectedStatuses.add('Under investigation - Awaiting responses');
 				queryWhere += ' AND (Status IN: selectedStatuses) ';
 			} else if (BspConstants.CASE_STATUS_RESOLVED.equals(caseRecStatus)) { //Validate if the status selected is "Resolved".
 				selectedStatuses.add('Closed');
+				selectedStatuses.add('Invalid');
 				queryWhere += ' AND Status IN: selectedStatuses AND Permanent_Close__c = false ';
 			} else if (BspConstants.CASE_STATUS_CLOSED.equals(caseRecStatus)) { //Validate if the status selected is "Closed".
 				selectedStatuses.add('Closed');
@@ -835,6 +844,10 @@ public without sharing class bspEnquiryUplift {
 		return queryWhere;
 	}
 
+	/**
+	 * Get the Dates query string based on the selected date filters
+	 * @return String query string
+	 */
 	private static String getDatesWhere() {
 		String queryWhere = '';
 		if (String.isNotBlank(String.valueOf(dummyEnq1.Start_Date__c))) {
@@ -851,6 +864,10 @@ public without sharing class bspEnquiryUplift {
 		return queryWhere;
 	}
 
+	/**
+	 * Get the Organisation query string based on the selected Organisation filter : My enquiries
+	 * @return String query string
+	 */
 	private static String getOrganisationWhere() {
 		String queryWhere = '';
 		if (BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
@@ -860,6 +877,10 @@ public without sharing class bspEnquiryUplift {
 		return queryWhere;
 	}
 
+	/**
+	 * Get the general query string which are not included in UI filter
+	 * @return String query string
+	 */
 	private static String getGenericWhere(String roleWhere, String billingAccountSelected) {
 		String queryWhere = '';
 		queryWhere += (String.isNotEmpty(roleWhere) ? ' AND ' : '') + '( ' + roleWhere + ' ) ';// TODO refactor?
@@ -870,6 +891,11 @@ public without sharing class bspEnquiryUplift {
 		return queryWhere;
 	}
 
+
+	/**
+	 * Get the filtering based on Startrack or AP
+	 * @return String query string
+	 */
 	private static String getEnquiryTypeWhere() {
 		String queryWhere = '';
 		switch on selectedEnquiryType {
@@ -885,15 +911,13 @@ public without sharing class bspEnquiryUplift {
 				queryWhere += ' (((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) AND Subject <> \'' + bspBaseUplift.excludeSubject + '\'))';
 			}
 		}
-/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
-		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
-		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';
-		return queryWhere; */
 		return queryWhere;
 	}
 
+	/**
+	 * Get the query string based on the billing accounts accessible
+	 * @return String query string
+	 */
 	private static String getRoleWhere(Map<String, Set<Id>> mappedEntities) {
 		String roleWhere = '';
 		if (mappedEntities.get('Super Admin') != null) {
