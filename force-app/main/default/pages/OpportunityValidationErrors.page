@@ -4,51 +4,76 @@
  * @group Opportunities
  * @tag Opportunity
  * @description OpportunityValidationErrors capture all the possible validation messages for Opportunity
- *              which is in stage Negotiate and ready for CloseWon.User will be able to use to this information
- *              to close Won an Opportunity .
+ *				to progress to next stage. User can then use this information to close out any outstanding actions and
+ *				move opportunity to next stage.
  * @changelog
  * 2020-08-16 - arjun.singh@auspost.com.au - Created
+ * 2023-08-18 - Ranjeewa Silva - Refactored the component as part of exposing opportunity validation errors for all opportunity stages.
  */
  -->  
- <apex:page standardController="Opportunity" extensions="OpportunityCloseErrorsController" showHeader="false">
-    <script>
-    window.onload=function()
-    {
-        getValidationMsgs();
-    };
-    var lexOrigin = '{!lexUrl}';
-    /*
-        Event Listner to Capture refresh message from parent lwc component and will be used to refresh the 
-        parent component automatically  when user edit/save opportunity record detail page.
-    */
-    window.addEventListener("message", function(event) {
-        console.log('Origin '+ event.origin);
-        console.log('lexOrigin '+ lexOrigin);
-        if (event.origin !== lexOrigin.toLowerCase()) {
-            // Not the expected origin: reject message!
-            return;
-        }
-        getValidationMsgs();
-    });   
-    /*
-    @description: Method used for perform Dummy update DML for an Opportunity to simulate opportunity closure . It captures all the possible code and UI based validation errors and pass
-    this information back to parent lwc compoenent. Parent lwc component will capture these validation messages and will display to end user in Opprotunity tracker component
-    */
-    function getValidationMsgs() {
-        var recordId = '{!oppId}'; 
-         Visualforce.remoting.Manager.invokeAction(
-            '{!$RemoteAction.OpportunityCloseErrorsController.getCloseOpportunityErrors}',
-            recordId, 
-            function(result, event){
-                if (event.status) {
-                    parent.postMessage(result, lexOrigin);
+<apex:page standardController="Opportunity" extensions="OpportunityCloseErrorsController" showHeader="false">
+	<script>
+		window.onload=function() {
+			initialize('{!recordId}');
+		};
 
-                }  else {
-                   console.log('Error>>>>>');
-                }
-            }, 
-            {escape: true}
-        );      
-    } 
-    </script>
+		const lexOrigin = '{!lightningExperienceBaseURL}';
+
+		/**
+		 * Perform initialisation actions such as registering event listeners so that the component is ready to
+		 * receive messages from LWC.
+		 */
+		function initialize(recId) {
+			window.addEventListener("message", function(event) {
+				if (event.origin !== lexOrigin.toLowerCase()) {
+					// Not the expected origin: reject message!
+					return;
+				}
+
+				if (event.data.id === recId && event.data.nextStage) {
+					getValidationMsgs(event.data.nextStage);
+				}
+			});
+
+			// notify LWC that this component is ready to accept messages
+			const message = {
+				type: 'loadComplete',
+				origin: 'page.OpportunityValidationErrors',
+				recordId: recId
+			}
+			parent.postMessage(message, lexOrigin);
+		}
+
+		/**
+		 * @description: Method used for perform Dummy update DML for an Opportunity to simulate opportunity closure .
+		 * It captures all the possible code and UI based validation errors and pass this information back to parent lwc component.
+		 * Parent lwc component will capture these validation messages and will display to end user in Opportunity tracker component
+		 */
+		function getValidationMsgs(oppStage) {
+			var recordId = '{!recordId}';
+
+			const record = {
+				Id: recordId,
+				StageName: oppStage,
+				Hidden_Restrict_Path_Closure__c: true
+			}
+
+			Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.OpportunityCloseErrorsController.getValidationResults}',
+				record,
+				function(result, event){
+					if (event.status) {
+						const message = {
+							type: 'validationResults',
+							origin: 'page.OpportunityValidationErrors',
+							recordId: recordId,
+							payload: result
+						}
+						parent.postMessage(message, lexOrigin);
+					}
+				},
+				{escape: true}
+			);
+		}
+	 </script>
 </apex:page>

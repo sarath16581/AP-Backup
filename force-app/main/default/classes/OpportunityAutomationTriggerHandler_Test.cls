@@ -12,6 +12,7 @@ private class OpportunityAutomationTriggerHandler_Test {
 		OpportunityAutomationTriggerHandler handler = new OpportunityAutomationTriggerHandler();
 		handler.registerModules();
 		
-		System.Assert(Opportunity.SObjectType == handler.getSObjectType());
+		System.assert(Opportunity.SObjectType == handler.getSObjectType());
+		System.assert(handler.newUnitOfWork() != null, 'Expected a valid unit of work instance, but got null');
 	}
 }
