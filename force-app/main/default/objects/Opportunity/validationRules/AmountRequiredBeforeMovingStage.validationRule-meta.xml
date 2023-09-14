@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AmountRequiredBeforeMovingStage</fullName>
+    <active>true</active>
+    <description>Ensure Total Opportunity Value is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
+    <errorConditionFormula>AND(
+ NOT(ISNEW()),
+ ISCHANGED( StageName ),
+ ISBLANK( Amount ),
+ OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) )
+)</errorConditionFormula>
+    <errorDisplayField>Amount</errorDisplayField>
+    <errorMessage>Add a Total Opportunity Value. Your initial sales estimate must be assigned in the Total Opportunity Value field prior to adding products.</errorMessage>
+</ValidationRule>

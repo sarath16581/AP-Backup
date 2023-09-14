@@ -27,6 +27,8 @@ History:
 2020-09-09 arjun.singh@auspost.com.au Modified the checkIfAllowedToCloseWin method to capture all the possible validation rules
 2020-30-11		seth.heang@auspost.com.au			Update the checkIfAllowedToCloseWin method to auto-populate opportunity's close date to Today prior to Opportunity Closure
 2022-07-22 ken.mcguire OPC Uplift.
+2023-08-21 - Ranjeewa Silva - Removed validation check on products when moving stage to 'Closed Won'. Products are now mandatory
+				moving stage from "Qualify" to "Propose" and beyond. Implemented as a opportunity validation rule.
 **************************************************/
 public with sharing class OpportunityUtility
 {
@@ -211,13 +213,8 @@ public with sharing class OpportunityUtility
 							Is_Document_Signed__c FROM R00N50000001Xl0FEAS)
 						FROM Opportunity
 						WHERE Id IN: oppIdSet]) {
-					if (oppRec.OpportunityLineItems.isEmpty()) {
-						oppErrorMap = addOpportunityErrorsMap(oppErrorMap, oppRec.Id, Label.Opportunity_Cannot_Be_Closed_Won);
-						oppToProductsMap.put(oppRec.Id, oppRec.OpportunityLineItems);
-					}
-					else {
-						oppToProductsMap.put(oppRec.Id, oppRec.OpportunityLineItems);
-					}
+
+					oppToProductsMap.put(oppRec.Id, oppRec.OpportunityLineItems);
 
 					// added 08/22/2019; list of Apttus Contract associated with the Opportunity
 					if (!oppRec.R00N50000001Xl0FEAS.isEmpty()) {

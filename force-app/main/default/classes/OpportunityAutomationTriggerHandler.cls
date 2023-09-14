@@ -3,6 +3,7 @@
  * @author Boris Bachovski
  * @date 2023-06-21
  * @changelog
+ * 2023-08-22 - Ranjeewa Silva - Register new modules OpportunitySalesPipelineModule and OpportunityContributionSplitsModule
  */
 public inherited sharing class OpportunityAutomationTriggerHandler extends ApplicationTriggerHandler {
 	public override SObjectType getSObjectType() {
@@ -16,6 +17,10 @@ public inherited sharing class OpportunityAutomationTriggerHandler extends Appli
 	public override void registerModules() {
 		// Lead Seeker Module
 		registerModule(OpportunityLeadSeekerModule.class);
+		// automation to assign contribution splits to specialist sales teams on creation and retain splits on opportunity transfer
+		registerModule(OpportunityContributionSplitsModule.class);
+		// automation specific to sales pipeline based on stage
+		registerModule(OpportunitySalesPipelineModule.class);
 	}
 
 	/**
@@ -24,7 +29,8 @@ public inherited sharing class OpportunityAutomationTriggerHandler extends Appli
 	 */
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-				Opportunity.SObjectType
+				Opportunity.SObjectType,
+				OpportunitySplit.SObjectType
 		};
 	}	
 }

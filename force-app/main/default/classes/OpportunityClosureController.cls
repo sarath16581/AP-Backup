@@ -2,25 +2,24 @@
 * Controller for LWC Opportunity Closure
 * Description: This Controller will retrieve and update opportunity for the Opportunity Closure. 
 * User Story: STP-603, STP-605
-History:
------------------------------------------------------------------------------------------
-17.10.2017 Lavanya Kavuri (lkavuri@salesforce.com) Created
-11.06.2023 Ken McGuire - cleanup
+* @changelog
+* 2017-10-17 - Lavanya Kavuri (lkavuri@salesforce.com) - Created
+* 2023-08-07 - Ranjeewa Silva - Fixed an issue where validation error messages are displayed with special characters (e.g. &quot;)
 ******************************************************************************************
 */
 
 public with sharing class OpportunityClosureController {
 
 	/*
-	* Method: Validate Opportunity Stage 
-	* Description: This method is used to throw any validation errors when closing the opportunity without actually saving the record. 
+	* Method: Validate Opportunity Stage
+	* Description: This method is used to throw any validation errors when closing the opportunity without actually saving the record.
 	*/
 
 	@AuraEnabled
 	public static string validateOpportunityStage(String stageName, String nextSteps, String closeComments, String closeReason, String recordId){
 		SavePoint sp = Database.setSavePoint();
 		List<Opportunity> optyList = [SELECT Id, Name, Amount, StageName, CloseDate, Closed_Reason__c, Closed_Comments__c FROM Opportunity WHERE Id =: recordId];
-		List<Opportunity> updateList = new List<Opportunity>(); 
+		List<Opportunity> updateList = new List<Opportunity>();
 		for(Opportunity op: optyList)
 		{
 			op.Closed_Comments__c = closeComments;
@@ -40,7 +39,7 @@ public with sharing class OpportunityClosureController {
 			{
 				for(Database.Error err : res.getErrors())
 				{
-					throw new AuraHandledException(err.getMessage());
+					throw new AuraHandledException(err.getMessage().unescapeHtml4());
 				}
 			}
 			else {
