@@ -4,6 +4,7 @@ Created By - Mausam Padhiyar
 Created Date - 17th Feb, 2016
 Last Modified By - Krishna Velani
 Last Modified Date - 27th April, 2021
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 **/
 public with sharing class APT_CartApprovalsComponentController {
     

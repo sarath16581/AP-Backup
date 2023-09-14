@@ -5,6 +5,7 @@ Created Date: 21th Dec, 2015
 Last Modified By: Krishna Velani
 Last Modified Date: 19th May 2021 STP-5156 Populate OOTB Related Proposal & Related Opportunity fields on AR
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 */
 public with sharing class APT_ApprovalRequestTriggerHandler {
 

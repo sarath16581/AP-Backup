@@ -29,6 +29,7 @@
 * Last Modified By - Madhuri Awasthi
 * Last Modified Date - 27th Sep, 2021 | REQ2594537 (Allow StarTrack Standard Delegation Approval Process for Intermediaries for Price Adjustment)
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 ***************************************************************************************************************/
 global with sharing class APT_CartValidationCallBack implements Apttus_Config2.CustomClass.IValidationCallback2 {
 

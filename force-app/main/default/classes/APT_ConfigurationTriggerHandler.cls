@@ -17,6 +17,7 @@ Last Modified Date: 24th Aug, 2020 | Optimised syncWithOpportunity method to att
 Last Modified By : Mansi Shah
 Last Modified Date : 15th June, 2021 | added a method onAfterUpdate for ST Pricing delegation Approvals
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic
 */
 public without sharing class APT_ConfigurationTriggerHandler {
 

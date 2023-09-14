@@ -7,6 +7,7 @@
  * Ver Date Author Modification
  * 1.0   06-10-2021 Mansi Shah Initial Version
  * Ken McGuire 2023.04.19 Proposal field migration to opportunity
+ * Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 **/
 public with sharing class APT_ProposalTriggerHelper {
 	/**
