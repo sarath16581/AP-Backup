@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Tier_Adjustment_Type__c</fullName>
+    <description>for startrack delegation</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Tier_Adjustment_Type__c)</formula>
+    <label>Requested Adjustment</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
