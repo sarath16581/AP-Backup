@@ -12,7 +12,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
 04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
 13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
-04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing
+04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -29,6 +29,7 @@ public without sharing class bspEnquiryUplift {
 	//public static boolean notFound {get;set;}
 	//public static boolean duplicate {get;set;}
 	public static String caseRecStatus {get; set;}
+	public static Set<String> selectedStatuses {get; set;}
 	public static StarTrackConsignmentSearchUtil.ConsignmentWrapper searchedConsignment {get; set;}
 	public static Map<String, Id> caseNumbers {get; set;}
 	public static Article__c currentConsignment {get; set;}
@@ -790,112 +791,149 @@ public without sharing class bspEnquiryUplift {
 		// Changed code to combine ST and AP Queries into 1 query.
 		*/
 		// building common roles clause for ST and AP to use in where clause
-		String roleWhere = '';
-		if(mappedEntities.get('Super Admin') != null) {
-			superAdminEntities = mappedEntities.get('Super Admin');
-			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( AccountId in :superAdminEntities ) ';
-		} else if(mappedEntities.get('Admin') != null) {
-			adminEntities = mappedEntities.get('Admin');
-			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( (Related_Billing_Account__c != null And Related_Billing_Account__c IN :adminEntities) ' +
-					' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
-		}
-
-		// additionally we need to give the user access to their own cases irrespective of the roles applied
-		roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
-
+		String roleWhere = getRoleWhere(mappedEntities);
 		/*  Building common where clause for ST and AP
 			2020-10-28 Adding the selecteEnquiryType filter for AP and ST enquiries filteration
 		*/
 		String queryWhere = '';
 
-		/*  DO NOT CHANGE the ORDER of this queryWhere build part otherwise query will not execute properly.
-			If it is required to change then make sure to test the whole query properly.
-		*/
-		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
-		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
-		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + '( ' + roleWhere + ' ) ';
-		queryWhere += ((String.isNotEmpty(queryWhere) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId +'\'';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'IsChildCase__c = false';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'Origin = \'BSP\'';
+		// get inquiry filtering
+		queryWhere += getEnquiryTypeWhere();
+		// general conditions which are not in UI filter
+		queryWhere += getGenericWhere(roleWhere, billingAccountSelected);
 		// use the user filters down to their own Cases only
-		if(BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
-			queryWhere += ' AND ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
+		queryWhere += getOrganisationWhere();
+		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date From filter.
+		queryWhere += getDatesWhere();
+		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Status filter.
+		queryWhere += getStatusWhere();
+		queryWhere = (String.isNotEmpty(queryWhere) ? ' WHERE ' : '') + queryWhere;
+
+		return queryWhere;
+	}
+
+	/**
+	 * Get the status query string based on the selected status filter
+	 * @return String query string
+	 */
+	private static String getStatusWhere() {
+		String queryWhere = '';
+		selectedStatuses = new Set<String>();
+
+		if (String.isNotBlank(caseRecStatus)) {
+			if (BspConstants.CASE_STATUS_ACTION.equals(caseRecStatus)) { //Validate if the status selected is "Action Required".
+				selectedStatuses.add('Waiting on customer');
+				selectedStatuses.add('Awaiting Customer Response');
+				selectedStatuses.add('Under investigation - Awaiting responses');
+				queryWhere += ' AND (Status IN: selectedStatuses) ';
+			} else if (BspConstants.CASE_STATUS_RESOLVED.equals(caseRecStatus)) { //Validate if the status selected is "Resolved".
+				selectedStatuses.add('Closed');
+				selectedStatuses.add('Invalid');
+				queryWhere += ' AND Status IN: selectedStatuses AND Permanent_Close__c = false ';
+			} else if (BspConstants.CASE_STATUS_CLOSED.equals(caseRecStatus)) { //Validate if the status selected is "Closed".
+				selectedStatuses.add('Closed');
+				queryWhere += ' AND ((Status IN: selectedStatuses AND Permanent_Close__c = true) OR Subject = \'Bulk Upload\') ';
+			} else if (BspConstants.CASE_STATUS_INPROGRESS.equals(caseRecStatus)) { //Validate if the status selected is "In Progress".
+				selectedStatuses.add('Closed');
+				selectedStatuses.add('Waiting on customer');
+				selectedStatuses.add('Awaiting Customer Response');
+				queryWhere += ' AND (Status NOT IN: selectedStatuses) ';
+			}
 		}
 
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date From filter.
-		if(String.isNotBlank(String.valueOf(dummyEnq1.Start_Date__c))){
+		return queryWhere;
+	}
+
+	/**
+	 * Get the Dates query string based on the selected date filters
+	 * @return String query string
+	 */
+	private static String getDatesWhere() {
+		String queryWhere = '';
+		if (String.isNotBlank(String.valueOf(dummyEnq1.Start_Date__c))) {
 			startDate = dummyEnq1.Start_Date__c;
 			queryWhere += ' AND DAY_ONLY(convertTimezone(CreatedDate)) >= :startDate ';
 		}
 
 		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date To filter.
-		if(String.isNotBlank(String.valueOf(dummyEnq1.End_Date__c))){
+		if (String.isNotBlank(String.valueOf(dummyEnq1.End_Date__c))) {
 
 			endDate = dummyEnq1.End_Date__c;
 			queryWhere += ' AND DAY_ONLY(convertTimezone(CreatedDate)) <= :endDate ';
 		}
-
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Status filter.
-		if(String.isNotBlank(caseRecStatus)){
-			if(BspConstants.CASE_STATUS_ACTION.equals(caseRecStatus)){ //Validate if the status selected is "Action Required".
-				queryWhere += ' AND (Status = \'Waiting on customer\' OR Status = \'Awaiting Customer Response\') ';
-			} else if(BspConstants.CASE_STATUS_RESOLVED.equals(caseRecStatus)){ //Validate if the status selected is "Resolved".
-				queryWhere += ' AND Status = \'Closed\' AND Permanent_Close__c = false ';
-			} else if(BspConstants.CASE_STATUS_CLOSED.equals(caseRecStatus)){ //Validate if the status selected is "Closed".
-				queryWhere += ' AND ((Status = \'Closed\' AND Permanent_Close__c = true) OR Subject = \'Bulk Upload\') ';
-			} else if(BspConstants.CASE_STATUS_INPROGRESS.equals(caseRecStatus)){ //Validate if the status selected is "In Progress".
-				queryWhere += ' AND (Status != \'Closed\' AND Status != \'Waiting on customer\' AND Status != \'Awaiting Customer Response\') ';
-			}
-		}
-
-		queryWhere = (String.isNotEmpty(queryWhere) ? ' WHERE ' : '') + queryWhere;
-
-		System.debug('queryWhere >>' + queryWhere);
 		return queryWhere;
 	}
 
 	/**
-	 * This will add to an existing where clause and surface all the additional soql criteria required for the selected parameters in the UI
+	 * Get the Organisation query string based on the selected Organisation filter : My enquiries
+	 * @return String query string
 	 */
-	private static String generateFilterCriteria() {
-
-		String output = '';
-
-		// use the user filters down to their own Cases only
-		if(BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
-			output += ' AND ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
+	private static String getOrganisationWhere() {
+		String queryWhere = '';
+		if (BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
+			queryWhere += ' AND ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
 		}
 
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date From filter.
-		if(String.isNotBlank(String.valueOf(dummyEnq1.Start_Date__c))){
-			startDate = dummyEnq1.Start_Date__c;
-			output += ' AND DAY_ONLY(convertTimezone(CreatedDate)) >= :startDate ';
-		}
+		return queryWhere;
+	}
 
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date To filter.
-		if(String.isNotBlank(String.valueOf(dummyEnq1.End_Date__c))){
+	/**
+	 * Get the general query string which are not included in UI filter
+	 * @return String query string
+	 */
+	private static String getGenericWhere(String roleWhere, String billingAccountSelected) {
+		String queryWhere = '';
+		queryWhere += (String.isNotEmpty(roleWhere) ? ' AND ' : '') + '( ' + roleWhere + ' ) ';// TODO refactor?
+		queryWhere += ((String.isNotEmpty(queryWhere) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
+		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId + '\'';
+		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'IsChildCase__c = false';
+		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'Origin = \'BSP\'';
+		return queryWhere;
+	}
 
-			endDate = dummyEnq1.End_Date__c;
-			output += ' AND DAY_ONLY(convertTimezone(CreatedDate)) <= :endDate ';
-		}
 
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Status filter.
-		if(String.isNotBlank(caseRecStatus)){
-			if(BspConstants.CASE_STATUS_ACTION.equals(caseRecStatus)){ //Validate if the status selected is "Action Required".
-				output += ' AND (Status = \'Waiting on customer\' OR Status = \'Awaiting Customer Response\') ';
-			} else if(BspConstants.CASE_STATUS_RESOLVED.equals(caseRecStatus)){ //Validate if the status selected is "Resolved".
-				output += ' AND Status = \'Closed\' AND Permanent_Close__c = false ';
-			} else if(BspConstants.CASE_STATUS_CLOSED.equals(caseRecStatus)){ //Validate if the status selected is "Closed".
-				output += ' AND ((Status = \'Closed\' AND Permanent_Close__c = true) OR Subject = \'Bulk Upload\') ';
-			} else if(BspConstants.CASE_STATUS_INPROGRESS.equals(caseRecStatus)){ //Validate if the status selected is "In Progress".
-				output += ' AND (Status != \'Closed\' AND Status != \'Waiting on customer\' AND Status != \'Awaiting Customer Response\') ';
+	/**
+	 * Get the filtering based on Startrack or AP
+	 * @return String query string
+	 */
+	private static String getEnquiryTypeWhere() {
+		String queryWhere = '';
+		switch on selectedEnquiryType {
+			when 'ST' {
+				queryWhere += ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
+			}
+			when 'AP' {
+				queryWhere += ' (((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) AND Subject <> \'' + bspBaseUplift.excludeSubject + '\')';
+			}
+			when else {
+				queryWhere += ' ( ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
+				queryWhere += ' OR ';
+				queryWhere += ' (((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) AND Subject <> \'' + bspBaseUplift.excludeSubject + '\'))';
 			}
 		}
-		return output;
+		return queryWhere;
+	}
+
+	/**
+	 * Get the query string based on the billing accounts accessible
+	 * @return String query string
+	 */
+	private static String getRoleWhere(Map<String, Set<Id>> mappedEntities) {
+		String roleWhere = '';
+		if (mappedEntities.get('Super Admin') != null) {
+			superAdminEntities = mappedEntities.get('Super Admin');
+			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( AccountId in :superAdminEntities ) ';
+		}
+
+		if (mappedEntities.get('Admin') != null) {
+			adminEntities = mappedEntities.get('Admin');
+			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( (Related_Billing_Account__c != null And Related_Billing_Account__c IN :adminEntities) ' +
+					' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
+		}
+		if (!BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
+			roleWhere += ' OR ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
+		}
+		return roleWhere;
 	}
 
 	/**
