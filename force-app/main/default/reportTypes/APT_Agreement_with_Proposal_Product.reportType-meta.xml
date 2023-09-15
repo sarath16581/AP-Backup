@@ -86,11 +86,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Configure_Products__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Tier_Adjustment_Type__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -286,11 +281,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Conversation__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_View_Ratecard__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -392,11 +382,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>APT_Cubic_Factor_Type__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Customer_Background__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
         <columns>
@@ -631,11 +616,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Intermediary__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Is_Startrack_Proposal__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -701,11 +681,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Name_of_Intermediary_s_Client__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Apttus_Proposal__Net_Amount__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -747,11 +722,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>APT_Opportunity_Number__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Pricing_Request_Type__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
         <columns>
@@ -1061,11 +1031,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Tier_Adjustment_Justification__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Apttus_Proposal__Sales_Tax_Percent__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -1232,11 +1197,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>APT_Verify_ABN_ACN__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_competitor__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
         <columns>

@@ -55,11 +55,6 @@ trigger APT_ApprovalRequestTrigger on Apttus_Approval__Approval_Request__c (befo
         if(trigger.isUpdate && trigger.isBefore) {
         //APT_ApprovalRequestTriggerHandler.UpdateOwner(trigger.new);
         APT_ApprovalRequestTriggerHandler.updateRelated(trigger.new);
-        APT_ApprovalRequestTriggerHandler.onBeforeUpdate(trigger.new,trigger.oldMap);
-       }
-       // STP-6349 | field change from formula field to text area start
-       if(trigger.isBefore && trigger.isInsert){
-            APT_ApprovalRequestTriggerHandler.onBeforeInsert(trigger.new);
        }
        // STP-6349 | field change from formula field to text area end 
        

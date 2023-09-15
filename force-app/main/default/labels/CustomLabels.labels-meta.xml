@@ -232,13 +232,6 @@ Compass quote end date has passed, please request re-activation</value>
         <value>Letter of Intent</value>
     </labels>
     <labels>
-        <fullName>APT_ApprovalRequestFor</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>ApprovalRequestFor</shortDescription>
-        <value>Pricing Approval Request for</value>
-    </labels>
-    <labels>
         <fullName>APT_Apttuscustomerid</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1532,13 +1525,6 @@ Compass quote end date has passed, please request re-activation</value>
         <protected>false</protected>
         <shortDescription>APT_SOPRecordTypeID</shortDescription>
         <value>01290000001UPgw</value>
-    </labels>
-    <labels>
-        <fullName>APT_STApprovalSubmissionComment</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>STApprovalSubmissionComment</shortDescription>
-        <value>Additional Comments</value>
     </labels>
     <labels>
         <fullName>APT_Salutations</fullName>

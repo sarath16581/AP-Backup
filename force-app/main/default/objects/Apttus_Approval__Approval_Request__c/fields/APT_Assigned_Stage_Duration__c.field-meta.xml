@@ -3,7 +3,7 @@
     <fullName>APT_Assigned_Stage_Duration__c</fullName>
     <description>Captures CT of the AR in submitted(Assigned) stage until it&apos;s been changed; updated via WFR: APT_Calculate_Approval_Request_Cycle_Time</description>
     <externalId>false</externalId>
-    <label>Assigned Stage Duration</label>
+    <label>(depr) Assigned Stage Duration</label>
     <precision>16</precision>
     <required>false</required>
     <scale>0</scale>
