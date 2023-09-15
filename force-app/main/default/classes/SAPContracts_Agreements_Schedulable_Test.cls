@@ -2,8 +2,9 @@
   * @author       : snigdha.sahu@auspost.com.au
   * @date         : 07/09/2016
   * @description  : Test Class for SAPContracts_Agreements_Schedulable
-  
-  02.06.2020   shashwat.a.nath@accenture.com updated the method unitTest to set the stage name to identify and then updated it to Closed Duplicate to bypass the validation NewRecord_Stage_Validation 
+  * @changelog
+  * 02.06.2020   shashwat.a.nath@accenture.com updated the method unitTest to set the stage name to identify and then updated it to Closed Duplicate to bypass the validation NewRecord_Stage_Validation
+  * 2023-08-24 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
   */
 @isTest
 private with sharing class SAPContracts_Agreements_Schedulable_Test {
@@ -28,18 +29,7 @@ private with sharing class SAPContracts_Agreements_Schedulable_Test {
             Database.insert(acc);
             Contact con = TestUtility.createContact('Arya','Stark','arya@stark.com',acc.id);
             Database.insert(con);
-            
-            Opportunity opp1 = new Opportunity(Name = 'TestOpp1',StageName = 'Identify',CloseDate = date.Today().addDays(365),AccountId = acc.id);
-            Opportunity opp2 = new Opportunity(Name = 'TestOpp2',StageName = 'Identify',CloseDate = date.Today().addDays(365),AccountId = acc.id);  
-            oppList.add(opp1);
-            oppList.add(opp2);           
-            Database.insert(oppList );
-            
-            oppList[0].Stagename = 'Propose';
-            oppList[1].Stagename = 'Propose';
-            
-            Database.update(oppList );
-            
+
             Apttus__APTS_Agreement__c  aptContractY = APT_TestUtils.createAgreement(con.Id);
             aptContractY.Name = 'TestContractY';
             aptContractY.Apttus__Primary_Contact__c=con.Id;

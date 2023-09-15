@@ -9,17 +9,13 @@
  * 2023-05-04 - Ranjeewa Silva - Created.
  */
 
-public inherited sharing class SalesOpportunityContributionSplitsModule extends ApplicationDomain.Module {
+public inherited sharing class OpportunityContributionSplitsModule extends ApplicationModule {
 
 	// opportunity ids already enqueued in current transaction.
 	@TestVisible private static Set<Id> enqueuedOpportunityIds = new Set<Id>();
 
-	public static SalesOpportunityContributionSplitsModule newInstance() {
-		return (SalesOpportunityContributionSplitsModule) Application.Utilities.newInstance(SalesOpportunityContributionSplitsModule.class);
-	}
-
 	// Setup which trigger events this module should respond to
-	public SalesOpportunityContributionSplitsModule() {
+	public OpportunityContributionSplitsModule() {
 		getTriggerEvents().enableAfterInsert().enableBeforeUpdate();
 	}
 
@@ -39,7 +35,7 @@ public inherited sharing class SalesOpportunityContributionSplitsModule extends 
 			createOpportunitySplitsForOwnersInSpecialistSalesTeams(newOpportunitiesByOwner, uow);
 
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesOpportunityContributionSplitsModule.class.getName(),
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunityContributionSplitsModule.class.getName(),
 					'onAfterInsert', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
@@ -61,7 +57,7 @@ public inherited sharing class SalesOpportunityContributionSplitsModule extends 
 				keepSplitsAssignedToPriorOwnerInSpecialistSalesTeams(opportunitiesChangingOwner, (Map<Id, Opportunity>)existingRecords, uow);
 			}
 		} catch (Exception e) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', SalesOpportunityContributionSplitsModule.class.getName(),
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunityContributionSplitsModule.class.getName(),
 					'onBeforeUpdate', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}

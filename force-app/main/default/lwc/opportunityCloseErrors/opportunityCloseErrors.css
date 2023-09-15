@@ -1,0 +1,13 @@
+/**
+ * 2023-08-08 - Ranjeewa Silva - Created.
+ */
+
+.path-green {
+  --slds-c-icon-color-foreground: white;
+  --slds-c-icon-color-background: #45c65a;
+}
+
+.path-red {
+  --slds-c-icon-color-foreground: white;
+  --slds-c-icon-color-background: #ba0517;
+}
