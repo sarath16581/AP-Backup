@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Approved_Tier_After_Adjustment__c</fullName>
+    <description>For startrack delegation</description>
+    <externalId>false</externalId>
+    <inlineHelpText>To request “Tier Up” pricing, go to Review Cart and select &quot;Request Adjustment&quot;</inlineHelpText>
+    <label>(depr) Proposed Tier</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

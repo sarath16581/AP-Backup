@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Primary_Campaign__c</fullName>
+    <description>Primary campaign on opportunity</description>
+    <externalId>false</externalId>
+    <formula>Apttus_Approval__Related_Opportunity__r.Primary_Campaign_Name__c</formula>
+    <label>(depr) Primary Campaign</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

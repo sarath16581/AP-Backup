@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Customer_Background__c</fullName>
+    <description>Customer backgroud</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Provide details of customer eg. Industry, total sales</inlineHelpText>
+    <label>(depr) Customer Background</label>
+    <length>10000</length>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

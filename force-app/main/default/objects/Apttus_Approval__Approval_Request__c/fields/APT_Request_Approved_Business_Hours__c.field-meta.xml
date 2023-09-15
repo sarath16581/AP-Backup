@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Request_Approved_Business_Hours__c</fullName>
+    <description>Business hours between Date assigned and Date approved for a request considering default business hours as 8 AM - 6 PM (as mentioned in company profile-default business hours)</description>
+    <externalId>false</externalId>
+    <formula>ROUND( 
+10 * (
+( 5 * FLOOR( ( DATEVALUE( Apttus_Approval__DateApproved__c  ) - DATE( 1900, 1, 8) ) / 7) +
+MIN(5,
+MOD( DATEVALUE( Apttus_Approval__DateApproved__c ) - DATE( 1900, 1, 8), 7) +
+MIN( 1, 24 / 10 * ( MOD( Apttus_Approval__DateApproved__c - DATETIMEVALUE( &apos;1900-01-07 22:00:00&apos; ), 1 ) ) )
+)
+)
+-
+( 5 * FLOOR( ( DATEVALUE(   Apttus_Approval__DateAssigned__c ) - DATE( 1900, 1, 8) ) / 7) +
+MIN( 5,
+MOD( DATEVALUE( Apttus_Approval__DateAssigned__c ) - DATE( 1996, 1, 1), 7 ) +
+MIN( 1, 24 / 10 * ( MOD( Apttus_Approval__DateAssigned__c - DATETIMEVALUE( &apos;1900-01-07 22:00:00&apos; ), 1) ) )
+)
+)
+),
+0 )</formula>
+    <label>(depr) Request Approved Business Hours</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Pricing_Request_Type__c</fullName>
+    <description>Reason for pricing update</description>
+    <externalId>false</externalId>
+    <label>(depr) Opportunity Type</label>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>APT_Tier_Adjustment_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Business</fullName>
+                <default>false</default>
+                <label>New Business</label>
+            </value>
+            <value>
+                <fullName>Cross Sell</fullName>
+                <default>false</default>
+                <label>Cross Sell</label>
+            </value>
+            <value>
+                <fullName>Growth</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Growth</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>1 Tier Up</controllingFieldValue>
+            <controllingFieldValue>2 Tier Up</controllingFieldValue>
+            <valueName>New Business</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>1 Tier Up</controllingFieldValue>
+            <controllingFieldValue>2 Tier Up</controllingFieldValue>
+            <valueName>Cross Sell</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

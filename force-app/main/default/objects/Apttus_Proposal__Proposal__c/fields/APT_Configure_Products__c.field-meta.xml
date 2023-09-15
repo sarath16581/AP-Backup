@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Configure_Products__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (
+AND(
+LEN( Apttus_QPConfig__PriceListId__c ) &gt; 0,
+Apttus_Proposal__Primary__c,
+TEXT(Is_Startrack_Proposal__c) &lt;&gt; &apos;&apos;,
+TEXT( Apttus_Proposal__Approval_Stage__c )&lt;&gt; &quot;Accepted&quot;,
+OR(
+AND(TEXT( Apttus_QPApprov__Approval_Status__c)&lt;&gt; &quot;Approved&quot;,TEXT(Is_Startrack_Proposal__c) &lt;&gt; &quot;No&quot;),
+AND(TEXT( Apttus_Proposal__Approval_Stage__c )&lt;&gt; &quot;Accepted&quot;,TEXT(Is_Startrack_Proposal__c) &lt;&gt; &quot;Yes&quot;))
+),
+
+IF(RecordType.DeveloperName == &apos;Proposal&apos; &amp;&amp; $Profile.Name != &apos;Pricing Management&apos;, HYPERLINK(&quot;/apex/Apttus_Config2__Cart?businessObjectId=&quot;
+&amp;Id+&quot;&amp;flow=NewQuote&quot;&amp;&quot;&amp;useAdvancedApproval=true&amp;useDealOptimizer=true&amp;productOrderByClause=APT_Most_Popular__c NULLS LAST&amp;launchState=catalog#!/search/&quot;,
+IMAGE(&quot;/resource/APT_Add&quot;, &quot;Add&quot;),&quot;_self&quot;),
+
+IF(RecordType.DeveloperName == &apos;Proposal&apos; &amp;&amp; $Profile.Name == &apos;Pricing Management&apos;, HYPERLINK(&quot;/apex/Apttus_Config2__Cart?businessObjectId=?id=&quot;
+&amp;Id+&quot;&amp;flow=Approval flow&quot;&amp;&quot;&amp;useAdvancedApproval=true&amp;useDealOptimizer=true&amp;productOrderByClause=APT_Most_Popular__c NULLS LAST&amp;launchState=catalog#!/search/&quot; ,
+IMAGE(&quot;/resource/APT_Add&quot;, &quot;Add&quot;),&quot;_self&quot;),
+
+IF((RecordType.DeveloperName == &apos;APT_Renewal_Quote&apos; || RecordType.DeveloperName == &apos;APT_Amendment_Quote&apos;) &amp;&amp; $Profile.Name == &apos;Pricing Management&apos;, HYPERLINK(&quot;/apex/Apttus_Config2__Cart?businessObjectId=&quot;
+&amp;Id+&quot;&amp;flow=Approval flow&quot;&amp;&quot;&amp;useAdvancedApproval=true&amp;useDealOptimizer=true&amp;productOrderByClause=APT_Most_Popular__c NULLS LAST&amp;launchState=catalog#!/search/&quot; ,
+IMAGE(&quot;/resource/APT_Add&quot;, &quot;Add&quot;),&quot;_self&quot;),
+
+IF( (RecordType.DeveloperName == &apos;APT_Renewal_Quote&apos; || RecordType.DeveloperName == &apos;APT_Amendment_Quote&apos;) ,HYPERLINK(&quot;/apex/Apttus_Config2__Cart?businessObjectId=&quot;
+&amp;Id+&quot;&amp;flow=RenewalQuote&quot;&amp;&quot;&amp;useAdvancedApproval=true&amp;useDealOptimizer=true&amp;productOrderByClause=APT_Most_Popular__c NULLS LAST&amp;launchState=catalog#!/search/&quot; ,
+IMAGE(&quot;/resource/APT_Add&quot;, &quot;Add&quot;),&quot;_self&quot;),
+HYPERLINK(&quot;/apex/Apttus_Config2__Cart?businessObjectId=&quot;
+&amp;Id&amp;&quot;&amp;useAdvancedApproval=true&amp;useDealOptimizer=true&quot;,
+IMAGE(&quot;/resource/APT_Add&quot;, &quot;Add&quot;),&quot;_self&quot;))))), NULL)</formula>
+    <label>(depr) Add Products</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
