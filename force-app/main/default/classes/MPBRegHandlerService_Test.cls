@@ -115,6 +115,8 @@ private with sharing class MPBRegHandlerService_Test {
 		List<Asset> assets = ApplicationTestDataFactory.getPSRTransactionalAssets(1, accounts[0].Id, prod[0].Id, false,'Agreed', true);
 		assets.addAll(ApplicationTestDataFactory.getPSRTransactionalAssets(1, accounts[0].Id, prod[0].Id, false,'Agreed', true));
 		assets[0].Name = 'PSRTandC';
+		assets[0].ContactId = contacts[0].Id;
+		//assets[0] = (Asset) ApplicationTestDataFactory.setUnwritableFields(assets[0], new Map<String, Object>{'ContactId' => contacts[0].Id});
 		//relate the assets and account to contact
 		contacts[0] = (Contact) ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{'Account' => accounts[0]});
 		contacts[0] = (Contact)ApplicationTestDataFactory.setChildRelationships(contacts[0], new Map<String, List<SObject>>{'Assets' => assets});

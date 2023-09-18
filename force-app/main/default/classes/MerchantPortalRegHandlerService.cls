@@ -6,7 +6,7 @@
 public inherited sharing class MerchantPortalRegHandlerService {
 
 	@TestVisible
-	private static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
+	public static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
 
 	/**
 	 * Provides a mockable interface for unit testing

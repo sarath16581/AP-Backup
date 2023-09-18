@@ -6,10 +6,6 @@
  */
 public inherited sharing class MPBRegHandlerService {
 
-	@TestVisible
-	private static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
-	private static final String MPB_COMMUNITY_PROFILE_NAME = 'Mypost Business Help & Support Community User';
-
 	/**
 	 * Provides a mockable interface for unit testing
 	 */
@@ -21,7 +17,7 @@ public inherited sharing class MPBRegHandlerService {
 		Map<String, String> output = new Map<String, String>();
 		output.putAll(attributes);
 
-		String cNumber = String.valueOf(attributes.get(ATTRIBUTE_CNUMBER_MAPPING));
+		String cNumber = String.valueOf(attributes.get(MerchantPortalRegHandlerService.ATTRIBUTE_CNUMBER_MAPPING));
 		output.put('cnumber', cNumber); // this is to maintain backwards compatibility of the millions of existing records we have
 
 		return output;
@@ -42,7 +38,7 @@ public inherited sharing class MPBRegHandlerService {
 		if(!attributes.containsKey('email')) {
 			output.add('Email attribute is missing');
 		}
-		if(!attributes.containsKey(ATTRIBUTE_CNUMBER_MAPPING) || !attributes.containsKey('cnumber')) {
+		if(!attributes.containsKey(MerchantPortalRegHandlerService.ATTRIBUTE_CNUMBER_MAPPING) || !attributes.containsKey('cnumber')) {
 			output.add('CNumber attribute is missing');
 		}
 
@@ -69,7 +65,7 @@ public inherited sharing class MPBRegHandlerService {
 		searchParams.put('contactCNumbers', cNumber);
 		searchParams.put('contactStatuses', 'Active');
 		searchParams.put('isActive', true);
-		searchParams.put('profileNames', MPB_COMMUNITY_PROFILE_NAME);
+		searchParams.put('profileNames', BspConstants.MPB_COMMUNITY_PROFILE_NAME);
 
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 			Contact.SObjectType => new Set<SObjectField>{Contact.Id, Contact.Status__c, Contact.OID_ID__c},
@@ -94,26 +90,44 @@ public inherited sharing class MPBRegHandlerService {
 		List<User> users = queryResults.values();
 
 		if (!users.isEmpty()) {
-			//get the first user contact and check any PSRTandC  assets related to contact
-			User user = users[0];
+			//get the contacts associated to all the users and check any PSRTandC assets related to contact
+			Map<Id, User> contactIdToUserMap = new Map<Id, User>();
+			for (User user : users) {
+				contactIdToUserMap.put(user.ContactId, user);
+			}
 
 			Map<String, Object> assetSearchParams = new Map<String, Object>{
-				'contactIds' => user.ContactId,
+				'contactIds' => contactIdToUserMap.keySet(),
 				'assetNames' => 'PSRTandC'
 			};
-			List<Asset> assets = AssetsSelector.newInstance().search(assetSearchParams, true);
+			Set<SObjectField> assetFieldOverrides = new Set<SObjectField>{ Asset.Id, Asset.ContactId };
+			List<Asset> assets = AssetsSelector.newInstance(assetFieldOverrides).search(assetSearchParams, true);
 
 			if (!assets.isEmpty()) {
-				// final check is to make sure user has access to the specified community by checking the network member
-				Map<String, Object> memberSearchParams = new Map<String, Object>{
-					'memberIds' => user.Id,
-					'networkIds' => Network.getNetworkId()
-				};
-				List<NetworkMember> members = NetworkMembersSelector.newInstance().search(memberSearchParams, true);
+				List<User> assetMatchedUsers = new List<User>();
+				//filter the users that has the assets matching
+				for (Asset asset : assets) {
+					if (contactIdToUserMap.containsKey(asset.contactId)) {
+						assetMatchedUsers.add(contactIdToUserMap.get(asset.ContactId));
+					}
+				}
 
-				if (!members.isEmpty()) {
-					//assign the matched user
-					matchedUser = user;
+				Map<Id, User> assetMatchedUserMap = new Map<Id, User>(assetMatchedUsers);
+
+				if(!assetMatchedUserMap.isEmpty()) {
+					// final check is to make sure user has access to the specified community by checking the network member
+					Map<String, Object> memberSearchParams = new Map<String, Object>{
+						'memberIds' => assetMatchedUserMap.keySet(),
+						'networkIds' => Network.getNetworkId()
+					};
+
+					for(NetworkMember member : NetworkMembersSelector.newInstance().search(memberSearchParams, true)) {
+						if(assetMatchedUserMap.containsKey(member.MemberId)) {
+							//assign the matched user
+							matchedUser = assetMatchedUserMap.get(member.MemberId);
+							break;
+						} 
+					}
 				}
 			}
 		}
