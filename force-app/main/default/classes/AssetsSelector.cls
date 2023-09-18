@@ -23,6 +23,16 @@ public virtual inherited sharing class AssetsSelector extends ApplicationSelecto
 		return (AssetsSelector)Application.Selectors.newInstance(AssetsSelector.class).setLimit(recordLimit);
 	}
 
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static AssetsSelector newInstance(Set<SObjectField> fieldOverrides) {
+		AssetsSelector selector = (AssetsSelector)Application.Selectors.newInstance(AssetsSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 	public override SObjectType getSObjectType() {
 		return Asset.getSObjectType();
 	}
