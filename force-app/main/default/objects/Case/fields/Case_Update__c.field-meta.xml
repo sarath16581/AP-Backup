@@ -36,6 +36,11 @@
                 <default>false</default>
                 <label>Customer Responded</label>
             </value>
+            <value>
+                <fullName>Other Update</fullName>
+                <default>false</default>
+                <label>Other Update</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

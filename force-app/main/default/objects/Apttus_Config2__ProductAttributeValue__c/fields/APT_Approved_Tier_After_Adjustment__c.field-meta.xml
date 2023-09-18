@@ -4,7 +4,7 @@
     <description>For startrack delegation</description>
     <externalId>false</externalId>
     <inlineHelpText>To request “Tier Up” pricing, go to Review Cart and select &quot;Request Adjustment&quot;</inlineHelpText>
-    <label>Proposed Tier</label>
+    <label>(depr) Proposed Tier</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>is_Inactive_Customer__c</fullName>
-    <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
-    <label>is Inactive Customer</label>
-    <securityClassification>INTERNAL</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
-    <type>Checkbox</type>
+	<fullName>is_Inactive_Customer__c</fullName>
+	<defaultValue>false</defaultValue>
+	<externalId>false</externalId>
+	<label>is Inactive Customer</label>
+	<securityClassification>INTERNAL</securityClassification>
+	<description>Indiacates a closed account, ready to be archived and deleted. Examples - customer request, deceased etc. Set by SAP CRM via SSSW.</description>
+	<inlineHelpText>Closed account, soon to be archived and deleted. Examples include deceased, customer request etc.</inlineHelpText>
+	<trackFeedHistory>false</trackFeedHistory>
+	<trackHistory>false</trackHistory>
+	<type>Checkbox</type>
 </CustomField>

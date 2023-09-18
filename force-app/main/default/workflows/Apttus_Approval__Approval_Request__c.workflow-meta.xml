@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
-        <fullName>APT_CCEmailAlert</fullName>
-        <description>APT_CCEmailAlert</description>
-        <protected>false</protected>
-        <recipients>
-            <type>creator</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Apttus_Approval__Visualforce_Email_Templates/APT_STApprovalsRejectCustom</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_STApproveRejectEmail</fullName>
-        <description>STApproveRejectEmail</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Apttus_QPApprov__ProposalOwnerId__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Apttus_Approval__Visualforce_Email_Templates/APT_STApprovalsRejectCustom</template>
-    </alerts>
-    <alerts>
         <fullName>Apttus_Approval__ApprovalRequestCommentsEntered</fullName>
         <description>Approval Request Comments Entered</description>
         <protected>false</protected>
@@ -44,33 +21,6 @@
         <senderType>CurrentUser</senderType>
         <template>Apttus__ApttusEmailTemplates/Apttus_Approval__ApprovalRequestEscalationReminder</template>
     </alerts>
-    <fieldUpdates>
-        <fullName>APT_Cycle_Time_Field_Update</fullName>
-        <description>updates field on AR:TestCT2__c</description>
-        <field>APT_Assigned_Stage_Duration__c</field>
-        <formula>ROUND( 
-10 * (
-( 5 * FLOOR( ( DATEVALUE(  Apttus_Approval__Date__c ) - DATE( 1900, 1, 8) ) / 7) +
-MIN(5,
-MOD( DATEVALUE( Apttus_Approval__Date__c ) - DATE( 1900, 1, 8), 7) +
-MIN( 1, 24 / 10 * ( MOD( Apttus_Approval__Date__c - DATETIMEVALUE( &apos;1900-01-07 22:00:00&apos; ), 1 ) ) )
-)
-)
--
-( 5 * FLOOR( ( DATEVALUE(   Apttus_Approval__DateAssigned__c ) - DATE( 1900, 1, 8) ) / 7) +
-MIN( 5,
-MOD( DATEVALUE( Apttus_Approval__DateAssigned__c ) - DATE( 1996, 1, 1), 7 ) +
-MIN( 1, 24 / 10 * ( MOD( Apttus_Approval__DateAssigned__c - DATETIMEVALUE( &apos;1900-01-07 22:00:00&apos; ), 1) ) )
-)
-)
-),
-0 )</formula>
-        <name>Cycle Time Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
     <fieldUpdates>
         <fullName>Apttus_Approval__Resettrigger</fullName>
         <description>Reset trigger flag when comments have been entered for an approval request without actually approving or rejecting the request.</description>
@@ -125,39 +75,6 @@ MIN( 1, 24 / 10 * ( MOD( Apttus_Approval__DateAssigned__c - DATETIMEVALUE( &apos
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <rules>
-        <fullName>APT_CCEmail</fullName>
-        <actions>
-            <name>APT_CCEmailAlert</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <description>DES team also receives Approval/Rejection Notification when request is initiated by them.
-Implemented as a part of ST delegation approval epic</description>
-        <formula>AND( OR( ISPICKVAL(Apttus_Approval__Approval_Status__c, &apos;Approved&apos;), ISPICKVAL(Apttus_Approval__Approval_Status__c, &apos;Rejected&apos;) ), Apttus_Approval__Request_Comments__c &lt;&gt; &apos;For system use only. No action needed&apos;, NOT(ISPICKVAL(PRIORVALUE(Apttus_Approval__Approval_Status__c),&quot;On Hold&quot;)), Apttus_QPApprov__ProposalId__r.APT_STE_Pricing_Tier__c &lt;&gt; &apos;&apos;, CreatedById  &lt;&gt;  Apttus_QPApprov__ProposalOwnerId__c )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT_Calculate_Approval_Request_Cycle_Time</fullName>
-        <actions>
-            <name>APT_Cycle_Time_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <description>For AR to calculate how long the request was in submitted stage until updated considering default business hours as 8 AM - 6 PM (as mentioned in company profile-default business hours)</description>
-        <formula>AND(     ISCHANGED( Apttus_Approval__Approval_Status__c),     OR(TEXT( PRIORVALUE( Apttus_Approval__Approval_Status__c) ) = &quot;Assigned&quot;,     TEXT( PRIORVALUE( Apttus_Approval__Approval_Status__c) ) = &quot;On Hold&quot;) )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT_STApproveRejectRule</fullName>
-        <actions>
-            <name>APT_STApproveRejectEmail</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <formula>AND( OR( ISPICKVAL(Apttus_Approval__Approval_Status__c, &apos;Approved&apos;), ISPICKVAL(Apttus_Approval__Approval_Status__c, &apos;Rejected&apos;) ), Apttus_Approval__Request_Comments__c  &lt;&gt; &apos;For system use only. No action needed&apos;, NOT(ISPICKVAL(PRIORVALUE(Apttus_Approval__Approval_Status__c),&quot;On Hold&quot;)), Apttus_QPApprov__ProposalId__r.APT_STE_Pricing_Tier__c   &lt;&gt; &apos;&apos;  )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>Apttus_Approval__Approval Request Comments Modified</fullName>
         <actions>
             <name>Apttus_Approval__ApprovalRequestCommentsEntered</name>
@@ -175,30 +92,5 @@ Implemented as a part of ST delegation approval epic</description>
         </criteriaItems>
         <description>Workflow rule that fires when an approval request has had comments added without actually approving or rejecting the request.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Auto Approve Request</fullName>
-        <actions>
-            <name>Update_Approval_Status</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <booleanFilter>(1 OR 3) AND 2</booleanFilter>
-        <criteriaItems>
-            <field>Apttus_Approval__Approval_Request__c.Apttus_Approval__Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Notified</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus_Approval__Approval_Request__c.Apttus_Approval__StepNameLink__c</field>
-            <operation>contains</operation>
-            <value>Auto Approval</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus_Approval__Approval_Request__c.Apttus_Approval__Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Pending Approval</value>
-        </criteriaItems>
-        <triggerType>onAllChanges</triggerType>
     </rules>
 </Workflow>

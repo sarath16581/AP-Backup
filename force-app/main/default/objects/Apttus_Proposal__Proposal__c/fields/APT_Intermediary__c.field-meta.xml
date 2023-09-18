@@ -3,7 +3,7 @@
     <fullName>APT_Intermediary__c</fullName>
     <description>Intermediary account if any?</description>
     <externalId>false</externalId>
-    <label>Is the customer an Intermediary?</label>
+    <label>(depr) Is the customer an Intermediary?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

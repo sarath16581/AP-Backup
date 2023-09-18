@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Contact_Suspect_Lookup__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Business Contact Suspect</label>
+    <referenceTo>CreditSuspect__c</referenceTo>
+    <relationshipLabel>Credit Assessments (Business Contact Suspect)</relationshipLabel>
+    <relationshipName>Credit_Assessments1</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+	<description>This field is used to capture referred Credit Suspect after performing a Credit Suspect Register check</description>
+	<inlineHelpText>This field is used to capture referred Credit Suspect</inlineHelpText>
+	<securityClassification>INTERNAL</securityClassification>
+</CustomField>

@@ -1119,13 +1119,12 @@ public with sharing virtual class bspBaseUplift {
 	}
 
 	/**
-	 * @description This method returns the url configured for AuthProviderCookieHandler VF page for 
-	 * Merchant Portal for transparent login
-	 * @return   return merchant portal AuthProviderCookieHandler VF page URL
+	 * @description This method returns the url configured for Merchant Portal
+	 * @return   return merchant portal URL
 	 */
 	@AuraEnabled(cacheable=true)
-	public static String getMerchantPortalCookieHandlerProxyUrl() {
-		return MerchantPortalSettings__c.getInstance().CookieHandlerProxyUrl__c;
+	public static String getMerchantPortalAccessUrl() {
+		return MerchantPortalSettings__c.getInstance().AccessUrl__c;
 	}
 
 }

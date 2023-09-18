@@ -30,6 +30,14 @@
         <value>Save Cart &amp; Edit Opportunity Products</value>
     </labels>
     <labels>
+        <fullName>REC_TYPE_DEV_LEAD_BGSTANDARD</fullName>
+        <categories>Record Type</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_LEAD_BGSTANDARD</shortDescription>
+        <value>BG_Standard</value>
+    </labels>
+    <labels>
         <fullName>EXPIRED_QUOTE</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -222,13 +230,6 @@ Compass quote end date has passed, please request re-activation</value>
         <protected>false</protected>
         <shortDescription>APT Applications and Questionnaire Subtype</shortDescription>
         <value>Letter of Intent</value>
-    </labels>
-    <labels>
-        <fullName>APT_ApprovalRequestFor</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>ApprovalRequestFor</shortDescription>
-        <value>Pricing Approval Request for</value>
     </labels>
     <labels>
         <fullName>APT_Apttuscustomerid</fullName>
@@ -1524,13 +1525,6 @@ Compass quote end date has passed, please request re-activation</value>
         <protected>false</protected>
         <shortDescription>APT_SOPRecordTypeID</shortDescription>
         <value>01290000001UPgw</value>
-    </labels>
-    <labels>
-        <fullName>APT_STApprovalSubmissionComment</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>STApprovalSubmissionComment</shortDescription>
-        <value>Additional Comments</value>
     </labels>
     <labels>
         <fullName>APT_Salutations</fullName>
@@ -3885,6 +3879,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>Compensation : User cannot send emails to customer</shortDescription>
         <value>You do not have privilege to send email to customer</value>
     </labels>
+	<labels>
+		<fullName>CompetitorsRequiredBeforeMovingOpportunityStageErrorMessage</fullName>
+		<categories>Sales Pipeline</categories>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>Competitors Required Before Moving Opportunity Stage Error Message</shortDescription>
+		<value>Add Competitors and Incumbents details. Populate the customer’s incumbent or known competitors.</value>
+	</labels>
     <labels>
         <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
         <categories>Sales</categories>
@@ -4023,6 +4025,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>Deal Support Request Credit Management New Credit Account Email</shortDescription>
         <value>newcreditaccount@auspost.com.au</value>
     </labels>
+	<labels>
+		<fullName>DSRsMustbeClosedBeforeCloseWinOpportunityErrorMessage</fullName>
+		<categories>Sales Pipeline</categories>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>DSRs Must be Closed Before Close Win Opportunity Error Message</shortDescription>
+		<value>Close Deal Support Requests. Support requests must be closed before this opportunity is closed</value>
+	</labels>
     <labels>
         <fullName>DUPE_CASE_ERR_MSG</fullName>
         <language>en_US</language>
@@ -5220,6 +5230,14 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Error Message When Opportunity Is having at least one Primary proposal</shortDescription>
         <value>You have Active Proposals Linked to the Opportunity</value>
     </labels>
+	<labels>
+		<fullName>OpportunityWithActiveApttusContractCannotBeClosedLostErrorMessage</fullName>
+		<categories>Sales Pipeline</categories>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
+		<value>Cancel Apttus Contracts. The activated or in flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
+	</labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
@@ -5228,18 +5246,11 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>You can only have one business development driver in your opportunity. Others should be assigned to business development team.</value>
     </labels>
     <labels>
-        <fullName>Opportunity_Cannot_Be_Closed_Won</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Opportunity Cannot Be Closed Won</shortDescription>
-        <value>This opportunity has no products. Please add product(s) in the Opportunity Product Table.</value>
-    </labels>
-    <labels>
         <fullName>Opportunity_Confirm_Pre_Entry_Scenario</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Confirm Pre-Entry Scenario</shortDescription>
-        <value>The Revenue Start Date field(s) cannot be in the past. Please either select today or a day in the future. If this is a ‘pre-entry’ scenario, please indicate this accordingly.</value>
+        <value>The Revenue Start Date field(s) cannot be in the past. Please either select today or a day in the future. If this is a ‘pre-entry’ scenario, liaise with your Customer Onboarding partner to arrange the process (this can be requested via a DSR).</value>
     </labels>
     <labels>
         <fullName>Opportunity_Has_Duplicate_Product_Lines</fullName>
@@ -7065,6 +7076,14 @@ something new for us, so we&apos;d love to know what you think.</value>
         <shortDescription>SafeDropEligibleCancelledLabel</shortDescription>
         <value>Safe drop can be removed for this parcel. Confirm that the customer has been verified and consents to remove this safe drop. Safe drop will be removed for this parcel. It will not be left at the delivery address.</value>
     </labels>
+	<labels>
+		<fullName>SalesPipelineOpportunityTrackerTitle</fullName>
+		<categories>Sales Pipeline</categories>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>Opportunity Tracker Title</shortDescription>
+		<value>Outstanding Actions</value>
+	</labels>
     <labels>
         <fullName>Saving</fullName>
         <language>en_US</language>
@@ -7112,7 +7131,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Share</value>
     </labels>
     <labels>
-        <fullName>SharingRecalculationPermissionsErrorMessage</fullName>
+	<fullName>SharingRecalculationPermissionsErrorMessage</fullName>
         <categories>Sales</categories>
         <language>en_US</language>
         <protected>false</protected>

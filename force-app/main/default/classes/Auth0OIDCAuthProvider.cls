@@ -14,6 +14,7 @@
  * @author Nathan Franklin
  * @date 2023-02-21
  * @changelog
+ * 2023-09-12 - Mahesh Parvathaneni - reverted the cookie handler changes
 */
 global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
@@ -68,8 +69,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 	 * Grab the authoise url params and redirect the user to auth0 for authenitcation
 	 * NOTE: the existence of the audience parameter which will allow us to return a JWT access token
 	 */
-	global PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
-		String visualforceProxyUrl = authProviderConfiguration.get('VisualforceProxyURL__c');
+	global PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {	
 		String clientId = authProviderConfiguration.get('ClientId__c');
 		String authoriseEndpointUrl = authProviderConfiguration.get('AuthoriseEndpointUrl__c');
 		String audience = authProviderConfiguration.get('Audience__c');
@@ -87,21 +87,10 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 						'&scope=' + EncodingUtil.urlEncode(scope, 'UTF-8') +
 						'&audience=' + EncodingUtil.urlEncode(audience, 'UTF-8') +
 						'&redirect_uri=' + EncodingUtil.urlEncode(redirectUri, 'UTF-8') +
-						'&prompt=login' +
 						'&state=' + EncodingUtil.urlEncode(stateToPropagate, 'UTF-8');
 
 		String url = authoriseEndpointUrl + '?' + qs;
-
-		String pageReferenceUrl = '';
-		if(!String.isEmpty(visualforceProxyUrl)) {
-			//redirect to vf page prior to forward to Auth0. We read the cookie if set and manipulate prompt=login if required
-			pageReferenceUrl = visualforceProxyUrl + '?action=post&next=' + EncodingUtil.urlEncode(url, 'UTF-8');
-		} else {
-			//forward to Auth0
-			pageReferenceUrl = url;
-		}
-
-		return new PageReference(pageReferenceUrl);
+		return new PageReference(url);
 	}
 
 	/**

@@ -7,6 +7,7 @@
  * @date 2023-03-16
  * @changelog
  * 2023-08-01 Mahesh Parvathaneni - Added validation for backwards compabitibility for user federation id in updateForExistingUser method
+ * 2023-08-31 Mahesh Parvathaneni - Added fieldOverrides for the UsersSelector
  */
 public with sharing class ChasRegHandlerService {
 
@@ -183,9 +184,15 @@ public with sharing class ChasRegHandlerService {
 
 			System.debug('Existing PersonAccount record found: ' + accounts);
 
+			//field overrides
+			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				User.SObjectType => UsersSelector.getAuthenticationSObjectFieldList(),
+				Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
+			};
+
 			// now the PersonAccount is out of the way we move onto the User record
 			// try and find an existing user based on the contact id passed in
-			List<User> users = UsersSelector.newInstance().selectByContactId(new Set<Id>{personContactId}).values();
+			List<User> users = UsersSelector.newInstance(0, fieldOverrides).selectByContactId(new Set<Id>{personContactId}, new Set<Object>{ UsersSelector.Options.WITH_COMMUNITY_ACCOUNT }).values();
 
 			if(!users.isEmpty()) {
 				// found a user that is already linked to the PersonAccount above

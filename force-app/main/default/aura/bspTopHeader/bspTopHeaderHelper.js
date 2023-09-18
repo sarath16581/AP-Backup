@@ -1,6 +1,6 @@
 /**
  * @changeLog:
- * 2023-08-28 Mahesh Parvathaneni - Added Merchant Portal link in top header 
+ * 2023-09-13 Mahesh Parvathaneni - Added Merchant Portal link in top header 
 */
 ({
 	setLoggedInUserName: function (component) {
@@ -63,8 +63,8 @@
 		$A.enqueueAction(action);
 	},
 
-	getMerchantPortalCookieHandlerProxyUrl: function (component) {
-		var action = component.get("c.getMerchantPortalCookieHandlerProxyUrl");
+	getMerchantPortalAccessUrl: function (component) {
+		var action = component.get("c.getMerchantPortalAccessUrl");
 		action.setStorable();
 		action.setCallback(this, function (response) {
 			var state = response.getState();
