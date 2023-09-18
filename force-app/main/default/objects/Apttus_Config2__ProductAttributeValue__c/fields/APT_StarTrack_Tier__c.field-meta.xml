@@ -3,7 +3,7 @@
     <fullName>APT_StarTrack_Tier__c</fullName>
     <description>for startrack delegation</description>
     <externalId>false</externalId>
-    <label>Numeric Tier</label>
+    <label>(depr) Numeric Tier</label>
     <precision>10</precision>
     <required>false</required>
     <scale>0</scale>

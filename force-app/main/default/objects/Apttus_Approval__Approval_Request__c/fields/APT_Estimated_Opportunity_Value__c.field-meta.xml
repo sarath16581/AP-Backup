@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <formula>Apttus_QPApprov__ProposalId__r.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c * 12</formula>
     <inlineHelpText>Opportunity initial estimate</inlineHelpText>
-    <label>Estimated Opportunity Value</label>
+    <label>(depr) Estimated Opportunity Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

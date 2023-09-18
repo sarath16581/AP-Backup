@@ -7,7 +7,7 @@
 
 @IsTest
 private with sharing class MPBRegHandlerService_Test {
-    /**
+	/**
 	 * Scenario:
 	 * Makes sure that augmented attributes are populated from the attribute map
 	 */

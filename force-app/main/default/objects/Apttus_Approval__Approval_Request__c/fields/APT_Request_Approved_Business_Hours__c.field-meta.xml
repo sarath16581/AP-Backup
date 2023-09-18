@@ -20,7 +20,7 @@ MIN( 1, 24 / 10 * ( MOD( Apttus_Approval__DateAssigned__c - DATETIMEVALUE( &apos
 )
 ),
 0 )</formula>
-    <label>Request Approved Business Hours</label>
+    <label>(depr) Request Approved Business Hours</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>

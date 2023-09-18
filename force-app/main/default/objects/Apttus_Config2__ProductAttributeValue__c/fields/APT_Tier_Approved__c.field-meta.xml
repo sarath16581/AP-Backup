@@ -4,7 +4,7 @@
     <defaultValue>false</defaultValue>
     <description>for startrack delegation</description>
     <externalId>false</externalId>
-    <label>Tier Approved ?</label>
+    <label>(depr) Tier Approved ?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

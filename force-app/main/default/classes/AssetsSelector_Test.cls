@@ -121,8 +121,8 @@ private with sharing class AssetsSelector_Test {
 		results = selector.selectById(mappedAssets.keySet(), new Set<Object>{AssetsSelector.Options.WITH_RECORDTYPE});
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
-	//        results = selector.selectByAccount(new Set<Id> {contacts[0].AccountId}, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE, ContactsSelector.Options.WITH_OWNER, ContactsSelector.Options.WITH_ACCOUNT});
-	//        System.assertEquals(2, results.size(), 'Expected result size of 2');
+		//results = selector.selectByAccount(new Set<Id> {contacts[0].AccountId}, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE, ContactsSelector.Options.WITH_OWNER, ContactsSelector.Options.WITH_ACCOUNT});
+		//System.assertEquals(2, results.size(), 'Expected result size of 2');
 
 		results = new Map<Id, Asset>(selector.search(new Map<String, Object>{'contactIds' => con.Id}, true));
 		System.assertEquals(2, results.size(), 'Expected result size of 2');

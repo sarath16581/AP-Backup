@@ -8,6 +8,7 @@
  * @changelog
  * 2020-08-14 - arjun.singh@austpost.com.au - Created
  * 2023-05-17 - Ranjeewa Silva - Updated tests to cover new selector option 'WITH_OVERLAY_SPLITS'
+ * 2023-08-18 - Ranjeewa Silva - Updated tests to cover new selector options to include competitor, dsr and apttus contracts
  */
  
 @IsTest
@@ -64,20 +65,25 @@ public with sharing class OpportunitiesSelector_Test {
 	Test.startTest();
 
 	OpportunitiesSelector selector = OpportunitiesSelector.newInstance();
-	QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSelector.Options.WITH_RECORDTYPE});
+	QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
+			OpportunitiesSelector.Options.WITH_RECORDTYPE,
+			OpportunitiesSelector.Options.WITH_OWNER,
+			OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS,
+			OpportunitiesSelector.Options.WITH_COMPETITORS,
+			OpportunitiesSelector.Options.WITH_DEAL_SUPPORT_REQUESTS,
+			OpportunitiesSelector.Options.WITH_APTTUS_CONTRACTS
+	});
 	String soql = qb.toSoqlString();
-	System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
-
-	qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSelector.Options.WITH_OWNER});
-	soql = qb.toSoqlString();
-	System.assertEquals(true, Pattern.compile('(?ism)Owner\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
-
-	qb = selector.newQueryBuilder(new Set<Object>{OpportunitiesSelector.Options.WITH_RECORDTYPE, OpportunitiesSelector.Options.WITH_OWNER, OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS});
-	soql = qb.toSoqlString();
 	System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
 	System.assertEquals(true, Pattern.compile('(?ism)Owner\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
 	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom opportunitysplits\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
 			'Resulting query does not select OpportunitySplit child records: ' + soql);
+	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom competitors__r\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
+			'Resulting query does not select Competitor__c child records: ' + soql);
+	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom deal_support_request__r\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
+			'Resulting query does not select Deal_Support_Request__c child records: ' + soql);
+	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Apttus__R00N50000001Xl0FEAS__r\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
+			'Resulting query does not select Apttus Contract (Apttus__APTS_Agreement__c) child records: ' + soql);
 
 	Test.stopTest();
 
