@@ -8,14 +8,9 @@
  * @changelog
  * 2023-08-01 Mahesh Parvathaneni - Added validation for backwards compabitibility for user federation id in updateForExistingUser method
  * 2023-08-31 Mahesh Parvathaneni - Added fieldOverrides for the UsersSelector
+ * 2023-09-19 - Maahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
  */
 public with sharing class ChasRegHandlerService {
-
-	@TestVisible
-	private static final String ATTRIBUTE_APCN_MAPPING = 'https://auspost/apcn';
-
-	@TestVisible
-	private static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
 
 	public static final String DEFAULT_LOCALESIDKEY = 'en_AU';
 	public static final String DEFAULT_LANGUAGELOCALEKEY = 'en_US';
@@ -26,8 +21,8 @@ public with sharing class ChasRegHandlerService {
 		Account.FirstName => 'given_name',
 		Account.LastName => 'family_name',
 		Account.PersonEmail => 'email',
-		Account.APCN__pc => ATTRIBUTE_APCN_MAPPING,
-		Account.OID_ID__pc => ATTRIBUTE_CNUMBER_MAPPING,
+		Account.APCN__pc => Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING,
+		Account.OID_ID__pc => Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING,
 		Account.CRMCSSOID__pc => 'augmented_email_uppercase' // defined in reg handler
 	};
 
@@ -94,10 +89,10 @@ public with sharing class ChasRegHandlerService {
 		if(!attributes.containsKey('augmented_username')) {
 			output.add('Username attribute is missing');
 		}
-		if(!attributes.containsKey(ATTRIBUTE_APCN_MAPPING)) {
+		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING)) {
 			output.add('APCN attribute is missing');
 		}
-		if(!attributes.containsKey(ATTRIBUTE_CNUMBER_MAPPING)) {
+		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING)) {
 			output.add('CNumber attribute is missing');
 		}
 
@@ -166,7 +161,7 @@ public with sharing class ChasRegHandlerService {
 	public Map<SObjectType, SObject> getExistingRecords(Map<String, String> attributes) {
 		Map<SObjectType, SObject> output = new Map<SObjectType, SObject>();
 		
-		String existingAPCN = attributes.get(ATTRIBUTE_APCN_MAPPING);
+		String existingAPCN = attributes.get(Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING);
 		if(String.isEmpty(existingAPCN)) {
 			throw new RegHandlerException('APCN attribute is empty');
 		}

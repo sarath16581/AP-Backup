@@ -15,6 +15,7 @@
  * @date 2023-02-21
  * @changelog
  * 2023-09-12 - Mahesh Parvathaneni - reverted the cookie handler changes
+ * 2023-09-19 - Maahesh Parvathaneni - added variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
 */
 global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
@@ -26,6 +27,12 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 	public static final Blob CRYPTO_IV = Blob.valueOf('ghqNA8aoTUF8WIsx');
 
 	public static final String AUTH_PROVIDER_NAME = 'Auth0';
+
+	@TestVisible
+	public static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
+
+	@TestVisible
+	public static final String ATTRIBUTE_APCN_MAPPING = 'https://auspost/apcn';
 
 	@TestVisible
 	private Id NETWORK_ID { // can't be declared as final since we assign this value in our test class

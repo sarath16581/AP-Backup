@@ -2,11 +2,9 @@
  * @description Service class for low level functions for merchant portal integrated experiences requiring authentication via OIDC
  * @date 2023-07-12
  * @changelog
+ * 2023-09-19 - Maahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING
  */
 public inherited sharing class MerchantPortalRegHandlerService {
-
-	@TestVisible
-	public static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
 
 	/**
 	 * Provides a mockable interface for unit testing
@@ -19,7 +17,7 @@ public inherited sharing class MerchantPortalRegHandlerService {
 		Map<String, String> output = new Map<String, String>();
 		output.putAll(attributes);
 
-		String cNumber = String.valueOf(attributes.get(ATTRIBUTE_CNUMBER_MAPPING));
+		String cNumber = String.valueOf(attributes.get(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING));
 		String federationIdentifier = generateFederationIdentifier(cNumber);
 
 		output.put('federation_identifier', federationIdentifier); // this is to maintain backwards compatibility of the millions of existing records we have
@@ -50,7 +48,7 @@ public inherited sharing class MerchantPortalRegHandlerService {
 		if(!attributes.containsKey('federation_identifier')) {
 			output.add('Username attribute is missing');
 		}
-		if(!attributes.containsKey(ATTRIBUTE_CNUMBER_MAPPING) || !attributes.containsKey('cnumber')) {
+		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING) || !attributes.containsKey('cnumber')) {
 			output.add('CNumber attribute is missing');
 		}
 
