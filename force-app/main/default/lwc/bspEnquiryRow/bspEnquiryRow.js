@@ -21,11 +21,15 @@ export default class BspEnquiryRow extends NavigationMixin(LightningElement) {
     }
 
     get showCheckBox() {
-        if (this.caseWrapper.caseObj.Status != 'Closed') {
-            return true;
-        } else {
-            return false;
-        }
+		if (this.caseWrapper.caseObj.RecordType.DeveloperName != 'Enterprise_Credit_Dispute_Claim'){
+			if (this.caseWrapper.caseObj.Status != 'Closed') {
+				return true;
+			} else {
+				return false;
+			}	
+		}else{
+			return false;
+		}
     }
 
     get isActionRequiredClass() {
