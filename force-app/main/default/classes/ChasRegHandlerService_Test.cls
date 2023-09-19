@@ -5,6 +5,7 @@
  * @changelog
  * 2023-08-04 - Mahesh Parvathaneni - Added tests for updateForExistingUser
  * 2023-08-31 - Mahesh Parvathaneni - updated test methods
+ * 2023-09-19 - Mahesh Parvathaneni - updated test methods
 */
 @IsTest
 private with sharing class ChasRegHandlerService_Test {
@@ -375,11 +376,11 @@ private with sharing class ChasRegHandlerService_Test {
 		System.assertEquals(1, service.validateAssertion(federationId, clonedAttributes).size());
 
 		clonedAttributes = augmentedAttributes.clone();
-		clonedAttributes.keySet().remove(ChasRegHandlerService.ATTRIBUTE_CNUMBER_MAPPING);
+		clonedAttributes.keySet().remove(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING);
 		System.assertEquals(1, service.validateAssertion(federationId, clonedAttributes).size());
 
 		clonedAttributes = augmentedAttributes.clone();
-		clonedAttributes.keySet().remove(ChasRegHandlerService.ATTRIBUTE_APCN_MAPPING);
+		clonedAttributes.keySet().remove(Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING);
 		System.assertEquals(1, service.validateAssertion(federationId, clonedAttributes).size());
 
 		Test.stopTest();
