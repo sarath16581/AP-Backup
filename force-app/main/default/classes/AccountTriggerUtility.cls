@@ -1098,7 +1098,7 @@ public with sharing class AccountTriggerUtility {
                                             SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
         }
     }
-
+   
      /** spingali - Fix for issues identified after the CRUD "Secure Guest Users' Sharing Settings and Record Access"
         * Public inner class that elevates access privileges of the current user to query data without being limited by
         * sharing settings.
