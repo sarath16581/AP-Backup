@@ -26,6 +26,7 @@
                                               and not letting them cease as the method does not execute 
 02.12.2020   SaiSwetha Pingali                 Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
 22.02.2021    L. Serafico (Mav3rik)           Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
+18.09.2023 	 Swati Mogadala					  REQ3225476 -Added deleteRReconDelete() in BeforeHandler( on delete)
 **/
   
 public with sharing class AccountTriggerHandler{
