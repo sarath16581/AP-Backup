@@ -28,10 +28,8 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 	public static final String AUTH_PROVIDER_NAME = 'Auth0';
 
-	@TestVisible
 	public static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
 
-	@TestVisible
 	public static final String ATTRIBUTE_APCN_MAPPING = 'https://auspost/apcn';
 
 	@TestVisible
