@@ -57,6 +57,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
+* 2023-09-14 mahesh.parvathaneni@auspost.com.au added cacheable=true for retrieveCommunityURL and getLoggedInUserInfo methods
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -64,7 +65,7 @@ public with sharing class ChasApexController extends ChasBase{
         return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static String retrieveCommunityURL(){
         try {
             return ConnectApi.Communities.getCommunity(Network.getNetworkId()).siteUrl;
@@ -2001,7 +2002,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             return false;
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static UserDetails getLoggedInUserInfo(){
         UserDetails userDetail = new UserDetails();
         userDetail.isUserAuthenticated = false;

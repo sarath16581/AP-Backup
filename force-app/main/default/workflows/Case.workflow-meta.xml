@@ -970,7 +970,7 @@
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Email_wContent</template>
+        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Warning</template>
     </alerts>
     <alerts>
         <fullName>Send_Customer_Warning_Email</fullName>
@@ -982,7 +982,7 @@
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Email_wContent</template>
+        <template>SSSW_System_Emails/SSSW Customer Escalation Email - wContent</template>
     </alerts>
     <alerts>
         <fullName>Send_an_Email_to_the_Customer_if_they_are_creating_a_Case_via_Email</fullName>
