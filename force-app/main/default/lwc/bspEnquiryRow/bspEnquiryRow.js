@@ -21,7 +21,7 @@ export default class BspEnquiryRow extends NavigationMixin(LightningElement) {
     }
 
     get showCheckBox() {
-		if (this.caseWrapper.caseObj.RecordType.DeveloperName != 'Enterprise_Credit_Dispute_Claim'){
+		if (this.caseWrapper.RecordType != CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME){
 			if (this.caseWrapper.caseObj.Status != 'Closed') {
 				return true;
 			} else {
