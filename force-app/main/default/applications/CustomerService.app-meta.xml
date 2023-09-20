@@ -285,7 +285,7 @@
         <enablePinTabs>true</enablePinTabs>
         <enableTabHover>false</enableTabHover>
         <enableTabLimits>false</enableTabLimits>
-        <saveUserSessions>false</saveUserSessions>
+        <saveUserSessions>true</saveUserSessions>
     </preferences>
     <tabs>standard-Case</tabs>
     <tabs>MyCustomersSearch</tabs>
