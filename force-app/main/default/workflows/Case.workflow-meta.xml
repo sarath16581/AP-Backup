@@ -982,7 +982,7 @@
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW Customer Escalation Email - wContent</template>
+        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Email_wContent</template>
     </alerts>
     <alerts>
         <fullName>Send_an_Email_to_the_Customer_if_they_are_creating_a_Case_via_Email</fullName>
@@ -2407,17 +2407,6 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_to_Social_Back_Office</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_BOH_Group_4</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SSSW - Set to Social Back Office</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_to_Unaddressed_Mail_Inbound</fullName>
         <field>OwnerId</field>
         <lookupValue>SSSW_Niche_Common_Group</lookupValue>
@@ -3452,7 +3441,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <outboundMessages>
         <fullName>Create_Incident_Outbound_msg</fullName>
         <apiVersion>31.0</apiVersion>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/createCase</endpointUrl>
+        <endpointUrl>https://salesforce-bw.auspost.com.au:10543/Services/CustomerEnquiryManagement/createCase</endpointUrl>
         <fields>CaseNumber</fields>
         <fields>ContactEmail__c</fields>
         <fields>ContactFirstName__c</fields>
@@ -3476,7 +3465,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>SAP_Subscribe_Article</fullName>
         <apiVersion>29.0</apiVersion>
         <description>Created for SSSW project. This outbound message will be sent TIBCO which will process it and create Subscription/Admin Events in SAP-EM.</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerContractManagement_v1/CreateAdminEventPortEndpoint</endpointUrl>
+        <endpointUrl>https://salesforce-bw.auspost.com.au:10543/Services/CustomerContractManagement_v1/CreateAdminEventPortEndpoint</endpointUrl>
         <fields>ArticleCount__c</fields>
         <fields>CaseNumber</fields>
         <fields>EventCode__c</fields>
@@ -3497,7 +3486,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>Update_Incident_Outbound_Msg</fullName>
         <apiVersion>31.0</apiVersion>
         <description>Update incident message</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/updateCase</endpointUrl>
+        <endpointUrl>https://salesforce-bw.auspost.com.au:10543/Services/CustomerEnquiryManagement/updateCase</endpointUrl>
         <fields>CaseNumber</fields>
         <fields>Description</fields>
         <fields>Id</fields>
@@ -4212,41 +4201,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.LastRoutingRuleIsStrategic__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.ByPassRoutingRulesOnCreation__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Consumer Portal Route to Social Back Office</fullName>
-        <actions>
-            <name>SSSW_Set_to_Social_Back_Office</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
-        <criteriaItems>
-            <field>Case.ProductSubCategory__c</field>
-            <operation>equals</operation>
-            <value>eBay Store</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>contains</operation>
-            <value>SSSW</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Portal,Web</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.LastRoutingRuleIsStrategic__c</field>
