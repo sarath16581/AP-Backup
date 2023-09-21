@@ -8,6 +8,7 @@
 *			27-07-2023 : Yatika Bansal : Included logic for amend/renew
 *			08-08-2023 : Yatika Bansal : Modified checkout only action to redirect to opportunity
 *			22-08-2023 : Bharat Patel : added getProposalDocGenerationProgress() to address (STP-9482), redirect after proposal document generation completion
+*			20-08-2023: Bharat Patel: update creditAssessAndRateCardLogic()'s assesment 'Completed' execute docGenerationRequired() process (CI-1026 resolve)
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -315,9 +316,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 					});
 				}
 				else if (result === 'Complete') {
-
-					//Show contract and service section
-					this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
+					//checks if doc generation is required
+					this.docGenerationRequired();
 				}
 				else {
 					this.error = result;
