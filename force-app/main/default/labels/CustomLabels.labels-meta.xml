@@ -3892,7 +3892,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
 		<language>en_US</language>
 		<protected>false</protected>
 		<shortDescription>Competitors Required Before Moving Opportunity Stage Error Message</shortDescription>
-		<value>Add Competitors and Incumbents details. Populate the customer’s incumbent or known competitors.</value>
+		<value>Add Competitors and Incumbents details. Populate the customer’s incumbent or known competitors on the Related tab.</value>
 	</labels>
     <labels>
         <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
@@ -4038,7 +4038,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
 		<language>en_US</language>
 		<protected>false</protected>
 		<shortDescription>DSRs Must be Closed Before Close Win Opportunity Error Message</shortDescription>
-		<value>Close Deal Support Requests. Support requests must be closed before this opportunity is closed</value>
+		<value>Close Deal Support Requests. Support requests must be closed before this opportunity is closed.</value>
 	</labels>
     <labels>
         <fullName>DUPE_CASE_ERR_MSG</fullName>
@@ -5243,7 +5243,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
 		<language>en_US</language>
 		<protected>false</protected>
 		<shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
-		<value>Cancel Apttus Contracts. The activated or in flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
+		<value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
 	</labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
@@ -5257,7 +5257,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Confirm Pre-Entry Scenario</shortDescription>
-        <value>The Revenue Start Date field(s) cannot be in the past. Please either select today or a day in the future. If this is a ‘pre-entry’ scenario, liaise with your Customer Onboarding partner to arrange the process (this can be requested via a DSR).</value>
+        <value>Assign valid product Revenue Date(s). The Revenue Start Date must be later than or equal to the Close Date. If this is a ‘pre-entry’ scenario where trade commences prior to closing, request Customer Onboarding update this via a DSR.</value>
     </labels>
     <labels>
         <fullName>Opportunity_Has_Duplicate_Product_Lines</fullName>
@@ -5293,7 +5293,7 @@ You can only close-won after the executed contract has been received through Doc
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Send Contract to Deal Enablement</shortDescription>
-        <value>To close-won this opportunity, the fully signed digital contract must be received through DocuSign.  For offline contracts, please ensure the Customer On Boarding Team acknowledge receipt of the contract (this can be requested via a DSR).</value>
+        <value>Complete the contract. The fully signed digital contract must be received through DocuSign. For offline contracts, request Customer Onboarding acknowledge receipt of the offline contract via a DSR.</value>
     </labels>
     <labels>
         <fullName>OrganisationLegacyId</fullName>
