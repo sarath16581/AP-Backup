@@ -130,8 +130,16 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		data
 	}) {
 		if (data) {
-			if (data.user)
+			if (data.user){
 				this.user = data.user
+				this.contactName = this.user.FirstName + ' ' + this.user.LastName;
+				this.contactEmailAddress = this.user.Email;
+				if (data.user.Phone){
+					this.contactPhoneNumber = this.user.Phone;
+				}else{
+					this.contactPhoneNumber = this.user.MobilePhone;
+				}
+			}
 			if (data.businessName)
 				this.businessName = data.businessName;
 
