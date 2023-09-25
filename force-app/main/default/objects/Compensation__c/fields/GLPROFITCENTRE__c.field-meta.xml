@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>IF(ISPICKVAL(Cover_Type__c,&apos;ACL&apos;), &apos;102701&apos;, 
 IF((CostCentreCode__c &lt;&gt; null),CostCentreCode__c, 
-If(Customer_Type__c == &apos;Consumer&apos;, &apos;111894&apos;,&apos;111931&apos;)))</formula>
+&apos;101191&apos;))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>GLPROFITCENTRE</label>
     <required>false</required>
