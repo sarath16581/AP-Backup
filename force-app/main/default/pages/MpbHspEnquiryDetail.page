@@ -292,7 +292,7 @@
 			<c:MpbHspChat />
 
             <!-- 21/04 MyPostBusiness -->
-            <c:MpbHspCallMeBackRestCall />
+            <!--<c:MpbHspCallMeBackRestCall /> -->
 
         </div>
         

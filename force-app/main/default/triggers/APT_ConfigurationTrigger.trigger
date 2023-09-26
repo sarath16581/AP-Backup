@@ -75,10 +75,4 @@ trigger APT_ConfigurationTrigger on Apttus_Config2__ProductConfiguration__c (bef
         //Code Completed by Mansi Shah
         //APT_ConfigurationTriggerHandler.afterUpdateHandler(trigger.new,trigger.oldMap);
     }
-    
-    //before delete
-    if(trigger.isDelete && trigger.isBefore){
-        System.debug('inside before delete trigger>>'+trigger.new);
-        APT_ConfigurationTriggerHandler.onDeleteConfigurationRecord(trigger.old);
-    }
 }

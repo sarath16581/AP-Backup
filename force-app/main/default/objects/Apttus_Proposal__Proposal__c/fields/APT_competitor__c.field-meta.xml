@@ -3,7 +3,7 @@
     <fullName>APT_competitor__c</fullName>
     <description>Enter competitor(s) details</description>
     <externalId>false</externalId>
-    <label>Who are the competitor(s) – if any</label>
+    <label>(depr) Who are the competitor(s)</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

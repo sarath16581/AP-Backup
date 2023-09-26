@@ -4,7 +4,7 @@
     <description>Enter justification for adding the reason for tier adjustment</description>
     <externalId>false</externalId>
     <inlineHelpText>What is the justification for requesting a price adjustment?</inlineHelpText>
-    <label>Sales Justification</label>
+    <label>(depr) Sales Justification</label>
     <length>300</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

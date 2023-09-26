@@ -17,6 +17,7 @@ Last Modified Date: 24th Aug, 2020 | Optimised syncWithOpportunity method to att
 Last Modified By : Mansi Shah
 Last Modified Date : 15th June, 2021 | added a method onAfterUpdate for ST Pricing delegation Approvals
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic
 */
 public without sharing class APT_ConfigurationTriggerHandler {
 
@@ -165,37 +166,5 @@ public without sharing class APT_ConfigurationTriggerHandler {
 			return null;
 		}
 		return mapPriceBookEntry;
-	}
-
-
-	public static void onDeleteConfigurationRecord(List<Apttus_Config2__ProductConfiguration__c> configList){
-		set<Id> proposalId = new Set<Id>();
-		for(Apttus_Config2__ProductConfiguration__c configRec : configList){
-			if(String.isNotBlank(configRec.Apttus_QPConfig__Proposald__c)){
-				proposalId.add(configRec.Apttus_QPConfig__Proposald__c);
-			}
-		}
-		System.debug('proposalId>>>'+proposalId);
-		List<Apttus_Proposal__Proposal__c> proposalList = new List<Apttus_Proposal__Proposal__c>();
-		proposalList = [Select Id, Apttus_Proposal__Opportunity__r.IsStartrackProposal__c, APT_Tier_Adjustment_Type__c, APT_Pricing_Request_Type__c,
-				APT_Tier_Adjustment_Justification__c, APT_Intermediary__c, APT_Customer_Background__c, APT_Conversation__c,
-				APT_Name_of_Intermediary_s_Client__c from Apttus_Proposal__Proposal__c where Id IN: proposalId];
-		System.debug('proposalList>>>'+proposalList);
-		if(!proposalList.isEmpty()){
-			for( Apttus_Proposal__Proposal__c proposalObj : proposalList){
-				if(proposalObj.Apttus_Proposal__Opportunity__r.IsStartrackProposal__c.equalsIgnoreCase('Yes')){
-					proposalObj.APT_Tier_Adjustment_Type__c = '';
-					proposalObj.APT_Pricing_Request_Type__c = '';
-					proposalObj.APT_Tier_Adjustment_Justification__c = '';
-					proposalObj.APT_Intermediary__c = '';
-					proposalObj.APT_Customer_Background__c = '';
-					proposalObj.APT_Conversation__c = '';
-					proposalObj.APT_Name_of_Intermediary_s_Client__c = null;
-					proposalObj.APT_competitor__c = '';
-					// update proposalObj;
-				}
-			}
-			update proposalList;
-		}
 	}
 }

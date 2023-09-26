@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides access for a integration user to the MPB Community. This allows access to community for integration user for SSO etc</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Community Access: MyPost Business Help and Support</label>
+</PermissionSet>

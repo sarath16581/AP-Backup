@@ -938,6 +938,10 @@
             <fullName>New Email Received</fullName>
             <default>false</default>
         </values>
+		<values>
+            <fullName>Other Update</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Case_Urgency__c</picklist>
