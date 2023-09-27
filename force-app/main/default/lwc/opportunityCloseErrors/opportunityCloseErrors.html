@@ -49,7 +49,7 @@
 				<template lwc:elseif={hasProgressErrors}>
 					<div class="slds-scoped-notification slds-media slds-media_center slds-theme_error" role="status">
 						<div class="slds-media__body">
-							<p>If you are ready to progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></p>
+							<p>To progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span>:</p>
 						</div>
 					</div>
 					<ul class="slds-list_dotted slds-m-vertical_x-small">
@@ -61,7 +61,7 @@
 					</ul>
 				</template>
 				<template lwc:else>
-					<div class="slds-text-color_success">You can progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></div>
+					<div class="slds-text-color_success">You can progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span>.</div>
 				</template>
 			</div>
 			<template lwc:if={showSpinner}>

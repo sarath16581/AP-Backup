@@ -5,6 +5,7 @@
     <formula>IMAGE(
 CASE(Case_Update__c,
 &apos;New Comment&apos;, &apos;/resource/StarTrackCaseIcons/New_Comment.png&apos;,
+&apos;Other Update&apos;, &apos;/resource/StarTrackCaseIcons/New_Comment.png&apos;,
 &apos;New Email Received&apos;, &apos;/resource/StarTrackCaseIcons/Customer_Responded.png&apos;,
 &apos;Operations Responded&apos;, &apos;/resource/StarTrackCaseIcons/Task_Finished.png&apos;,
 &apos;Waiting on Investigator&apos;, &apos;/resource/StarTrackCaseIcons/Task_Finished.png&apos;,

@@ -44,6 +44,7 @@ Last Modified Date - 2021-06-15 Darshan Chauhan Removing unessecary code for App
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
 2023-04-27 - Nasir Jawed - added logic on beforeUpdateEvent for the field 'APT_Proposal_Status_Accepted_Denied__c' update on opportunity
 2023-09-11 - Bharat Patel - STP-9618 fix: update condition with Proposal approval status (Rejected) check
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 */
 
 public without sharing class APT_ProposalTriggerHandler {
@@ -843,15 +844,5 @@ public without sharing class APT_ProposalTriggerHandler {
 		*/
 		public static void onBeforeInsert(List<Apttus_Proposal__Proposal__c> listOfNewProposals){
 			APT_ProposalTriggerHelper.updateProposalOwner(listOfNewProposals);
-		}
-
-		/**
-		* @description : This method will be called from BeforeUpdate Trigger
-		* @author Mansi Shah | 06-10-2021
-		* @param oldProposalMap
-		* @param newProposalMap
-		**/
-		public static void onBeforeUpdate(Map<Id,Apttus_Proposal__Proposal__c> oldProposalMap,Map<Id,Apttus_Proposal__Proposal__c> newProposalMap){
-			APT_ProposalTriggerHelper.updateApprovalFields(oldProposalMap,newProposalMap);
 		}
 	}

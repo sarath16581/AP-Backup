@@ -730,7 +730,7 @@
 
 			<c:MpbHspChat />
 
-           <c:MpbHspCallMeBackRestCall />
+           <!--<c:MpbHspCallMeBackRestCall /> -->
 		   
         </div>
 

@@ -29,6 +29,7 @@
 * Last Modified By - Madhuri Awasthi
 * Last Modified Date - 27th Sep, 2021 | REQ2594537 (Allow StarTrack Standard Delegation Approval Process for Intermediaries for Price Adjustment)
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 ***************************************************************************************************************/
 global with sharing class APT_CartValidationCallBack implements Apttus_Config2.CustomClass.IValidationCallback2 {
 
@@ -362,7 +363,7 @@ global with sharing class APT_CartValidationCallBack implements Apttus_Config2.C
 
 							if(!revenueBillingAccList.isEmpty() && revenueBillingAccList.size() > 0){
 								//logic for checkign cart products
-								List<Apttus_Config2__LineItem__c> allLineItemswb = [SELECT Id, Apttus_Config2__ProductId__c, APT_StarTrack_Proposal__c, APT_Approval_Required_ST__c,
+								List<Apttus_Config2__LineItem__c> allLineItemswb = [SELECT Id, Apttus_Config2__ProductId__c,
 										Apttus_CQApprov__Approval_Status__c, Apttus_Config2__LineType__c
 								FROM Apttus_Config2__LineItem__c WHERE Apttus_Config2__ConfigurationId__c =: configurationId];
 
