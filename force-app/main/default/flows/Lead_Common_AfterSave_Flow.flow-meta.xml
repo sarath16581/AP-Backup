@@ -5,9 +5,27 @@
         <name>Lead_Driver_Network_Lead_Status_change_Unsuccessful</name>
         <label>Lead Driver Network - Lead Status change - Unsuccessful</label>
         <locationX>50</locationX>
-        <locationY>539</locationY>
+        <locationY>1031</locationY>
         <actionName>Lead.Lead_Driver_Network_Lead_Status_change_Unsuccessful</actionName>
         <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</name>
+        <label>Lead Seeker - New Lead Received Email Alert MPB</label>
+        <locationX>292</locationX>
+        <locationY>539</locationY>
+        <actionName>Lead.Lead_Seeker_New_Lead_Received_Email_Alert_MPB</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Identify_RecordType_Domain</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
@@ -20,7 +38,7 @@
         <name>Success_record</name>
         <label>Success record</label>
         <locationX>314</locationX>
-        <locationY>539</locationY>
+        <locationY>1031</locationY>
         <actionName>Lead.Lead_Driver_Network_Lead_Status_change_Success</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -36,7 +54,7 @@
         <name>Check_Status</name>
         <label>Check Status Criteria</label>
         <locationX>314</locationX>
-        <locationY>431</locationY>
+        <locationY>923</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Unsuccessful_Lead</name>
@@ -98,10 +116,35 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Identify_Lead_Source</name>
+        <label>Identify Lead Source</label>
+        <locationX>578</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Identify_RecordType_Domain</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>SBSub_Retail</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SBSub_Retail</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Leed_Seeker</targetReference>
+            </connector>
+            <label>SBSub_Retail</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Identify_RecordType_Domain</name>
         <label>Identify RecordType Domain</label>
         <locationX>578</locationX>
-        <locationY>323</locationY>
+        <locationY>815</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>BG_Standard</name>
@@ -117,6 +160,38 @@
                 <targetReference>Check_Status</targetReference>
             </connector>
             <label>BG Standard</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Leed_Seeker</name>
+        <label>Leed Seeker</label>
+        <locationX>424</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Identify_RecordType_Domain</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Leed_Seeker_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Lead_Seeker__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</targetReference>
+            </connector>
+            <label>New Leed Seeker Lead</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -145,7 +220,7 @@
         <locationX>452</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Identify_RecordType_Domain</targetReference>
+            <targetReference>Identify_Lead_Source</targetReference>
         </connector>
         <object>Lead</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
