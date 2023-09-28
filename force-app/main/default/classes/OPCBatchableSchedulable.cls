@@ -16,6 +16,6 @@ global class OPCBatchableSchedulable implements Schedulable {
 
 	global void execute(SchedulableContext sc) {
 		GenerateOPCBatchable genOPC = new GenerateOPCBatchable();
-		Database.executeBatch(genOPC,15000);
+		Database.executeBatch(genOPC,50);
 	}
 }
