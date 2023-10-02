@@ -2,9 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>GLPROFITCENTRE__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(ISPICKVAL(Cover_Type__c,&apos;ACL&apos;), &apos;102701&apos;, 
-IF((CostCentreCode__c &lt;&gt; null),CostCentreCode__c, 
-&apos;101191&apos;))</formula>
+    <formula>IF(ISPICKVAL(Cover_Type__c,&apos;ACL&apos;), &apos;111031&apos;,&apos;101191&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>GLPROFITCENTRE</label>
     <required>false</required>
