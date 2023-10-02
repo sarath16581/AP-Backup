@@ -15,6 +15,7 @@
  * 2019-09-05		nathan.franklin@auspost.com.au		Added location id and mlid to group location payloads
  * 2022-04-22 - Nathan Franklin - Added fields specific for Conveyancer's as a part of the Property VOI MP onboarding
  * 2022-12-19 - Nathan Franklin - Fixed cache bug and Organisation type mapping and a bug in the Assets check
+ * 2023-10-02 - Mahesh Parvathaneni - Added isBlocked attribute for billing accounts and included BSP check for primary billing account
  */
 public with sharing class ResourceV2AuthorisationRules extends ResourceAPIService.IApi {
 	// Organisation Id (salesforce Id) - uri request parameter - optional
@@ -170,6 +171,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 				+ 'ContactApplication__r.Contact__r.BillingAccount__r.Type__c,'
 				+ 'ContactApplication__r.Contact__r.BillingAccount__r.Organisation__c,'
 				+ 'ContactApplication__r.Contact__r.BillingAccount__r.Source_System__c,'
+				+ 'ContactApplication__r.Contact__r.BillingAccount__r.Credit_Status__c,'
 				+ 'ContactApplication__r.Contact__r.BillingAccount__c,'
 				+ 'ApplicationRole__r.Application__r.Product__c,'
 				+ 'ApplicationRole__r.Role__c,'
@@ -186,6 +188,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 				+ 'BillingAccount__r.Organisation__c,'
 				+ 'BillingAccount__r.MLId__c,'
 				+ 'BillingAccount__r.Source_System__c,'
+				+ 'BillingAccount__r.Credit_Status__c,'
 				+ 'Organisation__r.Name,'
 				+ 'Organisation__r.Id,'
 				+ 'Organisation__r.APCN__c,'
@@ -362,7 +365,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 					//contact details
 					AuthContact contactRec = new AuthContact();
 					// default linked entity creation for BSP Appilication for contact's primary Billing Account
-					if (contactRole.ContactApplication__r.Contact__r.BillingAccount__r.Id != null) {
+					if (contactRole.ContactApplication__r.Contact__r.BillingAccount__r.Id != null && appKey == 'BSP') {
 
 						AuthBillingAccount authBA = new AuthBillingAccount();
 						authBA.billingAccountId = contactRole.ContactApplication__r.Contact__r.BillingAccount__r.Id;
@@ -371,6 +374,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 						authBA.accountNumber = contactRole.ContactApplication__r.Contact__r.BillingAccount__r.LEGACY_ID__c;
 						authBA.sourceSystem = contactRole.ContactApplication__r.Contact__r.BillingAccount__r.Source_System__c;
 						authBA.type = contactRole.ContactApplication__r.Contact__r.BillingAccount__r.Type__c;
+						authBA.isBlocked = contactRole.ContactApplication__r.Contact__r.BillingAccount__r.Credit_Status__c;
 						primaryContactBillingAccountMap.put(contactId, authBA);
 
 					}
@@ -452,6 +456,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 								ba.accountNumber = linkedEntity.BillingAccount__r.LEGACY_ID__c;
 								ba.sourceSystem = linkedEntity.BillingAccount__r.Source_System__c;
 								ba.type = linkedEntity.BillingAccount__r.Type__c;
+								ba.isBlocked = linkedEntity.BillingAccount__r.Credit_Status__c;
 
 								billingAccMap.put(linkedEntity.BillingAccount__r.Id, ba);
 
@@ -502,6 +507,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 							ba.accountNumber = gba.BillingAccount__r.LEGACY_ID__c;
 							ba.sourceSystem = gba.BillingAccount__r.Source_System__c;
 							ba.type = gba.BillingAccount__r.Type__c;
+							ba.isBlocked = gba.BillingAccount__r.Credit_Status__c;
 							billingAccMap.put(ba.billingAccountId, ba) ;
 
 						}
@@ -555,7 +561,8 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 						BillingAccount__r.LEGACY_ID__c,
 						BillingAccount__r.Type__c,
 						BillingAccount__r.Organisation__c,
-						BillingAccount__r.Source_System__c
+						BillingAccount__r.Source_System__c,
+						BillingAccount__r.Credit_Status__c
 				FROM BAMGroupBillingAccount__c
 				WHERE Group__r.Id IN :groupIds
 		];
@@ -682,6 +689,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 		public String accountNumber { get; set; }
 		public String sourceSystem { get; set; }
 		public String type { get; set; }
+		public Boolean isBlocked { get; set; }
 	}
 
 	public class AuthGroup {

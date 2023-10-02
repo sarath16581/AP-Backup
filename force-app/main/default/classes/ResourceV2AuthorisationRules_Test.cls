@@ -4,6 +4,7 @@
  * @date 2019-08-05
  * @changelog
  * 2022-04-22 - Nathan Franklin - Updated test classes for conveyancers
+ * 2023-10-02 - Mahesh Parvathaneni - Updated test classes for isBlocked attribute
  */
 @isTest
 public class ResourceV2AuthorisationRules_Test {
@@ -277,6 +278,8 @@ public class ResourceV2AuthorisationRules_Test {
         for(Object responseBillingAccount : responseBillingAccounts) {
             Map<String, Object> billingAccountObj = (Map<String, Object>)responseBillingAccount;
             responseBillingAccountIdList.add(String.valueOf(billingAccountObj.get('billingAccountId')));
+			//validate isBlocked attribute included in the billingAccountObj
+			System.assertEquals(true, billingAccountObj.containsKey('isBlocked'), 'Expected isBlocked attribute is included for the billing account');
         }
 
         System.assertEquals(4, responseBillingAccountIdList.size());
