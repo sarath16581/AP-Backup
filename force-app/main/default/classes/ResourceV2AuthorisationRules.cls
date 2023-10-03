@@ -1,8 +1,8 @@
 /***
  * @description Handles Authorisation API requests to get the List of all Applications enabled for a contact.
- *              Custom Metadatatype : 	ResourceAPI__mdt
- *              /api/2.0/authorisation/{cNumber}/{app}?orgNumber={orgNumber}&org={orgId}
- *              TODO: I think the the asset check should be done first shouldn't it? If no asset, no need to select any other data...?-
+ *				Custom Metadatatype : 	ResourceAPI__mdt
+ *				/api/2.0/authorisation/{cNumber}/{app}?orgNumber={orgNumber}&org={orgId}
+ *				TODO: I think the the asset check should be done first shouldn't it? If no asset, no need to select any other data...?-
  *				This is to cater mutiple contact , in case of orgdetails are not provided
  *				If we need to do Asset query first, the query need to split upto a contact query first , like in the older version
  * @author Nathan Franklin
@@ -44,11 +44,11 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 		String cNumber = requestParams.dynamicUriParams[0];
 		String appName = (requestParams.dynamicUriParams.size() > 1 ? requestParams.dynamicUriParams[1] : '');
 		if (String.isEmpty(orgId)) {
-            orgId = '';
-        }
+			orgId = '';
+		}
 		if (String.isEmpty(orgNumber)) {
-            orgNumber = '';
-        }
+			orgNumber = '';
+		}
 
 		String output = requestParams.version + '/auth/' + cNumber + '/' + orgId + '/' + orgNumber + '/' + appName;
 		System.debug(output);
