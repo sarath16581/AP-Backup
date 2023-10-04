@@ -358,6 +358,17 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
+	@AuraEnabled(cacheable=true)
+	public static List<SelectOptionCustom> buildBillingAccountOptions(){
+		List<SelectOptionCustom> options = new list<SelectOptionCustom>();
+		for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
+			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
+			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
+			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name));
+		}
+		return options;
+	}
+
 	/**
 	 * Get Related To filter for AP vs StarTrack enquiries
 	 * */

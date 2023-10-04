@@ -198,6 +198,9 @@ export default class BspCustomIcons extends LightningElement {
 	get iconIsLock() {
 		return this.icon === 'lock';
 	}
+	get iconIsInbox() {
+		return this.icon === 'inbox';
+	}
 	get cssClass() {
 		return this.iconclass + ' ' + this.size + ' ' + (this.maintainWidthRatio ? 'maintain-width-ratio' : (this.maintainHeightRatio ? 'maintain-height-ratio' : '' ));
 	}
