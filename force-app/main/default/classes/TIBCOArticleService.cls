@@ -26,6 +26,7 @@
  * 2022-04-11 - Mahesh Parvathaneni - added Outside_Delivery_Radius__c, Geo_Precision__c to event message SOQL
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - added MLID to Article Query
  * 2023-03-01 - Dattaraj Deshmukh - added 'searchArticleRecordsInSFDC' method to wrap static method and to be able to use in mock.
+ * 2023-10-05 - Jacob Isaac - added fields causing error on UI on event messages - REQ3312803
 **/
 public class TIBCOArticleService {
 
@@ -206,7 +207,7 @@ public class TIBCOArticleService {
 						VISALabelLine1__c, VISALabelLine2__c, SAR__c, SortDest__c, SortOutputStatus__c,
 						SortInductMode__c, OCRVCSResultSource__c, OCRVCS_OS_Zone__c, DeliveryNetworkState__c, DeliveryNetworkPostcode__c,
 						AttachmentType__c, AttachmentGUID__c, TruckId__c, FacilitySubLocationId__c, FacilitySubLocationName__c,
-						Length__c, Height__c, Width__c, Weight__c, Volume__c, Cube__c, Outside_Delivery_Radius__c, Geo_Precision__c
+						Length__c, Height__c, Width__c, Weight__c, Volume__c, Cube__c, Outside_Delivery_Radius__c, Geo_Precision__c,State_Territory_Province__c,EventSource__c 
 
 				FROM
 						EventMessage__c
