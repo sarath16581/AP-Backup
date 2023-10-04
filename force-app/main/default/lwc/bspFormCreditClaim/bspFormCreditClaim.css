@@ -1,0 +1,16 @@
+/**
+ * Created by hasan on 27/09/2023.
+ */
+.two-line-label {
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis (...) for long labels */
+    max-width: 100%; /* Adjust the width as needed */
+    line-height: 1.5em; /* Adjust the line height for two lines */
+}
+
+.hide-required-asterisk::after {
+    content: ""; /* Remove the content (asterisk) */
+}
+
+.bsp-body_small { color: #4D4D54; font-size: 0.8125rem; font-weight:normal; line-height: 1rem; }

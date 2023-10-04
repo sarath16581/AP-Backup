@@ -50,21 +50,53 @@
 							</lightning-layout-item>
 							<!-- businessAccountNumber -->
 							<lightning-layout-item size="12" large-device-size="9">
-							<lightning-input label="Business account number" 
-											value={businessAccountNumber}
-											data-id="businessAccountNumber"
-											onchange={onChangeField}
-											name="businessAccountNumber"
-											type="text"
-											onfocus={handleFocus}
-											required
-											placeholder="Enter the business account number"											 
-											message-when-value-missing="Please enter business account number"
-											class="brand-form-input slds-p-bottom_x-large"
-											max-length="255">
-							</lightning-input>
+								<template lwc:if={showBilling}>
+									<div class="slds-p-bottom_x-large">
+										<c-bsp-type-ahead
+												input-message-when-value-missing="Please select an account number"
+												default-value={defaultValue}
+												onselection={handleOnSelectionBillingAccount}
+												oninputfocusout={handleOnInputFocusOutBillingAccount}
+												input-required="true"
+												input-label="Account number"
+												picklist-options={allBillingAccOptions}
+												other-options={otherOptions}
+												input-class="brand-form-input"
+										></c-bsp-type-ahead>
+									</div>
+									<template lwc:if={isShowOtherBillingAccountField}>
+										<div class="slds-form slds-form_stacked slds-p-bottom_x-large">
+											<label for="customBillingNumberInput" class="slds-form-element__label slds-no-flex">
+												<abbr class="slds-required" title="required">*</abbr>
+												Other account number
+												<span class="bsp-body_small"><br/>&nbsp;&nbsp;&nbsp;&nbsp; As shown on your invoice</span>
+											</label>
+											<lightning-input id='customBillingNumberInput'
+															 value={billingNumber}
+															 variant="label-hidden"
+															 data-id="businessAccountNumberOther"
+															 onchange={onChangeField}
+															 name="otherBusinessAccountNumber"
+															 type="text"
+															 onfocus={handleFocus}
+															 onfocusout={handleFocusOut}
+															 required
+															 pattern="[a-zA-Z0-9]*"
+															 placeholder="Enter the Other Account number"
+															 message-when-value-missing="Please enter other account number"
+															 class="brand-form-input slds-p-bottom_x-large"
+															 max-length="255">
+											</lightning-input>
+											<template lwc:if={isShowRequestAccessContent}>
+												<div class="slds-p-left_medium">
+													<c-bsp-request-access-content content-param={requestAccessContent} billing-number={billingNumber}></c-bsp-request-access-content>
+												</div>
+											</template>
+										</div>
+									</template>
+								</template>
 							</lightning-layout-item>
-							<!-- contactName -->
+                                <!-- contactName -->
 							<lightning-layout-item size="12" large-device-size="9">
 							<lightning-input label="Contact name" 
 											value={contactName}

@@ -8,6 +8,7 @@
  * 2023-08-11 - Thang Nguyen - Created
  * 2023-08-16 - Hasantha Liyanage - Added validate case functionality.
  * 2023-08-23 - Hasantha Liyanage - Added accepted file formats to be passed to file upload custom component
+ * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
  */
 public with sharing class BSPCreditClaimController {
 	public static String STATUS_OK = 'ok';
@@ -24,19 +25,10 @@ public with sharing class BSPCreditClaimController {
 			caseRecord.ContactId = bspBaseUplift.loginContactId;
 			//set case account id
 			caseRecord.AccountId = bspBaseUplift.loginAccountId;
-			Billing_Account__c billingAccount = getBillingAccountRecord(caseRecord);
-			//if no billing account found user is not allowed to proceed,
-			//this validation to be removed when the auto select dropdown is implemented which allows the user to select a billing accounts which the user has access to
-			if(billingAccount == null) {
-				Set<SObjectField> fields = new Set<SObjectField>{BSPErrorMessages__c.Message__c, BSPErrorMessages__c.Name};
-				CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(BSPErrorMessages__c.SObjectType, fields);
-				Set<String> settingNames = new Set<String> {'Invalid Billing Account Credit Claim'};
-				Map<String, SObject> bspMessagesSettings = (Map<String, SObject>) settingsSelector.selectByNames(settingNames);
-				BSPErrorMessages__c networkFilterSetting = (BSPErrorMessages__c) bspMessagesSettings.get('Invalid Billing Account Credit Claim');
-				throw new bspCreditClaimControllerException(networkFilterSetting.Message__c);
+			// if the billing account number manually entered validate the number
+			if(String.isNotBlank(caseRecord.Billing_Number__c) && String.isBlank(caseRecord.Related_Billing_Account__c)) {
+				isValidBillingAccount(caseRecord.Billing_Number__c);
 			}
-			//assign the billing account record to case
-			caseRecord.Related_Billing_Account__c = billingAccount.Id;
 
 			//Fetching the assignment rules on case
 			List<AssignmentRule> assignmentRules = context.getCaseAssignmentRules();
@@ -83,10 +75,70 @@ public with sharing class BSPCreditClaimController {
 		return enquiryWrapper;
 	}
 
+	/**
+	 * Get the super admin roles of the org to display when other account number option is selected
+	 * this will allow the user to find the email address to send the access request
+	 * @return
+	 */
+	@AuraEnabled(cacheable=true)
+	public static List<RoleWrapper> getSuperAdminRoles(){
+		List<BAMContactRole__c> roles = BAMContactRoleSelector.newInstance().selectRolesByRoleAndOrgId(
+				new Set<String>{BAMUserUtility.ACCESS_MANAGEMENT_SUPER_ADMIN},
+				new Set<Id>{bspBaseUplift.loginAccountId},
+				new Set<Object>{BAMContactRoleSelector.Options.WITH_CONTACT_APPLICATION}
+		);
+
+		List<RoleWrapper> adminRoles = new List<RoleWrapper>();
+		for(BAMContactRole__c role : roles) {
+			RoleWrapper adminRole = new RoleWrapper();
+			adminRole.contactId = role?.ContactApplication__r?.Contact__c;
+			adminRole.name = role?.ContactApplication__r?.Contact__r?.Name;
+			adminRole.firstName = role?.ContactApplication__r?.Contact__r?.FirstName;
+			adminRole.email = role?.ContactApplication__r?.Contact__r?.Email;
+			adminRoles.add(adminRole);
+		}
+
+
+		return adminRoles;
+	}
+
+	@AuraEnabled
+	public static String isValidBillingAccount(String billingAccountValue) {
+		Case caseRecord = new Case();
+		caseRecord.AccountId = bspBaseUplift.loginAccountId;
+		caseRecord.Billing_Number__c = billingAccountValue;
+		Billing_Account__c billingAccount = getBillingAccountRecord(caseRecord);
+		//if no billing account found user is not allowed to proceed
+		if (billingAccount == null) {
+			Set<SObjectField> fields = new Set<SObjectField>{
+					BSPErrorMessages__c.Message__c, BSPErrorMessages__c.Name
+			};
+			CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(BSPErrorMessages__c.SObjectType, fields);
+			Set<String> settingNames = new Set<String>{
+					'Invalid Billing Account Credit Claim'
+			};
+			Map<String, SObject> bspMessagesSettings = (Map<String, SObject>) settingsSelector.selectByNames(settingNames);
+			BSPErrorMessages__c networkFilterSetting = (BSPErrorMessages__c) bspMessagesSettings.get('Invalid Billing Account Credit Claim');
+			String message = networkFilterSetting.Message__c;
+			List<String> formattingArguments = new List<String>{ billingAccountValue, '\n'};
+
+			message = String.format(message, formattingArguments);
+			return message;
+		}
+		return '';
+	}
+
 	public class CreditClaimResponseWrapper{
 		@AuraEnabled public Case caseRecord {get;set;}
 		@AuraEnabled public String status {get;set;}
 		@AuraEnabled public String message {get;set;}
+	}
+
+	public class RoleWrapper{
+		@AuraEnabled public String contactId {get;set;}
+		@AuraEnabled public String firstName {get;set;}
+		@AuraEnabled public String name {get;set;}
+		@AuraEnabled public String email {get;set;}
 	}
 
 	/**

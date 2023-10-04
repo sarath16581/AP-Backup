@@ -1,0 +1,46 @@
+<!-- Bsp Request Access Content
+@author Hasantha Liyanage
+@date 2023-10-02
+@group child component
+@domain BSP
+@description Helps to generate mailto: content for the bsp access request email
+@changelog
+2023-10-02 - Hasantha Liyanage  - Created
+-->
+<template>
+    <lightning-card title="">
+        <p>Our team will review your claim to assess if it's valid.</p>
+        <br/>
+        <template lwc:if={isRolesAvailable}>
+            <p>To have your credit claim assessed sooner, update your Business Support Portal access with the
+                appropriate account number(s) by:</p>
+            <br/>
+            <ul class="slds-list_dotted">
+                <li>Contacting your {contentParam.businessName} access management administrator:</li>
+                <ul>
+                    <template for:each={contentParam.superAdminRoles} for:item="adminRole">
+                        <li key={adminRole.contactId}>{adminRole.name} - {adminRole.email} - &nbsp;
+                            <a class="slds-button" data-id={adminRole.contactId} id={adminRole.contactId}
+                               onclick={handleOnClick}>
+                                <c-bsp-custom-icons key={adminRole.contactId} icon="inbox" size="medium"
+                                                    fill-colour="#31313D" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;
+                                <span>Request access now</span></a>
+                        </li>
+                    </template>
+                </ul>
+            </ul>
+            <br/>
+            <p>Or</p>
+        </template>
+        <template lwc:else>
+            <p>To have your credit claim assessed sooner, request for this account number to be enabled with your
+                Business Support Portal access:</p>
+        </template>
+        <br/>
+        <ul class="slds-list_dotted">
+            <li>Calling 131 118 and a team member will arrange a call-back from an account representative who can
+                assist.
+            </li>
+        </ul>
+    </lightning-card>
+</template>

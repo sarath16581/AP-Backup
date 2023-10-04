@@ -7,6 +7,7 @@
  * @changelog
  * 2023-08-11 - Thang Nguyen - Created
  * 2023-08-16 - Hasantha Liyanage - auto populate account held with
+ * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
  */
 import {LightningElement, track, wire, api} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
@@ -23,6 +24,9 @@ import REASON_CREDIT_CLAIM_FIELD from '@salesforce/schema/Case.ReasonforCreditCl
 import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProfileDetails';
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
 import createCreditClaim from '@salesforce/apex/BSPCreditClaimController.createCreditClaim';
+import getBillingAccounts from '@salesforce/apex/bspEnquiryUplift.buildBillingAccountOptions';
+import getRelatedSuperAdminRoles from '@salesforce/apex/BSPCreditClaimController.getSuperAdminRoles';
+import isValidBillingAccount from '@salesforce/apex/BSPCreditClaimController.isValidBillingAccount';
 import acceptedFileFormats from '@salesforce/label/c.BSP_Accepted_file_formats_credit_claim';
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
 
@@ -39,7 +43,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	submitClicked = false;
 
 	formTitle = 'Create a credit claim';
-
 	// spinner control
 	showSpinner = false;
 	successCreation = false;
@@ -61,6 +64,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	// dislay value
 	businessName;
 	businessAccountNumber;
+	billingNumber
 	contactName;
 	contactEmailAddress;
 	contactPhoneNumber;
@@ -83,6 +87,89 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		MobilePhone: ''
 	};
 	acceptedFileFormats = acceptedFileFormats;
+	allBillingAccOptions = [];
+	superAdminRoles;
+	showBilling = false;
+	defaultValue = {}; // contains default value for billing account dropdown
+	requestAccessContent = {}; // store the extra information to generate other account number content
+	isValidOtherBillingAccount = false;
+	isShowOtherBillingAccountField = false;
+	isShowRequestAccessContent = false; // render request access content based on the other billing account field's value is a valid billing account or not
+	otherOptions = [{
+		value:'other',
+		label:'Other account number',
+		isCustom:true
+	}];
+
+
+	/**
+	 * handle billing account input search focus out event
+	 * @param event
+	 */
+	handleOnInputFocusOutBillingAccount(event) {
+		// show hide other option dependant components
+		const selectedValue = event.detail.selected;
+		if(selectedValue.value === this.otherOptions[0].label) {
+			this.isShowOtherBillingAccountField = true;
+		} else {
+			this.isShowOtherBillingAccountField = false;
+		}
+
+	}
+
+	/**
+	 * handle billing account input search selected accounts
+	 * billingNumber variable matches the Billing_Name__c [Text]
+	 * businessAccountNumber variable matches the Related_Billing_Account__c [Id]
+	 * @param event
+	 */
+	handleOnSelectionBillingAccount(event){
+		const selectedValue = event.detail.selected;
+		// if other option selected
+		if(selectedValue.value === this.otherOptions[0].value) {
+			this.isShowOtherBillingAccountField = true;
+		} else {
+			this.isShowOtherBillingAccountField = false;
+			this.businessAccountNumber = selectedValue.value; // selected value passed from search component is an ID value
+			this.billingNumber = null; // there is no billing Number passed in to apex when Id exists
+		}
+	}
+	async connectedCallback() {
+		await this.initialLoad();
+	}
+
+
+	async initialLoad() {
+		// billing accounts to be populated in the typeahead component
+		// we select all the billing accounts at once
+		await getBillingAccounts()
+			.then((data) => {
+				this.allBillingAccOptions = data;
+				if(this.allBillingAccOptions.length === 1) {
+					this.defaultValue = this.allBillingAccOptions[0];
+				}
+
+			})
+			.catch((error) => {
+				console.error(error);
+			}).finally(() => {
+				this.showBilling = true;
+			});
+
+		// getting the super admin roles to display in the other account number section for user to request access
+		await getRelatedSuperAdminRoles()
+			.then((data) => {
+				this.superAdminRoles = data;
+				this.requestAccessContent.superAdminRoles = data;
+				this.requestAccessContent.businessName = this.businessName;
+				this.requestAccessContent.loggedInUserEmail = this.user.Email;
+			})
+			.catch((error) => {
+				console.error(error);
+			}).finally(() => {
+
+			});
+	}
 
 	@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
 	wiredObjectInfo({data, error}) {
@@ -179,6 +266,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		}
 	}
 
+	removeNonAlphanumeric(event) {
+		return event.target.value.replace(/[^a-zA-Z0-9]/g, ''); // Remove non-alphanumeric characters
+	}
+
 	onChangeField(event) {
 		const field = event.target.dataset.id;
 		switch(field)
@@ -186,8 +277,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			case 'businessName':
 				this.businessName = event.detail.value;
 				break;
-			case 'businessAccountNumber':
-				this.businessAccountNumber = event.detail.value;
+			case 'businessAccountNumberOther':
+				this.billingNumber = this.removeNonAlphanumeric(event);;
 				break;
 			case 'contactName':
 				this.contactName = event.detail.value;
@@ -231,10 +322,42 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	}
 
 	checkValidationOfField(datasetId) {
+		this.showSpinner = true;
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
-		//--Checking the custom validation on change of a field value
-		if (inputCmp !== undefined && inputCmp.length > 0) {
-			checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
+		switch(datasetId){
+			case 'businessAccountNumberOther':
+				if(inputCmp[0].value){
+					this.isValidOtherBillingAccount = false;
+					// validating the value of custom billing account [other] field
+					isValidBillingAccount({billingAccountValue: inputCmp[0].value})
+						.then(result => {
+							// if entered is an invalid billing account, we expect a message here
+							if(result) {
+								inputCmp[0].setCustomValidity(result);
+								inputCmp[0].reportValidity();
+							} else {
+								this.isValidOtherBillingAccount = true;
+							}
+							this.showSpinner = false;
+						}).catch(error => {
+							console.error(error);
+							this.showSpinner = false;
+						}).finally(() => {
+							this.isShowRequestAccessContent = true;
+						});
+				} else {
+					// when value is empty
+					checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
+					this.isShowRequestAccessContent = false;
+					this.showSpinner = false;
+				}
+				break;
+			default:
+				//Checking the custom validation on change of a field value
+				if (inputCmp !== undefined && inputCmp.length > 0) {
+					checkCustomValidity(inputCmp[0], inputCmp[0].messageWhenValueMissing);
+				}
+				break;
 		}
 	}
 
@@ -249,8 +372,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		let fileId = event.target.dataset.id;
 		deleteAttachment({fileId:fileId})
 			.then(result => {
-				//console.log('file:' + fileId + ' removed');
-
 				this.removeFromUploadedByFileId(fileId);
 				this.showSpinner = false;
 			}).catch(error => {
@@ -296,7 +417,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		}else{
 			disputeItemValid = inputDisputeItems.checkAllValidity();
 		}
-		const allValid = checkAllValidity(inputComponents) && disputeItemValid;
+		const allValid = this.isValidOtherBillingAccount && checkAllValidity(inputComponents) && disputeItemValid;
 		
 
 		if (!allValid) {
@@ -307,7 +428,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 		this.tempCase.RecordTypeId =  this.recordTypeId;
 		this.tempCase.Business_Name__c = this.businessName;
-		this.tempCase.Billing_Number__c = this.businessAccountNumber;
+		this.tempCase.Billing_Number__c = this.billingNumber;
+		this.tempCase.Related_Billing_Account__c = this.businessAccountNumber;
 		this.tempCase.Name__c = this.contactName;
 		this.tempCase.Email_Address__c = this.contactEmailAddress;
 		this.tempCase.Phone__c = this.contactPhoneNumber;

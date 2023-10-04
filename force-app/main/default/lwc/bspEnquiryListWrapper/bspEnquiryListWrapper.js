@@ -13,7 +13,7 @@ export default class BspEnquiryListWrapper extends LightningElement {
     defaultPageSize;
     userBillingAccountScope;
     
-    @wire(getBillingAccounts) allBilingAccOptions;
+    @wire(getBillingAccounts) allBillingAccOptions;
     @wire(getIndOrgPicklist) allOrgOptions;
     @wire(getDynamicPageSizes) dynamicPageSizes;
     @wire(getStatusList) statusList;
