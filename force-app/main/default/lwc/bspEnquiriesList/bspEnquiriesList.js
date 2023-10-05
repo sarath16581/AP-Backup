@@ -206,7 +206,10 @@ export default class BspEnquiriesList extends LightningElement {
             csvString += " Details,";
             csvString += " Receiver,";
             csvString += " Status ,";
-            csvString += " Updated ,\n";
+            csvString += " Updated ,";
+            csvString += " Account number,";
+            csvString += " Account name,";
+            csvString += " Account held with,\n";
 
             // prepare row data for columns
             for (var i = 0; i < reportData.length; i++) {
@@ -220,7 +223,11 @@ export default class BspEnquiriesList extends LightningElement {
                 csvString += this.cleanseText(reportData[i].Details) + ",";
                 csvString += this.cleanseText(reportData[i].SendingTo) + ",";
                 csvString += this.cleanseText(reportData[i].Status) + ",";
-                csvString += this.cleanseText(reportData[i].Updated) + ",\n";
+                csvString += this.cleanseText(reportData[i].Updated) + ",";
+                csvString += this.cleanseText(reportData[i].Updated)  + ",\n";
+                /*csvString += this.cleanseText(reportData[i].AccountNumber) + ",";
+                csvString += this.cleanseText(reportData[i].AccountName) + ",";
+                csvString += this.cleanseText(reportData[i].AccountHeldWith) + ",\n";*/
             }
 
             var currTime = new Date();

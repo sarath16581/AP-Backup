@@ -13,6 +13,8 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
 13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
 04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
+29/09/2023    hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
+05/10/2023    hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -713,7 +715,7 @@ public without sharing class bspEnquiryUplift {
 					'Id', 'CaseNumber', 'CreatedDate', 'ArticleTest__r.Name', 'ArticleTest__r.ArticleID__c', 'RecordType.DeveloperName', 'Status',
 					'CaseDetails__c', 'Subject', 'Permanent_Close__c', 'Secondary_Contact__c', 'Article_Receiver_Name__c', 'StarTrack_RecordType__c',
 					'BSP_Addressee_Name__c', 'Contact.Account.Name', 'Billing_Number__c', 'Related_Billing_Account__c',
-					'Related_Billing_Account__r.LEGACY_ID__c','LastModifiedDate','Enquiry_Status__c'
+					'Related_Billing_Account__r.LEGACY_ID__c', 'Related_Billing_Account__r.Name', 'Business_Unit__c','LastModifiedDate','Enquiry_Status__c'
 			};
 
 			System.debug('searchText===' + searchText  + '>>');
@@ -789,6 +791,9 @@ public without sharing class bspEnquiryUplift {
 				caseDetail.ArticleID = cse.ArticleTest__r != null ? cse.ArticleTest__r.ArticleID__c : '';
 			}
 			caseDetail.Updated = String.valueOf(cse.lastmodifiedDate);
+			caseDetail.AccountNumber = cse.Related_Billing_Account__r.LEGACY_ID__c;
+			caseDetail.AccountName = cse.Related_Billing_Account__r.Name;
+			caseDetail.AccountHeldWith = cse.Business_Unit__c;
 			caseDetailsrecords.add(caseDetail);
 		}
  
@@ -1698,6 +1703,9 @@ public without sharing class bspEnquiryUplift {
 		public String Status;
 		public String ArticleID;
 		public String Updated;
+		public String AccountNumber;
+		public String AccountName;
+		public String AccountHeldWith;
 	}
 
 	/**
