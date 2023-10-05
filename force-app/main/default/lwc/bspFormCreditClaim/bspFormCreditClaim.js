@@ -417,8 +417,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		}else{
 			disputeItemValid = inputDisputeItems.checkAllValidity();
 		}
-		const allValid = this.isValidOtherBillingAccount && checkAllValidity(inputComponents) && disputeItemValid;
-		
+
+		// if the other account number field is selected and the field should have a valid value
+		let isOtherBillingAccountChecked = (this.isShowOtherBillingAccountField && this.isValidOtherBillingAccount) || !this.isShowOtherBillingAccountField;
+		const allValid = isOtherBillingAccountChecked && checkAllValidity(inputComponents) && disputeItemValid;
 
 		if (!allValid) {
 			this.showSpinner = false;
