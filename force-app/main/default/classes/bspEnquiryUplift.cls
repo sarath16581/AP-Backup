@@ -360,6 +360,10 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
+	/**
+	 * Build billing account options without the Prefix for legacy id (number only)
+	 * @return
+	 */
 	@AuraEnabled(cacheable=true)
 	public static List<SelectOptionCustom> buildBillingAccountOptions(){
 		List<SelectOptionCustom> options = new list<SelectOptionCustom>();

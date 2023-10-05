@@ -942,15 +942,13 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
-	public static BAMApplicationRole__c createApplicationRole(BAMApplication__c app, String roleName) {
-		BAMApplicationRole__c appRole = new BAMApplicationRole__c();
-		appRole.Role__c = roleName;
-		appRole.Application__c = app.Id;
-		appRole.ShowBillingAccount__c = true;
-		appRole.ShowGroup__c = true;
-		appRole.ShowOrganisation__c = true;
-		appRole.status__c = 'Active';
-		return appRole;
+
+	public static List<BAMContactApplication__c> getBamContactApplications(Integer count, Id contactId, Id appId, Boolean generateIds) {
+		return (List<BAMContactApplication__c>)maybeGenerateIds(populateSObjects(BAMContactApplication__c.SObjectType, new Map<SObjectField, Object> {
+				BAMContactApplication__c.Contact__c => contactId,
+				BAMContactApplication__c.Application__c => appId,
+				BAMContactApplication__c.Status__c => 'Active'
+		}, count), generateIds);
 	}
 
 	public static void generateRecordIds(List<SObject> records) {
