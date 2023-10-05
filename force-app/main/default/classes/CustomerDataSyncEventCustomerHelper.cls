@@ -294,6 +294,9 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		acc.Winning_Master_Record__pc = e.winningMasterAPCN__c;
 		acc.is_Inactive_Customer__pc = e.isInactiveCustomer__c;
 		acc.Integration_Service_Mod_Date__c = e.integrationServiceModDate__c;
+		acc.ClosedDateTime__pc = e.closedDateTime__c;
+		acc.ClosedReason__pc = e.closedReason__c;
+		acc.ArchivedDateTime__pc = e.archivedDateTime__c;
 		return acc;
 	}
 }

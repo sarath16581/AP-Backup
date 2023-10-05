@@ -7,7 +7,7 @@
  * @domain Account
  * @changelog
  * 2022-08-01 - George Nguyen - Created.
- * 
+ * 2023-10-02 - Steve L - added method to sync the closing of Consumer Person Account
  */
 public inherited sharing class PersonAccountDomainUserSyncModule extends ApplicationDomain.Module {
     
@@ -22,6 +22,7 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         syncUpdatedFieldsToUserRecord((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
+		syncDeactivatedUserRecords((List<Account>)records, (Map<Id, Account>)existingRecords);
     }
 
     /**
@@ -33,7 +34,7 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 		}
 	}
 
-    // syncs updated fields on Accounts to User fields using the field mapping
+	// syncs updated fields on Accounts to User fields using the field mapping
     private void syncUpdatedFieldsToUserRecord(List<Account> records, Map<Id, Account> existingRecords, ApplicationUnitOfWork uow) {
         Map<Id, Account> validAccounts = new Map<Id, Account>();
         for(Account acc: records) {
@@ -54,5 +55,28 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
             }
         }
     }
+
+	/**
+     * @param records List<Account> from Trigger.new
+     * @param existingRecords Map<Id, Account> from Trigger.oldMap
+     *
+     * @description Sync to Users using a queueable when a Consumer Person Account is closed. Note only consumers that are not part of the merging process (winning master record used to differentiate them)
+     */
+	private void syncDeactivatedUserRecords(List<Account> records, Map<Id, Account> existingRecords) {
+		Set<Id> contactIds = new Set<Id>();
+		Account oldConsumer;
+		for (Account consumer : records) {
+			oldConsumer = existingRecords.get(consumer.Id);
+			if (consumer.is_Inactive_Customer__pc && !oldConsumer.is_Inactive_Customer__pc
+					&& consumer.IsPersonAccount && consumer.Winning_Master_Record__pc == null && consumer.PersonContactId != null) { // checking Winning_Master_Record__pc == null because only closing consumers that are not part of the merging process
+				contactIds.add(consumer.PersonContactId);
+			}
+		}
+
+		if (!contactIds.isEmpty()) {
+			ConsumerUserDeactivationQueueable queueable = new ConsumerUserDeactivationQueueable(contactIds);
+			System.enqueueJob(queueable);
+		}
+	}
 
 }
