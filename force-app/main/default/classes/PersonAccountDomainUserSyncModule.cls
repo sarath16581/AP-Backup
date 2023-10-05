@@ -7,7 +7,7 @@
  * @domain Account
  * @changelog
  * 2022-08-01 - George Nguyen - Created.
- * 2023-10-02 - Steve L - added method to sync close Consumer Person Account
+ * 2023-10-02 - Steve L - added method to sync the closing of Consumer Person Account
  */
 public inherited sharing class PersonAccountDomainUserSyncModule extends ApplicationDomain.Module {
     
@@ -60,7 +60,7 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
      * @param records List<Account> from Trigger.new
      * @param existingRecords Map<Id, Account> from Trigger.oldMap
      *
-     * @description Sync to Users using a queueable when a Consumer Person Account is closed
+     * @description Sync to Users using a queueable when a Consumer Person Account is closed. Note only consumers that are not part of the merging process (winning master record used to differentiate them)
      */
 	private void syncDeactivatedUserRecords(List<Account> records, Map<Id, Account> existingRecords) {
 		Set<Id> contactIds = new Set<Id>();
@@ -68,7 +68,7 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 		for (Account consumer : records) {
 			oldConsumer = existingRecords.get(consumer.Id);
 			if (consumer.is_Inactive_Customer__pc && !oldConsumer.is_Inactive_Customer__pc
-					&& consumer.IsPersonAccount && consumer.Winning_Master_Record__pc == null && consumer.PersonContactId != null) {
+					&& consumer.IsPersonAccount && consumer.Winning_Master_Record__pc == null && consumer.PersonContactId != null) { // checking Winning_Master_Record__pc == null because only closing consumers that are not part of the merging process
 				contactIds.add(consumer.PersonContactId);
 			}
 		}

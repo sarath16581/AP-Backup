@@ -12,7 +12,11 @@ public inherited sharing class ConsumerUserDeactivationQueueable implements Queu
 	}
 
 	public void execute(QueueableContext context) {
-		deactivateConsumerUsers(contactIds);
+		try {
+			deactivateConsumerUsers(contactIds);
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ConsumerUserDeactivationQueueable', ConsumerUserDeactivationQueueable.class.getName(), 'execute', 'ConsumerUserDeactivationQueueable', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	/**
