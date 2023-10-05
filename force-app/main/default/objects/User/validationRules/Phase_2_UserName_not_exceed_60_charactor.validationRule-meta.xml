@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Phase_2_UserName_not_exceed_60_charactor</fullName>
     <active>true</active>
-    <errorConditionFormula>LEN( Username)&gt;=60 &amp;&amp; $User.Id &lt;&gt; &quot;0059000000Pibe2&quot;</errorConditionFormula>
+    <errorConditionFormula>LEN( Username)&gt;=60 &amp;&amp; $User.Id &lt;&gt; &quot;0059000000Pibe2&quot; &amp;&amp; NOT(ISNULL(ContactId))</errorConditionFormula>
     <errorDisplayField>Username</errorDisplayField>
     <errorMessage>User Name should be shorter than 60 charactors.</errorMessage>
 </ValidationRule>
