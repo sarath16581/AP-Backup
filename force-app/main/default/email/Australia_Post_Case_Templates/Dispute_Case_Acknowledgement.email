@@ -268,7 +268,7 @@ Thanks for taking the time to contact us. This is confirmation that we have rece
 <b>ClaimType: </b>{!Case.Enquiry_Type__c}<br/>
 <b>Reason for Credit Claim: </b>{!Case.ReasonforCreditClaim__c}<br/>
 <b>Business Name: </b>{!Case.Business_Name__c}<br />
-<b>Business Account Number: </b>{!Case.Billing_Number__c}<br />
+<b>Account Number: </b>{!Case.Billing_Number__c}<br />
 <b>Total Amount Claimed ($): </b>{!Case.Amount_Claimed__c}<br/>
 <b>Description: </b>{!Case.Description}<br/><br/>
 <hr>
