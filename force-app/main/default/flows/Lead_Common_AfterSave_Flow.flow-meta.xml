@@ -4,8 +4,8 @@
         <description>Lead Driver Network - Lead Status change - Unsuccessful</description>
         <name>Lead_Driver_Network_Lead_Status_change_Unsuccessful</name>
         <label>Lead Driver Network - Lead Status change - Unsuccessful</label>
-        <locationX>50</locationX>
-        <locationY>1031</locationY>
+        <locationX>754</locationX>
+        <locationY>539</locationY>
         <actionName>Lead.Lead_Driver_Network_Lead_Status_change_Unsuccessful</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -19,13 +19,10 @@
     <actionCalls>
         <name>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</name>
         <label>Lead Seeker - New Lead Received Email Alert MPB</label>
-        <locationX>292</locationX>
+        <locationX>50</locationX>
         <locationY>539</locationY>
         <actionName>Lead.Lead_Seeker_New_Lead_Received_Email_Alert_MPB</actionName>
         <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>Identify_RecordType_Domain</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
@@ -37,8 +34,8 @@
     <actionCalls>
         <name>Success_record</name>
         <label>Success record</label>
-        <locationX>314</locationX>
-        <locationY>1031</locationY>
+        <locationX>490</locationX>
+        <locationY>539</locationY>
         <actionName>Lead.Lead_Driver_Network_Lead_Status_change_Success</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -53,9 +50,38 @@
     <decisions>
         <name>Check_Status</name>
         <label>Check Status Criteria</label>
-        <locationX>314</locationX>
-        <locationY>923</locationY>
+        <locationX>754</locationX>
+        <locationY>431</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Successful_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record__Prior.Status</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Disqualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Lead_Creator_Email__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Success_record</targetReference>
+            </connector>
+            <label>Successful Lead</label>
+        </rules>
         <rules>
             <name>Unsuccessful_Lead</name>
             <conditionLogic>and</conditionLogic>
@@ -85,44 +111,12 @@
             </connector>
             <label>Unsuccessful Lead</label>
         </rules>
-        <rules>
-            <name>Status_Change</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Status</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <elementReference>$Record__Prior.Status</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Status</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Disqualified</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Lead_Creator_Email__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Success_record</targetReference>
-            </connector>
-            <label>Status Change</label>
-        </rules>
     </decisions>
     <decisions>
         <name>Identify_Lead_Source</name>
         <label>Identify Lead Source</label>
-        <locationX>578</locationX>
+        <locationX>688</locationX>
         <locationY>323</locationY>
-        <defaultConnector>
-            <targetReference>Identify_RecordType_Domain</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>SBSub_Retail</name>
@@ -139,37 +133,27 @@
             </connector>
             <label>SBSub_Retail</label>
         </rules>
-    </decisions>
-    <decisions>
-        <name>Identify_RecordType_Domain</name>
-        <label>Identify RecordType Domain</label>
-        <locationX>578</locationX>
-        <locationY>815</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>BG_Standard</name>
+            <name>Driver_Network</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_LEAD_BGSTANDARD</elementReference>
+                    <stringValue>Driver Network</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Check_Status</targetReference>
             </connector>
-            <label>BG Standard</label>
+            <label>Driver Network</label>
         </rules>
     </decisions>
     <decisions>
         <name>Leed_Seeker</name>
         <label>Leed Seeker</label>
-        <locationX>424</locationX>
+        <locationX>182</locationX>
         <locationY>431</locationY>
-        <defaultConnector>
-            <targetReference>Identify_RecordType_Domain</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>New_Leed_Seeker_Lead</name>
@@ -186,6 +170,13 @@
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Lead_Creator_Email__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -217,7 +208,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>452</locationX>
+        <locationX>562</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Identify_Lead_Source</targetReference>
