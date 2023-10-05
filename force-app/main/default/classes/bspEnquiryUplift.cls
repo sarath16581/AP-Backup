@@ -1803,14 +1803,12 @@ public without sharing class bspEnquiryUplift {
 	 */
 	public static void setDirectRoutingValues(Case pCase) {
 		Date eddPlusBusinessDays = getEDDPlusBusinessDays(pCase.EstimatedDelivery__c);
-		system.debug('HASANTHA DE '+eddPlusBusinessDays);
 		//if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
 		if (eddPlusBusinessDays > Date.today()) {
 			Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
 					SSSWConstants.QUEUE_NAME_REOPEN_Q
 			});
 			if (!vGroups.isEmpty()) {
-				system.debug('HASANTHA DE 1'+eddPlusBusinessDays);
 				pCase.OwnerId = vGroups.values()[0].Id;
 				pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
 				pCase.Case_Reopen_Date__c = eddPlusBusinessDays;

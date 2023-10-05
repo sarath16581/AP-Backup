@@ -931,6 +931,28 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<BAMApplicationRole__c> getBamApplicationRoles(Integer count, String roleName, Id appId, Boolean generateIds) {
+		return (List<BAMApplicationRole__c>)maybeGenerateIds(populateSObjects(BAMApplicationRole__c.SObjectType, new Map<SObjectField, Object> {
+				BAMApplicationRole__c.Role__c => roleName,
+				BAMApplicationRole__c.Application__c => appId,
+				BAMApplicationRole__c.ShowBillingAccount__c => true,
+				BAMApplicationRole__c.ShowGroup__c =>  true,
+				BAMApplicationRole__c.ShowOrganisation__c => true,
+				BAMApplicationRole__c.status__c =>  'Active'
+		}, count), generateIds);
+	}
+
+	public static BAMApplicationRole__c createApplicationRole(BAMApplication__c app, String roleName) {
+		BAMApplicationRole__c appRole = new BAMApplicationRole__c();
+		appRole.Role__c = roleName;
+		appRole.Application__c = app.Id;
+		appRole.ShowBillingAccount__c = true;
+		appRole.ShowGroup__c = true;
+		appRole.ShowOrganisation__c = true;
+		appRole.status__c = 'Active';
+		return appRole;
+	}
+
 	public static void generateRecordIds(List<SObject> records) {
 		for(SObject record : records) {
 			record.Id = fflib_IDGenerator.generate(record.getSObjectType());
