@@ -5,13 +5,14 @@ History:
 2018-08-22  dilshan.egodawela@auspost.com.au Created
 2019-09-13  Nathan.Franklin@auspost.com.au : Updated logic to fetch batchId, to fix INC1460293
 2022-09-19  Swati.mogadala@auspost.com.au  : Changed DL for notification from 'DLITCCOTESServiceCloud@auspost.com.au' to 'dlitcandssalesforcesupport@auspost.com.au'
+2023-10-03	Swati.mogadala@auspost.com.au	: Addded GLPROFITCENTRE__c field to the file with column name 'Cover Type Code'
 **********************************************************************************************/
  
 global without sharing class CompensationGenerateFile_Batchable implements Database.Batchable<sObject>, Database.Stateful {
   
   //header columns : used as the header for the output file
   private String columnHeader = 'Invoice Date, Posting Date, Reference, Header Text, Vendor Number, Business Area, Payment Terms, '+
-                +'Text, Account, Amount, Cost Centre, Text, Tax Code, Supplier Name, Street, City, Postcode, State, Country, Bank Key, Bank Account, Bank Country, Control Key \n';
+                +'Text, Account, Amount, Cover Type Code ,Cost Centre Code, Text, Tax Code, Supplier Name, Street, City, Postcode, State, Country, Bank Key, Bank Account, Bank Country, Control Key, GL Code \n';
     private List<String> rowValues = new List<String>();
     private Set<Id> recordstoClose = new Set<Id>();
     private String query;
@@ -21,7 +22,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
     //default constructer that can be used to schedule as a batch job
     //this will process all "Approved" Compensation records that has not yet been processed.
     global CompensationGenerateFile_Batchable() { 
-    this.query = 'SELECT Id, Name, Status__c, Case__r.CaseNumber,Contact__r.Name,Contact__r.MailingStreet,Contact__r.MailingCity,Contact__r.MailingState,Contact__r.MailingPostalCode, AMOUNT__c, CostCentreCode__c, BSB__c, Account_Number__c '+
+    this.query = 'SELECT Id, Name, Status__c, Case__r.CaseNumber,Contact__r.Name,Contact__r.MailingStreet,Contact__r.MailingCity,Contact__r.MailingState,Contact__r.MailingPostalCode, AMOUNT__c, CostCentreCode__c, BSB__c, Account_Number__c, GLPROFITCENTRE__c '+
             +'FROM Compensation__c '+
             +'WHERE Status__c = \'Approved\' AND RecordType.DeveloperName = \'EFT\' '+
             +'ORDER BY LastModifiedDate DESC';
@@ -30,7 +31,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
     //Can be used to rerun any failed records or for debugging purposes
     global CompensationGenerateFile_Batchable(Set<Id> processableIds) {
     this.processableIds = processableIds;
-    this.query = 'SELECT Id, Name, Status__c, Case__r.CaseNumber,Contact__r.Name,Contact__r.MailingStreet,Contact__r.MailingCity,Contact__r.MailingState,Contact__r.MailingPostalCode, AMOUNT__c, CostCentreCode__c, BSB__c, Account_Number__c '+
+    this.query = 'SELECT Id, Name, Status__c, Case__r.CaseNumber,Contact__r.Name,Contact__r.MailingStreet,Contact__r.MailingCity,Contact__r.MailingState,Contact__r.MailingPostalCode, AMOUNT__c, CostCentreCode__c, BSB__c, Account_Number__c, GLPROFITCENTRE__c '+
             +'FROM Compensation__c '+
             +'WHERE Id IN :processableIds AND RecordType.DeveloperName = \'EFT\' ';
     }
@@ -38,7 +39,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
     //Can be used to re-run any previous batches if needed.
     global CompensationGenerateFile_Batchable(Integer batchNo) {
       //Integer batch = Integer.valueOf(batchNo);
-    this.query = 'SELECT Id, Name, Status__c, Case__r.CaseNumber,Contact__r.Name,Contact__r.MailingStreet,Contact__r.MailingCity,Contact__r.MailingState,Contact__r.MailingPostalCode, AMOUNT__c, CostCentreCode__c, BSB__c, Account_Number__c '+
+    this.query = 'SELECT Id, Name, Status__c, Case__r.CaseNumber,Contact__r.Name,Contact__r.MailingStreet,Contact__r.MailingCity,Contact__r.MailingState,Contact__r.MailingPostalCode, AMOUNT__c, CostCentreCode__c, BSB__c, Account_Number__c, GLPROFITCENTRE__c '+
             +'FROM Compensation__c '+
             +'WHERE Batch_Id__c = '+batchNo+' AND RecordType.DeveloperName = \'EFT\' ';
     }
@@ -67,6 +68,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
       rowComponents.add('"*EFT Refund"');
       rowComponents.add('"4155"');
       rowComponents.add(Comp.AMOUNT__c == null ? 0.0 : Comp.AMOUNT__c);
+	  rowComponents.add(Comp.GLPROFITCENTRE__c);
       rowComponents.add(Comp.CostCentreCode__c ==  null ? '' : '"' + Comp.CostCentreCode__c.replace('"', '\\"') + '"');
       rowComponents.add('"Refund"');
       rowComponents.add('"ZA"');
