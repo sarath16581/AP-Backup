@@ -424,7 +424,6 @@
         <fields>BillingAccountType__c</fields>
         <fields>Organisation__c</fields>
         <fields>PAYER_ACCOUNT_ID__c</fields>
-        <fields>Credit_Limit__c</fields>
         <relatedList>Billing_Account__c.LeaderAccount__c</relatedList>
     </relatedLists>
     <relatedLists>

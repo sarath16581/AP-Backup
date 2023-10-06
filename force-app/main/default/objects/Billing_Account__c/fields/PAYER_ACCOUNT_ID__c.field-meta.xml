@@ -15,7 +15,7 @@
         <isOptional>false</isOptional>
     </lookupFilter>
     <referenceTo>Billing_Account__c</referenceTo>
-    <relationshipLabel>Sub Accounts</relationshipLabel>
+    <relationshipLabel>Sub Accounts (Payees)</relationshipLabel>
     <relationshipName>Billing_Accounts</relationshipName>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
