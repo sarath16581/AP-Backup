@@ -2420,7 +2420,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Unaddressed_Mail_Inbound</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Niche_Common_Group</lookupValue>
+        <lookupValue>SSSW_Niche_Group_3</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Unaddressed Mail Inbound</name>
         <notifyAssignee>false</notifyAssignee>
