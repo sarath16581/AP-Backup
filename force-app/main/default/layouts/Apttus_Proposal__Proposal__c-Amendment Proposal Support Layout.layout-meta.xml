@@ -22,10 +22,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>APT_Configure_Products__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>APT_Generate__c</field>
             </layoutItems>
             <layoutItems>
