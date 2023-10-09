@@ -8,54 +8,58 @@ changelog
 2023-09-19 - Hasantha Liyanage  - Created
 -->
 <template>
-    <div>
-        <div class="slds-form-element">
-            <div class="slds-form-element__control">
-                <lightning-input data-id="searchbox"
-                                 class={inputClass}
-                                 label={inputLabel}
-                                 required={inputRequired}
-                                 type="search"
-                                 name="search"
-                                 message-when-value-missing={inputMessageWhenValueMissing}
-                                 onfocus={handleOnFocus}
-                                 onfocusout={handleOnFocusOut}
-                                 autocomplete="off"
-                                 onblur={handleOnBlur}
-                                 read-only={isReadOnly}
-                                 onkeyup={searchList}
-                >
-                </lightning-input>
-                <div if:true={showSearchResults} class="slds-dropdown slds-dropdown_fluid">
-                    <div if:true={searchResults} class=" slds-dropdown_length-5 "
-                         role="listbox">
-                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
-                            <template for:each={searchResults} for:item="searchResult">
-                                <div if:false={searchResult.isCustom} key={searchResult.value}>
-                                    <c-bsp-type-ahead-row key={searchResult.value} record={searchResult}
-                                                          search-term={searchTerm}
-                                                          onselected={handleSearchResultSelect}>
-                                    </c-bsp-type-ahead-row>
-                                </div>
-                            </template>
-                        </ul>
-                    </div>
-                    <!-- Static "Other" option outside the scrollable list -->
-                    <div if:true={otherOptions} class=" slds-dropdown_length-1" role="listbox">
-                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
-                            <template for:each={otherOptions} for:item="otherOption">
-                                <div if:true={otherOption.isCustom} key={otherOption.value}>
-                                    <li key={otherOption.value} data-value={otherOption.value} role="presentation"
-                                        class="slds-listbox__item">
-                                        <c-bsp-type-ahead-row key={otherOption.value} record={otherOption}
-                                                              onselected={handleSearchResultSelect}>
-                                        </c-bsp-type-ahead-row>
-                                    </li>
-                                </div>
-                            </template>
-                        </ul>
-                    </div>
-                </div>
+    <div class="slds-form-element__control slds-p-left_none">
+        <div class="slds-form slds-form_stacked slds-p-left_none">
+            <label for="customInput" class="slds-form-element__label slds-no-flex">
+                <abbr if:true={inputRequired} class="slds-required" title="required">*</abbr>
+                {inputLabel}
+                <span if:true={inputSubLabel} class="bsp-body_small"><br/>&nbsp;&nbsp;&nbsp;&nbsp;{inputSubLabel}</span>
+            </label>
+            <lightning-input id='customInput'
+                             data-id="searchbox"
+                             required={inputRequired}
+                             placeholder={inputPlaceholder}
+                             variant="label-hidden"
+                             type="search"
+                             name="search"
+                             message-when-value-missing={inputMessageWhenValueMissing}
+                             onfocus={handleOnFocus}
+                             onfocusout={handleOnFocusOut}
+                             autocomplete="off"
+                             onblur={handleOnBlur}
+                             onkeyup={searchList}
+                             class="brand-form-input"
+            >
+            </lightning-input>
+        </div>
+        <div if:true={showSearchResults} class="slds-dropdown slds-dropdown_fluid">
+            <div if:true={searchResults} class=" slds-dropdown_length-5 "
+                 role="listbox">
+                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                    <template for:each={searchResults} for:item="searchResult">
+                        <div if:false={searchResult.isCustom} key={searchResult.value}>
+                            <c-bsp-type-ahead-row key={searchResult.value} record={searchResult}
+                                                  search-term={searchTerm}
+                                                  onselected={handleSearchResultSelect}>
+                            </c-bsp-type-ahead-row>
+                        </div>
+                    </template>
+                </ul>
+            </div>
+            <!-- Static "Other" option outside the scrollable list -->
+            <div if:true={otherOptions} class=" slds-dropdown_length-1" role="listbox">
+                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                    <template for:each={otherOptions} for:item="otherOption">
+                        <div if:true={otherOption.isCustom} key={otherOption.value}>
+                            <li key={otherOption.value} data-value={otherOption.value} role="presentation"
+                                class="slds-listbox__item">
+                                <c-bsp-type-ahead-row key={otherOption.value} record={otherOption}
+                                                      onselected={handleSearchResultSelect}>
+                                </c-bsp-type-ahead-row>
+                            </li>
+                        </div>
+                    </template>
+                </ul>
             </div>
         </div>
     </div>

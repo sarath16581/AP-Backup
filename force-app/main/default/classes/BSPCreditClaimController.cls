@@ -90,6 +90,10 @@ public with sharing class BSPCreditClaimController {
 
 		List<RoleWrapper> adminRoles = new List<RoleWrapper>();
 		for(BAMContactRole__c role : roles) {
+			// do not need to show the login contact's details if the logged in user is a super admin
+			if(role?.ContactApplication__r?.Contact__c == bspBaseUplift.loginContactId) {
+				continue;
+			}
 			RoleWrapper adminRole = new RoleWrapper();
 			adminRole.contactId = role?.ContactApplication__r?.Contact__c;
 			adminRole.name = role?.ContactApplication__r?.Contact__r?.Name;

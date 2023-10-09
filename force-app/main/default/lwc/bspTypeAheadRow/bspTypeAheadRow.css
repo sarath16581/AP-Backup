@@ -1,0 +1,12 @@
+/*
+ * author Hasantha Liyanage
+ * date 2023-09-20
+ * group child component
+ * domain BSP
+ * description Type ahead component row
+ * changelog
+ * 2023-09-20 - Hasantha Liyanage  - Created
+*/
+.type-ahead-row {
+    font-size: 16px;
+}
