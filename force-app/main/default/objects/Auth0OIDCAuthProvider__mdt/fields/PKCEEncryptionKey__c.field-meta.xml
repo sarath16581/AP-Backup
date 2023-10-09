@@ -8,6 +8,7 @@
     <label>PKCE Encryption Key</label>
     <length>150</length>
     <required>true</required>
+	<securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
