@@ -59,9 +59,9 @@
 												oninputfocusout={handleOnInputFocusOutBillingAccount}
 												input-required="true"
 												input-label="Account number"
+												input-sub-label="As shown on your invoice"
 												picklist-options={allBillingAccOptions}
 												other-options={otherOptions}
-												input-class="brand-form-input"
 										></c-bsp-type-ahead>
 									</div>
 									<template lwc:if={isShowOtherBillingAccountField}>
@@ -82,9 +82,9 @@
 															 onfocusout={handleFocusOut}
 															 required
 															 pattern="[a-zA-Z0-9]*"
-															 placeholder="Enter the Other Account number"
+															 placeholder="Enter the other account number"
 															 message-when-value-missing="Please enter other account number"
-															 class="brand-form-input slds-p-bottom_x-large"
+															 class="brand-form-input "
 															 max-length="255">
 											</lightning-input>
 											<template lwc:if={isShowRequestAccessContent}>
