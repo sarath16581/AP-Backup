@@ -1,49 +1,49 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 24/08/2020
-  * @description  : Component for enquiries details wrapper component.
+	* @author       : Jansi Rani. jansi.rani@auspost.com.au
+	* @date         : 24/08/2020
+	* @description  : Component for enquiries details wrapper component.
 --------------------------------------- History --------------------------------------------------
 24.08.2020    Jansi Rani   Created
 04-09-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields
 -->
 <template>
-    <!-- Navigation links-->
-    <c-bsp-breadcrumb bread-crumb-text="Your delivery"></c-bsp-breadcrumb>
-    <!--Tracking search-->
-    <c-bsp-tracking-number-search slim-tracking-bar="true"></c-bsp-tracking-number-search>
-    
-    <div class="slds-grid slds-grid_align-center">
-        <div class="slds-col slds-size_1-of-1 slds-p-around_large slds-m-bottom_x-large outer-box section-container  slds-is-relative">
-            <!-- spinner-->
-            <div if:true={isLoading}>
-                <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
-            </div>
-            <!-- Error messages-->
-            <template if:true={errorMessage}>
-                <c-bsp-error error-message={errorMessage}></c-bsp-error>
-            </template>
+	<!-- Navigation links-->
+	<c-bsp-breadcrumb bread-crumb-text="Your delivery"></c-bsp-breadcrumb>
+	<!--Tracking search-->
+	<c-bsp-tracking-number-search slim-tracking-bar="true"></c-bsp-tracking-number-search>
 
-            <template if:true={authorized}>
-                <!-- Header Section-->
-                <h2> Enquiry details</h2> <br>
-                <c-bsp-enquiry-details-header-section enq={caseDetailWrapper.enq}></c-bsp-enquiry-details-header-section>
-                <br>
-                <div class="slds-grid slds-wrap">
+	<div class="slds-grid slds-grid_align-center">
+		<div class="slds-col slds-size_1-of-1 slds-p-around_large slds-m-bottom_x-large outer-box section-container  slds-is-relative">
+			<!-- spinner-->
+			<div if:true={isLoading}>
+				<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+			</div>
+			<!-- Error messages-->
+			<template if:true={errorMessage}>
+				<c-bsp-error error-message={errorMessage}></c-bsp-error>
+			</template>
 
-                    <!--item Details -->
-                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-right_large">
-                        <c-bsp-enquiry-item-details case-detail-wrapper={caseDetailWrapper}>
-                        </c-bsp-enquiry-item-details>
+			<template if:true={authorized}>
+				<!-- Header Section-->
+				<h2> Enquiry details</h2> <br>
+				<c-bsp-enquiry-details-header-section enq={caseDetailWrapper.enq}></c-bsp-enquiry-details-header-section>
+				<br>
+				<div class="slds-grid slds-wrap">
 
-                        <!-- dynamic message for Resolve -->
+					<!--item Details -->
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-right_large">
+						<c-bsp-enquiry-item-details case-detail-wrapper={caseDetailWrapper}>
+						</c-bsp-enquiry-item-details>
+
+						<!-- dynamic message for Resolve -->
 						<template if:false={isCreditClaim}>	
-                        	<div class="slds-p-top_xx-large slds-p-bottom_medium">{enquiryButtonMessage}</div>
+							<div class="slds-p-top_xx-large slds-p-bottom_medium">{enquiryButtonMessage}</div>
 						</template>
 						
-                        <!-- buttons-->
-                        <!-- Print screen-->
-                        <lightning-button label="Print screen" title="Print screen" onclick={handlePrint}
-                            class="brand-secondary-button slds-p-right_medium"></lightning-button>
+						<!-- buttons-->
+						<!-- Print screen-->
+						<lightning-button label="Print screen" title="Print screen" onclick={handlePrint}
+							class="brand-secondary-button slds-p-right_medium"></lightning-button>
 
 						<template if:false={isCreditClaim}>							
 							<template if:true={isVisibleResolveEnquiryBtn}>
@@ -62,9 +62,9 @@
 								</lightning-button>
 							</template>
 						</template>
-                    </div>
+					</div>
 
-                    <!-- comment history-->
+					<!-- comment history-->
 					<template if:false={isCreditClaim}>
 						<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
 							<c-bsp-case-comment-history-details case-status={caseDetailWrapper.enq.Status}
@@ -76,8 +76,8 @@
 							</c-bsp-case-comment-history-details>
 						</div>
 					</template>
-                </div>
-            </template>
-        </div>
-    </div>
+				</div>
+			</template>
+		</div>
+	</div>
 </template>
