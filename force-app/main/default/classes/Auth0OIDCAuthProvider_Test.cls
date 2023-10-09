@@ -398,8 +398,8 @@ private class Auth0OIDCAuthProvider_Test {
 		Test.startTest();
 
 		Auth0OIDCAuthProvider authprovider = new Auth0OIDCAuthProvider();
-        String actual = authprovider.getCustomMetadataType();
-        System.assertEquals('Auth0OIDCAuthProvider__mdt', actual, 'Incorrect metadata returned');
+		String actual = authprovider.getCustomMetadataType();
+		System.assertEquals('Auth0OIDCAuthProvider__mdt', actual, 'Incorrect metadata returned');
 
 		Test.stopTest();
 	}
