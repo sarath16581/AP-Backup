@@ -13,6 +13,7 @@
 01.05.2023		Mahesh Parvathaneni - Updated the case link and case investigation link to use the base path of community
 03.05.2023		Mahesh Parvathaneni - Updated SentToNetworkDatetime__c field for case investigation
 06.07.2023    Swati Mogadala    INC2170610: After summer '23 release, _target fix on NavigationMixin
+09.10.2023		Talib Raza - REQ3259511: reorder column in case list
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
@@ -108,13 +109,6 @@ const columns = [
 		wrapText: true,
 	},
 	{
-		label: "Customer Type",
-		fieldName: "Case_CustomerType",
-		type: "text",
-		initialWidth: 120,
-		wrapText: true,
-	},
-	{
 		label: "Enquiry Subtype",
 		fieldName: "Case_enquirySubtype",
 		type: "text",
@@ -147,6 +141,13 @@ const columns = [
 		fieldName: "Case_assignedTo",
 		type: "text",
 		initialWidth: 150,
+		wrapText: true,
+	},
+	{
+		label: "Customer Type",
+		fieldName: "Case_CustomerType",
+		type: "text",
+		initialWidth: 120,
 		wrapText: true,
 	},
 ];
