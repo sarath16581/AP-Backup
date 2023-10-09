@@ -14,8 +14,9 @@ import {NavigationMixin} from "lightning/navigation";
 export default class BspTypeAhead extends NavigationMixin(LightningElement) {
 
     @api picklistOptions = []; // options object list for picklist
-    @api inputClass = 'slds-card brand-form-input';
-    @api inputLabel = '';
+    @api inputLabel= '';
+    @api inputSubLabel= '';
+    @api inputPlaceholder= '';
     @api inputMessageWhenValueMissing = 'Complete this field.';
     @api inputRequired = false;
     @api searchTerm = ''; // search text
@@ -26,7 +27,6 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
     searchResults; // searched values
     showSearchResults = false; // show hide the drop
     selected = {}; // object of the selected value from the drop
-    isReadOnly = false; // making the value read only when a value is selected
     isLoaded = false;
     isDefaultLoadedOnce = false; // if the picklistOptions[] has only one element, this is set to true
 
@@ -35,15 +35,11 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
      * @param event
      */
     handleSearchResultSelect(event) {
-
         this.showSearchResults = false;
         // if there is no value in the field set the search term empty will remove highlighting functionality in row's
         if (!event.target.value) {
             this.searchTerm = null;
         }
-
-        // making the user not allowed to edit selected value
-        this.isReadOnly = true;
 
         const searchInput = this.template.querySelector('[data-id="searchbox"]');
         searchInput.value = event.detail.label;
@@ -163,15 +159,6 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
         } else {
             // show the dropdown list
             this.showSearchResults = true;
-        }
-
-        // if the field has already selected value, make the selected field value read only
-        // when checking input-field value is the label of the options list
-        const isExists = this.picklistOrdered.some((picklistOption) => picklistOption.label === event.target.value);
-        if (event.target.value && isExists) {
-            this.isReadOnly = true;
-        } else {
-            this.isReadOnly = false;
         }
 
         // assign current value in the input field will highlight the matching text in list

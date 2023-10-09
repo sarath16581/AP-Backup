@@ -19,11 +19,11 @@
                 <li>Contacting your {contentParam.businessName} access management administrator:</li>
                 <ul>
                     <template for:each={contentParam.superAdminRoles} for:item="adminRole">
-                        <li key={adminRole.contactId}>{adminRole.name} - {adminRole.email} - &nbsp;
+                        <li key={adminRole.contactId}>{adminRole.name} - {adminRole.email} -
                             <a class="slds-button" data-id={adminRole.contactId} id={adminRole.contactId}
                                onclick={handleOnClick}>
-                                <c-bsp-custom-icons key={adminRole.contactId} icon="inbox" size="medium"
-                                                    fill-colour="#31313D" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;
+                                <c-bsp-custom-icons key={adminRole.contactId} icon="inbox" size="small"
+                                                    fill-colour="#31313D" iconclass="icon-breadcrumb-small"></c-bsp-custom-icons>
                                 <span>Request access now</span></a>
                         </li>
                     </template>
