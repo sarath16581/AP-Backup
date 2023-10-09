@@ -128,6 +128,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		// if other option selected
 		if(selectedValue.value === this.otherOptions[0].value) {
 			this.isShowOtherBillingAccountField = true;
+			this.businessAccountNumber = null; // clear any previously selected values, otherwise Related Billing Account will be linked if found
 		} else {
 			this.isShowOtherBillingAccountField = false;
 			this.businessAccountNumber = selectedValue.value; // selected value passed from search component is an ID value
