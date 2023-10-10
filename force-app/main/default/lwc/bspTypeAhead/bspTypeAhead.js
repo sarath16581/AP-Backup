@@ -109,7 +109,6 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
 
 		// deep copy is required to trigger bindings, this will help the text highlight
 		this.searchResults = JSON.parse(JSON.stringify(result));
-		;
 	}
 
 	/**

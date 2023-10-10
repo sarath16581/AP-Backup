@@ -78,7 +78,7 @@ export default class BspTypeAheadRow extends LightningElement {
 		return highlightedText;
 	}
 
-/*    _highlightSubstring(baseString = '', subString = '') {
+/*_highlightSubstring(baseString = '', subString = '') {
 		const subStrIndex = baseString.toUpperCase().indexOf(subString.toUpperCase())
 		if(subStrIndex < 0) { return baseString; }
 		console.log('this.searchTerm in ROW '+subStrIndex +' '+ subStrIndex +' '+ subString.length);

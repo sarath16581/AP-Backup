@@ -175,7 +175,6 @@ private class BSPCreditClaimController_Test {
 		// =====================================
 		CustomsSettingsSelector settingsSelector = (CustomsSettingsSelector) MockUtility.mockSelector(CustomsSettingsSelector.class);
 		BillingAccountsSelector mockBillingAccountsSelector = (BillingAccountsSelector) MockUtility.mockSelector(BillingAccountsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
 
@@ -191,7 +190,6 @@ private class BSPCreditClaimController_Test {
 						billingAccountRecords[0].Id => billingAccountRecords[0]
 				}
 		);
-
 
 		MockUtility.Mocks.stopStubbing();
 
