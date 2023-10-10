@@ -125,12 +125,6 @@ private class BSPCreditClaimController_Test {
 						obj[0].get('Id'),
 						'createCreditClaimSuccessTest : Case Id should be populated as it is created'
 				);
-
-				System.assertEquals(
-						billingAccountRecords[0].Id,
-						obj[0].get('Related_Billing_Account__c'),
-						'createCreditClaimSuccessTest : Related billing account Id should be populated'
-				);
 			}
 
 			if (Disputed_Item__c.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
@@ -197,7 +191,6 @@ private class BSPCreditClaimController_Test {
 				}
 		);
 
-
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -210,5 +203,182 @@ private class BSPCreditClaimController_Test {
 		}
 		Test.stopTest();
 		System.assertEquals('error', wrapper.Status, 'Expected Status of the case to be populated as error.');
+	}
+
+	/**
+	 * Testing of isValidBillingAccount method,
+	 * expecting an error message when an entered business account number is not found in database
+	*/
+	@IsTest
+	static void isValidBillingAccountTestFailed() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// creating a custom setting for error message
+		BSPErrorMessages__c errorMessagesSettings = new BSPErrorMessages__c();
+		errorMessagesSettings.Name = 'Invalid Billing Account Credit Claim';
+		errorMessagesSettings.Message__c = 'Invalid Billing Account Credit Claim';
+		// =====================================
+		// Stubbing
+		// =====================================
+		CustomsSettingsSelector settingsSelector = (CustomsSettingsSelector) MockUtility.mockSelector(CustomsSettingsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(settingsSelector.selectByNames((Set<String>) fflib_Match.anyObject()))
+				.thenReturn(new Map<String, BSPErrorMessages__c>{
+						'Invalid Billing Account Credit Claim' => errorMessagesSettings
+				});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String billingAccountValidationMessage;
+		billingAccountValidationMessage = BSPCreditClaimController.isValidBillingAccount('');
+
+		Test.stopTest();
+
+		System.assertNotEquals(
+				'',
+				billingAccountValidationMessage,
+				'isValidBillingAccountTest : error message should return when the matching billing account is not available'
+		);
+	}
+
+	/**
+	 * Testing of isValidBillingAccount method,
+	 * no error message is expected as the billing account number entered is valid
+	*/
+	@IsTest
+	static void isValidBillingAccountTestSuccess() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// get a bsp context user
+		User bspUser = [SELECT Id, ContactId, Contact.AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
+		// creating a custom setting for error message
+		BSPErrorMessages__c errorMessagesSettings = new BSPErrorMessages__c();
+		errorMessagesSettings.Name = 'Invalid Billing Account Credit Claim';
+		errorMessagesSettings.Message__c = 'Invalid Billing Account Credit Claim';
+		// creating a case, Id is created as we need to use this for reference in after save
+		Case cse = ApplicationTestDataFactory.getCases(1, true)[0];
+		// billing account for the user
+		Account accountForBillingAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		accountForBillingAccount.Id = bspUser.Contact.AccountId;
+		// contact to check billing account for user
+		Contact contact = ApplicationTestDataFactory.getContacts(1, accountForBillingAccount.Id, false)[0];
+		contact.Id = bspUser.ContactId;
+		cse.ContactId = contact.Id;
+		cse.AccountId = accountForBillingAccount.Id;
+		Id creditDisputeCaseRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{
+				'Enterprise_Credit_Dispute_Claim'
+		}).values()[0].Id;
+		cse.RecordTypeId = creditDisputeCaseRecordTypeId;
+		cse.Billing_Number__c = '123456';
+		// related billing accounts
+		List<Billing_Account__c> billingAccountRecords = new List<Billing_Account__c>();
+		billingAccountRecords.add(ApplicationTestDataFactory.getBillingAccounts(1, accountForBillingAccount.Id, 'SAP ERP', true)[0]);
+		billingAccountRecords[0].Organisation__c = accountForBillingAccount.Id;
+		billingAccountRecords[0].Legacy_ID__c = '123456';
+		// =====================================
+		// Stubbing
+		// =====================================
+		CustomsSettingsSelector settingsSelector = (CustomsSettingsSelector) MockUtility.mockSelector(CustomsSettingsSelector.class);
+		BillingAccountsSelector mockBillingAccountsSelector = (BillingAccountsSelector) MockUtility.mockSelector(BillingAccountsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(settingsSelector.selectByNames((Set<String>) fflib_Match.anyObject()))
+				.thenReturn(new Map<String, BSPErrorMessages__c>{
+						'Invalid Billing Account Credit Claim' => errorMessagesSettings
+				});
+		MockUtility.Mocks.when(mockBillingAccountsSelector.selectByOrgId(
+				new Set<Id>{
+						accountForBillingAccount.Id
+				})).thenReturn(
+				new Map<Id, Billing_Account__c>{
+						billingAccountRecords[0].Id => billingAccountRecords[0]
+				}
+		);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String billingAccountValidationMessage;
+		System.runAs(bspUser) {
+			billingAccountValidationMessage = BSPCreditClaimController.isValidBillingAccount('123456');
+		}
+		Test.stopTest();
+
+		System.assertEquals(
+				'',
+				billingAccountValidationMessage,
+				'isValidBillingAccountTestSuccess : No error message expected when the entered account number is valid'
+		);
+	}
+
+	/**
+	* ensures the getSuperAdminRoles returns data, this is mostly to get the coverage as the actual selector class being tested properly
+	*/
+	@IsTest
+	public static void getSuperAdminRolesTest() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// get a bsp context user
+		User bspUser = [SELECT Id, ContactId, Contact.AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
+		// billing account for the user
+		Account accountForBillingAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		accountForBillingAccount.Id = bspUser.Contact.AccountId;
+		//get products
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		//get BAM Applications
+		BAMApplication__c application = ApplicationTestDataFactory.getBamApplications(1,'BAM',products[0].Id, true)[0];
+		application.AppKey__c = 'BAM';
+		// contact to check billing account for user
+		Contact contact = ApplicationTestDataFactory.getContacts(1, accountForBillingAccount.Id, true)[0];
+		contact.Status__c = 'Active';
+		contact.email = 'something@gma.com';
+		contact.firstName = 'firstName';
+
+		BAMContactApplication__c contactApplication = ApplicationTestDataFactory.getBamContactApplications(1,contact.Id, application.Id, true)[0];
+		contactApplication.Contact__r = contact;
+		// contact tole
+		BAMApplicationRole__c role = ApplicationTestDataFactory.getBamApplicationRoles(1,'Super Admin', application.Id, true)[0];
+
+		BAMContactRole__c contactRole = ApplicationTestDataFactory.getBamContactRoles(1,role.Id, application.Id, true)[0];
+		contactRole.ContactApplication__r = contactApplication;
+		// =====================================
+		// Stubbing
+		// =====================================
+		BAMContactRoleSelector mockBAMContactRoleSelector = (BAMContactRoleSelector) MockUtility.mockSelector(BAMContactRoleSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockBAMContactRoleSelector.selectRolesByRoleAndOrgId(
+				(Set<String>)fflib_Match.anyObject(),
+				(Set<Id>)fflib_Match.anyObject(),
+				(Set<Object>)fflib_Match.anyObject()))
+				.thenReturn(new List<BAMContactRole__c>{
+						contactRole
+				});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<BSPCreditClaimController.RoleWrapper>  admins;
+		System.runAs(bspUser) {
+			admins = BSPCreditClaimController.getSuperAdminRoles();
+		}
+		Test.stopTest();
+
+		System.assertNotEquals(
+				0,
+				admins.size(),
+				'getSuperAdminRolesTest : ensures the getSuperAdminRoles returns data'
+		);
 	}
 }

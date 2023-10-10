@@ -87,7 +87,6 @@ public with sharing class BSPCreditClaimController {
 				new Set<Id>{bspBaseUplift.loginAccountId},
 				new Set<Object>{BAMContactRoleSelector.Options.WITH_CONTACT_APPLICATION}
 		);
-
 		List<RoleWrapper> adminRoles = new List<RoleWrapper>();
 		for(BAMContactRole__c role : roles) {
 			// do not need to show the login contact's details if the logged in user is a super admin
@@ -110,7 +109,7 @@ public with sharing class BSPCreditClaimController {
 	public static String isValidBillingAccount(String billingAccountValue) {
 		Case caseRecord = new Case();
 		caseRecord.AccountId = bspBaseUplift.loginAccountId;
-		caseRecord.Billing_Number__c = billingAccountValue;
+		caseRecord.Billing_Number__c = String.escapeSingleQuotes(billingAccountValue);
 		Billing_Account__c billingAccount = getBillingAccountRecord(caseRecord);
 		//if no billing account found user is not allowed to proceed
 		if (billingAccount == null) {

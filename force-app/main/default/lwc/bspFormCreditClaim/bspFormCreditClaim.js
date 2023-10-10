@@ -9,7 +9,7 @@
  * 2023-08-16 - Hasantha Liyanage - auto populate account held with
  * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
  */
-import {LightningElement, track, wire, api} from 'lwc';
+import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
 import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight} from 'c/bspCommonJS';
 import {getObjectInfo, getPicklistValues} from 'lightning/uiObjectInfoApi';
@@ -128,6 +128,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		// if other option selected
 		if(selectedValue.value === this.otherOptions[0].value) {
 			this.isShowOtherBillingAccountField = true;
+			this.businessAccountNumber = null; // clear any previously selected values, otherwise Related Billing Account will be linked if found
 		} else {
 			this.isShowOtherBillingAccountField = false;
 			this.businessAccountNumber = selectedValue.value; // selected value passed from search component is an ID value
@@ -278,7 +279,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				this.businessName = event.detail.value;
 				break;
 			case 'businessAccountNumberOther':
-				this.billingNumber = this.removeNonAlphanumeric(event);;
+				this.billingNumber = this.removeNonAlphanumeric(event);
 				break;
 			case 'contactName':
 				this.contactName = event.detail.value;
@@ -372,6 +373,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		let fileId = event.target.dataset.id;
 		deleteAttachment({fileId:fileId})
 			.then(result => {
+				//TODO: need error handling once deleted based on the response
 				this.removeFromUploadedByFileId(fileId);
 				this.showSpinner = false;
 			}).catch(error => {
@@ -454,7 +456,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			uploadedFiles: this.uploadedFiles,
 			disputeItems: disputeItems
 		}).then(result =>{
-			if(result.status == 'error'){
+			if(result.status === 'error'){
 				this.errorMessage = result.message;
 			} else {
 				this.tempCase = result.caseRecord;
@@ -483,8 +485,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	get showDisputedTransactionSection(){
 		if (this.accountHeldWith){
 			return true;
-		}else{
-			return false;
 		}
+		return false;
 	}
 }

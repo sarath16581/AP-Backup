@@ -9,133 +9,133 @@
  */
 @IsTest
 private class BAMContactRoleSelector_Test {
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectString() {
-
-        // =====================================
-        // Data Preparation
-        // =====================================
-        // None!
-
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
-
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-
-        BAMContactRoleSelector selector = BAMContactRoleSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder();
-        String soql = qb.toSoqlString();
-
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom BAMContactRole__c\\b').matcher(soql).find(), 'Resulting query does not select from BAMContactRole__c');
-
-        Test.stopTest();
-
-    }
-
-    /**
+	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
 	 */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        // None!
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        BAMContactRoleSelector selector = BAMContactRoleSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
-                BAMContactRoleSelector.Options.WITH_CONTACT_APPLICATION
-        });
-        String soql = qb.toSoqlString();
-        System.assertEquals(true, Pattern.compile('(?is)ContactApplication__r\\..*?\\bfrom BAMContactRole__c\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
-        Test.stopTest();
-    }
+		BAMContactRoleSelector selector = BAMContactRoleSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
 
-    /**
-        * Test:
-        *  Ensures that the selectors QueryBuilder is generating the correct output
-        */
-    @IsTest
-    public static void integrationTest() {
-        // =====================================
-        // Data Preparation
-        // =====================================
-        //Create test data
-        Map<String,Id> recordIdMap = BAMTestUtility.createBamBasicRecords();
-        Id orgId = recordIdMap.get('acc');
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom BAMContactRole__c\\b').matcher(soql).find(), 'Resulting query does not select from BAMContactRole__c');
 
-        // creating BAM User who we will run this test as
-        Contact bamUserContact = BAMTestUtility.createTestContact(orgId, 'Some org Id');
-        bamUserContact.Email = 'test@extrasafty.com.au.lk';
-        bamUserContact.FirstName = 'Jammy Sim';
-        insert bamUserContact;
+		Test.stopTest();
 
-        BAMApplication__c bamApp = BAMTestUtility.createBamApplication('BAM');
-        bamApp.appKey__c ='BAM';
-        insert bamApp;
+	}
 
-        Asset prod = BAMTestUtility.createAsset(orgId, bamApp.Product__c, true);
-        insert prod;
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
 
-        BAMApplicationRole__c appRole = BAMTestUtility.createApplicationRole(bamApp);
-        appRole.Role__c = BAMUserUtility.ACCESS_MANAGEMENT_SUPER_ADMIN;
-        insert appRole;
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
 
-        BAMContactApplication__c conApp = BAMTestUtility.createTestContactApplication(bamUserContact.Id, bamApp.Id);
-        insert conApp;
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        BAMContactRole__c conRole = BAMTestUtility.createTestContactRole(conApp.Id, appRole.Id);
-        insert conRole;
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        User portalUser = BAMTestUtility.createBusinessPortalUser(bamUserContact, BspConstants.BSP_COMMUNITY_PROFILE_NAME);
-        portalUser.Username = System.currentTimeMillis() + portalUser.Username;
-        insert portalUser;
+		BAMContactRoleSelector selector = BAMContactRoleSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
+				BAMContactRoleSelector.Options.WITH_CONTACT_APPLICATION
+		});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)ContactApplication__r\\..*?\\bfrom BAMContactRole__c\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
+		Test.stopTest();
+	}
 
-        // creating different org
-        Account testAccount = BAMTestUtility.createTestAccount('1234');
-        insert testAccount;
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+	/**
+		* Test:
+		*  Ensures that the selectors QueryBuilder is generating the correct output
+		*/
+	@IsTest
+	public static void integrationTest() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//Create test data
+		Map<String,Id> recordIdMap = BAMTestUtility.createBamBasicRecords();
+		Id orgId = recordIdMap.get('acc');
 
-        // =====================================
-        // Testing
-        // =====================================
-        // Get portal user Id
-        Test.startTest();
-        Id businessPortalUserId = recordIdMap.get('User');
-        User businessPortalUser = [SELECT Id, AccountId FROM User WHERE Id =: businessPortalUserId];
-        System.runAs(businessPortalUser) {
-            BAMContactRoleSelector selector = BAMContactRoleSelector.newInstance();
-            List<BAMContactRole__c> contactRoles = selector.selectRolesByRoleAndOrgId(new Set<String>{BAMUserUtility.ACCESS_MANAGEMENT_SUPER_ADMIN},
-                    new Set<Id>{businessPortalUser.AccountId},
-                    new Set<Object>{BAMContactRoleSelector.Options.WITH_CONTACT_APPLICATION});
-            //Set<String> roles, Set<Id> orgIds, Set<Object> selectorOptions
-            system.debug('contactRoles RESULT '+contactRoles);
-            System.assertNotEquals(0, contactRoles.size());
-        }
-        Test.stopTest();
-    }
+		// creating BAM User who we will run this test as
+		Contact bamUserContact = BAMTestUtility.createTestContact(orgId, 'Some org Id');
+		bamUserContact.Email = 'test@extrasafty.com.au.lk';
+		bamUserContact.FirstName = 'Jammy Sim';
+		insert bamUserContact;
+
+		BAMApplication__c bamApp = BAMTestUtility.createBamApplication('BAM');
+		bamApp.appKey__c ='BAM';
+		insert bamApp;
+
+		Asset prod = BAMTestUtility.createAsset(orgId, bamApp.Product__c, true);
+		insert prod;
+
+		BAMApplicationRole__c appRole = BAMTestUtility.createApplicationRole(bamApp);
+		appRole.Role__c = BAMUserUtility.ACCESS_MANAGEMENT_SUPER_ADMIN;
+		insert appRole;
+
+		BAMContactApplication__c conApp = BAMTestUtility.createTestContactApplication(bamUserContact.Id, bamApp.Id);
+		insert conApp;
+
+		BAMContactRole__c conRole = BAMTestUtility.createTestContactRole(conApp.Id, appRole.Id);
+		insert conRole;
+
+		User portalUser = BAMTestUtility.createBusinessPortalUser(bamUserContact, BspConstants.BSP_COMMUNITY_PROFILE_NAME);
+		portalUser.Username = System.currentTimeMillis() + portalUser.Username;
+		insert portalUser;
+
+		// creating different org
+		Account testAccount = BAMTestUtility.createTestAccount('1234');
+		insert testAccount;
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		// Get portal user Id
+		Test.startTest();
+		Id businessPortalUserId = recordIdMap.get('User');
+		User businessPortalUser = [SELECT Id, AccountId FROM User WHERE Id =: businessPortalUserId];
+		System.runAs(businessPortalUser) {
+			BAMContactRoleSelector selector = BAMContactRoleSelector.newInstance();
+			List<BAMContactRole__c> contactRoles = selector.selectRolesByRoleAndOrgId(new Set<String>{BAMUserUtility.ACCESS_MANAGEMENT_SUPER_ADMIN},
+					new Set<Id>{businessPortalUser.AccountId},
+					new Set<Object>{BAMContactRoleSelector.Options.WITH_CONTACT_APPLICATION});
+			//Set<String> roles, Set<Id> orgIds, Set<Object> selectorOptions
+			system.debug('contactRoles RESULT '+contactRoles);
+			System.assertNotEquals(0, contactRoles.size());
+		}
+		Test.stopTest();
+	}
 }

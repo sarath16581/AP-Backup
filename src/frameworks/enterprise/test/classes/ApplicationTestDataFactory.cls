@@ -942,6 +942,13 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<BAMContactRole__c> getBamContactRoles(Integer count, String roleId, Id appId, Boolean generateIds) {
+		return (List<BAMContactRole__c>)maybeGenerateIds(populateSObjects(BAMContactRole__c.SObjectType, new Map<SObjectField, Object> {
+				BAMContactRole__c.ContactApplication__c => appId,
+				BAMContactRole__c.ApplicationRole__c => roleId,
+				BAMContactRole__c.status__c =>  'Active'
+		}, count), generateIds);
+	}
 
 	public static List<BAMContactApplication__c> getBamContactApplications(Integer count, Id contactId, Id appId, Boolean generateIds) {
 		return (List<BAMContactApplication__c>)maybeGenerateIds(populateSObjects(BAMContactApplication__c.SObjectType, new Map<SObjectField, Object> {
