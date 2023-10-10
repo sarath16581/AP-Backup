@@ -2017,16 +2017,6 @@ TEXT(ProductCategory__c) &amp; &quot; - &quot; &amp; TEXT(ProductSubCategory__c)
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_EP_to_Stopped</fullName>
-        <field>IsStopped</field>
-        <literalValue>1</literalValue>
-        <name>SSSW - Set EP to Stopped</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_EnquirySubType_to_Tracking</fullName>
         <field>EnquirySubType__c</field>
         <literalValue>Tracking</literalValue>
