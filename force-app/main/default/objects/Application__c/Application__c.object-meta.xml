@@ -174,8 +174,8 @@ Visualforce page uses either field level label or field level help text (if the 
         <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
         <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
         <excludedStandardButtons>Accept</excludedStandardButtons>
-        <excludedStandardButtons>New</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>New</excludedStandardButtons>
         <lookupDialogsAdditionalFields>FullLegalCompanyName__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ABN__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACN__c</lookupDialogsAdditionalFields>

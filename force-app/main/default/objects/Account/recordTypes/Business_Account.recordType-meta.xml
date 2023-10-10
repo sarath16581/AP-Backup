@@ -22,6 +22,10 @@
     <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
+            <fullName>Business Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Procurement</fullName>
             <default>false</default>
         </values>
@@ -1886,6 +1890,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Government North - National Defence</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Government South</fullName>
             <default>false</default>
         </values>
@@ -1899,14 +1907,6 @@
         </values>
         <values>
             <fullName>Intermediaries - Not Active</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP CPO%2FBC North</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP CPO%2FBC South</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1970,11 +1970,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Tier 2 North</fullName>
+            <fullName>LBP Tier 2 CPO North</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Tier 2 South</fullName>
+            <fullName>LBP Tier 2 CPO South</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Tier 2 LPO North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Tier 2 LPO South</fullName>
             <default>false</default>
         </values>
         <values>

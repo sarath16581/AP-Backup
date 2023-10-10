@@ -172,8 +172,8 @@
         <customTabListAdditionalFields>Detail__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Log_Time__c</customTabListAdditionalFields>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Old_Attachment_ID__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>New_File_ID__c</lookupDialogsAdditionalFields>

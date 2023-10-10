@@ -2893,6 +2893,11 @@
             <field>Record_Locked__c</field>
             <table>Account.APRs__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Minimum_Rate__c</field>
+            <table>Account.APRs__r</table>
+        </columns>
         <masterLabel>APRs</masterLabel>
     </sections>
     <sections>

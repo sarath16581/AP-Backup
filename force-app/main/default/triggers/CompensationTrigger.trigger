@@ -13,10 +13,17 @@
  * - on before update, update compensation token to valid records
  * - on after update, send compensation email & create comment on case about sent out email
  * Note: for compensation that is auto approved after created the update trigger will also be executed thanks to field update action (ref: https://developer.salesforce.com/docs/atlas.en-us.234.0.apexcode.meta/apexcode/apex_triggers_order_of_execution.htm)
- */
+ * Modified: Hasantha Liyanage : as a part of the minor work MW0005476 Module concept is introduced only for the newly added changes,  refactor of the existing logic needs to be done
+ **/
 
 trigger CompensationTrigger on Compensation__c (after delete, after insert, after undelete, 
 after update, before delete, before insert, before update) {
+
+
+    if(!TriggerHelper.isTriggerDisabled(String.valueOf(Case.sObjectType))){	 // verify if triggers are disabled
+        (new CompensationTriggerHandler()).dispatch();
+    }
+
     if(Trigger.isAfter) {
         if(Trigger.isUpdate) {
             // todo check Compensation__c's status

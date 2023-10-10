@@ -56,14 +56,4 @@
         <target>/happy-parcels</target>
         <type>InternalLink</type>
     </navigationMenuItem>
-    <navigationMenuItem>
-        <label>Seismic</label>
-        <menuItemBranding>
-            <tileImage>bh_seismic_red_nr</tileImage>
-        </menuItemBranding>
-        <position>6</position>
-        <publiclyAvailable>false</publiclyAvailable>
-        <target>/seismic</target>
-        <type>InternalLink</type>
-    </navigationMenuItem>
 </NavigationMenu>

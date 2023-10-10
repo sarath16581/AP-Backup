@@ -170,8 +170,8 @@
         <customTabListAdditionalFields>Apttus__Exception__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus__Agreement_Types__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus__Description__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__Active__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Approval_Required__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Exception_Type__c</lookupDialogsAdditionalFields>

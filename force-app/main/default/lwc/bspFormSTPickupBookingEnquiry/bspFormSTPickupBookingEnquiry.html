@@ -28,11 +28,11 @@
                             <c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
                         </template>
 
-                        <!--Pickup booking reference number -->
+                        <!--Pickup booking reference number  -->
                         <lightning-input label="Pickup booking reference number" data-id="pickUpBookingRefNumber"
                             type="text" vale={enquiry.Pickup_Booking_Reference__c} onchange={handleChange}
-                            min-length="7" max-length="8" pattern="^[0-9]{7,8}$"
-                            message-when-pattern-mismatch="Please enter only digits. Minimum length is 7 and maximum length is 8."
+                            min-length="7" max-length="10" pattern="^[0-9]{7,10}$"
+                            message-when-pattern-mismatch="Please enter only digits. Minimum length is 7 and maximum length is 10."
                             message-when-value-missing={requiredValMissingErrorMsg} required
                             class="brand-form-input slds-p-bottom_x-large">
                         </lightning-input>

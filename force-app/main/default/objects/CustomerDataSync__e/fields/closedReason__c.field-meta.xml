@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>closedReason__c</fullName>
+    <description>Reason why this consumer record was flagged as closed in SAP CRM</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reason why this consumer record was flagged as closed in SAP CRM</inlineHelpText>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Closed Reason</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

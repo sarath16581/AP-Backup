@@ -4,7 +4,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Name of Intermediary account&apos;s client</description>
     <externalId>false</externalId>
-    <label>Name of Intermediary&apos;s Client – if known</label>
+    <label>(depr) Name of Intermediary&apos;s Client</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Proposals (Name of Intermediary&apos;s Client)</relationshipLabel>
     <relationshipName>Proposals</relationshipName>

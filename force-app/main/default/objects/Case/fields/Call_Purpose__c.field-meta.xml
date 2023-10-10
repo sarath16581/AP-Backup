@@ -257,6 +257,11 @@
                 <default>false</default>
                 <label>Other Enquiry</label>
             </value>
+            <value>
+                <fullName>StarTrack Shop</fullName>
+                <default>false</default>
+                <label>StarTrack Shop</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -1625,14 +1625,6 @@
             <default>true</default>
         </values>
         <values>
-            <fullName>LBP CPO%2FBC North</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP CPO%2FBC South</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>LBP Post Offices NSW%2FACT %26 QLD%2FNT</fullName>
             <default>false</default>
         </values>
@@ -1690,6 +1682,14 @@
         </values>
         <values>
             <fullName>LBP Sales Manager WA 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Tier 2 CPO North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Tier 2 CPO South</fullName>
             <default>false</default>
         </values>
     </picklistValues>

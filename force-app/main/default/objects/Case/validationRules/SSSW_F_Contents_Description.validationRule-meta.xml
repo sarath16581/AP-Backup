@@ -16,7 +16,6 @@
      CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;),
      Bypass_Data_enforcement__c = FALSE,
      Email_Bypass_Data_enforcement__c = FALSE,
-     $Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;, 
 OR(
 AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),
 OR(

@@ -168,8 +168,8 @@
         <customTabListAdditionalFields>Apttus__WizardRulesetId__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus__Active__c</customTabListAdditionalFields>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__FromInputControlId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__ComparisonOperator__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Value__c</lookupDialogsAdditionalFields>

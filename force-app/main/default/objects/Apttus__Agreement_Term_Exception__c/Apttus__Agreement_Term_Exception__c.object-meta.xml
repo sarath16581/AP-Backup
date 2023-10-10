@@ -165,8 +165,8 @@
     <pluralLabel>Agreement Term Exceptions</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__Approval_Status__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Exception_Name__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Exception__c</lookupDialogsAdditionalFields>

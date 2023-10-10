@@ -6,5 +6,10 @@
         <minorNumber>465</minorNumber>
         <namespace>Apttus</namespace>
     </packageVersions>
+    <packageVersions>
+        <majorNumber>9</majorNumber>
+        <minorNumber>65</minorNumber>
+        <namespace>Apttus_QPComply</namespace>
+    </packageVersions>
     <status>Active</status>
 </ApexClass>

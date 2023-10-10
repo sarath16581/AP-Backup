@@ -17,6 +17,7 @@ import ROLE_TYPE from '@salesforce/schema/Account.Role_Type_Roll_Up__c';
 import {getRecord, getFieldValue, createRecord} from 'lightning/uiRecordApi';
 import {getObjectInfo} from 'lightning/uiObjectInfoApi';
 import { NavigationMixin } from 'lightning/navigation';
+import {ShowToastEvent} from "lightning/platformShowToastEvent";
 export default class NewOpportunityFromOrganisation extends NavigationMixin(LightningElement) {
 	@api recordId;
 	isStartrackOpportunity;
@@ -65,6 +66,18 @@ export default class NewOpportunityFromOrganisation extends NavigationMixin(Ligh
 					actionName: 'view'
 				}
 			});
+		}).catch((error) => {
+			const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
+			if (errorMessages) {
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: "Error creating opportunity",
+						message: errorMessages,
+						variant: "error",
+					}),
+				);
+			}
+			this.isLoading = false;
 		});
 
 	}

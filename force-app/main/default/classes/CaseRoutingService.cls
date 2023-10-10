@@ -7,6 +7,8 @@
  * @date 2023-05-17
  * @test CaseRoutingService_Test, AgentWorkAPCaseAutomationModule_Test
  * @changelog
+ * 2023-07-25 - Nathan Franklin - Change to force routing for all cases moving from closed -> open 
+ * 2023-08-07 - Nathan Franklin - Change to force routing for all cases moving from closed -> open (excluded certain scenarios)
  */
 public inherited sharing class CaseRoutingService {
 
@@ -32,7 +34,6 @@ public inherited sharing class CaseRoutingService {
 			if(socialAndSsswRecordTypeIds == null) {
 				// Get social Record types
 				Set<Id> socialRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), 'Social');
-
 				socialAndSsswRecordTypeIds = new Set<Id>(validRecTypes);
 				socialAndSsswRecordTypeIds.addAll(socialRecTypes);
 			}
@@ -157,6 +158,16 @@ public inherited sharing class CaseRoutingService {
 	private void maybeRouteCase(List<Case> caseList, Map<Id, Case> oldMap, Boolean isInsert) {
 		Set<String> closedStatuses = Utility.getCaseClosedStatus();
 		OmniChannelService omniService = OmniChannelService.getInstance();
+		QM__c queueSettings = QM__c.getInstance();
+
+		// if a case has been moved into these queues on reopening, then routing should be ignored!
+		Set<Id> excludedForceRoutingOnReopenQueues = new Set<Id>();
+		if(queueSettings != null && !String.isEmpty(queueSettings.AwaitingCustomerQueue__c)) {
+			excludedForceRoutingOnReopenQueues.add((Id)queueSettings.AwaitingCustomerQueue__c);
+		}
+		if(queueSettings != null && !String.isEmpty(queueSettings.NetworkQueueId__c)) {
+			excludedForceRoutingOnReopenQueues.add((Id)queueSettings.NetworkQueueId__c);
+		}
 
 		List<Case> casesTobeRouted = new List<Case>();
 		Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
@@ -269,15 +280,15 @@ public inherited sharing class CaseRoutingService {
 				populateRoutingDebug(csRec, 'routing bypassed on creation');
 			}
 
-			// We need to force route a case if it was previously closed and now opened and it belongs to the omni closed case queue
+			// We need to force route a case if it was previously closed and now opened
 			if (!csRec.AllocateToQueue__c && changedFields.contains(Case.Status) && 
-					!closedStatuses.contains(csRec.Status) && closedStatuses.contains(String.valueOf(previousState.get('Status'))) &&
-					csRec.OwnerId == omniService.omniClosedCaseQueueId) {
+					!closedStatuses.contains(csRec.Status) && closedStatuses.contains(String.valueOf(previousState.get('Status'))) && 
+					!excludedForceRoutingOnReopenQueues.contains(csRec.OwnerId)) {
 
 				csRec.AllocateToQueue__c = true;
 
 				// debug messaging to inform admin of routing path
-				populateRoutingDebug(csRec, 'routing initiated: case reopened and belongs to omni closed queue');
+				populateRoutingDebug(csRec, 'routing initiated: case reopened');
 				
 			}
 
@@ -496,16 +507,23 @@ public inherited sharing class CaseRoutingService {
 	}
 
 	/**
-	 * When case moves to agent, we need to reset the preferred agent settings to get it ready for next time it might be needed
+	 * When case moves out of the preferred agent queue, we need to reset the preferred agent settings to get it ready for next time it might be needed
+	 * NOTE: There are some exceptions to this, like if the case subsuquently is assigned to the routing holding queue.
 	 * Additionally, when a case is closed we also remove the bypass settings
 	 */
 	@TestVisible
 	private void maybeResetPreferredAgentBypasses(List<Case> caseList, Map<Id, Case> oldMap) {
 		OmniChannelService omniService = OmniChannelService.getInstance();
+
 		Set<String> closedCaseStatuses = Utility.getCaseClosedStatus();
 		String context = 'apccresetpreferredagent';
 		Set<SObjectField> monitoredFields = new Set<SObjectField>{Case.OwnerId, Case.Status};
 		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, caseList, oldMap, monitoredFields);
+
+		Set<Id> excludedQueuesForByPassReset = new Set<Id>{
+			omniService.preferredAgentQueueId,
+			omniService.omniHoldingQueueId
+		};
 		
 		for(ApplicationRecursion.RecordState recordState : changedRecords){
 			Case csRec = (Case)recordState.record;
@@ -517,9 +535,10 @@ public inherited sharing class CaseRoutingService {
 			// (changedFields.contains(Case.OwnerId) && csRec.OwnerId.getSobjectType() == User.getSObjectType() && 
 			// 			previousState.get('OwnerId') != null && ((Id)previousState.get('OwnerId')).getSobjectType() == Group.getSobjectType()) ||
 
-			if((changedFields.contains(Case.OwnerId) && (Id)previousState.get('OwnerId') == omniService.preferredAgentQueueId && csRec.OwnerId != omniService.preferredAgentQueueId) ||
+			if((changedFields.contains(Case.OwnerId) && (Id)previousState.get('OwnerId') == omniService.preferredAgentQueueId && !excludedQueuesForByPassReset.contains(csRec.OwnerId)) ||
 						(changedFields.contains(Case.Status) && closedCaseStatuses.contains(csRec.Status) && !closedCaseStatuses.contains(String.valueOf(previousState.get('Status')))
 					)) {
+
 				csRec.BypassPreferredAgent__c = false;
 				csRec.PreferredAgentExpiry__c = null;
 			}

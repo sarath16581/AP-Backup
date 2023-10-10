@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <description>Surfaces any errors on close by mimicking a save on the record</description>
     <isExposed>true</isExposed>
     <masterLabel>Opportunity Close Errors</masterLabel>
     <targets>
         <target>lightning__RecordPage</target>
-        <target>lightning__AppPage</target>
-        <target>lightning__HomePage</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">

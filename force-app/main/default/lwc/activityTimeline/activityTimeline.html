@@ -30,7 +30,7 @@
             </template>
         </ul>
         <div class="slds-align_absolute-center">
-            <lightning-button variant="neutral" label="Load More" onclick={loadMoreData} title="Load More" class="slds-m-around_small"></lightning-button>
+            <lightning-button variant="neutral" label="Load More" onclick={loadMoreData} disabled={disableLoadMore} title="Load More" class="slds-m-around_small"></lightning-button>
             <lightning-button variant="neutral" label="Expand All" onclick={expandAll} title="Expand All" class="slds-m-around_small"></lightning-button>
             <lightning-button variant="neutral" label="Collapse All" onclick={collapseAll} title="Collapse All" class="slds-m-around_small"></lightning-button>
         </div>

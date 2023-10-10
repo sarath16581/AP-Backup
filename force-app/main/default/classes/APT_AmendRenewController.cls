@@ -42,6 +42,7 @@ Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason 
 @changelog:
 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 2023-07-06 nasir.jawed2@auspost.com.au Added method goToOpportunity(), and in doAmend(),doRenew() and when helps the user to select an opportunity for DOV.
+2023-05-09  Bharat Patel - update in condition to check key fields in doAmend(),doRenew() method to fix STP-9554.
 **/
 
 public with sharing class APT_AmendRenewController {
@@ -545,7 +546,7 @@ public with sharing class APT_AmendRenewController {
 				];
 			}
 
-			if(agreement != null && agreement.Apttus__Related_Opportunity__c != null){
+			if(agreement != null && agreement.Apttus__Related_Opportunity__c != null && oppId == null){
 				//fetching the opportunity record by using selector
 				map<Id,Opportunity> oppMap = OpportunitySelector.newInstance(0,new Set<SObjectField>{opportunity.IsStartrackProposal__c,opportunity.APTPostcodeSuburb__c,opportunity.APTMinimumMonthlySpend__c}).selectById(new Set<Id>{agreement.Apttus__Related_Opportunity__c});
 				Opportunity opp = oppMap.get(agreement.Apttus__Related_Opportunity__c);
@@ -893,7 +894,7 @@ public with sharing class APT_AmendRenewController {
 				];
 			}
 
-			if(agreement != null && agreement.Apttus__Related_Opportunity__c != null){
+			if(agreement != null && agreement.Apttus__Related_Opportunity__c != null && oppId == null){
 				//fetching the opportunity record by using selector
 				map<Id,Opportunity> oppMap = OpportunitySelector.newInstance(0,new Set<SObjectField>{opportunity.IsStartrackProposal__c,opportunity.APTPostcodeSuburb__c,opportunity.APTMinimumMonthlySpend__c}).selectById(new Set<Id>{agreement.Apttus__Related_Opportunity__c});
 				Opportunity opp = oppMap.get(agreement.Apttus__Related_Opportunity__c);

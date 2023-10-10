@@ -43,9 +43,6 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>At_Risk_Business__c.Recalculate_Annual_Value</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>At_Risk_Business__c.Close_BAR</value>
                             <visibilityRule>
                                 <booleanFilter>1 OR 2</booleanFilter>
@@ -87,6 +84,9 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>At_Risk_Business__c.Recalculate_Revenue</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -107,7 +107,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>4</value>
+                    <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
@@ -164,6 +164,23 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Products__c</fieldItem>
+                <identifier>RecordProducts_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Scale__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Product Specific (Please Specify)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Competitor__c</fieldItem>
                 <identifier>RecordCompetitor__cField</identifier>
                 <visibilityRule>
@@ -210,23 +227,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Primary_Campaign__c</fieldItem>
                 <identifier>RecordPrimary_Campaign_cField1</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Products__c</fieldItem>
-                <identifier>RecordProducts_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Scale__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ff076372-6e89-4c57-9c4d-5a46320b621e</name>
@@ -287,7 +287,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Date_of_Revenue_Calculation__c</fieldItem>
                 <identifier>RecordDate_of_Revenue_Calculation_cField</identifier>
@@ -456,30 +456,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Product_1__c</fieldItem>
-                <identifier>RecordProduct_1__cField3</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_2__c</fieldItem>
-                <identifier>RecordProduct_2__cField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Product_3__c</fieldItem>
-                <identifier>RecordProduct_3__cField2</identifier>
+                <fieldItem>Record.Products__c</fieldItem>
+                <identifier>RecordProducts_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -510,23 +490,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Primary_Campaign__c</fieldItem>
                 <identifier>RecordPrimary_Campaign_cField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Products__c</fieldItem>
-                <identifier>RecordProducts_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Scale__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e229a948-b2e8-4b0b-a630-be75fe798122</name>
@@ -581,16 +544,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Value_of_Business_at_Risk__c</fieldItem>
                 <identifier>RecordValue_of_Business_at_Risk__cField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Date_of_Revenue_Calculation__c</fieldItem>
-                <identifier>RecordDate_of_Revenue_Calculation_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -864,6 +817,58 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-2c3567e1-98b7-4b8e-8761-3734b24305e4</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Number_of_Activities_Current_FY__c</fieldItem>
+                <identifier>RecordNumber_of_Activities_Current_FY_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-28fa7128-581b-42f4-b81a-4522d3287ea4</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Number_of_Service_Issues_Current_FY__c</fieldItem>
+                <identifier>RecordNumber_of_Service_Issues_Current_FY_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-ccd4dbd0-1eff-402e-b3d9-75e86c5faaee</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-28fa7128-581b-42f4-b81a-4522d3287ea4</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column15</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-ccd4dbd0-1eff-402e-b3d9-75e86c5faaee</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column16</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-576f1270-42ee-448f-ab9d-8897dbc41544</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1229,7 +1234,48 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection4</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Stage__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>New</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Rejected by SM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>CEO/Reporting</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-576f1270-42ee-448f-ab9d-8897dbc41544</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Account Management &amp; Service Performance.</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection9</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>CEO/Reporting</rightValue>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.Stage__c}</leftValue>
                         <operator>NE</operator>
@@ -1459,25 +1505,29 @@
                 <identifier>c_arbSelectProducts</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-1612ee69-fbb4-47aa-b421-f08ccc67e7f6</name>
+        <name>Facet-2ee26255-0ea2-4a24-9f38-79b84c2ef016</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-1612ee69-fbb4-47aa-b421-f08ccc67e7f6</value>
+                    <value>Facet-2ee26255-0ea2-4a24-9f38-79b84c2ef016</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Product Selection</value>
+                    <value>Selected Products</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab2</identifier>
+                <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-2dfa69b7-f0ed-4e66-9e59-7fb3ce1c9678</name>
+        <name>Facet-0676109c-1b01-4cba-a912-437992d8ee26</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1547,7 +1597,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
-                    <value>Facet-2dfa69b7-f0ed-4e66-9e59-7fb3ce1c9678</value>
+                    <value>Facet-0676109c-1b01-4cba-a912-437992d8ee26</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset3</identifier>

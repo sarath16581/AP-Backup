@@ -12,7 +12,6 @@ Profile.Name=&quot;AusPost Integration API Only&quot;,
 Profile.Name=&quot;Sales Insights Integration User&quot;,
 Profile.Name=&quot;SalesforceIQ Integration User&quot;,
 Profile.Name=&quot;SalesPreso Integration&quot;,
-Profile.Name=&quot;SNNAP Integration&quot;,
 Profile.Name=&quot;SSSW Social Integration&quot;,
 CONTAINS(Username, &quot;schandel@exacttarget.com&quot;))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

@@ -171,8 +171,8 @@
         <customTabListAdditionalFields>Apttus__WizardStepStartId__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus__Runtime__c</customTabListAdditionalFields>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__Category__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Subcategory__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Description__c</lookupDialogsAdditionalFields>

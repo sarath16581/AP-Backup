@@ -5,6 +5,7 @@ Created Date: 21th Dec, 2015
 Last Modified By: Krishna Velani
 Last Modified Date: 19th May 2021 STP-5156 Populate OOTB Related Proposal & Related Opportunity fields on AR
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 */
 public with sharing class APT_ApprovalRequestTriggerHandler {
 
@@ -157,22 +158,5 @@ public with sharing class APT_ApprovalRequestTriggerHandler {
 			System.debug('exception caused due to>>'+ex.getMessage()+'<<on line number>>'+ex.getLinenumber());
 		}
 
-	}
-	/**
-	* @description : This method will fire on before insert event
-	* @author Mansi Shah | 07-14-2021
-	* @param listOfApprovalRequests
-	**/
-	public static void onBeforeInsert(List<Apttus_Approval__Approval_Request__c> listOfApprovalRequests){
-		APT_ApprovalRequestTriggerHelper.updateAdjustmentFields(listOfApprovalRequests,null,true);
-	}
-
-	/**
-	* @description : This method will fire on before insert event
-	* @author Mansi Shah | 07-14-2021
-	* @param listOfApprovalRequests
-	**/
-	public static void onBeforeUpdate(List<Apttus_Approval__Approval_Request__c> listOfApprovalRequests,Map<Id,Apttus_Approval__Approval_Request__c> oldMap){
-		APT_ApprovalRequestTriggerHelper.updateAdjustmentFields(listOfApprovalRequests,oldMap,false);
 	}
 }

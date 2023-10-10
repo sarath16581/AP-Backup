@@ -1393,6 +1393,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Business Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Client</fullName>
             <default>false</default>
         </values>
@@ -1450,6 +1454,10 @@
         </values>
         <values>
             <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proactive Sales Leads</fullName>
             <default>false</default>
         </values>
         <values>

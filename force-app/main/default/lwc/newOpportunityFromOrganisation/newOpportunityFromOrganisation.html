@@ -16,9 +16,10 @@
 						<lightning-input-field field-name="IsStartrackProposal__c" onchange={handleIsStartrackOpportunity} required></lightning-input-field>
 					</div>
 					<div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+						<lightning-input-field field-name="Opportunity_SubType__c" required></lightning-input-field>
 						<lightning-input-field field-name="StageName" disabled required value="Identify"></lightning-input-field>
 						<lightning-input-field field-name="CloseDate" required></lightning-input-field>
-						<lightning-input-field field-name="Amount"></lightning-input-field>
+						<lightning-input-field field-name="Amount" required></lightning-input-field>
 						<template lwc:if={isStartrackOpportunity}>
 							<lightning-input-field field-name="APTPostcodeSuburb__c" required></lightning-input-field>
 							<lightning-input-field field-name="APTMinimumMonthlySpend__c" required></lightning-input-field>

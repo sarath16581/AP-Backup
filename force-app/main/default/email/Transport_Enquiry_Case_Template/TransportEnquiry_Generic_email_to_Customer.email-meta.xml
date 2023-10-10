@@ -17,7 +17,10 @@ Hi {!Contact.FirstName},
 
 
 Kind regards,
-Australia Post
+
+Australia Post Customer Collections
+
+
 {!Case.Thread_Id}
 
 

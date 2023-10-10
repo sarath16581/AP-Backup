@@ -39,13 +39,6 @@
             "tabKey" : "2",
             "tabName" : "Related"
           }, {
-            "UUID" : "81ba1f59-5afe-4a2e-9172-ebb9b8324a3d",
-            "allowGuestUser" : false,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "3",
-            "tabName" : "Seismic"
-          }, {
             "UUID" : "f452eaf6-73a6-44f4-93eb-ff8bd251da20",
             "allowGuestUser" : false,
             "locked" : false,
@@ -155,23 +148,6 @@
         "id" : "326a28bf-f7a8-47a4-abe7-9bb5dd3b6f60",
         "regionLabel" : "Related",
         "regionName" : "2",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "height" : "600",
-            "pageName" : "SeismicOpportunity",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "forceCommunity:visualforcePage",
-          "id" : "6237186f-8d68-4457-88fa-99366a167c84",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "81ba1f59-5afe-4a2e-9172-ebb9b8324a3d",
-        "regionLabel" : "Seismic",
-        "regionName" : "3",
         "renditionMap" : { },
         "type" : "region"
       }, {

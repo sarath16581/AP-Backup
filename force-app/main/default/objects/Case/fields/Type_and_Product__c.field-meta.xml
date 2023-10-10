@@ -1263,11 +1263,6 @@
                 <label>General Enquiry|Web &amp; Apps|Send a Parcel</label>
             </value>
             <value>
-                <fullName>General Enquiry|Web &amp; Apps|Shopmate</fullName>
-                <default>false</default>
-                <label>General Enquiry|Web &amp; Apps|Shopmate</label>
-            </value>
-            <value>
                 <fullName>General Enquiry|Web &amp; Apps|UMCS</fullName>
                 <default>false</default>
                 <label>General Enquiry|Web &amp; Apps|UMCS</label>
@@ -1333,11 +1328,6 @@
                 <label>Feedback|Web &amp; Apps|Send a Parcel</label>
             </value>
             <value>
-                <fullName>Feedback|Web &amp; Apps|Shopmate</fullName>
-                <default>false</default>
-                <label>Feedback|Web &amp; Apps|Shopmate</label>
-            </value>
-            <value>
                 <fullName>Feedback|Web &amp; Apps|UMCS</fullName>
                 <default>false</default>
                 <label>Feedback|Web &amp; Apps|UMCS</label>
@@ -1401,11 +1391,6 @@
                 <fullName>Investigation|Web &amp; Apps|Send a Parcel</fullName>
                 <default>false</default>
                 <label>Investigation|Web &amp; Apps|Send a Parcel</label>
-            </value>
-            <value>
-                <fullName>Investigation|Web &amp; Apps|Shopmate</fullName>
-                <default>false</default>
-                <label>Investigation|Web &amp; Apps|Shopmate</label>
             </value>
             <value>
                 <fullName>Investigation|Web &amp; Apps|UMCS</fullName>

@@ -144,4 +144,12 @@ public inherited sharing class ApplicationDatabase {
 		req.setObjectId(recordId);
 		return Approval.process(req);
 	}
+	
+	public List<DatacloudProxy.FindDuplicatesResult> findDuplicates(List<SObject> candidates) {
+		// Average duration of serialisation roundtrip is ~2.73 msec (tested with 1 single match record * 1,000 times)
+		return (List<DatacloudProxy.FindDuplicatesResult>)JSON.deserialize(
+			JSON.serialize(Datacloud.FindDuplicates.findDuplicates(candidates)),
+			List<DatacloudProxy.FindDuplicatesResult>.class
+		);
+	}
 }

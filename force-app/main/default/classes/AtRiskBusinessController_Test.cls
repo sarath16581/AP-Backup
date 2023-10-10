@@ -33,7 +33,7 @@ public class AtRiskBusinessController_Test {
 
 		At_Risk_Business__c arb = ApplicationTestDataFactory.getAtRiskBusiness(1, testAccountId, true)[0];
 		
-		arb.Scale__c = 'Product Specific (Please Specify)';
+		arb.Scale__c = 'Product Specific (Please Specify after save)';
 		arb.Product_IDs__c = products[0].Id;
 
 		// =====================================
@@ -94,7 +94,7 @@ public class AtRiskBusinessController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockProductSelector.selectByIdOrderByName(productIdSet, new Set<Object>())).thenReturn(products);
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenReturn((List<SObject>)fflib_Match.anyObject());
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 		
 		// =====================================
@@ -107,7 +107,7 @@ public class AtRiskBusinessController_Test {
 		Test.stopTest();
 		
 		// Check that dmlUpdate was called once
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
 
 		// Check that fields were updated as expected
 		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Product_IDs__c);
@@ -134,7 +134,7 @@ public class AtRiskBusinessController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockARBSelector.selectById(new Set<Id>{arb.Id})).thenReturn(new List<At_Risk_Business__c>{arb});
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenReturn((List<SObject>)fflib_Match.anyObject());
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 		
 		// =====================================
@@ -147,7 +147,7 @@ public class AtRiskBusinessController_Test {
 		Test.stopTest();
 
 		// Check that dmlUpdate was called once
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
 		
 		// Check that field was set to expected value
 		Assert.areEqual(true, arb.Recalculate_Revenue__c);

@@ -107,12 +107,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__PurchaseOrderId__r.Name</field>
+        <field>Apttus_Config2__ShipToAccountId__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__ShipToAccountId__r.Name</field>
+        <field>Apttus_Config2__PurchaseOrderId__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

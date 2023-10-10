@@ -166,8 +166,8 @@
         <customTabListAdditionalFields>Apttus_Approval__Approval_Level__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Authorized_Discount_Percent__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Description__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Approval__Approval_Level__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Authorized_Discount_Percent__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Description__c</lookupDialogsAdditionalFields>

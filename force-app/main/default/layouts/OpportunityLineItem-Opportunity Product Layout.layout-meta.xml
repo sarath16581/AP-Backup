@@ -50,7 +50,7 @@
                 <behavior>Required</behavior>
                 <field>Change_Classification__c</field>
             </layoutItems>
-	    <layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OPCOverride__c</field>
             </layoutItems>

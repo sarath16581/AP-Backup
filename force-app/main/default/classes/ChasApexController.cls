@@ -57,6 +57,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
+* 2023-09-14 mahesh.parvathaneni@auspost.com.au added cacheable=true for retrieveCommunityURL and getLoggedInUserInfo methods
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -64,7 +65,7 @@ public with sharing class ChasApexController extends ChasBase{
         return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static String retrieveCommunityURL(){
         try {
             return ConnectApi.Communities.getCommunity(Network.getNetworkId()).siteUrl;
@@ -258,8 +259,11 @@ public with sharing class ChasApexController extends ChasBase{
              Boolean isEligibleForHold = false;
              // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
              Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
+
+			 Boolean isExpressPost = wizardData.get('selectedRadio3Name') == ChasConstants.EXPRESS_POST? true:false;
+
              // DDS-5273: article that contains pharma should not be held
-             if (!containsPharma) {
+             if (!containsPharma && !isExpressPost) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
@@ -1998,7 +2002,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             return false;
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static UserDetails getLoggedInUserInfo(){
         UserDetails userDetail = new UserDetails();
         userDetail.isUserAuthenticated = false;

@@ -3,6 +3,7 @@
  History:
  --------------------------------------------------
  2020-09-07 vinoth.raja@crmit.com Created
+ 2023-08-27 Mahesh Parvathaneni - Added tests for testGetMerchantPortalAccessUrl
  **************************************************/
 @isTest
 public class bspBaseUplift_Test{
@@ -21,13 +22,9 @@ public class bspBaseUplift_Test{
 
 		// general
 		MaxEnquiryRecords__c = 500, EnquiriesPerPage__c = 15, BSPCaseStatusList__c = 'In Progress,Action Required,Resolved,Closed', CCUCommunityUserProfileId__c = [SELECT Id
-		                                                                                                                                                            FROM Profile
-		                                                                                                                                                            WHERE Name = 'BSP Community User'].Id, AdminCaseSubject__c = 'Enterprise Contact Registration');
+																																									FROM Profile
+																																									WHERE Name = 'BSP Community User'].Id, AdminCaseSubject__c = 'Enterprise Contact Registration');
 		insert setting;
-
-		//        Account defaultAcc = TestDataProvider.createAccount('Test Account', 1)[0];
-		//        defaultAcc.Legacy_Id__c = '60000000';
-		//        insert defaultAcc;
 
 		Account testAccount = TestDataProvider.createAccount('Test Account', 1)[0];
 		testAccount.Business_Solutions_Customer__c = true;
@@ -120,12 +117,12 @@ public class bspBaseUplift_Test{
 	public static testMethod void testBillingAccountAccessRoles(){
 		// BillingAccount__c is set to a TEAM billing account in @testSetup
 		Contact con = [Select Id, AccountId, BillingAccount__c
-		               From Contact
-		               LIMIT 1];
+						From Contact
+						LIMIT 1];
 
 		// grab the cases so we can verify the user has access to them or not
 		List<Case> cases = [Select Id, AccountId, Related_Billing_Account__c, Related_Billing_Account__r.LEGACY_ID__c, Related_Billing_Account__r.Id, Related_Billing_Account__r.Organisation__c, ContactId, CreatedById, Contact.BillingAccount__c
-		                    From Case];
+							From Case];
 		Map<String, Case> billingAccountCaseMap = new Map<String, Case>();
 		for (Case c : cases){
 			billingAccountCaseMap.put(c.Related_Billing_Account__r.LEGACY_ID__c, c);
@@ -134,38 +131,38 @@ public class bspBaseUplift_Test{
 		// grab the articles so we can verify access
 		// drop in a billing account map for easier verification
 		List<Article__c> articles = [Select Id, Billing_Account__c, Billing_Account__r.LEGACY_ID__c, Billing_Account__r.Organisation__c
-		                             From Article__c];
+										From Article__c];
 		Map<String, Article__c> billingAccountArticleMap = new Map<String, Article__c>();
 		for (Article__c article : articles){
 			billingAccountArticleMap.put(article.Billing_Account__r.LEGACY_ID__c, article);
 		}
 
 		Network bspCommunity = [Select UrlPathPrefix
-		                        From  Network 
-		                        Where UrlPathPrefix = 'bsp'];
+								From  Network 
+								Where UrlPathPrefix = 'bsp'];
 
 		// grab the application roles for BSP so we can assign them to the user
 		BAMApplication__c app = [Select Id
-		                         From BAMApplication__c
-		                         Where AppKey__c = 'BSP'];
+									From BAMApplication__c
+									Where AppKey__c = 'BSP'];
 		BAMApplicationRole__c bspAdminRole = [Select Id, Application__c, Role__c
-		                                      From BAMApplicationRole__c
-		                                      Where Application__r.AppKey__c = 'BSP' And Role__c = 'Admin'];
+												From BAMApplicationRole__c
+												Where Application__r.AppKey__c = 'BSP' And Role__c = 'Admin'];
 		BAMApplicationRole__c bspUserRole = [Select Id, Application__c, Role__c
-		                                     From BAMApplicationRole__c
-		                                     Where Application__r.AppKey__c = 'BSP' And Role__c = 'User'];
+												From BAMApplicationRole__c
+												Where Application__r.AppKey__c = 'BSP' And Role__c = 'User'];
 		BAMApplicationRole__c bspSuperAdminRole = [Select Id, Application__c, Role__c
-		                                           From BAMApplicationRole__c
-		                                           Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
+													From BAMApplicationRole__c
+													Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
 
 		// this group has billing accounts assigned in Test Setup (P123456, P223456)
 		BAMGroup__c grp = [Select Id
-		                   From BAMGroup__c
-		                   LIMIT 1];
+							From BAMGroup__c
+							LIMIT 1];
 
 		// populate all the billing accounts we will need to use in this test
 		Map<Id, Billing_Account__c> billingAccountsMap = new Map<Id, Billing_Account__c>([Select Id, Name, LEGACY_ID__c
-		                                                                                  From Billing_Account__c]);
+																							From Billing_Account__c]);
 		Map<String, Billing_Account__c> billingAccounts = mapBillingAccountsToNumber(billingAccountsMap.values());
 		System.debug(billingAccounts);
 
@@ -188,8 +185,8 @@ public class bspBaseUplift_Test{
 		System.Debug(entities);
 
 		User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = con.Id, EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US', LocaleSidKey = 'en_US', ProfileId = [SELECT Id
-		                                                                                                                                                                                                       FROM Profile
-		                                                                                                                                                                                                       WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
+																																																				FROM Profile
+																																																				WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
 
 
 		Test.startTest();
@@ -335,20 +332,20 @@ public class bspBaseUplift_Test{
 	public static testMethod void testCSSOLoginRuleEnforcement(){
 		// BillingAccount__c is set to a TEAM billing account in @testSetup
 		Contact con = [Select Id, AccountId, BillingAccount__c
-		               From Contact
-		               LIMIT 1];
+						From Contact
+						LIMIT 1];
 
 		Network bspCommunity = [Select UrlPathPrefix
-		                        From  Network 
-		                        Where UrlPathPrefix = 'bsp'];
+								From  Network 
+								Where UrlPathPrefix = 'bsp'];
 
 		// grab the application roles for BSP so we can assign them to the user
 		BAMApplication__c app = [Select Id
-		                         From BAMApplication__c
-		                         Where AppKey__c = 'BSP'];
+									From BAMApplication__c
+									Where AppKey__c = 'BSP'];
 		BAMApplicationRole__c bspSuperAdminRole = [Select Id, Application__c, Role__c
-		                                           From BAMApplicationRole__c
-		                                           Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
+													From BAMApplicationRole__c
+													Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
 
 		BAMContactApplication__c contactApplication = new BAMContactApplication__c(BSPCanViewAllConsignments__c = true, Application__c = app.Id, Contact__c = con.Id, Status__c = 'Active');
 		insert contactApplication;
@@ -358,8 +355,8 @@ public class bspBaseUplift_Test{
 		insert contactRoles;
 
 		User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = con.Id, EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US', LocaleSidKey = 'en_US', ProfileId = [SELECT Id
-		                                                                                                                                                                                                       FROM Profile
-		                                                                                                                                                                                                       WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
+																																																				FROM Profile
+																																																				WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
 
 
 		Test.startTest();
@@ -390,8 +387,8 @@ public class bspBaseUplift_Test{
 	public static testMethod void testCSSOLoginRuleEnforcementFailure(){
 		// BillingAccount__c is set to a TEAM billing account in @testSetup
 		Contact con = [Select Id, AccountId, BillingAccount__c
-		               From Contact
-		               LIMIT 1];
+						From Contact
+						LIMIT 1];
 
 		// mark the contact is inactive to trigger the prevalidate error
 		con.Status__c = 'Inactive';
@@ -399,11 +396,11 @@ public class bspBaseUplift_Test{
 
 		// grab the application roles for BSP so we can assign them to the user
 		BAMApplication__c app = [Select Id
-		                         From BAMApplication__c
-		                         Where AppKey__c = 'BSP'];
+									From BAMApplication__c
+									Where AppKey__c = 'BSP'];
 		BAMApplicationRole__c bspSuperAdminRole = [Select Id, Application__c, Role__c
-		                                           From BAMApplicationRole__c
-		                                           Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
+													From BAMApplicationRole__c
+													Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
 
 		BAMContactApplication__c contactApplication = new BAMContactApplication__c(BSPCanViewAllConsignments__c = true, Application__c = app.Id, Contact__c = con.Id, Status__c = 'Active');
 		insert contactApplication;
@@ -413,8 +410,8 @@ public class bspBaseUplift_Test{
 		insert contactRoles;
 
 		User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = con.Id, EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US', LocaleSidKey = 'en_US', ProfileId = [SELECT Id
-		                                                                                                                                                                                                       FROM Profile
-		                                                                                                                                                                                                       WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
+																																																				FROM Profile
+																																																				WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
 
 
 		Test.startTest();
@@ -443,12 +440,12 @@ public class bspBaseUplift_Test{
 	public static testMethod void testSuperAdminAccess(){
 		// BillingAccount__c is set to a TEAM billing account in @testSetup
 		Contact con = [Select Id, AccountId, BillingAccount__c
-		               From Contact
-		               LIMIT 1];
+						From Contact
+						LIMIT 1];
 
 		// grab the cases so we can verify the user has access to them or not
 		List<Case> cases = [Select Id, AccountId, Related_Billing_Account__c, Related_Billing_Account__r.LEGACY_ID__c, Related_Billing_Account__r.Id, Related_Billing_Account__r.Organisation__c, ContactId, CreatedById
-		                    From Case];
+							From Case];
 		Map<String, Case> billingAccountCaseMap = new Map<String, Case>();
 		for (Case c : cases){
 			billingAccountCaseMap.put(c.Related_Billing_Account__r.LEGACY_ID__c, c);
@@ -457,27 +454,27 @@ public class bspBaseUplift_Test{
 		// grab the articles so we can verify access
 		// drop in a billing account map for easier verification
 		List<Article__c> articles = [Select Id, Billing_Account__c, Billing_Account__r.LEGACY_ID__c, Billing_Account__r.Organisation__c
-		                             From Article__c];
+										From Article__c];
 		Map<String, Article__c> billingAccountArticleMap = new Map<String, Article__c>();
 		for (Article__c article : articles){
 			billingAccountArticleMap.put(article.Billing_Account__r.LEGACY_ID__c, article);
 		}
 
 		Network bspCommunity = [Select UrlPathPrefix
-		                        From  Network 
-		                        Where UrlPathPrefix = 'bsp'];
+								From  Network 
+								Where UrlPathPrefix = 'bsp'];
 
 		// grab the application roles for BSP so we can assign them to the user
 		BAMApplication__c app = [Select Id
-		                         From BAMApplication__c
-		                         Where AppKey__c = 'BSP'];
+									From BAMApplication__c
+									Where AppKey__c = 'BSP'];
 		BAMApplicationRole__c bspSuperAdminRole = [Select Id, Application__c, Role__c
-		                                           From BAMApplicationRole__c
-		                                           Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
+													From BAMApplicationRole__c
+													Where Application__r.AppKey__c = 'BSP' And Role__c = 'Super Admin'];
 
 		// populate all the billing accounts we will need to use in this test
 		Map<Id, Billing_Account__c> billingAccountsMap = new Map<Id, Billing_Account__c>([Select Id, Name, LEGACY_ID__c
-		                                                                                  From Billing_Account__c]);
+																							From Billing_Account__c]);
 		Map<String, Billing_Account__c> billingAccounts = mapBillingAccountsToNumber(billingAccountsMap.values());
 		System.debug(billingAccounts);
 
@@ -489,8 +486,8 @@ public class bspBaseUplift_Test{
 		insert contactRoles;
 
 		User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = con.Id, EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US', LocaleSidKey = 'en_US', ProfileId = [SELECT Id
-		                                                                                                                                                                                                       FROM Profile
-		                                                                                                                                                                                                       WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
+																																																				FROM Profile
+																																																				WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
 
 
 		Test.startTest();
@@ -541,81 +538,81 @@ public class bspBaseUplift_Test{
 
 	public static testMethod void testGetUserInfoBlankValues(){
 		Boolean isSuccess = true;
-        Account testAccount  = TestDataProvider.createAccount('Test Account', 1)[0];
-        testAccount.ShippingCity = 'Melbourne';
-        testAccount.ShippingState = 'VIC';
-        testAccount.ShippingPostalCode = '3000';
-        Database.insert(testAccount);
-        
-        testAccount.Legacy_Id__c = '60000000';
-        Database.update(testAccount);
-        
-        List<Billing_Account__c> testBillingAccList = TestDataProvider.createBillingAccount('', 2, new List<Account>{testAccount});
-        testBillingAccList[0].Source_System__c = BspConstants.SOURCE_SYSTEM_TEAM;
-        testBillingAccList[0].LEGACY_ID__c = 'P1234567';
-        Database.insert(testBillingAccList);
-        
-        Contact newCon = new Contact(FirstName = 'David', LastName = 'Catindoy', Phone = '0421546325',
-                                     MobilePhone = '0421546325', Email = 'davidcatindoy@gmail.com', 
-                                     BillingAccount__c = testBillingAccList[0].Id, 
-                                     AccountId = testAccount.Id, Contact_Type__c = StarTrack_Constants.CONTACT_TYPE, 
-                                     Status__c = StarTrack_Constants.CON_STAT_ACTIVE);
-        Database.insert(newCon);
-        //Contact con = [Select Id, AccountId, BillingAccount__c From Contact LIMIT 1];
+		Account testAccount  = TestDataProvider.createAccount('Test Account', 1)[0];
+		testAccount.ShippingCity = 'Melbourne';
+		testAccount.ShippingState = 'VIC';
+		testAccount.ShippingPostalCode = '3000';
+		Database.insert(testAccount);
+		
+		testAccount.Legacy_Id__c = '60000000';
+		Database.update(testAccount);
+		
+		List<Billing_Account__c> testBillingAccList = TestDataProvider.createBillingAccount('', 2, new List<Account>{testAccount});
+		testBillingAccList[0].Source_System__c = BspConstants.SOURCE_SYSTEM_TEAM;
+		testBillingAccList[0].LEGACY_ID__c = 'P1234567';
+		Database.insert(testBillingAccList);
+		
+		Contact newCon = new Contact(FirstName = 'David', LastName = 'Catindoy', Phone = '0421546325',
+										MobilePhone = '0421546325', Email = 'davidcatindoy@gmail.com', 
+										BillingAccount__c = testBillingAccList[0].Id, 
+										AccountId = testAccount.Id, Contact_Type__c = StarTrack_Constants.CONTACT_TYPE, 
+										Status__c = StarTrack_Constants.CON_STAT_ACTIVE);
+		Database.insert(newCon);
+		//Contact con = [Select Id, AccountId, BillingAccount__c From Contact LIMIT 1];
 		User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = newCon.Id, 
-                          EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US', 
-                          LocaleSidKey = 'en_US', ProfileId = [SELECT Id
-                                                               FROM Profile
-		                                                       WHERE Name = 'BSP Community User'].Id, 
-                          TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
+							EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US', 
+							LocaleSidKey = 'en_US', ProfileId = [SELECT Id
+																FROM Profile
+																WHERE Name = 'BSP Community User'].Id, 
+							TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
 
-        System.runAs(u) {
-            try{
-                Test.startTest();
-                bspBaseUplift.getLoggedInUserInfo(); //-- Create community User with contact
-                Test.stopTest();
-    
-            } catch (Exception e){
-                System.debug('testGetUserInfo()::error==>' + e.getMessage());
-                isSuccess = false;
-            }
-        }
+		System.runAs(u) {
+			try{
+				Test.startTest();
+				bspBaseUplift.getLoggedInUserInfo(); //-- Create community User with contact
+				Test.stopTest();
+
+			} catch (Exception e){
+				System.debug('testGetUserInfo()::error==>' + e.getMessage());
+				isSuccess = false;
+			}
+		}
 		System.assert(isSuccess);
 	}
-    
-    public static testMethod void testInsertFiles() {
-        Account acct = new Account(Name='Test Account');
-        insert acct;
-        
-        ContentVersion contentVersion = new ContentVersion(
-          Title = 'Post Attachments',
-          PathOnClient = 'Attmt.jpg',
-          VersionData = Blob.valueOf('Test Content'),
-          IsMajorVersion = true
-        );
-        insert contentVersion;  
-        Map<String,  String> docMap = new Map<String, String>();
-        docMap.put('documentID', contentVersion.Id);
-        List<Map<String,  String>> lstDocuments = new List<Map<String,  String>>();
-        lstDocuments.add(docMap);
-        /*List<ContentDocument> documents = [SELECT Id, Title, LatestPublishedVersionId FROM ContentDocument];
-        
-        //create ContentDocumentLink  record 
-        ContentDocumentLink cdl = New ContentDocumentLink();
-        cdl.LinkedEntityId = acct.id;
-        cdl.ContentDocumentId = documents[0].Id;
-        cdl.shareType = 'V';
-        insert cdl;*/
-        
-       
-        Test.startTest();
-        	bspBaseUplift.insertFiles(acct.Id, lstDocuments);
-        Test.stopTest();
-    }
-    
+
+	public static testMethod void testInsertFiles() {
+		Account acct = new Account(Name='Test Account');
+		insert acct;
+		
+		ContentVersion contentVersion = new ContentVersion(
+			Title = 'Post Attachments',
+			PathOnClient = 'Attmt.jpg',
+			VersionData = Blob.valueOf('Test Content'),
+			IsMajorVersion = true
+		);
+		insert contentVersion;  
+		Map<String,  String> docMap = new Map<String, String>();
+		docMap.put('documentID', contentVersion.Id);
+		List<Map<String,  String>> lstDocuments = new List<Map<String,  String>>();
+		lstDocuments.add(docMap);
+		/*List<ContentDocument> documents = [SELECT Id, Title, LatestPublishedVersionId FROM ContentDocument];
+		
+		//create ContentDocumentLink  record 
+		ContentDocumentLink cdl = New ContentDocumentLink();
+		cdl.LinkedEntityId = acct.id;
+		cdl.ContentDocumentId = documents[0].Id;
+		cdl.shareType = 'V';
+		insert cdl;*/
+		
+		
+		Test.startTest();
+			bspBaseUplift.insertFiles(acct.Id, lstDocuments);
+		Test.stopTest();
+	}
+
 	public static testMethod void testGetUserInfo(){
-        Boolean isSuccess = true;
-        try{
+		Boolean isSuccess = true;
+		try{
 
 			Test.startTest();
 			bspBaseUplift.getLoggedInUserInfo(); //-- Create community User with contact
@@ -628,52 +625,86 @@ public class bspBaseUplift_Test{
 		System.assert(isSuccess);
 	}
 	/**
-     * Test basic attributes of the component
-     */
+	 * Test basic attributes of the component
+	 */
 
-    public static testMethod void testIsCognitionUser () {
+	public static testMethod void testIsCognitionUser () {
 
-        // BillingAccount__c is set to a TEAM billing account in @testSetup
-        Contact con = [Select Id, AccountId, BillingAccount__c From Contact LIMIT 1];
+		// BillingAccount__c is set to a TEAM billing account in @testSetup
+		Contact con = [Select Id, AccountId, BillingAccount__c From Contact LIMIT 1];
 
-        Network bspCommunity = [Select UrlPathPrefix From Network Where UrlPathPrefix = 'bsp'];
+		Network bspCommunity = [Select UrlPathPrefix From Network Where UrlPathPrefix = 'bsp'];
 
-        User uAdmin = TestUtility.createUser('Testing6', [Select Id From Profile Where Name = 'System Administrator'].Id, null);
-        System.debug('>> Sys Admin User: ' + uAdmin);
+		User uAdmin = TestUtility.createUser('Testing6', [Select Id From Profile Where Name = 'System Administrator'].Id, null);
+		System.debug('>> Sys Admin User: ' + uAdmin);
 
-        User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = con.Id, EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US',
-                LocaleSidKey = 'en_US', ProfileId = [SELECT Id FROM Profile WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
+		User u = new User(Alias = 'bspUser', Email = 'user@testorg.a', ContactId = con.Id, EmailEncodingKey = 'UTF-8', LastName = 'Testing', LanguageLocaleKey = 'en_US',
+				LocaleSidKey = 'en_US', ProfileId = [SELECT Id FROM Profile WHERE Name = 'BSP Community User'].Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'user@testorg.a');
 
-        // insert auth rule to test isCognitionUser
+		// insert auth rule to test isCognitionUser
 
-        Id cognitionRulesRecordTypeId = Schema.SObjectType.Authorization_Rule__c.getRecordTypeInfosByDeveloperName().get('Cognition_Rules').getRecordTypeId();
-        Authorization_Rule__c rule = new Authorization_Rule__c(RecordTypeId = cognitionRulesRecordTypeId, Contact__c = con.Id, AccessRole__c = Label.Cognition_User, Status__c = 'Active');
-        insert rule;
+		Id cognitionRulesRecordTypeId = Schema.SObjectType.Authorization_Rule__c.getRecordTypeInfosByDeveloperName().get('Cognition_Rules').getRecordTypeId();
+		Authorization_Rule__c rule = new Authorization_Rule__c(RecordTypeId = cognitionRulesRecordTypeId, Contact__c = con.Id, AccessRole__c = Label.Cognition_User, Status__c = 'Active');
+		insert rule;
 
-        Test.startTest();
+		Test.startTest();
 
-        System.runAs(u) {
-            bspBaseUplift comp = new bspBaseUplift();
+		System.runAs(u) {
+			bspBaseUplift comp = new bspBaseUplift();
 
-            // to force the community to be BSP
-            bspBaseUplift.currentNetworkId = bspCommunity.Id;
+			// to force the community to be BSP
+			bspBaseUplift.currentNetworkId = bspCommunity.Id;
 
-            //System.assertNotEquals(null, bspBaseUplift.businessName);
-            //System.assertNotEquals(null, bspBaseUplift.businessNumber);
-            System.assertEquals(true, bspBaseUplift.isCognitionUser(con.Id));
+			//System.assertNotEquals(null, bspBaseUplift.businessName);
+			//System.assertNotEquals(null, bspBaseUplift.businessNumber);
+			System.assertEquals(true, bspBaseUplift.isCognitionUser(con.Id));
 
-        }
+		}
 
-        System.runAs(uAdmin) {
-            delete rule;
-        }
+		System.runAs(uAdmin) {
+			delete rule;
+		}
 
-        System.runAs(u) {
-            bspComponent comp = new bspComponent();
-            System.assertEquals(false, comp.isCognitionUser);
+		System.runAs(u) {
+			bspComponent comp = new bspComponent();
+			System.assertEquals(false, comp.isCognitionUser);
 
-        }
+		}
 
-        Test.stopTest();
-    }
-}
+		Test.stopTest();
+	}
+
+	/**
+	 * Test:
+	 * Making sure that merchant portal access url is returned from the custom settings 
+	 */
+	@IsTest
+	private static void testGetMerchantPortalAccessUrl() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		String url = 'https://auspost--devnathan.sandbox.my.site.com/merchantportal/s/';
+		MerchantPortalSettings__c settings = new MerchantPortalSettings__c();
+		settings.AccessUrl__c = url;
+		settings.ContactOwnerUsername__c = 'apintegration@auspost.com.au';
+		insert settings;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String outputUrl = bspBaseUplift.getMerchantPortalAccessUrl();
+		Test.stopTest();
+
+		// =====================================
+		// Verification
+		// =====================================
+		System.assertNotEquals(null, outputUrl, 'Expected url to be returned');
+		System.assertEquals(url, outputUrl, 'Incorrect url returned');
+	}
+ }

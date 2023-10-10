@@ -550,6 +550,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Face to Face</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Letter</fullName>
             <default>false</default>
         </values>

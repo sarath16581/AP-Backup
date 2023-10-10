@@ -15,6 +15,7 @@
  * 2022-08-16 - Kamil Szyc - Added test for post office assigned selector option
  * 2023-03-17 - Naveen Rajanna - SMWD-397 - Modified to use Assert class for assertion, Added test for following enums - WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
  * 2023-05-01 - Naveen Rajanna - REQ2916371 - coverage for search() and new enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
+ * 2023-07-17 - Harry Wang - Added test for testSelectByIdWithContactsAndOpportunities
  */
 @IsTest
 public with sharing class AccountsSelector_Test {
@@ -462,5 +463,43 @@ public with sharing class AccountsSelector_Test {
 		System.Assert.areEqual(1, results.size(), 'Result count was wrong');
 
 		Test.stopTest();
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that selectByIdWithContactsAndOpportunities is returning expected results
+	 */
+	@IsTest
+	public static void testSelectByIdWithContactsAndOpportunities() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
+		insert accounts;
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, false);
+		insert contacts;
+		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(1, accounts[0].Id, false);
+		insert opportunities;
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				Account.SObjectType => new Set<SObjectField>{Account.ShippingStreet},
+				Contact.SObjectType => new Set<SObjectField>{Contact.OtherStreet},
+				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.KeyContact__c}
+		};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		AccountsSelector selector = AccountsSelector.newInstance(1, fieldOverrides);
+		List<Account> results = selector.selectByIdWithContactsAndOpportunities(new Set<Id>{contacts[0].Id}, new Set<Id>{opportunities[0].Id}, new Set<Id>{accounts[0].Id}, new Set<Object>());
+		Test.stopTest();
+		System.assertEquals(accounts[0].Id, results[0].Id, 'Id not matched');
+		System.assertEquals(1, results[0].Contacts.size(), 'One contact expected');
+		System.assertEquals(1, results[0].Opportunities.size(), 'One opportunity expected');
 	}
 }

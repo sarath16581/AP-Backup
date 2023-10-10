@@ -15,124 +15,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Business Sales NSW 1</fullName>
-                <default>false</default>
-                <label>Business Sales NSW 1</label>
-            </value>
-            <value>
-                <fullName>Business Sales NSW 2</fullName>
-                <default>false</default>
-                <label>Business Sales NSW 2</label>
-            </value>
-            <value>
-                <fullName>Business Sales NSW 3</fullName>
-                <default>false</default>
-                <label>Business Sales NSW 3</label>
-            </value>
-            <value>
-                <fullName>Business Sales NSW 4</fullName>
-                <default>false</default>
-                <label>Business Sales NSW 4</label>
-            </value>
-            <value>
-                <fullName>Business Sales QLD 1</fullName>
-                <default>false</default>
-                <label>Business Sales QLD 1</label>
-            </value>
-            <value>
-                <fullName>Business Sales QLD 2</fullName>
-                <default>false</default>
-                <label>Business Sales QLD 2</label>
-            </value>
-            <value>
-                <fullName>Business Sales SA/NT</fullName>
-                <default>false</default>
-                <label>Business Sales SA/NT</label>
-            </value>
-            <value>
-                <fullName>Business Sales VIC 1</fullName>
-                <default>false</default>
-                <label>Business Sales VIC 1</label>
-            </value>
-            <value>
-                <fullName>Business Sales VIC 2</fullName>
-                <default>false</default>
-                <label>Business Sales VIC 2</label>
-            </value>
-            <value>
-                <fullName>Business Sales VIC 3</fullName>
-                <default>false</default>
-                <label>Business Sales VIC 3</label>
-            </value>
-            <value>
-                <fullName>Business Sales VIC 4</fullName>
-                <default>false</default>
-                <label>Business Sales VIC 4</label>
-            </value>
-            <value>
-                <fullName>Business Sales WA</fullName>
-                <default>false</default>
-                <label>Business Sales WA</label>
-            </value>
-            <value>
-                <fullName>eCommerce Business Development</fullName>
-                <default>false</default>
-                <label>eCommerce Business Development</label>
-            </value>
-            <value>
-                <fullName>Federal Government</fullName>
-                <default>false</default>
-                <label>Federal Government</label>
-            </value>
-            <value>
-                <fullName>Federal Government Inside Sales</fullName>
-                <default>false</default>
-                <label>Federal Government Inside Sales</label>
-            </value>
-            <value>
-                <fullName>Inside Sales NSW 1</fullName>
-                <default>false</default>
-                <label>Inside Sales NSW 1</label>
-            </value>
-            <value>
-                <fullName>Inside Sales NSW 2</fullName>
-                <default>false</default>
-                <label>Inside Sales NSW 2</label>
-            </value>
-            <value>
-                <fullName>Inside Sales QLD 1</fullName>
-                <default>false</default>
-                <label>Inside Sales QLD 1</label>
-            </value>
-            <value>
-                <fullName>Inside Sales QLD 2</fullName>
-                <default>false</default>
-                <label>Inside Sales QLD 2</label>
-            </value>
-            <value>
-                <fullName>Inside Sales QLD 3</fullName>
-                <default>false</default>
-                <label>Inside Sales QLD 3</label>
-            </value>
-            <value>
-                <fullName>Inside Sales QLD 4</fullName>
-                <default>false</default>
-                <label>Inside Sales QLD 4</label>
-            </value>
-            <value>
                 <fullName>Inside Sales TSA</fullName>
                 <default>false</default>
                 <label>Inside Sales TSA</label>
-            </value>
-            <value>
-                <fullName>Inside Sales VIC 1</fullName>
-                <default>false</default>
-                <label>Inside Sales VIC 1</label>
-            </value>
-            <value>
-                <fullName>Inside Sales VIC 2</fullName>
-                <default>false</default>
-                <label>Inside Sales VIC 2</label>
             </value>
             <value>
                 <fullName>Intermediaries</fullName>
@@ -140,89 +25,259 @@
                 <label>Intermediaries</label>
             </value>
             <value>
-                <fullName>Key Financial NSW</fullName>
+                <fullName>eCommerce Partnerships</fullName>
                 <default>false</default>
-                <label>Key Financial NSW</label>
+                <label>eCommerce Partnerships</label>
             </value>
             <value>
-                <fullName>Key Financial VIC</fullName>
+                <fullName>Enterprise NSW 1</fullName>
                 <default>false</default>
-                <label>Key Financial VIC</label>
+                <label>Enterprise NSW 1</label>
             </value>
             <value>
-                <fullName>Key Retail &amp; Healthcare VIC</fullName>
+                <fullName>Enterprise NSW 2</fullName>
                 <default>false</default>
-                <label>Key Retail &amp; Healthcare VIC</label>
+                <label>Enterprise NSW 2</label>
             </value>
             <value>
-                <fullName>Key Retail NSW</fullName>
+                <fullName>Enterprise QLD &amp; NT</fullName>
                 <default>false</default>
-                <label>Key Retail NSW</label>
+                <label>Enterprise QLD &amp; NT</label>
             </value>
             <value>
-                <fullName>Market Development Business</fullName>
+                <fullName>Enterprise VIC 1</fullName>
                 <default>false</default>
-                <label>Market Development Business</label>
+                <label>Enterprise VIC 1</label>
             </value>
             <value>
-                <fullName>Market Development Enterprise</fullName>
+                <fullName>Enterprise VIC 2</fullName>
                 <default>false</default>
-                <label>Market Development Enterprise</label>
+                <label>Enterprise VIC 2</label>
             </value>
             <value>
-                <fullName>State &amp; Local Government NSW/QLD</fullName>
+                <fullName>Enterprise VIC 3</fullName>
                 <default>false</default>
-                <label>State &amp; Local Government NSW/QLD</label>
+                <label>Enterprise VIC 3</label>
             </value>
             <value>
-                <fullName>State &amp; Local Government NSW/QLD Inside Sales</fullName>
+                <fullName>Enterprise VIC 4</fullName>
                 <default>false</default>
-                <label>State &amp; Local Government NSW/QLD Inside Sales</label>
+                <label>Enterprise VIC 4</label>
             </value>
             <value>
-                <fullName>State &amp; Local Government VIC/TAS</fullName>
+                <fullName>Financial Institutions</fullName>
                 <default>false</default>
-                <label>State &amp; Local Government VIC/TAS</label>
+                <label>Financial Institutions</label>
             </value>
             <value>
-                <fullName>State &amp; Local Government VIC/TAS Inside  Sales</fullName>
+                <fullName>Government North</fullName>
                 <default>false</default>
-                <label>State &amp; Local Government VIC/TAS Inside  Sales</label>
+                <label>Government North</label>
             </value>
             <value>
-                <fullName>State &amp; Local Government WA/SA/NT</fullName>
+                <fullName>Government South</fullName>
                 <default>false</default>
-                <label>State &amp; Local Government WA/SA/NT</label>
+                <label>Government South</label>
             </value>
             <value>
-                <fullName>State &amp; Local Government WA/SA/NT Inside Sales</fullName>
+                <fullName>LBP CPO/BC North</fullName>
                 <default>false</default>
-                <label>State &amp; Local Government WA/SA/NT Inside Sales</label>
+                <label>LBP CPO/BC North</label>
             </value>
             <value>
-                <fullName>Strategic &amp; Key QLD</fullName>
+                <fullName>LBP CPO/BC South</fullName>
                 <default>false</default>
-                <label>Strategic &amp; Key QLD</label>
+                <label>LBP CPO/BC South</label>
             </value>
             <value>
-                <fullName>Strategic Financial &amp; Healthcare NSW</fullName>
+                <fullName>LBP Post Offices NSW/ACT &amp; QLD/NT</fullName>
                 <default>false</default>
-                <label>Strategic Financial &amp; Healthcare NSW</label>
+                <label>LBP Post Offices NSW/ACT &amp; QLD/NT</label>
             </value>
             <value>
-                <fullName>Strategic Financial &amp; Utilities VIC</fullName>
+                <fullName>LBP Post Offices VIC/TAS &amp; WA &amp; SA</fullName>
                 <default>false</default>
-                <label>Strategic Financial &amp; Utilities VIC</label>
+                <label>LBP Post Offices VIC/TAS &amp; WA &amp; SA</label>
             </value>
             <value>
-                <fullName>Strategic Retail &amp; Telco NSW</fullName>
+                <fullName>LBP Sales Manager NSW 1</fullName>
                 <default>false</default>
-                <label>Strategic Retail &amp; Telco NSW</label>
+                <label>LBP Sales Manager NSW 1</label>
             </value>
             <value>
-                <fullName>Strategic Retail &amp; Telco VIC</fullName>
+                <fullName>LBP Sales Manager NSW 2</fullName>
                 <default>false</default>
-                <label>Strategic Retail &amp; Telco VIC</label>
+                <label>LBP Sales Manager NSW 2</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager NSW 3</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager NSW 4</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 4</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 2</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 3</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager SA 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager SA 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager VIC 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager VIC 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager VIC 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager VIC 2</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager VIC 3</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager VIC 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager WA 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager WA 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager WA 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager WA 2</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 North</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 North</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 South</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 South</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 1</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 2</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 3</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 3</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 4</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 4</label>
+            </value>
+            <value>
+                <fullName>Medium Business QLD 1</fullName>
+                <default>false</default>
+                <label>Medium Business QLD 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business QLD 2</fullName>
+                <default>false</default>
+                <label>Medium Business QLD 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business SA/NT</fullName>
+                <default>false</default>
+                <label>Medium Business SA/NT</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 1</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 2</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 3</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 3</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 4</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 4</label>
+            </value>
+            <value>
+                <fullName>Medium Business WA</fullName>
+                <default>false</default>
+                <label>Medium Business WA</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 1</fullName>
+                <default>false</default>
+                <label>Small Business NSW 1</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 2</fullName>
+                <default>false</default>
+                <label>Small Business NSW 2</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 3</fullName>
+                <default>false</default>
+                <label>Small Business NSW 3</label>
+            </value>
+            <value>
+                <fullName>Small Business QLD 1</fullName>
+                <default>false</default>
+                <label>Small Business QLD 1</label>
+            </value>
+            <value>
+                <fullName>Small Business QLD 2</fullName>
+                <default>false</default>
+                <label>Small Business QLD 2</label>
+            </value>
+            <value>
+                <fullName>Small Business SA/NT</fullName>
+                <default>false</default>
+                <label>Small Business SA/NT</label>
+            </value>
+            <value>
+                <fullName>Small Business VIC 1</fullName>
+                <default>false</default>
+                <label>Small Business VIC 1</label>
+            </value>
+            <value>
+                <fullName>Small Business VIC 2</fullName>
+                <default>false</default>
+                <label>Small Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>Small Business WA</fullName>
+                <default>false</default>
+                <label>Small Business WA</label>
             </value>
         </valueSetDefinition>
     </valueSet>

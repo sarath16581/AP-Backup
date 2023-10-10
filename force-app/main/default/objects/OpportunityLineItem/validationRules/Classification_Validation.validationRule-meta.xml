@@ -8,6 +8,8 @@ ISCHANGED(Classification__c),
 
 NOT(ISPICKVAL(Opportunity.StageName, &apos;Closed Won&apos;)),
 
+NOT(ISPICKVAL( OPCOverride__c , &apos;Yes&apos;)),
+
 NOT(
 OR(ISCHANGED(Contract_Start_Date__c),
 ISCHANGED(Contract_End_Date__c))

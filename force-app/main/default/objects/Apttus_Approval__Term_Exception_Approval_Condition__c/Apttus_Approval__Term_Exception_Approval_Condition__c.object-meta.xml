@@ -163,8 +163,8 @@
     </nameField>
     <pluralLabel>Term Exception Approval Conditions</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Approval__Term_Exception_Approval__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Active__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Number__c</lookupDialogsAdditionalFields>

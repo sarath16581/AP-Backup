@@ -24,7 +24,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>APSNumber__c</field>
+                <field>EmployeeNumber</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

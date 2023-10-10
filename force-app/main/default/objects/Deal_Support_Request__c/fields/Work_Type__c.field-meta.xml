@@ -63,11 +63,6 @@
                 <label>Ariba Change Ownership</label>
             </value>
             <value>
-                <fullName>Bespoke Agreements</fullName>
-                <default>false</default>
-                <label>Bespoke Agreements</label>
-            </value>
-            <value>
                 <fullName>Billing</fullName>
                 <default>false</default>
                 <label>Billing</label>
@@ -776,6 +771,16 @@
                 <fullName>Change OE APR rate</fullName>
                 <default>false</default>
                 <label>Change OE APR rate</label>
+            </value>
+            <value>
+                <fullName>Strategic Onboarding</fullName>
+                <default>false</default>
+                <label>Strategic Onboarding</label>
+            </value>
+            <value>
+                <fullName>Change of address / change of customer details</fullName>
+                <default>false</default>
+                <label>Change of address / change of customer details</label>
             </value>
         </valueSetDefinition>
     </valueSet>

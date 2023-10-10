@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
-    <body>&lt;script type=&quot;text/javascript&quot; src=&quot;/apex/datasan__SettingJS?core.apexpages.devmode.url=1&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;/resource/custom_datasan/js/custom-datasan.js&quot;&gt;&lt;/script&gt;&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/resource/custom_datasan/css/start/style.css&quot;&gt;&lt;div id=&quot;ama_message&quot;&gt;&lt;/div&gt;</body>
-    <pageComponentType>htmlArea</pageComponentType>
-    <width>narrow</width>
-</HomePageComponent>

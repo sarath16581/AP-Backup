@@ -4,7 +4,7 @@
     <description>Captures Sales Team value from associated Organization: used in ST Delegation reporting</description>
     <externalId>false</externalId>
     <formula>TEXT(Apttus_Proposal__Account__r.Sales_Segment__c)</formula>
-    <label>Sales Team</label>
+    <label>(depr) Sales Team</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

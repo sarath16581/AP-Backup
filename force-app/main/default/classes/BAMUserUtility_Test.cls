@@ -1,15 +1,16 @@
-/**************************************************
-Description:    Test class that covers BAMUserUtility class
-History:
---------------------------------------------------
-2019-05-13  nathan.franklin@auspost.com.au  Created
-**************************************************/
+/**
+ * @description Test class that covers BAMUserUtility class
+ * @author Nathan Franklin
+ * @date 2019-05-13
+ * @changelog
+ * 2023-07-13 Mahesh Parvathaneni  Updated - added tests for getAppBillingAccountDataWrapper
+ */
 @isTest
-public class BAMUserUtility_Test {
+private class BAMUserUtility_Test {
 
 	public static Id bspProfileId = [Select Id From Profile Where Name = :BspConstants.BSP_COMMUNITY_PROFILE_NAME].Id;
 	public static Id businessPortalProfileId = [Select Id From Profile Where Name = :BAMUserUtility.MERCHANT_PORTAL_PROFILE_NAME].Id;
-	public static Id bspNetworkId = [Select Id From Network Where Name = 'Australia Post Business Support Portal'].Id;
+	public static Id bspNetworkId = [Select Id From Network Where Name = 'AP Business Support Portal'].Id;
 	public static Id merchantPortalNetworkId = [Select Id From Network Where Name = 'Australia Post Merchant Portal'].Id;
 
 	@testSetup
@@ -264,6 +265,8 @@ public class BAMUserUtility_Test {
 		BAMLinkedEntity__c linkedEntity = BAMTestUtility.createTestLinkedEntity(contactRole.Id, grp.Id, 'grp');
 		insert linkedEntity;
 
+		Map<String, BAMContactRole__c> appIdcontactRoleMap = new Map<String, BAMContactRole__c>{app.Id => contactRole};
+
 		Test.startTest();
 
 		System.assertEquals(1, BAMUserUtility.getGroups(new Set<Id>{grp.Id}, u.Contact.AccountId).size());
@@ -275,6 +278,8 @@ public class BAMUserUtility_Test {
 		System.assertEquals(false, BAMUserUtility.contactApplicationIsPendingProvision(contactApp));
 		System.assertEquals(1, BAMUserUtility.getApplicationRolesForAccount(u.Contact.AccountId).size());
 		System.assertNotEquals(null, BAMUserUtility.retrieveContactUserDetail(u.ContactId));
+		System.assertEquals(1, BAMUserUtility.loadContactRolePerApplication(u.ContactId).size(), 'Expected contact roles to be returned');
+		System.assertEquals(1, BAMUserUtility.getBillingAccountIdsKeyedByAppId(appIdcontactRoleMap).size(), 'Expected billing account map to be returned');
 
 		// check current user doesn't have access to call BAM API
 		System.runAs(u) {
@@ -324,5 +329,180 @@ public class BAMUserUtility_Test {
 
 		Test.stopTest();
 
+	}
+
+	/**
+	 * Scenario: Testing to check billing accounts filtered as per the filter set at application level
+	 */
+	@IsTest
+	private static void testGetAppBillingAccountDataWrapper() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//get account
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		//get products
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		//get BAM Applications
+		List<BAMApplication__c> bamApps = ApplicationTestDataFactory.getBamApplications(1,'Business Shop',products[0].Id, true);
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Business Support Portal',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Parcel Send',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Online Shop',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Online Support Portal',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Help and  Support',products[1].Id, true));
+		//filter with equal check only
+		bamApps[0].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false}';
+		//filter with equal check only
+		bamApps[2].BillingAccountFilter__c = '{"Source_System__c": ["TEAM","SAP ERP"],"Credit_Status__c": false}';
+		//filter with equal check and notContains for Legacy_ID__c and State__c
+		bamApps[3].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"LEGACY_ID__c":["A","B"],"State__c":"QLD"}}';
+		bamApps[4].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"LEGACY_ID__c":["A","B"],"State__c":"VIC"}}';
+		//invalid json filter
+		bamApps[5].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false';
+		//get billing accounts
+		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'SAP ERP',true);
+		billingAccounts.addAll(ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'TEAM',true));
+
+		for (Billing_Account__c ba : billingAccounts) {
+			ba.Credit_Status__c = false;
+			ba.State__c = 'VIC';
+		}
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<BAMUserUtility.ApplicationBillingAccountDataWrapper> wrapper = BAMUserUtility.getAppBillingAccountDataWrapper(bamApps, billingAccounts, null);
+
+		Test.stopTest();
+
+		//Assert filters are applied
+		Assert.areEqual(bamApps.size(), wrapper.size(), 'Expected five application results to be returned');
+		Assert.areEqual(bamApps[0].Id, wrapper[0].bamApplicationId, 'Incorrect app id returned');
+		Assert.areEqual(3, wrapper[0].billingAccounts.size(), 'Expected Team source system billing accounts are filtered');
+		//all the billing accounts are returned as there is no filter specified at app level
+		Assert.areEqual(billingAccounts.size(), wrapper[1].billingAccounts.size(), 'Expected no billing accounts are filtered');
+		//all the billing accounts are returned as they satisfy with Source_System__c as TEAM or SAP ERP
+		Assert.areEqual(billingAccounts.size(), wrapper[2].billingAccounts.size(), 'Expected all billing accounts are filtered');
+		//only Source_System__c as TEAM will be returned as they satify the filter and have State__c as VIC
+		Assert.areEqual(3, wrapper[3].billingAccounts.size(), 'Expected Team source system billing accounts are filtered');
+		//no billing accounts match for the filter defined as the billing accounts have state as VIC
+		Assert.areEqual(0, wrapper[4].billingAccounts.size(), 'Expected no billing accounts are returned');
+		//all the billing accounts will be returned as json filter is invalid
+		Assert.areEqual(billingAccounts.size(), wrapper[5].billingAccounts.size(), 'Expected all billing accounts are returned');
+	}
+
+	/**
+	 * Scenario: Testing to check billing accounts filtered as per the filter set at application level and if there were any exisitng billing accounts
+	 * already selected by the user
+	 */
+	@IsTest
+	private static void testGetAppBillingAccountDataWrapperWithExistingAccounts() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//get account
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		//get products
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		//get BAM Applications
+		List<BAMApplication__c> bamApps = ApplicationTestDataFactory.getBamApplications(1,'Business Shop',products[0].Id, true);
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Business Support Portal',products[1].Id, true));
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Parcel Send',products[1].Id, true));
+		//filter with equal check only
+		bamApps[0].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"PAYER_ACCOUNT_ID__c":null}';
+		//filter with equal check only
+		bamApps[2].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"PAYER_ACCOUNT_ID__c":null}}';
+		//get billing accounts
+		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'SAP ERP',true);
+		billingAccounts.addAll(ApplicationTestDataFactory.getBillingAccounts(3,accounts[0].Id,'TEAM',true));
+
+		for (Billing_Account__c ba : billingAccounts) {
+			ba.Credit_Status__c = false;
+			ba.PAYER_ACCOUNT_ID__c = null;
+		}
+
+		List<Billing_Account__c> existingBillingAccounts = ApplicationTestDataFactory.getBillingAccounts(2,accounts[0].Id,'TEAM',true);
+		Set<Id> existingIds = new Set<Id>();
+		for (Billing_Account__c ba : existingBillingAccounts) {
+			ba.Credit_Status__c = true;
+			ba.PAYER_ACCOUNT_ID__c = accounts[0].Id;
+			existingIds.add(ba.Id);
+		}
+		billingAccounts.addAll(existingBillingAccounts);
+
+		Map<Id, Set<Id>> billingAccountIdsKeyedByAppId = new Map<Id, Set<Id>>();
+		billingAccountIdsKeyedByAppId.put(bamApps[0].Id, existingIds);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<BAMUserUtility.ApplicationBillingAccountDataWrapper> wrapper = BAMUserUtility.getAppBillingAccountDataWrapper(bamApps, billingAccounts, billingAccountIdsKeyedByAppId);
+
+		Test.stopTest();
+
+		//Assert filters are applied
+		Assert.areEqual(bamApps.size(), wrapper.size(), 'Expected five application results to be returned');
+		Assert.areEqual(bamApps[0].Id, wrapper[0].bamApplicationId, 'Incorrect app id returned');
+		//should filter the TEAM records and also add the existing selected billing accounts
+		Assert.areEqual(5, wrapper[0].billingAccounts.size(), 'Expected Team source system billing accounts are filtered');
+		//all the billing accounts are returned as there is no filter specified at app level
+		Assert.areEqual(billingAccounts.size(), wrapper[1].billingAccounts.size(), 'Expected no billing accounts are filtered');
+		//no billing accounts match for the filter defined as the billing accounts have PAYER_ACCOUNT_ID__c as null
+		Assert.areEqual(0, wrapper[2].billingAccounts.size(), 'Expected no billing accounts are returned');
+	}
+
+	/**
+	 * Scenario: Testing to check correct SObjectFields are returned from the BillingAccountFilter__c field
+	 */
+	@IsTest
+	private static void testGetBillingAccountFieldOverridesWithFilterFields() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//get account
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		//get products
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		//get BAM Applications
+		List<BAMApplication__c> bamApps = ApplicationTestDataFactory.getBamApplications(1,'Business Shop',products[0].Id, true);
+		bamApps.addAll(ApplicationTestDataFactory.getBamApplications(1,'Business Support Portal',products[1].Id, true));
+		bamApps[0].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false}';
+		bamApps[1].BillingAccountFilter__c = '{"Source_System__c": "TEAM","Credit_Status__c": false,"notContains":{"PAYER_ACCOUNT_ID__c":null}}';
+		Map<Id, BAMApplication__c> appMap = new Map<Id, BAMApplication__c>(bamApps);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Set<SObjectField> fields = BAMUserUtility.getBillingAccountFieldOverridesWithFilterFields(appMap);
+
+		Test.stopTest();
+
+		//Assert SObjectFields are returned
+		Assert.areEqual(true, fields.contains(Billing_Account__c.Source_System__c), 'Expected Source_System__c field to be returned');
+		Assert.areEqual(true, fields.contains(Billing_Account__c.Credit_Status__c), 'Expected Credit_Status__c field to be returned');
+		Assert.areEqual(true, fields.contains(Billing_Account__c.PAYER_ACCOUNT_ID__c), 'Expected PAYER_ACCOUNT_ID__c field to be returned');
+		Assert.areEqual(false, fields.contains(Billing_Account__c.Fax_Number__c), 'Expected Fax_Number__c field not to be returned');
+		Assert.areEqual(false, fields.contains(Billing_Account__c.Credit_Limit__c), 'Expected Credit_Limit__c field not to be returned');
 	}
 }

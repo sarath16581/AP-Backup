@@ -33,15 +33,8 @@ A.judd 10/03/20- Update on Contact and Lead mappings</description>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>notEqual</operation>
-            <value>SNNAP Integration</value>
-            <sortOrder>4</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>notEqual</operation>
             <value>System Administrator</value>
-            <sortOrder>5</sortOrder>
+            <sortOrder>4</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>

@@ -166,8 +166,8 @@
         <customTabListAdditionalFields>AMLCTF_Corrective_Action__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>OWNER.FIRST_NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>OWNER.LAST_NAME</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>AMLCTF_Comments_or_Findings__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>AMLCTF_Corrective_Action__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>OWNER.FIRST_NAME</lookupDialogsAdditionalFields>

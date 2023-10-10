@@ -78,7 +78,7 @@
 			<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 			<td>
-			<img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000EGouh&oid=00D30000001GGce" border="0" alt="Australia Post - Implementation Survey Email Header" width="508" height="161" style="vertical-align:top;" />					
+			<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000EGouh&oid=00D30000001GGce" border="0" alt="Australia Post - Implementation Survey Email Header" width="508" height="161" style="vertical-align:top;" />					
 			</td>
 			</tr>
 			</table>
@@ -162,7 +162,7 @@
 <!-- Changed a href in next line to stop activating getfeedback. Changed from https to httq -->
 <!-- 12102017 SC Updated link to GetFeedback Survey Post Impl -->
 
-		<a href="https://www.getfeedback.com/r/jieL0dS0?OwnerId={!Case.Calc_Owner_Name__c}&ContactId={!Contact.Id}&Casenumber={!Case.CaseNumber}&Accountid={!Case.AccountId}&Caseid={!Case.Id}" title="Start survey link"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000EGp2W&oid=00D30000001GGce&lastMod=1507783049000" border="0" style="vertical-align:top;alt="Start survey" /></a>
+		<a href="https://www.getfeedback.com/r/jieL0dS0?OwnerId={!Case.Calc_Owner_Name__c}&ContactId={!Contact.Id}&Casenumber={!Case.CaseNumber}&Accountid={!Case.AccountId}&Caseid={!Case.Id}" title="Start survey link"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000EGp2W&oid=00D30000001GGce&lastMod=1507783049000" border="0" style="vertical-align:top;alt="Start survey" /></a>
 																
 		</tr>
 		</td>
@@ -205,9 +205,9 @@
 
 				<tr>
 				<td>
-				<a href="https://twitter.com/auspost"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxt&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Twitter" /></a>
-				<a href="https://www.facebook.com/australiapost"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZxy&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Facebook" /></a>
-				<a href="https://www.linkedin.com/company/australia-post"><img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCZyD&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via LinkedIn" /></a>
+				<a href="https://twitter.com/auspost"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxt&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Twitter" /></a>
+				<a href="https://www.facebook.com/australiapost"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZxy&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via Facebook" /></a>
+				<a href="https://www.linkedin.com/company/australia-post"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCZyD&oid=00D30000001GGce" border="0" style="vertical-align:top;alt="Connect via LinkedIn" /></a>
 				<br/>
 				<br/>
 				</td>
@@ -234,7 +234,7 @@
 
 	<tr>	
 	<td style="padding:0px 0px 5px; font:14px/16px Arial, Helvetica, sans-serif; color:#5c514d;">
-	<img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DCa0Y&oid=00D30000001GGce" border="0" style="vertical-align:top; alt="Australia Post will never send you an email asking for your password, credit card details or account information." />	
+	<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000DCa0Y&oid=00D30000001GGce" border="0" style="vertical-align:top; alt="Australia Post will never send you an email asking for your password, credit card details or account information." />	
 	</td>
 	</tr>
 

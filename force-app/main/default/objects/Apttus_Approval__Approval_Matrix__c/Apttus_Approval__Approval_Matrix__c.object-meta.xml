@@ -172,8 +172,8 @@
         <customTabListAdditionalFields>Apttus_Approval__Approver_4__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Approver_5__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Approver_6__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Approval__User__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Is_Active__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Is_Valid__c</lookupDialogsAdditionalFields>

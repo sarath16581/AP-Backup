@@ -62,10 +62,10 @@ public with sharing class CreateBillingAccountController {
 	}
 	/**
 	 * @Description:  Checks and validation all the required attributes for Billing Account creation and provide
-	 *  a message to user in case of any one attribute is missing and prevents the billign account
-	 *  creation till the time all requried attribute is populated.
-	 *  1. Will generate the Billing account request record using generateBillingAccountCreationRequestFromDSR method
-	 *  2. Will validatite the attribute details using CreateBillingAccountHelper.BillingAccountValidations method
+	 *                a message to user in case of any one attribute is missing and prevents the billign account
+	 *                creation till the time all requried attribute is populated.
+	 *                1. Will generate the Billing account request record using generateBillingAccountCreationRequestFromDSR method
+	 *                2. Will validatite the attribute details using CreateBillingAccountHelper.BillingAccountValidations method
 	 */
 	@AuraEnabled
 	public static CreateBillingAccountHelper.billingAccountWithEmptyfields billingAccountCreationPreCheck(String recordId){
@@ -83,7 +83,7 @@ public with sharing class CreateBillingAccountController {
 	}
 	/**
 	 * @Descciption  : Generated the External onboading request record prior to actual billing account creation is triggered.
-	 *   Uses  CreateBillingAccountHelper.ExternalOnboardingRequestDetails() for creation.
+	 *                 Uses  CreateBillingAccountHelper.ExternalOnboardingRequestDetails() for creation.
 	 * */
 	@AuraEnabled
 	public static CreateBillingAccountHelper.externalOnboardingRequestWithConnectionDetails generateExternalOnboardingRecord(String recordId, String billingAccountName){
@@ -142,7 +142,7 @@ public with sharing class CreateBillingAccountController {
 			con.state = stateInfoVar;
 			con.continuationMethod = 'processResponse';
 			return con;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -186,7 +186,7 @@ public with sharing class CreateBillingAccountController {
 	}
 	/**
 	 * @Description: Creates the Billing Account Creation Request using DSR as a base record which has details from multiple objects such as
-	 *  related organisation, Primary Contact, Credit Assessment.
+	 *                related organisation, Primary Contact, Credit Assessment.
 	 * 				  Seth Heang - 12/05/21 Updated Request Payload structure and field mappings
 	 *
 	 */
@@ -359,6 +359,7 @@ public with sharing class CreateBillingAccountController {
 								// zero count of sub-account request
 								subAccountCount = 0;
 							}
+
 						}
 
 						// Query "Agreement Lodgement Point" junction record which related to Apttus Contract, and retrieve the Network record

@@ -7,7 +7,7 @@
  * @domain ContactPointPhone
  * @changelog
  * 2022-05-22 - George Nguyen - Created.
- *
+ * 2023-08-21 - Boris Bachovski - Temporary bugfix for an issue when removing a contact point phone record (avoid registering dirty field when not required - Contact.Unique_Mobile__c)
  */
 public inherited sharing class ContactPointPhoneContactSyncModule extends ApplicationDomain.Module {
 	public static ContactPointPhoneContactSyncModule newInstance() {
@@ -63,7 +63,28 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 			List<SObject> recordsToUpdate = ContactService.getInstance().syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records, null);
 			ContactUtility.generateReversePhoneFields((List<Contact>)recordsToUpdate);
 
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
+			// IMPORTANT NOTE: This is a temporary fix and will be addressed as part of a broader refactoring excecise of the customer data sync process.
+			// Description:
+			// Sometimes the contact sObject in memory does not have Unique Mobile populated (if it doesn't need updating)
+			// During update, this field is getting registered dirty as part of the unit of work, which can cause an issue if `null` value is specified:
+			// INVALID_TYPE_ON_FIELD_IN_RECORD Unique Mobile: value not of required type
+			// In these scenarios, records which don't need updating of Unique Mobile are registered separately without registering this as a dirty field
+			List <SObject> recordsWithUniqueMobile = new List <SObject> ();
+			List <SObject> recordsWithoutUniqueMobile = new List <SObject> ();
+
+			for (SObject contact : recordsToUpdate) {
+				if (contact.get('Unique_Mobile__c') == null) {
+					recordsWithoutUniqueMobile.add(contact);
+				} else {
+					recordsWithUniqueMobile.add(contact);
+				}
+			}
+
+			List <SObjectField> dirtyFieldsNoUniqueMobile = getFieldstoRegDirtyContact();
+			dirtyFieldsNoUniqueMobile.remove(dirtyFieldsNoUniqueMobile.indexOf(Contact.Unique_Mobile__c));
+
+			uow.registerDirty(recordsWithUniqueMobile, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
+			uow.registerDirty(recordsWithoutUniqueMobile, dirtyFieldsNoUniqueMobile, ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,

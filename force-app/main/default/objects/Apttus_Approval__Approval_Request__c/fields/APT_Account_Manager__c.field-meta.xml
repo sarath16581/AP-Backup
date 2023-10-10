@@ -4,7 +4,7 @@
     <description>Opportunity Driver Name</description>
     <externalId>false</externalId>
     <formula>Apttus_QPApprov__ProposalOwnerId__r.FirstName &amp; &apos; &apos;  &amp;  Apttus_QPApprov__ProposalOwnerId__r.LastName</formula>
-    <label>Account Manager</label>
+    <label>(depr) Account Manager</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

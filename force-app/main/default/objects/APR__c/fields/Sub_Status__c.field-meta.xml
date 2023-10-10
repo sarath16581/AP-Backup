@@ -11,7 +11,6 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>Status__c</controllingField>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -90,78 +89,5 @@
                 <label>Under Negotiation</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Reduction</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Gain additional business</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Accepted</controllingFieldValue>
-            <controllingFieldValue>Reduction</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Long term agreement</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Reduction</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Management decision</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Reduction</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>NiteRoad/Agent</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Accepted</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Price Target Set</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Reduction</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Rates recently reviewed</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <controllingFieldValue>Reduction</controllingFieldValue>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Sales Director Delegation</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
-            <valueName>Started after 1st August</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accepted</controllingFieldValue>
-            <controllingFieldValue>Account Lost</controllingFieldValue>
-            <controllingFieldValue>Open</controllingFieldValue>
-            <valueName>Other</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Deferral</controllingFieldValue>
-            <controllingFieldValue>Go early</controllingFieldValue>
-            <valueName>Different Anniversary date</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Unresolved</controllingFieldValue>
-            <valueName>Contract under negotiation</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Unresolved</controllingFieldValue>
-            <valueName>Under Negotiation</valueName>
-        </valueSettings>
     </valueSet>
 </CustomField>

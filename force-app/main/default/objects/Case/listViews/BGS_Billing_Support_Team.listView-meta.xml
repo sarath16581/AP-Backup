@@ -39,5 +39,6 @@
         <roleAndSubordinatesInternal>Service_Enterprise_Service_Manager</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Government_Head_of_Service</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Government_Service_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

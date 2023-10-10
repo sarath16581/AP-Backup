@@ -20,7 +20,6 @@
         <field>Confirmed_Date__c</field>
         <field>Conclusion_Date__c</field>
         <field>Status__c</field>
-        <field>Sub_Status__c</field>
         <field>Comments__c</field>
         <field>Owner</field>
     </approvalPageFields>
@@ -83,11 +82,14 @@ $User.Manager__c &lt;&gt; $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</form
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>APR_Approvers</name>
-                <type>queue</type>
+                <type>userHierarchyField</type>
             </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
+        <entryCriteria>
+            <formula>$User.Manager__c &lt;&gt; $Setup.APRs__c.Enterprise_and_Government_Manager__c
+&amp;&amp;
+$User.Manager__c &lt;&gt; $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</formula>
+        </entryCriteria>
         <label>Step 3</label>
         <name>Step_3</name>
         <rejectBehavior>
@@ -97,17 +99,10 @@ $User.Manager__c &lt;&gt; $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</form
     <emailTemplate>All_Email_Templates/APR_for_Billing_Accts</emailTemplate>
     <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>1 AND 2</booleanFilter>
-        <criteriaItems>
-            <field>APR__c.RecordType</field>
-            <operation>equals</operation>
-            <value>StarTrack</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>APR__c.Status__c</field>
-            <operation>equals</operation>
-            <value>Exemption,Reduction,Deferral,Go early</value>
-        </criteriaItems>
+        <formula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;, 
+OR( Confirmed_Rate__c &lt; Walk_out_Rate__c)
+)</formula>
     </entryCriteria>
     <finalApprovalActions>
         <action>

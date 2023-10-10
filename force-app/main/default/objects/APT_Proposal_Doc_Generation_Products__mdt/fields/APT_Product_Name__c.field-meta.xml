@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Name__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Product Name</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Product Name</inlineHelpText>
+    <label>Product Name</label>
+    <length>255</length>
+    <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

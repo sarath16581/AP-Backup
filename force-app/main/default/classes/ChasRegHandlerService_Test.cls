@@ -3,6 +3,9 @@
  * @author Nathan Franklin
  * @date 2023-03-20
  * @changelog
+ * 2023-08-04 - Mahesh Parvathaneni - Added tests for updateForExistingUser
+ * 2023-08-31 - Mahesh Parvathaneni - updated test methods
+ * 2023-09-19 - Mahesh Parvathaneni - updated test methods
 */
 @IsTest
 private with sharing class ChasRegHandlerService_Test {
@@ -118,7 +121,7 @@ private with sharing class ChasRegHandlerService_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockAccountsSelector.selectByAPCN((Set<String>)fflib_Match.eq(new Set<String>{'123'}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>{personAccount.Id => personAccount});
-		MockUtility.Mocks.when(mockUsersSelector.selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}))).thenReturn(new Map<Id, User>());
+		MockUtility.Mocks.when(mockUsersSelector.selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, User>());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -141,7 +144,7 @@ private with sharing class ChasRegHandlerService_Test {
 		((SSSWAccountsSelector)MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(1))).selectByAPCN((Set<String>)apcnCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		System.assertEquals(new Set<String>{apcn}, (Set<String>)apcnCaptor.getValue());
 
-		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}));
+		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}), (Set<Object>)fflib_Match.anyObject());
 
 		System.assertEquals(federationId, userForCreation.FederationIdentifier);
 		System.assertEquals(personContact.Id, userForCreation.ContactId);
@@ -200,7 +203,7 @@ private with sharing class ChasRegHandlerService_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockAccountsSelector.selectByAPCN((Set<String>)fflib_Match.eq(new Set<String>{'123'}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>{personAccount.Id => personAccount});
-		MockUtility.Mocks.when(mockUsersSelector.selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}))).thenReturn(new Map<Id, User>{userRecord.Id => userRecord});
+		MockUtility.Mocks.when(mockUsersSelector.selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, User>{userRecord.Id => userRecord});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -224,7 +227,7 @@ private with sharing class ChasRegHandlerService_Test {
 		((SSSWAccountsSelector)MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(1))).selectByAPCN((Set<String>)apcnCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		System.assertEquals(new Set<String>{apcn}, (Set<String>)apcnCaptor.getValue());
 
-		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}));
+		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}), (Set<Object>)fflib_Match.anyObject());
 
 		System.assertEquals(userRecord.Id, existingUser.Id);
 		System.assertEquals(federationId, existingUser.FederationIdentifier);
@@ -281,7 +284,7 @@ private with sharing class ChasRegHandlerService_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockAccountsSelector.selectByAPCN((Set<String>)fflib_Match.eq(new Set<String>{'123'}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>{personAccount.Id => personAccount});
-		MockUtility.Mocks.when(mockUsersSelector.selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}))).thenReturn(new Map<Id, User>{userRecord.Id => userRecord});
+		MockUtility.Mocks.when(mockUsersSelector.selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, User>{userRecord.Id => userRecord});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -304,7 +307,7 @@ private with sharing class ChasRegHandlerService_Test {
 		((SSSWAccountsSelector)MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(1))).selectByAPCN((Set<String>)apcnCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		System.assertEquals(new Set<String>{apcn}, (Set<String>)apcnCaptor.getValue());
 
-		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}));
+		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByContactId((Set<Id>)fflib_Match.eq(new Set<Id>{personContact.Id}), (Set<Object>)fflib_Match.anyObject());
 
 		// capture and verify inserted Account record
 		User updatedUser = ((List<User>)MockUtility.verifyAndCaptureUpdatedDmlRecords(mockDatabase))[0];
@@ -373,14 +376,87 @@ private with sharing class ChasRegHandlerService_Test {
 		System.assertEquals(1, service.validateAssertion(federationId, clonedAttributes).size());
 
 		clonedAttributes = augmentedAttributes.clone();
-		clonedAttributes.keySet().remove(ChasRegHandlerService.ATTRIBUTE_CNUMBER_MAPPING);
+		clonedAttributes.keySet().remove(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING);
 		System.assertEquals(1, service.validateAssertion(federationId, clonedAttributes).size());
 
 		clonedAttributes = augmentedAttributes.clone();
-		clonedAttributes.keySet().remove(ChasRegHandlerService.ATTRIBUTE_APCN_MAPPING);
+		clonedAttributes.keySet().remove(Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING);
 		System.assertEquals(1, service.validateAssertion(federationId, clonedAttributes).size());
 
 		Test.stopTest();
+	}
+
+	/**
+	 * Scenario:
+	 * An existing user record found. All the user attributes match the claims so no user update is necessary
+	 */
+	@IsTest
+	private static void testUpdateForExistingUserNoUpdateNeededHappyPath() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		RecordType personAccountRecordType = ApplicationTestDataFactory.personAccountRecordTypeRecord;
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+			'PersonContactId' => personContact.Id
+		});
+
+		User userRecord = ApplicationTestDataFactory.getUsers(1, true)[0];
+		userRecord = (User)ApplicationTestDataFactory.setUnwritableFields(userRecord, new Map<String, Object>{
+			'ContactId' => personContact.Id,
+			'IsPortalEnabled' => true
+		});
+		userRecord.IsActive = true;
+
+		Auth.UserData userData = getUserData(personAccount, userRecord);
+		String federationId = ChasRegHandlerService.generateFederationIdentifier(userData.email);
+		String apcn = userData.attributeMap.get('https://auspost/apcn');
+
+		// grab the attirbutes needed to pass into our method calls
+		Map<String, String> augmentedAttributes = ChasRegHandlerService.getAugmentedAttributes(federationId, userData.attributeMap);
+
+		//explicity make sure the user record matches all the claims for happy path scenario
+		// this should avoid a dirty state requiring a DML update
+		userRecord.Firstname = userData.firstName;
+		userRecord.LastName = userData.lastName;
+		userRecord.email = userData.email;
+		userRecord.FederationIdentifier = augmentedAttributes.get('augmented_username');
+		userRecord.Username = augmentedAttributes.get('augmented_username');
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockUsersSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, User>{userRecord.Id => userRecord});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		ChasRegHandlerService service = new ChasRegHandlerService();
+		User existingUser = service.updateForExistingUser(userRecord.Id, augmentedAttributes);
+
+		Test.stopTest();
+
+		// =====================================
+		// VERIFY
+		// =====================================
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.never())).dmlInsert((List<SObject>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.never())).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+
+		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{userRecord.Id}), (Set<Object>)fflib_Match.anyObject());
+
+		System.assertEquals(userRecord.Id, existingUser.Id);
+		System.assertEquals(federationId, existingUser.FederationIdentifier);
+		System.assertEquals(personAccount.FirstName, existingUser.FirstName);
+		System.assertEquals(augmentedAttributes.get('augmented_username'), existingUser.Username);
 	}
 
 

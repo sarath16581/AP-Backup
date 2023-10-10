@@ -14,29 +14,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Accepted</fullName>
-                <default>false</default>
-                <label>Accepted</label>
-            </value>
-            <value>
                 <fullName>Account Lost</fullName>
                 <default>false</default>
                 <label>Account Lost</label>
-            </value>
-            <value>
-                <fullName>Deferral</fullName>
-                <default>false</default>
-                <label>Deferral</label>
-            </value>
-            <value>
-                <fullName>Exemption</fullName>
-                <default>false</default>
-                <label>Exemption</label>
-            </value>
-            <value>
-                <fullName>Go early</fullName>
-                <default>false</default>
-                <label>Go early</label>
             </value>
             <value>
                 <fullName>Open</fullName>
@@ -44,14 +24,19 @@
                 <label>Open</label>
             </value>
             <value>
-                <fullName>Reduction</fullName>
+                <fullName>Agreement</fullName>
                 <default>false</default>
-                <label>Reduction</label>
+                <label>Agreement</label>
             </value>
             <value>
-                <fullName>Unresolved</fullName>
+                <fullName>Different anniversary date</fullName>
                 <default>false</default>
-                <label>Unresolved</label>
+                <label>Different anniversary date</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

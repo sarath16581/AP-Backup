@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <type>creator</type>
@@ -25,11 +25,11 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>christopher.lambert@startrack.com.au</name>
+                <name>james.barns@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
-                <name>james.barns@startrack.com.au</name>
+                <name>jamie.blacker@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -83,7 +83,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>christopher.lambert@startrack.com.au</name>
+                <name>jamie.blacker@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>

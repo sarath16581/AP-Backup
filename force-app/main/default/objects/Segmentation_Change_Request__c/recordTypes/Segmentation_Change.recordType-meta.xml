@@ -68,91 +68,47 @@
     <picklistValues>
         <picklist>Proposed_Sales_Team__c</picklist>
         <values>
-            <fullName>Business Sales NSW 1</fullName>
+            <fullName>Enterprise NSW 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales NSW 2</fullName>
+            <fullName>Enterprise NSW 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales NSW 3</fullName>
+            <fullName>Enterprise QLD %26 NT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales NSW 4</fullName>
+            <fullName>Enterprise VIC 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales QLD 1</fullName>
+            <fullName>Enterprise VIC 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales QLD 2</fullName>
+            <fullName>Enterprise VIC 3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales SA%2FNT</fullName>
+            <fullName>Enterprise VIC 4</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales VIC 1</fullName>
+            <fullName>Financial Institutions</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales VIC 2</fullName>
+            <fullName>Government North</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales VIC 3</fullName>
+            <fullName>Government South</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Sales VIC 4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Sales WA</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Federal Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Federal Government Inside Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales NSW 1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales NSW 2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales QLD 1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales QLD 2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales QLD 3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales QLD 4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales VIC 1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inside Sales VIC 2</fullName>
+            <fullName>Inside Sales TSA</fullName>
             <default>false</default>
         </values>
         <values>
@@ -160,75 +116,167 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Key Financial NSW</fullName>
+            <fullName>LBP CPO%2FBC North</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Key Financial VIC</fullName>
+            <fullName>LBP CPO%2FBC South</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Key Retail %26 Healthcare VIC</fullName>
+            <fullName>LBP Post Offices NSW%2FACT %26 QLD%2FNT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Key Retail NSW</fullName>
+            <fullName>LBP Post Offices VIC%2FTAS %26 WA %26 SA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Market Development Business</fullName>
+            <fullName>LBP Sales Manager NSW 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Market Development Enterprise</fullName>
+            <fullName>LBP Sales Manager NSW 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>State %26 Local Government NSW%2FQLD</fullName>
+            <fullName>LBP Sales Manager NSW 3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>State %26 Local Government NSW%2FQLD Inside Sales</fullName>
+            <fullName>LBP Sales Manager NSW 4</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>State %26 Local Government VIC%2FTAS</fullName>
+            <fullName>LBP Sales Manager QLD 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>State %26 Local Government VIC%2FTAS Inside  Sales</fullName>
+            <fullName>LBP Sales Manager QLD 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>State %26 Local Government WA%2FSA%2FNT</fullName>
+            <fullName>LBP Sales Manager QLD 3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>State %26 Local Government WA%2FSA%2FNT Inside Sales</fullName>
+            <fullName>LBP Sales Manager SA 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Strategic %26 Key QLD</fullName>
+            <fullName>LBP Sales Manager VIC 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Strategic Financial %26 Healthcare NSW</fullName>
+            <fullName>LBP Sales Manager VIC 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Strategic Financial %26 Utilities VIC</fullName>
+            <fullName>LBP Sales Manager VIC 3</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Strategic Retail %26 Telco NSW</fullName>
+            <fullName>LBP Sales Manager WA 1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Strategic Retail %26 Telco VIC</fullName>
+            <fullName>LBP Sales Manager WA 2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>eCommerce Business Development</fullName>
+            <fullName>LBP Tier 2 North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Tier 2 South</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business NSW 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business NSW 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business NSW 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business NSW 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business QLD 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business QLD 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business SA%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business VIC 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business VIC 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business VIC 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business VIC 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium Business WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business NSW 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business NSW 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business NSW 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business QLD 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business QLD 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business SA%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business VIC 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business VIC 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eCommerce Partnerships</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -294,15 +342,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Anomaly Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer Hierarchy</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sales Specialist New Account Allocation</fullName>
+            <fullName>Director Requested</fullName>
             <default>false</default>
         </values>
     </picklistValues>

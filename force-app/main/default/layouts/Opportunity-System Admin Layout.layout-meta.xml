@@ -93,7 +93,7 @@
                 <behavior>Edit</behavior>
                 <field>Is_Superseded_Opportunity__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IsStartrackProposal__c</field>
             </layoutItems>
@@ -657,6 +657,41 @@
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>COMPASS Price Management Data</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Evaluated_Spend_Per_Annum__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Recommended_Tier__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Recommended_Pricing_Code__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Domestic_eParcel_Spend__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Recommended_Pricing_Action__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Recommended_Pricing_Reason__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
@@ -860,6 +895,11 @@
             <actionType>QuickAction</actionType>
             <sortOrder>25</sortOrder>
         </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Opportunity.Opportunity_Closure</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>26</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -970,7 +1010,7 @@
         <fields>Annualised_Value__c</fields>
         <fields>Contract_Start_Date__c</fields>
         <fields>Contract_End_Date__c</fields>
-		<fields>UnitPrice</fields>
+        <fields>UnitPrice</fields>
         <fields>TotalPrice</fields>
         <fields>In_Year_Revenue__c</fields>
         <relatedList>RelatedLineItemList</relatedList>

@@ -43,14 +43,19 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>LBP Program</controllingFieldValue>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>CPO</controllingFieldValue>
             <valueName>Tier 1</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>LBP Program</controllingFieldValue>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>CPO</controllingFieldValue>
             <valueName>Tier 2</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>LBP Program</controllingFieldValue>
+            <controllingFieldValue>LPO</controllingFieldValue>
             <valueName>Tier 3</valueName>
         </valueSettings>
         <valueSettings>

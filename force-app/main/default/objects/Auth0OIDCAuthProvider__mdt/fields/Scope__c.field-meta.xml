@@ -6,8 +6,9 @@
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>The scopes to use for authorisation</inlineHelpText>
     <label>Scope</label>
-    <length>50</length>
+    <length>150</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

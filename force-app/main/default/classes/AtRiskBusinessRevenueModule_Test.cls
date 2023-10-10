@@ -10,7 +10,7 @@
  */
 @isTest
 public class AtRiskBusinessRevenueModule_Test {
-
+    
 	@isTest
 	static void test_onBeforeUpdate_selectedProducts() {
 		// =====================================

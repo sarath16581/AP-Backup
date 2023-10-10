@@ -8,6 +8,6 @@
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
     <columns>RECORDTYPE</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

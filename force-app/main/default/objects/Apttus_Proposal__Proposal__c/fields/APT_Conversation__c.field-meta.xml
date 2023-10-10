@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>What conversations have you had with customer? 
 Why are standard rates not acceptable?</inlineHelpText>
-    <label>Customer interactions</label>
+    <label>(depr) Customer interactions</label>
     <length>10000</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

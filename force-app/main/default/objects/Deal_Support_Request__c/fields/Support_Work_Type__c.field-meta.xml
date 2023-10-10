@@ -1649,6 +1649,7 @@
             <controllingFieldValue>OE Renewal Exclusion</controllingFieldValue>
             <controllingFieldValue>Pre Entry</controllingFieldValue>
             <controllingFieldValue>Billing Account/Sub Account Entry</controllingFieldValue>
+            <controllingFieldValue>Agreement Renewal</controllingFieldValue>
             <controllingFieldValue>Compliance</controllingFieldValue>
             <controllingFieldValue>Contract</controllingFieldValue>
             <controllingFieldValue>Copy of Contract</controllingFieldValue>
@@ -1679,7 +1680,6 @@
         <valueSettings>
             <controllingFieldValue>Other</controllingFieldValue>
             <controllingFieldValue>Addendum/DOV</controllingFieldValue>
-            <controllingFieldValue>Agreement Renewal</controllingFieldValue>
             <controllingFieldValue>Update proposal/offer expiration date</controllingFieldValue>
             <controllingFieldValue>New Agreement</controllingFieldValue>
             <controllingFieldValue>New Proposal</controllingFieldValue>
@@ -1704,9 +1704,9 @@
             <valueName>Workshop</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Bespoke Agreements</controllingFieldValue>
             <controllingFieldValue>Parking Lot</controllingFieldValue>
             <controllingFieldValue>Presale Support</controllingFieldValue>
+            <controllingFieldValue>Strategic Onboarding</controllingFieldValue>
             <valueName>Renewals Management</valueName>
         </valueSettings>
     </valueSet>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusUpdateRequiredBeyondQualifyStage</fullName>
+    <active>true</active>
+    <description>Ensure Status Update field is populated before progressing opportunity from &quot;Qualify&quot; to &quot;Propose&quot; stage and beyond.</description>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( Monthly_Executive_Summary__c ), OR( ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorDisplayField>Monthly_Executive_Summary__c</errorDisplayField>
+    <errorMessage>Add your Status Update. The Status Update must be populated with a summary of the current position of the Opportunity.</errorMessage>
+</ValidationRule>

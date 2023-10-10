@@ -65,10 +65,6 @@ trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, afte
                     proposal.addError(mapQuote.get(proposal.Id));
                 }
             }
-            
-            //Added By: Mansi Shah
-                APT_ProposalTriggerHandler.onBeforeUpdate(trigger.oldMap,trigger.newMap);
-            //Compelte Code unit By Mansi Shah   
         }  
     }
     

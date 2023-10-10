@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductsRequiredBeyondQualifyStage</fullName>
+    <active>true</active>
+    <description>Ensure products are added before progressing opportunity from &quot;Qualify&quot; to &quot;Propose&quot; stage and beyond.</description>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), Count_of_Opportunity_Line_Items__c = 0, OR( ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorMessage>Add a product. This opportunity has no products. Please add a product(s) by going to the product catalogue (&quot;Add Pricing Products&quot; button).</errorMessage>
+</ValidationRule>

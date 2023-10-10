@@ -129,6 +129,16 @@ Access to APR, SCCR, manage reports in public folder, etc</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.SalesTeamType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Sales_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>PortfolioAssignment__c.AccountManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -139,7 +149,7 @@ Access to APR, SCCR, manage reports in public folder, etc</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>PortfolioAssignment__c.SalesDirectorPortfolioLevel__c</field>
+        <field>PortfolioAssignment__c.SalesDirectorPortfolioCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -6,9 +6,12 @@
         </profiles>
     </assignments>
     <capacity>2</capacity>
+    <declineReasons>Other</declineReasons>
+    <declineReasons>Permission_to_Pause</declineReasons>
+    <declineReasons>Technical_Issues</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>true</enableDecline>
-    <enableDeclineReason>false</enableDeclineReason>
+    <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
     <label>AP Contact Centre</label>

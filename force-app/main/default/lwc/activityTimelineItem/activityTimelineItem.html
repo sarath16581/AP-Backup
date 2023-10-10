@@ -8,7 +8,14 @@
                 </h3>
             </div>
             <div class="slds-timeline__actions slds-timeline__actions_inline">
-                <lightning-formatted-date-time value={activity.createdDate}></lightning-formatted-date-time>
+                <template lwc:if={activity.dueDate}>
+                    <div style={dueDateStyle}>
+                        <lightning-formatted-date-time value={dueDate}></lightning-formatted-date-time>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <lightning-formatted-text value={dueDate}></lightning-formatted-text>
+                </template>
             </div>
         </div>
         <div class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium" aria-hidden="false">
@@ -21,9 +28,9 @@
                         </span>
                     </li>
                     <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
-                        <span class="slds-text-title slds-p-bottom_x-small">Due Date</span>
-                        <span class="slds-text-body_medium slds-truncate" title={activity.dueDate}>
-                            {activity.dueDate}
+                        <span class="slds-text-title slds-p-bottom_x-small">Created Date</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.createdDate}>
+                            <lightning-formatted-date-time value={activity.createdDate}></lightning-formatted-date-time>
                         </span>
                     </li>
                     <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
@@ -56,15 +63,9 @@
                             {activity.relatedToName}
                         </span>
                     </li>
-                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
-                        <span class="slds-text-title slds-p-bottom_x-small">Comment</span>
-                        <span class="slds-text-body_medium slds-truncate" title={activity.comment}>
-                            {activity.comment}
-                        </span>
-                    </li>
                     <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
                         <span class="slds-text-title slds-p-bottom_x-small">Description</span>
-                        <span class="slds-text-body_medium" title="Description">
+                        <span class="slds-text-body_medium slds-hyphenate" title="Description">
                             <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
                         </span>
                     </li>
@@ -104,7 +105,7 @@
                     </li>
                     <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
                         <span class="slds-text-title slds-p-bottom_x-small">Description</span>
-                        <span class="slds-text-body_medium" title="Description">
+                        <span class="slds-text-body_medium slds-hyphenate" title="Description">
                             <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
                         </span>
                     </li>
@@ -119,7 +120,7 @@
                 </li>
                 <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
                     <span class="slds-text-title slds-p-bottom_x-small">Description</span>
-                    <span class="slds-text-body_medium" title="Description">
+                    <span class="slds-text-body_medium slds-hyphenate" title="Description">
                         <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
                     </span>
                 </li>
@@ -133,9 +134,9 @@
                         </span>
                     </li>
                     <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
-                        <span class="slds-text-title slds-p-bottom_x-small">Due Date</span>
-                        <span class="slds-text-body_medium slds-truncate" title={activity.dueDate}>
-                            {activity.dueDate}
+                        <span class="slds-text-title slds-p-bottom_x-small">Created Date</span>
+                        <span class="slds-text-body_medium slds-truncate" title={activity.createdDate}>
+                            <lightning-formatted-date-time value={activity.createdDate}></lightning-formatted-date-time>
                         </span>
                     </li>
                     <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
@@ -152,7 +153,7 @@
                     </li>
                     <li class="slds-grid slds-grid_vertical slds-size_2-of-2 slds-p-bottom_small">
                         <span class="slds-text-title slds-p-bottom_x-small">Description</span>
-                        <span class="slds-text-body_medium" title="Description">
+                        <span class="slds-text-body_medium slds-hyphenate" title="Description">
                             <lightning-formatted-text value={activity.description} linkify></lightning-formatted-text>
                         </span>
                     </li>

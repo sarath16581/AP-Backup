@@ -172,8 +172,8 @@
         <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Due_Date__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Bid_Tender_Owner_del__c</customTabListAdditionalFields>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <lookupDialogsAdditionalFields>OBJECT_ID</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Stage__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>

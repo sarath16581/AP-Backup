@@ -16,6 +16,7 @@ History:
 01/10/2021 - Seth Heang - Uplift SF API Version to 52
 02/03/2023 - Dattaraj Deshmukh - Added logic to print case investigations. Updated 'updatePrintFlag' method to update case and case investigations.
 								- Renamed Queueable class from 'UpdateCasePrintFlagFuture' to 'CaseAndCaseInvestigationPrintFlagQueueable'.
+31/08/2023 - Talib Raza - REQ3279758 - Custom File naming logic added
 **************************************************/
 public with sharing class CasePDFContentGenerator {
     
@@ -27,6 +28,7 @@ public with sharing class CasePDFContentGenerator {
     public Set<Id> caseArticleIds = new Set<Id>();
     public List<String> lstCaseReferenceIds;
     public Map<String, String> addresseeAddress;
+	public String pdfFileName;
     
     //Integration variables
     public transient TIBCOArticleWrapper articleDetails {get; set;}
@@ -161,6 +163,14 @@ public with sharing class CasePDFContentGenerator {
 			// casetoEventMessageMap = getcasetoEventMessageMap();
 			// caseArticleToEventMessageAttachmentsMap = getCaseArticleToEventMessageAttachmentsMap();
 		}
+		// REQ3279758 - Custom File naming logic added
+		if(caseList.size() == 1){
+			pdfFileName = caseList[0].caseNumber + ' MyNetwork Case Printout.pdf';	
+		}
+		else if (caseList.size() > 1){
+			pdfFileName = caseList[0].caseNumber + ' Bulk Print MyNetwork Case Printout.pdf';	
+		}
+		Apexpages.currentPage().getHeaders().put('content-disposition', 'inline; filename="' + pdfFileName +'"');
 		//Get contact map
 		if(!setContactIds.isEmpty()) {
 			caseContactMap = getContactsMap(setContactIds);

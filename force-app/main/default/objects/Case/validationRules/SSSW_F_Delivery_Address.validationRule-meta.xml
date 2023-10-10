@@ -25,7 +25,6 @@
 	Email_Bypass_Data_enforcement__c = FALSE,
 	$User.IsExcludedFromValidationRules__c = false,
 	$Profile.Name &lt;&gt; &apos;DDC Consumer Community User&apos;,
-	$Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;,
 	TEXT(Status) &lt;&gt; &apos;Awaiting Customer Response&apos;,
 	OR (
 		ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),
