@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PKCEEncryptionKey__c</fullName>
-    <description>A base64 value of the output of Crypto.generateAesKey(256) This can be any valid key and is use to encrypt and hash the state for the purpose of creation PKCE challenge and verifier values. NOTE: This is only used to create a secure hash, it is not used to encrypt/decrypt and sensitive personal information. The final encrypted value is hashed so it can&apos;t be decrypted anyway.</description>
+    <description>Stores the name of the custom settings record linked for the AusPost Settings. This is used as key in the Auth0OIDCAuthProvider apex class to retrieve the stored base64 value of the output of Crypto.generateAesKey(256) from the custom settings.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
-    <inlineHelpText>A base64 value of the output of Crypto.generateAesKey(256) This can be any valid key and is use to encrypt and hash the state for the purpose of creation PKCE challenge and verifier values.</inlineHelpText>
+    <inlineHelpText>Stores the name of the custom settings record linked for the AusPost Settings. This is used as key in the Auth0OIDCAuthProvider apex class to retrieve the stored base64 value of the output of Crypto.generateAesKey(256) from the custom settings.</inlineHelpText>
     <label>PKCE Encryption Key</label>
     <length>150</length>
     <required>true</required>
+	<securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
