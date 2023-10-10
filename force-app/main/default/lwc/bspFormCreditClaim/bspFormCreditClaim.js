@@ -267,10 +267,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		}
 	}
 
-	removeNonAlphanumeric(event) {
-		return event.target.value.replace(/[^a-zA-Z0-9]/g, ''); // Remove non-alphanumeric characters
-	}
-
 	onChangeField(event) {
 		const field = event.target.dataset.id;
 		switch(field)
@@ -279,7 +275,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				this.businessName = event.detail.value;
 				break;
 			case 'businessAccountNumberOther':
-				this.billingNumber = this.removeNonAlphanumeric(event);
+				this.billingNumber = event.target.value;
 				break;
 			case 'contactName':
 				this.contactName = event.detail.value;
@@ -327,7 +323,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		const inputCmp = this.template.querySelectorAll('[data-id="' + datasetId + '"]');
 		switch(datasetId){
 			case 'businessAccountNumberOther':
-				if(inputCmp[0].value){
+				if(inputCmp[0].value && inputCmp[0].validity.valid){
 					this.isValidOtherBillingAccount = false;
 					// validating the value of custom billing account [other] field
 					isValidBillingAccount({billingAccountValue: inputCmp[0].value})
