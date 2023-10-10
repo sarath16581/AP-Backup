@@ -70,7 +70,7 @@
                                                   </tr> 									
 	                                             <tr>
 								<td style="padding:5px 7px 0 0; font:12px/13px Arial; color:#003359;font-weight = normal;"><b>          
-                                                     {!User.Name}</b></td>
+                                                     {!User.FirstName}</b></td>
 										</tr>
 	                                             <tr>
 								<td style="padding:5px 7px 0 0; font:12px/13px Arial; color:#003359;font-weight = normal;"><b>          

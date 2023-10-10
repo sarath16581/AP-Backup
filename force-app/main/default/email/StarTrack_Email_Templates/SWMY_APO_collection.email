@@ -33,4 +33,4 @@
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">address/suburb/state/postcode</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Opening Hours:</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Kind regards,&nbsp;</span></p>
-<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.FirstName}</span></p>

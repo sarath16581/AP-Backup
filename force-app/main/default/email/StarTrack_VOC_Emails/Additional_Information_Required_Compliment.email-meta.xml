@@ -18,7 +18,7 @@ We would love to pass your positive feedback onto {Insert here} however, we requ
 Could you please provide me with {Insert here}.
 
 Kind Regards,
-{!User.Name}
+{!User.FirstName}
 StarTrack Voice of Customer Team
 
 {!Case.Thread_Id}
