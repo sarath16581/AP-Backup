@@ -78,7 +78,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>is_Inactive_Customer__pc</field>
+                <field>IsInactiveCustomer__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
