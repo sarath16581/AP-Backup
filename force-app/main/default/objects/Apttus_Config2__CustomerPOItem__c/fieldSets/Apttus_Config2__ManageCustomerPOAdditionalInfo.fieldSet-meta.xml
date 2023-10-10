@@ -82,12 +82,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__ProductId__r.Name</field>
+        <field>Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Name</field>
+        <field>Apttus_Config2__ProductId__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

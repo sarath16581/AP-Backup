@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>CEO_EGM</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Year__c</field>
+        <field>Legal_Entity_Name__c</field>
+        <field>Billing_Account_Name__c</field>
+        <field>Published_Rate__c</field>
+        <field>Confirmed_Rate__c</field>
+        <field>Published_Date__c</field>
+        <field>Confirmed_Date__c</field>
+        <field>Conclusion_Date__c</field>
+        <field>Status__c</field>
+        <field>Comments__c</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Send_Email_to_APR_Owner_Approval</name>
+                <type>Alert</type>
+            </action>
+            <action>
+                <name>Update_Status_Pending_Approval</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <type>userHierarchyField</type>
+            </approver>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>$User.Manager__c   &lt;&gt;  $Setup.APRs__c.Enterprise_and_Government_Manager__c 
+ &amp;&amp; 
+ $User.Manager__c  &lt;&gt;  $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>RejectRecord</ifCriteriaNotMet>
+        <label>Step 1</label>
+        <name>Step_1</name>
+    </approvalStep>
+    <description>Approval process is require where rates is within the Walk Away rate and Walk In Rate.</description>
+    <emailTemplate>All_Email_Templates/APR_for_Billing_Accts</emailTemplate>
+    <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;, 
+OR( Confirmed_Rate__c &lt; Walk_in_Rate__c)&amp;&amp;
+( Confirmed_Rate__c &gt;= Walk_out_Rate__c )
+)</formula>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>Send_Email_to_APR_Owner_Approval</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Update_Status_Approved2</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Send_Email_to_APR_Owner_Rejection</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Update_Status_Rejected2</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_Approval_Status_Pending_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>APR TM Approval Process</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
+        <userHierarchyField>Manager</userHierarchyField>
+    </nextAutomatedApprover>
+    <processOrder>2</processOrder>
+    <recallActions>
+        <action>
+            <name>Update_Approval_Status</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

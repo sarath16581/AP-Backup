@@ -1,5 +1,5 @@
 /**************************************************
-* @Test OPCBatchableSchedulable
+* @Test GenerateOPCBatchable_Test
 Type: Apex Batchable Job Class for Generation of Opportunity Product Classification (OPC)
 Purpose:Generates the Opportunity Product Classification (OPC) record from their source revenue schedule(s) and 
 finds any matching actual revenue against it from the current financial year and last financial year
@@ -18,6 +18,7 @@ History:
 19.12.2012	R. Enojas (Salesforce)		Changed date criteria on batch scope to start from July 1st of the CFY
 28/06/2022 KMcGuire	Modified for including related account sales in OPC classification
 5/07/2023 KMcGuire Modified for OPCUtil refactoring.
+31/08/2023 KMcGuire Modified for extension of test class
 **************************************************/
 
 global class GenerateOPCBatchable implements Database.Batchable<SObject> {
@@ -31,8 +32,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 	}
 
 	global Database.QueryLocator start(Database.BatchableContext BC) {
-
-		Return Database.getQueryLocator([
+		Database.QueryLocator loc = Database.getQueryLocator([
 		SELECT Id, Opportunity__r.AccountId, Product__c, Classification_c__c, CalendarYear__c, Opportunity__c,
 		Financial_Year__c, Opportunity_Product_Classification__c, Product__r.Name, Opportunity__r.Customer_Name__c, 
 		Contract_Start_Date__c, Contract_End_Date__c,Multi_Year__c, Exception_Override__c, Hidden_1st_of_Multi_Year__c,
@@ -58,24 +58,10 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 		AND (Opportunity_Product_Classification__r.Under_Review_by_Sales_Manager__c = false)))
 		AND ((Contract_End_Date__c >= :getStartOfFinancialYear()) OR (Exception_Override__c = true))
 		ORDER BY Opportunity__r.AccountId, Product__c, Classification_c__c, Financial_Year__c]);
+        return loc;
 	}
 
-	private static Date getStartOfFinancialYear() {
-	// Get the current date
-			Date currentDate = Date.today();
 
-			// Get the current year
-			Integer currentYear = currentDate.year();
-
-			// Set the start date of the financial year to January 1st of the current year
-			Date startOfFinancialYear = Date.newInstance(currentYear, 1, 1);
-
-			// If the current date is before the start of the financial year, subtract a year from the start date
-			if (currentDate < startOfFinancialYear) {
-				startOfFinancialYear = startOfFinancialYear.addYears(-1);
-			}
-		return startOfFinancialYear;
-	}
 
 	global void execute(Database.BatchableContext bc, list<Revenue_Schedule__c> scope)
 	{
@@ -116,7 +102,9 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 
 		List<String> opcIdList = new List<String>();
 
-		String rtId = [SELECT Id FROM RecordType WHERE IsActive = true AND SobjectType='Case' AND Name='OPC Exception' Limit 1].Id;
+        List<RecordType> rc = [SELECT Id FROM RecordType WHERE IsActive = true AND SobjectType='Case' AND Name='OPC Exception' Limit 1];
+        
+		String rtId = rc.size()== 1 ? rc[0].id : null;
 
 
 		for (Revenue_Schedule__c rs : revenueScheduleMap.values()) {
@@ -193,6 +181,23 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 	global void finish(Database.BatchableContext BC) 
 	{ 
 		// Left blank for legacy code
+	}
+    
+   	private static Date getStartOfFinancialYear() {
+	// Get the current date
+			Date currentDate = Date.today();
+
+			// Get the current year
+			Integer currentYear = currentDate.year();
+
+			// Set the start date of the financial year to January 1st of the current year
+			Date startOfFinancialYear = Date.newInstance(currentYear, 1, 1);
+
+			// If the current date is before the start of the financial year, subtract a year from the start date
+			if (currentDate < startOfFinancialYear) {
+				startOfFinancialYear = startOfFinancialYear.addYears(-1);
+			}
+		return startOfFinancialYear;
 	}
 
 }

@@ -164,8 +164,8 @@
     <pluralLabel>Temp Objects (CPQ)</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <searchFilterFields>NAME</searchFilterFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>

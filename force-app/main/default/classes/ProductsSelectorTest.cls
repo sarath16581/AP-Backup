@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2022-06-28 - Seth Heang - Created
+* 2023-04-21 - Pratyush Chalasani - Added test for selectByIdOrderByName
 */
 @IsTest
 private with sharing class ProductsSelectorTest {
@@ -43,5 +44,29 @@ private with sharing class ProductsSelectorTest {
 
 		Test.stopTest();
 
+	}
+
+	@isTest
+	private static void testSelectByIdOrderByName() {
+		// =====================================
+        // Data Preparation
+        // =====================================
+        MockUtility.disableTriggerExecution();
+
+		Product2 testProduct = ApplicationTestDataFactory.getProducts(1, false)[0];
+
+		insert testProduct;
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+		ProductsSelector selector = ProductsSelector.newInstance();
+		List<Product2> results = selector.selectByIdOrderByName(new Set<Id>{testProduct.Id}, new Set<Object>());
+        
+		Assert.areEqual(1, results.size(), 'Expected result size of 1');
+
+		Test.stopTest();
 	}
 }

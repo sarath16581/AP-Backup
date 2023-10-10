@@ -6,9 +6,6 @@
     <description>Find matches against existing Credit Suspects based on contact details excluding address and DoB</description>
     <duplicateRuleFilter>
         <booleanFilter xsi:nil="true"/>
-		<!--
-			- Known deployment issues: https://issues.salesforce.com/issue/a028c00000qQ1zmAAC/
-			- Apply using Manual Deployment steps
         <duplicateRuleFilterItems>
             <field>State__c</field>
             <operation>equals</operation>
@@ -44,7 +41,6 @@
             <sortOrder>5</sortOrder>
             <table>CreditSuspect__c</table>
         </duplicateRuleFilterItems>
-		-->
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
         <matchRuleSObjectType>CreditSuspect__c</matchRuleSObjectType>

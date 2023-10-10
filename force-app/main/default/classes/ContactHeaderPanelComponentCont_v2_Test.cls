@@ -18,7 +18,7 @@ private class ContactHeaderPanelComponentCont_v2_Test {
         Budget_and_Revenue__c revenue = new Budget_and_Revenue__c();
         revenue.Total_Revenue_Amount__c = 1000;
         revenue.Organisation__c = orgAccount.Id;
-        revenue.Current_Year__c = true;
+ 		revenue.Current_Year__c = true;
         insert revenue;
 
         // create a contact prepared for initializing ContactHeaderPanelComponent

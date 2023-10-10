@@ -13,7 +13,7 @@
  * 2023-08-14 - Yatika Bansal - added the method to get line item record by passing parameter config id and product names
  */
 
-public with sharing class LineItemsSelector extends ApplicationSelector{
+ public with sharing class LineItemsSelector extends ApplicationSelector{
 	public enum Options {
 		WITH_PRODUCT_ATTRIBUTE_VALUE,WITH_PRODUCT
 	}

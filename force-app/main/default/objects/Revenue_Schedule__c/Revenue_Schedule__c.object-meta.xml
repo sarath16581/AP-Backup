@@ -163,8 +163,8 @@
     </nameField>
     <pluralLabel>Revenue Schedule</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Opportunity__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Product__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>FinancialYear__c</lookupDialogsAdditionalFields>

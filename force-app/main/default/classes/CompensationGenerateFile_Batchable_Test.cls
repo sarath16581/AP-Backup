@@ -3,6 +3,7 @@ Description :   This class contains unit tests for validating the behavior of Ap
 History:
 2018-09-18 dilshan.egodawela@auspost.com.au created
 2022-03-03 snigdha.sahu@auspost.com.au Updated to correct errors, API version to 52
+2023-10-03 swati.mogadala@auspost.com.au Added Ref Id to test case as per new validation rule
 **************************************************/
  
  
@@ -12,15 +13,19 @@ public class CompensationGenerateFile_Batchable_Test {
 
         @testSetup static void setup() {
             //create test data
-            Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
-            insert testCase;
+            Case testCase1 = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+            testCase1.ReferenceID__c = '98765342235667';
+            insert testCase1;
+            Case testCase2 = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+            testCase2.ReferenceID__c = '98765342235000';
+            insert testCase2;
             
             Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
             
-            Compensation__c comp = new Compensation__c(Case__c = testCase.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, Cover_Type__c = 'T&C Cover', CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+            Compensation__c comp = new Compensation__c(Case__c = testCase1.Id ,Batch_ID__c = 1 , Compensation_Amount__c = 50, Cover_Type__c = 'T&C Cover', CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
             Insert comp;
             
-            Compensation__c comp2 = new Compensation__c(Case__c = testCase.Id , Batch_ID__c = 2 , Compensation_Amount__c = 50, Cover_Type__c = 'T&C Cover', CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
+            Compensation__c comp2 = new Compensation__c(Case__c = testCase2.Id , Batch_ID__c = 2 , Compensation_Amount__c = 50, Cover_Type__c = 'T&C Cover', CostCentreCode__c = 'test', BSB__c = '444333', Account_Number__c = '123234345' , RecordTypeId = recordTypeId);
             Insert comp2;
             
             

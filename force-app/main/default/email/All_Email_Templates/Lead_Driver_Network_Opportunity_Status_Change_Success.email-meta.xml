@@ -7,7 +7,9 @@
     <subject>Driver Leads Rewards Program – Successful lead {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
     <textOnly>Dear {!Lead.Name_of_lead_creator__c},
 
-The lead you submitted for {!Lead.Organisation__c} has been {!Lead.Status}. If you have any questions, please email us at seekerrewards@seeker.auspost.com.au 
+The lead you submitted for {!Lead.Organisation__c} is {!Lead.Status}. 
+
+If you have any questions, please email us at seekerrewards@seeker.auspost.com.au 
 
 Regards, 
 The Driver Leads Program team

@@ -163,8 +163,8 @@
     <pluralLabel>Apttus UI Component Configurations</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
-        <excludedStandardButtons>New</excludedStandardButtons>
         <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>New</excludedStandardButtons>
         <searchResultsAdditionalFields>Apttus_Base2__ComponentConfigId__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>

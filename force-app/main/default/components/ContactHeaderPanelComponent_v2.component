@@ -293,7 +293,7 @@
 						<img src="/img/func_icons/util/lock12.gif" title="Verified Customer"/>
 					</apex:outputpanel>
 					</td></tr>
-					<apex:outputPanel rendered="{!contactRec.Is_Inactive_Customer__c}">
+					<apex:outputPanel rendered="{!contactRec.is_Inactive_Customer__c}">
 						<tr>
 							<td colspan="2">
 								<strong style="color:rgb(172, 38, 27);">

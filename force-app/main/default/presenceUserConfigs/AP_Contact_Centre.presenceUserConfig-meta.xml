@@ -6,10 +6,9 @@
         </profiles>
     </assignments>
     <capacity>2</capacity>
-    <declineReasons>Coaching</declineReasons>
-    <declineReasons>End_of_shift</declineReasons>
-    <declineReasons>On_Break</declineReasons>
-    <declineReasons>Team_Meeting</declineReasons>
+    <declineReasons>Other</declineReasons>
+    <declineReasons>Permission_to_Pause</declineReasons>
+    <declineReasons>Technical_Issues</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>true</enableDecline>
     <enableDeclineReason>true</enableDeclineReason>

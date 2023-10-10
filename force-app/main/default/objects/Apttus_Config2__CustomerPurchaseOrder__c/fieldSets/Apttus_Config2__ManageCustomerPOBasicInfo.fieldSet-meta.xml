@@ -222,7 +222,7 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Owner.Title</field>
+        <field>CreatedBy.Title</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -232,7 +232,7 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>CreatedBy.Title</field>
+        <field>Owner.Title</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -247,12 +247,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>LastModifiedBy.UserRoleId</field>
+        <field>CreatedBy.UserRoleId</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>CreatedBy.UserRoleId</field>
+        <field>LastModifiedBy.UserRoleId</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

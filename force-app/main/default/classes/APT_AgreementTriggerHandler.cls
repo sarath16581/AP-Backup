@@ -1211,5 +1211,5 @@ public with sharing class APT_AgreementTriggerHandler{
 				ApplicationDatabase.getInstance().dmlUpdate(filteredAli);
 			}
 		}
-    }
+	}
 }

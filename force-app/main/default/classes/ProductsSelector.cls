@@ -8,6 +8,7 @@
  * 2022-06-28 - Seth Heang - Created
  * 2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
  * 2023-04-25 - Yatika Bansal - Added APT_Product_Lines__c field
+ * 2023-04-21 - Pratyush Chalasani - Added selectByIdOrderByName
  */
 public with sharing class ProductsSelector extends ApplicationSelector{
 	public enum Options {
@@ -45,16 +46,5 @@ public with sharing class ProductsSelector extends ApplicationSelector{
 		qb.addOrderAsc(Product2.Name);
 
 		return (List<Product2>)Database.query(qb.toSoqlString());
-	}
-
-	@AuraEnabled
-	public static List<Product2> getAllProducts() {
-		try {
-			List<Product2> products = [SELECT Id, Name, ProductCode, APT_Product_Type__c, Product_Level_1__c, Product_Level_2__c, Product_Level_3__c, Product_Level_4__c FROM Product2 WHERE Product_Level_4__c != null AND IsActive = true ORDER BY Product_Level_4__c, Name];
-
-			return products;
-		} catch (Exception e) {
-			throw new AuraHandledException(e.getMessage());
-		}
 	}
 }

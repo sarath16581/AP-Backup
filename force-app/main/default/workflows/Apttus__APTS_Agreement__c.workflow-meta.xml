@@ -147,11 +147,11 @@
         <description>Print Post Expiration Notification 30 Days</description>
         <protected>false</protected>
         <recipients>
-            <recipient>david.mccarthy2@auspost.com.au</recipient>
+            <recipient>glyn.powell@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>krishna.tondapu@auspost.com.au</recipient>
+            <recipient>lucy.wong@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
@@ -163,11 +163,11 @@
         <description>Print Post Expiration Notification 60 Days</description>
         <protected>false</protected>
         <recipients>
-            <recipient>david.mccarthy2@auspost.com.au</recipient>
+            <recipient>glyn.powell@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>krishna.tondapu@auspost.com.au</recipient>
+            <recipient>lucy.wong@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
@@ -941,7 +941,7 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
-        <description>Separate WFR to trigger notifications to David McCarthy and Krishna Tondapu if Print Post is included in the Contract</description>
+        <description>Separate WFR to trigger notifications to Glyn Powell and Lucy Wong if Print Post is included in the Contract</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>

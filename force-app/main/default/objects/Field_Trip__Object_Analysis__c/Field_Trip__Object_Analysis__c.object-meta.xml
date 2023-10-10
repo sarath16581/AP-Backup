@@ -164,8 +164,8 @@
     <searchLayouts>
         <customTabListAdditionalFields>Field_Trip__Fields__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Field_Trip__Records__c</customTabListAdditionalFields>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>

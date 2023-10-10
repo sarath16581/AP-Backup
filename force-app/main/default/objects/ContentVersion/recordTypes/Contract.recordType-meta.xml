@@ -4,13 +4,6 @@
     <active>true</active>
     <label>Contract</label>
     <picklistValues>
-        <picklist>CEPARC__ParentIds__c</picklist>
-        <values>
-            <fullName>NA</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Document_Interval__c</picklist>
         <values>
             <fullName>Daily</fullName>

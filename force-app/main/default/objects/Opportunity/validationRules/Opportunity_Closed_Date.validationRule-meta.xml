@@ -2,8 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Closed_Date</fullName>
     <active>true</active>
-    <description>a validation rule that forces the seller to update the close date to a date that is not in the future requested by Jason Gould.
-Close date is set to current date on closure via automation and this rule should only target records already closed.</description>
+    <description>a validation rule that forces the seller to update the close date to a date that is not in the future requested by Jason Gould. Close date is set to current date on closure via automation and this rule should only target records already closed.</description>
     <errorConditionFormula>And (IsClosed, NOT(ISCHANGED(IsClosed)), CloseDate &gt;Today())</errorConditionFormula>
     <errorDisplayField>CloseDate</errorDisplayField>
     <errorMessage>The opportunity ‘Close Date’ cannot be in the future.</errorMessage>
