@@ -17,12 +17,23 @@ public with sharing class CSQApprovalsController_Test {
 
 		// ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		MockUtility.mockUnitOfWork();
-		ApplicationDatabase mockDatabaseApproval = MockUtility.mockDatabase();
-		UserRecordAccessSelector mockURASelector = (UserRecordAccessSelector)MockUtility.mockSelector(
-			UserRecordAccessSelector.class
-		);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		PickUpLocationSelector mockPUL = (PickUpLocationSelector)MockUtility.mockSelector(PickUpLocationSelector.class);
+		UserRecordAccessSelector mockURASelector = (UserRecordAccessSelector)MockUtility.mockSelector(UserRecordAccessSelector.class);
 	
 		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(
+			mockURASelector.selectById((Id)fflib_Match.eq(csq.Id))
+		).thenReturn(
+			(UserRecordAccess)UserRecordAccessSelector_Test.mockUserRecordAccess(csq.Id)
+		);
+
+		MockUtility.Mocks.when(
+			mockPUL.selectById((Set<Id>)fflib_Match.anyObject())
+		).thenReturn(
+			(Map<Id,Pick_Up_Location__c>)new Map<Id,Pick_Up_Location__c>{ puLoc.Id => puLoc }
+		);
 
 		MockUtility.Mocks.when(
 			mockURASelector.selectById((Id)fflib_Match.eq(puLoc.Id))
@@ -31,7 +42,7 @@ public with sharing class CSQApprovalsController_Test {
 		);
 
 		MockUtility.Mocks.when(
-			mockDatabaseApproval.submitForApproval(
+			mockDatabase.submitForApproval(
 				(Id)fflib_Match.eq(csq.Id),
 				(String)fflib_Match.eq('comments')
 			)
@@ -41,6 +52,8 @@ public with sharing class CSQApprovalsController_Test {
 				Approval.ProcessResult.class
 			)
 		);
+
+		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpserted());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -63,6 +76,8 @@ public with sharing class CSQApprovalsController_Test {
 			CSQApprovalsController.updatePickupLocationStatus(puLoc.Id, 'pending', 'comments');
 			System.assert(true, 'No exception expected');
 		} catch(Exception ex) {
+			System.debug(ex);
+			System.debug(ex.getStackTraceString());
 			System.assert(false, 'No exception expected');
 		}
 
@@ -86,7 +101,7 @@ public with sharing class CSQApprovalsController_Test {
 		);
 
 		// ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
-		ApplicationDatabase mockDatabaseApproval = MockUtility.mockDatabase();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		UserRecordAccessSelector mockURASelector = (UserRecordAccessSelector)MockUtility.mockSelector(
 			UserRecordAccessSelector.class
 		);
@@ -103,7 +118,7 @@ public with sharing class CSQApprovalsController_Test {
 		);
 
 		MockUtility.Mocks.when(
-			mockDatabaseApproval.submitForApproval(
+			mockDatabase.submitForApproval(
 				(Id)fflib_Match.eq(csq.Id),
 				(String)fflib_Match.eq('comments')
 			)

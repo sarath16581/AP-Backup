@@ -3,34 +3,29 @@
  * 
  * Custom LWC dialog that overrides the default Submit for Approval action displaying additional content.
  */
-import SubmitApprovalDialog from './submitApprovalDialog.html';
+import CSQCloneDialog from './csqClone.html';
 
-const CHECKBOXES = [
-	'Freight profile has been captured for all StarTrack products?  (images attached)',
-	'Dangerous Goods – confirmation/ approval from National Dangerous Goods Manager?',
-	'Photos of Van/ truck pickup point attached?',
-	'Incompatible freight – have you referenced the prohibited list?',
-	'Does the freight profile exceed the tolerance levels of 10% pallet work or 5% Incompatible Items?'
+const CLONE_OPTIONS = [
+	{ label: 'Clone as is (for ABN update)', value: 'full' },
+	{ label: 'Reset approval statusses', value: 'reapprove' },
 ];
 
-export default class SubmitApproval {
+export default class CsqClone {
 	constructor(thisRef) {
 		this.thisRef = thisRef;
-		thisRef.checkboxes = CHECKBOXES.map((label, index) => ({
-			id : `cb${index}`,
-			label
-		}));
+		thisRef.options = CLONE_OPTIONS;
+		thisRef.cloneOptionValue = 'full';
 	}
 
 	/**
-	 * Select the SubmitApprovalDialog template to display this dialog
+	 * Select the CSQCloneDialog template to display this dialog
 	 * @returns Template
 	 */
-	render = () => SubmitApprovalDialog;
+	render = () => CSQCloneDialog;
 
 	connectedCallback() {
 		if (!this.thisRef.title) {
-			this.thisRef.title = 'Submit for Approval';
+			this.thisRef.title = 'Clone CSQ';
 		}
 	}
 
@@ -42,7 +37,7 @@ export default class SubmitApproval {
 	handleClick(event) {
 		let result;
 
-		if (event.target.name === 'btnSubmit') {
+		if (event.target.name === 'btnClone') {
 			const inputElems = [
 				...this.thisRef.template.querySelectorAll('[data-name="input"]')
 			];
@@ -66,9 +61,8 @@ export default class SubmitApproval {
 					{ [item.name] : item.value }
 				), { }
 			);
-
 		}
-		
+
 		// Close the dialog
 		this.thisRef.close(result);
 	}

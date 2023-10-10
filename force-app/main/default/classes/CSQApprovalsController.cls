@@ -1,4 +1,6 @@
 public with sharing class CSQApprovalsController {
+	private static final String TASK_SUBJECT_PENDING_INFORMATION = '{0} - Pending Information';
+
 	@AuraEnabled
 	/**
 	 * Submit record for approval with provided comments
@@ -8,6 +10,21 @@ public with sharing class CSQApprovalsController {
 	 */ 
 	public static void submitForApproval(Id recordId, String comments) {
 		try {
+			UserRecordAccess ura = UserRecordAccessSelector.newInstance().selectById(recordId);
+			
+			if (!ura.HasEditAccess) {
+				throw new NoAccessException();
+			}
+			
+			WithoutSharingDataAccessHelper noSharingInstance = new WithoutSharingDataAccessHelper();			
+			// Commit status update
+			noSharingInstance.dmlUpsert(new SObject[] {
+				new Customer_Scoping_Questionnaire__c(
+					Id = recordId,
+					CSQ_Compliance_Check__c = true
+				)
+			});
+
 			Exception prResult = convertProcessResult(
 				adInstance.submitForApproval(recordId, comments)
 			);
@@ -41,6 +58,19 @@ public with sharing class CSQApprovalsController {
 		return result;
 	}
 
+	@AuraEnabled
+	public static CSQCloneUtility.CloneResult cloneCSQTree(Id recordId, List<String> cloneOptions) {
+		try {
+			if (!FeatureManagement.checkPermission('CSQ_Record_Duplication') && !Test.isRunningTest()) {
+				throw new NoAccessException();
+			}
+
+			CSQCloneUtility csqClone = new CSQCloneUtility();
+			return csqClone.execute(new Set<Id>{ recordId });
+		} catch(Exception ex) {
+			throw new AuraHandledException(ex.getMessage());
+		}
+	}
 
 	@AuraEnabled
 	/**
@@ -60,22 +90,52 @@ public with sharing class CSQApprovalsController {
 			// Will throw NoSuchElementException if null or incorrect
 			ProcessStatus procStatus = ProcessStatus.valueOf(status);
 
-			UserRecordAccess ura = UserRecordAccessSelector.newInstance().selectById(recordId);
-			
-			if (!ura.HasEditAccess) {
+			Boolean canAccess = FeatureManagement.checkPermission('CSQ_Pending_Information') || Test.isRunningTest();
+
+			if (canAccess) {
+				// No need to get user record access when custom permission not assigned
+				canAccess = UserRecordAccessSelector.newInstance().selectById(recordId).HasEditAccess;
+			}
+
+			if (!canAccess) {
 				throw new NoAccessException();
 			}
 
-			unitOfWork.registerDirty(new Pick_Up_Location__c(
+			List<SObject> upsertRecords = new List<SObject>();
+
+			if (procStatus == ProcessStatus.PENDING) {
+				PickUpLocationSelector pulSelector = PickUpLocationSelector.newInstance();
+				Pick_Up_Location__c pul = pulSelector.selectById(new Set<Id>{ recordId }).get(recordId);				
+
+				// Warning: This will throw an error once the CSQ record creator becomes inactive
+				Id taskOwnerId = pul.OwnerId__c;
+
+				upsertRecords.add(new Task(
+					WhatId = recordId,
+					OwnerId = taskOwnerId,
+					Subject = String.format(
+						TASK_SUBJECT_PENDING_INFORMATION,
+						new Object[] { pul.CSQ__r.Name }
+					),
+					Type = 'Other',
+					Category__c = 'Sales',
+					Description = comments,
+					ActivityDate = Date.today()
+				));
+			}
+
+			upsertRecords.add(new Pick_Up_Location__c(
 				Id = recordId,
-				Pick_up_Location_Status__c = approvalStatusMap.get(procStatus),
-				Notes__c = comments
+				Pick_up_Location_Status__c = approvalStatusMap.get(procStatus)
 			));
 
-			WithoutSharingDataAccessHelper noSharingInstance = new WithoutSharingDataAccessHelper(unitOfWork);
+			//WithoutSharingDataAccessHelper noSharingInstance = new WithoutSharingDataAccessHelper(unitOfWork);
+			WithoutSharingDataAccessHelper noSharingInstance = new WithoutSharingDataAccessHelper();			
 			// Commit status update
-			noSharingInstance.commitWork();
+			noSharingInstance.dmlUpsert(upsertRecords);
 		} catch(Exception ex) {
+			System.debug(ex.getStackTraceString());
+			System.debug(ex.getMessage());
 			throw new AuraHandledException(ex.getMessage());
 		}
 	}
@@ -83,19 +143,6 @@ public with sharing class CSQApprovalsController {
 	private Enum ProcessStatus {
 		PENDING,
 		RECEIVED
-	}
-
-	private static ApplicationUnitOfWork unitOfWork {
-		get {
-			if (unitOfWork == null) {
-				unitOfWork = ApplicationUnitOfWork.newInstance(new List<SObjectType>{
-					Pick_Up_Location__c.SObjectType
-				});
-			}
-
-			return unitOfWork;
-		}
-		set;
 	}
 
 	private static ApplicationDatabase adInstance {
@@ -110,14 +157,8 @@ public with sharing class CSQApprovalsController {
 	}
 
 	private without sharing class WithoutSharingDataAccessHelper {
-		private ApplicationUnitOfWork unitOfWork;
-
-		private WithoutSharingDataAccessHelper(ApplicationUnitOfWork uow) {
-			unitOfWork = uow;
-		}
-
-		private void commitWork() {
-			unitOfWork.commitWork();
+		private Database.UpsertResult[] dmlUpsert(List<SObject> upsertRecords) {
+			return adInstance.dmlUpsert(upsertRecords);
 		}
 	}
 }

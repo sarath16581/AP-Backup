@@ -21,10 +21,12 @@ import { api } from 'lwc';
 import LightningModal from 'lightning/modal';
 import PickUpLocationStatusUpdateJs from './PickUpLocation/statusUpdate';
 import CustomerScopingQuestionnaireSubmitApprovalJs from './CustomerScopingQuestionnaire/submitApprovalDialog';
+import CsqCloneJs from './CloneCSQTree/csqClone';
 
 const ModalConfig = {
 	'PickUpLocation_StatusUpdate' : PickUpLocationStatusUpdateJs,
-	'CustomerScopingQuestionnaire_SubmitApprovalDialog' : CustomerScopingQuestionnaireSubmitApprovalJs
+	'CustomerScopingQuestionnaire_SubmitApprovalDialog' : CustomerScopingQuestionnaireSubmitApprovalJs,
+	'CustomerScopingQuestionnaire_Clone' : CsqCloneJs
 };
 
 const ERR_INDALID_MODAL_PROVIDED = 'Invalid parameter provided for modal';

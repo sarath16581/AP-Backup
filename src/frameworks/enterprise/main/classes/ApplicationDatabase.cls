@@ -35,6 +35,19 @@ public inherited sharing class ApplicationDatabase {
 	}
 
 	/**
+	 * Creates new sObject records or updates existing sObject records. Does not allow partial success 
+	 * (i.e. allOrNothing = true). Allows to combine insert and update on different SObjectTypes using 1 single
+	 * DML statement
+	 *
+	 * @param objList list of sObject records to upsert
+	 *
+	 * @return Database.UpsertResults[] if successful. An exception is thrown in the case of any failures.
+	 */
+	public List<Database.UpsertResult> dmlUpsert(List<SObject> objList) {
+		return Database.upsert(objList, true);
+	}
+
+	/**
 	 * Creates new sObject records or updates existing sObject records, using the specified field to determine the presence
 	 * of existing objects. Does not allow partial success (i.e. allOrNothing = true).
 	 *

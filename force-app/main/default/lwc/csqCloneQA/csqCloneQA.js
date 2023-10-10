@@ -8,28 +8,23 @@
  * async processes keep running.
  */
 import { LightningElement, api, wire } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import { getRecord } from 'lightning/uiRecordApi';
 // Required to obtain recordId as this doesn't always come along
 import { CurrentPageReference } from 'lightning/navigation';
 import { ASyncTask } from './utilities/generic';
-import PickUpLocationJs from './PickUpLocation/main';
-import CustomerScopingQuestionnaireJs from './CustomerScopingQuestionnaire/main';
+import CsqJs from './CustomerScopingQuestionnaire/main'
 
 const BACKGROUND_TASK = {
 	GetRecord : 'getRecord',
 	IsDestroyed : 'isDestroyed'
 };
 
-const OBJ_INSTANCES = {
-	Pick_Up_Location__c : PickUpLocationJs,
-	Customer_Scoping_Questionnaire__c : CustomerScopingQuestionnaireJs
-}
-
 // Variables accessible by wired methods used as params
 let objectApiName;
-let objectInstance;
+let objectInstance = CsqJs;
 
-export default class CsqApprovalQA extends LightningElement {
+export default class CsqCloneQA extends NavigationMixin(LightningElement) {
 	// Don't use @api recordId as this oftenly fails/delays to populate for Quick Actions
 	recordId;
 	// Display spinner limiting UI input using spinner overlay
@@ -37,7 +32,8 @@ export default class CsqApprovalQA extends LightningElement {
 
 	get instance() {
 		if (!this._instance && typeof objectInstance === 'function') {
-			this._instance = new objectInstance(this);
+			const navToRecordId = (recordId) => this.navToRecordId(recordId);
+			this._instance = new objectInstance({ thisArg : this, navToRecordId });
 		}
 
 		return this._instance;
@@ -57,9 +53,6 @@ export default class CsqApprovalQA extends LightningElement {
 		if (pageRef && !this.recordId) {
 			// populate this first
 			objectApiName = pageRef.attributes?.objectApiName;
-			if (OBJ_INSTANCES[objectApiName]) {
-				objectInstance = OBJ_INSTANCES[objectApiName];
-			}
 
 			// setting recordId will invoke wired getRecord operation
 			this.recordId = pageRef.attributes?.recordId || null;
@@ -111,5 +104,15 @@ export default class CsqApprovalQA extends LightningElement {
 			// Got all we need, show Modal
 			this.instance.showModal();
 		}
+	}
+
+	@api navToRecordId(recordId) {
+		this[NavigationMixin.Navigate]({
+			type: 'standard__recordPage',
+			attributes: {
+				recordId,
+				actionName: 'view'
+			}
+		});
 	}
 }
