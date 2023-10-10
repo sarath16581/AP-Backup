@@ -10,67 +10,67 @@
 
 @IsTest
 private class BAMContactApplicationsSelector_Test {
-    /**
+	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
 	 */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectString() {
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        // None!
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        BAMContactApplicationsSelector selector = BAMContactApplicationsSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder();
-        String soql = qb.toSoqlString();
+		BAMContactApplicationsSelector selector = BAMContactApplicationsSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom BAMContactApplication__c\\b').matcher(soql).find(), 'Resulting query does not select from BAMContactApplication__c');
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom BAMContactApplication__c\\b').matcher(soql).find(), 'Resulting query does not select from BAMContactApplication__c');
 
-        Test.stopTest();
+		Test.stopTest();
 
-    }
+	}
 
-    /**
+	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
 	 */
-    @IsTest
-    public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        // None!
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        BAMContactApplicationsSelector selector = BAMContactApplicationsSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
-                BAMContactApplicationsSelector.Options.WITH_CONTACT
-        });
-        String soql = qb.toSoqlString();
-        system.debug(soql);
-        System.assertEquals(true, Pattern.compile('(?is)Contact__r\\..*?\\bfrom BAMContactApplication__c\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
+		BAMContactApplicationsSelector selector = BAMContactApplicationsSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
+				BAMContactApplicationsSelector.Options.WITH_CONTACT
+		});
+		String soql = qb.toSoqlString();
+		system.debug(soql);
+		System.assertEquals(true, Pattern.compile('(?is)Contact__r\\..*?\\bfrom BAMContactApplication__c\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
 
-    }
+	}
 }
