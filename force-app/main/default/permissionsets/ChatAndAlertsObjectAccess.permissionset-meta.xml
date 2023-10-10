@@ -8781,11 +8781,6 @@
         <field>Account.is_Inactive_Customer__pc</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Account.IsInactiveCustomer__pc</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.mh_Additional_Notes_Exist__c</field>
@@ -49429,11 +49424,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.is_Inactive_Customer__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.IsInactiveCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

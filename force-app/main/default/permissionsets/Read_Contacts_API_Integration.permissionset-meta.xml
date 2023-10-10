@@ -656,11 +656,6 @@
         <field>Contact.is_Inactive_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.IsInactiveCustomer__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Read Contacts - API Integration</label>
     <objectPermissions>
