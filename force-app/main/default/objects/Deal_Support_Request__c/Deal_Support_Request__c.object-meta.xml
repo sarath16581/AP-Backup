@@ -170,8 +170,8 @@
     <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>LAST_UPDATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>

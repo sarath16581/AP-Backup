@@ -197,7 +197,6 @@ export default class APT_CheckoutLWC extends LightningElement {
 	*@param proposalId
 	*/
 	checkProposalDocGenerationProgress(proposalIdValue) {
-		debugger;
 		//check for proposal APT_Document_Generation_in_Progress__c = false
 		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
 			.then((result) => {
@@ -305,6 +304,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		creditAndRateCardLogic({ proposalId: this.proposalId })
 			.then((result) => {
 				if (result === 'Incomplete') {
+					this.isLoading = false;
 					//prompt to complete cred assess
 					LightningAlert.open({
 						message: this.credAssessPromptMsg,
@@ -320,10 +320,9 @@ export default class APT_CheckoutLWC extends LightningElement {
 					this.docGenerationRequired();
 				}
 				else {
+					this.isLoading = false;
 					this.error = result;
 				}
-
-				this.isLoading = false;
 			})
 			.catch((error) => {
 				this.error = error;

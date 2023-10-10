@@ -163,8 +163,8 @@
     </nameField>
     <pluralLabel>Product Attribute Group Members</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__Sequence__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__AttributeGroupId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__ProductId__c</lookupDialogsAdditionalFields>

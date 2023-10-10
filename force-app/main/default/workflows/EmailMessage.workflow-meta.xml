@@ -487,19 +487,6 @@
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Assign_Shopmate</fullName>
-        <description>Assigns to the Shopmate queue</description>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_Shopmate</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SSSW - Assign Shopmate</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Assign_Test_lab</fullName>
         <field>OwnerId</field>
         <lookupValue>SSSW_Niche_Group_2</lookupValue>
@@ -888,17 +875,6 @@ History
         <field>ProductSubCategory__c</field>
         <literalValue>Philatelic (stamps)</literalValue>
         <name>SSSW - Set Product Sub Philatelic</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SSSW_Set_Product_Sub_Shopmate</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>Shopmate</literalValue>
-        <name>SSSW - Set Product Sub Shopmate</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -2441,55 +2417,6 @@ Product Sub Category - Western Union</description>
         </criteriaItems>
         <description>This is required for returned white mail to be routed into My Customers from My Post
 MyPost RTS (returned mail scanned from Decipher)</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign Shop Mate Cases - Header Contains</fullName>
-        <actions>
-            <name>SSSW_Assign_Load_and_Go_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Assign_Shopmate</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Enquiry_Product_Service</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Product_Sub_Shopmate</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Product_Web_Apps</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Type_to_General_Enquiry</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>ShopMate@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

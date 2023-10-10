@@ -15,8 +15,7 @@
  * @date 2023-02-21
  * @changelog
  * 2023-09-12 - Mahesh Parvathaneni - reverted the cookie handler changes
- * 2023-09-19 - Mahesh Parvathaneni - added variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
- * 2023-10-09 - Mahesh Parvathaneni - updated PKCEEncryptionKey__c to read from custom settings
+ * 2023-09-19 - Maahesh Parvathaneni - added variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
 */
 global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
@@ -81,8 +80,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String audience = authProviderConfiguration.get('Audience__c');
 		String scope = authProviderConfiguration.get('Scope__c');
 		String urlSuffix = authProviderConfiguration.get('URLSuffix__c');
-		AusPostSettings__c setting = AusPostSettings__c.getValues(authProviderConfiguration.get('PKCEEncryptionKey__c'));
-		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(setting.Token__c));
+		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(authProviderConfiguration.get('PKCEEncryptionKey__c')));
 		String redirectUri = COMMUNITY_URL + '/services/authcallback/' + urlSuffix;
 		String pkceChallenge = getPKCECode(stateToPropagate, pkceEncryptionKey)[0];
 		System.debug('PKCE Challenge: ' + pkceChallenge);
@@ -111,8 +109,7 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String code = queryParams.get('code');
 		String sfdcState = queryParams.get('state');
 
-		AusPostSettings__c setting = AusPostSettings__c.getValues(authProviderConfiguration.get('PKCEEncryptionKey__c'));
-		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(setting.Token__c));
+		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(authProviderConfiguration.get('PKCEEncryptionKey__c')));
 		String pkceCodeVerifier = getPKCECode(sfdcState, pkceEncryptionKey)[1];
 		System.debug('PKCE Verifier: ' + pkceCodeVerifier);
 

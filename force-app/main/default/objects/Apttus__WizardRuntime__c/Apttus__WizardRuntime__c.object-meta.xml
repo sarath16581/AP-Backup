@@ -168,8 +168,8 @@
         <customTabListAdditionalFields>Apttus__Continue__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus__Review__c</customTabListAdditionalFields>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__WizardId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__WizardStepStartId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Completed__c</lookupDialogsAdditionalFields>

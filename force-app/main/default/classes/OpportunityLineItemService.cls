@@ -206,9 +206,8 @@ public inherited sharing class OpportunityLineItemService {
 	
 		if (items == null || items.isEmpty() || items[0].Opportunity.AccountId == null) {
 			return items;
-		}
 		 
-
+		}
 		// recalculate OPC for the opporutnity line items
 		Map<Id,Id> optyOrgMap = new Map<Id,Id>();
 		optyOrgMap.put(items[0].Opportunity.id,items[0].Opportunity.AccountId);

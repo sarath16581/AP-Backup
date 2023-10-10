@@ -1541,10 +1541,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Shopmate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Standard Parcel</fullName>
             <default>false</default>
         </values>

@@ -5,14 +5,14 @@ History:
 2018-08-22  dilshan.egodawela@auspost.com.au Created
 2019-09-13  Nathan.Franklin@auspost.com.au : Updated logic to fetch batchId, to fix INC1460293
 2022-09-19  Swati.mogadala@auspost.com.au  : Changed DL for notification from 'DLITCCOTESServiceCloud@auspost.com.au' to 'dlitcandssalesforcesupport@auspost.com.au'
-2023-10-03	Swati.mogadala@auspost.com.au	: Addded GLPROFITCENTRE__c field to the file with column name 'Cover Type Code'
+2023-10-03  Swati.mogadala@auspost.com.au   : Addded GLPROFITCENTRE__c field to the file with column name 'Cover Type Code'
 **********************************************************************************************/
  
 global without sharing class CompensationGenerateFile_Batchable implements Database.Batchable<sObject>, Database.Stateful {
   
   //header columns : used as the header for the output file
   private String columnHeader = 'Invoice Date, Posting Date, Reference, Header Text, Vendor Number, Business Area, Payment Terms, '+
-                +'Text, Account, Amount, Cover Type Code ,Cost Centre Code, Text, Tax Code, Supplier Name, Street, City, Postcode, State, Country, Bank Key, Bank Account, Bank Country, Control Key, GL Code \n';
+                +'Text, Account, Amount, Cover Type Code ,Cost Centre Code, Text, Tax Code, Supplier Name, Street, City, Postcode, State, Country, Bank Key, Bank Account, Bank Country, Control Key \n';
     private List<String> rowValues = new List<String>();
     private Set<Id> recordstoClose = new Set<Id>();
     private String query;
@@ -68,7 +68,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
       rowComponents.add('"*EFT Refund"');
       rowComponents.add('"4155"');
       rowComponents.add(Comp.AMOUNT__c == null ? 0.0 : Comp.AMOUNT__c);
-	  rowComponents.add(Comp.GLPROFITCENTRE__c);
+      rowComponents.add(Comp.GLPROFITCENTRE__c);
       rowComponents.add(Comp.CostCentreCode__c ==  null ? '' : '"' + Comp.CostCentreCode__c.replace('"', '\\"') + '"');
       rowComponents.add('"Refund"');
       rowComponents.add('"ZA"');

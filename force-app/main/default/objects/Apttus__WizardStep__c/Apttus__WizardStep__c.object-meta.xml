@@ -164,8 +164,8 @@
     <pluralLabel>Wizard Steps</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__WizardId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__BannerStatement__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Category__c</lookupDialogsAdditionalFields>

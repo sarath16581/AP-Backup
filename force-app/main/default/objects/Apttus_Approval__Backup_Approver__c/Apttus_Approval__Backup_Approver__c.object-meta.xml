@@ -169,8 +169,8 @@
         <customTabListAdditionalFields>Apttus_Approval__Current_User__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Backup_User__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Transfer_in_flight__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Approval__InEffect__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__IsActive__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Current_User__c</lookupDialogsAdditionalFields>

@@ -3872,14 +3872,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>Compensation : User cannot send emails to customer</shortDescription>
         <value>You do not have privilege to send email to customer</value>
     </labels>
-	<labels>
-		<fullName>CompetitorsRequiredBeforeMovingOpportunityStageErrorMessage</fullName>
-		<categories>Sales Pipeline</categories>
-		<language>en_US</language>
-		<protected>false</protected>
-		<shortDescription>Competitors Required Before Moving Opportunity Stage Error Message</shortDescription>
-		<value>Add Competitors and Incumbents details. Populate the customer’s incumbent or known competitors on the Related tab.</value>
-	</labels>
+    <labels>
+        <fullName>CompetitorsRequiredBeforeMovingOpportunityStageErrorMessage</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Competitors Required Before Moving Opportunity Stage Error Message</shortDescription>
+        <value>Add Competitors and Incumbents details. Populate the customer’s incumbent or known competitors on the Related tab.</value>
+    </labels>
     <labels>
         <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
         <categories>Sales</categories>
@@ -4018,14 +4018,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>Deal Support Request Credit Management New Credit Account Email</shortDescription>
         <value>newcreditaccount@auspost.com.au</value>
     </labels>
-	<labels>
-		<fullName>DSRsMustbeClosedBeforeCloseWinOpportunityErrorMessage</fullName>
-		<categories>Sales Pipeline</categories>
-		<language>en_US</language>
-		<protected>false</protected>
-		<shortDescription>DSRs Must be Closed Before Close Win Opportunity Error Message</shortDescription>
-		<value>Close Deal Support Requests. Support requests must be closed before this opportunity is closed.</value>
-	</labels>
+    <labels>
+        <fullName>DSRsMustbeClosedBeforeCloseWinOpportunityErrorMessage</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DSRs Must be Closed Before Close Win Opportunity Error Message</shortDescription>
+        <value>Close Deal Support Requests. Support requests must be closed before this opportunity is closed.</value>
+    </labels>
     <labels>
         <fullName>DUPE_CASE_ERR_MSG</fullName>
         <language>en_US</language>
@@ -5223,14 +5223,14 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Error Message When Opportunity Is having at least one Primary proposal</shortDescription>
         <value>You have Active Proposals Linked to the Opportunity</value>
     </labels>
-	<labels>
-		<fullName>OpportunityWithActiveApttusContractCannotBeClosedLostErrorMessage</fullName>
-		<categories>Sales Pipeline</categories>
-		<language>en_US</language>
-		<protected>false</protected>
-		<shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
-		<value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
-	</labels>
+    <labels>
+        <fullName>OpportunityWithActiveApttusContractCannotBeClosedLostErrorMessage</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
+        <value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
+    </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
@@ -7069,14 +7069,14 @@ something new for us, so we&apos;d love to know what you think.</value>
         <shortDescription>SafeDropEligibleCancelledLabel</shortDescription>
         <value>Safe drop can be removed for this parcel. Confirm that the customer has been verified and consents to remove this safe drop. Safe drop will be removed for this parcel. It will not be left at the delivery address.</value>
     </labels>
-	<labels>
-		<fullName>SalesPipelineOpportunityTrackerTitle</fullName>
-		<categories>Sales Pipeline</categories>
-		<language>en_US</language>
-		<protected>false</protected>
-		<shortDescription>Opportunity Tracker Title</shortDescription>
-		<value>Outstanding Actions</value>
-	</labels>
+    <labels>
+        <fullName>SalesPipelineOpportunityTrackerTitle</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity Tracker Title</shortDescription>
+        <value>Outstanding Actions</value>
+    </labels>
     <labels>
         <fullName>Saving</fullName>
         <language>en_US</language>
@@ -7124,7 +7124,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Share</value>
     </labels>
     <labels>
-	<fullName>SharingRecalculationPermissionsErrorMessage</fullName>
+        <fullName>SharingRecalculationPermissionsErrorMessage</fullName>
         <categories>Sales</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -8363,12 +8363,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Yes_Its_StarTrackProduct</shortDescription>
         <value>Please fill the values for the field &quot;Primary pickup location&quot; and &quot;Minimum Monthly Spend&quot; when values for the field &quot;StarTrack Product&quot; is Yes</value>
     </labels>
-   <labels>
+    <labels>
         <fullName>isStarTrackProduct</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>isStarTrackProduct</shortDescription>
-        <value>You cannot access Product Catalogue without having completed the following fields: "StarTrack Opportunity?" and "Key Contact". If this opportunity is for StarTrack Product(s), then you are required to provide "StarTrack Minimum Monthly Spend" and "StarTrack Primary Pickup (Postcode)”</value>
+        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)”</value>
     </labels>
     <labels>
         <fullName>keyContactErrorMsg</fullName>
@@ -8377,12 +8377,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>keyContactErrorMsg</shortDescription>
         <value>Your opportunity record is missing Key Contact information</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>KeyContactError</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>KeyContactError</shortDescription>
-        <value>You cannot access Product Catalogue without having completed the following fields: "StarTrack Opportunity?" and "Key Contact". If this opportunity is for StarTrack Product(s), then you are required to provide "StarTrack Minimum Monthly Spend" and "StarTrack Primary Pickup (Postcode)”</value>
+        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)”</value>
     </labels>
     <labels>
         <fullName>viewRateCardControllerError</fullName>

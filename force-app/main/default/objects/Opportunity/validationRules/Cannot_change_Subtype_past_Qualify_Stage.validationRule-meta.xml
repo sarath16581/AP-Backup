@@ -2,7 +2,9 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Cannot_change_Subtype_past_Qualify_Stage</fullName>
     <active>true</active>
-    <errorConditionFormula>AND 
+    <errorConditionFormula>$Profile.Name != &quot;System Administrator&quot; &amp;&amp;
+$Profile.Name != &quot;Sales Admin&quot; &amp;&amp;
+AND 
 (
 (
 OR (

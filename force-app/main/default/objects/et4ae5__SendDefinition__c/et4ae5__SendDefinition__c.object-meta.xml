@@ -176,8 +176,8 @@
         <customTabListAdditionalFields>et4ae5__Campaigns__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>et4ae5__Reports__c</customTabListAdditionalFields>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

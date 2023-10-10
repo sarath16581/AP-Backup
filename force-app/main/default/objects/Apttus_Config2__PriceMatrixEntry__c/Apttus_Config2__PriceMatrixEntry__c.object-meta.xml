@@ -164,8 +164,8 @@
     </nameField>
     <pluralLabel>Price Matrix Entries</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__Sequence__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__Dimension1Value__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__Dimension2Value__c</lookupDialogsAdditionalFields>

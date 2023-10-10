@@ -164,8 +164,8 @@
     </nameField>
     <pluralLabel>Product Hierarchy Views</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__HierarchyId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__ParentClassificationId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__ParentLevel__c</lookupDialogsAdditionalFields>

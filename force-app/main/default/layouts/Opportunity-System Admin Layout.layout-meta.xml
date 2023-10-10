@@ -895,6 +895,11 @@
             <actionType>QuickAction</actionType>
             <sortOrder>25</sortOrder>
         </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Opportunity.Opportunity_Closure</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>26</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
