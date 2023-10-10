@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>PKCEEncryptionKey__c</field>
-        <value xsi:type="xsd:string">M8XquhB3xQoiWpquVq9h7XOqRfFjcdnA5N74HMDO1Fs=</value>
+        <value xsi:type="xsd:string">Auth0MPBProvider</value>
     </values>
     <values>
         <field>Scope__c</field>
