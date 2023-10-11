@@ -65,7 +65,7 @@ export default class BspRequestAccessContent extends NavigationMixin(LightningEl
 		body += '4. For Business Support Portal, update / enable account numbers including '+ this.billingNumber +'.';
 		body += '\n';
 		body += '5. Click "Save changes"';
-		body += '\n';
+		body += '\n\n\n';
 
 		// Define the email URL
 		const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
