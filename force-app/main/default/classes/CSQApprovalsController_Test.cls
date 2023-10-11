@@ -4,6 +4,9 @@ public with sharing class CSQApprovalsController_Test {
 		APPROVAL_PROC_RESULT_POS = '{ "success" : true  }',
 		APPROVAL_PROC_RESULT_NEG = '{ "success" : false, "errors" : [{ "fields" : ["Status__c"], "message" : "Incorrect value for restricted picklist" }] }';
 
+	/***
+	 * 
+	 */
 	@isTest
 	private static void runTestPositive(){
 		Customer_Scoping_Questionnaire__c csq = new Customer_Scoping_Questionnaire__c(
@@ -76,8 +79,6 @@ public with sharing class CSQApprovalsController_Test {
 			CSQApprovalsController.updatePickupLocationStatus(puLoc.Id, 'pending', 'comments');
 			System.assert(true, 'No exception expected');
 		} catch(Exception ex) {
-			System.debug(ex);
-			System.debug(ex.getStackTraceString());
 			System.assert(false, 'No exception expected');
 		}
 

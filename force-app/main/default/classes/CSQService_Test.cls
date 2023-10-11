@@ -1,6 +1,20 @@
-@isTest
+/***
+ * Service class for CSQ related operations.
+ * 
+ * @author	Paul Perry
+ * @since	2023-10-10
+ * @test	CSQService_Test
+ */@isTest
 public with sharing class CSQService_Test {
-    @isTest
+    /***
+	 * Updating a pickup status to pending information initiates a process
+	 * where a task is created and assigned to the related CSQ record's creator
+	 * 
+	 * When this task gets completed, the pickup location status gets updated to 
+	 * Information received and a notification will be sent out to the creator
+	 * informing them that the approval process can continue
+	 */
+	@isTest
 	public static void csqServicetest() {
 		// Construct CSQ record with embedded child records
 		Id pickUpLocId = fflib_IDGenerator.generate(Pick_Up_Location__c.SObjectType);
@@ -94,168 +108,12 @@ public with sharing class CSQService_Test {
 		);
 
 		List<Object> updateRecords = (List<Object>)updateRecordsCaptor.getAllValues();
-
-		System.debug(updateRecords);
-
 		List<Pick_Up_Location__c> updateRecords1 = (List<Pick_Up_Location__c>)updateRecords[0];
-    }
 
-
-
-	// public inherited sharing class CSQUtilities {
-
-	// 	public static void updatePickUpLocation(Map<Id,SObject> oldMap, Map<Id,SObject> newMap) {
-	// 		Set<Id> pickupLocationIds = new Set<Id>();
-	
-	// 		for (Task tsk :(List<Task>)newMap.values()) {
-	// 			// Filter out any task other than:
-	// 			// - Status changing to 'Completed'
-	// 			// - Related to Pick_Up_Locations
-	// 			// - Subject: 'Pending Information'
-	// 			Boolean qualifies = 
-	// 				tsk.Subject.endsWith('Pending Information')
-	// 				&& tsk.Status == 'Completed'
-	// 				&& tsk.WhatId?.getSObjectType() == Pick_Up_Location__c.SObjectType
-	// 				&& isChanged(tsk, oldMap.get(tsk.Id), Task.Status);
-	
-	// 			if (qualifies) {
-	// 				pickupLocationIds.add(tsk.WhatId);
-	// 			}
-	// 		}
-	
-	// 		if (!pickupLocationIds.isEmpty()) {
-	// 			Map<Id,Pick_Up_Location__c> pulMap = (Map<Id,Pick_Up_Location__c>)PickUpLocationSelector.newInstance().selectById(
-	// 				pickupLocationIds,
-	// 				new Set<Object>{
-	// 					PickUpLocationSelector.Options.WITH_PENDING_TASKS,
-	// 					PickUpLocationSelector.Options.FILTER_STATUS_PENDING_INFORMATION
-	// 				}
-	// 			);
-	
-	// 			List<Pick_Up_Location__c> updatedPULList = new List<Pick_Up_Location__c>();
-	
-	// 			for (Id pulId :pulMap.keySet()) {
-	// 				Pick_Up_Location__c pul = pulMap.get(pulId);
-	
-	// 				if (pul.Tasks == null || pul.Tasks.isEmpty()) {
-	// 					updatedPULList.add(new Pick_Up_Location__c(
-	// 						Id = pul.Id,
-	// 						Pick_up_Location_Status__c = 'Received Information'
-	// 					));
-	// 				} else {
-	// 					pulMap.remove(pulId);
-	// 				}
-	// 			}
-	
-	// 			if (!updatedPULList.isEmpty()) {
-	// 				// Invoke update first
-	// 				ApplicationDatabase.getInstance().dmlUpdate(updatedPULList);
-	// 				// Email uses LastModifiedUser as per oparation above
-	// 				sendReceivedNotification(pulMap.values());
-	// 			}
-	// 		}
-	// 	}
-	
-	// 	public static final String INSTANCEURL = URL.getSalesforceBaseUrl().toExternalForm();
-	// 	public static final String USERNAME = UserInfo.getName();
-	// 	public static final String EMAILHTMLBODY = String.join(new String[] {
-	// 		'Hello , ',
-	// 		'',	
-	// 		'{0} has updated the Pick-Up Location\'s status to Information Received.',
-	// 		'',
-	// 		'Pick-Up Location: {1}/{2}',
-	// 		'',
-	// 		'View Report showing all <a href="{1}/{3}">Pick-Up Locations having status set to Information Received</a>.',
-	// 		'',
-	// 		'Thanks, ',
-	// 		'',
-	// 		'Salesforce Team '
-	// 	}, '<br/>\r\n');
-	// 	public static final String EMAILPLAINBODY = String.join(new String[] {
-	// 		'Hello, ',
-	// 		'',	
-	// 		'{0} has updated the Pick-Up Location\'s status to Information Received.',
-	// 		'',
-	// 		'Pick-Up Location: {1}/{2}',
-	// 		'',
-	// 		'View Report showing all Pick-Up Locations having status set to Information Received:\r\n{1}/{3}',
-	// 		'',
-	// 		'Thanks, ',
-	// 		'',
-	// 		'Salesforce Team '
-	// 	}, '\r\n');
-		
-	// 	public static Id receivedPickupLocsReportId {
-	// 		get {
-	// 			if (receivedPickupLocsReportId == null) {
-	
-	// 				final String reportName = 'Pick-Up Locations: Received Information';
-	
-	// 				CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(
-	// 					Report.SObjectType,
-	// 					new Set<SObjectField>{ Report.Id, Report.Name }
-	// 				);
-	
-	// 				receivedPickupLocsReportId = ((Map<String,SObject>)settingsSelector.selectByNames(
-	// 					new Set<String> { reportName }
-	// 				)).get(reportName).Id;
-	// 			}
-	
-	// 			return receivedPickupLocsReportId;
-	// 		}
-	// 		set;
-	// 	}
-	
-	// 	public static List<Messaging.SendEmailResult> sendReceivedNotification(List<Pick_Up_Location__c> pulList) {
-	// 		List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
-	// 		Set<Id> userIds = new Set<Id>();
-	
-	// 		for (Pick_Up_Location__c pul :pulList) {
-	// 			userIds.add(pul.OwnerId__c);
-	// 		}
-	
-	// 		Map<Id,User> userMap = UsersSelector.newInstance().selectById(userIds);
-	
-	// 		for (Pick_Up_Location__c pul :pulList) {
-	// 			Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-	// 			mail.setToAddresses(new List<String>{
-	// 				userMap.get(pul.OwnerId__c).Email
-	// 			});
-	// 			mail.setSubject(pul.CSQ__r.Name + ' - Information Received');
-	// 			mail.setHtmlBody(String.format(
-	// 				EMAILHTMLBODY,
-	// 				new Object[] { USERNAME, INSTANCEURL, pul.Id, receivedPickupLocsReportId })
-	// 			);
-	// 			mail.setPlainTextBody(String.format(
-	// 				EMAILPLAINBODY,
-	// 				new Object[] { USERNAME, INSTANCEURL, pul.Id, receivedPickupLocsReportId })
-	// 			);
-	// 			mail.setUseSignature(false);
-	// 			mail.setBccSender(false);
-	// 			mail.setSaveAsActivity(false);
-	// 			emails.add(mail);
-	// 		}
-	
-	// 		return Messaging.sendEmail(emails);
-	// 	}
-	
-	// 	// Generic tooling
-	// 	public static Boolean isChanged(SObject newRec, SObject oldRec, SObjectField field) {
-	// 		return oldRec == null || oldRec.get(field) != newRec.get(field);
-	// 	}
-	
-	// 	public static Boolean isChanged(SObject newRec, SObject oldRec, Set<SObjectField> fields) {
-	// 		Boolean result = false;
-	
-	// 		for (SObjectField field :fields) {
-	// 			result = isChanged(newRec, oldRec, new Set<SObjectField>{ field });
-	
-	// 			if (result) {
-	// 				break;
-	// 			}
-	// 		}
-	
-	// 		return result;
-	// 	}
-	// }
+		System.assertEquals(
+			'Received Information',
+			updateRecords1[0].Pick_up_Location_Status__c,
+			'Status update missing'
+		);
+    }	
 }

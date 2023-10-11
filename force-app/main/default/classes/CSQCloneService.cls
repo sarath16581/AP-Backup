@@ -11,194 +11,10 @@ public virtual without sharing class CSQCloneService {
 	public Map<SObjectType,Set<String>> cloneFieldSetBySObjType;
 	public Set<String> cloneOptions;
 
-	public CSQCloneService() {
-		this(new Set<String>());
-	}
-
-	public CSQCloneService(Set<String> cloneOptions) {
-		this.cloneOptions = cloneOptions;
-	}
-
-	public virtual List<SObject> getSourceRecords(Set<Id> recordIds, SObjectType sObjType) {
-		return Database.query(
-			getQueryBuilder(sObjType, csqCloneFieldSet.get(sObjType), csqChildRelations.get(sObjType).keySet())
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition('Id IN :recordIds'))
-				.endConditions()
-				.addOrderDesc('Id')
-				.toSoqlString()
-		);
-	}
-
-	public virtual Boolean allowCloneField(SObject source, SObjectType sObjType, String fieldName) {
-		if (cloneFieldSetBySObjType == null) {
-			cloneFieldSetBySObjType = new Map<SObjectType,Set<String>>();
-		}
-
-		if (!cloneFieldSetBySObjType.containsKey(sObjType)) {
-			Set<String> fieldSet = new Set<String>();
-
-			for (SObjectField field :csqCloneFieldSet.get(sObjType)) {
-				fieldSet.add(String.valueOf(field));
-			}
-
-			cloneFieldSetBySObjType.put(sObjType, fieldSet);
-		}
-
-		return cloneFieldSetBySObjType.containsKey(sObjType) && cloneFieldSetBySObjType.get(sObjType).contains(fieldName);
-	}
-
-	public virtual void beforeCommit(Map<SObject,SObject> cloneBySource) {
-		for (SObject record :cloneBySource.values()) {
-			Map<SObjectField,Object> defaultValues = defaultCloneValuesMap.get(record.getSObjectType());
-
-			if (defaultValues == null) {
-				continue;
-			}
-			
-			for (SObjectField field :defaultValues.keySet()) {
-				record.put(field, defaultValues.get(field));
-			}
-		}
-	}
-
-	public virtual void afterCommit(Map<SObject,SObject> clonedBySource) { }
-
-	private List<CloneRecordResult> cloneCSQ(List<Customer_Scoping_Questionnaire__c> csqList) {
-		cloneBySource = new Map<Id,SObject>();
-		sourceBySourceId = new Map<Id,SObject>();
-		Map<Id,CloneRecordResult> cloneRecordResultBySourceId = commitClonedRecords(clone(csqList));
-		Map<String,ChildParentDef> relationships = csqChildRelations.get(Customer_Scoping_Questionnaire__c.SObjectType);
-		
-		for (Set<String> rsOrder :relationshipOrder) {
-			Map<Id,SObject> cloneMap = new Map<Id,SObject>();
-
-			for (String relationshipName :rsOrder) {
-				for (Customer_Scoping_Questionnaire__c csq :csqList) {
-					List<SObject> childRecords = csq.getSObjects(relationshipName);
-					ChildParentDef childParentDef = relationships.get(relationshipName);
-
-					if (childRecords == null || !cloneRecordResultBySourceId.get(csq.Id).success) {
-						continue;
-					}
-
-					cloneMap.putAll(clone(
-						childRecords,
-						String.valueOf(relationships.get(relationshipName).parentReferenceField),
-						cloneBySource.get(csq.Id).Id
-					));
-				}
-			}
-
-			cloneRecordResultBySourceId.putAll(commitClonedRecords(cloneMap));
-		}
-
-		return cloneRecordResultBySourceId.values();
-	}
-
-	private Map<Id,CloneRecordResult> commitClonedRecords(Map<Id,SObject> cloneMap) {
-		List<SObject> sourceList = new List<SObject>();
-		Map<SObject,SObject> cloneBySource = new Map<SObject,SObject>();
-
-		for (Id recId :cloneMap.keySet()) {
-			sourceList.add(sourceBySourceId.get(recId));
-			cloneBySource.put(sourceBySourceId.get(recId), cloneMap.get(recId));
-		}
-
-		Database.SaveResult[] saveResults;
-
-		if (!cloneMap.isEmpty()) {
-			beforeCommit(cloneBySource);
-			saveResults = ApplicationDatabase.getInstance().dmlInsert(cloneMap.values(), false);
-			afterCommit(cloneBySource);
-		}
-
-		Map<Id,CloneRecordResult> result = new Map<Id,CloneRecordResult>();
-		
-		for (Integer idx = 0; idx < sourceList.size(); idx++) {
-			Id sourceId = sourceList[idx].Id;
-			result.put(sourceId, new CloneRecordResult(sourceId, cloneMap.get(sourceId), saveResults[idx]));
-		}
-
-		System.debug(JSON.serializePretty(cloneMap));
-		return result;
-	}
-
-	private Map<Id,SObject> clone(List<SObject> records) {
-		return clone(records, null, null);
-	}
-
-	private Map<Id,SObject> clone(List<SObject> records, String parentField, Id parentId) {
-		Map<Id,SObject> result = new Map<Id,SObject>();
-		Set<String> errors = new Set<String>();
-
-				
-		for (SObject rec :records) {
-			sourceBySourceId.put(rec.Id, rec);
-			Map<String,Object> recordMap = rec.getPopulatedFieldsAsMap();
-			SObjectType sObjType = rec.getSObjectType();
-			SObject clone = sObjType.newSObject();
-
-			if (String.isNotBlank(parentField)) {
-				clone.put(parentField, parentId);
-			}
-
-			for (String fieldName :recordMap.keySet()) {
-				Object value = recordMap.get(fieldName);
-
-				// Don't copy source field when:
-				// - it's a parent reference
-				// - it's null
-				// - it's not a field to be cloned
-				if (fieldName == parentField || value == null || !allowCloneField(rec, sObjType, fieldName)) {
-					continue;
-				} else if (value instanceOf Id && cloneBySource.containsKey((Id)value)) {
-					value = cloneBySource.get((Id)value).Id;
-				} else {
-					value = rec.get(fieldName);
-				}
-
-				try {
-					clone.put(fieldName, value);
-				} catch(Exception ex) {
-					// Field is not writable
-					errors.add(String.format(
-						'{0}.{1}',
-						new Object[]{
-							sObjType,
-							fieldName
-						}
-					));
-				}
-				
-			}
-
-			result.put(rec.Id, clone);
-			cloneBySource.put(rec.Id, clone);
-		}
-
-		if (!errors.isEmpty()) {
-			System.debug(LoggingLevel.ERROR, 'Fields not writable:\r\n' + String.join(errors, '\r\n'));
-		}
-
-		return result;
-	}
-
-	public CloneResult execute(Set<Id> recordIds) {
-		Savepoint sp = Database.setSavepoint();
-
-		CloneResult result = new CloneResult(
-			cloneCSQ(getSourceRecords(recordIds, Customer_Scoping_Questionnaire__c.SObjectType))
-		);
-
-		// In case one or more records failed to commit
-		if (!result.success) {
-			Database.rollback(sp);
-		}
-		
-		return result;
-	}
-
+	// CONFIGURATION SECTION
+	/***
+	 * Configuration for CSQ child relations providing SObjectType and parent field by relationship name
+	 */
 	public static Map<SObjectType,Map<String,ChildParentDef>> csqChildRelations = new Map<SObjectType,Map<String,ChildParentDef>>{
 		Customer_Scoping_Questionnaire__c.SObjectType => new Map<String,ChildParentDef>{
 			'Freight_Offerings__r' => new ChildParentDef(
@@ -216,11 +32,17 @@ public virtual without sharing class CSQCloneService {
 		}
 	};
 
+	/***
+	 * Configured order of execution for child records cloning
+	 */
 	public static List<Set<String>> relationshipOrder = new List<Set<String>>{
 		new Set<String>{ 'Freight_Offerings__r', 'IT_Contacts_and_Integration_Details__r' },
 		new Set<String>{ 'Locations__r' }
 	};
 
+	/***
+	 * Configured default values to be applied upon cloning
+	 */
 	private static Map<SObjectType,Map<SObjectField,Object>> defaultCloneValuesMap = new Map<SObjectType,Map<SObjectField,Object>> {
 		Customer_Scoping_Questionnaire__c.SObjectType => new Map<SObjectField,Object>{
 			Customer_Scoping_Questionnaire__c.CSQ_Status__c => 'Draft',
@@ -235,6 +57,9 @@ public virtual without sharing class CSQCloneService {
 		}
 	};
 
+	/***
+	 * Configured fields for cloning
+	 */
 	public static Map<SObjectType,Set<SObjectField>> csqCloneFieldSet = new Map<SObjectType,Set<SObjectField>>{
 		Customer_Scoping_Questionnaire__c.SObjectType => new Set<SObjectField>{
 			Customer_Scoping_Questionnaire__c.Additional_Account_Management__c,
@@ -389,6 +214,231 @@ public virtual without sharing class CSQCloneService {
 		}
 	};
 	
+
+	public CSQCloneService() {
+		this(new Set<String>());
+	}
+
+	public CSQCloneService(Set<String> cloneOptions) {
+		this.cloneOptions = cloneOptions;
+	}
+
+	/***
+	 * Return a list of records including nested child records by stacking QueryBuilder instances
+	 * @param recordIds parentRecordIds
+	 * @param sObjType 
+	 * @return  `List<SObject>`
+	 */
+	public virtual List<SObject> getSourceRecords(Set<Id> recordIds, SObjectType sObjType) {
+		return Database.query(
+			getQueryBuilder(sObjType, csqCloneFieldSet.get(sObjType), csqChildRelations.get(sObjType).keySet())
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition('Id IN :recordIds'))
+				.endConditions()
+				.addOrderDesc('Id')
+				.toSoqlString()
+		);
+	}
+
+	/***
+	 * 
+	 * @param source Return whether or not a field should be cloned
+	 * @param sObjType 
+	 * @param fieldName 
+	 * @return  `Boolean`
+	 */
+	public virtual Boolean allowCloneField(SObject source, SObjectType sObjType, String fieldName) {
+		if (cloneFieldSetBySObjType == null) {
+			cloneFieldSetBySObjType = new Map<SObjectType,Set<String>>();
+		}
+
+		if (!cloneFieldSetBySObjType.containsKey(sObjType)) {
+			Set<String> fieldSet = new Set<String>();
+
+			for (SObjectField field :csqCloneFieldSet.get(sObjType)) {
+				fieldSet.add(String.valueOf(field));
+			}
+
+			cloneFieldSetBySObjType.put(sObjType, fieldSet);
+		}
+
+		return cloneFieldSetBySObjType.containsKey(sObjType) && cloneFieldSetBySObjType.get(sObjType).contains(fieldName);
+	}
+
+	/***
+	 * Overrideable method invoked prior to committing records
+	 * @param cloneBySource Map of (to be) cloned records by their original record
+	 */
+	public virtual void beforeCommit(Map<SObject,SObject> cloneBySource) {
+		for (SObject record :cloneBySource.values()) {
+			Map<SObjectField,Object> defaultValues = defaultCloneValuesMap.get(record.getSObjectType());
+
+			if (defaultValues == null) {
+				continue;
+			}
+			
+			for (SObjectField field :defaultValues.keySet()) {
+				record.put(field, defaultValues.get(field));
+			}
+		}
+	}
+
+	/***
+	 * Overrideable method invoked prior to committing records
+	 * @param cloneBySource Map of cloned records by their original record
+	 */
+	public virtual void afterCommit(Map<SObject,SObject> clonedBySource) { }
+
+	/***
+	 * Clone list of CSQ records with nested child records
+	 * @param csqList 
+	 * @return  `List<CloneRecordResult>`
+	 */
+	private List<CloneRecordResult> cloneCSQ(List<Customer_Scoping_Questionnaire__c> csqList) {
+		cloneBySource = new Map<Id,SObject>();
+		sourceBySourceId = new Map<Id,SObject>();
+		Map<Id,CloneRecordResult> cloneRecordResultBySourceId = commitClonedRecords(clone(csqList));
+		Map<String,ChildParentDef> relationships = csqChildRelations.get(Customer_Scoping_Questionnaire__c.SObjectType);
+		
+		for (Set<String> rsOrder :relationshipOrder) {
+			Map<Id,SObject> cloneMap = new Map<Id,SObject>();
+
+			for (String relationshipName :rsOrder) {
+				for (Customer_Scoping_Questionnaire__c csq :csqList) {
+					List<SObject> childRecords = csq.getSObjects(relationshipName);
+					ChildParentDef childParentDef = relationships.get(relationshipName);
+
+					if (childRecords == null || !cloneRecordResultBySourceId.get(csq.Id).success) {
+						continue;
+					}
+
+					cloneMap.putAll(clone(
+						childRecords,
+						String.valueOf(childParentDef.parentReferenceField),
+						cloneBySource.get(csq.Id).Id
+					));
+				}
+			}
+
+			cloneRecordResultBySourceId.putAll(commitClonedRecords(cloneMap));
+		}
+
+		return cloneRecordResultBySourceId.values();
+	}
+
+	/***
+	 * 
+	 * @param cloneMap Commit a list of records to the database
+	 * @return  `Map<Id,CloneRecordResult>`
+	 */
+	private Map<Id,CloneRecordResult> commitClonedRecords(Map<Id,SObject> cloneMap) {
+		List<SObject> sourceList = new List<SObject>();
+		Map<SObject,SObject> cloneBySource = new Map<SObject,SObject>();
+
+		for (Id recId :cloneMap.keySet()) {
+			sourceList.add(sourceBySourceId.get(recId));
+			cloneBySource.put(sourceBySourceId.get(recId), cloneMap.get(recId));
+		}
+
+		Database.SaveResult[] saveResults;
+
+		if (!cloneMap.isEmpty()) {
+			beforeCommit(cloneBySource);
+			saveResults = ApplicationDatabase.getInstance().dmlInsert(cloneMap.values(), false);
+			afterCommit(cloneBySource);
+		}
+
+		Map<Id,CloneRecordResult> result = new Map<Id,CloneRecordResult>();
+		
+		for (Integer idx = 0; idx < sourceList.size(); idx++) {
+			Id sourceId = sourceList[idx].Id;
+			result.put(sourceId, new CloneRecordResult(sourceId, cloneMap.get(sourceId), saveResults[idx]));
+		}
+
+		return result;
+	}
+
+	private Map<Id,SObject> clone(List<SObject> records) {
+		return clone(records, null, null);
+	}
+
+	private Map<Id,SObject> clone(List<SObject> records, String parentField, Id parentId) {
+		Map<Id,SObject> result = new Map<Id,SObject>();
+		Set<String> errors = new Set<String>();
+
+				
+		for (SObject rec :records) {
+			sourceBySourceId.put(rec.Id, rec);
+			Map<String,Object> recordMap = rec.getPopulatedFieldsAsMap();
+			SObjectType sObjType = rec.getSObjectType();
+			SObject clone = sObjType.newSObject();
+
+			if (String.isNotBlank(parentField)) {
+				clone.put(parentField, parentId);
+			}
+
+			for (String fieldName :recordMap.keySet()) {
+				Object value = recordMap.get(fieldName);
+
+				// Don't copy source field when:
+				// - it's a parent reference
+				// - it's null
+				// - it's not a field to be cloned
+				if (fieldName == parentField || value == null || !allowCloneField(rec, sObjType, fieldName)) {
+					continue;
+				} else if (value instanceOf Id && cloneBySource.containsKey((Id)value)) {
+					value = cloneBySource.get((Id)value).Id;
+				} else {
+					value = rec.get(fieldName);
+				}
+
+				try {
+					clone.put(fieldName, value);
+				} catch(Exception ex) {
+					// Field is not writable
+					errors.add(String.format(
+						'{0}.{1}',
+						new Object[]{
+							sObjType,
+							fieldName
+						}
+					));
+				}
+				
+			}
+
+			result.put(rec.Id, clone);
+			cloneBySource.put(rec.Id, clone);
+		}
+
+		// Used for adjusting configuration during development
+		// if (!errors.isEmpty()) {
+		// 	// System.debug(LoggingLevel.ERROR, 'Fields not writable:\r\n' + String.join(errors, '\r\n'));
+		// }
+
+		return result;
+	}
+
+	/***
+	 * 
+	 * @param recordIds Execute the clone proces for provided CSQ record Ids
+	 * @return  `CloneResult`
+	 */
+	public CloneResult execute(Set<Id> recordIds) {
+		Savepoint sp = Database.setSavepoint();
+
+		CloneResult result = new CloneResult(
+			cloneCSQ(getSourceRecords(recordIds, Customer_Scoping_Questionnaire__c.SObjectType))
+		);
+
+		// In case one or more records failed to commit
+		if (!result.success) {
+			Database.rollback(sp);
+		}
+		
+		return result;
+	}
+
 	public static QueryBuilder getQueryBuilder(SObjectType sObjType, Set<SObjectField> fields) {
 		return getQueryBuilder(sObjType, fields, null);
 	}

@@ -1,13 +1,14 @@
+
 public with sharing class CSQApprovalsController {
 	private static final String TASK_SUBJECT_PENDING_INFORMATION = '{0} - Pending Information';
 
-	@AuraEnabled
 	/**
 	 * Submit record for approval with provided comments
 	 * @param recordId - The record's identifier
 	 * @param comments - Optional comments on the approval 
 	 * @exception AuraHandledException - Any errors upon submission
 	 */ 
+	@AuraEnabled
 	public static void submitForApproval(Id recordId, String comments) {
 		try {
 			UserRecordAccess ura = UserRecordAccessSelector.newInstance().selectById(recordId);
@@ -134,8 +135,6 @@ public with sharing class CSQApprovalsController {
 			// Commit status update
 			noSharingInstance.dmlUpsert(upsertRecords);
 		} catch(Exception ex) {
-			System.debug(ex.getStackTraceString());
-			System.debug(ex.getMessage());
 			throw new AuraHandledException(ex.getMessage());
 		}
 	}

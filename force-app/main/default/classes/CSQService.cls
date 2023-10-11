@@ -4,8 +4,58 @@
  * 
  * @author	Paul Perry
  * @since	2023-10-10
+ * @test	CSQService_Test
  */
 public inherited sharing class CSQService {
+	// CONFIGURATION
+	public static final String INSTANCEURL = URL.getSalesforceBaseUrl().toExternalForm();
+	public static final String USERNAME = UserInfo.getName();
+	public static final String EMAILHTMLBODY = String.join(new String[] {
+		'Hello , ',
+		'',	
+		'{0} has updated the Pick-Up Location\'s status to Information Received.',
+		'',
+		'Pick-Up Location: {1}/{2}',
+		'',
+		'View Report showing all <a href="{1}/{3}">Pick-Up Locations having status set to Information Received</a>.',
+		'',
+		'Thanks, ',
+		'',
+		'Salesforce Team '
+	}, '<br/>\r\n');
+	public static final String EMAILPLAINBODY = String.join(new String[] {
+		'Hello, ',
+		'',	
+		'{0} has updated the Pick-Up Location\'s status to Information Received.',
+		'',
+		'Pick-Up Location: {1}/{2}',
+		'',
+		'View Report showing all Pick-Up Locations having status set to Information Received:\r\n{1}/{3}',
+		'',
+		'Thanks, ',
+		'',
+		'Salesforce Team '
+	}, '\r\n');
+	public static final String REPORTNAME_RECEIVEDINFO = 'Pick-Up Locations: Received Information';
+	
+	public static Id receivedPickupLocsReportId {
+		get {
+			if (receivedPickupLocsReportId == null) {
+				CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(
+					Report.SObjectType,
+					new Set<SObjectField>{ Report.Id, Report.Name }
+				);
+
+				receivedPickupLocsReportId = ((Map<String,SObject>)settingsSelector.selectByNames(
+					new Set<String> { REPORTNAME_RECEIVEDINFO }
+				)).get(REPORTNAME_RECEIVEDINFO).Id;
+			}
+
+			return receivedPickupLocsReportId;
+		}
+		set;
+	}
+
 	/***
 	 * Tasks related to pickup location records when task gets completed:
 	 * - update related pickup location status when Pending
@@ -63,54 +113,6 @@ public inherited sharing class CSQService {
 				sendReceivedNotification(pulMap.values());
 			}
 		}
-	}
-
-	public static final String INSTANCEURL = URL.getSalesforceBaseUrl().toExternalForm();
-	public static final String USERNAME = UserInfo.getName();
-	public static final String EMAILHTMLBODY = String.join(new String[] {
-		'Hello , ',
-		'',	
-		'{0} has updated the Pick-Up Location\'s status to Information Received.',
-		'',
-		'Pick-Up Location: {1}/{2}',
-		'',
-		'View Report showing all <a href="{1}/{3}">Pick-Up Locations having status set to Information Received</a>.',
-		'',
-		'Thanks, ',
-		'',
-		'Salesforce Team '
-	}, '<br/>\r\n');
-	public static final String EMAILPLAINBODY = String.join(new String[] {
-		'Hello, ',
-		'',	
-		'{0} has updated the Pick-Up Location\'s status to Information Received.',
-		'',
-		'Pick-Up Location: {1}/{2}',
-		'',
-		'View Report showing all Pick-Up Locations having status set to Information Received:\r\n{1}/{3}',
-		'',
-		'Thanks, ',
-		'',
-		'Salesforce Team '
-	}, '\r\n');
-	public static final String REPORTNAME_RECEIVEDINFO = 'Pick-Up Locations: Received Information';
-	
-	public static Id receivedPickupLocsReportId {
-		get {
-			if (receivedPickupLocsReportId == null) {
-				CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(
-					Report.SObjectType,
-					new Set<SObjectField>{ Report.Id, Report.Name }
-				);
-
-				receivedPickupLocsReportId = ((Map<String,SObject>)settingsSelector.selectByNames(
-					new Set<String> { REPORTNAME_RECEIVEDINFO }
-				)).get(REPORTNAME_RECEIVEDINFO).Id;
-			}
-
-			return receivedPickupLocsReportId;
-		}
-		set;
 	}
 
 	/***
