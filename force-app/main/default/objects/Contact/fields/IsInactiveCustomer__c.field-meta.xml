@@ -5,7 +5,7 @@
 	<externalId>false</externalId>
 	<label>Is Inactive Customer</label>
 	<securityClassification>INTERNAL</securityClassification>
-	<description>Indiacates a closed or merged account, ready to be archived and deleted. Examples - customer request, deceased etc. Derived from the Status__c field value</description>
+	<description>Indicates a closed or merged account, ready to be archived and deleted. Examples - customer request, deceased etc. Derived from the Status__c field value</description>
 	<inlineHelpText>Closed or Merged account, soon to be archived and deleted. Examples include deceased, customer request etc.</inlineHelpText>
 	<trackFeedHistory>false</trackFeedHistory>
 	<trackHistory>false</trackHistory>
