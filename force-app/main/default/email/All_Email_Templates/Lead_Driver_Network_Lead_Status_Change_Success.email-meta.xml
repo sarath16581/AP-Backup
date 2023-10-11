@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
+    <description>Lead Driver Network Email Communication</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Lead Driver Network - Lead Status change - Success</name>
     <style>none</style>
     <subject>Driver Leads Rewards Program – Successful lead {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
     <textOnly>Dear {!Lead.Name_of_lead_creator__c},
 
-The lead you submitted for {!Lead.Organisation__c} is {!Lead.Status}. 
+The lead you submitted for {!Lead.Organisation__c} is {!Lead.Status}.
 
-If you have any questions, please email us at seekerrewards@seeker.auspost.com.au 
+If you have any questions, please email us at seekerrewards@seeker.auspost.com.au
 
-Regards, 
+Regards,
 The Driver Leads Program team
 
 
