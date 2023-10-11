@@ -1,12 +1,11 @@
 /***
  * Utility class for CSQ related operations.
  * 
- * @domain	CSQ
+ * 
  * @author	Paul Perry
  * @since	2023-10-10
- * @test	CSQUtilities_Test
  */
-public inherited sharing class CSQUtilities {
+public inherited sharing class CSQUtility {
 	/***
 	 * Tasks related to pickup location records when task gets completed:
 	 * - update related pickup location status when Pending

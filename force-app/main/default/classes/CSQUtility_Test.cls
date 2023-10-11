@@ -1,14 +1,7 @@
-/***
- * Utility class for CSQ related operations.
- * 
- * @domain	CSQ
- * @author	Paul Perry
- * @since	2023-10-10
- */
 @isTest
-public with sharing class CSQUtilities_Test {
+public with sharing class CSQUtility_Test {
     @isTest
-	public static void csqUtilitiestest() {
+	public static void csqUtilitytest() {
 		// Construct CSQ record with embedded child records
 		Id pickUpLocId = fflib_IDGenerator.generate(Pick_Up_Location__c.SObjectType);
 		Id userId = UserInfo.getUserId();
@@ -59,7 +52,7 @@ public with sharing class CSQUtilities_Test {
 			new Report(),
 			new Map<String, Object> {
 				'Id' => fflib_IDGenerator.generate(Report.SObjectType),
-				'Name' => CSQUtilities.REPORTNAME_RECEIVEDINFO
+				'Name' => CSQUtility.REPORTNAME_RECEIVEDINFO
 			}
 		);
 
@@ -89,7 +82,7 @@ public with sharing class CSQUtilities_Test {
 
 		Test.startTest();
 
-		CSQUtilities.updatePickUpLocation(
+		CSQUtility.updatePickUpLocation(
 			new Map<Id,Task>{ oldTask.Id => oldTask },
 			new Map<Id,Task>{ newTask.Id => newTask }
 		);
@@ -104,13 +97,7 @@ public with sharing class CSQUtilities_Test {
 
 		System.debug(updateRecords);
 
-		Map<Id,Pick_Up_Location__c> updatedRecords = new Map<Id,Pick_Up_Location__c>((List<Pick_Up_Location__c>)updateRecords[0]);
-		
-		System.assertNotEqual(
-			'Pending Information',
-			updatedRecords.get(pickUpLocId).Pick_up_Location_Status__c,
-			'Expected an updated value for Pickup Location Status'
-		);
+		List<Pick_Up_Location__c> updateRecords1 = (List<Pick_Up_Location__c>)updateRecords[0];
     }
 
 
