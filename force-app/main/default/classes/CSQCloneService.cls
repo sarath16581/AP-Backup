@@ -4,19 +4,18 @@
  * @domain	CSQ
  * @author	Paul Perry
  * @since	2023-10-10
- * @test	CSQCloneUtility_Test
  */
-public virtual without sharing class CSQCloneUtility {
+public virtual without sharing class CSQCloneService {
 	public Map<Id,SObject> cloneBySource;
 	public Map<Id,SObject> sourceBySourceId;
 	public Map<SObjectType,Set<String>> cloneFieldSetBySObjType;
 	public Set<String> cloneOptions;
 
-	public CSQCloneUtility() {
+	public CSQCloneService() {
 		this(new Set<String>());
 	}
 
-	public CSQCloneUtility(Set<String> cloneOptions) {
+	public CSQCloneService(Set<String> cloneOptions) {
 		this.cloneOptions = cloneOptions;
 	}
 

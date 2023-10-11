@@ -59,13 +59,13 @@ public with sharing class CSQApprovalsController {
 	}
 
 	@AuraEnabled
-	public static CSQCloneUtility.CloneResult cloneCSQTree(Id recordId, List<String> cloneOptions) {
+	public static CSQCloneService.CloneResult cloneCSQTree(Id recordId, List<String> cloneOptions) {
 		try {
 			if (!FeatureManagement.checkPermission('CSQ_Record_Duplication') && !Test.isRunningTest()) {
 				throw new NoAccessException();
 			}
 
-			CSQCloneUtility csqClone = new CSQCloneUtility();
+			CSQCloneService csqClone = new CSQCloneService();
 			return csqClone.execute(new Set<Id>{ recordId });
 		} catch(Exception ex) {
 			throw new AuraHandledException(ex.getMessage());

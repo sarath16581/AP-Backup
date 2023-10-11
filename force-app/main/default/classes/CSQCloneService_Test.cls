@@ -1,14 +1,7 @@
-/***
- * Test class for CSQCloneUtility: Cloning CSQ records including related child records
- * 
- * @domain	CSQ
- * @author	Paul Perry
- * @since	2023-10-10
- */
 @isTest
-public with sharing class CSQCloneUtility_Test {
+public with sharing class CSQCloneService_Test {
 	@isTest
-    public static void testCSQCloneUtility() {
+    public static void testCSQCloneService() {
 		fflib_ApexMocks mocks = new fflib_ApexMocks();
 
 		// Construct CSQ record with embedded child records
@@ -55,7 +48,7 @@ public with sharing class CSQCloneUtility_Test {
 		// Stubbing
 		// =====================================
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		CSQCloneUtilityTest csqCloneUtil = new CSQCloneUtilityTest(csqMocksMap.values());
+		CSQCloneServiceTest csqCloneUtil = new CSQCloneServiceTest(csqMocksMap.values());
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -70,7 +63,7 @@ public with sharing class CSQCloneUtility_Test {
 
 		Test.startTest();
 
-		CSQCloneUtility.CloneResult result = csqCloneUtil.execute(csqMocksMap.keySet());
+		CSQCloneService.CloneResult result = csqCloneUtil.execute(csqMocksMap.keySet());
 
 		System.assertEquals(true, result.success, 'Shoud return success');
 		System.assert(result.dmlResults[0].errors.isEmpty(), 'No errors expected');
@@ -124,10 +117,10 @@ public with sharing class CSQCloneUtility_Test {
 	@isTest
 	public static void testGeneric() {
 		SObjectType csqSObjType = Customer_Scoping_Questionnaire__c.SObjectType;
-		String query = CSQCloneUtility.getQueryBuilder(
+		String query = CSQCloneService.getQueryBuilder(
 			csqSObjType, 
 			new Set<SObjectField>{ Customer_Scoping_Questionnaire__c.Name },
-			CSQCloneUtility.csqChildRelations.get(csqSObjType).keySet()
+			CSQCloneService.csqChildRelations.get(csqSObjType).keySet()
 		)
 			.addConditions()
 			.add(new QueryBuilder.SimpleCondition('Id IN :recordIds'))
@@ -164,12 +157,12 @@ public with sharing class CSQCloneUtility_Test {
 		return result;
 	}
 
-	public class CSQCloneUtilityTest extends CSQCloneUtility {
+	public class CSQCloneServiceTest extends CSQCloneService {
 		List<SObject> mockRecords;
 		Boolean positiveTest;
 		public Database.SaveResult[] saveResults;
 
-		public CSQCloneUtilityTest(List<SObject> mockRecords) {
+		public CSQCloneServiceTest(List<SObject> mockRecords) {
 			this.positiveTest = true;
 			this.mockRecords = mockRecords;
 			saveResults = new List<Database.SaveResult>();

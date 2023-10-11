@@ -1,7 +1,7 @@
 @isTest
-public with sharing class CSQUtility_Test {
+public with sharing class CSQService_Test {
     @isTest
-	public static void csqUtilitytest() {
+	public static void csqServicetest() {
 		// Construct CSQ record with embedded child records
 		Id pickUpLocId = fflib_IDGenerator.generate(Pick_Up_Location__c.SObjectType);
 		Id userId = UserInfo.getUserId();
@@ -52,7 +52,7 @@ public with sharing class CSQUtility_Test {
 			new Report(),
 			new Map<String, Object> {
 				'Id' => fflib_IDGenerator.generate(Report.SObjectType),
-				'Name' => CSQUtility.REPORTNAME_RECEIVEDINFO
+				'Name' => CSQService.REPORTNAME_RECEIVEDINFO
 			}
 		);
 
@@ -82,7 +82,7 @@ public with sharing class CSQUtility_Test {
 
 		Test.startTest();
 
-		CSQUtility.updatePickUpLocation(
+		CSQService.updatePickUpLocation(
 			new Map<Id,Task>{ oldTask.Id => oldTask },
 			new Map<Id,Task>{ newTask.Id => newTask }
 		);
