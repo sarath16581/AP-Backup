@@ -30,7 +30,7 @@ Please don’t hesitate to contact us on 13 23 45 should you have any further en
 
 Kind regards,
 
-{!User.Name}</textOnly>
+{!User.FirstName}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

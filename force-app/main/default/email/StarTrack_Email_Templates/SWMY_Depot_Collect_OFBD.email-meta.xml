@@ -27,7 +27,7 @@ Your freight is already on board for delivery today {!Today}, but in the event y
 
 Kind regards,
 
-{!User.Name}</textOnly>
+{!User.FirstName}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
