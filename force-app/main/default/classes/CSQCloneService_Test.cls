@@ -49,10 +49,7 @@ public with sharing class CSQCloneService_Test {
 		// =====================================
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		CSQCloneServiceTest csqCloneUtil;
-		csqCloneUtil = new CSQCloneServiceTest(new List<Customer_Scoping_Questionnaire__c>());
-		csqCloneUtil = new CSQCloneServiceTest(csqMocksMap.values(), new Set<String>{
-			CSQCloneService.OPTION_CLONE_REAPPROVE
-		});
+		csqCloneUtil = new CSQCloneServiceTest(csqMocksMap.values());
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -167,6 +164,11 @@ public with sharing class CSQCloneService_Test {
 		public Database.SaveResult[] saveResults;
 
 		public CSQCloneServiceTest(List<SObject> mockRecords) {
+			this(mockRecords, new Set<String>{ 'reapproval' });
+		}
+
+		public CSQCloneServiceTest(List<SObject> mockRecords, Set<String> cloneOptions) {
+			this.cloneOptions = new Set<String>(cloneOptions);
 			this.positiveTest = true;
 			this.mockRecords = mockRecords;
 			saveResults = new List<Database.SaveResult>();
