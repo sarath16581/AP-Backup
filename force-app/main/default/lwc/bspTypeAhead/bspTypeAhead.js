@@ -10,6 +10,7 @@
 
 import {api, LightningElement} from 'lwc';
 import {NavigationMixin} from "lightning/navigation";
+import {checkAllValidity} from 'c/bspCommonJS';
 
 export default class BspTypeAhead extends NavigationMixin(LightningElement) {
 
@@ -29,6 +30,23 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
 	selected = {}; // object of the selected value from the drop
 	isLoaded = false;
 	isDefaultLoadedOnce = false; // if the picklistOptions[] has only one element, this is set to true
+
+	/**
+	 * Check custom validity of the component in the parent components when required
+	 * @returns {*}
+	 */
+	@api
+	checkValidity(){
+		const inputComponents = this.template.querySelectorAll('lightning-input');
+		const searchInput = this.template.querySelector('[data-id="searchbox"]');
+		if(this.inputRequired) {
+			const isExists = this.picklistOrdered.some((picklistOption) => picklistOption.label === searchInput.value);
+			if (!isExists) {
+				searchInput.setCustomValidity(this.inputMessageWhenValueMissing);
+			}
+		}
+		return checkAllValidity(inputComponents,false);
+	}
 
 	/**
 	 * Handle the selected value from the drop
@@ -117,10 +135,12 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
 	 * @param event
 	 */
 	handleOnFocusOut(event) {
-		const isExists = this.picklistOrdered.some((picklistOption) => picklistOption.label === event.target.value);
-		if (!isExists) {
-			const searchInput = this.template.querySelector('[data-id="searchbox"]');
-			searchInput.setCustomValidity(this.inputMessageWhenValueMissing);
+		if(this.inputRequired) {
+			const isExists = this.picklistOrdered.some((picklistOption) => picklistOption.label === event.target.value);
+			if (!isExists) {
+				const searchInput = this.template.querySelector('[data-id="searchbox"]');
+				searchInput.setCustomValidity(this.inputMessageWhenValueMissing);
+			}
 		}
 		// focus out happens after the blur
 		event.target.reportValidity();
