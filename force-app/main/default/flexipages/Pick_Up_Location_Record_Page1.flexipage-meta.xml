@@ -25,10 +25,16 @@
                         <valueListItems>
                             <value>Pick_Up_Location__c.Received_Information</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Pick_up_Location_Status__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Pending Information</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CSQ_Pending_Information}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -98,9 +104,6 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Clone</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>IsotopeSubscription</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

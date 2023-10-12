@@ -30,6 +30,23 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Clone</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CSQ_Record_Duplication}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Customer_Scoping_Questionnaire__c.Duplicate</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CSQ_Record_Duplication}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Edit</value>
