@@ -100,6 +100,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		label:'Other account number',
 		isCustom:true
 	}];
+	isValidateFileUploaded = false;
 
 
 	/**
@@ -113,14 +114,21 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			this.isShowOtherBillingAccountField = true;
 		} else {
 			this.isShowOtherBillingAccountField = false;
+			this.isShowRequestAccessContent = false;
+			this.billingNumber = null;
 		}
 
+		// if the billing account is not selected and empty, remove the values, otherwise this will still hold old value in the backend
+		if(!selectedValue.value) {
+			this.businessAccountNumber = null;
+		}
 	}
 
 	/**
 	 * handle billing account input search selected accounts
 	 * billingNumber variable matches the Billing_Name__c [Text]
 	 * businessAccountNumber variable matches the Related_Billing_Account__c [Id]
+	 * the event is fired at the child component level and contains selected value details
 	 * @param event
 	 */
 	handleOnSelectionBillingAccount(event){
@@ -361,6 +369,11 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	onUploadFinished(event)
 	{
 		this.uploadedFiles = event.detail;
+		if(this.uploadedFiles.length) {
+			this.isValidateFileUploaded = true;
+		} else {
+			this.isValidateFileUploaded = false;
+		}
 	}
 
 	onDeleteUpload(event)
@@ -383,17 +396,13 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	 * Removing the file from the display list. the files are uploaded against the user, only attached to the case at submit
 	 * @param fileId
 	 */
-	removeFromUploadedByFileId(fileId)
-	{
-		for(let i = 0; i < this.uploadedFiles.length; ++i)
-		{
+	removeFromUploadedByFileId(fileId){
+		for(let i = 0; i < this.uploadedFiles.length; ++i) {
 			let objFile = this.uploadedFiles[i];
-			if(objFile.documentId === fileId)
-			{
+			if(objFile.documentId === fileId) {
 				this.uploadedFiles.splice(i, 1);
 				return;
 			}
-
 		}
 	}
 
@@ -402,24 +411,14 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	 * @param event
 	 */
 	onSubmitRequest(event) {
-
+		event.preventDefault();
 		this.showSpinner = true;
 		this.submitClicked = true;
 		this.errorMessage = '';
 
-		const inputComponents = this.template.querySelectorAll('lightning-input, lightning-textarea, lightning-combobox');
-		const inputDisputeItems = this.template.querySelector("c-bsp-dispute-items");
-		let disputeItemValid;
-		if (inputDisputeItems === null){
-			disputeItemValid = false;
-		}else{
-			disputeItemValid = inputDisputeItems.checkAllValidity();
-		}
+		const {inputDisputeItems, allValid} = this.validateAll();
 
-		// if the other account number field is selected and the field should have a valid value
-		let isOtherBillingAccountChecked = (this.isShowOtherBillingAccountField && this.isValidOtherBillingAccount) || !this.isShowOtherBillingAccountField;
-		const allValid = isOtherBillingAccountChecked && checkAllValidity(inputComponents) && disputeItemValid;
-
+		// if not valid, show the generic message
 		if (!allValid) {
 			this.showSpinner = false;
 			this.errorMessage = topGenericErrorMessage;
@@ -447,6 +446,14 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		//get disputeItems 
 		let disputeItems = inputDisputeItems.getDisputedItems();
 
+		if(!this.isValidateFileUploaded) {
+			this.openModal();
+			return;
+		} else if(this.showModal){
+			this.closeModal();
+			this.isValidateFileUploaded = false;
+		}
+
 		createCreditClaim({
 			caseRecord: this.tempCase,
 			uploadedFiles: this.uploadedFiles,
@@ -463,10 +470,41 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			console.error('error occured');
 			console.error(error);
 			this.showSpinner = false;
-		})
-
+		});
 	}
 
+	/**
+	 * Validate before submitting the form
+	 * @returns {{allValid: (*|boolean), inputDisputeItems: bspDisputeItems}} valid disputed items and the validity state of the values
+	 */
+	validateAll() {
+		// all generic input elements
+		let inputElements = this.template.querySelectorAll(
+			'[data-validation="creditClaimForm"]'
+		);
+		const inputComponentsValidity = checkAllValidity(inputElements, false);
+		// dispute items validation
+		const inputDisputeItems = this.template.querySelector("c-bsp-dispute-items");
+		let disputeItemValid;
+		if (inputDisputeItems === null) {
+			disputeItemValid = false;
+		} else {
+			disputeItemValid = inputDisputeItems.checkAllValidity();
+		}
+
+		// if the other account number field is selected and the field should have a valid value
+		const isOtherBillingAccountChecked = (this.isShowOtherBillingAccountField && this.isValidOtherBillingAccount) || !this.isShowOtherBillingAccountField;
+		const isBillingAccountSSelected = (this.isShowOtherBillingAccountField && this.businessAccountNumber === null) || (!this.isShowOtherBillingAccountField && this.businessAccountNumber !== null)
+
+		// validate account number field if not Other account number selected
+		if (!this.isShowOtherBillingAccountField) {
+			this.template.querySelector("c-bsp-type-ahead").checkValidity();
+		}
+
+		// final check for all validation
+		const allValid = isOtherBillingAccountChecked && isBillingAccountSSelected && inputComponentsValidity && disputeItemValid;
+		return {inputDisputeItems, allValid};
+	}
 
 	navigateHome(event)
 	{
@@ -483,5 +521,26 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			return true;
 		}
 		return false;
+	}
+
+
+	showModal = false;
+	openModal() {
+		this.showModal = true;
+		this.showSpinner = false;
+	}
+
+	closeModal() {
+		this.showModal = false;
+	}
+
+	handleButtonClick(event) {
+		const buttonName = event.target.dataset.buttonname;
+		if (buttonName === 'close') {
+			this.showModal = false;
+		} else if (buttonName === 'submitAnyway') {
+			this.isValidateFileUploaded = true;
+			this.template.querySelector('[data-id="submit"]').click();
+		}
 	}
 }

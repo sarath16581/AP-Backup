@@ -224,7 +224,6 @@ export default class BspEnquiriesList extends LightningElement {
                 csvString += this.cleanseText(reportData[i].SendingTo) + ",";
                 csvString += this.cleanseText(reportData[i].Status) + ",";
                 csvString += this.cleanseText(reportData[i].Updated) + ",";
-                csvString += this.cleanseText(reportData[i].Updated)  + ",";
                 csvString += this.cleanseText(reportData[i].AccountNumber) + ",";
                 csvString += this.cleanseText(reportData[i].AccountName) + ",";
                 csvString += this.cleanseText(reportData[i].AccountHeldWith) + ",\n";
