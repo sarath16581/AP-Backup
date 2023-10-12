@@ -66,7 +66,7 @@ public with sharing class CSQApprovalsController {
 				throw new NoAccessException();
 			}
 
-			CSQCloneService csqClone = new CSQCloneService();
+			CSQCloneService csqClone = new CSQCloneService(new Set<String>(cloneOptions));
 			return csqClone.execute(new Set<Id>{ recordId });
 		} catch(Exception ex) {
 			throw new AuraHandledException(ex.getMessage());

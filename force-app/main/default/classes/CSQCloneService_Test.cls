@@ -48,7 +48,11 @@ public with sharing class CSQCloneService_Test {
 		// Stubbing
 		// =====================================
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		CSQCloneServiceTest csqCloneUtil = new CSQCloneServiceTest(csqMocksMap.values());
+		CSQCloneServiceTest csqCloneUtil;
+		csqCloneUtil = new CSQCloneServiceTest(new List<Customer_Scoping_Questionnaire__c>());
+		csqCloneUtil = new CSQCloneServiceTest(csqMocksMap.values(), new Set<String>{
+			CSQCloneService.OPTION_CLONE_REAPPROVE
+		});
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();

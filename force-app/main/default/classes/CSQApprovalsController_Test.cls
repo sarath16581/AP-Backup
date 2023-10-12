@@ -5,7 +5,7 @@ public with sharing class CSQApprovalsController_Test {
 		APPROVAL_PROC_RESULT_NEG = '{ "success" : false, "errors" : [{ "fields" : ["Status__c"], "message" : "Incorrect value for restricted picklist" }] }';
 
 	/***
-	 * 
+	 * Regular scenario without errors to handle
 	 */
 	@isTest
 	private static void runTestPositive(){
@@ -85,6 +85,9 @@ public with sharing class CSQApprovalsController_Test {
 		Test.stopTest();		
 	}
 
+	/***
+	 * Negative scenario with errors to handle
+	 */
 	@isTest
 	private static void runTestNegative(){
 		Customer_Scoping_Questionnaire__c csq = new Customer_Scoping_Questionnaire__c(
@@ -157,6 +160,9 @@ public with sharing class CSQApprovalsController_Test {
 		} catch(AuraHandledException ahEx) {
 			System.assert(true, 'Expected exception');
 		}
+
+		CSQCloneService.CloneResult cr = CSQApprovalsController.cloneCSQTree(null, new List<String>{ 'reapprove' });
+		System.assert(cr.dmlResults.isEmpty(), 'Result set should be null');
 
 		Test.stopTest();		
 	}

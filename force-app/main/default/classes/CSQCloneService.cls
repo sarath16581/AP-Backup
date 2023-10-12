@@ -11,6 +11,8 @@ public virtual without sharing class CSQCloneService {
 	public Map<SObjectType,Set<String>> cloneFieldSetBySObjType;
 	public Set<String> cloneOptions;
 
+	public static String OPTION_CLONE_REAPPROVE = 'reapprove';
+
 	// CONFIGURATION SECTION
 	/***
 	 * Configuration for CSQ child relations providing SObjectType and parent field by relationship name
@@ -270,15 +272,17 @@ public virtual without sharing class CSQCloneService {
 	 * @param cloneBySource Map of (to be) cloned records by their original record
 	 */
 	public virtual void beforeCommit(Map<SObject,SObject> cloneBySource) {
-		for (SObject record :cloneBySource.values()) {
-			Map<SObjectField,Object> defaultValues = defaultCloneValuesMap.get(record.getSObjectType());
+		if (cloneOptions.contains(OPTION_CLONE_REAPPROVE)) {
+			for (SObject record :cloneBySource.values()) {
+				Map<SObjectField,Object> defaultValues = defaultCloneValuesMap.get(record.getSObjectType());
 
-			if (defaultValues == null) {
-				continue;
-			}
-			
-			for (SObjectField field :defaultValues.keySet()) {
-				record.put(field, defaultValues.get(field));
+				if (defaultValues == null) {
+					continue;
+				}
+				
+				for (SObjectField field :defaultValues.keySet()) {
+					record.put(field, defaultValues.get(field));
+				}
 			}
 		}
 	}
