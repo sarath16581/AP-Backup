@@ -48,6 +48,22 @@ private with sharing class ApplicationDatabase_Test {
 		Test.stopTest();
 	}
 
+	/**
+	 * Sole purpose of the below method is coverage for Approval Process related methods
+	 */
+	@IsTest
+	private static void testApproval() {
+		try {
+			ApplicationDatabase.getInstance().submitForApproval(
+				fflib_IDGenerator.generate(Account.SObjectType),
+				'comments'
+			);
+
+			System.assert(false, 'Exception expected');
+		} catch (Exception ex) {
+			System.assert(true, 'Expected exception caught');
+		}
+	}
 
 	@IsTest
 	private static void testFindDuplicates() {
