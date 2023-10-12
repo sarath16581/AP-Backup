@@ -5,7 +5,7 @@
                     linked to users and disable portal from user
   */
 /*******************************  History ************************************************
-    
+2023-10-02    Boris Bachovski    Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
 *******************************  History ************************************************/
 global class MyPost_PortalUserEdits implements Database.Batchable<sObject>{
 
@@ -22,7 +22,7 @@ global class MyPost_PortalUserEdits implements Database.Batchable<sObject>{
     global Database.QueryLocator start(Database.BatchableContext BC){
         String query = 'SELECT Id , IsCustomerPortal, PersonContactId ' +
                        ' FROM Account WHERE ' + 
-                       ' Winning_Master_Record__pc!=null and is_Inactive_Customer__pc = true ' +
+                       ' Winning_Master_Record__pc != null and IsInactiveCustomer__pc = true ' +
                        ' and IsCustomerPortal = true';
         return Database.getQueryLocator(query);
     }
