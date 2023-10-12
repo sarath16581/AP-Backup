@@ -1,0 +1,4 @@
+:host {
+	/* Increase the default height of the Text Area for approval Comments */
+	--sds-c-textarea-sizing-min-height: 9rem;
+ }

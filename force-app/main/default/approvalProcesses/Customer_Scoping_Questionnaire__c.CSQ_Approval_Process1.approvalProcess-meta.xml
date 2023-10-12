@@ -31,7 +31,7 @@
     <emailTemplate>CSQ/Approval_Request_for_CSQ</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>1 and 2 and 3</booleanFilter>
+        <booleanFilter>1 and 2 and 3 and 4</booleanFilter>
         <criteriaItems>
             <field>Customer_Scoping_Questionnaire__c.Pick_up_Location_Record_Count_Total__c</field>
             <operation>greaterThan</operation>
@@ -46,6 +46,11 @@
             <field>Customer_Scoping_Questionnaire__c.Freight_Offering_Record_Count__c</field>
             <operation>greaterThan</operation>
             <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c</field>
+            <operation>equals</operation>
+            <value>True</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalRecordLock>true</finalApprovalRecordLock>
