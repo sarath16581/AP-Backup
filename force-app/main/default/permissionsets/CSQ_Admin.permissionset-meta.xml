@@ -500,6 +500,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.OwnerId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Pick_Up_Location__c.Pick_Up_location_Details__c</field>
         <readable>true</readable>
