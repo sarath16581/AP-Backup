@@ -504,6 +504,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.Owned_By_Me__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Pick_Up_Location__c.Pick_up_Location_Status__c</field>
         <readable>true</readable>
