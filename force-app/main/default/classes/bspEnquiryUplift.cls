@@ -80,9 +80,9 @@ public without sharing class bspEnquiryUplift {
 		}
 	}*/
 
-  /**
-  * static block
-  * */
+	/**
+	 * static block
+	* */
 	static{
 		dynamicPageSize = Integer.valueOf(bspBaseUplift.configSetting.EnquiriesPerPage__c);
 		dummyEnq1 = new Case();
@@ -123,8 +123,8 @@ public without sharing class bspEnquiryUplift {
 			selectedEnquiryType = BspConstants.ENQUIRY_TYPE_AP;
 		}
 	}/
-  
-	 /**
+
+		/**
 	 * init to load default enquiry types, recordtypes and caselist
 	 * */
 	public static void initialLoadSetup(){
@@ -135,7 +135,7 @@ public without sharing class bspEnquiryUplift {
 		displayCaseList();
 	}
 
-	 /**
+		/**
 	 * retrive the case list with offset
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -219,7 +219,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-	 /**
+		/**
 	 * get the cases to download  with the given column filters
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -260,7 +260,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-   /**
+	/**
 	* build dropdown options for org field to serach for enquires in home page
 	* */
 	@AuraEnabled(cacheable=true)
@@ -300,7 +300,7 @@ public without sharing class bspEnquiryUplift {
 		return Schema.SObjectType.Case.getRecordTypeInfosByName().get(BspConstants.CASE_RECORD_TYPE_DELIVERY_ENQUIRY).getRecordTypeId();
 	}
 
-	 /**
+		/**
 	 * Get startrack pickupbook enquiry record type
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -321,7 +321,7 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
-	 /**
+		/**
 	 * Get all accessible Billing Accounts as picklist optios to display in LWC
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -338,7 +338,7 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
-	 /**
+		/**
 	 * Get all accessible Billing Accounts for reporting
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -350,8 +350,8 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	private static List<SelectOptionCustom> buildAllBillingAccountOptions(){
-		 List<SelectOptionCustom> options = new list<SelectOptionCustom>();
-		 for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
+			List<SelectOptionCustom> options = new list<SelectOptionCustom>();
+			for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
 			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
 			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
 			options.add(new SelectOptionCustom(billingAccount.id + '&' + billingAccount.LEGACY_ID__c, billingAccount.LEGACY_ID__c + ' (' + billingAccount.Name + ')'));
@@ -494,7 +494,7 @@ public without sharing class bspEnquiryUplift {
 				}
 			}
 		}
-		 Set<SObjectField> articleFields = new Set<SObjectField>{
+			Set<SObjectField> articleFields = new Set<SObjectField>{
 				Article__c.TrackingID__c, Article__c.ProductCategory__c, Article__c.SubProduct__c
 		};
 		Map<Id, Article__c>  articles = ArticlesSelector.newInstance(1,articleFields).selectByTracking(new Set<String>{enq.ReferenceID__c},true);
@@ -800,7 +800,7 @@ public without sharing class bspEnquiryUplift {
 			caseDetail.AccountHeldWith = cse.Business_Unit__c;
 			caseDetailsrecords.add(caseDetail);
 		}
- 
+
 		downloadCaseDetails = JSON.serialize(caseDetailsrecords);
 	}
 
@@ -932,7 +932,7 @@ public without sharing class bspEnquiryUplift {
 				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) ))';
 			}
 		}
-/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
+	/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
 		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
 		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
 		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
@@ -985,7 +985,7 @@ public without sharing class bspEnquiryUplift {
 	/*------------------------------------------------------------
 	Author:        Jen Karen Tan
 	Description:   StarTrack method that populates Case's Billing_Number__c if blank.
-				   Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
+					Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
 	Inputs:        List<Case>
 	Returns:       List<Case>
 	History:
@@ -1042,7 +1042,7 @@ public without sharing class bspEnquiryUplift {
 
 		//StarTrack Delivery Enquiry Case
 		if (BspConstants.CASE_RECORD_TYPE_STARTRACK_DELIVERY_ENQUIRY.equals(enq.CCUEnquiryType__c)) {
-			 //[Jansi:] recordType getting from method to have in a single place code
+				//[Jansi:] recordType getting from method to have in a single place code
 			Id deliveryEnqRT = getSTDeliveyEnquiryRecordType();
 			newCase.RecordTypeId = deliveryEnqRT;
 			if (notFound) {
@@ -1145,12 +1145,12 @@ public without sharing class bspEnquiryUplift {
 	}
 
 
-	 /**
+		/**
 	 * validate the given consignment number with special charactes(fom custom setting) and return error message if contains a special character
 	 * */
 	@AuraEnabled(cacheable=true)
 	public static String validateConsignmentNumber(String consignmentNumber){
-	   String errorMessage;
+		String errorMessage;
 			for(String s : (Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_SPECIALCHARS).Field_Name__c).split(StarTrack_Constants.SPECIALCHARS)){
 				if(consignmentNumber.contains(s)){
 					errorMessage = BspConstants.CON_NO_INVALID_CHAR_ERR + Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_SPECIALCHARS).Field_Name__c;
@@ -1160,8 +1160,8 @@ public without sharing class bspEnquiryUplift {
 		return errorMessage;
 	}
 
-   
-	 /**
+
+		/**
 	 * The method to create startrack pickupbook enquiry case and returns the created case number
 	 * */
 	@AuraEnabled
@@ -1180,7 +1180,7 @@ public without sharing class bspEnquiryUplift {
 						caseNumber = createEnquiry(null, enqObj, null, false, false, uploadedFiles, billingAccountNumber);
 					} else {
 						throw new ErrorException(BSPErrorMessages__c.getValues('Invalid Case Billing Account') != null ? BSPErrorMessages__c.getValues('Invalid Case Billing Account').Message__c :
-												 'The Billing Account entered is not applicable for this type of case.');
+													'The Billing Account entered is not applicable for this type of case.');
 					}
 				} else {
 					// either the billing account doesn't exist or the user does not have access to it
@@ -1278,7 +1278,7 @@ public without sharing class bspEnquiryUplift {
 		String err = '';
 		if (searchedConsignment != null) {
 			stWrapper = new STDeliveryEnquiryResultsWapper();
-  
+
 			// if consignment number provided is valid but is not found or multiple consignment found,
 			// provide error message and ask if user wants to proceed creating case
 			if (articleNotFound(searchedConsignment)) {
@@ -1328,7 +1328,7 @@ public without sharing class bspEnquiryUplift {
 		return stWrapper;
 	}
 
-	 /**
+		/**
 	 * get the latest event message of a given article
 	 */
 	private static EventMessage__c getLatestEvent(String articleId){
@@ -1336,7 +1336,7 @@ public without sharing class bspEnquiryUplift {
 		try{
 			Article__c singleCon = [SELECT Id,ExpectedDeliveryDate_Str__c,
 									(SELECT Id, ActualDateTime_Timestamp__c,  WorkCentreText__c,  ExternalDescription__c
-									 FROM Event_Messages__r  WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC LIMIT 1)
+										FROM Event_Messages__r  WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC LIMIT 1)
 									FROM Article__c WHERE Id=:articleId LIMIT 1];
 			if(singleCon != null && singleCon.Event_Messages__r != null && singleCon.Event_Messages__r.size() > 0){
 				return singleCon.Event_Messages__r[0];
@@ -1452,7 +1452,7 @@ public without sharing class bspEnquiryUplift {
 		return false;
 	}
 
-	 /**
+		/**
 	 * caluculate case rules after new startrack cases are created from bsp
 	 * */
 	public static void calculateTransferCaseRule(Case caseRecord){
@@ -1510,7 +1510,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-	 /**
+		/**
 	 * get queue ow id for the given queue
 	 * */
 	public static Id queryQueue(String queueName){
@@ -1638,7 +1638,7 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public String message {get;set;}
 	}
 
-	 /**
+		/**
 	 * Inner class to be returned  after searching of consignment number in startrack Delivery enquiry creation
 	 * */
 	public class STDeliveryEnquiryResultsWapper{
@@ -1670,7 +1670,7 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public Case enq {get;set;}
 	}
 
-	 /**
+		/**
 	 * Custom select Option: Added this because standard SelectOption class is not supported by LWC
 	 * */
 	public class SelectOptionCustom {
@@ -1730,7 +1730,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 
-   /**
+	/**
 	* Case container for Case display list
 	* [Jansi:Updated to @AuraEnabled  work with LWC Component]
 	* */

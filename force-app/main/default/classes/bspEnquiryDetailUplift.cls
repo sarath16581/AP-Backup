@@ -17,7 +17,7 @@ History:
 16-10-2020	avula.jansirani@auspost.com.au	Added method saveAttachment() to insert attchments
 31-08-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields and refactor the getEnquiry function
 **************************************************/
-	public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
+public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
 
 	public static boolean showAttachmentButtonFlag {get;set;}
 	public String fileName {get;set;}

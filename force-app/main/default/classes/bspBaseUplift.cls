@@ -1020,7 +1020,7 @@ public with sharing virtual class bspBaseUplift {
 		}
 		
 		return insertedAttMap;
-    }
+	}
 
 	/**
 	 * This method is to link files to the parent id given

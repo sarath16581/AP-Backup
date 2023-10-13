@@ -690,8 +690,8 @@ public class bspBaseUplift_Test{
 
 		}
 
-        Test.stopTest();
-    }
+		Test.stopTest();
+	}
 
 	/**
 	 * This is to test the link files method, when the user submit the form, linkFiles method is excecuted
