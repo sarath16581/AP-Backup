@@ -1,20 +1,20 @@
 /**************************************************
-Type:         Controller for new LWC components for Enquiry Creation and Search Tracking Numbers. Components are bspFormAPEnquiry, bspFormAPGeneral, bspFormSTDeliveryEnquiry, bspFormSTPickupBookingEnquiry
+Type:		Controller for new LWC components for Enquiry Creation and Search Tracking Numbers. Components are bspFormAPEnquiry, bspFormAPGeneral, bspFormSTDeliveryEnquiry, bspFormSTPickupBookingEnquiry
 History:
-NOTE:         Need to use without sharing: as Owner for the created case will be set to "Enterprise Inbound Queue"
-NOTE:                                    : additional fields, objects won't be quieried successfully if without sharing is not used...
-NOTE:                                   : also to implement duplicate case error requirements while creating enquiry for AP & ST.
-TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
+NOTE:		Need to use without sharing	:as Owner for the created case will be set to "Enterprise Inbound Queue"
+NOTE:									: additional fields, objects won't be quieried successfully if without sharing is not used...
+NOTE:									: also to implement duplicate case error requirements while creating enquiry for AP & ST.
+TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 --------------------------------------------------
-2020-08-02    Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
-2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
-13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
-19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
-04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
-13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
-04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
-29/09/2023    hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
-05/10/2023    hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
+2020-08-02	Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
+2020-10-29	Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
+13/10/2021	prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
+19/04/2023	hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
+04/05/2023	stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
+13/06/2023	SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
+04/09/2023	hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
+29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
+05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 **************************************************/
 public without sharing class bspEnquiryUplift {
 

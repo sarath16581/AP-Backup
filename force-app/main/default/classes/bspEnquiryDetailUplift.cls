@@ -1,12 +1,12 @@
 /**
- * @description			: Copied code from 'bspEnquiryDetail' class and modified to lightning uplift need basis
- * @author				: avula.jansirani@auspost.com.au
- * @group				: 
- * @last modified on	: 08-05-2020 
- * @last modified by	: avula.jansirani@auspost.com.au
- * Modifications Log
- * Ver	Date			Author									Modification
- * 1.0	08-05-2020		avula.jansirani@auspost.com.au			Initial Version
+*@description		: Copied code from 'bspEnquiryDetail' class and modified to lightning uplift need basis
+*@author			: avula.jansirani@auspost.com.au
+*@group				: 
+*@last modified on	: 08-05-2020 
+*@last modified by	: avula.jansirani@auspost.com.au
+*Modifications Log
+*Ver	Date			Author									Modification
+*1.0	08-05-2020		avula.jansirani@auspost.com.au			Initial Version
 **/
 /**************************************************
 Type:					bspEnquiryDetailUplift
