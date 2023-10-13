@@ -568,11 +568,11 @@ public without sharing class bspEnquiryUplift {
 
 	/**
 	 * What it is: final steps in creating an AusPost enquiry.
-	 *      This will be called direct from createEnquiryAusPost if no reference ID was entered when creating the
-	 *      enquiry or after the SAP EM search concludes when a reference ID was passed in.
-	 *      (Only if the search was successful and the user has access to create the enquiry
+	 *  This will be called direct from createEnquiryAusPost if no reference ID was entered when creating the
+	 *  enquiry or after the SAP EM search concludes when a reference ID was passed in.
+	 *  (Only if the search was successful and the user has access to create the enquiry
 	 * What it does: Inserts a Case Comment using the Case Description
-	 *      Adds a status and message to the enquiryWrapper
+	 *  Adds a status and message to the enquiryWrapper
 	 * Why: Separates the Case Comment insertion
 	 * @param enq The created Case from BSP community
 	 * @param enqWrapper the wrapper to store any status and messages
@@ -688,7 +688,7 @@ public without sharing class bspEnquiryUplift {
 	 * 3. Role of User / Super User is not considered in case visibilitiy
 	 *
 	 * NOTE: it's important to note that the only roles we need to consider for case visibility for admin based roles
-	 *          by default, when a user role is applied to BSP, it simply implies access to 'my cases' which is the default behaviour of a basic BSP user irrespective of role
+	 *  by default, when a user role is applied to BSP, it simply implies access to 'my cases' which is the default behaviour of a basic BSP user irrespective of role
 	 */
 	public static void displayCaseList() {
 		Map<Id, Case> searchedCaseMap = new Map<Id, Case>();
@@ -983,11 +983,11 @@ public without sharing class bspEnquiryUplift {
 
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that populates Case's Billing_Number__c if blank.
 					Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
-	Inputs:        List<Case>
-	Returns:       List<Case>
+	Inputs:List<Case>
+	Returns:   List<Case>
 	History:
 	November 23, 2016 - Jen Karen Tan - Created
 	------------------------------------------------------------*/
@@ -1006,10 +1006,10 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that will put Case List retrieved to a CaseContainer list
-	Inputs:        List<Case>
-	Returns:       List<CaseContainer>
+	Inputs:List<Case>
+	Returns:   List<CaseContainer>
 	History:
 	January 9, 2017 - Jen Karen Tan - Created
 	------------------------------------------------------------*/
@@ -1023,7 +1023,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that creates Enquiry
 	History:
 	October 12, 2016 - Jen Karen Tan - Created
@@ -1258,7 +1258,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that process Case creation (Delivery Enquiry) after Consignment search
 	January 13, 2017 - Jen Karen Tan - Created
 	Sep 18, 2020 - Jansi - Uplift changes
@@ -1348,7 +1348,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that will close bulk cases
 	January 9, 2017 - Jen Karen Tan - Created
 	04-08-2020 - Jansi updated to 'AuraEnabled'
@@ -1387,7 +1387,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   The method that will update cases in bulk : add the bulk case comments, after adding the comments update case status in bulk
 	January 10, 2017 - Jen Karen Tan - Created
 	Sep 09, 2020 - Jansi - Uplift changes
@@ -1524,8 +1524,8 @@ public without sharing class bspEnquiryUplift {
 	/**
 	 * What it is: method called by LWC bspFormAPEnquiry onload
 	 * What it does:
-	 *      - Checks that the current user is allowed to create an enquiry for BSP and returns a status + message
-	 *      - Returns picklist values as dropdown options
+	 *  - Checks that the current user is allowed to create an enquiry for BSP and returns a status + message
+	 *  - Returns picklist values as dropdown options
 	 * Why: LWC requires permission checks and Case Field options
 	 * @return an EnquiryFormInitWrapper object which contains the above
 	 */

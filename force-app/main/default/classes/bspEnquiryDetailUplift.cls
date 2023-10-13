@@ -98,7 +98,7 @@ public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
 	public static Map<String,String> saveAttachment(Id parentId, String fileName, String base64Data, String fileType) {
 		Map<String, String> insertedAttMap = new  Map<String, String>();
 		// Decoding base64Data
-		base64Data = EncodingUtil.urlDecode(base64Data, 'UTF-8');        
+		base64Data = EncodingUtil.urlDecode(base64Data, 'UTF-8');
 		// inserting file
 		
 		
@@ -263,7 +263,7 @@ public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
 	private static  List<commHistory>  generateCommHistory(Case enq) {
 		List<commHistory> commHistoryList = new List<commHistory>();
 		// this function sorted 2 types of objects (Comm) by CreatedDate DESC, and then added to a wrapper class
-		//    such that Vf page can access them consistently.
+		// such that Vf page can access them consistently.
 		String avoidSubjects = '%'+String.valueOf(System.Label.ProdRelease1_2)+'%';
 		
 		List<SObject> comments = [SELECT Id, CommentBody, IsPublished, CreatedDate, CreatedById

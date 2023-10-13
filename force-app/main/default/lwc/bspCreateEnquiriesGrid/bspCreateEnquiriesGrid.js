@@ -64,7 +64,7 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 		}
 		else if (button === 'generalEnquiry'){
 			this.navigationPage = 'BSP_Enquiry_General__c';
-		}    //To do: add correct URL
+		}//To do: add correct URL
 		else if (button === 'stDelivery'){
 			this.navigationPage = 'BSP_ST_Delivery_Enquiry__c';
 		}
