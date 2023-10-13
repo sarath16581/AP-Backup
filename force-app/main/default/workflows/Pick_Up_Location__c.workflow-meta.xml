@@ -108,10 +108,10 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <criteriaItems>
-            <field>Pick_Up_Location__c.State__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
+        <formula>AND(
+  NOT(ISBLANK(TEXT(State__c))),
+  ISBLANK(Clone_Source__c)
+)</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

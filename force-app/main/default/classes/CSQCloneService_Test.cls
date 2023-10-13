@@ -68,6 +68,8 @@ public with sharing class CSQCloneService_Test {
 
 		System.assertEquals(true, result.success, 'Shoud return success');
 		System.assert(result.dmlResults[0].errors.isEmpty(), 'No errors expected');
+		System.assertNotEquals(null, result.dmlResults[0].sourceId, 'Shoud\'ve been populated');
+		System.assertNotEquals(null, result.dmlResults[0].targetId, 'Shoud\'ve been populated');
 		
 		fflib_ArgumentCaptor insertCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 
@@ -164,11 +166,9 @@ public with sharing class CSQCloneService_Test {
 		public Database.SaveResult[] saveResults;
 
 		public CSQCloneServiceTest(List<SObject> mockRecords) {
-			this(mockRecords, new Set<String>{ 'reapproval' });
-		}
-
-		public CSQCloneServiceTest(List<SObject> mockRecords, Set<String> cloneOptions) {
-			this.cloneOptions = new Set<String>(cloneOptions);
+			this.cloneOptions = new Set<String>{ 
+				CSQCloneService.OPTION_CLONE_REAPPROVE
+			};
 			this.positiveTest = true;
 			this.mockRecords = mockRecords;
 			saveResults = new List<Database.SaveResult>();

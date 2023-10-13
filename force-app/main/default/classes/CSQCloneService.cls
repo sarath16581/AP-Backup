@@ -12,6 +12,18 @@ public virtual without sharing class CSQCloneService {
 	public Set<String> cloneOptions;
 
 	public static String OPTION_CLONE_REAPPROVE = 'reapprove';
+	public static String OPTION_CLONE_FULL = 'full';
+
+	private static ApplicationDatabase appDbInstance {
+		get {
+			if (appDbInstance == null) {
+				appDbInstance = ApplicationDatabase.getInstance();
+			}
+
+			return appDbInstance;
+		}
+		set;
+	}
 
 	// CONFIGURATION SECTION
 	/***
@@ -43,35 +55,27 @@ public virtual without sharing class CSQCloneService {
 	};
 
 	/***
-	 * Configured default values to be applied upon cloning
+	 * Configured values to be apply clone source reference on cloned records
 	 */
-	private static Map<SObjectType,Map<SObjectField,Object>> defaultCloneValuesMap = new Map<SObjectType,Map<SObjectField,Object>> {
-		Customer_Scoping_Questionnaire__c.SObjectType => new Map<SObjectField,Object>{
-			Customer_Scoping_Questionnaire__c.CSQ_Status__c => 'Draft',
-			Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c => false
-		},
-		Freight_Offering__c.SObjectType =>  new Map<SObjectField,Object>{
-			Freight_Offering__c.Submit_for_Approval__c => false
-		},
-		Pick_Up_Location__c.SObjectType =>  new Map<SObjectField,Object>{
-			Pick_Up_Location__c.Submit_for_Approval__c => false,
-			Pick_Up_Location__c.Pick_up_Location_Status__c => 'Draft'
-		}
+	private static Map<SObjectType,SObjectField> parentCloneReferences = new Map<SObjectType,SObjectField> {
+		Customer_Scoping_Questionnaire__c.SObjectType => Customer_Scoping_Questionnaire__c.Clone_Source__c,
+		Pick_Up_Location__c.SObjectType => Pick_Up_Location__c.Clone_Source__c,
+		Freight_Offering__c.SObjectType => Freight_Offering__c.Clone_Source__c
 	};
 
 	/***
 	 * Configured fields for cloning
 	 */
-	public static Map<SObjectType,Set<SObjectField>> csqCloneFieldSet = new Map<SObjectType,Set<SObjectField>>{
+	public static Map<SObjectType,Set<SObjectField>> csqFullFieldSet = new Map<SObjectType,Set<SObjectField>>{
 		Customer_Scoping_Questionnaire__c.SObjectType => new Set<SObjectField>{
 			Customer_Scoping_Questionnaire__c.Additional_Account_Management__c,
 			Customer_Scoping_Questionnaire__c.Additional_Assets__c,
 			Customer_Scoping_Questionnaire__c.Additional_information_if_required__c,
-			Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c,
 			Customer_Scoping_Questionnaire__c.CSQ_Sales_team__c,
 			Customer_Scoping_Questionnaire__c.CSQ_Status__c,
 			Customer_Scoping_Questionnaire__c.Customer_brief__c,
 			Customer_Scoping_Questionnaire__c.Customer_Industry__c,
+			Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c,
 			Customer_Scoping_Questionnaire__c.Estimated_go_Live_Date__c,
 			Customer_Scoping_Questionnaire__c.Opportunity__c,
 			Customer_Scoping_Questionnaire__c.RecordTypeId,
@@ -189,7 +193,7 @@ public virtual without sharing class CSQCloneService {
 			Pick_Up_Location__c.Site_Inspection_Completed__c,
 			Pick_Up_Location__c.Site_Inspection_Status__c,
 			Pick_Up_Location__c.State__c,
-			// Pick_Up_Location__c.Submit_for_Approval__c,
+			Pick_Up_Location__c.Submit_for_Approval__c,
 			Pick_Up_Location__c.Suburb__c
 		},
 		IT_Contacts_and_Integration_Details__c.SObjectType => new Set<SObjectField>{
@@ -215,6 +219,23 @@ public virtual without sharing class CSQCloneService {
 			IT_Contacts_and_Integration_Details__c.X3rd_Party_systems__c
 		}
 	};
+
+	/***
+	 * Configuration for subset of fields that should not be copied compared to the full field set
+	 */
+	public static Map<SObjectType,Set<SObjectField>> csqReapprovalFieldSet = new Map<SObjectType,Set<SObjectField>>{
+		Customer_Scoping_Questionnaire__c.SObjectType => new Set<SObjectField>{
+			Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c,
+			Customer_Scoping_Questionnaire__c.CSQ_Status__c
+		},
+		Pick_Up_Location__c.SObjectType => new Set<SObjectField>{
+			Pick_Up_Location__c.Submit_for_Approval__c,
+			Pick_Up_Location__c.Pick_up_Location_Status__c
+		},
+		Freight_Offering__c.SObjectType => new Set<SObjectField>{
+			Freight_Offering__c.Submit_for_Approval__c
+		}
+	};
 	
 
 	public CSQCloneService() {
@@ -225,6 +246,26 @@ public virtual without sharing class CSQCloneService {
 		this.cloneOptions = cloneOptions;
 	}
 
+	public Map<SObjectType,Set<SObjectField>> csqCloneFieldSet {
+		get {
+			if (csqCloneFieldSet == null) {
+				csqCloneFieldSet = new Map<SObjectType,Set<SObjectField>>(csqFullFieldSet);
+				
+				if (cloneOptions.contains(OPTION_CLONE_REAPPROVE)) {
+					// subtract approval fields
+					for (SObjectType sObjType :csqReapprovalFieldSet.keySet()) {
+						for (SObjectField field :csqReapprovalFieldSet.get(sObjType)) {
+							csqCloneFieldSet.get(sObjType).remove(field);
+						}
+					}
+				}
+			}
+
+			return csqCloneFieldSet;
+		}
+		set;
+	}
+
 	/***
 	 * Return a list of records including nested child records by stacking QueryBuilder instances
 	 * @param recordIds parentRecordIds
@@ -233,7 +274,7 @@ public virtual without sharing class CSQCloneService {
 	 */
 	public virtual List<SObject> getSourceRecords(Set<Id> recordIds, SObjectType sObjType) {
 		return Database.query(
-			getQueryBuilder(sObjType, csqCloneFieldSet.get(sObjType), csqChildRelations.get(sObjType).keySet())
+			getQueryBuilder(sObjType, csqFullFieldSet.get(sObjType), csqChildRelations.get(sObjType).keySet())
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition('Id IN :recordIds'))
 				.endConditions()
@@ -268,21 +309,18 @@ public virtual without sharing class CSQCloneService {
 	}
 
 	/***
-	 * Overrideable method invoked prior to committing records
+	 * Overrideable method invoked prior to committing records.
+	 * Used to add source reference to target records
 	 * @param cloneBySource Map of (to be) cloned records by their original record
 	 */
 	public virtual void beforeCommit(Map<SObject,SObject> cloneBySource) {
-		if (cloneOptions.contains(OPTION_CLONE_REAPPROVE)) {
-			for (SObject record :cloneBySource.values()) {
-				Map<SObjectField,Object> defaultValues = defaultCloneValuesMap.get(record.getSObjectType());
-
-				if (defaultValues == null) {
-					continue;
-				}
-				
-				for (SObjectField field :defaultValues.keySet()) {
-					record.put(field, defaultValues.get(field));
-				}
+		for (SObject source :cloneBySource.keySet()) {
+			SObjectType sObjType = source.getSObjectType();
+			if (parentCloneReferences.containsKey(sObjType)) {
+				cloneBySource.get(source).put(
+					parentCloneReferences.get(sObjType),
+					source.Id
+				);
 			}
 		}
 	}
@@ -348,7 +386,7 @@ public virtual without sharing class CSQCloneService {
 
 		if (!cloneMap.isEmpty()) {
 			beforeCommit(cloneBySource);
-			saveResults = ApplicationDatabase.getInstance().dmlInsert(cloneMap.values(), false);
+			saveResults = appDbInstance.dmlInsert(cloneMap.values(), false);
 			afterCommit(cloneBySource);
 		}
 
@@ -356,7 +394,14 @@ public virtual without sharing class CSQCloneService {
 		
 		for (Integer idx = 0; idx < sourceList.size(); idx++) {
 			Id sourceId = sourceList[idx].Id;
-			result.put(sourceId, new CloneRecordResult(sourceId, cloneMap.get(sourceId), saveResults[idx]));
+			result.put(
+				sourceId,
+				new CloneRecordResult(
+					sourceBySourceId.get(sourceId),
+					cloneMap.get(sourceId),
+					saveResults[idx]
+				)
+			);
 		}
 
 		return result;
@@ -456,7 +501,7 @@ public virtual without sharing class CSQCloneService {
 				SObjectType childSObjType = csqChildRelations.get(sObjType).get(relationShipname).sObjType;
 
 				qb.addSubQuery(
-					getQueryBuilder(childSObjType, csqCloneFieldSet.get(childSObjType)),
+					getQueryBuilder(childSObjType, csqFullFieldSet.get(childSObjType)),
 					relationShipname
 				);
 			}
@@ -484,7 +529,10 @@ public virtual without sharing class CSQCloneService {
 	public class CloneRecordResult {
 		private Database.SaveResult saveResult;
 		public SObject target;
-		@AuraEnabled public Id sourceId;
+		public SObject source;
+		@AuraEnabled public Id sourceId {
+			get { return source.Id; }
+		}
 		@AuraEnabled public Id targetId {
 			get {
 				return saveResult?.getId();
@@ -503,8 +551,8 @@ public virtual without sharing class CSQCloneService {
 			}
 		}
 
-		public CloneRecordResult(Id sourceId, SObject target, Database.SaveResult saveResult) {
-			this.sourceId = sourceId;
+		public CloneRecordResult(SObject source, SObject target, Database.SaveResult saveResult) {
+			this.source = source;
 			this.target = target;
 			this.saveResult = saveResult;
 		}
