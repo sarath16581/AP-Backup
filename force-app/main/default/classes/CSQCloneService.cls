@@ -14,17 +14,6 @@ public virtual without sharing class CSQCloneService {
 	public static String OPTION_CLONE_REAPPROVE = 'reapprove';
 	public static String OPTION_CLONE_FULL = 'full';
 
-	private static ApplicationDatabase appDbInstance {
-		get {
-			if (appDbInstance == null) {
-				appDbInstance = ApplicationDatabase.getInstance();
-			}
-
-			return appDbInstance;
-		}
-		set;
-	}
-
 	// CONFIGURATION SECTION
 	/***
 	 * Configuration for CSQ child relations providing SObjectType and parent field by relationship name
@@ -386,7 +375,7 @@ public virtual without sharing class CSQCloneService {
 
 		if (!cloneMap.isEmpty()) {
 			beforeCommit(cloneBySource);
-			saveResults = appDbInstance.dmlInsert(cloneMap.values(), false);
+			saveResults = ApplicationDatabase.getInstance().dmlInsert(cloneMap.values(), false);
 			afterCommit(cloneBySource);
 		}
 
