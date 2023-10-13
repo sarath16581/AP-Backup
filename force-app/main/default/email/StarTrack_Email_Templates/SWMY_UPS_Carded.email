@@ -33,4 +33,4 @@
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">UPS have requested that all customer enquiries regarding Star Track consignments are directed to them.&nbsp;</span></p>
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Please contact UPS on 131 877 and they will be able to assist you further.&nbsp;</span></p>
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Kind regards,&nbsp;</span></p>
-<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.FirstName}</span></p>

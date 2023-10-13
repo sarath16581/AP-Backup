@@ -33,7 +33,7 @@ Opening Hours:
 
 Kind regards,
 
-{!User.Name}</textOnly>
+{!User.FirstName}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

@@ -1,0 +1,42 @@
+<template>
+	<lightning-modal-header
+		label={title}
+	></lightning-modal-header>
+
+	<lightning-modal-body>
+		<p>Please ensure all steps below have been completed before proceding</p>
+		<!-- Display the input boxes -->		
+		<template for:each={checkboxes} for:item="checkbox">
+			<lightning-input
+				data-name="input"
+				key={checkbox.id}
+				label={checkbox.label}
+				name={checkbox.id}
+				required
+				type="checkbox"
+			></lightning-input>
+		</template>
+		<lightning-textarea
+			name="comments"
+			label="Comments"
+			data-name="input"
+			max-length="4000"
+		></lightning-textarea>
+	</lightning-modal-body>
+	
+	<lightning-modal-footer>
+		<!-- Display buttons in the footer -->
+		<lightning-button
+			label="Cancel"
+			name="btnCancel"
+			onclick={handleClick}
+			class="slds-var-m-right_x-small"
+		></lightning-button>
+		<lightning-button
+			label="Submit"
+			name="btnSubmit"
+			variant="brand"
+			onclick={handleClick}
+		></lightning-button>
+	</lightning-modal-footer>	 
+</template>

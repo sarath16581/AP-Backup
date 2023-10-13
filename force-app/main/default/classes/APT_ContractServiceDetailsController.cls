@@ -11,6 +11,7 @@
 * 04-08-2023 - Yatika bansal : Added method to update alis with same Product Lines to have same Service Dates
 * 22-08-2023 - Yatika bansal : Updated createRenewalContract method to set renewal condition same as original contract
 * 24-08-2023 - Yatika bansal : Updated createRenewalContract method to set ACD same as original contract
+* 10-10-2023 - Bharat Patel : Uppdated createAmendContract() createRenewalContract() set AgreementToSFContractTriggerHandler disableCloning
 **/
 public without sharing class APT_ContractServiceDetailsController {
 
@@ -168,6 +169,7 @@ public without sharing class APT_ContractServiceDetailsController {
     * @return Agreement/Contract Id
     **/
     public static string createAmendContract(Apttus_Proposal__Proposal__c proposal){        
+        AgreementToSFContractTriggerHandler.disableCloning = true;
         List<Apttus__APTS_Agreement__c> sourceAgreements = ApttusContractsSelector.newInstance(1)
             .selectByAgreementNumber(new Set<String>{proposal.APT_Contract_Number__c}, new Set<Object> {ApttusContractsSelector.Options.WITH_PROPOSAL});
         
@@ -207,6 +209,7 @@ public without sharing class APT_ContractServiceDetailsController {
     * @return Agreement/Contract Id
     **/
     public static string createRenewalContract(Apttus_Proposal__Proposal__c proposal){
+        AgreementToSFContractTriggerHandler.disableCloning = true;
         List<Apttus__APTS_Agreement__c> sourceAgreements = ApttusContractsSelector.newInstance(1)
             .selectByAgreementNumber(new Set<String>{proposal.APT_Contract_Number__c}, new Set<Object> {ApttusContractsSelector.Options.WITH_PROPOSAL});
         

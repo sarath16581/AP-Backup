@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2021-05-12 - Shashwat.Nath@auspost.com.au - Created
+* 2023-10-10 - paul.perry5@auspost.com.au - Added test coverage for selecting related tasks and filtering status pending information options
 */
 @IsTest
 public with sharing class PickUpLocationSelector_Test{
@@ -37,7 +38,16 @@ public with sharing class PickUpLocationSelector_Test{
         QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{PickUpLocationSelector.Options.FILTER_PRIMARY_PICKUP_LOCATION});
         String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Pick_Up_Location__c\\b').matcher(soql).find(), 'Resulting query does not select from Pick Up Location');
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Pick_Up_Location__c\\b').matcher(soql).find(), 'Resulting query does not select from Pick Up Location');
+
+		qb = selector.newQueryBuilder(new Set<Object>{
+			PickUpLocationSelector.Options.FILTER_STATUS_PENDING_INFORMATION,
+			PickUpLocationSelector.Options.WITH_PENDING_TASKS
+		});
+
+		soql = qb.toSoqlString();
+
+		System.assertEquals(true, soql.contains('FROM Tasks'), 'Resulting query does not select from Pick Up Location with Tasks');
 
         Test.stopTest();
 
