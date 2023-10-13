@@ -63,7 +63,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	reasonClaimList = [];
 	// dislay value
 	businessName;
-	businessAccountNumber;
+	businessAccountNumber = null;
 	billingNumber
 	contactName;
 	contactEmailAddress;
