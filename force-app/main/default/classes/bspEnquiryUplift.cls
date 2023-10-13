@@ -1,20 +1,20 @@
 /**************************************************
-Type:         Controller for new LWC components for Enquiry Creation and Search Tracking Numbers. Components are bspFormAPEnquiry, bspFormAPGeneral, bspFormSTDeliveryEnquiry, bspFormSTPickupBookingEnquiry
+Type:		Controller for new LWC components for Enquiry Creation and Search Tracking Numbers. Components are bspFormAPEnquiry, bspFormAPGeneral, bspFormSTDeliveryEnquiry, bspFormSTPickupBookingEnquiry
 History:
-NOTE:         Need to use without sharing: as Owner for the created case will be set to "Enterprise Inbound Queue"
-NOTE:                                    : additional fields, objects won't be quieried successfully if without sharing is not used...
-NOTE:                                   : also to implement duplicate case error requirements while creating enquiry for AP & ST.
-TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
+NOTE:		Need to use without sharing	:as Owner for the created case will be set to "Enterprise Inbound Queue"
+NOTE:									: additional fields, objects won't be quieried successfully if without sharing is not used...
+NOTE:									: also to implement duplicate case error requirements while creating enquiry for AP & ST.
+TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 --------------------------------------------------
-2020-08-02    Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
-2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
-13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
-19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
-04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
-13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
-04/09/2023    hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
-29/09/2023    hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
-05/10/2023    hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
+2020-08-02	Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
+2020-10-29	Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
+13/10/2021	prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
+19/04/2023	hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
+04/05/2023	stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
+13/06/2023	SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
+04/09/2023	hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
+29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
+05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -80,9 +80,9 @@ public without sharing class bspEnquiryUplift {
 		}
 	}*/
 
-  /**
-  * static block
-  * */
+	/**
+	 * static block
+	* */
 	static{
 		dynamicPageSize = Integer.valueOf(bspBaseUplift.configSetting.EnquiriesPerPage__c);
 		dummyEnq1 = new Case();
@@ -123,8 +123,8 @@ public without sharing class bspEnquiryUplift {
 			selectedEnquiryType = BspConstants.ENQUIRY_TYPE_AP;
 		}
 	}/
-  
-	 /**
+
+		/**
 	 * init to load default enquiry types, recordtypes and caselist
 	 * */
 	public static void initialLoadSetup(){
@@ -135,7 +135,7 @@ public without sharing class bspEnquiryUplift {
 		displayCaseList();
 	}
 
-	 /**
+		/**
 	 * retrive the case list with offset
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -219,7 +219,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-	 /**
+		/**
 	 * get the cases to download  with the given column filters
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -260,7 +260,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-   /**
+	/**
 	* build dropdown options for org field to serach for enquires in home page
 	* */
 	@AuraEnabled(cacheable=true)
@@ -300,7 +300,7 @@ public without sharing class bspEnquiryUplift {
 		return Schema.SObjectType.Case.getRecordTypeInfosByName().get(BspConstants.CASE_RECORD_TYPE_DELIVERY_ENQUIRY).getRecordTypeId();
 	}
 
-	 /**
+		/**
 	 * Get startrack pickupbook enquiry record type
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -321,7 +321,7 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
-	 /**
+		/**
 	 * Get all accessible Billing Accounts as picklist optios to display in LWC
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -338,7 +338,7 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
-	 /**
+		/**
 	 * Get all accessible Billing Accounts for reporting
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -350,8 +350,8 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	private static List<SelectOptionCustom> buildAllBillingAccountOptions(){
-		 List<SelectOptionCustom> options = new list<SelectOptionCustom>();
-		 for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
+			List<SelectOptionCustom> options = new list<SelectOptionCustom>();
+			for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
 			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
 			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
 			options.add(new SelectOptionCustom(billingAccount.id + '&' + billingAccount.LEGACY_ID__c, billingAccount.LEGACY_ID__c + ' (' + billingAccount.Name + ')'));
@@ -494,7 +494,7 @@ public without sharing class bspEnquiryUplift {
 				}
 			}
 		}
-		 Set<SObjectField> articleFields = new Set<SObjectField>{
+			Set<SObjectField> articleFields = new Set<SObjectField>{
 				Article__c.TrackingID__c, Article__c.ProductCategory__c, Article__c.SubProduct__c
 		};
 		Map<Id, Article__c>  articles = ArticlesSelector.newInstance(1,articleFields).selectByTracking(new Set<String>{enq.ReferenceID__c},true);
@@ -568,11 +568,11 @@ public without sharing class bspEnquiryUplift {
 
 	/**
 	 * What it is: final steps in creating an AusPost enquiry.
-	 *      This will be called direct from createEnquiryAusPost if no reference ID was entered when creating the
-	 *      enquiry or after the SAP EM search concludes when a reference ID was passed in.
-	 *      (Only if the search was successful and the user has access to create the enquiry
+	 *  This will be called direct from createEnquiryAusPost if no reference ID was entered when creating the
+	 *  enquiry or after the SAP EM search concludes when a reference ID was passed in.
+	 *  (Only if the search was successful and the user has access to create the enquiry
 	 * What it does: Inserts a Case Comment using the Case Description
-	 *      Adds a status and message to the enquiryWrapper
+	 *  Adds a status and message to the enquiryWrapper
 	 * Why: Separates the Case Comment insertion
 	 * @param enq The created Case from BSP community
 	 * @param enqWrapper the wrapper to store any status and messages
@@ -688,7 +688,7 @@ public without sharing class bspEnquiryUplift {
 	 * 3. Role of User / Super User is not considered in case visibilitiy
 	 *
 	 * NOTE: it's important to note that the only roles we need to consider for case visibility for admin based roles
-	 *          by default, when a user role is applied to BSP, it simply implies access to 'my cases' which is the default behaviour of a basic BSP user irrespective of role
+	 *  by default, when a user role is applied to BSP, it simply implies access to 'my cases' which is the default behaviour of a basic BSP user irrespective of role
 	 */
 	public static void displayCaseList() {
 		Map<Id, Case> searchedCaseMap = new Map<Id, Case>();
@@ -800,7 +800,7 @@ public without sharing class bspEnquiryUplift {
 			caseDetail.AccountHeldWith = cse.Business_Unit__c;
 			caseDetailsrecords.add(caseDetail);
 		}
- 
+
 		downloadCaseDetails = JSON.serialize(caseDetailsrecords);
 	}
 
@@ -932,7 +932,7 @@ public without sharing class bspEnquiryUplift {
 				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) ))';
 			}
 		}
-/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
+	/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
 		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
 		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
 		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
@@ -983,11 +983,11 @@ public without sharing class bspEnquiryUplift {
 
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that populates Case's Billing_Number__c if blank.
-				   Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
-	Inputs:        List<Case>
-	Returns:       List<Case>
+					Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
+	Inputs:List<Case>
+	Returns:   List<Case>
 	History:
 	November 23, 2016 - Jen Karen Tan - Created
 	------------------------------------------------------------*/
@@ -1006,10 +1006,10 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that will put Case List retrieved to a CaseContainer list
-	Inputs:        List<Case>
-	Returns:       List<CaseContainer>
+	Inputs:List<Case>
+	Returns:   List<CaseContainer>
 	History:
 	January 9, 2017 - Jen Karen Tan - Created
 	------------------------------------------------------------*/
@@ -1023,7 +1023,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that creates Enquiry
 	History:
 	October 12, 2016 - Jen Karen Tan - Created
@@ -1042,7 +1042,7 @@ public without sharing class bspEnquiryUplift {
 
 		//StarTrack Delivery Enquiry Case
 		if (BspConstants.CASE_RECORD_TYPE_STARTRACK_DELIVERY_ENQUIRY.equals(enq.CCUEnquiryType__c)) {
-			 //[Jansi:] recordType getting from method to have in a single place code
+				//[Jansi:] recordType getting from method to have in a single place code
 			Id deliveryEnqRT = getSTDeliveyEnquiryRecordType();
 			newCase.RecordTypeId = deliveryEnqRT;
 			if (notFound) {
@@ -1145,12 +1145,12 @@ public without sharing class bspEnquiryUplift {
 	}
 
 
-	 /**
+		/**
 	 * validate the given consignment number with special charactes(fom custom setting) and return error message if contains a special character
 	 * */
 	@AuraEnabled(cacheable=true)
 	public static String validateConsignmentNumber(String consignmentNumber){
-	   String errorMessage;
+		String errorMessage;
 			for(String s : (Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_SPECIALCHARS).Field_Name__c).split(StarTrack_Constants.SPECIALCHARS)){
 				if(consignmentNumber.contains(s)){
 					errorMessage = BspConstants.CON_NO_INVALID_CHAR_ERR + Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_SPECIALCHARS).Field_Name__c;
@@ -1160,8 +1160,8 @@ public without sharing class bspEnquiryUplift {
 		return errorMessage;
 	}
 
-   
-	 /**
+
+		/**
 	 * The method to create startrack pickupbook enquiry case and returns the created case number
 	 * */
 	@AuraEnabled
@@ -1180,7 +1180,7 @@ public without sharing class bspEnquiryUplift {
 						caseNumber = createEnquiry(null, enqObj, null, false, false, uploadedFiles, billingAccountNumber);
 					} else {
 						throw new ErrorException(BSPErrorMessages__c.getValues('Invalid Case Billing Account') != null ? BSPErrorMessages__c.getValues('Invalid Case Billing Account').Message__c :
-												 'The Billing Account entered is not applicable for this type of case.');
+													'The Billing Account entered is not applicable for this type of case.');
 					}
 				} else {
 					// either the billing account doesn't exist or the user does not have access to it
@@ -1258,7 +1258,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that process Case creation (Delivery Enquiry) after Consignment search
 	January 13, 2017 - Jen Karen Tan - Created
 	Sep 18, 2020 - Jansi - Uplift changes
@@ -1278,7 +1278,7 @@ public without sharing class bspEnquiryUplift {
 		String err = '';
 		if (searchedConsignment != null) {
 			stWrapper = new STDeliveryEnquiryResultsWapper();
-  
+
 			// if consignment number provided is valid but is not found or multiple consignment found,
 			// provide error message and ask if user wants to proceed creating case
 			if (articleNotFound(searchedConsignment)) {
@@ -1328,7 +1328,7 @@ public without sharing class bspEnquiryUplift {
 		return stWrapper;
 	}
 
-	 /**
+		/**
 	 * get the latest event message of a given article
 	 */
 	private static EventMessage__c getLatestEvent(String articleId){
@@ -1336,7 +1336,7 @@ public without sharing class bspEnquiryUplift {
 		try{
 			Article__c singleCon = [SELECT Id,ExpectedDeliveryDate_Str__c,
 									(SELECT Id, ActualDateTime_Timestamp__c,  WorkCentreText__c,  ExternalDescription__c
-									 FROM Event_Messages__r  WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC LIMIT 1)
+										FROM Event_Messages__r  WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC LIMIT 1)
 									FROM Article__c WHERE Id=:articleId LIMIT 1];
 			if(singleCon != null && singleCon.Event_Messages__r != null && singleCon.Event_Messages__r.size() > 0){
 				return singleCon.Event_Messages__r[0];
@@ -1348,7 +1348,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that will close bulk cases
 	January 9, 2017 - Jen Karen Tan - Created
 	04-08-2020 - Jansi updated to 'AuraEnabled'
@@ -1387,7 +1387,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   The method that will update cases in bulk : add the bulk case comments, after adding the comments update case status in bulk
 	January 10, 2017 - Jen Karen Tan - Created
 	Sep 09, 2020 - Jansi - Uplift changes
@@ -1452,7 +1452,7 @@ public without sharing class bspEnquiryUplift {
 		return false;
 	}
 
-	 /**
+		/**
 	 * caluculate case rules after new startrack cases are created from bsp
 	 * */
 	public static void calculateTransferCaseRule(Case caseRecord){
@@ -1510,7 +1510,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-	 /**
+		/**
 	 * get queue ow id for the given queue
 	 * */
 	public static Id queryQueue(String queueName){
@@ -1524,8 +1524,8 @@ public without sharing class bspEnquiryUplift {
 	/**
 	 * What it is: method called by LWC bspFormAPEnquiry onload
 	 * What it does:
-	 *      - Checks that the current user is allowed to create an enquiry for BSP and returns a status + message
-	 *      - Returns picklist values as dropdown options
+	 *  - Checks that the current user is allowed to create an enquiry for BSP and returns a status + message
+	 *  - Returns picklist values as dropdown options
 	 * Why: LWC requires permission checks and Case Field options
 	 * @return an EnquiryFormInitWrapper object which contains the above
 	 */
@@ -1638,7 +1638,7 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public String message {get;set;}
 	}
 
-	 /**
+		/**
 	 * Inner class to be returned  after searching of consignment number in startrack Delivery enquiry creation
 	 * */
 	public class STDeliveryEnquiryResultsWapper{
@@ -1670,7 +1670,7 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public Case enq {get;set;}
 	}
 
-	 /**
+		/**
 	 * Custom select Option: Added this because standard SelectOption class is not supported by LWC
 	 * */
 	public class SelectOptionCustom {
@@ -1730,7 +1730,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 
-   /**
+	/**
 	* Case container for Case display list
 	* [Jansi:Updated to @AuraEnabled  work with LWC Component]
 	* */

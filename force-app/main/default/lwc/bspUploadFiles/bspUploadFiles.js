@@ -1,10 +1,10 @@
 /*
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 21/08/2020
-  * @description  : Component for Uploading files.
-  * @changes      :
-  *     23/08/2023 Hasantha Liyanage : allow by pass accepted file formats
-  */
+* @author		: Jansi Rani. jansi.rani@auspost.com.au
+* @date			: 21/08/2020
+* @description	: Component for Uploading files.
+* @changes		:
+*				23/08/2023 Hasantha Liyanage : allow by pass accepted file formats
+*/
 import { LightningElement, track, api } from 'lwc';
 import userId from '@salesforce/user/Id';
 import { acceptedFileFormats } from 'c/bspCommonJS';

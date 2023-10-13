@@ -1,12 +1,12 @@
 /**
- * @description			: Copied code from 'bspEnquiryDetail' class and modified to lightning uplift need basis
- * @author				: avula.jansirani@auspost.com.au
- * @group				: 
- * @last modified on	: 08-05-2020 
- * @last modified by	: avula.jansirani@auspost.com.au
- * Modifications Log
- * Ver	Date			Author									Modification
- * 1.0	08-05-2020		avula.jansirani@auspost.com.au			Initial Version
+*@description		: Copied code from 'bspEnquiryDetail' class and modified to lightning uplift need basis
+*@author			: avula.jansirani@auspost.com.au
+*@group				: 
+*@last modified on	: 08-05-2020 
+*@last modified by	: avula.jansirani@auspost.com.au
+*Modifications Log
+*Ver	Date			Author									Modification
+*1.0	08-05-2020		avula.jansirani@auspost.com.au			Initial Version
 **/
 /**************************************************
 Type:					bspEnquiryDetailUplift
@@ -17,7 +17,7 @@ History:
 16-10-2020	avula.jansirani@auspost.com.au	Added method saveAttachment() to insert attchments
 31-08-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields and refactor the getEnquiry function
 **************************************************/
-	public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
+public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
 
 	public static boolean showAttachmentButtonFlag {get;set;}
 	public String fileName {get;set;}
@@ -98,7 +98,7 @@ History:
 	public static Map<String,String> saveAttachment(Id parentId, String fileName, String base64Data, String fileType) {
 		Map<String, String> insertedAttMap = new  Map<String, String>();
 		// Decoding base64Data
-		base64Data = EncodingUtil.urlDecode(base64Data, 'UTF-8');        
+		base64Data = EncodingUtil.urlDecode(base64Data, 'UTF-8');
 		// inserting file
 		
 		
@@ -263,7 +263,7 @@ History:
 	private static  List<commHistory>  generateCommHistory(Case enq) {
 		List<commHistory> commHistoryList = new List<commHistory>();
 		// this function sorted 2 types of objects (Comm) by CreatedDate DESC, and then added to a wrapper class
-		//    such that Vf page can access them consistently.
+		// such that Vf page can access them consistently.
 		String avoidSubjects = '%'+String.valueOf(System.Label.ProdRelease1_2)+'%';
 		
 		List<SObject> comments = [SELECT Id, CommentBody, IsPublished, CreatedDate, CreatedById

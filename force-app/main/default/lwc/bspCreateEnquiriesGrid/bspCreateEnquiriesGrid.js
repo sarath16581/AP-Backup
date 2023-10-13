@@ -1,10 +1,10 @@
 /*
- * @author Jansi(avula.jansirani@crmit.com)
- * @date 24/07/2020
- * @description common js methods for BSP community
- * --------------------------------------- History --------------------------------------------------
- * 24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
- * 15/08/2023		hasantha.liyanage@auspost.com.au	added credit claim form tiles
+* @author Jansi(avula.jansirani@crmit.com)
+* @date 24/07/2020
+* @description common js methods for BSP community
+* --------------------------------------- History --------------------------------------------------
+* 24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
+* 15/08/2023		hasantha.liyanage@auspost.com.au	added credit claim form tiles
 */
 
 import { LightningElement ,wire, api} from 'lwc';
@@ -64,7 +64,7 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 		}
 		else if (button === 'generalEnquiry'){
 			this.navigationPage = 'BSP_Enquiry_General__c';
-		}    //To do: add correct URL
+		}//To do: add correct URL
 		else if (button === 'stDelivery'){
 			this.navigationPage = 'BSP_ST_Delivery_Enquiry__c';
 		}
