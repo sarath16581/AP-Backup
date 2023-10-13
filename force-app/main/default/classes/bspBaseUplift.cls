@@ -8,7 +8,7 @@ History:
 2021-07-05  Victor.Cheng@auspost.com.au Added the initThemeComp
 2023-08-17  mahesh.parvathaneni@auspost.com.au Changed isCSSOLogin to check for AuthProvider instead of SAML
 2023-08-23  hasantha liyanage added new method linkFiles
-2023-08-25  mahesh.parvathaneni@auspost.com.au Added method getMerchantPortalCookieHandlerProxyUrl
+2023-08-25  mahesh.parvathaneni@auspost.com.au Added method getMerchantPortalAccessUrl
 **************************************************/
 public with sharing virtual class bspBaseUplift {
 
