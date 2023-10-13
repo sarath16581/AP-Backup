@@ -1,7 +1,7 @@
 @isTest
 public with sharing class CSQCloneService_Test {
 	@isTest
-    public static void testCSQCloneService() {
+	public static void testCSQCloneService() {
 		fflib_ApexMocks mocks = new fflib_ApexMocks();
 
 		// Construct CSQ record with embedded child records
@@ -115,7 +115,7 @@ public with sharing class CSQCloneService_Test {
 		System.assertEquals(1, mappedResult.get(Customer_Scoping_Questionnaire__c.SObjectType).size(), 'Incorrect amount of records');
 		System.assertEquals(2, mappedResult.get(Pick_Up_Location__c.SObjectType).size(), 'Incorrect amount of records');
 		System.assertEquals(2, mappedResult.get(Freight_Offering__c.SObjectType).size(), 'Incorrect amount of records');
-    }
+	}
 
 	@isTest
 	public static void testGeneric() {
