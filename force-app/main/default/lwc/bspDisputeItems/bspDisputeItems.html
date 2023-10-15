@@ -9,7 +9,7 @@
 			<thead>
 				<tr class="slds-line-height_reset">
 					<th class="" scope="col">
-					<div class="slds-truncate">Invoice Number</div>
+					<div class="slds-truncate">Invoice number</div>
 					</th>
 					<template if:true={showTransactionId}>
 						<th scope="col">
@@ -23,10 +23,10 @@
 					</template>		
 
 					<th class="" scope="col">
-					<div class="slds-truncate">Amount Claimed ($)</div>
+					<div class="slds-truncate">Amount claimed ($)</div>
 					</th>
 					<th class="" scope="col">
-					<div class="slds-truncate">Amount Charged ($)</div>
+					<div class="slds-truncate">Amount charged ($)</div>
 					</th>
 					<th class="" scope="col">
 					<div class="slds-truncate">Action</div>
@@ -43,7 +43,7 @@
 									value={disputeItem.Invoice_Number__c} 
 									onchange={onChangeField} 
 									max-length="12"
-									placeholder="Invoice Number"
+									placeholder="Invoice number"
 									data-id={disputeItem.Id} 
 									data-field="Invoice_Number__c">
 								</lightning-input>
@@ -96,7 +96,7 @@
 									min=".01"
 									step=".01"								
 									max-length="20"
-									placeholder="Amount Claimed"
+									placeholder="Amount claimed"
 									data-field="Amount_Claimed__c">
 								</lightning-input>
 							</td>
@@ -114,7 +114,7 @@
 									min=".01"
 									step=".01"								
 									max-length="20"
-									placeholder="Amount Charged"
+									placeholder="Amount charged"
 									data-field="Amount__c">
 								</lightning-input>
 							</td>
@@ -131,7 +131,7 @@
 			</tbody>
 		</table>
 		<div class="slds-var-p-top_medium">
-			<lightning-button label="Add Row" 
+			<lightning-button label="Add row" 
 				variant="brand" 
 				onclick={addRow}>
 			</lightning-button>

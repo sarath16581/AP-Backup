@@ -201,7 +201,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		if (data) {
 			data.values.forEach(enquiryTypeOption =>{
 					let etOption = {...enquiryTypeOption};
-					if (etOption.label === 'Billing Dispute' || etOption.label === 'Service Performance'){
+					if (etOption.label === 'Billing dispute' || etOption.label === 'Service performance'){
 						enquiryTypeOptions.push(etOption);
 					}
 				}
