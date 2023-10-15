@@ -183,7 +183,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
 	wiredObjectInfo({data, error}) {
 		if (error) {
-			// handle Error
+			console.error(error);
 		} else if (data) {
 			const rtis = data.recordTypeInfos;
 			this.recordTypeId = Object.keys(rtis).find(rti => rtis[rti].name === 'Enterprise Credit Dispute Claim');
@@ -192,11 +192,19 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: BUSINESS_UNIT_FIELD })
 	businessUnitInfo({data, error}) {
+		if(error){
+			console.error(error);
+			return;
+		}
 		if (data) this.accountHeldWithList = data.values;
 	}
 
 	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: ENQUIRY_TYPE_FIELD })
 	enquiryTypeInfo({data, error}) {
+		if (error){
+			console.error(error);
+			return;
+		}
 		let enquiryTypeOptions = [];
 		if (data) {
 			data.values.forEach(enquiryTypeOption =>{
