@@ -37,6 +37,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Scoping_Questionnaire__c.Clone_Source__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Customer_Scoping_Questionnaire__c.CSQ_Sales_team__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -173,6 +178,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
     <fieldPermissions>
         <editable>true</editable>
         <field>Freight_Offering__c.Cartons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Freight_Offering__c.Clone_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -483,6 +493,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
     <fieldPermissions>
         <editable>true</editable>
         <field>Pick_Up_Location__c.Address__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.Clone_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
