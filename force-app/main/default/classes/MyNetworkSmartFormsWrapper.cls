@@ -86,6 +86,7 @@ public class MyNetworkSmartFormsWrapper {
     public String contents;
     public String valueOfContents;
     public String adequatelyPackaged;
+	public String isarticleonhand;
     public String compensationBeingPaid;
     public String compensationAmount;
     public String postagevalue;

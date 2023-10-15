@@ -232,6 +232,7 @@ public with sharing class MyNetworkSmartFormsService {
         sDamageArticle += SSSWConstants.NEW_LINE + 'Description of contents - ' + oSmartFormWrapper.contents;
         sDamageArticle += SSSWConstants.NEW_LINE + 'Value of contents - ' + oSmartFormWrapper.valueOfContents;
         sDamageArticle += SSSWConstants.NEW_LINE + 'In your opinion, was the article adequately packaged? - ' + oSmartFormWrapper.adequatelyPackaged;
+		sDamageArticle += SSSWConstants.NEW_LINE + 'Is the article on hand? - ' + oSmartFormWrapper.isarticleonhand;
         if(!String.isBlank(oSmartFormWrapper.compensationBeingPaid)){
             sDamageArticle += SSSWConstants.NEW_LINE + 'Are you paying compensation to the customer? - ' + oSmartFormWrapper.compensationBeingPaid;
         }
