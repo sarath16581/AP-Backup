@@ -972,9 +972,9 @@ public without sharing class bspEnquiryUplift {
 	private static String readStatus(Case c){
 		if ('awaiting customer response'.equalsIgnoreCase(c.Status) || 'waiting on customer'.equalsIgnoreCase(c.Status) || 'Under investigation - Awaiting responses'.equalsIgnoreCase(c.Status)) {
 			return 'Action Required';
-		} else if ((c.status == 'closed' && c.Permanent_Close__c) || c.subject == 'Bulk Upload') {
+		} else if (('closed'.equalsIgnoreCase(c.Status) && c.Permanent_Close__c) || 'Bulk Upload'.equalsIgnoreCase(c.Status)) {
 			return c.status;
-		} else if ((c.status == 'closed' || c.status == 'Invalid') && !c.Permanent_Close__c) {
+		} else if (('closed'.equalsIgnoreCase(c.Status) || 'Invalid'.equalsIgnoreCase(c.Status)) && !c.Permanent_Close__c) {
 			return  'Resolved';
 		} else {
 			return 'In Progress';

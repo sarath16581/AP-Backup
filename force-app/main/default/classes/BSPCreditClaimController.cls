@@ -41,17 +41,22 @@ public with sharing class BSPCreditClaimController {
 			Database.DMLOptions dmlOptions = new Database.DMLOptions();
 			dmlOptions.assignmentRuleHeader.assignmentRuleId = assignRule.Id;
 			caseRecord.setOptions(dmlOptions);
-			Database.SaveResult[] srFiles = context.insertRecords(new List<Case> {caseRecord});
-			if(srFiles[0].isSuccess()){
+			Database.SaveResult[] saveResults = context.insertRecords(new List<Case> {caseRecord});
+			system.debug('HASANTHA saveResults '+saveResults);
+			if(saveResults[0].isSuccess()){
 				//get the new case number
 				Map<Id,Case> cse = context.getCasesById(new Set<Id> {caseRecord.Id});
+				system.debug('HASANTHA cse '+cse);
 				Case newCase = cse.get(caseRecord.Id);
+				system.debug('HASANTHA newCase '+newCase);
 				if(newCase != null){
+					system.debug('HASANTHA disputeItems '+disputeItems);
 					//Creating the dispute items
 					if(disputeItems !=null && !disputeItems.isEmpty()){
 						for(Disputed_Item__c diRecord :disputeItems){
 							diRecord.Case__c = newCase.Id;
 						}
+
 						context.insertRecords(disputeItems);
 					}
 					// link any files
@@ -63,7 +68,7 @@ public with sharing class BSPCreditClaimController {
 					enquiryWrapper.message = '';
 				}
 			} else {
-				for(Database.Error err : srFiles[0].getErrors()) {
+				for(Database.Error err : saveResults[0].getErrors()) {
 					enquiryWrapper.status = STATUS_ERROR;
 					enquiryWrapper.message = err.getStatusCode() + ': ' + err.getMessage();
 				}
