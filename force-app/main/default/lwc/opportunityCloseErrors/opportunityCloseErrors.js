@@ -20,6 +20,7 @@
  * 2020-08-16 - arjun.singh@auspost.com.au - Modified to include OpportunityValidationErros vf page which in turns pass all the possibe
  *										   validation errors to lwc component
  * 2023-08-18 - Ranjeewa Silva - Updated to display validation errors when moving to next stage for opportunities in any stage.
+ * 2023-10-16 - Mahesh Parvathaneni - Updated populateValidationErrorResults to check for new line in the error message
  */
 
 import {LightningElement, track, api, wire} from 'lwc';
@@ -140,7 +141,10 @@ export default class OpportunityCloseErrors extends LightningElement {
 			result.validationMessages.forEach((errMsg)=>{
 				var eMsg = errMsg.replace(/&quot;/g,'\'');
 				var eMsgVar = eMsg.replace(/amp;/g,'');
-				this.progressErrs.push(eMsgVar);
+				let eMsgArray = eMsgVar.split(/\n/);
+				eMsgArray.forEach(eMsg => {
+					this.progressErrs.push(eMsg);
+				})
 			});
 		}
 

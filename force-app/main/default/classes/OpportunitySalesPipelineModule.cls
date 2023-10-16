@@ -5,6 +5,7 @@
  * @test OpportunitySalesPipelineModule_Test
  * @changelog
  * 2023-08-07 - Ranjeewa Silva - Created.
+ * 2023-09-16 - Mahesh Parvathaneni - STP-9274 - Added validation when incorrect overlay type assigned to team members
  */
 public inherited sharing class OpportunitySalesPipelineModule extends ApplicationModule {
 
@@ -96,6 +97,9 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 					OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS
 				});
 
+		//get the overlay contribution types for the opp splits team members
+		Map<Id, Set<String>> eligibleOverlayTypesAssignedBySplitMemberIdMap = getOverlaySplitEligibilityBySplitOwners(opportunitiesWithChildRecords);
+
 		for (Opportunity record: records.values()) {
 
 			Opportunity opportunityWithChildRecords = opportunitiesWithChildRecords.get(record.Id);
@@ -131,7 +135,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 			if (OPPORTUNITY_STAGES_VALIDATE_OPP_SPLITS_OVERLAY_CONTRIBUTION.contains(record.StageName)
 					&& !opportunityWithChildRecords.OpportunitySplits.isEmpty()) {
 
-					validateOverlayOpportunitySplitAssignmentForSpecialistUsers(record, opportunityWithChildRecords.OpportunitySplits);
+					validateOverlayOpportunitySplitAssignmentForSpecialistUsers(record, opportunityWithChildRecords.OpportunitySplits, eligibleOverlayTypesAssignedBySplitMemberIdMap);
 			}
 		}
 	}
@@ -167,42 +171,57 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	}
 
 	/**
-	 * @description validate opp splits are assigned to correct role for the team member
-	 * @param  record opportunity record going through DML operation.
-	 * @param  oppSplits overlay contribution opportunity splits
+	 * @description function to get the overlay split contribution types for split owner ids
+	 * @param  opportunitiesWithChildRecords map of opportunity records with child opportunity splits
+	 * @return map of user ids to eligible overlay contribution types
 	 */
-	private void validateOverlayOpportunitySplitAssignmentForSpecialistUsers(Opportunity record, List<OpportunitySplit>  oppSplits) {
-		Map<Id, Set<String>> overlayTypesAssignedBySplitMemberIdMap = new Map<Id, Set<String>>();
+	private Map<Id, Set<String>> getOverlaySplitEligibilityBySplitOwners(Map<Id, Opportunity> opportunitiesWithChildRecords) {
+		Map<Id, Set<String>> overlaySplitEligibilityBySplitOwnerIdMap = new Map<Id, Set<String>>();
 		Set<Id> splitOwnerIds = new Set<Id>();
-		List<OpportunitySplit> incorrectOverlaySplits = new List<OpportunitySplit>();
 
-		//get the split owner ids from the splits
-		for(OpportunitySplit split : oppSplits) {
-			splitOwnerIds.add(split.SplitOwnerId);
+		// loop through the opportunities for opp splits if any and get the split owner ids to 
+		// check the group membership
+		for (Opportunity opp: opportunitiesWithChildRecords.values()) {
+			if (!opp.OpportunitySplits.isEmpty()) {
+				for (OpportunitySplit split : opp.OpportunitySplits) {
+					splitOwnerIds.add(split.SplitOwnerId);
+				}
+			}
 		}
 
 		//get the eligible overlay contribution types for split owners
 		if (!splitOwnerIds.isEmpty()) {
-			Map<Id, Set<String>> overlaySplitEligibilityBySplitOwnerIdMap = OpportunitySplitUtility.getInstance().getEligibleOverlayContributionTypes(splitOwnerIds, null);
+			overlaySplitEligibilityBySplitOwnerIdMap = OpportunitySplitUtility.getInstance().getEligibleOverlayContributionTypes(splitOwnerIds, null);
+		}
 
-			if (!overlaySplitEligibilityBySplitOwnerIdMap.isEmpty()) {
-				//loop through splits and validate the overlay type and user role
-				for(OpportunitySplit split : oppSplits) {
-					if(overlaySplitEligibilityBySplitOwnerIdMap.containsKey(split.SplitOwnerId) && 
-						!overlaySplitEligibilityBySplitOwnerIdMap.get(split.SplitOwnerId).contains(split.Overlay_Type__c)) {
-						//user is incorrectly assigned to overlay type
-						incorrectOverlaySplits.add(split);
-					} else {
-						//user doesn't belong to any specialist group
-						incorrectOverlaySplits.add(split);
-					}
+		return overlaySplitEligibilityBySplitOwnerIdMap;
+	}
+
+	/**
+	 * @description validate opp splits are assigned to correct role for the team member
+	 * @param  record opportunity record going through DML operation.
+	 * @param  oppSplits overlay contribution opportunity splits
+	 */
+	private void validateOverlayOpportunitySplitAssignmentForSpecialistUsers(Opportunity record, List<OpportunitySplit>  oppSplits, Map<Id, Set<String>> overlaySplitEligibilityBySplitOwnerIdMap) {
+		List<OpportunitySplit> incorrectOverlaySplits = new List<OpportunitySplit>();
+
+		//loop through splits and validate the overlay type and user role
+		for(OpportunitySplit split : oppSplits) {
+			if(overlaySplitEligibilityBySplitOwnerIdMap.containsKey(split.SplitOwnerId)) {
+				//user found in specialist group, check the overlay type not assigned to user specialist group
+				if (!overlaySplitEligibilityBySplitOwnerIdMap.get(split.SplitOwnerId).contains(split.Overlay_Type__c)) {
+					//user is incorrectly assigned to overlay type
+					incorrectOverlaySplits.add(split);
 				}
+			} else {
+				//user doesn't belong to any specialist group
+				incorrectOverlaySplits.add(split);
 			}
 		}
 
 		//if any incorrect overlay splits assigned, add it to the record
 		if(!incorrectOverlaySplits.isEmpty()) {
-			Set<String> errorMsgs = new Set<String>();
+			List<String> errorMsgs = new List<String>();
 
 			for (OpportunitySplit incorrectOppSplit : incorrectOverlaySplits) {
 				errorMsgs.add(String.format(Label.OpportunityWithIncorrectOverlayTypeSplitsAssignments, new List<String>{incorrectOppSplit.Overlay_Type__c}));
