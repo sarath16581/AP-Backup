@@ -227,6 +227,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				errorMsgs.add(String.format(Label.OpportunityWithIncorrectOverlayTypeSplitsAssignments, new List<String>{incorrectOppSplit.Overlay_Type__c}));
 			}
 
+			//added the new line delimiter to show the errors in UI
 			String errorMessage = errorMsgs.size() > 1 ? String.join(errorMsgs, '\n') : errorMsgs.get(0);
 			record.addError(errorMessage);
 
