@@ -132,9 +132,9 @@ export default class OpportunityCloseErrors extends LightningElement {
 	/**
 	 * Parse all the validation message and store in an array to display in UI.
 	 */
-	 populateValidationErrorResults(result) {
+	populateValidationErrorResults(result) {
 
-		 this.errorMessage = (result.errorMessage ? result.errorMessage : null);
+		this.errorMessage = (result.errorMessage ? result.errorMessage : null);
 
 		this.progressErrs = [];
 		if(result.validationMessages) {
@@ -142,8 +142,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 				var eMsg = errMsg.replace(/&quot;/g,'\'');
 				var eMsgVar = eMsg.replace(/amp;/g,'');
 				let eMsgArray = eMsgVar.split(/\n/);
-				eMsgArray.forEach(eMsg => {
-					this.progressErrs.push(eMsg);
+				eMsgArray.forEach(eMsgVal => {
+					this.progressErrs.push(eMsgVal);
 				})
 			});
 		}
