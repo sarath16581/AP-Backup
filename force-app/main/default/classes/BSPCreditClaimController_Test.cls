@@ -40,7 +40,7 @@ private class BSPCreditClaimController_Test {
 		// Data Preparation
 		// =====================================
 		// get a bsp context user
-		User bspUser = [SELECT Id, ContactId, Contact.AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
+		User bspUser = [SELECT Id, ContactId, Contact.AccountId, AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
 		// creating a custom setting for error message
 		BSPErrorMessages__c errorMessagesSettings = new BSPErrorMessages__c();
 		errorMessagesSettings.Name = 'Invalid Billing Account Credit Claim';
@@ -151,6 +151,26 @@ private class BSPCreditClaimController_Test {
 				insertedRecords[0][0].get('Related_Billing_Account__c'),
 				'createCreditClaimSuccessTest : Related_Billing_Account__c should not be populated when other account number field is populated'
 		);
+
+		System.assertEquals(
+				bspUser.ContactId,
+				insertedRecords[0][0].get('ContactId'),
+				'createCreditClaimSuccessTest : ContactId should be populated'
+		);
+
+		System.assertEquals(
+				bspUser.AccountId,
+				insertedRecords[0][0].get('AccountId'),
+				'createCreditClaimSuccessTest : ContactId should be populated'
+		);
+
+		System.assertEquals(
+				creditDisputeCaseRecordTypeId,
+				insertedRecords[0][0].get('RecordTypeId'),
+				'createCreditClaimSuccessTest : RecordTypeId should be credit claim'
+		);
+
+
 
 		System.assertEquals(
 				cse.Id,
