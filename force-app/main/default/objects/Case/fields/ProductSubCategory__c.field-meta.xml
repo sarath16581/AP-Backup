@@ -744,11 +744,6 @@
                 <label>shop.auspost.com.au</label>
             </value>
             <value>
-                <fullName>Shopmate</fullName>
-                <default>false</default>
-                <label>Shopmate</label>
-            </value>
-            <value>
                 <fullName>StarTrack (Next Flight Premium &amp; Express)</fullName>
                 <default>false</default>
                 <label>StarTrack (Next Flight Premium &amp; Express)</label>
@@ -1200,7 +1195,6 @@
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
             <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
-            <controllingFieldValue>International Letters</controllingFieldValue>
             <valueName>Mail redirection</valueName>
         </valueSettings>
         <valueSettings>
@@ -1491,10 +1485,6 @@
         <valueSettings>
             <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
             <valueName>Send a Parcel</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
-            <valueName>Shopmate</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Web &amp; Apps</controllingFieldValue>

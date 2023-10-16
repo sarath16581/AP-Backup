@@ -5,7 +5,6 @@
  * @group Domain
  * @domain APR
  * @changelog
- * @Test StarTrackAPRAutomationModule_Test
  * 2022-04-15	Naveen Rajanna	REQ2811129 - created
  * 2023-08-18 Jacob Isaac REQ3267427
  */

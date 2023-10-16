@@ -232,6 +232,11 @@
                 <label>Government North</label>
             </value>
             <value>
+                <fullName>Government North - National Defence</fullName>
+                <default>false</default>
+                <label>Government North - National Defence</label>
+            </value>
+            <value>
                 <fullName>Government South</fullName>
                 <default>false</default>
                 <label>Government South</label>

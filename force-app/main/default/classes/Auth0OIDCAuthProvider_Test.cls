@@ -3,11 +3,20 @@
  * @author Nathan Franklin
  * @date 2023-03-22
  * @changelog
+ * 2023-10-09 - Mahesh Parvathaneni - updated PKCEEncryptionKey__c to read from custom settings
  */
 @IsTest
 private class Auth0OIDCAuthProvider_Test {
 
 	public static String mockAccessToken = 'JKhRGwUxFwFNd_QEYVfCCTjKalZ9g_t7g.JKhRGwUxFwFNd_QEYVfCCTjKalZ9g_t7g.JKhRGwUxFwFNd_QEYVfCCTjKalZ9g_t7g';
+
+	@TestSetup
+	private static void setup() {
+		AusPostSettings__c setting = new AusPostSettings__c();
+		setting.Name = 'Auth0Consumer';
+		setting.Token__c = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
+		insert setting;
+	}
 
 	/**
 	 * Scenario: Ensures that the correct url is generated that redirects the user to Auth0 so they can log in
@@ -18,10 +27,9 @@ private class Auth0OIDCAuthProvider_Test {
 		// Data Preparation
 		// =====================================
 
-		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		String state = 'nothingmeangingful';
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCEEncryptionKey__c' => encryptionKey,
+			'PKCEEncryptionKey__c' => 'Auth0Consumer',
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -76,9 +84,8 @@ private class Auth0OIDCAuthProvider_Test {
 		// Data Preparation
 		// =====================================
 
-		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCEEncryptionKey__c' => encryptionKey,
+			'PKCEEncryptionKey__c' => 'Auth0Consumer',
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -100,7 +107,8 @@ private class Auth0OIDCAuthProvider_Test {
 		};
 		Auth.AuthProviderCallbackState callbackState = new Auth.AuthProviderCallbackState(headers, null, queryParameters);
 
-		List<String> pkceValues = (new Auth0OIDCAuthProvider()).getPKCECode(queryParameters.get('state'), EncodingUtil.base64Decode(customMetadataValues.get('PKCEEncryptionKey__c')));
+		AusPostSettings__c setting = AusPostSettings__c.getValues(customMetadataValues.get('PKCEEncryptionKey__c'));
+		List<String> pkceValues = (new Auth0OIDCAuthProvider()).getPKCECode(queryParameters.get('state'), EncodingUtil.base64Decode(String.valueOf(setting.Token__c)));
 
 		// =====================================
 		// Stubbing
@@ -150,9 +158,8 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCEEncryptionKey__c' => encryptionKey,
+			'PKCEEncryptionKey__c' => 'Auth0Consumer',
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -209,9 +216,8 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCEEncryptionKey__c' => encryptionKey,
+			'PKCEEncryptionKey__c' => 'Auth0Consumer',
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -268,9 +274,8 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCEEncryptionKey__c' => encryptionKey,
+			'PKCEEncryptionKey__c' => 'Auth0Consumer',
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -324,9 +329,8 @@ private class Auth0OIDCAuthProvider_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		String encryptionKey = EncodingUtil.base64Encode(Crypto.generateAesKey(256));
 		Map<String, String> customMetadataValues = new Map<String, String>{
-			'PKCEEncryptionKey__c' => encryptionKey,
+			'PKCEEncryptionKey__c' => 'Auth0Consumer',
 			'ClientId__c' => 'client-id-1234',
 			'Audience__c' => 'https://auspost.com.au',
 			'AuthoriseEndpointUrl__c' => 'https://my-authorisation-end-point.com/authorise',
@@ -394,8 +398,8 @@ private class Auth0OIDCAuthProvider_Test {
 		Test.startTest();
 
 		Auth0OIDCAuthProvider authprovider = new Auth0OIDCAuthProvider();
-        String actual = authprovider.getCustomMetadataType();
-        System.assertEquals('Auth0OIDCAuthProvider__mdt', actual, 'Incorrect metadata returned');
+		String actual = authprovider.getCustomMetadataType();
+		System.assertEquals('Auth0OIDCAuthProvider__mdt', actual, 'Incorrect metadata returned');
 
 		Test.stopTest();
 	}

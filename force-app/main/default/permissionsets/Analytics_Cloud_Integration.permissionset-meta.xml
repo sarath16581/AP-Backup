@@ -164,6 +164,11 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.APT_Anniversary_Date_Calc__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Apttus__APTS_Agreement__c.APT_Creator_Role__c</field>
         <readable>true</readable>
     </fieldPermissions>

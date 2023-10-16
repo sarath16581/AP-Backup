@@ -15,6 +15,8 @@
  * @date 2023-02-21
  * @changelog
  * 2023-09-12 - Mahesh Parvathaneni - reverted the cookie handler changes
+ * 2023-09-19 - Mahesh Parvathaneni - added variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
+ * 2023-10-09 - Mahesh Parvathaneni - updated PKCEEncryptionKey__c to read from custom settings
 */
 global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
@@ -26,6 +28,10 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 	public static final Blob CRYPTO_IV = Blob.valueOf('ghqNA8aoTUF8WIsx');
 
 	public static final String AUTH_PROVIDER_NAME = 'Auth0';
+
+	public static final String ATTRIBUTE_CNUMBER_MAPPING = 'https://auspost/cnumber';
+
+	public static final String ATTRIBUTE_APCN_MAPPING = 'https://auspost/apcn';
 
 	@TestVisible
 	private Id NETWORK_ID { // can't be declared as final since we assign this value in our test class
@@ -75,7 +81,8 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String audience = authProviderConfiguration.get('Audience__c');
 		String scope = authProviderConfiguration.get('Scope__c');
 		String urlSuffix = authProviderConfiguration.get('URLSuffix__c');
-		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(authProviderConfiguration.get('PKCEEncryptionKey__c')));
+		AusPostSettings__c setting = AusPostSettings__c.getValues(authProviderConfiguration.get('PKCEEncryptionKey__c'));
+		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(setting.Token__c));
 		String redirectUri = COMMUNITY_URL + '/services/authcallback/' + urlSuffix;
 		String pkceChallenge = getPKCECode(stateToPropagate, pkceEncryptionKey)[0];
 		System.debug('PKCE Challenge: ' + pkceChallenge);
@@ -104,7 +111,8 @@ global class Auth0OIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String code = queryParams.get('code');
 		String sfdcState = queryParams.get('state');
 
-		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(authProviderConfiguration.get('PKCEEncryptionKey__c')));
+		AusPostSettings__c setting = AusPostSettings__c.getValues(authProviderConfiguration.get('PKCEEncryptionKey__c'));
+		Blob pkceEncryptionKey = EncodingUtil.base64Decode(String.valueOf(setting.Token__c));
 		String pkceCodeVerifier = getPKCECode(sfdcState, pkceEncryptionKey)[1];
 		System.debug('PKCE Verifier: ' + pkceCodeVerifier);
 

@@ -163,8 +163,8 @@
     <pluralLabel>Wizard Input Groups</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__WizardStepId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Repeatable__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Sequence__c</lookupDialogsAdditionalFields>

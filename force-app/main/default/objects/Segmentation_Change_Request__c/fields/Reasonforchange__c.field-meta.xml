@@ -20,19 +20,14 @@
                 <label>ABN Change</label>
             </value>
             <value>
-                <fullName>Anomaly Request</fullName>
-                <default>false</default>
-                <label>Anomaly Request</label>
-            </value>
-            <value>
                 <fullName>Customer Hierarchy</fullName>
                 <default>false</default>
                 <label>Customer Hierarchy</label>
             </value>
             <value>
-                <fullName>Sales Specialist New Account Allocation</fullName>
+                <fullName>Director Requested</fullName>
                 <default>false</default>
-                <label>Sales Specialist New Account Allocation</label>
+                <label>Director Requested</label>
             </value>
         </valueSetDefinition>
     </valueSet>

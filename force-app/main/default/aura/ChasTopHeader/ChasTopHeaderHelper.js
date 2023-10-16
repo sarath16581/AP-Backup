@@ -1,3 +1,8 @@
+/**
+ * @changelog
+ * 2023-09-14 mahesh.parvathaneni@auspost.com.au Removed the setStorable action method and added cacheable=true in apex
+ */
+
 ({
     setLoggedInUserName : function(component) {
         // TODO
@@ -10,7 +15,6 @@
         
         //-- 1. Query User Info from Server with storable action
         var action = component.get("c.getLoggedInUserInfo");
-        action.setStorable();
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
@@ -51,7 +55,6 @@
 
     getCommunityUrl : function(component) {
         var action = component.get("c.retrieveCommunityURL");
-        action.setStorable();
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {

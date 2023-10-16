@@ -60,7 +60,7 @@ I have forwarded your feedback to {Insert here} for their attention. A member of
 If you have any further questions or concerns in relation to this case, please respond to this email and we will get back to you as soon as we can.
 <hr>
                                                                          Thank you,<br>
-{!User.CommunityNickname}<br>
+{!User.FirstName}<br>
 StarTrack Voice of Customer Team<p/>
                                                              </td>
                                                   </tr> 									

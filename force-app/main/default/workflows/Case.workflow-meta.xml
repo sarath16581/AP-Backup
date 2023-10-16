@@ -970,7 +970,7 @@
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Warning</template>
+        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Email_wContent</template>
     </alerts>
     <alerts>
         <fullName>Send_Customer_Warning_Email</fullName>
@@ -982,7 +982,7 @@
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW Customer Escalation Email - wContent</template>
+        <template>SSSW_System_Emails/SSSW_Customer_Escalation_Email_wContent</template>
     </alerts>
     <alerts>
         <fullName>Send_an_Email_to_the_Customer_if_they_are_creating_a_Case_via_Email</fullName>
@@ -1419,7 +1419,7 @@
     <fieldUpdates>
         <fullName>Customer_Data_Team_update_owner_to_que</fullName>
         <field>OwnerId</field>
-        <lookupValue>Data_Quality_Management</lookupValue>
+        <lookupValue>Sales_Coordinator</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>Customer Data Team - update owner to que</name>
         <notifyAssignee>false</notifyAssignee>
@@ -2017,16 +2017,6 @@ TEXT(ProductCategory__c) &amp; &quot; - &quot; &amp; TEXT(ProductSubCategory__c)
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_EP_to_Stopped</fullName>
-        <field>IsStopped</field>
-        <literalValue>1</literalValue>
-        <name>SSSW - Set EP to Stopped</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_EnquirySubType_to_Tracking</fullName>
         <field>EnquirySubType__c</field>
         <literalValue>Tracking</literalValue>
@@ -2420,7 +2410,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Unaddressed_Mail_Inbound</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Niche_Common_Group</lookupValue>
+        <lookupValue>SSSW_Niche_Group_3</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Unaddressed Mail Inbound</name>
         <notifyAssignee>false</notifyAssignee>
@@ -3617,7 +3607,7 @@ if case is accepted manually, change case status from New to In Progress</descri
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Data Quality Management</value>
+            <value>Data Quality Management,Sales Operations Support</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>
@@ -5233,7 +5223,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <name>SSSW_Set_EP_to_Stopped</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>Case.IsClosed</field>

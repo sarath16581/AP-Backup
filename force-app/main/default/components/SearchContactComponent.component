@@ -163,7 +163,7 @@
                             j$('<td class="dataCell">').append('<a href="#" onclick="searchContactOpenTab(\'' + (recContact.contact.Account != null && recContact.contact.Account.IsPersonAccount ? recContact.contact.Account.Id : recContact.contact.Id) + '\'); return false;">'+recContact.contact.Name+'</a>'),
                             j$('<td class="dataCell">').append((recContact.contact.CRMCSSOID__c != null ? '<img src="/img/icon/custom51_100/keys16.png" /></br>' : '')+
                                     (recContact.contact.LevelOfAssurance__c != null && recContact.contact.LevelOfAssurance__c >= '{!minLOA}' ? '<img src="/img/func_icons/util/lock12.gif"/></br>' : '')+
-                                    (recContact.contact.is_Inactive_Customer__c  ? '<img src="/img/func_icons/remove12_on.gif"/>' : '')),
+                                    (recContact.contact.IsInactiveCustomer__c  ? '<img src="/img/func_icons/remove12_on.gif"/>' : '')),
                             j$('<td class="dataCell">').append((recContact.contact.Account != null ? (recContact.contact.Account.IsPersonAccount == true ? recContact.contact.Account.RecordType.Name : '<a href="#" onclick="searchContactOpenTab(\''+recContact.contact.Account.Id+'\'); return false;">'+recContact.contact.Account.Name+'</a> '+(recContact.contact.Account.ABN__c != null ? recContact.contact.Account.ABN__c : '' )+' <br/>'+BillingAcc) : '')),
                             j$('<td class="dataCell">').append((recContact.contact.Phone == null ? '' : 'Phone: ' + recContact.contact.Phone +' </br>') +
                                     (recContact.contact.HomePhone == null ? '' : 'Home: ' + recContact.contact.HomePhone +' </br>') +
@@ -1077,7 +1077,7 @@
                     <apex:outputpanel rendered="{!IF(o.contact.CRMCSSOID__c != null, 'true', 'false')}">
                         <img src="/img/icon/custom51_100/keys16.png" />
                     </apex:outputpanel>
-                    <apex:outputpanel rendered="{!IF(o.contact.is_Inactive_Customer__c, 'true', 'false')}">
+                    <apex:outputpanel rendered="{!IF(o.contact.IsInactiveCustomer__c, 'true', 'false')}">
                         <img src="/img/func_icons/remove12_on.gif"/>
                     </apex:outputpanel>
                 </apex:column>

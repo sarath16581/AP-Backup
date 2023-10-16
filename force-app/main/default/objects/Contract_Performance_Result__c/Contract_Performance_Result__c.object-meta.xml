@@ -172,8 +172,8 @@
         <customTabListAdditionalFields>OWNER.LAST_NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>OWNER.ALIAS</customTabListAdditionalFields>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Measurement__c</lookupDialogsAdditionalFields>
         <searchResultsAdditionalFields>Contract_Performance_Agreement_Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Measurement__c</searchResultsAdditionalFields>

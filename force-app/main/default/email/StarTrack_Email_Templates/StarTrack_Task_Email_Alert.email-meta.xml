@@ -24,7 +24,7 @@ Card Left: {!workflow_Email__c.Card_Left__c}
 
 Regards,
 
-{!User.Name}
+{!User.FirstName}
 {!User.Title}
 {!User.Department}
 T {!User.Phone}

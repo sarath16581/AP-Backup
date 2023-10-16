@@ -77,12 +77,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__ContactId__r.Description</field>
+        <field>Apttus_Config2__ShipToAccountId__r.Description</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__ShipToAccountId__r.Description</field>
+        <field>Apttus_Config2__ContactId__r.Description</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -172,6 +172,11 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
+        <field>Owner.Title</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
         <field>Apttus_Config2__ContactId__r.Title</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
@@ -183,11 +188,6 @@
     </availableFields>
     <availableFields>
         <field>LastModifiedBy.Title</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
-        <field>Owner.Title</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

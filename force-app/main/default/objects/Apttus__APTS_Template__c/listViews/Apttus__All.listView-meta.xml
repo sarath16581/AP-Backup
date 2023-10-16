@@ -11,6 +11,10 @@
     <columns>Apttus__Agreement_Types__c</columns>
     <columns>Apttus__Guidance__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Apttus__IsActive__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
     <label>All</label>
-    <language>en_US</language>
 </ListView>

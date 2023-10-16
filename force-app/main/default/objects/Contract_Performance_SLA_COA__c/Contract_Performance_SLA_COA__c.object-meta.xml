@@ -165,8 +165,8 @@
         <customTabListAdditionalFields>Contract_Performance_Measurement__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Measurement_Name__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Measurement_Description__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Contract_Performance_Measurement__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Measurement_Description__c</lookupDialogsAdditionalFields>

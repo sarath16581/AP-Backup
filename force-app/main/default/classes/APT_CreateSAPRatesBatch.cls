@@ -5,6 +5,7 @@
 
 Last Modified By - Shashwat.Nath@Auspost.com.au
 Last Modified Date - 10th July, 2020 |  Changes done to capture Price Structure and Cubic Factor for Banded Z6
+13 Sep, 2023 : Bharat Patel | Proposal line item's filter update condition to consider APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC
 */
 
 global class APT_CreateSAPRatesBatch implements Database.Batchable<sObject>, Database.Stateful, Database.AllowsCallouts {
@@ -332,7 +333,7 @@ global class APT_CreateSAPRatesBatch implements Database.Batchable<sObject>, Dat
                              populateDomesticSAPRate(rateRecordTypeId, agreementId, pli, parentPLI, listPUPT, mapSAPRate, listSAPRate, r2tSystemProperties, r2tInternationalPricingProperties);
                              
                              //detailed rates
-                             if(String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED)){
+                             if(String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && (pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC))){
                                 listSAPGroupTemplateByChargeCode = new list<APT_SAP_Group_Template__c> ();
                                 listSAPGroupTemplateByChargeCode = mapSAPGroupTemplateByChargeCode.get(pli.APT_Charge_Code_Formula__c);
                                 System.debug('listSAPGroupTemplateByChargeCode: ' +listSAPGroupTemplateByChargeCode);

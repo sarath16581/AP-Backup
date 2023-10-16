@@ -178,6 +178,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Minimum_Rate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Customer_Correspondence_Method__c</field>
             </layoutItems>
             <layoutItems>

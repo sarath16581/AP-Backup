@@ -170,8 +170,8 @@ This object is responsible for storing some global settings used by Dealmaker in
         <customTabListAdditionalFields>DMAPP__Update_Opportunity_Probability__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>DMAPP__Update_Opportunity_Stage__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>DMAPP__Use_Process_Mapping__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>DMAPP__AllowSalesProcessPopup__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>DMAPP__Chatter_Snooze__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>DMAPP__Update_Opportunity_CloseDate__c</lookupDialogsAdditionalFields>

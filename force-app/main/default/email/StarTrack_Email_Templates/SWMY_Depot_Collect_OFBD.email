@@ -30,4 +30,4 @@
 </table>
 <p style="line-height: 15.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Your freight is already on board for delivery today {!Today}, but in the event you are not available to take delivery today, I have requested a depot collection with our operations team for {!TODAY() +1}, and a representative from our Investigations team will contact you accordingly.</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Kind regards,</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
-<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.FirstName}</span></p>

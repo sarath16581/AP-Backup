@@ -1053,6 +1053,10 @@
             <valueName>Return</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Returns</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Site inspection</controllingFieldValue>
             <valueName>New customer</valueName>
         </valueSettings>
@@ -1103,6 +1107,10 @@
         <valueSettings>
             <controllingFieldValue>StarTrack Shop</controllingFieldValue>
             <valueName>Response to EDM No 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>StarTrack Shop</controllingFieldValue>
+            <valueName>Self service support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>StarTrack Shop</controllingFieldValue>

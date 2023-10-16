@@ -9,6 +9,7 @@ Last Modified Date - 26th Aug, 2016 | Multi Product SAP Implementation
 Last Modified By - Seth Heang
 Last Modified Date - 08th Mar, 2020 | Update SOQL criteria for Agreement to exclude agreement without related Opportunities and related Proposals, 
 										and apply only for eParcel/Express and International products
+13, Sep,2023: Bharat Patel - Update proposal filter condition, to consider APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC proposal
 
 **********************************************************************************************************
 How to execute?
@@ -56,8 +57,9 @@ global class APT_SyncContractAndRatesSchedule implements Schedulable {
                                                         APT_Method_of_Payment__c
                                                         FROM Apttus_Proposal__Proposal__c
                                                         WHERE Apttus_Proposal__Opportunity__c IN :setOpportunityId
-                                                        AND (Apttus_Proposal__Approval_Stage__c = :APT_Constants.QUOTE_TYPE_DRAFT 
-                                                        OR Apttus_Proposal__Approval_Stage__c = :APT_Constants.APPROVAL_STAGE_ACCEPTED)
+                                                        AND (Apttus_Proposal__Approval_Stage__c = :APT_Constants.QUOTE_TYPE_DRAFT
+                                                        OR Apttus_Proposal__Approval_Stage__c = :APT_Constants.APPROVAL_STAGE_ACCEPTED
+                                                        OR Apttus_Proposal__Approval_Stage__c = :APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)
                                                         ORDER BY Apttus_Proposal__Presented_Date__c]) {
               
               setProposalId.add(proposal.Id);

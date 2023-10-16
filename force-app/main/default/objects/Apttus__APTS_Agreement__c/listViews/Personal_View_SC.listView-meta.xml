@@ -15,17 +15,27 @@
     <columns>APT_Contract_Type__c</columns>
     <columns>Apttus__FF_Agreement_Number__c</columns>
     <columns>APT_Contract_Number__c</columns>
+    <columns>Apttus__Contract_End_Date__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Included_Product_Lines__c</field>
-        <operation>equals</operation>
-        <value>APGL Commercial Outbound</value>
-    </filters>
     <filters>
         <field>Apttus__Status_Category__c</field>
         <operation>equals</operation>
-        <value>In Signatures</value>
+        <value>In Effect</value>
+    </filters>
+    <filters>
+        <field>Included_Product_Lines__c</field>
+        <operation>equals</operation>
+        <value>Print Post</value>
+    </filters>
+    <filters>
+        <field>APT_Switch_off_Notifications__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Apttus__Contract_End_Date__c</field>
+        <operation>lessThan</operation>
+        <value>9/19/2023</value>
     </filters>
     <label>Personal View SC</label>
-    <language>en_US</language>
 </ListView>

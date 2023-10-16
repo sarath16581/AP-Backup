@@ -6,10 +6,5 @@
         <minorNumber>227</minorNumber>
         <namespace>Apttus_Proposal</namespace>
     </packageVersions>
-    <packageVersions>
-        <majorNumber>6</majorNumber>
-        <minorNumber>4</minorNumber>
-        <namespace>Apttus_QPApprov</namespace>
-    </packageVersions>
     <status>Active</status>
 </ApexClass>

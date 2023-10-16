@@ -137,15 +137,15 @@
         <milestoneName>StarTrack Investigator Response</milestoneName>
         <minutesToComplete>10</minutesToComplete>
         <timeTriggers>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
             <actions>
                 <name>StarTrack_Case_Priority_Change</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>-2</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
