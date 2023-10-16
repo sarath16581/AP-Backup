@@ -45,11 +45,14 @@ private class BSPCreditClaimController_Test {
 		BSPErrorMessages__c errorMessagesSettings = new BSPErrorMessages__c();
 		errorMessagesSettings.Name = 'Invalid Billing Account Credit Claim';
 		errorMessagesSettings.Message__c = 'Invalid Billing Account Credit Claim';
+
 		// creating a case, Id is created as we need to use this for reference in after save
 		Case cse = ApplicationTestDataFactory.getCases(1, true)[0];
+
 		// billing account for the user
 		Account accountForBillingAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
 		accountForBillingAccount.Id = bspUser.Contact.AccountId;
+
 		// contact to check billing account for user
 		Contact contact = ApplicationTestDataFactory.getContacts(1, accountForBillingAccount.Id, false)[0];
 		contact.Id = bspUser.ContactId;
@@ -60,11 +63,13 @@ private class BSPCreditClaimController_Test {
 		}).values()[0].Id;
 		cse.RecordTypeId = creditDisputeCaseRecordTypeId;
 		cse.Billing_Number__c = '123456';
+
 		// related billing accounts
 		List<Billing_Account__c> billingAccountRecords = new List<Billing_Account__c>();
 		billingAccountRecords.add(ApplicationTestDataFactory.getBillingAccounts(1, accountForBillingAccount.Id, 'SAP ERP', true)[0]);
 		billingAccountRecords[0].Organisation__c = accountForBillingAccount.Id;
 		billingAccountRecords[0].Legacy_ID__c = '123456';
+
 		// disputed items to be created with the case
 		List<Disputed_Item__c> disputedItems = ApplicationTestDataFactory.getDisputedItems(3, cse.Id, true);
 		Map<Id, Disputed_Item__c> disputedItemsByIds = new Map<Id, Disputed_Item__c>();
@@ -83,13 +88,16 @@ private class BSPCreditClaimController_Test {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
+
 		MockUtility.Mocks.when(mockAssignmentRulesSelector.selectActiveRulesBySObjectType('Case')).thenReturn(new Map<Id, AssignmentRule>{
 				ar.Id => ar
 		});
+
 		MockUtility.Mocks.when(settingsSelector.selectByNames((Set<String>) fflib_Match.anyObject()))
 				.thenReturn(new Map<String, BSPErrorMessages__c>{
 						'Invalid Billing Account Credit Claim' => errorMessagesSettings
 				});
+
 		MockUtility.Mocks.when(mockBillingAccountsSelector.selectByOrgId(
 				new Set<Id>{
 						accountForBillingAccount.Id
@@ -98,11 +106,13 @@ private class BSPCreditClaimController_Test {
 						billingAccountRecords[0].Id => billingAccountRecords[0]
 				}
 		);
+
 		String stJson = '{"success":true,"id":' +'"'+ cse.Id + '"'+ '}';
 		Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
 		list<Database.SaveResult> svResultList = new  list<Database.SaveResult>{sr};
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenReturn(svResultList);
 		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{cse.Id => cse});
+
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -118,23 +128,35 @@ private class BSPCreditClaimController_Test {
 		// make sure the dml is performed
 		List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 2);
 
-		for (List<SObject> obj : insertedRecords) {
-			if (Case.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
-				System.assertNotEquals(
-						null,
-						obj[0].get('Id'),
-						'createCreditClaimSuccessTest : Case Id should be populated as it is created'
-				);
-			}
+		System.assertEquals(
+				Case.getSobjectType().getDescribe().getName(),
+				insertedRecords[0][0].getSObjectType().getDescribe().getName(),
+				'createCreditClaimSuccessTest : Make sure the case record is available after creation'
+		);
 
-			if (Disputed_Item__c.getSobjectType().getDescribe().getName().equalsIgnoreCase(obj[0].getSObjectType().getDescribe().getName())) {
-				System.assertEquals(
-						cse.Id,
-						obj[0].get('Case__c'),
-						'createCreditClaimSuccessTest : Disputed Items should be created against the case record'
-				);
-			}
-		}
+		System.assertEquals(
+				Disputed_Item__c.getSobjectType().getDescribe().getName(),
+				insertedRecords[1][0].getSObjectType().getDescribe().getName(),
+				'createCreditClaimSuccessTest : Make sure the Disputed_Item__c record is available after creation'
+		);
+
+		System.assertNotEquals(
+				null,
+				insertedRecords[0][0].get('Id'),
+				'createCreditClaimSuccessTest : Case Id should be populated as it is created'
+		);
+
+		System.assertEquals(
+				null,
+				insertedRecords[0][0].get('Related_Billing_Account__c'),
+				'createCreditClaimSuccessTest : Related_Billing_Account__c should not be populated when other account number field is populated'
+		);
+
+		System.assertEquals(
+				cse.Id,
+				insertedRecords[1][0].get('Case__c'),
+				'createCreditClaimSuccessTest : Disputed Items should be created against the case record'
+		);
 	}
 
 	@IsTest

@@ -41,8 +41,9 @@ public with sharing class BSPCreditClaimController {
 			Database.DMLOptions dmlOptions = new Database.DMLOptions();
 			dmlOptions.assignmentRuleHeader.assignmentRuleId = assignRule.Id;
 			caseRecord.setOptions(dmlOptions);
-			Database.SaveResult[] srFiles = context.insertRecords(new List<Case> {caseRecord});
-			if(srFiles[0].isSuccess()){
+			Database.SaveResult[] saveResults = context.insertRecords(new List<Case> {caseRecord});
+
+			if(saveResults[0].isSuccess()){
 				//get the new case number
 				Map<Id,Case> cse = context.getCasesById(new Set<Id> {caseRecord.Id});
 				Case newCase = cse.get(caseRecord.Id);
@@ -63,7 +64,7 @@ public with sharing class BSPCreditClaimController {
 					enquiryWrapper.message = '';
 				}
 			} else {
-				for(Database.Error err : srFiles[0].getErrors()) {
+				for(Database.Error err : saveResults[0].getErrors()) {
 					enquiryWrapper.status = STATUS_ERROR;
 					enquiryWrapper.message = err.getStatusCode() + ': ' + err.getMessage();
 				}
