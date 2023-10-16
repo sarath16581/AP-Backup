@@ -42,21 +42,17 @@ public with sharing class BSPCreditClaimController {
 			dmlOptions.assignmentRuleHeader.assignmentRuleId = assignRule.Id;
 			caseRecord.setOptions(dmlOptions);
 			Database.SaveResult[] saveResults = context.insertRecords(new List<Case> {caseRecord});
-			system.debug('HASANTHA saveResults '+saveResults);
+
 			if(saveResults[0].isSuccess()){
 				//get the new case number
 				Map<Id,Case> cse = context.getCasesById(new Set<Id> {caseRecord.Id});
-				system.debug('HASANTHA cse '+cse);
 				Case newCase = cse.get(caseRecord.Id);
-				system.debug('HASANTHA newCase '+newCase);
 				if(newCase != null){
-					system.debug('HASANTHA disputeItems '+disputeItems);
 					//Creating the dispute items
 					if(disputeItems !=null && !disputeItems.isEmpty()){
 						for(Disputed_Item__c diRecord :disputeItems){
 							diRecord.Case__c = newCase.Id;
 						}
-
 						context.insertRecords(disputeItems);
 					}
 					// link any files
