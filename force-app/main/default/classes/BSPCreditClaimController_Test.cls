@@ -159,6 +159,9 @@ private class BSPCreditClaimController_Test {
 		);
 	}
 
+	/**
+	 * Testing of when there's an error the wrapper should throw the status error to the front end
+	 */
 	@IsTest
 	static void createCreditClaimFailedTest() {
 		// =====================================
