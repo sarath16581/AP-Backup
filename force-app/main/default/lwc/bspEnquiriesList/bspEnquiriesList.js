@@ -1,3 +1,12 @@
+/**
+ *@author		:Jansi Rani. jansi.rani@auspost.com.au
+ *@date			:23/07/2020
+ *@description	:Component for enquiries list on home page.
+ --------------------------------------- History --------------------------------------------------
+ 23.07.2020	Jansi Rani			Created
+ 05.10.2023	Hasantha Liyanage	Modified download all added extra columns
+**/
+
 import { LightningElement, track, wire, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import {checkAllValidity, scrollToHeight} from 'c/bspCommonJS';

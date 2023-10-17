@@ -35,6 +35,7 @@
  * 2023-07-16 - SteveL- Added getEvents
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
  * 2023-08-09 - Mahesh Parvathaneni - Added method getNetworkMembers
+ * 2023-10-03 - Hasantha Liyanage - Added methods getBamApplicationRoles, getBamContactRoles, getBamContactApplications
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
