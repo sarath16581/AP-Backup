@@ -272,7 +272,7 @@ private class OpportunitySalesPipelineModule_Test {
 		opportunity1_splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[3].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'International Specialist', true));
 		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunitySplits' => opportunity1_splits});
 
-		// attempt to update opportunity stage to Closed Won
+		// attempt to update opportunity stage to Qualify
 		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
 		updatedOpportunities[0].StageName = 'Qualify';
 		updatedOpportunities[1].StageName = 'Qualify';
@@ -310,7 +310,7 @@ private class OpportunitySalesPipelineModule_Test {
 		System.assertEquals(2, queriedOpportunityIds.size(), 'Opportunities moving to a monitored stage must be queried to retrieve related records');
 
 		// verify errors are added to opportunity record
-		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity moving to Closed Won as the overlay splits are correctly assigned.');
-		System.assert(updatedOpportunities[1].hasErrors(), 'Error expected on opportunity moving to Closed Won as the Product Specialist overlay split are incorrectly assigned to user');
+		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity moving to Qualify as the overlay splits are correctly assigned.');
+		System.assert(updatedOpportunities[1].hasErrors(), 'Error expected on opportunity moving to Qualify as the Product Specialist overlay split are incorrectly assigned to user');
 	}
 }
