@@ -2001,10 +2001,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Shopmate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Standard Parcel</fullName>
             <default>false</default>
         </values>
@@ -3408,10 +3404,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Feedback%7CWeb %26 Apps%7CShopmate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Feedback%7CWeb %26 Apps%7CUMCS</fullName>
             <default>false</default>
         </values>
@@ -3824,10 +3816,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiry%7CWeb %26 Apps%7CShopmate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>General Enquiry%7CWeb %26 Apps%7CUMCS</fullName>
             <default>false</default>
         </values>
@@ -4237,10 +4225,6 @@
         </values>
         <values>
             <fullName>Investigation%7CWeb %26 Apps%7CSend a Parcel</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investigation%7CWeb %26 Apps%7CShopmate</fullName>
             <default>false</default>
         </values>
         <values>

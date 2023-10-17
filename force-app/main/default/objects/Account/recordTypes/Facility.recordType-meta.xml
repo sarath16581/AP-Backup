@@ -1684,6 +1684,14 @@
             <fullName>LBP Sales Manager WA 2</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>LBP Tier 2 CPO North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Tier 2 CPO South</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Sales_Specialist_Team__c</picklist>

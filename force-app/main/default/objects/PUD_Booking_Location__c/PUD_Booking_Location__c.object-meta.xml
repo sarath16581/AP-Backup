@@ -176,9 +176,9 @@
         <customTabListAdditionalFields>State__c</customTabListAdditionalFields>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
-        <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Customer__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Network__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Street__c</lookupDialogsAdditionalFields>

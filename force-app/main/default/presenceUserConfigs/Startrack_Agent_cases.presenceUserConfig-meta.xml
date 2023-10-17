@@ -7,13 +7,15 @@
         </profiles>
     </assignments>
     <capacity>1</capacity>
-    <declineReasons>End_of_shift</declineReasons>
-    <declineReasons>On_Break</declineReasons>
+    <declineReasons>Other</declineReasons>
+    <declineReasons>Permission_to_Pause</declineReasons>
+    <declineReasons>Technical_Issues</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>true</enableDecline>
     <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
     <label>Startrack Agent cases</label>
-    <presenceStatusOnDecline>Busy</presenceStatusOnDecline>
+    <presenceStatusOnDecline>Away</presenceStatusOnDecline>
+    <presenceStatusOnPushTimeout>Away</presenceStatusOnPushTimeout>
 </PresenceUserConfig>

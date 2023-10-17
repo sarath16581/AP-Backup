@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PPES01_UMCS_Robot_Queue_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>PPES01 UMCS Robot Queue</label>
+    <queue>PPES01_UMCS_Robot_Queue</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

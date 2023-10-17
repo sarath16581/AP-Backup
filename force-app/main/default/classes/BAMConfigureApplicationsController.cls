@@ -5,6 +5,7 @@ History:
 2019-06-27    vcheng@salesforce.com  Created
 2019-09-06    hasantha.liyanage@auspost.com.au Modified getInitLoad method
 2020-11-09    saiswetha.pingali@auspost.com.au INC1688693- Fix for issues reported with critical update ' Use with sharing for @AuraEnabled Apex Controllers with Implicit Sharing
+2023-10-02    Boris Bachovski    Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
 **************************************************/
 public without sharing class BAMConfigureApplicationsController {
 
@@ -60,7 +61,7 @@ public without sharing class BAMConfigureApplicationsController {
         Map<Id, Contact> contacts = new Map<Id, Contact>([
                 SELECT Id, Name, AccountId, Email, Phone, MobilePhone, Status__c, OID_ID__c
                 FROM Contact
-                WHERE is_Inactive_Customer__c = false
+                WHERE IsInactiveCustomer__c = false
                 AND AccountId =: accountId
                 ORDER BY Name
         ]);

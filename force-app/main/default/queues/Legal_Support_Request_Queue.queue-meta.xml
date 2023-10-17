@@ -7,6 +7,9 @@
         <publicGroups>
             <publicGroup>Legal_Support_Request_Team</publicGroup>
         </publicGroups>
+        <users>
+            <user>sheryl.crisostomo@auspost.com.au</user>
+        </users>
     </queueMembers>
     <queueSobject>
         <sobjectType>Deal_Support_Request__c</sobjectType>

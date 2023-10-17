@@ -4,46 +4,46 @@
     <active>true</active>
     <description>StarTrack - Only the Case Owner can close StarTrack cases.</description>
     <errorConditionFormula>IF(
-    AND(
-        ISCHANGED(Status),
-        NOT(ISCHANGED(LDC_System_Check_Result__c)),
-        NOT(
-            AND(
-                ISCHANGED(ResolutionCode__c),
-                ISPICKVAL(ResolutionCode__c, &apos;Rejected&apos;),
-                ISPICKVAL(LDC_Manual_Check_Result__c, &apos;Rejected&apos;),
-                ISPICKVAL(Enquiry_Type__c, &apos;LDC&apos;)
-            )
-        ),
-        AND(
-            AND(
-                $Profile.Name != &apos;StarTrack Operations&apos;
-            ),
-            OR(
-                AND(
-                    Owner_is_Queue__c = TRUE,
-                    $Profile.Name != &apos;AusPost Integration&apos;,
-                    $Profile.Name != &apos;System Administrator&apos;,
-                    !$Permission.StarTrack_Admin,
-                    !$Permission.BSP_Community_Access,
-                    StarTrack_RecordType__c,
-                    ISPICKVAL(Status, &apos;Closed&apos;)
-                ),
-                AND(
-                    StarTrack_RecordType__c,
-                    $User.Id != OwnerId,
-                    ISPICKVAL(Status, &apos;Closed&apos;),
-                    Owner_is_Queue__c = FALSE,
-                    $Profile.Name != &apos;AusPost Integration&apos;,
-                    $Profile.Name != &apos;System Administrator&apos;,
-                    !$Permission.StarTrack_Admin,
-                    !$Permission.BSP_Community_Access
-                )
-            )
-        )
-    ),
-    TRUE,
-    FALSE
+AND(
+ISCHANGED(Status),
+NOT(ISCHANGED(LDC_System_Check_Result__c)),
+NOT(
+AND(
+ISCHANGED(ResolutionCode__c),
+ISPICKVAL(ResolutionCode__c, &apos;Rejected&apos;),
+ISPICKVAL(LDC_Manual_Check_Result__c, &apos;Rejected&apos;),
+ISPICKVAL(Enquiry_Type__c, &apos;LDC&apos;)
+)
+),
+AND(
+AND(
+$Profile.Name != &apos;StarTrack Operations&apos;
+),
+OR(
+AND(
+Owner_is_Queue__c = TRUE,
+$Profile.Name != &apos;AusPost Integration&apos;,
+$Profile.Name != &apos;System Administrator&apos;,
+!$Permission.StarTrack_Admin,
+!$Permission.BSP_Community_Access,
+StarTrack_RecordType__c,
+ISPICKVAL(Status, &apos;Closed&apos;)
+),
+AND(
+StarTrack_RecordType__c,
+$User.Id != OwnerId,
+ISPICKVAL(Status, &apos;Closed&apos;),
+Owner_is_Queue__c = FALSE,
+$Profile.Name != &apos;AusPost Integration&apos;,
+$Profile.Name != &apos;System Administrator&apos;,
+!$Permission.StarTrack_Admin,
+!$Permission.BSP_Community_Access
+)
+)
+)
+),
+TRUE,
+FALSE
 )</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>Only the Owner can close this Case</errorMessage>

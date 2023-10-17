@@ -162,8 +162,8 @@
     </nameField>
     <pluralLabel>Summary Groups</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>New</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>New</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

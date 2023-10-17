@@ -40,7 +40,7 @@ private class BSPCreditClaimController_Test {
 		// Data Preparation
 		// =====================================
 		// get a bsp context user
-		User bspUser = [SELECT Id, ContactId, Contact.AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
+		User bspUser = [SELECT Id, ContactId, Contact.AccountId, AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
 		// creating a custom setting for error message
 		BSPErrorMessages__c errorMessagesSettings = new BSPErrorMessages__c();
 		errorMessagesSettings.Name = 'Invalid Billing Account Credit Claim';
@@ -153,12 +153,35 @@ private class BSPCreditClaimController_Test {
 		);
 
 		System.assertEquals(
+				bspUser.ContactId,
+				insertedRecords[0][0].get('ContactId'),
+				'createCreditClaimSuccessTest : ContactId should be populated'
+		);
+
+		System.assertEquals(
+				bspUser.AccountId,
+				insertedRecords[0][0].get('AccountId'),
+				'createCreditClaimSuccessTest : ContactId should be populated'
+		);
+
+		System.assertEquals(
+				creditDisputeCaseRecordTypeId,
+				insertedRecords[0][0].get('RecordTypeId'),
+				'createCreditClaimSuccessTest : RecordTypeId should be credit claim'
+		);
+
+
+
+		System.assertEquals(
 				cse.Id,
 				insertedRecords[1][0].get('Case__c'),
 				'createCreditClaimSuccessTest : Disputed Items should be created against the case record'
 		);
 	}
 
+	/**
+	 * Testing of when there's an error the wrapper should throw the status error to the front end
+	 */
 	@IsTest
 	static void createCreditClaimFailedTest() {
 		// =====================================

@@ -11,6 +11,7 @@
 16.11.2015    kalpita.talwadekar@auspost.com.au    Updated the code to check for business and consumer records and 
                                                    send template accordingly.
 04.04.2022   saiswetha.pingali@auspost.com.au      REQ2723594 - Fix test class failures with validation rule error on compensation records.
+2023-10-13 hasantha.liyanage@auspost.com.au Added Ref Id to test case as per new validation rule
 **************************************************/
 @isTest
 private class SSSWCompensationLetterContExt_Test {
@@ -46,6 +47,7 @@ private class SSSWCompensationLetterContExt_Test {
             case1.EnquirySubType__c = 'Product Support';
             case1.ProductSubCategory__c = 'KeyPass';
             case1.ContactId = con.Id;
+            case1.ReferenceID__c = 'REF123';
             insert case1;
             
             Compensation__c com = new Compensation__c();
@@ -119,6 +121,7 @@ private class SSSWCompensationLetterContExt_Test {
             case1.ProductSubCategory__c = 'KeyPass';
             case1.ContactId = con.Id;
             case1.AccountId = acc.Id;
+            case1.ReferenceID__c = 'REF123';
             insert case1;
             
             Compensation__c com = new Compensation__c();

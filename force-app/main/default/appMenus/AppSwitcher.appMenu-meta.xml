@@ -425,19 +425,11 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Data_Archiving_Lightning</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>SalesforcepagelayoutAPI</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
         <name>AppExchange</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>Apttus_X_Author_for_Excel</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
@@ -541,14 +533,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>CEPARC__DataArchiva</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>CEPARC__Data_Archiva</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>SeismicConnectedAppForProd</name>
         <type>ConnectedApp</type>
     </appMenuItems>
@@ -623,14 +607,6 @@
     <appMenuItems>
         <name>Convert_Attachments_to_Files_Lightning</name>
         <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>fairwarn__FairWarning</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>FairWarning_for_CRM</name>
-        <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
         <name>Workforce_Integrity</name>

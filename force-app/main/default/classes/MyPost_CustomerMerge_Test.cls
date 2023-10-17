@@ -6,6 +6,7 @@
 /*******************************  History ************************************************
 22/03/2016  kalpita.talwadekar@auspost.com.au   Created
 21/02/2022 swati.mogadala2@auspost.com.au REQ2723596-Added Cover_type when inserting Compensation records
+2023-10-02    Boris Bachovski    Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
 	
 *******************************  History ************************************************/
 
@@ -31,7 +32,7 @@ private class MyPost_CustomerMerge_Test{
 		Account accLoose = TestUtility.createPersonAccount('LooseAcc',recTypeId);
 		accLoose.PersonEmail = 'test@tst.com';
 		accLoose.FirstName = 'test';
-		accLoose.is_Inactive_Customer__pc = true;
+		accLoose.Status__pc = 'Inactive';
 		accLoose.Phone ='2132456';
 		accLoose.Winning_Master_Record__pc = accWin.Id;
 		database.insert(accLoose);
@@ -91,7 +92,7 @@ private class MyPost_CustomerMerge_Test{
 		accLoose.PersonEmail = 'test@tst.com';
 		accLoose.FirstName = 'test';
 		//accLoose.isCustomerPortal = true;
-		accLoose.is_Inactive_Customer__pc = true;
+		accLoose.Status__pc = 'Inactive';
 		accLoose.Phone ='2132456';
 		accLoose.Winning_Master_Record__pc = accWin.Id;
 		database.insert(accLoose);
@@ -116,7 +117,6 @@ private class MyPost_CustomerMerge_Test{
 		//acc2.PersonEmail = 'test@tst.com';
 		//acc2.FirstName = 'test';
 		//accLoose.isCustomerPortal = true;
-		//acc2.is_Inactive_Customer__pc = true;
 		acc2.Phone ='2132456';
 		//acc2.Winning_Master_Record__pc = accWin.Id;
 		database.insert(acc2);
@@ -190,7 +190,7 @@ private class MyPost_CustomerMerge_Test{
 		accLoose.PersonEmail = 'test@tst.com';
 		accLoose.FirstName = 'test';
 		//accLoose.isCustomerPortal = true;
-		accLoose.is_Inactive_Customer__pc = true;
+		accLoose.Status__pc = 'Inactive';
 		accLoose.Phone ='2132456';
 		accLoose.Winning_Master_Record__pc = accWin.Id;
 		database.insert(accLoose);
@@ -215,7 +215,6 @@ private class MyPost_CustomerMerge_Test{
 		//acc2.PersonEmail = 'test@tst.com';
 		//acc2.FirstName = 'test';
 		//accLoose.isCustomerPortal = true;
-		//acc2.is_Inactive_Customer__pc = true;
 		acc2.Phone ='2132456';
 		//acc2.Winning_Master_Record__pc = accWin.Id;
 		database.insert(acc2);

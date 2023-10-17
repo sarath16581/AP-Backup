@@ -80,6 +80,11 @@
                 <label>Direct Access</label>
             </value>
             <value>
+                <fullName>Domestic letter w/tracking / Registered Post</fullName>
+                <default>false</default>
+                <label>Domestic letter w/tracking / Registered Post</label>
+            </value>
+            <value>
                 <fullName>eLetter</fullName>
                 <default>false</default>
                 <label>eLetter</label>
@@ -123,6 +128,11 @@
                 <fullName>Fulfilio</fullName>
                 <default>false</default>
                 <label>Fulfilio</label>
+            </value>
+            <value>
+                <fullName>Fulfilio (Melb only)</fullName>
+                <default>false</default>
+                <label>Fulfilio (Melb only)</label>
             </value>
             <value>
                 <fullName>Fulfilment &amp; Unaddressed</fullName>
@@ -258,6 +268,11 @@
                 <fullName>Print Post</fullName>
                 <default>false</default>
                 <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Reply Paid</fullName>
+                <default>false</default>
+                <label>Reply Paid</label>
             </value>
             <value>
                 <fullName>Retail Services</fullName>

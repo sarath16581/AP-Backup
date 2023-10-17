@@ -15,7 +15,8 @@ Last Modified By - Seth Heang
 Last Modified Date - 1th July, 2021 | STP-5757 - Fix method failing and Increase Code Coverage
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
 Ken McGuire 2023.07.17 test class fix set the value for userInput = '87009610342' for tests failing due to null reference
-					   and onlyAccountNameDoesNotMatch test asserted a result of 1 not 2.
+					   and onlyAccountNameDoesNotMatch test asserted a result of 2 not 1.
+Ken McGuire 2023.08.30 fixed a few more test class issues to get appropriate coverage.
 */
 @isTest
 private class Apt_CreditAssessmentController_Test {
@@ -132,6 +133,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			Apexpages.currentPage().getParameters().put('ID', acc.Id);
 			Apexpages.currentPage().getParameters().put('accountType', 'Charge Account + Sub Account');
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			APT_Credit_Assessment__c ca = [SELECT id,APT_Organisation_Name__c,APT_ABN__c,APT_ACN__c,APT_Credit_Assessment_Status__c,APT_Credit_Amount_Required__c,
 					APT_Credit_Assessment_Complete__c,APT_Number_of_Employees__c,APT_Nature_of_Business__c,APT_Legal_Entity_Name__c
@@ -308,11 +310,6 @@ private class Apt_CreditAssessmentController_Test {
 			bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
 			insert bundleLine;
 
-
-			//create price list
-			Apttus_Config2__PriceList__c testPriceList = APT_TestUtils.createPriceList();
-			insert testPriceList;
-
 			// ADDED BY SHASHWAT
 			APT_Credit_Assessment__c creditAssessment = new APT_Credit_Assessment__c();
 			creditAssessment.APT_Legal_Entity_Name__c = 'test';
@@ -326,20 +323,24 @@ private class Apt_CreditAssessmentController_Test {
 			creditAssessment.Aus_Post_Proposed_for_New_Account__c = 1;
 			insert creditAssessment;
 
+            Apttus_Config2__PriceList__c testPriceList = [SELECT id, Name, Apttus_Config2__Active__c FROM Apttus_Config2__PriceList__c LIMIT 1];
+            
 			//create R2T System Properties
-			APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(testPriceList.Id);
-			r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_Credit_Assessment_Valid_States__c = 'VIC,NSW,WA,QLD,TAS,NT,SA,ACT,OS,NZ';
-			r2tSystemProperties.Opportunity_Value_Multiplier__c = 0.2500;
-			insert r2tSystemProperties;
+			APT_R2T_System_Properties__c r2tSystemProperties = 
+                [SELECT Id, APT_Org_Id_Service_End_Point_URL__c,APT_CompanyCreditAssessmentEndPointURL__c,
+                 APT_INDV_Credit_Assessment_End_Point_URL__c,APT_Credit_Assessment_Valid_States__c,Opportunity_Value_Multiplier__c
+    			FROM APT_R2T_System_Properties__c 
+                WHERE APT_Default_Price_List_ID__c = :testPriceList.Id
+    			LIMIT 1];
+
+              
 
 			PageReference pageRef = Page.Apt_CreditAssessment;
 			Test.setCurrentPage(pageRef);
 
 			Apexpages.currentPage().getParameters().put('proposalID', Proposal.Id);
 			Apexpages.currentPage().getParameters().put('PageType', 'BLANK');
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 			APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element australianregisterreport = new APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element();
 
 			//ASICReport_element
@@ -540,21 +541,21 @@ private class Apt_CreditAssessmentController_Test {
 			bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
 			insert bundleLine;
 
-			//create price list
-			Apttus_Config2__PriceList__c testPriceList = APT_TestUtils.createPriceList();
-			insert testPriceList;
-
+            Apttus_Config2__PriceList__c testPriceList = [SELECT id, Name, Apttus_Config2__Active__c FROM Apttus_Config2__PriceList__c LIMIT 1];
+            
 			//create R2T System Properties
-			APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(testPriceList.Id);
-			r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			insert r2tSystemProperties;
+			APT_R2T_System_Properties__c r2tSystemProperties = 
+                [SELECT Id, APT_Org_Id_Service_End_Point_URL__c,APT_CompanyCreditAssessmentEndPointURL__c,
+                 APT_INDV_Credit_Assessment_End_Point_URL__c,APT_Credit_Assessment_Valid_States__c,Opportunity_Value_Multiplier__c
+    			FROM APT_R2T_System_Properties__c 
+                WHERE APT_Default_Price_List_ID__c = :testPriceList.Id
+    			LIMIT 1];
 
 			PageReference pageRef = Page.Apt_CreditAssessment;
 			Test.setCurrentPage(pageRef);
 
 			Apexpages.currentPage().getParameters().put('proposalID', Proposal.Id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element australianregisterreport = new APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element();
 
@@ -674,21 +675,21 @@ private class Apt_CreditAssessmentController_Test {
 			bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
 			insert bundleLine;
 
-			//create price list
-			Apttus_Config2__PriceList__c testPriceList = APT_TestUtils.createPriceList();
-			insert testPriceList;
-
+            Apttus_Config2__PriceList__c testPriceList = [SELECT id, Name, Apttus_Config2__Active__c FROM Apttus_Config2__PriceList__c LIMIT 1];
+            
 			//create R2T System Properties
-			APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(testPriceList.Id);
-			r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			insert r2tSystemProperties;
+			APT_R2T_System_Properties__c r2tSystemProperties = 
+                [SELECT Id, APT_Org_Id_Service_End_Point_URL__c,APT_CompanyCreditAssessmentEndPointURL__c,
+                 APT_INDV_Credit_Assessment_End_Point_URL__c,APT_Credit_Assessment_Valid_States__c,Opportunity_Value_Multiplier__c
+    			FROM APT_R2T_System_Properties__c 
+                WHERE APT_Default_Price_List_ID__c = :testPriceList.Id
+    			LIMIT 1];
 
 			PageReference pageRef = Page.Apt_CreditAssessment;
 			Test.setCurrentPage(pageRef);
 
 			Apexpages.currentPage().getParameters().put('proposalID', Proposal.Id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element australianregisterreport = new APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element();
 
@@ -808,21 +809,21 @@ private class Apt_CreditAssessmentController_Test {
 			bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
 			insert bundleLine;
 
-			//create price list
-			Apttus_Config2__PriceList__c testPriceList = APT_TestUtils.createPriceList();
-			insert testPriceList;
-
+            Apttus_Config2__PriceList__c testPriceList = [SELECT id, Name, Apttus_Config2__Active__c FROM Apttus_Config2__PriceList__c LIMIT 1];
+            
 			//create R2T System Properties
-			APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(testPriceList.Id);
-			r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
-			insert r2tSystemProperties;
+			APT_R2T_System_Properties__c r2tSystemProperties = 
+                [SELECT Id, APT_Org_Id_Service_End_Point_URL__c,APT_CompanyCreditAssessmentEndPointURL__c,
+                 APT_INDV_Credit_Assessment_End_Point_URL__c,APT_Credit_Assessment_Valid_States__c,Opportunity_Value_Multiplier__c
+    			FROM APT_R2T_System_Properties__c 
+                WHERE APT_Default_Price_List_ID__c = :testPriceList.Id
+    			LIMIT 1];
 
 			PageReference pageRef = Page.Apt_CreditAssessment;
 			Test.setCurrentPage(pageRef);
 
 			Apexpages.currentPage().getParameters().put('proposalID', Proposal.Id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element australianregisterreport = new APT_OrgIDWebServiceWrapper.AustralianBusinessRegisterReport_element();
 
@@ -945,6 +946,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			Apexpages.currentPage().getParameters().put('ID', acc.Id);
 			Apexpages.currentPage().getParameters().put('accountType', 'Charge Account + Sub Account');
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			Test.StartTest();
 
@@ -1080,6 +1082,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			Apexpages.currentPage().getParameters().put('ID', acc.Id);
 			Apexpages.currentPage().getParameters().put('accountType', 'Charge Account + Sub Account');
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			Test.StartTest();
 
@@ -2167,6 +2170,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -2298,6 +2302,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -2429,6 +2434,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -2567,6 +2573,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -2700,6 +2707,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -2831,6 +2839,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -2967,6 +2976,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -3102,6 +3112,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -3243,6 +3254,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -3383,6 +3395,7 @@ private class Apt_CreditAssessmentController_Test {
 
 			//ApexPages.currentPage().getParameters().put('id',acc.id);
 			ApexPages.currentPage().getParameters().put('proposalID',proposal.id);
+            Apexpages.currentPage().getParameters().put('contextId', 'BLANK');
 
 			ApexPages.StandardController sc = new ApexPages.StandardController(acc);
 			Apt_CreditAssessmentController cac = new Apt_CreditAssessmentController(sc);
@@ -3471,8 +3484,7 @@ private class Apt_CreditAssessmentController_Test {
 					APT_Credit_Assessment_Status__c FROM APT_Credit_Assessment__c
 			WHERE APT_Legal_Entity_Name__c = 'Test'];
 			if(crAsmt.size() > 0){
-				// Chaged from 2 to 1 for test pass - need to investigate
-				System.assertEquals(1, crAsmt.Size());
+				System.assertEquals(2, crAsmt.Size());
 			}else{
 				System.debug('No Credit Assessment created');
 			}

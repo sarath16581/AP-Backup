@@ -15,7 +15,7 @@ Hi
 
 Regards,
 
-{!User.Name}
+{!User.FirstName}
 {!User.Title}
 {!User.Department}
 T {!User.Phone}

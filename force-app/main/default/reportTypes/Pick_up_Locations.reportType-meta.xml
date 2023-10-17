@@ -141,6 +141,16 @@
             <field>Pick_Up_location_Details__c</field>
             <table>Pick_Up_Location__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OwnerId__c</field>
+            <table>Pick_Up_Location__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owned_By_Me__c</field>
+            <table>Pick_Up_Location__c</table>
+        </columns>
         <masterLabel>Pick-Up Locations</masterLabel>
     </sections>
 </ReportType>

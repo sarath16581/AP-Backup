@@ -13,8 +13,6 @@ export default class BarSelectProducts extends LightningElement {
 
 	@track empty = true;
 
-	@track disableSave = true;
-
 	@track gridColumns = [
 		{
 			type: 'text',
@@ -56,8 +54,6 @@ export default class BarSelectProducts extends LightningElement {
 		this.currentProducts = [];
 		this.expandedRows = [];
 
-		this.disableSave = true;
-
 		getProducts({arbId: this._recordId, allProducts: allProducts})
 			.then(result => {
 				if (result.products.length === 0) {
@@ -69,10 +65,6 @@ export default class BarSelectProducts extends LightningElement {
 				const expanded = [];
 
 				this.selectedRows = result.selectedIDs;
-
-				if (this.selectedRows && this.selectedRows.length && this.selectedRows.length > 0) {
-					this.disableSave = false;
-				}
 
 				let productTree = {};
 
@@ -211,8 +203,16 @@ export default class BarSelectProducts extends LightningElement {
 
 			this.selectedRows = tempList;
 			this.currentSelectedRows = tempList;
-			
-			this.disableSave = !(this.selectedRows && this.selectedRows.length && this.selectedRows.length > 0);
+
+			let selectedCount = 0;
+
+			this.productData.forEach(level4 => {
+				level4['_children'].forEach(level5 => {
+					if (tempList.indexOf(level5.id) >= 0) {
+						selectedCount++;
+					}
+				});
+			});
 		}
 	}
 
@@ -244,5 +244,8 @@ export default class BarSelectProducts extends LightningElement {
 	close(event) {
 		this.editing = false;
 		this.viewing = true;
+		this.loading = true;
+
+		this.loadProducts(false, false);
 	}
 }

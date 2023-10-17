@@ -167,10 +167,10 @@ public with sharing class CasePDFContentGenerator {
 		if(caseList.size() == 1){
 			pdfFileName = caseList[0].caseNumber + ' MyNetwork Case Printout.pdf';	
 		}
-		else {
-			pdfFileName = caseList[caseList.size()-1].caseNumber + ' Bulk Print MyNetwork Case Printout.pdf';	
+		else if (caseList.size() > 1){
+			pdfFileName = caseList[0].caseNumber + ' Bulk Print MyNetwork Case Printout.pdf';	
 		}
-		Apexpages.currentPage().getHeaders().put('content-disposition', 'attachment; filename="' + pdfFileName +'"');
+		Apexpages.currentPage().getHeaders().put('content-disposition', 'inline; filename="' + pdfFileName +'"');
 		//Get contact map
 		if(!setContactIds.isEmpty()) {
 			caseContactMap = getContactsMap(setContactIds);

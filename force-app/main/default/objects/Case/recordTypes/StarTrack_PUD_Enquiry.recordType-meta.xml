@@ -547,6 +547,10 @@
             <fullName>Not Case Related</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>StarTrack Shop</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>CaseLocality__c</picklist>
@@ -1165,6 +1169,10 @@
     <picklistValues>
         <picklist>Enquiry_Type__c</picklist>
         <values>
+            <fullName>Billing issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Book in</fullName>
             <default>false</default>
         </values>
@@ -1214,6 +1222,10 @@
         </values>
         <values>
             <fullName>ETA - Within EDD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Customer - Sales Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1269,11 +1281,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>New Customer - Sales Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>No existing case</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Ongoing Delivery Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order%2FSupply issue</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1290,6 +1310,14 @@
         </values>
         <values>
             <fullName>Process Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product return</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1310,6 +1338,14 @@
         </values>
         <values>
             <fullName>Reports</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Response to EDM No 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Self service support</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1334,6 +1370,10 @@
         </values>
         <values>
             <fullName>Unidentified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website%2Fapp technical issues</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2611,10 +2651,6 @@
         </values>
         <values>
             <fullName>SecurePay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Shopmate</fullName>
             <default>false</default>
         </values>
         <values>

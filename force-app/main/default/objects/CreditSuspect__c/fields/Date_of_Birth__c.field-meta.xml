@@ -8,5 +8,4 @@
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Date</type>
-	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

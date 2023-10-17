@@ -342,15 +342,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Anomaly Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer Hierarchy</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sales Specialist New Account Allocation</fullName>
+            <fullName>Director Requested</fullName>
             <default>false</default>
         </values>
     </picklistValues>

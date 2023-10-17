@@ -5,7 +5,7 @@
                     to flag the loosing record and merge the loosing record details into the winning record
   */
 /*******************************  History ************************************************
-    
+2023-10-02    Boris Bachovski    Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
 *******************************  History ************************************************/
 global without sharing class MyPost_PortalCustomerMerge_Batchable implements Database.Batchable<SObject>, Database.Stateful  {
 
@@ -63,10 +63,10 @@ global without sharing class MyPost_PortalCustomerMerge_Batchable implements Dat
 
         }
         //create final query  
-        String query = 'SELECT Id , IsCustomerPortal, PersonContactId, ' + selects + ', (Select Id, ContactId, AccountId from Cases) ,(Select Id from Contacts), ' + 
-                       ' (Select Id,Name,Parentid from Attachments) ' +
+        String query = 'SELECT Id , IsCustomerPortal, PersonContactId, ' + selects + ', (Select Id, ContactId, AccountId from Cases), (Select Id from Contacts), ' + 
+                       ' (Select Id, Name, Parentid FROM Attachments) ' +
                        ' FROM ' + ' Account' + ' WHERE ' + 
-                       ' Winning_Master_Record__pc!=null and is_Inactive_Customer__pc = true ' +
+                       ' Winning_Master_Record__pc != null and IsInactiveCustomer__pc = true ' +
                        ' and RecordType.Name = \'Consumer\' ';
 
         return Database.getQueryLocator(query);

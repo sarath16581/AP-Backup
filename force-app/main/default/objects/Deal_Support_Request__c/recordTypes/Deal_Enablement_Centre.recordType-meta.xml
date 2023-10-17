@@ -736,6 +736,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Customer_Checklist_attached__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Customer_Request_Attached__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -1502,19 +1513,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Community Update</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Courier</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Direct Access</fullName>
+            <fullName>Domestic letter w%2Ftracking %2F Registered Post</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fulfilio</fullName>
+            <fullName>Fulfilio %28Melb only%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1527,10 +1534,6 @@
         </values>
         <values>
             <fullName>Local Pickup and Delivery Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mail Collection</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1558,7 +1561,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>SecurePost</fullName>
+            <fullName>Reply Paid</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1567,10 +1570,6 @@
         </values>
         <values>
             <fullName>UMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Workforce Verification</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1829,6 +1828,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Roadblock</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Submitted</fullName>
             <default>false</default>
         </values>
@@ -1981,10 +1984,6 @@
         </values>
         <values>
             <fullName>Agreement Renewal</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bespoke Agreements</fullName>
             <default>false</default>
         </values>
         <values>

@@ -2,6 +2,7 @@
 <WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Template_Admin</fullName>
     <availability>online</availability>
+    <description>&quot;&amp;QVar3Id={!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates_Active_Name__c}?pv0={!Agreement_Document__c.Licence_Type__c}&quot; +</description>
     <displayType>button</displayType>
     <linkType>javascript</linkType>
     <masterLabel>Template Admin</masterLabel>
@@ -21,11 +22,10 @@
 }
 
 if (&quot;{!Agreement_Document__c.Rate_List__c}&quot; !== &quot;&quot;) {
-    var CongaURL = &quot;https://composer.congamerge.com&quot; + 
-    &quot;?sessionId={!API.Session_ID}&quot; + 
-    &quot;&amp;serverUrl={!API.Partner_Server_URL_290}&quot; + 
-    &quot;&amp;id={!Agreement_Document__c.Id}&quot; + 
-    &quot;&amp;QVar3Id={!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates_Active_Name__c}?pv0={!Agreement_Document__c.Licence_Type__c}&quot; + 
+    var CongaURL = &quot;/apex/APXTConga4__Conga_Composer&quot; + 
+    &quot;?sessionId={!API.Session_ID}&quot; +
+    &quot;?serverUrl={!API.Partner_Server_URL_520}&quot; + 
+    &quot;&amp;id={!Agreement_Document__c.Id}&quot; +  
     &quot;&amp;QueryId=&quot; + 
     &quot;[Rates]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates__c}?pv0={!Agreement_Document__c.Rate_List__c},&quot; + 
     &quot;[LegalEntity]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Legal_Entity__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c},&quot; + 

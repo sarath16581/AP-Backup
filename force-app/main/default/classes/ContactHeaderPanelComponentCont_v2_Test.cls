@@ -3,6 +3,7 @@ Type:       ContactHeaderPanelComponentCont_v2_Test
 History:
 --------------------------------------------------
 Jun-2018:  TDO-69 : hector.huang@coroma.com.au Unit tests re-written with scenario based tests.
+2023-10-13 hasantha.liyanage@auspost.com.au Added Ref Id to test case as per new validation rule
 **************************************************/
 @isTest
 private class ContactHeaderPanelComponentCont_v2_Test {
@@ -18,7 +19,7 @@ private class ContactHeaderPanelComponentCont_v2_Test {
         Budget_and_Revenue__c revenue = new Budget_and_Revenue__c();
         revenue.Total_Revenue_Amount__c = 1000;
         revenue.Organisation__c = orgAccount.Id;
-        revenue.Current_Year__c = true;
+ 		revenue.Current_Year__c = true;
         insert revenue;
 
         // create a contact prepared for initializing ContactHeaderPanelComponent
@@ -35,6 +36,7 @@ private class ContactHeaderPanelComponentCont_v2_Test {
         Case newCase = TestDataProvider.createTestCase();
         Account account = [SELECT PersonContactId FROM Account WHERE Id = :personAccount.Id LIMIT 1];
         newCase.ContactId = account.PersonContactId;
+        newCase.ReferenceID__c = 'REF123';
         insert newCase;
 
         // create a compensation linked to the above person account's contactId

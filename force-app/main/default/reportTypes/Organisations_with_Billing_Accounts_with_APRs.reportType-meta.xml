@@ -1825,6 +1825,11 @@
             <field>Customer_Correspondence_Method__c</field>
             <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Minimum_Rate__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
         <masterLabel>APRs</masterLabel>
     </sections>
 </ReportType>

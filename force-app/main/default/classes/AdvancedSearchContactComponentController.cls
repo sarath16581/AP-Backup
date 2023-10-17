@@ -2,7 +2,8 @@
 Type:       Controller for AdvancedSearchContactComponent component (POB search) 
 Purpose:    Used by AdvancedSearchContactComponent VF Component to search for Contacts/Person Accounts using the POB Numbers. 
 History:
-
+--------------------------------------------------
+2023-10-02    Boris Bachovski    Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
 **************************************************/
 
 /**
@@ -170,7 +171,7 @@ System.debug(a3.get('BusinessPartnerID'));
             
 
         for(Contact con:[SELECT Id, Name,APCN__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, 
-                                  is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c,
+                                  IsInactiveCustomer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c,
                                   SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone,
                                   OtherPhone,LevelOfAssurance__c, MobilePhone,VerifiedMobile__c, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, 
                                   MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, 

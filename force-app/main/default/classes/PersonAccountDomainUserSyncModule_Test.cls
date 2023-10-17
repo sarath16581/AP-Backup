@@ -52,4 +52,29 @@ public class PersonAccountDomainUserSyncModule_Test {
         // PMD Warning
 		System.assert(true);
     }
+
+    @IsTest
+    private static void testSyncDeactivatedUserRecords() {
+        Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+        personAccount.is_Inactive_Customer__pc = true;
+
+        Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+
+        personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{'IsPersonAccount' => true, 'PersonContactId' => personContact.Id});
+
+        Account existingPersonAccount = personAccount.clone(true, false, false, false);
+        existingPersonAccount.is_Inactive_Customer__pc = false;
+
+        ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+        List<Account> records = new List<Account>{ personAccount };
+        Map<Id, Account> existingRecords = new Map<Id, Account>{ existingPersonAccount.Id => existingPersonAccount };
+
+        Test.startTest();
+        PersonAccountDomainUserSyncModule.newInstance().onAfterUpdate(records, existingRecords, mockUow);
+        Test.stopTest();
+
+        List<AsyncApexJob> asyncApexJobs = [SELECT Id, Status , JobType FROM AsyncApexJob WHERE JobType = 'Queueable'];
+        System.assertEquals(1, asyncApexJobs.size(), 'Queueable job failed to start');
+    }
 }
