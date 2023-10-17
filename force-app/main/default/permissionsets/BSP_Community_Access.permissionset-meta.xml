@@ -25,6 +25,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>BSPCreditClaimController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Cognition_APICommons</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1769,6 +1773,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Business_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Bypass_Data_enforcement__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1855,6 +1864,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Case_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ReasonforCreditClaim__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

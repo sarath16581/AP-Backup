@@ -1,50 +1,50 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 21/08/2020
-  * @description  : Component for Uploading files.
+* @author		: Jansi Rani. jansi.rani@auspost.com.au
+* @date			: 21/08/2020
+* @description	: Component for Uploading files.
 --------------------------------------- History --------------------------------------------------
-21.08.2020    Jansi Rani   Created
+21.08.2020		Jansi Rani	Created
 -->
 <template>
-    <div>
-        <div class="">
-            <lightning-file-upload label="Attach a document or image (e.g. Proof of delivery or wholesale invoice)"
-                name="fileUploader" accept={acceptedFormats} record-id={parentId}
-                onuploadfinished={onUploadFinished} multiple>
-            </lightning-file-upload>
-        </div>
-        <br>
-        <template if:true={hasFiles}>
-            <div class="slds-m-top_medium"><b>Files Attached:</b></div>
-        </template>
-        <template for:each={uploadedFiles} for:item="upFile">
-            <div key={upFile.documentId} class="slds-grid slds-grid_vertical-align-center slds-p-bottom_x-small">
-                <div class="slds-col slds-size_8-of-12">
-                    {upFile.name}
-                </div>
-                <div class="slds-col slds-size_4-of-12 slds-m-top_x-small">
-                    <lightning-button-icon icon-name="utility:delete" onclick={onDeleteUpload}
-                        data-id={upFile.documentId} alternative-text="Remove Attachment" class="slds-m-left_xx-small"
-                        title="Remove Attachment">
-                    </lightning-button-icon>
-                </div>
-            </div>
-        </template>
+	<div>
+		<div class="">
+			<lightning-file-upload label={fileUploadLabel}
+				name="fileUploader" accept={acceptedFormats} record-id={parentId}
+				onuploadfinished={onUploadFinished} multiple>
+			</lightning-file-upload>
+		</div>
+		<br>
+		<template if:true={hasFiles}>
+			<div class="slds-m-top_medium"><b>Files Attached:</b></div>
+		</template>
+		<template for:each={uploadedFiles} for:item="upFile">
+			<div key={upFile.documentId} class="slds-grid slds-grid_vertical-align-center slds-p-bottom_x-small">
+				<div class="slds-col slds-size_8-of-12">
+					{upFile.name}
+				</div>
+				<div class="slds-col slds-size_4-of-12 slds-m-top_x-small">
+					<lightning-button-icon icon-name="utility:delete" onclick={onDeleteUpload}
+						data-id={upFile.documentId} alternative-text="Remove Attachment" class="slds-m-left_xx-small"
+						title="Remove Attachment">
+					</lightning-button-icon>
+				</div>
+			</div>
+		</template>
 
-        <!-- Existing Files-->
-       <!-- <template if:true={existingFiles}>
-            <template for:each={existingFiles} for:item="upFile">
-                <div key={upFile.key} class="slds-grid slds-grid_vertical-align-center slds-p-bottom_x-small">
-                    <div class="slds-col slds-size_8-of-12">
-                        {upFile.value}
-                    </div>
-                </div>
-            </template>
-        </template> -->
-    </div>
+		<!-- Existing Files-->
+		<!-- <template if:true={existingFiles}>
+			<template for:each={existingFiles} for:item="upFile">
+				<div key={upFile.key} class="slds-grid slds-grid_vertical-align-center slds-p-bottom_x-small">
+					<div class="slds-col slds-size_8-of-12">
+						{upFile.value}
+					</div>
+				</div>
+			</template>
+		</template> -->
+	</div>
 
-    <!-- spinner-->
-    <template if:true={isLoading}>
-        <c-bsp-loading></c-bsp-loading>
-    </template>
+	<!-- spinner-->
+	<template if:true={isLoading}>
+		<c-bsp-loading></c-bsp-loading>
+	</template>
 </template>

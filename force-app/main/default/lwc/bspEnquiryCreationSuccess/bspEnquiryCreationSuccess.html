@@ -1,33 +1,33 @@
 <!--
-  @description       : Enquiry creation success message display component
-  @author            : avula.jansirani@auspost.com.au
-  @group             : 
-  @last modified on  : 09-16-2020
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
-  Modifications Log 
-  Ver   Date         Author                               Modification
-  1.0   09-16-2020   avula.jansirani@auspost.com.au   Initial Version
-
-  - Changed by SL on 10-05-2023 - added logic to display different page content based on EDD value
+@description		:Enquiry creation success message display component
+@author				:avula.jansirani@auspost.com.au
+@group				: 
+@last modified on	:09-16-2020
+@last modified by	:ChangeMeIn@UserSettingsUnder.SFDoc
+Modifications Log 
+Ver					Date			Author								Modification
+1.0					09-16-2020		avula.jansirani@auspost.com.au		Initial Version
+-Changed by SL on 10-05-2023 - added logic to display different page content based on EDD value
+-Changed by Hasantha Liyanage on 24-08-2023 - added thank you message for credit claim form
 -->
 <template>
-    <template if:true={enquiyType}>
-        <!-- Success message-->
-        <div class="slds-p-around_x-large">
-            <!-- header-->
-            <h2 class="slds-p-bottom_medium">{apHeaderHeading}</h2>
-            <lightning-formatted-rich-text value={headerContent}></lightning-formatted-rich-text>
+	<template if:true={enquiyType}>
+		<!-- Success message-->
+		<div class="slds-p-around_x-large">
+			<!-- header-->
+			<h2 class="slds-p-bottom_medium">{apHeaderHeading}</h2>
+			<lightning-formatted-rich-text value={headerContent}></lightning-formatted-rich-text>
 
-            <h2 class="slds-p-top_large">{apBodyHeading}</h2>
-            <lightning-formatted-rich-text value={bodyContent}></lightning-formatted-rich-text>
+			<h2 class="slds-p-top_large">{apBodyHeading}</h2>
+			<lightning-formatted-rich-text value={bodyContent}></lightning-formatted-rich-text>
 
-            <lightning-formatted-rich-text value={noteContent}></lightning-formatted-rich-text>
+			<lightning-formatted-rich-text value={noteContent}></lightning-formatted-rich-text>
 
-             <!-- back button-->
-            <div class="slds-p-top_medium">
-                <lightning-button label="Back to home" title="back" onclick={onClickCancel} class="brand-secondary-button">
-                </lightning-button>
-            </div>
-        </div>
-    </template>
+				<!-- back button-->
+			<div class="slds-p-top_medium">
+				<lightning-button label="Back to home" title="back" onclick={onClickCancel} class="brand-secondary-button">
+				</lightning-button>
+			</div>
+		</div>
+	</template>
 </template>
