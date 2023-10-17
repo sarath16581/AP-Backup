@@ -5238,6 +5238,14 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
         <value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
     </labels>
+	<labels>
+        <fullName>OpportunityWithIncorrectOverlayTypeSplitsAssignments</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
+        <value>Correct the {0} overlay opportunity split assignment. This opportunity has a non-{0} team member assigned a {0} overlay split: only individuals in a {0} role can be assigned a {0} overlay split.</value>
+    </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
