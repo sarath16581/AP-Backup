@@ -5,7 +5,7 @@
  * @group Tests
  * @changelog
  * 2023-08-08 - Ranjeewa Silva - Created
- * 2023-09-16 - Mahesh Parvathaneni - Added test method testOpportunitySplitsAreValidatedOnOpportunityStageChangeBeforeUpdate
+ * 2023-10-16 - Mahesh Parvathaneni - Added test method testOpportunitySplitsAreValidatedOnOpportunityStageChangeBeforeUpdate
  */
 @IsTest
 private class OpportunitySalesPipelineModule_Test {
