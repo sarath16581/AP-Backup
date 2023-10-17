@@ -24,8 +24,8 @@ private class OpportunitySalesPipelineModule_Test {
 		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
 		// opportunities[0] stage is not changing
 		updatedOpportunities[0].Description = 'updated description';
-		//opportunities[1] is moving from 'Identify' => 'Qualify'
-		updatedOpportunities[1].StageName = 'Qualify';
+		//opportunities[1] is moving from 'Identify' => 'Test Qualify'
+		updatedOpportunities[1].StageName = 'Test Qualify';
 
 		// =====================================
 		// Stubbing
@@ -40,8 +40,8 @@ private class OpportunitySalesPipelineModule_Test {
 		new OpportunitySalesPipelineModule().onBeforeUpdate(updatedOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
 		Test.stopTest();
 
-		// verify selector methods are invoked to query related records.
-		((OpportunitiesSelector)MockUtility.Mocks.verify(mockOpportunitiesSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject());
+		// verify selector methods are not invoked to query related records.
+		((OpportunitiesSelector)MockUtility.Mocks.verify(mockOpportunitiesSelector, 0)).selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject());
 
 		for (Opportunity record: updatedOpportunities) {
 			System.assert(!record.hasErrors(), 'Errors should not be added when opportunity stage is not changing or stage is not changing to a monitored stage.');
