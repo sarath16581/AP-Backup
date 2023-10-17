@@ -396,6 +396,10 @@
             <fullName>POD Request</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Credit Claim</fullName>
+            <default>false</default>
+        </values>		
     </picklistValues>
     <picklistValues>
         <picklist>CCUItemContents__c</picklist>
