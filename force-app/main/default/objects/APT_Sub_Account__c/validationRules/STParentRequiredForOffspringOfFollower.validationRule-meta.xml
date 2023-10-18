@@ -4,7 +4,7 @@
     <active>true</active>
     <description>Parent must be nominated for a StarTrack account whose invoice is paid by another follower account under the same leader account hierarchy.</description>
     <errorConditionFormula>AND(
-	ISNEW(), 
+	OR(ISNEW(), ISCHANGED(AccountType__c), ISCHANGED(ParentBillingAccount__c), ISCHANGED(ParentAccountRequest__c)),   
 	ISPICKVAL(AccountType__c, &apos;Offspring Follower&apos;),  
 	ISBLANK(ParentBillingAccount__c), 
 	ISBLANK(ParentAccountRequest__c)
