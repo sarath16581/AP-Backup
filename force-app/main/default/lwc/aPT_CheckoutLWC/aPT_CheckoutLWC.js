@@ -181,8 +181,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 						this._interval = setTimeout(() => {
 							//this.navigateToUrl( this.rateCardBatchUrl + this.proposalId + '&isRCCall=false');
 							initiateRateCardGeneration({ proposalId: this.proposalId })
-							.then((result) => {
-								if(result === true){
+						.then((requestresult) => {
+							if(requestresult === true){
 									//STP-9640: redirect to OPC screen
 									let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
 									this.navigateToUrl(opportunityLineItemsURL);
@@ -245,7 +245,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				if(result === true){
 
 					//STP-9640: redirect to OPC screen
-					let isManualContract = this.manualContract == true ? 'true': 'false';
+					let isManualContract = this.manualContract === true ? 'true': 'false';
 					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
 					this.navigateToUrl(opportunityLineItemsURL);
 				}
@@ -270,7 +270,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 						this.initiateProposalDocGeneration(this.proposalId);
 					}else{
 						//STP-9640: redirect to OPC screen
-						let isManualContract = this.manualContract == true ? 'true': 'false';
+						let isManualContract = this.manualContract === true ? 'true': 'false';
 						let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
 						this.navigateToUrl(opportunityLineItemsURL);
 					}

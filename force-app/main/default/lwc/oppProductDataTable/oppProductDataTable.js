@@ -83,7 +83,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 					//save last saved copy
 					this.lastSavedData = JSON.parse(JSON.stringify(this.data));
 				}
-				if(this.proposalId != 'noProposal' && this.proposalId != undefined && this.recalculateopc == false) {
+				if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
 					this.isProposalDocumentFlow = true;
 				}
 			} catch (err) {
@@ -262,7 +262,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 				}
 				else {
 					//identify contract flow or proposal flow
-					if(this.isST != undefined) {
+					if(this.isST !== undefined) {
 						//redirect to contract record
 						window.location.href = this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
 					}
