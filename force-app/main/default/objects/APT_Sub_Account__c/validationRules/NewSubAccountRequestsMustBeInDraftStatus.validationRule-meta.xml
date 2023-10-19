@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NewSubAccountRequestsMustBeInDraftStatus</fullName>
+    <active>true</active>
+    <description>New Sub Account Requests must be in &apos;Draft&apos; status on creation.</description>
+    <errorConditionFormula>AND(ISNEW(), APT_Sub_Account_Request_Status__c &lt;&gt; &apos;Draft&apos;)</errorConditionFormula>
+    <errorDisplayField>APT_Sub_Account_Request_Status__c</errorDisplayField>
+    <errorMessage>Sub Account Request can only be created in Draft Stage.</errorMessage>
+</ValidationRule>

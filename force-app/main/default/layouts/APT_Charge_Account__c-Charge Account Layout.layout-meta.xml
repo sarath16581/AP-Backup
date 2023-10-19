@@ -856,6 +856,7 @@
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
+        <fields>AccountType__c</fields>
         <fields>APT_eParcel_Enabled__c</fields>
         <fields>APT_Sub_Account_Request_Status__c</fields>
         <fields>CREATED_DATE</fields>

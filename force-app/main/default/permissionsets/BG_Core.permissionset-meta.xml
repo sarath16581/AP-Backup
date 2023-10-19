@@ -209,6 +209,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Sub_Account__c.AccountType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>APT_Sub_Account__c.Contact_Name__c</field>
         <readable>true</readable>
@@ -221,6 +226,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Sub_Account__c.Lodgement_Point_to_Work_Centre_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Sub_Account__c.ParentAccountRequest__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Sub_Account__c.ParentBillingAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -359,6 +374,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.BillingAccountType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Billing_Account__c.Credit_Representative_Email__c</field>
         <readable>true</readable>
@@ -366,6 +386,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Billing_Account__c.Is_Intermediary_Account_StarTrack__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.LeaderAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
