@@ -92,7 +92,8 @@
 
 }
 
-.THIS .brand-form-input input {
+.THIS .brand-form-input input,
+.THIS .brand-form-input .slds-combobox__input {
   border-width: 2px;
   border-color: #919194;
   height: 45px;
@@ -100,6 +101,7 @@
 }
 
 .THIS .brand-form-input fieldset[lightning-radiogroup_radiogroup] .slds-form-element__control .slds-radio__label .slds-form-element__label,
+.THIS .brand-form-input .slds-combobox__input,
 .THIS .brand-form-input .form-dropdown .slds-input_faux {
   font-size: 1rem;
   font-style: normal;
