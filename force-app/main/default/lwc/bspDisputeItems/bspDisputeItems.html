@@ -1,89 +1,105 @@
 <!--
  - Created by Thang Nguyen on 25/07/2020.
  -->
+<!--
+*@author		:Thang Nguyen
+*@date			:25/07/2023
+*@description	:Disputed items table for BSP credit claim
+--------------------------------------- History --------------------------------------------------
+25.07.2023		Thang Nguyen			Created
+19.10.2023		Hasantha Liyanage		Modified: styling changes
+-->
 
 <template>
-	<div class="slds-box slds-scrollable slds-m-around_medium">
-
-			<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_striped">
-			<thead>
+	<div style="height:200px;">
+		<div class="slds-scrollable_y scrollable-container">
+			<table class="slds-table custom-slds-table slds-no-row-hover slds-table_bordered slds-table_striped">
+				<thead class=" slds-table_striped">
 				<tr class="slds-line-height_reset">
 					<th class="" scope="col">
-					<div class="slds-truncate">Invoice number</div>
+						<div class="slds-truncate">Invoice number</div>
 					</th>
 					<template if:true={showTransactionId}>
 						<th scope="col">
-							<div class="slds-truncate"><abbr class="slds-required" title="required">* </abbr>Transaction ID</div>
+							<div class="slds-truncate"><abbr class="slds-required"
+															 title="required">* </abbr>Transaction
+								ID
+							</div>
 						</th>
-					</template>		
+					</template>
 					<template if:true={showConnote}>
 						<th scope="col">
-							<div class="slds-truncate"><abbr class="slds-required" title="required">* </abbr>Connote #</div>
+							<div class="slds-truncate"><abbr class="slds-required"
+															 title="required">* </abbr>Connote
+								#
+							</div>
 						</th>
-					</template>		
+					</template>
 
 					<th class="" scope="col">
-					<div class="slds-truncate">Amount claimed ($)</div>
+						<div class="slds-truncate">Amount claimed ($)</div>
 					</th>
 					<th class="" scope="col">
-					<div class="slds-truncate">Amount charged ($)</div>
+						<div class="slds-truncate">Amount charged ($)</div>
 					</th>
-					<th class="" scope="col">
-					<div class="slds-truncate">Action</div>
+					<th class="slds-col slds-size_1-of-12" scope="col">
+						<div class="slds-truncate">Action</div>
 					</th>
 				</tr>
-			</thead>
-			<tbody>
-					<template for:each={disputeItemList} for:item="disputeItem" for:index="index">
-						<tr key={disputeItem.Id} class="slds-hint-parent wrap-text row-vertical-align-top">						
-							<td class="slds-truncate ">
-								<lightning-input 
+				</thead>
+				<tbody class="">
+				<template for:each={disputeItemList} for:item="disputeItem" for:index="index">
+					<tr key={disputeItem.Id} class="slds-hint-parent wrap-text ">
+
+						<td class="slds-truncate wrap-text ">
+							<lightning-input
 									variant="label-hidden"
-									type="text" 
-									value={disputeItem.Invoice_Number__c} 
-									onchange={onChangeField} 
+									type="text"
+									value={disputeItem.Invoice_Number__c}
+									onchange={onChangeField}
 									max-length="12"
 									placeholder="Invoice number"
-									data-id={disputeItem.Id} 
+									data-id={disputeItem.Id}
 									data-field="Invoice_Number__c">
-								</lightning-input>
-							</td>
-							<template if:true={showTransactionId}>
-								<td class="slds-truncate wrap-text">
-									<lightning-input
-										variant="label-hidden" 
-										type="text" 
+							</lightning-input>
+						</td>
+
+						<template if:true={showTransactionId}>
+							<td class="slds-truncate wrap-text">
+								<lightning-input
+										variant="label-hidden"
+										type="text"
 										value={disputeItem.Transaction_ID__c}
 										onfocus={handleFocus}
 										required
 										onchange={onChangeField}
 										placeholder="Transaction ID"
-										message-when-value-missing="Please enter a transaction id which can be found on the invoice"	 
+										message-when-value-missing="Please enter a transaction id which can be found on the invoice"
 										max-length="50"
-										data-id={disputeItem.Id} 
+										data-id={disputeItem.Id}
 										data-field="Transaction_ID__c">
-									</lightning-input>
-								</td>
-							</template>					
-							<template if:true={showConnote}>
-								<td class="slds-truncate wrap-text">
-									<lightning-input 
+								</lightning-input>
+							</td>
+						</template>
+						<template if:true={showConnote}>
+							<td class="slds-truncate wrap-text">
+								<lightning-input
 										variant="label-hidden"
-										type="text" 
-										value={disputeItem.Connote__c} 
+										type="text"
+										value={disputeItem.Connote__c}
 										onfocus={handleFocus}
 										required
 										onchange={onChangeField}
 										placeholder="Connote #"
-										message-when-value-missing="Please enter a consignment note number which can be found on the invoice"	 
+										message-when-value-missing="Please enter a consignment note number which can be found on the invoice"
 										max-length="20"
-										data-id={disputeItem.Id} 
+										data-id={disputeItem.Id}
 										data-field="Connote__c">
-									</lightning-input>
-								</td>
-							</template>
-							<td class="slds-truncate">
-								<lightning-input
+								</lightning-input>
+							</td>
+						</template>
+						<td class="slds-truncate">
+							<lightning-input
 									variant="label-hidden"
 									value={disputeItem.Amount_Claimed__c}
 									data-id={disputeItem.Id}
@@ -94,15 +110,15 @@
 									message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
 									message-when-range-underflow="Amount claimed cannot be a negative value"
 									min=".01"
-									step=".01"								
+									step=".01"
 									max-length="20"
 									placeholder="Amount claimed"
 									data-field="Amount_Claimed__c">
-								</lightning-input>
-							</td>
-							<td class="slds-truncate">
-								<lightning-input
-									variant="label-hidden"							
+							</lightning-input>
+						</td>
+						<td class="slds-truncate">
+							<lightning-input
+									variant="label-hidden"
 									value={disputeItem.Amount__c}
 									data-id={disputeItem.Id}
 									onchange={onChangeField}
@@ -112,30 +128,32 @@
 									message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
 									message-when-range-underflow="Amount charged cannot be a negative value"
 									min=".01"
-									step=".01"								
+									step=".01"
 									max-length="20"
 									placeholder="Amount charged"
 									data-field="Amount__c">
-								</lightning-input>
-							</td>
-							<td class="slds-truncate">
-								<lightning-button-icon 
+							</lightning-input>
+						</td>
+						<td class="slds-truncate">
+							<lightning-button-icon
 									icon-name="utility:delete"
-									alternative-text="Delete" 
-									onclick={deleteRow} 
+									alternative-text="Delete"
+									onclick={deleteRow}
 									data-id={disputeItem.Id}>
-								</lightning-button-icon>
-							</td>
-						</tr>
-					</template>
-			</tbody>
-		</table>
-		<div class="slds-var-p-top_medium">
-			<lightning-button label="Add row" 
-				variant="brand" 
-				onclick={addRow}>
-			</lightning-button>
+							</lightning-button-icon>
+						</td>
+					</tr>
+				</template>
+				</tbody>
+			</table>
 		</div>
-
+	</div>
+	<div class="slds-var-p-top_medium">
+		<lightning-button label="Add row"
+						  variant="brand"
+						  onclick={addRow}>
+		</lightning-button>
 	</div>
 </template>
+
+

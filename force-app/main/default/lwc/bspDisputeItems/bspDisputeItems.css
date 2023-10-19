@@ -4,3 +4,33 @@
 .row-vertical-align-top { 
 	vertical-align: top; 
 }
+
+.custom-slds-table {
+	border: 2px solid #f0f0f0;
+	border-radius: 8px;
+	empty-cells: show;
+}
+
+.custom-slds-table th {
+	background-color: #f0f0f0;
+	color: #737373;
+	text-transform: uppercase;
+	font-size: .7rem;
+	letter-spacing: .03rem;
+	border-bottom: 1px solid #f0f0f0;
+	font-weight: 500;
+	height: 2.3rem;
+}
+
+.custom-slds-table thead {
+	position: sticky;
+	top: 0;
+	background-color: #FFFFFF;
+	z-index: 1;
+}
+
+.scrollable-container {
+	border: transparent;
+	border-radius: 5px;
+	height:100%;
+}
