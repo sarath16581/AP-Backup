@@ -31,6 +31,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Customer_Scoping_Questionnaire__c.Clone_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -620,6 +625,10 @@
     </tabSettings>
 	<classAccesses>
 		<apexClass>CSQApprovalsController</apexClass>
+		<enabled>true</enabled>
+	</classAccesses>
+	<classAccesses>
+		<apexClass>CSQ_PickupLocationUtility</apexClass>
 		<enabled>true</enabled>
 	</classAccesses>
 </PermissionSet>
