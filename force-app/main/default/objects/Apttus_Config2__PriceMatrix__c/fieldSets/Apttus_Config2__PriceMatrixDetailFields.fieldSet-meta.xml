@@ -7,22 +7,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__PriceListItemId__r.Name</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
-        <field>Apttus_Config2__Dimension1Id__r.Name</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
         <field>Apttus_Config2__Dimension4Id__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__Dimension3Id__r.Name</field>
+        <field>Apttus_Config2__PriceListItemId__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -33,6 +23,16 @@
     </availableFields>
     <availableFields>
         <field>Apttus_Config2__Dimension5Id__r.Name</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
+        <field>Apttus_Config2__Dimension3Id__r.Name</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
+        <field>Apttus_Config2__Dimension1Id__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

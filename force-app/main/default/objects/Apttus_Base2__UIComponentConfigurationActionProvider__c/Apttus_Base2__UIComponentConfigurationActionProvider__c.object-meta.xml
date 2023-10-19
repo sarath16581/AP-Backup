@@ -161,8 +161,8 @@
     </nameField>
     <pluralLabel>Configuration Action Providers</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

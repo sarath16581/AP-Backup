@@ -1957,11 +1957,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Billing_Account__c.Credit_Representative_Email__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Budget_and_Revenue__c.Apr_Revised_Budget__c</field>
         <readable>true</readable>
     </fieldPermissions>

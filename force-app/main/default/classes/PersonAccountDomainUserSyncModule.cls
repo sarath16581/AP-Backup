@@ -22,7 +22,8 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         syncUpdatedFieldsToUserRecord((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
-		syncDeactivatedUserRecords((List<Account>)records, (Map<Id, Account>)existingRecords);
+		List<Account> unprocessed = (List<Account>)RecursionUtility.getUnprocessedRecords('syncDeactivatedUserRecords-Update', records, new Set<String>{'is_Inactive_Customer__pc'});
+		syncDeactivatedUserRecords(unprocessed, (Map<Id, Account>)existingRecords);
     }
 
     /**

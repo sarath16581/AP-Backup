@@ -36,7 +36,7 @@
             <value>
                 <fullName>Billing Dispute</fullName>
                 <default>false</default>
-                <label>Billing Dispute</label>
+                <label>Billing dispute</label>
             </value>
             <value>
                 <fullName>Billing issue</fullName>
@@ -671,7 +671,7 @@
             <value>
                 <fullName>Service Performance</fullName>
                 <default>false</default>
-                <label>Service Performance</label>
+                <label>Service performance</label>
             </value>
             <value>
                 <fullName>Short - No Scan</fullName>
@@ -1053,6 +1053,10 @@
             <valueName>Return</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Delivery</controllingFieldValue>
+            <valueName>Returns</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Site inspection</controllingFieldValue>
             <valueName>New customer</valueName>
         </valueSettings>
@@ -1103,6 +1107,10 @@
         <valueSettings>
             <controllingFieldValue>StarTrack Shop</controllingFieldValue>
             <valueName>Response to EDM No 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>StarTrack Shop</controllingFieldValue>
+            <valueName>Self service support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>StarTrack Shop</controllingFieldValue>

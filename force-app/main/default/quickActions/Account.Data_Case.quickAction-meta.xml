@@ -41,8 +41,8 @@
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
-                <field>Requested_For__c</field>
-                <uiBehavior>Required</uiBehavior>
+                <field>Requestor__c</field>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
         <quickActionLayoutColumns/>

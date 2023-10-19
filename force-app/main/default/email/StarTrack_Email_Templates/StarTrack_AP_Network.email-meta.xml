@@ -22,7 +22,7 @@ Description of packaging:  {!Case.Description_of_packaging__c}
 
 Regards,
 
-{!User.Name}
+{!User.FirstName}
 {!User.Title}
 {!User.Department}
 T {!User.Phone}

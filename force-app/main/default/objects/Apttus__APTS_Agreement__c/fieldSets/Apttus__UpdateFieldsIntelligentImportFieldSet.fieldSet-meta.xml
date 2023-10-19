@@ -67,12 +67,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Owner.Name</field>
+        <field>Apttus__Account__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus__Account__r.Name</field>
+        <field>Owner.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

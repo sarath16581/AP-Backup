@@ -13,6 +13,7 @@
  * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId Method
  * 2021-05-19 - Disha Kariya - Added fields for personal accounts.
  * 2023-08-04 - Added field Account.is_Inactive_Customer__pc in getSObjectFieldList
+ * 2023-10-02 - Boris Bachovski - Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
  */
 public virtual inherited sharing class SSSWAccountsSelector extends AccountsSelector {
 
@@ -34,7 +35,7 @@ public virtual inherited sharing class SSSWAccountsSelector extends AccountsSele
 		Set<SObjectField> fields = super.getSObjectFieldList();
 		fields.addAll(new Set<SObjectField>{
 				Account.PersonContactId, Account.APCN__pc, Account.OID_ID__pc, Account.CRMCSSOID__pc, Account.IsPersonAccount, Account.VerifiedMobile__pc, Account.PersonMobilePhone, Account.PersonEmail,
-				Account.is_Inactive_Customer__pc
+				Account.IsInactiveCustomer__pc
 		});
 		return fields;
 	}

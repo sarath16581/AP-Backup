@@ -4,6 +4,10 @@
  * @domain            : Connected Customer
  * @last modified on  : 08-15-2022
  * @last modified by  : Sreenish Krishnan
+ * 
+ History:
+--------------------------------------------------
+2023-10-02    Boris Bachovski    Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
  **/
 public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private static final String APCN = 'APCN';
@@ -292,7 +296,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		acc.LevelOfAssurance__pc = e.loa__c;
 		acc.Legal_Marketing_Opt_In__pc = e.legalMarketingOptIn__c;
 		acc.Winning_Master_Record__pc = e.winningMasterAPCN__c;
-		acc.is_Inactive_Customer__pc = e.isInactiveCustomer__c;
+		acc.Status__pc = e.isInactiveCustomer__c ? 'Inactive' : 'Active';
 		acc.Integration_Service_Mod_Date__c = e.integrationServiceModDate__c;
 		acc.ClosedDateTime__pc = e.closedDateTime__c;
 		acc.ClosedReason__pc = e.closedReason__c;

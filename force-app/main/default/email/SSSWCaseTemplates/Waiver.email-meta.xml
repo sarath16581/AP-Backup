@@ -88,7 +88,7 @@ Regards,
 {!User.FirstName} {!LEFT(User.LastName,1)}
 Australia Post
 {!Case.Thread_Id}
-ame
+
 
 
 Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.

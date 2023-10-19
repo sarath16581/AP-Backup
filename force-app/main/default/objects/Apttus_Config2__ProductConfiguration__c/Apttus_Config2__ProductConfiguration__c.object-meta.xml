@@ -173,8 +173,8 @@
         <customTabListAdditionalFields>Apttus_Config2__SummaryGroupType__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>OWNER.ALIAS</customTabListAdditionalFields>
         <customTabListAdditionalFields>LAST_ACTIVITY</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__VersionNumber__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__Description__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__PriceListId__c</lookupDialogsAdditionalFields>

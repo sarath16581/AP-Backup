@@ -167,8 +167,8 @@
         <customTabListAdditionalFields>Apttus_Approval__Term_Exception__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Assignee_Type__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus_Approval__Assignee_Value__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Approval__Active__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Term_Exception__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Approval__Assignee_Type__c</lookupDialogsAdditionalFields>

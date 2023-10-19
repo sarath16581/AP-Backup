@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Minimun_Rate</fullName>
+    <active>true</active>
+    <description>If &quot;Confirmed Rate&quot; entered is lower than &quot;Minimum Rate&quot;, restrict user to save record. 
+
+Please raise a Pricing Deal Support Request.</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+Confirmed_Rate__c &lt; Minimum_Rate__c ,
+NOT(OR(
+$Permission.APR_Admin = TRUE,
+$Profile.Name = &apos;System Administrator&apos;
+)))</errorConditionFormula>
+    <errorDisplayField>Confirmed_Rate__c</errorDisplayField>
+    <errorMessage>Please raise a Pricing Deal Support Request because the Confirmed Rate entered is lower than Minimum Rate.</errorMessage>
+</ValidationRule>

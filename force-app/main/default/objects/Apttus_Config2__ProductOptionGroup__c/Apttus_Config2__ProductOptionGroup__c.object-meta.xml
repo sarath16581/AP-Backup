@@ -163,8 +163,8 @@
     </nameField>
     <pluralLabel>Product Option Groups</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

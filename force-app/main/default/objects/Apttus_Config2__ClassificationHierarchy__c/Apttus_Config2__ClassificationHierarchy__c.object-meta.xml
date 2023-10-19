@@ -163,8 +163,8 @@
     </nameField>
     <pluralLabel>Category Hierarchies</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__Label__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__HierarchyId__c</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Apttus_Config2__Label__c</lookupPhoneDialogsAdditionalFields>

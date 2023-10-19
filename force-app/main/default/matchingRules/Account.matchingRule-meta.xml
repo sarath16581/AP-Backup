@@ -62,7 +62,7 @@ A Judd 10/03/20 Changed filter logic to OR, and added Registered Business Name</
             <fieldName>ABN__c</fieldName>
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
-        <ruleStatus>Active</ruleStatus>
+        <ruleStatus>ActivationFailed</ruleStatus>
     </matchingRules>
     <matchingRules>
         <fullName>Partner_Info_Duplicate_ABN</fullName>

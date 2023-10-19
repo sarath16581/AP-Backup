@@ -67,6 +67,7 @@ trigger TaskTrigger on Task (before insert, before update, after insert, after u
                 // and send information to TIBCO
                 NPSVoiceSurveyUtil.checkTaskNPSVoiceSurvey(trigger.new,trigger.oldMap);
                 system.debug('Task: isUpdate & isAfter');
+				CSQService.updatePickUpLocation(trigger.oldMap, trigger.newMap);
             }
         } 
     }

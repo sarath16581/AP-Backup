@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>CSQ_Pending_Information</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>CSQ_Record_Duplication</name>
+    </customPermissions>
     <description>This permission is for the CSQ support team only.
 It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangerous Goods objects to override the approval lock.</description>
     <fieldPermissions>
@@ -25,6 +33,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
     <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Scoping_Questionnaire__c.Additional_information_if_required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Scoping_Questionnaire__c.Clone_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -165,6 +178,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
     <fieldPermissions>
         <editable>true</editable>
         <field>Freight_Offering__c.Cartons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Freight_Offering__c.Clone_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -478,6 +496,11 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.Clone_Source__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Pick_Up_Location__c.Inspector_Name__c</field>
         <readable>true</readable>
@@ -485,6 +508,16 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
     <fieldPermissions>
         <editable>true</editable>
         <field>Pick_Up_Location__c.Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.OwnerId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.Owned_By_Me__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -591,4 +624,8 @@ It give Modify All to the CSQ, pick-up location, Freight Offerings &amp; Dangero
         <tab>standard-Opportunity</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+	<classAccesses>
+		<apexClass>CSQApprovalsController</apexClass>
+		<enabled>true</enabled>
+	</classAccesses>
 </PermissionSet>

@@ -24,6 +24,7 @@
  * 2023-02-28 - Dattaraj Deshmukh - Added 'WITH_NETWORK_RESPONSE' options for SSSW MyNetwork Cases.
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
+ * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -88,7 +89,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Last_Status_Change__c, Case.Article_Receiver_Address__c, Case.Article_Receiver_Postcode__c,
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
-			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c
+			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c
 
 		};
 	}
