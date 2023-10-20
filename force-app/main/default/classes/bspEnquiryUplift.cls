@@ -1,17 +1,20 @@
 /**************************************************
-Type:         Controller for new LWC components for Enquiry Creation and Search Tracking Numbers. Components are bspFormAPEnquiry, bspFormAPGeneral, bspFormSTDeliveryEnquiry, bspFormSTPickupBookingEnquiry
+Type:		Controller for new LWC components for Enquiry Creation and Search Tracking Numbers. Components are bspFormAPEnquiry, bspFormAPGeneral, bspFormSTDeliveryEnquiry, bspFormSTPickupBookingEnquiry
 History:
-NOTE:         Need to use without sharing: as Owner for the created case will be set to "Enterprise Inbound Queue"
-NOTE:                                    : additional fields, objects won't be quieried successfully if without sharing is not used...
-NOTE:                                   : also to implement duplicate case error requirements while creating enquiry for AP & ST.
-TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
+NOTE:		Need to use without sharing	:as Owner for the created case will be set to "Enterprise Inbound Queue"
+NOTE:									: additional fields, objects won't be quieried successfully if without sharing is not used...
+NOTE:									: also to implement duplicate case error requirements while creating enquiry for AP & ST.
+TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 --------------------------------------------------
-2020-08-02    Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
-2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
-13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
-19/04/2023    hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
-04/05/2023    stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
-13/06/2023    SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
+2020-08-02	Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
+2020-10-29	Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
+13/10/2021	prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
+19/04/2023	hasantha.liyanage@auspost.com.au DDS-15568 FOHS -BSP - Holding Bay - Case held before EDD+10 day
+04/05/2023	stephen.liu25@auspost.com.au DDS-15573 Modified the BSP Controller logic to incorporate the "Essential Medicine" and "Sentimental Value" questions
+13/06/2023	SL DDS-16384 added logic to set the Type_and_Product__c field based on enq.Type
+04/09/2023	hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
+29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
+05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -28,6 +31,7 @@ public without sharing class bspEnquiryUplift {
 	//public static boolean notFound {get;set;}
 	//public static boolean duplicate {get;set;}
 	public static String caseRecStatus {get; set;}
+	public static Set<String> selectedStatuses {get; set;}
 	public static StarTrackConsignmentSearchUtil.ConsignmentWrapper searchedConsignment {get; set;}
 	public static Map<String, Id> caseNumbers {get; set;}
 	public static Article__c currentConsignment {get; set;}
@@ -46,6 +50,7 @@ public without sharing class bspEnquiryUplift {
 
 	public static Set<Id> stRecordTypes = new Set<Id>();
 	public static Set<Id> apRecordTypes = new Set<Id>();
+	public static Set<Id> creditClaimRecordTypes = new Set<Id>();
 	public static StarTrack_Settings__c stSettings = StarTrack_Settings__c.getOrgDefaults();
 
 	public static Article__c articleFromConsignSearch;
@@ -75,9 +80,9 @@ public without sharing class bspEnquiryUplift {
 		}
 	}*/
 
-  /**
-  * static block
-  * */
+	/**
+	 * static block
+	* */
 	static{
 		dynamicPageSize = Integer.valueOf(bspBaseUplift.configSetting.EnquiriesPerPage__c);
 		dummyEnq1 = new Case();
@@ -92,6 +97,13 @@ public without sharing class bspEnquiryUplift {
 		for (BSPStarTrackCaseTypes__c cType : [SELECT Id, Name, RecordTypeId__c FROM BSPStarTrackCaseTypes__c WHERE Name LIKE 'StarTrack%']) {
 			stRecordTypes.add(cType.RecordTypeId__c);
 		}
+	}
+
+	/**
+	 * Grab the credit claim dispute record types
+	 */
+	public static void retrieveCreditClaimRecordTypes(){
+		creditClaimRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String> {BspConstants.CASE_RECORD_TYPE_ENTERPRISE_CREDIT_DISPUTE_DEV_NAME}).keySet();
 	}
 
 	/**
@@ -111,18 +123,19 @@ public without sharing class bspEnquiryUplift {
 			selectedEnquiryType = BspConstants.ENQUIRY_TYPE_AP;
 		}
 	}/
-  
-	 /**
+
+		/**
 	 * init to load default enquiry types, recordtypes and caselist
 	 * */
 	public static void initialLoadSetup(){
 		//setDefaultEnquiryType();
 		retrieveRecordTypes();
 		retrieveAPRecordTypes();
+		retrieveCreditClaimRecordTypes();
 		displayCaseList();
 	}
 
-	 /**
+		/**
 	 * retrive the case list with offset
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -206,7 +219,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-	 /**
+		/**
 	 * get the cases to download  with the given column filters
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -247,7 +260,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-   /**
+	/**
 	* build dropdown options for org field to serach for enquires in home page
 	* */
 	@AuraEnabled(cacheable=true)
@@ -287,7 +300,7 @@ public without sharing class bspEnquiryUplift {
 		return Schema.SObjectType.Case.getRecordTypeInfosByName().get(BspConstants.CASE_RECORD_TYPE_DELIVERY_ENQUIRY).getRecordTypeId();
 	}
 
-	 /**
+		/**
 	 * Get startrack pickupbook enquiry record type
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -308,7 +321,7 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
-	 /**
+		/**
 	 * Get all accessible Billing Accounts as picklist optios to display in LWC
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -325,7 +338,7 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
-	 /**
+		/**
 	 * Get all accessible Billing Accounts for reporting
 	 * */
 	@AuraEnabled(cacheable=true)
@@ -337,13 +350,28 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	private static List<SelectOptionCustom> buildAllBillingAccountOptions(){
-		 List<SelectOptionCustom> options = new list<SelectOptionCustom>();
-		 for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
+			List<SelectOptionCustom> options = new list<SelectOptionCustom>();
+			for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
 			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
 			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
 			options.add(new SelectOptionCustom(billingAccount.id + '&' + billingAccount.LEGACY_ID__c, billingAccount.LEGACY_ID__c + ' (' + billingAccount.Name + ')'));
 		}
 
+		return options;
+	}
+
+	/**
+	 * Build billing account options without the Prefix for legacy id (number only)
+	 * @return
+	 */
+	@AuraEnabled(cacheable=true)
+	public static List<SelectOptionCustom> buildBillingAccountOptions(){
+		List<SelectOptionCustom> options = new list<SelectOptionCustom>();
+		for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
+			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
+			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
+			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name));
+		}
 		return options;
 	}
 
@@ -466,7 +494,7 @@ public without sharing class bspEnquiryUplift {
 				}
 			}
 		}
-		 Set<SObjectField> articleFields = new Set<SObjectField>{
+			Set<SObjectField> articleFields = new Set<SObjectField>{
 				Article__c.TrackingID__c, Article__c.ProductCategory__c, Article__c.SubProduct__c
 		};
 		Map<Id, Article__c>  articles = ArticlesSelector.newInstance(1,articleFields).selectByTracking(new Set<String>{enq.ReferenceID__c},true);
@@ -540,11 +568,11 @@ public without sharing class bspEnquiryUplift {
 
 	/**
 	 * What it is: final steps in creating an AusPost enquiry.
-	 *      This will be called direct from createEnquiryAusPost if no reference ID was entered when creating the
-	 *      enquiry or after the SAP EM search concludes when a reference ID was passed in.
-	 *      (Only if the search was successful and the user has access to create the enquiry
+	 *  This will be called direct from createEnquiryAusPost if no reference ID was entered when creating the
+	 *  enquiry or after the SAP EM search concludes when a reference ID was passed in.
+	 *  (Only if the search was successful and the user has access to create the enquiry
 	 * What it does: Inserts a Case Comment using the Case Description
-	 *      Adds a status and message to the enquiryWrapper
+	 *  Adds a status and message to the enquiryWrapper
 	 * Why: Separates the Case Comment insertion
 	 * @param enq The created Case from BSP community
 	 * @param enqWrapper the wrapper to store any status and messages
@@ -660,7 +688,7 @@ public without sharing class bspEnquiryUplift {
 	 * 3. Role of User / Super User is not considered in case visibilitiy
 	 *
 	 * NOTE: it's important to note that the only roles we need to consider for case visibility for admin based roles
-	 *          by default, when a user role is applied to BSP, it simply implies access to 'my cases' which is the default behaviour of a basic BSP user irrespective of role
+	 *  by default, when a user role is applied to BSP, it simply implies access to 'my cases' which is the default behaviour of a basic BSP user irrespective of role
 	 */
 	public static void displayCaseList() {
 		Map<Id, Case> searchedCaseMap = new Map<Id, Case>();
@@ -691,10 +719,11 @@ public without sharing class bspEnquiryUplift {
 					'Id', 'CaseNumber', 'CreatedDate', 'ArticleTest__r.Name', 'ArticleTest__r.ArticleID__c', 'RecordType.DeveloperName', 'Status',
 					'CaseDetails__c', 'Subject', 'Permanent_Close__c', 'Secondary_Contact__c', 'Article_Receiver_Name__c', 'StarTrack_RecordType__c',
 					'BSP_Addressee_Name__c', 'Contact.Account.Name', 'Billing_Number__c', 'Related_Billing_Account__c',
-					'Related_Billing_Account__r.LEGACY_ID__c','LastModifiedDate','Enquiry_Status__c'
+					'Related_Billing_Account__r.LEGACY_ID__c', 'Related_Billing_Account__r.Name', 'Business_Unit__c','LastModifiedDate','Enquiry_Status__c'
 			};
 
 			System.debug('searchText===' + searchText  + '>>');
+			System.debug('queryWhere===' + queryWhere  + '>>');
 			if(String.isNotEmpty(searchText)) {
 
 				String queryToGetCount = 'Find \'' + String.escapeSingleQuotes(searchText) + '\' ' +
@@ -714,9 +743,6 @@ public without sharing class bspEnquiryUplift {
 					query = query +'LIMIT '+dynamicPageSize+' OFFSET '+dynamicPageSize*(dynamicPageNumber-1);
 
 				query= query+')';
-
-				System.debug('Query >>>> ' + query);
-
 				try {
 					searchedCaseMap.putAll((List<Case>)Search.query(query)[0]);
 				} catch(Exception ex) {
@@ -731,8 +757,6 @@ public without sharing class bspEnquiryUplift {
 				if(!isReqFromDownload)//[Jansi:Added OFFSET and LIMIT]
 					query = query+' LIMIT ' + dynamicPageSize + ' OFFSET ' + dynamicPageSize*(dynamicPageNumber-1);
 
-
-				System.debug('Query >>>> ' + query);
 				List<Case> retrievedCases = (List<Case>)Database.query(query);
 
 				string recordCountsQuery = 'Select count() from Case '+ queryWhere;
@@ -751,8 +775,6 @@ public without sharing class bspEnquiryUplift {
 			}
 
 		}
-
-		System.debug('SearchedCaseList >>>>> ' + searchedCaseList);
 
 		allCaseSearchRecords = putListToContainer(searchedCaseList);
 		// below mapping is to provide more readability to the code, and
@@ -773,9 +795,12 @@ public without sharing class bspEnquiryUplift {
 				caseDetail.ArticleID = cse.ArticleTest__r != null ? cse.ArticleTest__r.ArticleID__c : '';
 			}
 			caseDetail.Updated = String.valueOf(cse.lastmodifiedDate);
+			caseDetail.AccountNumber = cse.Related_Billing_Account__r.LEGACY_ID__c;
+			caseDetail.AccountName = cse.Related_Billing_Account__r.Name;
+			caseDetail.AccountHeldWith = cse.Business_Unit__c;
 			caseDetailsrecords.add(caseDetail);
 		}
- 
+
 		downloadCaseDetails = JSON.serialize(caseDetailsrecords);
 	}
 
@@ -783,106 +808,159 @@ public without sharing class bspEnquiryUplift {
 	private static string getSearchEnquiriesWhereClause(Map<String, Set<Id>> mappedEntities, String billingAccountSelected){
 		// query all the ST cases based on the roles and access of the logged in user
 		// always run this query since there may be instances where cases have been raised by the current logged in user outside of what their accessible billing account scope is
-		System.debug('DOING STARTRACK ENQUIRY');
-		System.debug('>> stRecordTypes: ' + stRecordTypes);
-		System.debug('>> excludecaseTypeslist: ' + bspBaseUplift.excludecaseTypeslist);
-		System.debug('>> excludecasePurposelist: ' + bspBaseUplift.excludecasePurposelist);
-		System.debug('>> loginAccountId: ' + bspBaseUplift.loginAccountId);
-		System.debug('>> loginContactId: ' + bspBaseUplift.loginContactId);
-		System.debug('>> loginUserId: ' + bspBaseUplift.loginUserId);
-		System.debug('>> apRecordTypes:' + apRecordTypes);
 		/*
 		// Changed code to combine ST and AP Queries into 1 query.
 		*/
 		// building common roles clause for ST and AP to use in where clause
-		String roleWhere = '';
-		if(mappedEntities.get('Super Admin') != null) {
-			superAdminEntities = mappedEntities.get('Super Admin');
-			System.debug('superAdminEntities >>>> ' + superAdminEntities);
-			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( AccountId in :superAdminEntities ) ';
-		}
-
-		if(mappedEntities.get('Admin') != null) {
-			adminEntities = mappedEntities.get('Admin');
-			System.debug('adminEntities >>>> ' + adminEntities);
-			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( (Related_Billing_Account__c != null And Related_Billing_Account__c IN :adminEntities) ' +
-					' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
-		}
-
-		// additionally we need to give the user access to their own cases irrespective of the roles applied
-		roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
-
+		String roleWhere = getRoleWhere(mappedEntities);
 		/*  Building common where clause for ST and AP
 			2020-10-28 Adding the selecteEnquiryType filter for AP and ST enquiries filteration
 		*/
 		String queryWhere = '';
-		//Commented to add the filter option back for AP enquiries vs StarTrack enquiries
-		/*queryWhere += ' ( ( RecordTypeId IN :stRecordTypes AND Enquiry_Type__c NOT IN :excludecaseTypes AND call_purpose__c NOT IN :excludecasePurpose )';
-		queryWhere += ' OR ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND RecordTypeId IN :apRecordTypes) )';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + '( ' + roleWhere + ' ) ';
-		queryWhere += ((String.isNotEmpty(queryWhere) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId +'\'';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'IsChildCase__c = false';
-		queryWhere += generateFilterCriteria();
-		queryWhere = (String.isNotEmpty(queryWhere) ? ' WHERE ' : '') + queryWhere;*/
 
-		/*  DO NOT CHANGE the ORDER of this queryWhere build part otherwise query will not execute properly.
-			If it is required to change then make sure to test the whole query properly.
-		*/
-		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
-		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( RecordTypeId IN :stRecordTypes AND Enquiry_Type__c NOT IN :excludecaseTypes AND call_purpose__c NOT IN :excludecasePurpose )' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
-		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND RecordTypeId IN :apRecordTypes)' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + '( ' + roleWhere + ' ) ';
-		queryWhere += ((String.isNotEmpty(queryWhere) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId +'\'';
-		queryWhere += (String.isNotEmpty(queryWhere) ? ' AND ' : '') + 'IsChildCase__c = false';
-		queryWhere += generateFilterCriteria();
+		// get inquiry filtering
+		queryWhere += getEnquiryTypeWhere();
+		// general conditions which are not in UI filter
+		queryWhere += getGenericWhere(queryWhere, roleWhere, billingAccountSelected);
+		// use the user filters down to their own Cases only
+		queryWhere += getOrganisationWhere();
+		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date From filter.
+		queryWhere += getDatesWhere();
+		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Status filter.
+		queryWhere += getStatusWhere();
 		queryWhere = (String.isNotEmpty(queryWhere) ? ' WHERE ' : '') + queryWhere;
 
-		System.debug('queryWhere >>' + queryWhere);
 		return queryWhere;
 	}
 
 	/**
-	 * This will add to an existing where clause and surface all the additional soql criteria required for the selected parameters in the UI
+	 * Get the status query string based on the selected status filter
+	 * @return String query string
 	 */
-	private static String generateFilterCriteria() {
+	private static String getStatusWhere() {
+		String queryWhere = '';
+		selectedStatuses = new Set<String>();
 
-		String output = '';
-
-		// use the user filters down to their own Cases only
-		if(BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
-			output += ' AND ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
+		if (String.isNotBlank(caseRecStatus)) {
+			if (BspConstants.CASE_STATUS_ACTION.equals(caseRecStatus)) { //Validate if the status selected is "Action Required".
+				selectedStatuses.add('Waiting on customer');
+				selectedStatuses.add('Awaiting Customer Response');
+				selectedStatuses.add('Under investigation - Awaiting responses');
+				queryWhere += ' AND (Status IN: selectedStatuses) ';
+			} else if (BspConstants.CASE_STATUS_RESOLVED.equals(caseRecStatus)) { //Validate if the status selected is "Resolved".
+				selectedStatuses.add('Closed');
+				selectedStatuses.add('Invalid');
+				queryWhere += ' AND Status IN: selectedStatuses AND Permanent_Close__c = false ';
+			} else if (BspConstants.CASE_STATUS_CLOSED.equals(caseRecStatus)) { //Validate if the status selected is "Closed".
+				selectedStatuses.add('Closed');
+				queryWhere += ' AND ((Status IN: selectedStatuses AND Permanent_Close__c = true) OR Subject = \'Bulk Upload\') ';
+			} else if (BspConstants.CASE_STATUS_INPROGRESS.equals(caseRecStatus)) { //Validate if the status selected is "In Progress".
+				selectedStatuses.add('Closed');
+				selectedStatuses.add('Waiting on customer');
+				selectedStatuses.add('Awaiting Customer Response');
+				queryWhere += ' AND (Status NOT IN: selectedStatuses) ';
+			}
 		}
 
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date From filter.
-		if(String.isNotBlank(String.valueOf(dummyEnq1.Start_Date__c))){
+		return queryWhere;
+	}
+
+	/**
+	 * Get the Dates query string based on the selected date filters
+	 * @return String query string
+	 */
+	private static String getDatesWhere() {
+		String queryWhere = '';
+		if (String.isNotBlank(String.valueOf(dummyEnq1.Start_Date__c))) {
 			startDate = dummyEnq1.Start_Date__c;
-			output += ' AND DAY_ONLY(convertTimezone(CreatedDate)) >= :startDate ';
+			queryWhere += ' AND DAY_ONLY(convertTimezone(CreatedDate)) >= :startDate ';
 		}
 
 		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Created Date To filter.
-		if(String.isNotBlank(String.valueOf(dummyEnq1.End_Date__c))){
+		if (String.isNotBlank(String.valueOf(dummyEnq1.End_Date__c))) {
 
 			endDate = dummyEnq1.End_Date__c;
-			output += ' AND DAY_ONLY(convertTimezone(CreatedDate)) <= :endDate ';
+			queryWhere += ' AND DAY_ONLY(convertTimezone(CreatedDate)) <= :endDate ';
+		}
+		return queryWhere;
+	}
+
+	/**
+	 * Get the Organisation query string based on the selected Organisation filter : My enquiries
+	 * @return String query string
+	 */
+	private static String getOrganisationWhere() {
+		String queryWhere = '';
+		if (BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
+			queryWhere += ' AND ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
 		}
 
-		//Added by David Catindoy (March 22, 2017) - Used to add additional query clause for Status filter.
-		if(String.isNotBlank(caseRecStatus)){
-			if(BspConstants.CASE_STATUS_ACTION.equals(caseRecStatus)){ //Validate if the status selected is "Action Required".
-				output += ' AND (Status = \'Waiting on customer\' OR Status = \'Awaiting Customer Response\') ';
-			} else if(BspConstants.CASE_STATUS_RESOLVED.equals(caseRecStatus)){ //Validate if the status selected is "Resolved".
-				output += ' AND Status = \'Closed\' AND Permanent_Close__c = false ';
-			} else if(BspConstants.CASE_STATUS_CLOSED.equals(caseRecStatus)){ //Validate if the status selected is "Closed".
-				output += ' AND ((Status = \'Closed\' AND Permanent_Close__c = true) OR Subject = \'Bulk Upload\') ';
-			} else if(BspConstants.CASE_STATUS_INPROGRESS.equals(caseRecStatus)){ //Validate if the status selected is "In Progress".
-				output += ' AND (Status != \'Closed\' AND Status != \'Waiting on customer\' AND Status != \'Awaiting Customer Response\') ';
+		return queryWhere;
+	}
+
+	/**
+	 * Get the general query string which are not included in UI filter
+	 * @return String query string
+	 */
+	private static String getGenericWhere(String query, String roleWhere, String billingAccountSelected) {
+		String queryWhere = '';
+		queryWhere += (String.isNotEmpty(roleWhere) ? ' AND ( ' + roleWhere + ' ) ' : '');// TODO refactor?
+		queryWhere += (((String.isNotEmpty(queryWhere) || String.isNotEmpty(query)) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
+		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId + '\'';
+		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'IsChildCase__c = false';
+		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'Origin = \'BSP\'';
+		return queryWhere;
+	}
+
+
+	/**
+	 * Get the filtering based on Startrack or AP
+	 * @return String query string
+	 */
+	private static String getEnquiryTypeWhere() {
+		String queryWhere = '';
+		switch on selectedEnquiryType {
+			when 'ST' {
+				queryWhere += ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
+			}
+			when 'AP' {
+				queryWhere += ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))';
+			}
+			when else {
+				queryWhere += ' ( ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
+				queryWhere += ' OR ';
+				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) ))';
 			}
 		}
-		return output;
+	/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
+		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
+		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
+		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
+		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';*/
+
+		return queryWhere;
+	}
+
+	/**
+	 * Get the query string based on the billing accounts accessible
+	 * @return String query string
+	 */
+	private static String getRoleWhere(Map<String, Set<Id>> mappedEntities) {
+		String roleWhere = '';
+		if (mappedEntities.get('Super Admin') != null) {
+			superAdminEntities = mappedEntities.get('Super Admin');
+			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( AccountId in :superAdminEntities ) ';
+		}
+
+		if (mappedEntities.get('Admin') != null) {
+			adminEntities = mappedEntities.get('Admin');
+			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( (Related_Billing_Account__c != null And Related_Billing_Account__c IN :adminEntities) ' +
+					' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
+		}
+		if (!BspConstants.SELECT_OPTION_VALUE_MY_ENQ.equals(indOrgEnquiryFlag)) {
+			roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') +' ( CreatedById = \'' + bspBaseUplift.loginUserId + '\' OR ContactId = \'' + bspBaseUplift.loginContactId + '\') ';
+		}
+		return roleWhere;
 	}
 
 	/**
@@ -892,11 +970,11 @@ public without sharing class bspEnquiryUplift {
 	 * @param Case c
 	 */
 	private static String readStatus(Case c){
-		if ('awaiting customer response'.equalsIgnoreCase(c.Status) || 'waiting on customer'.equalsIgnoreCase(c.Status)) {
+		if ('awaiting customer response'.equalsIgnoreCase(c.Status) || 'waiting on customer'.equalsIgnoreCase(c.Status) || 'Under investigation - Awaiting responses'.equalsIgnoreCase(c.Status)) {
 			return 'Action Required';
-		} else if ((c.status == 'closed' && c.Permanent_Close__c) || c.subject == 'Bulk Upload') {
+		} else if (('closed'.equalsIgnoreCase(c.Status) && c.Permanent_Close__c) || 'Bulk Upload'.equalsIgnoreCase(c.Status)) {
 			return c.status;
-		} else if (c.status == 'closed' && !c.Permanent_Close__c) {
+		} else if (('closed'.equalsIgnoreCase(c.Status) || 'Invalid'.equalsIgnoreCase(c.Status)) && !c.Permanent_Close__c) {
 			return  'Resolved';
 		} else {
 			return 'In Progress';
@@ -905,11 +983,11 @@ public without sharing class bspEnquiryUplift {
 
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that populates Case's Billing_Number__c if blank.
-				   Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
-	Inputs:        List<Case>
-	Returns:       List<Case>
+					Value is retrieved from Related_Billing_Account__r.LEGACY_ID__c
+	Inputs:List<Case>
+	Returns:   List<Case>
 	History:
 	November 23, 2016 - Jen Karen Tan - Created
 	------------------------------------------------------------*/
@@ -928,10 +1006,10 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that will put Case List retrieved to a CaseContainer list
-	Inputs:        List<Case>
-	Returns:       List<CaseContainer>
+	Inputs:List<Case>
+	Returns:   List<CaseContainer>
 	History:
 	January 9, 2017 - Jen Karen Tan - Created
 	------------------------------------------------------------*/
@@ -945,7 +1023,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that creates Enquiry
 	History:
 	October 12, 2016 - Jen Karen Tan - Created
@@ -964,7 +1042,7 @@ public without sharing class bspEnquiryUplift {
 
 		//StarTrack Delivery Enquiry Case
 		if (BspConstants.CASE_RECORD_TYPE_STARTRACK_DELIVERY_ENQUIRY.equals(enq.CCUEnquiryType__c)) {
-			 //[Jansi:] recordType getting from method to have in a single place code
+				//[Jansi:] recordType getting from method to have in a single place code
 			Id deliveryEnqRT = getSTDeliveyEnquiryRecordType();
 			newCase.RecordTypeId = deliveryEnqRT;
 			if (notFound) {
@@ -1067,12 +1145,12 @@ public without sharing class bspEnquiryUplift {
 	}
 
 
-	 /**
+		/**
 	 * validate the given consignment number with special charactes(fom custom setting) and return error message if contains a special character
 	 * */
 	@AuraEnabled(cacheable=true)
 	public static String validateConsignmentNumber(String consignmentNumber){
-	   String errorMessage;
+		String errorMessage;
 			for(String s : (Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_SPECIALCHARS).Field_Name__c).split(StarTrack_Constants.SPECIALCHARS)){
 				if(consignmentNumber.contains(s)){
 					errorMessage = BspConstants.CON_NO_INVALID_CHAR_ERR + Consignment_Search_Settings__c.getValues(StarTrack_Constants.KEYWRD_SPECIALCHARS).Field_Name__c;
@@ -1082,8 +1160,8 @@ public without sharing class bspEnquiryUplift {
 		return errorMessage;
 	}
 
-   
-	 /**
+
+		/**
 	 * The method to create startrack pickupbook enquiry case and returns the created case number
 	 * */
 	@AuraEnabled
@@ -1102,7 +1180,7 @@ public without sharing class bspEnquiryUplift {
 						caseNumber = createEnquiry(null, enqObj, null, false, false, uploadedFiles, billingAccountNumber);
 					} else {
 						throw new ErrorException(BSPErrorMessages__c.getValues('Invalid Case Billing Account') != null ? BSPErrorMessages__c.getValues('Invalid Case Billing Account').Message__c :
-												 'The Billing Account entered is not applicable for this type of case.');
+													'The Billing Account entered is not applicable for this type of case.');
 					}
 				} else {
 					// either the billing account doesn't exist or the user does not have access to it
@@ -1180,7 +1258,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that process Case creation (Delivery Enquiry) after Consignment search
 	January 13, 2017 - Jen Karen Tan - Created
 	Sep 18, 2020 - Jansi - Uplift changes
@@ -1200,7 +1278,7 @@ public without sharing class bspEnquiryUplift {
 		String err = '';
 		if (searchedConsignment != null) {
 			stWrapper = new STDeliveryEnquiryResultsWapper();
-  
+
 			// if consignment number provided is valid but is not found or multiple consignment found,
 			// provide error message and ask if user wants to proceed creating case
 			if (articleNotFound(searchedConsignment)) {
@@ -1250,7 +1328,7 @@ public without sharing class bspEnquiryUplift {
 		return stWrapper;
 	}
 
-	 /**
+		/**
 	 * get the latest event message of a given article
 	 */
 	private static EventMessage__c getLatestEvent(String articleId){
@@ -1258,7 +1336,7 @@ public without sharing class bspEnquiryUplift {
 		try{
 			Article__c singleCon = [SELECT Id,ExpectedDeliveryDate_Str__c,
 									(SELECT Id, ActualDateTime_Timestamp__c,  WorkCentreText__c,  ExternalDescription__c
-									 FROM Event_Messages__r  WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC LIMIT 1)
+										FROM Event_Messages__r  WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC LIMIT 1)
 									FROM Article__c WHERE Id=:articleId LIMIT 1];
 			if(singleCon != null && singleCon.Event_Messages__r != null && singleCon.Event_Messages__r.size() > 0){
 				return singleCon.Event_Messages__r[0];
@@ -1270,7 +1348,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   StarTrack method that will close bulk cases
 	January 9, 2017 - Jen Karen Tan - Created
 	04-08-2020 - Jansi updated to 'AuraEnabled'
@@ -1309,7 +1387,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/*------------------------------------------------------------
-	Author:        Jen Karen Tan
+	Author:Jen Karen Tan
 	Description:   The method that will update cases in bulk : add the bulk case comments, after adding the comments update case status in bulk
 	January 10, 2017 - Jen Karen Tan - Created
 	Sep 09, 2020 - Jansi - Uplift changes
@@ -1374,7 +1452,7 @@ public without sharing class bspEnquiryUplift {
 		return false;
 	}
 
-	 /**
+		/**
 	 * caluculate case rules after new startrack cases are created from bsp
 	 * */
 	public static void calculateTransferCaseRule(Case caseRecord){
@@ -1432,7 +1510,7 @@ public without sharing class bspEnquiryUplift {
 		}
 	}
 
-	 /**
+		/**
 	 * get queue ow id for the given queue
 	 * */
 	public static Id queryQueue(String queueName){
@@ -1446,8 +1524,8 @@ public without sharing class bspEnquiryUplift {
 	/**
 	 * What it is: method called by LWC bspFormAPEnquiry onload
 	 * What it does:
-	 *      - Checks that the current user is allowed to create an enquiry for BSP and returns a status + message
-	 *      - Returns picklist values as dropdown options
+	 *  - Checks that the current user is allowed to create an enquiry for BSP and returns a status + message
+	 *  - Returns picklist values as dropdown options
 	 * Why: LWC requires permission checks and Case Field options
 	 * @return an EnquiryFormInitWrapper object which contains the above
 	 */
@@ -1560,7 +1638,7 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public String message {get;set;}
 	}
 
-	 /**
+		/**
 	 * Inner class to be returned  after searching of consignment number in startrack Delivery enquiry creation
 	 * */
 	public class STDeliveryEnquiryResultsWapper{
@@ -1592,7 +1670,7 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public Case enq {get;set;}
 	}
 
-	 /**
+		/**
 	 * Custom select Option: Added this because standard SelectOption class is not supported by LWC
 	 * */
 	public class SelectOptionCustom {
@@ -1629,6 +1707,9 @@ public without sharing class bspEnquiryUplift {
 		public String Status;
 		public String ArticleID;
 		public String Updated;
+		public String AccountNumber;
+		public String AccountName;
+		public String AccountHeldWith;
 	}
 
 	/**
@@ -1649,7 +1730,7 @@ public without sharing class bspEnquiryUplift {
 	}
 
 
-   /**
+	/**
 	* Case container for Case display list
 	* [Jansi:Updated to @AuraEnabled  work with LWC Component]
 	* */
@@ -1659,6 +1740,8 @@ public without sharing class bspEnquiryUplift {
 		@AuraEnabled public Case caseObj {get; set;}
 		@AuraEnabled public String sendingTo {get; set;}
 		@AuraEnabled public String caseUIStatus {get; set;}
+		@AuraEnabled public String BillingNumber {get; set;}
+		@AuraEnabled public String RecordType {get; set;}
 
 		public CaseContainer(Case c) {
 			this.caseObj = c;
@@ -1666,6 +1749,8 @@ public without sharing class bspEnquiryUplift {
 			this.isST = c.RecordType.DeveloperName.startsWith('StarTrack') ? true : false;
 			this.sendingTo = String.isNotBlank(c.BSP_Addressee_Name__c) ? c.BSP_Addressee_Name__c : c.Secondary_Contact__c;
 			this.caseUIStatus = readStatus(c);
+			this.BillingNumber = c.Billing_Number__c != null ? c.Billing_Number__c : '';
+			this.RecordType = c.RecordType.DeveloperName;
 		}
 	}
 
@@ -1722,14 +1807,12 @@ public without sharing class bspEnquiryUplift {
 	 */
 	public static void setDirectRoutingValues(Case pCase) {
 		Date eddPlusBusinessDays = getEDDPlusBusinessDays(pCase.EstimatedDelivery__c);
-		system.debug('HASANTHA DE '+eddPlusBusinessDays);
 		//if EDD (eddPlusBusinessDays) is a future date, case is eligible for on hold
 		if (eddPlusBusinessDays > Date.today()) {
 			Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{
 					SSSWConstants.QUEUE_NAME_REOPEN_Q
 			});
 			if (!vGroups.isEmpty()) {
-				system.debug('HASANTHA DE 1'+eddPlusBusinessDays);
 				pCase.OwnerId = vGroups.values()[0].Id;
 				pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
 				pCase.Case_Reopen_Date__c = eddPlusBusinessDays;

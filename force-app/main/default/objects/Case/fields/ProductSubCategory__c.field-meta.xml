@@ -1195,7 +1195,6 @@
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
             <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
-            <controllingFieldValue>International Letters</controllingFieldValue>
             <valueName>Mail redirection</valueName>
         </valueSettings>
         <valueSettings>

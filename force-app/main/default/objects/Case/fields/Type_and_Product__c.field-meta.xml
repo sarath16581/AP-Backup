@@ -623,11 +623,6 @@
                 <label>Investigation|International Parcels|StarTrack International</label>
             </value>
             <value>
-                <fullName>General Enquiry|International Letters|Mail redirection</fullName>
-                <default>false</default>
-                <label>General Enquiry|International Letters|Mail redirection</label>
-            </value>
-            <value>
                 <fullName>General Enquiry|International Letters|Airmail under 2kg</fullName>
                 <default>false</default>
                 <label>General Enquiry|International Letters|Airmail under 2kg</label>
@@ -673,11 +668,6 @@
                 <label>General Enquiry|International Letters|Express Post International</label>
             </value>
             <value>
-                <fullName>Feedback|International Letters|Mail redirection</fullName>
-                <default>false</default>
-                <label>Feedback|International Letters|Mail redirection</label>
-            </value>
-            <value>
                 <fullName>Feedback|International Letters|Airmail under 2kg</fullName>
                 <default>false</default>
                 <label>Feedback|International Letters|Airmail under 2kg</label>
@@ -721,11 +711,6 @@
                 <fullName>Feedback|International Letters|Express Post International</fullName>
                 <default>false</default>
                 <label>Feedback|International Letters|Express Post International</label>
-            </value>
-            <value>
-                <fullName>Investigation|International Letters|Mail redirection</fullName>
-                <default>false</default>
-                <label>Investigation|International Letters|Mail redirection</label>
             </value>
             <value>
                 <fullName>Investigation|International Letters|Airmail under 2kg</fullName>
