@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Assign this custom permission to enable deep cloning of CSQ records along with child records</description>
+    <isLicensed>false</isLicensed>
+    <label>CSQ Record Duplication</label>
+</CustomPermission>

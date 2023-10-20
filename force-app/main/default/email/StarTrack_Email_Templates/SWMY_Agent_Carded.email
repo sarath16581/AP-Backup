@@ -28,4 +28,4 @@
 </tbody>
 </table>
 <p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';"><br />(COPY &amp; PASTE DELIVERY DETAILS FROM CASE) <br /><br />If you could advise when this has been actioned via return email it would be greatly appreciated. <br />Kind regards,</span></p>
-<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.FirstName}</span></p>

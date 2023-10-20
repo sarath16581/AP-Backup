@@ -2212,6 +2212,13 @@ Compass quote end date has passed, please request re-activation</value>
         <value>https://www.youtube.com/embed/14l8UERN-Vg</value>
     </labels>
     <labels>
+        <fullName>BSP_Accepted_file_formats_credit_claim</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BSP_Accepted_file_formats_credit_claim</shortDescription>
+        <value>.doc, .docx, .eml, .jpeg, .jpg, .msg, .pdf, .png, .ppt, .pptx, .txt, .xls, .xlsx, .zip</value>
+    </labels>
+    <labels>
         <fullName>CFF_Last_Survey_Date</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -5231,6 +5238,14 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
         <value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
     </labels>
+	<labels>
+        <fullName>OpportunityWithIncorrectOverlayTypeSplitsAssignments</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
+        <value>Correct the {0} overlay opportunity split assignment. This opportunity has a non-{0} team member assigned a {0} overlay split: only individuals in a {0} role can be assigned a {0} overlay split.</value>
+    </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
@@ -8180,6 +8195,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Manifest only</shortDescription>
         <value>Please flag when there are no physical scans for the parcel</value>
+    </labels>
+	<labels>
+        <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The agent was equipped to provide a response</shortDescription>
+        <value>Please provide further details in Network Response</value>
     </labels>
     <labels>
         <fullName>Other</fullName>

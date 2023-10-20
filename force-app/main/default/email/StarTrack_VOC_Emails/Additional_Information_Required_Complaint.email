@@ -58,7 +58,7 @@ Thank you for getting in touch with us.<br><br>We’re very sorry to hear about 
 I look forward to your response.
 <hr>
                                                                          Kind Regards,<br>
-{!User.CommunityNickname}<br>
+{!User.FirstName}<br>
 StarTrack Voice of Customer Team<br>
 Ph: {!User.Phone}<br>
 E: customer.satisfaction@startrack.com.au<br>

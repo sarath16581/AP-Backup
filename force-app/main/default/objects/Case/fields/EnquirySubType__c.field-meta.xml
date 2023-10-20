@@ -898,7 +898,6 @@
             <controllingFieldValue>Investigation|Travel &amp; ID|My Post ID card</controllingFieldValue>
             <controllingFieldValue>Investigation|International Parcels|StarTrack International</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Airmail under 2kg</controllingFieldValue>
@@ -1125,7 +1124,6 @@
             <controllingFieldValue>General Enquiry|Travel &amp; ID|Passport</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Travel &amp; ID|MyPost Concession Card</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Travel &amp; ID|My Post ID card</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>
@@ -2771,7 +2769,6 @@
             <controllingFieldValue>General Enquiry|International Parcels|Express Post International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Parcels|International Express</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Parcels|StarTrack International</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>

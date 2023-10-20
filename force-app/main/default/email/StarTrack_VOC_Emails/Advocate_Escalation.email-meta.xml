@@ -14,7 +14,7 @@ Please see the attached customer complaint – VOC Case Number {Insert VOC Incid
 Please ensure appropriate action is taken as soon as possible.
 
 Kind Regards,
-{!User.Name}
+{!User.FirstName}
 StarTrack Voice of Customer Team
 
 {!Case.Thread_Id}

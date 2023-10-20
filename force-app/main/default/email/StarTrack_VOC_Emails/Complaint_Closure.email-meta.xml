@@ -14,7 +14,7 @@ Thanks for getting in touch regarding {Insert here}.
 We would like to offer our sincere apologies for the inconvenience this has caused. Your experience certainly does not meet the high standards of customer service we at StarTrack pride ourselves on, and your feedback gives us a valuable opportunity to improve upon our service. In order to ensure this doesn’t occur again, I have forwarded this to {Insert here} for their attention. If you have any further questions or concerns in relation to this case, please respond to this email and we will address them for you as soon as we can.
 
 Kind Regards,
-{!User.Name}
+{!User.FirstName}
 StarTrack Voice of Customer Team
 
 {!Case.Thread_Id}
