@@ -27,7 +27,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SaveCartEditOpportunityProducts</shortDescription>
-        <value>Save Cart &amp; Edit Opportunity Products</value>
+        <value>Save Cart &amp; Bulk Edit Opportunity Products</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_LEAD_BGSTANDARD</fullName>
