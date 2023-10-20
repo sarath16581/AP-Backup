@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Check_MoneyOrder_Value</fullName>
-    <active>true</active>
-    <description>Money Order compensation: the total value should be minimum 2 and maximum 5000.00</description>
+    <active>false</active>
+    <description>Money Order compensation: the total value should be minimum 2 and maximum 5000.00
+Inactivating rule REQ3311264</description>
     <errorConditionFormula>AND(($RecordType.DeveloperName =&apos;Money_Order&apos;),(BLANKVALUE(Compensation_Amount__c,0) + BLANKVALUE(Service_Value__c,0) &lt;2)||(BLANKVALUE(Compensation_Amount__c,0)+ BLANKVALUE(Service_Value__c,0) &gt;5000))</errorConditionFormula>
     <errorMessage>Money Order Compensation amount has to be equal to or greater than $2 and not more than $5000</errorMessage>
 </ValidationRule>
