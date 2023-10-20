@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>false</active>
+    <active>true</active>
     <allowRecall>false</allowRecall>
     <allowedSubmitters>
         <type>creator</type>
@@ -15,13 +15,19 @@
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>SSSW_Approve</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
         <assignedApprover>
             <approver>
                 <type>userHierarchyField</type>
             </approver>
         </assignedApprover>
         <entryCriteria>
-            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <booleanFilter>(1 OR 2 OR 3) AND (4 OR 5 OR 6)</booleanFilter>
             <criteriaItems>
                 <field>Compensation__c.Total_Compensation_Amount__c</field>
                 <operation>greaterOrEqual</operation>
@@ -37,12 +43,60 @@
                 <operation>greaterOrEqual</operation>
                 <value>500</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Total_Compensation_Amount__c</field>
+                <operation>lessThan</operation>
+                <value>5000</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Replacement_Value__c</field>
+                <operation>lessThan</operation>
+                <value>5000</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.SDR_Value__c</field>
+                <operation>lessThan</operation>
+                <value>5000</value>
+            </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
-        <label>Compensation Value is Greater than $500</label>
-        <name>Compensation_Value_is_Greater_than_500</name>
+        <label>Compensation Value is Greater than $500 and less than 5k</label>
+        <name>Compensation_Value_is_Greater_than_500_less_than_5k</name>
     </approvalStep>
-    <description>Approval Process that is valid for EFT recordtype where the customer has agreed to provide bank details via a webform for an amount more than or equal to 500</description>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>leonid.kefalianos@auspost.com.au</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <criteriaItems>
+                <field>Compensation__c.Total_Compensation_Amount__c</field>
+                <operation>greaterOrEqual</operation>
+                <value>5000</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Replacement_Value__c</field>
+                <operation>greaterOrEqual</operation>
+                <value>5000</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.SDR_Value__c</field>
+                <operation>greaterOrEqual</operation>
+                <value>5000</value>
+            </criteriaItems>
+        </entryCriteria>
+        <label>Compensation Value is Greater than $5k</label>
+        <name>Compensation_Value_is_Greater_than_5k</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <description>Approval Process that sends the approval to the centre manager if over $500 and additional approver for $5k for International Accounting, Account Credit and Replacement Products</description>
     <emailTemplate>SSSWCaseTemplates/SSSW_Compensation_Approval_Req_CCM</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
@@ -50,7 +104,7 @@
         <criteriaItems>
             <field>Compensation__c.RecordType</field>
             <operation>equals</operation>
-            <value>EFT</value>
+            <value>Account Credit,International Accounting,Replacement Product,EFT</value>
         </criteriaItems>
         <criteriaItems>
             <field>Compensation__c.Status__c</field>
@@ -75,12 +129,12 @@
         <criteriaItems>
             <field>Compensation__c.Bank_Detail_Provided_By_Customer__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>False</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>
         <action>
-            <name>SSSW_Approved_Awaiting_Customer</name>
+            <name>SSSW_Approve</name>
             <type>FieldUpdate</type>
         </action>
     </finalApprovalActions>
@@ -92,7 +146,7 @@
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
-    <label>Compensation - Awaiting Customer &gt; 500</label>
+    <label>Compensation - Non Money order 500 v2</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>CallCentreManager__c</userHierarchyField>
