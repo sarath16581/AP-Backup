@@ -21,6 +21,7 @@
  *										   validation errors to lwc component
  * 2023-08-18 - Ranjeewa Silva - Updated to display validation errors when moving to next stage for opportunities in any stage.
  * 2023-10-16 - Mahesh Parvathaneni - Updated populateValidationErrorResults to check for new line in the error message
+ * 2023-10-20 - Mahesh Parvathaneni - Updated populateValidationErrorResults to unescape greater than symbol in html
  */
 
 import {LightningElement, track, api, wire} from 'lwc';
@@ -139,9 +140,10 @@ export default class OpportunityCloseErrors extends LightningElement {
 		this.progressErrs = [];
 		if(result.validationMessages) {
 			result.validationMessages.forEach((errMsg)=>{
-				var eMsg = errMsg.replace(/&quot;/g,'\'');
-				var eMsgVar = eMsg.replace(/amp;/g,'');
-				let eMsgArray = eMsgVar.split(/\n/);
+				errMsg = errMsg.replace(/&quot;/g,'\'');
+				errMsg = errMsg.replace(/amp;/g,'');
+				errMsg = errMsg.replace(/&gt;/g , ">");
+				let eMsgArray = errMsg.split(/\n/);
 				eMsgArray.forEach(eMsgVal => {
 					this.progressErrs.push(eMsgVal);
 				})
