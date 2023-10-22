@@ -292,6 +292,11 @@
                 <default>false</default>
                 <label>Pot plant</label>
             </value>
+			<value>
+                <fullName>Delivered to incorrect address - Retrieved and redelivered</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - Retrieved and redelivered</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
@@ -345,6 +350,10 @@
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address - retrieval attempt - delivered by resident</valueName>
+        </valueSettings>
+		<valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
