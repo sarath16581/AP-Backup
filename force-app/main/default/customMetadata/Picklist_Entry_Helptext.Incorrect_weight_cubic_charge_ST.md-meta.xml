@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Incorrect weight/cubic charge</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessUnit__c</field>
+        <value xsi:type="xsd:string">ST</value>
+    </values>
+    <values>
+        <field>IsAttachmentRequired__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Message__c</field>
+        <value xsi:type="xsd:string">&lt;p&gt;Please articulate why the weight or cubic charge has been inaccurately applied.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Attaching evidence to support your case such as photos, purchase orders and / or picking slips.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;These should highlight the correct weight and / or dimensions.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Despatch screens or hand written details will not be considered.&lt;/p&gt;</value>
+    </values>
+    <values>
+        <field>Object_Field_Name__c</field>
+        <value xsi:type="xsd:string">Case.ReasonforCreditClaim__c</value>
+    </values>
+</CustomMetadata>
