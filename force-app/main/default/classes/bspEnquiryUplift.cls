@@ -15,6 +15,7 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 04/09/2023	hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
+23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -373,6 +374,20 @@ public without sharing class bspEnquiryUplift {
 			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name));
 		}
 		return options;
+	}
+
+	/**
+	 * get the help text custom metadata by label
+	 * @return help text custom metadata by label
+	 */
+	@AuraEnabled(cacheable=true)
+	public static Map<String, Picklist_Entry_Helptext__mdt> buildReasonForClaimHelpText(){
+		Map<String, Picklist_Entry_Helptext__mdt> reasonDescriptionMap = new Map<String, Picklist_Entry_Helptext__mdt>();
+		for (Picklist_Entry_Helptext__mdt reason : bspBaseUplift.creditClaimReasonHelpTexts) {
+			String key = reason.Label+'_'+reason.BusinessUnit__c;
+			reasonDescriptionMap.put(key.replaceAll('\\s+', '').toLowerCase(), reason);
+		}
+		return reasonDescriptionMap;
 	}
 
 	/**

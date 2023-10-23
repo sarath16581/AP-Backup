@@ -195,7 +195,7 @@
 									</lightning-combobox>
 								</lightning-layout-item>
 								<!-- reasonForCreditClaim -->
-								<lightning-layout-item size="12" large-device-size="9">
+								<lightning-layout-item size="12" large-device-size="9" class="slds-p-bottom_x-large">
 									<lightning-combobox label="Reason for credit claim"
 														data-validation="creditClaimForm"
 														data-id="reasonClaim"
@@ -206,8 +206,15 @@
 														onfocus={handleFocus}
 														message-when-value-missing="Please enter a reason"
 														required
-														class="brand-form-input slds-p-bottom_x-large">
+														class="brand-form-input">
 									</lightning-combobox>
+									<template if:true={reasonClaimHelpText}>
+									<span>
+										<p class="slds-var-p-top_xx-small">
+											<lightning-formatted-rich-text  value={reasonClaimHelpText}></lightning-formatted-rich-text>
+										</p>
+									</span>
+									</template>
 								</lightning-layout-item>
 								<!-- claimAmount -->
 								<lightning-layout-item size="12" large-device-size="9">

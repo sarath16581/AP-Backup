@@ -7,6 +7,7 @@
  * @description A selector for querying picklist entry helptext records
  * @changelog
  * 2023-06-02 - Pratyush Chalasani - Created
+ * 2023-1023	-	Hasantha Liyanage - Modified : added BusinessUnit__c, IsAttachmentRequired__c and Message__c fields to getSObjectFieldList
  */
 public without sharing class PicklistEntryHelptextSelector  extends ApplicationSelector {
 	public static PicklistEntryHelptextSelector newInstance() {
@@ -19,7 +20,8 @@ public without sharing class PicklistEntryHelptextSelector  extends ApplicationS
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			Picklist_Entry_Helptext__mdt.Label, Picklist_Entry_Helptext__mdt.DeveloperName
+				Picklist_Entry_Helptext__mdt.Label, Picklist_Entry_Helptext__mdt.DeveloperName, Picklist_Entry_Helptext__mdt.BusinessUnit__c, Picklist_Entry_Helptext__mdt.IsAttachmentRequired__c
+				, Picklist_Entry_Helptext__mdt.Message__c
 		};
 	}
 

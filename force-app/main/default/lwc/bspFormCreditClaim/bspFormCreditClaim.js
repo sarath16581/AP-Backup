@@ -8,6 +8,7 @@
  * 2023-08-11 - Thang Nguyen - Created
  * 2023-08-16 - Hasantha Liyanage - auto populate account held with
  * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
+ * 2023-10-23 - Hasantha Liyanage - added credit claim reason display help text capability
  */
 import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
@@ -25,6 +26,7 @@ import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProf
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
 import createCreditClaim from '@salesforce/apex/BSPCreditClaimController.createCreditClaim';
 import getBillingAccounts from '@salesforce/apex/bspEnquiryUplift.buildBillingAccountOptions';
+import getCreditClaimReasonHelpTexts from '@salesforce/apex/bspEnquiryUplift.buildReasonForClaimHelpText';
 import getRelatedSuperAdminRoles from '@salesforce/apex/BSPCreditClaimController.getSuperAdminRoles';
 import isValidBillingAccount from '@salesforce/apex/BSPCreditClaimController.isValidBillingAccount';
 import acceptedFileFormats from '@salesforce/label/c.BSP_Accepted_file_formats_credit_claim';
@@ -71,6 +73,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	accountHeldWith;
 	disputeType;
 	reasonClaim;
+	reasonClaimHelpText = "";
 	claimAmount;
 	description;
 
@@ -88,6 +91,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	};
 	acceptedFileFormats = acceptedFileFormats;
 	allBillingAccOptions = [];
+	creditClaimReasonHelpTexts = [];
 	superAdminRoles;
 	showBilling = false;
 	defaultValue = {}; // contains default value for billing account dropdown
@@ -177,6 +181,17 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				console.error(error);
 			}).finally(() => {
 
+			});
+
+		await getCreditClaimReasonHelpTexts()
+			.then((data) => {
+				this.creditClaimReasonHelpTexts = data;
+				console.log(this.creditClaimReasonHelpTexts);
+				console.log('this.creditClaimReasonHelpTexts');
+			})
+			.catch((error) => {
+				console.error(error);
+			}).finally(() => {
 			});
 	}
 
@@ -285,8 +300,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 	onChangeField(event) {
 		const field = event.target.dataset.id;
-		switch(field)
-		{
+		switch(field) {
 			case 'businessName':
 				this.businessName = event.detail.value;
 				break;
@@ -311,6 +325,16 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 			case 'reasonClaim':
 				this.reasonClaim = event.detail.value;
+				let businessUnit = '';
+				if (this.accountHeldWith === 'Australia Post') {
+					businessUnit = 'ap';
+				} else if (this.accountHeldWith === 'StarTrack') {
+					businessUnit = 'st';
+				}
+				const stringWithoutSpaces = event.target.value.replace(/\s+/g, '').toLowerCase();
+				const reasonHelpText = this.creditClaimReasonHelpTexts[stringWithoutSpaces+'_'+businessUnit];
+				this.reasonClaimHelpText = '';
+				this.reasonClaimHelpText = reasonHelpText.Message__c;
 				break;
 			case 'claimAmount':
 				this.claimAmount = event.detail.value;
