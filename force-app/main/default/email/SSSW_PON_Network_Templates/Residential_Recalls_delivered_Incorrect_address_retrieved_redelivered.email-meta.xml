@@ -19,13 +19,12 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this parcel was delivered to the address on the label.
+I have met with the team member responsible for the delivery of this item, and they have advised that your item was mistakenly delivered to an incorrect address.
 
-I encourage you to contact your sender to confirm the address that the item was sent to.
+They have also advised that your item has since been retrieved and delivered to the correct address.
 
-For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
+I&apos;m sorry that this delivery did not go as planned.
 
-Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}
