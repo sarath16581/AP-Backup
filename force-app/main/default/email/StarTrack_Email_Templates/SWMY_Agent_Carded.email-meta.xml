@@ -28,7 +28,7 @@ Address
 If you could advise when this has been actioned via return email it would be greatly appreciated.
 Kind regards,
 
-{!User.Name}</textOnly>
+{!User.FirstName}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

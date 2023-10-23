@@ -47,6 +47,7 @@ import LABEL_MANIFESTADDRESS from '@salesforce/label/c.GPS_SDI_match_manifest_ad
 import LABEL_INCORRECTFACILITY from '@salesforce/label/c.Incorrect_facility';
 import LABEL_INVALIDDATA from '@salesforce/label/c.Invalid_Incorrect_Missing_data';
 import LABEL_MANIFESTONLY from '@salesforce/label/c.Manifest_only';
+import LABEL_AGENTRESPONSE from '@salesforce/label/c.The_agent_was_equipped_to_provide_a_response'
 import LABEL_OTHER from '@salesforce/label/c.Other';
 import LABEL_REQOUTSIDESERVICE from '@salesforce/label/c.Request_outside_service_offering';
 import LABEL_UNABLETOFULFILREQ from '@salesforce/label/c.Unable_to_fulfil_request';
@@ -158,6 +159,9 @@ export default class MyNetworkCaseUserResponse extends NavigationMixin(Lightning
 				break;
 			case 'Manifest_only':
 				this.flagCaseReviewLabel=LABEL_MANIFESTONLY;
+				break;
+			case 'The_agent_was_equipped_to_provide_a_response':
+				this.flagCaseReviewLabel=LABEL_AGENTRESPONSE;
 				break;
 			case 'Other':
 				this.flagCaseReviewLabel=LABEL_OTHER;

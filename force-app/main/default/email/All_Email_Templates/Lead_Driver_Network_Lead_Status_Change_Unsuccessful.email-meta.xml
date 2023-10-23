@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
+    <description>Lead Driver Network Email Communication</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Lead Driver Network - Lead Status change - Unsuccessful</name>
     <style>none</style>
@@ -9,9 +10,9 @@
 
 The lead you submitted for {!Lead.Company} has been {!Lead.Status}.
 
-If you have any questions, please email us at seekerrewards@seeker.auspost.com.au 
+If you have any questions, please email us at seekerrewards@seeker.auspost.com.au
 
-Regards, 
+Regards,
 The Driver Leads Program team
 
 

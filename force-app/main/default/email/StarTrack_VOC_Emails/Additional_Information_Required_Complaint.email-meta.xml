@@ -17,7 +17,7 @@ We’re very sorry to hear about your situation and can assure you that this isn
 I look forward to your response.
 
 Kind Regards,
-{!User.Name}
+{!User.FirstName}
 StarTrack Voice of Customer Team
 Ph: {User Phone Number}
 E: customer.satisfaction@startrack.com.au

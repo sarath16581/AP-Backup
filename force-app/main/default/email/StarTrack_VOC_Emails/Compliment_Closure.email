@@ -58,7 +58,7 @@ Thanks for getting in touch! We always love to hear that our service has made a 
 I have passed your feedback on to {Insert here} so they can recognise the great work of {Insert here}. <br><br>If you have any questions in relation to this case, please respond to this email and we will address them for you as soon as we can.
 <hr>
                                                                          Kind Regards,<br>
-{!User.CommunityNickname}<br>
+{!User.FirstName}<br>
 StarTrack Voice of Customer Team<p/>
                                                              </td>
                                                   </tr> 									

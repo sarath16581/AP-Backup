@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>CSQ_Record_Duplication</name>
+    </customPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Customer_Scoping_Questionnaire__c.Account_Manager_Email__c</field>
@@ -491,6 +495,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.OwnerId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.Owned_By_Me__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Pick_Up_Location__c.Pick_up_Location_Status__c</field>
         <readable>true</readable>
@@ -589,4 +603,8 @@
         <tab>standard-Opportunity</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+	<classAccesses>
+		<apexClass>CSQApprovalsController</apexClass>
+		<enabled>true</enabled>
+	</classAccesses>
 </PermissionSet>

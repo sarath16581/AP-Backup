@@ -61,7 +61,7 @@ We would love to pass your positive feedback onto {Insert here} however, we requ
 Could you please provide me with {Insert here}.
 <hr>
                                                                          Kind Regards,<br>
-{!User.CommunityNickname}<br>
+{!User.FirstName}<br>
 StarTrack Voice of Customer Team<p/>
                                                              </td>
                                                   </tr> 									
