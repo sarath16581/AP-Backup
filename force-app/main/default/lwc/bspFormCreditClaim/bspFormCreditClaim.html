@@ -1,0 +1,324 @@
+<!--
+ - Created by Thang Nguyen on 18/07/2020.
+ -->
+
+<!-- Bsp Form Credit Claim -->
+<template>
+	<!-- Navigation links-->
+	<c-bsp-breadcrumb bread-crumb-text={formTitle}></c-bsp-breadcrumb>
+	<div>
+		<!-- Case Creation Form -->
+		<div class="slds-grid slds-grid_align-center">
+			<div
+					class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_9-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+				<template if:false={successCreation}>
+					<!-- spinner -->
+					<template if:true={showSpinner}>
+						<lightning-spinner variant="brand" size="medium"
+										   alternative-text="loading...">
+						</lightning-spinner>
+					</template>
+					<lightning-card title="">
+						<div class="slds-p-horizontal_x-large slds-p-bottom_large">
+							<!-- Form Title-->
+							<div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
+								<h2>{formTitle}</h2>
+							</div>
+							<!-- error display -->
+							<template if:true={errorMessage}>
+								<c-bsp-error data-id="error"
+											 error-message={errorMessage}></c-bsp-error>
+							</template>
+							<lightning-layout multiple-rows="true">
+								<!-- Business and contact details HEADING -->
+								<div>
+									<h3 class="slds-p-vertical_large">Business and contact
+										details</h3>
+								</div>
+								<!-- businessName -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-input label="Business name"
+													 data-validation="creditClaimForm"
+													 value={businessName}
+													 data-id="businessName"
+													 onchange={onChangeField}
+													 name="businessName"
+													 type="text"
+													 required
+													 placeholder="Enter the Business Name"
+													 message-when-value-missing="Please enter business name"
+													 class="brand-form-input slds-p-bottom_x-large"
+													 disabled
+													 max-length="255">
+									</lightning-input>
+								</lightning-layout-item>
+								<!-- businessAccountNumber -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<template lwc:if={showBilling}>
+										<div class="slds-p-bottom_x-large">
+											<c-bsp-type-ahead
+													input-message-when-value-missing="Please select an account number"
+													default-value={defaultValue}
+													onselection={handleOnSelectionBillingAccount}
+													oninputfocusout={handleOnInputFocusOutBillingAccount}
+													input-required="true"
+													input-label="Account number"
+													input-sub-label="As shown on your invoice"
+													picklist-options={allBillingAccOptions}
+													other-options={otherOptions}
+											></c-bsp-type-ahead>
+										</div>
+										<template lwc:if={isShowOtherBillingAccountField}>
+											<div class="slds-form slds-form_stacked slds-p-bottom_x-large">
+												<label for="customBillingNumberInput"
+													   class="slds-form-element__label slds-no-flex">
+													<abbr class="slds-required"
+														  title="required">*</abbr>
+													Other account number
+													<span class="bsp-body_small"><br/>&nbsp;&nbsp;&nbsp;&nbsp; As shown on your invoice</span>
+												</label>
+												<lightning-input id='customBillingNumberInput'
+																 data-validation="creditClaimForm"
+																 value={billingNumber}
+																 variant="label-hidden"
+																 data-id="businessAccountNumberOther"
+																 onchange={onChangeField}
+																 name="otherBusinessAccountNumber"
+																 type="text"
+																 onfocus={handleFocus}
+																 onfocusout={handleFocusOut}
+																 required
+																 pattern="[a-zA-Z0-9]*"
+																 message-when-pattern-mismatch="Invalid other account number format - Special characters are not permitted"
+																 placeholder="Enter the account number"
+																 message-when-value-missing="Please enter other account number"
+																 class="brand-form-input "
+																 max-length="255">
+												</lightning-input>
+												<template lwc:if={isShowRequestAccessContent}>
+													<div class="slds-p-left_medium">
+														<c-bsp-request-access-content
+																content-param={requestAccessContent}
+																billing-number={billingNumber}></c-bsp-request-access-content>
+													</div>
+												</template>
+											</div>
+										</template>
+									</template>
+								</lightning-layout-item>
+								<!-- contactName -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-input label="Contact name"
+													 data-validation="creditClaimForm"
+													 value={contactName}
+													 data-id="contactName"
+													 onchange={onChangeField}
+													 name="contactName"
+													 type="text"
+													 onfocus={handleFocus}
+													 required
+													 disabled
+													 placeholder="Enter the contact name"
+													 message-when-value-missing="Please enter contact name"
+													 class="brand-form-input slds-p-bottom_x-large"
+													 max-length="255">
+									</lightning-input>
+								</lightning-layout-item>
+								<!-- contactEmailAddress -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-input label="Contact email address"
+													 data-validation="creditClaimForm"
+													 value={contactEmailAddress}
+													 data-id="contactEmailAddress"
+													 onchange={onChangeField}
+													 name="contactEmailAddress"
+													 type="text"
+													 onfocus={handleFocus}
+													 required
+													 disabled
+													 placeholder="Enter the contact email address"
+													 message-when-value-missing="Please enter a valid email address"
+													 class="brand-form-input slds-p-bottom_x-large"
+													 pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+													 message-when-pattern-mismatch="Please enter a valid email address"
+													 max-length="255">
+									</lightning-input>
+								</lightning-layout-item>
+								<!-- contactPhoneNumber -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-input label="Contact phone number (optional)"
+													 data-validation="creditClaimForm"
+													 value={contactPhoneNumber}
+													 data-id="contactPhoneNumber"
+													 onchange={onChangeField}
+													 name="contactPhoneNumber"
+													 type="text"
+													 placeholder="Enter the contact phone number"
+													 class="brand-form-input slds-p-bottom_x-large"
+													 max-length="255">
+									</lightning-input>
+								</lightning-layout-item>
+								<!-- Claim description HEADING -->
+								<lightning-layout-item size="12">
+									<div>
+										<h3 class="slds-p-vertical_large">Claim description</h3>
+									</div>
+								</lightning-layout-item>
+								<!-- accountHeldWith -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-combobox label="Account held with"
+														data-validation="creditClaimForm"
+														data-id="accountHeldWith"
+														value={accountHeldWith}
+														placeholder="Make a selection"
+														options={accountHeldWithList}
+														onchange={onChangeField}
+														onfocus={handleFocus}
+														message-when-value-missing="Please enter account held with"
+														required
+														class="brand-form-input slds-p-bottom_x-large">
+									</lightning-combobox>
+								</lightning-layout-item>
+								<!-- disputeType -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-combobox label="Dispute type"
+														data-validation="creditClaimForm"
+														data-id="disputeType"
+														value={disputeType}
+														placeholder="Select a dispute type"
+														options={disputeTypeList}
+														onchange={onChangeField}
+														onfocus={handleFocus}
+														message-when-value-missing="Please enter dispute type"
+														required
+														class="brand-form-input slds-p-bottom_x-large">
+									</lightning-combobox>
+								</lightning-layout-item>
+								<!-- reasonForCreditClaim -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-combobox label="Reason for credit claim"
+														data-validation="creditClaimForm"
+														data-id="reasonClaim"
+														value={reasonClaim}
+														placeholder="Select a reason"
+														options={reasonClaimList}
+														onchange={onChangeField}
+														onfocus={handleFocus}
+														message-when-value-missing="Please enter a reason"
+														required
+														class="brand-form-input slds-p-bottom_x-large">
+									</lightning-combobox>
+								</lightning-layout-item>
+								<!-- claimAmount -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-input label="Total amount claimed ($) (optional)"
+													 value={claimAmount}
+													 data-validation="creditClaimForm"
+													 data-id="claimAmount"
+													 onchange={onChangeField}
+													 name="claimAmount"
+													 type="number"
+													 formatter="currency"
+													 onfocus={handleFocus}
+													 message-when-value-missing="Enter the total amount"
+													 message-when-step-mismatch="Your entry isn't a valid increment. Please enter correct format of currency."
+													 message-when-range-underflow="Total amount cannot be a negative value"
+													 min=".01"
+													 step=".01"
+													 class="brand-form-input slds-p-bottom_x-large"
+													 max-length="20">
+									</lightning-input>
+								</lightning-layout-item>
+								<!-- description -->
+								<lightning-layout-item size="12" large-device-size="9">
+									<lightning-textarea label="Description"
+														data-validation="creditClaimForm"
+														data-id="description"
+														type="text"
+														value={description}
+														onchange={onChangeField}
+														message-when-value-missing="Please enter a description of your claim"
+														onfocus={handleFocus}
+														required
+														class="brand-form-input slds-p-bottom_x-large"
+														max-length="32000">
+									</lightning-textarea>
+								</lightning-layout-item>
+								<template if:true={showDisputedTransactionSection}>
+									<!--  Disputed Transactions HEADING -->
+									<lightning-layout-item size="12">
+										<div>
+											<h3 class="slds-p-vertical_large">Disputed transactions</h3>
+										</div>
+									</lightning-layout-item>
+									<!--  Files upload -->
+									<lightning-layout-item size="12">
+										<c-bsp-dispute-items
+												account-held-with={accountHeldWith}></c-bsp-dispute-items>
+									</lightning-layout-item>
+								</template>
+								<!-- Supporting documents HEADING -->
+								<lightning-layout-item size="12">
+									<div>
+										<h3 class="slds-p-vertical_large">Supporting documents</h3>
+										<div>
+											Allowed file types are {acceptedFileFormats}
+											<br>
+											Maximum file size for each attachment is 10MB
+										</div>
+									</div>
+								</lightning-layout-item>
+								<!--  Files upload -->
+								<lightning-layout-item size="12">
+									<c-bsp-upload-files onfileupload={onUploadFinished}
+														accepted-format-over-write={acceptedFileFormats}
+														label-over-write={fileUploadLabel}></c-bsp-upload-files>
+								</lightning-layout-item>
+							</lightning-layout>
+							<!-- Buttons -->
+							<div class="slds-p-top_x-large">
+								<span class="slds-text-color_error">*</span>&nbsp;Required
+								information
+							</div>
+							<div class="slds-p-top_x-large">
+								<lightning-button label="Cancel" title="Cancel"
+												  class="brand-tertiary-button slds-p-right_medium"
+												  variant="Neutral"
+												  onclick={navigateHome}>
+								</lightning-button>
+								<lightning-button label="Submit" title="Submit" data-id="submit"
+												  class="brand-primary-button" variant="destructive"
+												  onclick={onSubmitRequest}>
+								</lightning-button>
+							</div>
+						</div>
+					</lightning-card>
+				</template>
+				<div if:true={showModal}>
+					<c-bsp-modal-basic onclosemodal={closeModal}>
+						<span slot="body">
+									<p>You haven’t attached any supporting documents to this credit claim.</p>
+							<p class="slds-var-p-top_large">
+									For “{reasonClaim}“ credit claims,
+										we recommend that you upload relevant file(s) that support the validity of your claim.
+								</p>
+							</span>
+						<span slot="footer">
+							<button class="slds-button slds-button_neutral" name="close"
+									data-buttonname="close" onclick={handleButtonClick}>Close and upload file</button>
+							<button class="slds-button slds-button_brand" name="submitAnyway"
+									data-buttonname="submitAnyway" onclick={handleButtonClick}>Submit anyway</button>
+						</span>
+					</c-bsp-modal-basic>
+				</div>
+				<!--Case creation Success -->
+				<template if:true={successCreation}>
+					<c-bsp-enquiry-creation-success enquiy-type='Auspost'
+													case-number={tempCase.CaseNumber}
+													page-type="credit claim">
+					</c-bsp-enquiry-creation-success>
+				</template>
+			</div>
+		</div>
+	</div>
+</template>

@@ -5,12 +5,14 @@
  * @test OpportunitySalesPipelineModule_Test
  * @changelog
  * 2023-08-07 - Ranjeewa Silva - Created.
+ * 2023-10-16 - Mahesh Parvathaneni - STP-9274 - Added validation when incorrect overlay type assigned to team members
  */
 public inherited sharing class OpportunitySalesPipelineModule extends ApplicationModule {
 
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_COMPETITORS = new Set<String>{'Propose', 'Negotiate', 'Closed Won'};
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_NO_OPEN_DSR = new Set<String>{'Closed Won'};
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_NO_ACTIVE_CONTRACT = new Set<String>{'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'};
+	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_OPP_SPLITS_OVERLAY_CONTRIBUTION = new Set<String>{'Qualify', 'Propose', 'Negotiate', 'Closed Won'};
 	@TestVisible private static final Set<String> CONTRACT_STAGES_ACTIVE_INFLIGHT_CONTRACT = new Set<String>{'In Signatures', 'In Effect', 'Amended', 'Renewed'};
 
 	private static Set<String> MONITORED_OPPORTUNITY_STAGES {
@@ -20,6 +22,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_COMPETITORS);
 				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_NO_OPEN_DSR);
 				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_NO_ACTIVE_CONTRACT);
+				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_OPP_SPLITS_OVERLAY_CONTRIBUTION);
 				MONITORED_OPPORTUNITY_STAGES = monitored;
 			}
 			return MONITORED_OPPORTUNITY_STAGES;
@@ -79,7 +82,8 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Id, Opportunity.StageName},
 				Competitor__c.SObjectType => new Set<SObjectField>{Competitor__c.Id},
 				Deal_Support_Request__c.SObjectType => new Set<SObjectField>{Deal_Support_Request__c.Id, Deal_Support_Request__c.Stage__c},
-				Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id, Apttus__APTS_Agreement__c.Apttus__Status_Category__c}
+				Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id, Apttus__APTS_Agreement__c.Apttus__Status_Category__c},
+				OpportunitySplit.SObjectType => new Set<SObjectField>{OpportunitySplit.Id, OpportunitySplit.Overlay_Type__c, OpportunitySplit.SplitOwnerId}
 		};
 
 		Map<Id, Opportunity> opportunitiesWithChildRecords = ((OpportunitiesSelector) OpportunitiesSelector.newInstance()
@@ -89,8 +93,15 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 					OpportunitiesSelector.Options.WITH_DEAL_SUPPORT_REQUESTS,
 					OpportunitiesSelector.Options.WITH_APTTUS_CONTRACTS,
 					DealSupportRequestsSelector.Options.WITH_RECORDTYPE,
-					ApttusContractsSelector.Options.WITH_RECORDTYPE
+					ApttusContractsSelector.Options.WITH_RECORDTYPE,
+					OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS
 				});
+
+		//get the allowed overlay contribution types for the opp splits team members based on the custom 
+		//metadata SalesOverlayTypeMapping__mdt configuration and public group membership check from OpportunitySplitUtility.getEligibleOverlayContributionTypes method
+		//Set<String> -- {'Sales Specialist', 'Product Specialist'}
+		//Map<Id, Set<String>> -- {'0051v00000i5Bx6AAE' => {'Sales Specialist', 'Product Specialist'},'0051z00000i5Bx6AAE' => {'Sales Specialist'}}
+		Map<Id, Set<String>> eligibleOverlayTypesAssignedBySplitMemberIdMap = getOverlaySplitEligibilityBySplitOwners(opportunitiesWithChildRecords);
 
 		for (Opportunity record: records.values()) {
 
@@ -120,6 +131,14 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 						break;
 					}
 				}
+			}
+
+			// check opportunity splits in overlay contribution are correctly assigned to correct role of team members 
+			// before progressing opportunity stage
+			if (OPPORTUNITY_STAGES_VALIDATE_OPP_SPLITS_OVERLAY_CONTRIBUTION.contains(record.StageName)
+					&& !opportunityWithChildRecords.OpportunitySplits.isEmpty()) {
+
+					validateOverlayOpportunitySplitAssignmentForSpecialistUsers(record, opportunityWithChildRecords.OpportunitySplits, eligibleOverlayTypesAssignedBySplitMemberIdMap);
 			}
 		}
 	}
@@ -151,6 +170,75 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 			}
 
 			record.addError((errorMessage.removeEnd(', ') + '.'));
+		}
+	}
+
+	/**
+	 * @description function to get the allowed overlay split contribution types for split owner ids from the custom metadata
+	 * SalesOverlayTypeMapping__mdt configuration and public group membership check
+	 * @param  opportunitiesWithChildRecords map of opportunity records with child opportunity splits
+	 * @return Map<Id, Set<String>> map of user ids to eligible overlay contribution types
+	 * {'0051v00000i5Bx6AAE' => {'Sales Specialist', 'Product Specialist'},'0051z00000i5Bx6AAE' => {'Sales Specialist'}}
+	 */
+	private Map<Id, Set<String>> getOverlaySplitEligibilityBySplitOwners(Map<Id, Opportunity> opportunitiesWithChildRecords) {
+		Map<Id, Set<String>> overlaySplitEligibilityBySplitOwnerIdMap = new Map<Id, Set<String>>();
+		Set<Id> splitOwnerIds = new Set<Id>();
+
+		// loop through the opportunities for opp splits if any and get the split owner ids to 
+		// check the group membership
+		for (Opportunity opp: opportunitiesWithChildRecords.values()) {
+			if (!opp.OpportunitySplits.isEmpty()) {
+				for (OpportunitySplit split : opp.OpportunitySplits) {
+					splitOwnerIds.add(split.SplitOwnerId);
+				}
+			}
+		}
+
+		//get the eligible overlay contribution types for split owners from the utility method
+		//This utility method checks the public group membership of passed user ids and returns the eligibile overlay types 
+		//from the SalesOverlayTypeMapping__mdt metadata.
+		if (!splitOwnerIds.isEmpty()) {
+			overlaySplitEligibilityBySplitOwnerIdMap = OpportunitySplitUtility.getInstance().getEligibleOverlayContributionTypes(splitOwnerIds, null);
+		}
+
+		return overlaySplitEligibilityBySplitOwnerIdMap;
+	}
+
+	/**
+	 * @description validate opp splits are assigned to correct role for the team member
+	 * @param  Opportunity record opportunity record going through DML operation.
+	 * @param  List<OpportunitySplit> oppSplits overlay contribution opportunity splits
+	 * @param  Map<Id,Set<String>> overlaySplitEligibilityBySplitOwnerIdMap map of user ids to eligible overlay types
+	 */
+	private void validateOverlayOpportunitySplitAssignmentForSpecialistUsers(Opportunity record, List<OpportunitySplit>  oppSplits, Map<Id, Set<String>> overlaySplitEligibilityBySplitOwnerIdMap) {
+		List<OpportunitySplit> incorrectOverlaySplits = new List<OpportunitySplit>();
+
+		//loop through splits and validate the overlay type and user role
+		for(OpportunitySplit split : oppSplits) {
+			if(overlaySplitEligibilityBySplitOwnerIdMap.containsKey(split.SplitOwnerId)) {
+				//user found in specialist group, check if the overlay type is allowed to user specialist group
+				if (!overlaySplitEligibilityBySplitOwnerIdMap.get(split.SplitOwnerId).contains(split.Overlay_Type__c)) {
+					//user is incorrectly assigned to overlay type
+					incorrectOverlaySplits.add(split);
+				}
+			} else {
+				//user doesn't belong to any specialist group
+				incorrectOverlaySplits.add(split);
+			}
+		}
+
+		//if any incorrect overlay splits assigned, add it to the record
+		if(!incorrectOverlaySplits.isEmpty()) {
+			List<String> errorMsgs = new List<String>();
+
+			for (OpportunitySplit incorrectOppSplit : incorrectOverlaySplits) {
+				errorMsgs.add(String.format(Label.OpportunityWithIncorrectOverlayTypeSplitsAssignments, new List<String>{incorrectOppSplit.Overlay_Type__c}));
+			}
+
+			//added the new line delimiter to show the errors in UI
+			String errorMessage = errorMsgs.size() > 1 ? String.join(errorMsgs, '\n') : errorMsgs.get(0);
+			record.addError(errorMessage);
+
 		}
 	}
 }
