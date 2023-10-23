@@ -86,10 +86,6 @@
             <fullName>No</fullName>
             <default>true</default>
         </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Product_Sub_Category__c</picklist>
