@@ -73,7 +73,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	accountHeldWith;
 	disputeType;
 	reasonClaim;
-	reasonClaimHelpText = "";
+	reasonClaimHelpText = {};
 	claimAmount;
 	description;
 
@@ -325,6 +325,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 			case 'reasonClaim':
 				this.reasonClaim = event.detail.value;
+				this.reasonClaimHelpText.text = '';
 				let businessUnit = '';
 				if (this.accountHeldWith === 'Australia Post') {
 					businessUnit = 'ap';
@@ -333,8 +334,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				}
 				const stringWithoutSpaces = event.target.value.replace(/\s+/g, '').toLowerCase();
 				const reasonHelpText = this.creditClaimReasonHelpTexts[stringWithoutSpaces+'_'+businessUnit];
-				this.reasonClaimHelpText = '';
-				this.reasonClaimHelpText = reasonHelpText.Message__c;
+				this.reasonClaimHelpText.text = reasonHelpText.Message__c;
+				this.reasonClaimHelpText.isAttachmentRequired = reasonHelpText.IsAttachmentRequired__c;
 				break;
 			case 'claimAmount':
 				this.claimAmount = event.detail.value;
@@ -478,12 +479,12 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		//get disputeItems 
 		let disputeItems = inputDisputeItems.getDisputedItems();
 
-		if(!this.isValidateFileUploaded) {
-			this.openModal();
+		if(!this.isValidateFileUploaded && this.reasonClaimHelpText.isAttachmentRequired) {
+			this.openModal(); // open attachment confirmation
 			return;
 		} else if(this.showModal){
-			this.closeModal();
-			this.isValidateFileUploaded = false;
+			this.closeModal(); // close modal if submit anyway otherwise modal will appear on confirmation
+			this.isValidateFileUploaded = false; // reset the attachment validation confirmation modal
 		}
 
 		createCreditClaim({

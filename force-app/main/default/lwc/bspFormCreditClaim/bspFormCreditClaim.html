@@ -208,12 +208,12 @@
 														required
 														class="brand-form-input">
 									</lightning-combobox>
-									<template if:true={reasonClaimHelpText}>
-									<span>
-										<p class="slds-var-p-top_xx-small">
-											<lightning-formatted-rich-text  value={reasonClaimHelpText}></lightning-formatted-rich-text>
-										</p>
-									</span>
+									<template if:true={reasonClaimHelpText.text}>
+										<span>
+											<p class="slds-var-p-top_xx-small slds-p-left_xx-small">
+												<lightning-formatted-rich-text  value={reasonClaimHelpText.text}></lightning-formatted-rich-text>
+											</p>
+										</span>
 									</template>
 								</lightning-layout-item>
 								<!-- claimAmount -->
