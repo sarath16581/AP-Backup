@@ -9,6 +9,7 @@ History:
 2023-08-17  mahesh.parvathaneni@auspost.com.au Changed isCSSOLogin to check for AuthProvider instead of SAML
 2023-08-23  hasantha liyanage added new method linkFiles
 2023-08-25  mahesh.parvathaneni@auspost.com.au Added method getMerchantPortalAccessUrl
+2023-10-23  hasantha.liyanage@auspost.com.au Added method creditClaimReasonHelpTexts
 **************************************************/
 public with sharing virtual class bspBaseUplift {
 
@@ -293,6 +294,19 @@ public with sharing virtual class bspBaseUplift {
 			}
 
 			return accessibleBillingAccounts;
+		}
+		private set;
+	}
+
+	/**
+	 * load the custom metadata which holds the help texts for credit claim reason list box
+	 */
+	public static List<Picklist_Entry_Helptext__mdt> creditClaimReasonHelpTexts {
+		get {
+			if(creditClaimReasonHelpTexts == null) {
+				return PicklistEntryHelptextSelector.newInstance().selectByObjectAndField(Case.SObjectType, Case.ReasonforCreditClaim__c);
+			}
+			return creditClaimReasonHelpTexts;
 		}
 		private set;
 	}
