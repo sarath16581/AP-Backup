@@ -9,144 +9,146 @@
 @isTest
 public class TestDataFactory {
 
-    public static void createStandardUser(){
-        Profile stdUserProfile = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
-        User testUser = new User(Alias = 'testusr', Email='testusr@testorg.com',
-                EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US',
-                LocaleSidKey='en_US', ProfileId = stdUserProfile.Id,
-                TimeZoneSidKey='America/Los_Angeles', UserName='testusr@testorg.com');
-        insert testUser;
-    }
+	public static void createStandardUser(){
+		Profile stdUserProfile = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
+		User testUser = new User(Alias = 'testusr', Email='testusr@testorg.com',
+				EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US',
+				LocaleSidKey='en_US', ProfileId = stdUserProfile.Id,
+				TimeZoneSidKey='America/Los_Angeles', UserName='testusr@testorg.com');
+		insert testUser;
+	}
 
-    public static void createCommunityUser(){
-        Profile communityUserProfile = [SELECT Id FROM Profile WHERE Name = 'Customer Community Login User'];
+	public static void createCommunityUser(){
+		Profile communityUserProfile = [SELECT Id FROM Profile WHERE Name = 'Customer Community Login User'];
 
-        Account acc = new Account(Name='TestCommunity', OwnerId = UserInfo.getUserId());
-        insert acc;
+		Account acc = new Account(Name='TestCommunity', OwnerId = UserInfo.getUserId());
+		insert acc;
 
-        Contact communityUserContact = new Contact(
-                FirstName = 'Test',
-                LastName = 'Community',
-                AccountId = acc.Id,
-                Email = 'testcommunity@example.com'
-        );
-        insert communityUserContact;
+		Contact communityUserContact = new Contact(
+				FirstName = 'Test',
+				LastName = 'Community',
+				AccountId = acc.Id,
+				Email = 'testcommunity@example.com'
+		);
+		insert communityUserContact;
 
-        User testCommunityUser = new User(Alias = 'testcomm', Email='testcommunityusr@testorg.com',
-                EmailEncodingKey='UTF-8', LastName='Community', LanguageLocaleKey='en_US',
-                LocaleSidKey='en_US', ProfileId = communityUserProfile.Id, IsActive=true,
-                TimeZoneSidKey='America/Los_Angeles', UserName='testcommunityusr@testorg.com', ContactId=communityUserContact.Id);
-        insert testCommunityUser;
-    }
-    
-    //.. Creating LPO Community User. @auther: rajesh.punjabi@mav3rik.com
-    public static User createLPOCommunityUser(){
-        Profile communityUserProfile = [SELECT Id FROM Profile WHERE Name = 'LPO Partner Community User'];
+		User testCommunityUser = new User(Alias = 'testcomm', Email='testcommunityusr@testorg.com',
+				EmailEncodingKey='UTF-8', LastName='Community', LanguageLocaleKey='en_US',
+				LocaleSidKey='en_US', ProfileId = communityUserProfile.Id, IsActive=true,
+				TimeZoneSidKey='America/Los_Angeles', UserName='testcommunityusr@testorg.com', ContactId=communityUserContact.Id);
+		insert testCommunityUser;
+	}
 
-        Account acc = new Account(Name='TestCommunity', OwnerId = UserInfo.getUserId());
-        insert acc;
+	//.. Creating LPO Community User. @auther: rajesh.punjabi@mav3rik.com
+	public static User createLPOCommunityUser(){
+		Profile communityUserProfile = [SELECT Id FROM Profile WHERE Name = 'LPO Partner Community User'];
 
-        Contact communityUserContact = new Contact(
-                FirstName = 'Test',
-                LastName = 'Community',
-                AccountId = acc.Id,
-                Email = 'testcommunity@example.com'
-        );
-        insert communityUserContact;
+		Account acc = new Account(Name='TestCommunity', OwnerId = UserInfo.getUserId());
+		insert acc;
 
-        User testCommunityUser = new User(Alias = 'testcomm', Email='testcommunityusr@testorg.com',
-                EmailEncodingKey='UTF-8', LastName='Community', LanguageLocaleKey='en_US',
-                LocaleSidKey='en_US', ProfileId = communityUserProfile.Id, IsActive=true,
-                TimeZoneSidKey='America/Los_Angeles', UserName='testcommunityusr@testorg.com', ContactId=communityUserContact.Id);
-        insert testCommunityUser;
-        
-        return testCommunityUser;
-    }
+		Contact communityUserContact = new Contact(
+				FirstName = 'Test',
+				LastName = 'Community',
+				AccountId = acc.Id,
+				Email = 'testcommunity@example.com'
+		);
+		insert communityUserContact;
 
-    /**
-     * Queueable insertion of users with permissionSets to avoid mixed dml operations issues in unit tests
-     * pass a list of UserDTOs will generate the users with permission set assignments
-     */
-    public class InsertUsersQueueable implements Queueable {
-        private List<UserDTO> userDTOs;
-        public InsertUsersQueueable(List<UserDTO> userDTOs) {
-            this.userDTOs = userDTOs;
-        }
+		User testCommunityUser = new User(Alias = 'testcomm', Email='testcommunityusr@testorg.com',
+				EmailEncodingKey='UTF-8', LastName='Community', LanguageLocaleKey='en_US',
+				LocaleSidKey='en_US', ProfileId = communityUserProfile.Id, IsActive=true,
+				TimeZoneSidKey='America/Los_Angeles', UserName='testcommunityusr@testorg.com', ContactId=communityUserContact.Id);
+		insert testCommunityUser;
+		
+		return testCommunityUser;
+	}
 
-        public void execute(QueueableContext context) {
-            List<User> usersToInsert = new List<User>();
-            List<PermissionSetAssignment> permissionSetAssignmentList = new List<PermissionSetAssignment>();
-            // get permission sets to be assigned
-            List<String> permissionSetNames = new List<String>();
-            List<String> profiles = new List<String>();
-            List<String> roles = new List<String>();
-            for (UserDTO userDTO : userDTOs) {
-                if(userDTO.permissionSetNames != null) {
-                    permissionSetNames.addAll(userDTO.permissionSetNames);
-                }
-                profiles.add(userDTO.profileName);
-                roles.add(userDTO.role);
-            }
+	/**
+	 * Queueable insertion of users with permissionSets to avoid mixed dml operations issues in unit tests
+	 * pass a list of UserDTOs will generate the users with permission set assignments
+	 */
+	public class InsertUsersQueueable implements Queueable {
+		private List<UserDTO> userDTOs;
+		public InsertUsersQueueable(List<UserDTO> userDTOs) {
+			this.userDTOs = userDTOs;
+		}
 
-            // Get profiles using Name-to-Profile map
-            Map<String, Id> profileNameToId = new Map<String, Id>();
-            for (Profile profile : [SELECT Id, Name FROM Profile WHERE Name IN :profiles]) {
-                profileNameToId.put(profile.Name, profile.Id);
-            }
+		public void execute(QueueableContext context) {
+			List<User> usersToInsert = new List<User>();
+			List<PermissionSetAssignment> permissionSetAssignmentList = new List<PermissionSetAssignment>();
+			// get permission sets to be assigned
+			List<String> permissionSetNames = new List<String>();
+			List<String> profiles = new List<String>();
+			List<String> roles = new List<String>();
+			for (UserDTO userDTO : userDTOs) {
+				if(userDTO.permissionSetNames != null) {
+					permissionSetNames.addAll(userDTO.permissionSetNames);
+				}
+				profiles.add(userDTO.profileName);
+				roles.add(userDTO.role);
+			}
 
-            // Get roles using Name-to-UserRole map
-            Map<String, Id> roleNameToId = new Map<String, Id>();
-            for (UserRole role : [SELECT Id, Name FROM UserRole WHERE Name IN :roles]) {
-                roleNameToId.put(role.Name, role.Id);
-            }
+			// Get profiles using Name-to-Profile map
+			Map<String, Id> profileNameToId = new Map<String, Id>();
+			for (Profile profile : [SELECT Id, Name FROM Profile WHERE Name IN :profiles]) {
+				profileNameToId.put(profile.Name, profile.Id);
+			}
 
-            // Get permissionSets using Name-to-ps map
-            Map<String, PermissionSet> permissionSetNameToRecord = new Map<String, PermissionSet>();
-            for (PermissionSet permSet : [SELECT Id, Name FROM PermissionSet WHERE Name IN :permissionSetNames]) {
-                permissionSetNameToRecord.put(permSet.Name, permSet);
-            }
+			// Get roles using Name-to-UserRole map
+			Map<String, Id> roleNameToId = new Map<String, Id>();
+			for (UserRole role : [SELECT Id, Name FROM UserRole WHERE Name IN :roles]) {
+				roleNameToId.put(role.Name, role.Id);
+			}
 
-            // prepare users
-            for (UserDTO userDTO : userDTOs) {
-                User futureUser = new User(
-                        firstname = userDTO.userName,
-                        lastname = userDTO.userName,
-                        alias = 'future',
-                        defaultgroupnotificationfrequency = 'N',
-                        digestfrequency = 'N',
-                        email = 'test@test.org',
-                        emailencodingkey = 'UTF-8',
-                        languagelocalekey = 'en_US',
-                        localesidkey = 'en_US',
-                        profileid = profileNameToId.get(userDTO.profileName),
-                        timezonesidkey = 'America/Los_Angeles',
-                        username = userDTO.userName + '@test.org',
-                        userpermissionsmarketinguser = false,
-                        userpermissionsofflineuser = false,
-                        userroleid = roleNameToId.get(userDTO.role)
-                );
-                usersToInsert.add(futureUser);
-            }
-            insert usersToInsert;
+			// Get permissionSets using Name-to-ps map
+			Map<String, PermissionSet> permissionSetNameToRecord = new Map<String, PermissionSet>();
+			for (PermissionSet permSet : [SELECT Id, Name FROM PermissionSet WHERE Name IN :permissionSetNames]) {
+				permissionSetNameToRecord.put(permSet.Name, permSet);
+			}
 
-            // once users are created assign the perm sets
-            for (User usr : usersToInsert) {
-                for (UserDTO userDTO : userDTOs) {
-                    if (userDTO.permissionSetNames != null && !userDTO.permissionSetNames.isEmpty() && userDTO.userName == usr.FirstName) {
-                        for (String permSetName : userDTO.permissionSetNames) {
-                            permissionSetAssignmentList.add(new PermissionSetAssignment(PermissionSetId = permissionSetNameToRecord.get(permSetName).Id, AssigneeId = usr.Id));
-                        }
-                    }
-                }
-            }
-            insert permissionSetAssignmentList;
-        }
-    }
+			// prepare users
+			for (UserDTO userDTO : userDTOs) {
+				User futureUser = new User(
+						FirstName = userDTO.userName,
+						LastName = userDTO.userName,
+						Alias = 'future',
+						DefaultGroupNotificationFrequency = 'N',
+						DigestFrequency = 'N',
+						Email = 'test@test.org',
+						EmailEncodingKey = 'UTF-8',
+						LanguageLocaleKey = 'en_US',
+						LocaleSidKey = 'en_US',
+						ProfileId = profileNameToId.get(userDTO.profileName),
+						TimeZoneSidKey = 'America/Los_Angeles',
+						Username = userDTO.userName + '@test.org',
+						UserPermissionsMarketingUser = false,
+						UserPermissionsOfflineUser = false,
+						UserRoleId = roleNameToId.get(userDTO.role),
+						ContactId = userDTO.contactId
+				);
+				usersToInsert.add(futureUser);
+			}
+			insert usersToInsert;
 
-    public class UserDTO {
-        public String profileName { get; set; }
-        public Set<String> permissionSetNames { get; set; }
-        public String userName { get; set; }
-        public String role { get; set; }
-    }
+			// once users are created assign the perm sets
+			for (User usr : usersToInsert) {
+				for (UserDTO userDTO : userDTOs) {
+					if (userDTO.permissionSetNames != null && !userDTO.permissionSetNames.isEmpty() && userDTO.userName == usr.FirstName) {
+						for (String permSetName : userDTO.permissionSetNames) {
+							permissionSetAssignmentList.add(new PermissionSetAssignment(PermissionSetId = permissionSetNameToRecord.get(permSetName).Id, AssigneeId = usr.Id));
+						}
+					}
+				}
+			}
+			insert permissionSetAssignmentList;
+		}
+	}
+
+	public class UserDTO {
+		public String profileName { get; set; }
+		public Set<String> permissionSetNames { get; set; }
+		public String userName { get; set; }
+		public String role { get; set; }
+		public Id contactId { get; set; }
+	}
 }

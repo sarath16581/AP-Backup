@@ -20,7 +20,8 @@
 
                 <div style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Previous Communication: </div>                  
                  <c:ssswRecentCustomerEmailMessage EnquiryId="{!RelatedTo.Id}" text="false"/>                                   
-                                    
+                 <br/>
+                 <br/>                   
 
 
     </messaging:htmlEmailBody>
@@ -36,6 +37,8 @@
     
 
     <c:ssswRecentCustomerEmailMessage EnquiryId="{!RelatedTo.Id}" text="true"/>   
+
+	
     </messaging:plainTextEmailBody>
     
 </messaging:emailTemplate>
