@@ -1,71 +1,157 @@
 <!--
-  * @author       : hara.sahoo@auspost.com.au
-  * @date         : 19/06/2020
+  * @author	   : hara.sahoo@auspost.com.au
+  * @date		 : 19/06/2020
   * @description  : Component used to search for an address. It has following features
-  *                 1. Integrates with AME service, returns a valid address if found
-  *                 2. User can enter address manually, if address not found
+  *				 1. Integrates with AME service, returns a valid address if found
+  *				 2. User can enter address manually, if address not found
 --------------------------------------- History --------------------------------------------------
-19.06.2020    Hara Sahoo    Created : Change made for roll out of Safe Drop feature on Missing Items form
+19.06.2020	Hara Sahoo	Created : Change made for roll out of Safe Drop feature on Missing Items form
 -->
 <template>
-    <div class="slds-form-element slds-lookup slds-is-open">
-            <lightning-layout-item size="12">
-                    <lightning-input class={searchboxClass} label={label}
-                                 name="enter-search" 
-                                  onkeyup={search} value={searchAddressTerm} autocomplete="off"
-                                 variant={variant} onfocus={openSearchResultsList} onblur={closeSearchResultsList}
-                             ></lightning-input>
-                                </lightning-layout-item>
-            <template if:true={isSearchingAddressDetails}>
-                <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
-            </template>
-        <template if:true={shouldShowDropDown}>
-            <div class="slds-lookup__menu slds">
-                <template if:true={isLoading}>
-                    <div class="slds-p-horizontal_large slds-text-body_small">searching...</div>
-                </template>
-                <ul class="slds-lookup__list" role="listbox">
-                    <template for:each={searchResults} for:item="result">
-                        <c-search-result key={result.dpid} record={result}
-                                         search-term={searchAddressTerm} onselected={handleSearchResultSelect}>
-                        </c-search-result>
-                    </template>
-                    <li onmousedown={selectManually}>
-                    <span class="slds-lookup__item-action slds-media slds-media_center">
-                        <span style="color: #DC1928;font-weight:bold">Enter address manually instead</span>
-                        </span>
-                    </li>
-                </ul>
-            </div>
+  <div
+    class="slds-form-element"
+    onfocusin={handleFocusIn}
+    onfocusout={handleFocusOut}
+    onkeydown={handleKeyPress}
+  >
+    <div class="slds-form-element__control slds-var-m-right_x-small">
+      <div class="slds-combobox_container">
+        <div data-name="cmpCombobox" class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+          <div
+            class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
             
-        </template>
-        <!-- Address Details -->
-        <template if:true={showAddressDetails}>
-            <lightning-layout class="top-padding" multiple-rows>
-                <lightning-layout-item size="12">
-                    <!--<lightning-input type="checkbox" label="Enter address manually instead" name="CheckBox" onchange={handleCheckBoxChange}></lightning-input>-->
-                </lightning-layout-item>
-                <lightning-layout-item  class="full-width bottom-padding">
-                    <lightning-input  required  class={checkValidityClass} disabled={enterAddressDetails} type="text" name="addressLine1" label="Address Line 1" data-id="addressLine1" onchange={handleAddressChange} value={address.addressLine}>
-                    </lightning-input>
-                </lightning-layout-item>
-                <lightning-layout-item class="full-width bottom-padding">
-                    <lightning-input  class="address-input slds-m-right_x-small"  disabled={enterAddressDetails} type="text" name="addressLine2" label="Address Line 2" onchange={handleAddressChange} value={address.addressLine3}>
-                    </lightning-input>
-                </lightning-layout-item>
-                <lightning-layout-item class="full-width bottom-padding">
-                    <lightning-input  class="address-input slds-m-right_x-small" required  disabled={enterAddressDetails} type="text" name="city" label="Suburb, town or city" onchange={handleAddressChange} value={address.city}>
-                    </lightning-input> 
-                </lightning-layout-item>
-                <lightning-layout-item class="half-width mobile-padding">
-                    <lightning-input  class="address-input slds-m-right_x-small" required  disabled={enterAddressDetails} type="text" name="state" label="State" onchange={handleAddressChange} value={address.state}>
-                    </lightning-input>
-                </lightning-layout-item>
-                <lightning-layout-item class="half-width">
-                    <lightning-input required={required} class="address-input slds-m-right_x-small"   disabled={enterAddressDetails} type="text" name="postcode" label="Postcode" value={address.postcode}
-                                     pattern="[0-9]{4}" message-when-pattern-mismatch="Enter a valid postcode" onchange={handleAddressChange}></lightning-input>
-                </lightning-layout-item>
-                </lightning-layout>
-        </template>
+            aria-autocomplete="list"
+            aria-controls="listbox-results"
+            aria-expanded={isShowDropDown}
+            aria-haspopup="listbox"
+              
+            role="combobox"
+          >
+            <lightning-input              
+              type="search"
+
+              class={searchboxClass}
+              autocomplete="off"
+              data-name="cmpSearchInput"
+              is-loading={isLoading}
+              onchange={handleChange}
+              oninput={handleChange}
+              ontextinput={handleChange}
+              placeholder="Search..."
+
+              label={label}
+          ></lightning-input>
+            
+          <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+              <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+              </svg>
+            </span>
+          </div>
+          <div
+            aria-busy="false"
+            aria-label="Addresses"
+            class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
+            data-name="divSearchResults"
+            role="listbox"
+            id="listbox-results"            
+            onmousemove={handleMouseMove}
+          >
+            <div if:true={isLoading} class="slds-var-p-horizontal_large slds-text-body_small">searching...</div>
+            <!-- <ul class="slds-lookup__list" role="listbox"> -->
+            <ul class="slds-listbox slds-listbox_vertical" data-name="option-container">
+              <template for:each={searchResults} for:item="result">
+                <li role="option" key={result.dpid} aria-label={result.singleLine} aria-controls="search-controller">
+                  <c-search-result record={result}
+                    search-term={searchAddressTerm} onselected={handleSelect}>
+                  </c-search-result>
+                </li>
+              </template>
+              <li
+                role="option"
+                data-name="liSelectManual"
+                class="slds-listbox__item"
+                onclick={handleSelect}
+                aria-label="Enter Manually"
+                aria-labelledby="conbobox-search"
+              >
+                <span class="slds-lookup__item-action slds-media slds-media_center">
+                  <span style="color: #DC1928;font-weight:bold">Enter address manually instead</span>
+                </span>
+              </li>
+            </ul>            
+          </div>
+        </div>
+      </div>
     </div>
+			
+		<!-- Address Details -->
+		<template if:true={showAddressDetails}>
+			<lightning-layout class="top-padding" multiple-rows>
+				<lightning-layout-item size="12">					
+				</lightning-layout-item>
+				<lightning-layout-item class="full-width bottom-padding">
+					<lightning-input  
+            required            
+            class={checkValidityClass}
+            disabled={enterAddressDetails}
+            type="text"
+            name="addressLine1"
+            label="Address Line 1"
+            data-id="addressLine1"
+            onchange={handleAddressChange}
+            value={address.addressLine}
+          ></lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item class="full-width bottom-padding">
+					<lightning-input
+            class="address-input slds-var-m-right_x-small"
+            disabled={enterAddressDetails}
+            type="text"
+            name="addressLine2"
+            label="Address Line 2"
+            onchange={handleAddressChange}
+            value={address.addressLine3}
+          ></lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item class="full-width bottom-padding">
+					<lightning-input
+            class="address-input slds-var-m-right_x-small"
+            required
+            disabled={enterAddressDetails}
+            type="text"
+            name="city"
+            label="Suburb, town or city"
+            onchange={handleAddressChange}
+            value={address.city}
+          ></lightning-input> 
+				</lightning-layout-item>
+				<lightning-layout-item class="half-width mobile-padding">
+					<lightning-input
+            class="address-input slds-var-m-right_x-small"
+            required disabled={enterAddressDetails}
+            type="text"
+            name="state"
+            label="State"
+            onchange={handleAddressChange}
+            value={address.state}
+          ></lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item class="half-width">
+					<lightning-input
+            required={required}
+            class="address-input slds-var-m-right_x-small"
+            disabled={enterAddressDetails}
+            type="text"
+            name="postcode"
+            label="Postcode"
+            value={address.postcode}
+						pattern="[0-9]{4}"
+            message-when-pattern-mismatch="Enter a valid postcode"
+            onchange={handleAddressChange}
+          ></lightning-input>
+				</lightning-layout-item>
+			</lightning-layout>
+		</template>
+	</div>
 </template>

@@ -28,3 +28,9 @@
         padding-bottom:32px;
     }
 }
+
+
+/* added selector classes */
+li[aria-activedescendant] {
+	background-color : var(--slds-g-color-neutral-base-95,#f3f3f3);
+}
