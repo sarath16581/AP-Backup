@@ -117,7 +117,7 @@ public class MyNetworkSmartFormsService_Test {
         smartForm.createCaseComments (caseWrapper, oCase);
         Test.stopTest();
         CaseComment comment = [SELECT Id, CommentBody FROM CaseComment WHERE ParentId = :oCase.Id ORDER BY LastModifiedDate DESC LIMIT 1];
-        System.assertEquals('Damaged article or missing contents? - Damaged\nAdditional comments/damage report - Additional comments/damage report - details\nType of damage - Damaged after delivery\nDescription of contents - Description of contents - details\nValue of contents - 50\nIn your opinion, was the article adequately packaged? - no\nAre you paying compensation to the customer? - yes\nAmount compensated for contents ($) - 30\nAmount refunded for postage ($) - 10\n\n\nFirst Name - Sammy\nLast Name - K\nContact Number - 0435814728\nEmail - sameed.khan@gmail.com\nCustomer Address: - 111 Bourke Rd Melbourne Clayton South VIC 3169', comment.CommentBody);
+        System.assertEquals('Damaged article or missing contents? - Damaged\nAdditional comments/damage report - Additional comments/damage report - details\nType of damage - Damaged after delivery\nDescription of contents - Description of contents - details\nValue of contents - 50\nIn your opinion, was the article adequately packaged? - no\nIs the article on hand? - null\nAre you paying compensation to the customer? - yes\nAmount compensated for contents ($) - 30\nAmount refunded for postage ($) - 10\n\n\nFirst Name - Sammy\nLast Name - K\nContact Number - 0435814728\nEmail - sameed.khan@gmail.com\nCustomer Address: - 111 Bourke Rd Melbourne Clayton South VIC 3169', comment.CommentBody);
     }
     
     @IsTest 

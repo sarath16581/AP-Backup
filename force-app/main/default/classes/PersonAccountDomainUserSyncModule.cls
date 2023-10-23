@@ -22,7 +22,7 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         syncUpdatedFieldsToUserRecord((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
-		List<Account> unprocessed = (List<Account>)RecursionUtility.getUnprocessedRecords('syncDeactivatedUserRecords-Update', records, new Set<String>{'is_Inactive_Customer__pc'});
+		List<Account> unprocessed = (List<Account>)RecursionUtility.getUnprocessedRecords('syncDeactivatedUserRecords-Update', records, new Set<String>{'Status__pc'});
 		syncDeactivatedUserRecords(unprocessed, (Map<Id, Account>)existingRecords);
     }
 
@@ -68,8 +68,8 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 		Account oldConsumer;
 		for (Account consumer : records) {
 			oldConsumer = existingRecords.get(consumer.Id);
-			if (consumer.is_Inactive_Customer__pc && !oldConsumer.is_Inactive_Customer__pc
-					&& consumer.IsPersonAccount && consumer.Winning_Master_Record__pc == null && consumer.PersonContactId != null) { // checking Winning_Master_Record__pc == null because only closing consumers that are not part of the merging process
+			if (consumer.Status__pc != oldConsumer.Status__pc && consumer.Status__pc == APT_Constants.INACTIVE
+					&& consumer.IsPersonAccount && consumer.PersonContactId != null) {
 				contactIds.add(consumer.PersonContactId);
 			}
 		}

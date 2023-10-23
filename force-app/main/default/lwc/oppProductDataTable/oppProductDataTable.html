@@ -61,9 +61,17 @@
 			<center>
 				<div class="slds-m-around_medium">
 					<lightning-button variant="brand" class="slds-m-around_medium" label="Cancel Closure" onclick={handleCancelClosure}></lightning-button>
-					<lightning-button variant="brand" class="slds-m-around_medium" disabled={hideConfirmOPCButton}  label="Confirm OPC" onclick={handleConfirmOPC}></lightning-button>
+					<lightning-button variant="brand" class="slds-m-around_medium" disabled={hideConfirmOPCButton}  label="Confirm Opportunity Products" onclick={handleConfirmOPC}></lightning-button>
 				</div>
 
+			</center>
+		</template>
+		<!--Proposal / Contract doc generation flow-->
+		<template if:true={isProposalDocumentFlow}>
+			<center>
+				<div class="slds-m-around_medium">
+					<lightning-button variant="brand" class="slds-m-around_medium"  label="Confirm Opportunity Products" onclick={handleConfirmOPC}></lightning-button>
+				</div>
 			</center>
 		</template>
 	</template>

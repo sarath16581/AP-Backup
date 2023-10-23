@@ -1,13 +1,14 @@
-public class ssswRecentCustomerEmailMessage
-{
-    /**************************************************
+/**************************************************
     Type:         Controller for visualforce component ssswRecentCustomerEmailMessage
     History:
     NOTE:         N/A
     --------------------------------------------------
     2014-09-24    Louis Wang (Bluewolf)        Created Network / Carmelo cloned for Customer.
-    **************************************************/
+	2023-10-18    Swati Mogadala 			   INC2198494: Updated fetchRecentEmail() to check emList.size() > 0 and commentList> 0 seperately to resolve 'List out of bounds error'.
+ **************************************************/
 
+public class ssswRecentCustomerEmailMessage
+{
     public Id caseId 
     {    
         get;
@@ -64,9 +65,9 @@ public class ssswRecentCustomerEmailMessage
                                              AND ParentId = : caseId
                                              ORDER BY CreatedDate DESC
                                              LIMIT 1];
-            if(emList.size() > 0 || commentList.size()>0)
+          if(emList.size() > 0)
             {
-                if(commentList.size()==0 || emList[0].createdDate>commentList[0].createdDate) {
+                if(commentList.size()==0 || (commentList.size()>0 && emList[0].createdDate>commentList[0].createdDate)) {
                 
                     em.HTMLBody = emList[0].HTMLBody;
                     string html = em.HTMLBody;
@@ -100,10 +101,14 @@ public class ssswRecentCustomerEmailMessage
                     em.TextBody = em.TextBody.replaceAll('&amp;','&');
                     em.TextBody = em.TextBody.replaceAll('&nbsp;','');
                     em.isComment = false;
-                } else if(emList.size()==0 || emList[0].createdDate<commentList[0].createdDate) {
+                } 
+            }
+            
+            if(commentList.size()>0){
+                if(emList.size()==0 || emList[0].createdDate<commentList[0].createdDate) {
                     
-                    em.TextBody  = commentList[0].commentBody;
-                    em.HTMLBody  = commentList[0].commentBody;
+                    em.TextBody  = commentList[0].commentBody.replaceAll('&nbsp;','');
+                    em.HTMLBody  = commentList[0].commentBody.replaceAll('<br/>', '\n');
                     em.isComment = true;
                 }
             }

@@ -24,7 +24,7 @@
  * 2023-10-20 - Mahesh Parvathaneni - Updated populateValidationErrorResults to unescape greater than symbol in html
  */
 
-import {LightningElement, track, api, wire} from 'lwc';
+import {LightningElement, api, wire} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import FIELD_OPPORTUNITY_ISCLOSED from '@salesforce/schema/Opportunity.IsClosed';
@@ -84,6 +84,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 
 			// post message to vf page to get validation errors
 			this.publishMessageToVFPage();
+		} else if (error) {
+			console.error(error);
 		}
 	}
 
@@ -176,7 +178,7 @@ export default class OpportunityCloseErrors extends LightningElement {
 		return (this._pathNextStageMapping && this._pathNextStageMapping[this.currentStage] ? this._pathNextStageMapping[this.currentStage] : '');
 	}
 
-	handleRefresh(event) {
+	handleRefresh() {
 		this.publishMessageToVFPage();
 	}
 
@@ -209,6 +211,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 			});
 			this._pathNextStageMapping = pathMapping;
 			this.publishMessageToVFPage();
+		} else if (error) {
+			console.error(error);
 		}
 	}
 }
