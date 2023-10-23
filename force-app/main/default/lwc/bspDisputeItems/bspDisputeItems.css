@@ -28,9 +28,3 @@
 	background-color: #FFFFFF;
 	z-index: 1;
 }
-
-.scrollable-container {
-	border: transparent;
-	border-radius: 5px;
-	height:100%;
-}
