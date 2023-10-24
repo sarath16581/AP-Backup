@@ -484,9 +484,9 @@
                 <label>Manual handling surcharge</label>
             </value>
             <value>
-                <fullName>Consumable returns (Merchandise / online shop)</fullName>
+                <fullName>Consumable returns - Merch / online shop</fullName>
                 <default>false</default>
-                <label>Consumable returns (Merchandise / online shop)</label>
+                <label>Consumable returns - Merch / online shop</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -547,7 +547,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Consumable returns (Merchandise / online shop)</valueName>
+            <valueName>Consumable returns - Merch / online shop</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>
