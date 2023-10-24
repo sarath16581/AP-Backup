@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Incorrect pricing/rates</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessUnit__c</field>
+        <value xsi:type="xsd:string">ST</value>
+    </values>
+    <values>
+        <field>IsAttachmentRequired__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Message__c</field>
+        <value xsi:type="xsd:string">&lt;p&gt;Please provide your reasoning why the rate is incorrect, attaching details and supporting evidence.&lt;/p&gt;</value>
+    </values>
+    <values>
+        <field>Object_Field_Name__c</field>
+        <value xsi:type="xsd:string">Case.ReasonforCreditClaim__c</value>
+    </values>
+</CustomMetadata>
