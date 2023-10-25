@@ -5246,6 +5246,14 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
         <value>Correct the {0} Opportunity Split. A non-{0} team member can’t be assigned to the {0} overlay split.</value>
     </labels>
+	<labels>
+        <fullName>OpportunityWithInvalidQuantityOnProducts</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
+        <value>Add Product Quantities. At least one product must have a valid quantity value (&gt;1).</value>
+    </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
