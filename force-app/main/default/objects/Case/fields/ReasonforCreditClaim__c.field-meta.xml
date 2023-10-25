@@ -12,7 +12,7 @@
     <valueSet>
         <controllingField>Enquiry_Type__c</controllingField>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>ADA / NHCL</fullName>
                 <default>false</default>
