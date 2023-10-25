@@ -287,6 +287,11 @@
                 <default>false</default>
                 <label>Pot plant</label>
             </value>
+			<value>
+                <fullName>Delivered to incorrect address - Retrieved and redelivered</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - Retrieved and redelivered</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
@@ -438,6 +443,10 @@
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Does not service that area</valueName>
+        </valueSettings>
+		<valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialCannot recall</controllingFieldValue>

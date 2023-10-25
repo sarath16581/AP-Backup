@@ -1,14 +1,15 @@
 <!--
- * Date            Version          Owner               Desription
- * 07-Feb-17        1.0             Bharat P            Initial Version - Enterprise Credit Claim Form Page
- * 20-Feb-17        1.1             Bharat P            Added Disputed Transaction Section for adding and deleting Disputed Items on the case
- * 24-Mar-17        1.2             Bharat P            Added Success Popup message on submission
- * 29-Mar-17        1.3             Bharat P            Added functionality for using reCAPTCHA before form submission
- * 06-Jul-17        1.4             AP Rivera           Added functionality for multiple file attachments, Added Tooltip on some component when hovered.
- * 28-Jul-17        1.5             AP Rivera           Replaced all hard coded values by Custom Labels
- * 25-Aug-17        1.6             Jean Duque          Added validation for 'Late Payment Charges (LPC)' required fields
- * 10-Aug-18        1.7             Nanda Kothamasu Added numeric data validation on Business Account Number field - REQ1506818
- * 02-Jun-23        1.8             Pratyush Chalasani  Added helptext display to show description for selected credit claim reason
+ * Date				Version			Owner				Desription
+ * 07-Feb-17		1.0				Bharat P			Initial Version - Enterprise Credit Claim Form Page
+ * 20-Feb-17		1.1				Bharat P			Added Disputed Transaction Section for adding and deleting Disputed Items on the case
+ * 24-Mar-17		1.2				Bharat P			Added Success Popup message on submission
+ * 29-Mar-17		1.3				Bharat P			Added functionality for using reCAPTCHA before form submission
+ * 06-Jul-17		1.4				AP Rivera			Added functionality for multiple file attachments, Added Tooltip on some component when hovered.
+ * 28-Jul-17		1.5				AP Rivera			Replaced all hard coded values by Custom Labels
+ * 25-Aug-17		1.6				Jean Duque			Added validation for 'Late Payment Charges (LPC)' required fields
+ * 10-Aug-18		1.7				Nanda Kothamasu		Added numeric data validation on Business Account Number field - REQ1506818
+ * 02-Jun-23		1.8				Pratyush Chalasani	Added helptext display to show description for selected credit claim reason
+ * 24-Oct-23		1.9				Thang Nguyen		SB-213: Update the reason help text
 -->
 <apex:page standardController="Case" extensions="EnterpriseCreditClaim"
 	id="ccPage"    
@@ -287,24 +288,27 @@
 									hdnRCC.value = document.getElementById('{!$Component.ccForm:ipReasonCC}').value;
 									$("ccForm:ipReasonCC").removeAttr('disabled');
 									
-									console.log('hdnRCC.value', {'hdnRCC.value': hdnRCC.value});
-									
 									// If a credit claim reason was selected and a description is mapped for it
 									// then display the reason under the picklist.
 									// If no value is selected, or a description is not found, then don't display any description text.
 									if (hdnRCC.value && !hdnRCC.value.startsWith('_')) {
-										const creditClaimReason = creditClaimReasonDescriptionMap[hdnRCC.value.toLowerCase()];
+										var keyReasonHelpText = hdnRCC.value.toLowerCase();
+										if(hdnBU.value == "Australia Post"){
+											keyReasonHelpText = keyReasonHelpText + '_' + 'ap';
+										}else if(hdnBU.value == "StarTrack"){
+											keyReasonHelpText = keyReasonHelpText + '_' + 'st';
+										}
 
-										console.log('creditClaimReason', creditClaimReason);
+										const creditClaimReason = creditClaimReasonDescriptionMap[keyReasonHelpText];
 
 										if (creditClaimReason) {
-											document.getElementById("reasonCC").innerHTML = `${creditClaimReason}<br/>`;
+											document.getElementById("reasonCC").innerHTML = `${creditClaimReason}`;
 										} else {
 											// If there's not specific mapping for the selected reason, then look for a generic description
 											const genericReason = creditClaimReasonDescriptionMap['generic'];
 
 											if (genericReason) {
-												document.getElementById("reasonCC").innerHTML = `${genericReason}<br/>`;
+												document.getElementById("reasonCC").innerHTML = `${genericReason}`;
 											} else {
 												document.getElementById("reasonCC").innerHTML = '';
 											}

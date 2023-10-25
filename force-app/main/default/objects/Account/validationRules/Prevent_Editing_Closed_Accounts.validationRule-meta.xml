@@ -8,7 +8,7 @@ $Profile.Name != &quot;System Administrator&quot;,
 $Profile.Name != &quot;AusPost Integration&quot;,
 NOT(ISNEW()),
 IsPersonAccount,
-IsInactiveCustomer__pc 
+ISPICKVAL(Status__pc, &quot;Inactive&quot;) 
 )</errorConditionFormula>
     <errorMessage>You cannot make changes to a closed (inactive) record. Please contact your System Administrator.</errorMessage>
 </ValidationRule>
