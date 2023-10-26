@@ -278,6 +278,12 @@
 										focusElement.focus();                                
 									return functionReturn;
 								}                               
+
+								function onchangeDisputeType() {
+									document.getElementById('{!$Component.ccForm:ipReasonCC}').value = '';
+									updateHiddenField();	
+								}
+
 								function updateHiddenField() {
 									var hdnBU = document.getElementById('{!$Component.ccForm:hdnBusinessUnit}');
 									var hdnDT = document.getElementById('{!$Component.ccForm:hdnDisputeType}');
@@ -290,8 +296,9 @@
 									
 									// If a credit claim reason was selected and a description is mapped for it
 									// then display the reason under the picklist.
-									// If no value is selected, or a description is not found, then don't display any description text.
+									// If no value is selected, or a description is not found, then don't display any description text.									
 									if (hdnRCC.value && !hdnRCC.value.startsWith('_')) {
+
 										var keyReasonHelpText = hdnRCC.value.toLowerCase();
 										if(hdnBU.value == "Australia Post"){
 											keyReasonHelpText = keyReasonHelpText + '_' + 'ap';
@@ -532,7 +539,7 @@
 													<div class="col-sm-10">
 														<apex:inputField value="{!entCreditClaim.Call_Purpose__c}" style="display:none"/>
 														<apex:inputField id="ipDisputeType" styleClass="form-control" value="{!entCreditClaim.Enquiry_Type__c}"
-																			onChange="updateHiddenField();" />
+																			onChange="onchangeDisputeType();" />
 														<apex:inputHidden id="hdnDisputeType" value="{!selectedDisputeType}"/>
 														<div id="disputeType"></div>
 													</div>
@@ -547,7 +554,7 @@
 														<apex:inputField id="ipReasonCC" styleClass="form-control" value="{!entCreditClaim.ReasonforCreditClaim__c}"
 																			onChange="updateHiddenField();"/>
 														<apex:inputHidden id="hdnReasonCC" value="{!selectedReason}"/>
-														<div id="reasonCC"></div>
+														<div style = "white-space:pre-line;" id="reasonCC"></div>
 													</div>
 												</div>
 											</div>
