@@ -12,9 +12,9 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;Please provide the original and duplicate consignment(s) or article(s) with a brief explanation. &lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;Where there are multiple examples, please provide side by side ideally in a spreadsheet showing the original, duplicate and an explanation.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">Please provide the original and duplicate consignment(s) or article(s) with a brief explanation.
+
+Where there are multiple examples, please provide side by side ideally in a spreadsheet showing the original, duplicate and an explanation.</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
