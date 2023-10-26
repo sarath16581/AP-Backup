@@ -12,11 +12,11 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;This claim relates to freight despatched without an accompanying daily manifest.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;Please attach details of your manifesting actions.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;Note: You should be manifesting daily before your daily driver pickup.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">This claim relates to freight despatched without an accompanying daily manifest.
+
+Please attach details of your manifesting actions.
+
+Note: You should be manifesting daily before your daily driver pickup.</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

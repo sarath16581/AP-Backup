@@ -21,3 +21,7 @@
 		margin: 12px 0 0 0 !important;
 	}
 }
+
+.slds-rich-text-editor__textarea, .slds-rich-text-editor__output {
+	white-space: pre-line;
+}

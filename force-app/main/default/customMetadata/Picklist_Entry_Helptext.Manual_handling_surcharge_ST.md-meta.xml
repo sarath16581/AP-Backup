@@ -12,13 +12,13 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;Please check if charges have been applied incorrectly by reviewing these documents:&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;&lt;a target=&quot;_blank&quot; title=&quot;Opens new browser tab&quot; href=&quot;https://startrack.com.au/content/dam/auspost_corp/media/documents/road-manual-handling-surcharge-flyer.pdf&quot;&gt;StarTrack Road Express - Manual Handling Surcharge PDF&lt;/a&gt;&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;&lt;a target=&quot;_blank&quot; title=&quot;Opens new browser tab&quot; href=&quot;https://startrack.com.au/content/dam/auspost_corp/media/documents/premium-manual-handling-surcharge-flyer.pdf&quot;&gt;StarTrack Premium - Manual Handling Surcharge PDF&lt;/a&gt;&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;If the charge remains contested, please attach details and supporting evidence.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">Please check if charges have been applied incorrectly by reviewing these documents:
+
+&lt;a target=&quot;_blank&quot; title=&quot;Opens new browser tab&quot;  class=&quot;slds-button&quot; href=&quot;https://startrack.com.au/content/dam/auspost_corp/media/documents/road-manual-handling-surcharge-flyer.pdf&quot;&gt;StarTrack Road Express - Manual Handling Surcharge PDF&lt;/a&gt;
+
+&lt;a target=&quot;_blank&quot; title=&quot;Opens new browser tab&quot;  class=&quot;slds-button&quot; href=&quot;https://startrack.com.au/content/dam/auspost_corp/media/documents/premium-manual-handling-surcharge-flyer.pdf&quot;&gt;StarTrack Premium - Manual Handling Surcharge PDF&lt;/a&gt;
+
+If the charge remains contested, please attach details and supporting evidence.</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

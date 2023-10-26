@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;Please provide a listing of consignments manifested but not despatched, attaching details.&lt;/p&gt;
+        <value xsi:type="xsd:string">Please provide a listing of consignments manifested but not despatched, attaching details.
 
 Note: To avoid this charge in future, the consignment can be deleted within the same billing period by emailing connote.deletion@startrack.com.au</value>
     </values>

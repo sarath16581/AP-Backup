@@ -12,9 +12,9 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;For delivery related issues, please use either the late or missing parcel or delivery issue forms within the Business Support Portal.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;If you believe, your article has been delivered to the correct addressee and an erroneous charge has been incurred, please provide the original manifest and / or article number(s) with a brief explanation.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">For delivery related issues, please use either the late or missing parcel or delivery issue forms within the Business Support Portal.
+
+If you believe, your article has been delivered to the correct addressee and an erroneous charge has been incurred, please provide the original manifest and / or article number(s) with a brief explanation.</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

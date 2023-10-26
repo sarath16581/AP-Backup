@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;For StarTrack Courier claims, please instead email  STCAccountsReceivable@auspost.com.au&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">For StarTrack Courier claims, please instead email  STCAccountsReceivable@auspost.com.au</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
