@@ -3845,7 +3845,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
-        <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
+        <value>The Reference ID already has a compensation record and only a supervisor can create another record.</value>
     </labels>
     <labels>
         <fullName>CompensationMsgCaseMustHaveReference</fullName>
