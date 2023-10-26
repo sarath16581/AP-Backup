@@ -14,3 +14,10 @@
 .table::-webkit-scrollbar {
     display:none;
 }
+
+.customMessageStyle {
+    background-color: darkgray;
+    color: black;
+    font-size: medium;
+    z-index: 99;
+}
