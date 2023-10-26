@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;Please explain which consumable returns are contested, attaching details and supporting evidence. &lt;/p&gt;</value>
+        <value xsi:type="xsd:string">Please explain which consumable returns are contested, attaching details and supporting evidence.</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

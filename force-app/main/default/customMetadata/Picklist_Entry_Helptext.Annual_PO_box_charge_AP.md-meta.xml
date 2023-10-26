@@ -12,11 +12,11 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p&gt;This claim relates to contested annual PO box charges.&lt;/p&gt;
+        <value xsi:type="xsd:string">This claim relates to contested annual PO box charges.
 
-&lt;p&gt;Instructions regarding your annual PO box charges can be found in your  reminder letter. Please review before submitting a credit claim.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;If contested or the deadline date has passed, please attach supporting documents or details of the PO box that needs to be cancelled.&lt;/p&gt;</value>
+Instructions regarding your annual PO box charges can be found in your  reminder letter. Please review before submitting a credit claim.
+
+If contested or the deadline date has passed, please attach supporting documents or details of the PO box that needs to be cancelled.</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
