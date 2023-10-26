@@ -5252,7 +5252,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
-        <value>Add Product Quantities. At least one product must have a valid quantity value (&gt;1).</value>
+        <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
     </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
