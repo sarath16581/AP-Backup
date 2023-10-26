@@ -148,9 +148,9 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 
 			//check at least one of the related opportunity line items have quantity more than 1 before progressing opportunity stage
 			if (OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_QUANTITY.contains(record.StageName) 
-					&& !opportunitiesWithChildRecords.OpportunityLineItems.isEmpty()) {
+					&& !opportunityWithChildRecords.OpportunityLineItems.isEmpty()) {
 				
-					validateQuantityOnOpportunityLineItems(record, opportunitiesWithChildRecords.OpportunityLineItems);
+					validateQuantityOnOpportunityLineItems(record, opportunityWithChildRecords.OpportunityLineItems);
 			}
 		}
 	}
@@ -263,7 +263,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 		Set<Id> validQuantityOppLineItemIds = new Set<Id>();
 		//loop through related opp line items and check at least one opp line item has quantity more than 1
 		for (OpportunityLineItem oli : relatedOppLineItems) {
-			if (oli.quantity.round(System.RoundingMode.DOWN) > 1) {
+			if (oli.quantity != null && oli.quantity.round(System.RoundingMode.DOWN) > 1) {
 				//add to the valid record list
 				validQuantityOppLineItemIds.add(oli.Id);
 			}
