@@ -1,3 +1,21 @@
 <template>
-	<h1>{recordId}</h1>
+	<div class="slds-align_absolute-center" style="max-width: 1000px;">
+		<template lwc:if={isABNConfirmation}>
+			<c-follower-offspring-request-a-b-n-confirmation
+					leader-id={recordId}
+					is-billing-account={isBillingAccount}
+					onclosed={navigateToLeader}
+					onconfirmed={showEditForm}
+					sub-account-id={subAccountId}
+			></c-follower-offspring-request-a-b-n-confirmation>
+		</template>
+		<template lwc:if={isEditView}>
+			<c-follower-offspring-request-t-e-a-m-edit-form
+					leader-id={recordId}
+					is-billing-account={isBillingAccount}
+					sub-account-id={subAccountId}
+					onclosed={navigateToLeader}
+			></c-follower-offspring-request-t-e-a-m-edit-form>
+		</template>
+	</div>
 </template>

@@ -9,10 +9,11 @@
  * 2021-04-05 - seth.heang@auspost.com.au - Created
  * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
  * 2023-03-21 - CI-703 Sarath Burra Added new field Is_Parcel_Send_Login_Required__c
+ * 2023-10-27 - Harry Wang Added new method selectByChargeAccountId and selectByBillingAccountId and option FILTER_UNPROVISIONED_FOLLOWER_ONLY
  */
 public with sharing class SubAccountRequestsSelector extends ApplicationSelector{
 	public enum Options {
-		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION
+		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION, WITH_BILLING_ACCOUNT, WITH_ST_PARENT_BILLING_ACCOUNT, FILTER_UNPROVISIONED_FOLLOWER_ONLY
 	}
 	public static SubAccountRequestsSelector newInstance() {
 		return (SubAccountRequestsSelector)Application.Selectors.newInstance(SubAccountRequestsSelector.class);
@@ -103,6 +104,28 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 		return (List<APT_Sub_Account__c>)Database.query(qb.toSoqlString());
 	}
 
+	/**
+	 * @description Select sub accounts by charge account Id with selector options
+	 * @param chargeAccountIds charge account Id set
+	 * @param selectorOptions selector options
+	 * @return matching list of sub account
+	 */
+	public virtual List<APT_Sub_Account__c> selectByChargeAccountId(Set<Id> chargeAccountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(APT_Sub_Account__c.APT_Charge_Account__c + ' in :chargeAccountIds')).endConditions();
+		return (List<APT_Sub_Account__c>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * @description Select sub accounts by billing account Id with selector options
+	 * @param billingAccountIds billing account Id set
+	 * @param selectorOptions selector options
+	 * @return matching list of sub account
+	 */
+	public virtual List<APT_Sub_Account__c> selectByBillingAccountId(Set<Id> billingAccountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(APT_Sub_Account__c.APT_Billing_Account__c + ' in :billingAccountIds')).endConditions();
+		return (List<APT_Sub_Account__c>)Database.query(qb.toSoqlString());
+	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -115,6 +138,12 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Organisation__r');
+		}
+		if(selectorOptions.contains(Options.FILTER_UNPROVISIONED_FOLLOWER_ONLY)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(APT_Sub_Account__c.AccountType__c).eq('Follower')).
+					add(new QueryBuilder.CompareCondition(APT_Sub_Account__c.APT_Billing_Account_Number__c).ne('null')).
+					add(new QueryBuilder.CompareCondition(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c).eq('Draft')).
+					endConditions();
 		}
 		return builder;
 	}
