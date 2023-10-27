@@ -369,11 +369,13 @@ private class OpportunitySalesPipelineModule_Test {
 		fflib_ArgumentCaptor opportunityIdCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
 		((OpportunitiesSelector)MockUtility.Mocks.verify(mockOpportunitiesSelector, 1)).selectById((Set<Id>)opportunityIdCaptor.capture(),(Set<Object>)fflib_Match.anyObject());
 
+		// verify both the opportunity record ids are passed to the mock opportunity selector
 		Set<Id> queriedOpportunityIds = (Set<Id>) opportunityIdCaptor.getValue();
 		System.assertEquals(2, queriedOpportunityIds.size(), 'Opportunities moving to a monitored stage must be queried to retrieve related records');
 
 		// verify errors are added to opportunity record
 		System.assert(updatedOpportunities[0].hasErrors(), 'Error expected on opportunity moving to Qualify as the Product quantity is 1 for both the products');
+		// no errors will be added to this opportunity here as the quantity is set to 1000 for one of the products in the above
 		System.assert(!updatedOpportunities[1].hasErrors(), 'No errors expected on opportunity moving to Qualify as one of the product has quantity more than 1.');
 	}
 }
