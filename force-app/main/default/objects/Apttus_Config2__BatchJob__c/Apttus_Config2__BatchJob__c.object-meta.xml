@@ -165,8 +165,8 @@
     <pluralLabel>Batch Jobs (CPQ)</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__JobType__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__Status__c</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Apttus_Config2__JobType__c</lookupPhoneDialogsAdditionalFields>

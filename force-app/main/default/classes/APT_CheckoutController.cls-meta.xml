@@ -11,5 +11,10 @@
         <minorNumber>1839</minorNumber>
         <namespace>Apttus_Config2</namespace>
     </packageVersions>
+    <packageVersions>
+        <majorNumber>10</majorNumber>
+        <minorNumber>227</minorNumber>
+        <namespace>Apttus_Proposal</namespace>
+    </packageVersions>
     <status>Active</status>
 </ApexClass>

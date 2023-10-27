@@ -171,8 +171,8 @@
         <customTabListAdditionalFields>Average_Weekly_Utilisation__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Total_Weekly_Indirect_Work_Hours__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Total_Weekly_Working_Hours__c</customTabListAdditionalFields>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <searchResultsAdditionalFields>Work_Week_Start__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Work_Week_End__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>OWNER.ALIAS</searchResultsAdditionalFields>

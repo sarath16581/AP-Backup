@@ -9,6 +9,7 @@
  * @changelog
  * 2021-07-12 - Phap Mai - Init
  * 2023-07-25 - Hasantha Liyanage - Modified: added SelectByCaseIds
+ * 2023-09-11 - Hasantha Liyanage - Modified: added Compensation__c.RecordTypeId field
  */
 public virtual inherited sharing class CompensationSelector extends ApplicationSelector
 {
@@ -98,7 +99,8 @@ public virtual inherited sharing class CompensationSelector extends ApplicationS
             Compensation__c.Account_Name__c,
             Compensation__c.Account_Number__c,
             Compensation__c.BSB__c,
-            Compensation__c.Bank_Detail_Provided_By_Customer__c
+            Compensation__c.Bank_Detail_Provided_By_Customer__c,
+            Compensation__c.RecordTypeId
         };
 	}
 

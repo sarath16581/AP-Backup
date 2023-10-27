@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Create_MSA_Service_Schedule__c</fullName>
+    <description>Click this button to create a new Agreement (Contract).</description>
     <externalId>false</externalId>
     <formula>IF(
 ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
@@ -17,7 +18,6 @@ HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalI
 NULL
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <description>Click this button to create a new Agreement (Contract).</description>
     <inlineHelpText>Click this button to create a new Agreement (Contract).</inlineHelpText>
     <label>Create Agreement (Contract)</label>
     <required>false</required>

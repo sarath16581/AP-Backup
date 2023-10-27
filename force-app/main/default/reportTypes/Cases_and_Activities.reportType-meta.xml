@@ -1377,17 +1377,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DataArchiva_Read_Only_Data__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>OwnerUserName__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DataArchiva_Old_Id__c</field>
             <table>Case</table>
         </columns>
         <columns>

@@ -14,9 +14,11 @@ CASE(Status,
 &quot;Closed - Pending&quot;,&quot;Resolved&quot;,
 &quot;Compensation Processed&quot;,&quot;Resolved&quot;,
 &quot;Closed&quot;,&quot;Resolved&quot;,
+&quot;Invalid&quot;,&quot;Resolved&quot;,
 &quot;Awaiting Customer Response&quot;,&quot;Action required&quot;,
 &quot;Waiting on customer&quot;,&quot;Action required&quot;,
 &quot;Awaiting Customer Reply&quot;,&quot;Action required&quot;,
+&quot;Under investigation - Awaiting responses&quot;,&quot;Action required&quot;,
 &quot;In progress&quot; )
 )
 ,
@@ -29,9 +31,11 @@ CASE(Status,
 &quot;Closed - Pending&quot;,&quot;Closed&quot;,
 &quot;Compensation Processed&quot;,&quot;Closed&quot;,
 &quot;Closed&quot;,&quot;Closed&quot;,
+&quot;Invalid&quot;,&quot;Resolved&quot;,
 &quot;Awaiting Customer Response&quot;,&quot;Action required&quot;,
 &quot;Waiting on customer&quot;,&quot;Action required&quot;,
 &quot;Awaiting Customer Reply&quot;,&quot;Action required&quot;,
+&quot;Under investigation - Awaiting responses&quot;,&quot;Action required&quot;,
 &quot;In progress&quot; )
 )
 

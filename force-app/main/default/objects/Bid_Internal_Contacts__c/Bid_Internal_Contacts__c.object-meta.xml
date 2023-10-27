@@ -161,8 +161,8 @@
     </nameField>
     <pluralLabel>Bid Internal Contacts</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Phone_Number__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Email_Address__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Role__c</lookupDialogsAdditionalFields>

@@ -168,8 +168,8 @@
         <customTabListAdditionalFields>Apttus__Public__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Apttus__Default__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>OWNER.ALIAS</customTabListAdditionalFields>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__Title__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Description__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__Context__c</lookupDialogsAdditionalFields>

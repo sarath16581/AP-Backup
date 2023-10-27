@@ -102,17 +102,17 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
+        <field>LastModifiedBy.Department</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
         <field>Apttus_Config2__PrimaryContactId__r.Department</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
         <field>CreatedBy.Department</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
-        <field>LastModifiedBy.Department</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -182,12 +182,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>CreatedBy.LastName</field>
+        <field>LastModifiedBy.LastName</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>LastModifiedBy.LastName</field>
+        <field>CreatedBy.LastName</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -222,6 +222,11 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
+        <field>Owner.Name</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
         <field>Apttus_Config2__LocationId__r.Name</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
@@ -242,17 +247,12 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Owner.Name</field>
+        <field>Apttus_Config2__PurchaseOrderId__r.Apttus_Config2__NextVersion__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
         <field>Apttus_Config2__NextVersion__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
-        <field>Apttus_Config2__PurchaseOrderId__r.Apttus_Config2__NextVersion__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -452,16 +452,6 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Apttus_Config2__PrimaryContactId__r.Title</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
-        <field>CreatedBy.Title</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </availableFields>
-    <availableFields>
         <field>LastModifiedBy.Title</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
@@ -472,7 +462,17 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>CreatedBy.UserRoleId</field>
+        <field>Apttus_Config2__PrimaryContactId__r.Title</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
+        <field>CreatedBy.Title</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
+        <field>Owner.UserRoleId</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>
@@ -482,7 +482,7 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
-        <field>Owner.UserRoleId</field>
+        <field>CreatedBy.UserRoleId</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </availableFields>

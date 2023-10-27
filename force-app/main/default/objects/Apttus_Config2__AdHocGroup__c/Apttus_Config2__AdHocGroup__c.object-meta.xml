@@ -163,8 +163,8 @@
     </nameField>
     <pluralLabel>Totaling Groups</pluralLabel>
     <searchLayouts>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus_Config2__Description__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus_Config2__ConfigurationId__c</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Apttus_Config2__Description__c</lookupPhoneDialogsAdditionalFields>

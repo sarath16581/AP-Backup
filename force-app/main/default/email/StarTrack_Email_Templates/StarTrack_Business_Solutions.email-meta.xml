@@ -15,7 +15,7 @@ Hi,
 
 Regards,
 
-{!User.Name}
+{!User.FirstName}
 Business Solutions Consultant
 StarTrack Customer Service Centre
 T {!User.Phone} | F 03 9336 5993

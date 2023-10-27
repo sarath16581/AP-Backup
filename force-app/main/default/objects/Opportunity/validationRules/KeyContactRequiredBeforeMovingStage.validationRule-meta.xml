@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KeyContactRequiredBeforeMovingStage</fullName>
+    <active>true</active>
+    <description>Ensure Key Contact is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( KeyContact__c ), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorDisplayField>KeyContact__c</errorDisplayField>
+    <errorMessage>Add a key contact. All opportunities must have the decision maker assigned in the Key Contact field.</errorMessage>
+</ValidationRule>

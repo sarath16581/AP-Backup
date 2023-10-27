@@ -43,6 +43,8 @@ Last Modified Date - 2021-06-15 Darshan Chauhan Removing unessecary code for App
 2022-05-02 SaiSwetha Pingali REQ2703521 - Added logic to capture role of the user at the time of creation.
 Ken McGuire 2023.04.19 Proposal field migration to opportunity
 2023-04-27 - Nasir Jawed - added logic on beforeUpdateEvent for the field 'APT_Proposal_Status_Accepted_Denied__c' update on opportunity
+2023-09-11 - Bharat Patel - STP-9618 fix: update condition with Proposal approval status (Rejected) check
+Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 */
 
 public without sharing class APT_ProposalTriggerHandler {
@@ -474,7 +476,7 @@ public without sharing class APT_ProposalTriggerHandler {
 						}
 
 						//CSP FIX: STP-8898
-						if(!String.isEmpty(prop.Apttus_Proposal__Approval_Stage__c) && prop.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_DENIED))
+                    if(!String.isEmpty(prop.Apttus_Proposal__Approval_Stage__c) && prop.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_DENIED) && !String.isEmpty(prop.Apttus_QPApprov__Approval_Status__c) && prop.Apttus_QPApprov__Approval_Status__c.equalsIgnoreCase(APT_Constants.APPROVAL_STATUS_REJECTED))
 						{
 							prop.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_DRAFT;
 						}
@@ -842,15 +844,5 @@ public without sharing class APT_ProposalTriggerHandler {
 		*/
 		public static void onBeforeInsert(List<Apttus_Proposal__Proposal__c> listOfNewProposals){
 			APT_ProposalTriggerHelper.updateProposalOwner(listOfNewProposals);
-		}
-
-		/**
-		* @description : This method will be called from BeforeUpdate Trigger
-		* @author Mansi Shah | 06-10-2021
-		* @param oldProposalMap
-		* @param newProposalMap
-		**/
-		public static void onBeforeUpdate(Map<Id,Apttus_Proposal__Proposal__c> oldProposalMap,Map<Id,Apttus_Proposal__Proposal__c> newProposalMap){
-			APT_ProposalTriggerHelper.updateApprovalFields(oldProposalMap,newProposalMap);
 		}
 	}

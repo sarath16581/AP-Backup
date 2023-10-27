@@ -5,8 +5,10 @@
  * @last modified on  : 06-29-2021
  * @last modified by  : Darshan Chauhan
  * Modifications Log 
- 2022- 05-15 Nasir Jawed Changed Tier
- Ken McGuire 2023.04.19 Proposal field migration to opportunity
+ * 2022-05-15 Nasir Jawed Changed Tier
+ * 2023-04-19 Ken McGuire  Proposal field migration to opportunity
+ * 2023-08-30 Ken McGuire  Improved test coverage
+ * 2023-08-31 Harry Wang Improved test coverage
 **/
 @isTest
 public with sharing class APT_ProcessApprvdConfigBatch_Test {
@@ -39,12 +41,31 @@ public with sharing class APT_ProcessApprvdConfigBatch_Test {
 		}
 	}
 
+	@isTest static void testSendEmail() {
+
+		Apttus_Proposal__Proposal__c testQuote = [SELECT Apttus_Proposal__Approval_Stage__c,APT_Selected_LP__c,
+		Expected_Revenue_Start_Date__c, Expected_Revenue_End_Date__c, Apttus_Proposal__Primary__c
+		FROM Apttus_Proposal__Proposal__c LIMIT 1];
+		 // Ensure that no emails have been sent before the test
+		Integer emailInvocations = Limits.getEmailInvocations();
+		System.assertEquals(0, emailInvocations);
+
+		Test.startTest();
+		try {
+			APT_ProcessApprovedConfigurationBatch.sendEmail(testQuote.Id);
+			// Assert: Check if an email was sent
+			System.assertEquals(emailInvocations + 1, Limits.getEmailInvocations());
+		} catch (Exception e) {
+			System.assert(e.getMessage().contains('NO_SINGLE_MAIL_PERMISSION'), 'Expected exception when email permission is disabled');
+		}
+		Test.stopTest();
+	}
+
+
 	@TestSetup
 	static void createData(){
 		Account acc = APT_TestUtils.createOrganisation();
 		insert acc;
-
-
 
 		// Startrack Product
 		Product2 product = APT_TestUtils.createStarTrackProduct('Road Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'Startrack');

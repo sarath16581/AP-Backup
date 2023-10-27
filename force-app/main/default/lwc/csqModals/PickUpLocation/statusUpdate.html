@@ -1,0 +1,39 @@
+<template>
+	<lightning-modal-header
+		label={title}
+	></lightning-modal-header>
+
+	<lightning-modal-body>
+		<div>
+			<lightning-formatted-rich-text
+				value={instance.content}
+			></lightning-formatted-rich-text>
+		</div>
+		<!-- Display the input boxes -->
+		<!-- Max Length of 32768 aligns with the Notes__c max field length" -->
+		<lightning-textarea
+			name="comments"
+			label="Notes"
+			data-name="input"
+			max-length="32768" 
+			value={instance.notes}
+		></lightning-textarea>
+	</lightning-modal-body>
+	
+	<lightning-modal-footer>
+		<!-- Display buttons in the footer -->
+		<lightning-button
+			label="Cancel"
+			name="btnCancel"
+			onclick={handleClick}
+			class="slds-var-m-right_x-small"
+		></lightning-button>
+		<lightning-button
+			label="Save"
+			name="btnSave"
+			variant="brand"
+			onclick={handleClick}
+			class="focusDefault"
+		></lightning-button>
+	</lightning-modal-footer>	 
+</template>

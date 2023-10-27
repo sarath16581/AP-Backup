@@ -16,6 +16,7 @@ History:
 2020-11-20  Seth Heang   - Updated test method testUserRolePopulateOnOpptyOwnerChange() to bypass the custom validation on Opportunity due to Opportunity Split
 2020-11-30  Seth Heang   - Added test method testCloseDateUpdateOnOppClosure() to test the 'Close Date' field auto-populated to Today's date during Opportunity Closure
 2022-07-22      ken.mcguire                         OPC Uplift.
+2023-08-24 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
 *****************************************************************************************/
 
 @isTest
@@ -24,6 +25,7 @@ private class OpportunityUtilityTest {
 
     @testSetup
     static void setupTestData() {
+	    Test.startTest();
         SystemSettings__c testCS = SystemSettings__c.getInstance();
         testCS.Disable_Triggers__c = FALSE;
         UPSERT testCS;
@@ -169,22 +171,34 @@ private class OpportunityUtilityTest {
 
         insert accVarList;
 
+		// key contact is mandatory on opportunity
+		List<Contact> keyContacts = ApplicationTestDataFactory.getContacts(accVarList.size(), new Map<Id, Account>(accVarList).keySet(), false);
+		insert keyContacts;
         // Create test Opportunity
         List<Opportunity> optyList = new List<Opportunity>();
         Opportunity oppVar = APT_TestUtil2.createOpportunity(accVar);
         oppVar.StageName = 'Identify';
         oppVar.Pre_Entry__c = TRUE;
+		oppVar.KeyContact__c = keyContacts[0].Id;
+		oppVar.Monthly_Executive_Summary__c = 'test';
+		oppVar.Description = 'test description';
         optyList.add(oppVar);
 
         Opportunity oppVar2 = APT_TestUtil2.createOpportunity(accVar2);
         oppVar2.Pre_Entry__c = TRUE;
         oppVar2.StageName = 'Identify';
+		oppVar2.KeyContact__c = keyContacts[1].Id;
+		oppVar2.Monthly_Executive_Summary__c = 'test';
+		oppVar2.Description = 'test description';
         optyList.add(oppVar2);
 
         Opportunity oppVar3 = APT_TestUtil2.createOpportunity(accVar3);
         oppVar3.Pre_Entry__c = TRUE;
         oppVar3.Closed_Reason__c = 'Functionality';
         oppVar3.StageName = 'Identify';
+		oppVar3.KeyContact__c = keyContacts[2].Id;
+		oppVar3.Monthly_Executive_Summary__c = 'test';
+		oppVar3.Description = 'test description';
         optyList.add(oppVar3);
 
         Opportunity oppVar4 = APT_TestUtil2.createOpportunity(accVar4);
@@ -192,11 +206,26 @@ private class OpportunityUtilityTest {
         oppVar4.Closed_Reason__c = 'Functionality';
         //--[Jansi] added below 17-02-2020 [for ERROR::System.DmlException: Insert failed. First exception on row 3; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, New Opportunity can only be created with Stage set to 'Identify': []]
         oppVar4.StageName = 'Identify';
+		oppVar4.KeyContact__c = keyContacts[3].Id;
+		oppVar4.Monthly_Executive_Summary__c = 'test';
+		oppVar4.Description = 'test description';
         optyList.add(oppVar4);
 
         insert optyList;
 
+		// recording competitors mandatory on opportunity to progress to close won
+		List<Competitor__c> competitors = ApplicationTestDataFactorySales.getCompetitors(optyList.size(), new Map<Id, Opportunity>(optyList).keySet(), false);
+		insert(competitors);
 
+		List<Task> opportunityTasks = new List<Task>();
+		for (Opportunity o: optyList) {
+			Task t = ApplicationTestDataFactory.getTasks(1, o.Id, false)[0];
+			t.ActivityDate=System.today();
+			t.Subject='test';
+			t.Status = 'Completed';
+			opportunityTasks.add(t);
+		}
+		insert opportunityTasks;
         // Create account plan
         Account_Plan__c apVar = new Account_Plan__c();
         apVar.name = 'test plan';
@@ -224,9 +253,7 @@ private class OpportunityUtilityTest {
         matrixWithoutHighThresh.Low_Threshold_Amount__c = 40000.01;
         insert matrixWithoutHighThresh;
 
-        ConfigSetting__c configSetting = new ConfigSetting__c(
-                OpportunityDriverDefaultUserId__c = user3.Id
-        );
+		ConfigSetting__c configSetting = new ConfigSetting__c(OpportunityDriverDefaultUserId__c = user3.Id);
 
         insert configSetting;
 
@@ -467,6 +494,7 @@ private class OpportunityUtilityTest {
         barList.add(barObj7);
 
         INSERT barlist; // 10/23/2019 added to fix validaion issues
+		Test.stopTest();
     }
    /**
     * SCENARIO: The target territory doesn't sell the opportunity's product,

@@ -31,7 +31,7 @@ If you have any other queries please call Startrack on 13 23 45.
 
 Kind regards,
 
-{!User.Name}</textOnly>
+{!User.FirstName}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

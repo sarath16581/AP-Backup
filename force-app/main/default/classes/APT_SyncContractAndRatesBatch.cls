@@ -56,7 +56,8 @@ Last Modified Date - 31st August, 2020 | STP-2246 - Update CSV filename to swap 
 
 @changelog:
 2022-06-06 - Seth Heang - MW0004945 Update Transit cover rate, maximum transit cover mapping with correct data source displayed on the proposal template and uplift API version to 52
-**/ 
+2023-09-15: Bharat Patel - Update proposal filter condition, to consider APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC proposal
+**/
 global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject>, Database.Stateful, Database.AllowsCallouts {
     
     global set<Id> setAgreementId {get; set;}
@@ -392,8 +393,9 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                                                         APT_Method_of_Payment__c
                                                         FROM Apttus_Proposal__Proposal__c
                                                         WHERE Apttus_Proposal__Opportunity__c IN :setOpportunityId
-                                                        AND (Apttus_Proposal__Approval_Stage__c = :APT_Constants.QUOTE_TYPE_DRAFT 
-                                                        OR Apttus_Proposal__Approval_Stage__c = :APT_Constants.APPROVAL_STAGE_ACCEPTED)
+                                                        AND (Apttus_Proposal__Approval_Stage__c = :APT_Constants.QUOTE_TYPE_DRAFT
+                                                        OR Apttus_Proposal__Approval_Stage__c = :APT_Constants.APPROVAL_STAGE_ACCEPTED
+                                                        OR Apttus_Proposal__Approval_Stage__c = :APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)
                                                         ORDER BY Apttus_Proposal__Presented_Date__c]) {
                     
                     mapProposalById.put(proposal.Id, proposal);
@@ -409,7 +411,7 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                             listProposalByOppty.add(proposal);
                             mapProposalByOppty.put(proposal.Apttus_Proposal__Opportunity__c, listProposalByOppty);
                         }
-                    } else if(agreement != null && agreement.APT_Contract_Type__c != null && agreement.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_RENEWAL_CONTRACT) && proposal.Apttus_Proposal__Approval_Stage__c != null && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED)) {
+                    } else if(agreement != null && agreement.APT_Contract_Type__c != null && agreement.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_RENEWAL_CONTRACT) && proposal.Apttus_Proposal__Approval_Stage__c != null && (proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC))) {
                         list<Apttus_Proposal__Proposal__c> listProposalByOppty = mapProposalByOppty.get(proposal.Apttus_Proposal__Opportunity__c);
                         if(listProposalByOppty != null) {
                             listProposalByOppty.add(proposal);
@@ -555,14 +557,14 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                         mapPLI.put(pli.Id, pli);
                         
                         //min quantity
-                        if(String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)) && String.isEmpty(pli.Apttus_QPConfig__OptionId__c) && pli.Apttus_QPConfig__IsPrimaryLine__c) {
+                        if(String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && (pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)) && String.isEmpty(pli.Apttus_QPConfig__OptionId__c) && pli.Apttus_QPConfig__IsPrimaryLine__c) {
                             if(pli.Apttus_QPConfig__AttributeValueId__r.APT_Minimum_Quantity__c != null) {
                                 MinQuantityPerAnnum = pli.Apttus_QPConfig__AttributeValueId__r.APT_Minimum_Quantity__c;
                             }
                         }
                         
                         //min revenue
-                        if(String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode ) && 
+                        if(String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && (pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode ) &&
                                 (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE)|| pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_DIGITAL_PCMS_BUNDLE) ||
                                  pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_DIGITAL_PCMS_BUNDLE_WITH_AIRMAIL))
                                  && String.isEmpty(pli.Apttus_QPConfig__OptionId__c) && pli.Apttus_QPConfig__IsPrimaryLine__c && !String.isEmpty(pli.Apttus_QPConfig__AttributeValueId__r.Revenue_Committment__c)) {
@@ -678,7 +680,7 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                                 }
                                 
                                 //FINAL
-                                if(pli != null && String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))) {
+                                if(pli != null && String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && (pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))) {
                                   detailedRate1 = populateDetailedRate(sapRate);
                                   system.debug('***** Detailed Rates ******'+detailedRate1);
                                   listDetailedRate1 = mapDetailedRate.get(sapRate.APT_Apttus_Contract__c + APT_Constants.SEPERATOR_SIMILARITY + sapRate.APT_Proposal_Line_Item__c + APT_Constants.SEPERATOR_SIMILARITY + sapRate.RecordTypeId);
@@ -968,7 +970,7 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                                             //FINAL
                                             //1844
                                             //if(String.isNotBlank(agreement.APT_Contract_Type__c) && !agreement.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.RECORD_TYPE_RENEWAL_CONTRACT ) && String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))) {
-                                            if(String.isNotBlank(agreement.APT_Contract_Type__c) && String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))) {
+                                            if(String.isNotBlank(agreement.APT_Contract_Type__c) && String.isNotBlank(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c) && (pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)) && String.isNotBlank(pli.Apttus_Proposal__Product__r.ProductCode) && (pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || pli.Apttus_Proposal__Product__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))) {
                                               listDetailedRate = mapDetailedRate.get(agreement.Id + APT_Constants.SEPERATOR_SIMILARITY + pli.Id + APT_Constants.SEPERATOR_SIMILARITY + detailedRateRecordTypeId);
                                             }
                                             
@@ -1383,7 +1385,7 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                 
                 if(!String.isEmpty(proposal.Apttus_Proposal__Approval_Stage__c) && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_DRAFT)) {
                     Quote.QuoteType = APT_Constants.QUOTE_TYPE_DRAFT;
-                } else if(!String.isEmpty(proposal.Apttus_Proposal__Approval_Stage__c) && proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED)) {
+                } else if(!String.isEmpty(proposal.Apttus_Proposal__Approval_Stage__c) && (proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || proposal.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC))) {
                     Quote.QuoteType = APT_Constants.QUOTE_TYPE_FINAL;
                 } 
                 else { }        
@@ -2318,7 +2320,7 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
         if(!String.isEmpty(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c)) {
             if(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.QUOTE_TYPE_DRAFT)) {
                 StatusDetails.Type_x = APT_Constants.APPROVAL_STAGE_DRAFT;
-            } else if(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED)) {
+            } else if(pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED) || pli.Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c.equalsIgnoreCase(APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)) {
                 StatusDetails.Type_x = APT_Constants.STATUS_DETAILS_TYPE_FINAL;
             } else { }         
         }

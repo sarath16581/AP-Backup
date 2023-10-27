@@ -6,7 +6,8 @@
 * The test code below was migrated from reportingAggregateUtils Apex Class
 * @changelog
 * 2021-08-06 - Seth Heang - Create test class by migrating test method from reportingAggregateUtils Apex Class, as part of API version uplift effort
-                            Fix code coverage issue
+*                           Fix code coverage issue
+* 2023-08-24 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
 */
 @isTest
 private class reportingAggregateUtils_Test {
@@ -40,9 +41,14 @@ private class reportingAggregateUtils_Test {
         Organisation_Role__c role = [SELECT id, Organisation__c, Role_Type__c from Organisation_Role__c WHERE Organisation__c=:ca.id limit 1];
         role.Role_Type__c = 'Customer';
         update role;
+
+        Contact keyContact = ApplicationTestDataFactory.getContacts(1, ca.Id, false)[0];
+        insert keyContact;
         
         //create opportunity
         Opportunity opp=new Opportunity(name='test opp', accountid=ca.Id, stagename='Identify', closedate=date.today()-7, Pricebook2Id = sPBId);
+        opp.KeyContact__c = keyContact.Id;
+        opp.Type = 'New Customer';
         insert opp;
         
         // add oppty line items
@@ -51,12 +57,23 @@ private class reportingAggregateUtils_Test {
             oliList.add(new OpportunityLineItem(OpportunityId = opp.id, PricebookEntryId = pbe.id, Quantity = 1, UnitPrice = 2, Contract_End_Date__c=date.today()+7, Contract_Start_Date__c=date.today()));
         }
         insert oliList;
+
+        List<Competitor__c> competitors = ApplicationTestDataFactorySales.getCompetitors(1, opp.Id, false);
+        insert(competitors);
+
+        Task oppTask = ApplicationTestDataFactory.getTasks(1, opp.Id, false)[0];
+        oppTask.ActivityDate=System.today();
+        //oppTask.Subject='test';
+        oppTask.Status = 'Completed';
+        insert(oppTask);
         
         // close opportunity
         opp.Offline_Contract_Received__c = true;
         opp.Hidden_Restrict_Path_Closure__c = true;
         opp.Closed_Reason__c = 'Functionality';
         opp.StageName = Constants.CLOSED_WON;
+        opp.Monthly_Executive_Summary__c = 'test';
+        opp.Description = 'test desc';
         update opp;
         opp.closedate=date.today()-7;
         update opp;

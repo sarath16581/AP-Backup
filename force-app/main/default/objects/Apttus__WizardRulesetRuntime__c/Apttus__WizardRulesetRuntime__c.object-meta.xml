@@ -163,8 +163,8 @@
     <pluralLabel>Wizard Ruleset Runtime</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__FocusObjectName__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__RecordTypeName__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__WizardRulesetId__c</lookupDialogsAdditionalFields>

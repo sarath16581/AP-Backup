@@ -5,12 +5,17 @@
  * @tag Opportunity
  * @domain Core
  * @description A very simple selector class that sits in the base domain
+ *				IMPORTANT - Deprecated. Do not use. Please use OpportunitiesSelector instead.
  * @changelog
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
  * 2021-06-08 - Seth.heang@auspost.com.au - Added Sender_name_to_appear_on_parcel_label__c field into query
  * 2023-03-29 - Harry Wang - Added new selector options WITH_CHILD_PROPOSALS
  * 2023-03-07 - nasir.jawed2@auspost.com.au - Added KeyContact__c,name, closedate field into query
  * 2023-07-07 - nasir.jawed2@auspost.com.au - Added WITH_USER,WITH_KEY_CONTACT,WITH_OWNER as Options
+ * 2023-08-31 - Ranjeewa Silva - Deprecated this selector(with sharing) in favour of OpportunitiesSelector(inherited sharing)
+ * --------------------------------------------------------------------------------------------
+ * IMPORTANT - Deprecated. Do not use. Please use OpportunitiesSelector instead.
+ * --------------------------------------------------------------------------------------------
  */
 
  public with sharing class OpportunitySelector extends ApplicationSelector{

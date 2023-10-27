@@ -8,6 +8,7 @@
  * Ver   Date         Author       Modification
  * 1.0   06-08-2021   Mansi Shah   Initial Version
  * Ken McGuire 2023.04.19 Proposal field migration to opportunity
+ * Paul Perry	2023-09-14 Decommissioned StarTrek Pricing Matrix logic MW0005472
 **/
 public with sharing class APT_ProcessApprovedConfigurationBatch implements Queueable{
 	public Set<Id> setOfConfigurationIds;
@@ -42,7 +43,6 @@ public with sharing class APT_ProcessApprovedConfigurationBatch implements Queue
 			quoteId = productConfigurationList[0].Apttus_QPConfig__Proposald__c;
 
 			if(cartId != null){
-				updatePAV(cartId);
 				applyConstraintRules(cartId);
 				rePriceCart(cartId);
 				updateConfiguration(cartId);
@@ -50,40 +50,6 @@ public with sharing class APT_ProcessApprovedConfigurationBatch implements Queue
 					sendEmail(quoteId);
 				}
 			}
-		}
-	}
-
-	/**
-	* @description : This method will update the Product Attribute value records with updated tiers
-	* @author Mansi Shah | 06-09-2021
-	* @param cartId
-	**/
-	public static void updatePAV(Id cartId){
-		List<Apttus_Config2__ProductAttributeValue__c> pavObjList = new List<Apttus_Config2__ProductAttributeValue__c>();
-
-		try{
-			List<Apttus_Config2__ProductAttributeValue__c> listOfPAVToUpdate = new List<Apttus_Config2__ProductAttributeValue__c>();
-
-			pavObjList = [SELECT Id, APT_Tier_Approved__c,APT_Approved_Tier_After_Adjustment__c,APT_Tier__c
-			FROM Apttus_Config2__ProductAttributeValue__c
-			WHERE Apttus_Config2__LineItemId__r.Apttus_Config2__ConfigurationId__c =: cartId
-			AND Apttus_Config2__LineItemId__r.Apttus_CQApprov__Approval_Status__c = 'Approved'];
-
-			if(pavObjList != null && !pavObjList.isEmpty()){
-				for( Apttus_Config2__ProductAttributeValue__c pavObj : pavObjList )
-				{
-					pavObj.APT_Tier_Approved__c = TRUE;
-					pavObj.APT_Tier__c =pavObj.APT_Approved_Tier_After_Adjustment__c;
-					listOfPAVToUpdate.add(pavObj);
-				}
-
-				if(listOfPAVToUpdate != null && !listOfPAVToUpdate.isEmpty()){
-					update pavObjList;
-				}
-			}
-		}
-		Catch(Exception e){
-			errorMsg+= ' Exception occured '+e.getMessage();
 		}
 	}
 

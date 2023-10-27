@@ -233,7 +233,7 @@
     <sharingCriteriaRules>
         <fullName>Enterprise_Onboarding_read_only_CMDT_cases</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This is to give the Enterprise Onboarding Team read access to the customer data team&apos;s cases to assist sellers.</description>
+        <description>This is to give the Enterprise Onboarding Team read access to the Sales Operation Support cases to assist Account Managers.</description>
         <label>Enterprise Onboarding read only CMDT cases</label>
         <sharedTo>
             <role>Enterprise_Onboarding_Team</role>
@@ -241,7 +241,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Data Quality Management</value>
+            <value>Sales Operations Support,Data Quality Management</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

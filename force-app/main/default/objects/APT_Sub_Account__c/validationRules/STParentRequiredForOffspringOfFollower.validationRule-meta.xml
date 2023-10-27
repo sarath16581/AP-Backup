@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>STParentRequiredForOffspringOfFollower</fullName>
+    <active>true</active>
+    <description>Parent must be nominated for a StarTrack account whose invoice is paid by another follower account under the same leader account hierarchy.</description>
+    <errorConditionFormula>AND(
+	OR(ISNEW(), ISCHANGED(AccountType__c), ISCHANGED(ParentBillingAccount__c), ISCHANGED(ParentAccountRequest__c)),   
+	ISPICKVAL(AccountType__c, &apos;Offspring Follower&apos;),  
+	ISBLANK(ParentBillingAccount__c), 
+	ISBLANK(ParentAccountRequest__c)
+)</errorConditionFormula>
+    <errorMessage>Please include the Parent account number related to the Offpsring Account.</errorMessage>
+</ValidationRule>

@@ -57,6 +57,8 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
+* 2023-09-14 mahesh.parvathaneni@auspost.com.au added cacheable=true for retrieveCommunityURL and getLoggedInUserInfo methods
+* 2023-10-10 jacob.isaac@auspost.com.au REQ3267978 - removing all reference of Mail Redirection picklist for International Letters/Parcel Product Cateogry
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -64,7 +66,7 @@ public with sharing class ChasApexController extends ChasBase{
         return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static String retrieveCommunityURL(){
         try {
             return ConnectApi.Communities.getCommunity(Network.getNetworkId()).siteUrl;
@@ -1290,8 +1292,10 @@ commentBody = commentBody  + 'False';
                         tpeAndProduct = ChasConstants.FEEDBACK_AND_DOMESTIC_LETTERS_AND_MAIL_REDIRECTION;
                         productCategory = ChasConstants.DOMESTIC_LETTERS;
                     }else if(whereIsYouremailRedirected == 'Overseas'){
-                        tpeAndProduct = ChasConstants.FEEDBACK_AND_INTERNATIONAL_LETTERS_AND_MAIL_REDIRECTION;
-                        productCategory = ChasConstants.INTERNATIONAL_LETTERS;
+                        //tpeAndProduct = ChasConstants.FEEDBACK_AND_INTERNATIONAL_LETTERS_AND_MAIL_REDIRECTION; //REQ3267978
+                        tpeAndProduct = ChasConstants.FEEDBACK_AND_DOMESTIC_LETTERS_AND_MAIL_REDIRECTION;
+                        //productCategory = ChasConstants.INTERNATIONAL_LETTERS;//REQ3267978
+                        productCategory = ChasConstants.DOMESTIC_LETTERS;
                     }
                     
                 }
@@ -2001,7 +2005,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             return false;
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static UserDetails getLoggedInUserInfo(){
         UserDetails userDetail = new UserDetails();
         userDetail.isUserAuthenticated = false;

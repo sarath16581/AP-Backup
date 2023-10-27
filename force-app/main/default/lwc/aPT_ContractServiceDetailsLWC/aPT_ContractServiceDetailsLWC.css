@@ -1,8 +1,8 @@
 .spins::after {
-	position: absolute;
-	content: 'Loading contract details page. Please wait';
-	width: 100%;
-	text-align: center;
-	top: calc(50% + 2em);
-	font-size: medium;
+    position: absolute;
+    content: 'Loading contract details page. Please wait';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 2em);
+    font-size: medium;
 }

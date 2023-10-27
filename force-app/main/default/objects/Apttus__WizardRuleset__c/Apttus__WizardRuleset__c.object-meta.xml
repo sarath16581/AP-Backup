@@ -163,8 +163,8 @@
     <pluralLabel>Wizard Rulesets</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>Apttus__InputResponseRuleType__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__RuleExpressionRuleType__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Apttus__WizardInputControlId__c</lookupDialogsAdditionalFields>

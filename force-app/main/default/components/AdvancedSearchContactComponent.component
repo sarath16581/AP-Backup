@@ -116,8 +116,9 @@
                 tBody.append(j$("<tr class='" + classDefintion + "' onmouseover='if (window.hiOn){hiOn(this);}' onmouseout='if (window.hiOff){hiOff(this);}' onblur='if (window.hiOff){hiOff(this);}' onfocus='if (window.hiOn){hiOn(this);}' id='" + recContact.contact.Id + "'>").append([
                             j$('<td class="dataCell">').append(decodedText),
                             j$('<td class="dataCell">').append('<a href="#" onclick="searchContactOpenTabAdvanced(\''+recContact.contact.Id+'\'); return false;">'+recContact.contact.Name+'</a>'),
-                            j$('<td class="dataCell">').append((recContact.contact.CRMCSSOID__c != null ? '<img src="/img/icon/custom51_100/keys16.png" />' : '')+
-                                    (recContact.contact.LevelOfAssurance__c != null && recContact.contact.LevelOfAssurance__c >= '{!minLOA}' ? '<img src="/img/func_icons/util/lock12.gif"/>' : '')),
+                            j$('<td class="dataCell">').append((recContact.contact.CRMCSSOID__c != null ? '<img src="/img/icon/custom51_100/keys16.png" /></br>' : '')+
+                                    (recContact.contact.LevelOfAssurance__c != null && recContact.contact.LevelOfAssurance__c >= '{!minLOA}' ? '<img src="/img/func_icons/util/lock12.gif"/></br>' : '')+
+                                    (recContact.contact.IsInactiveCustomer__c  ? '<img src="/img/func_icons/remove12_on.gif"/>' : '')),
                             j$('<td class="dataCell">').append((recContact.contact.Account != null ? (recContact.contact.Account.IsPersonAccount == true ? recContact.contact.Account.RecordType.Name : '<a href="#" onclick="searchContactOpenTabAdvanced(\''+recContact.contact.Account.Id+'\'); return false;">'+recContact.contact.Account.Name+'</a> '+(recContact.contact.Account.ABN__c != null ? recContact.contact.Account.ABN__c : '' )+' <br/>'+BillingAcc) : '')),
                             j$('<td class="dataCell">').append((recContact.contact.Phone == null ? '' : 'Phone: ' + recContact.contact.Phone +' </br>') +
                                     (recContact.contact.HomePhone == null ? '' : 'Home: ' + recContact.contact.HomePhone +' </br>') +
@@ -524,6 +525,9 @@
                 <apex:column >
                     <apex:outputpanel rendered="{!IF(o.contact.CRMCSSOID__c != null, 'true', 'false')}">
                         <img src="/img/icon/custom51_100/keys16.png" />
+                    </apex:outputpanel>
+                    <apex:outputpanel rendered="{!IF(o.contact.IsInactiveCustomer__c, 'true', 'false')}">
+                        <img src="/img/func_icons/remove12_on.gif"/>
                     </apex:outputpanel>
                 </apex:column>
                 <apex:column style="vertical-align:top;">

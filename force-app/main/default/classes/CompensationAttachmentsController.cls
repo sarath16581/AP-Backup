@@ -20,6 +20,7 @@ public with sharing class CompensationAttachmentsController {
         }
         private set;
     }
+
     public static final Boolean IsCompensationSupervisor {
         get {
             if (isCompensationSupervisor == null) {
@@ -30,18 +31,32 @@ public with sharing class CompensationAttachmentsController {
         private set;
     }
 
+    public static Set<Id> RESTRICTED_COMPENSATION_RECORD_TYPES {
+        get {
+            if(RESTRICTED_COMPENSATION_RECORD_TYPES == null) {
+                RESTRICTED_COMPENSATION_RECORD_TYPES = RecordTypesSelector.newInstance().selectByDeveloperName(
+                        'Compensation__c',
+                        new Set<String>{'EFT','Load_and_Go','Money_Order','Money_Order_Number_Required'}).keySet();
+            }
+            return RESTRICTED_COMPENSATION_RECORD_TYPES;
+        }
+        private set;
+    }
+
     /**
      * pass the common configurations for the componsnt
      * @return PageConfig
      */
     @AuraEnabled
-    public static PageConfig getPageConfig() {
+    public static PageConfig getPageConfig(Id recordId) {
         PageConfig config = new PageConfig();
-        if (isCompensationUser || isCompensationSupervisor) {
+        Compensation__c compensation = CompensationSelector.newInstance(1).getById(recordId, new Set<Object>())[0];
+        if ((isCompensationUser || isCompensationSupervisor) || !RESTRICTED_COMPENSATION_RECORD_TYPES.contains(compensation.RecordTypeId)) {
             config.isAllowedToCreateCompensation = true;
         } else {
             config.isAllowedToCreateCompensation = false;
         }
+        config.compensation = compensation;
         return config;
     }
 
@@ -53,9 +68,8 @@ public with sharing class CompensationAttachmentsController {
      * @return List<AttachmentDetail>
      */
     @AuraEnabled
-    public static List<AttachmentDetail> getAttachmentsByParentId(Id recordId) {
+    public static List<AttachmentDetail> getAttachmentsByParentId(Compensation__c compensation) {
         List<AttachmentDetail> attachmentDetails = new List<AttachmentDetail>();
-        Compensation__c compensation = CompensationSelector.newInstance(1).getById(recordId, new Set<Object>())[0];
         if (compensation == null || compensation.Case__c == null) {
             return new List<AttachmentDetail>();
         }
@@ -254,5 +268,6 @@ public with sharing class CompensationAttachmentsController {
      */
     public class PageConfig {
         @AuraEnabled public Boolean isAllowedToCreateCompensation { get; set; }
+        @AuraEnabled public Compensation__c compensation { get; set; }
     }
 }
