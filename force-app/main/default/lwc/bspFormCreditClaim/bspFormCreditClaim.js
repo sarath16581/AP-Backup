@@ -73,6 +73,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	accountHeldWith;
 	disputeType;
 	reasonClaim;
+	reasonClaimLabel;
 	reasonClaimHelpText = {};
 	claimAmount;
 	description;
@@ -318,24 +319,19 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 			case 'accountHeldWith':
 				this.accountHeldWith = event.detail.value;
+				this.setHelpText();
 				break;
 			case 'disputeType':
 				this.disputeType = event.detail.value;
 				this.handleEnquiryTypeChange(event);
+				this.reasonClaimHelpText = {}; // clear the reason's help text
+				this.reasonClaim = ''; // clear the reason value.
+				this.reasonClaimLabel = ''; // clear the reason label.
 				break;
 			case 'reasonClaim':
 				this.reasonClaim = event.detail.value;
-				this.reasonClaimHelpText.text = '';
-				let businessUnit = '';
-				if (this.accountHeldWith === 'Australia Post') {
-					businessUnit = 'ap';
-				} else if (this.accountHeldWith === 'StarTrack') {
-					businessUnit = 'st';
-				}
-				const stringWithoutSpaces = event.target.value.replace(/\s+/g, '').toLowerCase();
-				const reasonHelpText = this.creditClaimReasonHelpTexts[stringWithoutSpaces+'_'+businessUnit];
-				this.reasonClaimHelpText.text = reasonHelpText.Message__c;
-				this.reasonClaimHelpText.isAttachmentRequired = reasonHelpText.IsAttachmentRequired__c;
+				this.reasonClaimLabel = this.reasonClaimList.find(reason => reason.value === event.detail.value).label;
+				this.setHelpText();
 				break;
 			case 'claimAmount':
 				this.claimAmount = event.detail.value;
@@ -348,6 +344,23 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 		}
 
+	}
+
+	/**
+	 * Setting the help text
+	 */
+	setHelpText() {
+		this.reasonClaimHelpText.text = '';
+		let businessUnit = '';
+		if (this.accountHeldWith === 'Australia Post') {
+			businessUnit = 'ap';
+		} else if (this.accountHeldWith === 'StarTrack') {
+			businessUnit = 'st';
+		}
+		const stringWithoutSpaces = this.reasonClaim.replace(/\s+/g, '').toLowerCase();
+		const reasonHelpText = this.creditClaimReasonHelpTexts[stringWithoutSpaces + '_' + businessUnit];
+		this.reasonClaimHelpText.text = reasonHelpText.Message__c;
+		this.reasonClaimHelpText.isAttachmentRequired = reasonHelpText.IsAttachmentRequired__c;
 	}
 
 	handleFocus(event) {
