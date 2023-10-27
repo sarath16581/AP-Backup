@@ -43,26 +43,6 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
-            <value>
-                <fullName>Peak Fee</fullName>
-                <default>false</default>
-                <label>Peak Fee</label>
-            </value>
-            <value>
-                <fullName>Over Maximum Limits Fee</fullName>
-                <default>false</default>
-                <label>Over Maximum Limits Fee</label>
-            </value>
-            <value>
-                <fullName>Manifest Correction Fee</fullName>
-                <default>false</default>
-                <label>Manifest Correction Fee</label>
-            </value>
-            <value>
-                <fullName>Force Majeure Fee</fullName>
-                <default>false</default>
-                <label>Force Majeure Fee</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

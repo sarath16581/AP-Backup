@@ -57,7 +57,7 @@
                 <default>false</default>
                 <label>Unable to fulfil request</label>
             </value>
-			<value>
+            <value>
                 <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
                 <default>false</default>
                 <label>The agent was equipped to provide a response</label>

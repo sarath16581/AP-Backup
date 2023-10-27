@@ -10,8 +10,8 @@
     <relationshipLabel>Freight Offering Cloned Records</relationshipLabel>
     <relationshipName>FreightOffering_Clones</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
-	<securityClassification>INTERNAL</securityClassification>
 </CustomField>

@@ -84,7 +84,11 @@
         <picklist>Is_APPC__c</picklist>
         <values>
             <fullName>No</fullName>
-            <default>true</default>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -172,19 +176,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Force Majeure Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Fuel Surcharge</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>International Surcharge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Manifest Correction Fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -197,14 +193,6 @@
         </values>
         <values>
             <fullName>Order Processing Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Over Maximum Limits Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Peak Fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -379,10 +367,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Force Majeure Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>General Ledger Adjustment</fullName>
             <default>false</default>
         </values>
@@ -467,7 +451,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Manifest Correction Fee</fullName>
+            <fullName>Manifest Correction Fee Credit</fullName>
             <default>false</default>
         </values>
         <values>
@@ -515,15 +499,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Over Maximum Limits Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Oversize Charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Peak Fee</fullName>
             <default>false</default>
         </values>
         <values>

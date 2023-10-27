@@ -1559,11 +1559,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Configure_Products__c</field>
-            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Contract_Number__c</field>
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
         </columns>

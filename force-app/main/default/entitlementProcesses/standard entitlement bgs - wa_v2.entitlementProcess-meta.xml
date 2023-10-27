@@ -30,16 +30,16 @@
         <milestoneName>Resolution Time BGS</milestoneName>
         <minutesToComplete>1920</minutesToComplete>
         <timeTriggers>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
             <actions>
                 <name>Warn_BGS_Resolution_WA</name>
                 <type>FlowAction</type>
             </actions>
             <timeLength>-3</timeLength>
             <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <timeLength>1</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>

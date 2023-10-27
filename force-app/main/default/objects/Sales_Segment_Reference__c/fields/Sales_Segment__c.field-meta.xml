@@ -10,7 +10,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Centrally Managed</fullName>
                 <default>false</default>
@@ -75,11 +75,6 @@
                 <fullName>Government North</fullName>
                 <default>false</default>
                 <label>Government North</label>
-            </value>
-            <value>
-                <fullName>Government North - National Defence</fullName>
-                <default>false</default>
-                <label>Government North - National Defence</label>
             </value>
             <value>
                 <fullName>Government - Not Active</fullName>
@@ -345,6 +340,11 @@
                 <fullName>Small Business WA</fullName>
                 <default>false</default>
                 <label>Small Business WA</label>
+            </value>
+            <value>
+                <fullName>Government North - National Defence</fullName>
+                <default>false</default>
+                <label>Government North - National Defence</label>
             </value>
         </valueSetDefinition>
     </valueSet>

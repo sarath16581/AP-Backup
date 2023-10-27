@@ -5238,7 +5238,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
         <value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithIncorrectOverlayTypeSplitsAssignments</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -8196,7 +8196,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Manifest only</shortDescription>
         <value>Please flag when there are no physical scans for the parcel</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>

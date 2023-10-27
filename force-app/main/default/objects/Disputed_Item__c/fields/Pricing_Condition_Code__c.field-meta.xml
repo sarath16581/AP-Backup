@@ -14,11 +14,7 @@ IF(ISPICKVAL(Reason_Category__c, &quot;Capture ID (Addressee only) fee&quot;),&q
 IF(ISPICKVAL(Reason_Category__c, &quot;Transit Cover fee&quot;),&quot;Y224&quot;,
 IF(ISPICKVAL(Reason_Category__c, &quot;Return to Sender fee&quot;),&quot;Y502&quot;,
 IF(ISPICKVAL(Reason_Category__c, &quot;Fuel Surcharge&quot;),&quot;Y580&quot;,
-IF(ISPICKVAL(Reason_Category__c, &quot;Peak Fee&quot;),&quot;Y598&quot;,
-IF(ISPICKVAL(Reason_Category__c, &quot;Over Maximum Limits Fee&quot;),&quot;Y599&quot;,
-IF(ISPICKVAL(Reason_Category__c, &quot;Manifest Correction Fee&quot;),&quot;Y601&quot;,
-IF(ISPICKVAL(Reason_Category__c, &quot;Force Majeure Fee&quot;),&quot;Y603&quot;,
-IF(ISPICKVAL(Reason_Category__c, &quot;Wine &amp; Alcohol fee&quot;),&quot;Y206&quot;,&quot;Y101&quot;))))))))))))))),
+IF(ISPICKVAL(Reason_Category__c, &quot;Wine &amp; Alcohol fee&quot;),&quot;Y206&quot;,&quot;Y101&quot;))))))))))),
 null)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Pricing condition code to be sent to SAP</inlineHelpText>

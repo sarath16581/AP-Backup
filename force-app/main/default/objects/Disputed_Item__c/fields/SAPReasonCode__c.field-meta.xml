@@ -41,10 +41,6 @@
 &apos;eLMS Mailing Stateme&apos;,&apos;MS1&apos;,
 &apos;International Linehaul Surcharge&apos;,&apos;K18&apos;,
 &apos;Incorrect Cubic Data(Operations)&apos;,&apos;K10&apos;,
-&apos;Peak Fee&apos;,&apos;K26&apos;,
-&apos;Over Maximum Limits Fee&apos;,&apos;K27&apos;,
-&apos;Manifest Correction Fee&apos;,&apos;K28&apos;,
-&apos;Force Majeure Fee&apos;,&apos;K29&apos;,
 &apos; &apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>SAP Reason Code</label>

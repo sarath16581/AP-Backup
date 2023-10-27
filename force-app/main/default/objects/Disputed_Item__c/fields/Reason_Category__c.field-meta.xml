@@ -134,26 +134,6 @@
                 <default>false</default>
                 <label>None</label>
             </value>
-            <value>
-                <fullName>Peak Fee</fullName>
-                <default>false</default>
-                <label>Peak Fee</label>
-            </value>
-            <value>
-                <fullName>Over Maximum Limits Fee</fullName>
-                <default>false</default>
-                <label>Over Maximum Limits Fee</label>
-            </value>
-            <value>
-                <fullName>Manifest Correction Fee</fullName>
-                <default>false</default>
-                <label>Manifest Correction Fee</label>
-            </value>
-            <value>
-                <fullName>Force Majeure Fee</fullName>
-                <default>false</default>
-                <label>Force Majeure Fee</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Yes</controllingFieldValue>
@@ -266,26 +246,6 @@
             <controllingFieldValue>Yes</controllingFieldValue>
             <controllingFieldValue>No</controllingFieldValue>
             <valueName>None</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Peak Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Over Maximum Limits Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Manifest Correction Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Force Majeure Fee</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

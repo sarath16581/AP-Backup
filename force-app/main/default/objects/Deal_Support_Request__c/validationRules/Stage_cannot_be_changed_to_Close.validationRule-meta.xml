@@ -4,17 +4,17 @@
     <active>true</active>
     <description>Only Enterprise Onboarding team can change the Stage field to Close.</description>
     <errorConditionFormula>AND(
-		$RecordType.Name = &quot;Customer Onboarding&quot;,
-		ISCHANGED(Stage__c),
-		OR(
-		ISPICKVAL((Stage__c),&quot;Closed&quot;),
-		ISPICKVAL((Stage__c),&quot;Completed&quot;)),
-		$Profile.Name &lt;&gt; &quot;Enterprise Onboarding&quot;,
-		$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
-		$Profile.Name &lt;&gt; &quot;Sales Operations&quot;,
-		$Profile.Name &lt;&gt; &quot;Sales Admin&quot;,
-		$Profile.Name &lt;&gt; &quot;Sales Operations Super User&quot;,
-		NOT($Permission.Deal_Enablement_Read_Write_Cases)
-		)</errorConditionFormula>
+$RecordType.Name = &quot;Customer Onboarding&quot;,
+ISCHANGED(Stage__c),
+OR(
+ISPICKVAL((Stage__c),&quot;Closed&quot;),
+ISPICKVAL((Stage__c),&quot;Completed&quot;)),
+$Profile.Name &lt;&gt; &quot;Enterprise Onboarding&quot;,
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+$Profile.Name &lt;&gt; &quot;Sales Operations&quot;,
+$Profile.Name &lt;&gt; &quot;Sales Admin&quot;,
+$Profile.Name &lt;&gt; &quot;Sales Operations Super User&quot;,
+NOT($Permission.Deal_Enablement_Read_Write_Cases)
+)</errorConditionFormula>
     <errorMessage>You cannot change the Stage of the DSR to close or completed for Customer Onboarding.</errorMessage>
 </ValidationRule>
