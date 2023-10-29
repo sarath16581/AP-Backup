@@ -9,12 +9,14 @@
  * 2020-08-14 - arjun.singh@austpost.com.au - Created
  * 2023-05-17 - Ranjeewa Silva - Added new selector option to select child opportunity splits with split type 'overlay contribution'
  * 2023-08-18 - Ranjeewa Silva - Added selector options to select competitor, dsr and apttus contract child records
+ * 2023-10-25 - Mahesh Parvathaneni - Added selector options to select opportunity line items child records
  */
 
 public virtual inherited sharing class OpportunitiesSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_OVERLAY_SPLITS, WITH_COMPETITORS, WITH_DEAL_SUPPORT_REQUESTS, WITH_APTTUS_CONTRACTS
+		WITH_RECORDTYPE, WITH_OWNER, WITH_OVERLAY_SPLITS, WITH_COMPETITORS, WITH_DEAL_SUPPORT_REQUESTS, WITH_APTTUS_CONTRACTS, 
+		WITH_OPPORTUNITY_LINE_ITEMS
 	}
 
 	public static OpportunitiesSelector newInstance() {
@@ -98,6 +100,10 @@ public virtual inherited sharing class OpportunitiesSelector extends Application
 
 		if (selectorOptions.contains(Options.WITH_APTTUS_CONTRACTS)) {
 			builder.addSubQuery(ApttusContractsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Apttus__R00N50000001Xl0FEAS__r');
+		}
+
+		if (selectorOptions.contains(Options.WITH_OPPORTUNITY_LINE_ITEMS)) {
+			builder.addSubQuery(OpportunityLineItemSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'OpportunityLineItems');
 		}
 
 		return builder;
