@@ -39,6 +39,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Customer_Scoping_Questionnaire__c.CSQ_Sales_team__c</field>
         <readable>true</readable>
     </fieldPermissions>
