@@ -20,9 +20,11 @@
  * 2020-08-16 - arjun.singh@auspost.com.au - Modified to include OpportunityValidationErros vf page which in turns pass all the possibe
  *										   validation errors to lwc component
  * 2023-08-18 - Ranjeewa Silva - Updated to display validation errors when moving to next stage for opportunities in any stage.
+ * 2023-10-16 - Mahesh Parvathaneni - Updated populateValidationErrorResults to check for new line in the error message
+ * 2023-10-20 - Mahesh Parvathaneni - Updated populateValidationErrorResults to unescape greater than symbol in html
  */
 
-import {LightningElement, track, api, wire} from 'lwc';
+import {LightningElement, api, wire} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import FIELD_OPPORTUNITY_ISCLOSED from '@salesforce/schema/Opportunity.IsClosed';
@@ -82,6 +84,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 
 			// post message to vf page to get validation errors
 			this.publishMessageToVFPage();
+		} else if (error) {
+			console.error(error);
 		}
 	}
 
@@ -131,16 +135,20 @@ export default class OpportunityCloseErrors extends LightningElement {
 	/**
 	 * Parse all the validation message and store in an array to display in UI.
 	 */
-	 populateValidationErrorResults(result) {
+	populateValidationErrorResults(result) {
 
-		 this.errorMessage = (result.errorMessage ? result.errorMessage : null);
+		this.errorMessage = (result.errorMessage ? result.errorMessage : null);
 
 		this.progressErrs = [];
 		if(result.validationMessages) {
 			result.validationMessages.forEach((errMsg)=>{
-				var eMsg = errMsg.replace(/&quot;/g,'\'');
-				var eMsgVar = eMsg.replace(/amp;/g,'');
-				this.progressErrs.push(eMsgVar);
+				errMsg = errMsg.replace(/&quot;/g,'\'');
+				errMsg = errMsg.replace(/amp;/g,'');
+				errMsg = errMsg.replace(/&gt;/g , ">");
+				let eMsgArray = errMsg.split(/\n/);
+				eMsgArray.forEach(eMsgVal => {
+					this.progressErrs.push(eMsgVal);
+				})
 			});
 		}
 
@@ -170,7 +178,7 @@ export default class OpportunityCloseErrors extends LightningElement {
 		return (this._pathNextStageMapping && this._pathNextStageMapping[this.currentStage] ? this._pathNextStageMapping[this.currentStage] : '');
 	}
 
-	handleRefresh(event) {
+	handleRefresh() {
 		this.publishMessageToVFPage();
 	}
 
@@ -203,6 +211,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 			});
 			this._pathNextStageMapping = pathMapping;
 			this.publishMessageToVFPage();
+		} else if (error) {
+			console.error(error);
 		}
 	}
 }

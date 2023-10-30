@@ -1,10 +1,11 @@
 /**
- * @description Renders a custom icons and images for New BSP Lightning community usage
- * @author Ankur Gandhi
- * @date 2020-08-19
- * @group Tracking
- * @changelog
- */
+* @description Renders a custom icons and images for New BSP Lightning community usage
+* @author Ankur Gandhi
+* @date 2020-08-19
+* @group Tracking
+* @changelog
+* 15/08/2023	hasantha.liyanage@auspost.com.au	added claim icon
+*/
 import {LightningElement, api} from 'lwc';
 
 // list of colours to use where a colour is not specified for the icon
@@ -48,13 +49,13 @@ const DEFAULT_COLOURS = {
 };
 
 export default class BspCustomIcons extends LightningElement {
-	
+
 	@api icon = '';
 	@api fill = 'default';
 	@api size = 'medium'; // or small or large
 	@api maintainHeightRatio = false;
-    @api maintainWidth = false;
-    @api iconclass = '';
+	@api maintainWidth = false;
+	@api iconclass = '';
 
 	get iconIsClose() {
 		return this.icon === 'close';
@@ -106,6 +107,9 @@ export default class BspCustomIcons extends LightningElement {
 	}
 	get iconIsVan() {
 		return this.icon === 'van';
+	}
+	get iconIsClaim() {
+		return this.icon === 'claim';
 	}
 	get iconIsHelp() {
 		return this.icon === 'help';
@@ -193,6 +197,9 @@ export default class BspCustomIcons extends LightningElement {
 	}
 	get iconIsLock() {
 		return this.icon === 'lock';
+	}
+	get iconIsInbox() {
+		return this.icon === 'inbox';
 	}
 	get cssClass() {
 		return this.iconclass + ' ' + this.size + ' ' + (this.maintainWidthRatio ? 'maintain-width-ratio' : (this.maintainHeightRatio ? 'maintain-height-ratio' : '' ));

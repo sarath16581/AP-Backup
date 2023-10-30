@@ -37,6 +37,11 @@
                 <default>false</default>
                 <label>RTS Request</label>
             </value>
+            <value>
+                <fullName>Credit Claim</fullName>
+                <default>false</default>
+                <label>Credit Claim</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

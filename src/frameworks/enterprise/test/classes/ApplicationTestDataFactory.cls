@@ -35,6 +35,7 @@
  * 2023-07-16 - SteveL- Added getEvents
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
  * 2023-08-09 - Mahesh Parvathaneni - Added method getNetworkMembers
+ * 2023-10-03 - Hasantha Liyanage - Added methods getBamApplicationRoles, getBamContactRoles, getBamContactApplications
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -928,6 +929,33 @@ public with sharing class ApplicationTestDataFactory {
 			BAMApplication__c.Product__c =>  productId,
 			BAMApplication__c.appKey__c => appName.substring(0,Math.min(appName.length(), 9)),
 			BAMApplication__c.ServiceType__c =>  'Salesforce'
+		}, count), generateIds);
+	}
+
+	public static List<BAMApplicationRole__c> getBamApplicationRoles(Integer count, String roleName, Id appId, Boolean generateIds) {
+		return (List<BAMApplicationRole__c>)maybeGenerateIds(populateSObjects(BAMApplicationRole__c.SObjectType, new Map<SObjectField, Object> {
+				BAMApplicationRole__c.Role__c => roleName,
+				BAMApplicationRole__c.Application__c => appId,
+				BAMApplicationRole__c.ShowBillingAccount__c => true,
+				BAMApplicationRole__c.ShowGroup__c =>  true,
+				BAMApplicationRole__c.ShowOrganisation__c => true,
+				BAMApplicationRole__c.status__c =>  'Active'
+		}, count), generateIds);
+	}
+
+	public static List<BAMContactRole__c> getBamContactRoles(Integer count, String roleId, Id appId, Boolean generateIds) {
+		return (List<BAMContactRole__c>)maybeGenerateIds(populateSObjects(BAMContactRole__c.SObjectType, new Map<SObjectField, Object> {
+				BAMContactRole__c.ContactApplication__c => appId,
+				BAMContactRole__c.ApplicationRole__c => roleId,
+				BAMContactRole__c.status__c =>  'Active'
+		}, count), generateIds);
+	}
+
+	public static List<BAMContactApplication__c> getBamContactApplications(Integer count, Id contactId, Id appId, Boolean generateIds) {
+		return (List<BAMContactApplication__c>)maybeGenerateIds(populateSObjects(BAMContactApplication__c.SObjectType, new Map<SObjectField, Object> {
+				BAMContactApplication__c.Contact__c => contactId,
+				BAMContactApplication__c.Application__c => appId,
+				BAMContactApplication__c.Status__c => 'Active'
 		}, count), generateIds);
 	}
 

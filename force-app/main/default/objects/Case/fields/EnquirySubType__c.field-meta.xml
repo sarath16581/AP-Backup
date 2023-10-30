@@ -898,7 +898,6 @@
             <controllingFieldValue>Investigation|Travel &amp; ID|My Post ID card</controllingFieldValue>
             <controllingFieldValue>Investigation|International Parcels|StarTrack International</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Airmail under 2kg</controllingFieldValue>
@@ -926,7 +925,6 @@
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Express Post International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Send a Parcel</controllingFieldValue>
-            <controllingFieldValue>Feedback|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|UMCS</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Economy Air under 500g</controllingFieldValue>
@@ -954,7 +952,6 @@
             <controllingFieldValue>Feedback|Domestic Parcels|Express Platinum</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Mail hold</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Express Post International</controllingFieldValue>
-            <controllingFieldValue>Investigation|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|International Courier</controllingFieldValue>
@@ -1125,7 +1122,6 @@
             <controllingFieldValue>General Enquiry|Travel &amp; ID|Passport</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Travel &amp; ID|MyPost Concession Card</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Travel &amp; ID|My Post ID card</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>
@@ -1756,7 +1752,6 @@
             <controllingFieldValue>Investigation|International Parcels|Express Post International</controllingFieldValue>
             <controllingFieldValue>Investigation|International Parcels|International Express</controllingFieldValue>
             <controllingFieldValue>Investigation|International Parcels|StarTrack International</controllingFieldValue>
-            <controllingFieldValue>Feedback|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|International Courier</controllingFieldValue>
@@ -1774,7 +1769,6 @@
             <controllingFieldValue>Feedback|Domestic Parcels|Express Platinum</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Mail hold</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Express Post International</controllingFieldValue>
-            <controllingFieldValue>Investigation|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|International Courier</controllingFieldValue>
@@ -2427,7 +2421,6 @@
             <controllingFieldValue>Investigation|International Parcels|StarTrack International</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
-            <controllingFieldValue>Feedback|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|International Courier</controllingFieldValue>
@@ -2446,7 +2439,6 @@
             <controllingFieldValue>Feedback|Domestic Parcels|Express</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Express Platinum</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Express Post International</controllingFieldValue>
-            <controllingFieldValue>Investigation|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|International Courier</controllingFieldValue>
@@ -2544,7 +2536,6 @@
             <controllingFieldValue>Investigation|International Parcels|StarTrack International</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
-            <controllingFieldValue>Feedback|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|International Courier</controllingFieldValue>
@@ -2563,7 +2554,6 @@
             <controllingFieldValue>Feedback|Domestic Parcels|Express</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Express Platinum</controllingFieldValue>
             <controllingFieldValue>Feedback|International Letters|Express Post International</controllingFieldValue>
-            <controllingFieldValue>Investigation|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|Economy Air under 500g</controllingFieldValue>
             <controllingFieldValue>Investigation|International Letters|International Courier</controllingFieldValue>
@@ -2771,7 +2761,6 @@
             <controllingFieldValue>General Enquiry|International Parcels|Express Post International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Parcels|International Express</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Parcels|StarTrack International</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>
@@ -3011,9 +3000,7 @@
         <valueSettings>
             <controllingFieldValue>Investigation|Domestic Letters|Mail hold</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Letters|Mail redirection</controllingFieldValue>
-            <controllingFieldValue>Feedback|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Mail hold</controllingFieldValue>
-            <controllingFieldValue>Investigation|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Parcels|Mail hold</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Parcels|Mail redirection</controllingFieldValue>
@@ -3024,9 +3011,7 @@
         <valueSettings>
             <controllingFieldValue>Investigation|Domestic Letters|Mail hold</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Letters|Mail redirection</controllingFieldValue>
-            <controllingFieldValue>Feedback|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Mail hold</controllingFieldValue>
-            <controllingFieldValue>Investigation|International Letters|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Parcels|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Parcels|Mail hold</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Parcels|Mail redirection</controllingFieldValue>

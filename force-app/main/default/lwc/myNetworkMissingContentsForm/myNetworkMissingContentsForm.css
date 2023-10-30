@@ -8,3 +8,6 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.textAreaBody {
+    --sds-c-textarea-sizing-min-height:130px;
+}

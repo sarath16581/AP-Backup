@@ -1,270 +1,270 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 23/07/2020
-  * @description  : Component for enquiries list on home page.
+*@author		:Jansi Rani. jansi.rani@auspost.com.au
+*@date			:23/07/2020
+*@description	:Component for enquiries list on home page.
 --------------------------------------- History --------------------------------------------------
-23.07.2020    Jansi Rani   Created
+23.07.2020		Jansi Rani			Created
 -->
 <template>
 
-    <template if:true={error}>
-        <c-bsp-error data-id="error" error-message={error}></c-bsp-error>
-    </template>
-    <!--Enquires List-->
-    <p class="slds-p-horizontal_small"></p>
-    <div class="slds-is-relative">
-        <div>
-            <table class="slds-is-relative slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table--header-fixed brand-table brand-table-scroll">
-                <thead class="brand-table">
-                    <tr class="slds-line-height_reset">
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                <lightning-input onchange={handleAllSelect} type="checkbox" checked={mainCheckboxVal}>
-                                </lightning-input>
-                            </div>
-                        </th>
-                        <th data-id="caseNumber" onclick={sortCaseNumber}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Case Number">Enquiry Number</span>
-                                <div if:true={isCaseNumberSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
+	<template if:true={error}>
+		<c-bsp-error data-id="error" error-message={error}></c-bsp-error>
+	</template>
+	<!--Enquires List-->
+	<p class="slds-p-horizontal_small"></p>
+	<div class="slds-is-relative">
+		<div>
+			<table class="slds-is-relative slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table--header-fixed brand-table brand-table-scroll">
+				<thead class="brand-table">
+					<tr class="slds-line-height_reset">
+						<th scope="col">
+							<div class="slds-truncate">
+								<lightning-input onchange={handleAllSelect} type="checkbox" checked={mainCheckboxVal}>
+								</lightning-input>
+							</div>
+						</th>
+						<th data-id="caseNumber" onclick={sortCaseNumber}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Case Number">Enquiry Number</span>
+								<div if:true={isCaseNumberSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
 
-                        <th data-id="CreatedDate" onclick={sortCreatedDate}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Date created">Date created</span>
-                                <div if:true={isCreatedDateSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
-                        <th data-id="ArticleTest__r.Name" onclick={sortTrackingNumber}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Tracking number">Tracking number</span>
-                                <div if:true={isTrackingNumSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
-                        <!--<th data-id="RecordType.DeveloperName" onclick={sortService}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Service">Service</span>
-                                <div if:true={isServiceSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>-->
+						<th data-id="CreatedDate" onclick={sortCreatedDate}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Date created">Date created</span>
+								<div if:true={isCreatedDateSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
+						<th data-id="ArticleTest__r.Name" onclick={sortTrackingNumber}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Tracking number">Tracking/Reference</span>
+								<div if:true={isTrackingNumSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
+						<!--<th data-id="RecordType.DeveloperName" onclick={sortService}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Service">Service</span>
+								<div if:true={isServiceSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>-->
 
-                        <th data-id="Subject" onclick={sortDetails}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Details">Details</span>
-                                <div if:true={isDetailsSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
+						<th data-id="Subject" onclick={sortDetails}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Details">Details</span>
+								<div if:true={isDetailsSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
 
-                        <th data-id="BSP_Addressee_Name__c, Secondary_Contact__c" onclick={sortReceiver}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Receiver">Receiver</span>
-                                <div if:true={isReceiverSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
+						<th data-id="BSP_Addressee_Name__c, Secondary_Contact__c" onclick={sortReceiver}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Receiver">Receiver</span>
+								<div if:true={isReceiverSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
 
-                        <th data-id="Enquiry_Status__c" onclick={sortStatus}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Status">Status</span>
-                                <div if:true={isStatusSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
+						<th data-id="Enquiry_Status__c" onclick={sortStatus}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Status">Status</span>
+								<div if:true={isStatusSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
 
-                        <th data-id="LastModifiedDate" onclick={sortUpdated}>
-                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
-                                <span class="slds-assistive-text">Sort</span>
-                                <span class="slds-truncate" title="Updated">Updated</span>
-                                <div if:true={isUpdatedSort}>
-                                    <div if:true={isAsc}>
-                                        &nbsp; &#8593;
-                                    </div>
-                                    <div if:true={isDsc}>
-                                        &nbsp; &#8595;
-                                    </div>
-                                </div>
-                            </a>
-                        </th>
+						<th data-id="LastModifiedDate" onclick={sortUpdated}>
+							<a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+								<span class="slds-assistive-text">Sort</span>
+								<span class="slds-truncate" title="Updated">Updated</span>
+								<div if:true={isUpdatedSort}>
+									<div if:true={isAsc}>
+										&nbsp; &#8593;
+									</div>
+									<div if:true={isDsc}>
+										&nbsp; &#8595;
+									</div>
+								</div>
+							</a>
+						</th>
 
-                    </tr>
-                </thead>
-                <tbody class="brand-table">
-                    <template if:true={searchReultsWrapper}>
-                        <template for:each={searchReultsWrapper} for:item="caseWrapperObj">
-                            <c-bsp-enquiry-row onchangeselection={handleChangeSelection} key={caseWrapperObj}
-                                case-wrapper={caseWrapperObj}></c-bsp-enquiry-row>
-                        </template>
-                    </template>
-                    <!-- No serch results found message-->
-                    <template if:true={isShowNoResultsFoundMsg}>
-                        <tr>
-                            <td colspan="9">
-                                <template if:true={searchText}>
-                                    <center> Your search did not find any results for <b> {searchText} </b>. Please try another search
-                                    </center>
-                                </template>
-                                <template if:false={searchText}>
-                                    <center>Your search did not find any results. Please try another search</center>
-                                </template>
-                            </td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
-        </div>
-        
-        <!--Buttons -->
-        <template if:false={isShowNoResultsFoundMsg}>
+					</tr>
+				</thead>
+				<tbody class="brand-table">
+					<template if:true={searchReultsWrapper}>
+						<template for:each={searchReultsWrapper} for:item="caseWrapperObj">
+							<c-bsp-enquiry-row onchangeselection={handleChangeSelection} key={caseWrapperObj}
+								case-wrapper={caseWrapperObj}></c-bsp-enquiry-row>
+						</template>
+					</template>
+					<!-- No serch results found message-->
+					<template if:true={isShowNoResultsFoundMsg}>
+						<tr>
+							<td colspan="9">
+								<template if:true={searchText}>
+									<center> Your search did not find any results for <b> {searchText} </b>. Please try another search
+									</center>
+								</template>
+								<template if:false={searchText}>
+									<center>Your search did not find any results. Please try another search</center>
+								</template>
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+		
+		<!--Buttons -->
+		<template if:false={isShowNoResultsFoundMsg}>
 
-            <div class="slds-grid slds-p-around_small slds-grid_align-center">
-                
-                <div class="slds-col brand-tertiary-button prev-spacer-button">
-                    <template if:true={showPrevButton}>
-                        <lightning-button onclick={previousHandler} value=""
-                            label="Previous">
-                        </lightning-button>
-                    </template>
-                </div>
+			<div class="slds-grid slds-p-around_small slds-grid_align-center">
+				
+				<div class="slds-col brand-tertiary-button prev-spacer-button">
+					<template if:true={showPrevButton}>
+						<lightning-button onclick={previousHandler} value=""
+							label="Previous">
+						</lightning-button>
+					</template>
+				</div>
 
-                <div class="slds-col slds-p-top_x-small slds-p-horizontal_small">
-                    Showing {recordStart} - {recordEnd} of {resultsSize}
-                </div>
+				<div class="slds-col slds-p-top_x-small slds-p-horizontal_small">
+					Showing {recordStart} - {recordEnd} of {resultsSize}
+				</div>
 
-                <div class="slds-col brand-tertiary-button prev-spacer-button">
-                    <template if:true={showNextButton}>
-                        <lightning-button onclick={nextHandler} value="" label="Next">
-                        </lightning-button>
-                    </template>
-                </div>
+				<div class="slds-col brand-tertiary-button prev-spacer-button">
+					<template if:true={showNextButton}>
+						<lightning-button onclick={nextHandler} value="" label="Next">
+						</lightning-button>
+					</template>
+				</div>
 
-            </div>
-            <div class="slds-grid slds-wrap slds-p-top_large">
-                <div class="slds-col slds-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_6-of-12 brand-secondary-button small-text-centered">
-                    <lightning-button onclick={downloadCaseDetailsCSV} value="" label="Download all"></lightning-button>
-                </div>
-                <div class="slds-grid slds-wrap slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_6-of-12 slds-grid_align-end mobile-flex-start">
-                    <div class="slds-col slds-var-p-right_small brand-secondary-button center-box mobile-no-padding">
-                        <lightning-button class='slds-float_right' onclick={handleAddComment} value="" label="Add comment">
-                        </lightning-button>
-                    </div>
-                    <div class="slds-col brand-primary-button center-box">
-                        <lightning-button variant="brand" class='slds-float_right' onclick={handleResolveEnquiries} value=""
-                            label="Resolve enquiry"></lightning-button>
-                    </div>
-                </div>
-            </div>
-            <!--spinner -->
-            <div if:true={isLoading}>
-                <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
-            </div>
-        </template>
-    </div>
+			</div>
+			<div class="slds-grid slds-wrap slds-p-top_large">
+				<div class="slds-col slds-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_6-of-12 brand-secondary-button small-text-centered">
+					<lightning-button onclick={downloadCaseDetailsCSV} value="" label="Download all"></lightning-button>
+				</div>
+				<div class="slds-grid slds-wrap slds-col slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_6-of-12 slds-grid_align-end mobile-flex-start">
+					<div class="slds-col slds-var-p-right_small brand-secondary-button center-box mobile-no-padding">
+						<lightning-button class='slds-float_right' onclick={handleAddComment} value="" label="Add comment">
+						</lightning-button>
+					</div>
+					<div class="slds-col brand-primary-button center-box">
+						<lightning-button variant="brand" class='slds-float_right' onclick={handleResolveEnquiries} value=""
+							label="Resolve enquiry"></lightning-button>
+					</div>
+				</div>
+			</div>
+			<!--spinner -->
+			<div if:true={isLoading}>
+				<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+			</div>
+		</template>
+	</div>
 
-    <!-- Add comment Modal-->
-    <!--Use template if:true to display/hide popup based on isModalOpen value-->
-    <template if:true={isModalOpen}>
-        <!-- Modal/Popup Box LWC starts here -->
-        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
-            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-            <div class="slds-modal__container">
-                <!-- Modal/Popup Box LWC header here -->
-                <header class="slds-modal__header slds-p-around_large">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-                        title="Close" onclick={closeModal}>
-                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
-                            size="small"></lightning-icon>
-                        <span class="slds-assistive-text">Close</span>
-                    </button>
-                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Comment to Cases</h2>
-                </header>
+	<!-- Add comment Modal-->
+	<!--Use template if:true to display/hide popup based on isModalOpen value-->
+	<template if:true={isModalOpen}>
+		<!-- Modal/Popup Box LWC starts here -->
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<!-- Modal/Popup Box LWC header here -->
+				<header class="slds-modal__header slds-p-around_large">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+						title="Close" onclick={closeModal}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+							size="small"></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+					</button>
+					<h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Comment to Cases</h2>
+				</header>
 
-                <!-- Modal/Popup Box LWC body starts here -->
-                <div class="slds-modal__content slds-p-horizontal_large brand-form-input" id="modal-content-id-1">
-                    <template if:true={commentErrormsg}>
-                        <p class='slds-text-color_error slds-p-bottom_medium'>{commentErrormsg}</p>
-                    </template>
-                    <template if:false={showCommentSuccessMsg}>
-                        <lightning-textarea data-id='comment' label="Comment" placeholder="Add a comment or update"
-                            required>
-                        </lightning-textarea>
-                    </template>
+				<!-- Modal/Popup Box LWC body starts here -->
+				<div class="slds-modal__content slds-p-horizontal_large brand-form-input" id="modal-content-id-1">
+					<template if:true={commentErrormsg}>
+						<p class='slds-text-color_error slds-p-bottom_medium'>{commentErrormsg}</p>
+					</template>
+					<template if:false={showCommentSuccessMsg}>
+						<lightning-textarea data-id='comment' label="Comment" placeholder="Add a comment or update"
+							required>
+						</lightning-textarea>
+					</template>
 
-                    <template if:true={showCommentSuccessMsg}>
-                        <div class="text-centered">Comments successfully added!</div>
-                    </template>
+					<template if:true={showCommentSuccessMsg}>
+						<div class="text-centered">Comments successfully added!</div>
+					</template>
 
-                </div>
+				</div>
 
 
-                <!-- Modal/Popup Box LWC footer starts here -->
-                <footer class="slds-modal__footer slds-grid slds-p-around_large">
-                    <div class="brand-tertiary-button slds-p-right_medium">
-                        <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
-                    </div>
-                    <div class="brand-primary-button">
-                        <template if:false={showCommentSuccessMsg}>
-                        <button class="slds-button slds-button_brand" onclick={submitComments} title="Add Comment">Add
-                            Comment</button>
-                        </template>
-                    </div>
-                </footer>
-            </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
-    </template>
+				<!-- Modal/Popup Box LWC footer starts here -->
+				<footer class="slds-modal__footer slds-grid slds-p-around_large">
+					<div class="brand-tertiary-button slds-p-right_medium">
+						<button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+					</div>
+					<div class="brand-primary-button">
+						<template if:false={showCommentSuccessMsg}>
+						<button class="slds-button slds-button_brand" onclick={submitComments} title="Add Comment">Add
+							Comment</button>
+						</template>
+					</div>
+				</footer>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
 </template>

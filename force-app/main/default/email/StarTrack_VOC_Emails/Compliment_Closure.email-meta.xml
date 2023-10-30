@@ -14,7 +14,7 @@ Thanks for getting in touch! We always love to hear that our service has made a 
 If you have any questions in relation to this case, please respond to this email and we will address them for you as soon as we can.
 
 Kind Regards,
-{!User.Name}
+{!User.FirstName}
 StarTrack Voice of Customer Team
 
 {!Case.Thread_Id}

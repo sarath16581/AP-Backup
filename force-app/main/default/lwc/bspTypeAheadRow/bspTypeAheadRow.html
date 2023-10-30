@@ -1,0 +1,27 @@
+<!--
+author Hasantha Liyanage
+date 2023-09-20
+group child component
+domain BSP
+description Type ahead component row
+changelog
+2023-09-20 - Hasantha Liyanage  - Created
+-->
+<template>
+	<li onmousedown={selectedHandler}>
+		<span class="slds-lookup__item-action slds-media slds-media_center slds-p-horizontal_large">
+			<template if:true={iconName}>
+				<lightning-icon icon-name={iconName} size="medium"></lightning-icon>
+			</template>
+			<template if:true={record}>
+				<div class="slds-p-around_xx-small slds-media__body">
+					<div class="slds-input-has-icon slds-input-has-icon_right">
+						<div class="search-result-name slds-p-bottom_xx-small type-ahead-row" lwc:dom="manual"></div>
+						<div class="search-result-additional-data slds-text-body_small slds-text-color_weak slds-truncate"
+							 lwc:dom="manual"></div>
+					</div>
+				</div>
+			</template>
+		</span>
+	</li>
+</template>

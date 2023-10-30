@@ -2359,11 +2359,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Configure_Products__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Contract_Number__c</field>
             <table>Deal_Support_Request__c.Proposals__r</table>
         </columns>
@@ -3134,47 +3129,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APT_Conversation__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Customer_Background__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Intermediary__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Name_of_Intermediary_s_Client__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Pricing_Request_Type__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Sales_Team__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Tier_Adjustment_Justification__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Tier_Adjustment_Type__c</field>
-            <table>Deal_Support_Request__c.Proposals__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_competitor__c</field>
             <table>Deal_Support_Request__c.Proposals__r</table>
         </columns>
         <columns>

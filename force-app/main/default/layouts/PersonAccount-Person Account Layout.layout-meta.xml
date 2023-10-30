@@ -2,7 +2,6 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>ShareInformation</customButtons>
     <customButtons>New_Lead</customButtons>
-    <customButtons>CloseAccount</customButtons>
     <customConsoleComponents>
         <primaryTabComponents>
             <containers>
@@ -79,7 +78,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>is_Inactive_Customer__pc</field>
+                <field>IsInactiveCustomer__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

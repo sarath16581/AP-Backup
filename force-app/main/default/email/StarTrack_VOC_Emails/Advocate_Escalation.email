@@ -60,7 +60,7 @@ In order to comply with the postal industry ombudsman, we are required to resolv
 As this case is now approaching/over this deadline, it is urgent this matter be resolved.<br><br>Please ensure appropriate action is taken as soon as possible.
 <hr>
                                                                          Kind Regards,<br>
-{!User.Name}<br>
+{!User.FirstName}<br>
 StarTrack Voice of Customer Team<p/>
                                                              </td>
                                                   </tr> 									

@@ -1,125 +1,177 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 24/08/2020
-  * @description  : Component for enquiries items details.
+* @author		: Jansi Rani. jansi.rani@auspost.com.au
+* @date			: 24/08/2020
+* @description	: Component for enquiries items details.
 --------------------------------------- History --------------------------------------------------
-24.08.2020    Jansi Rani   Created
+24.08.2020	Jansi Rani   Created
+04-09-2023	thang.nguyen231@auspost.com.au	SB-109: add credit claim case fields
 -->
 <template>
+	<template if:true={caseDetailWrapper}>
+		<div class=''>
+			<template if:true={ssw}>
+				<div if:true={caseDetailWrapper.enq.CCUYourReference__c} class='slds-p-bottom_medium'>
+					<h3> Enquiry name</h3>{caseDetailWrapper.enq.CCUYourReference__c}
+				</div>
+			</template>
+			<div class='slds-p-bottom_medium'>
+				<h3> Item details</h3>
+			</div>
+			<!-- SSSW-->
+			<template if:true={isSSSW}>
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Tracking Number:</b><br> 
+						<a href={trackingSearchPageLink} class="underline-dec" target="_blank">{caseDetailWrapper.enq.ReferenceID__c}</a>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Posting Date:</b><br>
+						<lightning-formatted-date-time value={caseDetailWrapper.enq.DatePosted__c} year="numeric"
+							month="numeric" day="numeric">
+						</lightning-formatted-date-time>
+					</div>
+				</div>
 
-    <template if:true={caseDetailWrapper}>
-        <div class=''>
-            <template if:true={ssw}>
-                <div if:true={caseDetailWrapper.enq.CCUYourReference__c} class='slds-p-bottom_medium'>
-                    <h3> Enquiry name</h3>{caseDetailWrapper.enq.CCUYourReference__c}
-                </div>
-            </template>
-            <div class='slds-p-bottom_medium'>
-                <h3> Item details</h3>
-            </div>
-            <!-- SSSW-->
-            <template if:true={ssw}>
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Tracking Number:</b><br> 
-                        <a href={trackingSearchPageLink} class="underline-dec" target="_blank">{caseDetailWrapper.enq.ReferenceID__c}</a>
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Posting Date:</b><br>
-                        <lightning-formatted-date-time value={caseDetailWrapper.enq.DatePosted__c} year="numeric"
-                            month="numeric" day="numeric">
-                        </lightning-formatted-date-time>
-                    </div>
-                </div>
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Item type:</b><br> {ssswItemType}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Service used:</b><br> {ssswServiceUsed}
+					</div>
+				</div>
 
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Item type:</b><br> {ssswItemType}
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Service used:</b><br> {ssswServiceUsed}
-                    </div>
-                </div>
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Item contents:</b><br> {ssswItemContents}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						&nbsp;
+					</div>
+				</div>
 
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Item contents:</b><br> {ssswItemContents}
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        &nbsp;
-                    </div>
-                </div>
+				
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>From:</b>
+						<div>{caseDetailWrapper.fromName}</div>
+						<div>{caseDetailWrapper.fromCompany}</div>
+						<div>{caseDetailWrapper.fromAddress1}</div>
+						<div>{caseDetailWrapper.fromAddress2}</div>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>To:</b>
+						
+							<div>{caseDetailWrapper.toName}</div>
+							<div>{caseDetailWrapper.toCompany}</div>
+							<div>{caseDetailWrapper.toAddress1}</div>
+							<div>{caseDetailWrapper.toAddress2}</div>
+						
+					</div>
+				</div>
+			</template>
 
-                
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>From:</b>
-                        <div>{caseDetailWrapper.fromName}</div>
-                        <div>{caseDetailWrapper.fromCompany}</div>
-                        <div>{caseDetailWrapper.fromAddress1}</div>
-                        <div>{caseDetailWrapper.fromAddress2}</div>
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>To:</b>
-                        
-                            <div>{caseDetailWrapper.toName}</div>
-                            <div>{caseDetailWrapper.toCompany}</div>
-                            <div>{caseDetailWrapper.toAddress1}</div>
-                            <div>{caseDetailWrapper.toAddress2}</div>
-                        
-                    </div>
-                </div>
+			<!-- START TRACK-->
+			<template if:true={isStarTrack}>
 
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Billing Account Name:</b><br> {stRelatedBillingAccName}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Subject:</b><br> {caseDetailWrapper.enq.Subject}
+					</div>
+				</div>
 
-
-            </template>
-
-            <!-- START TRACK-->
-            <template if:false={ssw}>
-
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Billing Account Name:</b><br> {stRelatedBillingAccName}
-                    </div>
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>Subject:</b><br> {caseDetailWrapper.enq.Subject}
-                    </div>
-                </div>
-
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                        <b>{consignmentOrPriceBookRefNumberLabel}:</b><br>
-                        <template if:true={isPickupBookingEnquiry}>
-                            {consignmentOrPriceBookRefNumberValue}
-                        </template>
-                        <template if:false={isPickupBookingEnquiry}>
-                            <a href={stTrackingSearchPageLink} class="underline-dec" target="_blank">{consignmentOrPriceBookRefNumberValue}</a>
-                        </template>
-                    </div>
-                </div>
-                <template if:true={isDeliveryEnquiry}>
-                    <div class="slds-grid slds-wrap slds-p-bottom_small">
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <b>Receiver Name:</b><br> {caseDetailWrapper.enq.Article_Receiver_Name__c}
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <b>Receiver Address:</b><br> {caseDetailWrapper.enq.Article_Receiver_Address__c}
-                        </div>
-                    </div>
-                </template>
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>{consignmentOrPriceBookRefNumberLabel}:</b><br>
+						<template if:true={isPickupBookingEnquiry}>
+							{consignmentOrPriceBookRefNumberValue}
+						</template>
+						<template if:false={isPickupBookingEnquiry}>
+							<a href={stTrackingSearchPageLink} class="underline-dec" target="_blank">{consignmentOrPriceBookRefNumberValue}</a>
+						</template>
+					</div>
+				</div>
+				<template if:true={isDeliveryEnquiry}>
+					<div class="slds-grid slds-wrap slds-p-bottom_small">
+						<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+							<b>Receiver Name:</b><br> {caseDetailWrapper.enq.Article_Receiver_Name__c}
+						</div>
+						<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+							<b>Receiver Address:</b><br> {caseDetailWrapper.enq.Article_Receiver_Address__c}
+						</div>
+					</div>
+				</template>
 
 
-                <div class="slds-grid slds-wrap slds-p-bottom_small">
-                    <div class="slds-col slds-size_1-of-1">
-                        <b>Description:</b><br> {caseDetailWrapper.enq.Description}
-                    </div>
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1">
+						<b>Description:</b><br> {caseDetailWrapper.enq.Description}
+					</div>
 
-                </div>
+				</div>
 
 
 
 
-            </template>
-        </div>
-    </template>
+			</template>
+
+			<template if:true={isCreditClaim}>
+
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Account number:</b><br> {caseDetailWrapper.enq.Billing_Number__c}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Account name:</b><br> {caseDetailWrapper.enq.Business_Name__c}
+					</div>
+				</div>
+
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Account held with:</b><br> {caseDetailWrapper.enq.Business_Unit__c}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Dispute type:</b><br> {caseDetailWrapper.enq.Enquiry_Type__c}
+					</div>
+				</div>
+
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Reason for credit claim:</b><br> {caseDetailWrapper.enq.ReasonforCreditClaim__c}
+					</div>
+				</div>
+
+				<br>
+
+				<div class='slds-p-bottom_medium'>
+					<h3> Contact details</h3>
+				</div>	
+
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Name:</b><br> {caseDetailWrapper.enq.Name__c}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Email:</b><br> {caseDetailWrapper.enq.Email_Address__c}
+					</div>
+				</div>				
+
+				<div class="slds-grid slds-wrap slds-p-bottom_small">
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						<b>Phone:</b><br> {caseDetailWrapper.enq.Phone__c}
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+						&nbsp;
+					</div>
+				</div>
+
+				<br>
+								
+			</template>
+
+		</div>
+	</template>
 </template>

@@ -23,6 +23,11 @@
                 <label>Accepted by authorised building staff</label>
             </value>
             <value>
+                <fullName>3rd party locker</fullName>
+                <default>false</default>
+                <label>3rd party locker</label>
+            </value>
+            <value>
                 <fullName>Business reception</fullName>
                 <default>false</default>
                 <label>Business reception</label>
@@ -130,7 +135,12 @@
             <value>
                 <fullName>Delivered to incorrect address - retrieval and redelivery</fullName>
                 <default>false</default>
-                <label>Delivered to incorrect address - retrieval and redelivery</label>
+                <label>Delivered to incorrect address - Attempting retrieval and redelivery</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address – Retrieved and redelivered</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address – Retrieved and redelivered</label>
             </value>
             <value>
                 <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
@@ -370,6 +380,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>3rd party locker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <valueName>Accepted by apartment/complex concierge</valueName>
         </valueSettings>
         <valueSettings>
@@ -389,6 +403,10 @@
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address - retrieval and redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address – Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>

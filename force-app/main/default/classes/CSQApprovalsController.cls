@@ -1,4 +1,3 @@
-
 public with sharing class CSQApprovalsController {
 	private static final String TASK_SUBJECT_PENDING_INFORMATION = '{0} - Pending Information';
 
@@ -69,8 +68,11 @@ public with sharing class CSQApprovalsController {
 			CSQCloneService csqClone = new CSQCloneService(new Set<String>(cloneOptions));
 			return csqClone.execute(new Set<Id>{ recordId });
 		} catch(Exception ex) {
-			System.debug(LoggingLevel.Error, ex.getMessage() + '\r\n' + ex.getStackTraceString());
-			throw new AuraHandledException(ex.getMessage());
+			System.debug(ex.getMessage());
+			System.debug(ex.getStackTraceString());
+		//	System.debug(LoggingLevel.Error, ex.getMessage() + '\r\n' + ex.getStackTraceString());
+		//	throw new AuraHandledException(ex.getMessage());
+			throw ex;
 		}
 	}
 

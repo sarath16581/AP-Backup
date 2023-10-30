@@ -36,7 +36,7 @@
             <value>
                 <fullName>Billing Dispute</fullName>
                 <default>false</default>
-                <label>Billing Dispute</label>
+                <label>Billing dispute</label>
             </value>
             <value>
                 <fullName>Billing issue</fullName>
@@ -671,7 +671,7 @@
             <value>
                 <fullName>Service Performance</fullName>
                 <default>false</default>
-                <label>Service Performance</label>
+                <label>Service performance</label>
             </value>
             <value>
                 <fullName>Short - No Scan</fullName>

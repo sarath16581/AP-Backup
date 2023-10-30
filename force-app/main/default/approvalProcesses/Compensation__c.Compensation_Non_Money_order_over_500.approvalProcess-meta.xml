@@ -27,7 +27,7 @@
             </approver>
         </assignedApprover>
         <entryCriteria>
-            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <booleanFilter>(1 OR 2 OR 3) AND (4 OR 5 OR 6)</booleanFilter>
             <criteriaItems>
                 <field>Compensation__c.Total_Compensation_Amount__c</field>
                 <operation>greaterOrEqual</operation>
@@ -43,6 +43,21 @@
                 <operation>greaterOrEqual</operation>
                 <value>500</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Total_Compensation_Amount__c</field>
+                <operation>lessOrEqual</operation>
+                <value>5000</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Replacement_Value__c</field>
+                <operation>lessOrEqual</operation>
+                <value>5000</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.SDR_Value__c</field>
+                <operation>lessOrEqual</operation>
+                <value>5000</value>
+            </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
         <label>Compensation Value is Greater than $500</label>
@@ -52,7 +67,7 @@
     <emailTemplate>SSSWCaseTemplates/SSSW_Compensation_Approval_Req_CCM</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>(1 AND 2 AND 6 AND (3 OR 4 OR 5 ))</booleanFilter>
+        <booleanFilter>(1 AND 2 AND 6 AND (3 OR 4 OR 5)) AND (1 AND 2 AND 6 AND (7 AND 8 AND 9))</booleanFilter>
         <criteriaItems>
             <field>Compensation__c.RecordType</field>
             <operation>equals</operation>
@@ -83,6 +98,21 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>lessOrEqual</operation>
+            <value>5000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Replacement_Value__c</field>
+            <operation>lessOrEqual</operation>
+            <value>5000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.SDR_Value__c</field>
+            <operation>lessOrEqual</operation>
+            <value>5000</value>
+        </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>
         <action>
@@ -103,7 +133,7 @@
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>CallCentreManager__c</userHierarchyField>
     </nextAutomatedApprover>
-    <processOrder>4</processOrder>
+    <processOrder>6</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>

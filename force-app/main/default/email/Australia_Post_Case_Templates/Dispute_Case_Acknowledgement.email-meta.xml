@@ -19,7 +19,7 @@ Case Reference Number: {!Case.CaseNumber}.
 ClaimType: {!Case.Enquiry_Type__c}
 Reason for Credit Claim: {!Case.ReasonforCreditClaim__c}
 Business Name: {!Case.Business_Name__c}
-Business Account Number: {!Case.Billing_Number__c}
+Account Number: {!Case.Billing_Number__c}
 Total Amount Claimed ($): {!Case.Amount_Claimed__c}
 Description: {!Case.Description}
 
