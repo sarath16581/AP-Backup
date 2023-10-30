@@ -24,7 +24,7 @@ public with sharing class EFTBankDetailsController_Test {
         TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
         agent.profileName = 'SSSW - Service Agent';
         agent.permissionSetNames = new Set<String>{'CC_Compensation_User'};
-        agent.userName = 'agent';
+        agent.userName = 'agent123';
         agent.role = 'CEO/Reporting';
         userDTOs.add(agent);
 
@@ -61,6 +61,7 @@ public with sharing class EFTBankDetailsController_Test {
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
@@ -99,6 +100,7 @@ public with sharing class EFTBankDetailsController_Test {
         insert contact;
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
@@ -133,6 +135,7 @@ public with sharing class EFTBankDetailsController_Test {
     static void testAwaitBankDetailsNotification() {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
@@ -165,6 +168,7 @@ public with sharing class EFTBankDetailsController_Test {
     static void testCancelMethod() {
     	//create test data
 		Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
 
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
@@ -506,11 +510,12 @@ public with sharing class EFTBankDetailsController_Test {
      */
     @IsTest
     static void testValidateCompensationUserPermissionBankDetailNoPermission() {
-        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent123'];
         //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
         Compensation__c comp = new Compensation__c(
@@ -561,6 +566,7 @@ public with sharing class EFTBankDetailsController_Test {
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
         Case testCase = TestDataProvider.createCase('my subject', 'mydescription', 'SSSWDelivery');
+        testCase.ReferenceID__c = 'REF001';
         insert testCase;
         Id recordTypeId = [select Id from RecordType where sobjectType = 'Compensation__c' and DeveloperName = 'EFT'].Id;
         Compensation__c comp = new Compensation__c(
@@ -650,7 +656,7 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void testValidateCompensationSendEmailNormalUser() {
-        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent123'];
         //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
@@ -696,7 +702,7 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void validateOnLoadCreateUpdateWithAgentPermission() {
-        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent123'];
         //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
@@ -775,7 +781,7 @@ public with sharing class EFTBankDetailsController_Test {
      */
     @IsTest
     static void validateOnLoadCreateDuplicateCompensationWithoutPermission() {
-        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent123'];
         //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
@@ -887,7 +893,7 @@ public with sharing class EFTBankDetailsController_Test {
     */
     @IsTest
     static void validateOnLoadCreateCompensationWithoutCaseReference() {
-        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent123'];
         //create test data
         Contact contact = TestDataProvider.createContact('test', null, 'Contact');
         insert contact;
