@@ -32,7 +32,7 @@ export default class FollowerOffspringRequestAbnConfirmation extends LightningEl
 		if (error) {
 			console.log(JSON.stringify(error));
 		}
-	};
+	}
 	recordData;
 
 	get fields() {

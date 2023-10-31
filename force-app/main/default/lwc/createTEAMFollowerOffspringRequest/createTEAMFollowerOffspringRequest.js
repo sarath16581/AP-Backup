@@ -6,7 +6,7 @@
  * @changelog
  * 2023-10-27 - Harry Wang - Created
  */
-import {api, LightningElement, wire} from 'lwc';
+import {api, LightningElement} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class CreateTeamFollowerOffspringRequest extends NavigationMixin(LightningElement) {

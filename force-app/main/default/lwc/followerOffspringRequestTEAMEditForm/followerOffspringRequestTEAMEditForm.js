@@ -68,7 +68,10 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		if (data) {
 			this.recordData = data;
 		}
-	};
+		if (error) {
+			console.log(error);
+		}
+	}
 	recordData;
 
 	get fields() {
@@ -86,9 +89,8 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		if (this.recordData) {
 			if (this.isBillingAccount === 'true') {
 				return {label: 'Billing Account Name', value: getFieldValue(this.recordData, BILLING_ACCOUNT_NAME)};
-			} else {
-				return {label: 'Opportunity Name', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY_NAME)};
 			}
+			return {label: 'Opportunity Name', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY_NAME)};
 		}
 		return {label: '', value: ''};
 	}
@@ -97,9 +99,8 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		if (this.recordData) {
 			if (this.isBillingAccount === 'true') {
 				return {label: 'Legal Entity Name', value: getFieldValue(this.recordData, BILLING_ACCOUNT_ORG_NAME)};
-			} else {
-				return {label: 'Legal Entity Name', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_ORG_NAME)};
 			}
+			return {label: 'Legal Entity Name', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_ORG_NAME)};
 		}
 		return {label: '', value: ''};
 	}
@@ -108,10 +109,8 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		if (this.recordData) {
 			if (this.isBillingAccount === 'true') {
 				return {label: 'Billing Account Number', value: getFieldValue(this.recordData, BILLING_ACCOUNT_NUMBER)};
-			} else {
-				return {label: 'Charge Account Request Number', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_REQUEST_NUMBER)
-				};
 			}
+			return {label: 'Charge Account Request Number', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_REQUEST_NUMBER)};
 		}
 		return {label: '', value: ''};
 	}
@@ -120,9 +119,8 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		if (this.recordData) {
 			if (this.isBillingAccount === 'true') {
 				return {label: 'Customer Number', value: getFieldValue(this.recordData, BILLING_ACCOUNT_CUSTOMER_NUMBER)};
-			} else {
-				return {label: 'Customer Number', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_CUSTOMER_NUMBER)};
 			}
+			return {label: 'Customer Number', value: getFieldValue(this.recordData, CHARGE_ACCOUNT_CUSTOMER_NUMBER)};
 		}
 		return {label: '', value: ''};
 	}
@@ -155,6 +153,7 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		if (this.isDSRFlow) {
 			return getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT);
 		}
+		return null;
 	}
 
 	handleFollowerSelected(event) {
@@ -257,5 +256,4 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 				});
 		}
 	}
-
 }

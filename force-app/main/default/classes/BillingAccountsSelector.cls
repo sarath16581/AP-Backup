@@ -111,7 +111,6 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition('Id in :ids')).endConditions();
 		//QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		qb.addConditions().add(new QueryBuilder.SimpleCondition(Billing_Account__c.LEGACY_ID__c + ' in :accountNumbers')).setConditionOrder('1 OR 2').endConditions();
-		system.debug('****Billing account query****'+qb.toSoqlString());
 		return new Map<Id, Billing_Account__c>((List<Billing_Account__c>)Database.query(qb.toSoqlString()));
 	}
 

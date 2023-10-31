@@ -8,7 +8,7 @@
  * @changelog
  * 2023-10-27 - Harry Wang - Created
  */
-import {api, LightningElement, track, wire} from 'lwc';
+import {api, LightningElement, track} from 'lwc';
 import getFollowerSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.getFollowerSubAccounts';
 import getFollowerBillingAccounts from '@salesforce/apex/FollowerOffspringRequestController.getFollowerBillingAccounts';
 
@@ -34,7 +34,6 @@ export default class FollowerOffspringRequestAccountSearch extends LightningElem
 			this.followerSubAccounts = results.map(item => {
 				return {...item};
 			});
-			this.followerAccounts.forEach(item => item.url = '/' + item.Id);
 			this.matchedFollowerSubAccounts = this.followerSubAccounts;
 		});
 		if (this.isBillingAccount === 'true') {
