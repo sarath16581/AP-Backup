@@ -8,6 +8,7 @@ History:
 2019-01-31  nathan.franklin@auspost.com.au Modified testMethod2 to fix an an issue with the Too Many SOQL error with the deployment of MW0003089 - Opportunity Complexity rating in Salesforce
 2022-06-08 - Naveen Rajanna - REQ2595048 - upgrade api version to 52
 2022-10-05 - seth.heang@auspost.com.au - Uplift API version to 55, Modified testMethod1 to increase code coverage, testMethod3 to unit test a new method checkProductComponentOptions() 
+2023-10-31 - Bharat Patel - To increase code coverage for deployment of STP-9851
 **************************************************/
 @isTest
 private with sharing class APT_AmendRenewUtility_Test{ 
@@ -103,7 +104,8 @@ private with sharing class APT_AmendRenewUtility_Test{
             agreement.Apttus__Related_Opportunity__c = opp.Id;
             agreement.Apttus__Version_Number__c=123.0;
             update agreement;
-            APT_AmendRenewUtility.cloneOpporunity(agreement ,APT_Constants.ACTION_NAME_DoV);
+            APT_AmendRenewUtility.cloneOpporunity(agreement ,APT_Constants.ACTION_NAME_DoV_Increase);
+            APT_AmendRenewUtility.cloneOpporunity(agreement ,APT_Constants.ACTION_NAME_DoV_Decrease);
             APT_AmendRenewUtility.cloneOpporunityProducts(opp.Id,agreement,listOppLineItem,APT_Constants.ACTION_TYPE_RENEWAL);
             APT_AmendRenewUtility.cloneOpporunityProducts(opp.Id,agreement,listOppLineItem,APT_Constants.ACTION_NAME_DoV);
             APT_AmendRenewUtility.newOpportunity(agreement,APT_Constants.ACTION_TYPE_RENEWAL);
@@ -145,11 +147,13 @@ private with sharing class APT_AmendRenewUtility_Test{
             APT_AmendRenewUtility.copyConfiguration(quote.Id,quote2.Id);
             APT_AmendRenewUtility.copyConfiguration(quote.Id,quote.Id);
             Apttus__APTS_Agreement__c tempAgrmnt = APT_AmendRenewUtility.amendAgreement('MSA',opp.Id,quote.Id,agreement,'test');
+            Apttus__APTS_Agreement__c amendAgreementNullCheck = APT_AmendRenewUtility.amendAgreement('MSA',null,null,agreement,'test');
             APT_AmendRenewUtility.afterAmend(agreement.id,tempAgrmnt.id,true);
             APT_AmendRenewUtility.getAllFieldsAPIName('Apttus_Config2__LineItem__c');
             APT_AmendRenewUtility.copyAttachments(agreement.id,tempAgrmnt.id);
             //APT_AmendRenewUtility.copyConfiguration
-            
+            APT_AmendRenewUtility.createAgreementChildRecords(pConfig1.ID, agreement.Id);
+            APT_AmendRenewUtility.createAgreementChildRecords(null, agreement.Id);
              test.stopTest(); // 23/10/2019 To fix the SOQL101 error
             //system.assert(tempAgrmnt != null);
         }
@@ -355,7 +359,8 @@ private with sharing class APT_AmendRenewUtility_Test{
             APT_AmendRenewUtility.newOpportunity(agreement,APT_Constants.ACTION_TYPE_RENEWAL);
             Apttus_Proposal__Proposal__c quote2=APT_AmendRenewUtility.cloneProposal('Proposal',opp.Id,priceList.Id,agreement);
             
-            Apttus_Config2__ProductConfiguration__c pConfig1 = APT_TestUtils.getProductConfiguration2('TestConfig1',123, quote2.ID, 'Proposal', 'Product',
+            Apttus_Proposal__Proposal__c quoteCloneRenewal=APT_AmendRenewUtility.cloneProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE,opp.Id,priceList.Id,agreement);
+			Apttus_Config2__ProductConfiguration__c pConfig1 = APT_TestUtils.getProductConfiguration2('TestConfig1',123, quote2.ID, 'Proposal', 'Product',
                                                                 priceList.ID,'New', System.today()-1, System.Today()+2,False);
             insert pConfig1;
             
