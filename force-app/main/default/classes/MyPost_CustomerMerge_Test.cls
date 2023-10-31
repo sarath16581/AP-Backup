@@ -125,6 +125,7 @@ private class MyPost_CustomerMerge_Test{
 		insert con;
 		
 		Case cse = TestUtility.createCase('test','new','investigation',accLoose.Id,perAcc.Id,recTypeId3);insert cse;
+		cse.ReferenceId__c = 'REF123';
 		NPSSurvey__c nps = new NPSSurvey__c(Contact__c=perAcc.Id); insert nps;
 		Compensation__c comp = new Compensation__c(Case__c  =cse.Id,Contact__c=perAcc.id,Compensation_Amount__c=10,Cover_Type__c='Transit Cover'); insert comp;
 		Task tsk = new Task(WhoId= perAcc.Id ,Priority= 'high'  , status='In Progress'  ,subject='tets'); insert tsk;
@@ -223,6 +224,7 @@ private class MyPost_CustomerMerge_Test{
 		insert con;
 		
 		Case cse = TestUtility.createCase('test','new','investigation',acc2.Id,perAcc.Id,recTypeId3);insert cse;
+		cse.ReferenceId__c = 'REF123';
 		NPSSurvey__c nps = new NPSSurvey__c(Contact__c=perAcc.Id); insert nps;
 		Compensation__c comp = new Compensation__c(Case__c  =cse.Id, Contact__c=perAcc.id,Compensation_Amount__c=10,Cover_Type__c='Transit Cover'); insert comp;
 		Task tsk = new Task(WhoId= perAcc.Id ,Priority= 'high'  , status='In Progress'  ,subject='tets'); insert tsk;
