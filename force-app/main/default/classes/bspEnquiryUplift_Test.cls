@@ -768,6 +768,7 @@ private class bspEnquiryUplift_Test {
 			System.assertNotEquals(null, bspEnquiryUplift.getIndOrgPicklist(), 'getIndOrgPicklist failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getAllBillingAccounts(), 'getAllBillingAccounts failed');
 			System.assertNotEquals(null, bspEnquiryUplift.buildBillingAccountOptions(), 'buildBillingAccountOptions failed');
+			System.assertNotEquals(null, bspEnquiryUplift.buildReasonForClaimHelpText(), 'buildReasonForClaimHelpText failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getSTDeliveyEnquiryRecordType(), 'getSTDeliveyEnquiryRecordType failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getdynamicPageSizePicklist(), 'getdynamicPageSizePicklist failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getStatusList(), 'getStatusList failed');
