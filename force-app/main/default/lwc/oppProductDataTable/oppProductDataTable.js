@@ -272,6 +272,8 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 					}, 3000);
 				}
 				else {
+					this.isSpinning = false;
+					this.isProposalDocumentGenerationRunning = false;
 					//identify contract flow or proposal flow
 					if(this.isST !== undefined) {
 						//redirect to contract record
