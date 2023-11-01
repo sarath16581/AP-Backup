@@ -22,6 +22,3 @@
 	}
 }
 
-.slds-rich-text-editor__textarea, .slds-rich-text-editor__output {
-	white-space: pre-line;
-}
