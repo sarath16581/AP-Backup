@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">Please detail which late payment fee(s) are being disputed and explain why it is not applicable.</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please detail which late payment fee(s) are being disputed and explain why it is not applicable.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

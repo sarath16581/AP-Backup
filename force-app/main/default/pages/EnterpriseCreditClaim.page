@@ -554,7 +554,7 @@
 														<apex:inputField id="ipReasonCC" styleClass="form-control" value="{!entCreditClaim.ReasonforCreditClaim__c}"
 																			onChange="updateHiddenField();"/>
 														<apex:inputHidden id="hdnReasonCC" value="{!selectedReason}"/>
-														<div style = "padding-top: 10px;" id="reasonCC"></div>
+														<div style = "padding-bottom: 15px;" id="reasonCC"></div>
 													</div>
 												</div>
 											</div>

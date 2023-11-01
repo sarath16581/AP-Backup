@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">For delivery related issues, please complete either the late or missing parcel or delivery issue forms within the Business Support Portal.</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;For delivery related issues, please complete either the late or missing parcel or delivery issue forms within the Business Support Portal.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

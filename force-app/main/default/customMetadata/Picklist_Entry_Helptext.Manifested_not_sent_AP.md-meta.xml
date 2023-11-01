@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">Please provide a listing of consignments manifested but not despatched, attaching details.</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please provide a listing of consignments manifested but not despatched, attaching details.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
