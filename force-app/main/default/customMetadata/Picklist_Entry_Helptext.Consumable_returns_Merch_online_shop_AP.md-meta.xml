@@ -13,7 +13,7 @@
     <values>
         <field>Message__c</field>
         <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Are you sure that you&apos;d like to select
-&quot;Consumable returns Merch / online shop&quot;?&lt;/p&gt;
+&quot;Consumable returns - Merch / online shop&quot;?&lt;/p&gt;
 &lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;This is usually for StarTrack accounts.&lt;/p&gt;</value>
     </values>
     <values>
