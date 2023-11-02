@@ -23,7 +23,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>jacob.isaac@auspost.com.au</name>
+                <name>chelsea.o&apos;reilly@auspost.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -105,7 +105,7 @@
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>CallCentreManager__c</userHierarchyField>
     </nextAutomatedApprover>
-    <processOrder>7</processOrder>
+    <processOrder>9</processOrder>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>
