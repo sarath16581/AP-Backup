@@ -17,6 +17,7 @@
 * 											 APT_Evaluated_Spend_per_annum__c is a new field added to PSR to capture the Evaluated spend of the customer as part of the story https://australiapost.jira.com/browse/CI-772
 * 2023-02-13- sarath.burra@auspost.com.au - Removed Deal_Support_Request__c.Compass_Quote_Reference__c duplicate field from getSObjectFieldList()
 * 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
+* 2023-10-31 - Ranjeewa Silva - Updated newQueryBuilder to pass fieldOverrides and selectorOptions to related object query builder instances.
 */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
 	public enum Options {
@@ -101,7 +102,7 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 	* is null or empty, returns all DSR records having a parent account.
 	* Query results are ordered by parent account Id desc
 	* @param accountIds set of parent account ids. returns all child DSR records associated with a parent account if null
-	*                   or empty set is supplied.
+	*				   or empty set is supplied.
 	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of DSR records
 	*/
@@ -191,27 +192,23 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 		}
 
 		if(selectorOptions.contains(Options.WITH_PRIMARYCONTACT)) {
-			builder.addRelatedFields(ContactsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus__Primary_Contact__r');
+			builder.addRelatedFields(ContactsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Contract__r.Apttus__Primary_Contact__r');
 		}
 
 		if(selectorOptions.contains(Options.WITH_CHARGE_ACCOUNT_REQUEST)) {
-			builder.addRelatedFields(ChargeAccountRequestSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Charge_Account__r');
+			builder.addRelatedFields(ChargeAccountRequestSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Charge_Account__r');
 		}
 
 		if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
-			builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
+			builder.addRelatedFields(CreditsAssessmentSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
 		}
 
 		if(selectorOptions.contains(Options.WITH_OPPORTUNITY)) {
-			builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Opportunity__r');
+			builder.addRelatedFields(OpportunitySelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Opportunity__r');
 		}
 
 		if(selectorOptions.contains(Options.WITH_CONTRACT)) {
-			builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
-		}
-
-		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
-			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Organisation__r');
+			builder.addRelatedFields(ApttusContractsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Contract__r');
 		}
 
 		return builder;

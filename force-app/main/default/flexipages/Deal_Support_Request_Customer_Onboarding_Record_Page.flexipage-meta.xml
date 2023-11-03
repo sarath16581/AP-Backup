@@ -22,6 +22,33 @@
                         <valueListItems>
                             <value>Deal_Support_Request__c.New_Billing_Account</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Work_Type__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>New Account</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.Is_Startrack_Proposal__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Yes</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Deal_Support_Request__c.NewStarTrackBillingAccount</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.Is_Startrack_Proposal__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Yes</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.Submit_Billing_Account_Provisioning_Request}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
                                 <criteria>
                                     <leftValue>{!Record.Work_Type__c}</leftValue>
                                     <operator>EQUAL</operator>

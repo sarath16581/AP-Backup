@@ -13,6 +13,7 @@
 * 2022-07-07 - madhuri.awasthi@auspost.com. - REQ2800825 Filtering Status for LP before sending in SAP
 * 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
 * 2023-06-14 - sarath.burra@auspost.com.au - CI-613 For a created DSR if service commencement date AND/OR service expiry date for APPC service are not populated system should throw an error
+* 2023-10-31 - Ranjeewa Silva - Updated 'processResponse' to call CreateBillingAccountHelper after receiving parsed response from service to do required status updates.
 */
 public with sharing class CreateBillingAccountController {
 	@TestVisible private static final String DSR_OBJECT = 'Deal_Support_Request__c';
@@ -62,10 +63,10 @@ public with sharing class CreateBillingAccountController {
 	}
 	/**
 	 * @Description:  Checks and validation all the required attributes for Billing Account creation and provide
-	 *                a message to user in case of any one attribute is missing and prevents the billign account
-	 *                creation till the time all requried attribute is populated.
-	 *                1. Will generate the Billing account request record using generateBillingAccountCreationRequestFromDSR method
-	 *                2. Will validatite the attribute details using CreateBillingAccountHelper.BillingAccountValidations method
+	 *				a message to user in case of any one attribute is missing and prevents the billign account
+	 *				creation till the time all requried attribute is populated.
+	 *				1. Will generate the Billing account request record using generateBillingAccountCreationRequestFromDSR method
+	 *				2. Will validatite the attribute details using CreateBillingAccountHelper.BillingAccountValidations method
 	 */
 	@AuraEnabled
 	public static CreateBillingAccountHelper.billingAccountWithEmptyfields billingAccountCreationPreCheck(String recordId){
@@ -83,7 +84,7 @@ public with sharing class CreateBillingAccountController {
 	}
 	/**
 	 * @Descciption  : Generated the External onboading request record prior to actual billing account creation is triggered.
-	 *                 Uses  CreateBillingAccountHelper.ExternalOnboardingRequestDetails() for creation.
+	 *				 Uses  CreateBillingAccountHelper.ExternalOnboardingRequestDetails() for creation.
 	 * */
 	@AuraEnabled
 	public static CreateBillingAccountHelper.externalOnboardingRequestWithConnectionDetails generateExternalOnboardingRecord(String recordId, String billingAccountName){
@@ -154,18 +155,12 @@ public with sharing class CreateBillingAccountController {
 	 */
 	@AuraEnabled
 	public static Boolean processResponse(List<String> labels,Object state) {
-		StateInfo stateinformation = (StateInfo)state;
-		HttpResponse response = Continuation.getResponse(labels[0]);
-		System.debug('response>>>>'+response);
-		BillingAccountService service = BillingAccountService.getInstance();
-		Boolean callOutSuccess;
-		if(stateinformation.chargeAccountRequestId != null){
-			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId,null, stateinformation.ratingPlanDetails);
-		}else{
-			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null, stateinformation.ratingPlanDetails);
-		}
-
-		return callOutSuccess;
+		StateInfo stateInformation = (StateInfo)state;
+		HttpResponse httpResponse = Continuation.getResponse(labels[0]);
+		BillingAccountService.Response response = BillingAccountService.getInstance().parseResponse(httpResponse);
+		String status = (response.isSuccess ? 'Requested' : 'Error');
+		CreateBillingAccountHelper.updateDSRAndChargeAccount(stateInformation.requestObjId, stateInformation.chargeAccountRequestId, stateInformation.onboardingRequestId, status, response.getErrorMessage(), stateInformation.ratingPlanDetails);
+		return response.isSuccess;
 	}
 	public class stateInfo{
 		@AuraEnabled
@@ -186,7 +181,7 @@ public with sharing class CreateBillingAccountController {
 	}
 	/**
 	 * @Description: Creates the Billing Account Creation Request using DSR as a base record which has details from multiple objects such as
-	 *                related organisation, Primary Contact, Credit Assessment.
+	 *				related organisation, Primary Contact, Credit Assessment.
 	 * 				  Seth Heang - 12/05/21 Updated Request Payload structure and field mappings
 	 *
 	 */

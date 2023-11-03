@@ -9,10 +9,11 @@
  * 2021-04-05 - seth.heang@auspost.com.au - Created
  * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
  * 2023-03-21 - CI-703 Sarath Burra Added new field Is_Parcel_Send_Login_Required__c
+ * 2023-10-30 - Ranjeewa Silva - Added selector options to select related billing account fields
  */
-public with sharing class SubAccountRequestsSelector extends ApplicationSelector{
+public inherited sharing class SubAccountRequestsSelector extends ApplicationSelector{
 	public enum Options {
-		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION
+		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION, WITH_BILLING_ACCOUNT, WITH_ST_PARENT_BILLING_ACCOUNT
 	}
 	public static SubAccountRequestsSelector newInstance() {
 		return (SubAccountRequestsSelector)Application.Selectors.newInstance(SubAccountRequestsSelector.class);
@@ -115,6 +116,12 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Organisation__r');
+		}
+		if(selectorOptions.contains(Options.WITH_BILLING_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Billing_Account__r');
+		}
+		if(selectorOptions.contains(Options.WITH_ST_PARENT_BILLING_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ParentBillingAccount__r');
 		}
 		return builder;
 	}
