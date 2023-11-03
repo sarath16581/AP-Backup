@@ -18,6 +18,10 @@
     <picklistValues>
         <picklist>DeliveryInformation__c</picklist>
         <values>
+            <fullName>3rd party locker</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Accepted by apartment%2Fcomplex concierge</fullName>
             <default>false</default>
         </values>
@@ -107,6 +111,10 @@
         </values>
         <values>
             <fullName>Delivered to central mailroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to incorrect address %E2%80%93 Retrieved and redelivered</fullName>
             <default>false</default>
         </values>
         <values>
@@ -296,6 +304,10 @@
         </values>
         <values>
             <fullName>Request_outside_service_offering</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
             <default>false</default>
         </values>
         <values>

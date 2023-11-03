@@ -6,6 +6,8 @@
  * 2021-09-05 - Mathew Jose - Created
  * 2023-04-12 - Harry Wang - Added new column Annualised Value on the datatable
  * 2023-05-05 - Harry Wang - refactor navigation and fix saving defects
+ * 2023-10-16 - Bharat Patel - Implementation of STP-9640, 'Generation Proposal Document' & 'Generation Agreement' actions redirect to OPC
+ * 2023-10-26 - Bharat Patel - Implementation of STP-9894, STP-9901, STP-9904, validation error reset on save, show progress of doc generation process
  */
 import {LightningElement, track, api , wire} from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -14,6 +16,9 @@ import setOppProducts from '@salesforce/apex/APT_OpptyProductListController.upda
 import {refreshApex} from '@salesforce/apex';
 import {NavigationMixin} from "lightning/navigation";
 import {getRecordNotifyChange} from 'lightning/uiRecordApi';
+import LightningConfirm from 'lightning/confirm';
+import getProposalDocGenerationProgress from '@salesforce/apex/APT_CheckoutController.getProposalDocGenerationProgress';
+
 
 export default class OppProductDataTable extends NavigationMixin(LightningElement) {
 
@@ -27,6 +32,14 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	@track hideConfirmOPCButton = false;
 	lastSavedData = [];
 	responseData;
+	@api proposalId;
+	@track isProposalDocumentFlow = false;
+	@api isST;
+	@api isManualContract;
+	@api isAmend;
+	@api isRenew;
+	contractServiceDetailsUrl = '/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=';
+	@track isProposalDocumentGenerationRunning = false;
 
 	get columns() {
 		return [
@@ -72,6 +85,9 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 					//save last saved copy
 					this.lastSavedData = JSON.parse(JSON.stringify(this.data));
 				}
+				if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
+					this.isProposalDocumentFlow = true;
+				}
 			} catch (err) {
 				this.error = 'There was an issue retrieving Opportunity products.';
 				this.showNotification('Error', this.error, 'error');
@@ -104,9 +120,14 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 
 	handleChange() {
 		this.hideConfirmOPCButton = true;
+
+		if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
+			this.isProposalDocumentFlow = false;
+		}
 	}
 
 	handleSave(event) {
+		this.tableErrors = { rows: {}, table: {} };
 		this.draftValues = event.detail.draftValues;
 		this.lastSavedData = JSON.parse(JSON.stringify(this.data));
 		this.isSpinning = true;
@@ -131,7 +152,10 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 						// notifyRecordUpdateAvailable will not trigger cache refresh as expected when second time user save changes on the bulk edit screen
 						getRecordNotifyChange(ids);
 						this.template.querySelector('lightning-datatable').selectedRows=[];
-						this.handleNavigateToOppProducts();
+						
+						if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
+							this.isProposalDocumentFlow = true;
+						}
 					}
 				}else{
 					this.isSpinning = false;
@@ -148,6 +172,10 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		this.hideConfirmOPCButton = false;
 		this.data = JSON.parse(JSON.stringify(this.lastSavedData));
 		this.draftValues = [];
+
+		if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
+			this.isProposalDocumentFlow = true;
+		}
 	}
 
 	handleCancelClosure() {
@@ -156,6 +184,11 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 
 	handleConfirmOPC(){
 		this.dispatchEvent(new CustomEvent('confirmed'));
+		if(this.isProposalDocumentFlow) {
+			this.isSpinning = true;
+			//still proposal doc generation is running, recheck after few seconds
+			this.checkProposalDocGenerationProgress(this.proposalId);
+		}
 	}
 
 	updateDataValues(updateItems) {
@@ -222,4 +255,47 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		);
 	}
 
+	/**
+	*function will request to check the progress of proposal document generation
+	*@param proposalId
+	*/
+	checkProposalDocGenerationProgress(proposalIdValue) {
+		//show message 'Please wait, while the system processes your request'
+		this.isProposalDocumentGenerationRunning = true;
+		//check for proposal APT_Document_Generation_in_Progress__c = false
+		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
+			.then((result) => {
+				if(result === true) {
+					//still proposal doc generation is running, recheck after few seconds
+					this._interval = setTimeout(() => {
+						this.checkProposalDocGenerationProgress(this.proposalId);
+					}, 3000);
+				}
+				else {
+					this.isSpinning = false;
+					this.isProposalDocumentGenerationRunning = false;
+					//identify contract flow or proposal flow
+					if(this.isST !== undefined) {
+						//redirect to contract record
+						window.location.href = this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
+					}
+					else {
+						//redirect to proposal record
+						this[NavigationMixin.Navigate]({
+							type: 'standard__recordPage',
+							attributes: {
+								recordId: this.proposalId,
+								objectApiName: 'Apttus_Proposal__Proposal__c',
+								actionName: 'view'
+							}
+						});
+					}
+				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+				this.isProposalDocumentGenerationRunning = false;
+			});
+		}
 }

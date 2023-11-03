@@ -35,6 +35,11 @@
 					</ul>
 				</div>
 			</div>
+			<template if:true={isProposalDocumentGenerationRunning}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error customMessageStyle" role="alert">
+					<h2>Please wait while the system processes your request. Once processing has completed you will be redirected</h2>
+				</div>
+			</template>		
 			<div class="slds-size_full">
 				<lightning-datatable
 						key-field="Id"
@@ -61,9 +66,17 @@
 			<center>
 				<div class="slds-m-around_medium">
 					<lightning-button variant="brand" class="slds-m-around_medium" label="Cancel Closure" onclick={handleCancelClosure}></lightning-button>
-					<lightning-button variant="brand" class="slds-m-around_medium" disabled={hideConfirmOPCButton}  label="Confirm OPC" onclick={handleConfirmOPC}></lightning-button>
+					<lightning-button variant="brand" class="slds-m-around_medium" disabled={hideConfirmOPCButton}  label="Confirm Opportunity Products" onclick={handleConfirmOPC}></lightning-button>
 				</div>
 
+			</center>
+		</template>
+		<!--Proposal / Contract doc generation flow-->
+		<template if:true={isProposalDocumentFlow}>
+			<center>
+				<div class="slds-m-around_medium">
+					<lightning-button variant="brand" class="slds-m-around_medium"  label="Confirm Opportunity Products" onclick={handleConfirmOPC}></lightning-button>
+				</div>
 			</center>
 		</template>
 	</template>

@@ -4,7 +4,7 @@
     NOTE:         N/A
     --------------------------------------------------
     2014-09-24    Louis Wang (Bluewolf)        Created Network / Carmelo cloned for Customer.
-	2023-10-18    Swati Mogadala 			   INC2198494: Updated fetchRecentEmail() to check emList.size() > 0 and commentList> 0 seperately to resolve 'List out of bounds error'.
+    2023-10-18    Swati Mogadala               INC2198494: Updated fetchRecentEmail() to check emList.size() > 0 and commentList> 0 seperately to resolve 'List out of bounds error'.
  **************************************************/
 
 public class ssswRecentCustomerEmailMessage
@@ -105,7 +105,7 @@ public class ssswRecentCustomerEmailMessage
             }
             
             if(commentList.size()>0){
-                if(emList.size()==0 || emList[0].createdDate<commentList[0].createdDate) {
+                if(emList.size()==0 || (emList.size()>0 && emList[0].createdDate<commentList[0].createdDate)) {
                     
                     em.TextBody  = commentList[0].commentBody.replaceAll('&nbsp;','');
                     em.HTMLBody  = commentList[0].commentBody.replaceAll('<br/>', '\n');
