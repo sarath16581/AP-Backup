@@ -7201,6 +7201,46 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>ABN is required from the Organisation.</value>
     </labels>
     <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</shortDescription>
+        <value>Billing account request has been submitted previously and failed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</shortDescription>
+        <value>Billing account creation request is in progress for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</shortDescription>
+        <value>Once successful record creation in the billing system, the billing account and its associated information will be made available in Salesforce.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</shortDescription>
+        <value>Billing account creation request submitted successfully. You may close this window now.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</shortDescription>
+        <value>Billing account has already been created for this Deal Support Request.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
@@ -7333,12 +7373,36 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Organisation role must be Prospect, Known or Customer.</value>
     </labels>
     <labels>
+        <fullName>StarTrackProvisionNewAccountValidationFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackProvisionNewAccountValidationFailedErrorMessage</shortDescription>
+        <value>Please resolve the below issues for billing account creation and try again.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackProvisionNewBillingAccountsModalTitle</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrack Provision New Billing Accounts Modal Title</shortDescription>
         <value>TEAM Billing Account Request</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedNonTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedNonTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please raise an IT request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please try again.</value>
     </labels>
     <labels>
         <fullName>StatusTitle</fullName>
