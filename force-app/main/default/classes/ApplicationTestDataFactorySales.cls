@@ -9,6 +9,7 @@
  * 2023-04-14 - Harry Wang - Created - added getOpportunityLineItems method
  * 2023-07-13 - Pratyush Chalasani - Added getSalesSegmentReferences
  * 2023-08-18 - Ranjeewa Silva - Added new method to return Competitors (Competitor__c)
+ * 2023-10-26 - Mahesh Parvathaneni - Added method getPriceBookEntries
  * 2023-10-30 - Ranjeewa Silva - New methods to return CSQ and Pickup Locations
  */
 @IsTest
@@ -51,6 +52,15 @@ public with sharing class ApplicationTestDataFactorySales {
 				Competitor__c.OpportunityId__c => opportunityIds,
 				Competitor__c.Competitor_Name__c => 'Other',
 				Competitor__c.Competitor_Type__c => 'Competitor'
+		}, count), generateIds);
+	}
+
+	public static List<PricebookEntry> getPriceBookEntries(Integer count, Id pricebookId, Id productId, Boolean generateIds) {
+		return (List<PricebookEntry>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(PricebookEntry.SObjectType, new Map<SObjectField, Object>{
+				PricebookEntry.Pricebook2Id => pricebookId,
+				PricebookEntry.Product2Id => productId,
+				PricebookEntry.UnitPrice => 10000,
+				PricebookEntry.IsActive => true
 		}, count), generateIds);
 	}
 

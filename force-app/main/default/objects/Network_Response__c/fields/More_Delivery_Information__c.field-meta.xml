@@ -133,6 +133,11 @@
                 <label>Delivered to incorrect address - Attempting retrieval and redelivery</label>
             </value>
             <value>
+                <fullName>Delivered to incorrect address – Retrieved and redelivered</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address – Retrieved and redelivered</label>
+            </value>
+            <value>
                 <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
                 <default>false</default>
                 <label>Delivered to incorrect address - retrieval and carded to outlet</label>
@@ -330,6 +335,10 @@
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address - retrieval and redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address – Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>

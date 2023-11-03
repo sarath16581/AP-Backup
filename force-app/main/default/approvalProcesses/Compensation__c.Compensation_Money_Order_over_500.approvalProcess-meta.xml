@@ -34,6 +34,7 @@
     <emailTemplate>SSSWCaseTemplates/SSSW_Compensation_Approval_Req_CCM</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
             <field>Compensation__c.RecordType</field>
             <operation>equals</operation>
@@ -48,6 +49,11 @@
             <field>Compensation__c.Total_Compensation_Amount__c</field>
             <operation>greaterOrEqual</operation>
             <value>500</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>lessOrEqual</operation>
+            <value>5000</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>

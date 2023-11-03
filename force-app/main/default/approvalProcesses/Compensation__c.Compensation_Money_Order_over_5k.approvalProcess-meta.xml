@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <type>creator</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Compensation_Amount__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>chelsea.o&apos;reilly@auspost.com.au</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <criteriaItems>
+                <field>Compensation__c.Total_Compensation_Amount__c</field>
+                <operation>greaterThan</operation>
+                <value>5000</value>
+            </criteriaItems>
+        </entryCriteria>
+        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
+        <label>Compensation Value is greater than $5k</label>
+        <name>Compensation_Value_is_greater_than_5k</name>
+    </approvalStep>
+    <description>Approval Process for Compensation amount for Money Orders over $5000</description>
+    <emailTemplate>SSSWCaseTemplates/SSSW_Compensation_Approval_Req_CCM</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <criteriaItems>
+            <field>Compensation__c.RecordType</field>
+            <operation>equals</operation>
+            <value>Money Order,Money Order Number Required</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Contact Customer for Proof of Value</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>greaterThan</operation>
+            <value>5000</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>SSSW_RT_Awaiting_Money_Order</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>SSSW_Status_Awaiting_Money_Order</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>SSSWRejected</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Compensation - Money Order over 5k</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
+        <userHierarchyField>CallCentreManager__c</userHierarchyField>
+    </nextAutomatedApprover>
+    <processOrder>8</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>false</showApprovalHistory>
+</ApprovalProcess>

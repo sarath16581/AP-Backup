@@ -8,7 +8,7 @@
     <subject>{!Compensation__c.Name} Compensation Approval Required</subject>
     <textOnly>Compensation Approval is required.
 Compensation {!Compensation__c.Name}
-Hi {!User.CallCentreManager__c} Compensation {!Compensation__c.Name} requires your approval. Case: {!Case.CaseNumber}
+Hi, Compensation {!Compensation__c.Name} requires your approval. Case: {!Case.CaseNumber}
 Compensation Type:  {!Compensation__c.RecordType}
 Compensation Amount: ${!IF(Compensation__c.RecordType=&quot;Replacement Product&quot;, Compensation__c.Replacement_Value__c, Compensation__c.Total_Compensation_Amount__c)}
 

@@ -9,6 +9,7 @@
 *			08-08-2023 : Yatika Bansal : Modified checkout only action to redirect to opportunity
 *			22-08-2023 : Bharat Patel : added getProposalDocGenerationProgress() to address (STP-9482), redirect after proposal document generation completion
 *			20-08-2023: Bharat Patel: update creditAssessAndRateCardLogic()'s assesment 'Completed' execute docGenerationRequired() process (CI-1026 resolve)
+*			13-10-2023: Bharat Patel: Implementation of STP-9640, on 'Generation Proposal Document' & 'Generation Agreement' actions navigate to Product Bulk Edit interface
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -58,8 +59,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 	waitTime = 10000;
 	amendRecordType = 'Amendment Quote';
 	amendRecordTypeId;
-	isAmend;
-	isRenew;
+	isAmend = false;
+	isRenew = false;
 	renewRecordType = 'Renewal Quote';
 	renewRecordTypeId;
 
@@ -178,8 +179,19 @@ export default class APT_CheckoutLWC extends LightningElement {
 				if (result === 'success') {
 					//some delay before proposal generation to avoid lock error
 						this._interval = setTimeout(() => {
-						this.isLoading = false;
-						this.navigateToUrl( this.rateCardBatchUrl + this.proposalId + '&isRCCall=false');
+							//this.navigateToUrl( this.rateCardBatchUrl + this.proposalId + '&isRCCall=false');
+							initiateRateCardGeneration({ proposalId: this.proposalId })
+						.then((requestresult) => {
+							if(requestresult === true){
+									//STP-9640: redirect to OPC screen
+									let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
+									this.navigateToUrl(opportunityLineItemsURL);
+								}
+							})
+							.catch((error) => {
+								this.error = error;
+								this.isLoading = false;
+							});	
 					}, this.waitTime);
 				} else {
 					this.error = result;
@@ -231,10 +243,11 @@ export default class APT_CheckoutLWC extends LightningElement {
 		initiateRateCardGeneration({ proposalId: proposalIdValue })
 			.then((result) => {
 				if(result === true){
-					//some delay before proposal generation to avoid lock error on proposal
-					setTimeout(() => {
-						that.checkProposalDocGenerationProgress(that.proposalId);
-					}, that.waitTime);
+
+					//STP-9640: redirect to OPC screen
+					let isManualContract = this.manualContract === true ? 'true': 'false';
+					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
+					this.navigateToUrl(opportunityLineItemsURL);
 				}
 			})
 			.catch((error) => {
@@ -256,9 +269,10 @@ export default class APT_CheckoutLWC extends LightningElement {
 						//request proposal doc generation request
 						this.initiateProposalDocGeneration(this.proposalId);
 					}else{
-						//Show contract and service section
-						this.navigateToUrl(this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.manualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew);
-						this.isLoading = false;
+						//STP-9640: redirect to OPC screen
+						let isManualContract = this.manualContract === true ? 'true': 'false';
+						let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
+						this.navigateToUrl(opportunityLineItemsURL);
 					}
 				}, this.waitTime);
 			})

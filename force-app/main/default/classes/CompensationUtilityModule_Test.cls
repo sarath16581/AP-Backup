@@ -25,7 +25,7 @@ private class CompensationUtilityModule_Test {
         TestDataFactory.UserDTO agent = new TestDataFactory.UserDTO();
         agent.profileName = 'SSSW - Service Agent';
         agent.permissionSetNames = new Set<String>{'CC_Compensation_User'};
-        agent.userName = 'agent';
+        agent.userName = 'agent456';
         agent.role = 'CEO/Reporting';
         userDTOs.add(agent);
 
@@ -198,7 +198,7 @@ private class CompensationUtilityModule_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent'];
+        User agentUser = [SELECT Id FROM User WHERE FirstName = 'agent456'];
         List<Case> cases = ApplicationTestDataFactory.getCases(2, (String)null, true);
         String recordTypeId = Schema.SObjectType.Compensation__c.getRecordTypeInfosByName().get('EFT').getRecordTypeId();
         List<Compensation__c> compensations = ApplicationTestDataFactory.getCompensation(1, cases[0].Id, recordTypeId, false);

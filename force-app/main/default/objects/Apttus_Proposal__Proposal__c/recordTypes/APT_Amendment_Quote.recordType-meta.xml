@@ -100,17 +100,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>APT_Intermediary__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>APT_International_Max_Weight__c</picklist>
         <values>
             <fullName>%3C 2 Kg</fullName>
@@ -210,17 +199,6 @@
         </values>
         <values>
             <fullName>Rejected</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>APT_Pricing_Request_Type__c</picklist>
-        <values>
-            <fullName>Cross Sell</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Business</fullName>
             <default>false</default>
         </values>
     </picklistValues>

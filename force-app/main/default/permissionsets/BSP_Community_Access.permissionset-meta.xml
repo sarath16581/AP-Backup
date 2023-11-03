@@ -1868,11 +1868,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.ReasonforCreditClaim__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.Case_Reopen_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2604,6 +2599,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Reason_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ReasonforCreditClaim__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
