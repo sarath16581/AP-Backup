@@ -31,7 +31,6 @@ import getRelatedSuperAdminRoles from '@salesforce/apex/BSPCreditClaimController
 import isValidBillingAccount from '@salesforce/apex/BSPCreditClaimController.isValidBillingAccount';
 import acceptedFileFormats from '@salesforce/label/c.BSP_Accepted_file_formats_credit_claim';
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
-
 	//	enquiryType = 'Missing Item';
 	spinnerAltText = 'loading';
 	errorGeneric = 'An error has occurred';
