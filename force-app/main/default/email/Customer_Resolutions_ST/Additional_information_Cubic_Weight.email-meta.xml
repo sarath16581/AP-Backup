@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Request customer providing more information on weight and dimension.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Additional information - Cubic / Weight</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - Consignment Note [...]</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+We refer to case {!Case.CaseNumber} for consignment note [...].
+
+If you are disputing the charged weight and/or dimensions, please reply to this email providing a packing/picking slip to verify the correct weight and dimensions (L x W x H).
+
+Alternatively, please reply to this email providing photos of the item on a scale showing the weight and a measuring tape across the dimensions (L x W x H).
+
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post &amp; StarTrack
+credit.claims@startrack.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_No_Email_Phishing_Statement}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

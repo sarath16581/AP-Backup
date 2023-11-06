@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Minimum Collection Charge</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+Thank you for enquiry. After reviewing your case we have identified that the minimum collection charge in this instance has been applied correctly. As the postage value did not meet the minimum requirement for a collection. In line with your agreement a minimum postage amount of $41 is required to be manifested in order to qualify for a free collection. Please contact your account manager or refer to your eParcel contract if you require any additional clarification of this fee.
+
+Please accept my apologies if any inconvenience has been caused. This enquiry has now been closed off in our system.
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post &amp; StarTrack
+credit.claims@auspost.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_No_Email_Phishing_Statement}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
