@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Unmanifested charges</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+We refer to case {!Case.CaseNumber}.
+
+Thank you for your enquiry. Please note that the unmanifested charge was charged due to an electronic manifest not being submitted. In the absence of an electronic manifest, we are unable to determine the postage costs that should have been charged and as per the terms of your agreement, a $25 charge per article is applied. To avoid this charge in the future, please ensure that all manifests are submitted electronically prior to lodging the article in our network.
+
+Based on available information, we have found that the original charge is correct and therefore your request for credit is not deemed payable.
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post &amp; StarTrack
+credit.claims@auspost.com.au
+{!Case.EmailThreadID__c}
+
+
+{!$Label.Australia_Post_No_Email_Phishing_Statement}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

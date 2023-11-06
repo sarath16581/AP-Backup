@@ -1,0 +1,374 @@
+<html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge" /><!--<![endif]-->
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" /><!--[if !mso]><!-->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" /><!--<![endif]-->
+  <meta content="width=device-width" name="viewport" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="https://startrack.com.au/etc/designs/startrack_corp/clientlib/img/favicon.ico" rel="icon" type="image/x-icon" />
+
+  <html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:v="urn:schemas-microsoft-com:vml"
+   xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  * {
+    line-height: inherit;
+  }
+  [x-apple-data-detectors],
+  [href^="tel"],
+  [href^="sms"] {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a:hover,.btn a:hover,
+  a.btn img:hover,
+  a img:hover,
+  .btn a:focus {
+    opacity: 0.8 !important;
+  }
+
+  /* brand colours*/
+  .cream  {color: #f3f1ee;}   /* background colour*/
+  .white  {color: #ffffff;}  /* content background colour*/
+  .brown  {color:#5e514d;}   /* body text colour*/
+  .blue   {color: #37a0dc;}  /* ST Brand Heading*/
+  .blue-dark {color: #18376b;} /* ST Text Links*/
+  .dark-brown {color: #382f2d } /* Brand Heading*/
+
+
+  /* custom device helpers*/
+  @media screen and (max-device-width: 619px), screen and (max-width: 619px) {
+    .size-11 { font-size: 11px !important; line-height: 14px !important; }
+    .m-snap-right, .m-text-left { text-align: left !important; }
+  }
+
+  .corners {border-radius: 4px;}
+  .corners-top {border-radius: 4px 4px 0 0;}
+  .corners-bottom {border-radius: 0 0 4px 4px;}
+
+  /* main layout CSS for web email clients*/
+  .layout,
+  .column {
+    transition: width 0.25s ease-in-out, max-width 0.25s ease-in-out;
+  }
+  .layout,
+  .header {
+    max-width: 400px !important;
+    -fallback-width: 95% !important;
+    width: calc(100% - 20px) !important;
+  }
+  .column {
+    max-width: 400px !important;
+    width: 100% !important;
+  }
+  .snippet,
+  .webversion {
+    width: 50% !important;
+  }
+  .ie .btn {
+    width: 100%;
+  }
+  .ie .layout,
+  [owa] .layout,
+  .ie .one-col .column,
+  [owa] .one-col .column {
+    max-width: 600px !important;
+    width: 600px !important;
+  }
+  .ie .fixed-width.has-border,
+  [owa] .fixed-width.has-border,
+  .ie .has-gutter.has-border,
+  [owa] .has-gutter.has-border {
+    max-width: 602px !important;
+    width: 602px !important;
+  }
+  .ie .two-col .column,
+  [owa] .two-col .column {
+    max-width: 300px !important;
+    width: 300px !important;
+  }
+  .ie .three-col .column,
+  [owa] .three-col .column,
+  .ie .narrow,
+  [owa] .narrow {
+    max-width: 150px !important;
+    width: 150px !important;
+  }
+  .ie .wide,
+  [owa] .wide {
+    width: 400px !important;
+  }
+  .ie .fixed-width .layout__inner {
+    border-left: 0 none white !important;
+    border-right: 0 none white !important;
+  }
+  .layout-fixed-width,
+  .mso .layout-full-width {
+    background-color: #ffffff;
+  }
+  @media only screen and (min-width: 620px) {
+    .column {
+      display: table-cell;
+      Float: none !important;
+      vertical-align: top;
+    }
+    .layout,
+    .one-col .column {
+      max-width: 600px !important;
+      width: 600px !important;
+    }
+    .two-col .column {
+      max-width: 300px !important;
+      width: 300px !important;
+    }
+    .three-col .column,
+    .column.narrow {
+      max-width: 150px !important;
+      width: 150px !important;
+    }
+    .column.wide {
+      width: 400px !important;
+    }
+  }
+
+  @media (max-width: 321px) {
+    .layout,
+    .column {
+      min-width: 320px !important;
+      width: 320px !important;
+    }
+  }
+
+</style>
+
+<title>StarTrack</title>
+
+<!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+  <o:PixelsPerInch>96</o:PixelsPerInch>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+
+
+</head>
+<!--[if mso]>
+  <body class="mso">
+<![endif]-->
+<!--[if !mso]><!-->
+  <body class="full-padding" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;">
+<!--<![endif]-->
+    <table class="wrapper" style="border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;background-color: #f3f1ee;" cellpadding="0" cellspacing="0"><tbody><tr><td>
+
+      <!-- View online -->
+      <div style="background-color: #ffffff;">
+        <div class="layout one-col" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+          <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
+          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-full-width" style="background-color: #ffffff;"><td class="layout__edges">&nbsp;</td><td style="width: 600px" class="w560"><![endif]-->
+
+                <!--<div class="column" style="max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);text-align: left;color: #ffffff;font-size: 14px;line-height: 21px;font-family: Arial, sans-serif;">
+
+                  <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 4px;Margin-bottom: 4px;">
+                    <p class="size-12" style="Margin-top: 10px;Margin-bottom: 10px;font-size: 12px;line-height: 19px;text-align: center;" lang="x-size-12">
+                      <a href="%%view_email_url%%" style="color:#5e514d; font-family: Arial, Helvetica, sans-serif; font-size:11px; text-decoration:underline;">
+                        View online
+                      </a>
+                    </p>
+                  </div>
+
+                </div>-->
+              <!--[if (mso)|(IE)]></td><td class="layout__edges">&nbsp;</td></tr></table><![endif]-->
+            </div>
+          </div>
+      </div>
+
+      <!-- START: x2 Logos (AP-ST)-->
+      <div class="layout " style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner" style="border-radius: 3px 0 0 3px;border-collapse: collapse;display: table;width: 100%;">
+            <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-"><td style="width: 400px;" valign="top" class="w360"><![endif]-->
+
+            <div class="column wide" style="text-align: left;font-size: 12px;line-height: 19px;color: #b9b9b9;font-family: Arial, Helvetica, sans-serif;Float: left;max-width: 400px;min-width: 320px; width: 320px;width: calc(8000% - 47600px);">
+              <div style="Margin-left: 10px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
+
+                    <table class="" style="border-collapse: collapse;table-layout: fixed;" role="presentation">
+                      <tbody>
+                        <tr role="navigation">
+
+                          <td class="" style="padding-top:20px;width: 98px;">
+                            <a style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #b9b9b9;" href="https://auspost.com.au/">
+                              <img style="border: 0;" width="98" height="35" src="http://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/1/2016-logo-AP-grey-text.png" alt="auspost.com.au" />
+                            </a>
+                          </td>
+
+                          <td class="" style="padding-top:15px;padding-left:20px;width: 98px;">
+                            <a style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #b9b9b9;" href="https://startrack.com.au/">
+                              <img style="border: 0;display: block;" src="http://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/1/2016-logo-ST-grey-text.png"  width="162" height="35" border="0" margin="0" alt="startrack.com.au" style="" />
+                            </a>
+                          </td>
+
+                          </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div style="Margin-top: 20px;"></div>
+                    <div style="Margin-top: 18px;"></div>
+
+                  </div>
+                </div>
+
+                <!--[if (mso)|(IE)]></td><td style="width: 200px;" valign="top" class="w160"><![endif]-->
+                <div class="column narrow" style="text-align: left;font-size: 12px;line-height: 19px;color: #b9b9b9;font-family: Arial, Helvetica, sans-serif;Float: left;max-width: 320px;min-width: 200px; width: 320px;width: calc(72200px - 12000%);">
+                  <div style="Margin-left: 10px;Margin-right: 0;Margin-top: 10px;Margin-bottom: 10px;">
+                  </div>
+                </div>
+
+                <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+            </div>
+        </div>
+      <!-- END: x2 Logos (AP-ST) -->
+
+<!-- #### Start content ### -->
+
+<!-- Start: Text block -->
+      <div class="layout one-col fixed-width" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner corners" style="border-collapse: collapse;display: table;width: 100%;background-color: #ffffff;" >
+        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" ><td style="background-color: #ffffff;width: 600px" class="w560"><![endif]-->
+          <div class="column" style='text-align: left;color: #5e514d;font-size: 14px;line-height: 21px;font-family: Arial, Helvetica, sans-serif;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);'>
+
+
+          <!-- Text -->
+          <div style="Margin-left: 20px;Margin-right: 20px;Margin-bottom: 24px;">
+            <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 14px;line-height: 24px;text-align: left;" lang="x-size-16">
+              Hi {!Case.Name__c},
+               <br/><br/>
+
+We refer to case {!Case.CaseNumber} for consignment note [...] in relation to the second delivery charge applied to your account which appears on invoice [...] dated [...].
+<br/><br/>
+Attached is the tracking showing that the driver has attempted delivery at  [...] am/pm which is within standard business hours of 9 am to 5 pm. 
+<br/><br/>
+Based on this information above, the charge appears to be correct. 
+</p>
+</p>
+</div>
+
+          <!-- button blue --><!-- Text Small --><!-- Text Sign-off -->
+          <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 14px;">
+            <p style="Margin-top: 0;Margin-bottom: 44px;font-size: 14px;line-height: 24px;text-align: left;" lang="x-size-16">
+              Kind regards,<br/><br/>
+              Customer Resolutions Team<br />
+Australia Post & StarTrack<br />
+<a href="mailto:credit.claims@startrack.com.au" target="_blank" style="color:#51534a; text-decoration:underline">credit.claims@startrack.com.au</a><br/>
+{!Case.EmailThreadID__c}<br/>
+      
+</p>
+          </div>
+
+          <!-- Spacer -->
+          <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 20px;">
+            <div style="line-height:10px;font-size:1px">&nbsp;</div>
+          </div>
+
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+<!-- End: Text block -->
+
+<!-- #### End content ### -->
+
+      <!-- START: Footer: Connect Title  -->
+          <div class="layout one-col fixed-width" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+            <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #f3f1ee;">
+            <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #f3f1ee;"><td style="width: 600px" class="w560"><![endif]-->
+              <div class="column m-gutter-left" style='text-align: left;color: #5e514d;font-size: 14px;line-height: 21px;font-family: Arial, Helvetica, sans-serif;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);'>
+
+                <div style="Margin-left: 5px;Margin-right: 20px;Margin-top: 24px;Margin-bottom:0;">
+
+                  <p class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-size: 11px;line-height: 19px;text-align: left;" lang="x-size-12">&nbsp;</p>
+
+                </div>
+
+              </div>
+            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+            </div>
+          </div>
+      <!-- START: Footer: Connect Title -->
+
+
+          <!-- Footer: Lock -->
+          <div class="layout one-col fixed-width" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+            <div class="layout__inner" style="border-radius: 4px;border-collapse: collapse;display: table;width: 100%;background-color: #dfdddb;">
+            <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #dfdddb"><td style="width: 600px" class="w560"><![endif]-->
+              <div class="column" style='text-align: left;color: #5e514d;font-size: 14px;line-height: 21px;font-family: Arial, Helvetica, sans-serif;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);'>
+
+                <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 20px;Margin-bottom: 20px;">
+
+                  <p class="size-11" style="Margin-top: 20px;Margin-bottom: 0;font-size: 14px;line-height: 19px;color: #000000;" lang="x-size-11">
+                    <table class="" style="border-collapse: collapse;table-layout: fixed;" role="presentation">
+                      <tbody>
+                        <tr role="navigation">
+                          <td class="" style="padding: 0 0 0 11px;width: 30px;">
+                              <img src="http://image.email.auspost.com.au/lib/fe611570736d027d7110/m/7/2017_email_padlock.png" alt="lock"/>
+                          </td>
+                          <td class="size-11" style="padding:0 6px 0 30px;color:black;font-family: Arial, Helvetica, sans-serif;">
+{!$Label.Australia_Post_No_Email_Phishing_Statement}
+                          </td>
+                          <td class="" style="padding: 0 0 0 3px;width: 30px;">                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </p>
+
+                </div>
+
+              </div>
+            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+            </div>
+          </div>
+          <!-- END: Footer: Lock -->
+
+          <!-- Footer: T&C's -->
+            <div class="layout one-col fixed-width" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+              <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #f3f1ee;">
+              <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #f3f1ee;"><td style="width: 600px" class="w560"><![endif]-->
+                <div class="column m-gutter-left" style='text-align: left;color: #5e514d;font-size: 14px;line-height: 21px;font-family: Arial, Helvetica, sans-serif;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);'>
+
+                  <div style="Margin-left: 5px;Margin-right: 20px;Margin-top: 24px;Margin-bottom: 24px;">
+
+                    <p class="size-11" style="Margin-top: 0;Margin-bottom: 24px;font-size: 11px;line-height: 14px;" lang="x-size-11">{!$Label.Australia_Post_Email_Security_Disclaimer}</p>
+
+                    <hr style="border-top: 1px solid #d6d6d6;border-right: 0;border-left: 0;border-bottom: 0;">
+
+                    <p class="size-11" style="Margin-top: 20px;Margin-bottom: 0;font-size: 11px;line-height: 19px;" lang="x-size-11">
+                        <a href="https://auspost.com.au/help/#/" style="color:#51534a; text-decoration:none">Help &amp; Support</a>     <span style="padding-left:4px;padding-right:4px;">|</span>
+                        <a href="http://auspost.com.au/terms-conditions.html?ilink=global-footer-terms-link" style="color:#51534a; text-decoration:none">Terms &amp; Conditions</a> <span style="padding-left:4px;padding-right:4px;">|</span>
+                        <a href="http://auspost.com.au/privacy.html" style="color:#51534a; text-decoration:none">Privacy Policy</a>
+                    </p>
+
+                  </div>
+
+                </div>
+              <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+              </div>
+            </div>
+          <!-- END: Footer: T&C's -->
+
+              <div style="line-height:20px;font-size:20px;">&nbsp;</div>
+
+            </td></tr></tbody></table>
+            <img src="https://pixel.inbox.exacttarget.com/pixel.gif?r=5f42929a760c7d68e0d792dd4e072fe0f9ba0243" width="1" height="1" />
+        		<custom name="opencounter" type="tracking">
+        	</body>
+        </html>

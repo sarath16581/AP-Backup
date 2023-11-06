@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Incorrect Charges, 2 DWS Weights</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+We refer to case {!Case.CaseNumber}.
+
+Australia Post may use a Class 4 check weigh cube measuring equipment in accordance with section 2.27 of National Trade Measurement Regulations 2009, the OIML R 129:2000 Multi-dimensional Measuring Instruments recommendations and the NMI R 129 national Multi-dimensional Measuring Instruments standard for the purposes of calculating Chargeable Dimension, Chargeable Weight and/or Chargeable Value. The check weigh cube measuring equipment used by Australia Post for the purposes of these calculations has been certified by the National Measurement Institute. Refer to the website https://www.auspost.com.au/DWS for further details.
+
+Based on available information, we have found that the invoiced amount charged is correct and therefore your request for credit is not deemed payable.
+
+Please accept my apologies if any inconvenience has been caused. This enquiry has now been closed off in our system.
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post &amp; StarTrack
+credit.claims@auspost.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_No_Email_Phishing_Statement}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
