@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Permissions required to propagate updates to Billing Accounts coming from source systems (SAP, TEAM). Updates are made by TIBCO via the standard Salesforce SOAP API.</description>
+    <description>Permissions required to propagate changes to Billing Accounts coming from source systems (SAP, TEAM). 
+Currently (2023 Nov), billing account changes are pushed into Salesforce by TIBCO via an upsert operation using standard Salesforce SOAP API.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LEGACY_ID__c</field>
@@ -147,7 +148,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Billing Account Update API</label>
+    <label>Billing Accounts API</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -158,7 +159,7 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
-        <allowCreate>false</allowCreate>
+        <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
