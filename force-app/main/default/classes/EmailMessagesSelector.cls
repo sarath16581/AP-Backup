@@ -12,6 +12,7 @@
  * 2022-02-16 - Nathan Franklin - Added option to filter email by INCOMING/OUTGOING only
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added method selectByIdsWithParentStarTrackCase, new WITH_CASE enum and fields to getSObjectFieldList
  * 2023-05-26 - Mahesh Parvathaneni - Added method selectByIdsAndParentRecordTypeId
+ * 2023-11-06 - hasantha.liyanage@auspost.com.au - Modified: added selectByParentIds
  */
 public virtual inherited sharing class EmailMessagesSelector extends ApplicationSelector {
 
@@ -114,6 +115,18 @@ public virtual inherited sharing class EmailMessagesSelector extends Application
 			.add(new QueryBuilder.SimpleCondition(EmailMessage.Id + ' in :ids'))
 			.add(new QueryBuilder.SimpleCondition('Parent.RecordTypeId in :recordTypeIds'))
 			.endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on parent Id
+	 * @return List<EmailMessage>
+	 */
+	public virtual List<EmailMessage> selectByParentIds(Set<Id> ids,Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(EmailMessage.ParentId + ' in :ids'))
+				.endConditions();
 		return Database.query(qb.toSoqlString());
 	}
 
