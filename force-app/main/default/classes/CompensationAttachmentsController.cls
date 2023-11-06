@@ -8,6 +8,7 @@
  * @description support listing attachments and selecting them for the compensation record
  * @changelog
  * 2023-07-17 - hasantha.liyanage@auspost.com.au - Created
+ * 2023-11-06 - hasantha.liyanage@auspost.com.au - Modified: update getAttachmentDetails method to get the attachments on the EmailMessage
  */
 public with sharing class CompensationAttachmentsController {
 
@@ -135,35 +136,58 @@ public with sharing class CompensationAttachmentsController {
      * @param compensation current compensation record
      * @param attachmentDetails to storeattachment details
      */
-    @TestVisible
+   @TestVisible
     private static void getAttachmentDetails(Compensation__c compensation, List<AttachmentDetail> attachmentDetails) {
+        Set<Id> emailMessageIds = new Set<Id>();
+        Set<Id> parentIds = new Set<Id>();
+        for(EmailMessage message :  EmailMessagesSelector.newInstance().selectByParentIds(new Set<Id>{compensation.Case__c},
+                new Set<Object>())) {
+            emailMessageIds.add(message.Id);
+        }
+
+        parentIds.addAll(emailMessageIds);
+        parentIds.add(compensation.Case__c);
+        parentIds.add(compensation.Id);
         // get attachments related to related case
-        List<Attachment> caseAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                compensation.Case__c
-        });
-        // get attachments related to compensation, this will allow us to find any existing attachments
-        List<Attachment> compensationAttachments = AttachmentsSelector.newInstance().selectByParentId(new Set<Id>{
-                compensation.Id
-        });
+        List<Attachment> allAttachments = AttachmentsSelector.newInstance().selectByParentId(parentIds);
+
+        // group all attachments by parent Id to ignore the already created compensation attachments
+        Map<Id, List<Attachment>> attachmentsByParentId = new Map<Id, List<Attachment>>();
+        for (Attachment attachment : allAttachments) {
+            Id parentId = attachment.ParentId;
+            if (!attachmentsByParentId.containsKey(parentId)) {
+                attachmentsByParentId.put(parentId, new List<Attachment>());
+            }
+            attachmentsByParentId.get(parentId).add(attachment);
+        }
 
         // compare attachments and prepare the attachment details
-        for (Attachment caseAttachment : caseAttachments) {
-            AttachmentDetail detail = new AttachmentDetail();
-            detail.BodyLength = caseAttachment.BodyLength;
-            detail.ContentType = caseAttachment.ContentType;
-            detail.CreatedDate = caseAttachment.CreatedDate;
-            detail.Id = caseAttachment.Id;
-            detail.Name = caseAttachment.Name;
-            detail.ParentId = caseAttachment.ParentId;
-            detail.isAttachment = true;
-            if(compensationAttachments != null) {
-                for (Attachment compensationAttachment : compensationAttachments) {
-                    if (caseAttachment.Name == compensationAttachment.Name) {
-                        detail.isSelected = true;
+        for (Id parentId : attachmentsByParentId.keySet()) {
+            // do not need to list anything already on the compensation record
+            if(parentId == compensation.Id) {
+                continue;
+            }
+            for (Attachment attachment : attachmentsByParentId.get(parentId)) {
+                AttachmentDetail detail = new AttachmentDetail();
+                detail.BodyLength = attachment.BodyLength;
+                detail.ContentType = attachment.ContentType;
+                detail.CreatedDate = attachment.CreatedDate;
+                detail.Id = attachment.Id;
+                detail.Name = attachment.Name;
+                detail.ParentId = attachment.ParentId;
+                detail.isAttachment = true;
+
+                // mark as selected when the attachment is already on compensation record
+                if(attachmentsByParentId.get(compensation.Id) != null) {
+                    for (Attachment attachment2 : attachmentsByParentId.get(compensation.Id)) {
+                        if (attachment.Name == attachment2.Name) {
+                            detail.isSelected = true;
+                        }
                     }
                 }
+
+                attachmentDetails.add(detail);
             }
-            attachmentDetails.add(detail);
         }
     }
 
