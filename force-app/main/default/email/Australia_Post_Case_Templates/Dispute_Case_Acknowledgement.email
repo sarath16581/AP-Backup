@@ -268,15 +268,14 @@ Thanks for taking the time to contact us. This is confirmation that we have rece
 <b>ClaimType: </b>{!Case.Enquiry_Type__c}<br/>
 <b>Reason for Credit Claim: </b>{!Case.ReasonforCreditClaim__c}<br/>
 <b>Business Name: </b>{!Case.Business_Name__c}<br />
-<b>Account Number: </b>{!Case.Billing_Number__c}<br />
+<b>Business Account Number: </b>{!Case.Billing_Number__c}<br />
 <b>Total Amount Claimed ($): </b>{!Case.Amount_Claimed__c}<br/>
 <b>Description: </b>{!Case.Description}<br/><br/>
 <hr>
 
 <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 16px;line-height: 24px;text-align: left;" lang="x-size-16">
 Just so you’re aware, it may take up to 10 business days before you hear back from us so thanks in advance for your patience. We will try to resolve this as quickly as possible and will be in touch once we have an outcome.<br /><br />
-In the meantime, if you have any questions, please email <a href="mailto:customer.resolutions@auspost.com.au?subject=Enquiry: {!Case.Enquiry_Type__c}: {!Case.ReasonforCreditClaim__c} - Case No. {!Case.CaseNumber}" target="_blank" style="color:#51534a; text-decoration:underline">customer.resolutions@auspost.com.au</a> including your Case Number: {!Case.CaseNumber} in the Subject line. We look forward to helping you with your request.<br /><br />
-Please do not reply to this email; this is an automated message.
+In the meantime, if you have any questions, please email <a href="mailto:credit.claims@auspost.com.au?subject=Enquiry: {!Case.Enquiry_Type__c}: {!Case.ReasonforCreditClaim__c} - Case No. {!Case.CaseNumber}" target="_blank" style="color:#51534a; text-decoration:underline">credit.claims@auspost.com.au</a> including your Case Number: {!Case.CaseNumber} in the Subject line. We look forward to helping you with your request.<br />
             </p>
           </div>
 
@@ -286,8 +285,7 @@ Please do not reply to this email; this is an automated message.
               Kind regards,<br/><br/>
               Customer Resolution Team<br />
 Australia Post & StarTrack<br />
-<a href="mailto:customer.resolutions@auspost.com.au" target="_blank" style="color:#51534a; text-decoration:underline">customer.resolutions@auspost.com.au</a>
-      
+{!Case.EmailThreadID__c}      
 </p>
           </div>
 
@@ -338,8 +336,7 @@ Australia Post & StarTrack<br />
                           <td class="" style="padding: 0 0 0 11px;width: 30px;">
                               <img src="http://image.email.auspost.com.au/lib/fe611570736d027d7110/m/7/2017_email_padlock.png" alt="lock"/>
                           </td>
-                          <td class="size-11" style="padding:0 6px 0 30px;color:black;font-family: Arial, Helvetica, sans-serif;">
-                            Australia Post will never send you an email asking for your password, credit card details or account information.
+                          <td class="size-11" style="padding:0 6px 0 30px;color:black;font-family: Arial, Helvetica, sans-serif;">{!$Label.Australia_Post_No_Email_Phishing_Statement}
                           </td>
                           <td class="" style="padding: 0 0 0 3px;width: 30px;">&nbsp;
                             
@@ -365,14 +362,7 @@ Australia Post & StarTrack<br />
 
                   <div style="Margin-left: 5px;Margin-right: 20px;Margin-top: 24px;Margin-bottom: 24px;">
 
-                    <p class="size-11" style="Margin-top: 0;Margin-bottom: 24px;font-size: 11px;line-height: 14px;" lang="x-size-11">
-                      This email was sent by <a target="_blank" href="https://auspost.com.au/" style="color:#51534a;">Australia Post</a>,
-                      111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don't think you should have received this email,
-                      please call us on 13 13 18.
-                      Visit <a target="_blank" href="https://auspost.com.au/" style="color:#51534a;">auspost.com.au</a> for further information on our online
-                      <a target="_blank" href="https://auspost.com.au/about-us/about-our-site/online-security-scams-fraud" style="color:#51534a;">security</a>.
-                      <br/><br/>
-                      Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+                    <p class="size-11" style="Margin-top: 0;Margin-bottom: 24px;font-size: 11px;line-height: 14px;" lang="x-size-11">{!$Label.Australia_Post_Email_Security_Disclaimer}
                     </p>
 
                     <hr style="border-top: 1px solid #d6d6d6;border-right: 0;border-left: 0;border-bottom: 0;">
