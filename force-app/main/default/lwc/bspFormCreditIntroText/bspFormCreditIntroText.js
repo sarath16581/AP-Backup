@@ -13,9 +13,8 @@ import {api, LightningElement} from 'lwc';
 export default class BspFormCreditIntroText extends LightningElement {
 
 	@api billingAccountScope;
-
 	get isAp() {
-		if (this.billingAccountScope === 'AP') {
+		if (this.billingAccountScope.state.userBillingAccountScope === 'AP') {
 			return true;
 		} else {
 			return false;
@@ -23,7 +22,7 @@ export default class BspFormCreditIntroText extends LightningElement {
 	}
 
 	get isSt() {
-		if (this.billingAccountScope === 'ST') {
+		if (this.billingAccountScope.state.userBillingAccountScope === 'ST') {
 			return true;
 		} else {
 			return false;
@@ -31,7 +30,7 @@ export default class BspFormCreditIntroText extends LightningElement {
 	}
 
 	get isAll() {
-		if (this.billingAccountScope === 'ALL') {
+		if (this.billingAccountScope.state.userBillingAccountScope === 'ALL') {
 			return true;
 		} else {
 			return false;

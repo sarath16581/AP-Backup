@@ -6,3 +6,15 @@
 	border-radius: 3px;
 	line-height:30px;
 }
+
+.info-text p{
+	margin:10px 0;
+}
+.info-text p strong{
+	white-space: nowrap;
+}
+
+.info-text a{
+	text-decoration:underline;
+	white-space:nowrap;
+}
