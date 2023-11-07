@@ -88,7 +88,8 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 			state: {
 				enquiryType: this.enquiryType,
 				trackingId : this.trackingId,
-				accountHeldWith : this.accountHeldWith
+				accountHeldWith : this.accountHeldWith,
+				userBillingAccountScope : this.userBillingAccountScope
 			}
 		}, false);
 	}
