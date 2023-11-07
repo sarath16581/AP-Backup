@@ -15,23 +15,26 @@ export default class BspFormCreditIntroText extends LightningElement {
 	@api billingAccountScope;
 
 	get isAp() {
-		if (this.billingAccountScope == 'AP')
+		if (this.billingAccountScope === 'AP') {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	get isSt() {
-		if (this.billingAccountScope == 'ST')
+		if (this.billingAccountScope === 'ST') {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	get isAll() {
-		if (this.billingAccountScope == 'ALL')
+		if (this.billingAccountScope === 'ALL') {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 }
