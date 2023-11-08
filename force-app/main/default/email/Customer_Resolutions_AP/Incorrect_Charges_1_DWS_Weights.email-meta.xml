@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Incorrect Charges, 1 DWS Weights</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+We refer to case {!Case.CaseNumber}.
+
+Thank you for your enquiry. Please be aware that articles posted in our network are subjected to a dimension and weight assessment (unless specified otherwise in your contract) as per the notification picture below that appears on all manifests. There can be instances where postage charges are adjusted when the dimensions and weights declared on the manifest vary to the scanned dimensions and weights collected during transit.
+
+For your reference, you will notice all manifests contain the below details.
+
+This is not an invoice requesting payment. Your tax invoice will be forwarded to you after your parcels are lodged and recorded centrally.
+
+After reviewing your case we have found that the invoiced amount charged is correct. Please accept my apologies if any inconvenience has been caused. This enquiry has now been closed off in our system.
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post &amp; StarTrack
+credit.claims@auspost.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_No_Email_Phishing_Statement}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
