@@ -2,27 +2,18 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Closed_Date_Not_In_Past</fullName>
     <active>true</active>
-    <description>Ensures an Opportunity CloseDate is not the past date. This is validated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond (OR) when the closed opportunity is being updated with the past date for CloseDate.</description>
-    <errorConditionFormula>OR ( 
- AND(
+    <description>Ensures an Opportunity CloseDate is not the past date. This is validated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond (OR) when the CloseDate is being updated with the past date on opportunity.</description>
+    <errorConditionFormula>AND(
   $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
   $Profile.Name &lt;&gt; &quot;Sales Admin&quot;,
   NOT(ISNEW()),
-  ISCHANGED( StageName ),
-  OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName,
+  OR(ISCHANGED( StageName ), ISCHANGED(CloseDate)),
+  OR( ISPICKVAL(StageName, &quot;Identify&quot;), ISPICKVAL(StageName, 
+  &quot;Qualify&quot;), ISPICKVAL(StageName,
   &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;),
   ISPICKVAL(StageName, &quot;Closed Won&quot;) ),
   CloseDate &lt; Today()
- ),
- AND(
-  $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
-  $Profile.Name &lt;&gt; &quot;Sales Admin&quot;,
-  TEXT(StageName)= &quot;Closed Won&quot;,
-  ISCHANGED(CloseDate),
-  IsClosed,
-  CloseDate &lt; Today()
- )
 )</errorConditionFormula>
     <errorDisplayField>CloseDate</errorDisplayField>
-    <errorMessage>Update the Close Date to a future date. This date should indicate our best estimate of when we expect to close the opportunity.</errorMessage>
+    <errorMessage>Update the Close Date to a future date. This date should indicate the best estimate of when the opportunity is expected to close.</errorMessage>
 </ValidationRule>

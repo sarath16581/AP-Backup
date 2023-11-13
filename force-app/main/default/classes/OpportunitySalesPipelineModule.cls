@@ -302,7 +302,9 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				//revenue start date is less than today
 				//add to the invalid record list
 				oppLineItemIdsStartDateLessThanToday.add(oli.Id);
-			} else if (oli.Contract_Start_Date__c < record.CloseDate) {
+			}
+			
+			if (oli.Contract_Start_Date__c < record.CloseDate) {
 				//revenue start date is less than opportunity close date
 				//add to the invalid record list
 				oppLineItemIdsStartDateLessThanCloseDate.add(oli.Id);
