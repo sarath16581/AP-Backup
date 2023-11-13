@@ -131,6 +131,18 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	public static List<CaseComment> getCaseComments(Integer count, Id parentId, Boolean IsPublished, Boolean generateIds) {
+		List<CaseComment> output = (List<CaseComment>)maybeGenerateIds(populateSObjects(CaseComment.SObjectType, new Map<SObjectField, Object> {
+				CaseComment.IsPublished => IsPublished
+		}, count), generateIds);
+
+		for(Integer i = 0; i < output.size(); i++) {
+			output[i] = (CaseComment)setUnwritableFields(output[i], new Map<String, Object>{'ParentId' => parentId});
+		}
+
+		return output;
+	}
+
 	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
 		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
 			Critical_Incident__kav.Title => 'Test Title %count%',
