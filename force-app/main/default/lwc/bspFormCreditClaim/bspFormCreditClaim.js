@@ -104,6 +104,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		label:'Other account number',
 		isCustom:true
 	}];
+	additionalFormData = {
+		businessAccountNumber:'',
+		isOther: false
+	};
 	isValidateFileUploaded = false;
 
 
@@ -141,9 +145,13 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		if(selectedValue.value === this.otherOptions[0].value) {
 			this.isShowOtherBillingAccountField = true;
 			this.businessAccountNumber = null; // clear any previously selected values, otherwise Related Billing Account will be linked if found
+			this.additionalFormData.isOther = true;
+			this.additionalFormData.businessAccountNumber = '';
 		} else {
 			this.isShowOtherBillingAccountField = false;
 			this.businessAccountNumber = selectedValue.value; // selected value passed from search component is an ID value
+			this.additionalFormData.businessAccountNumber = selectedValue.label; // passing the label values for case comments
+			this.additionalFormData.isOther = false;
 			this.billingNumber = null; // there is no billing Number passed in to apex when Id exists
 		}
 	}
@@ -306,6 +314,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 			case 'businessAccountNumberOther':
 				this.billingNumber = event.target.value;
+				this.additionalFormData.businessAccountNumber = this.billingNumber
 				break;
 			case 'contactName':
 				this.contactName = event.detail.value;
@@ -502,7 +511,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		createCreditClaim({
 			caseRecord: this.tempCase,
 			uploadedFiles: this.uploadedFiles,
-			disputeItems: disputeItems
+			disputeItems: disputeItems,
+			formData: this.additionalFormData
 		}).then(result =>{
 			if(result.status === 'error'){
 				this.errorMessage = result.message;
