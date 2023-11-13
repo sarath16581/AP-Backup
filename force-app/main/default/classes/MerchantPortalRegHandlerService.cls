@@ -17,7 +17,7 @@ public inherited sharing class MerchantPortalRegHandlerService {
 		Map<String, String> output = new Map<String, String>();
 		output.putAll(attributes);
 
-		String cNumber = String.valueOf(attributes.get(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING));
+		String cNumber = String.valueOf(attributes.get(Label.AttributeCNumberMapping));
 		String federationIdentifier = generateFederationIdentifier(cNumber);
 
 		output.put('federation_identifier', federationIdentifier); // this is to maintain backwards compatibility of the millions of existing records we have
@@ -48,7 +48,7 @@ public inherited sharing class MerchantPortalRegHandlerService {
 		if(!attributes.containsKey('federation_identifier')) {
 			output.add('Username attribute is missing');
 		}
-		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING) || !attributes.containsKey('cnumber')) {
+		if(!attributes.containsKey(Label.AttributeCNumberMapping) || !attributes.containsKey('cnumber')) {
 			output.add('CNumber attribute is missing');
 		}
 

@@ -22,8 +22,8 @@ public with sharing class ChasRegHandlerService {
 		Account.FirstName => 'given_name',
 		Account.LastName => 'family_name',
 		Account.PersonEmail => 'email',
-		Account.APCN__pc => Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING,
-		Account.OID_ID__pc => Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING,
+		Account.APCN__pc => Label.AttributeAPCNMapping,
+		Account.OID_ID__pc => Label.AttributeCNumberMapping,
 		Account.CRMCSSOID__pc => 'augmented_email_uppercase' // defined in reg handler
 	};
 
@@ -90,10 +90,10 @@ public with sharing class ChasRegHandlerService {
 		if(!attributes.containsKey('augmented_username')) {
 			output.add('Username attribute is missing');
 		}
-		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING)) {
+		if(!attributes.containsKey(Label.AttributeAPCNMapping)) {
 			output.add('APCN attribute is missing');
 		}
-		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING)) {
+		if(!attributes.containsKey(Label.AttributeCNumberMapping)) {
 			output.add('CNumber attribute is missing');
 		}
 
@@ -162,7 +162,7 @@ public with sharing class ChasRegHandlerService {
 	public Map<SObjectType, SObject> getExistingRecords(Map<String, String> attributes) {
 		Map<SObjectType, SObject> output = new Map<SObjectType, SObject>();
 		
-		String existingAPCN = attributes.get(Auth0OIDCAuthProvider.ATTRIBUTE_APCN_MAPPING);
+		String existingAPCN = attributes.get(Label.AttributeAPCNMapping);
 		if(String.isEmpty(existingAPCN)) {
 			throw new RegHandlerException('APCN attribute is empty');
 		}
