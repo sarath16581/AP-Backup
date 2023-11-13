@@ -15,7 +15,7 @@ public with sharing class BSPCreditClaimController {
 	public static String STATUS_ERROR = 'error';
 
 	@AuraEnabled
-	public static CreditClaimResponseWrapper createCreditClaim(Case caseRecord, List<Map<String, String>> uploadedFiles, List<Disputed_Item__c> disputeItems) {
+	public static CreditClaimResponseWrapper createCreditClaim(Case caseRecord, List<Map<String, String>> uploadedFiles, List<Disputed_Item__c> disputeItems, Map<Object,String> formData) {
 		// return object
 		CreditClaimResponseWrapper enquiryWrapper = new CreditClaimResponseWrapper();			
 
@@ -62,6 +62,9 @@ public with sharing class BSPCreditClaimController {
 					enquiryWrapper.caseRecord = newCase;
 					enquiryWrapper.status = STATUS_OK;
 					enquiryWrapper.message = '';
+
+					//build case comments from form data
+					createCaseComments(formData, caseRecord);
 				}
 			} else {
 				for(Database.Error err : saveResults[0].getErrors()) {
@@ -223,6 +226,48 @@ public with sharing class BSPCreditClaimController {
 			billAcct = billingAccountByLegacyId.get(billingAcctNo);
 		}
 		return billAcct;
+	}
+
+	/**
+	 * Create case comments once the case is created
+	 * @param formData form data to be passed to logically build the comment body
+	 * @param caseRecord Case record related data to be accessed while building/creating comments
+	 */
+	@TestVisible
+	private static void createCaseComments(Map<Object, String> formData, Case caseRecord) {
+		ElevatedSharingContext context = new ElevatedSharingContext();
+		String commentBody = '';
+		CaseComment comment = new CaseComment();
+		commentBody = buildBillingAccountCaseComments(commentBody, formData);
+		comment.CommentBody = commentBody;
+		comment.IsPublished = false;
+		comment.ParentId = caseRecord.Id;
+		//insert case comments
+		context.insertRecords(new List<SObject>{
+				comment
+		});
+	}
+
+	/**
+	 * Generate the comment body for authorised and un authorised billing account numbers
+	 * @param commentBody built comment body
+	 * @param formData form data to be passed to logically build the comment body
+	 *
+	 * @return built comment body
+	 */
+	@TestVisible
+	private static String buildBillingAccountCaseComments(String commentBody, Map<Object,String> formData) {
+		commentBody += '\n' + '---Enquiry Details---';
+		String authorisedBillingAccount = 'N/A';
+		String unAuthorisedBillingAccount = 'N/A';
+		if(Boolean.valueOf(formData.get('isOther'))) {
+			unAuthorisedBillingAccount = formData.get('businessAccountNumber');
+		} else {
+			authorisedBillingAccount = formData.get('businessAccountNumber');
+		}
+		commentBody += '\n' + 'Authorised Billing Account Number: '+authorisedBillingAccount;
+		commentBody += '\n' + 'Other (Un-authorised) Billing Account Number: '+unAuthorisedBillingAccount ;
+		return commentBody;
 	}
 
 	public class bspCreditClaimControllerException extends Exception {}
