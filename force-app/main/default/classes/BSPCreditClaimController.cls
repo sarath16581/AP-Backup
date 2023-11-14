@@ -110,11 +110,12 @@ public with sharing class BSPCreditClaimController {
 	}
 
 	@AuraEnabled
-	public static String isValidBillingAccount(String billingAccountValue) {
+	public static BillingAccountsWrapper isValidBillingAccount(String billingAccountValue) {
 		Case caseRecord = new Case();
 		caseRecord.AccountId = bspBaseUplift.loginAccountId;
 		caseRecord.Billing_Number__c = String.escapeSingleQuotes(billingAccountValue);
 		Billing_Account__c billingAccount = getBillingAccountRecord(caseRecord);
+		BillingAccountsWrapper wrapper = new BillingAccountsWrapper();
 		//if no billing account found user is not allowed to proceed
 		if (billingAccount == null) {
 			Set<SObjectField> fields = new Set<SObjectField>{
@@ -129,14 +130,24 @@ public with sharing class BSPCreditClaimController {
 			String message = networkFilterSetting.Message__c;
 			List<String> formattingArguments = new List<String>{ billingAccountValue, '\n'};
 
-			message = String.format(message, formattingArguments);
-			return message;
+			wrapper.message = String.format(message, formattingArguments);
+			wrapper.status = 'ERROR';
+			return wrapper;
+		} else {
+			wrapper.billingAccount = billingAccount;
+			wrapper.status = 'SUCCESS';
+			return wrapper;
 		}
-		return '';
 	}
 
 	public class CreditClaimResponseWrapper{
 		@AuraEnabled public Case caseRecord {get;set;}
+		@AuraEnabled public String status {get;set;}
+		@AuraEnabled public String message {get;set;}
+	}
+
+	public class BillingAccountsWrapper{
+		@AuraEnabled public Billing_Account__c billingAccount {get;set;}
 		@AuraEnabled public String status {get;set;}
 		@AuraEnabled public String message {get;set;}
 	}
