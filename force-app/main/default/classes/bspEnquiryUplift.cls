@@ -371,7 +371,7 @@ public without sharing class bspEnquiryUplift {
 		for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
 			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
 			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
-			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name));
+			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name, billingAccount.Source_System__c));
 		}
 		return options;
 	}
@@ -1703,8 +1703,17 @@ public without sharing class bspEnquiryUplift {
 			this.escapeItem = false;
 		}
 
+		public SelectOptionCustom(String value, String label, String key) {
+			this.value = value;
+			this.label = label;
+			this.disabled = false;
+			this.escapeItem = false;
+			this.key = key;
+		}
+
 		@AuraEnabled public String label { get;set; }
 		@AuraEnabled public String value { get;set; }
+		@AuraEnabled public String key { get;set; }
 		@AuraEnabled public Boolean disabled { get;set; }
 		@AuraEnabled public Boolean escapeItem { get;set; }
 
