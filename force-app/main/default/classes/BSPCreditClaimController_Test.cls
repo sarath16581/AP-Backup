@@ -279,14 +279,14 @@ private class BSPCreditClaimController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		String billingAccountValidationMessage;
-		billingAccountValidationMessage = BSPCreditClaimController.isValidBillingAccount('');
+		BSPCreditClaimController.BillingAccountsWrapper billingAccountsWrapper;
+		billingAccountsWrapper = BSPCreditClaimController.isValidBillingAccount('');
 
 		Test.stopTest();
 
 		System.assertNotEquals(
-				'',
-				billingAccountValidationMessage,
+				null,
+				billingAccountsWrapper.message,
 				'isValidBillingAccountTest : error message should return when the matching billing account is not available'
 		);
 	}
@@ -351,15 +351,15 @@ private class BSPCreditClaimController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		String billingAccountValidationMessage;
+		BSPCreditClaimController.BillingAccountsWrapper billingAccountsWrapper;
 		System.runAs(bspUser) {
-			billingAccountValidationMessage = BSPCreditClaimController.isValidBillingAccount('123456');
+			billingAccountsWrapper = BSPCreditClaimController.isValidBillingAccount('123456');
 		}
 		Test.stopTest();
 
 		System.assertEquals(
-				'',
-				billingAccountValidationMessage,
+				null,
+				billingAccountsWrapper.message,
 				'isValidBillingAccountTestSuccess : No error message expected when the entered account number is valid'
 		);
 	}

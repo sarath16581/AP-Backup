@@ -147,14 +147,32 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			this.businessAccountNumber = null; // clear any previously selected values, otherwise Related Billing Account will be linked if found
 			this.additionalFormData.isOther = true;
 			this.additionalFormData.businessAccountNumber = '';
+			this.accountHeldWith = '';
 		} else {
 			this.isShowOtherBillingAccountField = false;
 			this.businessAccountNumber = selectedValue.value; // selected value passed from search component is an ID value
 			this.additionalFormData.businessAccountNumber = selectedValue.label; // passing the label values for case comments
 			this.additionalFormData.isOther = false;
 			this.billingNumber = null; // there is no billing Number passed in to apex when Id exists
+			// prefill the account held with dropdown
+			this.autoSelectAccountHeldWith(selectedValue.value);
 		}
 	}
+
+	/**
+	 * Based on the selection of Account number account held with values are auto selected,
+	 * When it is the initial load, url parameters are considered
+	 * @param selectedValue
+	 */
+	autoSelectAccountHeldWith(businessUnit) {
+		const selectedOption = this.allBillingAccOptions.find(option => option.value === businessUnit);
+		if (selectedOption.key === 'TEAM') {
+			this.accountHeldWith = 'StarTrack';
+		} else if (selectedOption.key === 'SAP ERP') {
+			this.accountHeldWith = 'Australia Post'
+		}
+	}
+
 	async connectedCallback() {
 		await this.initialLoad();
 	}
@@ -392,10 +410,17 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 						.then(result => {
 							// if entered is an invalid billing account, we expect a message here
 							if(result) {
-								inputCmp[0].setCustomValidity(result);
-								inputCmp[0].reportValidity();
-							} else {
-								this.isValidOtherBillingAccount = true;
+								if(result.status === 'ERROR') {
+									inputCmp[0].setCustomValidity(result.message);
+									inputCmp[0].reportValidity();
+								} else if(result.status === 'SUCCESS') {
+									this.isValidOtherBillingAccount = true;
+									if (result.billingAccount.Source_System__c === 'TEAM') {
+										this.accountHeldWith = 'StarTrack';
+									} else if (result.billingAccount.Source_System__c === 'SAP ERP') {
+										this.accountHeldWith = 'Australia Post'
+									}
+								}
 							}
 							this.showSpinner = false;
 						}).catch(error => {
