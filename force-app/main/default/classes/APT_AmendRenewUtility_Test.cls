@@ -9,6 +9,7 @@ History:
 2022-06-08 - Naveen Rajanna - REQ2595048 - upgrade api version to 52
 2022-10-05 - seth.heang@auspost.com.au - Uplift API version to 55, Modified testMethod1 to increase code coverage, testMethod3 to unit test a new method checkProductComponentOptions() 
 2023-10-31 - Bharat Patel - To increase code coverage for deployment of STP-9851
+2023-11-15 - Mahesh Parvathaneni - added tests for removeDovRenewalPartsFromOppName method
 **************************************************/
 @isTest
 private with sharing class APT_AmendRenewUtility_Test{ 
@@ -601,4 +602,35 @@ private with sharing class APT_AmendRenewUtility_Test{
         
         test.stopTest();
     }
+
+	/**
+	 * Test to ensure Renewal: and DoV: parts are removed from opportunity name
+	 */
+	@IsTest
+	static void testRemoveDovRenewalPartsFromOppName() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		String oppName1 = 'Dov: Renewal: Dov: Dov: Test Opportunity';
+		String oppName2 = 'Dov: Renewal: Dov: TestDov:Test';
+		String oppName3 = 'Test Opportunity';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		// make sure the opp name has been returned
+		Assert.areEqual('Test Opportunity', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName1), 'Expected Test Opportunity to be returned');
+		Assert.areEqual('TestDov:Test', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName2), 'Expected TestDov:Test to be returned');
+		Assert.areEqual('Test Opportunity', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName3), 'Expected Test Opportunity to be returned');
+		Assert.areEqual(null, APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(null), 'Expected null to be returned');
+
+		Test.stopTest();
+	}
 }

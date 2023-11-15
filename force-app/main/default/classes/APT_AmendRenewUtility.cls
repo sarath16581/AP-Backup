@@ -1309,16 +1309,18 @@ public without sharing class APT_AmendRenewUtility {
 	 * @return String returns the string by removing DoV: and Renewal: strings from opportunity name
 	 * Dov: Renewal: Dov: Test opportunity => Test opportunity
 	 */
+	@TestVisible
 	private static String removeDovRenewalPartsFromOppName(String oppName) {
-		List<String> validParts = new List<String>();
-		List<String> oppNameParts = oppName.split(' ');
-		for (String part : oppNameParts) {
-			if (!part.equalsIgnoreCase('Renewal:') && !part.equalsIgnoreCase('DoV:')) {
-				validParts.add(part);
+		List<String> oppNameParts = new List<String>();
+		if (String.isNotBlank(oppName)) {
+			for (String part : oppName.split(' ')) {
+				if (!part.equalsIgnoreCase('Renewal:') && !part.equalsIgnoreCase('DoV:')) {
+					oppNameParts.add(part);
+				}
 			}
 		}
 
-		return !validParts.isEmpty() ? String.join(validParts, ' ') : oppName;
+		return !oppNameParts.isEmpty() ? String.join(oppNameParts, ' ') : oppName;
 
 	}
 }
