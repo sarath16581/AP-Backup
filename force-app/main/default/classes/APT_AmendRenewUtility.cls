@@ -27,6 +27,7 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2022-06-08 - Naveen Rajanna - REQ2595048 - Reset Pricing Category to 'Standard' after Agreement Clone upon amend or renewal and upgrade api version to 52
 2022-10-05 - seth.heang@auspost.com.au - uplift API version to 55, update copyProposalChildRecords() method to check for bundle products hierarchy and remove decommisioned products
 2023-10-19 - Bharat Patel - update afterAmend(), commented copyAttachments() execution, STP-9851 changes, remove copyAttachments(originalAgreementId, amendedAgreementId)
+2023-11-15 - Mahesh Parvathaneni - STP-9212 - Updated to remove the DoV: and Renewal: prefixes from the opportunity name while cloning
 */
 public without sharing class APT_AmendRenewUtility {
     
@@ -57,7 +58,7 @@ public without sharing class APT_AmendRenewUtility {
             if(!String.isEmpty(actionType) && actionType.equalsIgnoreCase(APT_Constants.ACTION_TYPE_RENEWAL)) {
                 // Assign Opportunity SubType value to "Renewal"
                 clonedOpportunity.Opportunity_SubType__c = APT_Constants.OPPORTUNITY_SUBTYPE_RENEWAL;
-                clonedOpportunity.Name = APT_Constants.CLASSIFICATION_RENEWAL + APT_Constants.SEPARATOR_COLON + originalOpportunity.Name;
+                clonedOpportunity.Name = APT_Constants.CLASSIFICATION_RENEWAL + APT_Constants.SEPARATOR_COLON + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
                 clonedOpportunity.LeadSource = APT_Constants.LEAD_SOURCE_CONTRACT_RENEWAL;
                 clonedOpportunity.ECLM_IsRenewal__c = true;
             } 
@@ -67,7 +68,7 @@ public without sharing class APT_AmendRenewUtility {
             else if(APT_Constants.ACTION_NAME_DoV_Increase.equalsIgnoreCase(actionType)){
                 //  Assign Opportunity SubType value to "DoV Increase"
                 clonedOpportunity.Opportunity_SubType__c = APT_Constants.OPPORTUNITY_SUBTYPE_DoV_Increase;
-                clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + originalOpportunity.Name;
+                clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
                 clonedOpportunity.LeadSource = APT_Constants.ACTION_NAME_DoV;
              } 
             /*Shashwat.Nath@Auspost.Com.au Added the below else if Condition for Decrease Revenue DOV Scenario to Set the Opportunity Sub Type , Name fields and 
@@ -76,7 +77,7 @@ public without sharing class APT_AmendRenewUtility {
             else if(APT_Constants.ACTION_NAME_DoV_Decrease.equalsIgnoreCase(actionType)){
                 //Assign Opportunity SubType value to "DoV Decrease"
                 clonedOpportunity.Opportunity_SubType__c = APT_Constants.ACTION_NAME_DoV_Decrease;
-                clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + originalOpportunity.Name;
+                clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
                 clonedOpportunity.LeadSource = APT_Constants.ACTION_NAME_DoV;
              }
              
@@ -1300,5 +1301,24 @@ public without sharing class APT_AmendRenewUtility {
 			}
 		}
 		return liToBeDeleteList;
+	}
+
+	/**
+	 * @description function to remove the DoV: and Renewal: strings from the opportunity name
+	 * @param  oppName opportunity name
+	 * @return String returns the string by removing DoV: and Renewal: strings from opportunity name
+	 * Dov: Renewal: Dov: Test opportunity => Test opportunity
+	 */
+	private static String removeDovRenewalPartsFromOppName(String oppName) {
+		List<String> validParts = new List<String>();
+		List<String> oppNameParts = oppName.split(' ');
+		for (String part : oppNameParts) {
+			if (!part.equalsIgnoreCase('Renewal:') && !part.equalsIgnoreCase('DoV:')) {
+				validParts.add(part);
+			}
+		}
+
+		return !validParts.isEmpty() ? String.join(validParts, ' ') : oppName;
+
 	}
 }
