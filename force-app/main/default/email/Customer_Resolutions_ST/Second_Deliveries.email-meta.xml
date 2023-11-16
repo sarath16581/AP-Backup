@@ -10,20 +10,19 @@
 
 We refer to case {!Case.CaseNumber} for consignment note [...] in relation to the second delivery charge applied to your account which appears on invoice [...] dated [...].
 
-Attached is the tracking showing that the driver has attempted delivery at  [...] am/pm which is within standard business hours of 9 am to 5 pm.
+Attached is the tracking showing that the driver has attempted delivery at [...] am/pm which is within standard business hours of 9 am to 5 pm.
 
 Based on this information above, the charge appears to be correct.
 
 Kind regards,
 
 Customer Resolutions Team
-Australia Post &amp; StarTrack
+StarTrack
 credit.claims@startrack.com.au
 {!Case.EmailThreadID__c}
 
-{!$Label.Australia_Post_No_Email_Phishing_Statement}
-
-{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+{!$Label.Australia_Post_Email_Security_Disclaimer}
+{!$Label.Australia_Post_No_Email_Phishing_Statement}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
