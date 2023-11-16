@@ -10,6 +10,7 @@
 *2023-07-24 Nasir Jawed : Added new picklist value "Accepted without proposal document" to the condition, so that new proposal can be created when status is "Accepted without proposal document".
 *2023-07-27 Nasir Jawed : Added error code related to Access to BG Base user.
 *2023-09-07 Bharat Patel : Added error code related to Access to Onboarding User.
+*2023-11-15 Bharat Patel : Added logic related to Sales's Specialist, validationCheck()
 */
 public with sharing class APT_LandingCartController {
 	/**
@@ -45,10 +46,20 @@ public with sharing class APT_LandingCartController {
 
 		try {
 			if(recordId != null){
+				List<UserRole> userRolesList = UserRolesSelector.newInstance().selectById(new Set<Id>{UserInfo.getUserRoleId()}).values();
+				Boolean isSalesSpecialist = false;
+				if(userRolesList.size() > 0)
+				{
+					List<APT_Sales_Specialist_Role__mdt> salesSpecialistRole = [Select Id, MasterLabel from APT_Sales_Specialist_Role__mdt where MasterLabel =: userRolesList[0].Name];
+					if(salesSpecialistRole.size() > 0){
+						isSalesSpecialist = true;
+					}
+				}
+
 				oppMap = OpportunitySelector.newInstance().selectById(new Set<Id>{recordId});
 				Opportunity opp = oppMap.get(recordId);
 				opportunityOwnerId = oppMap.get(recordId).OwnerId;
-				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING){
+				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING || isSalesSpecialist){
 					readWritePermisssion = 'true';
 				}
 				else if(loggedInUserId == opportunityOwnerId || (loggedInUserId != opportunityOwnerId && (profileName == APT_Constants.STRING_BG_BASE || profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING))){
@@ -88,12 +99,12 @@ public with sharing class APT_LandingCartController {
 				}
 				//User should be able to create proposal if field IsStartrackProposal__c is having values and stagename field is not 'closed Lost'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_NO  && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-					proposal = createProposalRecord(opp,profileName,loggedInUserId);
+					proposal = createProposalRecord(opp,profileName,loggedInUserId, isSalesSpecialist);
 					proposalList.add(proposal);
 				}
 				//User should be able to create proposal if IsStartrackProposal__c is yes and  field APTMinimumMonthlySpend__c and APTPostcodeSuburb__c having values'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && opp.APTPostcodeSuburb__c != null && opp.APTMinimumMonthlySpend__c != null && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-						proposal = createProposalRecord(opp,profileName,loggedInUserId);
+						proposal = createProposalRecord(opp,profileName,loggedInUserId, isSalesSpecialist);
 					proposalList.add(proposal);
 				}
 			}
@@ -163,7 +174,7 @@ public with sharing class APT_LandingCartController {
 	*@param String OpportunityId
 	*@return proposal record
 	*/
-	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp,string profileName,ID loggedInUserId){
+	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp,string profileName,ID loggedInUserId, Boolean isSalesSpecialistRole){
 		auraHandledException exceptionHandler;
 		boolean newProposal= APT_Constants.BOOL_FALSE;
 		string proposalRecordId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Proposal').getRecordTypeId();
@@ -202,14 +213,14 @@ public with sharing class APT_LandingCartController {
 						}
 						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
 						if(prodConfigOwnerId != null){
-							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING){
+							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING && isSalesSpecialistRole == false ){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
 							}
 						}
 						if(prodConfigOwnerId2 != null){
-							if(prodConfigOwnerId2 != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING){
+							if(prodConfigOwnerId2 != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING && isSalesSpecialistRole == false ){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
