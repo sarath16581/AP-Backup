@@ -6,28 +6,25 @@
     <name>Rejection - Cubic / Weight</name>
     <style>none</style>
     <subject>Credit Claim Case {!Case.CaseNumber} - Consignment Note [...]</subject>
-    <textOnly>Hi Dear {!Case.Name__c}
+    <textOnly>Hi {!Case.Name__c},
 
 We refer to case {!Case.CaseNumber} for consignment note [...].
 
-Please be advised Startrack charges on the greater of weight or cube and it appears the dimensions were larger than the weight in this instance.
+Please be advised StarTrack charges on the greater of weight or cube and it appears the dimensions were larger than the weight in this instance.
 
 Please see the attached scanning showing your item cubes to [...] which comes to [...] kg (rounded to [...] kg).
 
 With the above, we are unable to issue any means of an adjustment and the charge is deemed payable.
 
-
 Kind regards,
 
 Customer Resolutions Team
-Australia Post &amp; StarTrack
-Credit.Claims@StarTrack.com.au
+StarTrack
+credit.claims@startrack.com.au
 {!Case.EmailThreadID__c}
 
-
-{!$Label.Australia_Post_No_Email_Phishing_Statement}
-
-{!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
+{!$Label.Australia_Post_Email_Security_Disclaimer}
+{!$Label.Australia_Post_No_Email_Phishing_Statement}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
