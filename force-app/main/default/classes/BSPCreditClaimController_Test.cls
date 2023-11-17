@@ -495,6 +495,8 @@ private class BSPCreditClaimController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		// get a bsp context user
+		User bspUser = [SELECT Id, ContactId, Contact.AccountId, AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
 		Map<Object, String> formData = new Map<Object,String>();
 		formData.put('businessAccountNumber','123456 - Star Track');
 		formData.put('isOther','false');
@@ -517,8 +519,9 @@ private class BSPCreditClaimController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-
-		BSPCreditClaimController.createCaseComments(formData, cse);
+		System.runAs(bspUser) {
+			BSPCreditClaimController.createCaseComments(formData, cse);
+		}
 
 		Test.stopTest();
 		List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
@@ -526,6 +529,12 @@ private class BSPCreditClaimController_Test {
 				CaseComment.getSobjectType().getDescribe().getName(),
 				insertedRecords[0][0].getSObjectType().getDescribe().getName(),
 				'testCreateCaseComments : Case comment record should be created'
+		);
+
+		System.assertEquals(
+				false,
+				insertedRecords[0][0].get('IsPublished'),
+				'testCreateCaseComments : Case comment should be private'
 		);
 	}
 }
