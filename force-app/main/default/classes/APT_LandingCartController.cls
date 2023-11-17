@@ -48,10 +48,10 @@ public with sharing class APT_LandingCartController {
 			if(recordId != null){
 				List<UserRole> userRolesList = UserRolesSelector.newInstance().selectById(new Set<Id>{UserInfo.getUserRoleId()}).values();
 				Boolean isSalesSpecialist = false;
-				if(userRolesList.size() > 0)
+				if(!userRolesList.isEmpty())
 				{
-					List<APT_Sales_Specialist_Role__mdt> salesSpecialistRole = [Select Id, MasterLabel from APT_Sales_Specialist_Role__mdt where MasterLabel =: userRolesList[0].Name];
-					if(salesSpecialistRole.size() > 0){
+					List<APT_Sales_Specialist_Role__mdt> salesSpecialistRole = [SELECT Id, MasterLabel FROM APT_Sales_Specialist_Role__mdt WHERE MasterLabel =: userRolesList[0].Name];
+					if(!salesSpecialistRole.isEmpty()){
 						isSalesSpecialist = true;
 					}
 				}
