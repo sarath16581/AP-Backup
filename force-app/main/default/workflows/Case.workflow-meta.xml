@@ -5409,6 +5409,11 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <operation>notContain</operation>
             <value>Deal Enablement Centre</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notContain</operation>
+            <value>Enterprise Credit Dispute Claim</value>
+        </criteriaItems>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
