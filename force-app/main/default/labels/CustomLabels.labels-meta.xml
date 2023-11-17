@@ -8092,6 +8092,22 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
+	<labels>
+        <fullName>AttributeAPCNMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute APCN Mapping</shortDescription>
+        <value>https://auspost/apcn</value>
+    </labels>
+    <labels>
+        <fullName>AttributeCNumberMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute CNumber Mapping</shortDescription>
+        <value>https://auspost/cnumber</value>
+    </labels>
     <labels>
         <fullName>AutoLITExceptionYes</fullName>
         <categories>Chas - Help and Support</categories>
