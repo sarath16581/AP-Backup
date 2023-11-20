@@ -11,8 +11,11 @@
  */
 
 ({
-	onRender: function (component, event, helper){ 
-        document.dispatchEvent(new CustomEvent("grecaptchaRender", { "detail" : { element: 'recaptchaCheckbox'} }));
+	onRender: function (cmp, event, helper){ 
+		if(!cmp.get('v.captchaRendered')) {
+			cmp.set('v.captchaRendered', true);
+			document.dispatchEvent(new CustomEvent("grecaptchaRender", { "detail" : { element: 'recaptchaCheckbox'} }));
+		}
     },
 
     /* Added Init function on 29/10/2018 for parsing and setting 

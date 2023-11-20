@@ -30,6 +30,7 @@
 
 	<aura:attribute name="articleTrackingCaptchaEmptyError"  type="Boolean" default="false" />
 	<aura:attribute name="articleTrackingCaptchaToken"  type="String" default="" />
+	<aura:attribute name="captchaRendered"  type="Boolean" default="false" />
 
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
