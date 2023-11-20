@@ -12,7 +12,7 @@
 
 ({
 	onRender: function (cmp, event, helper){ 
-		if(!cmp.get('v.captchaRendered')) {
+		if(!cmp.get('v.captchaRendered') && cmp.get('v.authUserData.isUserAuthenticated') != true) {
 			cmp.set('v.captchaRendered', true);
 			document.dispatchEvent(new CustomEvent("grecaptchaRender", { "detail" : { element: 'recaptchaCheckbox'} }));
 		}

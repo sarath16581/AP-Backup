@@ -1757,7 +1757,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
      */
     @AuraEnabled
     public static ConsignmentDetails searchTrackingNumberWithCaptcha(String trackingNumber, String captchaToken) {
-
+		
 		if(UserInfo.getUserId() == null || UserInfo.getUserType().equalsIgnoreCase('Guest')) {
 			Consumer_Help_and_Support__c settings = Consumer_Help_and_Support__c.getInstance();
 
@@ -1775,7 +1775,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
 				HttpResponse response = http.send(req);
 
 				Map<String, Object> recaptchaResponse = (Map<String, Object>)JSON.deserializeUntyped(response.getBody());
-				if(recaptchaResponse.get('success') == false) {
+				if(recaptchaResponse.get('success') != true) {
 					throw new AuraHandledException('Could not verify reCAPTCHA token');
 				}
 			} catch(AuraHandledException exp) {
