@@ -59,10 +59,9 @@ public with sharing class APT_LandingCartController {
 				oppMap = OpportunitySelector.newInstance().selectById(new Set<Id>{recordId});
 				Opportunity opp = oppMap.get(recordId);
 				opportunityOwnerId = oppMap.get(recordId).OwnerId;
-				if(profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING || isSalesSpecialist){
-					readWritePermisssion = 'true';
-				}
-				else if(loggedInUserId == opportunityOwnerId || (loggedInUserId != opportunityOwnerId && (profileName == APT_Constants.STRING_BG_BASE || profileName == APT_Constants.STRING_SYSTEM_ADMINISTRATOR || profileName == APT_Constants.STRING_ONBOARDING))){
+
+				if(isUserCanAccessCart(opportunityOwnerId, loggedInUserId, profileName, isSalesSpecialist))
+				{
 					readWritePermisssion = 'true';
 				}
 				else{
@@ -269,4 +268,18 @@ public with sharing class APT_LandingCartController {
 		}
 		return proposal;
 	}
+
+	/**
+	 *This method will validate the user's accessiblity of shopping cart
+	 *@param Id opportunityOwnerId
+	 *@param Id loggedInUserId
+	 *@param String profileName
+	 *@param Boolean isSalesSpecialistRole
+	 *@return boolean value
+	 */
+	private static Boolean isUserCanAccessCart(Id opportunityOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole) {
+		Set<String> profileListCheck = new Set<String>{APT_Constants.STRING_SYSTEM_ADMINISTRATOR, APT_Constants.STRING_ONBOARDING};
+		return (profileListCheck.contains(profileName) || isSalesSpecialistRole || loggedInUserId == opportunityOwnerId);
+	}
+
 }
