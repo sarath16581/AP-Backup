@@ -1759,15 +1759,15 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
     public static ConsignmentDetails searchTrackingNumberWithCaptcha(String trackingNumber, String captchaToken) {
 
 		if(UserInfo.getUserId() == null || UserInfo.getUserType().equalsIgnoreCase('Guest')) {
-			AusPostSettings__c settings = AusPostSettings__c.getValues('HelpAndSupportRecaptchaKey');
+			Consumer_Help_and_Support__c settings = Consumer_Help_and_Support__c.getInstance();
 
 			if(String.isEmpty(captchaToken)) {
 				throw new AuraHandledException('reCAPTCHA token is empty');
 			}
 
-			String params = 'secret=' + EncodingUtil.urlEncode(settings.Password__c, 'UTF-8') + '&response=' + EncodingUtil.urlEncode(captchaToken, 'UTF-8');
+			String params = 'secret=' + EncodingUtil.urlEncode(settings.reCAPTCHASecretKey__c, 'UTF-8') + '&response=' + EncodingUtil.urlEncode(captchaToken, 'UTF-8');
 			HttpRequest req = new HttpRequest();
-			req.setEndpoint(settings.URL__c);
+			req.setEndpoint(settings.reCAPTCHAVerifyURL__c);
 			req.setMethod('POST');
 			req.setBody(params);
 			try{
