@@ -7,12 +7,28 @@
  * 2020-07-06 : Hara Sahoo : Change made for roll out of Safe Drop feature on Missing Items form
  *                           Modified the searchTrackingNumberService() for safedrop and non safedrop flows.
  * 2020-10-09 : Hara Sahoo : Removed code to allow the safedrop flow to be unrestrictive of any states.
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
 
 ({
+	onRender: function (component, event, helper){ 
+        document.dispatchEvent(new CustomEvent("grecaptchaRender", { "detail" : { element: 'recaptchaCheckbox'} }));
+    },
+
     /* Added Init function on 29/10/2018 for parsing and setting 
     the Tracking Id passed from App view to the Missing Items form. */
     doInit: function(cmp, event, helper) {
+
+		document.addEventListener("grecaptchaVerified", $A.getCallback(function(e) {
+			cmp.set('v.articleTrackingCaptchaEmptyError', false);
+            cmp.set('v.articleTrackingCaptchaToken', e.detail.response);
+        }));
+        
+        document.addEventListener("grecaptchaExpired", $A.getCallback(function() {
+            cmp.set('v.articleTrackingCaptchaToken', '');
+        })); 
+
+
         var agentString = "";
         //Get the user agent string.
         agentString = navigator.userAgent;

@@ -4,34 +4,6 @@
 *
 * History :
 * --------------------------------------------------
-* 11-Oct-2018 - Nanda Kothamasu - INC1222366  Fixed mapping for the Recipient name and country for Portal cases for Missing Item
-* 2019-08-30 hasantha.liyanage@auspost.com.au Modified :
-*             - createCaseFromMissingWizard : modified to pass the enqSubtype
-*             - searchTrackingNumber : refactored and updated to support help and support missing item search call
-* 2019-08-26 hasantha.liyanage@auspost.com.au Modified: set the enquiry type, record type and the typeAndProduct based on the enquirySubType,
-*             (use of ternary operator to determine typeAndProduct should be improved by implementing a Map to retrieve the types, change being made this way as a quick change for community uplift 2nd drop)
-* 2019-10-30 nathan.franklin@auspost.com.au Added community url method
-* 2019-11-04 nathan.franklin@auspost.com.au Updated searchTrackingNumber to use instance of ChasTrackStatus rather than static
-* 2019-11-07 nathan.franklin@auspost.com.au Standardised first/last names & address fields for missing item form
-* 2019-11-15 hasantha.liyanage@auspost.com.au Append warning message to case Description
-* 2020-02-24 gunith.devasurendra@auspost.com.au Enable Product and Services Cases to use the Routing Table (INC1547035)
-* 2020-04-03 rufus.solomon@auspost.com.au Added support for essential pharma
-* 2020-05-04 saiswetha.pingali@auspost.com.au INC1552781 - Fix to set contactId in CreateCasefromProductandServices as AllocatetoQueue flag is set to true. 
-* 2020-06-05 Swati.mogadala@auspost.com.au REQ2150060 - Modified mapping for issue type:'Mail Products'for enquirytype 'Letters'&'Transfers' under'Products and Services'
-* 2020-06-16 hara.sahoo@auspost.com.au Incorrect delivery address section added for delivery issue form and issue type values changes in accordance to the UI changes
-* 2020-08-03 Snigdha.Sahu@auspost.com.au  INC1610402 - Default ProductCategory to Domestic Parcels for missingItem Cases
-* 2020-09-10 hara.sahoo@auspost.com.au Change made for roll out of Safe Drop feature on Missing Items form
-1. New One track service implemented in searchTrackingNumber
-2. Added has customer seen safe drop image to the case description for network eligible cases
-* 2020-09-15 hara.sahoo@auspost.com.au Change made for roll out of Transfer to another PO on Products and Services form.
-* 2020-09-30 saiswetha.pingali@auspost.com.au - INC1644988 - Updated clearview codes for cases from Delivery Issues form.
-* 2020-10-06 haraprasad.sahoo@auspost.com.au Modified : Change made for roll out of Safe Drop feature - Implements the consignment search API
-* 2020-09-15 hara.sahoo@auspost.com.au Change made for roll out of Products and services uplift
-* 2020-10-29 madhuri.awasthi@auspost.com.au - INC1644977 - Consumer Help and Support "Delivery Issues" form content changes. 
-Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js changes are also required as the Label values are used.
-* 2020-10-30 naseer.abbasi@auspost.com.au Setting AllocateToQueue for all forms to assign owner via routing engine
-* 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
-* 2020-11-24 hara.sahoo@auspost.com.au changes made for roll out of delivery issues network assignment automation
 * 2021-01-21 hara.sahoo@auspost.com.au Added guest user details to the case detail like FirstName,LatName,Email and Phone for cases with origin 'Portal'
 * 2021-02-23 paul.swarnapandian@auspost.com.au - REQ2361525 - Case assignment flag written to the case comments on enquiries raiased via the Delivery Issues form  	
 * 2021-03-18 madhuri.awasthi.awasthi@auspost.com.au - REQ2449698 - Adding Case Comments for Mail Products
@@ -59,6 +31,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
 * 2023-09-14 mahesh.parvathaneni@auspost.com.au added cacheable=true for retrieveCommunityURL and getLoggedInUserInfo methods
 * 2023-10-10 jacob.isaac@auspost.com.au REQ3267978 - removing all reference of Mail Redirection picklist for International Letters/Parcel Product Cateogry
+* 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -1773,6 +1746,48 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         return caseWrapper;
     }
 
+	/**
+     * @description passing the tracking number will response with all the articles and tracking details linked to the
+     * related consignment. Initially this method has been written to handle one article and the behaviour is changed
+     * to handle multiple articles as a part of the ticket DDS-9011
+     * @param trackingNumber
+     *
+     * @return ConsignmentDetails: this object is wrapped around a list of TrackingNumberDetails objects and
+     * few other common parameters to handle multiple articles in the response.
+     */
+    @AuraEnabled
+    public static ConsignmentDetails searchTrackingNumberWithCaptcha(String trackingNumber, String captchaToken) {
+
+		if(UserInfo.getUserId() == null || UserInfo.getUserType().equalsIgnoreCase('Guest')) {
+			AusPostSettings__c settings = AusPostSettings__c.getValues('HelpAndSupportRecaptchaKey');
+
+			if(String.isEmpty(captchaToken)) {
+				throw new AuraHandledException('reCAPTCHA token is empty');
+			}
+
+			String params = 'secret=' + EncodingUtil.urlEncode(settings.Password__c, 'UTF-8') + '&response=' + EncodingUtil.urlEncode(captchaToken, 'UTF-8');
+			HttpRequest req = new HttpRequest();
+			req.setEndpoint(settings.URL__c);
+			req.setMethod('POST');
+			req.setBody(params);
+			try{
+				Http http = new Http();
+				HttpResponse response = http.send(req);
+
+				Map<String, Object> recaptchaResponse = (Map<String, Object>)JSON.deserializeUntyped(response.getBody());
+				if(recaptchaResponse.get('success') == false) {
+					throw new AuraHandledException('Could not verify reCAPTCHA token');
+				}
+			} catch(AuraHandledException exp) {
+				throw new AuraHandledException(exp.getMessage());
+			} catch(Exception exp) {
+				throw new AuraHandledException('Could not verify reCAPTCHA token');	
+			}
+		}
+
+		return searchTrackingNumber(trackingNumber);
+	}
+
     /**
      * @description passing the tracking number will response with all the articles and tracking details linked to the
      * related consignment. Initially this method has been written to handle one article and the behaviour is changed
@@ -1784,7 +1799,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
      */
     @AuraEnabled
     public static ConsignmentDetails searchTrackingNumber(String trackingNumber) {
-        //Initializing the return wrapper obj
+		
+		//Initializing the return wrapper obj
         ConsignmentDetails consignmentDetailsWrapperObj = new ConsignmentDetails();
         if (trackingNumber != null && trackingNumber.trim().length() > 0) {
 
