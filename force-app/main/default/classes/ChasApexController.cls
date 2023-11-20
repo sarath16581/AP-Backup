@@ -2153,7 +2153,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             if (orgCachedWizardData != ''){
                 decryptedData = Crypto.decryptWithManagedIV('AES256', cryptoKey, EncodingUtil.base64Decode(orgCachedWizardData));
                 decryptStr = decryptedData.toString();
-                System.debug(LoggingLevel.DEBUG,'*** ChasApexController.decryptData - decrypted Wizard data from Org Cache: ' + decryptStr);
+                System.debug(LoggingLevel.DEBUG,'*** ChasApexController.decryptData - decrypted Wizard data from Org Cache'); //decryptStr
             } else
                 System.debug(LoggingLevel.DEBUG,'*** ChasApexController.decryptData - orgCachedWizardData, lookup of Org Cache failed.');
             
