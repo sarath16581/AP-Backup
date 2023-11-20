@@ -65,8 +65,14 @@
         //Auto progress the consignment search if it is from a direct link and not from the back button
         if(! cmp.get("v.isFromBackButton") && (!$A.util.isEmpty(trackingId) || !$A.util.isUndefined(trackingId)))
         {
-            cmp.set('v.displaySpinner', true);
-            helper.callTrackingNumberService(cmp, event, helper);
+			// TODO: I've put a temporary delay in here, since recaptcha requires a response back in determining whether the user is logged in or not
+			// this logged in state is stored here v.authUserData and it's set by the parent component
+			// this should probably be rewritten to better support auto search from the querystring
+			// Given this was a response to an incident there wasn't enough time to figure out a more elegant solution
+			setTimeout($A.getCallback(function() {
+				cmp.set('v.displaySpinner', true);
+				helper.callTrackingNumberService(cmp, event, helper);
+			}), 1500);
         }
     },
     navNextPage : function(cmp, event, helper) {
