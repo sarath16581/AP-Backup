@@ -14,14 +14,36 @@
         cmp.set('v.error500', false);
         cmp.set('v.error400', false);
         cmp.set('v.isVerified', false);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
         
         //-- checking if Tracking Number is entered
         var trackingId = cmp.get("v.wizardData.trackingId");
         if (trackingId) {
-            var action = cmp.get("c.searchTrackingNumber");
-            action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
-            
+
+			let controllerMethod = 'c.searchTrackingNumber';
+			let trackingParams = {trackingNumber: cmp.get("v.wizardData.trackingId")}
+			const authUserData = cmp.get('v.authUserData');
+			// force the user to enter a captcha value if they aren't logged in
+			if(!authUserData || !authUserData.isUserAuthenticated) {
+
+				controllerMethod = 'c.searchTrackingNumberWithCaptcha';
+
+				const captchaToken = cmp.get('v.articleTrackingCaptchaToken');
+				trackingParams.captchaToken = captchaToken;
+				
+				if(!captchaToken) {
+					cmp.set('v.articleTrackingCaptchaEmptyError', true);
+					cmp.set('v.isLoading', false);
+					return;
+				}
+	
+			}
+
+			var action = cmp.get(controllerMethod);
+            action.setParams(trackingParams);
             action.setCallback(this, function(response) {
+				// means the user will need to reverify 
+				cmp.set('v.articleTrackingCaptchaToken', '');
                 
                 var state = response.getState();                
                 var trackingNumInputCmp = cmp.find("transferTrackingNumber");
@@ -36,7 +58,7 @@
                         cmp.set('v.wizardData.duplicateCase', returnObj["trackingNumberDetails"][0].duplicateCase);
                         cmp.set('v.wizardData.isReturnToSender', returnObj["trackingNumberDetails"][0].isReturnToSender);
                         cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["trackingNumberDetails"][0].isParcelAwaitingCollection);
-                        cmp.set('v.wizardData.isVodv', lArticle["isVodv"]);
+                        //cmp.set('v.wizardData.isVodv', lArticle["isVodv"]);
                     }
                     this.checkNetworkEligibility(cmp,event,helper);
                     // for return code other than 200 Success OK
@@ -49,6 +71,7 @@
                     // for return code 200 Success OK
                     else
                     {
+						console.log('here1');
                         cmp.set("v.isVerified", true);
                     }
                     
@@ -57,11 +80,11 @@
                     cmp.set("v.isLoading", false);
                     trackingNumInputCmp.set("v.error", "Whoops, something's gone wrong.Try again later.");
                     
-                } 
-                    else if (state === "ERROR") {
-                        cmp.set('v.error500', true);
-                        trackingNumInputCmp.set("v.error", "Whoops, something's gone wrong.Try again later.");
-                    }
+                } else if (state === "ERROR") {
+					cmp.set('v.error500', true);
+					trackingNumInputCmp.set("v.error", "Whoops, something's gone wrong.Try again later.");
+				}
+
                 cmp.set("v.isVerified", true);
                 cmp.set("v.isLoading", false);
                 

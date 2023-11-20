@@ -51,10 +51,8 @@
                 action.setParams(trackingParams);
                 action.setCallback(this, function(response) {
 
-					// reset the captcha token storage
 					// means the user will need to reverify 
 					cmp.set('v.articleTrackingCaptchaToken', '');
-					document.dispatchEvent(new CustomEvent("grecaptchaReset"));
 
                     var state = response.getState();
                     var trackingNumInputCmp = cmp.find("ChasTrackingId");

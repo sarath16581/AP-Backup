@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Transfers the token from a captcha component to the calling component">
+	<aura:attribute name="token" description="The token generated from reCAPTCHA when the user clicks it" type="String" access="public" />
+</aura:event>

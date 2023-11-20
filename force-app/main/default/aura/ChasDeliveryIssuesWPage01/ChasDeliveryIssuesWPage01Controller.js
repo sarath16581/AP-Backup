@@ -12,6 +12,15 @@
 */
 ({
     
+	handleCaptchaVerify: function(cmp, event, helper) {
+		const token = event.getParam('token');
+		cmp.set('v.articleTrackingCaptchaToken', token);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
+
+		var a = cmp.get('c.searchTrackingNumberService');
+        $A.enqueueAction(a);
+	},
+
     goForward: function(cmp, event, helper) {
         var isValid = helper.checkAllInputs(cmp, true);
         //reset the error flags

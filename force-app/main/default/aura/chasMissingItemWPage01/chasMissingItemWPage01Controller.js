@@ -11,26 +11,16 @@
  */
 
 ({
-	onRender: function (cmp, event, helper){ 
-		if(!cmp.get('v.captchaRendered') && cmp.get('v.authUserData.isUserAuthenticated') != true) {
-			cmp.set('v.captchaRendered', true);
-			document.dispatchEvent(new CustomEvent("grecaptchaRender", { "detail" : { element: 'recaptchaCheckbox'} }));
-		}
-    },
+
+	handleCaptchaVerify: function(cmp, event, helper) {
+		const token = event.getParam('token');
+		cmp.set('v.articleTrackingCaptchaToken', token);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
+	},
 
     /* Added Init function on 29/10/2018 for parsing and setting 
     the Tracking Id passed from App view to the Missing Items form. */
     doInit: function(cmp, event, helper) {
-
-		document.addEventListener("grecaptchaVerified", $A.getCallback(function(e) {
-			cmp.set('v.articleTrackingCaptchaEmptyError', false);
-            cmp.set('v.articleTrackingCaptchaToken', e.detail.response);
-        }));
-        
-        document.addEventListener("grecaptchaExpired", $A.getCallback(function() {
-            cmp.set('v.articleTrackingCaptchaToken', '');
-        })); 
-
 
         var agentString = "";
         //Get the user agent string.

@@ -28,9 +28,10 @@
     <aura:attribute name="showCallerType" type="Boolean" default="false"/>
     <aura:attribute name="eddDisplayDate"  type="String" default="" />
 
+	<!-- CAPTCHA attributes-->
 	<aura:attribute name="articleTrackingCaptchaEmptyError"  type="Boolean" default="false" />
 	<aura:attribute name="articleTrackingCaptchaToken"  type="String" default="" />
-	<aura:attribute name="captchaRendered"  type="Boolean" default="false" />
+	<aura:handler name="captchaEvent" event="c:captchaVerifyEvent" action="{!c.handleCaptchaVerify}"/>
 
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
@@ -141,7 +142,7 @@
 				<aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
 					<aura:set attribute="else">
 						<c:ChasErrorMessages error="Please verify the captcha below" showError="{!v.articleTrackingCaptchaEmptyError}"/>
-						<div id="recaptchaCheckbox"></div>
+						<c:ChasCaptcha />
 					</aura:set>
 				</aura:if>
             </div>
