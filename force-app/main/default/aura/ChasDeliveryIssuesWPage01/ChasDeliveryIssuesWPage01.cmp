@@ -9,6 +9,7 @@
   * @Modifield by Hara Sahoo - 11/01/2021 - Changes made as part of enquiry submission in an unauthenticated user context
   * @Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
   * @Modifield by Thang Nguyen - 30/06/2022 - add Accessibility and disability issue
+  * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Delivery Issues wizard page 1: Issue Details">
     
@@ -70,6 +71,19 @@
     <aura:attribute name="inputError" type="Boolean" default="false"/>
     <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
     <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+
+	<!-- CAPTCHA attributes-->
+
+	<!-- Used to prevent the progression to the next step if captch hasn't been previously validated for the entered article.
+			This will ensure tracking api is always called (when it's needed) to grab the attributes the form needs for its workflows
+			NOTE: verified starts as true in the event that a tracking API call is not actually needed.
+			captchaVerified will be set to false once we enter into tracking search helper method -->
+	<aura:attribute name="captchaVerified" type="Boolean" default="true" />
+
+	<aura:attribute name="articleTrackingCaptchaEmptyError" type="Boolean" default="false" />
+	<aura:attribute name="articleTrackingCaptchaToken" type="String" default="" />
+	<aura:handler name="captchaEvent" event="c:captchaVerifyEvent" action="{!c.handleCaptchaVerify}"/>
+	
     
     <aura:if isTrue="{!v.showIssuesList}">
         <legend class="chas-header left-padding">
@@ -144,14 +158,25 @@
                                                 label="Are you the recipient or sender?"
                                                 options="{!v.recipientOrSenderRadioGroup}"
                                                 value="{!v.wizardData.selectedRadio3}"/>
-                            <aura:set attribute='else'>
-                                <!--<c:ChasInput type='text' aura:id="chasInput" name="trackingNumberOptional" required="false"
-                                             label='Tracking number' subLabel='(optional)'
-                                             value='{! v.wizardData.trackingId }' maxlength='50'/>-->
+                            
+							<aura:set attribute='else'>
                                 <c:ChasInputWithIcon type='text' aura:id="transferTrackingNumber" name="trackingNumberOptional" required="false" 
                                                      label='Tracking number' subLabel='(optional)' 
                                                      value='{! v.wizardData.trackingId}'
-                                                     onblur="{!c.searchTrackingNumberService}" isVerified="{!v.isVerified}" isLoading="{!v.isLoading}"/>
+                                                     onblur="{!c.searchTrackingNumberService}" 
+													 oninput="{!c.maybeResetCaptchaToken}" isVerified="{!v.isVerified}" isLoading="{!v.isLoading}"/>
+
+								
+								<aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+									<aura:set attribute="else">
+										<aura:if isTrue="{!v.IssueName == 'Postie didn\'t knock' || v.IssueName == 'Item was left in an unsafe place'}">
+											<c:ChasErrorMessages error="Please verify the captcha below" showError="{!v.articleTrackingCaptchaEmptyError}"/>
+											<c:ChasCaptcha aura:id="chasCaptcha" />
+										</aura:if>
+									</aura:set>
+								</aura:if>
+
+
                             </aura:set>
                         </aura:if>
                         <aura:if isTrue="{!v.parcelOrLetterRadioButtonsFlag}">
