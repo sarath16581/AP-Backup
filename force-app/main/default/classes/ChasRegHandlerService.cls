@@ -8,7 +8,8 @@
  * @changelog
  * 2023-08-01 Mahesh Parvathaneni - Added validation for backwards compabitibility for user federation id in updateForExistingUser method
  * 2023-08-31 Mahesh Parvathaneni - Added fieldOverrides for the UsersSelector
- * 2023-09-19 - Maahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
+ * 2023-09-19 - Mahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
+ * 2023-10-25 - Mahesh Parvathaneni - Refactor to use IsInactiveCustomer__pc instead of is_Inactive_Customer__pc
  */
 public with sharing class ChasRegHandlerService {
 
@@ -128,7 +129,7 @@ public with sharing class ChasRegHandlerService {
 			personContactId = personAccountRecord.PersonContactId;
 
 			//throw an error if it is inactive customer
-			if(personAccountRecord.is_Inactive_Customer__pc != null && personAccountRecord.is_Inactive_Customer__pc) {
+			if(personAccountRecord.IsInactiveCustomer__pc != null && personAccountRecord.IsInactiveCustomer__pc) {
 				throw new RegHandlerException('Customer is Inactive');
 			}
 
@@ -182,7 +183,7 @@ public with sharing class ChasRegHandlerService {
 			//field overrides
 			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				User.SObjectType => UsersSelector.getAuthenticationSObjectFieldList(),
-				Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
+				Account.SObjectType => new Set<SObjectField>{Account.IsInactiveCustomer__pc}
 			};
 
 			// now the PersonAccount is out of the way we move onto the User record
@@ -229,7 +230,7 @@ public with sharing class ChasRegHandlerService {
 		//field overrides
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 			User.SObjectType => UsersSelector.getAuthenticationSObjectFieldList(),
-			Account.SObjectType => new Set<SObjectField>{Account.is_Inactive_Customer__pc}
+			Account.SObjectType => new Set<SObjectField>{Account.IsInactiveCustomer__pc}
 		};
 
 		User existingUser = UsersSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{userId}, new Set<Object>{ UsersSelector.Options.WITH_COMMUNITY_ACCOUNT }).values()[0];
@@ -252,7 +253,7 @@ public with sharing class ChasRegHandlerService {
 		}
 
 		//throw an error if it is inactive customer
-		Boolean isInactiveCustomer = userRecord?.Contact?.Account?.is_Inactive_Customer__pc;
+		Boolean isInactiveCustomer = userRecord?.Contact?.Account?.IsInactiveCustomer__pc;
 		if(isInactiveCustomer != null && isInactiveCustomer) {
 			throw new RegHandlerException('Customer is Inactive');
 		}

@@ -6,6 +6,7 @@
  * @changelog
  * 2023-08-08 - Ranjeewa Silva - Created
  * 2023-10-16 - Mahesh Parvathaneni - Added test method testOpportunitySplitsAreValidatedOnOpportunityStageChangeBeforeUpdate
+ * 2023-10-26 - Mahesh Parvathaneni - Added test method testOpportunityProductsQuantityIsValidOnOpportunityStageChangeBeforeUpdate
  */
 @IsTest
 private class OpportunitySalesPipelineModule_Test {
@@ -312,5 +313,69 @@ private class OpportunitySalesPipelineModule_Test {
 		// verify errors are added to opportunity record
 		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity moving to Qualify as the overlay splits are correctly assigned.');
 		System.assert(updatedOpportunities[1].hasErrors(), 'Error expected on opportunity moving to Qualify as the Product Specialist overlay split are incorrectly assigned to user');
+	}
+
+	/**
+	 * Test to ensure related opportunity products quantity is validated on opportunity before progressing to
+	 * next stage
+	 */
+	@IsTest
+	static void testOpportunityProductsQuantityIsValidOnOpportunityStageChangeBeforeUpdate() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(2, organisation.Id, true);
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		Id priceBookId = Test.getStandardPricebookId();
+		List<PricebookEntry> pricebookEntries = ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, products[0].Id, true);
+		pricebookEntries.addAll(ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, products[1].Id, true));
+
+		//two opportunity product records are assigned to first opportunity record
+		//both of them have quantity = 1
+		List<OpportunityLineItem> opportunity0_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[0].Id, pricebookEntries[0].Id, true);
+		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity0_oppLineItems});
+
+		//two opportunity product records are assigned to second opportunity record
+		//one of them have quantity = 1000 and other quantity = 1
+		List<OpportunityLineItem> opportunity1_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
+		opportunity1_oppLineItems[0].Quantity = 1000;
+		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1_oppLineItems});
+
+		// attempt to update opportunity stage to Qualify
+		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
+		updatedOpportunities[0].StageName = 'Qualify';
+		updatedOpportunities[1].StageName = 'Qualify';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		OpportunitiesSelector mockOpportunitiesSelector = ((OpportunitiesSelector) MockUtility.mockSelector(OpportunitiesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockOpportunitiesSelector.selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Opportunity>(opportunities));
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		new OpportunitySalesPipelineModule().onBeforeUpdate(updatedOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
+		Test.stopTest();
+
+		// verify selector method invoked to query opportunities with related records.
+		fflib_ArgumentCaptor opportunityIdCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((OpportunitiesSelector)MockUtility.Mocks.verify(mockOpportunitiesSelector, 1)).selectById((Set<Id>)opportunityIdCaptor.capture(),(Set<Object>)fflib_Match.anyObject());
+
+		// verify both the opportunity record ids are passed to the mock opportunity selector
+		Set<Id> queriedOpportunityIds = (Set<Id>) opportunityIdCaptor.getValue();
+		System.assertEquals(2, queriedOpportunityIds.size(), 'Opportunities moving to a monitored stage must be queried to retrieve related records');
+
+		// verify errors are added to opportunity record
+		System.assert(updatedOpportunities[0].hasErrors(), 'Error expected on opportunity moving to Qualify as the Product quantity is 1 for both the products');
+		// no errors will be added to this opportunity here as the quantity is set to 1000 for one of the products in the above
+		System.assert(!updatedOpportunities[1].hasErrors(), 'No errors expected on opportunity moving to Qualify as one of the product has quantity more than 1.');
 	}
 }

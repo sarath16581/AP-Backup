@@ -5895,11 +5895,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Apttus_Config2__LineItem__c.APT_Approval_Required_ST__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Apttus_Config2__LineItem__c.APT_Approval_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6239,11 +6234,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Config2__LineItem__c.APT_StarTrack_Proposal__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__LineItem__c.APT_State__c</field>
         <readable>true</readable>
@@ -6251,11 +6241,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__LineItem__c.APT_Sub_Classification__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Config2__LineItem__c.APT_Tier_Adjustment_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7410,11 +7395,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Apttus_Config2__ProductAttributeValue__c.APT_Approved_Tier_After_Adjustment__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Average_Chargeable_Weight_Kg__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7960,27 +7940,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Apttus_Config2__ProductAttributeValue__c.APT_StarTrack_Tier__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Sub_Classification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Subsequent_Parcel_Discount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Config2__ProductAttributeValue__c.APT_Tier_Adjustment_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Config2__ProductAttributeValue__c.APT_Tier_Approved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10139,11 +10104,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Configure_Products__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Contract_Number__c</field>
         <readable>true</readable>
@@ -10156,11 +10116,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Contracting_Entity__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Conversation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10250,11 +10205,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Customer_Background__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Dangerous_Goods_Approved_By_User__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10340,11 +10290,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Intermediary__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_International_Max_Weight__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10376,11 +10321,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Minimum_Monthly_Spend__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Name_of_Intermediary_s_Client__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10441,11 +10381,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Present__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Pricing_Request_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10519,11 +10454,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Sales_Team__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Selected_LP__c</field>
         <readable>true</readable>
@@ -10571,11 +10501,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Sync_to_Opty_Flag__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Tier_Adjustment_Justification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10631,11 +10556,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Zone__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_competitor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

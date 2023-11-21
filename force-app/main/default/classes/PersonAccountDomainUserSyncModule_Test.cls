@@ -56,14 +56,14 @@ public class PersonAccountDomainUserSyncModule_Test {
     @IsTest
     private static void testSyncDeactivatedUserRecords() {
         Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-        personAccount.is_Inactive_Customer__pc = true;
+        personAccount.Status__pc = APT_Constants.INACTIVE;
 
         Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
 
         personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{'IsPersonAccount' => true, 'PersonContactId' => personContact.Id});
 
         Account existingPersonAccount = personAccount.clone(true, false, false, false);
-        existingPersonAccount.is_Inactive_Customer__pc = false;
+        existingPersonAccount.Status__pc = 'Active';
 
         ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 

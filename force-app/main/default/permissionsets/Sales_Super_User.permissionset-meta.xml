@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This permission set is to give the old SE&amp;P team additional access to help with admin duties without giving system admin access
-Access to APR, SCCR, manage reports in public folder, etc</description>
+    <description>Used by Sales Admin and the CRM Specialist support team to provide specific admin functions. Primarily is used to manage by the Sales Ops CRM Manager &amp; approval to allocate this permission set needs to be granted by them as part of the governance process.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>APR__c.Account_ID__c</field>
@@ -203,6 +202,31 @@ Access to APR, SCCR, manage reports in public folder, etc</description>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.GeneralManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.SalesDirectorApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.Sales_Director__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.Sales_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Segment_Reference__c.Sales_Team_Owner_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Segmentation_Change_Request__c.Account_Manager_Current__c</field>
         <readable>true</readable>
@@ -401,7 +425,7 @@ Access to APR, SCCR, manage reports in public folder, etc</description>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
+        <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Account</object>
@@ -444,6 +468,15 @@ Access to APR, SCCR, manage reports in public folder, etc</description>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Sales_Segment_Reference__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -460,6 +493,14 @@ Access to APR, SCCR, manage reports in public folder, etc</description>
         <recordType>Segmentation_Change_Request__c.Segmentation_Change</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>PortfolioAssignment__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Sales_Segment_Reference__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <userPermissions>
         <enabled>true</enabled>
         <name>CreateCustomizeReports</name>

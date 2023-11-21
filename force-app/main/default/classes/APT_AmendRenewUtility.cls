@@ -26,6 +26,7 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 
 2022-06-08 - Naveen Rajanna - REQ2595048 - Reset Pricing Category to 'Standard' after Agreement Clone upon amend or renewal and upgrade api version to 52
 2022-10-05 - seth.heang@auspost.com.au - uplift API version to 55, update copyProposalChildRecords() method to check for bundle products hierarchy and remove decommisioned products
+2023-10-19 - Bharat Patel - update afterAmend(), commented copyAttachments() execution, STP-9851 changes, remove copyAttachments(originalAgreementId, amendedAgreementId)
 */
 public without sharing class APT_AmendRenewUtility {
     
@@ -1118,9 +1119,6 @@ public without sharing class APT_AmendRenewUtility {
                 copyAgreementLineItems(originalAgreementId, amendedAgreementId);
             }
             
-            //1310
-            copyAttachments(originalAgreementId, amendedAgreementId);
-            //1310
         } catch (System.Exception ex) {            
             system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
             return null;

@@ -1,16 +1,21 @@
 .slds-spinner_container {
-    position: fixed;
-    top: 5%;
+	position: fixed;
+	top: 5%;
 }
 .lgc-bg {
-    background-color: rgb(242, 242, 242);
+	background-color: rgb(242, 242, 242);
 }
 .table{
-    overflow-x: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+	overflow-x: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
-
 .table::-webkit-scrollbar {
-    display:none;
+	display:none;
+}
+.customMessageStyle {
+	background-color:darkgray;
+	color:black;
+	font-size:medium;
+	z-index:99;
 }

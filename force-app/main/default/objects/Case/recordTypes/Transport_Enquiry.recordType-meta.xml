@@ -13578,10 +13578,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Feedback%7CInternational Letters%7CMail redirection</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Feedback%7CInternational Letters%7CPack and Track International</fullName>
             <default>false</default>
         </values>
@@ -13986,10 +13982,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiry%7CInternational Letters%7CMail redirection</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>General Enquiry%7CInternational Letters%7CPack and Track International</fullName>
             <default>false</default>
         </values>
@@ -14391,10 +14383,6 @@
         </values>
         <values>
             <fullName>Investigation%7CInternational Letters%7CInternational Express</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investigation%7CInternational Letters%7CMail redirection</fullName>
             <default>false</default>
         </values>
         <values>

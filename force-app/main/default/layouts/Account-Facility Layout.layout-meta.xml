@@ -23,6 +23,14 @@
                 <behavior>Edit</behavior>
                 <field>Organisation_Founded_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Licensee_considering_sale__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Facility_on_the_market__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -382,13 +390,6 @@
             <quickActionName>SendEmail</quickActionName>
         </quickActionListItems>
     </quickActionList>
-    <relatedContent>
-        <relatedContentItems>
-            <layoutItem>
-                <component>wits:newsPanel</component>
-            </layoutItem>
-        </relatedContentItems>
-    </relatedContent>
     <relatedLists>
         <fields>ACCOUNT.NAME</fields>
         <fields>Assignment_Effective_From_Date__c</fields>

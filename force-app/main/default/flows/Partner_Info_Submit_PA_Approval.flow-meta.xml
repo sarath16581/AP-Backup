@@ -4,8 +4,8 @@
         <description>Submit the Partner Addendum for approval</description>
         <name>Submit_PA_For_Approval</name>
         <label>Submit PA For Approval</label>
-        <locationX>716</locationX>
-        <locationY>249</locationY>
+        <locationX>899</locationX>
+        <locationY>314</locationY>
         <actionName>submit</actionName>
         <actionType>submit</actionType>
         <connector>
@@ -14,10 +14,17 @@
         <faultConnector>
             <targetReference>Set_Allow_Submit_For_Approval_False</targetReference>
         </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>objectId</name>
             <value>
                 <elementReference>PartnerAddendumId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>comment</name>
+            <value>
+                <elementReference>Submit_for_approval_comments</elementReference>
             </value>
         </inputParameters>
         <outputParameters>
@@ -31,7 +38,7 @@
         <name>Approval_in_Progress</name>
         <label>Approval in Progress</label>
         <locationX>225</locationX>
-        <locationY>245</locationY>
+        <locationY>309</locationY>
         <defaultConnector>
             <targetReference>Licence_Id_Null</targetReference>
         </defaultConnector>
@@ -57,7 +64,7 @@
         <name>Licence_Id_Null</name>
         <label>Licence Id Null?</label>
         <locationX>391</locationX>
-        <locationY>247</locationY>
+        <locationY>311</locationY>
         <defaultConnector>
             <targetReference>Get_Licence_Status</targetReference>
         </defaultConnector>
@@ -81,8 +88,8 @@
     <decisions>
         <name>Licence_in_Draft_Status</name>
         <label>Licence in Draft Status?</label>
-        <locationX>551</locationX>
-        <locationY>133</locationY>
+        <locationX>548</locationX>
+        <locationY>50</locationY>
         <defaultConnector>
             <targetReference>Set_Allow_Submit_For_Approval</targetReference>
         </defaultConnector>
@@ -104,15 +111,28 @@
         </rules>
     </decisions>
     <description>Flow called from custom &apos;Validate and Submit for Approval&apos; button on Partner Addendum record. Check to prevent submit if Licence is in Draft state.</description>
+    <environments>Default</environments>
     <interviewLabel>Partner Info - Submit PA Approval {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Partner Info - Submit PA Approval</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
         <description>Get the status of the Licence</description>
         <name>Get_Licence_Status</name>
         <label>Get Licence Status</label>
         <locationX>391</locationX>
-        <locationY>132</locationY>
+        <locationY>196</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Licence_in_Draft_Status</targetReference>
@@ -138,7 +158,7 @@
         <name>Get_Partner_Addendum</name>
         <label>Get Partner Addendum</label>
         <locationX>52</locationX>
-        <locationY>247</locationY>
+        <locationY>311</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Approval_in_Progress</targetReference>
@@ -173,9 +193,9 @@
         <name>Set_Allow_Submit_For_Approval</name>
         <label>Set Allow Submit For Approval</label>
         <locationX>551</locationX>
-        <locationY>250</locationY>
+        <locationY>314</locationY>
         <connector>
-            <targetReference>Submit_PA_For_Approval</targetReference>
+            <targetReference>Submit_for_approval_comments_screen</targetReference>
         </connector>
         <faultConnector>
             <targetReference>Display_Fault</targetReference>
@@ -201,7 +221,7 @@
         <name>Set_Allow_Submit_For_Approval_False</name>
         <label>Set Allow Submit For Approval False</label>
         <locationX>717</locationX>
-        <locationY>470</locationY>
+        <locationY>534</locationY>
         <connector>
             <targetReference>Display_Fault</targetReference>
         </connector>
@@ -225,7 +245,7 @@
         <name>Approval_in_ProgressMsg</name>
         <label>Approval in Progress</label>
         <locationX>226</locationX>
-        <locationY>132</locationY>
+        <locationY>196</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -241,7 +261,7 @@
         <name>Display_Fault</name>
         <label>Display Fault</label>
         <locationX>469</locationX>
-        <locationY>470</locationY>
+        <locationY>534</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -255,10 +275,31 @@ For help, provide your flow administrator with the following information: {!$Flo
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Submit_for_approval_comments_screen</name>
+        <label>Submit for approval comments screen</label>
+        <locationX>724</locationX>
+        <locationY>313</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Submit_PA_For_Approval</targetReference>
+        </connector>
+        <fields>
+            <name>Submit_for_approval_comments</name>
+            <dataType>String</dataType>
+            <fieldText>Submit for approval comments</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Submit_For_Approval_Confirmation</name>
         <label>Submit For Approval Confirmation</label>
-        <locationX>875</locationX>
-        <locationY>250</locationY>
+        <locationX>1093</locationX>
+        <locationY>304</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -273,8 +314,8 @@ For help, provide your flow administrator with the following information: {!$Flo
     <screens>
         <name>Submit_For_Approval_Not_Required</name>
         <label>Submit For Approval Not Required</label>
-        <locationX>876</locationX>
-        <locationY>133</locationY>
+        <locationX>1072</locationX>
+        <locationY>51</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -286,7 +327,13 @@ For help, provide your flow administrator with the following information: {!$Flo
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <startElementReference>Get_Partner_Addendum</startElementReference>
+    <start>
+        <locationX>50</locationX>
+        <locationY>114</locationY>
+        <connector>
+            <targetReference>Get_Partner_Addendum</targetReference>
+        </connector>
+    </start>
     <status>Active</status>
     <variables>
         <name>ApprovalStatus</name>

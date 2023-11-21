@@ -21,9 +21,10 @@
  *										   validation errors to lwc component
  * 2023-08-18 - Ranjeewa Silva - Updated to display validation errors when moving to next stage for opportunities in any stage.
  * 2023-10-16 - Mahesh Parvathaneni - Updated populateValidationErrorResults to check for new line in the error message
+ * 2023-10-20 - Mahesh Parvathaneni - Updated populateValidationErrorResults to unescape greater than symbol in html
  */
 
-import {LightningElement, track, api, wire} from 'lwc';
+import {LightningElement, api, wire} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import FIELD_OPPORTUNITY_ISCLOSED from '@salesforce/schema/Opportunity.IsClosed';
@@ -83,6 +84,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 
 			// post message to vf page to get validation errors
 			this.publishMessageToVFPage();
+		} else if (error) {
+			console.error(error);
 		}
 	}
 
@@ -139,9 +142,10 @@ export default class OpportunityCloseErrors extends LightningElement {
 		this.progressErrs = [];
 		if(result.validationMessages) {
 			result.validationMessages.forEach((errMsg)=>{
-				var eMsg = errMsg.replace(/&quot;/g,'\'');
-				var eMsgVar = eMsg.replace(/amp;/g,'');
-				let eMsgArray = eMsgVar.split(/\n/);
+				errMsg = errMsg.replace(/&quot;/g,'\'');
+				errMsg = errMsg.replace(/amp;/g,'');
+				errMsg = errMsg.replace(/&gt;/g , ">");
+				let eMsgArray = errMsg.split(/\n/);
 				eMsgArray.forEach(eMsgVal => {
 					this.progressErrs.push(eMsgVal);
 				})
@@ -174,7 +178,7 @@ export default class OpportunityCloseErrors extends LightningElement {
 		return (this._pathNextStageMapping && this._pathNextStageMapping[this.currentStage] ? this._pathNextStageMapping[this.currentStage] : '');
 	}
 
-	handleRefresh(event) {
+	handleRefresh() {
 		this.publishMessageToVFPage();
 	}
 
@@ -207,6 +211,8 @@ export default class OpportunityCloseErrors extends LightningElement {
 			});
 			this._pathNextStageMapping = pathMapping;
 			this.publishMessageToVFPage();
+		} else if (error) {
+			console.error(error);
 		}
 	}
 }

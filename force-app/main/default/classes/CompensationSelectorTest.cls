@@ -28,6 +28,7 @@ private with sharing class CompensationSelectorTest
         // case
         Case iCase = TestDataProvider.createCase('subject', 'description', null);
         iCase.ContactId = c.Id;
+        iCase.ReferenceID__c = 'REF001';
         insert iCase;
 
         // EFT record type

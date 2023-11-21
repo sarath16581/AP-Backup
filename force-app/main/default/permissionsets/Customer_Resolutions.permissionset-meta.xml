@@ -4728,10 +4728,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Case.Data_Quality_Management</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.Enterprise_Credit_Dispute_Claim</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

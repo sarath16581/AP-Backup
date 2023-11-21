@@ -960,13 +960,6 @@
             <quickActionName>FeedItem.PollPost</quickActionName>
         </quickActionListItems>
     </quickActionList>
-    <relatedContent>
-        <relatedContentItems>
-            <layoutItem>
-                <component>wits:newsPanel</component>
-            </layoutItem>
-        </relatedContentItems>
-    </relatedContent>
     <relatedLists>
         <fields>RECORDTYPE</fields>
         <fields>NAME</fields>

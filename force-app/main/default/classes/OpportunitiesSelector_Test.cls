@@ -9,6 +9,7 @@
  * 2020-08-14 - arjun.singh@austpost.com.au - Created
  * 2023-05-17 - Ranjeewa Silva - Updated tests to cover new selector option 'WITH_OVERLAY_SPLITS'
  * 2023-08-18 - Ranjeewa Silva - Updated tests to cover new selector options to include competitor, dsr and apttus contracts
+ * 2023-10-26 - Mahesh Parvathaneni - Updated tests to cover selector option WITH_OPPORTUNITY_LINE_ITEMS
  */
  
 @IsTest
@@ -71,7 +72,8 @@ public with sharing class OpportunitiesSelector_Test {
 			OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS,
 			OpportunitiesSelector.Options.WITH_COMPETITORS,
 			OpportunitiesSelector.Options.WITH_DEAL_SUPPORT_REQUESTS,
-			OpportunitiesSelector.Options.WITH_APTTUS_CONTRACTS
+			OpportunitiesSelector.Options.WITH_APTTUS_CONTRACTS,
+			OpportunitiesSelector.Options.WITH_OPPORTUNITY_LINE_ITEMS
 	});
 	String soql = qb.toSoqlString();
 	System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom opportunity\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
@@ -84,6 +86,8 @@ public with sharing class OpportunitiesSelector_Test {
 			'Resulting query does not select Deal_Support_Request__c child records: ' + soql);
 	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom Apttus__R00N50000001Xl0FEAS__r\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
 			'Resulting query does not select Apttus Contract (Apttus__APTS_Agreement__c) child records: ' + soql);
+	System.assertEquals(true, Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom OpportunityLineItems\\b.*?\\).*?\\bfrom opportunity\\b').matcher(soql).find(),
+			'Resulting query does not select OpportunityLineItem child records: ' + soql);
 
 	Test.stopTest();
 

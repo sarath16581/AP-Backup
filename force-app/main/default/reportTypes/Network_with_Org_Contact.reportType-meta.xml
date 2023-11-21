@@ -5012,4 +5012,7 @@
         </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Organisations</masterLabel>
+    </sections>
 </ReportType>

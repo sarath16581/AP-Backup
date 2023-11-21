@@ -113,6 +113,11 @@
                 <label>RTS - Sender has the item</label>
             </value>
             <value>
+                <fullName>3rd party locker</fullName>
+                <default>false</default>
+                <label>3rd party locker</label>
+            </value>
+            <value>
                 <fullName>Signed for by occupant</fullName>
                 <default>false</default>
                 <label>Signed for by occupant</label>
@@ -130,7 +135,12 @@
             <value>
                 <fullName>Delivered to incorrect address - retrieval and redelivery</fullName>
                 <default>false</default>
-                <label>Delivered to incorrect address - retrieval and redelivery</label>
+                <label>Delivered to incorrect address - Attempting retrieval and redelivery</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address – Retrieved and redelivered</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address – Retrieved and redelivered</label>
             </value>
             <value>
                 <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
@@ -196,6 +206,11 @@
                 <fullName>Collected from Outlet via written order</fullName>
                 <default>false</default>
                 <label>Collected from Outlet via written order</label>
+            </value>
+            <value>
+                <fullName>Collected from outlet by authorised person</fullName>
+                <default>false</default>
+                <label>Collected from outlet by authorised person</label>
             </value>
             <value>
                 <fullName>Considered delivered as addressed(believes front door)</fullName>
@@ -290,6 +305,7 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Letterbox</valueName>
         </valueSettings>
@@ -379,6 +395,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>3rd party locker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <valueName>Signed for by occupant</valueName>
         </valueSettings>
         <valueSettings>
@@ -389,6 +409,10 @@
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address - retrieval and redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address – Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
@@ -426,12 +450,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Collected from Outlet by occupant of address with ID</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Collected from Outlet via written order</valueName>
         </valueSettings>
         <valueSettings>
@@ -480,6 +502,10 @@
         <valueSettings>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>PO BOX diversion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Collected from outlet by authorised person</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>BusinessCannot recall</controllingFieldValue>

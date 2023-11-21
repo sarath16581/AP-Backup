@@ -29,6 +29,11 @@
                 <default>false</default>
                 <label>Territory Sales</label>
             </value>
+            <value>
+                <fullName>Sales Specialist</fullName>
+                <default>false</default>
+                <label>Sales Specialist</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

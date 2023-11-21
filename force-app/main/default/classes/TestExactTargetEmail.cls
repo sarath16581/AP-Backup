@@ -43,8 +43,8 @@ private class TestExactTargetEmail implements HttpCalloutMock {
         Exact_Target_LogIn__c ex = new Exact_Target_LogIn__c();
         ex.ClientId__c = 'test';
         ex.ClientSecret__c = 'test';
-        ex.Message_EndPoint__c = 'test';
-        ex.RequestToken_EndPoint__c = 'test';
+        ex.Message_EndPoint__c = 'https://test.salesforce.com/messageEndpoint';
+        ex.RequestToken_EndPoint__c = 'https://test.salesforce.com';
         ex.Name = 'test';
         insert ex;
         test.startTest();
@@ -71,8 +71,8 @@ private class TestExactTargetEmail implements HttpCalloutMock {
         Exact_Target_LogIn__c ex = new Exact_Target_LogIn__c();
         ex.ClientId__c = 'test';
         ex.ClientSecret__c = 'test';
-        ex.Message_EndPoint__c = 'test';
-        ex.RequestToken_EndPoint__c = 'test';
+        ex.Message_EndPoint__c = 'https://test.salesforce.com/messageEndpoint';
+        ex.RequestToken_EndPoint__c = 'https://test.salesforce.com';
         ex.Name = 'test';
         insert ex;
         test.startTest();
