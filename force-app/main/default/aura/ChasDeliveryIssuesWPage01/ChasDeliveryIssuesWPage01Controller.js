@@ -22,6 +22,15 @@
         $A.enqueueAction(a);
 	},
 
+	maybeResetCaptchaToken: function(cmp) {
+		const existingToken = cmp.get('v.articleTrackingCaptchaToken');
+		if(existingToken) {
+			// // means the user will need to reverify 
+			cmp.set('v.articleTrackingCaptchaToken', '');
+			cmp.find("chasCaptcha").reset();
+		}
+	},
+
     goForward: function(cmp, event, helper) {
         var isValid = helper.checkAllInputs(cmp, true);
         //reset the error flags

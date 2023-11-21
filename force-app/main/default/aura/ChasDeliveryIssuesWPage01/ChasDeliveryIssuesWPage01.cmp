@@ -156,7 +156,8 @@
                                 <c:ChasInputWithIcon type='text' aura:id="transferTrackingNumber" name="trackingNumberOptional" required="false" 
                                                      label='Tracking number' subLabel='(optional)' 
                                                      value='{! v.wizardData.trackingId}'
-                                                     onblur="{!c.searchTrackingNumberService}" isVerified="{!v.isVerified}" isLoading="{!v.isLoading}"/>
+                                                     onblur="{!c.searchTrackingNumberService}" 
+													 oninput="{!c.maybeResetCaptchaToken}" isVerified="{!v.isVerified}" isLoading="{!v.isLoading}"/>
 
 								
 								<aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">

@@ -16,6 +16,15 @@
         $A.enqueueAction(a);
 	},
 
+	maybeResetCaptchaToken: function(cmp) {
+		const existingToken = cmp.get('v.articleTrackingCaptchaToken');
+		if(existingToken) {
+			// // means the user will need to reverify 
+			cmp.set('v.articleTrackingCaptchaToken', '');
+			cmp.find("chasCaptcha").reset();
+		}
+	},
+
 	doInit: function (cmp, event, helper) {
 		//Check the base url of the page, this is to ascertain users getting directed from a direct link
 		var baseUrl = window.location.href;

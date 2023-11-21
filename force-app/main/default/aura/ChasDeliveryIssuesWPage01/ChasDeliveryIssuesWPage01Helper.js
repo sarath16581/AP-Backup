@@ -42,10 +42,6 @@
 			var action = cmp.get(controllerMethod);
             action.setParams(trackingParams);
             action.setCallback(this, function(response) {
-				// means the user will need to reverify 
-				cmp.set('v.articleTrackingCaptchaToken', '');
-				cmp.find("chasCaptcha").reset();
-                
                 var state = response.getState();                
                 var trackingNumInputCmp = cmp.find("transferTrackingNumber");
                 

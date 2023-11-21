@@ -282,6 +282,7 @@
 								subLabel="(optional)"
 								value="{! v.wizardData.trackingId}"
 								onblur="{!c.searchTrackingNumberService}"
+								oninput="{!c.maybeResetCaptchaToken}"
 								isVerified="{!v.isVerified}"
 								isLoading="{!v.isLoading}"
 							/>
