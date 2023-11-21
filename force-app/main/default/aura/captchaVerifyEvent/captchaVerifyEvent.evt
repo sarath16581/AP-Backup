@@ -1,3 +1,13 @@
+<!--
+@description
+Handles the transfer of the captcha token from the captcha to the parent component
+Requires the use of <script src='https://www.google.com/recaptcha/enterprise.js?render=explicit&onload=onloadCallback' async defer></script> and some EVENTS which is loaded in the HEAD markup of the community
+
+@author Nathan Franklin
+@date 2023-11-20
+
+@changelog
+-->
 <aura:event type="COMPONENT" description="Transfers the token from a captcha component to the calling component">
 	<aura:attribute name="token" description="The token generated from reCAPTCHA when the user clicks it" type="String" access="public" />
 </aura:event>

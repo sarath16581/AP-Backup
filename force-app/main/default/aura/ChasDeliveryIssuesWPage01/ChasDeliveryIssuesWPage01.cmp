@@ -9,6 +9,7 @@
   * @Modifield by Hara Sahoo - 11/01/2021 - Changes made as part of enquiry submission in an unauthenticated user context
   * @Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
   * @Modifield by Thang Nguyen - 30/06/2022 - add Accessibility and disability issue
+  * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Delivery Issues wizard page 1: Issue Details">
     
@@ -162,7 +163,7 @@
 									<aura:set attribute="else">
 										<aura:if isTrue="{!v.IssueName == 'Postie didn\'t knock' || v.IssueName == 'Item was left in an unsafe place'}">
 											<c:ChasErrorMessages error="Please verify the captcha below" showError="{!v.articleTrackingCaptchaEmptyError}"/>
-											<c:ChasCaptcha />
+											<c:ChasCaptcha aura:id="chasCaptcha" />
 										</aura:if>
 									</aura:set>
 								</aura:if>

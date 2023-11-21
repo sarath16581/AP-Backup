@@ -3,7 +3,7 @@
  * Modified Ba: Hasantha 12/09/2019 :  added lateOrMissingRadioButtons for validations
  * 2020-10-26 hara.sahoo@auspost.com.au Modified : Prepopulate track id and options passed in the url for auto-progression of the forms
  * 2022-06-08 mahesh.parvathaneni@auspost.com.au Modified : DDS-10987 Delivery issue form network assignment fix in searchTrackingNumber
- * 2023-06-26 SL DDS-11383 VODV case routing
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
 ({
     searchTrackingNumber : function(cmp, event, helper) {
@@ -44,6 +44,7 @@
             action.setCallback(this, function(response) {
 				// means the user will need to reverify 
 				cmp.set('v.articleTrackingCaptchaToken', '');
+				cmp.find("chasCaptcha").reset();
                 
                 var state = response.getState();                
                 var trackingNumInputCmp = cmp.find("transferTrackingNumber");
@@ -71,7 +72,6 @@
                     // for return code 200 Success OK
                     else
                     {
-						console.log('here1');
                         cmp.set("v.isVerified", true);
                     }
                     

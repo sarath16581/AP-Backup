@@ -11,9 +11,6 @@
   * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 -->
 <aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='ChasApexController' description="Missing Items wizard page 1: Item details (API call)">
-
-	<aura:handler name="render" value="{!this}" action="{!c.onRender}" />
-
     <aura:attribute name="error500" type="Boolean" default="false"/>
     <aura:attribute name="error400" type="Boolean" default="false"/>
     <aura:attribute name="isLoading" type="Boolean" default="false"/>

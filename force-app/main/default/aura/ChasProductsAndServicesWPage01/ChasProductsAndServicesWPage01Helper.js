@@ -1,5 +1,6 @@
 /**
  * Created by nmain on 31/10/2017.
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
 ({
 	setRadioName: function (
@@ -299,20 +300,42 @@
 		cmp.set("v.isLoading", true);
 		cmp.set("v.error500", false);
 		cmp.set("v.isVerified", false);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
 
 		//-- checking if Tracking Number is entered
 		var trackingId = cmp.get("v.wizardData.trackingId");
 		if (trackingId) {
-			var action = cmp.get("c.searchTrackingNumber");
-			action.setParams({
-				trackingNumber: cmp.get("v.wizardData.trackingId")
-			});
 
+			let controllerMethod = 'c.searchTrackingNumber';
+			let trackingParams = {trackingNumber: cmp.get("v.wizardData.trackingId")}
+			const authUserData = cmp.get('v.authUserData');
+			// force the user to enter a captcha value if they aren't logged in
+			if(!authUserData || !authUserData.isUserAuthenticated) {
+
+				controllerMethod = 'c.searchTrackingNumberWithCaptcha';
+
+				const captchaToken = cmp.get('v.articleTrackingCaptchaToken');
+				trackingParams.captchaToken = captchaToken;
+				
+				if(!captchaToken) {
+					cmp.set('v.articleTrackingCaptchaEmptyError', true);
+					cmp.set('v.isLoading', false);
+					return;
+				}
+			}
+
+			var action = cmp.get(controllerMethod);
+            action.setParams(trackingParams);
 			action.setCallback(this, function (response) {
+				// means the user will need to reverify 
+				cmp.set('v.articleTrackingCaptchaToken', '');
+				cmp.find("chasCaptcha").reset();
+
 				var state = response.getState();
 				var trackingNumInputCmp = cmp.find("transferTrackingNumber");
 
 				if (state === "SUCCESS") {
+
 					var returnObj = JSON.parse(
 						JSON.stringify(response.getReturnValue())
 					);

@@ -9,6 +9,7 @@
 												Note chasDevliveryIssuesWPage01.cmp and ChasApexController.apxc changes are also required as the Label values are used.
  * 2020-10-26 hara.sahoo@auspost.com.au Modified : Prepopulate track id and options passed in the url for auto-progression of the forms
  * 2022-05-30 : Thang Nguyen : [DDS-10785] update selectedIssueHandler to redirect to productServicePage
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 */
 ({
     
