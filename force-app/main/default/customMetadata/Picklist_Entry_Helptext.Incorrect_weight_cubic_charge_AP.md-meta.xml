@@ -12,10 +12,13 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please articulate why the weight or cubic charge has been inaccurately applied.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Attaching evidence to support your case such as photos, purchase orders and / or picking slips.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;These should highlight the correct weight and / or dimensions.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Despatch screens or hand written details will not be considered.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Explain why the weight or cubic charge has been inaccurately applied.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Attach supporting documents such as photos, purchase orders and picking slips.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;The documents should highlight the correct weight and/or dimensions.&lt;/p&gt; 
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Despatch screens or handwritten details won’t be considered.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
