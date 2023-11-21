@@ -139,7 +139,7 @@
 				<aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
 					<aura:set attribute="else">
 						<c:ChasErrorMessages error="Please verify the captcha below" showError="{!v.articleTrackingCaptchaEmptyError}"/>
-						<c:ChasCaptcha />
+						<c:ChasCaptcha aura:id="chasCaptcha" />
 					</aura:set>
 				</aura:if>
             </div>
