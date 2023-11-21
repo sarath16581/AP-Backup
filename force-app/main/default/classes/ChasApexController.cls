@@ -513,7 +513,7 @@ public with sharing class ChasApexController extends ChasBase{
             //-- Assigning 'typeAndProduct', 'productCategory', 'productSubCategory'
             
             //INC1610402 : Changing the default ProductCategory to Domestic Parcels
-            productCategory = ChasConstants.DOMESTIC_LETTERS;
+            productCategory = ChasConstants.DOMESTIC_PARCELS;
             
             //-- If Item Type is Domestic
             if(wizardData.get('senderOrRecipientType') == ChasConstants.ITEM_TYPE_DOMESTIC){
