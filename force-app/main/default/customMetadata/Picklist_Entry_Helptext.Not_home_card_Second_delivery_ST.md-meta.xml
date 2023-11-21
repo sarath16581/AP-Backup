@@ -13,8 +13,10 @@
     <values>
         <field>Message__c</field>
         <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;This claim relates to authority to leave and futile delivery attempts.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please attach details and supporting evidence.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Note: Startrack&apos;s core delivery window is between 9:00am - 5:00pm Monday to Friday.&lt;/p&gt;</value>
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Attach details and supporting documents.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Note: StarTrack&apos;s core delivery window is between 9:00am - 5:00pm Monday to Friday.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

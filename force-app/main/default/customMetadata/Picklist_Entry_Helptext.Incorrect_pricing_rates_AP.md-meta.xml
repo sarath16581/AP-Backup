@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please provide your reasoning why the rate is incorrect, attaching details and supporting evidence.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Explain why the rate is incorrect. Attach details and supporting documents.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

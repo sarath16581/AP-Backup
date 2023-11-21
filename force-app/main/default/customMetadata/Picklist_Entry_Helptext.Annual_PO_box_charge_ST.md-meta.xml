@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Annual PO box charge</label>
+    <label>Annual PO Box Charge</label>
     <protected>false</protected>
     <values>
         <field>BusinessUnit__c</field>
@@ -12,8 +12,8 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Are you sure that you&apos;d like to select
-&quot;Annual PO box charge&quot;?&lt;/p&gt;
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Are you sure that you want to select &lt;strong&gt;Annual PO Box charge&lt;/strong&gt;?&lt;/p&gt;
+
 &lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;This is usually for Australia Post accounts.&lt;/p&gt;</value>
     </values>
     <values>

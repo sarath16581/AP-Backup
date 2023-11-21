@@ -13,9 +13,10 @@
     <values>
         <field>Message__c</field>
         <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;This claim relates to freight despatched without an accompanying daily manifest.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please provide details of your manifesting actions.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Note: You should have received an email notification alerting your nominated contact to re-submit the manifest.&lt;/p&gt;
-&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please contact your account manager if the alert has not been received.&lt;/p&gt;</value>
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Provide your manifesting actions in detail.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Note: Your nominated contact should&apos;ve received an email notification alerting them to re-submit the manifest. Contact your account manager if the alert wasn’t received.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

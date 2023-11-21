@@ -12,7 +12,9 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please explain why the over maximum limits fee(s) are not appliable, attaching details and supporting evidence.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Any oversized parcels which make it into our network for delivery (i.e., not identified at lodgement or stopped prior to delivery) will incur the over maximum limits fee, in addition to the normal delivery charge for that parcel.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Explain why the over maximum limits fee(s) are not applicable. Attach details and supporting documents.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
