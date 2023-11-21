@@ -27,7 +27,11 @@
 		if(existingToken) {
 			// // means the user will need to reverify 
 			cmp.set('v.articleTrackingCaptchaToken', '');
-			cmp.find("chasCaptcha").reset();
+
+			const captchaComponent = cmp.find("chasCaptcha");
+			if(!$A.util.isUndefined(captchaComponent)) {
+				captchaComponent.reset();
+			}
 		}
 	},
 
