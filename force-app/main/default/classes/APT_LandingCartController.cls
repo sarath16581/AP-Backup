@@ -60,7 +60,7 @@ public with sharing class APT_LandingCartController {
 				Opportunity opp = oppMap.get(recordId);
 				opportunityOwnerId = oppMap.get(recordId).OwnerId;
 
-				if(isUserCanAccessCart(opportunityOwnerId, loggedInUserId, profileName, isSalesSpecialist))
+				if(cartIsAccessible(opportunityOwnerId, loggedInUserId, profileName, isSalesSpecialist))
 				{
 					readWritePermisssion = 'true';
 				}
@@ -212,14 +212,14 @@ public with sharing class APT_LandingCartController {
 						}
 						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
 						if(prodConfigOwnerId != null){
-							if(prodConfigOwnerId != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING && isSalesSpecialistRole == false ){
+							if(cartOwnerCheck(prodConfigOwnerId, loggedInUserId, profileName, isSalesSpecialistRole)) {
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
 							}
 						}
 						if(prodConfigOwnerId2 != null){
-							if(prodConfigOwnerId2 != loggedInUserId && profileName != APT_Constants.STRING_SYSTEM_ADMINISTRATOR && profileName != APT_Constants.STRING_ONBOARDING && isSalesSpecialistRole == false ){
+							if(cartOwnerCheck(prodConfigOwnerId2, loggedInUserId, profileName, isSalesSpecialistRole)){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
@@ -277,9 +277,21 @@ public with sharing class APT_LandingCartController {
 	 *@param Boolean isSalesSpecialistRole
 	 *@return boolean value
 	 */
-	private static Boolean isUserCanAccessCart(Id opportunityOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole) {
+	private static Boolean cartIsAccessible(Id opportunityOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole) {
 		Set<String> profileListCheck = new Set<String>{APT_Constants.STRING_SYSTEM_ADMINISTRATOR, APT_Constants.STRING_ONBOARDING};
 		return (profileListCheck.contains(profileName) || isSalesSpecialistRole || loggedInUserId == opportunityOwnerId);
 	}
 
+	/**
+	 *This method will check the configuration's ownership
+	 *@param Id configOwnerId
+	 *@param Id loggedInUserId
+	 *@param String profileName
+	 *@param Boolean isSalesSpecialistRole
+	 *@return boolean value
+	 */
+	private static Boolean cartOwnerCheck(Id configOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole) {
+		Set<String> profileListCheck = new Set<String>{APT_Constants.STRING_SYSTEM_ADMINISTRATOR, APT_Constants.STRING_ONBOARDING};
+		return (configOwnerId != loggedInUserId && !profileListCheck.contains(profileName) && isSalesSpecialistRole == false);
+	}
 }
