@@ -100,6 +100,7 @@
 
 			// when a call to the tracking api is needed a captcha is enforced
 			// this ensures that the captcha was always clicked when an article requiring api call is entered
+			// NOTE: captchaVerified should always be true for logged in users
 			if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && !cmp.get('v.captchaVerified')) {
 				isValid = false;
 			}
@@ -195,6 +196,7 @@
 
 			// when a call to the tracking api is needed a captcha is enforced
 			// this ensures that the captcha was always clicked when an article requiring api call is entered
+			// NOTE: captchaVerified should always be true for logged in users
 			if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && !cmp.get('v.captchaVerified')) {
 				errors.push({name: 'chasCaptcha', label: 'reCAPTCHA was not verified', error: ''});
 			}

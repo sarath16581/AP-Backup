@@ -28,6 +28,7 @@
 				
 				// mark the captcha verified as false to make sure the is prevented from proceeding without first validating the captcha (which in turn triggers a call to the tracking api)
 				// we do this to ensure the tracking api is always trigger when it needs to be and retrieves the necessary attributes from the tracking api for the form workflows
+				// NOTE: captchaVerified should always be true for logged in users
 				cmp.set('v.captchaVerified', false);
 
 				controllerMethod = 'c.searchTrackingNumberWithCaptcha';
@@ -235,6 +236,7 @@
 		if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && (IssueName == 'Item was left in an unsafe place' || IssueName == 'Postie didn\'t knock')) {
 			// when a call to the tracking api is needed a captcha is enforced
 			// this ensures that the captcha was always clicked when an article requiring api call is entered
+			// NOTE: captchaVerified should always be true for logged in users
 			if(!cmp.get('v.captchaVerified')) {
 				errors.push({name: 'chasCaptcha', label: 'reCAPTCHA was not verified', error: ''});
 			}
