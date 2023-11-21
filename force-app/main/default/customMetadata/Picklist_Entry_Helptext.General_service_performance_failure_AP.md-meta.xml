@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;For delivery related issues, please complete either the late or missing parcel or delivery issue forms within the Business Support Portal.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;For delivery related issues, use the &lt;a href=&quot;https://bsp.auspost.com.au/s/EnquiryForm&quot; class=&quot;slds-button&quot; title=&quot;Opens new browser tab&quot; target=&quot;_blank&quot;&gt;late or missing parcel&lt;/a&gt; or &lt;a href=&quot;https://bsp.auspost.com.au/s/EnquiryForm?enquiryType=delivery&quot; class=&quot;slds-button&quot; title=&quot;Opens new browser tab&quot; target=&quot;_blank&quot;&gt;delivery issue&lt;/a&gt; forms within the Business Support Portal.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>

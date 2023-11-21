@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Message__c</field>
-        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Please attach supporting documents and details of the reply paid service that needs to be cancelled.&lt;/p&gt;</value>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Attach supporting documents and details of the reply paid service that needs to be cancelled.&lt;/p&gt;</value>
     </values>
     <values>
         <field>Object_Field_Name__c</field>
