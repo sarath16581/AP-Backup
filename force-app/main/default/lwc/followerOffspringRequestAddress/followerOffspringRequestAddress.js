@@ -7,12 +7,35 @@
  * @group Controller
  * @changelog
  * 2023-10-27 - Harry Wang - Created
- */import {api, LightningElement} from 'lwc';
+ */
+import {api, LightningElement, track} from 'lwc';
 
 export default class FollowerOffspringRequestAddress extends LightningElement {
+	physicalAddressStr;
+	mailingAddressStr;
 	confirmedPhysicalAddress = {};
 	confirmedMailingAddress = {};
+	toggleChecked;
 	showMailingAddress = true;
+
+	_defaultAddress;
+
+	/**
+	 * Load default address when updating existing sub account
+	 */
+	@api set defaultAddress(value) {
+		if (value) {
+			this.mailingAddressStr = value.mailingAddress;
+			this.physicalAddressStr = value.physicalAddress;
+			this.toggleChecked = value.mailingSameAsPhysical;
+			this.showMailingAddress = !this.toggleChecked;
+		}
+		this._defaultAddress = value;
+	}
+
+	get defaultAddress() {
+		return this._defaultAddress;
+	}
 
 	handleAddressToggleChange(event) {
 		this.showMailingAddress = !(event.detail.checked);
@@ -26,6 +49,10 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 		}
 	}
 
+	/**
+	 * Triggered when user confirm physical address
+	 * Map physical address fields then dispatch confirm address event to request wrapper
+	 */
 	handleConfirmedPhysicalAddress(event) {
 		if (event.detail) {
 			const physicalAddressVar = event.detail;
@@ -43,7 +70,7 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 			if(physicalAddressVar.postcode  !== null){
 				this.confirmedPhysicalAddress.postcode = physicalAddressVar.postcode;
 			}
-
+			this.physicalAddressStr = Object.values(this.confirmedPhysicalAddress).join(' ');
 			if (!this.showMailingAddress) { // physical same as mailing
 				this.confirmedMailingAddress = this.confirmedPhysicalAddress;
 				this.dispatchEvent(new CustomEvent('confirmaddress', {
@@ -62,6 +89,10 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 		}
 	}
 
+	/**
+	 * Triggered when user confirm physical address
+	 * Map mailing address fields then dispatch confirm address event to request wrapper
+	 */
 	handleConfirmedMailingAddress(event) {
 		if (event.detail) {
 			this.mailingAddressVar = event.detail;
@@ -79,6 +110,7 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 			if(this.mailingAddressVar.postcode  !== null){
 				this.confirmedMailingAddress.postcode = this.mailingAddressVar.postcode;
 			}
+			this.mailingAddressStr = Object.values(this.confirmedMailingAddress).join(' ');
 			this.dispatchEvent(new CustomEvent('confirmaddress', {
 				detail : {
 					mailingAddress: this.confirmedMailingAddress
@@ -87,12 +119,18 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 		}
 	}
 
+	/**
+	 * Validate address input. If defaultAddress exists return true
+	 */
 	@api validate() {
-		const allValid = [...this.template.querySelectorAll('c-ame-address-validation2')]
+		if (this.defaultAddress != null) {
+			return true;
+		}
+		const ameValid = [...this.template.querySelectorAll('c-ame-address-validation2')]
 			.reduce((validSoFar, ameAddressCmp) => {
 				ameAddressCmp.reportValidity();
 				return validSoFar && ameAddressCmp.checkValidity();
 			}, true);
-		return allValid;
+		return ameValid;
 	}
 }

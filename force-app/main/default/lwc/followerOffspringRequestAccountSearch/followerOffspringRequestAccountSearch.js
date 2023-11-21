@@ -9,46 +9,55 @@
  * 2023-10-27 - Harry Wang - Created
  */
 import {api, LightningElement, track} from 'lwc';
-import getFollowerSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.getFollowerSubAccounts';
-import getFollowerBillingAccounts from '@salesforce/apex/FollowerOffspringRequestController.getFollowerBillingAccounts';
+import getFollowers from '@salesforce/apex/FollowerOffspringRequestController.getFollowers';
+import BILLING_ACCOUNT_NUMBER from "@salesforce/schema/Billing_Account__c.LEGACY_ID__c";
 
 export default class FollowerOffspringRequestAccountSearch extends LightningElement {
 	@api leaderId;
 	@api isBillingAccount;
+	@api defaultSelectedAccount;
+
+	selectedAccount;
 	followerSubAccounts = [];
 	followerBillingAccounts = [];
 
 	@track matchedFollowerSubAccounts = [];
 	@track matchedFollowerBillingAccounts = [];
-	selectedAccount;
+
 	searchValue;
 	noResults = 'No results';
 
-	get followerAccounts() {
-		return this.followerSubAccounts.concat(this.followerBillingAccounts);
-	}
-
+	/**
+	 * In this connectedCallBack(), Retrieving related follower accounts and loading default selection if sub account is passed from list view
+	 */
 	connectedCallback() {
-		getFollowerSubAccounts({leaderAccountId: this.leaderId, isBillingAccount: this.isBillingAccount}).then(results => {
-			// this.followerSubAccounts = results;
-			this.followerSubAccounts = results.map(item => {
+		// Load follower sub accounts and follower billing accounts
+		getFollowers({leaderAccountId: this.leaderId, isBillingAccount: this.isBillingAccount}).then(results => {
+			this.followerSubAccounts = results.subAccountFollowers?.map(item => {
 				return {...item};
 			});
 			this.matchedFollowerSubAccounts = this.followerSubAccounts;
-		});
-		if (this.isBillingAccount === 'true') {
-			getFollowerBillingAccounts({leaderAccountId: this.leaderId}).then(results => {
-				this.followerBillingAccounts = results.map(item => {
-					// item.url = '/'+item.Id;
-					return {...item};
-				});
-				this.matchedFollowerBillingAccounts = this.followerBillingAccounts;
+			this.followerBillingAccounts = results.billingAccountFollowers?.map(item => {
+				return {...item};
 			});
-		}
+			this.matchedFollowerBillingAccounts = this.followerBillingAccounts;
+
+			// load default selection
+			if (this.defaultSelectedAccount) {
+				this.matchedFollowerSubAccounts.concat(this.matchedFollowerBillingAccounts).forEach(acc => {
+					if (acc.Id === this.defaultSelectedAccount) {
+						acc.isSelected = true;
+						this.selectedAccount = acc;
+					} else {
+						acc.isDisabled = true;
+					}
+				});
+			}
+		});
 	}
 
 	get selectedAccountPill() {
-		const iconName = this.selectedAccount.LEGACY_ID__c ? 'custom:custom99' : 'standard:custom';
+		const iconName = this.selectedAccount[BILLING_ACCOUNT_NUMBER.fieldApiName] ? 'custom:custom99' : 'standard:custom';
 		return this.selectedAccount ? [{ type: 'icon', label: this.selectedAccount.Name, iconName: iconName}] : [];
 	}
 
@@ -64,6 +73,9 @@ export default class FollowerOffspringRequestAccountSearch extends LightningElem
 		return this.matchedFollowerBillingAccounts.length > 0;
 	}
 
+	/**
+	 * Filter matched follower accounts when user input search term
+	 */
 	handleAccountSearch(event) {
 		const value = event.target.value;
 		this.searchValue = value;
@@ -75,8 +87,10 @@ export default class FollowerOffspringRequestAccountSearch extends LightningElem
 		});
 	}
 
+	/**
+	 * Set selected account and mark others disabled when user select one option from either sub accounts or billing accounts section
+	 */
 	handleSelectAccount(event) {
-		// const input = event.target.dataset.id;
 		if (event.target.name) {
 			this.matchedFollowerSubAccounts.concat(this.matchedFollowerBillingAccounts).forEach(acc => {
 				if (acc.Id === event.target.name) {
@@ -94,11 +108,17 @@ export default class FollowerOffspringRequestAccountSearch extends LightningElem
 		}
 	}
 
+	/**
+	 * Clear selection - mark all options enabled
+	 */
 	handleClearSelectedAccount() {
 		const event = {target: {name: this.selectedAccount.Id, checked: false}};
 		this.handleSelectAccount(event);
 	}
 
+	/**
+	 * Exposed validating method that validates selection. Report validation errors, if any
+	 */
 	@api validate() {
 		if (!this.selectedAccount) {
 			const searchInput = this.template.querySelector("[data-name='search-input']");

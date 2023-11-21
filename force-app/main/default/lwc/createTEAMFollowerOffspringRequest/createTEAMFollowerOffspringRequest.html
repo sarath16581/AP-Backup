@@ -1,21 +1,34 @@
 <template>
-	<div class="slds-align_absolute-center" style="max-width: 1000px;">
+	<div>
 		<template lwc:if={isABNConfirmation}>
 			<c-follower-offspring-request-a-b-n-confirmation
 					leader-id={recordId}
 					is-billing-account={isBillingAccount}
 					onclosed={navigateToLeader}
-					onconfirmed={showEditForm}
-					sub-account-id={subAccountId}
+					onconfirmed={handleEditSubAccount}
 			></c-follower-offspring-request-a-b-n-confirmation>
 		</template>
 		<template lwc:if={isEditView}>
 			<c-follower-offspring-request-t-e-a-m-edit-form
 					leader-id={recordId}
 					is-billing-account={isBillingAccount}
-					sub-account-id={subAccountId}
+					sub-account={subAccount}
 					onclosed={navigateToLeader}
+					onupsert={refreshListView}
+					is-loading={isEditLoading}
 			></c-follower-offspring-request-t-e-a-m-edit-form>
+		</template>
+		<template lwc:if={isListView}>
+			<c-follower-offspring-request-t-e-a-m-list
+					leader-id={recordId}
+					is-billing-account={isBillingAccount}
+					onedit={handleEditSubAccount}
+					onnew={handleNewSubAccount}
+					sub-accounts={subAccounts}
+					ondelete={refreshListView}
+					onfinalize={handleFinalize}
+					count-finalized={countFinalized}
+			></c-follower-offspring-request-t-e-a-m-list>
 		</template>
 	</div>
 </template>

@@ -1,0 +1,85 @@
+<template>
+	<article class="slds-card">
+		<div class="slds-page-header">
+			<div class="slds-grid">
+				<!-- title section -->
+				<div class="slds-col slds-has-flexi-truncate">
+					<div class="slds-media slds-grow slds-no-space">
+						<lightning-icon icon-name="standard:custom" size="medium" class="slds-m-right_small"></lightning-icon>
+						<div class="slds-media__body slds-align-middle">
+							<!--  Navigation bar -->
+							<nav role="navigation">
+								<ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+									<li class="slds-breadcrumb__item slds-line-height_reset">
+										<a href={listViewUrl}>{listViewLabel}</a>
+									</li>
+									<li class="slds-breadcrumb__item slds-line-height_reset">
+										<a href={recordViewUrl}>{recordViewLabel}</a>
+									</li>
+								</ol>
+							</nav>
+							<!-- Sub Account Requests title -->
+							<div>
+								<span class="slds-truncate slds-page-header__title">Sub Account Requests</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- buttons section -->
+				<div class="slds-col_bump-left slds-align-top slds-p-bottom_xx-small">
+					<lightning-button variant="neutral" label="Delete" onclick={handleDeleteRows} disabled={isActionDisabled}></lightning-button>
+					<lightning-button variant="neutral" label="New" onclick={handleNew}></lightning-button>
+				</div>
+			</div>
+		</div>
+
+		<template lwc:if={hasSubAccounts}>
+			<div class="slds-scrollable_x slds-p-bottom_medium" style="width:100%">
+				<div class="slds-border_top slds-clearfix slds-p-vertical_xx-small" style="background-color:#f3f3f3;">
+					<div class="slds-float_left slds-m-top_x-small">
+						<span class="slds-align_absolute-center slds-p-horizontal_small slds-text-body_small" style="color: grey">{selectCount}</span>
+					</div>
+					<div class="slds-float_right slds-button-group-row">
+						<span class="slds-align_absolute-center slds-p-horizontal_small slds-text-body_small" style="color: grey">{searchCount}</span>
+						<lightning-input class="slds-m-right_x-small"
+						                 type="search"
+						                 label="Search Sub Accounts"
+						                 placeholder="Search this list.."
+						                 value={searchTerm}
+						                 autocomplete="off"
+						                 variant="label-hidden"
+						                 onchange={handleSearchChange}></lightning-input>
+					</div>
+				</div>
+				<div class="slds-border_top" style="height: 400px">
+					<lightning-datatable
+							key-field="id"
+							data={filteredSubAccounts}
+							columns={columns}
+							onrowaction={handleRowAction}
+							onrowselection={handleRowSelection}
+							sorted-by={sortBy}
+							sorted-direction={sortDirection}
+							onsort={handleSort}>
+					</lightning-datatable>
+				</div>
+				<div slot="footer" class="slds-p-bottom_medium">
+				</div>
+			</div>
+		</template>
+		<template lwc:else>
+			<div class="slds-border_top">
+				<div class="slds-m-vertical_large slds-m-horizontal_medium">
+					<p class="slds-text-color_weak">no results</p>
+				</div>
+			</div>
+		</template>
+		<footer class="slds-card__footer slds-clearfix">
+			<lightning-button class="slds-var-m-left_x-small slds-float_right" label={submitLabel} onclick={handleSubmit} disabled={isActionDisabled}></lightning-button>
+		</footer>
+	</article>
+	<div lwc:if={isLoading}>
+		<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+	</div>
+</template>

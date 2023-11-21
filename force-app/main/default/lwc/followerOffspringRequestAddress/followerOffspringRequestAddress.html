@@ -3,7 +3,8 @@
 		<span class="slds-p-horizontal_small" title="Addresses">Addresses</span>
 	</h3>
 	<div class="slds-section__content slds-grid slds-p-around_small">
-		<div class="slds-col slds-size_1-of-2 slds-m-right_small">
+		<div class="slds-col slds-size_1-of-2 slds-m-right_small slds-has-flexi-truncate">
+			<strong>Address: <lightning-formatted-text class="slds-truncate" value={physicalAddressStr}></lightning-formatted-text></strong>
 			<c-ame-address-validation2
 					label="Physical Address"
 					onconfirmaddress={handleConfirmedPhysicalAddress}
@@ -14,6 +15,7 @@
 		</div>
 		<template lwc:if={showMailingAddress}>
 			<div class="slds-col slds-size_1-of-2">
+				<strong>Address: <lightning-formatted-text class="slds-truncate" value={mailingAddressStr}></lightning-formatted-text></strong>
 				<c-ame-address-validation2
 						label="Mailing Address"
 						onconfirmaddress={handleConfirmedMailingAddress}
@@ -26,6 +28,6 @@
 	</div>
 	<div class="slds-m-left_small">
 		<div class="slds-form-element__label slds-p-bottom_xxx-small">Is Mailing Address Same as Physical Address?</div>
-		<lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" onchange={handleAddressToggleChange} style="width: fit-content;"></lightning-input>
+		<lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" onchange={handleAddressToggleChange} style="width: fit-content;" checked={toggleChecked}></lightning-input>
 	</div>
 </template>
