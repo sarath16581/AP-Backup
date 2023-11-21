@@ -130,6 +130,7 @@
         cmp.set('v.showIssuesList',true);
     },
     doInit : function(cmp, event, helper) {
+
         //--Call the helper method to parse the url.
         var urlVars = helper.parseUrlParam();
         //--Get the Tracking Id parameter.
@@ -195,6 +196,7 @@
         // invoke the service for the below issue types only
         if(!$A.util.isEmpty(issueName) && (issueName == "Postie didn\'t knock" || issueName == "Item was left in an unsafe place"))
         {
+
             helper.searchTrackingNumber(cmp,event,helper);
             
         }

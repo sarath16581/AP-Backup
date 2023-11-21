@@ -176,6 +176,13 @@
 	<aura:attribute name="isOverriden" type="Boolean" default="false" />
 
 	<!-- CAPTCHA attributes-->
+
+	<!-- Used to prevent the progression to the next step if captch hasn't been previously validated for the entered article.
+			This will ensure tracking api is always called (when it's needed) to grab the attributes the form needs for its workflows
+			NOTE: verified starts as true in the event that a tracking API call is not actually needed.
+			captchaVerified will be set to false once we enter into tracking search helper method -->
+			<aura:attribute name="captchaVerified" type="Boolean" default="true" />
+
 	<aura:attribute name="articleTrackingCaptchaEmptyError"  type="Boolean" default="false" />
 	<aura:attribute name="articleTrackingCaptchaToken"  type="String" default="" />
 	<aura:handler name="captchaEvent" event="c:captchaVerifyEvent" action="{!c.handleCaptchaVerify}"/>
