@@ -1,7 +1,8 @@
-image: apnathanfranklin/ap-sfdx-pipeline:latest
-username: $DOCKER_HUB_USERNAME
-password: $DOCKER_HUB_PASSWORD
-email: $DOCKER_HUB_EMAIL
+image: 
+  name: apnathanfranklin/ap-sfdx-pipeline:latest
+  username: $DOCKER_HUB_USERNAME
+  password: $DOCKER_HUB_PASSWORD
+  email: $DOCKER_HUB_EMAIL
 pipelines:
     pull-requests:
         feature/*:
