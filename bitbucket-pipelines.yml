@@ -8,7 +8,7 @@ pipelines:
             - step:
                   name: Code Analysis and Build
                   script:
-                      bash /pipelines/pipeline-orchestrator/feature.sh \
+                      - bash /pipelines/pipeline-orchestrator/feature.sh \
                           --clientid dummyvalue \
                           --clientsecret dummyvalue \
                           --username dummyvalue \
