@@ -4,6 +4,7 @@
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
  * 2022-09-12 mahesh.parvathaneni@auspost.com.au DDS-12166: Added analytics for invalid tracking number error
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
  ({
     callTrackingNumberService : function(cmp, event, helper) {
@@ -12,22 +13,52 @@
         if (cmp.get('v.isLoading')) return;
         // make Spinner attribute true for display loading spinner 
         cmp.set("v.isLoading", true);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
         cmp.set('v.error500', false);
 
         //-- checking if Tracking Number is entered
         var isTrackingNumEntered = helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
         if (isTrackingNumEntered ) {
            if (cmp.get('v.wizardData.trackingId') != cmp.get('v.wizardData.pretrackingId')) {
-                //-- Trcking number is changed, so make a server call
-                cmp.set("v.showInvalidWithinEDDMessage", false)
-                cmp.set("v.showInvalidMessage", false);
-               cmp.set("v.showCallerType",false);
-               cmp.set("v.wizardData.hasQualifiedForLateFlow",false);
-               cmp.set('v.wizardData.skipDeflectionPage', false);
-                var action = cmp.get("c.searchTrackingNumber");
-                action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
-                
+
+				let controllerMethod = 'c.searchTrackingNumber';
+				let trackingParams = {trackingNumber: cmp.get("v.wizardData.trackingId")}
+				const authUserData = cmp.get('v.authUserData');
+				// force the user to enter a captcha value if they aren't logged in
+				if(!authUserData || !authUserData.isUserAuthenticated) {
+
+					controllerMethod = 'c.searchTrackingNumberWithCaptcha';
+
+					const captchaToken = cmp.get('v.articleTrackingCaptchaToken');
+					trackingParams.captchaToken = captchaToken;
+					
+					if(!captchaToken) {
+						cmp.set('v.articleTrackingCaptchaEmptyError', true);
+						cmp.set('v.isLoading', false);
+						return;
+					}
+		
+				}
+
+				//-- Trcking number is changed, so make a server call
+				cmp.set("v.showInvalidWithinEDDMessage", false)
+				cmp.set("v.showInvalidMessage", false);
+				cmp.set("v.showCallerType",false);
+				cmp.set("v.wizardData.hasQualifiedForLateFlow",false);
+				cmp.set('v.wizardData.skipDeflectionPage', false);
+
+                var action = cmp.get(controllerMethod);
+                action.setParams(trackingParams);
                 action.setCallback(this, function(response) {
+
+					// means the user will need to reverify 
+					cmp.set('v.articleTrackingCaptchaToken', '');
+
+					const captchaComponent = cmp.find("chasCaptcha");
+					if(!$A.util.isUndefined(captchaComponent)) {
+						captchaComponent.reset();
+					}
+
                     var state = response.getState();
                     var trackingNumInputCmp = cmp.find("ChasTrackingId");
                     

@@ -4,8 +4,31 @@
  * * 2022-05-25 mahesh.parvathaneni@auspost.com.au DDS-7397 Set the recipient WCID
  * * 2022-05-31 mahesh.parvathaneni@auspost.com.au Changes for Accessbility and disability enquiries
  * * 2022-07-08 mahesh.parvathaneni@auspost.com.au DDS-11191 Network name on transfer requests
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
 ({
+	handleCaptchaVerify: function(cmp, event, helper) {
+		const token = event.getParam('token');
+		cmp.set('v.articleTrackingCaptchaToken', token);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
+
+		var a = cmp.get('c.searchTrackingNumberService');
+        $A.enqueueAction(a);
+	},
+
+	maybeResetCaptchaToken: function(cmp) {
+		const existingToken = cmp.get('v.articleTrackingCaptchaToken');
+		if(existingToken) {
+			// // means the user will need to reverify 
+			cmp.set('v.articleTrackingCaptchaToken', '');
+
+			const captchaComponent = cmp.find("chasCaptcha");
+			if(!$A.util.isUndefined(captchaComponent)) {
+				captchaComponent.reset();
+			}
+		}
+	},
+
 	doInit: function (cmp, event, helper) {
 		//Check the base url of the page, this is to ascertain users getting directed from a direct link
 		var baseUrl = window.location.href;

@@ -13,6 +13,7 @@
                2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved the createCaseFromProductsAndServices method to ChasProductsAndServicesControllerTest.
                2022-06-29 hasantha.liyanage@auspost.com.au Modified : DDS-11414 alteration of unit tests for changed method params for getEDDEstimates
 			   2022-07-04 hasantha.liyanage@auspost.com.au Modified : DDS-11414 getEDDEstimates unit tests moved to it's own class
+			   2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 
 **/
 @IsTest(IsParallel=true)
@@ -1363,6 +1364,8 @@ deliveryIssue_Somethingelse
 		List< Consumer_Help_and_Support__c> customSettingList = new List< Consumer_Help_and_Support__c>();
 		//-- setting some key and service URL as it wont hit a call for service from test cases
 		Consumer_Help_and_Support__c setting = new Consumer_Help_and_Support__c();
+		setting.reCAPTCHASecretKey__c = '1234';
+		setting.reCAPTCHAVerifyURL__c = 'https://www.google.com/recaptcha/api/siteverify';
 		setting.API_Key_v2__c = 'ecc702f2-278a-4b84-aa1e-3e7dea3c6246';
 		setting.Connection_Time_Out__c = 60000;
 		setting.End_Point_1Track_Service_URL_v2__c ='https://digitalapi-ptest.npe.auspost.com.au/consignment-internal/v2/articles';
@@ -1407,6 +1410,107 @@ deliveryIssue_Somethingelse
 
 		return cons;
 
+	}
+
+	/**
+	 * Test will ensure that captcha is bypassed if there is a logged in user (not a guest user)
+	 */
+	@IsTest
+	private static void testsearchTrackingNumberWithCaptchaBypassedForLoggedInUser() {
+
+		StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+		testsearchTrackingNumberSetup(mock,'CHAS_AwaitingCollection');
+
+		HttpCalloutRecaptchaHappyPathMock recaptchaMock = new HttpCalloutRecaptchaHappyPathMock();
+
+		MultiRequestMock mockManager = new MultiRequestMock(new Map<String, HttpCalloutMock>{
+			'https://digitalapi-ptest.npe.auspost.com.au/consignment-internal/v2/articles?q=36382832732382&expand=events' => mock,
+			'https://www.google.com/recaptcha/api/siteverify' => recaptchaMock
+		});
+
+		Test.startTest();
+		Test.setMock(HttpCalloutMock.class, mockManager);
+
+		ChasApexController.searchTrackingNumberWithCaptcha('36382832732382', 'mytokenfromclickingintheclient');
+
+		System.assertEquals(false, recaptchaMock.mockCalled, 'Mock was invoked when it should not have been');
+
+		Test.stopTest();
+	}
+
+	/**
+	 * Test will ensure to the captcha endpoint is called for an unauthenticated user before calling the tracking api
+	 */
+	@IsTest
+	private static void testsearchTrackingNumberWithCaptchaForUnauthenticatedUser() {
+
+		StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+		testsearchTrackingNumberSetup(mock,'CHAS_AwaitingCollection');
+
+		HttpCalloutRecaptchaHappyPathMock recaptchaMock = new HttpCalloutRecaptchaHappyPathMock();
+
+		MultiRequestMock mockManager = new MultiRequestMock(new Map<String, HttpCalloutMock>{
+			'https://digitalapi-ptest.npe.auspost.com.au/consignment-internal/v2/articles?q=36382832732382&expand=events' => mock,
+			'https://www.google.com/recaptcha/api/siteverify' => recaptchaMock
+		});
+
+		Test.startTest();
+		Test.setMock(HttpCalloutMock.class, mockManager);
+
+		User guestUser = getGuestUser();
+        System.runAs(guestUser){
+				ChasApexController.searchTrackingNumberWithCaptcha('36382832732382', 'mytokenfromclickingintheclient');
+		}
+
+		System.assert(recaptchaMock.mockCalled, 'Mock was not invoked');
+
+		// setup in testsearchTrackingNumberSetup method call above
+		System.assertEquals('1234', recaptchaMock.postBody.get('secret'), 'Secret was not passed correctly ' + recaptchaMock.postBody);
+		System.assertEquals('mytokenfromclickingintheclient', recaptchaMock.postBody.get('response'), 'Response was not passed correctly ' + recaptchaMock.postBody);
+
+		Test.stopTest();
+	}
+
+	/**
+	 * Test will ensure to the captcha endpoint is called for an unauthenticated user before calling the tracking api
+	 * This will ensure when a token is not valid it will fail and return an AuraHandledException
+	 */
+	@IsTest
+	private static void testsearchTrackingNumberWithCaptchaForUnauthenticatedUserAndVerificationFails() {
+
+		StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+		testsearchTrackingNumberSetup(mock,'CHAS_AwaitingCollection');
+
+		HttpCalloutRecaptchaInvalidMock recaptchaMock = new HttpCalloutRecaptchaInvalidMock();
+
+		MultiRequestMock mockManager = new MultiRequestMock(new Map<String, HttpCalloutMock>{
+			'https://digitalapi-ptest.npe.auspost.com.au/consignment-internal/v2/articles?q=36382832732382&expand=events' => mock,
+			'https://www.google.com/recaptcha/api/siteverify' => recaptchaMock
+		});
+
+		Test.startTest();
+		Test.setMock(HttpCalloutMock.class, mockManager);
+
+		User guestUser = getGuestUser();
+        System.runAs(guestUser){
+			try {
+				ChasApexController.searchTrackingNumberWithCaptcha('36382832732382', 'mytokenfromclickingintheclient');
+
+				System.assert(false);
+			} catch(AuraHandledException exp) {
+				System.assert(true);
+			} catch(Exception exp) {
+				System.assert(false);
+			}
+		}
+
+		System.assert(recaptchaMock.mockCalled, 'Mock was not invoked');
+
+		// setup in testsearchTrackingNumberSetup method call above
+		System.assertEquals('1234', recaptchaMock.postBody.get('secret'), 'Secret was not passed correctly ' + recaptchaMock.postBody);
+		System.assertEquals('mytokenfromclickingintheclient', recaptchaMock.postBody.get('response'), 'Response was not passed correctly ' + recaptchaMock.postBody);
+
+		Test.stopTest();
 	}
 
 	// DDS-5488: test method for Consignment API return 404
@@ -1894,6 +1998,88 @@ System.assert(isSuccess);
 	{
 		List<CHAS_ThankYouPageNextSteps__mdt> metadatas = ChasApexController.getNextStepMetadata('nextStepsSafeDropDelivered');
 		System.assert(metadatas.size() > 0);
+	}
+
+	private static User getGuestUser() {
+		Profile guestProfile = [SELECT Id FROM Profile WHERE Name = 'Consumer Help and Support Profile' AND UserLicense.Name = 'Guest User License' LIMIT 1];
+
+		User guestUser = [Select Id From User Where ProfileId = :guestProfile.Id LIMIT 1];
+
+        // //Create our test guest user
+        // User guestUser = new User(
+        //     Alias = 'random',
+        //     Email='random' + DateTime.now().getTime() + '@apsf.com',
+        //     EmailEncodingKey = 'UTF-8',
+        //     LastName = 'random',
+        //     LocaleSidKey = 'en_US',
+        //     LanguageLocaleKey = 'en_US',
+        //     ProfileId = guestProfile.Id,
+        //     TimeZoneSidKey ='America/Los_Angeles',
+        //     UserName ='randomuser' + DateTime.now().getTime() + '@apsf.com'
+        // );
+
+		return guestUser;
+	}
+
+	public class HttpCalloutRecaptchaHappyPathMock implements HttpCalloutMock {
+		public Boolean mockCalled = false;
+		public Map<String, String> postBody = new Map<String, String>();
+
+		public HTTPResponse respond(HTTPRequest req) {
+			System.PageReference pageReference = new System.PageReference('/?' + req.getBody());
+			Map<String,String> parameters = pageReference.getParameters();
+			postBody.put('secret', parameters.get('secret'));
+			postBody.put('response', parameters.get('response'));
+
+			mockCalled = true;
+
+			HttpResponse res = new HttpResponse();
+            res.setStatus('OK');
+            res.setStatusCode(200);
+            res.setBody('{"success":true}');
+            return res;
+		}
+	}
+
+	public class HttpCalloutRecaptchaInvalidMock implements HttpCalloutMock {
+		public Boolean mockCalled = false;
+		public Map<String, String> postBody = new Map<String, String>();
+
+		public HTTPResponse respond(HTTPRequest req) {
+			System.PageReference pageReference = new System.PageReference('/?' + req.getBody());
+			Map<String,String> parameters = pageReference.getParameters();
+			postBody.put('secret', parameters.get('secret'));
+			postBody.put('response', parameters.get('response'));
+
+			mockCalled = true;
+
+			HttpResponse res = new HttpResponse();
+            res.setStatus('OK');
+            res.setStatusCode(200);
+            res.setBody('{"success":false}');
+            return res;
+		}
+	}
+
+	public class MultiRequestMock implements HttpCalloutMock {
+		Map<String, HttpCalloutMock> requests;
+
+		public MultiRequestMock(Map<String, HttpCalloutMock> requests) {
+			this.requests = requests;
+		}
+
+		public HTTPResponse respond(HTTPRequest req) {
+			HttpCalloutMock mock = requests.get(req.getEndpoint());
+			if (mock != null) {
+				return mock.respond(req);
+			} else {
+				return null;
+			}
+		}
+
+		public void addRequestMock(String url, HttpCalloutMock mock) {
+			requests.put(url, mock);
+		}
 	}
 
 
