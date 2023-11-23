@@ -75,16 +75,16 @@
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>36000</minutesToComplete>
         <timeTriggers>
-            <timeLength>-10</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
             <actions>
                 <name>SSSW_Set_Case_as_Escalated</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>-10</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
@@ -505,14 +505,6 @@
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
             <actions>
-                <name>Facility_Email_Notification</name>
-                <type>Alert</type>
-            </actions>
-            <timeLength>5</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SSSW_Case_Milestone_Violation_FALSE</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -525,6 +517,14 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Facility_Email_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>5</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
@@ -573,14 +573,6 @@
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
             <actions>
-                <name>Facility_Email_Notification</name>
-                <type>Alert</type>
-            </actions>
-            <timeLength>5</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SSSW_Case_Milestone_Violation_FALSE</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -593,6 +585,14 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Facility_Email_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>5</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>

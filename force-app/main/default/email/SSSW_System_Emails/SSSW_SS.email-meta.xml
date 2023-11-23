@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <available>false</available>
+    <description>It displays the most recent email message that is sent to the Customer.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Customer Escalation Email - wContent TEST SS</name>
+    <style>none</style>
+    <subject>Australia Post  - Case:</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

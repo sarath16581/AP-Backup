@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>CSQApprovalsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CSQ_PickupLocationUtility</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>CSQ_Record_Duplication</name>
@@ -31,7 +39,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Customer_Scoping_Questionnaire__c.Clone_Source__c</field>
+        <field>Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -42,6 +50,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Scoping_Questionnaire__c.CSQ_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Scoping_Questionnaire__c.Clone_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -505,8 +518,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Pick_Up_Location__c.Pick_Up_location_Details__c</field>
+        <editable>false</editable>
+        <field>Pick_Up_Location__c.Owned_By_Me__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -515,8 +528,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Pick_Up_Location__c.Owned_By_Me__c</field>
+        <editable>true</editable>
+        <field>Pick_Up_Location__c.Pick_Up_location_Details__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -618,8 +631,4 @@
         <tab>standard-Opportunity</tab>
         <visibility>Visible</visibility>
     </tabSettings>
-	<classAccesses>
-		<apexClass>CSQApprovalsController</apexClass>
-		<enabled>true</enabled>
-	</classAccesses>
 </PermissionSet>

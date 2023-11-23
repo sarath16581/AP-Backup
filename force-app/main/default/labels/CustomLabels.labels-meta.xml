@@ -3845,7 +3845,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
-        <value>The Reference ID already have a compensation record and only supervisor can create more than one.</value>
+        <value>The Reference ID already has a compensation record and only a supervisor can create another record.</value>
     </labels>
     <labels>
         <fullName>CompensationMsgCaseMustHaveReference</fullName>
@@ -5238,13 +5238,29 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Active Apttus Contract Cannot Be Closed Lost Error Message</shortDescription>
         <value>Cancel Apttus Contracts. The activated or in-flight contract must be cancelled before you can change the stage of this opportunity to close lost/disqualified/duplicate.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithIncorrectOverlayTypeSplitsAssignments</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
         <value>Correct the {0} Opportunity Split. A non-{0} team member can’t be assigned to the {0} overlay split.</value>
+    </labels>
+	<labels>
+        <fullName>OpportunityWithInvalidQuantityOnProducts</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
+        <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
+    </labels>
+	<labels>
+        <fullName>OpportunityWithInvalidRevenueStartDateOnProducts</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Invalid Revenue Start Date On Products</shortDescription>
+        <value>Update the product Revenue Date(s) to a future date. Revenue Start Dates must be later than today. If this is a ‘pre-entry’ scenario where trade commences prior to closing, request Customer Onboarding update this via a DSR.</value>
     </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
@@ -8076,6 +8092,22 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
+	<labels>
+        <fullName>AttributeAPCNMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute APCN Mapping</shortDescription>
+        <value>https://auspost/apcn</value>
+    </labels>
+    <labels>
+        <fullName>AttributeCNumberMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute CNumber Mapping</shortDescription>
+        <value>https://auspost/cnumber</value>
+    </labels>
     <labels>
         <fullName>AutoLITExceptionYes</fullName>
         <categories>Chas - Help and Support</categories>
@@ -8196,7 +8228,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Manifest only</shortDescription>
         <value>Please flag when there are no physical scans for the parcel</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>

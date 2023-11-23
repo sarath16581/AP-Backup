@@ -8,6 +8,7 @@
   * Modified by Mahesh Parvathaneni - 03/05/2022 - Added disclaimer section on Delete MyPost account enquiry and changed to MyPost general enquiries
   * Modified by Hasantha Liyanage - 30/05/2022 DDS-10809: - Accessibility categories - Preselect functionality on product & services
   * Modified by Mahesh Parvathaneni - 31/05/2022 - Changes for Accessbility and disability enquiries
+  * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 -->
 <aura:component
 	extends="c:SS_uiWizardPage"
@@ -173,6 +174,19 @@
 	<aura:attribute name="incorrectShowError" type="Boolean" default="false" />
 	<aura:attribute name="inputFieldError" type="Boolean" default="false" />
 	<aura:attribute name="isOverriden" type="Boolean" default="false" />
+
+	<!-- CAPTCHA attributes-->
+
+	<!-- Used to prevent the progression to the next step if captch hasn't been previously validated for the entered article.
+			This will ensure tracking api is always called (when it's needed) to grab the attributes the form needs for its workflows
+			NOTE: verified starts as true in the event that a tracking API call is not actually needed.
+			captchaVerified will be set to false once we enter into tracking search helper method -->
+			<aura:attribute name="captchaVerified" type="Boolean" default="true" />
+
+	<aura:attribute name="articleTrackingCaptchaEmptyError"  type="Boolean" default="false" />
+	<aura:attribute name="articleTrackingCaptchaToken"  type="String" default="" />
+	<aura:handler name="captchaEvent" event="c:captchaVerifyEvent" action="{!c.handleCaptchaVerify}"/>
+
 	<!-- Trigger analytics when redirected from a direct link like chatbot or from a FAQ page-->
 	<aura:if isTrue="{!v.isFromDirectLink}">
 		<c:adobeAnalyticsInterfaceComponent
@@ -275,9 +289,19 @@
 								subLabel="(optional)"
 								value="{! v.wizardData.trackingId}"
 								onblur="{!c.searchTrackingNumberService}"
+								oninput="{!c.maybeResetCaptchaToken}"
 								isVerified="{!v.isVerified}"
 								isLoading="{!v.isLoading}"
 							/>
+
+
+							<aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+								<aura:set attribute="else">
+									<c:ChasErrorMessages error="Please verify the captcha below" showError="{!v.articleTrackingCaptchaEmptyError}"/>
+									<c:ChasCaptcha aura:id="chasCaptcha" />
+								</aura:set>
+							</aura:if>
+
 							<!-- LWC component : Preferred Post Office for collection-->
 							<div
 								id="preferredLocation"

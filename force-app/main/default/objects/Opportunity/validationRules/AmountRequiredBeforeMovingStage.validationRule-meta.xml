@@ -2,8 +2,16 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AmountRequiredBeforeMovingStage</fullName>
     <active>true</active>
-    <description>Ensure Total Opportunity Value is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
-    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( Amount ), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <description>Ensure Total Opportunity Value is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond. Total Opportunity Value should always be &gt;= 300 if there are no products added for an opportunity.</description>
+    <errorConditionFormula>AND(
+ NOT(ISNEW()),
+ ISCHANGED( StageName ),
+ OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName,
+ &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;),
+ ISPICKVAL(StageName, &quot;Closed Won&quot;) ),
+ OR(ISBLANK( Amount ), AND(Count_of_Opportunity_Line_Items__c = 0, 
+ Amount &lt; 300))
+)</errorConditionFormula>
     <errorDisplayField>Amount</errorDisplayField>
-    <errorMessage>Add a Total Opportunity Value. Your initial sales estimate must be assigned in the Total Opportunity Value field prior to adding products.</errorMessage>
+    <errorMessage>Add the Total Opportunity Value. Your initial sales estimate must be assigned in the Total Opportunity Value field prior to adding products.</errorMessage>
 </ValidationRule>

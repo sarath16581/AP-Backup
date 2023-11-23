@@ -289,7 +289,7 @@
         <criteriaItems>
             <field>Enquiry_Type__c</field>
             <operation>equals</operation>
-            <value>Billing Dispute</value>
+            <value>Billing dispute</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>

@@ -8,6 +8,7 @@
     <columns>ExceptionDetails__c</columns>
     <columns>ExceptionType__c</columns>
     <columns>ExceptionLogTimestamp__c</columns>
+    <columns>ContextUser__c</columns>
     <filterScope>Everything</filterScope>
     <label>All -Today</label>
 </ListView>
