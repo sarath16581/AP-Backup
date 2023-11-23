@@ -461,7 +461,7 @@
             <value>
                 <fullName>Annual PO box charge</fullName>
                 <default>false</default>
-                <label>Annual PO box charge</label>
+                <label>Annual PO Box charge</label>
             </value>
             <value>
                 <fullName>Annual reply paid</fullName>
@@ -486,7 +486,7 @@
             <value>
                 <fullName>Consumable returns - Merch / online shop</fullName>
                 <default>false</default>
-                <label>Consumable returns - Merch / online shop</label>
+                <label>Consumable returns - Merch / Online Shop</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
