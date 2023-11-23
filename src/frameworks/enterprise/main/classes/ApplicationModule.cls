@@ -6,7 +6,6 @@
  * @author Nathan Franklin
  * @date 2023-06-12
  * @changelog
- * 2020-11-21 - Nathan Franklin - No Change
  */
 public inherited sharing abstract class ApplicationModule {
 
