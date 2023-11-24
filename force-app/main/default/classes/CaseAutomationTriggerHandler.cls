@@ -3,6 +3,7 @@
  * @author Nathan Franklin
  * @date 2023-06-12
  * @changelog
+ * 2023-11-23 - Thang Nguyen - include the credit claim case business logic
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
@@ -15,9 +16,10 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 				recordTypesByKey = new Map<String, Set<Id>>{
 					'SSSW' => new Set<Id>(),
 					'SSSWWithSocial' => new Set<Id>(),
-					'StarTrack' => new Set<Id>()
+					'StarTrack' => new Set<Id>(),
+					'Enterprise_Credit_Dispute_Claim' => new Set<Id>()
 				};
-				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack'}).values();
+				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim'}).values();
 
 				for(RecordType rt : recordTypes) {
 					if(rt.DeveloperName.startsWithIgnoreCase('SSSW')) {
@@ -30,6 +32,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					if(rt.DeveloperName.startsWithIgnoreCase('StarTrack')) {
 						recordTypesByKey.get('StarTrack').add(rt.Id);
 					}
+					if(rt.DeveloperName.startsWithIgnoreCase('Enterprise_Credit_Dispute_Claim')) {
+						recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').add(rt.Id);
+					}					
 				}
 			}
 			return recordTypesByKey;
@@ -54,7 +59,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
 			'filterSSSW' => new List<SObject>(),
 			'filterSSSWWithSocial' => new List<SObject>(),
-			'filterStarTrack' => new List<SObject>()
+			'filterStarTrack' => new List<SObject>(),
+			'filterCreditDisputeClaim' => new List<SObject>()
 		};
 		for(SObject record : records) {
 			Id recordTypeId = (Id)record.get('RecordTypeId');
@@ -66,6 +72,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			}
 			if(recordTypesByKey.get('StarTrack').contains(recordTypeId)) {
 				filteredRecords.get('filterStarTrack').add(record);
+			}
+			if(recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').contains(recordTypeId)) {
+				filteredRecords.get('filterCreditDisputeClaim').add(record);
 			}
 
 		}
@@ -85,6 +94,7 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		registerModule(StarTrackSupportCaseCustomerModule.class, 'filterStarTrack'); 
 		registerModule(StarTrackDeliveryEnquiryProcessModule.class, 'filterStarTrack');
 		registerModule(StarTrackTrackingIDSearchModule.class, 'filterStarTrack');
+		registerModule(CreditDisputeClaimCaseModule.class, 'filterCreditDisputeClaim');
 
 		// all of the old case execution logic which hasn't been uplifted yet
 		registerModule(CaseLegacyAutomationModule.class);
