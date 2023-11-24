@@ -1311,16 +1311,9 @@ public without sharing class APT_AmendRenewUtility {
 	 */
 	@TestVisible
 	private static String removeDovRenewalPartsFromOppName(String oppName) {
-		List<String> oppNameParts = new List<String>();
 		if (String.isNotBlank(oppName)) {
-			for (String part : oppName.split(' ')) {
-				if (!part.equalsIgnoreCase('Renewal:') && !part.equalsIgnoreCase('DoV:')) {
-					oppNameParts.add(part);
-				}
-			}
+			return oppname.replaceAll('(?i)(renewal: |dov: )', '');
 		}
-
-		return !oppNameParts.isEmpty() ? String.join(oppNameParts, ' ') : oppName;
-
+		return oppName;
 	}
 }

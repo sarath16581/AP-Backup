@@ -17,7 +17,7 @@ public inherited sharing class MPBRegHandlerService {
 		Map<String, String> output = new Map<String, String>();
 		output.putAll(attributes);
 
-		String cNumber = String.valueOf(attributes.get(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING));
+		String cNumber = String.valueOf(attributes.get(Label.AttributeCNumberMapping));
 		output.put('cnumber', cNumber); // this is to maintain backwards compatibility of the millions of existing records we have
 
 		return output;
@@ -38,7 +38,7 @@ public inherited sharing class MPBRegHandlerService {
 		if(!attributes.containsKey('email')) {
 			output.add('Email attribute is missing');
 		}
-		if(!attributes.containsKey(Auth0OIDCAuthProvider.ATTRIBUTE_CNUMBER_MAPPING) || !attributes.containsKey('cnumber')) {
+		if(!attributes.containsKey(Label.AttributeCNumberMapping) || !attributes.containsKey('cnumber')) {
 			output.add('CNumber attribute is missing');
 		}
 

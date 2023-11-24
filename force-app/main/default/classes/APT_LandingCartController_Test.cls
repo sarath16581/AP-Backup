@@ -5,6 +5,7 @@
 * @description A class which test Proposal creation on a click of button "Add Product" is clicked from the
 				opportunity page which is called form lightning "aPT_AddProductLWC" class
 * @changelog
+* 2023-11-20 : Bharat Patel - added testValidationCheckWithSalesSpecialist(), to validate Sales Specialist roles related logic
 */
 @IsTest
 public with sharing class APT_LandingCartController_Test {
@@ -633,5 +634,86 @@ public with sharing class APT_LandingCartController_Test {
 
 		}
 	}
+
+
+/**
+ * Test: Method validate funcationality of Sales Specialist role specific execution
+ **/
+ @IsTest
+ public static void testValidationCheckWithSalesSpecialist(){
+
+	Profile p =[SELECT Id,Name FROM Profile WHERE Name=:APT_Constants.STRING_BG_BASE];
+	UserRole userRole =[SELECT Id, Name from UserRole WHERE Name= 'Sales Specialists NSW 1 - SR'];
+	//creating user as BG_BASE profile
+	User user= new user();
+	user.FirstName = 'First Name %count%';
+	user.LastName = 'Last Name %count%';
+	user.Username = 'ZZtest%count%@test%count%.test%count%.com';
+	user.Email = 'nj@conga.com';
+	user.Alias = 'nj';
+	user.EmailEncodingKey = 'UTF-8';
+	user.TimezoneSidKey = 'Australia/Sydney';
+	user.LanguageLocaleKey = 'en_AU';
+	user.LocaleSidKey = 'en_AU';
+	user.ProfileId = p.id;
+	user.UserRoleId = userRole.Id;
+	insert user;
+
+	//Retrieve the Permission Set
+	PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'APT_Sales_Specialist' LIMIT 1];
+
+	// Assign the Permission Set to the User
+	PermissionSetAssignment psAssignment = new PermissionSetAssignment(PermissionSetId = ps.Id, AssigneeId = user.Id);
+	insert psAssignment;
+
+	System.runAs(user){
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact con = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		opp.IsStartrackProposal__c = 'No';
+		opp.stagename = 'Identify';
+		opp.KeyContact__c = con.id;
+
+		Apttus_Proposal__Proposal__c quote1 = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, account.Id, con.id, true)[0];
+		quote1.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_ACCEPTED;
+
+		OpportunitySelector mockSelectorOpp = (OpportunitySelector) MockUtility.mockSelector(OpportunitySelector.class);
+		ApplicationDatabase mockDatabaseOpp = MockUtility.mockDatabase();
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelectorOpp.selectById((set<Id>)fflib_Match.eq(new Set<Id>{opp.id}))).thenReturn(
+			new map<Id,Opportunity>(new List<Opportunity>{opp}));
+		MockUtility.Mocks.stopStubbing();
+
+		APT_ProposalObjectsSelector mockSelectorProposal = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelectorProposal.selectByOpportunityId((set<Id>)fflib_Match.eq(new Set<Id>{opp.id}))).thenReturn(
+			new List<Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{quote1}));
+		MockUtility.Mocks.stopStubbing();
+
+		ApplicationDatabase mockDatabaseProposalupdate = MockUtility.mockDatabase();
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabaseProposalupdate.dmlupdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+
+		ApplicationDatabase mockDatabaseProposalInsert = MockUtility.mockDatabase();
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabaseProposalInsert.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		APT_LandingCartController.validationCheck(opp.id);
+		Test.stopTest();
+
+		fflib_ArgumentCaptor insertedProposal = fflib_ArgumentCaptor.forClass(List<Apttus_Proposal__Proposal__c>.class);
+		// verify dml insert has been made 1 times
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabaseProposalInsert, MockUtility.Mocks.times(1))).dmlInsert((List<Apttus_Proposal__Proposal__c>)insertedProposal.capture());
+		// verify Proposal Stage is populated with the "DRAFT" stage
+		for(Apttus_Proposal__Proposal__c alp: (List<Apttus_Proposal__Proposal__c>) insertedProposal.getValue()){
+			if(alp.Apttus_Proposal__Approval_Stage__c != null){
+				System.assertEquals(alp.Apttus_Proposal__Approval_Stage__c,APT_Constants.QUOTE_TYPE_DRAFT);
+			}
+		}
+	}
+ }
 
 }
