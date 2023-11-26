@@ -44,6 +44,8 @@
 <p>
 Hi {!Case.Name__c},
 <br/><br/>
+We refer to case {!Case.CaseNumber}.
+<br/><br/>
 Thank you for your enquiry. For any additional assistance could you please contact our specialised MyPost Business team directly on 13 11 18, or alternatively lodge the details via MyPost Business and select 'Support' from the left hand navigation panel. Please accept my apologies if any inconvenience has been caused. This enquiry has now been closed off in our system.
 <br/><br/>
 Kind regards,
