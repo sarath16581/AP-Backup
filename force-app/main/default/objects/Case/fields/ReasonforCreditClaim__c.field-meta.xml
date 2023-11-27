@@ -379,11 +379,6 @@
                 <label>Incorrect weight / cubic charge</label>
             </value>
             <value>
-                <fullName>Explanation of charge</fullName>
-                <default>false</default>
-                <label>Explanation of charge</label>
-            </value>
-            <value>
                 <fullName>Not home card - Second delivery</fullName>
                 <default>false</default>
                 <label>Not home card - Second delivery</label>
@@ -508,10 +503,6 @@
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
             <valueName>Incorrect weight / cubic charge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Explanation of charge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
