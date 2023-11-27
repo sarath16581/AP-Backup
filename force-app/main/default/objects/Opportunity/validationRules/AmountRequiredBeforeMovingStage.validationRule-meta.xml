@@ -13,5 +13,5 @@
  Amount &lt; 300))
 )</errorConditionFormula>
     <errorDisplayField>Amount</errorDisplayField>
-    <errorMessage>Add a Total Opportunity Value. Your initial sales estimate (&gt;=$300) must be assigned in the Total Opportunity Value field prior to adding products.</errorMessage>
+    <errorMessage>Add the Total Opportunity Value. Your initial sales estimate must be assigned in the Total Opportunity Value field prior to adding products.</errorMessage>
 </ValidationRule>

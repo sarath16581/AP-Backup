@@ -133,6 +133,11 @@
                 <label>Delivered to incorrect address - Attempting retrieval and redelivery</label>
             </value>
             <value>
+                <fullName>Delivered to incorrect address – Retrieved and redelivered</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address – Retrieved and redelivered</label>
+            </value>
+            <value>
                 <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
                 <default>false</default>
                 <label>Delivered to incorrect address - retrieval and carded to outlet</label>
@@ -292,11 +297,6 @@
                 <default>false</default>
                 <label>Pot plant</label>
             </value>
-			<value>
-                <fullName>Delivered to incorrect address - Retrieved and redelivered</fullName>
-                <default>false</default>
-                <label>Delivered to incorrect address - Retrieved and redelivered</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
@@ -338,6 +338,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address – Retrieved and redelivered</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address - retrieval and carded to outlet</valueName>
         </valueSettings>
@@ -350,10 +354,6 @@
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address - retrieval attempt - delivered by resident</valueName>
-        </valueSettings>
-		<valueSettings>
-            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <valueName>Delivered to incorrect address - Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>

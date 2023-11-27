@@ -289,7 +289,7 @@ public class SSSW_MyNetworkResponsePageContr {
                     String CaseProductCategory = relatedCse.productCategory__c;
                                     system.debug('Caseproductcategory' +CaseProductCategory);
 
-                    system.debug(caseCond);
+                    system.debug('This is the CaseCond from NetwResponse' + caseCond);
                      
                 //loop through the custom setting for getting template against each selections only for product category 
                             

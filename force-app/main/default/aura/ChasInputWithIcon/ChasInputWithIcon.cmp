@@ -1,3 +1,7 @@
+<!-- 
+	@changelog
+	2023-11-20 - Nathan Franklin - add oninput for scenarios where some parent components require immeadiate feedback after the user types
+-->
 <aura:component extends="c:ChasBaseInput" description="Standard text input">
     <aura:attribute name="type" type="String" default="text"/>
     <aura:attribute name="maxlength" type="Integer"/>
@@ -5,6 +9,7 @@
     <aura:attribute name="prefix" type="String"/>
     <aura:attribute name="pattern" type="String"/>
     <aura:attribute name="onblur" type="Aura.Action" />
+	<aura:attribute name="oninput" type="Aura.Action" />
     <aura:attribute name="isLoading"  type="Boolean" default="false" />
     <aura:attribute name="isVerified"  type="Boolean" default="false" />
     

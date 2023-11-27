@@ -17,4 +17,8 @@
         <recordType>QuickText.StarTrack_support</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>standard-QuickText</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

@@ -1004,15 +1004,7 @@
     <picklistValues>
         <picklist>Exemption_Type__c</picklist>
         <values>
-            <fullName>Force Majeure Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Fuel Surcharge %28FSC%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Manifest Correction Fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1024,15 +1016,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Over Maximum Limits Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Oversize Charge %28OSC%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Peak Fee</fullName>
             <default>false</default>
         </values>
         <values>

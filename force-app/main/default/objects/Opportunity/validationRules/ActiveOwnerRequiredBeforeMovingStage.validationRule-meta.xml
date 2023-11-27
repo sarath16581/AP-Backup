@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActiveOwnerRequiredBeforeMovingStage</fullName>
+    <active>true</active>
+    <description>Ensures an Opportunity Driver (Owner) is assigned before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
+    <errorConditionFormula>AND(
+ NOT(ISNEW()),
+ ISCHANGED( StageName ),
+ OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName,
+ &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;),
+ ISPICKVAL(StageName, &quot;Closed Won&quot;) ),
+ Owner.IsActive = false
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>Update the Opportunity Driver. The current Opportunity Driver is not an active team member.</errorMessage>
+</ValidationRule>

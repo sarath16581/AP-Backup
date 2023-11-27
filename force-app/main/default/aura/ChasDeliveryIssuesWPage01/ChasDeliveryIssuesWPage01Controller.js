@@ -9,9 +9,32 @@
 												Note chasDevliveryIssuesWPage01.cmp and ChasApexController.apxc changes are also required as the Label values are used.
  * 2020-10-26 hara.sahoo@auspost.com.au Modified : Prepopulate track id and options passed in the url for auto-progression of the forms
  * 2022-05-30 : Thang Nguyen : [DDS-10785] update selectedIssueHandler to redirect to productServicePage
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 */
 ({
     
+	handleCaptchaVerify: function(cmp, event, helper) {
+		const token = event.getParam('token');
+		cmp.set('v.articleTrackingCaptchaToken', token);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
+
+		var a = cmp.get('c.searchTrackingNumberService');
+        $A.enqueueAction(a);
+	},
+
+	maybeResetCaptchaToken: function(cmp) {
+		const existingToken = cmp.get('v.articleTrackingCaptchaToken');
+		if(existingToken) {
+			// // means the user will need to reverify 
+			cmp.set('v.articleTrackingCaptchaToken', '');
+
+			const captchaComponent = cmp.find("chasCaptcha");
+			if(!$A.util.isUndefined(captchaComponent)) {
+				captchaComponent.reset();
+			}
+		}
+	},
+
     goForward: function(cmp, event, helper) {
         var isValid = helper.checkAllInputs(cmp, true);
         //reset the error flags
@@ -111,6 +134,7 @@
         cmp.set('v.showIssuesList',true);
     },
     doInit : function(cmp, event, helper) {
+
         //--Call the helper method to parse the url.
         var urlVars = helper.parseUrlParam();
         //--Get the Tracking Id parameter.
@@ -176,6 +200,7 @@
         // invoke the service for the below issue types only
         if(!$A.util.isEmpty(issueName) && (issueName == "Postie didn\'t knock" || issueName == "Item was left in an unsafe place"))
         {
+
             helper.searchTrackingNumber(cmp,event,helper);
             
         }

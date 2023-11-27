@@ -35,6 +35,11 @@
 					</ul>
 				</div>
 			</div>
+			<template if:true={isProposalDocumentGenerationRunning}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error customMessageStyle" role="alert">
+					<h2>Please wait while the system processes your request. Once processing has completed you will be redirected</h2>
+				</div>
+			</template>		
 			<div class="slds-size_full">
 				<lightning-datatable
 						key-field="Id"

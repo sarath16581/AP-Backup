@@ -6,6 +6,8 @@
  * @changelog
  * 2023-08-07 - Ranjeewa Silva - Created.
  * 2023-10-16 - Mahesh Parvathaneni - STP-9274 - Added validation when incorrect overlay type assigned to team members
+ * 2023-10-25 - Mahesh Parvathaneni - STP-8264 - Added validation to make sure at least one of the opp products have quantity more than 1
+ * 2023-11-08 - Mahesh Parvathaneni - STP-9169 - Added validation to make sure the related opp products have valid revenue start date
  */
 public inherited sharing class OpportunitySalesPipelineModule extends ApplicationModule {
 
@@ -13,6 +15,8 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_NO_OPEN_DSR = new Set<String>{'Closed Won'};
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_NO_ACTIVE_CONTRACT = new Set<String>{'Closed Lost', 'Closed Disqualified', 'Closed Duplicate'};
 	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_OPP_SPLITS_OVERLAY_CONTRIBUTION = new Set<String>{'Qualify', 'Propose', 'Negotiate', 'Closed Won'};
+	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_QUANTITY = new Set<String>{'Qualify', 'Propose', 'Negotiate', 'Closed Won'};
+	@TestVisible private static final Set<String> OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_REVENUE_START_DATE = new Set<String>{'Qualify', 'Propose', 'Negotiate', 'Closed Won'};
 	@TestVisible private static final Set<String> CONTRACT_STAGES_ACTIVE_INFLIGHT_CONTRACT = new Set<String>{'In Signatures', 'In Effect', 'Amended', 'Renewed'};
 
 	private static Set<String> MONITORED_OPPORTUNITY_STAGES {
@@ -23,6 +27,8 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_NO_OPEN_DSR);
 				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_NO_ACTIVE_CONTRACT);
 				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_OPP_SPLITS_OVERLAY_CONTRIBUTION);
+				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_QUANTITY);
+				monitored.addAll(OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_REVENUE_START_DATE);
 				MONITORED_OPPORTUNITY_STAGES = monitored;
 			}
 			return MONITORED_OPPORTUNITY_STAGES;
@@ -83,7 +89,8 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 				Competitor__c.SObjectType => new Set<SObjectField>{Competitor__c.Id},
 				Deal_Support_Request__c.SObjectType => new Set<SObjectField>{Deal_Support_Request__c.Id, Deal_Support_Request__c.Stage__c},
 				Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id, Apttus__APTS_Agreement__c.Apttus__Status_Category__c},
-				OpportunitySplit.SObjectType => new Set<SObjectField>{OpportunitySplit.Id, OpportunitySplit.Overlay_Type__c, OpportunitySplit.SplitOwnerId}
+				OpportunitySplit.SObjectType => new Set<SObjectField>{OpportunitySplit.Id, OpportunitySplit.Overlay_Type__c, OpportunitySplit.SplitOwnerId},
+				OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c}
 		};
 
 		Map<Id, Opportunity> opportunitiesWithChildRecords = ((OpportunitiesSelector) OpportunitiesSelector.newInstance()
@@ -94,7 +101,8 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 					OpportunitiesSelector.Options.WITH_APTTUS_CONTRACTS,
 					DealSupportRequestsSelector.Options.WITH_RECORDTYPE,
 					ApttusContractsSelector.Options.WITH_RECORDTYPE,
-					OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS
+					OpportunitiesSelector.Options.WITH_OVERLAY_SPLITS,
+					OpportunitiesSelector.Options.WITH_OPPORTUNITY_LINE_ITEMS
 				});
 
 		//get the allowed overlay contribution types for the opp splits team members based on the custom 
@@ -139,6 +147,21 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 					&& !opportunityWithChildRecords.OpportunitySplits.isEmpty()) {
 
 					validateOverlayOpportunitySplitAssignmentForSpecialistUsers(record, opportunityWithChildRecords.OpportunitySplits, eligibleOverlayTypesAssignedBySplitMemberIdMap);
+			}
+
+			//check at least one of the related opportunity line items have quantity more than 1 before progressing opportunity stage
+			if (OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_QUANTITY.contains(record.StageName) 
+					&& !opportunityWithChildRecords.OpportunityLineItems.isEmpty()) {
+				
+					validateQuantityOnOpportunityLineItems(record, opportunityWithChildRecords.OpportunityLineItems);
+			}
+
+			//check the related opportunity line items have valid revenue start date
+			//validate for an opportunity not with pre-entry scenario
+			if (OPPORTUNITY_STAGES_VALIDATE_PRODUCTS_REVENUE_START_DATE.contains(record.StageName) 
+					&& !record.Pre_Entry__c && !opportunityWithChildRecords.OpportunityLineItems.isEmpty()) {
+				
+					validateRevenueStartDateOnOpportunityLineItems(record, opportunityWithChildRecords.OpportunityLineItems);
 			}
 		}
 	}
@@ -239,6 +262,63 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 			String errorMessage = errorMsgs.size() > 1 ? String.join(errorMsgs, '\n') : errorMsgs.get(0);
 			record.addError(errorMessage);
 
+		}
+	}
+
+	/**
+	 * @description validate at least one of the related opportunity line items has quantity more than 1
+	 * @param  Opportunity record opportunity record going through DML operation.
+	 * @param  List<OpportunityLineItem> relatedOppLineItems related products/opportunity line items
+	 */
+	private void validateQuantityOnOpportunityLineItems(Opportunity record, List<OpportunityLineItem>  relatedOppLineItems) {
+		Set<Id> validQuantityOppLineItemIds = new Set<Id>();
+		//loop through related opp line items and check at least one opp line item has quantity more than 1
+		for (OpportunityLineItem oli : relatedOppLineItems) {
+			if (oli.quantity != null && oli.quantity.round(System.RoundingMode.DOWN) > 1) {
+				//add to the valid record list
+				validQuantityOppLineItemIds.add(oli.Id);
+			}
+		}
+
+		//add error to the record if no related opportunity line item found with quantity more than 1.
+		if (validQuantityOppLineItemIds.isEmpty()) { 
+			record.addError(Label.OpportunityWithInvalidQuantityOnProducts);
+		}
+	}
+
+	/**
+	 * @description function to check the related opportunity line items have valid revenue start date
+	 * 1. Revenue start date must be later than today
+	 * 2. Revenue start date must be later than or equal to close date
+	 * @param  Opportunity record opportunity record going through DML operation.
+	 * @param  List<OpportunityLineItem> relatedOppLineItems related products/opportunity line items
+	 */
+	private void validateRevenueStartDateOnOpportunityLineItems(Opportunity record, List<OpportunityLineItem>  relatedOppLineItems) {
+		Set<Id> oppLineItemIdsStartDateLessThanToday = new Set<Id>();
+		Set<Id> oppLineItemIdsStartDateLessThanCloseDate = new Set<Id>();
+		//loop through related opp line items and check revenue start date greater than today
+		for (OpportunityLineItem oli : relatedOppLineItems) {
+			if (oli.Contract_Start_Date__c < Date.today()) {
+				//revenue start date is less than today
+				//add to the invalid record list
+				oppLineItemIdsStartDateLessThanToday.add(oli.Id);
+			}
+			
+			if (oli.Contract_Start_Date__c < record.CloseDate) {
+				//revenue start date is less than opportunity close date
+				//add to the invalid record list
+				oppLineItemIdsStartDateLessThanCloseDate.add(oli.Id);
+			}
+		}
+
+		//add error to the record if related opportunity line item found with revenue start date less than today.
+		if (!oppLineItemIdsStartDateLessThanToday.isEmpty()) { 
+			record.addError(Label.OpportunityWithInvalidRevenueStartDateOnProducts);
+		}
+
+		//add error to the record if related opportunity line item found with revenue start date less than opportunity close date.
+		if (!oppLineItemIdsStartDateLessThanCloseDate.isEmpty()) { 
+			record.addError(Label.Opportunity_Confirm_Pre_Entry_Scenario);
 		}
 	}
 }

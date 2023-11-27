@@ -154,7 +154,7 @@ public virtual without sharing class CSQCloneService {
 			Freight_Offering__c.Service__c,
 			Freight_Offering__c.Service_Requirements__c,
 			Freight_Offering__c.Stair_climber__c,
-			Freight_Offering__c.Submit_for_Approval__c,
+			// Freight_Offering__c.Submit_for_Approval__c,
 			Freight_Offering__c.Tail_lift_delivery__c,
 			Freight_Offering__c.Tail_lift_pick_up__c,
 			Freight_Offering__c.Top_load_onlyBBP__c,
@@ -182,7 +182,7 @@ public virtual without sharing class CSQCloneService {
 			Pick_Up_Location__c.Site_Inspection_Completed__c,
 			Pick_Up_Location__c.Site_Inspection_Status__c,
 			Pick_Up_Location__c.State__c,
-			Pick_Up_Location__c.Submit_for_Approval__c,
+			// Pick_Up_Location__c.Submit_for_Approval__c,
 			Pick_Up_Location__c.Suburb__c
 		},
 		IT_Contacts_and_Integration_Details__c.SObjectType => new Set<SObjectField>{

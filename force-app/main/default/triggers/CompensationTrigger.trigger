@@ -20,7 +20,7 @@ trigger CompensationTrigger on Compensation__c (after delete, after insert, afte
 after update, before delete, before insert, before update) {
 
 
-    if(!TriggerHelper.isTriggerDisabled(String.valueOf(Case.sObjectType))){	 // verify if triggers are disabled
+    if(!TriggerHelper.isTriggerDisabled(String.valueOf(Case.sObjectType))){  // verify if triggers are disabled
         (new CompensationTriggerHandler()).dispatch();
     }
 

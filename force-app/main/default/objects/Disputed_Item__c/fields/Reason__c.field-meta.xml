@@ -420,9 +420,9 @@
                 <label>CHQ Handling Fee Reversal</label>
             </value>
             <value>
-                <fullName>Manifest Correction Fee</fullName>
+                <fullName>Manifest Correction Fee Credit</fullName>
                 <default>false</default>
-                <label>Manifest Correction Fee</label>
+                <label>Manifest Correction Fee Credit</label>
             </value>
             <value>
                 <fullName>Incorrect Cubic Data</fullName>
@@ -438,21 +438,6 @@
                 <fullName>Oversize Charge</fullName>
                 <default>false</default>
                 <label>Oversize Charge</label>
-            </value>
-            <value>
-                <fullName>Peak Fee</fullName>
-                <default>false</default>
-                <label>Peak Fee</label>
-            </value>
-            <value>
-                <fullName>Over Maximum Limits Fee</fullName>
-                <default>false</default>
-                <label>Over Maximum Limits Fee</label>
-            </value>
-            <value>
-                <fullName>Force Majeure Fee</fullName>
-                <default>false</default>
-                <label>Force Majeure Fee</label>
             </value>
             <value>
                 <fullName>Annual Pricing Review</fullName>
@@ -1062,6 +1047,15 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Manual Handling Surcharge</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Cubic Data(Customer)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Manual Handling Surcharge</controllingFieldValue>
+            <valueName>Incorrect Cubic Data</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Transit Cover fee</controllingFieldValue>
             <controllingFieldValue>Return to Sender fee</controllingFieldValue>
             <controllingFieldValue>Fuel Surcharge</controllingFieldValue>
@@ -1123,43 +1117,6 @@
             <valueName>Incorrect Bill</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
-            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
-            <controllingFieldValue>Delivery Issue</controllingFieldValue>
-            <controllingFieldValue>Capture ID fee</controllingFieldValue>
-            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
-            <valueName>No Proof Of Delivery</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Peak Fee</controllingFieldValue>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Peak Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Over Maximum Limits Fee</controllingFieldValue>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Over Maximum Limits Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Manifest Correction Fee</controllingFieldValue>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Manifest Correction Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Force Majeure Fee</controllingFieldValue>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Force Majeure Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Manual Handling Surcharge</controllingFieldValue>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <valueName>Incorrect Cubic Data(Customer)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Manual Handling Surcharge</controllingFieldValue>
-            <valueName>Incorrect Cubic Data</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Security surcharge</controllingFieldValue>
             <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
             <valueName>Fee Refund Applied</valueName>
@@ -1167,6 +1124,14 @@
         <valueSettings>
             <controllingFieldValue>International Surcharge</controllingFieldValue>
             <valueName>International Linehaul Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wine &amp; Alcohol fee</controllingFieldValue>
+            <controllingFieldValue>Signature on Delivery fee</controllingFieldValue>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <controllingFieldValue>Capture ID fee</controllingFieldValue>
+            <controllingFieldValue>Capture ID (Addressee only) fee</controllingFieldValue>
+            <valueName>No Proof Of Delivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
@@ -1363,6 +1328,10 @@
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
             <valueName>Schedule Rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Manifest Correction Fee Credit</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Delivery Issue</controllingFieldValue>
