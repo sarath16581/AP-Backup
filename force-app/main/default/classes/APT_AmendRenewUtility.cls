@@ -28,6 +28,7 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2022-10-05 - seth.heang@auspost.com.au - uplift API version to 55, update copyProposalChildRecords() method to check for bundle products hierarchy and remove decommisioned products
 2023-10-19 - Bharat Patel - update afterAmend(), commented copyAttachments() execution, STP-9851 changes, remove copyAttachments(originalAgreementId, amendedAgreementId)
 2023-11-15 - Mahesh Parvathaneni - STP-9212 - Updated to remove the DoV: and Renewal: prefixes from the opportunity name while cloning
+2023-11-22 - Bharat Patel - STP-9770 - added resetOpportunityProposalPrimary(), to reset respected opportunity's proposal's primary flag
 */
 public without sharing class APT_AmendRenewUtility {
 
@@ -636,6 +637,7 @@ public without sharing class APT_AmendRenewUtility {
 															Apttus__APTS_Agreement__c agreement) {
 		Apttus_Proposal__Proposal__c proposal = new Apttus_Proposal__Proposal__c();
 		try{
+			resetOpportunityProposalPrimary(opportunityId);
 			String recordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get(recordTypeName).getRecordTypeId();
 			proposal.RecordTypeId = recordTypeId;
 			proposal.Apttus_Proposal__Proposal_Name__c = APT_Constants.CLASSIFICATION_RENEWAL + APT_Constants.SEPARATOR_COLON + agreement.Name;
@@ -1315,5 +1317,26 @@ public without sharing class APT_AmendRenewUtility {
 			return oppname.replaceAll('(?i)(renewal: |dov: )', '');
 		}
 		return oppName;
+	}
+
+	/**
+	 *This method will reset opportunity proposals Primary value
+	 *@param Id opportunityId
+	 */
+    private static void resetOpportunityProposalPrimary(Id opportunityId) {
+        //Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
+		List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opportunityId});
+        List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
+        if(!existingProposalList.isEmpty()){
+            for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
+                if(proposal.Apttus_Proposal__Primary__c) {
+                    proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
+                    opportunityProposalsToUpdate.add(proposal);
+                }
+            }
+        }
+        if(!opportunityProposalsToUpdate.isEmpty()) {
+            ApplicationDatabase.getInstance().dmlupdate(opportunityProposalsToUpdate);
+        }
 	}
 }

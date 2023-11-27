@@ -43,6 +43,7 @@ Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason 
 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 2023-07-06 nasir.jawed2@auspost.com.au Added method goToOpportunity(), and in doAmend(),doRenew() and when helps the user to select an opportunity for DOV.
 2023-05-09  Bharat Patel - update in condition to check key fields in doAmend(),doRenew() method to fix STP-9554.
+2023-11-23  Bharat Patel - STP-9770 - update to redirect to shopping cart instead of proposal
 **/
 
 public with sharing class APT_AmendRenewController {
@@ -1127,8 +1128,12 @@ public with sharing class APT_AmendRenewController {
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
-					//redirect to quote
-					return new ApexPages.StandardController(newProposal).View();
+					//redirect to cart
+					String finalURL = URL.getSalesforceBaseUrl().toExternalForm();
+					finalURL += APT_Constants.STRING_URL_PROPOSAL_CART + newProposal.Id + APT_Constants.STRING_URL_AMEND_QUOTE_CART;
+					PageReference pageRef = new PageReference(finalURL);
+					pageRef.setRedirect(true);
+					return pageRef;
 				}
 			}
 
