@@ -38,7 +38,7 @@ StarTrack
 {!Case.EmailThreadID__c}
 
 
-{!$Label.Australia_Post_No_Email_Phishing_Statement}
+{!$Label.Australia_Post_No_Email_Phishing_Statement}	
 
 {!$Label.Australia_Post_Email_Security_Disclaimer}</textOnly>
     <type>custom</type>

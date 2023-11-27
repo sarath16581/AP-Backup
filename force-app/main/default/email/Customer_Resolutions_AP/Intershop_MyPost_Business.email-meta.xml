@@ -7,12 +7,14 @@
     <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
     <textOnly>Hi {!Case.Name__c},
 
+We refer to case {!Case.CaseNumber}.
+
 Thank you for your enquiry. For any additional assistance could you please contact our specialised MyPost Business team directly on 13 11 18, or alternatively lodge the details via MyPost Business and select &apos;Support&apos; from the left hand navigation panel. Please accept my apologies if any inconvenience has been caused. This enquiry has now been closed off in our system.
 
 Kind regards,
 
 Customer Resolutions Team
-Australia Post 
+Australia Post
 credit.claims@auspost.com.au
 {!Case.EmailThreadID__c}
 
