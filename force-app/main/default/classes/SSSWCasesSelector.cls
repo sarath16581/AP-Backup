@@ -239,6 +239,39 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 		return qb;
 	}
 
+	/**
+	 * @param accountIds account ids
+	 * @param nMonth nMonths used in SOQL data literal
+	 * @param selectorOptions selectorOptions
+	 * @description returns the closed case record by account id before a given number of months
+	 *
+	 * @return QueryBuilder
+	 */
+	public virtual QueryBuilder getClosedCasesByAccountIdsNMonths(Set<Id> accountIds, Integer nDays, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Case.AccountId).inCollection(accountIds))
+				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
+				.add(new QueryBuilder.SimpleCondition(Case.Closed_Date__c + ' <= N_DAYS_AGO:' + nDays))
+				.endConditions();
+		return qb;
+	}
+
+	/**
+	 * @param accountIds account ids
+	 * @param selectorOptions selectorOptions
+	 * @description return the open case by the given account ids
+	 * @return Map<Id,Case>
+	 */
+	public Map<Id,Case> getOpenCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions){
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Case.AccountId).inCollection(accountIds))
+				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
+				.endConditions();
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
 
 	public override virtual QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());

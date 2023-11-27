@@ -420,4 +420,21 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		}
 		return builder;
 	}
+
+	/**
+	* @description Retrieve archived accounts based on closure date
+	* @param nDaysAgo Specify a day in the past to retrieve PendingServiceRouting records dated on that day or older
+	* @param selectorOptions Options
+	* @return QueryLocator
+	*/
+	public Database.QueryLocator selectArchivedAccountsByClosureDateLessThanEqualNDaysAgo(Integer nDaysAgo, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+				.add(new QueryBuilder.SimpleCondition(Account.ClosedDateTime__pc + ' <= N_DAYS_AGO:' + nDaysAgo))
+				.add(new QueryBuilder.SimpleCondition('Winning_Master_Record__pc = NULL'))
+				.add(new QueryBuilder.SimpleCondition('IsInactiveCustomer__pc = TRUE'))
+				.add(new QueryBuilder.SimpleCondition('IsCustomerPortal = TRUE'))
+				.add(new QueryBuilder.SimpleCondition('PersonContactId != NULL'))
+				.endConditions();
+		return Database.getQueryLocator(qb.toSoqlString());
+	}
 }
