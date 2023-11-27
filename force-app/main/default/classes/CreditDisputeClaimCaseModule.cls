@@ -7,6 +7,7 @@ History:
 
 public inherited sharing class CreditDisputeClaimCaseModule extends ApplicationModule {
 	@TestVisible private static final String BUSINESSUNIT_AUSTRALIAPOST = 'Australia Post';
+	@TestVisible private static final String BUSINESSUNIT_STARTRACK = 'StarTrack';
 
 	/**
 	 * @deprecated
@@ -30,6 +31,17 @@ public inherited sharing class CreditDisputeClaimCaseModule extends ApplicationM
 		}
 		private set;
 	}
+
+	// Grab the StarTrack_Credit_Claims_Queue Id
+	public static Id stCreditDisputeQueueId {
+		get {
+			if (stCreditDisputeQueueId == null) {
+				stCreditDisputeQueueId = new GroupsSelector().selectByDeveloperName(new Set<String>{'StarTrack_Credit_Claims_Queue'}).values()[0].Id;
+			}
+			return stCreditDisputeQueueId;
+		}
+		private set;
+	}	
 
     /**
     * Called before a case is inserted.
@@ -56,6 +68,9 @@ public inherited sharing class CreditDisputeClaimCaseModule extends ApplicationM
 		for (Case c : (List<Case>) records) {			
 			if (c.OwnerId == apCreditDisputeQueueId && String.isEmpty(c.Business_Unit__c)){				
 				c.Business_Unit__c = BUSINESSUNIT_AUSTRALIAPOST;
+			}
+			if (c.OwnerId == stCreditDisputeQueueId && String.isEmpty(c.Business_Unit__c)){				
+				c.Business_Unit__c = BUSINESSUNIT_STARTRACK;
 			}
 		}
 	}
