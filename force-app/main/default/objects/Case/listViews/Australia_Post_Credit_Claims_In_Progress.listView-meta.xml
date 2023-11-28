@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Australia_Post_Credit_Claims_In_Progress</fullName>
-    <booleanFilter>(1 AND 2 AND 3 AND 4) or 5</booleanFilter>
+    <booleanFilter>(1 AND 2 AND 3) AND (4 or (5 and 6))</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>OWNER_NAME</columns>
     <columns>CASES.STATUS</columns>
@@ -22,9 +22,9 @@
         <value>Case.Enterprise_Credit_Dispute_Claim</value>
     </filters>
     <filters>
-        <field>CASES.CLOSED</field>
+        <field>Business_Unit__c</field>
         <operation>equals</operation>
-        <value>0</value>
+        <value>Australia Post</value>
     </filters>
     <filters>
         <field>Owner_is_Queue__c</field>
@@ -32,13 +32,19 @@
         <value>0</value>
     </filters>
     <filters>
-        <field>Business_Unit__c</field>
+        <field>CASES.CLOSED</field>
         <operation>equals</operation>
-        <value>Australia Post</value>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>1</value>
     </filters>
     <filters>
         <field>Case_Update__c</field>
-        <operation>greaterThan</operation>
+        <operation>equals</operation>
+        <value>New Comment,New Email Received,Customer Responded</value>
     </filters>
     <label>Australia Post Credit Claims In Progress</label>
     <language>en_US</language>

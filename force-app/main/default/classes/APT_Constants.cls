@@ -862,6 +862,8 @@ public with sharing class APT_Constants {
 	public static final String STRING_FLOW_NEW_QUOTE_ADVANCED = '&flow=NewQuote&useAdvancedApproval=true&useDealOptimizer=true';
 	public static final String STRING_URL_FLOW_APPROVAL = '&flow=Approval flow&useAdvancedApproval=true&useDealOptimizer=true';
 	public static final String STRING_URL_RENEWAL_QUOTE = '&flow=RenewalQuote&useAdvancedApproval=true&useDealOptimizer=true';
+	public static final String STRING_URL_AMEND_QUOTE_CART = '&flow=RenewalQuote&productOrderByClause=APT_Most_Popular__c NULLS LAST&useAdvancedApproval=true&launchState=catalog#!/search/';
+	public static final String STRING_URL_PROPOSAL_CART = '/apex/Apttus_Config2__Cart?businessObjectId=';
 
 	// Custom metadata types
 	public static final String DESTINATION_ZONE_LIST_ORDER_MAPPING = 'DestinationZoneListOrderMapping';
