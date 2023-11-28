@@ -7932,6 +7932,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Please be advised that you can only finalize up to 10 follower/offspring requests at a time. If you have more than 10, you can finalize them in a subsequent request.</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountsCreationTabError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
+        <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>

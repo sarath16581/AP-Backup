@@ -20,8 +20,12 @@ const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_ABN, BILLING_ACCOUNT_ORG_NAME];
 const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_ABN, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_OPPORTUNITY];
 
 export default class FollowerOffspringRequestAbnConfirmation extends LightningElement {
+	// Can be either charge account ID or billing account ID
 	@api leaderId;
+
+	// If current context is for billing account or charge account flow
 	@api isBillingAccount;
+
 	isABNSame = false;
 
 	/**
@@ -95,11 +99,10 @@ export default class FollowerOffspringRequestAbnConfirmation extends LightningEl
 	 */
 	handleClose() {
 		if (this.isBillingAccount === 'true') {
-			this.dispatchEvent(new CustomEvent('closed', {detail: this.leaderId}));
+			this.dispatchEvent(new CustomEvent('cancel', {detail: this.leaderId}));
 		} else {
-			this.dispatchEvent(new CustomEvent('closed', {detail: getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY)}));
+			this.dispatchEvent(new CustomEvent('cancel', {detail: getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY)}));
 		}
-
 	}
 
 	/**
@@ -113,7 +116,7 @@ export default class FollowerOffspringRequestAbnConfirmation extends LightningEl
 			LightningAlert.open({
 				message: errorMessage,
 				theme: 'error',
-				variant: 'headerless'
+				label: 'Sub Account Request Creation Error'
 			});
 		}
 	}

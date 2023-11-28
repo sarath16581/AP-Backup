@@ -1,34 +1,35 @@
 <template>
 	<div>
 		<template lwc:if={isABNConfirmation}>
-			<c-follower-offspring-request-a-b-n-confirmation
+			<c-follower-offspring-request-abn-confirmation
 					leader-id={recordId}
 					is-billing-account={isBillingAccount}
-					onclosed={navigateToLeader}
+					oncancel={handleCancel}
 					onconfirmed={handleEditSubAccount}
-			></c-follower-offspring-request-a-b-n-confirmation>
+			></c-follower-offspring-request-abn-confirmation>
 		</template>
 		<template lwc:if={isEditView}>
-			<c-follower-offspring-request-t-e-a-m-edit-form
+			<c-follower-offspring-request-edit-form
 					leader-id={recordId}
 					is-billing-account={isBillingAccount}
 					sub-account={subAccount}
-					onclosed={navigateToLeader}
+					oncancel={handleCancel}
 					onupsert={refreshListView}
 					is-loading={isEditLoading}
-			></c-follower-offspring-request-t-e-a-m-edit-form>
+			></c-follower-offspring-request-edit-form>
 		</template>
 		<template lwc:if={isListView}>
-			<c-follower-offspring-request-t-e-a-m-list
+			<c-follower-offspring-request-list
 					leader-id={recordId}
 					is-billing-account={isBillingAccount}
 					onedit={handleEditSubAccount}
 					onnew={handleNewSubAccount}
 					sub-accounts={subAccounts}
+					finalised-sub-accounts={finalisedSubAccounts}
 					ondelete={refreshListView}
-					onfinalize={handleFinalize}
-					count-finalized={countFinalized}
-			></c-follower-offspring-request-t-e-a-m-list>
+					onfinalise={handleFinalise}
+					count-finalised={countFinalised}
+			></c-follower-offspring-request-list>
 		</template>
 	</div>
 </template>

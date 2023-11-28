@@ -589,6 +589,10 @@
 
 		}
 
+		/**
+		 * Test:
+		 *  Ensures that billing account details are retrieved
+		 */
 		@IsTest
 		private static void testGetBillingAccountDetails() {
 			// =====================================

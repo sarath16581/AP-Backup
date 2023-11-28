@@ -6,20 +6,21 @@
   *                 2. It also contains validation checks on Billing Account
   @changelog
   2021-04-24    Dheeraj Mandavilli Created
-  2023-08-18    Harry Wang - Updated navigation to NavigateSubAccountRequestWrapper
+  2023-08-18    Harry Wang - Updated navigation to Create_Sub_Accounts lightning component tab
 */
 
 ({
 	navigateToCreateSubAccountsCmp : function(component, isTEAM) {
 		component.find("navigationService").navigate({
-			type: "standard__component",
+			type: "standard__navItemPage",
 			attributes: {
-				componentName: "c__NavigateSubAccountRequestWrapper"
+				apiName: "Create_Sub_Accounts"
 			},
 			state: {
 				"c__recordId": component.get("v.recordId"),
 				"c__initialLoad": component.get("v.initialLoad"),
-				"c__isTEAMRequest": isTEAM
+				"c__isTEAMRequest": isTEAM,
+				"c__isBillingAccount": "true"
 			}
 		});
 	}

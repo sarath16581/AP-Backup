@@ -6,7 +6,6 @@
   *                 2. It also contains validation checks on Billing Account
   @Changelog
   2021-04-24    Dheeraj Mandavilli Created
-  2023-08-18    Harry Wang - updated navigation to createTEAMFollowerOffspringRequest
 -->
 <aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:isUrlAddressable" controller="CreateSubAccountsController">
 	<lightning:navigation aura:id="navigationService" />
@@ -37,8 +36,5 @@
 		<div class="slds-modal__content slds-p-around_small slds-modal__padding=inherit">
 			<p><b>{!v.failedErrMsg}</b></p>
 		</div>
-	</aura:if>
-	<aura:if isTrue="{!v.isTEAMRequest}">
-		<c:createTEAMFollowerOffspringRequest></c:createTEAMFollowerOffspringRequest>
 	</aura:if>
 </aura:component>

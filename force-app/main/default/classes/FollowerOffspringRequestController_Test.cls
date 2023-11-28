@@ -10,8 +10,12 @@
  */
 @IsTest
 private class FollowerOffspringRequestController_Test {
+	/**
+	 * Test:
+	 *  Ensures that the followers and sub accounts are retrieved
+	 */
 	@IsTest
-	static void testGetFollowerSubAccounts() {
+	static void testGetFollowersAndGetSubAccounts() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -19,15 +23,19 @@ private class FollowerOffspringRequestController_Test {
 
 		List<APT_Sub_Account__c> billingSubAccounts = ApplicationTestDataFactory.getSubAccountRequest(1, 'Test sub billing account', true);
 		List<APT_Sub_Account__c> chargeSubAccounts = ApplicationTestDataFactory.getSubAccountRequest(1, 'Test sub charge account', true);
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'TEAM', true);
 
 		// =====================================
 		// Stubbing
 		// =====================================
 		SubAccountRequestsSelector selector = (SubAccountRequestsSelector) MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		BillingAccountsSelector bSelector = (BillingAccountsSelector) MockUtility.mockSelector(BillingAccountsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(selector.selectByBillingAccountId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(billingSubAccounts);
+		MockUtility.Mocks.when(bSelector.selectByLeaderAccountId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(billingAccounts);
 		MockUtility.Mocks.when(selector.selectByChargeAccountId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(chargeSubAccounts);
 
 		MockUtility.Mocks.stopStubbing();
@@ -36,41 +44,76 @@ private class FollowerOffspringRequestController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		List<APT_Sub_Account__c> subAccounts = FollowerOffspringRequestController.getFollowerSubAccounts(billingSubAccounts[0].Id, true);
+		FollowerOffspringRequestController.FollowerAccount followerAccount = FollowerOffspringRequestController.getFollowers(billingSubAccounts[0].Id, true);
+		System.assertEquals(billingSubAccounts[0].Id, followerAccount.subAccountFollowers[0].Id, 'Id not matched');
+		System.assertEquals(billingAccounts[0].Id, followerAccount.billingAccountFollowers[0].Id, 'Id not matched');
+
+		followerAccount = FollowerOffspringRequestController.getFollowers(chargeSubAccounts[0].Id, false);
+		System.assertEquals(chargeSubAccounts[0].Id, followerAccount.subAccountFollowers[0].Id, 'Id not matched');
+
+		List<APT_Sub_Account__c> subAccounts = FollowerOffspringRequestController.getSubAccounts(billingSubAccounts[0].Id, true);
 		System.assertEquals(billingSubAccounts[0].Id, subAccounts[0].Id, 'Id not matched');
 
-		subAccounts = FollowerOffspringRequestController.getFollowerSubAccounts(chargeSubAccounts[0].Id, false);
+		subAccounts = FollowerOffspringRequestController.getSubAccounts(chargeSubAccounts[0].Id, false);
 		System.assertEquals(chargeSubAccounts[0].Id, subAccounts[0].Id, 'Id not matched');
+
 		Test.stopTest();
 	}
 
+	/**
+	 * Test:
+	 *  Ensures that list view columns are retrieved
+	 */
 	@IsTest
-	static void testGetFollowerBillingAccounts() {
+	static void testRetrieveListViewColumns() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+		// =====================================
+		// Testing
+		// =====================================
+		List<FollowerOffspringRequestController.DataTableColumn> columns = FollowerOffspringRequestController.retrieveListViewColumns();
+		List<Schema.FieldSetMember> fields = SObjectType.APT_Sub_Account__c.fieldSets.Sub_Accounts_in_Follower_Offspring_List.getFields();
+		System.assertEquals(fields.size(), columns.size(), 'size not matched');
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that sub accounts are finalised
+	 */
+	@IsTest
+	static void testFinaliseSubAccounts() {
 		// =====================================
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
-		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
-		List<Billing_Account__c> billingSubAccounts = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'TEAM', true);
+		APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test',false)[0];
+		subAccountRequest.APT_Sub_Account_Request_Status__c = 'Draft';
+		insert subAccountRequest;
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		BillingAccountsSelector selector = (BillingAccountsSelector) MockUtility.mockSelector(BillingAccountsSelector.class);
-
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
 		MockUtility.Mocks.startStubbing();
-
-		MockUtility.Mocks.when(selector.selectByLeaderAccountId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(billingSubAccounts);
-
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException('mock exception message'));
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
 		// =====================================
-		Test.startTest();
-		List<Billing_Account__c> subAccounts = FollowerOffspringRequestController.getFollowerBillingAccounts(billingSubAccounts[0].Id);
-		System.assertEquals(billingSubAccounts[0].Id, subAccounts[0].Id, 'Id not matched');
-		Test.stopTest();
+		try {
+			FollowerOffspringRequestController.finaliseSubAccounts(new List<APT_Sub_Account__c>{subAccountRequest});
+		} catch (Exception e) {
+			System.assert(e.getMessage() != null, 'Expecting exception message');
+		}
 	}
+	private class MockException extends Exception{}
 }

@@ -8,33 +8,48 @@
  * @changelog
  * 2023-10-27 - Harry Wang - Created
  */
-import {api, LightningElement, track} from 'lwc';
+import {api, LightningElement} from 'lwc';
+import SUB_ACCOUNT_PHYSICAL_STREET from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Street_Name__c";
+import SUB_ACCOUNT_PHYSICAL_SUBURB from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Suburb__c";
+import SUB_ACCOUNT_PHYSICAL_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_State__c";
+import SUB_ACCOUNT_PHYSICAL_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c";
+import SUB_ACCOUNT_MAILING_STREET from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Street_Name__c";
+import SUB_ACCOUNT_MAILING_SUBURB from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Suburb__c";
+import SUB_ACCOUNT_MAILING_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_State__c";
+import SUB_ACCOUNT_MAILING_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c";
 
 export default class FollowerOffspringRequestAddress extends LightningElement {
-	physicalAddressStr;
-	mailingAddressStr;
-	confirmedPhysicalAddress = {};
-	confirmedMailingAddress = {};
+	physicalAddress;
+	mailingAddress;
+	confirmedPhysicalAddress;
+	confirmedMailingAddress;
 	toggleChecked;
 	showMailingAddress = true;
 
-	_defaultAddress;
+	_subAccount;
 
-	/**
-	 * Load default address when updating existing sub account
-	 */
-	@api set defaultAddress(value) {
+	@api set subAccount(value) {
 		if (value) {
-			this.mailingAddressStr = value.mailingAddress;
-			this.physicalAddressStr = value.physicalAddress;
-			this.toggleChecked = value.mailingSameAsPhysical;
+			this.confirmedMailingAddress = {
+				addressLine1: value[SUB_ACCOUNT_MAILING_STREET.fieldApiName],
+				city: value[SUB_ACCOUNT_MAILING_SUBURB.fieldApiName],
+				state: value[SUB_ACCOUNT_MAILING_STATE.fieldApiName],
+				postcode: value[SUB_ACCOUNT_MAILING_POSTCODE.fieldApiName]
+			};
+			this.confirmedPhysicalAddress = {
+				addressLine1: value[SUB_ACCOUNT_PHYSICAL_STREET.fieldApiName],
+				city: value[SUB_ACCOUNT_PHYSICAL_SUBURB.fieldApiName],
+				state: value[SUB_ACCOUNT_PHYSICAL_STATE.fieldApiName],
+				postcode: value[SUB_ACCOUNT_PHYSICAL_POSTCODE.fieldApiName]
+			};
+			this.toggleChecked = JSON.stringify(this.confirmedMailingAddress) === JSON.stringify(this.confirmedPhysicalAddress);
 			this.showMailingAddress = !this.toggleChecked;
 		}
-		this._defaultAddress = value;
+		this._subAccount = value;
 	}
 
-	get defaultAddress() {
-		return this._defaultAddress;
+	get subAccount() {
+		return this._subAccount;
 	}
 
 	handleAddressToggleChange(event) {
@@ -50,27 +65,28 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 	}
 
 	/**
-	 * Triggered when user confirm physical address
-	 * Map physical address fields then dispatch confirm address event to request wrapper
+	 * Triggered when user confirm physical address then dispatch confirm address event to request wrapper
 	 */
 	handleConfirmedPhysicalAddress(event) {
 		if (event.detail) {
 			const physicalAddressVar = event.detail;
-			if(physicalAddressVar.addressLine1 !== undefined && physicalAddressVar.addressLine2 !== undefined){
-				this.confirmedPhysicalAddress.street = physicalAddressVar.addressLine1+' '+physicalAddressVar.addressLine2;
-			}else{
-				this.confirmedPhysicalAddress.street = physicalAddressVar.addressLine1;
+			this.confirmedPhysicalAddress = {};
+			if (physicalAddressVar.addressLine1 != null) {
+				this.confirmedPhysicalAddress.addressLine1 = physicalAddressVar.addressLine1;
 			}
-			if(physicalAddressVar.city  !== null){
+			if (physicalAddressVar.addressLine2 != null) {
+				this.confirmedPhysicalAddress.addressLine2 = physicalAddressVar.addressLine2;
+			}
+			if(physicalAddressVar.city != null){
 				this.confirmedPhysicalAddress.city = physicalAddressVar.city;
 			}
-			if(physicalAddressVar.state  !== null){
+			if(physicalAddressVar.state != null){
 				this.confirmedPhysicalAddress.state = physicalAddressVar.state;
 			}
-			if(physicalAddressVar.postcode  !== null){
+			if(physicalAddressVar.postcode != null){
 				this.confirmedPhysicalAddress.postcode = physicalAddressVar.postcode;
 			}
-			this.physicalAddressStr = Object.values(this.confirmedPhysicalAddress).join(' ');
+
 			if (!this.showMailingAddress) { // physical same as mailing
 				this.confirmedMailingAddress = this.confirmedPhysicalAddress;
 				this.dispatchEvent(new CustomEvent('confirmaddress', {
@@ -90,27 +106,27 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 	}
 
 	/**
-	 * Triggered when user confirm physical address
-	 * Map mailing address fields then dispatch confirm address event to request wrapper
+	 * Triggered when user confirm physical address then dispatch confirm address event to request wrapper
 	 */
 	handleConfirmedMailingAddress(event) {
 		if (event.detail) {
+			this.confirmedMailingAddress = {};
 			this.mailingAddressVar = event.detail;
-			if(this.mailingAddressVar.addressLine1 !== undefined && this.mailingAddressVar.addressLine2 !== undefined){
-				this.confirmedMailingAddress.street = this.mailingAddressVar.addressLine1+' '+this.mailingAddressVar.addressLine2;
-			}else{
-				this.confirmedMailingAddress.street = this.mailingAddressVar.addressLine1;
+			if(this.mailingAddressVar.addressLine1 != null){
+				this.confirmedMailingAddress.addressLine1 = this.mailingAddressVar.addressLine1;
 			}
-			if(this.mailingAddressVar.city  !== null){
+			if(this.mailingAddressVar.addressLine2 != null){
+				this.confirmedMailingAddress.addressLine2 = this.mailingAddressVar.addressLine2;
+			}
+			if(this.mailingAddressVar.city != null){
 				this.confirmedMailingAddress.city = this.mailingAddressVar.city;
 			}
-			if(this.mailingAddressVar.state  !== null){
+			if(this.mailingAddressVar.state != null){
 				this.confirmedMailingAddress.state = this.mailingAddressVar.state;
 			}
-			if(this.mailingAddressVar.postcode  !== null){
+			if(this.mailingAddressVar.postcode != null){
 				this.confirmedMailingAddress.postcode = this.mailingAddressVar.postcode;
 			}
-			this.mailingAddressStr = Object.values(this.confirmedMailingAddress).join(' ');
 			this.dispatchEvent(new CustomEvent('confirmaddress', {
 				detail : {
 					mailingAddress: this.confirmedMailingAddress
@@ -123,10 +139,7 @@ export default class FollowerOffspringRequestAddress extends LightningElement {
 	 * Validate address input. If defaultAddress exists return true
 	 */
 	@api validate() {
-		if (this.defaultAddress != null) {
-			return true;
-		}
-		const ameValid = [...this.template.querySelectorAll('c-ame-address-validation2')]
+		const ameValid = [...this.template.querySelectorAll('c-ame-sub-account-address')]
 			.reduce((validSoFar, ameAddressCmp) => {
 				ameAddressCmp.reportValidity();
 				return validSoFar && ameAddressCmp.checkValidity();

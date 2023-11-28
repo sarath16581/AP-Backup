@@ -4,25 +4,19 @@
 	</h3>
 	<div class="slds-section__content slds-grid slds-p-around_small">
 		<div class="slds-col slds-size_1-of-2 slds-m-right_small slds-has-flexi-truncate">
-			<strong>Address: <lightning-formatted-text class="slds-truncate" value={physicalAddressStr}></lightning-formatted-text></strong>
-			<c-ame-address-validation2
+			<c-ame-sub-account-address
 					label="Physical Address"
-					onconfirmaddress={handleConfirmedPhysicalAddress}
-					override-label="Edit Address"
-					confirmation-required
-					required=true>
-			</c-ame-address-validation2>
+					default-address={confirmedPhysicalAddress}
+					onconfirmaddress={handleConfirmedPhysicalAddress}>
+			</c-ame-sub-account-address>
 		</div>
 		<template lwc:if={showMailingAddress}>
 			<div class="slds-col slds-size_1-of-2">
-				<strong>Address: <lightning-formatted-text class="slds-truncate" value={mailingAddressStr}></lightning-formatted-text></strong>
-				<c-ame-address-validation2
+				<c-ame-sub-account-address
 						label="Mailing Address"
-						onconfirmaddress={handleConfirmedMailingAddress}
-						override-label="Edit Address"
-						confirmation-required
-						required=true>
-				</c-ame-address-validation2>
+						default-address={confirmedMailingAddress}
+						onconfirmaddress={handleConfirmedMailingAddress}>
+				</c-ame-sub-account-address>
 			</div>
 		</template>
 	</div>

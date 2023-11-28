@@ -9,7 +9,7 @@
 * @changelog
 * 2020-12-18 - Seth Heang - Created
 * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
-* 2023-10-27 - Harry Wang - Added tests for selectByChargeAccountId and selectByBillingAccountId and option FILTER_UNPROVISIONED_FOLLOWER_ONLY
+* 2023-10-27 - Harry Wang - Added tests for selectByChargeAccountId and selectByBillingAccountId and option FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR
  */
 @IsTest
 private with sharing class SubAccountRequestsSelector_Test {
@@ -158,10 +158,9 @@ private with sharing class SubAccountRequestsSelector_Test {
 		System.assertEquals(1, subAccounts.size(), 'Expecting 1');
 		System.assertEquals(billingAccount.Id, subAccounts[0].APT_Billing_Account__c, 'Id not matched');
 
-		List<APT_Sub_Account__c> subAccounts2 = selector.selectByChargeAccountId(new Set<Id>{chargeAccountRequest.Id}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_UNPROVISIONED_FOLLOWER_ONLY});
+		List<APT_Sub_Account__c> subAccounts2 = selector.selectByChargeAccountId(new Set<Id>{chargeAccountRequest.Id}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR});
 		System.assertEquals(1, subAccounts2.size(), 'Expecting 1');
 		System.assertEquals(chargeAccountRequest.Id, subAccounts2[0].APT_Charge_Account__c, 'Id not matched');
 		Test.stopTest();
-
 	}
 }

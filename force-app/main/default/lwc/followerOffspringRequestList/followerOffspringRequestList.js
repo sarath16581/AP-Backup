@@ -9,41 +9,54 @@
  */
 import {api, LightningElement, wire} from 'lwc';
 import getDatatableColumns from '@salesforce/apex/FollowerOffspringRequestController.retrieveListViewColumns';
-import deleteSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.deleteSubAccounts';
-import finalizeSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.finalizeSubAccounts';
+import finaliseSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.finaliseSubAccounts';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import LightningConfirm from "lightning/confirm";
 import BILLING_ACCOUNT_NAME from "@salesforce/schema/Billing_Account__c.Name";
 import CHARGE_ACCOUNT_OPPORTUNITY_ID from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_NAME from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.Name";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
-import maxFinalizeError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
-import {getFieldValue, getRecord} from "lightning/uiRecordApi";
+import maxFinaliseError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
+import {getFieldValue, getRecord, deleteRecord} from "lightning/uiRecordApi";
 import LightningAlert from 'lightning/alert';
 
 // Row actions
 const actions = [
-	{label: 'Edit', name: 'edit'}
+	{label: 'Edit', name: 'edit'},
+	{label: 'Delete', name: 'delete'}
 ];
 
 // Searchable fields
-const SEARCHABLE_FIELDS = ['Name', 'PhysicalAddress'];
+const SEARCHABLE_FIELDS = ['Name', 'PhysicalAddressStr'];
 
-// Max number of requests can be finalized
-const MAX_FINALIZE_REQUESTS = 10;
-export default class FollowerOffspringRequestTeamList extends LightningElement {
+// Max number of requests can be finalised
+const MAX_FINALISE_REQUESTS = 10;
+export default class FollowerOffspringRequestList extends LightningElement {
+	// Can be either charge account ID or billing account ID
 	@api leaderId;
+
+	// If current context is for billing account or charge account flow
 	@api isBillingAccount;
-	@api countFinalized;
+
+	// Count of requests finalised. Required to trigger max request error
+	@api countFinalised;
+
+	// Sub Accounts passed from request wrapper
+	@api subAccounts = [];
+
+	// Finalised sub Accounts passed from request wrapper
+	@api finalisedSubAccounts;
+
 	columns;
+	finalisedColumns;
 
 	// Default sorting is on CreatedDate DESC
 	sortBy = 'CreatedDate';
 	sortDirection = 'desc';
 
-	@api subAccounts = [];
+
 	_filteredSubAccounts;
-	searchTerm
+	searchTerm;
 	selectedRows = [];
 	isLoading = true;
 
@@ -53,6 +66,7 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 	listViewLabel;
 	recordViewLabel;
 	submitLabel;
+	backLabel;
 
 	/**
 	 *  Load leader account details for navigation bar
@@ -65,13 +79,15 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 				this.listViewUrl = '/lightning/o/Billing_Account__c/list?filterName=Recent';
 				this.recordViewLabel = getFieldValue(data, BILLING_ACCOUNT_NAME);
 				this.recordViewUrl = '/lightning/r/Billing_Account__c/'+ this.leaderId + '/view';
-				this.submitLabel = 'Submit'
+				this.submitLabel = 'Submit';
+				this.backLabel = 'Back to Billing Account';
 			} else {
 				this.listViewLabel = 'Opportunities';
 				this.listViewUrl = '/lightning/o/Opportunity/list?filterName=Recent';
 				this.recordViewLabel = getFieldValue(data, CHARGE_ACCOUNT_OPPORTUNITY_NAME);
 				this.recordViewUrl = '/lightning/r/Opportunity/'+ getFieldValue(data, CHARGE_ACCOUNT_OPPORTUNITY_ID) + '/view';
-				this.submitLabel = 'Finalize Request(s)'
+				this.submitLabel = 'Finalise Request(s)';
+				this.backLabel = 'Back to Opportunity';
 			}
 		}
 		if (error) {
@@ -99,12 +115,17 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 				return {...item};
 			});
 			// insert physical address at index 2
-			this.columns.splice(2, 0, {label: 'Physical Address', fieldName: 'PhysicalAddress', type: 'text', sortable: 'true'});
+			this.columns.splice(2, 0, {label: 'Physical Address', fieldName: 'PhysicalAddressStr', type: 'text', sortable: 'true'});
+			this.finalisedColumns = [...this.columns];
 			this.columns.push({type: 'action', typeAttributes: {rowActions: actions}});
 		} else if (error) {
 			console.error(error);
 		}
 		this.isLoading = false;
+	}
+
+	get hasFinalisedSubAccounts() {
+		return this.finalisedSubAccounts != null && this.finalisedSubAccounts?.length > 0;
 	}
 
 	get filteredSubAccounts() {
@@ -168,6 +189,8 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 			case 'edit':
 				this.editRow(row);
 				break;
+			case 'delete':
+				this.deleteRow(row)
 			default:
 		}
 	}
@@ -180,35 +203,40 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 	 * Delete selected sub accounts from datatable and reset selection. Show error if deletion failed.
 	 * Dispatch delete event to request wrapper for deletion on server side
 	 */
-	async handleDeleteRows() {
+	async deleteRow(row) {
 		const result = await LightningConfirm.open({
-			message: this.selectedRows?.length + ' selected sub account request(s) will be deleted.',
+			message: 'Selected sub account request will be deleted.',
 			variant: 'headerless',
-			label: 'Sub Accounts Delete',
+			label: 'Sub Account Delete',
 		});
 		if (result) {
 			this.isLoading = true;
-			const ids = this.selectedRows.map(item => item.Id);
-			deleteSubAccounts({subAccounts: this.selectedRows})
-				.then(() => {
-					this.dispatchEvent(new CustomEvent('delete'));
-					// delete rows from filteredSubAccounts
-					this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
-					this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
-					this.resetSelection();
-				}).catch(error =>{
-					const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
-					if (errorMessages) {
-						this.dispatchEvent(
-							new ShowToastEvent({
-								title: "An error occurred while saving/deleting record(s).",
-								message: errorMessages,
-								variant: "error",
-							}),
-						);
-					}
-				}).finally(() =>{
-					this.isLoading = false;
+			deleteRecord(row.Id).then(() => {
+				this.dispatchEvent(new CustomEvent('delete'));
+				// delete rows from filteredSubAccounts
+				this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => row.Id !== item.Id);
+				this.subAccounts = [...this.subAccounts].filter(item => row.Id !== item.Id);
+				this.resetSelection();
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: "Success",
+						message: 'Selected sub account has been deleted.',
+						variant: "success",
+					})
+				);
+			}).catch(error =>{
+				const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
+				if (errorMessages) {
+					this.dispatchEvent(
+						new ShowToastEvent({
+							title: "An error occurred while deleting the selected record.",
+							message: errorMessages,
+							label: "Deleting Sub Account Request Error",
+						})
+					);
+				}
+			}).finally(() =>{
+				this.isLoading = false;
 			});
 		}
 	}
@@ -259,25 +287,26 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 	}
 
 	/**
-	 * Update selected sub accounts status to 'Pending Charge Account' and dispatch finalize event to request wrapper
-	 * User can select up to MAX_FINALIZE_REQUESTS records in one go
+	 * Update selected sub accounts status to 'Pending Charge Account' and dispatch finalise event to request wrapper
+	 * User can select up to MAX_FINALISE_REQUESTS records in one go
 	 * Show errors if any failures
 	 */
 	async handleSubmit() {
+		const text = this.isBillingAccount === 'true' ? 'submitted' : 'finalised';
 		const result = await LightningConfirm.open({
-			message: this.selectedRows?.length + ' selected sub account request(s) will be submitted/finalized.',
+			message: this.selectedRows?.length + ' selected sub account request(s) will be ' + text,
 			variant: 'headerless',
-			label: 'Sub Accounts Submit/Finalize',
+			label: 'Sub Accounts Submit/Finalise',
 		});
 		if (result) {
 			if (this.isBillingAccount === 'true') {
 				// TODO: Submit
 			} else {
-				if (this.selectedRows.length > MAX_FINALIZE_REQUESTS - this.countFinalized) {
+				if (this.selectedRows.length > MAX_FINALISE_REQUESTS - this.countFinalised) {
 					await LightningAlert.open({
-						message: maxFinalizeError,
+						message: maxFinaliseError,
 						theme: 'error',
-						variant: 'headerless'
+						label: 'Finalising Request(s) Error'
 					});
 					return;
 				}
@@ -288,26 +317,33 @@ export default class FollowerOffspringRequestTeamList extends LightningElement {
 				// extract IDs to refresh list view
 				const ids = chargeAccountSubAccounts.map(item => item.Id);
 
-				// finalize charge account sub accounts
+				// finalise charge account sub accounts
 				if (chargeAccountSubAccounts.length > 0) {
 					this.isLoading = true;
-					finalizeSubAccounts({subAccounts: chargeAccountSubAccounts})
+					finaliseSubAccounts({subAccounts: chargeAccountSubAccounts})
 						.then(() => {
-							this.dispatchEvent(new CustomEvent('finalize', {detail: chargeAccountSubAccounts.length}));
+							this.dispatchEvent(
+								new ShowToastEvent({
+									title: "Success",
+									message: this.selectedRows?.length + ' selected sub account(s) have been finalised.',
+									variant: "success",
+								})
+							);
+							this.dispatchEvent(new CustomEvent('finalise', {detail: chargeAccountSubAccounts.length}));
 							// delete rows from filteredSubAccounts and subAccounts
 							this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
 							this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
 							this.resetSelection();
-							this.countFinalized = this.countFinalized + chargeAccountSubAccounts.length;
+							this.countFinalised = this.countFinalised + chargeAccountSubAccounts.length;
 						}).catch(error =>{
 						const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
 						if (errorMessages) {
 							this.dispatchEvent(
 								new ShowToastEvent({
-									title: "An error occurred while submitting/finalizing record(s).",
+									title: "An error occurred while finalizing record(s).",
 									message: errorMessages,
 									variant: "error",
-								}),
+								})
 							);
 						}
 					}).finally(() =>{

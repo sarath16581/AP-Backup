@@ -7,49 +7,65 @@
  * 2023-10-27 - Harry Wang - Created
  */
 import {api, LightningElement, wire} from 'lwc';
-import { NavigationMixin } from 'lightning/navigation';
+import {NavigationMixin} from 'lightning/navigation';
 import PHYSICAL_STREET from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Street_Name__c";
 import PHYSICAL_SUBURB from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Suburb__c";
 import PHYSICAL_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_State__c";
 import PHYSICAL_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c";
-import MAILING_STREET from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Street_Name__c";
-import MAILING_SUBURB from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Suburb__c";
-import MAILING_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_State__c";
-import MAILING_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c";
+import STATUS from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
 import getSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.getSubAccounts';
 import {refreshApex} from "@salesforce/apex";
 
-export default class CreateTeamFollowerOffspringRequest extends NavigationMixin(LightningElement) {
+export default class CreateFollowerOffspringRequest extends NavigationMixin(LightningElement) {
+	// Can be either charge account ID or billing account ID
 	@api recordId;
+
+	// If current context is for billing account or charge account flow
 	@api isBillingAccount;
+
 	isEditLoading;
 	subAccount;
-	countFinalized = 0;
-	isABNConfirmation = true;
+	countFinalised = 0;
+	isABNConfirmation = false;
 	isEditView = false;
 	isListView = false;
 	subAccounts = [];
 	_wiredSubAccounts;
+	finalisedSubAccounts;
 
 	/**
 	 * Wired sub accounts passed to list view
 	 * Private property _wiredSubAccounts used to support manual refresh
+	 * If sub accounts is not empty open list view otherwise open edit view
 	 */
 	@wire(getSubAccounts, {leaderAccountId: '$recordId', isBillingAccount: '$isBillingAccount'})
 	wiredData(result) {
 		const {data, error} = result;
 		this._wiredSubAccounts = result;
-		if (data) {
-			this.subAccounts = data.map(item => {
+		if (data?.length > 0) {
+			this.subAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Error' || item[STATUS.fieldApiName] === 'Draft').map(item => {
 				return {...item};
 			});
-			// mapping physical address
 			this.subAccounts.forEach(item => {
-				item.PhysicalAddress = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
+				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
 					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
-				item.MailingAddress = item[MAILING_STREET.fieldApiName] + ' ' + item[MAILING_SUBURB.fieldApiName]
-					+ ' ' + item[MAILING_STATE.fieldApiName] + ' ' + item[MAILING_POSTCODE.fieldApiName];
 			});
+
+			this.finalisedSubAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Pending Charge Account')
+				.map(item => {
+				if (item[STATUS.fieldApiName] === 'Pending Charge Account') {
+					return {...item};
+				}
+			});
+			this.finalisedSubAccounts.forEach(item => {
+				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
+					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
+			});
+
+			this.isABNConfirmation = false;
+			this.isListView = true;
+		} else if (data?.length === 0) {
+			this.isABNConfirmation = true;
 		} else if (error) {
 			console.error(error);
 		}
@@ -75,16 +91,24 @@ export default class CreateTeamFollowerOffspringRequest extends NavigationMixin(
 	}
 
 	/**
-	 * Navigate to record view using record Id in the event
+	 * Navigate to record view if sub accounts is not empty otherwise go back to list view
 	 */
-	navigateToLeader(event) {
-		this[NavigationMixin.Navigate]({
-			type: 'standard__recordPage',
-			attributes: {
-				recordId: event.detail,
-				actionName: 'view'
-			},
-		});
+	handleCancel(event) {
+		if (event?.detail) {
+			if (this.subAccounts.length === 0) {
+				this[NavigationMixin.Navigate]({
+					type: 'standard__recordPage',
+					attributes: {
+						recordId: event.detail,
+						actionName: 'view'
+					},
+				});
+			} else {
+				this.isABNConfirmation = false;
+				this.isEditView = false;
+				this.isListView = true;
+			}
+		}
 	}
 
 	/**
@@ -99,10 +123,10 @@ export default class CreateTeamFollowerOffspringRequest extends NavigationMixin(
 	}
 
 	/**
-	 * Handle finalize event from list view - refreshing sub accounts and updating finalized count
+	 * Handle finalise event from list view - refreshing sub accounts and updating finalised count
 	 */
-	handleFinalize(event) {
+	handleFinalise(event) {
 		this.refreshListView();
-		this.countFinalized += event.detail;
+		this.countFinalised += event.detail;
 	}
 }

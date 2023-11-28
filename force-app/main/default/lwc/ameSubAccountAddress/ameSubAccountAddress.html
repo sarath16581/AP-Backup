@@ -1,0 +1,73 @@
+<template>
+	<div data-status={isSearchEnabled} class="ame-search-label">
+		<label><abbr class="slds-required" title="required">*</abbr>{label}</label>
+	</div>
+	<template lwc:if={isSearchEnabled} class="ame-address">
+		<c-ame-address-validation2
+				variant="detail-hidden"
+				label=""
+				help-text=""
+				onselectaddress={handleSelectAddress}>
+		</c-ame-address-validation2>
+	</template>
+	<div class="address-input-form">
+		<lightning-layout class="slds-box slds-m-top_small" multiple-rows>
+			<template if:true={errorMessage}>
+				<div class="slds-text-color_error">{errorMessage}</div>
+			</template>
+			<lightning-layout-item size="12">
+				<lightning-input class="address-input" required disabled={isAddressInputDisabled} type="text" name="addressLine1" label="Address Line 1" onchange={handleAddressChange} value={address.addressLine1} autocomplete="off">
+				</lightning-input>
+			</lightning-layout-item>
+			<lightning-layout-item size="12">
+				<lightning-input class="address-input" disabled={isAddressInputDisabled} type="text" name="addressLine2" label="Address Line 2" onchange={handleAddressChange} value={address.addressLine2} autocomplete="off">
+				</lightning-input>
+			</lightning-layout-item>
+			<lightning-layout-item size="12">
+				<lightning-input class="address-input" required disabled={isAddressInputDisabled} type="text" name="city" label="Suburb" onchange={handleAddressChange} value={address.city} autocomplete="off">
+				</lightning-input>
+			</lightning-layout-item>
+			<lightning-layout-item size="6">
+				<lightning-input class="address-input" required disabled={isAddressInputDisabled} type="text" name="state" label="State" onchange={handleAddressChange} value={address.state} autocomplete="off">
+				</lightning-input>
+			</lightning-layout-item>
+			<lightning-layout-item size="6">
+				<lightning-input required class="slds-m-left_small address-input"  disabled={isAddressInputDisabled} type="text" name="postcode" label="Postcode" value={address.postcode}
+				                 onchange={handleAddressChange} autocomplete="off"></lightning-input>
+			</lightning-layout-item>
+			<lightning-layout-item size="6">
+				<div class="slds-form slds-form_stacked">
+					<div class="slds-form-element">
+						<label class="slds-form-element__label">Edit Address</label>
+						<lightning-input type="toggle"
+						                 variant="label-hidden"
+						                 message-toggle-active=""
+						                 message-toggle-inactive=""
+						                 checked={overrideAddress}
+						                 onchange={handleOverrideCheckboxChange}
+						                 name="addressToggle"
+						                 class="address-override-toggle"
+						                 disabled={isConfirmed}>
+						</lightning-input>
+					</div>
+				</div>
+			</lightning-layout-item>
+			<lightning-layout-item size="6">
+				<div class="slds-m-top_medium">
+					<div class="slds-float_right">
+						<lightning-button-stateful
+								label-when-off="Confirm"
+								label-when-on="Confirmed"
+								label-when-hover="Cancel"
+								icon-name-when-off="utility:add"
+								icon-name-when-on="utility:check"
+								icon-name-when-hover="utility:close"
+								selected={isConfirmed}
+								onclick={handleConfirmSelectedAddress}>
+						</lightning-button-stateful>
+					</div>
+				</div>
+			</lightning-layout-item>
+		</lightning-layout>
+	</div>
+</template>

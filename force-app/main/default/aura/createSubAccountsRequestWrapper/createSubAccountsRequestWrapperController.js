@@ -6,7 +6,7 @@
   *                 2. It also contains validation checks on Billing Account
   @changelog
   2021-04-24    Dheeraj Mandavilli Created
-  2023-08-18    Harry Wang Updated navigation to NavigateSubAccountRequestWrapper
+  2023-08-18    Harry Wang Updated navigation to SubAccountsCreationWrapper
 */
 ({
 	doInit: function(component,event,helper) {

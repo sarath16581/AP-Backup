@@ -43,10 +43,15 @@ import {ShowToastEvent} from "lightning/platformShowToastEvent";
 
 const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_ORG_NAME, BILLING_ACCOUNT_NUMBER, BILLING_ACCOUNT_CUSTOMER_NUMBER];
 const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_OPPORTUNITY_NAME, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_REQUEST_NUMBER, CHARGE_ACCOUNT_CUSTOMER_NUMBER, CHARGE_ACCOUNT_OPPORTUNITY, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT];
-export default class FollowerOffspringRequestTeamEditForm extends LightningElement {
+export default class FollowerOffspringRequestEditForm extends LightningElement {
+	// Can be either charge account ID or billing account ID
 	@api leaderId;
+
+	// If current context is for billing account or charge account flow
 	@api isBillingAccount;
-	@api _subAccount;
+
+	// Private property required to have custom logic in setter
+	_subAccount;
 
 	// leader fields
 	billingAccountOrOpportunityName = {label: '', value: ''};
@@ -127,6 +132,18 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 			this.subAccountLoginRequired = this._subAccount[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName];
 			this.subAccountContactTel = this._subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName];
 			this.subAccountContactEmail = this._subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName];
+			this.physicalAddress = {
+				street: this._subAccount[SUB_ACCOUNT_PHYSICAL_STREET.fieldApiName],
+				city: this._subAccount[SUB_ACCOUNT_PHYSICAL_SUBURB.fieldApiName],
+				state: this._subAccount[SUB_ACCOUNT_PHYSICAL_STATE.fieldApiName],
+				postcode: this._subAccount[SUB_ACCOUNT_PHYSICAL_POSTCODE.fieldApiName],
+			};
+			this.mailingAddress = {
+				street: this._subAccount[SUB_ACCOUNT_MAILING_STREET.fieldApiName],
+				city: this._subAccount[SUB_ACCOUNT_MAILING_SUBURB.fieldApiName],
+				state: this._subAccount[SUB_ACCOUNT_MAILING_STATE.fieldApiName],
+				postcode: this._subAccount[SUB_ACCOUNT_MAILING_POSTCODE.fieldApiName],
+			};
 			this.accountType = this._subAccount[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName];
 			if (this.isAccountSearchable) {
 				this.selectedFollower = this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]
@@ -160,12 +177,43 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		this.accountType = accountType;
 	}
 
+	/**
+	 *  Handler when address confirmed from AME. Map AME address to sub account address
+	 */
 	handleConfirmAddress(event) {
 		if (event.detail.physicalAddress) {
-			this.physicalAddress = event.detail.physicalAddress;
+			const physicalAddressVar = event.detail.physicalAddress; // unmapped physical address from AME
+			if(physicalAddressVar.addressLine1 != null && physicalAddressVar.addressLine2 != null){
+				this.physicalAddress.street = physicalAddressVar.addressLine1+' '+physicalAddressVar.addressLine2;
+			} else if(physicalAddressVar.addressLine1 != null){
+				this.physicalAddress.street = physicalAddressVar.addressLine1;
+			}
+			if(physicalAddressVar.city != null){
+				this.physicalAddress.city = physicalAddressVar.city;
+			}
+			if(physicalAddressVar.state != null){
+				this.physicalAddress.state = physicalAddressVar.state;
+			}
+			if(physicalAddressVar.postcode != null){
+				this.physicalAddress.postcode = physicalAddressVar.postcode;
+			}
 		}
 		if (event.detail.mailingAddress) {
-			this.mailingAddress = event.detail.mailingAddress;
+			const mailingAddressVar = event.detail.mailingAddress; // unmapped mailing address from AME
+			if(mailingAddressVar.addressLine1 != null && mailingAddressVar.addressLine2 != null){
+				this.mailingAddress.street = mailingAddressVar.addressLine1+' '+mailingAddressVar.addressLine2;
+			} else if(mailingAddressVar.addressLine1 != null){
+				this.mailingAddress.street = mailingAddressVar.addressLine1;
+			}
+			if(mailingAddressVar.city != null){
+				this.mailingAddress.city = mailingAddressVar.city;
+			}
+			if(mailingAddressVar.state != null){
+				this.mailingAddress.state = mailingAddressVar.state;
+			}
+			if(mailingAddressVar.postcode != null){
+				this.mailingAddress.postcode = mailingAddressVar.postcode;
+			}
 		}
 	}
 
@@ -173,10 +221,16 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 		return this.isBillingAccount === 'false';
 	}
 
+	/**
+	 *  Handler whe user toggle if Invoicing Contact Same As Sub Account Contact
+	 */
 	handleInvoicingToggleChange(event) {
 		this.isInvoicingDifferent = !event.target.checked;
 	}
 
+	/**
+	 *  Handler when user selected a follower
+	 */
 	handleFollowerSelected(event) {
 		if (event.detail) {
 			this.selectedFollower = event.detail;
@@ -189,9 +243,9 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 	 */
 	handleCancel() {
 		if (this.isBillingAccount === 'true') {
-			this.dispatchEvent(new CustomEvent('closed', {detail: this.leaderId}));
+			this.dispatchEvent(new CustomEvent('cancel', {detail: this.leaderId}));
 		} else {
-			this.dispatchEvent(new CustomEvent('closed', {detail: getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY)}));
+			this.dispatchEvent(new CustomEvent('cancel', {detail: getFieldValue(this.recordData, CHARGE_ACCOUNT_OPPORTUNITY)}));
 		}
 	}
 
@@ -290,7 +344,7 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 			if (this.accountType === 'Offspring Follower') {
 				// if follower is existing billing account assign to parent billing account otherwise assign to parent sub account
 				if (!this.subAccount || (this.subAccount && (this.selectedFollower.Id !== this.subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]
-					&& this.selectedFollower.Id !== this.subAccount[SUB_ACCOUNT_PARENT_SUB_ACCOUNT.fieldApiName]))) {
+						&& this.selectedFollower.Id !== this.subAccount[SUB_ACCOUNT_PARENT_SUB_ACCOUNT.fieldApiName]))) {
 					if (this.selectedFollower[BILLING_ACCOUNT_NUMBER.fieldApiName]) {
 						fields[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName] = this.selectedFollower.Id;
 						fields[SUB_ACCOUNT_PARENT_SUB_ACCOUNT.fieldApiName] = null;
@@ -368,19 +422,6 @@ export default class FollowerOffspringRequestTeamEditForm extends LightningEleme
 				}),
 			);
 		}
-	}
-
-	/**
-	 *  Send default address details to address component if this.subAccount exists
-	 */
-	get defaultAddress() {
-		if (this.subAccount) {
-			const physicalAddress = this.subAccount.PhysicalAddress;
-			const mailingAddress = this.subAccount.MailingAddress;
-			const mailingSameAsPhysical = JSON.stringify(physicalAddress) === JSON.stringify(mailingAddress);
-			return {physicalAddress, mailingAddress, mailingSameAsPhysical};
-		}
-		return null;
 	}
 
 	/**
