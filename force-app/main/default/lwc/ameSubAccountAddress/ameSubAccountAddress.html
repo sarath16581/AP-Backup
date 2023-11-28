@@ -33,21 +33,21 @@
 			</lightning-layout-item>
 			<lightning-layout-item size="6">
 				<lightning-input required class="slds-m-left_small address-input"  disabled={isAddressInputDisabled} type="text" name="postcode" label="Postcode" value={address.postcode}
-				                 onchange={handleAddressChange} autocomplete="off"></lightning-input>
+								 onchange={handleAddressChange} autocomplete="off"></lightning-input>
 			</lightning-layout-item>
 			<lightning-layout-item size="6">
 				<div class="slds-form slds-form_stacked">
 					<div class="slds-form-element">
 						<label class="slds-form-element__label">Edit Address</label>
 						<lightning-input type="toggle"
-						                 variant="label-hidden"
-						                 message-toggle-active=""
-						                 message-toggle-inactive=""
-						                 checked={overrideAddress}
-						                 onchange={handleOverrideCheckboxChange}
-						                 name="addressToggle"
-						                 class="address-override-toggle"
-						                 disabled={isConfirmed}>
+										 variant="label-hidden"
+										 message-toggle-active=""
+										 message-toggle-inactive=""
+										 checked={overrideAddress}
+										 onchange={handleOverrideCheckboxChange}
+										 name="addressToggle"
+										 class="address-override-toggle"
+										 disabled={isConfirmed}>
 						</lightning-input>
 					</div>
 				</div>

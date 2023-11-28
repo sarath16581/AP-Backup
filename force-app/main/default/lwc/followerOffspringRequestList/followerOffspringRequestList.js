@@ -190,8 +190,8 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				this.editRow(row);
 				break;
 			case 'delete':
-				this.deleteRow(row)
-			default:
+				this.deleteRow(row);
+				break;
 		}
 	}
 

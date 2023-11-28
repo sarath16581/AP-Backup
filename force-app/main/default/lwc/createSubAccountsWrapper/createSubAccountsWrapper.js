@@ -6,7 +6,7 @@
  * @changelog
  * 2023-11-28 - Harry Wang - Created
  */
-import {LightningElement, track, wire} from 'lwc';
+import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference} from "lightning/navigation";
 import LightningAlert from 'lightning/alert';
 import errorMessage from "@salesforce/label/c.StarTrackSubAccountsCreationTabError";

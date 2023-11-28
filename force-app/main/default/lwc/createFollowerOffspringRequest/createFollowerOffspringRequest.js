@@ -53,9 +53,7 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 
 			this.finalisedSubAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Pending Charge Account')
 				.map(item => {
-				if (item[STATUS.fieldApiName] === 'Pending Charge Account') {
 					return {...item};
-				}
 			});
 			this.finalisedSubAccounts.forEach(item => {
 				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]

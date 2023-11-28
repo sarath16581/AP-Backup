@@ -7,7 +7,7 @@
 2021.04.21   Dheeraj Mandavilli - Created
 2023.11.24   Harry Wang - Updated initialLoad type to String. When initialLoad passed from SubAccountsCreationWrapper only string type is supported
 */
-import { LightningElement,track, wire, api } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import { NavigationMixin } from 'lightning/navigation';
 import relatedSubAccountRequests from "@salesforce/apex/CreateSubAccountsController.getRelatedSubAccountRequests";
