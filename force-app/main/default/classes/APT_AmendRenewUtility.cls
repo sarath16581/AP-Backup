@@ -1327,12 +1327,10 @@ public without sharing class APT_AmendRenewUtility {
         //Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
 		List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opportunityId});
         List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
-        if(!existingProposalList.isEmpty()){
-            for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
-                if(proposal.Apttus_Proposal__Primary__c) {
-                    proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
-                    opportunityProposalsToUpdate.add(proposal);
-                }
+        for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
+        	if(proposal.Apttus_Proposal__Primary__c) {
+             	proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
+                opportunityProposalsToUpdate.add(proposal);
             }
         }
         if(!opportunityProposalsToUpdate.isEmpty()) {

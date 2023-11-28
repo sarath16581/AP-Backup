@@ -1129,9 +1129,9 @@ public with sharing class APT_AmendRenewController {
 					//proposalId = newProposal.Id;
 
 					//redirect to cart
-					String finalURL = URL.getSalesforceBaseUrl().toExternalForm();
-					finalURL += APT_Constants.STRING_URL_PROPOSAL_CART + newProposal.Id + APT_Constants.STRING_URL_AMEND_QUOTE_CART;
-					PageReference pageRef = new PageReference(finalURL);
+					String baseURL = URL.getSalesforceBaseUrl().toExternalForm();
+					baseURL += APT_Constants.STRING_URL_PROPOSAL_CART + newProposal.Id + APT_Constants.STRING_URL_AMEND_QUOTE_CART;
+					PageReference pageRef = new PageReference(baseURL);
 					pageRef.setRedirect(true);
 					return pageRef;
 				}
