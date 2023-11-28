@@ -44,11 +44,11 @@ export default class BspRequestAccessContent extends NavigationMixin(LightningEl
 		const subject = 'Australia Post - Business Support Portal - Enable account number';
 		let body = 'Hi '+contentParam.firstName+',';
 		body += '\n\n';
-		body += 'Can you please update my Australia Post Business Support Portal access.';
+		body += 'Can you please update my Australia Post Business Support Portal access?';
 		body += '\n\n';
 		body += 'As an Access Management Administrator, you\'re authorised to update user access.';
 		body += '\n\n';
-		body += 'I\'m submitting a \'credit claim\' enquiry on the Business Support Portal (https://bsp.auspost.com.au/s/CreditClaimForm) for '+this.contentParam.businessName;
+		body += 'I\'m submitting a \'credit claim\' enquiry on the Business Support Portal (https://bsp.auspost.com.au/s/CreditClaimForm) for \''+this.contentParam.businessName +'\'.';
 		body += '\n\n';
 		body += 'Please review which accounts I have access to, including this account number, '+ this.billingNumber +'.';
 		body += '\n\n\n';
@@ -62,7 +62,7 @@ export default class BspRequestAccessContent extends NavigationMixin(LightningEl
 		body += '\n';
 		body += '3. Locate user '+this.contentParam.loggedInUserEmail+' and select the edit icon';
 		body += '\n';
-		body += '4. For \'Business Support Portal\', update or enable account numbers including '+ this.billingNumber +'.';
+		body += '4. For \'Business Support Portal\', update or enable account numbers including '+ this.billingNumber;
 		body += '\n';
 		body += '5. Select \'Save changes\'';
 		body += '\n\n\n';
