@@ -1,5 +1,5 @@
 image: 
-  name: apnathanfranklin/ap-sfdx-pipeline:latest
+  name: apnathanfranklin/ap-sfdx-pipeline@sha256:90b5ae6521287d1ff26ced69081a4552c098f4e877147b9e85038e256e2b5441
   username: $DOCKER_HUB_USERNAME
   password: $DOCKER_HUB_PASSWORD
   email: $DOCKER_HUB_EMAIL
@@ -9,7 +9,7 @@ pipelines:
             - step:
                   name: Code Analysis and Build
                   script:
-                      - sh /pipelines/pipeline-orchestrator/feature.sh --clientid dummyvalue --username dummyvalue1 --clientsecret dummyvalue --password dummyvalue --loginurl dummyvalue --gitdestbranch $BITBUCKET_PR_DESTINATION_BRANCH --gitsourcebranch $BITBUCKET_BRANCH --gitpullrequest $BITBUCKET_PR_ID --gitowner $BITBUCKET_REPO_OWNER --gitslug $BITBUCKET_REPO_SLUG --gitusername $GIT_USER --gitpassword $GIT_PASS --src $BITBUCKET_CLONE_DIR
+                      - bash /pipelines/pipeline-orchestrator/feature.sh --clientid dummyvalue --username dummyvalue1 --clientsecret dummyvalue --password dummyvalue --loginurl dummyvalue --gitdestbranch $BITBUCKET_PR_DESTINATION_BRANCH --gitsourcebranch $BITBUCKET_BRANCH --gitpullrequest $BITBUCKET_PR_ID --gitowner $BITBUCKET_REPO_OWNER --gitslug $BITBUCKET_REPO_SLUG --gitusername $GIT_USER --gitpassword $GIT_PASS --src $BITBUCKET_CLONE_DIR
                   artifacts:
                       - dist/**
     custom:
