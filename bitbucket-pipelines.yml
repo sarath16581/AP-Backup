@@ -1,5 +1,5 @@
 image:
-  name: apnathanfranklin/ap-sfdx-pipeline@sha256:5c110e27d906ec024c610a53f081c360f0c048d4da536cc89537154924e0e7f0
+  name: apnathanfranklin/ap-sfdx-pipeline:latest
   username: $DOCKER_HUB_USERNAME
   password: $DOCKER_HUB_PASSWORD
   email: $DOCKER_HUB_EMAIL
