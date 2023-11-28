@@ -10,6 +10,8 @@
 */
 
 trigger BillingAccountCreationEventTrigger on BillingAccountCreationEvent__e (after insert ) {
-    // Calling the exceute method in the handler
-    BillingAccountCreationEventHandler.execute();
+
+    if(!TriggerHelper.isTriggerDisabled(String.valueOf(BillingAccountCreationEvent__e.sObjectType))){ // verify if triggers are disabled
+        (new BillingAccountCreationEventHandler()).dispatch();
+    }
 }
