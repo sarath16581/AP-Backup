@@ -13,6 +13,18 @@
     "trustedSiteName" : "Adobe Assets",
     "trustedSiteUrl" : "https://assets.adobedtm.com",
     "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "9bb2cd62-92a8-49c6-be8d-3bbd3d06267f",
+    "isActive" : true,
+    "trustedSiteName" : "Google Recaptcha",
+    "trustedSiteUrl" : "https://www.google.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "302d8644-d6f0-42f2-91c1-9bbd91696dab",
+    "isActive" : true,
+    "trustedSiteName" : "Google Recaptcha GStatic",
+    "trustedSiteUrl" : "https://www.gstatic.com",
+    "type" : "trustedSitesForScripts"
   } ],
   "type" : "site"
 }

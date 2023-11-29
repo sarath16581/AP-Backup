@@ -29,6 +29,8 @@ History:
 2022-07-22 ken.mcguire OPC Uplift.
 2023-08-21 - Ranjeewa Silva - Removed validation check on products when moving stage to 'Closed Won'. Products are now mandatory
 				moving stage from "Qualify" to "Propose" and beyond. Implemented as a opportunity validation rule.
+2023-11-09 - Mahesh Parvathaneni - Removed validation check on revenue start date in checkIfAllowedToCloseWin method. This
+				is now moved to OpportunitySalesPipelineModule as the validation is required from Qualify stage and beyond.
 **************************************************/
 public with sharing class OpportunityUtility
 {
@@ -237,25 +239,12 @@ public with sharing class OpportunityUtility
 
 						for (OpportunityLineItem oli: oppProdList)
 						{
-						 				// 08/16/19: Modified error formula to accommodate deactivated Opportunity Product VR
-							if (!oppToPreEntryValueMap.get(oppId) && (oli.Contract_Start_Date__c < Date.today() || oli.Contract_Start_Date__c < oppToCloseDateValueMap.get(oppId)))
-							{
-								oppErrorMap = addOpportunityErrorsMap(oppErrorMap, oppId, Label.Opportunity_Confirm_Pre_Entry_Scenario);
-								if (STRING_YES.equalsIgnoreCase(oli.Contract_Product__c))
-								{
-								 						// the Opportunity SHOULD SAVE and not proceed to further checks if Contract_Product__c = 'No'
-									passedOppIdSet.add(oppId);
-								}
-							}
 
 							// Check #3 begins here!
-							else
+							if (STRING_YES.equalsIgnoreCase(oli.Contract_Product__c))
 							{
-								if (STRING_YES.equalsIgnoreCase(oli.Contract_Product__c))
-								{
-								 						// the Opportunity SHOULD SAVE and not proceed to further checks if Contract_Product__c = 'No'
-									passedOppIdSet.add(oppId);
-								}
+													// the Opportunity SHOULD SAVE and not proceed to further checks if Contract_Product__c = 'No'
+								passedOppIdSet.add(oppId);
 							}
 
 							// STP-2226 Added Validation for duplicate opportunity line item with exception that
