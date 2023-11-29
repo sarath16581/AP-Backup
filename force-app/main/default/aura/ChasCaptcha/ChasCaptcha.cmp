@@ -1,0 +1,29 @@
+<!--
+@description
+Renders a captcha for some H&S forms
+Requires the use of <script src='https://www.google.com/recaptcha/enterprise.js?render=explicit&onload=onloadCallback' async defer></script> and some EVENTS which is loaded in the HEAD markup of the community
+
+@author Nathan Franklin
+@date 2023-11-20
+
+@changelog
+-->
+<aura:component>
+
+	<aura:method name="reset" action="{!c.reset}" access="PUBLIC" /> 
+
+	<aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+	<aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+
+	<aura:registerEvent name="captchaEvent" type="c:captchaVerifyEvent"/>
+
+	<!-- CAPTCHA attributes-->
+	<aura:attribute name="articleTrackingCaptchaEmptyError"  type="Boolean" default="false" />
+	<aura:attribute name="articleTrackingCaptchaToken"  type="String" default="" />
+	<aura:attribute name="captchaRendered"  type="Boolean" default="false" />
+
+	<div class="chas-input">
+		<div id="recaptchaCheckbox"></div>
+	</div>
+
+</aura:component>	

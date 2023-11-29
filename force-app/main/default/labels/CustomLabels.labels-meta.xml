@@ -5254,6 +5254,14 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
         <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
     </labels>
+	<labels>
+        <fullName>OpportunityWithInvalidRevenueStartDateOnProducts</fullName>
+        <categories>Sales Pipeline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity With Invalid Revenue Start Date On Products</shortDescription>
+        <value>Update the product Revenue Date(s) to a future date. Revenue Start Dates must be later than today. If this is a ‘pre-entry’ scenario where trade commences prior to closing, request Customer Onboarding update this via a DSR.</value>
+    </labels>
     <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
@@ -7924,6 +7932,30 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxFinalizeErrorMessage</shortDescription>
+        <value>Please be advised that you can only finalize up to 10 follower/offspring requests at a time. If you have more than 10, you can finalize them in a subsequent request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTabError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
+        <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountABNConfirmationErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a follower/offspring account. Please raise a Data Quality Management Case to link ABN to required Salesforce Organisation. Once this has been completed, please Self-Serve or raise a Customer Onboarding Deal Support Request for a New Agreement, account will be created post agreement fully signed.</value>
+    </labels>
+    <labels>
         <fullName>STHSSenderReceiverValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
@@ -8083,6 +8115,22 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
+    </labels>
+	<labels>
+        <fullName>AttributeAPCNMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute APCN Mapping</shortDescription>
+        <value>https://auspost/apcn</value>
+    </labels>
+    <labels>
+        <fullName>AttributeCNumberMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute CNumber Mapping</shortDescription>
+        <value>https://auspost/cnumber</value>
     </labels>
     <labels>
         <fullName>AutoLITExceptionYes</fullName>

@@ -9,6 +9,7 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-06-01 - Seth Heang - Added selectByOrgId and WITH_PAYER_ACCOUNT_ID related list test coverage
  * 2023-07-10 - Mahesh Parvathaneni - Added tests for options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
+ * 2023-10-27 - Harry Wang - Added tests for selectByLeaderAccountId and option FILTER_TYPE_FOLLOWER
  */
 @IsTest
 private class BillingAccountsSelector_Test {
@@ -78,7 +79,7 @@ private class BillingAccountsSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom billing_account__c\\b.*Source_System__c\\s*!=\\s*\'PeopleSoft\'').matcher(soql).find(), 'Resulting query does not limit source system of PeopleSoft');
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom billing_account__c\\b.*Type__c\\s*NOT IN\\s*').matcher(soql).find(), 'Resulting query does not limit Type__c field');
-		
+
 		Test.stopTest();
 
 	}
@@ -136,9 +137,24 @@ private class BillingAccountsSelector_Test {
 		accountRecord.LEGACY_ID__c = '60000000';
 		insert accountRecord;
 
+		Account account2 =  ApplicationTestDataFactory.getAccounts(1, false)[0];
+		insert account2;
+
+		Billing_Account__c leaderBillingAccount = ApplicationTestDataFactory.getBillingAccounts(1, account2.Id, 'TEAM', false)[0];
+		leaderBillingAccount.LEGACY_ID__c = '70000000';
+		insert leaderBillingAccount;
+
 		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(2, accountRecord.Id, 'SAP ERP', false);
 		billingAccounts[0].Name = 'MYER Account';
 		insert billingAccounts;
+
+		Billing_Account__c billingAccount2 = ApplicationTestDataFactory.getBillingAccounts(1, account2.Id, 'TEAM', false)[0];
+		billingAccount2.Name = 'Test Account';
+		billingAccount2.LeaderAccount__c = leaderBillingAccount.Id;
+		billingAccount2.Source_System__c = 'TEAM';
+		billingAccount2.SAP_marked_for_deletion__c = false;
+		billingAccount2.LEGACY_ID__c = '80000000';
+		insert billingAccount2;
 
 		Set<String> parentLegacyIdSet = new Set<String>();
 		for(Billing_Account__c bill : billingAccounts){
@@ -181,7 +197,10 @@ private class BillingAccountsSelector_Test {
 
 		selectByOrgIdResult =  selector.selectByOrgId(new Set<Id>{accountRecord.Id}, new Set<Object>{BillingAccountsSelector.Options.FILTER_TYPE_NOT_IN_SBBA_CASH, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT});
 		System.assertEquals(2, selectByOrgIdResult.size(), 'Result count was wrong');
-		Test.stopTest();
 
+		List<Billing_Account__c> resultList = selector.selectByLeaderAccountId(new set<Id>{leaderBillingAccount.Id}, new Set<Object>{BillingAccountsSelector.Options.FILTER_TYPE_FOLLOWER, BillingAccountsSelector.Options.FILTER_ACTIVE});
+		System.assertEquals(1, resultList.size(), 'Expecting one result');
+		System.assertEquals('Test Account', resultList[0].Name, 'Name not matched');
+		Test.stopTest();
 	}
 }

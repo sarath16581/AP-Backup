@@ -37,6 +37,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CSQ_PickupLocationUtility</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CSQApprovalsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CreateBillingAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -50,6 +58,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CreateSubAccountsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FollowerOffspringRequestController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -3167,6 +3179,10 @@
         <recordType>Task.Sales_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Create_Sub_Accounts</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Customer_Scoping_Questionnaire__c</tab>
         <visibility>Available</visibility>

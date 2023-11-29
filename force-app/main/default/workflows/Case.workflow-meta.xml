@@ -5340,7 +5340,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND( NOT(IsNetworkResponseFromUI__c), TEXT(Status) == &apos;Awaiting Network Response&apos; &amp;&amp;  CONTAINS(RecordType.Name,&apos;SSSW&apos;) &amp;&amp;  TEXT(Network__r.Contact_Facility__c )&lt;&gt;&apos;ServiceNow&apos;)</formula>
+        <formula>AND( NOT(IsNetworkResponseFromUI__c), TEXT(Status) == &apos;Awaiting Network Response&apos; &amp;&amp;  CONTAINS(RecordType.Name,&apos;SSSW&apos;) &amp;&amp;  TEXT(Network__r.Contact_Facility__c )&lt;&gt;&apos;ServiceNow&apos;, NOT(ISPICKVAL(Type,&quot;Feedback&quot;)))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
