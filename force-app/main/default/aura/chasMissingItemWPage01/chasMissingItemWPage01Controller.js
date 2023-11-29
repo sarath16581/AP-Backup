@@ -7,12 +7,21 @@
  * 2020-07-06 : Hara Sahoo : Change made for roll out of Safe Drop feature on Missing Items form
  *                           Modified the searchTrackingNumberService() for safedrop and non safedrop flows.
  * 2020-10-09 : Hara Sahoo : Removed code to allow the safedrop flow to be unrestrictive of any states.
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
 
 ({
+
+	handleCaptchaVerify: function(cmp, event, helper) {
+		const token = event.getParam('token');
+		cmp.set('v.articleTrackingCaptchaToken', token);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
+	},
+
     /* Added Init function on 29/10/2018 for parsing and setting 
     the Tracking Id passed from App view to the Missing Items form. */
     doInit: function(cmp, event, helper) {
+
         var agentString = "";
         //Get the user agent string.
         agentString = navigator.userAgent;
@@ -46,8 +55,14 @@
         //Auto progress the consignment search if it is from a direct link and not from the back button
         if(! cmp.get("v.isFromBackButton") && (!$A.util.isEmpty(trackingId) || !$A.util.isUndefined(trackingId)))
         {
-            cmp.set('v.displaySpinner', true);
-            helper.callTrackingNumberService(cmp, event, helper);
+			// TODO: I've put a temporary delay in here, since recaptcha requires a response back in determining whether the user is logged in or not
+			// this logged in state is stored here v.authUserData and it's set by the parent component
+			// this should probably be rewritten to better support auto search from the querystring
+			// Given this was a response to an incident there wasn't enough time to figure out a more elegant solution
+			setTimeout($A.getCallback(function() {
+				cmp.set('v.displaySpinner', true);
+				helper.callTrackingNumberService(cmp, event, helper);
+			}), 1500);
         }
     },
     navNextPage : function(cmp, event, helper) {

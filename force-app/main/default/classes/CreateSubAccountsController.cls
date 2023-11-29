@@ -1,29 +1,36 @@
 /*
-	* @date 2021-05-12
-	* @group BillingAccounts
-	* @tag BillingAccount
-	* @domain Core
-	* @description Controller for createSubAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
-	* @changelog
-	* 2021-05-12 - seth.heang@auspost.com.au - created
-	* 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
-	* 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
-	* 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
-	*												 the lodegement zones of proposals.
-	* 2022-08-01 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
-	* 2023-01-27 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
-	* 								Lines Removed 125-129
-	* 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
-	* 2023-03-01 - Deepak Kemidi - CI-703 Add Method checkAPPCContracts to check if atleast one related APPC contracts have Contract Relationship as Billing Account
-	* 2023-10-30 - Ranjeewa Silva - Refactored 'processResponse' method after the changes to BillingAccountService.parseResponse(HttpResponse).
-	*/
+ * @date 2021-05-12
+ * @group BillingAccounts
+ * @tag BillingAccount
+ * @domain Core
+ * @description Controller for createSubAccount component and used for billing account creation, contains request payload and send to Camunda for SAP integration
+ * @changelog
+ * 2021-05-12 - seth.heang@auspost.com.au - created
+ * 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
+ * 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
+ * 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
+ *												 the lodegement zones of proposals.
+ * 2022-08-01 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
+ * 2023-01-27 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
+ * 								Lines Removed 125-129
+ * 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
+ * 2023-03-01 - Deepak Kemidi - CI-703 Add Method checkAPPCContracts to check if atleast one related APPC contracts have Contract Relationship as Billing Account
+ * 2023-08-18 - Harry Wang - Refactoring getBillingAccountDetails using selector
+ * 2023-10-30 - Ranjeewa Silva - Refactored 'processResponse' method after the changes to BillingAccountService.parseResponse(HttpResponse).
+*/
 public with sharing class CreateSubAccountsController {
+	private static final Map<SObjectType, Set<SObjectField>> BILLING_ACCOUNT_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
+			Billing_Account__c.SObjectType => new Set<SObjectField>{Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c,
+					Billing_Account__c.Name, Billing_Account__c.SAP_marked_for_deletion__c, Billing_Account__c.Source_System__c,
+					Billing_Account__c.Type__c, Billing_Account__c.PAYER_ACCOUNT_ID__c, Billing_Account__c.LeaderAccount__c},
+			Account.SObjectType => new Set<SObjectField>{Account.Name}
+	};
 
 	@TestVisible private static stateInfo stateInfoVar;
+
 	@AuraEnabled
 	public static Billing_Account__c getBillingAccountDetails(String billingAccountRecord){
-		System.debug('billingAccountRecord>>>'+billingAccountRecord);
-		return [Select Id , LEGACY_ID__c, Name, Organisation__r.Name, SAP_marked_for_deletion__c, Source_System__c, Type__c, PAYER_ACCOUNT_ID__c From Billing_Account__c Where Id=: billingAccountRecord];
+		return BillingAccountsSelector.newInstance(1, BILLING_ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id> {billingAccountRecord}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION}).values()[0];
 	}
 
 	//CI-703 Method to check if all the APPC contracts have Contract Relationship as Billing Account
@@ -36,7 +43,6 @@ public with sharing class CreateSubAccountsController {
 
 		// Query Billing Account details and its related Account details by Billing Account Id
 		Billing_Account__c billingAccountRec = BillingAccountsSelector.newInstance().selectById(new set<Id>{billingAccRecId}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION}).values()[0];
-		system.debug('DDD billing account record::' + billingAccountRec);
 		Set<Id> accIds = new set<Id>{billingAccountRec.Organisation__c};
 		for(Apttus__APTS_Agreement__c contract : ApttusContractsSelector.newInstance().search(new Map<String, Object>{'accountIds' => accIds},true)) {
 			if(contract.APT_APPC_Count__c != null && contract.APT_APPC_Count__c >0 &&  'Activated'.equalsIgnoreCase(contract.Apttus__Status__c) && 'In Effect'.equalsIgnoreCase(contract.Apttus__Status_Category__c)) {
@@ -58,7 +64,6 @@ public with sharing class CreateSubAccountsController {
 
 	@AuraEnabled
 	public static List<APT_Sub_Account__c> getRelatedSubAccountRequests(String billingAccountRecord){
-		System.debug('billingAccountRecord>>>'+billingAccountRecord);
 		List<APT_Sub_Account__c> subAccountRequestList = new List<APT_Sub_Account__c>();
 		subAccountRequestList = [Select Id, Name, APT_Billing_Account__c,Sub_Account_Name__c,
 										APT_Billing_Account_Number__c, APT_Account_Name_2__c , APT_Sub_Account_Contact_Email_Address__c,
@@ -71,13 +76,11 @@ public with sharing class CreateSubAccountsController {
 
 	@AuraEnabled
 	public static Apttus_Proposal__Proposal__c getProposalDetails(String proposalRecord){
-		System.debug('proposalRecord>>>'+proposalRecord);
 		return [Select Id, Name,APT_Legal_Entity_Name__c,Apttus_Proposal__Account__c,APT_Credit_Assessment__r.APT_Charge_Account__r.Name,Apttus_Proposal__Opportunity__r.KeyContact__c From Apttus_Proposal__Proposal__c Where Id=: proposalRecord];
 	}
 
 	@AuraEnabled
 	public static List<APT_Sub_Account__c> getRelatedSubAccountRequestsforProposal(String proposalRecord){
-		System.debug('proposalRecord>>>'+proposalRecord);
 		List<APT_Sub_Account__c> subAccountRequestList = new List<APT_Sub_Account__c>();
 		subAccountRequestList = [Select Id, Name, APT_Billing_Account__c,Sub_Account_Name__c,
 										APT_Billing_Account_Number__c, APT_Account_Name_2__c , APT_Sub_Account_Contact_Email_Address__c,
@@ -92,7 +95,6 @@ public with sharing class CreateSubAccountsController {
 	@AuraEnabled
 	public static boolean  deleteSubAccounts(List<APT_Sub_Account__c> subAccountList){
 		boolean recDeleted = false;
-		system.debug('Record from LWC to delete:::'+subAccountList);
 		if (subAccountList != null ) {
 			ApplicationDatabase.getInstance().dmlDelete(subAccountList);
 			recDeleted = true;
@@ -104,7 +106,6 @@ public with sharing class CreateSubAccountsController {
 	public static boolean setPendingStatus(List<APT_Sub_Account__c> subAccountList){
 		List<APT_Sub_Account__c> sarList = new List<APT_Sub_Account__c>();
 		boolean recUpdated = false;
-		system.debug('Record from LWC to delete:::'+subAccountList);
 		for(APT_Sub_Account__c sar : subAccountList){
 			sar.APT_Sub_Account_Request_Status__c = 'Pending Charge Account';
 			sarList.add(sar);
@@ -133,18 +134,13 @@ public with sharing class CreateSubAccountsController {
 	}
 
 	@AuraEnabled
-		public static APT_Sub_Account__c createSubAccounts(APT_Sub_Account__c subAccountRec,String lodgementPointWCCs) {
+	public static APT_Sub_Account__c createSubAccounts(APT_Sub_Account__c subAccountRec,String lodgementPointWCCs) {
 
 		//boolean recCreated = false;
-		system.debug('Record from LWC:::'+subAccountRec);
-		system.debug('Lodgement Points from LWC:::'+lodgementPointWCCs);
-
-
 		//if(lodgementPointWCCs!=null && existingLodgementPoints == null){
-			if(lodgementPointWCCs!=null ){
+		if(lodgementPointWCCs!=null ){
 			// deserialise the JSON and convert to the custom Sboject
 			List<SObjectResult> responseDetail = (List<SObjectResult>)System.JSON.deserialize(lodgementPointWCCs, List<SObjectResult>.class);
-			system.debug('Lodgement Points after conversion :::'+responseDetail);
 			// track the count of lodgement point added and stored in 'Lodgement_Point_Counter__c' backend field
 			Integer lPcounter = 0;
 			subAccountRec.Lodgement_Point_to_Work_Centre_Code__c = '';
@@ -156,9 +152,6 @@ public with sharing class CreateSubAccountsController {
 			}
 		}
 
-
-
-		system.debug('Work centre code field after loop::::'+subAccountRec.Lodgement_Point_to_Work_Centre_Code__c);
 		// Update the lodgement point counter to the DSR
 		//curDSR.Lodgement_Point_Counter__c = lPcounter;
 			if (subAccountRec!=null) {
@@ -174,7 +167,6 @@ public with sharing class CreateSubAccountsController {
 				}
 
 			}
-			system.debug('Record after Upsert:::'+subAccountRec.Id);
 			return subAccountRec;
 	}
 

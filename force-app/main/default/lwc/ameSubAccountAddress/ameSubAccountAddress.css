@@ -1,0 +1,11 @@
+.slds-form_stacked > .slds-form-element > .address-override-toggle {
+	width: 50px;
+}
+
+.ame-search-label[data-status=true] {
+	margin-bottom: -18px;
+}
+
+.ame-search-label[data-status=false] {
+	margin-bottom: -9px;
+}

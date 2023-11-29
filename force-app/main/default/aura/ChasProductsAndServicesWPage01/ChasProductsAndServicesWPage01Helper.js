@@ -1,5 +1,6 @@
 /**
  * Created by nmain on 31/10/2017.
+ * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
  */
 ({
 	setRadioName: function (
@@ -96,6 +97,13 @@
 			) {
 				isValid = false;
 			}
+
+			// when a call to the tracking api is needed a captcha is enforced
+			// this ensures that the captcha was always clicked when an article requiring api call is entered
+			// NOTE: captchaVerified should always be true for logged in users
+			if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && !cmp.get('v.captchaVerified')) {
+				isValid = false;
+			}
 		}
 
 		if (
@@ -122,6 +130,7 @@
 				isValid = false;
 			}
 		}
+
 		return isValid;
 	},
 
@@ -184,6 +193,13 @@
 					error: ""
 				});
 			}
+
+			// when a call to the tracking api is needed a captcha is enforced
+			// this ensures that the captcha was always clicked when an article requiring api call is entered
+			// NOTE: captchaVerified should always be true for logged in users
+			if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && !cmp.get('v.captchaVerified')) {
+				errors.push({name: 'chasCaptcha', label: 'reCAPTCHA was not verified', error: ''});
+			}
 		}
 		if (
 			cmp.get("v.wizardData.selectedRadio1Name") === "Online Shop" &&
@@ -217,6 +233,7 @@
 				});
 			}
 		}
+
 		cmp.set("v.errors", errors);
 	},
 	validateRadioButtons: function (cmp, showError) {
@@ -299,20 +316,46 @@
 		cmp.set("v.isLoading", true);
 		cmp.set("v.error500", false);
 		cmp.set("v.isVerified", false);
+		cmp.set('v.articleTrackingCaptchaEmptyError', false);
 
 		//-- checking if Tracking Number is entered
 		var trackingId = cmp.get("v.wizardData.trackingId");
 		if (trackingId) {
-			var action = cmp.get("c.searchTrackingNumber");
-			action.setParams({
-				trackingNumber: cmp.get("v.wizardData.trackingId")
-			});
 
+			let controllerMethod = 'c.searchTrackingNumber';
+			let trackingParams = {trackingNumber: cmp.get("v.wizardData.trackingId")}
+			const authUserData = cmp.get('v.authUserData');
+			// force the user to enter a captcha value if they aren't logged in
+			if(!authUserData || !authUserData.isUserAuthenticated) {
+
+				// mark the captcha verified as false to make sure the is prevented from proceeding without first validating the captcha (which in turn triggers a call to the tracking api)
+				// we do this to ensure the tracking api is always trigger when it needs to be and retrieves the necessary attributes from the tracking api for the form workflows
+				cmp.set('v.captchaVerified', false);
+
+				controllerMethod = 'c.searchTrackingNumberWithCaptcha';
+
+				const captchaToken = cmp.get('v.articleTrackingCaptchaToken');
+				trackingParams.captchaToken = captchaToken;
+				
+				if(!captchaToken) {
+					cmp.set('v.articleTrackingCaptchaEmptyError', true);
+					cmp.set('v.isLoading', false);
+					return;
+				}
+			}
+
+			var action = cmp.get(controllerMethod);
+            action.setParams(trackingParams);
 			action.setCallback(this, function (response) {
+
 				var state = response.getState();
 				var trackingNumInputCmp = cmp.find("transferTrackingNumber");
 
 				if (state === "SUCCESS") {
+					// either the captcha was success verified or it wasn't required because the user was logged in
+					// either way we mark it as verified to enable to user to progress to the next step
+					cmp.set('v.captchaVerified', true);
+
 					var returnObj = JSON.parse(
 						JSON.stringify(response.getReturnValue())
 					);

@@ -9,6 +9,7 @@
 * @changelog
 * 2020-12-18 - Seth Heang - Created
 * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
+* 2023-10-27 - Harry Wang - Added tests for selectByChargeAccountId and selectByBillingAccountId and option FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR
 * 2023-10-30 - Ranjeewa Silva - Updated tests for selecting related billing account fields
  */
 @IsTest
@@ -89,14 +90,18 @@ private with sharing class SubAccountRequestsSelector_Test {
 	*  Executes a query to ensure it returns expected results with actual inserted data
 	*/
 	@IsTest
-	private static void testSelectorIntegration() {
+	public static void testSelectorIntegration() {
 
 		// =====================================
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
 		Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		acc.LEGACY_ID__c = '60000000';
 		insert acc;
+		//TODO: fix test failure and update feature branch. This is the last file
+		Billing_Account__c billingAccount = ApplicationTestDataFactory.getBillingAccounts(1, acc.Id, 'TEAM', false)[0];
+		insert billingAccount;
 		Contact con = ApplicationTestDataFactory.getContacts(1, acc.Id, false)[0];
 		insert con;
 		Apttus_Proposal__Proposal__c proposal = ApplicationTestDataFactory.getApttusProposals(1, con.Id, false)[0];
@@ -123,6 +128,13 @@ private with sharing class SubAccountRequestsSelector_Test {
 		subAccountRequest.APT_Sub_Account_Request_Status__c = 'Pending Charge Account';
 		update subAccountRequest;
 
+		APT_Sub_Account__c subAccountRequest2 = ApplicationTestDataFactory.getSubAccountRequest(1,'Test2',false)[0];
+		subAccountRequest2.APT_Billing_Account__c = billingAccount.Id;
+		subAccountRequest2.AccountType__c = 'Follower';
+		subAccountRequest2.APT_Sub_Account_Request_Status__c = 'Draft';
+		subAccountRequest2.APT_Charge_Account__c = chargeAccountRequest.Id;
+		insert subAccountRequest2;
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -146,7 +158,14 @@ private with sharing class SubAccountRequestsSelector_Test {
 				proposal.Id
 			});
 		System.assertEquals(1, resultsByProposalId.size(), 'Expected result size of 1');
-		Test.stopTest();
 
+		List<APT_Sub_Account__c> subAccounts = selector.selectByBillingAccountId(new Set<Id>{billingAccount.Id}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_UNPROVISIONED_FOLLOWER_ONLY});
+		System.assertEquals(1, subAccounts.size(), 'Expecting 1');
+		System.assertEquals(billingAccount.Id, subAccounts[0].APT_Billing_Account__c, 'Id not matched');
+
+		List<APT_Sub_Account__c> subAccounts2 = selector.selectByChargeAccountId(new Set<Id>{chargeAccountRequest.Id}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR});
+		System.assertEquals(1, subAccounts2.size(), 'Expecting 1');
+		System.assertEquals(chargeAccountRequest.Id, subAccounts2[0].APT_Charge_Account__c, 'Id not matched');
+		Test.stopTest();
 	}
 }
