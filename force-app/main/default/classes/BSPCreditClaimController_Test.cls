@@ -501,7 +501,6 @@ private class BSPCreditClaimController_Test {
 		formData.put('businessAccountNumber','123456 - Star Track');
 		formData.put('isOther','false');
 		Case cse = ApplicationTestDataFactory.getCases(1, true)[0];
-		CaseComment comment = ApplicationTestDataFactory.getCaseComments(1, cse.Id, true, true)[0];
 
 		// =====================================
 		// Stubbing

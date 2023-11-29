@@ -34,9 +34,23 @@ public class CreditDisputeClaimCaseModule_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.stopStubbing();
+		
 		Test.startTest();
+		
 		CreditDisputeClaimCaseModule module = CreditDisputeClaimCaseModule.newInstance();
 		module.onBeforeInsert((List<SObject>) cases, uow);
+		
+		System.assertEquals(
+			'Australia Post',
+			cases[0].Business_Unit__c,
+			'Business Unit must be Australia Post'
+		);
+
+		System.assertEquals(
+			'StarTrack',
+			cases[1].Business_Unit__c,
+			'StarTrack'
+		);
 
 		Test.stopTest();
 
