@@ -67,6 +67,14 @@
                 <field>PAYER_ACCOUNT_ID__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LeaderAccount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>BillingAccountType__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Is_this_a_sub_account__c</field>
             </layoutItems>
@@ -85,9 +93,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Is_Intermediary_Account_StarTrack__c</field>
-            </layoutItems>
-            <layoutItems>
-                <emptySpace>true</emptySpace>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -361,11 +366,27 @@
                 <behavior>Readonly</behavior>
                 <field>Phone_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactFirstName__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactLastName__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Fax_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactEmail__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactTelephone__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -659,13 +680,23 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>LEGACY_ID__c</fields>
+        <fields>BillingAccountType__c</fields>
         <fields>Organisation__c</fields>
         <fields>Credit_Limit_Formula__c</fields>
         <fields>Credit_Status__c</fields>
         <fields>Suburb__c</fields>
         <fields>State__c</fields>
         <fields>Postal_Code__c</fields>
+        <fields>LeaderAccount__c</fields>
         <relatedList>Billing_Account__c.PAYER_ACCOUNT_ID__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>LEGACY_ID__c</fields>
+        <fields>BillingAccountType__c</fields>
+        <fields>Organisation__c</fields>
+        <fields>PAYER_ACCOUNT_ID__c</fields>
+        <relatedList>Billing_Account__c.LeaderAccount__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
@@ -723,6 +754,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>AccountType__c</fields>
         <fields>APT_eParcel_Enabled__c</fields>
         <fields>APT_Sub_Account_Request_Status__c</fields>
         <fields>CREATED_DATE</fields>

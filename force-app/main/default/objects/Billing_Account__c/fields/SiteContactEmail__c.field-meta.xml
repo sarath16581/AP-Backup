@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SiteContactEmail__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This is the Primary contact Email populated from TEAM on create and update of Billing Account.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Site contact email address.</inlineHelpText>
+    <label>Site Contact Email</label>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>59.0</apiVersion>
+	<description>This is a child component of Follower Offspring Request Team Edit Form.
+		Responsible for managing parent account search/selection for both billing account and charge account request</description>
+	<isExposed>false</isExposed>
+	<masterLabel>Follower Offspring Request Account Search</masterLabel>
+</LightningComponentBundle>
