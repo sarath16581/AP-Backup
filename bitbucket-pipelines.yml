@@ -1,35 +1,21 @@
-image: php:7.4
+image:
+  name: apnathanfranklin/ap-sfdx-pipeline:latest
+  username: $DOCKER_HUB_USERNAME
+  password: $DOCKER_HUB_PASSWORD
+  email: $DOCKER_HUB_EMAIL
 pipelines:
     pull-requests:
         feature/*:
             - step:
-                  name: Code Analysis
+                  name: Code Analysis and Build
                   script:
-                      #grab a copy of the pipeline repository
-                      - apt-get update && apt-get install --no-install-recommends -y git
-                      - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
-                      - sh /tmp/pipelines/pipeline-orchestrator/feature.sh
-            - step:
-                  trigger: manual
-                  name: Package Build
-                  script:
-                      - apt-get update && apt-get install --no-install-recommends -y git
-                      - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
-                      - sh /tmp/pipelines/pipeline-orchestrator/feature-build.sh
-                  artifacts:
-                      - dist/**
-            - step:
-                  trigger: manual
-                  name: Deploy/Validate
-                  script:
-                      - apt-get update && apt-get install --no-install-recommends -y git
-                      - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
-                      - sh /tmp/pipelines/pipeline-orchestrator/feature-deploy.sh
+                      - bash /root/pipelines/pipeline-orchestrator/feature.sh --clientid dummyvalue --username dummyvalue1 --clientsecret dummyvalue --password dummyvalue --loginurl dummyvalue --gitdestbranch $BITBUCKET_PR_DESTINATION_BRANCH --gitsourcebranch $BITBUCKET_BRANCH --gitpullrequest $BITBUCKET_PR_ID --gitowner $BITBUCKET_REPO_OWNER --gitslug $BITBUCKET_REPO_SLUG --gitusername $GIT_USER --gitpassword $GIT_PASS --src $BITBUCKET_CLONE_DIR
                   artifacts:
                       - dist/**
     custom:
         get-ptest:
             - step:
+                  image: php:7.4
                   size: 2x
                   script:
                       - apt-get update && apt-get install --no-install-recommends -y jq curl git procps
