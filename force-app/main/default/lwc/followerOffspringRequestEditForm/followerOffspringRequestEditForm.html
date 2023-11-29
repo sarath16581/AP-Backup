@@ -1,0 +1,100 @@
+<template>
+	<div class="slds-align_absolute-center" style="max-width: 1000px;">
+		<article class="slds-card">
+			<div class="slds-card__header">
+				<header class="slds-media slds-media_center">
+					<h3 class="slds-card__header-title">
+						<lightning-icon icon-name="standard:custom" size="small" class="slds-m-right_small"></lightning-icon>
+						New Follower/Offspring Account Request
+					</h3>
+				</header>
+			</div>
+			<div class="slds-card__body slds-p-left_medium slds-p-right_medium">
+				<div class="slds-section slds-is-open">
+					<h3 class="slds-section__title slds-theme_shade">
+						<span class="slds-p-horizontal_small" title="Leader Details">Leader Details</span>
+					</h3>
+					<div class="slds-section__content slds-grid slds-wrap slds-p-around_medium">
+						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
+							<div class="slds-col slds-size_1-of-2">
+								<span class="slds-form-element__label">{billingAccountOrOpportunityName.label}</span>
+							</div>
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-formatted-text value={billingAccountOrOpportunityName.value}></lightning-formatted-text>
+							</div>
+						</div>
+						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
+							<div class="slds-col slds-size_1-of-2">
+								<span class="slds-form-element__label">{legalEntityName.label}</span>
+							</div>
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-formatted-text value={legalEntityName.value}></lightning-formatted-text>
+							</div>
+						</div>
+						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
+							<div class="slds-col slds-size_1-of-2">
+								<span class="slds-form-element__label">{billingAccountOrChargeAccountNumber.label}</span>
+							</div>
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-formatted-text value={billingAccountOrChargeAccountNumber.value}></lightning-formatted-text>
+							</div>
+						</div>
+						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
+							<div class="slds-col slds-size_1-of-2">
+								<span class="slds-form-element__label">{customerNumber.label}</span>
+							</div>
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-formatted-text value={customerNumber.value}></lightning-formatted-text>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="slds-section slds-is-open">
+					<h3 class="slds-section__title slds-theme_shade">
+						<span class="slds-p-horizontal_small" title="Account Request Details">Account Request Details</span>
+					</h3>
+					<lightning-record-edit-form record-id={subAccountId} object-api-name="APT_Sub_Account__c" onload={handleFormLoaded}>
+						<div class="slds-grid slds-wrap slds-p-around_small">
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-input-field class="input-field" data-name="sub-account-name" field-name={subAccountNameField} required value={subAccountName}> </lightning-input-field>
+								<lightning-input-field class="input-field" data-name="sub-account-contact" field-name={subAccountContactField} required value={subAccountContact} disabled={isDSRFlow}> </lightning-input-field>
+								<lightning-input-field class="input-field" data-name="sub-account-type" field-name={subAccountAccountTypeField} required onchange={handleAccountTypeChange} value={accountType}> </lightning-input-field>
+							</div>
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-input-field class="input-field" data-name="sub-account-is-login-required" field-name={subAccountIsLoginRequiredField} required value={subAccountLoginRequired}> </lightning-input-field>
+								<div class="slds-p-left_small">
+									<div class="slds-form-element__label slds-p-bottom_xxx-small">Invoicing Contact Same As Sub Account Contact?</div>
+									<lightning-input data-name="sub-account-invoicing-same" class="input" type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={contactDetailsSame} onchange={handleInvoicingToggleChange} style="width: fit-content;"></lightning-input>
+								</div>
+								<template lwc:if={isInvoicingDifferent}>
+									<div class="slds-p-left_xx-small">
+										<lightning-input data-name="sub-account-tel" class="input" type="tel" label="Sub Account Contact Telephone" required value={subAccountContactTel}></lightning-input>
+										<lightning-input data-name="sub-account-email" class="input" type="email" label="Sub Account Contact Email Address" required value={subAccountContactEmail}></lightning-input>
+									</div>
+								</template>
+							</div>
+							<div class="account-search slds-size_2-of-2">
+								<template lwc:if={isAccountSearchable}>
+									<c-follower-offspring-request-account-search data-name="account-search" leader-id={leaderId} is-billing-account={isBillingAccount} onfollowerselected={handleFollowerSelected} default-selected-account= {defaultSelection}></c-follower-offspring-request-account-search>
+								</template>
+							</div>
+						</div>
+					</lightning-record-edit-form>
+
+				</div>
+				<div class="slds-section slds-is-open">
+					<c-follower-offspring-request-address onconfirmaddress={handleConfirmAddress} sub-account={subAccount}></c-follower-offspring-request-address>
+				</div>
+			</div>
+			<div class="slds-card__footer">
+				<div class="button-container slds-card__footer-action slds-align_absolute-center">
+					<lightning-button data-id="next"  variant="brand-outline" label="Cancel" onclick={handleCancel}></lightning-button>
+					<lightning-button class="slds-m-left_small" variant="brand-outline" label="Save As Draft" onclick={handleSave}></lightning-button>
+				</div>
+			</div>
+			<div lwc:if={isLoading}>
+				<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+			</div>
+		</article>
+	</div>
+</template>

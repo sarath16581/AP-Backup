@@ -4,16 +4,17 @@
   * @description  : This lWC component is used in Sub Account Request creation from Billing Account Quick Action. It has following features
   *                 1. It contains logic whether to populate summary page or form based upon sub account requests.
 *********************************History*******************************************************************
-24.04.2021    Dheeraj Mandavilli   Created
+2021.04.21   Dheeraj Mandavilli - Created
+2023.11.24   Harry Wang - New attribute isInitialLoad (boolean) added
 -->
 <template>
-        <template if:true={initialLoad}>
-            <template if:true={showSubAccountNewForm}>
-                <c-new-sub-account-request-edit-form record-id={recordId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newsubaccountrecordhandler} oneditsubaccount={editsubaccounthandler} ></c-new-sub-account-request-edit-form>
-            </template>
-        </template>
+	<template if:true={isInitialLoad}>
+		<template if:true={showSubAccountNewForm}>
+			<c-new-sub-account-request-edit-form record-id={recordId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newSubAccountRecordHandler} oneditsubaccount={editSubAccountHandler} ></c-new-sub-account-request-edit-form>
+		</template>
+	</template>
 
-        <template if:true={showSubAccountListForm}>
-            <c-new-sub-account-request-summary record-id={recordId} sub-account-list={subAccountList} onshowformevent={showformeventhandler} oneditsubaccount={editsubaccounthandler}></c-new-sub-account-request-summary >
-        </template>
+	<template if:true={showSubAccountListForm}>
+		<c-new-sub-account-request-summary record-id={recordId} sub-account-list={subAccountList} onshowformevent={showFormEventHandler} oneditsubaccount={editSubAccountHandler}></c-new-sub-account-request-summary >
+	</template>
 </template>

@@ -1,0 +1,38 @@
+<template>
+	<div class="slds-align_absolute-center" style="max-width: 1000px;">
+		<article class="slds-card">
+			<div class="slds-card__header slds-m-top_large">
+				<header class="slds-media slds-media_center slds-has-flexi-truncate slds-align_absolute-center">
+					<h1 class="slds-card__header-title">ABN Confirmation - New Follower/Offspring Account Request</h1>
+				</header>
+			</div>
+			<div class="slds-card__body slds-m-around_medium">
+				<div class="slds-grid slds-wrap">
+					<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-around_medium">
+						<label class="slds-form-element__label slds-size_1-of-2">{accountABN.label}</label>
+						<lightning-formatted-text class="slds-size_1-of-2" value={accountABN.value}></lightning-formatted-text>
+					</div>
+					<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-around_medium">
+						<label class="slds-form-element__label slds-size_1-of-2">{accountORGName.label}</label>
+						<lightning-formatted-text class="slds-size_1-of-2" value={accountORGName.value}></lightning-formatted-text>
+					</div>
+					<div class="slds-col slds-size_1-of-2 slds-p-left_medium">
+						<lightning-combobox
+								label="Is the Follower/Offspring ABN same as the Leader Account?"
+								options={options}
+								placeholder="--None--"
+								required
+								onchange={handleChange}
+						></lightning-combobox>
+					</div>
+				</div>
+			</div>
+			<div class="slds-card__footer">
+				<div class="button-container slds-card__footer-action slds-align_absolute-center">
+					<lightning-button data-id="next"  variant="brand-outline" label="Next" onclick={handleNext} disabled="true"></lightning-button>
+					<lightning-button class="slds-m-left_small" variant="brand-outline" label="Close" onclick={handleClose}></lightning-button>
+				</div>
+			</div>
+		</article>
+	</div>
+</template>
