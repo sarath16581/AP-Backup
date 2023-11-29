@@ -129,8 +129,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
@@ -262,8 +260,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
@@ -380,8 +376,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
@@ -509,8 +503,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
@@ -632,8 +624,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
@@ -767,8 +757,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
@@ -881,8 +869,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
 		MockUtility.Mocks.when(subRequestSelector.selectById(subAccountMap.keySet())).thenReturn(subAccountMap);
 
 		Map<Id, Billing_Account__c> billAccountMap = new Map<Id, Billing_Account__c>{billingAccount.Id => billingAccount};
-		system.debug('Mock Billing Account Map' +billAccountMap);
-		system.debug('Mock Billing Account ' +billingAccount);
 		//MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber(billAccountMap.values(),new Set<String>{'SF-11224455'})).thenReturn(billAccountMap);
 		MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 

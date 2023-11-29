@@ -20,6 +20,10 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, organisation.Id, true)[0];
 		Opportunity opportunity = ApplicationTestDataFactory.getOpportunities(1, organisation.Id, true)[0];
+		Customer_Scoping_Questionnaire__c csq = ApplicationTestDataFactorySales.getCustomerScopingQuestionnaires(1, opportunity.Id, true)[0];
+		Pick_Up_Location__c pickupLocation = ApplicationTestDataFactorySales.getPickUpLocations(1, csq.Id, true)[0];
+		opportunity.Primary_Pick_Up_Location__c = pickupLocation.Id;
+
 		APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1, true)[0];
 		// setup apttus contract, proposal and credit assessment records
 		Apttus__APTS_Agreement__c apttusContract = getApttusContractWithRelatedContactAndProposal(primaryContact, opportunity.Id, chargeAccountRequest.Id);

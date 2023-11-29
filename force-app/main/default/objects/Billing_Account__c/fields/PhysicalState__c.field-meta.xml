@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>SiteContactFirstName__c</fullName>
+    <fullName>PhysicalState__c</fullName>
     <businessStatus>Active</businessStatus>
-    <description>This is the Primary contact First Name for the Billing Account. Currently, it is only used by Startrack Billing Accounts (mastered in TEAM).</description>
+    <description>This is the State of the pick-up location / warehouse. Currently, it is only used by Startrack Billing Accounts (mastered in TEAM).</description>
     <externalId>false</externalId>
-    <inlineHelpText>Contact must be active in Salesforce to provide Parcel Send access.</inlineHelpText>
-    <label>Site Contact First Name</label>
-    <length>255</length>
+    <inlineHelpText>Physical State for TEAM Billing Accounts.</inlineHelpText>
+    <label>Physical State</label>
+    <length>20</length>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>

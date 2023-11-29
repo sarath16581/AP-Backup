@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Country__c</fullName>
-    <description>DJK 07/10/2011</description>
+    <businessStatus>Active</businessStatus>
+    <description>This field consists of Billing Country (or Mailing Country) for both SAP and TEAM billing account records.</description>
     <externalId>false</externalId>
-    <label>Country</label>
+    <inlineHelpText>Billing Country for both SAP and TEAM Billing Accounts</inlineHelpText>
+    <label>Billing Country</label>
     <length>40</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

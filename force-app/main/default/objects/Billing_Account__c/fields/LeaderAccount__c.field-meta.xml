@@ -3,7 +3,7 @@
     <fullName>LeaderAccount__c</fullName>
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>This is TEAM Leader Billing Account</description>
+    <description>This is the billing account where contract rates are held (Leader). Currently only used by StarTrack billing accounts (mastered in TEAM).</description>
     <externalId>false</externalId>
     <inlineHelpText>Billing Account where the contract rates are held in TEAM</inlineHelpText>
     <label>Leader Account</label>

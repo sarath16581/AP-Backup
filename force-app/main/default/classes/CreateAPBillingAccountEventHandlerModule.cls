@@ -1,6 +1,6 @@
 /**
  * @description Module that wraps all of the Aus Post billing account creation legacy code which hasn't been uplifted
- *              to the latest ApplicationModule framework.
+ *			  to the latest ApplicationModule framework.
  *
  * @author Ranjeewa Silva
  * @date 2023-11-24

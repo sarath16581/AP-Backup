@@ -25,6 +25,14 @@
  */
 public inherited sharing class CreateSTBillingAccountEventHandlerModule extends ApplicationModule {
 
+	// new billing accounts registered with uow to be inserted when uow is committed.
+	// key - billing account number (LEGACY_ID__c), value - new sobject record
+	private static final Map<String, Billing_Account__c> newBillingAccounts = new Map<String, Billing_Account__c>();
+
+	// mapping of request dsr id to billing account number of new leader accounts.
+	// key - deal support request id, value - billing account number (LEGACY_ID__c) of the new leader billing account.
+	private static final Map<Id, String> dsrLeaderBillingAccountNumberMapping = new Map<Id, String>();
+
 	// id of DSR record type 'Customer Onboarding'. for each successful sub account, a new 'Customer Onboarding' DSR is
 	// created for manual surcharge setup and activation.
 	private static final Id CUSTOMER_ONBOARDING_DSR_RECORDTYPEID {
@@ -69,14 +77,6 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		}
 		set;
 	}
-
-	// new billing accounts registered with uow to be inserted when uow is committed.
-	// key - billing account number (LEGACY_ID__c), value - new sobject record
-	private static final Map<String, Billing_Account__c> newBillingAccounts = new Map<String, Billing_Account__c>();
-
-	// mapping of request dsr id to billing account number of new leader accounts.
-	// key - deal support request id, value - billing account number (LEGACY_ID__c) of the new leader billing account.
-	private static final Map<Id, String> dsrLeaderBillingAccountNumberMapping = new Map<Id, String>();
 
 	public CreateSTBillingAccountEventHandlerModule() {
 		getTriggerEvents().enableAfterInsert();
@@ -137,6 +137,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		Map<Id, BAMExternalOnboardingRequest__c> externalOnboardingRequests = selectExternalOnboardingRequests(externalOnboardingRequestIds);
 		Map<Id, Account> organisations = selectOrganisations(organisationIds);
 		Map<Id, APT_Sub_Account__c> subAccountRequests = selectSubAccountRequests(subAccountRequestIds);
+		Map<Id, Pick_Up_Location__c> pickupLocations = selectPrimaryPickupLocations(dealSupportRequests.values());
 
 		// external onboarding request records containing updates from processing platform events. these are registered with
 		// unit of work at the end of processing all events. note that one external onboarding request record could be referenced by more than one event.
@@ -184,7 +185,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 			}
 
 			if ('Success'.equalsIgnoreCase(event.Status__c)) {
-				StarTrackBillingAccountPostCommitWorkerParam postCommitWorkerParam = handleBillingAccountProvisionSuccessEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), uow);
+				StarTrackBillingAccountPostCommitWorkerParam postCommitWorkerParam = handleBillingAccountProvisionSuccessEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), pickupLocations.get(dealSupportRequest?.Opportunity__r?.Primary_Pick_Up_Location__c),uow);
 				postCommitAsyncWorkerParams.add(postCommitWorkerParam);
 			} else if ('Error'.equalsIgnoreCase(event.Status__c)) {
 				handleBillingAccountProvisionErrorEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), uow);
@@ -226,13 +227,14 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @param organisation customer organisation (account) record referenced in the event
 	 * @param dealSupportRequest deal support request record referenced in the event. pass null if not available.
 	 * @param subAccountRequest sub account request record referenced in the event. pass null if not available.
+	 * @param pickupLocation pickup location capturing the physical address relevant to the leader billing account in DSR flow. pass null if not available.
 	 * @param uow unit of work instance
 	 *
 	 * @return Parameters to async worker process to execute post commit actions.
 	 */
-	private StarTrackBillingAccountPostCommitWorkerParam handleBillingAccountProvisionSuccessEvent(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, ApplicationUnitOfWork uow) {
+	private StarTrackBillingAccountPostCommitWorkerParam handleBillingAccountProvisionSuccessEvent(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, Pick_Up_Location__c pickupLocation, ApplicationUnitOfWork uow) {
 		// get a new billing account instance
-		Billing_Account__c newBillingAccount = newBillingAccount(event, isLeaderAccount, organisation, dealSupportRequest, subAccountRequest);
+		Billing_Account__c newBillingAccount = newBillingAccount(event, isLeaderAccount, organisation, dealSupportRequest, subAccountRequest, pickupLocation);
 		// trace id to supply into uow register operations which helps to trace back to the source in the event of any errors.
 		String uowSourceTraceId = CreateSTBillingAccountEventHandlerModule.class.getName() + '.handleBillingAccountProvisionSuccessEvent';
 		uow.registerNew(newBillingAccount, false, uowSourceTraceId);
@@ -350,10 +352,11 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @param organisation customer organisation (account) record referenced in the event
 	 * @param dealSupportRequest deal support request record referenced in the event. pass null if not available.
 	 * @param subAccountRequest sub account request record referenced in the event. pass null if not available.
+	 * @param pickupLocation pickup location capturing the physical address relevant to the leader billing account in DSR flow. pass null if not available.
 	 *
 	 * @return new billing account (Billing_Account__c)
 	 */
-	private Billing_Account__c newBillingAccount(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest) {
+	private Billing_Account__c newBillingAccount(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, Pick_Up_Location__c pickupLocation) {
 
 		Billing_Account__c newBillingAccount = new Billing_Account__c();
 		newBillingAccount.Source_System__c = event.Source_System__c;
@@ -367,11 +370,17 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 
 		// below fields are sourced from salesforce records. given that Salesforce is not the master system for billing accounts,
 		// these fields should ideally be included in the platform event Salesforce receives from Camunda.
-		newBillingAccount.Street__c = (isLeaderAccount ? organisation?.BillingStreet: subAccountRequest?.APT_Postal_Address_Street_Name__c);
-		newBillingAccount.Suburb__c = (isLeaderAccount ? organisation?.BillingCity: subAccountRequest?.APT_Postal_Address_Suburb__c);
-		newBillingAccount.Postal_Code__c = (isLeaderAccount ? organisation?.BillingPostalCode: subAccountRequest?.APT_Postal_Address_Street_Postcode__c);
-		newBillingAccount.State__c = (isLeaderAccount ? organisation?.BillingState: subAccountRequest?.APT_Postal_Address_State__c);
-		newBillingAccount.Country__c = (isLeaderAccount ? (String.isNotBlank(organisation?.BillingCountry) ? organisation?.BillingCountry: 'AU'): subAccountRequest?.APT_Postal_Address_State__c);
+		newBillingAccount.Street__c = (isLeaderAccount ? organisation?.BillingStreet : subAccountRequest?.APT_Postal_Address_Street_Name__c);
+		newBillingAccount.Suburb__c = (isLeaderAccount ? organisation?.BillingCity : subAccountRequest?.APT_Postal_Address_Suburb__c);
+		newBillingAccount.Postal_Code__c = (isLeaderAccount ? organisation?.BillingPostalCode : subAccountRequest?.APT_Postal_Address_Street_Postcode__c);
+		newBillingAccount.State__c = (isLeaderAccount ? organisation?.BillingState : subAccountRequest?.APT_Postal_Address_State__c);
+		newBillingAccount.Country__c = (isLeaderAccount ? organisation?.BillingCountry : subAccountRequest?.APT_Postal_Address_State__c);
+
+		newBillingAccount.PhysicalStreet__c = (isLeaderAccount ? pickupLocation?.Address__c : subAccountRequest?.APT_Street_Address_Street_Name__c);
+		newBillingAccount.PhysicalSuburb__c = (isLeaderAccount ? pickupLocation?.Suburb__c : subAccountRequest?.APT_Street_Address_Suburb__c);
+		newBillingAccount.PhysicalPostalCode__c = (isLeaderAccount ? pickupLocation?.PostCode__c : subAccountRequest?.APT_Street_Address_Street_Postcode__c);
+		newBillingAccount.PhysicalState__c = (isLeaderAccount ? pickupLocation?.State__c : subAccountRequest?.APT_Street_Address_State__c);
+		newBillingAccount.PhysicalCountry__c = (isLeaderAccount ? null : subAccountRequest?.APT_Street_Address_Country_Code__c);
 
 		newBillingAccount.Phone_Number__c = isLeaderAccount ? getPhoneNumber(dealSupportRequest?.APT_contract__r?.Apttus__Primary_Contact__r) : getPhoneNumber(subAccountRequest?.SubAccountContact__r);
 		newBillingAccount.Fax_Number__c = isLeaderAccount ? dealSupportRequest?.APT_contract__r?.Apttus__Primary_Contact__r.Fax : subAccountRequest?.SubAccountContact__r?.Fax;
@@ -624,7 +633,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						Deal_Support_Request__c.Id, Deal_Support_Request__c.Billing_Number__c, Deal_Support_Request__c.Integration_Status__c,
 						Deal_Support_Request__c.Integration_Status_Description__c, Deal_Support_Request__c.Sub_Accounts__c,
 						Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Organisation__c, Deal_Support_Request__c.Billing_Number__c,
-						Deal_Support_Request__c.OwnerId
+						Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Opportunity__c
 				},
 				APT_Credit_Assessment__c.SObjectType => new Set<SObjectField>{
 						APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.APT_Charge_Account__c, APT_Credit_Assessment__c.StarTrack_Proposed_for_New_Account__c
@@ -632,11 +641,15 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				Contact.SObjectType => new Set<SObjectField>{
 						Contact.Id, Contact.Email, Contact.FirstName, Contact.LastName,
 						Contact.Phone, Contact.MobilePhone, Contact.Fax
+				},
+				Opportunity.SObjectType => new Set<SObjectField>{
+						Opportunity.Id, Opportunity.Primary_Pick_Up_Location__c
 				}
 		};
 		return DealSupportRequestsSelector.newInstance(fieldOverrides).selectById(dealSupportRequestIds, new Set<Object>{
 				DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT
+				DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT,
+				DealSupportRequestsSelector.Options.WITH_OPPORTUNITY
 		});
 	}
 
@@ -688,7 +701,11 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						APT_Sub_Account__c.APT_Postal_Address_Street_Name__c, APT_Sub_Account__c.APT_Postal_Address_Suburb__c,
 						APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Postal_Address_State__c,
 						APT_Sub_Account__c.APT_Postal_Address_Country_Code__c, APT_Sub_Account__c.APT_Sub_Account_Contact_Email_Address__c,
-						APT_Sub_Account__c.APT_Account_Name_2__c, APT_Sub_Account__c.OwnerId, APT_Sub_Account__c.SubAccountContact__c
+						APT_Sub_Account__c.APT_Account_Name_2__c, APT_Sub_Account__c.OwnerId, APT_Sub_Account__c.SubAccountContact__c,
+						APT_Sub_Account__c.APT_Street_Address_Street_Number__c, APT_Sub_Account__c.APT_Street_Address_Street_Name__c,
+						APT_Sub_Account__c.APT_Street_Address_Street_Type__c, APT_Sub_Account__c.APT_Street_Address_Suburb__c,
+						APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_State__c,
+						APT_Sub_Account__c.APT_Street_Address_Country_Code__c
 				},
 				Billing_Account__c.SObjectType => new Set<SObjectField>{
 						Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c
@@ -700,6 +717,36 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		return ((SubAccountRequestsSelector)SubAccountRequestsSelector.newInstance().setFieldOverrides(fieldOverrides)).selectByIds(subAccountRequestIds, new Set<Object>{
 				SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT, SubAccountRequestsSelector.Options.WITH_BILLING_ACCOUNT
 		});
+	}
+
+	/**
+	 * Select primary pickup locations for the opportunities related to the deal support requests passed in.
+	 *
+	 * @param dealSupportRequests deal support requests to retrieve pickup locations. Ensure the related opportunity record is
+	 *                            populated  on the deal support request supplied.
+	 *
+	 * @return pickup locations
+	 */
+	private Map<Id, Pick_Up_Location__c> selectPrimaryPickupLocations(List<Deal_Support_Request__c> dealSupportRequests) {
+
+		Map<Id, Pick_Up_Location__c> results = new Map<Id, Pick_Up_Location__c>();
+
+		Set<Id> pickupLocationIds = new Set<Id>();
+		for (Deal_Support_Request__c dealSupportRequest: dealSupportRequests) {
+			Id pickupLocationId = getOpportunityPickupLocationId(dealSupportRequest);
+			if (pickupLocationId != null) {
+				pickupLocationIds.add(pickupLocationId);
+			}
+		}
+
+		if (!pickupLocationIds.isEmpty()) {
+			results = ((PickUpLocationSelector)PickUpLocationSelector.newInstance().setFieldOverrides(new Set<SObjectField>{
+					Pick_Up_Location__c.Id, Pick_Up_Location__c.Address__c, Pick_Up_Location__c.Suburb__c,
+					Pick_Up_Location__c.Postcode__c, Pick_Up_Location__c.State__c
+			})).selectById(pickupLocationIds);
+		}
+
+		return results;
 	}
 
 	/**
@@ -727,6 +774,18 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		} catch (Exception ex) {
 			// id is not a valid salesforce id. return false.
 			return false;
+		}
+	}
+
+	private Id getOpportunityPickupLocationId(Deal_Support_Request__c dealSupportRequest) {
+		try {
+			if (String.isNotBlank(dealSupportRequest?.Opportunity__r?.Primary_Pick_Up_Location__c)) {
+				return Id.valueOf(dealSupportRequest?.Opportunity__r?.Primary_Pick_Up_Location__c);
+			}
+			return null;
+		} catch (Exception e) {
+			// opportunity is not linked to a valid pickup location. return null.
+			return null;
 		}
 	}
 
