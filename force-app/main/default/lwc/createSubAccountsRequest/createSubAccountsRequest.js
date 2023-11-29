@@ -26,12 +26,8 @@ export default class createSubAccountsRequest extends NavigationMixin(LightningE
 	get isInitialLoad() {
 		return this.initialLoad === 'true';
 	}
+
 	connectedCallback() {
-		console.log('recordId>>>>',this.recordId);
-		console.log('initialLoad>>>>',this.initialLoad);
-		console.log('billingAccountRecord>>>>',this.billingAccountRecord);
-
-
 		relatedSubAccountRequests({ billingAccountRecord: this.recordId })
 			.then(result =>{
 			console.log('result>>onload',result);
@@ -45,31 +41,21 @@ export default class createSubAccountsRequest extends NavigationMixin(LightningE
 		this.isloading = false;
 	}
 	newSubAccountRecordHandler(event){
-		console.log('Inside Save Form method');
-		//console.log('this.index>>>>>>>>>',this.index);
 		let newSubAccountRequest = event.detail;
-		console.log('newSubAccountRequest>>>>',newSubAccountRequest);
 		let newSubAccountRequestObject = JSON.parse(newSubAccountRequest);
-		console.log('newSubAccountRequestObject>>>>',newSubAccountRequestObject.Name);
 		this.subAccountList.push(newSubAccountRequestObject);
 		refreshApex(this.subAccountList);
-
-		console.log('subAccountList>>>>>',this.subAccountList);
 
 		this.showSubAccountNewForm = false;
 		window.location.reload();
 	}
 	editSubAccountHandler(event){
-		console.log('inside edit flow');
-		console.log('data>>>>',event.detail);
 		this.subAccountRecord = event.detail.subAccountRecordVar;
 		this.showSubAccountListForm = false;
 		this.showSubAccountNewForm = true;
-		console.log('this.subAccountRecord>>>>', event.detail.subAccountRecordVar);
 	}
 
 	showFormEventHandler(event){
-		console.log('inside shor form handler');
 		this.initialLoad = 'true';
 		this.showSubAccountListForm = false;
 		this.showSubAccountNewForm = true;
