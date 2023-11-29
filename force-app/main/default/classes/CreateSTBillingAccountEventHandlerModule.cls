@@ -723,7 +723,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * Select primary pickup locations for the opportunities related to the deal support requests passed in.
 	 *
 	 * @param dealSupportRequests deal support requests to retrieve pickup locations. Ensure the related opportunity record is
-	 *                            populated  on the deal support request supplied.
+	 *							populated  on the deal support request supplied.
 	 *
 	 * @return pickup locations
 	 */
