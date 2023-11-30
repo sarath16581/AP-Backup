@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Reject claim as the freight conflicts with the manual handling guidelines</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Manual handling - Rejection</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - Consignment Note [...]</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+We refer to case {!Case.CaseNumber} for consignment note [...].
+
+Please be advised that your credit has been declined as the freight conflicts with our Manual Handling guidelines. [Reason to be added].
+
+With the above, no credit appears due and the charges are deemed payable.
+
+For any further clarification, please contact your account manager on 132 345 option 4.
+
+Kind regards,
+
+Customer Resolutions Team
+StarTrack
+credit.claims@startrack.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}
+{!$Label.Australia_Post_No_Email_Phishing_Statement}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

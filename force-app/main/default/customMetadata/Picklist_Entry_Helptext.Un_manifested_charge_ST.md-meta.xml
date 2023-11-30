@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Un-manifested charge</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessUnit__c</field>
+        <value xsi:type="xsd:string">ST</value>
+    </values>
+    <values>
+        <field>IsAttachmentRequired__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Message__c</field>
+        <value xsi:type="xsd:string">&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;This claim relates to freight despatched without an accompanying daily manifest.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Attach details of your manifesting actions.&lt;/p&gt;
+
+&lt;p style=&quot;margin: 15px 0 0 0&quot;&gt;Note: You should be manifesting daily before your daily driver pickup.&lt;/p&gt;</value>
+    </values>
+    <values>
+        <field>Object_Field_Name__c</field>
+        <value xsi:type="xsd:string">Case.ReasonforCreditClaim__c</value>
+    </values>
+</CustomMetadata>

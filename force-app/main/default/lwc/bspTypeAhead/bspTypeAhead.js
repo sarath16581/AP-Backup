@@ -63,6 +63,7 @@ export default class BspTypeAhead extends NavigationMixin(LightningElement) {
 		searchInput.value = event.detail.label;
 		if (event.detail.value !== this.selected.value) {
 			this.selected.value = event.detail.value;
+			this.selected.label = event.detail.label;
 
 			// letting the parent know when a value is selected
 			const changeEvent = new CustomEvent('selection', {

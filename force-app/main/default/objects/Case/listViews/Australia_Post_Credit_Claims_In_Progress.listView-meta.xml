@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Australia_Post_Credit_Claims_In_Progress</fullName>
+    <booleanFilter>(1 AND 2 AND 3) AND (4 or (5 and 6))</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Case_Update__c</columns>
+    <columns>Update__c</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Billing_Number__c</columns>
+    <columns>Business_Name__c</columns>
+    <columns>Enquiry_Type__c</columns>
+    <columns>ReasonforCreditClaim__c</columns>
+    <columns>Total_Number_of_Items_Claimed__c</columns>
+    <columns>Amount_Claimed__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Enterprise_Credit_Dispute_Claim</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>Australia Post</value>
+    </filters>
+    <filters>
+        <field>Owner_is_Queue__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Case_Update__c</field>
+        <operation>equals</operation>
+        <value>New Comment,New Email Received,Customer Responded</value>
+    </filters>
+    <label>Australia Post Credit Claims In Progress</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>APG_Credit_Management</group>
+        <group>APG_Customer_Resolutions</group>
+        <group>Credit_Disputes</group>
+        <group>StarTrack_Credit_Disputes_Manager</group>
+        <group>StarTrack_Customer_Resolution_Officer</group>
+    </sharedTo>
+</ListView>

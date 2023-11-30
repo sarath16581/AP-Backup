@@ -14,3 +14,11 @@
 }
 
 .bsp-body_small { color: #4D4D54; font-size: 0.8125rem; font-weight:normal; line-height: 1rem; }
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+	.slds-button-mobile {
+		margin: 12px 0 0 0 !important;
+	}
+}
+

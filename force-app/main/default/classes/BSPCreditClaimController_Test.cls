@@ -121,7 +121,7 @@ private class BSPCreditClaimController_Test {
 		Test.startTest();
 		BSPCreditClaimController.CreditClaimResponseWrapper wrapper;
 		System.runAs(bspUser) {
-			wrapper = BSPCreditClaimController.createCreditClaim(cse, null, disputedItems);
+			wrapper = BSPCreditClaimController.createCreditClaim(cse, null, disputedItems, new Map<Object,String>());
 		}
 		Test.stopTest();
 
@@ -244,7 +244,7 @@ private class BSPCreditClaimController_Test {
 		Test.startTest();
 		BSPCreditClaimController.CreditClaimResponseWrapper wrapper;
 		System.runAs(bspUser) {
-			wrapper = BSPCreditClaimController.createCreditClaim(cse, null, null);
+			wrapper = BSPCreditClaimController.createCreditClaim(cse, null, null, new Map<Object,String>());
 		}
 		Test.stopTest();
 		System.assertEquals('error', wrapper.Status, 'Expected Status of the case to be populated as error.');
@@ -279,14 +279,14 @@ private class BSPCreditClaimController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		String billingAccountValidationMessage;
-		billingAccountValidationMessage = BSPCreditClaimController.isValidBillingAccount('');
+		BSPCreditClaimController.BillingAccountsWrapper billingAccountsWrapper;
+		billingAccountsWrapper = BSPCreditClaimController.isValidBillingAccount('');
 
 		Test.stopTest();
 
 		System.assertNotEquals(
-				'',
-				billingAccountValidationMessage,
+				null,
+				billingAccountsWrapper.message,
 				'isValidBillingAccountTest : error message should return when the matching billing account is not available'
 		);
 	}
@@ -351,15 +351,15 @@ private class BSPCreditClaimController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		String billingAccountValidationMessage;
+		BSPCreditClaimController.BillingAccountsWrapper billingAccountsWrapper;
 		System.runAs(bspUser) {
-			billingAccountValidationMessage = BSPCreditClaimController.isValidBillingAccount('123456');
+			billingAccountsWrapper = BSPCreditClaimController.isValidBillingAccount('123456');
 		}
 		Test.stopTest();
 
 		System.assertEquals(
-				'',
-				billingAccountValidationMessage,
+				null,
+				billingAccountsWrapper.message,
 				'isValidBillingAccountTestSuccess : No error message expected when the entered account number is valid'
 		);
 	}
@@ -424,6 +424,116 @@ private class BSPCreditClaimController_Test {
 				0,
 				admins.size(),
 				'getSuperAdminRolesTest : ensures the getSuperAdminRoles returns data'
+		);
+	}
+
+	/**
+	 * Testing of case comments are created when other account number entered and the values are populated as expected in the body
+	 */
+	@IsTest
+	private static void testBuildBillingAccountCaseCommentsIsOther() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Map<Object, String> formData = new Map<Object,String>();
+		formData.put('businessAccountNumber','123456');
+		formData.put('isOther','true');
+		String commentBody;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		commentBody = BSPCreditClaimController.buildBillingAccountCaseComments(commentBody, formData);
+
+		Test.stopTest();
+
+		System.assertEquals(true, commentBody.contains('123456'), 'Expected case comments to be populated with 123456 but instead got something different.');
+	}
+
+	/**
+	 * Testing of case comments are created when account number selected and the values are populated as expected in the body
+	 */
+	@IsTest
+	private static void testBuildBillingAccountCaseCommentsIsSelected() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Map<Object, String> formData = new Map<Object,String>();
+		formData.put('businessAccountNumber','123456 - Star Track');
+		formData.put('isOther','false');
+		String commentBody;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		commentBody = BSPCreditClaimController.buildBillingAccountCaseComments(commentBody, formData);
+
+		Test.stopTest();
+
+		System.assertEquals(true, commentBody.contains('123456 - Star Track'), 'Expected case comments to be populated with 123456 - Star Track but instead got something different.');
+	}
+
+	/**
+	 * This method is responsible for testing and verifying the creation of case comments.
+	 */
+	@IsTest
+	private static void testCreateCaseComments() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// get a bsp context user
+		User bspUser = [SELECT Id, ContactId, Contact.AccountId, AccountId FROM User WHERE FirstName = 'BSPUserForCreditClaim'];
+		Map<Object, String> formData = new Map<Object,String>();
+		formData.put('businessAccountNumber','123456 - Star Track');
+		formData.put('isOther','false');
+		Case cse = ApplicationTestDataFactory.getCases(1, true)[0];
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{cse.Id => cse});
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		System.runAs(bspUser) {
+			BSPCreditClaimController.createCaseComments(formData, cse);
+		}
+
+		Test.stopTest();
+		List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
+		System.assertEquals(
+				CaseComment.getSobjectType().getDescribe().getName(),
+				insertedRecords[0][0].getSObjectType().getDescribe().getName(),
+				'testCreateCaseComments : Case comment record should be created'
+		);
+
+		System.assertEquals(
+				false,
+				insertedRecords[0][0].get('IsPublished'),
+				'testCreateCaseComments : Case comment should be private'
 		);
 	}
 }

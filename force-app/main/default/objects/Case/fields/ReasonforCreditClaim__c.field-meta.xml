@@ -12,7 +12,7 @@
     <valueSet>
         <controllingField>Enquiry_Type__c</controllingField>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>ADA / NHCL</fullName>
                 <default>false</default>
@@ -137,11 +137,6 @@
                 <fullName>Duplicate Banking</fullName>
                 <default>false</default>
                 <label>Duplicate Banking</label>
-            </value>
-            <value>
-                <fullName>Duplicate Charge</fullName>
-                <default>false</default>
-                <label>Duplicate Charge</label>
             </value>
             <value>
                 <fullName>Duplicate/Invalid Claim</fullName>
@@ -366,7 +361,7 @@
             <value>
                 <fullName>Incorrect pricing/rates</fullName>
                 <default>false</default>
-                <label>Incorrect pricing/rates</label>
+                <label>Incorrect pricing / rates</label>
             </value>
             <value>
                 <fullName>Manifested not sent</fullName>
@@ -384,11 +379,6 @@
                 <label>Incorrect weight / cubic charge</label>
             </value>
             <value>
-                <fullName>Explanation of charge</fullName>
-                <default>false</default>
-                <label>Explanation of charge</label>
-            </value>
-            <value>
                 <fullName>Not home card - Second delivery</fullName>
                 <default>false</default>
                 <label>Not home card - Second delivery</label>
@@ -399,14 +389,9 @@
                 <label>Incorrectly returned</label>
             </value>
             <value>
-                <fullName>Next Flight failure</fullName>
-                <default>false</default>
-                <label>Next Flight failure</label>
-            </value>
-            <value>
                 <fullName>General Service Performance failure</fullName>
                 <default>false</default>
-                <label>General Service Performance failure</label>
+                <label>General service performance failure</label>
             </value>
             <value>
                 <fullName>Invoice</fullName>
@@ -459,30 +444,46 @@
                 <label>Late payment</label>
             </value>
             <value>
-                <fullName>Manual Handling Surcharge</fullName>
-                <default>false</default>
-                <label>Manual Handling Surcharge</label>
-            </value>
-            <value>
                 <fullName>International Fees/Taxes</fullName>
                 <default>false</default>
-                <label>International Fees/Taxes</label>
+                <label>International fees / taxes</label>
             </value>
             <value>
-                <fullName>CHQ Handling Fee Reversal</fullName>
+                <fullName>Duplicate Charge</fullName>
                 <default>false</default>
-                <label>CHQ Handling Fee Reversal</label>
+                <label>Duplicate charge</label>
             </value>
             <value>
-                <fullName>Manifest Correction Fee Credit</fullName>
+                <fullName>Annual PO box charge</fullName>
                 <default>false</default>
-                <label>Manifest Correction Fee Credit</label>
+                <label>Annual PO Box charge</label>
+            </value>
+            <value>
+                <fullName>Annual reply paid</fullName>
+                <default>false</default>
+                <label>Annual reply paid</label>
+            </value>
+            <value>
+                <fullName>Over maximum limits fee</fullName>
+                <default>false</default>
+                <label>Over maximum limits fee</label>
+            </value>
+            <value>
+                <fullName>StarTrack Courier</fullName>
+                <default>false</default>
+                <label>StarTrack Courier</label>
+            </value>
+            <value>
+                <fullName>Manual Handling Surcharge</fullName>
+                <default>false</default>
+                <label>Manual handling surcharge</label>
+            </value>
+            <value>
+                <fullName>Consumable returns - Merch / online shop</fullName>
+                <default>false</default>
+                <label>Consumable returns - Merch / Online Shop</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Duplicate Charge</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
             <valueName>Not our charge</valueName>
@@ -505,15 +506,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Explanation of charge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
             <valueName>Late payment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Manual Handling Surcharge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
@@ -521,11 +514,31 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>CHQ Handling Fee Reversal</valueName>
+            <valueName>Duplicate Charge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Manifest Correction Fee Credit</valueName>
+            <valueName>Annual PO box charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Annual reply paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Over maximum limits fee</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>StarTrack Courier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Manual Handling Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Consumable returns - Merch / online shop</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>
@@ -534,10 +547,6 @@
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>
             <valueName>Incorrectly returned</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Service Performance</controllingFieldValue>
-            <valueName>Next Flight failure</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>

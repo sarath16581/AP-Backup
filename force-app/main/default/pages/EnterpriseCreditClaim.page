@@ -1,14 +1,15 @@
 <!--
- * Date            Version          Owner               Desription
- * 07-Feb-17        1.0             Bharat P            Initial Version - Enterprise Credit Claim Form Page
- * 20-Feb-17        1.1             Bharat P            Added Disputed Transaction Section for adding and deleting Disputed Items on the case
- * 24-Mar-17        1.2             Bharat P            Added Success Popup message on submission
- * 29-Mar-17        1.3             Bharat P            Added functionality for using reCAPTCHA before form submission
- * 06-Jul-17        1.4             AP Rivera           Added functionality for multiple file attachments, Added Tooltip on some component when hovered.
- * 28-Jul-17        1.5             AP Rivera           Replaced all hard coded values by Custom Labels
- * 25-Aug-17        1.6             Jean Duque          Added validation for 'Late Payment Charges (LPC)' required fields
- * 10-Aug-18        1.7             Nanda Kothamasu Added numeric data validation on Business Account Number field - REQ1506818
- * 02-Jun-23        1.8             Pratyush Chalasani  Added helptext display to show description for selected credit claim reason
+ * Date				Version			Owner				Desription
+ * 07-Feb-17		1.0				Bharat P			Initial Version - Enterprise Credit Claim Form Page
+ * 20-Feb-17		1.1				Bharat P			Added Disputed Transaction Section for adding and deleting Disputed Items on the case
+ * 24-Mar-17		1.2				Bharat P			Added Success Popup message on submission
+ * 29-Mar-17		1.3				Bharat P			Added functionality for using reCAPTCHA before form submission
+ * 06-Jul-17		1.4				AP Rivera			Added functionality for multiple file attachments, Added Tooltip on some component when hovered.
+ * 28-Jul-17		1.5				AP Rivera			Replaced all hard coded values by Custom Labels
+ * 25-Aug-17		1.6				Jean Duque			Added validation for 'Late Payment Charges (LPC)' required fields
+ * 10-Aug-18		1.7				Nanda Kothamasu		Added numeric data validation on Business Account Number field - REQ1506818
+ * 02-Jun-23		1.8				Pratyush Chalasani	Added helptext display to show description for selected credit claim reason
+ * 24-Oct-23		1.9				Thang Nguyen		SB-213: Update the reason help text
 -->
 <apex:page standardController="Case" extensions="EnterpriseCreditClaim"
 	id="ccPage"    
@@ -18,13 +19,13 @@
 	sidebar="false"
 	standardStylesheets="false"
 	title="Enterprise Credit Claim"
-	docType="html-5.0">    
+	docType="html-5.0">
 	<html lang="en">
 		<head>
 			<meta charset="utf-8"/>
 			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 			<title>Enterprise Credit Claim</title>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>            
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<apex:stylesheet value="{!URLFOR($Resource.Enterprise_Credit_Claim_CSS,'css/Enterprise_Credit_Claim_CSS.css')}"/>
 			<apex:stylesheet value="{!URLFOR($Resource.I2C_ToolTip_CSS,'hint.css-2.5.0/hint.base.css')}"/>
 			<apex:includeScript value="{!$Resource.jquery214}"/>
@@ -80,10 +81,10 @@
 				</div>
 			</div>
 			<!-- END logo -->
-			<div class="container">            
+			<div class="container">
 				<div class="row">
 					<apex:outputPanel >
-						<h1 class="landing-header-red">{!$Label.I2C_HeaderText}</h1>                        
+						<h1 class="landing-header-red">{!$Label.I2C_HeaderText}</h1>
 						<apex:form id="ccForm">
 							<apex:actionRegion >
 								<apex:actionFunction id="submitOK" action="{!submitRedirect}" name="submitOK" oncomplete="closePopup();"/>
@@ -93,24 +94,24 @@
 								var title;
 								var size;
 								var currIndx;
-								var compList;  // Current List of Input Files for Upload                            
+								var compList;  // Current List of Input Files for Upload
 								var contentVersion;
 								var fileSize;
 								var contentVersionList = [];
 								var fileName;
-								var cnt;                          
+								var cnt;
 								window.onload = function(){
 									if('{!caseComplete}' == 'true' || '{!caseComplete}' == 'True'){
 										fireJSForPopup();
 									}
-								}                            
+								}
 
 								// Mapping from credit claim reason to it's description
 								const creditClaimReasonDescriptionMap = {!CreditClaimReasonDescriptions};
 								
-								function validatePage(){                                    
+								function validatePage(){
 									var functionReturn = true;
-									var focusElement = null;                                    
+									var focusElement = null;
 									var busNameInputRef = document.getElementById('{!$Component.ccForm:BusinessName}'); 
 									var busAcctNoInputRef = document.getElementById('{!$Component.ccForm:BusinessAccountNumber}');
 									var contactNameInputRef = document.getElementById('{!$Component.ccForm:Name}');
@@ -124,61 +125,61 @@
 
 
 									if (busNameInputRef.value == ''){
-										document.getElementById('busName').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorBusinessName}</span>';                                
+										document.getElementById('busName').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorBusinessName}</span>';
 										focusElement = busNameInputRef;
 										functionReturn = false;
 									}else{
-										$('#busName').empty();      
+										$('#busName').empty();
 									}
 									if (busAcctNoInputRef.value == ''){
-										document.getElementById('busAccNo').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorBusinessAcctNo}</span>';                               
+										document.getElementById('busAccNo').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorBusinessAcctNo}</span>';
 										if (focusElement == null)
 											focusElement = busAcctNoInputRef;
 										functionReturn = false;
 									}else{
-										$('#busAccNo').empty();    
+										$('#busAccNo').empty();
 									}
 									
 									if (contactNameInputRef.value == ''){
-										document.getElementById('contactName').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorContactName}</span>';                               
+										document.getElementById('contactName').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorContactName}</span>';
 										if (focusElement == null)
 											focusElement = contactNameInputRef;
 										functionReturn = false;
 									}else{
-										$('#contactName').empty();    
+										$('#contactName').empty();
 									}
 									if (!emailInputRef.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
-										document.getElementById('emailRef').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorEmail}</span>';                               
+										document.getElementById('emailRef').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorEmail}</span>';
 										if (focusElement == null)
 											focusElement = emailInputRef;
 										functionReturn = false;
 									}else{
-										$('#emailRef').empty();    
-									}                                                                         
+										$('#emailRef').empty();
+									}
 									if (busUnitInputRef.value == ''){
-										document.getElementById('busUnit').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorAcctWithHeld}</span>';                               
+										document.getElementById('busUnit').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorAcctWithHeld}</span>';
 										if (focusElement == null)
 											focusElement = busUnitInputRef;
 										functionReturn = false;
 									}else{
-										$('#busUnit').empty();    
-									}                                    
+										$('#busUnit').empty();
+									}
 									if (disputeTypeInputRef.value == ''){
-										document.getElementById('disputeType').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorDisputeType}</span>';                               
+										document.getElementById('disputeType').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorDisputeType}</span>';
 										if (focusElement == null)
 											focusElement = disputeTypeInputRef;
 										functionReturn = false;
 									}else{
-										$('#disputeType').empty();    
-									}                                    
+										$('#disputeType').empty();
+									}
 									if (reasonCCInputRef.value == ''){
-										document.getElementById('reasonCC').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorCreditClaim}</span>';                               
+										document.getElementById('reasonCC').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorCreditClaim}</span>';
 										if (focusElement == null)
 											focusElement = reasonCCInputRef;
 										functionReturn = false;
 									}else{
-										$('#reasonCC').empty();    
-									}      
+										$('#reasonCC').empty();
+									}
 										// REQ1506818 Numeric data validation -  Start.
 									if ($.isNumeric(busAcctNoInputRef.value)== false){
 										if (document.getElementById('busAccNo').innerHTML == ''){
@@ -188,26 +189,26 @@
 											focusElement = busAcctNoInputRef;
 											functionReturn = false;
 									}else{
-										$('#busAccNo').empty();    
+										$('#busAccNo').empty();
 									}
 									//  REQ1506818 Numeric data validation - End
 									
 									if (descInputRef.value == ''){
-										document.getElementById('descRef').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorDescriptionCC}</span>';                               
+										document.getElementById('descRef').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorDescriptionCC}</span>';
 										if (focusElement == null)
 											focusElement = descInputRef;
 										functionReturn = false;
 									}else{
-										$('#descRef').empty();    
+										$('#descRef').empty();
 									}
 									if (amtClaimedInputRef.value != '' && amtClaimedInputRef.value.length > 0 && 
 										(amtClaimedInputRef.value < 0  || !amtClaimedInputRef.value.match(/^[.,]?\d+([.,]\d+)*[.,]?$/))){
-										document.getElementById('amtClaimed').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorNumeric}</span>';                                
+										document.getElementById('amtClaimed').innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorNumeric}</span>';
 										focusElement = amtClaimedInputRef;
 										functionReturn = false;
 									}else{
-										$('#amtClaimed').empty();       
-									}                                
+										$('#amtClaimed').empty();
+									}
 									if(cnt > 0){
 										for(var i=0; i<cnt; i++){
 											var invoiceNumberRef = document.getElementById('ccPage:ccForm:therepeat:' + i + ':invoiceNumber');
@@ -218,65 +219,71 @@
 											
 											if (disputeAmtChargedInputRef.value != '' && disputeAmtChargedInputRef.value.length > 0 && 
 												(disputeAmtChargedInputRef.value < 0  || !disputeAmtChargedInputRef.value.match(/^[.,]?\d+([.,]\d+)*[.,]?$/))){
-												document.getElementById('disputeAmtCharged' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorNumeric}</span>';                                
+												document.getElementById('disputeAmtCharged' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorNumeric}</span>';
 												focusElement = disputeAmtChargedInputRef;
 												functionReturn = false;
 											}else if (disputeTypeInputRef.value ==  "Billing Dispute" && reasonCCInputRef.value == "Late payment" && disputeAmtChargedInputRef.value == ''){
-												document.getElementById('disputeAmtCharged' + i).innerHTML = '<span style="color:#dc1928">Please enter an Amount Charged($) which can be found on the invoice</span>';                                                
+												document.getElementById('disputeAmtCharged' + i).innerHTML = '<span style="color:#dc1928">Please enter an Amount Charged($) which can be found on the invoice</span>';
 												focusElement = disputeAmtChargedInputRef;
 												functionReturn = false;
 											}else{
-												$('#disputeAmtCharged' + i).empty();        
-											}                                            
+												$('#disputeAmtCharged' + i).empty();
+											}
 											if (disputeAmtClaimedInputRef.value != '' && disputeAmtClaimedInputRef.value.length > 0 && 
 												(disputeAmtClaimedInputRef.value < 0  || !disputeAmtClaimedInputRef.value.match(/^[.,]?\d+([.,]\d+)*[.,]?$/))){
-												document.getElementById('disputeAmtClaimed' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorNumeric}</span>';                                
+												document.getElementById('disputeAmtClaimed' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorNumeric}</span>';
 												focusElement = disputeAmtClaimedInputRef;
 												functionReturn = false;
 											}else if (disputeTypeInputRef.value ==  "Billing Dispute" && reasonCCInputRef.value == "Late payment" && disputeAmtClaimedInputRef.value == ''){
-												document.getElementById('disputeAmtClaimed' + i).innerHTML = '<span style="color:#dc1928">Please enter the Amount Claimed($)</span>';                              
+												document.getElementById('disputeAmtClaimed' + i).innerHTML = '<span style="color:#dc1928">Please enter the Amount Claimed($)</span>';
 												focusElement = disputeAmtClaimedInputRef;
 												functionReturn = false;
 											}else{
-												$('#disputeAmtClaimed' + i).empty();        
-											}                                                                                        
+												$('#disputeAmtClaimed' + i).empty();
+											}
 											if (busUnitInputRef.value == 'Australia Post'){
 												if (transIdInputRef.value == ''){
 													$('#connNo' + i).empty();
-													document.getElementById('transId' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorTransId}</span>';                                
+													document.getElementById('transId' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorTransId}</span>';
 													focusElement = transIdInputRef;
 													functionReturn = false;
-												}else{                                                    
+												}else{
 													$('#transId' + i).empty();
 													$('#connNo' + i).empty();
 												}
 											}else if(busUnitInputRef.value == 'StarTrack'){
 												if (connoteInputRef.value == ''){
 													$('#transId' + i).empty();
-													document.getElementById('connNo' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorConsignment}</span>';                                
+													document.getElementById('connNo' + i).innerHTML = '<span style="color:#dc1928">{!$Label.I2C_ErrorConsignment}</span>';
 													focusElement = connoteInputRef;
 													functionReturn = false;
 												}else{
 													$('#connNo' + i).empty();
 													$('#transId' + i).empty();
-												}    
+												}
 											}else{
 												$('#connNo' + i).empty();
-												$('#transId' + i).empty();    
+												$('#transId' + i).empty();
 											}
 											if (disputeTypeInputRef.value ==  "Billing Dispute" && reasonCCInputRef.value == "Late payment" && invoiceNumberRef.value == ''){
-												document.getElementById('invoiceId' + i).innerHTML = '<span style="color:#dc1928">Please enter an Invoice Number which can be found on the invoice</span>';                                                
+												document.getElementById('invoiceId' + i).innerHTML = '<span style="color:#dc1928">Please enter an Invoice Number which can be found on the invoice</span>';
 												focusElement = invoiceNumberRef;
 												functionReturn = false;
 											}else{
-												$('#invoiceId' + i).empty();        
-											}                                            
+												$('#invoiceId' + i).empty();
+											}
 										}
-									}                                        
+									}
 									if (focusElement != null)
-										focusElement.focus();                                
+										focusElement.focus();
 									return functionReturn;
-								}                               
+								}
+
+								function onchangeDisputeType() {
+									document.getElementById('{!$Component.ccForm:ipReasonCC}').value = '';
+									updateHiddenField();	
+								}
+
 								function updateHiddenField() {
 									var hdnBU = document.getElementById('{!$Component.ccForm:hdnBusinessUnit}');
 									var hdnDT = document.getElementById('{!$Component.ccForm:hdnDisputeType}');
@@ -287,24 +294,28 @@
 									hdnRCC.value = document.getElementById('{!$Component.ccForm:ipReasonCC}').value;
 									$("ccForm:ipReasonCC").removeAttr('disabled');
 									
-									console.log('hdnRCC.value', {'hdnRCC.value': hdnRCC.value});
-									
 									// If a credit claim reason was selected and a description is mapped for it
 									// then display the reason under the picklist.
-									// If no value is selected, or a description is not found, then don't display any description text.
+									// If no value is selected, or a description is not found, then don't display any description text.									
 									if (hdnRCC.value && !hdnRCC.value.startsWith('_')) {
-										const creditClaimReason = creditClaimReasonDescriptionMap[hdnRCC.value.toLowerCase()];
 
-										console.log('creditClaimReason', creditClaimReason);
+										var keyReasonHelpText = hdnRCC.value.toLowerCase();
+										if(hdnBU.value == "Australia Post"){
+											keyReasonHelpText = keyReasonHelpText + '_' + 'ap';
+										}else if(hdnBU.value == "StarTrack"){
+											keyReasonHelpText = keyReasonHelpText + '_' + 'st';
+										}
+
+										const creditClaimReason = creditClaimReasonDescriptionMap[keyReasonHelpText];
 
 										if (creditClaimReason) {
-											document.getElementById("reasonCC").innerHTML = `${creditClaimReason}<br/>`;
+											document.getElementById("reasonCC").innerHTML = `${creditClaimReason}`;
 										} else {
 											// If there's not specific mapping for the selected reason, then look for a generic description
 											const genericReason = creditClaimReasonDescriptionMap['generic'];
 
 											if (genericReason) {
-												document.getElementById("reasonCC").innerHTML = `${genericReason}<br/>`;
+												document.getElementById("reasonCC").innerHTML = `${genericReason}`;
 											} else {
 												document.getElementById("reasonCC").innerHTML = '';
 											}
@@ -319,7 +330,7 @@
 										document.getElementById("APCol1").style.display = "table-cell";
 										for(var i = 0; i < cnt; i++){
 											var conRef = document.getElementById("ccPage:ccForm:therepeat:"+i+":connote");
-											document.getElementById("ccPage:ccForm:therepeat:"+i+":transactionId").style.display = "table-cell";                                            
+											document.getElementById("ccPage:ccForm:therepeat:"+i+":transactionId").style.display = "table-cell";
 											document.getElementById("ccPage:ccForm:therepeat:"+i+":connote").style.display = "none";
 											conRef.value = '';
 											document.getElementById("STCol2"+i).style.display = "none";
@@ -331,7 +342,7 @@
 										document.getElementById("STCol1").style.display = "table-cell";
 										for(var i = 0; i < cnt; i++){
 											var transRef = document.getElementById("ccPage:ccForm:therepeat:"+i+":transactionId");
-											document.getElementById("ccPage:ccForm:therepeat:"+i+":connote").style.display = "table-cell";                                            
+											document.getElementById("ccPage:ccForm:therepeat:"+i+":connote").style.display = "table-cell";
 											document.getElementById("ccPage:ccForm:therepeat:"+i+":transactionId").style.display = "none";
 											transRef.value = '';
 											document.getElementById("APCol2"+i).style.display = "none";
@@ -339,7 +350,7 @@
 										}
 									}else{
 										document.getElementById("panel3").style.display = "none";
-									}                                    
+									}
 								}
 								function checkBusinessUnit(){
 									var busUnit = document.getElementById('{!$Component.ccForm:ipBusinessUnit}');
@@ -368,7 +379,7 @@
 								function fireJSForPopup(){
 									var comp = document.getElementById("popupId");
 									comp.style.visibility = "visible";
-									checkBusinessUnit();                                    
+									checkBusinessUnit();
 								}
 								function closePopup(){
 									var comp = document.getElementById("popupId");
@@ -380,8 +391,8 @@
 								function captureResponse(){
 									if(validatePage()){
 										document.getElementById("spinnerBg").style.visibility = "visible";
-										document.getElementById("spinner").style.visibility = "visible";                                    
-										document.getElementById('{!$Component.ccForm.response}').value = document.getElementById('g-recaptcha-response').value;                                    
+										document.getElementById("spinner").style.visibility = "visible";
+										document.getElementById('{!$Component.ccForm.response}').value = document.getElementById('g-recaptcha-response').value;
 										submitCC();
 									}
 								}
@@ -389,7 +400,7 @@
 								/* START - APRIVERA - Resolved view state Error. Added Input file functionality */
 								function showSpinner(){
 									document.getElementById("spinnerBg").style.visibility = "visible";
-									document.getElementById("spinner").style.visibility = "visible";                                                                       
+									document.getElementById("spinner").style.visibility = "visible";
 								}
 								function showDisputedTransactionTable(){
 									var hdnBU = document.getElementById('{!$Component.ccForm:hdnBusinessUnit}');
@@ -424,7 +435,7 @@
 
 								/* END - APRIVERA - Resolved view state Error. Added Input file functionality */
 							</script>
-							<div class="col-md-6" style="padding:20px 10px">                    
+							<div class="col-md-6" style="padding:20px 10px">
 								<h5>{!$Label.I2C_BusinessDetails}</h5>
 								<hr/>
 								<div class="row">
@@ -435,7 +446,7 @@
 										<div class="col-sm-9" >
 											<apex:inputField styleClass="form-control" id="BusinessName" value="{!entCreditClaim.Business_Name__c}" html-placeholder="Business Name"/>
 											<div id="busName"></div>
-										</div>                                        
+										</div>
 									</div>
 								</div>
 								<br/>
@@ -445,22 +456,22 @@
 											<div class="position-grid__cell" >
 												<a onclick="void(0)" href="" aria-label="{!$Label.I2C_BussinessNoToolTipText}" class="hint--bottom-right hint--rounded hint--large" style="text-decoration: none; color:black; border-radius: 6px">
 													<p>{!$Label.I2C_BusinessAccountNumber}
-													<span class="symbol-req"> *</span>       
+													<span class="symbol-req"> *</span>
 													</p>
 												</a>
-											</div>                                                                                 
+											</div>
 										</div>
 										<div class="col-sm-9" >
 											<apex:inputField styleClass="form-control" id="BusinessAccountNumber" value="{!entCreditClaim.Billing_Number__c}" html-placeholder="Business Account Number"/>
 											<div id="busAccNo">
 											</div>
-										</div>                                        
+										</div>
 									</div>
 								</div>
-							</div>                
+							</div>
 							<div class="col-md-6" style="padding:20px 10px">
 								<h5>{!$Label.I2C_ContactDetails}</h5>
-								<hr/>                    
+								<hr/>
 								<div class="row">
 									<div class="form-group">
 										<div class="col-sm-2">
@@ -484,7 +495,7 @@
 										</div>
 									</div>
 								</div>
-								<br/>                    
+								<br/>
 								<div class="row" >
 									<div class="form-group">
 										<div class="col-sm-2">
@@ -506,7 +517,7 @@
 										</h4>
 									</div>
 									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">                                            
+										<div class="panel-body">
 											<div class="row" style="padding:5px 2px">
 												<div class="form-group">
 													<div class="col-sm-2">
@@ -519,7 +530,7 @@
 														<div id="busUnit"></div>
 													</div>
 												</div>
-											</div>        
+											</div>
 											<div class="row" style="padding:5px 2px">
 												<div class="form-group">
 													<div class="col-sm-2">
@@ -528,12 +539,12 @@
 													<div class="col-sm-10">
 														<apex:inputField value="{!entCreditClaim.Call_Purpose__c}" style="display:none"/>
 														<apex:inputField id="ipDisputeType" styleClass="form-control" value="{!entCreditClaim.Enquiry_Type__c}"
-																			onChange="updateHiddenField();" />
+																			onChange="onchangeDisputeType();" />
 														<apex:inputHidden id="hdnDisputeType" value="{!selectedDisputeType}"/>
 														<div id="disputeType"></div>
 													</div>
 												</div>
-											</div>                                            
+											</div>
 											<div class="row" style="padding:5px 2px">
 												<div class="form-group">
 													<div class="col-sm-2">
@@ -543,7 +554,7 @@
 														<apex:inputField id="ipReasonCC" styleClass="form-control" value="{!entCreditClaim.ReasonforCreditClaim__c}"
 																			onChange="updateHiddenField();"/>
 														<apex:inputHidden id="hdnReasonCC" value="{!selectedReason}"/>
-														<div id="reasonCC"></div>
+														<div style = "padding-bottom: 15px;" id="reasonCC"></div>
 													</div>
 												</div>
 											</div>
@@ -552,12 +563,12 @@
 													<div class="col-sm-2">
 														<p>{!$Label.I2C_TotalAmtClaimed}</p>
 													</div>
-													<div class="col-sm-10">                                                        
+													<div class="col-sm-10">
 														<apex:inputField styleClass="form-control" id="AmountClaimed" value="{!entCreditClaim.Amount_Claimed__c}" html-placeholder="Total Amount Claimed"/>
 														<div id="amtClaimed"></div>
 													</div>
 												</div>
-											</div>                                            
+											</div>
 											<div class="row" style="padding:5px 2px">
 												<div class="form-group">
 													<div class="col-sm-2">
@@ -568,7 +579,7 @@
 														<div id="descRef"></div>
 													</div>
 												</div>
-											</div>         
+											</div>
 										</div>
 									</div>
 								</div>
@@ -599,7 +610,7 @@
 																					{!$Label.I2C_InvoiceNumber}
 																					</a>
 																				</div> 
-																			</td>                                    
+																			</td>
 																			<td id="STCol1" class="text-center" style="{!(IF(startrackBU,'','display:none;'))}; font-size:14px">
 																				<div class="position-grid__cell">
 																					<a onclick="void(0)" href="" aria-label="{!$Label.I2C_ConnoteToolTipText}" class="hint--bottom-right hint--rounded hint--large" style="text-decoration: none; color:black; border-radius: 6px">
@@ -614,7 +625,7 @@
 																			</td>
 																			<td class="text-center" style="font-size:14px">
 																				{!$Label.I2C_AmountClaimed}
-																			</td>                                                            
+																			</td>
 																			<td class="text-center" style="font-size:14px">
 																				{!$Label.I2C_AmountCharged}
 																			</td>
@@ -624,7 +635,7 @@
 																		</tr>
 																	</thead>
 																	<apex:repeat value="{!lstDisputedItems}" var="repItem" id="therepeat">
-																		<tbody>                                                        
+																		<tbody>
 																			<tr>
 																				<td>
 																					<apex:inputField id="invoiceNumber" type="text" value="{!repItem.entDisputedItem.Invoice_Number__c}" html-placeholder="Invoice Number" styleClass="form-control"/>
@@ -645,14 +656,14 @@
 																				<td>
 																					<apex:inputField id="disputeAmountCharged" type="text" value="{!repItem.entDisputedItem.Amount__c}" html-placeholder="Amount Charged" styleClass="form-control"/>
 																					<div id="disputeAmtCharged{!rowNum}"></div>
-																				</td>                                                                                
+																				</td>
 																				<td>
 																					<apex:commandButton reRender="di_logic" styleClass="btn btn-default" value="Delete" style="color:#FFF;background:#dc1928;padding:2px 10px;" action="{!deleteRow}" Oncomplete="checkBusinessUnit();">
 																						<apex:param value="{!rowNum}" name="rowToDelete" assignTo="{!rowToDelete}"/>
 																					</apex:commandButton>
 																					<apex:variable var="rowNum" value="{!rowNum + 1}"/>
-																				</td>                                                           
-																			</tr>                                                            
+																				</td>
+																			</tr>
 																		</tbody>
 																		<script>
 																			cnt = {!rowNum};
@@ -661,13 +672,13 @@
 																</table>
 															</div>
 															<apex:commandButton reRender="di_logic" styleClass="btn btn-default" style="color:#FFF;background:#2E9AFE;padding:2px 10px;" 
-																				value="Add Row" action="{!addRow}" Oncomplete="checkBusinessUnit();"/>                                                      
+																				value="Add Row" action="{!addRow}" Oncomplete="checkBusinessUnit();"/>
 														</apex:outputPanel>
 													</apex:actionRegion>
 												</div>
 											</div>
 											<br/>
-										</div>        
+										</div>
 									</div>
 								</div>
 							</div>
@@ -690,7 +701,7 @@
 														<apex:outputText value="{!$Label.I2C_FileAttachmentSizeNote}"/><br/>
 														<apex:outputText value=" Allowed File types: {!strDocTypes}"/>
 													</div> 
-													<br/>                                              
+													<br/>
 													<apex:outputText Id="errorIndicatorId" rendered="{!errorIndicator}" value="{!errorMessage}" style="color: red;" />
 													<apex:inputFile id="fileId" value="{!file}" fileName="{!fN}" fileSize="{!fileSize}" title="{!fN}" style="width:35%;" onchange="checkFileType(this);checkFileSize(this);"/>
 													<br/>
@@ -703,7 +714,7 @@
 													<div class="table-responsive" style="align-content: center;">
 														<table class="table table-bordered table-hover" style="align-self: center;">
 															<thead> 
-																<tr>                                                            
+																<tr>
 																	<td class="text-center" style="font-size: 14px">
 																		{!$Label.I2C_FileName}
 																	</td>
@@ -716,7 +727,7 @@
 																</tr>
 															</thead> 
 															<apex:repeat value="{!lstFileObj}" var="repFile" id="fileRepeat">
-																<tbody>                                                        
+																<tbody>
 																	<tr>
 																		<td>
 																			<apex:outputText value="{!repFile.fileName}"/>
@@ -738,7 +749,7 @@
 															</apex:repeat>
 														</table>
 													</div>
-													</apex:outputPanel>                                           
+													</apex:outputPanel>
 												</div>
 											</div>
 										</div>
@@ -749,15 +760,15 @@
 							<div class="g-recaptcha" data-sitekey="{!dataSiteKey}" data-callback="enableSubmitCCBtn" style="float:left;clear:left;padding:10px 5px;"></div>
 							<br/>
 							<input id="submitCCId" type="button" class = "btn btn-default" data-event="site interaction" data-category="cta|btn" data-description="submit credit claim" value="Submit Credit Claim" onclick="captureResponse(); return false;" 
-									style="color:#FFF;background:#dc1928;font-size: 15px;float:right;clear:right;padding:5px 20px;display:block;visibility:hidden;"/>                            
-							<apex:actionFunction status="status" id="submitCC" action="{!submitCreditClaim}" name="submitCC"/>                  
+									style="color:#FFF;background:#dc1928;font-size: 15px;float:right;clear:right;padding:5px 20px;display:block;visibility:hidden;"/>
+							<apex:actionFunction status="status" id="submitCC" action="{!submitCreditClaim}" name="submitCC"/>
 							<div id="spinnerBg" style="visibility:hidden; position:fixed; top:0; left:0; right:0; bottom:0; opacity:0.5; z-index:1000; display:block; background-color: lightgrey;">
 								&nbsp;
 							</div>
 							<div id="spinner" style="visibility:hidden; position:fixed; left:0; top:0; bottom:0; right:0; z-index:1001; margin:20% 50%">
 								<img src="{!URLFOR($Resource.Enterprise_Credit_Claim_CSS, 'css/images/Progress.gif')}"/>
 							</div>
-							<div Id="popupId" class="popupBg" style="visibility:hidden;">                                
+							<div Id="popupId" class="popupBg" style="visibility:hidden;">
 								<br/>
 								<apex:outputPanel id="popupPanel">
 									<div class="modal-dialog" style="border-width:2px; border:solid red;">
@@ -765,17 +776,17 @@
 											<div class="modal-body" >
 												<img src="{!URLFOR($Resource.Enterprise_Credit_Claim_CSS, 'css/images/logo-ap_st-2_h_1.png')}" 
 														alt="Australia Post logo" class="img-responsive"/><br/><br/>
-												{!popupMessage}            
+												{!popupMessage}
 												<br/><br/>
-												<input type="button" class = "btn btn-default" value="OK" onclick="submitOK(); return false;" style="color:#FFF;background:#2E9AFE;"/>                              
+												<input type="button" class = "btn btn-default" value="OK" onclick="submitOK(); return false;" style="color:#FFF;background:#2E9AFE;"/>
 											</div>
 										</div>
 									</div>
-								</apex:outputPanel>                                 
+								</apex:outputPanel>
 							</div>
 						<br/><br/>
 						</apex:form>
-					</apex:outputPanel>                    
+					</apex:outputPanel>
 				</div>
 			</div>
 			

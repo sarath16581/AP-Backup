@@ -504,7 +504,7 @@
             <field>Email_Address__c</field>
             <type>email</type>
         </recipients>
-        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderAddress>credit.claims@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement</template>
     </alerts>
@@ -516,7 +516,7 @@
             <field>Email_Address__c</field>
             <type>email</type>
         </recipients>
-        <senderAddress>noreply-customerres@startrack.com.au</senderAddress>
+        <senderAddress>credit.claims@startrack.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement_StarTrack</template>
     </alerts>
@@ -5408,6 +5408,11 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <field>Case.RecordTypeId</field>
             <operation>notContain</operation>
             <value>Deal Enablement Centre</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notContain</operation>
+            <value>Enterprise Credit Dispute Claim</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
     </rules>

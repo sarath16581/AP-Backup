@@ -8486,4 +8486,20 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>BAM Invalid Billing Account Json Filter</shortDescription>
         <value>JSON provided is invalid. Please fix it.</value>
     </labels>
+    <labels>
+        <fullName>Australia_Post_Email_Security_Disclaimer</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post Email Security Disclaimer</shortDescription>
+        <value>This email was sent by Australia Post. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_No_Email_Phishing_Statement</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post No Email Phishing Statement</shortDescription>
+        <value>Australia Post will never send you an email asking for your password, credit card details or account information.</value>
+    </labels>	
 </CustomLabels>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>StarTrack Courier</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+Thank you for your enquiry. Please note that any dispute or query relating to a charge issued by our StarTrack Courier Team, should be sent through to the StarTrack Courier Administration Team directly. This dedicated team will be able to provide any additional assistance and a prompt resolution. Please see the below email address for your reference.
+
+Email address: STCAccountsReceivable@auspost.com.au
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post 
+credit.claims@auspost.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}
+{!$Label.Australia_Post_No_Email_Phishing_Statement}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
