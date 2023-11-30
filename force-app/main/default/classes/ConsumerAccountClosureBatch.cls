@@ -1,14 +1,17 @@
 /**
 * @author SteveL
 * @date 2023-11-15
-* @description This batch is used to close off the related records when a Consumer Account get archived
+* @description This batch is used to delete the related records when a Consumer Account gets archived
 
 * @changelog
 * 2023-11-15 - SteveL - Created
 */
 
 public inherited sharing class ConsumerAccountClosureBatch implements Database.Batchable<SObject>,Schedulable {
-	public final Integer nDaysAgo;
+	public static final Integer DEFAULT_N_DAYS = 3; // this is the default value if the Custom Setting value is null
+	public static final Integer DEFAULT_BATCH_SIZE = 1; // the default batch size if the Custom Setting value is null
+
+	public final Integer nDaysAgo; // this number will be used in the N_DAYS_AGO SOQL literal to compare with Account.ArchivedDateTime__pc, and is populated by the Custom Setting value or DEFAULT_N_DAYS
 	public final Integer batchSize;
 	public ConsumerAccountClosureSettings__c settings = ConsumerAccountClosureSettings__c.getInstance();
 	public final List<SObjectType> sObjectTypesForDeletion = new List<SObjectType>{
@@ -16,8 +19,8 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 	};
 
 	public ConsumerAccountClosureBatch() {
-		this.nDaysAgo = settings.NDaysAgo__c == null ? 3 : Integer.valueOf(settings.NDaysAgo__c);
-		this.batchSize = settings.BatchSize__c == null ? 1 : Integer.valueOf(settings.BatchSize__c);
+		this.nDaysAgo = settings.NDaysAgo__c == null ? DEFAULT_N_DAYS : Integer.valueOf(settings.NDaysAgo__c);
+		this.batchSize = settings.BatchSize__c == null ? DEFAULT_BATCH_SIZE : Integer.valueOf(settings.BatchSize__c);
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext BC){
@@ -41,8 +44,8 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 				accountsMap.put(record.Id, (Account)record);
 			}
 
-			doDeletion(accountsMap, uow);
-			uow.registerDeleted(accountsMap.values(), true, 'ConsumerAccountClosureBatch'); // at this point the accounts with open cases associated should have been removed by the doDeletion method, also turning throwOnError to be true so the catch block can catch it
+			selectRelatedRecordsForDeletion(accountsMap, uow);
+			uow.registerDeleted(accountsMap.values(), true, 'ConsumerAccountClosureBatch.accountsMap'); // at this point the accounts with open cases associated should have been removed from the collection by the selectRelatedRecordsForDeletion method, also turning throwOnError to be true so the catch block can catch it
 			uow.commitWork();
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ConsumerAccountClosureBatch', ConsumerAccountClosureBatch.class.getName(), 'execute', 'ConsumerAccountClosureBatch', ApplicationLogger.LoggingLevel.ERROR);
@@ -53,19 +56,19 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 	/**
 	 * @param accountsMap Map<Id,Account>
 	 * @param uow ApplicationUnitOfWork uow
-	 * @description 1: filters out the account with open cases associated
-	 *              2: use selectors to select the associated records by the given accounts
-	 *              3: perform deletion on the records from step 2
+	 * @description this method performs the selection of related records for the archived accounts.
+	 * 				For the related case records, only the closed cases need to be deleted.
+	 * 				If the archived account has open cases associated, then it will be removed from the account collection
 	 */
-	private void doDeletion(Map<Id,Account> accountsMap, ApplicationUnitOfWork uow) {
+	private static void selectRelatedRecordsForDeletion(Map<Id,Account> accountsMap, ApplicationUnitOfWork uow) {
 		//historical cases
 		SSSWCasesSelector casesSelector = SSSWCasesSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
 				Case.SObjectType => new Set<SObjectField>{Case.Id}
 		});
 		Map<Id,Case> accountOpenCases = casesSelector.getOpenCasesByAccountIds(accountsMap.keySet(), new Set<Object>());
 		Set<Id> openCaseAccountIds = new Set<Id>();
-		for (Case kase : accountOpenCases.values()) {
-			openCaseAccountIds.add(kase.AccountId); //remove all account ids with open case associated
+		for (Case caseRecord : accountOpenCases.values()) {
+			openCaseAccountIds.add(caseRecord.AccountId);
 		}
 
 		for (Id accountId : accountsMap.keySet()) {
@@ -94,12 +97,12 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 		List<NPSSurvey__c> npsSurveys = NPSSurveysSelector.newInstance().selectByCaseId(historicalCases.keySet());
 
 		// delete them
-		uow.registerDeleted(historicalCases.values(), true, 'ConsumerAccountClosureBatch');
-		uow.registerDeleted(attachments, true, 'ConsumerAccountClosureBatch');
-		uow.registerDeleted(tasks, true, 'ConsumerAccountClosureBatch');
-		uow.registerDeleted(events, true, 'ConsumerAccountClosureBatch');
-		uow.registerDeleted(authorisedContacts, true, 'ConsumerAccountClosureBatch');
-		uow.registerDeleted(npsSurveys, true, 'ConsumerAccountClosureBatch');
+		uow.registerDeleted(historicalCases.values(), true, 'ConsumerAccountClosureBatch.historicalCases');
+		uow.registerDeleted(attachments, true, 'ConsumerAccountClosureBatch.attachments');
+		uow.registerDeleted(tasks, true, 'ConsumerAccountClosureBatch.tasks');
+		uow.registerDeleted(events, true, 'ConsumerAccountClosureBatch.events');
+		uow.registerDeleted(authorisedContacts, true, 'ConsumerAccountClosureBatch.authorisedContacts');
+		uow.registerDeleted(npsSurveys, true, 'ConsumerAccountClosureBatch.npsSurveys');
 
 	}
 
