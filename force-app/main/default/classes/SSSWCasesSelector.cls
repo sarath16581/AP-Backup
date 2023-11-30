@@ -241,18 +241,16 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 
 	/**
 	 * @param accountIds account ids
-	 * @param nMonth nMonths used in SOQL data literal
 	 * @param selectorOptions selectorOptions
 	 * @description returns the closed case record by account id before a given number of months
 	 *
 	 * @return QueryBuilder
 	 */
-	public virtual QueryBuilder getClosedCasesByAccountIdsNMonths(Set<Id> accountIds, Integer nDays, Set<Object> selectorOptions) {
+	public virtual QueryBuilder getClosedCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.InCondition(Case.AccountId).inCollection(accountIds))
 				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
-				.add(new QueryBuilder.SimpleCondition(Case.Closed_Date__c + ' <= N_DAYS_AGO:' + nDays))
 				.endConditions();
 		return qb;
 	}

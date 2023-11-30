@@ -10,16 +10,19 @@
 public inherited sharing class ConsumerAccountClosureBatch implements Database.Batchable<SObject>,Schedulable {
 	public final Integer nDaysAgo;
 	public final Integer batchSize;
-	public Consumer_Account_Closure_Settings__c settings = Consumer_Account_Closure_Settings__c.getInstance();
+	public ConsumerAccountClosureSettings__c settings = ConsumerAccountClosureSettings__c.getInstance();
+	public final List<SObjectType> sObjectTypesForDeletion = new List<SObjectType>{
+			Account.SObjectType, Case.SObjectType, Attachment.SObjectType, Task.SObjectType, Event.SObjectType, AuthorisedContacts__c.SObjectType, NPSSurvey__c.SObjectType
+	};
 
 	public ConsumerAccountClosureBatch() {
-		this.nDaysAgo = settings.N_Days_Ago__c == null ? 6 : Integer.valueOf(settings.N_Days_Ago__c);
-		this.batchSize = settings.Batch_Size__c == null ? 200 : Integer.valueOf(settings.Batch_Size__c);
+		this.nDaysAgo = settings.NDaysAgo__c == null ? 3 : Integer.valueOf(settings.NDaysAgo__c);
+		this.batchSize = settings.BatchSize__c == null ? 1 : Integer.valueOf(settings.BatchSize__c);
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext BC){
 		AccountsSelector accountsSelector = AccountsSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
-				Account.SObjectType => new Set<SObjectField>{Account.Id, Account.APCN__c, Account.PersonContactId}
+				Account.SObjectType => new Set<SObjectField>{Account.Id}
 		});
 
 		return accountsSelector.selectArchivedAccountsByClosureDateLessThanEqualNDaysAgo(nDaysAgo, new Set<Object>());
@@ -31,13 +34,16 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 
 	public void execute(Database.BatchableContext BC, List<SObject> scope){
 		try {
+			ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(sObjectTypesForDeletion);
+
 			Map<Id,Account> accountsMap = new Map<Id,Account>();
 			for (SObject record : scope) {
 				accountsMap.put(record.Id, (Account)record);
 			}
 
-			doDeletion(accountsMap);
-			ApplicationDatabase.getInstance().dmlDelete(accountsMap.values()); // at this point the accounts with open cases associated should have been removed by the doDeletion method
+			doDeletion(accountsMap, uow);
+			uow.registerDeleted(accountsMap.values(), true, 'ConsumerAccountClosureBatch'); // at this point the accounts with open cases associated should have been removed by the doDeletion method, also turning throwOnError to be true so the catch block can catch it
+			uow.commitWork();
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ConsumerAccountClosureBatch', ConsumerAccountClosureBatch.class.getName(), 'execute', 'ConsumerAccountClosureBatch', ApplicationLogger.LoggingLevel.ERROR);
 		}
@@ -46,11 +52,12 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 
 	/**
 	 * @param accountsMap Map<Id,Account>
+	 * @param uow ApplicationUnitOfWork uow
 	 * @description 1: filters out the account with open cases associated
 	 *              2: use selectors to select the associated records by the given accounts
 	 *              3: perform deletion on the records from step 2
 	 */
-	private void doDeletion(Map<Id,Account> accountsMap) {
+	private void doDeletion(Map<Id,Account> accountsMap, ApplicationUnitOfWork uow) {
 		//historical cases
 		SSSWCasesSelector casesSelector = SSSWCasesSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
 				Case.SObjectType => new Set<SObjectField>{Case.Id}
@@ -67,7 +74,7 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 			}
 		}
 
-		Map<Id,Case> historicalCases = new Map<Id,Case>((List<Case>) Database.query(casesSelector.getClosedCasesByAccountIdsNMonths(accountsMap.keySet(), nDaysAgo, new Set<Object>()).toSoqlString()));
+		Map<Id,Case> historicalCases = new Map<Id,Case>((List<Case>) Database.query(casesSelector.getClosedCasesByAccountIds(accountsMap.keySet(), new Set<Object>()).toSoqlString()));
 
 		// Notes and Attachments
 		List<Attachment> attachments = AttachmentsSelector.newInstance().selectByParentId(accountsMap.keySet());
@@ -87,12 +94,13 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 		List<NPSSurvey__c> npsSurveys = NPSSurveysSelector.newInstance().selectByCaseId(historicalCases.keySet());
 
 		// delete them
-		ApplicationDatabase.getInstance().dmlDelete(historicalCases.values());
-		ApplicationDatabase.getInstance().dmlDelete(attachments);
-		ApplicationDatabase.getInstance().dmlDelete(tasks);
-		ApplicationDatabase.getInstance().dmlDelete(events);
-		ApplicationDatabase.getInstance().dmlDelete(authorisedContacts);
-		ApplicationDatabase.getInstance().dmlDelete(npsSurveys);
+		uow.registerDeleted(historicalCases.values(), true, 'ConsumerAccountClosureBatch');
+		uow.registerDeleted(attachments, true, 'ConsumerAccountClosureBatch');
+		uow.registerDeleted(tasks, true, 'ConsumerAccountClosureBatch');
+		uow.registerDeleted(events, true, 'ConsumerAccountClosureBatch');
+		uow.registerDeleted(authorisedContacts, true, 'ConsumerAccountClosureBatch');
+		uow.registerDeleted(npsSurveys, true, 'ConsumerAccountClosureBatch');
+
 	}
 
 	public void finish(Database.BatchableContext BC) { }
