@@ -40,12 +40,17 @@
 							</div>
 						</div>
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
-								<span class="slds-form-element__label">{customerNumber.label}</span>
-							</div>
-							<div class="slds-col slds-size_1-of-2">
-								<lightning-formatted-text value={customerNumber.value}></lightning-formatted-text>
-							</div>
+							<template lwc:if={isDSRFlow}>
+								<!-- Hide Custom Number for DSR Flow -->
+							</template>
+							<template lwc:else>
+								<div class="slds-col slds-size_1-of-2">
+									<span class="slds-form-element__label">{customerNumber.label}</span>
+								</div>
+								<div class="slds-col slds-size_1-of-2">
+									<lightning-formatted-text value={customerNumber.value}></lightning-formatted-text>
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
