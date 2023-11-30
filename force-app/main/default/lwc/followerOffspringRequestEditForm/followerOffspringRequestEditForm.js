@@ -20,6 +20,7 @@ import CHARGE_ACCOUNT_OPPORTUNITY from "@salesforce/schema/APT_Charge_Account__c
 import CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.KeyContact__c";
 import SUB_ACCOUNT_OBJECT from "@salesforce/schema/APT_Sub_Account__c";
 import SUB_ACCOUNT_Id from "@salesforce/schema/APT_Sub_Account__c.Id";
+import SUB_ACCOUNT_SUB_ACCOUNT_NAME from "@salesforce/schema/APT_Sub_Account__c.Sub_Account_Name__c";
 import SUB_ACCOUNT_NAME from "@salesforce/schema/APT_Sub_Account__c.Name";
 import SUB_ACCOUNT_CONTACT from "@salesforce/schema/APT_Sub_Account__c.SubAccountContact__c";
 import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
@@ -60,7 +61,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	customerNumber = {label: '', value: ''};
 
 	// lightning input field names
-	subAccountNameField = SUB_ACCOUNT_NAME;
+	subAccountNameField = SUB_ACCOUNT_SUB_ACCOUNT_NAME;
 	subAccountContactField = SUB_ACCOUNT_CONTACT;
 	subAccountAccountTypeField = SUB_ACCOUNT_ACCOUNT_TYPE;
 	subAccountIsLoginRequiredField = SUB_ACCOUNT_IS_LOGIN_REQUIRED;
@@ -127,7 +128,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	@api set subAccount(value) {
 		if (value) {
 			this._subAccount = value;
-			this.subAccountName = this._subAccount[SUB_ACCOUNT_NAME.fieldApiName];
+			this.subAccountName = this._subAccount[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName];
 			this.subAccountContact = this._subAccount[SUB_ACCOUNT_CONTACT.fieldApiName];
 			this.subAccountLoginRequired = this._subAccount[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName];
 			this.subAccountContactTel = this._subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName];
@@ -282,8 +283,10 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			if (this.subAccount?.Id) {
 				fields[SUB_ACCOUNT_Id.fieldApiName] = this.subAccount.Id;
 			}
-			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_NAME.fieldApiName] !== this.template.querySelector("[data-name='sub-account-name']").value)) {
-				fields[SUB_ACCOUNT_NAME.fieldApiName] = this.template.querySelector("[data-name='sub-account-name']").value;
+			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName] !== this.template.querySelector("[data-name='sub-account-name']").value)) {
+				const subAccountName = this.template.querySelector("[data-name='sub-account-name']").value;
+				fields[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName] = subAccountName;
+				fields[SUB_ACCOUNT_NAME.fieldApiName] = subAccountName;
 			}
 			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT.fieldApiName] !== this.template.querySelector("[data-name='sub-account-contact']").value)) {
 				fields[SUB_ACCOUNT_CONTACT.fieldApiName] = this.template.querySelector("[data-name='sub-account-contact']").value;
