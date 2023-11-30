@@ -12,6 +12,8 @@
  * 2020-08-24 - Disha Kariya - Updated with test for field override
  * 2022-02-10 - Alex Volkov - Added test for selectCasesEligibleForReopenByOwnerAndDate method
  * 2023-05-30 - StephenL - Added test for getCasesByCreatedByUserOrAPCN
+ * 2023-11-20 - StephenL - Added test for getClosedCasesByAccountIds
+ * 2023-11-27 - StephenL - Added test for getOpenCasesByAccountIds
  */
 @IsTest
 public with sharing class SSSWCasesSelector_Test {
@@ -148,6 +150,12 @@ public with sharing class SSSWCasesSelector_Test {
 
 		selector = SSSWCasesSelector.newInstance();
 		System.assertNotEquals(null, selector.selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}), 'Invalid query locator');
+
+		selector = SSSWCasesSelector.newInstance();
+		System.assertNotEquals(null, selector.getClosedCasesByAccountIds(new Set<Id>{account.Id}, new Set<Object>()), 'Invalid query locator');
+
+		selector = SSSWCasesSelector.newInstance();
+		System.assertNotEquals(null, selector.getOpenCasesByAccountIds(new Set<Id>{account.Id}, new Set<Object>()), 'Invalid query locator');
 		Test.stopTest();
 
 	}

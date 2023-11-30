@@ -26,6 +26,21 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
         };
     }
 
+    public virtual List<AuthorisedContacts__c> selectByCaseId(Set<Id> ids) {
+        return selectByCaseId(ids,new Set<Object>());
+    }
+
+    /**
+     * @param ids the case ids
+     * @param selectorOptions
+     *
+     * @return
+     */
+    public virtual List<AuthorisedContacts__c> selectByCaseId(Set<Id> ids, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Case__c + ' in :ids')).endConditions();
+        return (List<AuthorisedContacts__c>)Database.query(qb.toSoqlString());
+    }
+
     public virtual override QueryBuilder newQueryBuilder() {
         return newQueryBuilder(new Set<Object>());
     }
