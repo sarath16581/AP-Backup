@@ -5,6 +5,11 @@
  *			  account flow (initiated from the leader billing account already provisioned). DSR flow provisions a single
  *			  leader account and optionally a list of sub accounts. Billing Account flow only support provisioning
  *			  new sub accounts.
+ *
+ *			  Design Documentation
+ *			  - Request data mapping [https://australiapost.jira.com/wiki/spaces/STP/pages/2814837533/Design+OB010+Request+JSON+Mapping+Salesforce+Camunda+-+TEAM]
+ *			  - Acknowledgement (Continuation Callback) [https://australiapost.jira.com/wiki/spaces/STP/pages/2825295528/Design+Acknowledgment]
+ *
  * @author Ranjeewa Silva
  * @date 2023-11-02
  * @changelog
@@ -193,6 +198,7 @@ public with sharing class ProvisionSTBillingAccountsController {
 		if (context.subAccountRequestIds != null && !context.subAccountRequestIds.isEmpty()) {
 			for (Id subAccountRequestId: context.subAccountRequestIds) {
 				APT_Sub_Account__c subAccountRequest = new APT_Sub_Account__c(Id=subAccountRequestId);
+				subAccountRequest.Transaction_Id__c = context.onboardingRequestId;
 				subAccountRequest.APT_Sub_Account_Request_Status__c = (response.isSuccess ? 'Submitted' : 'Error');
 				updatable.add(subAccountRequest);
 			}
@@ -375,7 +381,8 @@ public with sharing class ProvisionSTBillingAccountsController {
 					APT_Sub_Account__c.APT_Postal_Address_Street_Type__c, APT_Sub_Account__c.APT_Postal_Address_Suburb__c,
 					APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_Street_Number__c,
 					APT_Sub_Account__c.APT_Street_Address_Street_Name__c, APT_Sub_Account__c.APT_Street_Address_Street_Type__c,
-					APT_Sub_Account__c.APT_Street_Address_Suburb__c, APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c
+					APT_Sub_Account__c.APT_Street_Address_Suburb__c, APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c,
+					APT_Sub_Account__c.AccountType__c
 
 			},
 			Contact.SObjectType => new Set<SObjectField>{
@@ -408,10 +415,10 @@ public with sharing class ProvisionSTBillingAccountsController {
 		for (APT_Sub_Account__c subAccountRequest: subAccountRequests) {
 			BillingAccountWrapperForTeams.StarTrackSubAccount subAccount = new BillingAccountWrapperForTeams.StarTrackSubAccount(subAccountRequest.Id, subAccountRequest.Sub_Account_Name__c);
 			// populate parent based on the account type set in sub account request.
-			if (subAccountRequest.AccountTYpe__c == INVOICE_PAID_BY_LEADER_ACCOUNT_TYPE) {
+			if (subAccountRequest.AccountType__c == INVOICE_PAID_BY_LEADER_ACCOUNT_TYPE) {
 				subAccount.parentObjectId = subAccountRequest.APT_Charge_Account__c;
 				subAccount.parentBillingAccountNo = subAccountRequest.APT_Billing_Account__r?.LEGACY_ID__c;
-			} else if (subAccountRequest.AccountTYpe__c == INVOICE_PAID_BY_OTHER_ACCOUNT_TYPE) {
+			} else if (subAccountRequest.AccountType__c == INVOICE_PAID_BY_OTHER_ACCOUNT_TYPE) {
 				subAccount.parentObjectId = subAccountRequest.ParentAccountRequest__c;
 				subAccount.parentBillingAccountNo = subAccountRequest.ParentBillingAccount__r?.LEGACY_ID__c;
 			}
@@ -630,7 +637,8 @@ public with sharing class ProvisionSTBillingAccountsController {
 						APT_Sub_Account__c.APT_Postal_Address_Street_Type__c, APT_Sub_Account__c.APT_Postal_Address_Suburb__c,
 						APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_Street_Number__c,
 						APT_Sub_Account__c.APT_Street_Address_Street_Name__c, APT_Sub_Account__c.APT_Street_Address_Street_Type__c,
-						APT_Sub_Account__c.APT_Street_Address_Suburb__c, APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c
+						APT_Sub_Account__c.APT_Street_Address_Suburb__c, APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c,
+						APT_Sub_Account__c.AccountType__c
 
 				},
 				Contact.SObjectType => new Set<SObjectField>{
