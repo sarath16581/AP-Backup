@@ -8,17 +8,28 @@
  * 2023-11-01 - Harry Wang - Created
  */
 import {api, LightningElement, wire} from 'lwc';
-import getDatatableColumns from '@salesforce/apex/FollowerOffspringRequestController.retrieveListViewColumns';
-import finaliseSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.finaliseSubAccounts';
+import {getFieldValue, getRecord, deleteRecord} from "lightning/uiRecordApi";
+import LightningAlert from 'lightning/alert';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import LightningConfirm from "lightning/confirm";
+
+// field mappings
 import BILLING_ACCOUNT_NAME from "@salesforce/schema/Billing_Account__c.Name";
+import BILLING_ACCOUNT_NUMBER from "@salesforce/schema/Billing_Account__c.LEGACY_ID__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_ID from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_NAME from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.Name";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
+import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
+import SUB_ACCOUNT_PARENT_SUB_ACCOUNT from "@salesforce/schema/APT_Sub_Account__c.ParentAccountRequest__c";
+import SUB_ACCOUNT_PARENT_BILLING_ACCOUNT from "@salesforce/schema/APT_Sub_Account__c.ParentBillingAccount__c";
+import SUB_ACCOUNT_SUB_ACCOUNT_NUMBER from "@salesforce/schema/APT_Sub_Account__c.Sub_Account_Number__c";
+
+// custom labels
 import maxFinaliseError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
-import {getFieldValue, getRecord, deleteRecord} from "lightning/uiRecordApi";
-import LightningAlert from 'lightning/alert';
+
+// apex controller method calls
+import getDatatableColumns from '@salesforce/apex/FollowerOffspringRequestController.retrieveListViewColumns';
+import finaliseSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.finaliseSubAccounts';
 
 // Row actions
 const actions = [
@@ -77,7 +88,8 @@ export default class FollowerOffspringRequestList extends LightningElement {
 			if (this.isBillingAccount === 'true') {
 				this.listViewLabel = 'Billing Accounts';
 				this.listViewUrl = '/lightning/o/Billing_Account__c/list?filterName=Recent';
-				this.recordViewLabel = getFieldValue(data, BILLING_ACCOUNT_NAME);
+				const billingAccountNameLabel = getFieldValue(data, BILLING_ACCOUNT_NUMBER) ? ' (' + getFieldValue(data, BILLING_ACCOUNT_NUMBER) + ')' : '';
+				this.recordViewLabel = getFieldValue(data, BILLING_ACCOUNT_NAME) + billingAccountNameLabel;
 				this.recordViewUrl = '/lightning/r/Billing_Account__c/'+ this.leaderId + '/view';
 				this.submitLabel = 'Submit';
 				this.backLabel = 'Back to Billing Account';
@@ -100,7 +112,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	 */
 	get fields() {
 		if (this.isBillingAccount === 'true') {
-			return [BILLING_ACCOUNT_NAME];
+			return [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_NUMBER];
 		}
 		return [CHARGE_ACCOUNT_OPPORTUNITY_ID, CHARGE_ACCOUNT_OPPORTUNITY_NAME];
 	}
@@ -302,6 +314,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 			if (this.isBillingAccount === 'true') {
 				// TODO: Submit
 			} else {
+				// validate if finalise calls reach the max finalise request
 				if (this.selectedRows.length > MAX_FINALISE_REQUESTS - this.countFinalised) {
 					await LightningAlert.open({
 						message: maxFinaliseError,
