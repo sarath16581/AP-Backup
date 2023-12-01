@@ -7932,6 +7932,46 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
     </labels>
     <labels>
+        <fullName>StarTrackNewBillingAccountProvisonNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountProvisonNotificationTitle</shortDescription>
+        <value>Click here to go to the {0} record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewLeaderBillingAccountProvisonErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewLeaderBillingAccountProvisonErrorNotification</shortDescription>
+        <value>Billing account creation request for {0} has encountered an error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewLeaderBillingAccountProvisonSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewLeaderBillingAccountProvisonSuccessNotification</shortDescription>
+        <value>Billing account creation request for {0} is completed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewSubAccountProvisonErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewSubAccountProvisonErrorNotification</shortDescription>
+        <value>Follower/Offspring request for TEAM Billing Account {0} has encountered an error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewSubAccountProvisonSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewSubAccountProvisonSuccessNotification</shortDescription>
+        <value>Follower/Offspring Account {0} for TEAM Billing Account {1} has been successfully completed.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>

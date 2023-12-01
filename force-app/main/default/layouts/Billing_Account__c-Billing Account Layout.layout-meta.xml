@@ -9,7 +9,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Source_System__c</field>
             </layoutItems>
             <layoutItems>
