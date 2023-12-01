@@ -150,7 +150,7 @@ public with sharing class SubAccountRequestsSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.FILTER_UNPROVISIONED_FOLLOWER_ONLY)) {
 			builder.addConditions().add(new QueryBuilder.CompareCondition(APT_Sub_Account__c.AccountType__c).eq('Follower')).
-					add(new QueryBuilder.CompareCondition(APT_Sub_Account__c.APT_Billing_Account_Number__c).ne('')).
+					add(new QueryBuilder.CompareCondition(APT_Sub_Account__c.Sub_Account_Number__c).eq('')).
 					add(new QueryBuilder.InCondition(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c).inCollection(new List<String>{'Draft', 'Error'})).
 					endConditions();
 		}
