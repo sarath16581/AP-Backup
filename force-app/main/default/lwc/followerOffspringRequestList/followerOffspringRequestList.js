@@ -19,10 +19,6 @@ import BILLING_ACCOUNT_NUMBER from "@salesforce/schema/Billing_Account__c.LEGACY
 import CHARGE_ACCOUNT_OPPORTUNITY_ID from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_NAME from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.Name";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
-import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
-import SUB_ACCOUNT_PARENT_SUB_ACCOUNT from "@salesforce/schema/APT_Sub_Account__c.ParentAccountRequest__c";
-import SUB_ACCOUNT_PARENT_BILLING_ACCOUNT from "@salesforce/schema/APT_Sub_Account__c.ParentBillingAccount__c";
-import SUB_ACCOUNT_SUB_ACCOUNT_NUMBER from "@salesforce/schema/APT_Sub_Account__c.Sub_Account_Number__c";
 
 // custom labels
 import maxFinaliseError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
