@@ -12,13 +12,16 @@ import {getFieldValue, getRecord, deleteRecord} from "lightning/uiRecordApi";
 import LightningAlert from 'lightning/alert';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import LightningConfirm from "lightning/confirm";
+import {getObjectInfo, getPicklistValues} from "lightning/uiObjectInfoApi";
 
 // field mappings
 import BILLING_ACCOUNT_NAME from "@salesforce/schema/Billing_Account__c.Name";
 import BILLING_ACCOUNT_NUMBER from "@salesforce/schema/Billing_Account__c.LEGACY_ID__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_ID from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_NAME from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.Name";
+import SUB_ACCOUNT_OBJECT from "@salesforce/schema/APT_Sub_Account__c";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
+import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
 
 // custom labels
 import maxFinaliseError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
@@ -61,7 +64,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	sortBy = 'CreatedDate';
 	sortDirection = 'desc';
 
-
+	picklistMap;
 	_filteredSubAccounts;
 	searchTerm;
 	selectedRows = [];
@@ -104,6 +107,46 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	}
 
 	/**
+	 *  Get sub account object info to wire picklist value
+	 */
+	@wire(getObjectInfo, {objectApiName: SUB_ACCOUNT_OBJECT})
+	subAccountInfo;
+
+	/**
+	 *  Get account type picklist API name and label map - required to render the datatable
+	 *  Upon receiving load datatable columns
+	 */
+	@wire(getPicklistValues, {recordTypeId: '$subAccountInfo.data.defaultRecordTypeId', fieldApiName: SUB_ACCOUNT_ACCOUNT_TYPE})
+	wiredPicklistValues({data}) {
+		this.picklistMap = new Map();
+		if (data?.values) {
+			data.values.forEach(item => {
+				this.picklistMap.set(item.value, item.label);
+			});
+		}
+		if (this.filteredSubAccounts != null) {
+			this.filteredSubAccounts.forEach(acc => {
+				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
+			});
+			//Load columns from server and add Physical Address, Account Type and row actions columns
+			getDatatableColumns().then(data => {
+				this.columns = data.map(item => {
+					return {...item};
+				});
+				// insert physical address at index 2
+				this.columns.splice(2, 0, {label: 'Physical Address', fieldName: 'PhysicalAddressStr', type: 'text', sortable: 'true'});
+				// replace AccountType__c with AccountTypeLabel
+				this.columns.splice(0, 1, {label: 'Account Type', fieldName: 'AccountTypeLabel', type: 'text', sortable: 'true'})
+				this.finalisedColumns = [...this.columns];
+				this.columns.push({type: 'action', typeAttributes: {rowActions: actions}});
+			}).catch(error => {
+				console.error(error);
+			});
+			this.isLoading = false;
+		}
+	}
+
+	/**
 	 * Get fields based on leader account type - used to wire leader account details
 	 */
 	get fields() {
@@ -113,32 +156,13 @@ export default class FollowerOffspringRequestList extends LightningElement {
 		return [CHARGE_ACCOUNT_OPPORTUNITY_ID, CHARGE_ACCOUNT_OPPORTUNITY_NAME];
 	}
 
-	/**
-	 * Load columns from server and add additional Physical Address and row actions columns
-	 */
-	@wire(getDatatableColumns)
-	wiredColumns({error, data}) {
-		if (data) {
-			this.columns = data.map(item => {
-				return {...item};
-			});
-			// insert physical address at index 2
-			this.columns.splice(2, 0, {label: 'Physical Address', fieldName: 'PhysicalAddressStr', type: 'text', sortable: 'true'});
-			this.finalisedColumns = [...this.columns];
-			this.columns.push({type: 'action', typeAttributes: {rowActions: actions}});
-		} else if (error) {
-			console.error(error);
-		}
-		this.isLoading = false;
-	}
-
 	get hasFinalisedSubAccounts() {
 		return this.finalisedSubAccounts != null && this.finalisedSubAccounts?.length > 0;
 	}
 
 	get filteredSubAccounts() {
 		if (this._filteredSubAccounts == null && this.subAccounts.length > 0) {
-			this._filteredSubAccounts = this.subAccounts;
+			this._filteredSubAccounts = JSON.parse(JSON.stringify(this.subAccounts));
 		}
 		return this._filteredSubAccounts;
 	}
@@ -148,13 +172,17 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	}
 
 	/**
-	 * Filter out sub accounts based on search term
+	 * Update filteredSubAccounts based on search term
 	 */
 	handleSearchChange(event) {
 		const searchKey = event.target.value.toLowerCase();
-		const searchRecords = [];
+		const subAccountsCopy = JSON.parse(JSON.stringify(this.subAccounts));
+		subAccountsCopy.forEach(acc => {
+			acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
+		});
 		if (searchKey) {
-			this.subAccounts.forEach(item => {
+			const searchRecords = [];
+			subAccountsCopy.forEach(item => {
 				for (const field of SEARCHABLE_FIELDS) {
 					const fieldValueStr = item[field].toLowerCase();
 					if (fieldValueStr.includes(searchKey)) {
@@ -165,9 +193,8 @@ export default class FollowerOffspringRequestList extends LightningElement {
 			});
 			this.filteredSubAccounts = searchRecords;
 		} else {
-			this.filteredSubAccounts = this.subAccounts;
+			this.filteredSubAccounts = subAccountsCopy;
 		}
-
 	}
 
 	get searchCount() {
