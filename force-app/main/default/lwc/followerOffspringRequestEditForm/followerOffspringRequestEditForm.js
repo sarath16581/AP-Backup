@@ -71,13 +71,12 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	subAccountContact;
 	accountType;
 	subAccountLoginRequired;
-	contactDetailsSame;
+	contactDetailsSame = false;
 	subAccountContactTel;
 	subAccountContactEmail;
 
 	physicalAddress = {};
 	mailingAddress = {};
-	isInvoicingDifferent;
 	selectedFollower;
 	@api isLoading;
 
@@ -150,9 +149,8 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 				this.selectedFollower = this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]
 					? {Id: this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]} : {Id: this._subAccount[SUB_ACCOUNT_PARENT_SUB_ACCOUNT.fieldApiName]};
 			}
+			this.contactDetailsSame = !(this.subAccountContactTel || this.subAccountContactEmail);
 		}
-		this.contactDetailsSame = !(this.subAccountContactTel || this.subAccountContactEmail);
-		this.isInvoicingDifferent = !this.contactDetailsSame;
 	}
 
 	/**
@@ -226,7 +224,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	 *  Handler whe user toggle if Invoicing Contact Same As Sub Account Contact
 	 */
 	handleInvoicingToggleChange(event) {
-		this.isInvoicingDifferent = !event.target.checked;
+		this.contactDetailsSame = event.target.checked;
 	}
 
 	/**
@@ -298,7 +296,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 				fields[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName] = this.template.querySelector("[data-name='sub-account-is-login-required']").value;
 			}
 
-			if (this.isInvoicingDifferent) {
+			if (!this.contactDetailsSame) {
 				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== this.template.querySelector("[data-name='sub-account-tel']").value)) {
 					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = this.template.querySelector("[data-name='sub-account-tel']").value;
 				}
