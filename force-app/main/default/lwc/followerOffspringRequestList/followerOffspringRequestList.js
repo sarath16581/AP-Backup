@@ -129,8 +129,8 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
 			});
 			//Load columns from server and add Physical Address, Account Type and row actions columns
-			getDatatableColumns().then(data => {
-				this.columns = data.map(item => {
+			getDatatableColumns().then(c => {
+				this.columns = c.map(item => {
 					return {...item};
 				});
 				// insert physical address at index 2
