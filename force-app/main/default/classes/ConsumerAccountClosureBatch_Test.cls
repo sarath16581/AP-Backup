@@ -13,7 +13,7 @@ private class ConsumerAccountClosureBatch_Test {
 	 *  Ensures that testSelectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo is returning expected results
 	 */
 	@IsTest
-	public static void testSelectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo() {
+	public static void testSelectArchivedAccountsByClosureDateLessThanEqualNDaysAgo() {
 		// =====================================
 		// Data Preparation
 		// =====================================
