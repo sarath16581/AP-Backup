@@ -16,26 +16,26 @@
 					</h3>
 					<div class="slds-section__content slds-grid slds-wrap slds-p-around_medium">
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<span class="slds-form-element__label">{billingAccountOrOpportunityName.label}</span>
 							</div>
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<lightning-formatted-text value={billingAccountOrOpportunityName.value}></lightning-formatted-text>
 							</div>
 						</div>
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<span class="slds-form-element__label">{legalEntityName.label}</span>
 							</div>
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<lightning-formatted-text value={legalEntityName.value}></lightning-formatted-text>
 							</div>
 						</div>
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<span class="slds-form-element__label">{billingAccountOrChargeAccountNumber.label}</span>
 							</div>
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<lightning-formatted-text value={billingAccountOrChargeAccountNumber.value}></lightning-formatted-text>
 							</div>
 						</div>
@@ -44,10 +44,10 @@
 								<!-- Hide Custom Number for DSR Flow -->
 							</template>
 							<template lwc:else>
-								<div class="slds-col slds-size_1-of-2">
+								<div class="slds-col">
 									<span class="slds-form-element__label">{customerNumber.label}</span>
 								</div>
-								<div class="slds-col slds-size_1-of-2">
+								<div class="slds-col">
 									<lightning-formatted-text value={customerNumber.value}></lightning-formatted-text>
 								</div>
 							</template>
