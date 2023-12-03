@@ -16,7 +16,7 @@
  * 2023-03-17 - Naveen Rajanna - SMWD-397 - Modified to use Assert class for assertion, Added test for following enums - WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY
  * 2023-05-01 - Naveen Rajanna - REQ2916371 - coverage for search() and new enums WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS, WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
  * 2023-07-17 - Harry Wang - Added test for testSelectByIdWithContactsAndOpportunities
- * 2023-11-20 - StephenL - Added test for selectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo
+ * 2023-11-20 - StephenL - Added test for selectArchivedAccountsByClosureDateLessThanEqualNDaysAgo
  */
 @IsTest
 public with sharing class AccountsSelector_Test {
@@ -506,10 +506,10 @@ public with sharing class AccountsSelector_Test {
 
 	/**
 	 * Test:
-	 *  Ensures that testSelectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo is returning expected results
+	 *  Ensures that testSelectArchivedAccountsByClosureDateLessThanEqualNDaysAgo is returning expected results
 	 */
 	@IsTest
-	public static void testSelectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo() {
+	public static void testselectArchivedAccountsByClosureDateLessThanEqualNDaysAgo() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -524,7 +524,7 @@ public with sharing class AccountsSelector_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(selector.selectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo((Integer)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(Database.getQueryLocator('SELECT Id FROM Account'));
+		MockUtility.Mocks.when(selector.selectArchivedAccountsByClosureDateLessThanEqualNDaysAgo((Integer)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(Database.getQueryLocator('SELECT Id FROM Account'));
 		MockUtility.Mocks.when(mockUow.registerNew((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 
 		MockUtility.Mocks.stopStubbing();
@@ -533,7 +533,7 @@ public with sharing class AccountsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		List<Account> results = Database.query(selector.selectArchivedAccountsByClosureDateLessThanEqualNMonthsAgo(6, new Set<Object>()).getQuery());
+		List<Account> results = Database.query(selector.selectArchivedAccountsByClosureDateLessThanEqualNDaysAgo(6, new Set<Object>()).getQuery());
 		Test.stopTest();
 
 		System.assertEquals(1, results.size(), 'Wrong number of Account records returned');
