@@ -34,8 +34,7 @@ export default class CreateSubAccountsWrapper extends LightningElement {
 		}
 		this.hasPageReferenceState = true;
 		this.recordId = currentPageReference?.state?.c__recordId;
-		// isTEAMRequest is string if passed from Apt_CreditAssessmentController apex or is boolean if passed from createSubAccountsRequestWrapper aura
-		this.isTEAMRequest = currentPageReference?.state?.c__isTEAMRequest === true || currentPageReference?.state?.c__isTEAMRequest === 'true';
+		this.isTEAMRequest = currentPageReference?.state?.c__isTEAMRequest === 'true';
 		this.initialLoad = currentPageReference?.state?.c__initialLoad;
 		this.isBillingAccount = currentPageReference?.state?.c__isBillingAccount;
 	}

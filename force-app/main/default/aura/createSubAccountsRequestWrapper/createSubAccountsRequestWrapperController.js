@@ -44,7 +44,7 @@
 					component.set("v.failedErrMsg", "This request does not meet the minimum criteria to create a Follower/Offspring account. A Follower/Offspring account cannot be created for a Billing Account that is not a Leader.");
 				} else if (sourceSystem == 'TEAM' && leaderAccVal == null && payerAccVal == null) {
 					component.set("v.isModalOpen", false);
-					helper.navigateToCreateSubAccountsCmp(component, true);
+					helper.navigateToCreateSubAccountsCmp(component, 'true');
 				} else if (sourceSystem == 'PeopleSoft'){
 					component.set("v.isModalOpen", true);
 					component.set("v.failedErrMsg", 'This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.');
@@ -56,7 +56,7 @@
 					component.set("v.failedErrMsg", 'This request does not meet the minimum criteria to create a sub-account. A sub-account cannot be created for Billing Account Type Agency or Cash.');
 				} else {
 					component.set("v.isModalOpen", false);
-					helper.navigateToCreateSubAccountsCmp(component, false);
+					helper.navigateToCreateSubAccountsCmp(component, 'false');
 				}
 			}
 		});
