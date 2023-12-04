@@ -402,7 +402,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 								i[SUB_ACCOUNT_STAGE.fieldApiName] = 'Pending Charge Account';
 								return i;
 							});
-							this.finalisedSubAccountsList = updatedFinalisedSubAccounts.concat([...this.finalisedSubAccountsList]);
+							this.finalisedSubAccountsList = this.hasFinalisedSubAccounts ? updatedFinalisedSubAccounts.concat([...this.finalisedSubAccountsList]) : [...updatedFinalisedSubAccounts];
 
 							this.resetSelection();
 							this.countFinalised = this.countFinalised + chargeAccountSubAccounts.length;
