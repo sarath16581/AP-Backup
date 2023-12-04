@@ -29,7 +29,11 @@ public with sharing class CreateSubAccountsController {
 
 	@AuraEnabled
 	public static Billing_Account__c getBillingAccountDetails(String billingAccountRecord){
-		return BillingAccountsSelector.newInstance(1, BILLING_ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id> {billingAccountRecord}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION}).values()[0];
+		Map<Id, Billing_Account__c> billingAccountMap = BillingAccountsSelector.newInstance(1, BILLING_ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id> {billingAccountRecord}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION});
+		if (billingAccountMap.values().size() > 0) {
+			return billingAccountMap.values()[0];
+		}
+		return null;
 	}
 
 	//CI-703 Method to check if all the APPC contracts have Contract Relationship as Billing Account

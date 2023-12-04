@@ -16,36 +16,41 @@
 					</h3>
 					<div class="slds-section__content slds-grid slds-wrap slds-p-around_medium">
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<span class="slds-form-element__label">{billingAccountOrOpportunityName.label}</span>
 							</div>
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<lightning-formatted-text value={billingAccountOrOpportunityName.value}></lightning-formatted-text>
 							</div>
 						</div>
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<span class="slds-form-element__label">{legalEntityName.label}</span>
 							</div>
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<lightning-formatted-text value={legalEntityName.value}></lightning-formatted-text>
 							</div>
 						</div>
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<span class="slds-form-element__label">{billingAccountOrChargeAccountNumber.label}</span>
 							</div>
-							<div class="slds-col slds-size_1-of-2">
+							<div class="slds-col">
 								<lightning-formatted-text value={billingAccountOrChargeAccountNumber.value}></lightning-formatted-text>
 							</div>
 						</div>
 						<div class="slds-col slds-grid slds-grid_vertical slds-size_1-of-2">
-							<div class="slds-col slds-size_1-of-2">
-								<span class="slds-form-element__label">{customerNumber.label}</span>
-							</div>
-							<div class="slds-col slds-size_1-of-2">
-								<lightning-formatted-text value={customerNumber.value}></lightning-formatted-text>
-							</div>
+							<template lwc:if={isDSRFlow}>
+								<!-- Hide Custom Number for DSR Flow -->
+							</template>
+							<template lwc:else>
+								<div class="slds-col">
+									<span class="slds-form-element__label">{customerNumber.label}</span>
+								</div>
+								<div class="slds-col">
+									<lightning-formatted-text value={customerNumber.value}></lightning-formatted-text>
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
@@ -66,7 +71,10 @@
 									<div class="slds-form-element__label slds-p-bottom_xxx-small">Invoicing Contact Same As Sub Account Contact?</div>
 									<lightning-input data-name="sub-account-invoicing-same" class="input" type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" checked={contactDetailsSame} onchange={handleInvoicingToggleChange} style="width: fit-content;"></lightning-input>
 								</div>
-								<template lwc:if={isInvoicingDifferent}>
+								<template lwc:if={contactDetailsSame}>
+									<!-- hide Contact Telephone and Contact Email Address -->
+								</template>
+								<template lwc:else>
 									<div class="slds-p-left_xx-small">
 										<lightning-input data-name="sub-account-tel" class="input" type="tel" label="Sub Account Contact Telephone" required value={subAccountContactTel}></lightning-input>
 										<lightning-input data-name="sub-account-email" class="input" type="email" label="Sub Account Contact Email Address" required value={subAccountContactEmail}></lightning-input>
