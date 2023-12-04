@@ -55,7 +55,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	@api subAccounts = [];
 
 	// Finalised sub Accounts passed from request wrapper
-	@api finalisedSubAccounts;
+	@api finalisedSubAccounts = [];
 
 	columns;
 	finalisedColumns;
@@ -66,6 +66,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 
 	picklistMap;
 	_filteredSubAccounts;
+	_finalisedSubAccountsList;
 	searchTerm;
 	selectedRows = [];
 	isLoading = true;
@@ -124,10 +125,20 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				this.picklistMap.set(item.value, item.label);
 			});
 		}
-		if (this.filteredSubAccounts != null) {
+
+		if (this.hasFinalisedSubAccounts) {
+			this.finalisedSubAccountsList.forEach(acc => {
+				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
+			});
+		}
+
+		if (this.hasFilteredSubAccounts) {
 			this.filteredSubAccounts.forEach(acc => {
 				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
 			});
+		}
+
+		if (this.hasFinalisedSubAccounts || this.hasFilteredSubAccounts) {
 			//Load columns from server and add Physical Address, Account Type and row actions columns
 			getDatatableColumns().then(c => {
 				this.columns = c.map(item => {
@@ -157,11 +168,15 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	}
 
 	get hasFinalisedSubAccounts() {
-		return this.finalisedSubAccounts != null && this.finalisedSubAccounts?.length > 0;
+		return this.finalisedSubAccountsList?.length > 0;
+	}
+
+	get hasFilteredSubAccounts() {
+		return this.filteredSubAccounts?.length > 0;
 	}
 
 	get filteredSubAccounts() {
-		if (this._filteredSubAccounts == null && this.subAccounts.length > 0) {
+		if (this._filteredSubAccounts == null && this.subAccounts?.length > 0) {
 			this._filteredSubAccounts = JSON.parse(JSON.stringify(this.subAccounts));
 		}
 		return this._filteredSubAccounts;
@@ -169,6 +184,17 @@ export default class FollowerOffspringRequestList extends LightningElement {
 
 	set filteredSubAccounts(value) {
 		this._filteredSubAccounts = value;
+	}
+
+	get finalisedSubAccountsList() {
+		if (this._finalisedSubAccountsList == null && this.finalisedSubAccounts?.length > 0) {
+			this._finalisedSubAccountsList = JSON.parse(JSON.stringify(this.finalisedSubAccounts));
+		}
+		return this._finalisedSubAccountsList;
+	}
+
+	set finalisedSubAccountsList(value) {
+		this._finalisedSubAccountsList = value;
 	}
 
 	/**
@@ -346,6 +372,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 					});
 					return;
 				}
+
 				// update charge account sub account status to Pending Charge Account
 				const chargeAccountSubAccounts = this.selectedRows.map(item => {
 					return {Id: item.Id, [SUB_ACCOUNT_STAGE.fieldApiName]: 'Pending Charge Account'};
@@ -366,9 +393,17 @@ export default class FollowerOffspringRequestList extends LightningElement {
 								})
 							);
 							this.dispatchEvent(new CustomEvent('finalise', {detail: chargeAccountSubAccounts.length}));
-							// delete rows from filteredSubAccounts and subAccounts
+							// delete selected rows from filteredSubAccounts and subAccounts
 							this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
 							this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
+
+							// add selected rows to finalised sub accounts
+							const updatedFinalisedSubAccounts = [...this.selectedRows].map(i => {
+								i[SUB_ACCOUNT_STAGE.fieldApiName] = 'Pending Charge Account';
+								return i;
+							});
+							this.finalisedSubAccountsList = updatedFinalisedSubAccounts.concat([...this.finalisedSubAccountsList]);
+
 							this.resetSelection();
 							this.countFinalised = this.countFinalised + chargeAccountSubAccounts.length;
 						}).catch(error =>{
