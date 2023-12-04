@@ -20,6 +20,7 @@ import CHARGE_ACCOUNT_OPPORTUNITY from "@salesforce/schema/APT_Charge_Account__c
 import CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.KeyContact__c";
 import SUB_ACCOUNT_OBJECT from "@salesforce/schema/APT_Sub_Account__c";
 import SUB_ACCOUNT_Id from "@salesforce/schema/APT_Sub_Account__c.Id";
+import SUB_ACCOUNT_SUB_ACCOUNT_NAME from "@salesforce/schema/APT_Sub_Account__c.Sub_Account_Name__c";
 import SUB_ACCOUNT_NAME from "@salesforce/schema/APT_Sub_Account__c.Name";
 import SUB_ACCOUNT_CONTACT from "@salesforce/schema/APT_Sub_Account__c.SubAccountContact__c";
 import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
@@ -60,7 +61,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	customerNumber = {label: '', value: ''};
 
 	// lightning input field names
-	subAccountNameField = SUB_ACCOUNT_NAME;
+	subAccountNameField = SUB_ACCOUNT_SUB_ACCOUNT_NAME;
 	subAccountContactField = SUB_ACCOUNT_CONTACT;
 	subAccountAccountTypeField = SUB_ACCOUNT_ACCOUNT_TYPE;
 	subAccountIsLoginRequiredField = SUB_ACCOUNT_IS_LOGIN_REQUIRED;
@@ -70,13 +71,12 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	subAccountContact;
 	accountType;
 	subAccountLoginRequired;
-	contactDetailsSame;
+	contactDetailsSame = false;
 	subAccountContactTel;
 	subAccountContactEmail;
 
 	physicalAddress = {};
 	mailingAddress = {};
-	isInvoicingDifferent;
 	selectedFollower;
 	@api isLoading;
 
@@ -127,7 +127,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	@api set subAccount(value) {
 		if (value) {
 			this._subAccount = value;
-			this.subAccountName = this._subAccount[SUB_ACCOUNT_NAME.fieldApiName];
+			this.subAccountName = this._subAccount[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName];
 			this.subAccountContact = this._subAccount[SUB_ACCOUNT_CONTACT.fieldApiName];
 			this.subAccountLoginRequired = this._subAccount[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName];
 			this.subAccountContactTel = this._subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName];
@@ -149,9 +149,8 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 				this.selectedFollower = this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]
 					? {Id: this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]} : {Id: this._subAccount[SUB_ACCOUNT_PARENT_SUB_ACCOUNT.fieldApiName]};
 			}
+			this.contactDetailsSame = !(this.subAccountContactTel || this.subAccountContactEmail);
 		}
-		this.contactDetailsSame = !(this.subAccountContactTel || this.subAccountContactEmail);
-		this.isInvoicingDifferent = !this.contactDetailsSame;
 	}
 
 	/**
@@ -225,7 +224,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	 *  Handler whe user toggle if Invoicing Contact Same As Sub Account Contact
 	 */
 	handleInvoicingToggleChange(event) {
-		this.isInvoicingDifferent = !event.target.checked;
+		this.contactDetailsSame = event.target.checked;
 	}
 
 	/**
@@ -282,8 +281,10 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			if (this.subAccount?.Id) {
 				fields[SUB_ACCOUNT_Id.fieldApiName] = this.subAccount.Id;
 			}
-			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_NAME.fieldApiName] !== this.template.querySelector("[data-name='sub-account-name']").value)) {
-				fields[SUB_ACCOUNT_NAME.fieldApiName] = this.template.querySelector("[data-name='sub-account-name']").value;
+			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName] !== this.template.querySelector("[data-name='sub-account-name']").value)) {
+				const subAccountName = this.template.querySelector("[data-name='sub-account-name']").value;
+				fields[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName] = subAccountName;
+				fields[SUB_ACCOUNT_NAME.fieldApiName] = subAccountName;
 			}
 			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT.fieldApiName] !== this.template.querySelector("[data-name='sub-account-contact']").value)) {
 				fields[SUB_ACCOUNT_CONTACT.fieldApiName] = this.template.querySelector("[data-name='sub-account-contact']").value;
@@ -295,7 +296,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 				fields[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName] = this.template.querySelector("[data-name='sub-account-is-login-required']").value;
 			}
 
-			if (this.isInvoicingDifferent) {
+			if (!this.contactDetailsSame) {
 				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== this.template.querySelector("[data-name='sub-account-tel']").value)) {
 					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = this.template.querySelector("[data-name='sub-account-tel']").value;
 				}
