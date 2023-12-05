@@ -5,7 +5,7 @@
 *@description This test class is used to validate the date business object and redirect user from porposal to OppProductList
 *@changelog
 18/07/2023 Ken Mcguire Extended mocking of test
-12/05/2023 Bharat Patel : STP-8932 : add Product Configuration's APT_Configuration_Update_Version__c in redirectToOPCScreenTest()
+12/05/2023 Bharat Patel : STP-8932 : add Product Configuration's APT_Configuration_Update_Version__c in redirectToOPCScreenTest() and replace space by tab
 */
 
 @IsTest
