@@ -24,7 +24,7 @@ export default class createSubAccountsRequest extends NavigationMixin(LightningE
 	@track index;
 
 	get isInitialLoad() {
-		return this.initialLoad === 'true';
+		return this.initialLoad;
 	}
 
 	connectedCallback() {
@@ -56,7 +56,7 @@ export default class createSubAccountsRequest extends NavigationMixin(LightningE
 	}
 
 	showFormEventHandler(event){
-		this.initialLoad = 'true';
+		this.initialLoad = true;
 		this.showSubAccountListForm = false;
 		this.showSubAccountNewForm = true;
 	}
