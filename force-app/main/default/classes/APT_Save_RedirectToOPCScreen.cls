@@ -28,10 +28,11 @@ public class APT_Save_RedirectToOPCScreen{
 	if(prodConfigList != null){
 		for(Apttus_Config2__ProductConfiguration__c productConfig : prodConfigList){
 			if(productConfig.Apttus_Config2__Status__c == 'Saved'){
-				productConfig.Apttus_Config2__Description__c = 'test' + System.now();
+				productConfig.APT_Configuration_Update_Version__c = productConfig.APT_Configuration_Update_Version__c + 1;
 				prodConfigListToUpdate.add(productConfig);
 			}
 			else if(productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW){
+				productConfig.APT_Configuration_Update_Version__c = productConfig.APT_Configuration_Update_Version__c + 1;
 				productConfig.Apttus_Config2__Status__c = 'Saved';
 				prodConfigListToUpdate.add(productConfig);
 			}
