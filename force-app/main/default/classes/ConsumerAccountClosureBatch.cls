@@ -15,7 +15,7 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 	public final Integer batchSize;
 	public ConsumerAccountClosureSettings__c settings = ConsumerAccountClosureSettings__c.getInstance();
 	public final List<SObjectType> sObjectTypesForDeletion = new List<SObjectType>{
-			Account.SObjectType, Case.SObjectType, Attachment.SObjectType, Task.SObjectType, Event.SObjectType, AuthorisedContacts__c.SObjectType, NPSSurvey__c.SObjectType
+			 Attachment.SObjectType, Task.SObjectType, Event.SObjectType, AuthorisedContacts__c.SObjectType, NPSSurvey__c.SObjectType,Case.SObjectType,Account.SObjectType
 	};
 
 	public ConsumerAccountClosureBatch() {
@@ -45,8 +45,15 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 			}
 
 			selectRelatedRecordsForDeletion(accountsMap, uow);
-			uow.registerDeleted(accountsMap.values(), true, 'ConsumerAccountClosureBatch.accountsMap'); // at this point the accounts with open cases associated should have been removed from the collection by the selectRelatedRecordsForDeletion method, also turning throwOnError to be true so the catch block can catch it
 			uow.commitWork();
+
+			List<Database.DeleteResult> accDeleteResults = new List<Database.DeleteResult>();
+			accDeleteResults = ApplicationDatabase.getInstance().dmlDelete(accountsMap.values(), false); // at this point the accounts with open cases associated should have been removed from the collection by the selectRelatedRecordsForDeletion method, also turning throwOnError to be true so the catch block can catch it
+			for (Database.DeleteResult sr : accDeleteResults) {
+				if (!sr.isSuccess()) {
+					ApplicationLogger.getInstance().logFailedDatabaseResults(accDeleteResults, 'ConsumerAccountClosureBatch.deleteAccount', CaseRoutingService.class.getName(), 'execute', '', ApplicationLogger.LoggingLevel.ERROR);
+				}
+			}
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ConsumerAccountClosureBatch', ConsumerAccountClosureBatch.class.getName(), 'execute', 'ConsumerAccountClosureBatch', ApplicationLogger.LoggingLevel.ERROR);
 		}
@@ -62,10 +69,10 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 	 */
 	private static void selectRelatedRecordsForDeletion(Map<Id,Account> accountsMap, ApplicationUnitOfWork uow) {
 		//historical cases
-		SSSWCasesSelector casesSelector = SSSWCasesSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
-				Case.SObjectType => new Set<SObjectField>{Case.Id}
+		CasesSelector caseRecordsSelector = CasesSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+				Case.SObjectType => new Set<SObjectField>{Case.Id,Case.AccountId}
 		});
-		Map<Id,Case> accountOpenCases = casesSelector.getOpenCasesByAccountIds(accountsMap.keySet(), new Set<Object>());
+		Map<Id,Case> accountOpenCases = caseRecordsSelector.getOpenCasesByAccountIds(accountsMap.keySet(), new Set<Object>());
 		Set<Id> openCaseAccountIds = new Set<Id>();
 		for (Case caseRecord : accountOpenCases.values()) {
 			openCaseAccountIds.add(caseRecord.AccountId);
@@ -77,7 +84,11 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 			}
 		}
 
-		Map<Id,Case> historicalCases = new Map<Id,Case>((List<Case>) Database.query(casesSelector.getClosedCasesByAccountIds(accountsMap.keySet(), new Set<Object>()).toSoqlString()));
+		Map<Id,Case> historicalCases = new Map<Id,Case>();
+		if (!accountsMap.isEmpty()) { // the open case condition could potentially remove all the account records from the start method, so in that case we don't need to query the historical cases
+			historicalCases = new Map<Id,Case>((List<Case>) Database.query(caseRecordsSelector.getClosedCasesByAccountIds(accountsMap.keySet(), new Set<Object>()).toSoqlString()));
+		}
+
 
 		// Notes and Attachments
 		List<Attachment> attachments = AttachmentsSelector.newInstance().selectByParentId(accountsMap.keySet());
