@@ -25,8 +25,7 @@
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
  * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
- * 2023-12-04 - Steve L - added new method getClosedCasesByAccountIds
- * 2023-12-04 - Steve L - added new method getOpenCasesByAccountIds
+ * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
  *
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {

@@ -22,8 +22,7 @@
  * 2022-02-28 - Dattaraj Deshmukh - Added test for WITH_NETWORK_RESPONSE in 'testEnsureQueryBuilderProducesCorrectStringWithRelatedFields' method.
  * 2023-05-22 - Mahesh Parvathaneni - SF-961 - Added filter for the network lookup field
  * 2023-06-08 - Mahesh Parvathaneni - Added tests for WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
- * 2023-12-04 - SteveL - Added test for getClosedCasesByAccountIdsNMonths
- * 2023-12-04 - SteveL - Added test for getOpenCasesByAccountIds
+ * 2023-12-04 - SteveL - Added tests for: getClosedCasesByAccountIdsNMonths, and getOpenCasesByAccountIds
  */
 @IsTest
 public with sharing class CasesSelector_Test {
