@@ -152,6 +152,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				console.error(error);
 			});
 			this.isLoading = false;
+			window.scroll(0, 0);
 		}
 	}
 
