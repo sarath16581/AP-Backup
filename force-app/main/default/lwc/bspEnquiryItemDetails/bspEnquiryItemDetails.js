@@ -7,6 +7,7 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 	@api caseDetailWrapper;
 	commUrlPrefix;
 	navigate;
+	formattedEnquiryType;
 
 	connectedCallback() {
 		try {
@@ -14,7 +15,8 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 				this.commURLPrefix = result;
 				this.navigate = navigation(this.commURLPrefix);
 			});
-			
+			// formatting the enq type to de-capitalize the rest of the words when found in a value
+			this.formatEnquiryType();
 		} catch (er) {
 			console.error(er)
 		}
@@ -89,5 +91,19 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 
 	get isPickupBookingEnquiry() {
 		return this.caseDetailWrapper.enq.RecordType.Name == 'Pickup Booking Enquiry' ? true : false;
+	}
+
+	/**
+	 * Format the picklist value to capitalize only the first letter of the displayed value, ensuring it reflects the label rather than the API name.
+	 * This approach is implemented to avoid altering the API value, which could lead to potential issues in other areas in the system.
+	 * eg: Billing Dispute to Billing dispute (see the 'D' in dispute)
+	 */
+	formatEnquiryType() {
+		let currentEnquiryType = this.caseDetailWrapper.enq.Enquiry_Type__c;
+		// Capitalize the first letter
+		let capitalizedEnquiryType = currentEnquiryType.charAt(0).toUpperCase() + currentEnquiryType.slice(1).toLowerCase();
+		// Assign it back
+		this.formattedEnquiryType = capitalizedEnquiryType;
+		console.log(this.formattedEnquiryType);
 	}
 }
