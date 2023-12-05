@@ -62,21 +62,21 @@ public static void redirectToOPCScreenTest(){
 		prodConfig.Apttus_Config2__Status__c ='New';
 	}
 
-    // =====================================
+	// =====================================
 	// Stubbing
 	// =====================================
 	APT_ProposalObjectsSelector mockSelectorP = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
-    ProductConfigurationSelector mockSelectorProdConfi = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
+	ProductConfigurationSelector mockSelectorProdConfi = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
 	ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
-    MockUtility.Mocks.startStubbing();
+	MockUtility.Mocks.startStubbing();
 	MockUtility.Mocks.when(mockSelectorP.selectByConfigIds((set<Id>)fflib_Match.eq(new Set<Id>{quote1.id}))).
 		thenReturn(new List<Apttus_Proposal__Proposal__c>{quote1});
 
 	MockUtility.Mocks.when(mockSelectorProdConfi.selectByProposalId(new set<ID>{(ID)quote1.Id})).thenReturn(
 	new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}));
 
-    MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+	MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 	MockUtility.Mocks.stopStubbing();
 
 	PageReference testPage = Page.APT_Save_RedirectToOPCScreen ;
