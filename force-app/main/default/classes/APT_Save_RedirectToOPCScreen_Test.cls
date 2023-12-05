@@ -5,6 +5,7 @@
 *@description This test class is used to validate the date business object and redirect user from porposal to OppProductList
 *@changelog
 18/07/2023 Ken Mcguire Extended mocking of test
+12/05/2023 Bharat Patel : STP-8932 : add Product Configuration's APT_Configuration_Update_Version__c in redirectToOPCScreenTest()
 */
 
 @IsTest
@@ -56,6 +57,7 @@ public static void redirectToOPCScreenTest(){
 		quote1 = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, account.Id, keyCon.id, true)[0];
 
 		prodConfig = APT_TestDataFactory.getAPTProductConfig(1, null, null, true)[0];
+		prodConfig.APT_Configuration_Update_Version__c = 1;
 		prodConfig.Apttus_QPConfig__Proposald__c =quote1.id;
 		prodConfig.Apttus_Config2__Status__c ='New';
 	}
