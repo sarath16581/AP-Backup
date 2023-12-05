@@ -77,7 +77,6 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	recordViewUrl;
 	listViewLabel;
 	recordViewLabel;
-	submitLabel;
 	backLabel;
 
 	/**
@@ -92,14 +91,12 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				const billingAccountNameLabel = getFieldValue(data, BILLING_ACCOUNT_NUMBER) ? ' (' + getFieldValue(data, BILLING_ACCOUNT_NUMBER) + ')' : '';
 				this.recordViewLabel = getFieldValue(data, BILLING_ACCOUNT_NAME) + billingAccountNameLabel;
 				this.recordViewUrl = '/lightning/r/Billing_Account__c/'+ this.leaderId + '/view';
-				this.submitLabel = 'Submit';
 				this.backLabel = 'Back to Billing Account';
 			} else {
 				this.listViewLabel = 'Opportunities';
 				this.listViewUrl = '/lightning/o/Opportunity/list?filterName=Recent';
 				this.recordViewLabel = getFieldValue(data, CHARGE_ACCOUNT_OPPORTUNITY_NAME);
 				this.recordViewUrl = '/lightning/r/Opportunity/'+ getFieldValue(data, CHARGE_ACCOUNT_OPPORTUNITY_ID) + '/view';
-				this.submitLabel = 'Finalise Request(s)';
 				this.backLabel = 'Back to Opportunity';
 			}
 		}
