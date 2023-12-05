@@ -9,11 +9,15 @@
  * 2023-08-16 - Hasantha Liyanage - auto populate account held with
  * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
  * 2023-10-23 - Hasantha Liyanage - added credit claim reason display help text capability
+ * 2023-12-05 - Thang Nguyen - added adobe analytics details
  */
 import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
 import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight} from 'c/bspCommonJS';
 import {getObjectInfo, getPicklistValues} from 'lightning/uiObjectInfoApi';
+
+//adobe analytics
+import { pushCustomPageData } from 'c/adobeAnalyticsUtils'
 
 // case object
 import CASE_OBJECT from '@salesforce/schema/Case';
@@ -30,7 +34,7 @@ import getCreditClaimReasonHelpTexts from '@salesforce/apex/bspEnquiryUplift.bui
 import getRelatedSuperAdminRoles from '@salesforce/apex/BSPCreditClaimController.getSuperAdminRoles';
 import isValidBillingAccount from '@salesforce/apex/BSPCreditClaimController.isValidBillingAccount';
 import acceptedFileFormats from '@salesforce/label/c.BSP_Accepted_file_formats_credit_claim';
-export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
+export default class bspFormCreditClaim extends NavigationMixin(LightningElement) {
 	//	enquiryType = 'Missing Item';
 	spinnerAltText = 'loading';
 	errorGeneric = 'An error has occurred';
@@ -109,6 +113,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		isOther: false
 	};
 	isValidateFileUploaded = false;
+
+	//analytics variables
+	pageName = '';
+	isAnalyticsPushed = false;
 
 
 	/**
@@ -308,9 +316,11 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		switch (this.currentPageReference.state.accountHeldWith) {
 			case 'ap':
 				this.accountHeldWith = 'Australia Post';
+				this.pageName = 'auspost:bsp:ap:creditclaim';
 				break;
 			case 'st':
 				this.accountHeldWith = 'StarTrack';
+				this.pageName = 'auspost:bsp:st:creditclaim';
 				break;
 			default:
 				break;
@@ -321,6 +331,16 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		if(this.errorMessage && this.submitClicked) {
 			this.submitClicked = false;
 			scrollToHeight(this.template.querySelectorAll('[data-id="error"]'));
+		}
+
+		if (!this.isAnalyticsPushed){
+			this.isAnalyticsPushed = true;
+			const adobePageData = {
+				sitePrefix: 'auspost:bsp',
+				pageAbort: 'true',
+				pageName: this.pageName
+			};
+			pushCustomPageData(adobePageData);				
 		}
 	}
 
