@@ -221,7 +221,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public QueryBuilder getClosedCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-				.add(new QueryBuilder.InCondition(Case.AccountId).inCollection(accountIds))
+				.add(new QueryBuilder.SimpleCondition(Case.AccountId + ' in : accountIds'))
 				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
 				.endConditions();
 		return qb;
@@ -236,7 +236,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public Map<Id,Case> getOpenCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions){
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-				.add(new QueryBuilder.InCondition(Case.AccountId).inCollection(accountIds))
+				.add(new QueryBuilder.SimpleCondition(Case.AccountId + ' in : accountIds'))
 				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
 				.endConditions();
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
