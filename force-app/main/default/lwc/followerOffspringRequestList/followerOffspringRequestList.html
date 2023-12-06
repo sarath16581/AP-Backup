@@ -88,7 +88,7 @@
 					<template lwc:if={canSubmitForProvisioning}>
 						<lightning-button class="slds-var-m-left_x-small" label="Submit" onclick={handleSubmitForProvisioning} disabled={isActionDisabled}></lightning-button>
 					</template>
-					<template lwc:else>
+					<template lwc:elseif={canFinaliseSubAccountRequests}>
 						<lightning-button class="slds-var-m-left_x-small" label={submitLabel} onclick={handleSubmit} disabled={isActionDisabled}></lightning-button>
 					</template>
 			</div>

@@ -104,6 +104,10 @@
         <enabled>true</enabled>
         <name>BG_Core</name>
     </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Submit_Sub_Account_Provisioning_Request</name>
+    </customPermissions>
     <description>Provides permissions common to all B&amp;G Sales users, regardless of job role.</description>
     <fieldPermissions>
         <editable>false</editable>

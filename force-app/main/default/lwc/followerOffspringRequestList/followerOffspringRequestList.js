@@ -206,6 +206,10 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 		return (this.isBillingAccount === 'true' && this.hasPermissionsToSubmitSubAccountProvisioningRequests);
 	}
 
+	get canFinaliseSubAccountRequests() {
+		return (this.isBillingAccount !== 'true');
+	}
+
 	get hasPermissionsToSubmitSubAccountProvisioningRequests() {
 		return (PERMISSION_SUBMIT_PROVISIONREQUESTS || PERMISSION_SUBMIT_SUBACCOUNT_PROVISIONREQUESTS);
 	}
