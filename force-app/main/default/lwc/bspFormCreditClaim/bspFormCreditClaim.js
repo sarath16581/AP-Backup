@@ -17,7 +17,7 @@ import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToH
 import {getObjectInfo, getPicklistValues} from 'lightning/uiObjectInfoApi';
 
 //adobe analytics
-import { pushCustomPageData } from 'c/adobeAnalyticsUtils'
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils'
 
 // case object
 import CASE_OBJECT from '@salesforce/schema/Case';
@@ -116,8 +116,6 @@ export default class bspFormCreditClaim extends NavigationMixin(LightningElement
 
 	//analytics variables
 	pageName = '';
-	isAnalyticsPushed = false;
-
 
 	/**
 	 * handle billing account input search focus out event
@@ -183,8 +181,17 @@ export default class bspFormCreditClaim extends NavigationMixin(LightningElement
 
 	async connectedCallback() {
 		await this.initialLoad();
+		this.pushPageAnalyticsOnLoad();
 	}
 
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
+	}
 
 	async initialLoad() {
 		// billing accounts to be populated in the typeahead component
@@ -331,16 +338,6 @@ export default class bspFormCreditClaim extends NavigationMixin(LightningElement
 		if(this.errorMessage && this.submitClicked) {
 			this.submitClicked = false;
 			scrollToHeight(this.template.querySelectorAll('[data-id="error"]'));
-		}
-
-		if (!this.isAnalyticsPushed){
-			this.isAnalyticsPushed = true;
-			const adobePageData = {
-				sitePrefix: 'auspost:bsp',
-				pageAbort: 'true',
-				pageName: this.pageName
-			};
-			pushCustomPageData(adobePageData);				
 		}
 	}
 

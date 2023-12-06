@@ -11,11 +11,17 @@ import { LightningElement ,wire, api} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getUserBillingAccountScope from '@salesforce/apex/bspEnquiryUplift.getUserBillingAccountScope'
 
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils'
+
 export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningElement) {
 
 	@api trackingId;  //Jansi added
 	accordianSection = '';
 	userBillingAccountScope;
+
+	//analytics variables
+	pageName = 'auspost:bsp:landing';
 
 	@wire(getUserBillingAccountScope)
 	allConstants({
@@ -92,5 +98,18 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 				userBillingAccountScope : this.userBillingAccountScope
 			}
 		}, false);
+	}
+
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
 	}
 }

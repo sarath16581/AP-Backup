@@ -8,9 +8,8 @@
  * 2023-12-04 - Thang Nguyen - Created
  */
 
-export function pushCustomPageData(pageData) {
+export function analyticsTrackPageLoad(pageData) {
 
-	if(analytics == null) analytics = {};
 	analytics.page = {}; 
 	analytics.page.pageData = {}; 		
 	analytics.page.pageData.sitePrefix = pageData.sitePrefix;
@@ -19,10 +18,5 @@ export function pushCustomPageData(pageData) {
 	analytics.component = {}; 
 
 	console.log('Pushing Analytics Event >> ', pageData, JSON.parse(JSON.stringify(analytics)));
-
-	setTimeout(() => {
-		_satellite.track();		
-	}, 3000);	
-
-
 }
+
