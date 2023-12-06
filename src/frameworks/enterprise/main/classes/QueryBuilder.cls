@@ -1376,67 +1376,70 @@ public virtual inherited sharing class QueryBuilder {
     /**
      * DO NOT USE this class. Use dynamic bind variables for these types of conditions.
      */
-    @Deprecated
+    //@Deprecated
     public class InCondition extends FieldCondition {
 
-        @Deprecated
+        //@Deprecated
         public InCondition(String fieldName) {
             super(fieldName);
         }
 
-        @Deprecated
+        //@Deprecated
         public InCondition(SObjectField fieldName) {
             super(fieldName);
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(QueryBuilder queryBuilder) {
             this.formedCondition = this.fieldName + ' IN ' + this.bracket(queryBuilder.toSoqlString());
             return this;
         }
 
         //in - set
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(List<SObject> inList) {
             return inCollection(new Map<Id, SObject>(inList));
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(Map<Id, SObject> inKeySet) {
             return inCollection(inKeySet.keySet());
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(Set<String> inSet) {
             return inCollection(new List<String>(inSet));
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(Set<Id> inSet) {
             return inCollection(new List<Id>(inSet));
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(Set<Decimal> inSet) {
             return inCollection(new List<Decimal>(inSet));
         }
 
         //set helpers
+        //@Deprecated
         private String buildIn(Set<String> inSet) {
             return buildIn(new List<String>(inSet));
         }
 
+        //@Deprecated
         private String buildIn(Set<Id> inSet) {
             return buildIn(new List<Id>(inSet));
         }
 
+        //@Deprecated
         private String buildInNoQuote(Set<Decimal> inSet) {
             return buildInNoQuote(new List<Decimal>(inSet));
         }
 
 
         //in - list
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(List<Id> inList) {
             if (inList.isEmpty()) {
                 this.formedCondition = '';
@@ -1445,7 +1448,7 @@ public virtual inherited sharing class QueryBuilder {
             return this;
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(List<String> inList) {
             if (inList.isEmpty()) {
                 this.formedCondition = '';
@@ -1454,7 +1457,7 @@ public virtual inherited sharing class QueryBuilder {
             return this;
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition inCollection(List<Decimal> inList) {
             if (inList.isEmpty()) {
                 this.formedCondition = '';
@@ -1476,6 +1479,7 @@ public virtual inherited sharing class QueryBuilder {
         //        }
 
         //list helpers
+        //@Deprecated
         private String buildIn(List<String> inList) {
 
             // escape strings
@@ -1487,6 +1491,7 @@ public virtual inherited sharing class QueryBuilder {
             return this.bracket(String.join(escapedValues, ', '));
         }
 
+        //@Deprecated
         private String buildIn(List<Id> inList) {
             return this.bracket(
                     +this.QUOTE
@@ -1495,23 +1500,24 @@ public virtual inherited sharing class QueryBuilder {
             );
         }
 
+        //@Deprecated
         private String buildInNoQuote(List<Decimal> inList) {
             return this.bracket(String.join(inList, ', '));
         }
 
 
         //not in
-        @Deprecated
+        //@Deprecated
         public Condition notIn(List<SObject> inList) {
             return notIn(new Map<Id, SObject>(inList));
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition notIn(Map<Id, SObject> inSet) {
             return notIn(inSet.keySet());
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition notIn(Set<Id> inSet) {
             if (inSet.isEmpty()) {
                 this.formedCondition = '';
@@ -1521,7 +1527,7 @@ public virtual inherited sharing class QueryBuilder {
             return this;
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition notIn(QueryBuilder queryBuilder) {
             String builtSubQuery = queryBuilder.toSoqlString();
             if (String.isEmpty(builtSubQuery)) {
@@ -1532,12 +1538,12 @@ public virtual inherited sharing class QueryBuilder {
             return this;
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition notInCollection(Set<String> notInSet) {
             return notInCollection(new List<String>(notInSet));
         }
 
-        @Deprecated
+        //@Deprecated
         public Condition notInCollection(List<String> notInList) {
             if (notInList.isEmpty()) {
                 this.formedCondition = '';
