@@ -7238,7 +7238,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</shortDescription>
-        <value>Once successful record creation in the billing system, the billing account and its associated information will be made available in Salesforce.</value>
+        <value>Once the accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
     </labels>
     <labels>
         <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</fullName>

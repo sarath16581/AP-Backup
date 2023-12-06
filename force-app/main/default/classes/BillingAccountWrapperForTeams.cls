@@ -24,6 +24,8 @@ public with sharing class BillingAccountWrapperForTeams {
 	@AuraEnabled public TeamSystem team {get; set;}
 	@AuraEnabled public String transactionId {get; set;}
 
+	// no argument constructor is necessary to enable passing into an AuraEnabled method as a method parameter (LWC to Apex).
+	// refer - https://salesforce.stackexchange.com/questions/354110/passing-object-from-lwc-to-apex-not-working-as-expected-class-does-not-have-no
 	public BillingAccountWrapperForTeams() {
 	}
 
@@ -40,6 +42,8 @@ public with sharing class BillingAccountWrapperForTeams {
 		@AuraEnabled public List<String> service {get; set;}
 		@AuraEnabled public List<StarTrackSubAccount> followerOffspringList {get; set;}
 
+		// no argument constructor is necessary to enable passing into an AuraEnabled method as a method parameter (LWC to Apex).
+		// refer - https://salesforce.stackexchange.com/questions/354110/passing-object-from-lwc-to-apex-not-working-as-expected-class-does-not-have-no
 		public TeamSystem() {
 			this.followerOffspringList = new List<StarTrackSubAccount>();
 		}
@@ -75,6 +79,8 @@ public with sharing class BillingAccountWrapperForTeams {
 		@AuraEnabled public Id leaderAccountRequestId {get; set;}
 		@AuraEnabled public String billingAccountNo {get; set;}
 
+		// no argument constructor is necessary to enable passing into an AuraEnabled method as a method parameter (LWC to Apex).
+		// refer - https://salesforce.stackexchange.com/questions/354110/passing-object-from-lwc-to-apex-not-working-as-expected-class-does-not-have-no
 		public Organisations() {
 		}
 		public Organisations(String abn, String acn, String accountName) {
@@ -96,6 +102,8 @@ public with sharing class BillingAccountWrapperForTeams {
 		@AuraEnabled public String suburb {get; set;}
 		@AuraEnabled public Integer postcode {get; set;}
 
+		// no argument constructor is necessary to enable passing into an AuraEnabled method as a method parameter (LWC to Apex).
+		// refer - https://salesforce.stackexchange.com/questions/354110/passing-object-from-lwc-to-apex-not-working-as-expected-class-does-not-have-no
 		public Address() {
 		}
 
@@ -118,6 +126,8 @@ public with sharing class BillingAccountWrapperForTeams {
 		@AuraEnabled public String phone {get; set;}
 		@AuraEnabled public String salutation {get; set;}
 
+		// no argument constructor is necessary to enable passing into an AuraEnabled method as a method parameter (LWC to Apex).
+		// refer - https://salesforce.stackexchange.com/questions/354110/passing-object-from-lwc-to-apex-not-working-as-expected-class-does-not-have-no
 		public Contact() {
 		}
 
@@ -143,6 +153,8 @@ public with sharing class BillingAccountWrapperForTeams {
 		@AuraEnabled public String parentBillingAccountNo {get; set;}
 		@AuraEnabled public Id parentObjectId {get; set;}
 
+		// no argument constructor is necessary to enable passing into an AuraEnabled method as a method parameter (LWC to Apex).
+		// refer - https://salesforce.stackexchange.com/questions/354110/passing-object-from-lwc-to-apex-not-working-as-expected-class-does-not-have-no
 		public StarTrackSubAccount() {
 		}
 

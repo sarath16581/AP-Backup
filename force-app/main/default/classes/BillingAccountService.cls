@@ -4,6 +4,8 @@
  * @tag BillingAccount
  * @domain Core
  * @description Helper for createBillingAccount component and used for billing account creation
+ *				API Specification of external service:
+ *				https://australiapost.jira.com/wiki/spaces/ISS/pages/1472954644/API+Specification+-+customer+v1+billingaccounts
  * @changelog
  * 2020-11-18 - arjun.singh@auspost.com.au - Created
  * 2021-05-12 - avula.jansirani@auspost.com.au - added submitRequest() method
