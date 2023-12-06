@@ -9,14 +9,15 @@
  * 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
  * 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
  * 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
- *                                                 the lodegement zones of proposals.
+ *												 the lodegement zones of proposals.
  * 2022-08-01 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
  * 2023-01-27 - Sarath Burra - Removing the LodgmentZone Validation for APPC as the Lodgement Zones will be defaulted going forward as per story https://australiapost.jira.com/browse/CI-828
  * 								Lines Removed 125-129
  * 								Also removing the method validateSearchLodgementZone as there will be no Validation of LodgementZone in APPC going forward(Lines 370-416)
  * 2023-03-01 - Deepak Kemidi - CI-703 Add Method checkAPPCContracts to check if atleast one related APPC contracts have Contract Relationship as Billing Account
  * 2023-08-18 - Harry Wang - Refactoring getBillingAccountDetails using selector
- */
+ * 2023-10-30 - Ranjeewa Silva - Refactored 'processResponse' method after the changes to BillingAccountService.parseResponse(HttpResponse).
+*/
 public with sharing class CreateSubAccountsController {
 	private static final Map<SObjectType, Set<SObjectField>> BILLING_ACCOUNT_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
 			Billing_Account__c.SObjectType => new Set<SObjectField>{Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c,
@@ -197,7 +198,7 @@ public with sharing class CreateSubAccountsController {
 
 	/**
 	 * @Description  : Generated the External onboading request record prior to actual billing account creation is triggered.
-	 *                 Uses  CreateBillingAccountHelper.ExternalOnboardingRequestDetails() for creation.
+	 *				 Uses  CreateBillingAccountHelper.ExternalOnboardingRequestDetails() for creation.
 	 * */
 	@AuraEnabled
 	public static CreateSubAccountHelper.externalOnboardingRequestWithConnectionDetails generateExternalOnboardingRecord(List<APT_Sub_Account__c> subAccountRecList, Id billingAccId){
@@ -217,7 +218,7 @@ public with sharing class CreateSubAccountsController {
 
 	/**
 	 * @Description  : Generated the External onboading request record prior to actual sub account creation is triggered.
-	 *                 Uses  CreateSubAccountHelper.externalOnboardingRequestDetails() for creation.
+	 *				 Uses  CreateSubAccountHelper.externalOnboardingRequestDetails() for creation.
 	 * */
 	@AuraEnabled
 	public static CreateSubAccountHelper.SubAccountWithEmptyFields generateSubAccountCreationRequest(List<APT_Sub_Account__c> subAccountRecList, Id billingAccId){
@@ -386,12 +387,13 @@ public with sharing class CreateSubAccountsController {
 	@AuraEnabled
 	public static Boolean processResponse(List<String> labels,
 	Object state) {
-		StateInfo stateinformation = (StateInfo)state;
-		HttpResponse response = Continuation.getResponse(labels[0]);
-		BillingAccountService service = BillingAccountService.getInstance();
+		StateInfo stateInformation = (StateInfo)state;
+		HttpResponse httpResponse = Continuation.getResponse(labels[0]);
 		// Parse response from Camunda and determine if the transaction is successful or failed as True or False respectively
-		Boolean callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null,null);
-		return callOutSuccess;
+		BillingAccountService.Response response = BillingAccountService.getInstance().parseResponse(httpResponse);
+		String status = (response.isSuccess ? 'Requested' : 'Error');
+		CreateBillingAccountHelper.updateDSRAndChargeAccount(stateInformation.requestObjId, null, stateInformation.onboardingRequestId, status, response.getErrorMessage(), null);
+		return response.isSuccess;
 	}
 
 	public class stateInfo{

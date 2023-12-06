@@ -7209,11 +7209,231 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Social Account</value>
     </labels>
     <labels>
+        <fullName>StarTrackABNRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackABNRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>ABN is required from the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</shortDescription>
+        <value>Billing account request has been submitted previously and failed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</shortDescription>
+        <value>Billing account creation request is in progress for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</shortDescription>
+        <value>Once the accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</shortDescription>
+        <value>Billing account creation request submitted successfully. You may close this window now.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</shortDescription>
+        <value>Billing account has already been created for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Billing Address is required from the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackChargeAccountRequestIdRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackChargeAccountRequestIdRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Charge Account Request Id is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactEmailRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactEmailRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact Email is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactFirstNameRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactFirstNameRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact First Name is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactLastNameRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactLastNameRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact Last Name is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditAssessmentStatusInvalidForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditAssessmentStatusInvalidForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Assessment must be Approved.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditLimitMustBeHigherForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditLimitMustBeHigherForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Amount must be greater than 10$.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditLimitRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditLimitRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Limit is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackEstimatedMonthlyRevenueRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackEstimatedMonthlyRevenueRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Estimated Monthly Revenue is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackMailingAddressRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackMailingAddressRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Please select Primary Pick-Up Location on CSQ.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</shortDescription>
+        <value>&lt;b&gt;Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</shortDescription>
+        <value>&lt;b&gt;If the problem persists, Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Next Revenue Date is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOnlyOneOrganisationRoleAllowedForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOnlyOneOrganisationRoleAllowedForNewAccountsErrorMessage</shortDescription>
+        <value>Organisation has multiple roles. Please resolve.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOrganisationRoleInvalidForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOrganisationRoleInvalidForNewAccountsErrorMessage</shortDescription>
+        <value>Organisation role must be Prospect, Known or Customer.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackProvisionNewAccountValidationFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackProvisionNewAccountValidationFailedErrorMessage</shortDescription>
+        <value>Please resolve the below issues for billing account creation and try again.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackProvisionNewBillingAccountsModalTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrack Provision New Billing Accounts Modal Title</shortDescription>
+        <value>TEAM Billing Account Request</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedNonTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedNonTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please raise an IT request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please try again.</value>
+    </labels>
+    <labels>
         <fullName>StatusTitle</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Status filter title</shortDescription>
         <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubmitBillingAccountProvisioningRequestPermissionsError</shortDescription>
+        <value>You do not have permissions to submit new billing account provisioning requests.</value>
     </labels>
     <labels>
         <fullName>TDF_CustomLabel_PTO</fullName>
