@@ -7961,7 +7961,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
-        <value>You cannot modify or delete the requests once finalized. The sub accounts will be created when the charge account request is submitted.</value>
+        <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
     </labels>
     <labels>
         <fullName>STHSSenderReceiverValidationMessage</fullName>
