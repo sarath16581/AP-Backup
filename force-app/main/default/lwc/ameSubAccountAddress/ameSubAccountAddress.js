@@ -7,6 +7,7 @@
  * 2023-11-22 - Harry Wang - Created
  */
 import {api, LightningElement, track} from 'lwc';
+import LightningConfirm from "lightning/confirm";
 
 export default class AmeSubAccountAddress extends LightningElement {
 	@track address = {};
@@ -26,6 +27,9 @@ export default class AmeSubAccountAddress extends LightningElement {
 	// Address label
 	@api label;
 
+	// If address inputs are required
+	@api required;
+
 	// manual address override is enabled
 	overrideAddress = false;
 
@@ -35,7 +39,6 @@ export default class AmeSubAccountAddress extends LightningElement {
 	// Error message to be displayed to the user
 	errorMessage;
 
-	// isSearchEnabled = true;
 	connectedCallback() {
 		if (this.defaultAddress) {
 			// parent has passed in a default address. Use that to initialise internal address data. Also set manual override to
@@ -69,18 +72,33 @@ export default class AmeSubAccountAddress extends LightningElement {
 		return !this.overrideAddress;
 	}
 
+	// Concatenated address length from addressLine1 and addressLine2
+	get concatenatedAddressLength() {
+		const addressLine1 = this.address?.addressLine1;
+		const addressLine2 = this.address?.addressLine2;
+		const addressLine1Length = addressLine1 != null ? addressLine1.length : 0;
+		const addressLine2Length = addressLine2 != null ? addressLine2.length : 0;
+		return addressLine2 ? addressLine1Length + addressLine2Length + 1 : addressLine1Length;
+	}
+
 	/**
 	 * User has selected one address from search results. Get the details from AME and populate internal
 	 * address data.
 	 */
 	handleSelectAddress(event) {
 		this.address = event.detail;
+		this.errorMessage = '';
+		// Show error if address is more than this.streetMaxLength characters
+		if (this.streetMaxLength && this.concatenatedAddressLength > this.streetMaxLength) {
+			this.errorMessage = 'The address line 1 and 2 entered are more than ' + this.streetMaxLength + ' characters';
+		}
 	}
 
 	/**
 	 * User has changed the address. Map address fields
 	 */
 	handleAddressChange(event) {
+		this.errorMessage = '';
 		const target = event.target;
 
 		// user has updated the address. new address has to be confirmed again.
@@ -105,25 +123,31 @@ export default class AmeSubAccountAddress extends LightningElement {
 			manualOverride: true
 		}
 		this.address.address = `${this.address.addressLine1 ? `${this.address.addressLine1},` : ''}${this.address.addressLine2 ? ` ${this.address.addressLine2},` : ''}${this.address.city ? ` ${this.address.city}` : ''}${this.address.state ? ` ${this.address.state}` : ''}${this.address.postcode ? ` ${this.address.postcode}` : ''}${this.address.countryName ? ` ${this.address.countryName}` : ''}`.trim();
+
+		// Show error if address is more than this.streetMaxLength characters
+		if (this.streetMaxLength && this.concatenatedAddressLength > this.streetMaxLength) {
+			this.errorMessage = 'The address line 1 and 2 entered are more than ' + this.streetMaxLength + ' characters';
+		}
 	}
 
 	/**
 	 * User has confirmed the address. Validate and dispatch confirm event
 	 */
-	handleConfirmSelectedAddress() {
+	async handleConfirmSelectedAddress() {
 
 		this.isConfirmed = !this.isConfirmed;
 
 		// Check if the address is valid and show any errors on screen.
-		const isValid = this.checkValidityOnConfirmation();
-
+		const isValid = await this.checkValidityOnConfirmation();
 		if (this.isConfirmed && isValid) {
 			// address is valid and confirmed. dispatch "confirmaddress" event with relevant payload.
 			this.dispatchAddressConfirmedEvent(this.overrideAddress);
 		} else if (this.isConfirmed && !isValid) {
+
 			// attempting to confirm - but address input validation has failed.
 			this.isConfirmed = false;
 		}
+
 	}
 
 	handleOverrideCheckboxChange(event) {
@@ -155,7 +179,7 @@ export default class AmeSubAccountAddress extends LightningElement {
 	/**
 	 * Validate address input on confirmation and show validation errors on screen.
 	 */
-	checkValidityOnConfirmation() {
+	async checkValidityOnConfirmation() {
 		if (!this.isConfirmed) {
 			// Clearing the "confirmed" status here. re-set any error messages.
 			this.errorMessage = null;
@@ -172,9 +196,26 @@ export default class AmeSubAccountAddress extends LightningElement {
 			return false;
 		}
 
-		if (this.streetMaxLength && this.address?.addressLine1.length + this.address?.addressLine2.length > this.streetMaxLength) {
-			this.errorMessage = 'Address line 1 cannot'; // TODO:
-			return false;
+		// Check if address should be truncated
+		if (this.streetMaxLength && this.concatenatedAddressLength > this.streetMaxLength) {
+			let truncatedAddress = (this.address?.addressLine1 + ' ' + this.address?.addressLine2).substring(0, this.streetMaxLength);
+			const confirmMessage = "The address line 1 and 2 entered are more than " + this.streetMaxLength + " characters. This will be truncated to '" + truncatedAddress
+				+ "' Click ‘OK’ to continue or ‘Cancel’ to re-enter the address";
+			const result = await LightningConfirm.open({
+				message: confirmMessage,
+				label: 'Confirm Address Warning',
+				theme: 'warning'
+			});
+			if (result) {
+				this.address.addressLine1 = truncatedAddress;
+				this.address.addressLine2 = '';
+				this.errorMessage = null;
+				return true;
+			} else {
+				this.errorMessage = 'The address line 1 and 2 entered are more than ' + this.streetMaxLength + ' characters';
+				return false;
+				// this.isConfirmed = false;
+			}
 		}
 
 		// Validation has passed. Clear any error messages.
