@@ -86,7 +86,7 @@ public inherited sharing class ConsumerAccountClosureBatch implements Database.B
 
 		Map<Id,Case> historicalCases = new Map<Id,Case>();
 		if (!accountsMap.isEmpty()) { // the open case condition could potentially remove all the account records from the start method, so in that case we don't need to query the historical cases
-			historicalCases = new Map<Id,Case>((List<Case>) Database.query(caseRecordsSelector.getClosedCasesByAccountIds(accountsMap.keySet(), new Set<Object>()).toSoqlString()));
+			historicalCases = caseRecordsSelector.getClosedCasesByAccountIds(accountsMap.keySet(), new Set<Object>());
 		}
 
 
