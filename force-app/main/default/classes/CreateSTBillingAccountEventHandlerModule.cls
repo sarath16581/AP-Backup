@@ -40,7 +40,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 			if (CUSTOMER_ONBOARDING_DSR_RECORDTYPEID == null) {
 				Map<Id, RecordType> recordTypesMap = RecordTypesSelector.newInstance().selectByDeveloperName(String.valueOf(Deal_Support_Request__c.SObjectType), new Set<String>{'Deal_Enablement_Centre'});
 				if (!recordTypesMap.isEmpty()) {
-					CUSTOMER_ONBOARDING_DSR_RECORDTYPEID = recordTypesMap.keySet().iterator().next();
+					CUSTOMER_ONBOARDING_DSR_RECORDTYPEID = recordTypesMap.values()[0].Id;
 				}
 			}
 			return CUSTOMER_ONBOARDING_DSR_RECORDTYPEID;
