@@ -214,7 +214,6 @@ export default class AmeSubAccountAddress extends LightningElement {
 			} else {
 				this.errorMessage = 'The address line 1 and 2 entered are more than ' + this.streetMaxLength + ' characters';
 				return false;
-				// this.isConfirmed = false;
 			}
 		}
 
