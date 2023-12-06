@@ -24,7 +24,8 @@ import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Acc
 import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
 
 // custom labels
-import maxFinaliseError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
+import LABEL_MAX_FINALISE_LIMIT_ERROR from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
+import LABEL_FINALISE_CONFIRMATION from "@salesforce/label/c.StarTrackSubAccountFinaliseConfirmation";
 
 // apex controller method calls
 import getDatatableColumns from '@salesforce/apex/FollowerOffspringRequestController.retrieveListViewColumns';
@@ -55,7 +56,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	@api subAccounts = [];
 
 	// Finalised sub Accounts passed from request wrapper
-	@api finalisedSubAccounts;
+	@api finalisedSubAccounts = [];
 
 	columns;
 	finalisedColumns;
@@ -66,6 +67,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 
 	picklistMap;
 	_filteredSubAccounts;
+	_finalisedSubAccountsList;
 	searchTerm;
 	selectedRows = [];
 	isLoading = true;
@@ -75,7 +77,6 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	recordViewUrl;
 	listViewLabel;
 	recordViewLabel;
-	submitLabel;
 	backLabel;
 
 	/**
@@ -90,14 +91,12 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				const billingAccountNameLabel = getFieldValue(data, BILLING_ACCOUNT_NUMBER) ? ' (' + getFieldValue(data, BILLING_ACCOUNT_NUMBER) + ')' : '';
 				this.recordViewLabel = getFieldValue(data, BILLING_ACCOUNT_NAME) + billingAccountNameLabel;
 				this.recordViewUrl = '/lightning/r/Billing_Account__c/'+ this.leaderId + '/view';
-				this.submitLabel = 'Submit';
 				this.backLabel = 'Back to Billing Account';
 			} else {
 				this.listViewLabel = 'Opportunities';
 				this.listViewUrl = '/lightning/o/Opportunity/list?filterName=Recent';
 				this.recordViewLabel = getFieldValue(data, CHARGE_ACCOUNT_OPPORTUNITY_NAME);
 				this.recordViewUrl = '/lightning/r/Opportunity/'+ getFieldValue(data, CHARGE_ACCOUNT_OPPORTUNITY_ID) + '/view';
-				this.submitLabel = 'Finalise Request(s)';
 				this.backLabel = 'Back to Opportunity';
 			}
 		}
@@ -124,10 +123,20 @@ export default class FollowerOffspringRequestList extends LightningElement {
 				this.picklistMap.set(item.value, item.label);
 			});
 		}
-		if (this.filteredSubAccounts != null) {
+
+		if (this.hasFinalisedSubAccounts) {
+			this.finalisedSubAccountsList.forEach(acc => {
+				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
+			});
+		}
+
+		if (this.hasFilteredSubAccounts) {
 			this.filteredSubAccounts.forEach(acc => {
 				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
 			});
+		}
+
+		if (this.hasFinalisedSubAccounts || this.hasFilteredSubAccounts) {
 			//Load columns from server and add Physical Address, Account Type and row actions columns
 			getDatatableColumns().then(c => {
 				this.columns = c.map(item => {
@@ -157,11 +166,15 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	}
 
 	get hasFinalisedSubAccounts() {
-		return this.finalisedSubAccounts != null && this.finalisedSubAccounts?.length > 0;
+		return this.finalisedSubAccountsList?.length > 0;
+	}
+
+	get hasFilteredSubAccounts() {
+		return this.filteredSubAccounts?.length > 0;
 	}
 
 	get filteredSubAccounts() {
-		if (this._filteredSubAccounts == null && this.subAccounts.length > 0) {
+		if (this._filteredSubAccounts == null && this.subAccounts?.length > 0) {
 			this._filteredSubAccounts = JSON.parse(JSON.stringify(this.subAccounts));
 		}
 		return this._filteredSubAccounts;
@@ -169,6 +182,17 @@ export default class FollowerOffspringRequestList extends LightningElement {
 
 	set filteredSubAccounts(value) {
 		this._filteredSubAccounts = value;
+	}
+
+	get finalisedSubAccountsList() {
+		if (this._finalisedSubAccountsList == null && this.finalisedSubAccounts?.length > 0) {
+			this._finalisedSubAccountsList = JSON.parse(JSON.stringify(this.finalisedSubAccounts));
+		}
+		return this._finalisedSubAccountsList;
+	}
+
+	set finalisedSubAccountsList(value) {
+		this._finalisedSubAccountsList = value;
 	}
 
 	/**
@@ -242,7 +266,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 		const result = await LightningConfirm.open({
 			message: 'Selected sub account request will be deleted.',
 			variant: 'headerless',
-			label: 'Sub Account Delete',
+			label: 'Delete Sub Account Request',
 		});
 		if (result) {
 			this.isLoading = true;
@@ -326,66 +350,68 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	 * User can select up to MAX_FINALISE_REQUESTS records in one go
 	 * Show errors if any failures
 	 */
-	async handleSubmit() {
-		const text = this.isBillingAccount === 'true' ? 'submitted' : 'finalised';
+	async handleFinalise() {
 		const result = await LightningConfirm.open({
-			message: this.selectedRows?.length + ' selected sub account request(s) will be ' + text,
-			variant: 'headerless',
-			label: 'Sub Accounts Submit/Finalise',
+			message: 'Do you want to Finalise ' + this.selectedRows?.length + ' sub account requests? ' + LABEL_FINALISE_CONFIRMATION,
+			theme: 'inverse',
+			label: 'Finalise Sub Account Request(s)',
 		});
 		if (result) {
-			if (this.isBillingAccount === 'true') {
-				// TODO: Submit
-			} else {
-				// validate if finalise calls reach the max finalise request
-				if (this.selectedRows.length > MAX_FINALISE_REQUESTS - this.countFinalised) {
-					await LightningAlert.open({
-						message: maxFinaliseError,
-						theme: 'error',
-						label: 'Finalising Request(s) Error'
-					});
-					return;
-				}
-				// update charge account sub account status to Pending Charge Account
-				const chargeAccountSubAccounts = this.selectedRows.map(item => {
-					return {Id: item.Id, [SUB_ACCOUNT_STAGE.fieldApiName]: 'Pending Charge Account'};
+			// validate if finalise calls reach the max finalise request
+			if (this.selectedRows.length > MAX_FINALISE_REQUESTS - this.countFinalised) {
+				await LightningAlert.open({
+					message: LABEL_MAX_FINALISE_LIMIT_ERROR,
+					theme: 'error',
+					label: 'Finalise Sub Account Request(s)'
 				});
-				// extract IDs to refresh list view
-				const ids = chargeAccountSubAccounts.map(item => item.Id);
+				return;
+			}
 
-				// finalise charge account sub accounts
-				if (chargeAccountSubAccounts.length > 0) {
-					this.isLoading = true;
-					finaliseSubAccounts({subAccounts: chargeAccountSubAccounts})
-						.then(() => {
-							this.dispatchEvent(
-								new ShowToastEvent({
-									title: "Success",
-									message: this.selectedRows?.length + ' selected sub account(s) have been finalised.',
-									variant: "success",
-								})
-							);
-							this.dispatchEvent(new CustomEvent('finalise', {detail: chargeAccountSubAccounts.length}));
-							// delete rows from filteredSubAccounts and subAccounts
-							this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
-							this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
-							this.resetSelection();
-							this.countFinalised = this.countFinalised + chargeAccountSubAccounts.length;
-						}).catch(error =>{
-						const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
-						if (errorMessages) {
-							this.dispatchEvent(
-								new ShowToastEvent({
-									title: "An error occurred while finalizing record(s).",
-									message: errorMessages,
-									variant: "error",
-								})
-							);
-						}
-					}).finally(() =>{
-						this.isLoading = false;
-					});
-				}
+			// update charge account sub account status to Pending Charge Account
+			const chargeAccountSubAccounts = this.selectedRows.map(item => {
+				return {Id: item.Id, [SUB_ACCOUNT_STAGE.fieldApiName]: 'Pending Charge Account'};
+			});
+			// extract IDs to refresh list view
+			const ids = chargeAccountSubAccounts.map(item => item.Id);
+
+			// finalise charge account sub accounts
+			if (chargeAccountSubAccounts.length > 0) {
+				this.isLoading = true;
+				finaliseSubAccounts({subAccounts: chargeAccountSubAccounts})
+					.then(() => {
+						LightningAlert.open({
+							message: this.selectedRows?.length + ' selected sub account request(s) have been finalised.',
+							theme: 'success',
+							label: 'Finalise Sub Account Request(s)'
+						});
+
+						this.dispatchEvent(new CustomEvent('finalise', {detail: chargeAccountSubAccounts.length}));
+						// delete selected rows from filteredSubAccounts and subAccounts
+						this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
+						this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
+
+						// add selected rows to finalised sub accounts
+						const updatedFinalisedSubAccounts = [...this.selectedRows].map(i => {
+							i[SUB_ACCOUNT_STAGE.fieldApiName] = 'Pending Charge Account';
+							return i;
+						});
+						this.finalisedSubAccountsList = this.hasFinalisedSubAccounts ? updatedFinalisedSubAccounts.concat([...this.finalisedSubAccountsList]) : [...updatedFinalisedSubAccounts];
+
+						// reset selection
+						this.resetSelection();
+						this.countFinalised = this.countFinalised + chargeAccountSubAccounts.length;
+					}).catch(error =>{
+					const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
+					if (errorMessages) {
+						LightningAlert.open({
+							message: errorMessages,
+							theme: 'error',
+							label: 'Finalise Sub Account Request(s)'
+						});
+					}
+				}).finally(() =>{
+					this.isLoading = false;
+				});
 			}
 		}
 	}
