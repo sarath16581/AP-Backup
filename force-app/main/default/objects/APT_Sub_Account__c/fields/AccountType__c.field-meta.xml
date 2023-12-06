@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccountType__c</fullName>
     <businessStatus>Active</businessStatus>
-    <description>Identifies account type for StartTrack sub accounts (provisioned in TEAMS). Not used for accounts   
+    <description>Identifies account type for StartTrack sub accounts (mastered in TEAMS). Not used for Aus Post sub accounts (mastered in SAP).
 Follower - This account will pay it&apos;s own invoice; Offspring of Leader - Leader will pay invoice for this sub account; Offspring of Follower - The chosen follower account will pay the invoice.</description>
     <externalId>false</externalId>
     <inlineHelpText>Follower Only - This account will pay it&apos;s own invoice; Offspring - The chosen parent (Leader or another Follower) will pay the invoice.</inlineHelpText>
