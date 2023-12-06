@@ -193,11 +193,11 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	get subAccountsByIdMap() {
 		if (!this._subAccountsByIdMap) {
 			const subAccountRequestsMap = {};
-			 //grab the sub account requests by id so it is easier to access when iterating through the selected sub account requests
-			 this.subAccounts.forEach(subAccount => {
+			//grab the sub account requests by id so it is easier to access when iterating through the selected sub account requests
+			this.subAccounts.forEach(subAccount => {
 				subAccountRequestsMap[subAccount.Id] = subAccount;
-			 });
-			 this._subAccountsByIdMap = subAccountRequestsMap;
+			});
+			this._subAccountsByIdMap = subAccountRequestsMap;
 		}
 		return this._subAccountsByIdMap;
 	}
@@ -431,6 +431,71 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 				}
 			}
 		}
+	}
+
+	/**
+	 * Handler for submitting selected sub account requests for provisioning. Validates the number of records selected is
+	 * with in the limit allowed for submission at one time. Also checks if un provisioned parent account requests are
+	 * selected for the selected off spring accounts.
+	 */
+	handleSubmitForProvisioning() {
+
+		// check if selected requests meet the validation requirements.
+		this.validateSubmitForProvisioning()
+			.then(result => {
+				if (result) {
+					// extract selected request ids
+					const selectedIds = this.selectedRows.map(item => item.Id);
+
+					this.isLoading = true;
+					generateSubAccountsProvisioningRequest({leaderBillingAccountId: this.leaderId, subAccountRequestIds: selectedIds})
+						.then(result => {
+							let provisioningStatus;
+							submitProvisioningRequest({
+								request: result.requestPayload,
+								externalOnboardingRequestId: result.externalOnboardingRequestId
+							}).then(resp => {
+								if (resp.isSuccess) {
+									provisioningStatus = {isSuccess: true, label: LABEL_SUBMIT_NOTIFICATION_TITLE, message: LABEL_SUBMIT_SUCCESSFUL_ALERT, theme: 'success'};
+								} else if (resp.isRetryable) {
+									provisioningStatus = {isSuccess: false, label: LABEL_SUBMIT_NOTIFICATION_TITLE, message: LABEL_SUBMIT_FAILED_TRANSIENT_ERROR_ALERT, theme: 'error'};
+								} else {
+									provisioningStatus = {isSuccess: false, label: LABEL_SUBMIT_NOTIFICATION_TITLE, message: LABEL_SUBMIT_FAILED_NONTRANSIENT_ERROR_ALERT, theme: 'error'};
+								}
+							}).catch(error => {
+								provisioningStatus = {isSuccess: false, label: LABEL_SUBMIT_NOTIFICATION_TITLE,message: 'Unexpected Error : ' + error.body.message, theme: 'error'};
+							}).finally(() =>{
+								// show alert with appropriate messaging (success, error)
+								this.isLoading = false;
+								LightningAlert.open({
+									message: provisioningStatus.message,
+									theme: provisioningStatus.theme,
+									label: provisioningStatus.label
+								}).then(result => {
+									// user has acknowledged the alert. if the provisioning request has been submitted successfully
+									// navigate back to the leader billing account. in all other cases stay on sub account list view.
+									if (provisioningStatus.isSuccess) {
+										this[NavigationMixin.Navigate]({
+											type: 'standard__recordPage',
+											attributes: {
+												recordId: this.leaderId,
+												objectApiName: 'Billing_Account__c',
+												actionName: 'view'
+											}
+										});
+									}
+								});
+							});
+						}).catch(error => {
+							this.isLoading = false;
+							LightningAlert.open({
+								message: 'Unexpected error : ' + error.body.message,
+								theme: 'error',
+								label: LABEL_SUBMIT_NOTIFICATION_TITLE
+							});
+						});
+				}
+			});
 	}
 
 	resetSelection() {
