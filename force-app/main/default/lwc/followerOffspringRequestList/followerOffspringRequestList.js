@@ -6,8 +6,10 @@
  * @group Controller
  * @changelog
  * 2023-11-01 - Harry Wang - Created
+ * 2023-12-07 - Ranjeewa Silva - Implemented handler for submit action.
  */
 import {api, LightningElement, wire} from 'lwc';
+import {NavigationMixin} from 'lightning/navigation';
 import {getFieldValue, getRecord, deleteRecord} from "lightning/uiRecordApi";
 import LightningAlert from 'lightning/alert';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
@@ -22,13 +24,28 @@ import CHARGE_ACCOUNT_OPPORTUNITY_NAME from "@salesforce/schema/APT_Charge_Accou
 import SUB_ACCOUNT_OBJECT from "@salesforce/schema/APT_Sub_Account__c";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
 import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.AccountType__c";
+import SUB_ACCOUNT_PARENT_ACCOUNT_REQUEST from '@salesforce/schema/APT_Sub_Account__c.ParentAccountRequest__c';
 
 // custom labels
 import maxFinaliseError from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
+import LABEL_FINALISE_CONFIRMATION from "@salesforce/label/c.StarTrackSubAccountFinaliseConfirmation";
+import LABEL_MAX_SUBMIT_LIMIT_REACHED_ERRORMESSAGE from '@salesforce/label/c.StarTrackSubAccountMaxSubmitLimitReachedErrorMessage';
+import LABEL_SUBMIT_FOR_PROVISIONING_CONFIRMATION_MESSAGE from '@salesforce/label/c.StarTrackSubAccountsSubmitConfirmationMessage';
+import LABEL_PARENT_NOT_SELECTED_FOR_SUBMIT_ERRORMESSAGE from '@salesforce/label/c.StarTrackSubAccountParentNotSelectedForSubmitErrorMessage';
+import LABEL_SUBMIT_NOTIFICATION_TITLE from '@salesforce/label/c.StarTrackSubmitSubAccountRequestsTitle';
+import LABEL_SUBMIT_SUCCESSFUL_ALERT from '@salesforce/label/c.StarTrackSubAccountRequestSubmittedSuccessfullyAlert';
+import LABEL_SUBMIT_FAILED_TRANSIENT_ERROR_ALERT from '@salesforce/label/c.StarTrackSubAccountRequestFailedTransientErrorAlert';
+import LABEL_SUBMIT_FAILED_NONTRANSIENT_ERROR_ALERT from '@salesforce/label/c.StarTrackSubAccountRequestFailedNonTransientErrorAlert';
+
+// custom permission granting ability to submit provisioning requests
+import PERMISSION_SUBMIT_PROVISIONREQUESTS from '@salesforce/customPermission/Submit_Billing_Account_Provisioning_Request';
+import PERMISSION_SUBMIT_SUBACCOUNT_PROVISIONREQUESTS from '@salesforce/customPermission/Submit_Sub_Account_Provisioning_Request';
 
 // apex controller method calls
 import getDatatableColumns from '@salesforce/apex/FollowerOffspringRequestController.retrieveListViewColumns';
 import finaliseSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.finaliseSubAccounts';
+import generateSubAccountsProvisioningRequest from '@salesforce/apex/ProvisionSTBillingAccountsController.generateSubAccountsProvisioningRequest';
+import submitProvisioningRequest from '@salesforce/apexContinuation/ProvisionSTBillingAccountsController.submitProvisioningRequest';
 
 // Row actions
 const actions = [
@@ -41,7 +58,8 @@ const SEARCHABLE_FIELDS = ['Name', 'PhysicalAddressStr'];
 
 // Max number of requests can be finalised
 const MAX_FINALISE_REQUESTS = 10;
-export default class FollowerOffspringRequestList extends LightningElement {
+const MAX_SUBMIT_REQUESTS = 10;
+export default class FollowerOffspringRequestList extends NavigationMixin(LightningElement) {
 	// Can be either charge account ID or billing account ID
 	@api leaderId;
 
@@ -69,6 +87,7 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	searchTerm;
 	selectedRows = [];
 	isLoading = true;
+	_subAccountsByIdMap;
 
 	// navigation bar & submit button
 	listViewUrl;
@@ -169,6 +188,26 @@ export default class FollowerOffspringRequestList extends LightningElement {
 
 	set filteredSubAccounts(value) {
 		this._filteredSubAccounts = value;
+	}
+
+	get subAccountsByIdMap() {
+		if (!this._subAccountsByIdMap) {
+			const subAccountRequestsMap = {};
+			 //grab the sub account requests by id so it is easier to access when iterating through the selected sub account requests
+			 this.subAccounts.forEach(subAccount => {
+				subAccountRequestsMap[subAccount.Id] = subAccount;
+			 });
+			 this._subAccountsByIdMap = subAccountRequestsMap;
+		}
+		return this._subAccountsByIdMap;
+	}
+
+	get canSubmitForProvisioning() {
+		return (this.isBillingAccount === 'true' && this.hasPermissionsToSubmitSubAccountProvisioningRequests);
+	}
+
+	get hasPermissionsToSubmitSubAccountProvisioningRequests() {
+		return (PERMISSION_SUBMIT_PROVISIONREQUESTS || PERMISSION_SUBMIT_SUBACCOUNT_PROVISIONREQUESTS);
 	}
 
 	/**
@@ -393,5 +432,51 @@ export default class FollowerOffspringRequestList extends LightningElement {
 	resetSelection() {
 		this.template.querySelector('lightning-datatable').selectedRows = [];
 		this.selectedRows = [];
+	}
+
+	/**
+	 * Validates selection before submitting for provisioning. Any validation errors are presented back to the user as alerts.
+	 * @return true if no validation errors and user has acknowledged the submit action, false otherwise.
+	 */
+	async validateSubmitForProvisioning() {
+		if (this.selectedRows.length > MAX_SUBMIT_REQUESTS) {
+			await LightningAlert.open({
+				message: LABEL_MAX_SUBMIT_LIMIT_REACHED_ERRORMESSAGE,
+				theme: 'error',
+				label: LABEL_SUBMIT_NOTIFICATION_TITLE
+			});
+			return false;
+		}
+
+		if (!this.validateRelatedParentAccountRequestsSelected()) {
+			await LightningAlert.open({
+				message: LABEL_PARENT_NOT_SELECTED_FOR_SUBMIT_ERRORMESSAGE,
+				theme: 'error',
+				label: LABEL_SUBMIT_NOTIFICATION_TITLE
+			});
+			return false;
+		}
+
+		const result = await LightningConfirm.open({
+			message: (this.selectedRows.length + ' ' + LABEL_SUBMIT_FOR_PROVISIONING_CONFIRMATION_MESSAGE),
+			theme: 'inverse',
+			label: LABEL_SUBMIT_NOTIFICATION_TITLE
+		});
+		return result;
+	}
+
+	/**
+	 * Checks of all parent account requests referenced in offspring sub accounts are also being submitted for provisioning.
+	 * @return true if all parent account requests are also submitted. false otherwise.
+	 */
+	validateRelatedParentAccountRequestsSelected() {
+		const selectedIds = this.selectedRows.map(item => item.Id);
+
+		const allParentsSelected = this.selectedRows.reduce((validSoFar, subAccountRequest) => {
+			const parentAccountRequestId = subAccountRequest[SUB_ACCOUNT_PARENT_ACCOUNT_REQUEST.fieldApiName];
+			return !(parentAccountRequestId && this.subAccountsByIdMap[parentAccountRequestId] && !selectedIds.includes(parentAccountRequestId));
+		}, true);
+
+		return allParentsSelected;
 	}
 }
