@@ -16,6 +16,10 @@ public with sharing class BillingAccountWrapperForTeams {
 
 	// identifier string to include in payload when customer organisation's ACN is blank (Account.ACN__c)
 	@TestVisible private static final String REQUEST_PAYLOAD_BLANK_ACN_IDENTIFIER = '000000000';
+	// character limit for 'accountName1' in request payload. remainder is specified in 'accountName2'.
+	@TestVisible private static final Integer REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT = 25;
+	// character limit for 'addressLine1' in request payload. remainder is specified in 'addressLine2'.
+	@TestVisible private static final Integer REQUEST_PAYLOAD_ADDRESS_LINE_CHARACTER_LIMIT = 25;
 
 	@AuraEnabled public String orgRecordId {get; set;}
 	@AuraEnabled public String processType {get; set;}
@@ -88,9 +92,9 @@ public with sharing class BillingAccountWrapperForTeams {
 			this.acn = (String.isNotBlank(acn) ? acn : REQUEST_PAYLOAD_BLANK_ACN_IDENTIFIER);
 			if (String.isNotBlank(accountName)) {
 				this.accountName1 = accountName;
-				if (accountName.length() > 25) {
-					this.accountName1 = accountName.substring(0, 25);
-					this.accountName2 = accountName.substring(25);
+				if (accountName.length() > REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT) {
+					this.accountName1 = accountName.substring(0, REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT);
+					this.accountName2 = accountName.substring(REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT);
 				}
 			}
 		}
@@ -109,9 +113,9 @@ public with sharing class BillingAccountWrapperForTeams {
 
 		public Address(String streetAddress, String suburb, String postcode, Boolean truncateStreetAddress) {
 			this.addressLine1 = streetAddress;
-			if (truncateStreetAddress && streetAddress != null && streetAddress.length() > 25) {
-				this.addressLine1 = streetAddress.substring(0, 25);
-				this.addressLine2 = streetAddress.substring(25);
+			if (truncateStreetAddress && streetAddress != null && streetAddress.length() > REQUEST_PAYLOAD_ADDRESS_LINE_CHARACTER_LIMIT) {
+				this.addressLine1 = streetAddress.substring(0, REQUEST_PAYLOAD_ADDRESS_LINE_CHARACTER_LIMIT);
+				this.addressLine2 = streetAddress.substring(REQUEST_PAYLOAD_ADDRESS_LINE_CHARACTER_LIMIT);
 			}
 			this.suburb = suburb;
 			this.postcode = (String.isNotBlank(postcode) ? Integer.valueOf(postcode) : null);
@@ -161,9 +165,9 @@ public with sharing class BillingAccountWrapperForTeams {
 		public StarTrackSubAccount(Id followerOffspringRequestId, String accountName) {
 			this.followerOffspringRequestId = followerOffspringRequestId;
 			this.accountName1 = accountName;
-			if (accountName != null && accountName.length() > 25) {
-				this.accountName1 = accountName.substring(0, 25);
-				this.accountName2 = accountName.substring(25);
+			if (accountName != null && accountName.length() > REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT) {
+				this.accountName1 = accountName.substring(0, REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT);
+				this.accountName2 = accountName.substring(REQUEST_PAYLOAD_ACCOUNT_NAME_CHARACTER_LIMIT);
 			}
 		}
 	}

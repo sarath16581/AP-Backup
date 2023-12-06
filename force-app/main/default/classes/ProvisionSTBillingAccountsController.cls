@@ -32,6 +32,12 @@ public with sharing class ProvisionSTBillingAccountsController {
 	// process type identifier to be included in request payload for requests initiated via Billing Accounts flow.
 	@TestVisible private static final String BILLING_ACCOUNT_FLOW_PROCESS_TYPE = 'Assisted Onboarding - New TEAM Follower/Offspring Account';
 
+	// external service interface requires a secondary contact to be specified. below static values are to be supplied
+	// as first name, last name and job title.
+	@TestVisible private static final String NEW_ACCOUNT_SECONDARY_CONTACT_FIRSTNAME = 'Accounts';
+	@TestVisible private static final String NEW_ACCOUNT_SECONDARY_CONTACT_LASTNAME = 'Payable';
+	@TestVisible private static final String NEW_ACCOUNT_SECONDARY_CONTACT_JOB_TITLE = 'Accounts Payable';
+
 	// hold the value of the Continuation.state attribute. intended to be used in unit test purpose only.
 	@TestVisible private static Object continuationState;
 
@@ -279,9 +285,9 @@ public with sharing class ProvisionSTBillingAccountsController {
 		if (primaryContact != null) {
 			organisations.primaryContact = new BillingAccountWrapperForTeams.Contact(primaryContact);
 			organisations.secondaryContact = new BillingAccountWrapperForTeams.Contact(primaryContact);
-			organisations.secondaryContact.firstName = 'Accounts';
-			organisations.secondaryContact.lastName = 'Payable';
-			organisations.secondaryContact.jobTitle = 'Accounts Payable';
+			organisations.secondaryContact.firstName = NEW_ACCOUNT_SECONDARY_CONTACT_FIRSTNAME;
+			organisations.secondaryContact.lastName = NEW_ACCOUNT_SECONDARY_CONTACT_LASTNAME;
+			organisations.secondaryContact.jobTitle = NEW_ACCOUNT_SECONDARY_CONTACT_JOB_TITLE;
 
 			organisations.phone = (primaryContact.Phone != null ? primaryContact.Phone : primaryContact.MobilePhone);
 		}
@@ -427,9 +433,9 @@ public with sharing class ProvisionSTBillingAccountsController {
 			if (subAccountRequest.SubAccountContact__r != null) {
 				subAccount.primaryContact = new BillingAccountWrapperForTeams.Contact(subAccountRequest.SubAccountContact__r);
 				subAccount.secondaryContact = new BillingAccountWrapperForTeams.Contact();
-				subAccount.secondaryContact.firstName = 'Accounts';
-				subAccount.secondaryContact.lastName = 'Payable';
-				subAccount.secondaryContact.jobTitle = 'Accounts Payable';
+				subAccount.secondaryContact.firstName = NEW_ACCOUNT_SECONDARY_CONTACT_FIRSTNAME;
+				subAccount.secondaryContact.lastName = NEW_ACCOUNT_SECONDARY_CONTACT_LASTNAME;
+				subAccount.secondaryContact.jobTitle = NEW_ACCOUNT_SECONDARY_CONTACT_JOB_TITLE;
 				subAccount.secondaryContact.salutation = '';
 				subAccount.secondaryContact.phone = subAccountRequest.APT_Sub_Account_Contact_Telephone__c;
 				subAccount.secondaryContact.email = subAccountRequest.APT_Sub_Account_Contact_Email_Address__c;
