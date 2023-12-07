@@ -4,194 +4,191 @@
   * @description  : This lWC component is used in Sub Account Request creation from Billing Account Quick Action. It has following features
   *                 1. It contains the sub account request creation input form.
 *********************************History*******************************************************************
-24.04.2021    Dheeraj Mandavilli   Created
-20.05.2021    Dheeraj Mandavilli   Added elms Enabled Lodgement Points Hyperlink on the form.
-01.06.2021    Dheeraj Mandavilli   Updated Validation rules for Lodgement Points based upon elMs and Add Contract Rates fields.
-16.06.2021    Dheeraj Mandavilli   Updated Error Messages Formatting as part of STP-6154 UAT Feedback.
+2021-04-24 - Dheeraj Mandavilli   Created
+2021-05-20 - Dheeraj Mandavilli   Added elms Enabled Lodgement Points Hyperlink on the form.
+2021-06-01 - Dheeraj Mandavilli   Updated Validation rules for Lodgement Points based upon elMs and Add Contract Rates fields.
+2021-06-16 - Dheeraj Mandavilli   Updated Error Messages Formatting as part of STP-6154 UAT Feedback.
+2023-12-06 - Harry Wang Updated ame address component
 -->
 
 <!-- Sub Account Request Lwc Form -->
 <template>
-    <lightning-card  class="slds-text-align_center">
-        <slot name="title" class="widthExpanded " >
-            <div>New Sub Account Request</div>
-        </slot>
-        <template if:true={isloading}>
-            <lightning-spinner alternative-text="Loading..."></lightning-spinner>
-        </template>
-        <div >
+	<lightning-card  class="slds-text-align_center">
+		<slot name="title" class="widthExpanded " >
+			<div>New Sub Account Request</div>
+		</slot>
+		<template if:true={isloading}>
+			<lightning-spinner alternative-text="Loading..."></lightning-spinner>
+		</template>
+		<div >
+			<lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+								 active-section-name={activeSections}>
+				<lightning-accordion-section name="A" label="Parent Details">
+					<lightning-layout multiple-rows="true">
+						<lightning-layout-item size="2"></lightning-layout-item>
+						<lightning-layout-item size="4">
+							<div class="slds-form-element slds-m-around_xx-small">
+								<label class="slds-form-element__label slds-float_left" for="form-element-001"><b>Parent Billing Account Name : &nbsp;</b>
+									<template if:true={billingAccountRecord}>
+										{billingAccountRecord.Name}
+									</template>
+								</label>
+							</div>
+						</lightning-layout-item>
+						<lightning-layout-item size="2"></lightning-layout-item>
+						<lightning-layout-item size="4">
+							<div class="slds-form-element slds-m-around_xx-small">
+								<label class="slds-form-element__label slds-float_left" for="form-element-002"><b>Legal Entity Name : &nbsp;</b>
+									<template if:true={billingAccountRecord}>
+										{billingAccountRecord.Organisation__r.Name}
+									</template>
+								</label>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="2"></lightning-layout-item>
+						<lightning-layout-item size="4">
+							<div class="slds-form-element slds-m-around_xx-small">
+								<label class="slds-form-element__label slds-float_left" for="form-element-003"><b>Parent Billing Account Number : &nbsp;</b>
+									<template if:true={billingAccountRecord}>
+										{billingAccountRecord.LEGACY_ID__c}
+									</template>
+								</label>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="2"></lightning-layout-item>
+						<lightning-layout-item size="4">
+							<div class="slds-form-element slds-m-around_xx-small">
+								<label class="slds-form-element__label slds-float_left" for="form-element-004"><b>Sub Account Request Source : &nbsp;</b>
+									<template if:true={billingAccountRecord}>
+										Billing Account
+									</template>
+								</label>
+							</div>
+						</lightning-layout-item>
+
+						<lightning-layout-item size="2"></lightning-layout-item>
+					</lightning-layout>
+				</lightning-accordion-section>
+				<lightning-accordion-section name="B" label="Sub Account Request Details">
+
+					<lightning-record-edit-form record-id={subAccountId} object-api-name="APT_Sub_Account__c">
+						<lightning-messages>
+						</lightning-messages>
+						<div class="slds-grid">
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-input-field field-name="Sub_Account_Name__c" required name="subAccountName1" value={subAccountName} onchange={onchangehandler}>
+								</lightning-input-field>
+								<lightning-input-field field-name="APT_eParcel_Enabled__c"  required name="addContractRates" value={addContractRates} onchange={onchangehandler} >
+								</lightning-input-field>
+								<template if:false={isEdit}>
+									<template if:true={showProducts}>
+										<lightning-input-field field-name="Product__c"  name="productSelected" value={productSelected} onchange={onchangehandler} >
+										</lightning-input-field>
+									</template>
+								</template>
+								<template if:true={isEdit}>
+									<template if:true={showProducts}>
+										<lightning-input-field field-name="Product__c"  name="productSelected" value={productSelected} onchange={onchangehandler} >
+										</lightning-input-field>
+									</template>
+								</template>
+								<lightning-input-field field-name="APT_eLMS_Enabled__c" required name="eLMSEnabled" value={eLMSEnabled} onchange={onchangehandler}>
+								</lightning-input-field>
+								<p><lightning-formatted-url value="https://auspost.sharepoint.com/:x:/s/SPBG/Sales-support-site/EVJ0wqIFOutEn4mZsCYSIO8BZIgzlxAUneixydlBateWOQ?e=0fbYxF" tooltip="Click on this link" label="eLMS Enabled Lodgement Points" target="_blank" ></lightning-formatted-url></p>
+								<template if:true={isEdit}>
+									<lightning-input-field field-name="APT_Sub_Account_Request_Status__c" name="subAccountRequestStatus" value={subAccountRequestStatus} onchange={onchangehandler} >
+									</lightning-input-field>
+									<div class="slds-form-element slds-m-around_xx-small"><span class="slds-form-element__label slds-form-element__legend">Address
+									</span>
+										<div class="slds-form-element__control">
+											<lightning-input name="subAccountRequestStatus" type="text" value={address} disabled=true variant="label-hidden"></lightning-input>
+										</div>
+									</div>
+								</template>
+							</div>
+							<div class="slds-col slds-size_1-of-2">
+								<lightning-input-field field-name="APT_Account_Name_2__c"  name="subAccountName2" value={subAccountName1}  onchange={onchangehandler} >
+								</lightning-input-field>
+								<template if:true={showProducts}>
+									<lightning-input-field field-name="Is_Parcel_Send_Login_Required__c" required name="isParcelSendLoginReq" value={isParcelSendLoginReq} onchange={onchangehandler}>
+									</lightning-input-field>
+								</template>
+								<template if:true={isEdit}>
+									<template if:true={showContact}>
+										<lightning-input-field field-name="SubAccountContact__c" required name="subAccountContact" value={contactId} onchange={onchangehandler}>
+										</lightning-input-field>
+									</template>
+								</template>
+
+								<template if:false={isEdit}>
+									<template if:true={showContact}>
+										<lightning-input-field field-name="SubAccountContact__c" required name="subAccountContact" value={contactId} onchange={onchangehandler}>
+										</lightning-input-field>
+									</template>
+								</template>
+							</div>
+						</div>
+					</lightning-record-edit-form>
 
 
-            <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
-                                 active-section-name={activeSections}>
-                <lightning-accordion-section name="A" label="Parent Details">
-                    <lightning-layout multiple-rows="true">
-                        <lightning-layout-item size="2"></lightning-layout-item>
-                        <lightning-layout-item size="4">
-                            <div class="slds-form-element slds-m-around_xx-small">
-                                <label class="slds-form-element__label slds-float_left" for="form-element-001"><b>Parent Billing Account Name : &nbsp;</b>
-                                    <template if:true={billingAccountRecord}>
-                                        {billingAccountRecord.Name}
-                                    </template>
-                                </label>
-                            </div>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="2"></lightning-layout-item>
-                        <lightning-layout-item size="4">
-                            <div class="slds-form-element slds-m-around_xx-small">
-                                <label class="slds-form-element__label slds-float_left" for="form-element-002"><b>Legal Entity Name : &nbsp;</b>
-                                    <template if:true={billingAccountRecord}>
-                                        {billingAccountRecord.Organisation__r.Name}
-                                    </template>
-                                </label>
-                            </div>
-                        </lightning-layout-item>
+				</lightning-accordion-section>
 
-                        <lightning-layout-item size="2"></lightning-layout-item>
-                        <lightning-layout-item size="4">
-                            <div class="slds-form-element slds-m-around_xx-small">
-                                <label class="slds-form-element__label slds-float_left" for="form-element-003"><b>Parent Billing Account Number : &nbsp;</b>
-                                    <template if:true={billingAccountRecord}>
-                                        {billingAccountRecord.LEGACY_ID__c}
-                                    </template>
-                                </label>
-                            </div>
-                        </lightning-layout-item>
+				<lightning-accordion-section name="C" label="Address of Business">
 
-                        <lightning-layout-item size="2"></lightning-layout-item>
-                        <lightning-layout-item size="4">
-                            <div class="slds-form-element slds-m-around_xx-small">
-                                <label class="slds-form-element__label slds-float_left" for="form-element-004"><b>Sub Account Request Source : &nbsp;</b>
-                                    <template if:true={billingAccountRecord}>
-                                        Billing Account
-                                    </template>
-                                </label>
-                            </div>
-                        </lightning-layout-item>
+					<div class="slds-col slds-size_1-of-1 slds-small-size_2-of-2">
+						<c-ame-sub-account-address
+								label="PO Address"
+								onconfirmaddress={handleConfirmedSenderAddress}
+								street-max-length=40
+								required={isSenderAddressRequired}>
+						</c-ame-sub-account-address>
+					</div>
+				</lightning-accordion-section>
 
-                        <lightning-layout-item size="2"></lightning-layout-item>
-                    </lightning-layout>
-                </lightning-accordion-section>
-                <lightning-accordion-section name="B" label="Sub Account Request Details">
+				<lightning-accordion-section name="D" label="Outlet Details">
+					<template if:false={isEdit}>
+						<c-add-lodgement-points-1 record-id={recordId} onselected={selectedHandler}></c-add-lodgement-points-1>
+					</template>
+					<template if:true={isEdit}>
+						<c-add-lodgement-points-1 record-id={subAccountId} onselected={selectedHandler}></c-add-lodgement-points-1>
+					</template>
+				</lightning-accordion-section>
+			</lightning-accordion>
 
-                    <lightning-record-edit-form record-id={subAccountId} object-api-name="APT_Sub_Account__c">
-                        <lightning-messages>
-                        </lightning-messages>
-                        <div class="slds-grid">
-                            <div class="slds-col slds-size_1-of-2">
-                                <lightning-input-field field-name="Sub_Account_Name__c" required name="subAccountName1" value={subAccountName} onchange={onchangehandler}>
-                                </lightning-input-field>
-                                <lightning-input-field field-name="APT_eParcel_Enabled__c"  required name="addContractRates" value={addContractRates} onchange={onchangehandler} >
-                                </lightning-input-field>
-                                <template if:false={isEdit}>
-                                    <template if:true={showProducts}>
-                                        <lightning-input-field field-name="Product__c"  name="productSelected" value={productSelected} onchange={onchangehandler} >
-                                        </lightning-input-field>
-                                    </template>
-                                </template>
-                                <template if:true={isEdit}>
-                                    <template if:true={showProducts}>
-                                        <lightning-input-field field-name="Product__c"  name="productSelected" value={productSelected} onchange={onchangehandler} >
-                                        </lightning-input-field>
-                                    </template>
-                                </template>
-                                <lightning-input-field field-name="APT_eLMS_Enabled__c" required name="eLMSEnabled" value={eLMSEnabled} onchange={onchangehandler}>
-                                </lightning-input-field>
-                                <p><lightning-formatted-url value="https://auspost.sharepoint.com/:x:/s/SPBG/Sales-support-site/EVJ0wqIFOutEn4mZsCYSIO8BZIgzlxAUneixydlBateWOQ?e=0fbYxF" tooltip="Click on this link" label="eLMS Enabled Lodgement Points" target="_blank" ></lightning-formatted-url></p>
-                                <template if:true={isEdit}>
-                                    <lightning-input-field field-name="APT_Sub_Account_Request_Status__c" name="subAccountRequestStatus" value={subAccountRequestStatus} onchange={onchangehandler} >
-                                    </lightning-input-field>
-                                    <div class="slds-form-element slds-m-around_xx-small"><span class="slds-form-element__label slds-form-element__legend">Address
-                                    </span>
-                                        <div class="slds-form-element__control">
-                                            <lightning-input name="subAccountRequestStatus" type="text" value={address} disabled=true variant="label-hidden"></lightning-input>
-                                        </div>
-                                    </div>
-                                </template>
-                            </div>
-                                <div class="slds-col slds-size_1-of-2">
-                                    <lightning-input-field field-name="APT_Account_Name_2__c"  name="subAccountName2" value={subAccountName1}  onchange={onchangehandler} >
-                                    </lightning-input-field>
-                                    <template if:true={showProducts}>
-                                        <lightning-input-field field-name="Is_Parcel_Send_Login_Required__c" required name="isParcelSendLoginReq" value={isParcelSendLoginReq} onchange={onchangehandler}>
-                                        </lightning-input-field>
-                                    </template>
-                                    <template if:true={isEdit}>
-                                        <template if:true={showContact}>
-                                            <lightning-input-field field-name="SubAccountContact__c" required name="subAccountContact" value={contactId} onchange={onchangehandler}>
-                                            </lightning-input-field>
-                                        </template>
-                                    </template>
+		</div>
 
-                                    <template if:false={isEdit}>
-                                        <template if:true={showContact}>
-                                            <lightning-input-field field-name="SubAccountContact__c" required name="subAccountContact" value={contactId} onchange={onchangehandler}>
-                                            </lightning-input-field>
-                                        </template>
-                                    </template>
-                            </div>
-                        </div>
-                    </lightning-record-edit-form>
-
-
-                </lightning-accordion-section>
-
-                <lightning-accordion-section name="C" label="Address of Business">
-
-                    <div class="slds-col slds-size_1-of-1 slds-small-size_2-of-2">
-                        <c-ame-address-validation2
-                                label="PO Address"
-                                onconfirmaddress={handleConfirmedSenderAddress}
-                                override-label="Edit Address"
-                                confirmation-required
-                                required={isSenderAddressRequired}>
-                        </c-ame-address-validation2>
-
-                    </div>
-                </lightning-accordion-section>
-
-                <lightning-accordion-section name="D" label="Outlet Details">
-                    <template if:false={isEdit}>
-                        <c-add-lodgement-points-1 record-id={recordId} onselected={selectedHandler}></c-add-lodgement-points-1>
-                    </template>
-                    <template if:true={isEdit}>
-                        <c-add-lodgement-points-1 record-id={subAccountId} onselected={selectedHandler}></c-add-lodgement-points-1>
-                    </template>
-                </lightning-accordion-section>
-            </lightning-accordion>
-
-        </div>
-
-        <div class="slds-align_absolute-center" style="height:5rem">
-            <template if:false={isEdit}>
-                <lightning-button class="slds-button" label="Save as Draft" variant="Neutral"  disabled={disableSaveRequestBtn} onclick={onsubmitHandler}></lightning-button>
-            </template>
-            <template if:true={isEdit}>
-                <lightning-button class="slds-button" label="Save" variant="Neutral" onclick={onsubmitHandler}></lightning-button>
-            </template>
-            <lightning-button class="slds-button" label="Close" variant="Neutral"  onclick={cancel}></lightning-button>
-        </div>
+		<div class="slds-align_absolute-center" style="height:5rem">
+			<template if:false={isEdit}>
+				<lightning-button class="slds-button" label="Save as Draft" variant="Neutral"  disabled={disableSaveRequestBtn} onclick={onsubmitHandler}></lightning-button>
+			</template>
+			<template if:true={isEdit}>
+				<lightning-button class="slds-button" label="Save" variant="Neutral" onclick={onsubmitHandler}></lightning-button>
+			</template>
+			<lightning-button class="slds-button" label="Close" variant="Neutral"  onclick={cancel}></lightning-button>
+		</div>
 		<div>
 			<c-modal title="Create an Opportunity" show-modal={showModal}  close-modal-callback={closeModalAndRedirect}>
-                <p align="left" style="font-size:16px"><b>{displayMessage}</b></p>
-                <lightning-button class="slds-m-left_x-small" label="OK" slot="footer"
-                                    variant="brand"
-                                    onclick={closeModalAndRedirect}>
-                </lightning-button>
-            </c-modal>
+				<p align="left" style="font-size:16px"><b>{displayMessage}</b></p>
+				<lightning-button class="slds-m-left_x-small" label="OK" slot="footer"
+								  variant="brand"
+								  onclick={closeModalAndRedirect}>
+				</lightning-button>
+			</c-modal>
 		</div>
-        <div>
-            <template if:true={showValidationErr}>
-                <b><p class="slds-text-color_error" style="font-size: medium;">Error Messages:Please fill required fields listed below:</p></b>
-                <ul class="slds-text-color_error">
-                    <template for:each={fieldList} for:item="errKey">
-                        <li key={errKey}>
-                            {errKey}
-                        </li>
-                    </template>
-                </ul>
-            </template>
-        </div>
-    </lightning-card>
+		<div>
+			<template if:true={showValidationErr}>
+				<b><p class="slds-text-color_error" style="font-size: medium;">Error Messages:Please fill required fields listed below:</p></b>
+				<ul class="slds-text-color_error">
+					<template for:each={fieldList} for:item="errKey">
+						<li key={errKey}>
+							{errKey}
+						</li>
+					</template>
+				</ul>
+			</template>
+		</div>
+	</lightning-card>
 
 </template>

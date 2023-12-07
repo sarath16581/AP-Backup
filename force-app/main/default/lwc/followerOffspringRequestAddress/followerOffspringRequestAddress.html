@@ -7,7 +7,9 @@
 			<c-ame-sub-account-address
 					label="Physical Address"
 					default-address={confirmedPhysicalAddress}
-					onconfirmaddress={handleConfirmedPhysicalAddress}>
+					onconfirmaddress={handleConfirmedPhysicalAddress}
+					street-max-length=40
+					required>
 			</c-ame-sub-account-address>
 		</div>
 		<template lwc:if={showMailingAddress}>
@@ -15,7 +17,9 @@
 				<c-ame-sub-account-address
 						label="Mailing Address"
 						default-address={confirmedMailingAddress}
-						onconfirmaddress={handleConfirmedMailingAddress}>
+						onconfirmaddress={handleConfirmedMailingAddress}
+						street-max-length=40
+						required>
 				</c-ame-sub-account-address>
 			</div>
 		</template>

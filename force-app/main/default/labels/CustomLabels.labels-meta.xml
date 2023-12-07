@@ -8248,20 +8248,20 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
     </labels>
     <labels>
-        <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
-        <categories>Billing Account Provisioning</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>StarTrackSubAccountsSubmitConfirmationMessage</shortDescription>
-        <value>Follower/Offspring creation request(s) for Leader billing account will be submitted. Do you want to proceed?</value>
-    </labels>
-    <labels>
         <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountABNConfirmationErrorMessage</shortDescription>
         <value>This request does not meet the minimum criteria to create a follower/offspring account. Please raise a Data Quality Management Case to link ABN to required Salesforce Organisation. Once this has been completed, please Self-Serve or raise a Customer Onboarding Deal Support Request for a New Agreement, account will be created post agreement fully signed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountFinaliseConfirmation</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
+        <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
