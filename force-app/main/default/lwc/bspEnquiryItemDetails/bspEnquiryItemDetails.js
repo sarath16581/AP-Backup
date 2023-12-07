@@ -2,24 +2,50 @@ import { LightningElement, wire, track, api } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 import { navigation } from 'c/bspNavigationUtils';
 import retrieveBspCommunityURL from '@salesforce/apex/bspBaseUplift.retrieveCommunityURL';
+import getCasePicklistValues from '@salesforce/apex/bspEnquiryUplift.getCasePicklistValuesByFieldName';
 export default class BspEnquiryItemDetails extends NavigationMixin(LightningElement) {
 
 	@api caseDetailWrapper;
 	commUrlPrefix;
 	navigate;
+	formattedReasonForCreditClaim;
+	reasonsForCreditClaim = new Map();;
 	formattedEnquiryType;
+	enquiryTypes = new Map();;
 
 	connectedCallback() {
 		try {
+			this.initialLoad().then(r => this.getPicklistLabels());
 			retrieveBspCommunityURL().then(result => {
 				this.commURLPrefix = result;
 				this.navigate = navigation(this.commURLPrefix);
 			});
 			// formatting the enq type to de-capitalize the rest of the words when found in a value
-			this.formatEnquiryType();
+
 		} catch (er) {
 			console.error(er)
 		}
+	}
+
+	async initialLoad() {
+		await getCasePicklistValues({fieldName:'ReasonforCreditClaim__c'})
+			.then((data) => {
+				this.reasonsForCreditClaim = new Map(Object.entries(data));
+			})
+			.catch((error) => {
+				console.error(error);
+			}).finally(() => {
+
+			});
+		await getCasePicklistValues({fieldName:'Enquiry_Type__c'})
+			.then((data) => {
+				this.enquiryTypes = new Map(Object.entries(data));
+			})
+			.catch((error) => {
+				console.error(error);
+			}).finally(() => {
+
+			});
 	}
 
 	get isSSSW() {
@@ -98,12 +124,9 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 	 * This approach is implemented to avoid altering the API value, which could lead to potential issues in other areas in the system.
 	 * eg: Billing Dispute to Billing dispute (see the 'D' in dispute)
 	 */
-	formatEnquiryType() {
-		let currentEnquiryType = this.caseDetailWrapper.enq.Enquiry_Type__c;
-		// Capitalize the first letter
-		let capitalizedEnquiryType = currentEnquiryType.charAt(0).toUpperCase() + currentEnquiryType.slice(1).toLowerCase();
-		// Assign it back
-		this.formattedEnquiryType = capitalizedEnquiryType;
-		console.log(this.formattedEnquiryType);
+	getPicklistLabels() {
+		this.formattedReasonForCreditClaim = this.reasonsForCreditClaim.get(this.caseDetailWrapper.enq.ReasonforCreditClaim__c);
+		this.formattedEnquiryType = this.enquiryTypes.get(this.caseDetailWrapper.enq.Enquiry_Type__c);
+
 	}
 }
