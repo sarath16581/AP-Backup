@@ -1,3 +1,11 @@
+<!--
+  	List of sub account requests(follower, offspring) linked to a given leader account (in billing account flow) or charge
+  	account request (in DSR flow). Presented in a data table view with sorting, filtering and ability to submit for
+  	provisioning.
+  	Changelog:
+  	2023-11-01 - Harry Wang - Created
+  	2023-12-07 - Ranjeewa Silva - Implemented submit button behaviour
+ -->
 <template>
 	<article class="slds-card">
 		<div class="slds-page-header">
@@ -73,7 +81,12 @@
 		<footer class="slds-card__footer slds-clearfix">
 			<div class="slds-float_right slds-button-group">
 				<a href={recordViewUrl} class="slds-button slds-button_neutral">{backLabel}</a>
-				<lightning-button class="slds-var-m-left_x-small" label='Finalise Request(s)' onclick={handleFinalise} disabled={isActionDisabled}></lightning-button>
+					<template lwc:if={canSubmitForProvisioning}>
+						<lightning-button class="slds-var-m-left_x-small" label="Submit" onclick={handleSubmitForProvisioning} disabled={isActionDisabled}></lightning-button>
+					</template>
+					<template lwc:elseif={canFinaliseSubAccountRequests}>
+						<lightning-button class="slds-var-m-left_x-small" label="Finalise Request(s)" onclick={handleFinalise} disabled={isActionDisabled}></lightning-button>
+					</template>
 			</div>
 		</footer>
 		<template lwc:if={hasFinalisedSubAccounts}>

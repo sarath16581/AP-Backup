@@ -8200,6 +8200,46 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Please be advised that you can only finalize up to 10 follower/offspring requests at a time. If you have more than 10, you can finalize them in a subsequent request.</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</shortDescription>
+        <value>Please select only upto 10 records for submission.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</shortDescription>
+        <value>Please add Parent Account for the Offspring to Submit.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedNonTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedNonTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</shortDescription>
+        <value>Sub account creation request(s) submitted Successfully. Once the Follower/Offspring accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountsCreationTabError</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
@@ -8222,6 +8262,22 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
         <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSubmitConfirmationMessage</shortDescription>
+        <value>Follower/Offspring creation request(s) for Leader billing account will be submitted. Do you want to proceed?</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubmitSubAccountRequestsTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubmitSubAccountRequestsTitle</shortDescription>
+        <value>Submit Sub Account Request(s)</value>
     </labels>
     <labels>
         <fullName>STHSSenderReceiverValidationMessage</fullName>
