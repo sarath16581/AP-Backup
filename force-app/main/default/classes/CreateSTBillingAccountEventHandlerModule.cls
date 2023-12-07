@@ -708,7 +708,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						APT_Sub_Account__c.APT_Street_Address_Country_Code__c
 				},
 				Billing_Account__c.SObjectType => new Set<SObjectField>{
-						Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c
+						Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c, Billing_Account__c.Name
 				},
 				Contact.SObjectType => new Set<SObjectField>{
 						Contact.Phone, Contact.MobilePhone, Contact.Fax, Contact.FirstName, Contact.LastName, Contact.Email
