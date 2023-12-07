@@ -25,10 +25,9 @@ public class APT_Save_RedirectToOPCScreen{
 	List<Apttus_Config2__ProductConfiguration__c>  prodConfigListToUpdate = new List<Apttus_Config2__ProductConfiguration__c>();
 	// Query product configuration record
 	List<Apttus_Config2__ProductConfiguration__c>  prodConfigList = ProductConfigurationSelector.newInstance().selectByProposalId(new Set<Id>{proposalID});
-
 		for(Apttus_Config2__ProductConfiguration__c productConfig : prodConfigList){
-		if(productConfig.Apttus_Config2__Status__c ==  APT_Constants.URL_SAVED || productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW){
-			if(productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW){
+		if(productConfig.Apttus_Config2__Status__c == APT_Constants.URL_SAVED || productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW) {
+			if(productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW) {
 				productConfig.Apttus_Config2__Status__c = APT_Constants.URL_SAVED;
 			}
 				productConfig.APT_Configuration_Update_Version__c = productConfig.APT_Configuration_Update_Version__c + 1;
@@ -36,7 +35,7 @@ public class APT_Save_RedirectToOPCScreen{
 		}
 	}
 
-	if(!prodConfigListToUpdate.isEmpty()){
+	if(!prodConfigListToUpdate.isEmpty()) {
 		ApplicationDatabase.getInstance().dmlUpdate(prodConfigListToUpdate);
 	}
 	//Querying the proposal record by passing the proposal id
