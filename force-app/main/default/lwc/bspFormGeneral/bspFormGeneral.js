@@ -1,11 +1,16 @@
 /**
  * Created by vcheng on 19/08/2020.
+ * --------------------------------------- History --------------------------------------------------
+* 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
  */
 
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { reportAllValidity, checkAllValidity, checkCustomValidity, topGenericErrorMessage} from 'c/bspCommonJS';
 import createEnquiryAusPost from '@salesforce/apex/bspEnquiryUplift.createEnquiryAusPost';
+
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
 
 export default class bspFormGeneral extends NavigationMixin(LightningElement) {
 
@@ -19,6 +24,9 @@ export default class bspFormGeneral extends NavigationMixin(LightningElement) {
     @track errorMessage;
     spinnerAltText = 'loading';
     successCreation = false;
+
+	//analytics variables
+	pageName = 'auspost:bsp:ap:generalenquiry';	
 
     onChangeField(event) {
         const field = event.target.dataset.id;
@@ -113,4 +121,17 @@ export default class bspFormGeneral extends NavigationMixin(LightningElement) {
             this.errorMessage = topGenericErrorMessage;
         }
     }
+
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
+	}	
 }

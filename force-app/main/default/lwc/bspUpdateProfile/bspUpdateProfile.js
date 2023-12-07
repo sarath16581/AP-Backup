@@ -1,8 +1,15 @@
+/*
+* --------------------------------------- History --------------------------------------------------
+* 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
+*/
 import { LightningElement, wire, track } from 'lwc';
 import { checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight } from 'c/bspCommonJS';
 import { NavigationMixin } from 'lightning/navigation';
 import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProfileDetails';
 import save from '@salesforce/apex/bspProfileUplift.save';
+
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
 
 export default class BspUpdateProfile extends NavigationMixin(LightningElement) {
 
@@ -45,6 +52,9 @@ export default class BspUpdateProfile extends NavigationMixin(LightningElement) 
         country:'',
         countryName: ''
     };
+
+	//analytics variables
+	pageName = 'auspost:bsp:update details';
 
     renderedCallback() {
         if((this.errorMessage || this.showSuccessSection) && this.submitClicked) {
@@ -210,4 +220,17 @@ export default class BspUpdateProfile extends NavigationMixin(LightningElement) 
             checkCustomValidity(inputCmp[0]);
         }
     }
+
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
+	}		
 }

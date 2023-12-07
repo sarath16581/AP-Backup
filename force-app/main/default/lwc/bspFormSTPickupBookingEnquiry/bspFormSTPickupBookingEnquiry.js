@@ -1,3 +1,7 @@
+/*
+* --------------------------------------- History --------------------------------------------------
+* 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
+*/
 import { LightningElement, wire, track } from 'lwc';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { NavigationMixin } from 'lightning/navigation';
@@ -7,6 +11,8 @@ import createPickUpBookingEnquiryStarTrack from '@salesforce/apex/bspEnquiryUpli
 import getSTPickupBookingRefRecordType from '@salesforce/apex/bspEnquiryUplift.getSTPickupBookingRefRecordType';
 import PURPOSE_FIELD from '@salesforce/schema/Case.Call_Purpose__c';
 
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
 
 export default class BspFormSTPickupBookingEnquiry extends NavigationMixin(LightningElement) {
 
@@ -26,6 +32,9 @@ export default class BspFormSTPickupBookingEnquiry extends NavigationMixin(Light
         CCUEnquiryType__c: 'StarTrack Pickup Booking Enquiry',
         Pickup_Booking_Reference__c: ''
     };
+
+	//analytics variables
+	pageName = 'auspost:bsp:st:stpickupbookings';
 
     renderedCallback() {
         if(this.errorMessage && this.submitClicked) {
@@ -143,4 +152,17 @@ export default class BspFormSTPickupBookingEnquiry extends NavigationMixin(Light
             }
         });
     }
+
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
+	}	
 }

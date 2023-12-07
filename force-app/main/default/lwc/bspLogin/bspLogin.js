@@ -1,7 +1,15 @@
+/*
+* --------------------------------------- History --------------------------------------------------
+* 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
+*/
+
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { reportAllValidity, checkAllValidity, checkCustomValidity, topGenericErrorMessage} from 'c/bspCommonJS';
 import login from '@salesforce/apex/bspLogin.login';
+
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
 
 export default class BspLogin extends NavigationMixin(LightningElement) {
     userName;
@@ -10,6 +18,9 @@ export default class BspLogin extends NavigationMixin(LightningElement) {
     @track loginButtonClicked = false;
     @track errorMessage;
     @track showLoginSec = true;
+
+	//analytics variables
+	pageName = 'auspost:bsp:login';
 
     handleChange(event) {
         const field = event.target.dataset.id;
@@ -99,4 +110,16 @@ export default class BspLogin extends NavigationMixin(LightningElement) {
         }
     }
 
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
+	}	
 }

@@ -17,7 +17,7 @@ import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToH
 import {getObjectInfo, getPicklistValues} from 'lightning/uiObjectInfoApi';
 
 //adobe analytics
-import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils'
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
 
 // case object
 import CASE_OBJECT from '@salesforce/schema/Case';
