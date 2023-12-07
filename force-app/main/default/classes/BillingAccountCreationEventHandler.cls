@@ -3,43 +3,73 @@
  * @group BillingAccounts
  * @tag BillingAccount
  * @domain Core
- * @description This is the Handler class for BillingAccountCreationEvent__e Trigger .Execute Method is called
- *              from the trigger .
+ * @description This is the Handler class for BillingAccountCreationEvent__e Trigger.
+ * @Test BillingAccountCreationEventHandler_Test
  * @changelog
  * 2020-11-18 - shashwat.nath@auspost.com.au - Created
  * 2022-08-04 - Seth Heang - Updated to handle Rating Plan platform event
+ * 2023-11-24 - Ranjeewa Silva - Refactored to use new domain less ApplicationTriggerHandler framework.
 */
-public with sharing class BillingAccountCreationEventHandler {
-    // Checks for the trigger Event and calls the respective handler method
-    public static void execute() {
-        if(Trigger.isAfter) {
-            afterHandler();        
-        }
-    }
-	//Method to handle after Trigger Events
-	private static void afterHandler() {
-		// Check for type of operation
-		if (Trigger.isInsert) {
-			List<BillingAccountCreationEvent__e> billingAccPEs = new List<BillingAccountCreationEvent__e>();
-			List<BillingAccountCreationEvent__e> ratingPlanPEs = new List<BillingAccountCreationEvent__e>();
-			for(BillingAccountCreationEvent__e platformEvent : (List<BillingAccountCreationEvent__e>)Trigger.New){
-				// Rating Plan Platform event has Additional Info set to RatingPlanActivation or RateCardActivation
-				if(platformEvent.Additional_Info__c == APT_Constants.RATING_PLAN_ACTIVATION_LABEL || platformEvent.Additional_Info__c == APT_Constants.RATING_CARD_ACTIVATION_LABEL){
-					ratingPlanPEs.add(platformEvent);
+public inherited sharing class BillingAccountCreationEventHandler extends ApplicationTriggerHandler {
+
+	public override void registerModules() {
+		registerModule(CreateAPBillingAccountEventHandlerModule.class, 'filterNewAusPostBillingAccounts');
+		registerModule(ActivateAPRatingPlanEventHandlerModule.class, 'filterNewAusPostRatingPlans');
+		registerModule(CreateSTBillingAccountEventHandlerModule.class, 'filterNewStarTrackBillingAccounts');
+	}
+
+	public override ApplicationUnitOfWork newUnitOfWork() {
+		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+	}
+
+	public override SObjectType getSObjectType() {
+		return BillingAccountCreationEvent__e.getSObjectType();
+	}
+
+	/**
+	 * Pre filter records to minimise repetitive looping inside the modules
+	 * This creates a type of index of records which are passed into the modules based on the 'filterKey' used when the module is registered
+	 * This replicates Domain specific filtering logic and allows a module to execution with the record scope it needs
+	 * @param records list of records to filter
+	 * @return filtered records indexed by filter keys.
+	 */
+	public override Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
+		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
+				'filterNewAusPostBillingAccounts' => new List<SObject>(),
+				'filterNewAusPostRatingPlans' => new List<SObject>(),
+				'filterNewStarTrackBillingAccounts' => new List<SObject>()
+		};
+		for(BillingAccountCreationEvent__e event: (List<BillingAccountCreationEvent__e>)records) {
+			if ('SAP'.equalsIgnoreCase(event.Source_System__c)) {
+				// below filtering logic is inherited from legacy trigger handler.
+				if(event.Additional_Info__c == APT_Constants.RATING_PLAN_ACTIVATION_LABEL || event.Additional_Info__c == APT_Constants.RATING_CARD_ACTIVATION_LABEL){
+					filteredRecords.get('filterNewAusPostRatingPlans').add(event);
+				} else {
+					filteredRecords.get('filterNewAusPostBillingAccounts').add(event);
 				}
-				// Billing Account Platform Event
-				else{
-					billingAccPEs.add(platformEvent);
-				}
-			}
-			// Process Rating Plan Platform Event
-			if(ratingPlanPEs.size() > 0){
-				BillingAccountCreationEventTriggerHelper.activateRatingPlan(ratingPlanPEs);
-			}
-			// Process Billing Account Platform Event
-			if(billingAccPEs.size() > 0){
-				BillingAccountCreationEventTriggerHelper.createBillingAccount(billingAccPEs);
+			} else if('TEAM'.equalsIgnoreCase(event.Source_System__c)) {
+				filteredRecords.get('filterNewStarTrackBillingAccounts').add(event);
 			}
 		}
+
+		return filteredRecords;
+	}
+
+	/**
+	 * This defines a list of objects that may be 'touched' during module execution.
+	 * It also defines the order in which the work will be committed
+	 * @return the list of sobject types
+	 */
+	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
+		return new List<SObjectType>{
+				Billing_Account__c.SObjectType,
+				BAMExternalOnboardingRequest__c.SObjectType,
+				Deal_Support_Request__c.SObjectType,
+				Apttus__APTS_Agreement__c.SObjectType,
+				APT_Charge_Account__c.SObjectType,
+				APT_Sub_Account__c.SObjectType,
+				Organisation_Role__c.SObjectType,
+				Account.SObjectType
+		};
 	}
 }
