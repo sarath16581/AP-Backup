@@ -8192,6 +8192,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Follower/Offspring Account {0} for TEAM Billing Account {1} has been successfully completed.</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountActivationDSRDescription</shortDescription>
+        <value>Align additional charges, create dispatch ID, activate account &amp; provide Parcel Send access (if requested).</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
