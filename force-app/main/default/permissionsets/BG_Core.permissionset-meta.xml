@@ -49,10 +49,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CreateBillingAccountControllerForTeams</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CreateSubAccountHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -85,6 +81,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ProvisionSTBillingAccountsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TH_Assignments</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -103,6 +103,10 @@
     <customPermissions>
         <enabled>true</enabled>
         <name>BG_Core</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Submit_Sub_Account_Provisioning_Request</name>
     </customPermissions>
     <description>Provides permissions common to all B&amp;G Sales users, regardless of job role.</description>
     <fieldPermissions>
@@ -403,6 +407,31 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Billing_Account__c.LeaderAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalCountry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalPostalCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalStreet__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalSuburb__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

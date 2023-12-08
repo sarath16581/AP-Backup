@@ -10,6 +10,7 @@
 * 2021-05-12 - Shashwat.Nath@auspost.com.au - Created
 * 2022-05-09 - NAsir Jawed - Added test for selectByProposalId methods
 * 2023-01-19 - Mahesh Parvathaneni - Added tests for selectByProposalIdAndStatusWithOrder method
+* 2023-10-31 - Ranjeewa Silva - Added tests for search method
 */
 @IsTest
 public with sharing class ProductConfigurationSelector_Test{
@@ -136,25 +137,26 @@ public with sharing class ProductConfigurationSelector_Test{
 		// =====================================
 		Test.startTest();
 
-		ProductConfigurationSelector selector = ProductConfigurationSelector.newInstance(1);
-		Map<Id, Apttus_Config2__ProductConfiguration__c > results = selector.selectById(new Set<Id>{prodconfig.id});
-		System.assertNotEquals(1, results.size(), 'Result count was wrong');
-
-		results = selector.selectById(new Set<Id>{prodconfig.id}, new Set<Object>{ProductConfigurationSelector.Options.WITH_LINE_ITEMS});
-
 		//Getting the prod config record by passing the proposal id and checking the result
-		ProductConfigurationSelector selectorConfigId = ProductConfigurationSelector.newInstance(1);
-		List<Apttus_Config2__ProductConfiguration__c> resultsByConfigId = selectorConfigId.selectByConfigId(new Set<ID>{prodconfig.id});
+		ProductConfigurationSelector selector = ProductConfigurationSelector.newInstance(1);
+		List<Apttus_Config2__ProductConfiguration__c> resultsByConfigId = selector.selectByConfigId(new Set<ID>{prodconfig.id});
 		System.assertEquals(1, resultsByConfigId.size(), 'Expected result size of 1');
 
 		//Getting the prod config record by passing the proposal id and checking the result
-		ProductConfigurationSelector selectorProp = ProductConfigurationSelector.newInstance(1);
-		List<Apttus_Config2__ProductConfiguration__c> resultsByProp = selectorProp.selectByProposalId(new Set<ID>{quote.id});
+		List<Apttus_Config2__ProductConfiguration__c> resultsByProp = selector.selectByProposalId(new Set<ID>{quote.id});
 		System.assertEquals(1, resultsByProp.size(), 'Expected result size of 1');
 
 		//Getting the prod config record by passing the proposal id and status and checking the result
-		List<Apttus_Config2__ProductConfiguration__c> resultsByPropAndStatus = selectorProp.selectByProposalIdAndStatusWithOrder(new Set<Id>{quote.id}, new Set<String> {'Ready For Finalization'});
+		List<Apttus_Config2__ProductConfiguration__c> resultsByPropAndStatus = selector.selectByProposalIdAndStatusWithOrder(new Set<Id>{quote.id}, new Set<String> {'Ready For Finalization'});
 		System.assertEquals(1, resultsByPropAndStatus.size(), 'Expected result size of 1');
+
+		Map<String, Object> searchParams = new Map<String, Object>{
+				'proposalIds' => quote.Id,
+				'status' => 'Ready For Finalization'
+		};
+		List<Apttus_Config2__ProductConfiguration__c> searchResults = selector.search(searchParams, new Set<Object>{}, true, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+		Assert.areEqual(1, searchResults.size(), 'Expected result size of 1');
+
 		Test.stopTest();
 
 	}
@@ -194,5 +196,87 @@ public with sharing class ProductConfigurationSelector_Test{
 		System.assertEquals(true, Pattern.compile('(?ism)Apttus_Config2__AccountId__r\\..*?\\bfrom Apttus_Config2__ProductConfiguration__c\\b').matcher(soql).find(), 'Resulting query does not select Apttus_Config2__AccountId__r field: ' + soql);
 
 		Test.stopTest();
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureSearchMethodProducesCorrectString() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		ProductConfigurationSelector selector = ProductConfigurationSelector.newInstance();
+
+		Map<String, Object> searchParams = new Map<String, Object>{
+				'proposalIds' => 'aAf000000000000000',
+				'status' => 'Finalized'
+		};
+
+		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_QPConfig__Proposald__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter related proposal id: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_Config2__Status__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Apttus_Config2__Status__c: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not match ALL filters: ' + soql);
+		System.assertEquals(true, Pattern.compile('\\bORDER BY ' + Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c + ' DESC').matcher(soql).find(), 'Resulting query does not Order by version number: ' + soql);
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, new Set<Object>(), true, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+
+		searchParams = new Map<String, Object>{
+				'proposalIds' => new Set<Id>{'aAf000000000000000'}
+		};
+
+		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true, null, 'DESC');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_QPConfig__Proposald__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter related proposal id: ' + soql);
+		System.assertEquals(false, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_Config2__Status__c\\s+In\\b').matcher(soql).find(), 'Resulting query filters Apttus_Config2__Status__c, but it should not: ' + soql);
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, new Set<Object>(), true, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+
+		searchParams = new Map<String, Object>{
+				'status' => new Set<String>{'Finalized', 'Ready For Finalization'}
+		};
+
+		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+
+		System.assertEquals(false, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_QPConfig__Proposald__c\\s+In\\b').matcher(soql).find(), 'Resulting query filters related proposal id, but it should not: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_Config2__Status__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Apttus_Config2__Status__c: ' + soql);
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, new Set<Object>(), true, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+
+		searchParams = new Map<String, Object>{
+				'proposalIds' => 'aAf000000000000000',
+				'status' => 'Finalized'
+		};
+
+		soql = selector.getSearchSoql(searchParams, new Set<Object>(), false, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_QPConfig__Proposald__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter related proposal id: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bApttus_Config2__Status__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Apttus_Config2__Status__c: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\s+from Apttus_Config2__ProductConfiguration__c\\s+where\\b.*?\\bOR\\b').matcher(soql).find(), 'Resulting query does not match ANY filter: ' + soql);
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, new Set<Object>(), false, Apttus_Config2__ProductConfiguration__c.Apttus_Config2__VersionNumber__c, 'DESC');
+
+		Test.stopTest();
+
 	}
 }

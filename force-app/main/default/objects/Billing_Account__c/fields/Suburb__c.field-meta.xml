@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Suburb__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This field consists of Billing Suburb (or Mailing Suburb) for both SAP and TEAM billing account records</description>
     <externalId>false</externalId>
-    <label>Suburb</label>
+    <inlineHelpText>Billing Suburb for both SAP and TEAM Billing Accounts</inlineHelpText>
+    <label>Billing Suburb</label>
     <length>40</length>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
