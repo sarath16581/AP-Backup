@@ -10,7 +10,7 @@
  * 2022-05-09 - NAsir Jawed - Added selectByConfigId, selectByProposalId methods
  * 22-11-30 - NAsir Jawed - Added methods selectByProposalIdAndStatusWithOrder
  * 2023-07-26 - NAsir Jawed - Added OwnerId field to query
- * 2023-12-01 - Bharat Patel - Added APT_Configuration_Update_Version__c field to query
+ * 2023-10-31 - Ranjeewa Silva - Added search method with related proposal ids and product configuration status as supported search parameters.
  */
 public virtual inherited sharing class ProductConfigurationSelector extends ApplicationSelector {
 	public enum Options {
@@ -49,26 +49,8 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 				Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name,
-				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c,Apttus_Config2__ProductConfiguration__c.OwnerId, Apttus_Config2__ProductConfiguration__c.APT_Configuration_Update_Version__c
+				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c,Apttus_Config2__ProductConfiguration__c.OwnerId
 		};
-	}
-
-	/**
-	 * @description Run a simple query to get records based on Id's
-	 */
-	public Map<Id, Apttus_Config2__ProductConfiguration__c> selectById(Set<Id> ids) {
-		return selectById(ids, new Set<Object>());
-	}
-
-	/**
-	 * @description Run a simple query to get records based on Id's
-	 */
-	public Map<Id, Apttus_Config2__ProductConfiguration__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-		String Status = 'Finalized';
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c + ' in :ids'))
-				.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c + ' =:Status')).endConditions();
-		System.debug('Product Configuration QUERY>>>>>>>>>>>'+qb.toSoqlString());
-		return new Map<Id, Apttus_Config2__ProductConfiguration__c>((List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString()));
 	}
 
 	/**
@@ -124,6 +106,76 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 			.endConditions();
 			qb.addOrderDesc(Apttus_Config2__ProductConfiguration__c.createdDate);
 		return (List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *					  - proposalIds: maps to Apttus_QPConfig__Proposald__c (Set<Id>/Id)
+	 *					  - status: maps to Apttus_Config2__Status__c (Set<String>/String)
+	 * @param selectorOptions Additional selector options to augment the result set
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 * @param orderByField If supplied together with 'sortDirection' parameter, sort results based on this field.
+	 *						Uses Application Selector framework's default order if not specified.
+	 * @param sortDirection If supplied together with 'orderByField' parameter, sort results based on the direction specified (ASC or DESC).
+	 *						Uses Application Selector framework's default order if not specified.
+	 *
+	 * @return list of Product Configuration records.
+	 */
+	public List<Apttus_Config2__ProductConfiguration__c> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortDirection) {
+		Set<Id> proposalIds = (Set<Id>)(searchParams.get('proposalIds') == null ? new Set<Id>() : (searchParams.get('proposalIds') instanceof Set<Id> ? searchParams.get('proposalIds') : new Set<Id>{(Id)searchParams.get('proposalIds')}));
+		Set<String> status = (Set<String>)(searchParams.get('status') == null ? new Set<String>() : (searchParams.get('status') instanceof Set<String> ? searchParams.get('status') : new Set<String>{String.valueOf(searchParams.get('status'))}));
+		return (List<Apttus_Config2__ProductConfiguration__c>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll, orderByField, sortDirection));
+	}
+
+	/**
+	 * Generates the SOQL based on the search parameters passed in
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *					  - proposalIds: maps to Apttus_QPConfig__Proposald__c (Set<Id>/Id)
+	 *					  - status: maps to Apttus_Config2__Status__c (Set<String>/String)
+	 * @param selectorOptions Additional selector options to augment the result set
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 * @param orderByField If supplied together with 'sortDirection' parameter, sort results based on this field.
+	 *						Uses Application Selector framework's default order if not specified.
+	 * @param sortDirection If supplied together with 'orderByField' parameter, sort results based on the direction specified (ASC or DESC).
+	 *						Uses Application Selector framework's default order if not specified.
+	 *
+	 * @return the generated SOQL
+	 */
+	@TestVisible
+	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortDirection) {
+		validateSearchParams(searchParams.keySet(), new Set<String>{'proposalIds', 'status'});
+
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+
+		Integer conditionCount = 0;
+		if(searchParams.containsKey('proposalIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c  + ' in :proposalIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('status')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c + ' in :status'));
+			conditionCount++;
+		}
+
+		// build our condition string which would end up being something like the following:
+		// 1 AND 2 AND 3
+		// 1 OR 2 OR 3
+		String conditionOrder = '';
+		for(Integer i=0;i<conditionCount;i++) {
+			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
+		}
+		conditions.setConditionOrder(conditionOrder);
+
+		if (orderByField != null && String.isNotBlank(sortDirection)) {
+			QueryBuilder.Order qbOrderBy = new QueryBuilder.Order(String.valueOf(orderByField), sortDirection);
+			builder.setOrder(qbOrderBy);
+		}
+
+		return conditions.endConditions().toSoqlString();
 	}
 
 
