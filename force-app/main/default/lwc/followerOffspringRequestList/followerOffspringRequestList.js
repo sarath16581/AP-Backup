@@ -27,8 +27,10 @@ import SUB_ACCOUNT_ACCOUNT_TYPE from "@salesforce/schema/APT_Sub_Account__c.Acco
 import SUB_ACCOUNT_PARENT_ACCOUNT_REQUEST from '@salesforce/schema/APT_Sub_Account__c.ParentAccountRequest__c';
 
 // custom labels
+import LABEL_FINALISE_NOTIFICATION_TITLE from "@salesforce/label/c.StarTrackFinaliseSubAccountRequestsTitle";
 import LABEL_MAX_FINALISE_LIMIT_ERROR from "@salesforce/label/c.StarTrackSubAccountMaxFinalizeErrorMessage";
 import LABEL_FINALISE_CONFIRMATION from "@salesforce/label/c.StarTrackSubAccountFinaliseConfirmation";
+import LABEL_PARENT_NOT_SELECTED_FOR_FINALISE_ERROR from "@salesforce/label/c.StarTrackSubAccountParentNotSelectedForFinaliseError";
 import LABEL_MAX_SUBMIT_LIMIT_REACHED_ERRORMESSAGE from '@salesforce/label/c.StarTrackSubAccountMaxSubmitLimitReachedErrorMessage';
 import LABEL_SUBMIT_FOR_PROVISIONING_CONFIRMATION_MESSAGE from '@salesforce/label/c.StarTrackSubAccountsSubmitConfirmationMessage';
 import LABEL_PARENT_NOT_SELECTED_FOR_SUBMIT_ERRORMESSAGE from '@salesforce/label/c.StarTrackSubAccountParentNotSelectedForSubmitErrorMessage';
@@ -396,7 +398,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 		const result = await LightningConfirm.open({
 			message: 'Do you want to Finalise ' + this.selectedRows?.length + ' sub account requests? ' + LABEL_FINALISE_CONFIRMATION,
 			theme: 'inverse',
-			label: 'Finalise Sub Account Request(s)',
+			label: LABEL_FINALISE_NOTIFICATION_TITLE,
 		});
 		if (result) {
 			// validate if finalise calls reach the max finalise request
@@ -404,7 +406,17 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 				await LightningAlert.open({
 					message: LABEL_MAX_FINALISE_LIMIT_ERROR,
 					theme: 'error',
-					label: 'Finalise Sub Account Request(s)'
+					label: LABEL_FINALISE_NOTIFICATION_TITLE
+				});
+				return;
+			}
+
+			// validate if parent is selected for offspring follower
+			if (!this.validateRelatedParentAccountRequestsSelected()) {
+				await LightningAlert.open({
+					message: LABEL_PARENT_NOT_SELECTED_FOR_FINALISE_ERROR,
+					theme: 'error',
+					label: LABEL_FINALISE_NOTIFICATION_TITLE
 				});
 				return;
 			}
@@ -424,7 +436,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 						LightningAlert.open({
 							message: this.selectedRows?.length + ' selected sub account request(s) have been finalised.',
 							theme: 'success',
-							label: 'Finalise Sub Account Request(s)'
+							label: LABEL_FINALISE_NOTIFICATION_TITLE
 						});
 
 						this.dispatchEvent(new CustomEvent('finalise', {detail: chargeAccountSubAccounts.length}));
@@ -448,7 +460,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 						LightningAlert.open({
 							message: errorMessages,
 							theme: 'error',
-							label: 'Finalise Sub Account Request(s)'
+							label: LABEL_FINALISE_NOTIFICATION_TITLE
 						});
 					}
 				}).finally(() =>{
