@@ -388,12 +388,16 @@ public with sharing class ProvisionSTBillingAccountsController {
 					APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_Street_Number__c,
 					APT_Sub_Account__c.APT_Street_Address_Street_Name__c, APT_Sub_Account__c.APT_Street_Address_Street_Type__c,
 					APT_Sub_Account__c.APT_Street_Address_Suburb__c, APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c,
-					APT_Sub_Account__c.AccountType__c
+					APT_Sub_Account__c.AccountType__c, APT_Sub_Account__c.APT_Charge_Account__c
 
 			},
 			Contact.SObjectType => new Set<SObjectField>{
 					Contact.Id, Contact.Email, Contact.FirstName, Contact.LastName, Contact.Salutation, Contact.Title,
 					Contact.Phone, Contact.MobilePhone
+			},
+			Billing_Account__c.SObjectType => new Set<SObjectField>{
+					Billing_Account__c.Id, Billing_Account__c.Organisation__c, Billing_Account__c.ABN__c, Billing_Account__c.ACN__c,
+					Billing_Account__c.LEGACY_ID__c
 			}
 		};
 
@@ -402,7 +406,11 @@ public with sharing class ProvisionSTBillingAccountsController {
 				.selectByChargeAcountRequestIdAndStatus(
 						new Set<Id>{chargeAccountRequestId},
 						new Set<String>{'Pending Charge Account'},
-						new Set<Object>{SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT}
+						new Set<Object>{
+								SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT,
+								SubAccountRequestsSelector.Options.WITH_BILLING_ACCOUNT,
+								SubAccountRequestsSelector.Options.WITH_ST_PARENT_BILLING_ACCOUNT
+						}
 				).values();
 
 		// generate the payload for selected sub account request records.
@@ -644,7 +652,7 @@ public with sharing class ProvisionSTBillingAccountsController {
 						APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_Street_Number__c,
 						APT_Sub_Account__c.APT_Street_Address_Street_Name__c, APT_Sub_Account__c.APT_Street_Address_Street_Type__c,
 						APT_Sub_Account__c.APT_Street_Address_Suburb__c, APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c,
-						APT_Sub_Account__c.AccountType__c
+						APT_Sub_Account__c.AccountType__c, APT_Sub_Account__c.APT_Charge_Account__c
 
 				},
 				Contact.SObjectType => new Set<SObjectField>{
