@@ -605,6 +605,13 @@ public without sharing class bspEnquiryUplift {
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
 			&& enq.EstimatedDelivery__c != null 
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
+			Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
+
+			for(Article__c article : savedArticles.values()) {
+				if(article.Articles__r != null && article.Articles__r.size() == 1) {
+					enq.EstimatedDelivery__c = article.Articles__r[0].ExpectedDeliveryDate__c;
+				}
+			}
 			setDirectRoutingValues(enq);
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
