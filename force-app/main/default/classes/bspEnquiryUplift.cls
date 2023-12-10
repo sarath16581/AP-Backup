@@ -403,6 +403,30 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
+	@AuraEnabled(cacheable=true)
+	public static Map<String, String> getCasePicklistValuesByFieldName(String fieldName) {
+		return getPicklistValues(Case.SObjectType, fieldName);
+	}
+
+	public static Map<String, String> getPicklistValues(SObjectType sObjectType, String fieldName){
+		Map<String, String> picklistValuesMap = new Map<String, String>();
+
+		Schema.DescribeFieldResult fieldResult = sObjectType.getDescribe().fields.getMap().get(fieldName).getDescribe();
+
+		if (fieldResult.getType() == Schema.DisplayType.PICKLIST) {
+			List<Schema.PicklistEntry> picklistValues = fieldResult.getPicklistValues();
+
+			for (Schema.PicklistEntry picklistEntry : picklistValues) {
+				picklistValuesMap.put(picklistEntry.getValue(), picklistEntry.getLabel());
+			}
+		} else {
+			// Handle if the field is not a picklist (optional)
+			System.debug('Field ' + fieldName + ' is not a picklist.');
+		}
+
+		return picklistValuesMap;
+	}
+
 	/**
 	 * What it is: method called by the bspFormAPEnquiry LWC to create a Case on submit
 	 * What it does:
