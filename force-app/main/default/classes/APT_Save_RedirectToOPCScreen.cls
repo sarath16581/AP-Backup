@@ -35,9 +35,8 @@ public class APT_Save_RedirectToOPCScreen{
 		}
 	}
 
-	if(!prodConfigListToUpdate.isEmpty()) {
 		ApplicationDatabase.getInstance().dmlUpdate(prodConfigListToUpdate);
-	}
+
 	//Querying the proposal record by passing the proposal id
 	List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance(0,new Set<SObjectField>{Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c}).selectByConfigIds(new Set<Id>{proposalId});
 	for(Apttus_Proposal__Proposal__c proposal:existingProposalList){
