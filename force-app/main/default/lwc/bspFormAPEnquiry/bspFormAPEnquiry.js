@@ -1,3 +1,7 @@
+/*
+* --------------------------------------- History --------------------------------------------------
+* 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
+*/
 import {LightningElement, track, wire, api} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
 import { checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight } from 'c/bspCommonJS';
@@ -6,6 +10,9 @@ import initMissingItemFormApex from '@salesforce/apex/bspEnquiryUplift.initMissi
 import createEnquiryAusPost from '@salesforce/apex/bspEnquiryUplift.createEnquiryAusPost';
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
 import search from '@salesforce/apexContinuation/BSPConsignmentSearchUplift.search';
+
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
 
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
 
@@ -64,6 +71,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	@track searchResult;
 	enteredTrackingNumber='';
 	isDisplayDeliveryStatus = false;
+
+	//analytics variables
+	pageName = 'auspost:bsp:ap:lostormissingparcel';	
+
 	/**
 	 * Initialize the lwc, waits for the page url to be available first. This is to avoid order of execution
 	 * issues between loading the static picklist data and preloaded consignment ID for search (if any)
@@ -216,9 +227,11 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		{
 			case 'delivery':
 				this.formTitle = 'Create a delivery issue enquiry';
+				this.pageName = 'auspost:bsp:ap:deliveryissue';
 				break;
 			case 'rts':
 				this.formTitle = 'Create a Return To Sender enquiry';
+				this.pageName = 'auspost:bsp:ap:returntosender';
 				break;
 
 			case 'missing item':
@@ -582,10 +595,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.getAddressesFromInput();
 
 		createEnquiryAusPost({
-		    enq: this.tempCase,
+			enq: this.tempCase,
 			uploadedFiles: this.uploadedFiles,
 			additionalData: {containsEssentialMedicine: this.isContainsMedication, isSentimental: this.isSentimental}
-        }).then(result =>{
+		}).then(result =>{
 			if(result.status == 'error'){
 				this.errorMessage = result.message;
 			} else {
@@ -594,9 +607,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			}
 			this.showSpinner = false;
 		}).catch(error => {
-            console.error('error occured');
-            console.error(error);
-            this.showSpinner = false;
+			console.error('error occured');
+			console.error(error);
+			this.showSpinner = false;
 		});
 
 	}
@@ -688,4 +701,17 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	debugLog(sLog) {
 		this.logs.push(sLog);
 	}
+
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
+	}		
 }

@@ -5,17 +5,24 @@
 * --------------------------------------- History --------------------------------------------------
 * 24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
 * 15/08/2023		hasantha.liyanage@auspost.com.au	added credit claim form tiles
+* 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
 */
 
 import { LightningElement ,wire, api} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getUserBillingAccountScope from '@salesforce/apex/bspEnquiryUplift.getUserBillingAccountScope'
 
+//adobe analytics
+import { analyticsTrackPageLoad } from 'c/adobeAnalyticsUtils';
+
 export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningElement) {
 
 	@api trackingId;  //Jansi added
 	accordianSection = '';
 	userBillingAccountScope;
+
+	//analytics variables
+	pageName = 'auspost:bsp:landing';
 
 	@wire(getUserBillingAccountScope)
 	allConstants({
@@ -92,5 +99,18 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 				userBillingAccountScope : this.userBillingAccountScope
 			}
 		}, false);
+	}
+
+	connectedCallback() {
+		this.pushPageAnalyticsOnLoad();
+	}
+
+	pushPageAnalyticsOnLoad(){
+		const pageData = {
+			sitePrefix: 'auspost:bsp',
+			pageAbort: 'true',
+			pageName: this.pageName
+		};
+		analyticsTrackPageLoad(pageData);
 	}
 }
