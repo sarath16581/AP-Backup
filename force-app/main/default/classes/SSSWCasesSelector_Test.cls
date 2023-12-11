@@ -148,7 +148,6 @@ public with sharing class SSSWCasesSelector_Test {
 
 		selector = SSSWCasesSelector.newInstance();
 		System.assertNotEquals(null, selector.selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}), 'Invalid query locator');
-		Test.stopTest();
 
 	}
 }

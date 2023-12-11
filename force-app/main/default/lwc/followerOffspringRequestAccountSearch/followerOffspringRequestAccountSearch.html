@@ -1,0 +1,72 @@
+<template>
+	<label class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Parent Account Number</label>
+	<div class="slds-box slds-box_small">
+		<template if:false={selectedAccount}>
+			<lightning-input data-name="search-input" variant="label-hidden" type="search" onchange={handleAccountSearch} value={searchValue} required></lightning-input>
+		</template>
+		<template if:true={selectedAccount}>
+			<lightning-pill-container is-expanded items={selectedAccountPill} onitemremove={handleClearSelectedAccount}></lightning-pill-container>
+		</template>
+		<div class="slds-grid slds-p-top_small slds-p-right_small">
+			<div class="slds-form-element slds-box slds-box_x-small slds-size_1-of-2 slds-m-right_small">
+				<lightning-icon icon-name="standard:custom" size="small" class="slds-m-right_small"></lightning-icon>
+				<label class="slds-form-element__label slds-text-title_caps">Sub Account Requests</label>
+				<template lwc:if={hasMatchedSubAccounts}>
+					<div class="slds-scrollable slds-grow slds-p-top_small" style="max-height:240px;">
+						<table class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols">
+							<thead></thead>
+							<tbody>
+							<template for:each={matchedFollowerSubAccounts} for:item="acc">
+								<tr class="slds-hint-parent" key={acc.Id}>
+									<th scope="row" class="slds-text-align_left">
+										<slot>
+											<p class="slds-text-body_regular">{acc.Name}</p>
+										</slot>
+									</th>
+									<td>
+										<lightning-input type="checkbox-button" name={acc.Id} checked={acc.isSelected} disabled={acc.isDisabled} onchange={handleSelectAccount} variant="label-hidden"></lightning-input>
+									</td>
+								</tr>
+							</template>
+							</tbody>
+						</table>
+					</div>
+				</template>
+				<template lwc:else>
+					<div class="slds-text-title_caps slds-align_absolute-center"><p>{noResults}</p></div>
+				</template>
+			</div>
+			<template lwc:if={showExistingBillingAccount}>
+				<div class="slds-form-element slds-box slds-box_x-small slds-size_1-of-2 slds-m-right_small">
+					<lightning-icon icon-name="custom:custom99" size="small" class="slds-m-right_small"></lightning-icon>
+					<label class="slds-form-element__label slds-text-title_caps">Existing Billing Accounts</label>
+					<template lwc:if={hasMatchedBillingAccounts}>
+						<div class="slds-scrollable slds-grow slds-p-top_small" style="max-height:240px;">
+							<table class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols">
+								<thead></thead>
+								<tbody>
+								<template for:each={matchedFollowerBillingAccounts} for:item="acc">
+									<tr class="slds-hint-parent" key={acc.Id}>
+										<th scope="row" class="slds-text-align_left">
+											<slot>
+												<p class="slds-text-body_regular">{acc.Name}</p>
+												<p class="slds-text-body_small">{acc.LEGACY_ID__c}</p>
+											</slot>
+										</th>
+										<td>
+											<lightning-input data-id="billing-account-input" type="checkbox-button" name={acc.Id} checked={acc.isSelected} disabled={acc.isDisabled} onchange={handleSelectAccount} variant="label-hidden"></lightning-input>
+										</td>
+									</tr>
+								</template>
+								</tbody>
+							</table>
+						</div>
+					</template>
+					<template lwc:else>
+						<div class="slds-text-title_caps slds-align_absolute-center"><p>{noResults}</p></div>
+					</template>
+				</div>
+			</template>
+		</div>
+	</div>
+</template>

@@ -25,6 +25,8 @@
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
  * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
+ * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
+ *
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -207,6 +209,37 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 */
 	public virtual Map<Id, Case> selectByReferenceIdOrderByCreatedDate(Set<String> referenceIds) {
 		return selectByReferenceIdOrderByCreatedDate(referenceIds, new Set<Object>());
+	}
+
+	/**
+	 * @param accountIds account ids
+	 * @param selectorOptions selectorOptions
+	 * @description returns the closed case record by account id before a given number of months
+	 *
+	 * @return QueryBuilder
+	 */
+	public Map<Id,Case> getClosedCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Case.AccountId + ' in : accountIds'))
+				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
+				.endConditions();
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @param accountIds account ids
+	 * @param selectorOptions selectorOptions
+	 * @description return the open case by the given account ids
+	 * @return Map<Id,Case>
+	 */
+	public Map<Id,Case> getOpenCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions){
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Case.AccountId + ' in : accountIds'))
+				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
+				.endConditions();
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 
 	/**

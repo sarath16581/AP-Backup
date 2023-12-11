@@ -1,0 +1,7 @@
+/**
+ * 2023-11-03 - Ranjeewa Silva - Created.
+ */
+.validation-errors-panel {
+	max-height:300px;
+	overflow-y:auto;
+}

@@ -49,15 +49,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CreateBillingAccountControllerForTeams</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CreateSubAccountHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CreateSubAccountsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FollowerOffspringRequestController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -81,6 +81,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ProvisionSTBillingAccountsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TH_Assignments</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -99,6 +103,10 @@
     <customPermissions>
         <enabled>true</enabled>
         <name>BG_Core</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Submit_Sub_Account_Provisioning_Request</name>
     </customPermissions>
     <description>Provides permissions common to all B&amp;G Sales users, regardless of job role.</description>
     <fieldPermissions>
@@ -217,6 +225,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Sub_Account__c.AccountType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>APT_Sub_Account__c.Contact_Name__c</field>
         <readable>true</readable>
@@ -229,6 +242,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Sub_Account__c.Lodgement_Point_to_Work_Centre_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Sub_Account__c.ParentAccountRequest__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Sub_Account__c.ParentBillingAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -367,6 +390,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.BillingAccountType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Billing_Account__c.Credit_Representative_Email__c</field>
         <readable>true</readable>
@@ -374,6 +402,56 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Billing_Account__c.Is_Intermediary_Account_StarTrack__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.LeaderAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalCountry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalPostalCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalStreet__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.PhysicalSuburb__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.SiteContactEmail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.SiteContactFirstName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.SiteContactLastName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.SiteContactTelephone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3105,6 +3183,10 @@
         <recordType>Task.Sales_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Create_Sub_Accounts</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Customer_Scoping_Questionnaire__c</tab>
         <visibility>Available</visibility>

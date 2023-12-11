@@ -11,6 +11,7 @@
 * 2021-05-19 - avula.jansirani@auspost.com.au - added bca methods
 * 2022-08-08 - Seth Heang - Added test method to cover Rating Plan Activation changes
 * 2023-03-23 - Sarath.burra@auspost.com.au - CI-613 Added Contract Line Items to check for Service commencement date and Service expiry date as sent in i5 request
+* 2023-11-03 - Ranjeewa Silva - Updated to fix test case where new sub account requests can only be created in 'Draft' status.
 */
 	@IsTest
 public with sharing class CreateBillingAccountController_Test {
@@ -92,9 +93,9 @@ public with sharing class CreateBillingAccountController_Test {
 
 	/**
 	 * @description Test method on by simulating the mock Charge + Sub Account Request Payload to Camunda
-	 *              Due to limitation of the ApplicationTestDataFactory + Selector Framework, where we need to query two layers deep in a relationship based on fake ID,
-	 *              the selector query does not work. As such, I have used actual DML operation for this method.
-	 *              - Seth.Heang@auspost.com.au
+	 *			  Due to limitation of the ApplicationTestDataFactory + Selector Framework, where we need to query two layers deep in a relationship based on fake ID,
+	 *			  the selector query does not work. As such, I have used actual DML operation for this method.
+	 *			  - Seth.Heang@auspost.com.au
 	 */
 	@IsTest
 	private static void generateExternalOnboardingRecordTest() {
@@ -179,6 +180,7 @@ public with sharing class CreateBillingAccountController_Test {
 		dealSupportRequest.Organisation__c = account.id;
 		insert dealSupportRequest;
 		subAccountRequest.APT_Charge_Account__c = chargeAccountRequest.Id;
+		subAccountRequest.APT_Sub_Account_Request_Status__c = 'Draft';
 		subAccountRequest.SubAccountContact__c = primaryContact.id;
 		insert subAccountRequest;
 

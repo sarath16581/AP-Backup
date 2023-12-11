@@ -1,0 +1,10 @@
+<template>
+	<template lwc:if={hasPageReferenceState}>
+		<template lwc:if={isTEAMRequest}>
+			<c-create-follower-offspring-request record-id={recordId} is-billing-account={isBillingAccount}></c-create-follower-offspring-request>
+		</template>
+		<template lwc:else>
+			<c-create-sub-accounts-request record-id={recordId} initial-load={initialLoad}></c-create-sub-accounts-request>
+		</template>
+	</template>
+</template>

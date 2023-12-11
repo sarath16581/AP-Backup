@@ -24,7 +24,8 @@
 * 2021-05-21 - Dheeraj Mandavilli - STP 5839 - Added logic to switch between LWC component and VF page based upon Teams vs SAP from Credit Asessment process initiated from Propsoal Record.
 * 2021-06-08 - Seth Heang - STP 5389 - Pre-populate Trustee Name and Trustee ACN from Opportunity
 * 2023-03-02 - Harry Wang - STP-7602 - adding new parameter: contextId allowing redirect based on contextId
-* Ken McGuire 2023.04.19 Proposal field migration to opportunity
+* 2023-04-19 - Ken McGuire - Proposal field migration to opportunity
+* 2023-11-26 - Harry Wang - Adding navigation to Create_Sub_Accounts lightning component tab
 */
 
 public with sharing class Apt_CreditAssessmentController {
@@ -1192,7 +1193,10 @@ public with sharing class Apt_CreditAssessmentController {
 				if(proposal?.Apttus_Proposal__Opportunity__r?.IsStartrackProposal__c == 'No'){
 					redirectPage = Page.SubAcctReqFormCmpfromCreditAssesment;
 				}else{
-					redirectPage = Page.APT_SubAccountAssessment;
+					redirectPage = new PageReference('/lightning/n/Create_Sub_Accounts');
+					redirectPage.getParameters().put('c__isTEAMRequest', String.valueOf(true));
+					redirectPage.getParameters().put('c__recordId', chargeAccount.Id);
+					redirectPage.getParameters().put('c__isBillingAccount', String.valueOf(false));
 				}
 				redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
 				redirectPage.getParameters().put('contextId', contextId);
@@ -1231,6 +1235,7 @@ public with sharing class Apt_CreditAssessmentController {
 	**/
 	public void sendEmailAccountFlow(){
 		try {
+			// URL.getSalesforceBaseUrl() is no longer be usable post 59.0, should be removed in future work
 			String body  = APT_Constants.MAIL_DEAR_ALL
 					+ APT_Constants.MAIL_CHARGE_ACCOUNT + account.Name + APT_Constants.MAIL_HAS_BEEN_REFERRED
 					+ APT_Constants.MAIL_CREDIT_ASSESSMENT_UNDER_FOLLOWING+ URL.getSalesforceBaseUrl().toExternalForm() + APT_Constants.SEPERATOR_BACKWARD_SLASH + accountId + APT_Constants.SEPARATOR_GREATER_THAN_CHANGE + account.Name+APT_Constants.MAIL_TAGS_AP;

@@ -14,6 +14,7 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-05-30 - Seth Heang - Added PAYER_ACCOUNT_ID related list and selectByOrgId method
  * 2023-07-10 - Mahesh Parvathaneni - Added options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
+ * 2023-10-27 - Harry Wang - Added method selectByLeaderAccountId and option FILTER_TYPE_FOLLOWER
  */
 public virtual inherited sharing class BillingAccountsSelector extends ApplicationSelector {
 
@@ -23,7 +24,8 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		FILTER_ACTIVE,
 		WITH_PAYER_ACCOUNT_ID,
 		FILTER_TYPE_NOT_IN_SBBA_CASH,
-		FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
+		FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT,
+		FILTER_TYPE_FOLLOWER
 	}
 
 	public static String sortOrder ='Desc';
@@ -109,7 +111,6 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition('Id in :ids')).endConditions();
 		//QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		qb.addConditions().add(new QueryBuilder.SimpleCondition(Billing_Account__c.LEGACY_ID__c + ' in :accountNumbers')).setConditionOrder('1 OR 2').endConditions();
-		system.debug('****Billing account query****'+qb.toSoqlString());
 		return new Map<Id, Billing_Account__c>((List<Billing_Account__c>)Database.query(qb.toSoqlString()));
 	}
 
@@ -152,6 +153,16 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		return new Map<Id, Billing_Account__c>((List<Billing_Account__c>)Database.query(soql));
 	}
 
+	/**
+	 * @description Select billing accounts by leader account id
+	 * @param leaderAccountIds leader account Id
+	 * @param selectorOptions selector options
+	 * @return matching list of billing accounts
+	 */
+	public List<Billing_Account__c> selectByLeaderAccountId(Set<Id> leaderAccountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Billing_Account__c.LeaderAccount__c + ' in :leaderAccountIds')).endConditions();
+		return (List<Billing_Account__c>)Database.query(qb.toSoqlString());
+	}
 
 	public override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
@@ -182,6 +193,10 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 		if (selectorOptions.contains(Options.FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT)) {
 			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.Source_System__c).ne('PeopleSoft')).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_TYPE_FOLLOWER)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.BillingAccountType__c).eq('Follower')).endConditions();
 		}
 
 		return builder;

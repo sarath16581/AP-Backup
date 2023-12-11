@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ParentBillingAccount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Indicates the StarTrack billing account responsible for paying the invoice when payer account is already provisioned in TEAM. Only used for StarTrack billing accounts managed in TEAM.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates the StarTrack billing account responsible for paying the invoice when payer account is already provisioned in TEAM.</inlineHelpText>
+    <label>Parent Billing Account</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Billing_Account__c.LeaderAccount__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.APT_Billing_Account__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Billing_Account__c</referenceTo>
+    <relationshipLabel>Offspring Account Requests</relationshipLabel>
+    <relationshipName>OffspringAccountRequests</relationshipName>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

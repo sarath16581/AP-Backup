@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NDaysAgo__c</fullName>
+    <defaultValue>3</defaultValue>
+    <description>This is how far the class will look back to find the qualified records. This value is used to compare with ClosedDateTime__pc field</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is how far the class will look back to find the qualified records. This value is used to compare with ClosedDateTime__pc field</inlineHelpText>
+    <label>N Days Ago</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,158 +1,107 @@
 <!--
 /* @author
  * @date 2021-03-09
- * @group Billing Accounts
- * @tag Billing Account
  * @description: Billing Account Creation modal popup . Used for showing the attributes/ validation message if exists
- *               and triggering the billing account creation request.
+ *			   and triggering the billing account creation request.
  * @changelog
  * 2021-03-09 dheera.mandavilli@auspost.com.au Created
+ * 2023-10-31 - Ranjeewa Silva - Refactored the component and added support for sub account provisioning.
  *
  -->
 <template>
-    <header class="slds-modal__header">
-        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><b>TEAM Billing Account Request</b></h2>
-    </header>
-    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-        <div if:true={showSpinner} class="slds-is-relative">
-            <lightning-spinner variant="brand" size="medium"></lightning-spinner>
-        </div>
-        <template if:false={showSpinner}>
-            <template if:false={submitRequestInProgress}>
-                <div class="slds-m-around_medium">
-                    <template if:true={billingAccount}>
-                        <lightning-layout multiple-rows="true">
-                            <lightning-layout-item size="12">
-                                <div class="slds-form-element  slds-m-bottom_medium">
-                                            <span class="slds-form-element__label slds-form-element__legend">
-                                                What sender name should be displayed on parcel labels
-                                            </span>
-                                    <lightning-helptext content="This may be different to the Legal Entity and Trading Names" ></lightning-helptext>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">
-                                            <lightning-input type="text" variant="label-hidden" value={billingAccountName} onchange={billingAccountNameHandler} max-length="25"></lightning-input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">Legal Entity Name</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{legalEntityName}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">Registered Trading Name</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{tradingName}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
+	<lightning-quick-action-panel header={label.provisionBillingAccountModalTitle} class="slds-is-relative">
 
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">Primary Contact Email</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{billingAccount.team.organisations.primaryContact.email}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
+		<template lwc:if={hasPermissionsToSubmitLeaderAccountProvisioningRequests}>
+			<!-- current user has permissions to submit provisioning requests -->
+			<template lwc:if={showRequestDetails}>
+				<!-- details of the provisioning request -->
+				<lightning-layout multiple-rows="true" class="slds-p-horizontal_large slds-p-bottom_medium">
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Legal Entity Name' value={preConditionCheckResult.dealSupportRequest.Organisation__r.Name}>
+						</c-formatted-text-label>
+					</lightning-layout-item>
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Registered Trading Name' value={preConditionCheckResult.dealSupportRequest.Organisation__r.Organisation_Trading_Name__c}>
+						</c-formatted-text-label>
+					</lightning-layout-item>
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Primary Contact Email' value={preConditionCheckResult.requestPayload.team.organisations.primaryContact.email}>
+						</c-formatted-text-label>
+					</lightning-layout-item>
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Phone' value={preConditionCheckResult.requestPayload.team.organisations.primaryContact.phone} help-text="Primary Contact Phone">
+						</c-formatted-text-label>
+					</lightning-layout-item>
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Street Address' value={preConditionCheckResult.requestPayload.team.organisations.billingAddress.addressLine1} help-text="Billing Street">
+						</c-formatted-text-label>
+					</lightning-layout-item>
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Suburb Or City' value={preConditionCheckResult.requestPayload.team.organisations.billingAddress.suburb} help-text="Billing City">
+						</c-formatted-text-label>
+					</lightning-layout-item>
+					<lightning-layout-item size="6">
+						<c-formatted-text-label label='Postcode' value={billingPostCodeDisplayString} help-text="Billing Postcode">
+						</c-formatted-text-label>
+					</lightning-layout-item>
+				</lightning-layout>
+			</template>
 
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">Phone</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{billingAccount.team.organisations.primaryContact.phone}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">Street Address</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{billingAccount.team.organisations.billingAddress.addressLine1}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">Suburb Or City</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{billingAccount.team.organisations.billingAddress.suburb}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
-                            <lightning-layout-item size="6">
-                                <div class="slds-form-element slds-form-element_readonly">
-                                    <span class="slds-form-element__label slds-form-element__legend">PostCode</span>
-                                    <div class="slds-form-element__control">
-                                        <div class="slds-form-element__static">{billingAccount.team.organisations.billingAddress.postcode}</div>
-                                    </div>
-                                </div>
-                            </lightning-layout-item>
+			<template lwc:if={statusInformation}>
+				<!-- status notification -->
+				<div class={statusInformationStyleClass} role="status">
+					<div class="slds-media__figure">
+						<lightning-icon icon-name={statusInformationIconName} size="x-small" variant="inverse"></lightning-icon>
+					</div>
+					<div class="slds-media__body">
+						<p>{statusInformation.message}</p>
+					</div>
+				</div>
+				<template lwc:if={statusInformation.additionalInformation}>
+					<div class="slds-box slds-box_small slds-theme_shade">
+						<lightning-formatted-rich-text value={statusInformation.additionalInformation}></lightning-formatted-rich-text>
+					</div>
+				</template>
+			</template>
 
-                        </lightning-layout>
-                    </template>
+			<template lwc:if={hasValidationErrors}>
+				<!-- pre-condition check validation errors-->
+				<div class="slds-box slds-box_small slds-theme_shade validation-errors-panel">
+					<ul class="slds-list_dotted slds-m-vertical_x-small">
+						<template for:each={preConditionCheckResult.errorMessages} for:item="errorMessage">
+							<li key={errorMessage} class="slds-m-bottom_x-small slds-text-color_error">
+								<span class="slds-line-clamp_small slds-text-color_error" title={errorMessage}>{errorMessage}</span>
+							</li>
+						</template>
+					</ul>
+				</div>
+			</template>
 
+		</template>
 
-                    <div class="slds-p-top_large">
-                        <template if:true={showValidationMessageFlag}>
-                            <p class="slds-text-color_error">Please resolve the below issues for billing account creation and try again:</p>
-                            <template for:each={fieldList} for:item="field">
-                                <li key={errClose} class="slds-m-top_x-small slds-list_dotted">
-                                    {field}
-                                </li>
-                            </template>
-                        </template>
-                    </div>
-                </div>
-            </template>
-        </template>
-        <template if:true={submitRequestInProgress}>
-            <div if:true={inProgressSpinner} class="slds-is-relative">
-                <lightning-spinner variant="brand" size="small"></lightning-spinner>
-            </div>
-            <template if:true={dsrStatusAsRequested}>
-                <h1 class="slds-text-heading_small "><b>Billing account creation request is in progress for this Deal Support Request.</b></h1>
-            </template>
-            <template if:true={dsrStatusAsCompleted}>
-                <h1 class="slds-text-heading_small "><b>Billing account has already been created for this Deal Support Request.</b></h1>
-            </template>
+		<template lwc:else>
+			<!-- current user does not have permissions to submit provisioning requests. granted through custom permission -->
+			<div class="slds-scoped-notification slds-media slds-media_center slds-theme_error" role="status">
+				<div class="slds-media__body">
+					<p>{label.submitPermissionsErrorMessage}</p>
+				</div>
+			</div>
+		</template>
 
-            <template if:true={integrationInitiated}>
-                <template if:false={submitRequestComplete}>
-                    <h1 class="slds-text-heading_small slds-p-top_large"><b>Submitting Billing Account Creation request...</b></h1>
-                </template>
-                <template if:true={submitRequestComplete}>
-                    <template if:true={billingAccountCreationSuccessful}>
-                        <h1 class="slds-text-heading_small slds-p-top_large"><b>Billing account creation request submitted successfully. You may close this window now.</b></h1>
-                        <h1 class="slds-text-heading_small slds-p-top_large"><b>Once successful record creation in the billing system, the billing account and its associated information will be made available in Salesforce.</b></h1>
-                    </template>
-                    <template if:false={billingAccountCreationSuccessful}>
-                        <!-- <h1 class="slds-text-heading_small slds-p-top_large"><b>{failedErrMsg}</b></h1>-->
-                        <lightning-formatted-rich-text
-                                value={failedErrMsg}
-                        ></lightning-formatted-rich-text>
-                    </template>
-                </template>
-            </template>
-        </template>
+		<div slot="footer">
+			<!-- modal popup footer-->
+			<lightning-button variant="neutral" onclick={handleCancel} label={cancelButtonLabel}></lightning-button>
+			<template lwc:if={submitVisible}>
+				<lightning-button variant="brand" onclick={handleSubmitRequest} disabled={submitDisabled} label='Submit Request' class="slds-m-left_x-small"></lightning-button>
+			</template>
+		</div>
 
-    </div>
+		<template if:true={showSpinner}>
+			<div class="slds-text-align_center slds-grow">
+				<lightning-spinner variant="brand" size="medium" alternative-text="Loading..">
+				</lightning-spinner>
+			</div>
+		</template>
 
-    <footer class="slds-modal__footer">
-        <template if:false={submitRequestInProgress}>
-            <button class="slds-button slds-button_neutral" onclick={cancel} >Cancel</button>
-            <button class="slds-button slds-button_brand" onclick={submitRequestHandler} disabled={disableSubmitRequestBtn}>Submit Request</button>
-        </template>
-        <template if:true={submitRequestInProgress}>
-            <button class="slds-button slds-button_neutral" onclick={cancel} >Close</button>
-            <button class="slds-button slds-button_brand" onclick={submitRequestHandler} disabled>Submit Request</button>
-        </template>
-
-    </footer>
-
+	</lightning-quick-action-panel>
 </template>
