@@ -16,6 +16,7 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
+11/12/2023	hasantha.liyanage@auspost.com.au added logic to prevent modification to Case.EstimatedDelivery__c field on the UI and added getCasePicklistValuesByFieldName()
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -603,9 +604,15 @@ public without sharing class bspEnquiryUplift {
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
-			&& enq.EstimatedDelivery__c != null 
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-			setDirectRoutingValues(enq);
+			// make sure the delivery date retrieved via the search has not being compromised from the client side
+			Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
+			for(Article__c article : savedArticles.values()) {
+				enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
+			}
+            if (enq.EstimatedDelivery__c != null){
+				setDirectRoutingValues(enq);
+			}
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
