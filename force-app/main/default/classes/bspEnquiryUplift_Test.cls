@@ -981,6 +981,9 @@ private class bspEnquiryUplift_Test {
 		System.assertEquals(articles[0].ExpectedDeliveryDate__c, newCase.EstimatedDelivery__c, 'Result contains an error: ' );
 	}
 
+	/**
+	 * testing of reading the pick list values using object and the field api names
+	 */
 	@isTest
 	static void testGetCasePicklistValuesByFieldName() {
 
