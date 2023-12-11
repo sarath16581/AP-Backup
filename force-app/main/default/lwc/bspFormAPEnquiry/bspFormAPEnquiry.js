@@ -2,7 +2,6 @@
 * --------------------------------------- History --------------------------------------------------
 * 07/12/2023		thang.nguyen231@auspost.com.au		added adobe analytics details
 */
-
 import {LightningElement, track, wire, api} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
 import { checkAllValidity, checkCustomValidity, topGenericErrorMessage, scrollToHeight } from 'c/bspCommonJS';
@@ -596,10 +595,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.getAddressesFromInput();
 
 		createEnquiryAusPost({
-		    enq: this.tempCase,
+			enq: this.tempCase,
 			uploadedFiles: this.uploadedFiles,
 			additionalData: {containsEssentialMedicine: this.isContainsMedication, isSentimental: this.isSentimental}
-        }).then(result =>{
+		}).then(result =>{
 			if(result.status == 'error'){
 				this.errorMessage = result.message;
 			} else {
@@ -608,9 +607,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 			}
 			this.showSpinner = false;
 		}).catch(error => {
-            console.error('error occured');
-            console.error(error);
-            this.showSpinner = false;
+			console.error('error occured');
+			console.error(error);
+			this.showSpinner = false;
 		});
 
 	}
@@ -703,9 +702,9 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		this.logs.push(sLog);
 	}
 
-    connectedCallback() {
+	connectedCallback() {
 		this.pushPageAnalyticsOnLoad();
-    }
+	}
 
 	pushPageAnalyticsOnLoad(){
 		const pageData = {
