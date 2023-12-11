@@ -403,11 +403,25 @@ public without sharing class bspEnquiryUplift {
 		return options;
 	}
 
+	/**
+	 * In the Springboard project, we want to display the labels of picklist values in the UI instead of the picklist value API names.
+	 * Rather than modifying the API names themselves, this method will retrieve and use the label values for display in the UI.
+	 * @param fieldName picklist field API name
+	 *
+	 * @return map of API name to labels picklist values
+	 */
 	@AuraEnabled(cacheable=true)
 	public static Map<String, String> getCasePicklistValuesByFieldName(String fieldName) {
 		return getPicklistValues(Case.SObjectType, fieldName);
 	}
 
+	/**
+	 * Read the pick list values using object and the field api names
+	 * @param sObjectType object name to retrive the picklist values
+	 * @param fieldName API name of the picklist field
+	 *
+	 * @return map of API name to labels picklist values
+	 */
 	public static Map<String, String> getPicklistValues(SObjectType sObjectType, String fieldName){
 		Map<String, String> picklistValuesMap = new Map<String, String>();
 
