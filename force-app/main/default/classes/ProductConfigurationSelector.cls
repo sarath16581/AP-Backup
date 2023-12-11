@@ -11,7 +11,6 @@
  * 22-11-30 - NAsir Jawed - Added methods selectByProposalIdAndStatusWithOrder
  * 2023-07-26 - NAsir Jawed - Added OwnerId field to query
  * 2023-10-31 - Ranjeewa Silva - Added search method with related proposal ids and product configuration status as supported search parameters.
- * 2023-12-01 - Bharat Patel - Added APT_Configuration_Update_Version__c field to query
  */
 public virtual inherited sharing class ProductConfigurationSelector extends ApplicationSelector {
 	public enum Options {
@@ -50,7 +49,7 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 				Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name,
-				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c,Apttus_Config2__ProductConfiguration__c.OwnerId, Apttus_Config2__ProductConfiguration__c.APT_Configuration_Update_Version__c
+				Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c,Apttus_Config2__ProductConfiguration__c.OwnerId
 		};
 	}
 
