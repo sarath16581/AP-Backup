@@ -941,4 +941,17 @@ private class bspEnquiryUplift_Test {
 			System.assert(comment.CommentBody.containsIgnoreCase('Enquiry Details'), 'BSP case should have Enquiry Details written to the Comment');
 		}
 	}
+
+	@isTest
+	static void testGetCasePicklistValuesByFieldName() {
+
+		// Call the method to get picklist values
+		Map<String, String> picklistValues = bspEnquiryUplift.getCasePicklistValuesByFieldName('ReasonforCreditClaim__c');
+
+		// Verify that the picklist values map is not null and contains expected values
+		System.assertNotEquals(null, picklistValues);
+
+		// Verify that the picklist value label is correct
+		System.assertEquals('Annual PO Box charge', picklistValues.get('Annual PO box charge'));
+	}
 }
