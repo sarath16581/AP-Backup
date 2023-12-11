@@ -942,6 +942,45 @@ private class bspEnquiryUplift_Test {
 		}
 	}
 
+	/**
+	 * User should not be able to change the value of the  Case.EstimatedDelivery__c field on the client's browser
+	 * this is to test even if the user changes the value, it will query for the original value and update in the case
+	 */
+	@IsTest
+	public static void testCreateEnquiryAusPostEstimatedDeliveryDateUnchanged() {
+		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, false)[0];
+		insert consignment;
+		List<Article__c> articles = [SELECT Id, Billing_Account__c FROM Article__c WHERE Name =: ARTICLE_NAME];
+		articles[0].ExpectedDeliveryDate__c = Date.today().addDays(10);
+		update articles[0];
+		bspEnquiryUplift.CreateEnquiryWrapper result;
+		User commUser = setupCommunityUser();
+		System.runAs(commUser) {
+			Test.startTest();
+			// domestic parcel
+			Case enq = new Case();
+			enq.ReferenceID__c = ARTICLE_NAME;
+			enq.CCUYourReference__c = 'test reference';
+			enq.Description = 'test enquiry';
+			enq.Description_of_contents__c = 'test items';
+			enq.CCUEnquiryType__c = BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM;
+			enq.ArticleType__c = PARCEL;
+			enq.CCUServiceUsed__c = METRO;
+			enq.BSP_Addressee_Company__c = 'test receiver company';
+			enq.BSP_Addressee_Name__c = 'testfname testlname';
+			enq.ArticleTest__c = articles[0].Id;
+			enq.EstimatedDelivery__c = Date.today().addDays(-10);
+			bspEnquiryUplift.BSPFormAdditionalData additionalData = new bspEnquiryUplift.BSPFormAdditionalData();
+			additionalData.containsEssentialMedicine = 'no';
+			additionalData.isSentimental = 'no';
+			result = bspEnquiryUplift.createEnquiryAusPost(enq, new List<Map<String, String>> (), additionalData);
+			Test.stopTest();
+		}
+
+		Case newCase = [SELECT Id, EstimatedDelivery__c FROM Case WHERE Id =: result.enquiry.Id LIMIT 1];
+		System.assertEquals(articles[0].ExpectedDeliveryDate__c, newCase.EstimatedDelivery__c, 'Result contains an error: ' );
+	}
+
 	@isTest
 	static void testGetCasePicklistValuesByFieldName() {
 

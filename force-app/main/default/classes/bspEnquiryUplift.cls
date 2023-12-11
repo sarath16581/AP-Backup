@@ -603,16 +603,15 @@ public without sharing class bspEnquiryUplift {
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
-			&& enq.EstimatedDelivery__c != null 
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
+			// make sure the delivery date retrieved via the search has not being compromised from the client side
 			Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
-
 			for(Article__c article : savedArticles.values()) {
-				if(article.Articles__r != null && article.Articles__r.size() == 1) {
-					enq.EstimatedDelivery__c = article.Articles__r[0].ExpectedDeliveryDate__c;
-				}
+				enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
 			}
-			setDirectRoutingValues(enq);
+            if (enq.EstimatedDelivery__c != null){
+				setDirectRoutingValues(enq);
+			}
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
