@@ -16,6 +16,7 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
+11/12/2023	hasantha.liyanage@auspost.com.au added logic to prevent modification to Case.EstimatedDelivery__c field on the UI and added getCasePicklistValuesByFieldName()
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
