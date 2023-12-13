@@ -610,6 +610,18 @@ public without sharing class bspEnquiryUplift {
 			for(Article__c article : savedArticles.values()) {
 				enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
 			}
+
+			// TODO : poc only
+			String reference = enq.referenceID__c;
+			TIBCOSearchResult trackRes = TIBCOArticleService.searchArticles(new List<String> {reference});
+			List<TIBCOTrackingResultWrapper> trackResults = trackRes.trackResults;
+			for(TIBCOTrackingResultWrapper res : trackResults) {
+				if(res.articleDetails.proxyArticle.ArticleID__c == reference) {
+					enq.EstimatedDelivery__c = res.articleDetails.proxyArticle.ExpectedDeliveryDate__c;
+				}
+			}
+
+
             if (enq.EstimatedDelivery__c != null){
 				setDirectRoutingValues(enq);
 			}
