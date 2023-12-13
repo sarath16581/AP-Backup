@@ -48,9 +48,7 @@ trigger APT_ConfigurationTrigger on Apttus_Config2__ProductConfiguration__c (bef
 			if(((trigger.oldmap.get(proConfig.id).Apttus_Config2__Status__c!=proConfig.Apttus_Config2__Status__c
 				&& syncStatus.Contains(proConfig.Apttus_Config2__Status__c)) ||
 				('Saved'.equalsIgnoreCase(proConfig.Apttus_Config2__Status__c) &&
-					(trigger.oldmap.get(proConfig.id).Apttus_Config2__NumberOfItems__c != proConfig.Apttus_Config2__NumberOfItems__c ||
-					trigger.oldmap.get(proConfig.id).APT_Configuration_Update_Version__c != proConfig.APT_Configuration_Update_Version__c ))) && proConfig.Dov_Type__c != 'Decrease Revenue'){
-
+					trigger.oldmap.get(proConfig.id).APT_Configuration_Update_Version__c != proConfig.APT_Configuration_Update_Version__c )) && proConfig.Dov_Type__c != 'Decrease Revenue'){
 						prodConfigIdSet.add(proConfig.id);
 						quoteIdSet.add(proConfig.Apttus_QPConfig__Proposald__c);
 			}
