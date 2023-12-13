@@ -607,21 +607,22 @@ public without sharing class bspEnquiryUplift {
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
 			// make sure the delivery date retrieved via the search has not being compromised from the client side
 			Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
-			for(Article__c article : savedArticles.values()) {
-				enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
-			}
 
-			// TODO : poc only
-			String reference = enq.referenceID__c;
-			TIBCOSearchResult trackRes = TIBCOArticleService.searchArticles(new List<String> {reference});
-			List<TIBCOTrackingResultWrapper> trackResults = trackRes.trackResults;
-			for(TIBCOTrackingResultWrapper res : trackResults) {
-				if(res.articleDetails.proxyArticle.ArticleID__c == reference) {
-					enq.EstimatedDelivery__c = res.articleDetails.proxyArticle.ExpectedDeliveryDate__c;
+			if (savedArticles !=null && savedArticles.size() > 0){
+				for(Article__c article : savedArticles.values()) {
+					enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
+				}	
+			}else{
+				// TODO : poc only
+				String reference = enq.referenceID__c;
+				TIBCOSearchResult trackRes = TIBCOArticleService.searchArticles(new List<String> {reference});
+				List<TIBCOTrackingResultWrapper> trackResults = trackRes.trackResults;
+				for(TIBCOTrackingResultWrapper res : trackResults) {
+					if(res.articleDetails.proxyArticle.ArticleID__c == reference) {
+						enq.EstimatedDelivery__c = res.articleDetails.proxyArticle.ExpectedDeliveryDate__c;
+					}
 				}
 			}
-
-
             if (enq.EstimatedDelivery__c != null){
 				setDirectRoutingValues(enq);
 			}
