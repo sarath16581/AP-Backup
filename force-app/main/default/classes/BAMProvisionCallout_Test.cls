@@ -12,7 +12,13 @@ public class BAMProvisionCallout_Test {
             res = response;
         }
         public HttpResponse respond(HttpRequest req)
-        {
+        {	
+			//set mock response for Auth0
+			if (req.getEndpoint().startsWithIgnoreCase('callout:Auth0')) {
+				res.setBody('{"access_token" : "test_token", "token_type":"Bearer", "expires_in":"900"}');
+				res.setStatusCode(200);
+				res.setStatus('OK');
+			}			
             return res;
         }
     }

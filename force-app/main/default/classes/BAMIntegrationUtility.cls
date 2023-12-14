@@ -6,6 +6,7 @@ History:
 2019-06-07  Lija.Jawahar@auspost.com.au  	Added addition request/post methods for more flexibility
 2019-06-27  ajudd@salesforce.com 			Changes to use named credential for auth
 2019-08-12  ajudd@salesforce.com            Added BAM Record Type Id conditions
+2023-12-12  mahesh.parvathaneni@auspost.com.au Changed the authentication mechanism to Auth0
 **************************************************/
 public class BAMIntegrationUtility {
 	@TestVisible
@@ -15,6 +16,19 @@ public class BAMIntegrationUtility {
 	public static String RESULT_ERROR = 'error';
 	public static String FIELD_RESULT = 'result';
 	public static String FIELD_MESSAGE = 'message';
+
+	//constants
+	private static final String BAM_LODGEMENT = 'BAMLodgement';
+
+	private static Auth0AccessManager.Auth0Token AUTH0_TOKEN {
+		get {
+			if (AUTH0_TOKEN == null) {
+				AUTH0_TOKEN = Auth0AccessManager.getAccessToken(BAM_LODGEMENT);
+			}
+			return AUTH0_TOKEN;
+		}
+		private set;
+	}
 
     /* making HTTP POST call
      * BAMIntegrationUtility.postRequest(String apiName, String request)
@@ -39,6 +53,7 @@ public class BAMIntegrationUtility {
         req.setMethod('POST');
         req.setHeader('Content-Type', 'application/json;charset=UTF-8');
         req.setEndpoint(setting.URL2__c);
+		req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
         req.setBody(request);
         
         Http httpHandler = new Http();
@@ -84,6 +99,7 @@ public class BAMIntegrationUtility {
         HttpRequest req = new HttpRequest();
         req.setMethod('GET');
         req.setHeader('Content-Type', 'application/json;charset=UTF-8');
+		req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
         req.setEndpoint(url);
         
         Http httpHandler = new Http();
@@ -142,10 +158,10 @@ public class BAMIntegrationUtility {
 				String errorMessage = '';
 				Map<String, Object> error = new Map<String, Object>();
 				try {
-                    error = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+					error = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
 					errorMessage = String.valueOf(error.get('message'));
 				} catch (Exception ex) {
-                    System.debug('>> Request Cancellation Error Response: ' + response.getBody());
+					System.debug('>> Request Cancellation Error Response: ' + response.getBody());
 				}
 				if (String.isEmpty(errorMessage)) {
 					errorMessage = 'The cancellation request failed to process successfully.';
