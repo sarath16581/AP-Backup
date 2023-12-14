@@ -3,11 +3,13 @@
  * @date 26/5/21
  * @group Tests
  * @description Generic mock class to switch between mock HTTP responses based on endpoint
+ * @changelog
+ * 2023-12-11 - Mahesh Parvathaneni - Included Auth0 callout in respond method
  */
 
 /**
 --------------------------------------- History --------------------------------------------------
-26.05.2021    alex.volkov@auspost.com.au    Initial creation
+26.05.2021	alex.volkov@auspost.com.au	Initial creation
 **/
 
 @IsTest
@@ -28,7 +30,7 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 
 	public HttpResponse respond(HttpRequest req) {
 		HttpResponse res = new HttpResponse();
-		if (req.getEndpoint().startsWithIgnoreCase('callout:AuthZ'))
+		if (req.getEndpoint().startsWithIgnoreCase('callout:AuthZ') || req.getEndpoint().startsWithIgnoreCase('callout:Auth0'))
 		{
 			if (this.success)
 			{
@@ -50,12 +52,12 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 			{
 				res.setBody('[\n' +
 						'  {\n' +
-						'    "email":"test@test.com",\n' +
-						'    "optedOut": true\n' +
+						'	"email":"test@test.com",\n' +
+						'	"optedOut": true\n' +
 						'  },\n' +
 						'  {\n' +
-						'    "mobile":"0433222111",\n' +
-						'    "optedOut": false\n' +
+						'	"mobile":"0433222111",\n' +
+						'	"optedOut": false\n' +
 						'  }\n' +
 						']');
 				res.setStatusCode(200);
@@ -74,12 +76,12 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 			{
  				res.setBody('[\n' +
 						'  {\n' +
-						'    "email":"test@test.com",\n' +
-						'    "optedOut": true\n' +
+						'	"email":"test@test.com",\n' +
+						'	"optedOut": true\n' +
 						'  },\n' +
 						'  {\n' +
-						'    "mobile":"0433222111",\n' +
-						'    "optedOut": false\n' +
+						'	"mobile":"0433222111",\n' +
+						'	"optedOut": false\n' +
 						'  }\n' +
 						']');
 				res.setStatusCode(200);
@@ -98,12 +100,12 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 			{
 				res.setBody('[\n' +
 						'  {\n' +
-						'    "email":"test@test.com",\n' +
-						'    "optedOut": true\n' +
+						'	"email":"test@test.com",\n' +
+						'	"optedOut": true\n' +
 						'  },\n' +
 						'  {\n' +
-						'    "mobile":"0433222111",\n' +
-						'    "optedOut": false\n' +
+						'	"mobile":"0433222111",\n' +
+						'	"optedOut": false\n' +
 						'  }\n' +
 						']');
 				res.setStatusCode(204);
