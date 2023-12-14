@@ -605,26 +605,29 @@ public without sharing class bspEnquiryUplift {
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-			// make sure the delivery date retrieved via the search has not being compromised from the client side
-			Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
+			
+			if (!String.isEmpty(enq.ReferenceID__c)){				
+				// make sure the delivery date retrieved via the search has not being compromised from the client side
+				Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
 
-			if (savedArticles !=null && savedArticles.size() > 0){
-				for(Article__c article : savedArticles.values()) {
-					enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
-				}	
-			}else{
-				// TODO : poc only
-				String reference = enq.referenceID__c;
-				TIBCOSearchResult trackRes = TIBCOArticleService.searchArticles(new List<String> {reference});
-				List<TIBCOTrackingResultWrapper> trackResults = trackRes.trackResults;
-				for(TIBCOTrackingResultWrapper res : trackResults) {
-					if(res.articleDetails.proxyArticle.ArticleID__c == reference) {
-						enq.EstimatedDelivery__c = res.articleDetails.proxyArticle.ExpectedDeliveryDate__c;
+				if (savedArticles !=null && savedArticles.size() > 0){
+					for(Article__c article : savedArticles.values()) {
+						enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
+					}	
+				}else{
+					// TODO : poc only
+					String reference = enq.referenceID__c;
+					TIBCOSearchResult trackRes = TIBCOArticleService.searchArticles(new List<String> {reference});
+					List<TIBCOTrackingResultWrapper> trackResults = trackRes.trackResults;
+					for(TIBCOTrackingResultWrapper res : trackResults) {
+						if(res.articleDetails.proxyArticle.ArticleID__c == reference) {
+							enq.EstimatedDelivery__c = res.articleDetails.proxyArticle.ExpectedDeliveryDate__c;
+						}
 					}
 				}
-			}
-            if (enq.EstimatedDelivery__c != null){
-				setDirectRoutingValues(enq);
+				if (enq.EstimatedDelivery__c != null){
+					setDirectRoutingValues(enq);
+				}
 			}
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
