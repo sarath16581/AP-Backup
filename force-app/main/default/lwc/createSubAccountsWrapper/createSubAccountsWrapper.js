@@ -12,6 +12,7 @@ import LightningAlert from 'lightning/alert';
 import hasAccess from "@salesforce/customPermission/BG_Core";
 import LABEL_TAB_ERROR from "@salesforce/label/c.StarTrackSubAccountsCreationTabError";
 import LABEL_NO_ACCESS_ERROR from "@salesforce/label/c.StarTrackSubAccountsCreationNoAccessError";
+import LABEL_TITLE from "@salesforce/label/c.StarTrackSubAccountsCreationTitle";
 
 export default class CreateSubAccountsWrapper extends NavigationMixin(LightningElement) {
 	recordId;
@@ -46,7 +47,7 @@ export default class CreateSubAccountsWrapper extends NavigationMixin(LightningE
 			await LightningAlert.open({
 				message: LABEL_TAB_ERROR,
 				theme: 'error',
-				label: 'Create Sub Accounts Request(s)'
+				label: LABEL_TITLE
 			});
 			return;
 		}
@@ -55,7 +56,7 @@ export default class CreateSubAccountsWrapper extends NavigationMixin(LightningE
 			LightningAlert.open({
 				message: LABEL_NO_ACCESS_ERROR,
 				theme: 'error',
-				label: 'Create Sub Account Request(s)'
+				label: LABEL_TITLE
 			}).then(() => {
 				this.navigateBackToLeader();
 			});
