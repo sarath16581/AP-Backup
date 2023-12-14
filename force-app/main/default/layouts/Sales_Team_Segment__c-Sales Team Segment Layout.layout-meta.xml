@@ -46,6 +46,10 @@
                 <behavior>Edit</behavior>
                 <field>General_Manager__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CreditPersonCode__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

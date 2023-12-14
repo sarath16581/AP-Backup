@@ -41,6 +41,17 @@ public with sharing class ProvisionSTBillingAccountsController {
 	// hold the value of the Continuation.state attribute. intended to be used in unit test purpose only.
 	@TestVisible private static Object continuationState;
 
+	// custom metadata holding billing account configuration parameters for StarTrack accounts
+	@TestVisible private static final BillingAccountCreationConfiguration__mdt billingAccountCreationConfigurationMetadata {
+		get {
+			if (billingAccountCreationConfigurationMetadata == null) {
+				billingAccountCreationConfigurationMetadata = BillingAccountCreationConfiguration__mdt.getInstance('StarTrack_TEAM');
+			}
+			return billingAccountCreationConfigurationMetadata;
+		}
+		set;
+	}
+
 	/**
 	 * Check pre-conditions for provisioning new billing accounts via DSR flow. All pre-conditions must be satisfied
 	 * prior to submitting request to external service.
@@ -318,20 +329,9 @@ public with sharing class ProvisionSTBillingAccountsController {
 		creditDetails.creditAssessNo = contract.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.Name ;
 		creditDetails.creditLimit = Integer.valueOf(contract.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.StarTrack_Proposed_for_New_Account__c);
 		creditDetails.estimatedMonthlyRevenue =Integer.valueOf(contract.Apttus_QPComply__RelatedProposalId__r?.APT_Minimum_Monthly_Spend__c);
-
-		if ('Open Ended'.equalsIgnoreCase(contract.Term__c)) {
-			Date today = Date.today();
-			// TODO Make these configurable '08-01' and '11-01' ??
-			Date cutoffDate = Date.newInstance(today.year(), 08, 01);
-			creditDetails.nextRevenueDueDate = Date.newInstance((today <= cutoffDate ? today.year() : today.year()+1), 11, 01);
-		} else if ('Fixed Term'.equalsIgnoreCase(contract.Term__c)) {
-			creditDetails.nextRevenueDueDate = contract.Apttus__Contract_End_Date__c;
-		}
-
+		creditDetails.nextRevenueDueDate = getNextRevenueDueDate(contract);
 		creditDetails.authoriser = dealSupportRequest.Name;
-
-		// TODO credit officer mapping is captured in a separate user story. defaulting for now.
-		creditDetails.creditOfficer = 'P11';
+		creditDetails.creditOfficer = getCreditOfficerCode(dealSupportRequest.Organisation__r?.Sales_Segment__c);
 		return creditDetails;
 	}
 
@@ -564,6 +564,56 @@ public with sharing class ProvisionSTBillingAccountsController {
 	}
 
 	/**
+	 * Get the credit officer code applicable for the sales segment passed in.
+	 * Returns the credit officer mapped in Sales_Team_Segment__c representing the sales segment. Default credit officer
+	 * code is returned if credit officer mapping cannot be determined from Sales_Team_Segment__c.
+	 *
+	 * @param organisationSalesSegment sales segment of the customer organisation
+	 *
+	 * @return credit officer code
+	 */
+	private static String getCreditOfficerCode(String organisationSalesSegment) {
+		if (String.isNotBlank(organisationSalesSegment)) {
+
+			List<Sales_Team_Segment__c> salesTeamSegments = SalesTeamSegmentsSelector.newInstance(1, new Set<SObjectField>{
+					Sales_Team_Segment__c.Id, Sales_Team_Segment__c.Name, Sales_Team_Segment__c.CreditPersonCode__c
+			}).selectByName(new Set<String>{organisationSalesSegment});
+
+			if (!salesTeamSegments.isEmpty() && String.isNotBlank(salesTeamSegments[0].CreditPersonCode__c)) {
+				return salesTeamSegments[0].CreditPersonCode__c;
+			}
+		}
+
+		// return the default code configured in custom metadata. if not available return 'A11'.
+		return (billingAccountCreationConfigurationMetadata?.DefaultCreditCode__c != null ? billingAccountCreationConfigurationMetadata.DefaultCreditCode__c : 'A11');
+	}
+
+	/**
+	 * Returns the next revenue date for the contract supplied.
+	 *
+	 * @param contract apttus contract where next revenue due date is to be determined.
+	 *
+	 * @return applicable next revenue date. returns null if next revenue due date cannot be determines.
+	 */
+	private static Date getNextRevenueDueDate(Apttus__APTS_Agreement__c contract) {
+		try {
+			if ('Open Ended'.equalsIgnoreCase(contract?.Term__c)) {
+				Date today = Date.today();
+				Date priceReviewEffectiveDate = Date.newInstance(today.year(), billingAccountCreationConfigurationMetadata.AnnualPriceReviewEffectiveDate__c.month(), billingAccountCreationConfigurationMetadata.AnnualPriceReviewEffectiveDate__c.day());
+				Date cutoffDate = priceReviewEffectiveDate.addDays(-1 * Integer.valueOf(billingAccountCreationConfigurationMetadata.AnnualPriceReviewCutOffPeriod__c));
+				return Date.newInstance((today <= cutoffDate ? today.year() : today.year()+1), priceReviewEffectiveDate.month(), priceReviewEffectiveDate.day());
+			} else if ('Fixed Term'.equalsIgnoreCase(contract?.Term__c)) {
+				return contract.Apttus__Contract_End_Date__c;
+			}
+			// next revenue due date cannot be determined for this contract. return null.
+			return null;
+		} catch (Exception e) {
+			// error attempting to calculate next revenue due date for this contract. return null.
+			return null;
+		}
+	}
+
+	/**
 	 * Query deal support request record and all related records required for generating provisioning request in DSR flow.
 	 *
 	 * @param dealSupportRequestId deal support request where provisioning is initiated from.
@@ -585,7 +635,7 @@ public with sharing class ProvisionSTBillingAccountsController {
 				Account.SObjectType => new Set<SObjectField>{
 						Account.Id, Account.ShippingStreet, Account.ShippingCity, Account.ShippingState, Account.ShippingPostalCode,
 						Account.Name, Account.Organisation_Trading_Name__c, Account.BillingCity, Account.BillingPostalCode,
-						Account.BillingStreet, Account.ABN__c, Account.ACN__c, Account.Role_Type_Roll_Up__c
+						Account.BillingStreet, Account.ABN__c, Account.ACN__c, Account.Role_Type_Roll_Up__c, Account.Sales_Segment__c
 				},
 				Opportunity.SObjectType => new Set<SObjectField>{
 						Opportunity.Id, Opportunity.Sender_name_to_appear_on_parcel_label__c, Opportunity.Primary_Pick_Up_Location__c
