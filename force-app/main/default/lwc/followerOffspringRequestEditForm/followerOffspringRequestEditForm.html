@@ -62,7 +62,7 @@
 						<div class="slds-grid slds-wrap slds-p-around_small">
 							<div class="slds-col slds-size_1-of-2">
 								<lightning-input-field class="input-field" data-name="sub-account-name" field-name={subAccountNameField} required value={subAccountName}> </lightning-input-field>
-								<lightning-input-field class="input-field" data-name="sub-account-contact" field-name={subAccountContactField} required value={subAccountContact} disabled={isDSRFlow}> </lightning-input-field>
+								<lightning-input-field class="input-field" data-name="sub-account-contact" field-name={subAccountContactField} required value={subAccountContact} disabled={isDSRFlow} onchange={handleSubAccountContactChange}></lightning-input-field>
 								<lightning-input-field class="input-field" data-name="sub-account-type" field-name={subAccountAccountTypeField} required onchange={handleAccountTypeChange} value={accountType}> </lightning-input-field>
 							</div>
 							<div class="slds-col slds-size_1-of-2">
