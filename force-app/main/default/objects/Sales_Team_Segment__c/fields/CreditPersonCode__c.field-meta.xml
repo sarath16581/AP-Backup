@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CreditPersonCode__c</fullName>
+    <businessStatus>Active</businessStatus>
     <description>Credit Person code to be used for new StarTrack Leader billing account requests sent to billing accounts master system (TEAM) for customer organisations assigned to this sales team segment (Based on the value of &quot;Sales Team&quot; pick list [Account.Sales_Segment__c]).</description>
     <externalId>false</externalId>
     <inlineHelpText>Credit Person Code to be sent to TEAM for new leader account creation.</inlineHelpText>
     <label>Credit Person Code</label>
     <length>10</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
