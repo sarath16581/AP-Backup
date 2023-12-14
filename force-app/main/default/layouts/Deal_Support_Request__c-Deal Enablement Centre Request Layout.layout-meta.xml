@@ -299,24 +299,19 @@
             <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Deal_Support_Request__c.New_Billing_Account</actionName>
+            <actionName>Deal_Support_Request__c.Complete</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Deal_Support_Request__c.Complete</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>8</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Edit</actionName>
             <actionType>StandardButton</actionType>
-            <sortOrder>9</sortOrder>
+            <sortOrder>8</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>FeedItem.TextPost</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>10</sortOrder>
+            <sortOrder>9</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
