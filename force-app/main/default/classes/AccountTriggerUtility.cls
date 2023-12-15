@@ -34,7 +34,6 @@ History
 03.02.2021  SaiSwetha Pingali                  INC1727549 - Moved the logic to create customer role to a inner class without sharing as guest users doesn't have access to accounts.
 22.02.2021  L. Serafico (Mav3rik)               Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
 17.03.2023  Naveen Rajanna						Correct formatting error
-18.09.2023  Swati Mogadala             REQ3225476-Added deleteRReconDelete() to delete related'Customer Rev' and 'Rev by Billing account'records for Account record on merge/delete 
 ------------------------------------------------------------**/ 
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
@@ -1099,46 +1098,7 @@ public with sharing class AccountTriggerUtility {
                                             SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
         }
     }
-   /**
-      * @description       Method to delete related Revenue by Billing account and Customer Revenue records when an account is deleted such as customer merge
-      * @param             List<Account> acctList
-      * @return            NA
-      * @throws            NA
-      */
-	public void deleteRReconDelete(List<Account> acctList){
-        
-		try{
-    
-			List<Budget_and_Revenue__c> custRev = new List<Budget_and_Revenue__c>();
-            
-            for(Account a:  [SELECT Id, (Select Id from Budget_and_Revenue_2__r) FROM Account WHERE Id in :acctList]) {
-                for(Budget_and_Revenue__c br : a.Budget_and_Revenue_2__r) {
-                   custRev.add(br);
-				}
-            }
-            
-            if(!custRev.isEmpty()) {
-                delete(custRev);
-            }
-             
-       		List<Revenue_by_Billing_Account__c> revBil = new List<Revenue_by_Billing_Account__c>();
-            
-            for(Account a:  [SELECT Id, (Select Id from Revenue_by_Billing_Account__r) FROM Account WHERE Id in :acctList]) {
-                for(Revenue_by_Billing_Account__c rb : a.Revenue_by_Billing_Account__r) {
-                   revBil.add(rb);
-				}
-            }
-            
-            if(!revBil.isEmpty()) {
-                database.delete(revBil);
-            }
-        }
-        catch(Exception exp) { UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
-                                            AccountTriggerUtility.class.getName(), 'deleteRReconDelete', 
-                                            SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
-        }
-    
-  	}
+
      /** spingali - Fix for issues identified after the CRUD "Secure Guest Users' Sharing Settings and Record Access"
         * Public inner class that elevates access privileges of the current user to query data without being limited by
         * sharing settings.

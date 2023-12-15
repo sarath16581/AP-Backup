@@ -25,10 +25,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>SFGA__GoogleAdWords</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>standard__Content</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -361,10 +357,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Lead_Capture</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Ideas</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -413,10 +405,6 @@
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>acpoll__AC_Voting</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Salesforce_Social_Customer_Service_SCS</name>
         <type>ConnectedApp</type>
     </appMenuItems>
@@ -458,10 +446,6 @@
     </appMenuItems>
     <appMenuItems>
         <name>Linkedin_Sales_Navigator</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>Quip</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
@@ -725,11 +709,7 @@
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>NPE_Connected_Clients</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>GitPipelinesApp</name>
+        <name>SalesforceIQ</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
@@ -739,6 +719,10 @@
     <appMenuItems>
         <name>Apttus_Config2__ApttusOrderManagementLightning</name>
         <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>SeismicCanvasApp</name>
+        <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
         <name>Conga_Composer_AP</name>
@@ -769,7 +753,11 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>SeismicCanvasApp</name>
+        <name>SumoLogic</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>NPE_Connected_Clients</name>
         <type>ConnectedApp</type>
     </appMenuItems>
 </AppMenu>

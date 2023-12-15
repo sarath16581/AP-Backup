@@ -3,13 +3,14 @@
     <fullName>Bibra_Lake_Routes</fullName>
     <columns>NAME</columns>
     <columns>Depot__c</columns>
+    <columns>UPDATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
         <value>Bib</value>
     </filters>
-    <label>Bibra Lake Routes</label>
+    <label>Fremantle Routes</label>
     <sharedTo>
         <group>BIBRA_LAKE_VANS</group>
     </sharedTo>

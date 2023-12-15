@@ -65,7 +65,7 @@ public class ssswRecentCustomerEmailMessage
                                              AND ParentId = : caseId
                                              ORDER BY CreatedDate DESC
                                              LIMIT 1];
-          if(emList.size() > 0)
+            if(emList.size() > 0 )
             {
                 if(commentList.size()==0 || (commentList.size()>0 && emList[0].createdDate>commentList[0].createdDate)) {
                 
@@ -101,14 +101,16 @@ public class ssswRecentCustomerEmailMessage
                     em.TextBody = em.TextBody.replaceAll('&amp;','&');
                     em.TextBody = em.TextBody.replaceAll('&nbsp;','');
                     em.isComment = false;
-                } 
-            }
-            
+                    }
+                
+               } 
+               
             if(commentList.size()>0){
-                if(emList.size()==0 || (emList.size()>0 && emList[0].createdDate<commentList[0].createdDate)) {
+               
+                 if(emList.size()==0 || (emList.size()>0 && emList[0].createdDate<commentList[0].createdDate)) {
                     
-                    em.TextBody  = commentList[0].commentBody.replaceAll('&nbsp;','');
-                    em.HTMLBody  = commentList[0].commentBody.replaceAll('<br/>', '\n');
+                    em.TextBody  = commentList[0].commentBody;
+                    em.HTMLBody  = commentList[0].commentBody;
                     em.isComment = true;
                 }
             }

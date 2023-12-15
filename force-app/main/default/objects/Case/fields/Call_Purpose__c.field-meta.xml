@@ -11,201 +11,11 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Track &amp; Trace</fullName>
-                <default>false</default>
-                <label>Track &amp; Trace</label>
-            </value>
-            <value>
-                <fullName>Driver ETA</fullName>
-                <default>false</default>
-                <label>Driver ETA</label>
-            </value>
-            <value>
-                <fullName>Card Left</fullName>
-                <default>false</default>
-                <label>Card Left</label>
-            </value>
-            <value>
-                <fullName>Pick up</fullName>
-                <default>false</default>
-                <label>Pick up</label>
-            </value>
-            <value>
-                <fullName>Request update</fullName>
-                <default>false</default>
-                <label>Request update</label>
-            </value>
-            <value>
-                <fullName>System</fullName>
-                <default>false</default>
-                <label>System</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
-                <fullName>Payroll Enquiry</fullName>
-                <default>false</default>
-                <label>Payroll Enquiry</label>
-            </value>
-            <value>
-                <fullName>HR Enquiry</fullName>
-                <default>false</default>
-                <label>HR Enquiry</label>
-            </value>
-            <value>
-                <fullName>New Business Query</fullName>
-                <default>false</default>
-                <label>New Business Query</label>
-            </value>
-            <value>
-                <fullName>Consumable Orders</fullName>
-                <default>false</default>
-                <label>Consumable Orders</label>
-            </value>
-            <value>
-                <fullName>Special Services Enquiry</fullName>
-                <default>false</default>
-                <label>Special Services Enquiry</label>
-            </value>
-            <value>
-                <fullName>Credit Enquiry</fullName>
-                <default>false</default>
-                <label>Credit Enquiry</label>
-            </value>
-            <value>
-                <fullName>I.T. Issue</fullName>
-                <default>false</default>
-                <label>I.T. Issue</label>
-            </value>
+            <sorted>true</sorted>
             <value>
                 <fullName>Account Management Enquiry</fullName>
                 <default>false</default>
                 <label>Account Management Enquiry</label>
-            </value>
-            <value>
-                <fullName>Personal Call for Staff Member</fullName>
-                <default>false</default>
-                <label>Personal Call for Staff Member</label>
-            </value>
-            <value>
-                <fullName>Next Flight</fullName>
-                <default>false</default>
-                <label>Next Flight</label>
-            </value>
-            <value>
-                <fullName>Dangerous Goods</fullName>
-                <default>false</default>
-                <label>Dangerous Goods</label>
-            </value>
-            <value>
-                <fullName>StarTrack Branch Enquiry</fullName>
-                <default>false</default>
-                <label>StarTrack Branch Enquiry</label>
-            </value>
-            <value>
-                <fullName>Voice Of Customer</fullName>
-                <default>false</default>
-                <label>Voice Of Customer</label>
-            </value>
-            <value>
-                <fullName>Business Solutions</fullName>
-                <default>false</default>
-                <label>Business Solutions</label>
-            </value>
-            <value>
-                <fullName>Late Delivery</fullName>
-                <default>false</default>
-                <label>Late Delivery</label>
-            </value>
-            <value>
-                <fullName>Security Incident</fullName>
-                <default>false</default>
-                <label>Security Incident</label>
-            </value>
-            <value>
-                <fullName>Transit Warranty Enquiry</fullName>
-                <default>false</default>
-                <label>Transit Warranty Enquiry</label>
-            </value>
-            <value>
-                <fullName>Quoting/Pricing</fullName>
-                <default>false</default>
-                <label>Quoting/Pricing</label>
-            </value>
-            <value>
-                <fullName>Credit Claim</fullName>
-                <default>false</default>
-                <label>Credit Claim</label>
-            </value>
-            <value>
-                <fullName>POD</fullName>
-                <default>false</default>
-                <label>POD</label>
-            </value>
-            <value>
-                <fullName>Delivery in Progress</fullName>
-                <default>false</default>
-                <label>Delivery in Progress</label>
-            </value>
-            <value>
-                <fullName>Delivered</fullName>
-                <default>false</default>
-                <label>Delivered</label>
-            </value>
-            <value>
-                <fullName>Controlled Returns</fullName>
-                <default>false</default>
-                <label>Controlled Returns</label>
-            </value>
-            <value>
-                <fullName>Pickup ETA</fullName>
-                <default>false</default>
-                <label>Pickup ETA</label>
-            </value>
-            <value>
-                <fullName>Missed Pickup</fullName>
-                <default>false</default>
-                <label>Missed Pickup</label>
-            </value>
-            <value>
-                <fullName>Investigation Update</fullName>
-                <default>false</default>
-                <label>Investigation Update</label>
-            </value>
-            <value>
-                <fullName>Account Manager Support</fullName>
-                <default>false</default>
-                <label>Account Manager Support</label>
-            </value>
-            <value>
-                <fullName>Not Case Related</fullName>
-                <default>false</default>
-                <label>Not Case Related</label>
-            </value>
-            <value>
-                <fullName>Depot Created</fullName>
-                <default>false</default>
-                <label>Depot Created</label>
-            </value>
-            <value>
-                <fullName>In-Flight</fullName>
-                <default>false</default>
-                <label>In-Flight</label>
-            </value>
-            <value>
-                <fullName>Futile</fullName>
-                <default>false</default>
-                <label>Futile</label>
-            </value>
-            <value>
-                <fullName>Consumables</fullName>
-                <default>false</default>
-                <label>Consumables</label>
             </value>
             <value>
                 <fullName>Account Manager</fullName>
@@ -213,19 +23,19 @@
                 <label>Account Manager</label>
             </value>
             <value>
-                <fullName>Credit</fullName>
+                <fullName>Account Manager Support</fullName>
                 <default>false</default>
-                <label>Credit</label>
+                <label>Account Manager Support</label>
             </value>
             <value>
-                <fullName>Sales Lead</fullName>
+                <fullName>Business Solutions</fullName>
                 <default>false</default>
-                <label>Sales Lead</label>
+                <label>Business Solutions</label>
             </value>
             <value>
-                <fullName>In Transit</fullName>
+                <fullName>Card Left</fullName>
                 <default>false</default>
-                <label>In Transit</label>
+                <label>Card Left</label>
             </value>
             <value>
                 <fullName>Card left - No Attempt Made</fullName>
@@ -233,14 +43,49 @@
                 <label>Card left - No Attempt Made</label>
             </value>
             <value>
-                <fullName>Westpac Bookings</fullName>
-                <default>false</default>
-                <label>Westpac Bookings</label>
-            </value>
-            <value>
                 <fullName>Collection</fullName>
                 <default>false</default>
                 <label>Collection</label>
+            </value>
+            <value>
+                <fullName>Consumable Orders</fullName>
+                <default>false</default>
+                <label>Consumable Orders</label>
+            </value>
+            <value>
+                <fullName>Consumables</fullName>
+                <default>false</default>
+                <label>Consumables</label>
+            </value>
+            <value>
+                <fullName>Controlled Returns</fullName>
+                <default>false</default>
+                <label>Controlled Returns</label>
+            </value>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Credit Claim</fullName>
+                <default>false</default>
+                <label>Credit Claim</label>
+            </value>
+            <value>
+                <fullName>Credit Enquiry</fullName>
+                <default>false</default>
+                <label>Credit Enquiry</label>
+            </value>
+            <value>
+                <fullName>Dangerous Goods</fullName>
+                <default>false</default>
+                <label>Dangerous Goods</label>
+            </value>
+            <value>
+                <fullName>Delivered</fullName>
+                <default>false</default>
+                <label>Delivered</label>
             </value>
             <value>
                 <fullName>Delivery</fullName>
@@ -248,9 +93,79 @@
                 <label>Delivery</label>
             </value>
             <value>
-                <fullName>Site inspection</fullName>
+                <fullName>Delivery in Progress</fullName>
                 <default>false</default>
-                <label>Site Inspection</label>
+                <label>Delivery in Progress</label>
+            </value>
+            <value>
+                <fullName>Depot Created</fullName>
+                <default>false</default>
+                <label>Depot Created</label>
+            </value>
+            <value>
+                <fullName>Driver ETA</fullName>
+                <default>false</default>
+                <label>Driver ETA</label>
+            </value>
+            <value>
+                <fullName>Futile</fullName>
+                <default>false</default>
+                <label>Futile</label>
+            </value>
+            <value>
+                <fullName>HR Enquiry</fullName>
+                <default>false</default>
+                <label>HR Enquiry</label>
+            </value>
+            <value>
+                <fullName>I.T. Issue</fullName>
+                <default>false</default>
+                <label>I.T. Issue</label>
+            </value>
+            <value>
+                <fullName>In-Flight</fullName>
+                <default>false</default>
+                <label>In-Flight</label>
+            </value>
+            <value>
+                <fullName>In Transit</fullName>
+                <default>false</default>
+                <label>In Transit</label>
+            </value>
+            <value>
+                <fullName>Investigation Update</fullName>
+                <default>false</default>
+                <label>Investigation Update</label>
+            </value>
+            <value>
+                <fullName>Late Delivery</fullName>
+                <default>false</default>
+                <label>Late Delivery</label>
+            </value>
+            <value>
+                <fullName>Missed Pickup</fullName>
+                <default>false</default>
+                <label>Missed Pickup</label>
+            </value>
+            <value>
+                <fullName>New Business Query</fullName>
+                <default>false</default>
+                <label>New Business Query</label>
+            </value>
+            <value>
+                <fullName>Next Flight</fullName>
+                <default>false</default>
+                <label>Next Flight</label>
+            </value>
+            <value>
+                <fullName>Not Case Related</fullName>
+                <default>false</default>
+                <label>Not Case Related</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
             <value>
                 <fullName>Other Enquiry</fullName>
@@ -258,9 +173,94 @@
                 <label>Other Enquiry</label>
             </value>
             <value>
+                <fullName>Payroll Enquiry</fullName>
+                <default>false</default>
+                <label>Payroll Enquiry</label>
+            </value>
+            <value>
+                <fullName>Personal Call for Staff Member</fullName>
+                <default>false</default>
+                <label>Personal Call for Staff Member</label>
+            </value>
+            <value>
+                <fullName>Pick up</fullName>
+                <default>false</default>
+                <label>Pick up</label>
+            </value>
+            <value>
+                <fullName>Pickup ETA</fullName>
+                <default>false</default>
+                <label>Pickup ETA</label>
+            </value>
+            <value>
+                <fullName>POD</fullName>
+                <default>false</default>
+                <label>POD</label>
+            </value>
+            <value>
+                <fullName>Quoting/Pricing</fullName>
+                <default>false</default>
+                <label>Quoting/Pricing</label>
+            </value>
+            <value>
+                <fullName>Request update</fullName>
+                <default>false</default>
+                <label>Request update</label>
+            </value>
+            <value>
+                <fullName>Sales Lead</fullName>
+                <default>false</default>
+                <label>Sales Lead</label>
+            </value>
+            <value>
+                <fullName>Security Incident</fullName>
+                <default>false</default>
+                <label>Security Incident</label>
+            </value>
+            <value>
+                <fullName>Site inspection</fullName>
+                <default>false</default>
+                <label>Site Inspection</label>
+            </value>
+            <value>
+                <fullName>Special Services Enquiry</fullName>
+                <default>false</default>
+                <label>Special Services Enquiry</label>
+            </value>
+            <value>
+                <fullName>StarTrack Branch Enquiry</fullName>
+                <default>false</default>
+                <label>StarTrack Branch Enquiry</label>
+            </value>
+            <value>
                 <fullName>StarTrack Shop</fullName>
                 <default>false</default>
                 <label>StarTrack Shop</label>
+            </value>
+            <value>
+                <fullName>System</fullName>
+                <default>false</default>
+                <label>System</label>
+            </value>
+            <value>
+                <fullName>Track &amp; Trace</fullName>
+                <default>false</default>
+                <label>Track &amp; Trace</label>
+            </value>
+            <value>
+                <fullName>Transit Warranty Enquiry</fullName>
+                <default>false</default>
+                <label>Transit Warranty Enquiry</label>
+            </value>
+            <value>
+                <fullName>Voice Of Customer</fullName>
+                <default>false</default>
+                <label>Voice Of Customer</label>
+            </value>
+            <value>
+                <fullName>Westpac Bookings</fullName>
+                <default>false</default>
+                <label>Westpac Bookings</label>
             </value>
         </valueSetDefinition>
     </valueSet>

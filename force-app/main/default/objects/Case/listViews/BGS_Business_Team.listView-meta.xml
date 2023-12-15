@@ -28,7 +28,7 @@
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>Sandeep Kaur,Alexander Heggie,Jeremy Gilbert,Harlee Snow,Cornelia Nowak</value>
+        <value>Sandeep Kaur,Alexander Heggie,Jeremy Gilbert,Cornelia Nowak</value>
     </filters>
     <filters>
         <field>OWNER_NAME</field>
@@ -36,9 +36,12 @@
         <value>Lynn Zhang,Anna Ramos,Edward Pua,Madhvi Punj,Leo Kwon</value>
     </filters>
     <label>BGS Business Team</label>
+    <language>en_US</language>
     <sharedTo>
+        <role>Customer_Support_Billing_Service_Manager</role>
         <role>Service_Business_Service_Manager</role>
         <role>Service_Enterprise_Service_Manager</role>
         <role>Service_Government_Head_of_Service</role>
+        <role>Service_Government_Service_Manager</role>
     </sharedTo>
 </ListView>

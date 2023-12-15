@@ -502,11 +502,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>PersonActionCadenceState</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Apttus_Config2__CalendarCycleStart__c</field>
             <table>Account</table>
         </columns>
@@ -1337,16 +1332,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>LicenceManualActivationDate__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LicenceManualDeactivationDate__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Licence_Status__c</field>
             <table>Account</table>
         </columns>
@@ -1637,11 +1622,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Opportunity__c</field>
             <table>Account</table>
         </columns>
@@ -1773,11 +1753,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>eParcelDamagesDelegate__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ParentABN__c</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -2582,11 +2557,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>WCC__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>WCIS_Code__c</field>
             <table>Account</table>
         </columns>
@@ -2673,21 +2643,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.Region__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.State__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.Status__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.Org_Unit_Type__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>
@@ -3399,13 +3354,5 @@
             <table>Account.Budget_and_Revenue_2__r</table>
         </columns>
         <masterLabel>Customer Revenue</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

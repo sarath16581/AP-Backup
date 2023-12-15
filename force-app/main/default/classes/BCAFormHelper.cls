@@ -2,7 +2,6 @@
 * @description       : BCAFormController helper class
 * @author            : avula.jansirani@auspost.com.au
 * @group             : 
-* @test 			 : BCAFormController_Test
 * @last modified on  : 05-14-2021
 * @last modified by  : ankur.gandhi@auspost.com.au
 * Modifications Log 
@@ -126,6 +125,12 @@ public without sharing class BCAFormHelper {
     *  @param ca       		  : Credit Assessment record
     * */
     public static ReferralCheckResults isAutoReferred(String entityType, Id userOrgId, APT_Credit_Assessment__c ca){ 
+		/*System.debug('[BCA] entityType: ' + entityType);
+		System.debug('[BCA] userOrgId: ' + userOrgId);
+		System.debug('[BCA] caId: ' + ca.Id);
+		System.debug('[BCA] ca:');
+		System.debug(ca);*/
+		        
         ReferralCheckResults refCheckResults = new ReferralCheckResults();
 
 		//-- 0. If any of the entities on the credit assessment is found on the Credit Suspect register returning 'true' with failed reason
@@ -497,6 +502,59 @@ public without sharing class BCAFormHelper {
 		// return highest match or null if none found
 		return result;
 	}
+
+	// public static List<MatchResult> checkSuspectMatches(CreditSuspect__c suspect) {
+	// 	List<CreditSuspect__c> suspectList = new List<CreditSuspect__c>{ suspect };
+
+	// 	System.debug('Checking: ' + suspectList);
+
+	// 	Map<Id,Double> matchMap = new Map<Id,Double>();
+	// 	List<Datacloud.FindDuplicatesResult> results = ApplicationDatabase.getInstance().findDuplicates(suspectList);
+	// 	System.debug(JSON.serialize(results));
+	// 	System.debug('Search results: ' + results.size());
+	// 	System.debug(results);
+	//     if (results != null && results.size() > 0) {
+	//         System.debug(results[0].getDuplicateResults()[0]);
+	//         System.debug(results[0].getDuplicateResults()[0].getMatchResults()[0].getMatchRecords());
+
+	//         System.debug('Records: ' + results[0].getDuplicateResults()[0].getMatchResults()[0].getMatchRecords().size());
+
+	//         if (results[0].getDuplicateResults()[0].getMatchResults()[0].getMatchRecords().size() > 0) {
+	//             System.debug(results[0].getDuplicateResults()[0].getMatchResults()[0].getMatchRecords()[0].getRecord());
+	//             System.debug(results[0].getDuplicateResults()[0].getMatchResults()[0].getMatchRecords()[0].getMatchConfidence());
+	//         }
+	//     }
+
+	// 	for (Datacloud.FindDuplicatesResult result : results) {
+	// 		for (Datacloud.DuplicateResult duplicateResult : result.getDuplicateResults()) {
+	// 			for (Datacloud.MatchResult matchResult : duplicateResult.getMatchResults()) {
+	// 				for (Datacloud.MatchRecord matchedRecord : matchResult.getMatchRecords()) {
+	// 					//matches.add(new MatchResult((CreditSuspect__c)matchedRecord.getRecord(), matchedRecord.getMatchConfidence()));
+	// 					matchMap.put(matchedRecord.getRecord().Id, matchedRecord.getMatchConfidence());
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+
+	// 	// return null in case of an empty matchMap
+	// 	List<MatchResult> result;
+
+	// 	if (!matchMap.isEmpty()) {
+	// 		List<CreditSuspect__c> matchedSuspects = CreditSuspectSelector.newInstance().selectById(
+	// 			matchMap.keySet()
+	// 		).values();
+
+	// 		// Init result as we're providing a list of matching suspects
+	// 		result = new List<MatchResult>();
+
+	// 		for (CreditSuspect__c match :matchedSuspects) {
+	//             Double confidence = matchMap.get(match.Id);
+	// 			result.add(new MatchResult(match, confidence));
+	// 		}
+	// 	}
+		
+	// 	return result;
+	// }
 
     /**
      * Get the recent created 'credit assesment record' of the given ACcount(userOrgId),

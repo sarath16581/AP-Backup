@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>SSSW Do not Use  CB Request Closed</name>
     <queueSobject>
         <sobjectType>Callback_Request__c</sobjectType>

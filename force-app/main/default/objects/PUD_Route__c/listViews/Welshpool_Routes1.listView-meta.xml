@@ -5,11 +5,12 @@
     <columns>Depot__c</columns>
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>
+    <columns>ADAM_Id__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>Wel</value>
+        <value>Perth</value>
     </filters>
     <label>Welshpool Routes</label>
 </ListView>

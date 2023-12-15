@@ -6,9 +6,9 @@
     <columns>Depot__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>dan</value>
+        <field>ADAM_Id__c</field>
+        <operation>equals</operation>
+        <value>gEELONG MAIL CENTRE</value>
     </filters>
     <label>Dandenong Routes</label>
     <sharedTo>

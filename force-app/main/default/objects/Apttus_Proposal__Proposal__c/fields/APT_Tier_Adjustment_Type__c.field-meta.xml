@@ -3,7 +3,7 @@
     <fullName>APT_Tier_Adjustment_Type__c</fullName>
     <description>Tier Adjustment for Approval</description>
     <externalId>false</externalId>
-    <label>(depr) Requested Adjustment</label>
+    <label>Requested Adjustment</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

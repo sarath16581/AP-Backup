@@ -609,6 +609,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>SSSWRouting__c.PreferredAgentExpiry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>SSSWRouting__c.ProductCategory__c</field>
         <readable>true</readable>
     </fieldPermissions>

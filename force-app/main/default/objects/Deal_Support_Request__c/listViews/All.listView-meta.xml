@@ -6,12 +6,11 @@
     <columns>Stage__c</columns>
     <columns>RECORDTYPE</columns>
     <columns>OWNER.ALIAS</columns>
-    <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Support_Work_Type__c</field>
+        <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Deal Processing,Contract Administration</value>
+        <value>Deal_Support_Request__c.Pricing_Support_Request_Australia_Post_Parcel_Contract</value>
     </filters>
     <label>All</label>
     <sharedTo>

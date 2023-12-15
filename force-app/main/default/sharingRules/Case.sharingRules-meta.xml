@@ -41,7 +41,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Operations Support,Customer Analytics &amp; Reporting Request (CAR)</value>
+            <value>Customer Analytics &amp; Reporting Request (CAR)</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -730,7 +730,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Sales Operations Support,Customer Analytics &amp; Reporting Request (CAR)</value>
+            <value>Customer Analytics &amp; Reporting Request (CAR)</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

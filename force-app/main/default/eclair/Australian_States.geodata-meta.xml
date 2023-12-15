@@ -6,5 +6,10 @@
         <mapName>map_1588734040851</mapName>
         <projection>Equirectangular</projection>
     </maps>
+    <maps>
+        <mapLabel>New Map</mapLabel>
+        <mapName>map_1687763067636</mapName>
+        <projection>Equirectangular</projection>
+    </maps>
     <masterLabel>Australian_States</masterLabel>
 </EclairGeoData>

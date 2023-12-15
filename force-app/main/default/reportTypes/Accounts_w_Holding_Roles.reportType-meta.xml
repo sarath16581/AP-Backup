@@ -2480,12 +2480,4 @@
         </columns>
         <masterLabel>Holding Role</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Holding_Role_Reference__c.Holding_Role__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
-    </sections>
 </ReportType>

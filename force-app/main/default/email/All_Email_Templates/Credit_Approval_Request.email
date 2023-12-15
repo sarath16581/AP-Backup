@@ -280,8 +280,9 @@ Please review the following credit claim and approve/reject this request within 
 {!Credit_Approval__c.Total_Claim_Amount__c}
 																		<span> (this amount will only be different if claim relates to multiple product families) </span><br/> 
 																		<span style="font-weight: bold;">Case summary:</span><br/> {!Credit_Approval__c.Case_Summary__c}<br/><br/> 
-
-Click <a href="{!Credit_Approval__c.Link}" target="_blank" style="color:blue; text-decoration:underline">here</a>										</p>	
+																			Click <a href="{!Credit_Approval__c.Link}" target="_blank" style="color:blue; text-decoration:underline">here</a>
+																			to view the full credit claim details in Salesforce.
+																	</p>	
 																	<p style="Margin-top: 0;Margin-bottom: 20px;font-style: normal;font-weight: normal;font-size: 13px;line-height: 24px;text-align: left;color: #5e514d;  font-family: AP Letter;" lang="x-size-16">
 																	Please approve/reject this credit claim by clicking on the link provided above or replying to this email with the words "Approve" or "Reject" in the first line of the email message. 
 																	<br/><br/>

@@ -362,6 +362,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Current_User_Belongs_to_Assigned_LPO__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Jigsaw</field>
             <table>Account</table>
         </columns>
@@ -1135,11 +1140,6 @@
             <field>Zone__c</field>
             <table>Account</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Current_User_Belongs_to_Assigned_LPO__c</field>
-            <table>Account</table>
-        </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
     <sections>
@@ -1419,13 +1419,5 @@
             <table>Account.Billing_Accounts__r</table>
         </columns>
         <masterLabel>Billing Accounts</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

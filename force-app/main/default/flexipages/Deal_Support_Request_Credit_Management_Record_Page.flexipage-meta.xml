@@ -644,7 +644,7 @@
                 <fieldItem>Record.Description__c</fieldItem>
                 <identifier>RecordDescription__cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>(1 AND 3) OR 2 OR 4 OR 5</booleanFilter>
+                    <booleanFilter>(1 AND 3) OR 2 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -664,11 +664,6 @@
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Payment related query</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Account Payment Conduct</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1468,10 +1463,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>showLegacyActivityComposer</name>
-                    <value>false</value>
-                </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>

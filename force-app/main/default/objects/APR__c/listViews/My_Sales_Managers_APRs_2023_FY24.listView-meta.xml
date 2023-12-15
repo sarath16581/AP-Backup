@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Sales_Managers_APRs_2023_FY24</fullName>
+    <columns>Account_Manager__c</columns>
+    <columns>NAME</columns>
+    <columns>Billing_Account_Name__c</columns>
+    <columns>Confirmed_Rate__c</columns>
+    <columns>Confirmed_Date__c</columns>
+    <columns>Status__c</columns>
+    <columns>Sub_Status__c</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Comments__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Year__c</field>
+        <operation>equals</operation>
+        <value>2023</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>APR__c.StarTrack</value>
+    </filters>
+    <label>My Sales Managers APRs (2023| FY24)</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>Enterprise_South_Director_Sales</role>
+        <role>Enterprise_VIC_1_Sales_Manager</role>
+        <role>Enterprise_VIC_2_Sales_Manager</role>
+        <role>Enterprise_VIC_3_Sales_Manager</role>
+        <role>Enterprise_VIC_4_Sales_Manager</role>
+    </sharedTo>
+</ListView>

@@ -197,6 +197,13 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Article__c</fields>
+        <fields>Status__c</fields>
+        <fields>Network__c</fields>
+        <relatedList>CaseInvestigation__c.Case__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>SOLUTION.ISSUE</fields>
         <fields>SOLUTION.SOLUTION_NUMBER</fields>
         <fields>SOLUTION.STATUS</fields>

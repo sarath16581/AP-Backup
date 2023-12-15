@@ -3,7 +3,6 @@
  * @date 2023-02-01
  * @description Custom built report for handling a breakdown of pending cases to be assigned via skills
  * @changelog
- * 2023-02-23 - Nathan Franklin - Sorted the skills for better ui display
  */
 import {LightningElement, api} from 'lwc';
 import fetchReportData from '@salesforce/apex/OmniSkillsReportController.fetchReportData';
@@ -129,15 +128,14 @@ export default class OmniSkillsReport extends LightningElement {
 		// additional we need to grab the case creation date so we can bucet the data into a report
 		for(const record of records) {
 			caseSkillList[record.WorkItemId] = {};
-			caseSkillList[record.WorkItemId].skills = (record.SkillRequirements ?? []).map(r => r.Skill.MasterLabel);
-			caseSkillList[record.WorkItemId].skills.sort();
+			caseSkillList[record.WorkItemId].skills = (record.SkillRequirements ?? []).map(r => r.SkillId);
 			caseSkillList[record.WorkItemId].routingPriority = record.RoutingPriority;
 			caseSkillList[record.WorkItemId].secondaryRoutingPriority = record.SecondaryRoutingPriority;
 			caseSkillList[record.WorkItemId].createdDate = record.WorkItem.CreatedDate;
 
 			// grab the developer names for each of the skils and map it with the original id
 			parsedSkillMappings = {...parsedSkillMappings, ...(record.SkillRequirements ?? []).reduce((result, value) => {
-				result[value.Skill.MasterLabel] = value.SkillId;
+				result[value.SkillId] = value.Skill.MasterLabel;
 				return result;
 			}, {})};
 		}
@@ -147,23 +145,26 @@ export default class OmniSkillsReport extends LightningElement {
 			const createdDate = Date.parse(record.createdDate);
 			const skills = record.skills;
 
-			// grab a list of the skills by developer name
-			const combinedSkillIds = skills.map((skillLabel) => { return parsedSkillMappings[skillLabel]});
-			const combinedSkillIdsKey = combinedSkillIds.join(',');
+			// make sure all the data is combined by skill properly by sorting the data first
+			skills.sort();
 
-			reportData[combinedSkillIdsKey] = reportData[combinedSkillIdsKey] ?? {buckets: {}, skills: skills, skillIds: combinedSkillIds, key: combinedSkillIdsKey, total: 0};
+			// grab a list of the skills by developer name
+			const combinedSkills = skills.map((skillId) => { return parsedSkillMappings[skillId]});
+			const combinedSkillsKey = combinedSkills.join(',');
+
+			reportData[combinedSkillsKey] = reportData[combinedSkillsKey] ?? {buckets: {}, skills: combinedSkills, key: combinedSkillsKey, total: 0};
 
 			// populate bucket names since we can't use computed values in templates
 			for(const bucketName of this.buckets) {
-				reportData[combinedSkillIdsKey].buckets[bucketName] = reportData[combinedSkillIdsKey].buckets[bucketName] ?? {key: bucketName, count: 0, countGreaterThan0: false, ids: []};
+				reportData[combinedSkillsKey].buckets[bucketName] = reportData[combinedSkillsKey].buckets[bucketName] ?? {key: bucketName, count: 0, countGreaterThan0: false, ids: []};
 			}
 
 			for(const [bucketName, dateThresholds] of Object.entries(buckets)) {
 				if(createdDate <= dateThresholds[0] && createdDate > dateThresholds[1]) {
-					reportData[combinedSkillIdsKey].buckets[bucketName].count++;
-					reportData[combinedSkillIdsKey].buckets[bucketName].countGreaterThan0 = true;
-					reportData[combinedSkillIdsKey].buckets[bucketName].ids.push(workItemId);
-					reportData[combinedSkillIdsKey].total++;
+					reportData[combinedSkillsKey].buckets[bucketName].count++;
+					reportData[combinedSkillsKey].buckets[bucketName].countGreaterThan0 = true;
+					reportData[combinedSkillsKey].buckets[bucketName].ids.push(workItemId);
+					reportData[combinedSkillsKey].total++;
 				}
 			}
 		}
@@ -237,6 +238,8 @@ export default class OmniSkillsReport extends LightningElement {
 		this.drilldownSortedDirection = sortDirection;
 		this.drilldownSortedBy = sortedBy;
 	}
+
+
 
 	/**
 	 * User has clicked the bucket column to sort that particular bucket
@@ -312,8 +315,8 @@ export default class OmniSkillsReport extends LightningElement {
 	}
 
 	get skillMappingsForPicklist() {
-		return Object.keys(this.parsedSkillMappings).map(key => {
-			return {label: key, value: this.parsedSkillMappings[key]};
+		return Object.values(this.parsedSkillMappings).map(item => {
+			return {label: item, value: item};
 		});
 	}
 

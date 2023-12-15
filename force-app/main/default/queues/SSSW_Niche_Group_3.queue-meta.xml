@@ -3,6 +3,11 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Niche Group 3</name>
+    <queueMembers>
+        <users>
+            <user>botrpauip01@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueRoutingConfig>AP_SSSW_Niche_Common_Group</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>

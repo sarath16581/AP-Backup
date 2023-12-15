@@ -4627,12 +4627,4 @@
         </columns>
         <masterLabel>Customer Revenue</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Network__c.Assigned_Network__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
-    </sections>
 </ReportType>

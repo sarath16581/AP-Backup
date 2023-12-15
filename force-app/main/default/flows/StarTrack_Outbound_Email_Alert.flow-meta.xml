@@ -659,9 +659,9 @@
               ISPICKVAL([Case].Origin, &apos;Web&apos;)),
         [Case].SuppliedEmail &lt;&gt; null,
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),  
         NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),       
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -683,9 +683,9 @@
               ISPICKVAL({!myVariable_current.Origin}, &apos;Web&apos;)),
         {!myVariable_current.SuppliedEmail} &lt;&gt; null,
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),  
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),       
         NOT(CONTAINS(
         LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -749,7 +749,7 @@
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
         NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)), 
         NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),
+        NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -770,7 +770,7 @@
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)), 
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),
         NOT(CONTAINS(
         LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -819,7 +819,7 @@
         NOT(BEGINS([Case].SuppliedEmail, &apos;noreply&apos;)),
         NOT(BEGINS([Case].SuppliedEmail, &apos;no-reply&apos;)),
         NOT(BEGINS([Case].SuppliedEmail, &apos;postmaster&apos;)),
-        NOT(BEGINS([Case].SuppliedEmail, &apos;dj.skey&apos;)),         
+        NOT(BEGINS([Case].SuppliedEmail, &apos;mailer-daemon&apos;)),        
         NOT(CONTAINS(
         LOWER($Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c),
         LOWER([Case].SuppliedEmail))),
@@ -843,7 +843,7 @@
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;noreply&apos;)),
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;no-reply&apos;)),
         NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;postmaster&apos;)),
-        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;dj.skey&apos;)),         
+        NOT(BEGINS({!myVariable_current.SuppliedEmail}, &apos;mailer-daemon&apos;)),        
         NOT(CONTAINS(
         LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),
         LOWER({!myVariable_current.SuppliedEmail}))),
@@ -870,7 +870,7 @@
         ISNEW(),
         {!myVariable_current.Tier__c} = &apos;1&apos;)</expression>
     </formulas>
-    <interviewLabel>StarTrack_Outbound_Email_Alert-12_InterviewLabel</interviewLabel>
+    <interviewLabel>StarTrack_Outbound_Email_Alert-11_InterviewLabel</interviewLabel>
     <label>StarTrack Outbound Email Alert</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1213,7 +1213,7 @@
         <object>Case</object>
     </recordUpdates>
     <startElementReference>isChangedDecision6_myRule_5_Approval_Status_c</startElementReference>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

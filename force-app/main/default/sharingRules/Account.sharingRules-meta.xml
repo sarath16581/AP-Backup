@@ -21,26 +21,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>All_Internal_Users_except_Retail_Merchandise</fullName>
-        <accessLevel>Edit</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Edit</contactAccessLevel>
-            <opportunityAccessLevel>Read</opportunityAccessLevel>
-        </accountSettings>
-        <description>This rule enables all accounts to be shared within internal users except retail merchandise users who only need access retail data.</description>
-        <label>All Internal Users except Retail Merchandise</label>
-        <sharedTo>
-            <group>All_Users_Ex_Retail_Merchandise</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>Is_a_facility__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Customer_Integration_Team</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
@@ -57,26 +37,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Organisation</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Dashcord_Sharing_Rule</fullName>
-        <accessLevel>Edit</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Edit</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <description>used by Dashcord app</description>
-        <label>Dashcord Sharing Rule</label>
-        <sharedTo>
-            <group>Dashcord</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>OwnerId</field>
-            <operation>notEqual</operation>
-            <value>.</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

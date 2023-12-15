@@ -413,7 +413,6 @@ public without sharing class Utility{
       * @throws            NA
       */
     public static void completeCaseMilestones(List<Case> caseList,Set<String> milestoneTypes,Boolean includeViolatedMilestones){
-		system.debug('>>>> completeCaseMilestones..................caseList: ' + caseList);
         Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
         List<CaseMilestone> charterMilestones = new List<CaseMilestone>();
         for(CaseMilestone mileStone : [SELECT CompletionDate,MilestoneType.Name, IsViolated

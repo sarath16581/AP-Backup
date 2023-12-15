@@ -101,13 +101,13 @@ public without sharing class DisputedItemTriggerHandler{
 
                 // recalculated product sub category with the maximum credit based on the current DML.
                 String productSubCategoryWithMaximumProposedCredit = (String) aggregateResult.get('Product_Sub_Category__c');
+
                 if (!String.isBlank(productSubCategoryWithMaximumProposedCredit)
                         && (String.isBlank(currentProductSubCategory) || !currentProductSubCategory.equals(productSubCategoryWithMaximumProposedCredit))) {
 
                     if (!creditApprovalsToUpdate.containsKey(creditApprovalId)) {
                         // update product sub category
-                        
-                       creditApprovalsToUpdate.put(creditApprovalId, new Credit_Approval__c(Id = creditApprovalId, Product_Sub_Category__c = productSubCategoryWithMaximumProposedCredit));
+                        creditApprovalsToUpdate.put(creditApprovalId, new Credit_Approval__c(Id = creditApprovalId, Product_Sub_Category__c = productSubCategoryWithMaximumProposedCredit));
                     }
                 }
             }
@@ -516,7 +516,7 @@ public without sharing class DisputedItemTriggerHandler{
         pCAVar.Product_Family__c = disputeItem.Product__c;
         pCAVar.Case__c = disputeItem.Case__c;
         pCAVar.Status__c = 'New';
-		pCAVar.Product_Sub_Category__c = disputeItem.Product_Sub_Category__c;
+        pCAVar.Product_Sub_Category__c = disputeItem.Product_Sub_Category__c;
         return pCAVar;
     }
 }

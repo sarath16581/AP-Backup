@@ -118,7 +118,7 @@
     <enableFeeds>false</enableFeeds>
     <enableLicensing>false</enableLicensing>
     <enableReports>false</enableReports>
-    <enableSearch>true</enableSearch>
+    <enableSearch>false</enableSearch>
     <externalDataSource>SAP_NEW</externalDataSource>
     <externalName>ProductHoldings</externalName>
     <label>ProductHoldings</label>

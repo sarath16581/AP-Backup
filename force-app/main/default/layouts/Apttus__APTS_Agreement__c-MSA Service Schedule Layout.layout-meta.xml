@@ -34,10 +34,6 @@
                 <behavior>Readonly</behavior>
                 <field>Apttus_CMDSign__RecallESignatureRequest__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Apttus_CMDSign__CheckESignatureStatus__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

@@ -3,7 +3,8 @@
     <fullName>SSSW_F_Delivery_Address</fullName>
     <active>true</active>
     <description>History
--Gunith INC1540145 - Addresee Address mandatory for Item Transfer</description>
+-Gunith INC1540145 - Addresee Address mandatory for Item Transfer
+08/2023 removed snnap integration profile reference</description>
     <errorConditionFormula>AND( 
 	(
 		Address2__c = NULL ||

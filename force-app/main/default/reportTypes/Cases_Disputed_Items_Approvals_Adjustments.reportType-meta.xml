@@ -103,11 +103,6 @@
             <field>Enquiry_Type__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -343,8 +338,5 @@
             <table>Case.Adjustments__r.Credit_Approvals__r.Disputed_Items__r</table>
         </columns>
         <masterLabel>Disputed Item</masterLabel>
-    </sections>
-    <sections>
-        <masterLabel>Disputed Items</masterLabel>
     </sections>
 </ReportType>

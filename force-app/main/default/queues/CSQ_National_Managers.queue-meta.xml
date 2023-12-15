@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>CSQ National Managers</name>
     <queueMembers>
         <users>
             <user>alan.johnson@startrack.com.au</user>
             <user>belinda.hyland@startrack.com.au</user>
-            <user>liz.mill@startrack.com.au</user>
+            <user>helen.connell@startrack.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

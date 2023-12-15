@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingCriteriaRules>
-        <fullName>Dashcord_Sharing_Rule</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>used by Dashcord app</description>
-        <label>Dashcord Sharing Rule</label>
-        <sharedTo>
-            <group>Dashcord</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>OwnerId</field>
-            <operation>notEqual</operation>
-            <value>.</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Campaign_Contact_Assingments_Marketing</fullName>
         <accessLevel>Edit</accessLevel>

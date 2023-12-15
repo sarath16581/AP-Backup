@@ -17,6 +17,7 @@ public with sharing class NotificationPreferencesService {
 		get {
 			//TODO: Implement the HTTPMock in the package and remove Test.isRunningTest()
 			if (AUTH0_TOKEN == null && !Test.isRunningTest()) { 
+            //if (AUTH0_TOKEN == null) { 
 				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(NOTIFICATION_PREFERENCE);
 			} else if (Test.isRunningTest()) {
 				AUTH0_TOKEN = new apsecrets.Auth0AccessManager.Auth0Token();

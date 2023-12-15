@@ -6,8 +6,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>Hob</value>
+        <operation>equals</operation>
+        <value>HOBart tdep</value>
     </filters>
     <label>Hobart Routes</label>
     <sharedTo>

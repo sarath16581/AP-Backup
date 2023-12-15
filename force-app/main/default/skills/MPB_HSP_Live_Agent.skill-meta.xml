@@ -2,27 +2,51 @@
 <Skill xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <users>
-            <user>alexander.heggie@auspost.com.au</user>
+            <user>adam.mccabe@auspost.com.au</user>
+            <user>afrodite.drougas@auspost.com.au</user>
             <user>amanda.owens@auspost.com.au</user>
-            <user>andreas.bianchi2@auspost.com.au</user>
+            <user>anita.nguyen@auspost.com.au</user>
+            <user>anita.richmond@auspost.com.au</user>
+            <user>asri.titasey@auspost.com.au</user>
+            <user>belinda.osullivan@auspost.com.au</user>
+            <user>billie.johnson@auspost.com.au</user>
             <user>blake.byer@auspost.com.au</user>
-            <user>christal.aiono@auspost.com.au</user>
-            <user>danielle.iiga@auspost.com.au</user>
+            <user>brandon.myers@auspost.com.au</user>
+            <user>brendon.smith@auspost.com.au</user>
+            <user>cassie.haines@auspost.com.au</user>
+            <user>chris.duck@auspost.com.au</user>
+            <user>christopher.duffy@auspost.com.au</user>
+            <user>clae.brookes@auspost.com.au</user>
+            <user>darian.law2@auspost.com.au</user>
+            <user>deborah.felton@auspost.com.au</user>
+            <user>dinithi.vanderlaan@auspost.com.au</user>
+            <user>doug.adams@auspost.com.au</user>
             <user>elia.amaya@auspost.com.au</user>
+            <user>gaurangkumar.dalwadi@auspost.com.au</user>
+            <user>jack.horsley@auspost.com.au</user>
+            <user>jas.dhillon@auspost.com.au</user>
+            <user>jason.billings@auspost.com.au</user>
             <user>jessica.padula@auspost.com.au</user>
-            <user>kahl.hughes@auspost.com.au</user>
-            <user>natasha.sitkowski@auspost.com.au</user>
-            <user>queeny.chan@auspost.com.au</user>
+            <user>kathleen.murphy@auspost.com.au</user>
+            <user>kimberli.fourro@auspost.com.au</user>
+            <user>kopelani.tolai@auspost.com.au</user>
+            <user>luke.dunbabin@auspost.com.au</user>
+            <user>maria.trinh@auspost.com.au</user>
+            <user>nisha.roy@auspost.com.au</user>
+            <user>rhysha.hakai@auspost.com.au</user>
+            <user>sarah.mclaren@auspost.com.au</user>
             <user>support@smartspeak.ai</user>
-            <user>scott.hunter@auspost.com.au</user>
+            <user>scott.haupt@auspost.com.au</user>
             <user>sean.daly2@auspost.com.au</user>
-            <user>shannon.mcgowan@auspost.com.au</user>
+            <user>shanil.goonesena@auspost.com.au</user>
             <user>sharnee.chalmers@auspost.com.au</user>
-            <user>sree.kenche@auspost.com.au</user>
-            <user>srinivasa.ramachandran@auspost.com.au</user>
             <user>stephanie.murdoch@auspost.com.au</user>
+            <user>tanya.rasmussen@auspost.com.au</user>
+            <user>tara.viriki@auspost.com.au</user>
             <user>taron.knight3@auspost.com.au</user>
-            <user>vid.clarke@auspost.com.au</user>
+            <user>teagan.skelton@auspost.com.au</user>
+            <user>thea.durand@auspost.com.au</user>
+            <user>david.clarke2@auspost.com.au</user>
         </users>
     </assignments>
     <label>MPB HSP Live Agent</label>

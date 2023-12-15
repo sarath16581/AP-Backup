@@ -1895,21 +1895,6 @@
             <field>LastImplementationStageUpdate__c</field>
             <table>Deal_Support_Request__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Data_Quality_Score__c</field>
-            <table>Deal_Support_Request__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Number_of_Billing_Accounts__c</field>
-            <table>Deal_Support_Request__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Customer_Checklist_attached__c</field>
-            <table>Deal_Support_Request__c</table>
-        </columns>
         <masterLabel>Deal Support Request</masterLabel>
     </sections>
     <sections>

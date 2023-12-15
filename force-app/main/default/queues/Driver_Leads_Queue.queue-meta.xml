@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>Driver Leads Queue</name>
     <queueMembers>
         <users>
             <user>aaron.ball@auspost.com.au</user>
+            <user>brook.benton@startrack.com.au</user>
             <user>carl.murray@auspost.com.au</user>
+            <user>charlie.pardo@auspost.com.au</user>
+            <user>donald.parton@startrack.com.au</user>
+            <user>gareth.rees3@auspost.com.au</user>
+            <user>henry.wong@startrack.com.au</user>
+            <user>joanna.battistini@auspost.com.au</user>
+            <user>kenan.morris@auspost.com.au</user>
+            <user>kirk.heberle@auspost.com.au</user>
+            <user>lesley.natasunjaya2@auspost.com.au</user>
+            <user>nikki.duerden@auspost.com.au</user>
+            <user>shantelle.calvert@auspost.com.au</user>
+            <user>vicki.traynor@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

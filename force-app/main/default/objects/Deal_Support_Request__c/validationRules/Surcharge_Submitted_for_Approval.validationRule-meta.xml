@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Surcharge_Submitted_for_Approval</fullName>
-    <active>false</active>
+    <active>true</active>
     <description>If Surcharge_Submitted_for_Approval__c is set to true and RecordType is Surcharge Exemption, then both Sales_Director__c and SalesTeamGeneralManager__c must have values.</description>
     <errorConditionFormula>AND(
   (Surcharge_Submitted_for_Approval__c == true),
@@ -11,5 +11,6 @@
     ISBLANK(SalesTeamGeneralManager__c)
   )
 )</errorConditionFormula>
+    <errorDisplayField>Hidden_Automated_DSR__c</errorDisplayField>
     <errorMessage>Ensure Sales Director and Sales Team General Manager are defined</errorMessage>
 </ValidationRule>

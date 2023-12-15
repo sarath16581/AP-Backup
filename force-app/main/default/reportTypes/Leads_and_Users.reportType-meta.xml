@@ -920,21 +920,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>SFGA__CorrelationID__c</field>
-            <table>User.Lead$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>SFGA__Correlation_Data__c</field>
-            <table>User.Lead$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>SFGA__Web_Source__c</field>
-            <table>User.Lead$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>DPID__c</field>
             <table>User.Lead$CreatedById</table>
         </columns>
@@ -1426,11 +1411,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Lead_Type__c</field>
-            <table>User.Lead$CreatedById</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>leadcap__Facebook_Lead_ID__c</field>
             <table>User.Lead$CreatedById</table>
         </columns>
         <columns>

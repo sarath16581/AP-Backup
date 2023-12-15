@@ -2,6 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SSSW_F_Reference_ID</fullName>
     <active>true</active>
+    <description>08/2023 removed snnap integration profile reference</description>
     <errorConditionFormula>AND(  ReferenceID__c   = NULL, 
       NOT(ISPICKVAL( EnquirySubType__c , &quot;Damage to Property&quot;)), 
       NOT(ISPICKVAL( Origin , &quot;Web&quot;)),

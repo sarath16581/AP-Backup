@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copy_of_Deal_Processing_Request_all_filt</fullName>
+    <booleanFilter>(1 AND 2 AND 3) OR (1 AND 3 AND 4 AND 5)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Organisation__c</columns>
+    <columns>Description__c</columns>
+    <columns>Billing_Number__c</columns>
+    <columns>Sub_Accounts__c</columns>
+    <columns>Work_Type__c</columns>
+    <columns>APT_Contract_Type__c</columns>
+    <columns>Product__c</columns>
+    <columns>Priority__c</columns>
+    <columns>Date_Time_Opened__c</columns>
+    <columns>Sales_Team_DEC__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Deal_Enablement_Centre</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,In Progress</value>
+    </filters>
+    <filters>
+        <field>Support_Work_Type__c</field>
+        <operation>equals</operation>
+        <value>Deal Processing,Contract Administration</value>
+    </filters>
+    <filters>
+        <field>Pending_Information_Reason__c</field>
+        <operation>equals</operation>
+        <value>Remedy Logged With IT</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Pending Information</value>
+    </filters>
+    <label>Copy of Deal Processing Request all filt</label>
+    <sharedTo>
+        <group>Deal_Enablement_Centre_Team</group>
+    </sharedTo>
+</ListView>

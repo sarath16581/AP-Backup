@@ -616,7 +616,7 @@
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <interviewLabel>APT_Notify_Contract_Owner_about_Expiration-4_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Notify_Contract_Owner_about_Expiration-2_InterviewLabel</interviewLabel>
     <label>APT Notify Contract Owner about Expiration</label>
     <processMetadataValues>
         <name>ObjectType</name>

@@ -11,5 +11,6 @@
     <columns>CORE.USERS.FIRST_NAME</columns>
     <columns>CORE.USERS.LAST_NAME</columns>
     <filterScope>Mine</filterScope>
-    <label>My Campaigns</label>
+    <label>mypost business</label>
+    <language>en_US</language>
 </ListView>

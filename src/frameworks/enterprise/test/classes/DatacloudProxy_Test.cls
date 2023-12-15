@@ -53,7 +53,7 @@ public with sharing class DatacloudProxy_Test {
 			// 	System.assertNotEquals(null, fDiff.getDifference(), 'Difference attrib cannot be empty');
 			// }
 		}
-	}
+    }
 
 	/**
 	 * Generates a FindDuplicatesResult respose based on provided matching record and confidence level

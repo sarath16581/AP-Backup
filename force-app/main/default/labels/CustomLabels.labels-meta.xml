@@ -5246,7 +5246,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
         <value>Correct the {0} Opportunity Split. A non-{0} team member can’t be assigned to the {0} overlay split.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithInvalidQuantityOnProducts</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -5254,7 +5254,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
         <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithInvalidRevenueStartDateOnProducts</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -8480,7 +8480,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>AttributeAPCNMapping</fullName>
         <categories>Auth0</categories>
         <language>en_US</language>
@@ -8865,5 +8865,5 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Australia Post No Email Phishing Statement</shortDescription>
         <value>Australia Post will never send you an email asking for your password, credit card details or account information.</value>
-    </labels>	
+    </labels>
 </CustomLabels>

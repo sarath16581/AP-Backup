@@ -2536,11 +2536,6 @@ Requested by SS - ServiceNow Ticket INC0506675</description>
             <field>Network__c.WWC_WA__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
