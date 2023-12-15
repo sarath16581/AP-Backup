@@ -8264,12 +8264,28 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Sub account creation request(s) submitted Successfully. Once the Follower/Offspring accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountsCreationNoAccessError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationNoAccessError</shortDescription>
+        <value>You do not have access to create Follower/Offspring accounts, please raise a myIT ticket to Salesforce Support for assistance.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountsCreationTabError</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
         <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTitle</shortDescription>
+        <value>Create Sub Account Request(s)</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>

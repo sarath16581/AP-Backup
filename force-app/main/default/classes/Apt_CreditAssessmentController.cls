@@ -1197,6 +1197,7 @@ public with sharing class Apt_CreditAssessmentController {
 					redirectPage.getParameters().put('c__isTEAMRequest', String.valueOf(true));
 					redirectPage.getParameters().put('c__recordId', chargeAccount.Id);
 					redirectPage.getParameters().put('c__isBillingAccount', String.valueOf(false));
+					redirectPage.getParameters().put('c__contextId', contextId);
 				}
 				redirectPage.getParameters().put(APT_Constants.PARAM_PROPOSAL_ID, proposal.Id);
 				redirectPage.getParameters().put('contextId', contextId);
