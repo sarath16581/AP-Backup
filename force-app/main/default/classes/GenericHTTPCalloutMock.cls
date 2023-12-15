@@ -3,8 +3,6 @@
  * @date 26/5/21
  * @group Tests
  * @description Generic mock class to switch between mock HTTP responses based on endpoint
- * @changelog
- * 2023-12-11 - Mahesh Parvathaneni - Included Auth0 callout in respond method
  */
 
 /**
@@ -30,7 +28,7 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 
 	public HttpResponse respond(HttpRequest req) {
 		HttpResponse res = new HttpResponse();
-		if (req.getEndpoint().startsWithIgnoreCase('callout:AuthZ') || req.getEndpoint().startsWithIgnoreCase('callout:Auth0'))
+		if (req.getEndpoint().startsWithIgnoreCase('callout:AuthZ'))
 		{
 			if (this.success)
 			{
