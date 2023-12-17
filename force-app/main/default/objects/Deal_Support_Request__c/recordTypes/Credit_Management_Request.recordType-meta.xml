@@ -717,10 +717,6 @@
     <picklistValues>
         <picklist>Credit_Work_Type__c</picklist>
         <values>
-            <fullName>Account Payment Conduct</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Add lodgement point</fullName>
             <default>false</default>
         </values>
@@ -1590,6 +1586,10 @@
         </values>
         <values>
             <fullName>Digital Mailbox</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Access</fullName>
             <default>false</default>
         </values>
         <values>

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Grants access to the Salesforce Lead Capture application.</description>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Lead.leadcap__Facebook_Lead_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Salesforce Lead Capture</label>
     <objectPermissions>
@@ -17,12 +12,4 @@
         <object>Lead</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <pageAccesses>
-        <apexPage>leadcap__Lead_Capture</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <tabSettings>
-        <tab>leadcap__Lead_Capture</tab>
-        <visibility>Available</visibility>
-    </tabSettings>
 </PermissionSet>

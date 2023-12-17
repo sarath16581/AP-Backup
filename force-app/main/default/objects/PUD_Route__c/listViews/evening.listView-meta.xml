@@ -13,7 +13,7 @@
         <operation>contains</operation>
         <value>SEA19,SEA20,SEA21,SEA22,SEA23,SEA24,SEA25,SEA26,SEA27,SEA28,SEA29</value>
     </filters>
-    <label>PartTime - PM Seaford</label>
+    <label>Fulltime -Seaford</label>
     <sharedTo>
         <group>SEAFORD_VAN_OPERATIONS</group>
     </sharedTo>

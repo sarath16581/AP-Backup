@@ -4,13 +4,11 @@
     <booleanFilter>1 AND 2 and (3 or 4)</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Calc_Link_Account__c</columns>
-    <columns>NAME</columns>
     <columns>CASES.SUBJECT</columns>
-    <columns>CASES.STATUS</columns>
-    <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
-    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
+    <columns>CASES.STATUS</columns>
     <columns>OWNER_NAME</columns>
+    <columns>NAME</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
@@ -34,11 +32,10 @@
     </filters>
     <label>BGS Billing Support Team</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Customer_Support_Billing_Service_Manager</roleAndSubordinatesInternal>
+        <role>Customer_Support_Billing_Service_Manager</role>
         <roleAndSubordinatesInternal>Service_Business_Service_Manager</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Enterprise_Service_Manager</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Government_Head_of_Service</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Government_Service_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

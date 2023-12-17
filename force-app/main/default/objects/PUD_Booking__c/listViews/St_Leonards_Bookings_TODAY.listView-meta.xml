@@ -28,6 +28,6 @@
     </filters>
     <label>Macquarie Park  Bookings - TODAY</label>
     <sharedTo>
-        <group>ST_LEONARDS_VAN_OPS</group>
+        <group>MACQUARIE_PARK_VAN_OPS</group>
     </sharedTo>
 </ListView>

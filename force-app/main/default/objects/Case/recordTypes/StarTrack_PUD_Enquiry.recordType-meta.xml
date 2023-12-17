@@ -1285,6 +1285,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>New customer - Inspection recommended</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>No existing case</fullName>
             <default>false</default>
         </values>

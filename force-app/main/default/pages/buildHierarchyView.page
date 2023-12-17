@@ -1,75 +1,75 @@
 <!--2021.24.06 Change made by @Suman.gunaganti@auspost.com.au Added new columns in org and billing account sections-->
 <!--2021.09.30 Change made by seth.heang@auspost.com.au Uplift SF API version to 52 -->
-<!-- 2023.05.01 Naveen Rajanna - REQ2916371 - Modified Controller to avoid Timeout Exception and to reduce the number of SOQLs called -->
+<!-- 2023.05.01	Naveen Rajanna - REQ2916371 - Modified Controller to avoid Timeout Exception and to reduce the number of SOQLs called -->
 <apex:page controller="accountStructureController" sidebar="false" showHeader="false" readOnly="true">
    <apex:pageBlock title="Customer Hierarchy and associated Billing Accounts">
-        To render this information in Excel, select all (CTRL + A), copy to clipboard (CTRL + C) and then paste (CTRL + V) into Excel.
+		To render this information in Excel, select all (CTRL + A), copy to clipboard (CTRL + C) and then paste (CTRL + V) into Excel.
    </apex:pageBlock>
    <html>
-      <style>
-        table.tailored th {
-            background-color: #DDDDDD;
-            padding: 2px;
-        }
-      </style>
-      <table class="tailored">
-         <tr>
-            <th rowspan="2" valign="bottom">Org Level</th>
-            <th rowspan="2" valign="bottom">Legal Entity Name</th>
-            <th rowspan="2" valign="bottom">Parent Legal Entity Name</th>
-            <th rowspan="2" valign="bottom">Registered<br/>Business Name</th>
-            <th rowspan="2" valign="bottom">Customer<br/>Org Number</th>
-            <th rowspan="2" valign="bottom">Customer<br/>Org ABN</th>
-            <th rowspan="2" valign="bottom">Customer<br/>Org ACN</th>
-            <th rowspan="2" valign="bottom">Account Manager</th>
-            <th rowspan="2" valign="bottom">Holding<br/>Role</th>
-            <th rowspan="2" valign="bottom">Sales<br/>Team Owner</th>
-            <th rowspan="2" valign="bottom">Super Admin</th>
-            <th colspan="10" align="center">Billing Account Info</th>
-         </tr>
-         <tr>
-            <th>Billing<br/>Account Name</th>
-            <th>Billing<br/>Account Number</th>
-            <th>Billing<br/>Account Type</th>
-            <th>Marked<br/>for deletion</th>
-            <th>Billing<br/>Account ABN</th>
-            <th>Billing<br/>Account ACN</th>
-            <th>Payer<br/>Account Number</th>
-            <th>Authorisation<br/>Roles</th>
-            <th>BAM<br/>Roles</th>
-            <th>BAM<br/>Applications</th>
-         </tr>
-            <apex:repeat value="{!info}" var="a">
-                <tr>
-                    <td nowrap="nowrap">{!a.Level}</td>
-                    <td nowrap="nowrap">{!a.Name}</td>
-                    <td nowrap="nowrap">{!a.ParentName}</td>
-                    <td nowrap="nowrap">{!a.OrganisationTradingName}</td>
-                    <td nowrap="nowrap">{!a.AccountNumber}</td>
-                    <td nowrap="nowrap">{!a.ABN}</td>
-                    <td nowrap="nowrap">{!a.ACN}</td>
-                    <td nowrap="nowrap">{!a.OwnerName}</td>
-                    <td nowrap="nowrap">{!a.HoldingRoleReferenceName}</td>
-                    <td nowrap="nowrap">{!a.SalesDirectorName}</td>
-                    <td nowrap="nowrap">{!a.SuperAdminTo}</td>
-                    <apex:repeat value="{!a.BAList}" var="b">
-                        <tr> 
-                            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
-                            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
-                            <td nowrap="nowrap">{!b.name}</td>
-                            <td>{!b.LegacyId}</td>
-                            <td>{!b.Type}</td>
-                            <td>{!b.SAPmarkedfordeletion}</td>
-                            <td>{!b.ABN}</td>
-                            <td>{!b.ACN}</td>
-                            <td>{!b.PayerAccountLegacyId}</td>
-                            <td>{!b.HasAuthorisationRule}</td>
-                            <td>{!b.HasBAMRole}</td>
-                            <td nowrap="nowrap">{!b.BAMApplications}</td>
-                        </tr>
-                    </apex:repeat>
-                </tr>
-            </apex:repeat>
-      </table>
+	  <style>
+		table.tailored th {
+			background-color: #DDDDDD;
+			padding: 2px;
+		}
+	  </style>
+	  <table class="tailored">
+		 <tr>
+			<th rowspan="2" valign="bottom">Org Level</th>
+			<th rowspan="2" valign="bottom">Legal Entity Name</th>
+			<th rowspan="2" valign="bottom">Parent Legal Entity Name</th>
+			<th rowspan="2" valign="bottom">Registered<br/>Business Name</th>
+			<th rowspan="2" valign="bottom">Customer<br/>Org Number</th>
+			<th rowspan="2" valign="bottom">Customer<br/>Org ABN</th>
+			<th rowspan="2" valign="bottom">Customer<br/>Org ACN</th>
+			<th rowspan="2" valign="bottom">Account Manager</th>
+			<th rowspan="2" valign="bottom">Holding<br/>Role</th>
+			<th rowspan="2" valign="bottom">Sales<br/>Team Owner</th>
+			<th rowspan="2" valign="bottom">Super Admin</th>
+			<th colspan="10" align="center">Billing Account Info</th>
+		 </tr>
+		 <tr>
+			<th>Billing<br/>Account Name</th>
+			<th>Billing<br/>Account Number</th>
+			<th>Billing<br/>Account Type</th>
+			<th>Marked<br/>for deletion</th>
+			<th>Billing<br/>Account ABN</th>
+			<th>Billing<br/>Account ACN</th>
+			<th>Payer<br/>Account Number</th>
+			<th>Authorisation<br/>Roles</th>
+			<th>BAM<br/>Roles</th>
+			<th>BAM<br/>Applications</th>
+		 </tr>
+			<apex:repeat value="{!info}" var="a">
+				<tr>
+					<td nowrap="nowrap">{!a.Level}</td>
+					<td nowrap="nowrap">{!a.Name}</td>
+					<td nowrap="nowrap">{!a.ParentName}</td>
+					<td nowrap="nowrap">{!a.OrganisationTradingName}</td>
+					<td nowrap="nowrap">{!a.AccountNumber}</td>
+					<td nowrap="nowrap">{!a.ABN}</td>
+					<td nowrap="nowrap">{!a.ACN}</td>
+					<td nowrap="nowrap">{!a.OwnerName}</td>
+					<td nowrap="nowrap">{!a.HoldingRoleReferenceName}</td>
+					<td nowrap="nowrap">{!a.SalesDirectorName}</td>
+					<td nowrap="nowrap">{!a.SuperAdminTo}</td>
+					<apex:repeat value="{!a.BAList}" var="b">
+						<tr> 
+							<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+							<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+							<td nowrap="nowrap">{!b.name}</td>
+							<td>{!b.LegacyId}</td>
+							<td>{!b.Type}</td>
+							<td>{!b.SAPmarkedfordeletion}</td>
+							<td>{!b.ABN}</td>
+							<td>{!b.ACN}</td>
+							<td>{!b.PayerAccountLegacyId}</td>
+							<td>{!b.HasAuthorisationRule}</td>
+							<td>{!b.HasBAMRole}</td>
+							<td nowrap="nowrap">{!b.BAMApplications}</td>
+						</tr>
+					</apex:repeat>
+				</tr>
+			</apex:repeat>
+	  </table>
    </html>
 </apex:page>

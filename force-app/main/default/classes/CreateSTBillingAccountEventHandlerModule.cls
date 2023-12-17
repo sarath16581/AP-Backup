@@ -475,9 +475,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 */
 	private BAMExternalOnboardingRequest__c getUpdatableExternalOnboardingRequest(BillingAccountCreationEvent__e event, BAMExternalOnboardingRequest__c updatable, BAMExternalOnboardingRequest__c oldRecord) {
 		if (updatable == null) {
-			updatable = new BAMExternalOnboardingRequest__c(Id=oldRecord.Id, Status__c=oldRecord.Status__c);
+			updatable = new BAMExternalOnboardingRequest__c(Id=oldRecord.Id, Status__c=oldRecord.Status__c, Response_Payload__c=oldRecord.Response_Payload__c);
 		}
-		updatable.Response_Payload__c += JSON.serialize(event, true);
+		updatable.Response_Payload__c = (String.isNotBlank(updatable.Response_Payload__c) ? updatable.Response_Payload__c : '') + JSON.serialize(event, true);
+		updatable.Response_Date__c = System.now();
 
 		if (updatable.Status__c != 'Partial Success') {
 			if ('Success'.equalsIgnoreCase(event.Status__c)) {

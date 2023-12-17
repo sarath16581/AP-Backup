@@ -273,6 +273,31 @@
             <field>Not_Activated_Reason__c</field>
             <table>Account</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingAddress</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingCity</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingStreet</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingState</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingPostalCode</field>
+            <table>Account</table>
+        </columns>
         <masterLabel>Licence</masterLabel>
     </sections>
     <sections>
@@ -1875,14 +1900,11 @@
             <field>Licensee__c</field>
             <table>Account.Memberships__r</table>
         </columns>
-        <masterLabel>Memberships</masterLabel>
-    </sections>
-    <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
+            <field>Western_Union_Category__c</field>
+            <table>Account.Memberships__r</table>
         </columns>
-        <masterLabel>Organisations</masterLabel>
+        <masterLabel>Memberships</masterLabel>
     </sections>
 </ReportType>

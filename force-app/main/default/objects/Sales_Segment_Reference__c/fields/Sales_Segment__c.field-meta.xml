@@ -77,6 +77,11 @@
                 <label>Government North</label>
             </value>
             <value>
+                <fullName>Government North - National Defence</fullName>
+                <default>false</default>
+                <label>Government North - National Defence</label>
+            </value>
+            <value>
                 <fullName>Government - Not Active</fullName>
                 <default>false</default>
                 <label>Government - Not Active</label>
@@ -340,11 +345,6 @@
                 <fullName>Small Business WA</fullName>
                 <default>false</default>
                 <label>Small Business WA</label>
-            </value>
-            <value>
-                <fullName>Government North - National Defence</fullName>
-                <default>false</default>
-                <label>Government North - National Defence</label>
             </value>
         </valueSetDefinition>
     </valueSet>

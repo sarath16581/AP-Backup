@@ -496,6 +496,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Area_to_Benefit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.ArticleCount__c</field>
         <readable>true</readable>
@@ -1193,6 +1198,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Reason_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Refer_to_Third_Party__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

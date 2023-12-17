@@ -1,12 +1,6 @@
-/**
-* @description		: Proxy class for Datacloud classes (that cannot be constructed / mocked without a proxy)
-* @author			: Paul Perry
-* @group			: proxies
-* @test				: DatacloudProxy_Test
-**/
 public inherited sharing class DatacloudProxy {
 
-	public class FindDuplicatesResult { 
+    public class FindDuplicatesResult { 
 		public List<DuplicateResult> duplicateResults;
 		public List<Database.Error> errors;
 		public Boolean success;

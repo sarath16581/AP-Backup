@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>Legal Support Request Queue</name>
     <queueMembers>
         <publicGroups>
             <publicGroup>Legal_Support_Request_Team</publicGroup>
         </publicGroups>
-        <users>
-            <user>sheryl.crisostomo@auspost.com.au</user>
-        </users>
     </queueMembers>
     <queueSobject>
         <sobjectType>Deal_Support_Request__c</sobjectType>

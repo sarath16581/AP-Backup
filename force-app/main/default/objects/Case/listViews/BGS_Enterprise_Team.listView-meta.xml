@@ -37,8 +37,10 @@
     </filters>
     <label>BGS Enterprise Team</label>
     <sharedTo>
+        <role>Customer_Support_Billing_Service_Manager</role>
         <role>Service_Business_Service_Manager</role>
         <role>Service_Enterprise_Service_Manager</role>
         <role>Service_Government_Head_of_Service</role>
+        <role>Service_Government_Service_Manager</role>
     </sharedTo>
 </ListView>

@@ -7,7 +7,7 @@
 
 /**
 --------------------------------------- History --------------------------------------------------
-26.05.2021	alex.volkov@auspost.com.au	Initial creation
+26.05.2021    alex.volkov@auspost.com.au    Initial creation
 **/
 
 @IsTest
@@ -50,12 +50,12 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 			{
 				res.setBody('[\n' +
 						'  {\n' +
-						'	"email":"test@test.com",\n' +
-						'	"optedOut": true\n' +
+						'    "email":"test@test.com",\n' +
+						'    "optedOut": true\n' +
 						'  },\n' +
 						'  {\n' +
-						'	"mobile":"0433222111",\n' +
-						'	"optedOut": false\n' +
+						'    "mobile":"0433222111",\n' +
+						'    "optedOut": false\n' +
 						'  }\n' +
 						']');
 				res.setStatusCode(200);
@@ -74,12 +74,12 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 			{
  				res.setBody('[\n' +
 						'  {\n' +
-						'	"email":"test@test.com",\n' +
-						'	"optedOut": true\n' +
+						'    "email":"test@test.com",\n' +
+						'    "optedOut": true\n' +
 						'  },\n' +
 						'  {\n' +
-						'	"mobile":"0433222111",\n' +
-						'	"optedOut": false\n' +
+						'    "mobile":"0433222111",\n' +
+						'    "optedOut": false\n' +
 						'  }\n' +
 						']');
 				res.setStatusCode(200);
@@ -98,12 +98,12 @@ public with sharing class GenericHTTPCalloutMock implements HttpCalloutMock
 			{
 				res.setBody('[\n' +
 						'  {\n' +
-						'	"email":"test@test.com",\n' +
-						'	"optedOut": true\n' +
+						'    "email":"test@test.com",\n' +
+						'    "optedOut": true\n' +
 						'  },\n' +
 						'  {\n' +
-						'	"mobile":"0433222111",\n' +
-						'	"optedOut": false\n' +
+						'    "mobile":"0433222111",\n' +
+						'    "optedOut": false\n' +
 						'  }\n' +
 						']');
 				res.setStatusCode(204);

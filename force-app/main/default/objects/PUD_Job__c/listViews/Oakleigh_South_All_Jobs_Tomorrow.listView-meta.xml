@@ -23,5 +23,9 @@
         <operation>equals</operation>
         <value>TOMORROW</value>
     </filters>
+    <filters>
+        <field>Booking__c</field>
+        <operation>equals</operation>
+    </filters>
     <label>Oakleigh South - All Jobs Tomorrow</label>
 </ListView>

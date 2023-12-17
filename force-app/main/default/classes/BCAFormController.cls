@@ -2,7 +2,6 @@
 * @description	   : A class for bcaForm LWC component
 * @author			: Victor Cheng
 * @group			 : 
-* @test 			 : BCAFormController_Test
 * @last modified on  : 06-09-2021
 * @last modified by  : ankur.gandhi@auspost.com.au
 * Modifications Log 
@@ -11,7 +10,6 @@
 * 1.0   10-12-2020  Victor Cheng   Initial Version
 * 1.0   14-04-2021  Victor Cheng   Changes after Unit Test class
 * 2023-05-05	Naveen Rajanna	REQ3184691	Modified getDigitalIdClientId to return a wrapper
-* 2023-08-29	Paul Perry		MW0005478	Logic for Credit Suspect Register verification
 **/
 
 public without sharing class BCAFormController {
@@ -282,9 +280,8 @@ public without sharing class BCAFormController {
 			state = networkObject.State__c;
 			postcode = networkObject.Post_Code__c;
 
-			if(!Test.isRunningTest()) {
+			if(!Test.isRunningTest())
 				distance = (Decimal) networkObject.get('dist');
-			}
 		}
 	}
 

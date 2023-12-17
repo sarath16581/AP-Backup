@@ -12,15 +12,16 @@
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notContain</operation>
-        <value>Closed Lost,Closed Disqualified,Closed Duplicate</value>
+        <value>Closed Won,Closed Lost,Closed Disqualified,Closed Duplicate</value>
     </filters>
     <filters>
         <field>OPPORTUNITY.CLOSE_DATE</field>
         <operation>greaterOrEqual</operation>
-        <value>7/1/2022</value>
+        <value>7/1/2023</value>
     </filters>
     <label>My Team&apos;s Opportunities</label>
     <sharedTo>
+        <group>Sales_Managers</group>
         <role>Enterprise_Strategic_Financial_Insurance_Director_Sales</role>
         <role>Enterprise_Strategic_NSW_1_Director_Sales</role>
         <role>Enterprise_Strategic_NSW_2_Director_Sales</role>

@@ -16,6 +16,7 @@ History:
 18.11.19 - Gunith.Devasurendra@auspost.com.au - Corrected the Thread ID for Network Response Emails (INC1437080)
 03.02.20 - Gunith.Devasurendra@auspost.com.au - Selection on Case.DescriptionofContents__c (REQ2085413)
 2020-05-20 - haraprasad.sahoo@auspost.com.au - Added requestoHold variable and its handling
+2023-06-05 - jacob.isaac@auspost.com.au - Resetting Flag Case for Review Field on UI for all SSSW Scenarios - REQ3111278
 **************************************************/
 public class SSSW_MyNetworkResponsePageContr {
 
@@ -112,7 +113,7 @@ public class SSSW_MyNetworkResponsePageContr {
                                         nresp.Id = null; 
                                         nresp.RelatedCase__c  = cseId; 
                                         nResp.Send_Case_To_Customer_Service__c = false; 
-                                        //For every case the Flag Case For Review field should be blank;
+                                        //REQ3111278 - For every case the Flag Case For Review field should be blank on UI
                                         nResp.Quality_of_the_case__c = null;
                                         // avoid transferring the case to CCC by defaulting new NET RES record's value to false           
                                         nResp.to_CCC_action__c = false; 
@@ -289,7 +290,7 @@ public class SSSW_MyNetworkResponsePageContr {
                     String CaseProductCategory = relatedCse.productCategory__c;
                                     system.debug('Caseproductcategory' +CaseProductCategory);
 
-                    system.debug('This is the CaseCond from NetwResponse' + caseCond);
+                    system.debug(caseCond);
                      
                 //loop through the custom setting for getting template against each selections only for product category 
                             

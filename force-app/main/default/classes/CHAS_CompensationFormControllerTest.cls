@@ -4,6 +4,7 @@
  * @description: unit test for CHAS_CompensationFormController
  * @changelog
  * October 2021 - Phap Mai - Init
+ * 2023-10-13 hasantha.liyanage@auspost.com.au Added Ref Id to test case as per new validation rule
  */
 @isTest
 private with sharing class CHAS_CompensationFormControllerTest
@@ -28,6 +29,7 @@ private with sharing class CHAS_CompensationFormControllerTest
         // case
         Case iCase = TestDataProvider.createCase('subject', 'description', null);
         iCase.ContactId = c.Id;
+	iCase.ReferenceID__c = 'REF123';
         insert iCase;
 
         // EFT record type

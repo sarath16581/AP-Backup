@@ -27,6 +27,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>VisitorAddressId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>TimeZone</field>
             </layoutItems>
             <layoutItems>
@@ -49,6 +53,12 @@
     <miniLayout>
         <fields>ParentLocationId</fields>
     </miniLayout>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>AddressType</fields>
+        <fields>Description</fields>
+        <relatedList>Addresses</relatedList>
+    </relatedLists>
     <relatedLists>
         <fields>Name</fields>
         <fields>ParentRecord</fields>

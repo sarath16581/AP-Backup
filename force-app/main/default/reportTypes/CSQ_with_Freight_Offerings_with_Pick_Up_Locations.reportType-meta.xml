@@ -234,11 +234,6 @@
             <field>Opportunity__c.StageName</field>
             <table>Customer_Scoping_Questionnaire__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Data_Quality_Score__c</field>
-            <table>Customer_Scoping_Questionnaire__c</table>
-        </columns>
         <masterLabel>Customer Scoping Questionnaires</masterLabel>
     </sections>
     <sections>

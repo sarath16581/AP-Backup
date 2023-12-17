@@ -175,6 +175,7 @@ private class ProvisionSTBillingAccountController_Test {
 		account.BillingPostalCode = '3000';
 		account.BillingState = 'VIC';
 		account.BillingCountry = 'Australia';
+		account.Sales_Segment__c = 'Test Segment 1234';
 		account = (Account) ApplicationTestDataFactory.setUnwritableFields(account, new Map<String, Object>{
 				'Role_Type_Roll_Up__c' => ProvisionSTBillingAccountsController.VALID_ORGANISATION_ROLE_TYPES.iterator().next()
 		});
@@ -214,12 +215,17 @@ private class ProvisionSTBillingAccountController_Test {
 				'Opportunity__r' => opportunity
 		});
 
+		Sales_Team_Segment__c salesTeamSegment = ApplicationTestDataFactorySales.getSalesTeamSegments(1, true)[0];
+		salesTeamSegment.Name = account.Sales_Segment__c;
+		salesTeamSegment.CreditPersonCode__c = 'CO 12345';
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		DealSupportRequestsSelector dsrSelector = (DealSupportRequestsSelector)MockUtility.mockSelector(DealSupportRequestsSelector.class);
 		PickUpLocationSelector pickupLocationsSelector = (PickUpLocationSelector)MockUtility.mockSelector(PickUpLocationSelector.class);
 		SubAccountRequestsSelector subAccountRequestsSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		SalesTeamSegmentsSelector salesTeamSegmentsSelector = (SalesTeamSegmentsSelector)MockUtility.mockSelector(SalesTeamSegmentsSelector.class);
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -240,6 +246,8 @@ private class ProvisionSTBillingAccountController_Test {
 				(Set<String>)fflib_Match.anyObject(),
 				(Set<Object>)fflib_Match.anyObject()
 		)).thenReturn(new Map<Id, APT_Sub_Account__c>(subAccountRequests));
+
+		MockUtility.Mocks.when(salesTeamSegmentsSelector.selectByName(new Set<String>{account.Sales_Segment__c})).thenReturn(new List<Sales_Team_Segment__c>{salesTeamSegment});
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -274,26 +282,13 @@ private class ProvisionSTBillingAccountController_Test {
 		Assert.isNull(requestPayload.team.organisations.mailingAddress.addressLine2, 'Request payload \'team.organisations.mailingAddress.addressLine2\' must be blank when Pickup Location street address is < 25 characters in length.');
 		Assert.areEqual(pickUpLocation.Suburb__c, requestPayload.team.organisations.mailingAddress.suburb, 'Request payload \'team.organisations.mailingAddress.suburb\' must be set to pickup location\'s suburb.');
 		Assert.areEqual(pickUpLocation.Postcode__c, String.valueOf(requestPayload.team.organisations.mailingAddress.postcode), 'Request payload \'team.organisations.mailingAddress.postcode\' must be set to pickup location\'s post code.');
+		Assert.areEqual(salesTeamSegment.CreditPersonCode__c, requestPayload.team.creditDetails.creditOfficer, 'Request payload \'team.creditDetails.creditOfficer\' must be set to credit officer specified on Sales Team Segment.');
+		BillingAccountCreationConfiguration__mdt metadata = ProvisionSTBillingAccountsController.billingAccountCreationConfigurationMetadata;
+		if (metadata != null) {
+			Assert.areEqual(metadata.AnnualPriceReviewEffectiveDate__c.day(), requestPayload.team.creditDetails.nextRevenueDueDate.day(), 'Request payload \'team.creditDetails.nextRevenueDueDate\' date component must be populated based on annual price review date configured in metadata.');
+			Assert.areEqual(metadata.AnnualPriceReviewEffectiveDate__c.month(), requestPayload.team.creditDetails.nextRevenueDueDate.month(), 'Request payload \'team.creditDetails.nextRevenueDueDate\' month component must be populated based on annual price review date configured in metadata.');
+		}
 		Assert.areEqual(subAccountRequests.size(), requestPayload.team.followerOffspringList.size(), 'Request payload does not include details of all sub account requests passed in.');
-		/*for (BillingAccountWrapperForTeams.StarTrackSubAccount subAccountRequestPayload: requestPayload.team.followerOffspringList) {
-			if (subAccountRequestPayload.followerOffspringRequestId == subAccountRequests[0].Id) {
-				// invoice paid by leader
-				Assert.areEqual(leaderBillingAccount.LEGACY_ID__c, subAccountRequestPayload.parentBillingAccountNo);
-				Assert.isNull(subAccountRequestPayload.parentObjectId);
-			} else if (subAccountRequestPayload.followerOffspringRequestId == subAccountRequests[1].Id) {
-				// invoice paid by other existing billing account
-				Assert.areEqual(parentBillingAccount.LEGACY_ID__c, subAccountRequestPayload.parentBillingAccountNo);
-				Assert.isNull(subAccountRequestPayload.parentObjectId);
-			} else if (subAccountRequestPayload.followerOffspringRequestId == subAccountRequests[2].Id) {
-				// pays own invoices
-				Assert.isNull(subAccountRequestPayload.parentBillingAccountNo);
-				Assert.isNull(subAccountRequestPayload.parentObjectId);
-			} else {
-				// invoice paid by another new billing account in same request
-				Assert.isNull(subAccountRequestPayload.parentBillingAccountNo);
-				Assert.areEqual(subAccountRequests[2].Id, subAccountRequestPayload.parentObjectId);
-			}
-		}*/
 	}
 
 	/**

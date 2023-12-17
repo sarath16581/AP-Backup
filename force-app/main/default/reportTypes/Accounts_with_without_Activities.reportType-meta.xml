@@ -1245,22 +1245,14 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Events__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Count_of_Tasks__c</field>
             <table>Account.Activities</table>
         </columns>
-        <masterLabel>Activities</masterLabel>
-    </sections>
-    <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
+            <field>Count_of_Events__c</field>
+            <table>Account.Activities</table>
         </columns>
-        <masterLabel>Organisations</masterLabel>
+        <masterLabel>Activities</masterLabel>
     </sections>
 </ReportType>

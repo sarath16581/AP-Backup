@@ -7,15 +7,15 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
+        <operation>contains</operation>
         <value>sea</value>
     </filters>
     <filters>
         <field>NAME</field>
         <operation>contains</operation>
-        <value>SEA01,SEA02,SEA03,SEA04,SEA05,SEATO1,SEATO3,SEATO5</value>
+        <value>SEA319,SEA320,SEA321,SEA322,SEA323,SEA324,SEA325,SEA326,SEA327,SEA328,SEA329</value>
     </filters>
-    <label>AM Seaford</label>
+    <label>Part-time Seaford</label>
     <sharedTo>
         <group>SEAFORD_VAN_OPERATIONS</group>
     </sharedTo>

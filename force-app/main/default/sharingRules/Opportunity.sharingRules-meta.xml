@@ -38,16 +38,4 @@
             <role>Inside_Sales_BMS_Team_Leader</role>
         </sharedFrom>
     </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>LBP_Opportunity_Sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Gives read/write access to opportunities owned by LBP users</description>
-        <label>LBP Opportunity Sharing</label>
-        <sharedTo>
-            <group>LBP_Opportunity_Sharing</group>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>PartnerInfo_National_RNP_Manager</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
 </SharingRules>

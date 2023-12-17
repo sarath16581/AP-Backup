@@ -3,12 +3,11 @@
     <fullName>APT_Configuration_Update_Version__c</fullName>
     <defaultValue>0</defaultValue>
     <description>The Configuration update&apos;s version number. The number increments with each version of the configuration update, for example, 1, 2, 3.</description>
-    <inlineHelpText>The Configuration update&apos;s version number. The number increments with each version of the configuration update, for example, 1, 2, 3.</inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>The Configuration update&apos;s version number. The number increments with each version of the configuration update, for example, 1, 2, 3.</inlineHelpText>
     <label>Configuration Update Version</label>
     <precision>4</precision>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <scale>0</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

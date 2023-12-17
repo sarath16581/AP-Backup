@@ -12,7 +12,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
   
   //header columns : used as the header for the output file
   private String columnHeader = 'Invoice Date, Posting Date, Reference, Header Text, Vendor Number, Business Area, Payment Terms, '+
-                +'Text, Account, Amount, Cover Type Code ,Cost Centre Code, Text, Tax Code, Supplier Name, Street, City, Postcode, State, Country, Bank Key, Bank Account, Bank Country, Control Key \n';
+                +'Text, Account, Amount, Cover Type Code, Cost Centre Code, Text, Tax Code, Supplier Name, Street, City, Postcode, State, Country, Bank Key, Bank Account, Bank Country, Control Key \n';
     private List<String> rowValues = new List<String>();
     private Set<Id> recordstoClose = new Set<Id>();
     private String query;

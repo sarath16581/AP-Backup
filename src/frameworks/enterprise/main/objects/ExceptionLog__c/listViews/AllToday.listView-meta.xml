@@ -8,7 +8,13 @@
     <columns>ExceptionDetails__c</columns>
     <columns>ExceptionType__c</columns>
     <columns>ExceptionLogTimestamp__c</columns>
-    <columns>ContextUser__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Application__c</field>
+        <operation>equals</operation>
+        <value>LPO/CPO handling</value>
+    </filters>
     <label>All -Today</label>
 </ListView>

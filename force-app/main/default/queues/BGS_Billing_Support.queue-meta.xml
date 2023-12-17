@@ -3,9 +3,13 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>BGS Billing Support</name>
     <queueMembers>
-        <roleAndSubordinatesInternal>
-            <roleAndSubordinateInternal>StarTrack_CSC_Manager</roleAndSubordinateInternal>
-        </roleAndSubordinatesInternal>
+        <users>
+            <user>blake.byer@auspost.com.au</user>
+            <user>daniel.chiu@auspost.com.au</user>
+            <user>elia.amaya@auspost.com.au</user>
+            <user>haroon.khan10@auspost.com.au</user>
+            <user>tanya.rasmussen@auspost.com.au</user>
+        </users>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

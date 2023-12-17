@@ -4,13 +4,12 @@
     NOTE:         N/A
     --------------------------------------------------
     2014-09-24    Louis Wang (Bluewolf)        Created for Customer message.
-	2023-10-18    Swati Mogadala 			   INC2198494: Updated testclass
+    2023-10-18    Swati Mogadala               INC2198494: Updated testclass
     **************************************************/
 
 @isTest
 private class ssswRecentCustomerEmailMessageTest 
-{
-    // Test Coverage: 100%    
+{    
     static testMethod void testEmailTemplate() 
     {
         Case c = new Case(Type ='Domestic Item Search', Subject='ssswRecentCustomerEmailMessageTest');
@@ -27,7 +26,7 @@ private class ssswRecentCustomerEmailMessageTest
         QM__c configSetting = new QM__c();
         configSetting.CusEmail__c = 'fromaddress@test.com';
         insert configSetting;
-		
+        
         // pass Case Id into controller and let it fetch the most recent customer emailMessage
         ssswRecentCustomerEmailMessage disCont = new ssswRecentCustomerEmailMessage();
         disCont.caseId = c.Id;

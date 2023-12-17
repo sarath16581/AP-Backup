@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Advisor_North</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>Last_Assigned_Queue__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Sales_Ops_Delivery</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Ana Aguirre,Andrew Crawford,Anthony Hills,Ben Richards,Cisca Tan,Edward Pua,John McMiles,Rod Parfan,Terri Ahmat,Trixie Atienza</value>
+    </filters>
+    <label>Service Advisor - North</label>
+    <sharedTo>
+        <role>Customer_Support_Billing_Service_Manager</role>
+        <role>Service_Business_Service_Manager</role>
+        <role>Service_Enterprise_Service_Manager</role>
+        <role>Service_Government_Head_of_Service</role>
+        <role>Service_Government_Service_Advisor</role>
+        <role>Service_Government_Service_Manager</role>
+    </sharedTo>
+</ListView>

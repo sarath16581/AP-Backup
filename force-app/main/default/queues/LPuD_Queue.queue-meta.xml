@@ -3,16 +3,9 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>LPuD Queue</name>
     <queueMembers>
-        <users>
-            <user>luke.jensen@auspost.com.au</user>
-            <user>asad.mateen@auspost.com.au</user>
-            <user>ish.husnu2@auspost.com.au</user>
-            <user>joshua.beales@my.network</user>
-            <user>lauren.picchianti@my.network</user>
-            <user>mamata.atluri@auspost.com.au.prod</user>
-            <user>michael.owens@my.network</user>
-            <user>nhu-ha.nguyen@my.network</user>
-        </users>
+        <publicGroups>
+            <publicGroup>LPuD_Group</publicGroup>
+        </publicGroups>
     </queueMembers>
     <queueSobject>
         <sobjectType>Lead</sobjectType>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <groups>SSSW Consumer BOH/Community/Care</groups>
-    <groups>SSSW Consumer FOH</groups>
     <groups>CET Heads</groups>
+    <groups>CET StarTek Management</groups>
     <groups>Business CC Management</groups>
     <groups>CET CC Management</groups>
     <groups>CET Support</groups>
+    <groups>SSSW Consumer BOH/Community/Care</groups>
+    <groups>SSSW Consumer FOH</groups>
     <groups>SSSW Agents</groups>
     <groups>SSSW PON</groups>
     <groups>Customer Service Senior Management Team</groups>
@@ -18,14 +19,12 @@
     <groups>SSSW BO Admin</groups>
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
-    <permissionSets>AP Contact Centre - Omni Skills Report</permissionSets>
-    <permissionSets>CC Compensation Supervisor</permissionSets>
-    <permissionSets>CC Compensation User</permissionSets>
     <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>
     <permissionSets>SSSW Allow Quick Text</permissionSets>
     <permissionSets>SSSW Callback Reminder Manager</permissionSets>
     <permissionSets>SSSW Callback Reminder</permissionSets>
     <permissionSets>ICPS SSSW</permissionSets>
+    <permissionSets>AP Contact Centre - Omni Skills Report</permissionSets>
     <permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
     <permissionSets>Knowledge Management Recovery Team</permissionSets>
     <permissionSets>Knowledge Management Specialist Skills</permissionSets>
@@ -44,6 +43,8 @@
     <permissionSets>SSSW Social Media Management Permissions</permissionSets>
     <permissionSets>SSSW Live Agent Management</permissionSets>
     <permissionSets>SSSW_Knowledge_Management FAQ</permissionSets>
+    <permissionSets>CC Compensation Supervisor</permissionSets>
+    <permissionSets>CC Compensation User</permissionSets>
     <profiles>MyNetwork Portal</profiles>
     <profiles>SSSW Read Only</profiles>
     <profiles>SSSW - Service Agent</profiles>

@@ -2,15 +2,16 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BGS_Billing_Support_Case</fullName>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CASES.STATUS</columns>
     <columns>NAME</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <columns>CASES.RECORDTYPE</columns>
     <filterScope>Queue</filterScope>
     <label>BGS Billing Support Q</label>
+    <language>en_US</language>
     <queue>BGS_Billing_Support</queue>
     <sharedTo>
         <roleAndSubordinatesInternal>Customer_Support_Billing_Service_Manager</roleAndSubordinatesInternal>
@@ -18,6 +19,5 @@
         <roleAndSubordinatesInternal>Service_Enterprise_Service_Manager</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Government_Head_of_Service</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Government_Service_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

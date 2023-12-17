@@ -6541,10 +6541,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>CHQ Handling Fee Reversal</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>CWC Recovery</fullName>
             <default>false</default>
         </values>
@@ -6618,10 +6614,6 @@
         </values>
         <values>
             <fullName>Duplicate%2FInvalid Claim</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Explanation of charge</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6709,10 +6701,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Manifest Correction Fee Credit</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Manifested not sent</fullName>
             <default>false</default>
         </values>
@@ -6746,10 +6734,6 @@
         </values>
         <values>
             <fullName>Next Flight Service Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Next Flight failure</fullName>
             <default>false</default>
         </values>
         <values>
