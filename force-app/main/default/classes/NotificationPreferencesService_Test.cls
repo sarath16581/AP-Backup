@@ -19,7 +19,8 @@ public with sharing class NotificationPreferencesService_Test {
 		// Stubbing
 		// =====================================
 		Test.setMock(HttpCalloutMock.class, new GenericHttpCalloutMock(null, null, true, null));
-        //apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		// Mock response for Managed Package Callout
+		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
 		
 		// =====================================
 		// Testing
@@ -45,7 +46,8 @@ public with sharing class NotificationPreferencesService_Test {
 		// Stubbing
 		// =====================================
 		Test.setMock(HttpCalloutMock.class, new GenericHttpCalloutMock(null, null, true, null));
-        //apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		// Mock response for Managed Package Callout
+		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
 		
 		// =====================================
 		// Testing
@@ -73,7 +75,8 @@ public with sharing class NotificationPreferencesService_Test {
 		// Stubbing
 		// =====================================
 		Test.setMock(HttpCalloutMock.class, new GenericHttpCalloutMock(null, null, true, null));
-        //apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		// Mock response for Managed Package Callout
+		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
 		
 		// =====================================
 		// Testing
