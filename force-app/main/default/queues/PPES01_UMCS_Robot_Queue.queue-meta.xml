@@ -4,25 +4,7 @@
     <name>PPES01 UMCS Robot Queue</name>
     <queueMembers>
         <users>
-            <user>anju.pubby@auspost.com.au</user>
-            <user>botrpahd01@test.npe.auspost.com.au</user>
-            <user>botrpahd02@test.npe.auspost.com.au</user>
-            <user>botrpaumcs01@test.npe.auspost.com.au</user>
-            <user>christopher.duffy@auspost.com.au</user>
-            <user>diwakar.chaudhary@auspost.com.au.sssw</user>
-            <user>don.nisayuruatulugama@auspost.com.au</user>
-            <user>franca.romas@auspost.com.au</user>
-            <user>gaurav.dhiman.callcentre@auspost.com.au</user>
-            <user>james.malone@auspost.com.au</user>
-            <user>janelle.copsey@auspost.com.au</user>
-            <user>jim.pascal@auspost.com.au</user>
-            <user>lisha.annadaniel@auspost.com.au</user>
-            <user>murali.sastry@auspost.com.au</user>
-            <user>nuno.dacunha@auspost.com.au</user>
-            <user>paul.legood@auspost.com.au</user>
-            <user>srilakshmi.paruchuri@auspost.com.au.sssw</user>
-            <user>thomas.teuma@auspost.com.au</user>
-            <user>tony.dinh@auspost.com.au</user>
+            <user>botrpauip01@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

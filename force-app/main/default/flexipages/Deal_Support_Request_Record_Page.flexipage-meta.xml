@@ -31,7 +31,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;strong style=&quot;color: rgb(238, 34, 194); font-size: 18px; font-family: SourceSansPro, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;&quot;&gt;IMPORTANT- In the first instance, please refer to Australia Post’s NDA self-help guide before submitting a request to the legal team.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://auspost.sharepoint.com/sites/isaac-businesssupport/SitePages/Non-disclosure-agreements.aspx&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(221, 43, 56); font-size: 18px;&quot;&gt;&lt;strong&gt;&lt;u&gt;NDA GUIDE LINK&lt;/u&gt;&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</value>
+                    <value>&lt;p&gt;&lt;strong style=&quot;color: rgb(238, 34, 194); font-size: 18px; font-family: SourceSansPro, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;&quot;&gt;IMPORTANT- In the first instance, please refer to Australia Post’s NDA self-help guide before submitting a request to the legal team.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot; https://auspost.sharepoint.com/sites/isaac-businesssupport/SitePages/Non-disclosure-agreements.aspx&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 18px; color: rgb(221, 43, 56);&quot;&gt;&lt;strong&gt;&lt;u&gt;NDA GUIDE LINK&lt;/u&gt;&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText4</identifier>
@@ -449,6 +449,39 @@
                     <criteria>
                         <leftValue>{!Record.Opportunity_Name__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Deal_Support_Request__c.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>ProcessSteps</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer6</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Surcharge_Exemption_Request</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

@@ -12,6 +12,10 @@
         <field>Status</field>
         <literalValue>Completed</literalValue>
     </fieldOverrides>
+    <fieldOverrides>
+        <field>Type</field>
+        <literalValue>Phone Call</literalValue>
+    </fieldOverrides>
     <label>Log an Activity</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>

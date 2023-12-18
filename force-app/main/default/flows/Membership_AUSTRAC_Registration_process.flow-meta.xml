@@ -192,7 +192,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>58.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <assignments>
         <name>myWaitAssignment_myWait_myRule_13</name>
         <label>myWaitAssignment_myWait_myRule_13</label>

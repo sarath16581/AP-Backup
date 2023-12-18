@@ -9,6 +9,11 @@
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>the gap</value>
+    </filters>
     <label>All SPBs</label>
 </ListView>

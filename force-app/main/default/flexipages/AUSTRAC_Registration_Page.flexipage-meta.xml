@@ -278,6 +278,16 @@
                 <identifier>RecordDays_Off_Line_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Western_Union_Category__c</fieldItem>
+                <identifier>RecordWestern_Union_Category_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-3e56fcbb-fef6-44f9-a94b-8607a94794dd</name>
         <type>Facet</type>
     </flexiPageRegions>

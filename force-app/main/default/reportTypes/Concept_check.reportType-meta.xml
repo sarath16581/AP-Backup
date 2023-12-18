@@ -1356,6 +1356,11 @@
             <field>Verified_Name__c</field>
             <table>Billing_Account__c.Contacts__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>Billing_Account__c.Contacts__r</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -3993,13 +3998,5 @@
             <table>Billing_Account__c.Contacts__r.Accounts__r.Revenue_by_Billing_Account__r</table>
         </columns>
         <masterLabel>Revenue by Billing Account</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Billing_Account__c.Contacts__r.Accounts__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

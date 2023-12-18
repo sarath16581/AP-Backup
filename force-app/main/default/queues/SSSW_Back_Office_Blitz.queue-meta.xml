@@ -5,7 +5,9 @@
     <name>SSSW Consumer Back Office Spec Del</name>
     <queueMembers>
         <users>
+            <user>christopher.doyle2@auspost.com.au</user>
             <user>danielle.larson@auspost.com.au</user>
+            <user>samantha.woller@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

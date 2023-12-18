@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
-    <description>Status of the request</description>
+    <description>Status of the request
+//INC2228959 reverted Restrict picklist to TRUE, unknown why unchecked.</description>
     <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
@@ -167,6 +168,12 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Awaiting</label>
+            </value>
+            <value>
+                <fullName>Cancel</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cancel</label>
             </value>
             <value>
                 <fullName>Closed</fullName>

@@ -108,14 +108,14 @@
                 <label>Accepted by apartment/complex concierge</label>
             </value>
             <value>
-                <fullName>RTS - Sender has the item</fullName>
-                <default>false</default>
-                <label>RTS - Sender has the item</label>
-            </value>
-            <value>
                 <fullName>3rd party locker</fullName>
                 <default>false</default>
                 <label>3rd party locker</label>
+            </value>
+            <value>
+                <fullName>RTS - Sender has the item</fullName>
+                <default>false</default>
+                <label>RTS - Sender has the item</label>
             </value>
             <value>
                 <fullName>Signed for by occupant</fullName>
@@ -180,7 +180,7 @@
             <value>
                 <fullName>Redirection failure - retrieval and redelivery</fullName>
                 <default>false</default>
-                <label>Redirection failure - retrieval and redelivery</label>
+                <label>Redirection failure - Attempting retrieval and redelivery</label>
             </value>
             <value>
                 <fullName>Redirection failure - customer now has article</fullName>
@@ -390,12 +390,12 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
-            <valueName>RTS - Sender has the item</valueName>
+            <valueName>3rd party locker</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <valueName>3rd party locker</valueName>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>RTS - Sender has the item</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>

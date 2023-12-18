@@ -2434,12 +2434,4 @@
         </columns>
         <masterLabel>Pick-Up Locations</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Data_Quality_Score__c</field>
-            <table>Opportunity.Customer_Scoping_Questionnaires__r</table>
-        </columns>
-        <masterLabel>Customer Scoping Questionnaires</masterLabel>
-    </sections>
 </ReportType>

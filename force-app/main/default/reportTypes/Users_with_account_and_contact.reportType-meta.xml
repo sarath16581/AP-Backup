@@ -1688,6 +1688,11 @@
             <field>Exclude_from_Research_Contact__c</field>
             <table>User.Contacts__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>User.Contacts__r</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
 </ReportType>

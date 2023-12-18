@@ -6,7 +6,7 @@
     <columns>Requestor__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
-    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>Work_Type__c</columns>
     <filterScope>Everything</filterScope>
@@ -25,8 +25,7 @@
         <operation>notEqual</operation>
         <value>Invalid TEAM Billing Account</value>
     </filters>
-    <label>Sales Coordinator</label>
-    <language>en_US</language>
+    <label>Sales Operations Support</label>
     <sharedTo>
         <group>StarTrack_Business_Enablement_Team</group>
     </sharedTo>

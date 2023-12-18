@@ -394,7 +394,7 @@
             <label>After 7 Days</label>
             <offsetNumber>174</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -405,7 +405,7 @@
             <label>After 14 Days</label>
             <offsetNumber>342</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -416,7 +416,7 @@
             <label>After 21 Days</label>
             <offsetNumber>510</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -427,7 +427,7 @@
             <label>After 28 Days</label>
             <offsetNumber>678</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>

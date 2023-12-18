@@ -11,21 +11,6 @@
     <columns>CREATEDBY_USER</columns>
     <columns>Effective_Date__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>Kir</value>
-    </filters>
-    <filters>
-        <field>Effective_Date__c</field>
-        <operation>equals</operation>
-        <value>YESTERDAY</value>
-    </filters>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>notEqual</operation>
-        <value>PUD_Booking__c.Other</value>
-    </filters>
     <label>Kirrawee Bookings - YESTERDAY</label>
     <sharedTo>
         <group>KIRRAWEE_VAN_OPS</group>

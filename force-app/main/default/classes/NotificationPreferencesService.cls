@@ -7,6 +7,7 @@
  * @group Tracking
  * @changelog
  * 2023-11-22 - Mahesh Parvathaneni - Changed the authentication mechanism from Authz to Auth0
+ * 2023-12-18 - Boris Bachovski - Updated getter to not use Test.IsRunningTest() as the "AP Secrets" package now supports mocking
  */
 public with sharing class NotificationPreferencesService {
 
@@ -15,13 +16,16 @@ public with sharing class NotificationPreferencesService {
 
 	private static apsecrets.Auth0AccessManager.Auth0Token AUTH0_TOKEN {
 		get {
-			if (AUTH0_TOKEN == null) {
+			if (AUTH0_TOKEN == null) { 
 				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(NOTIFICATION_PREFERENCE);
 			}
+
 			return AUTH0_TOKEN;
 		}
+
 		private set;
 	}
+
 	Map<String, Set<String>> searchStringMap;
 	
 	/**

@@ -1,6 +1,6 @@
 @isTest
 public with sharing class CreditSuspectSelector_Test {
-	// Basic coverage for CreditSuspectSelector class.
+    // Basic coverage for CreditSuspectSelector class.
 	@IsTest
 	static void testSelector() {
 		// Covering newInstance overloads

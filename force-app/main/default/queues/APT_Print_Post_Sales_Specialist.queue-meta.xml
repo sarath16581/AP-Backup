@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>Print Post Sales Specialist</name>
     <queueMembers>
         <users>
@@ -9,7 +8,6 @@
             <user>glyn.powell@auspost.com.au</user>
             <user>lucy.wong@auspost.com.au</user>
             <user>mark.fanning@auspost.com.au</user>
-            <user>sheryl.crisostomo@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

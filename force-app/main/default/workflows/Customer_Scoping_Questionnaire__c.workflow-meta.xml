@@ -133,7 +133,11 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND(   RecordType.DeveloperName == &apos;CSQ&apos;,   ISBLANK(Clone_Source__c) )</formula>
+        <criteriaItems>
+            <field>Customer_Scoping_Questionnaire__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CSQ</value>
+        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

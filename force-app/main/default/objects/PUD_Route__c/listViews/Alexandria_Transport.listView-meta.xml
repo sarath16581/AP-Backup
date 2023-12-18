@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Alexandria_Transport</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>equals</operation>
+        <value>ALEXANDRIA TRANSPORT FACILITY</value>
+    </filters>
+    <label>Alexandria Transport</label>
+</ListView>

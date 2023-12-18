@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Suburb__c</fullName>
-    <description>This field is used to capture Credit Suspect&apos;s Suburb</description>
     <externalId>false</externalId>
-    <inlineHelpText>This field is used to capture Credit Suspect&apos;s Suburb</inlineHelpText>
     <label>Suburb</label>
     <length>60</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

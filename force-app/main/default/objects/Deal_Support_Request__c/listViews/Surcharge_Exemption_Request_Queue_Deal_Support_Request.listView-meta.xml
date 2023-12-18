@@ -4,15 +4,15 @@
     <booleanFilter>1 AND 2</booleanFilter>
     <columns>NAME</columns>
     <columns>CREATED_DATE</columns>
-    <columns>Opportunity__c</columns>
     <columns>Organisation__c</columns>
     <columns>Requestor_Name__c</columns>
-    <columns>Stage__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Business_At_Risk__c</columns>
     <columns>Status__c</columns>
-    <columns>Priority__c</columns>
     <columns>RECORDTYPE</columns>
     <columns>Exemption_Type__c</columns>
     <columns>LAST_UPDATE</columns>
+    <columns>OWNER.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>

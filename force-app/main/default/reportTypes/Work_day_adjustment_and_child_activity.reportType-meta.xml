@@ -1055,12 +1055,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Events__c</field>
+            <field>Count_of_Tasks__c</field>
             <table>Work_Day_Adjustments__c.Activities__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Tasks__c</field>
+            <field>Count_of_Events__c</field>
             <table>Work_Day_Adjustments__c.Activities__r</table>
         </columns>
         <masterLabel>Activities</masterLabel>

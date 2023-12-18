@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This is the permission set used to enable access to the GITPipelines connected app for JWT bearer flow. IMPORTANT! Do not assign users in PROD. Keep it empty. Assign the deployment user in non-prod ONLY after a sandbox has been created/refreshed.</description>
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>GIT Pipelines App Access</label>
-    <license>Salesforce</license>
-</PermissionSet>

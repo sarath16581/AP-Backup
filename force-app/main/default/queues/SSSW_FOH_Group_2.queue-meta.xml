@@ -3,6 +3,13 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW FOH Group 2</name>
+    <queueMembers>
+        <users>
+            <user>alia.jattana@auspost.com.au</user>
+            <user>jennifer.jong@auspost.com.au</user>
+            <user>rana.waleed@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueRoutingConfig>AP_SSSW_FOH_Group_2</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>

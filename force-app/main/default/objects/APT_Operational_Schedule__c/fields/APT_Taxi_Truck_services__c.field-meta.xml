@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Taxi_Truck_services__c</fullName>
     <defaultValue>false</defaultValue>
+    <description>This Field is deprecated as part of the story CI-1075 and is no longer required to be populated in any of the templates</description>
     <externalId>false</externalId>
-    <label>Taxi Truck services</label>
+    <label>Taxi Truck services(Deprecated)</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_Account_Type_to_be_selected_only</fullName>
+    <active>false</active>
+    <description>Billing Account Type to be selected only</description>
+    <errorConditionFormula>ISBLANK(Apttus_QPConfig__ConfigurationFinalizedDate__c ) &amp;&amp; (NOT(ISPICKVAL(APT_Method_of_Payment__c,&quot;&quot;) )) &amp;&amp; NOT(ISNEW()) &amp;&amp; ISCHANGED(APT_Method_of_Payment__c)</errorConditionFormula>
+    <errorDisplayField>APT_Method_of_Payment__c</errorDisplayField>
+    <errorMessage>Billing Account Type can be selected only when Proposal is finalized. Please select None to continue.</errorMessage>
+</ValidationRule>

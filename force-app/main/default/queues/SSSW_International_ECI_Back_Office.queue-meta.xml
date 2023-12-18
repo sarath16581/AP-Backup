@@ -5,7 +5,21 @@
     <name>SSSW International ECI Back Office</name>
     <queueMembers>
         <users>
+            <user>andrew.barker@auspost.com.au</user>
+            <user>anthony.kongpreephansmith@auspost.com.au</user>
+            <user>ashlyn.mackenzie@auspost.com.au</user>
+            <user>christine.williams@auspost.com.au</user>
             <user>danielle.larson@auspost.com.au</user>
+            <user>david.astley@auspost.com.au</user>
+            <user>david.killen@auspost.com.au</user>
+            <user>gira.mehta@auspost.com.au</user>
+            <user>hayley.mccracken@auspost.com.au</user>
+            <user>james.teelow@auspost.com.au</user>
+            <user>judy.vilimaina@auspost.com.au</user>
+            <user>keagan.o&apos;connor@auspost.com.au</user>
+            <user>patrick.marecki@auspost.com.au</user>
+            <user>ross.scurr@auspost.com.au</user>
+            <user>tabatha.may@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

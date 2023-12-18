@@ -1797,6 +1797,11 @@
             <field>BillingAccount__c.Name</field>
             <table>User.Contacts__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>User.Contacts__r</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -4341,13 +4346,5 @@
             <table>User.Contacts__r.Accounts__r</table>
         </columns>
         <masterLabel>Accounts</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>User.Contacts__r.Accounts__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

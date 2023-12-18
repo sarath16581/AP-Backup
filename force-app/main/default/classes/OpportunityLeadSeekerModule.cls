@@ -64,7 +64,7 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 				// Populate additional user info on the opportunity - used for reporting purposes
 				opptyRecord.Hidden_Lead_Creator_Name__c = currentUser.Name;
 				opptyRecord.Hidden_Lead_Seeker_Lead_Owner__c = currentUser.Email;
-				opptyRecord.APS_Number__c = currentUser.EmployeeNumber;
+				opptyRecord.APS_Number__c = currentUser.APSNumber__c;
 			}
 		}
 	}
@@ -73,17 +73,17 @@ public inherited sharing class OpportunityLeadSeekerModule extends ApplicationMo
 	 * This method determines whether a user is eligible for the Lead Seeker program 
 	 * Used for Local Business Partners in MyCommunity - when the users create new Opportunities, they're automatically 
 	 * enrolled into the Lead Seeker program through which they earn points and rewards.
-	 * The criteria is: EmployeeNumber number on the user record and the account record they're associated with is of record type "Facility"
+	 * The criteria is: APS number on the user record and the account record they're associated with is of record type "Facility"
 	 */
 	private boolean isUserEligibleForLeadSeekerPoints() {
 		currentUser = UsersSelector.newInstance(0, new Map<SObjectType, Set <SObjectField>>{
-													User.SObjectType => new Set <SObjectField>{ User.EmployeeNumber, User.Name, User.Email },
+													User.SObjectType => new Set <SObjectField>{ User.APSNumber__c, User.Name, User.Email },
 													Account.SObjectType => new Set <SObjectField>{ Account.RecordTypeId }})
 										.selectById(new Set <Id> { currentUserId }, 
 													new Set <Object> { UsersSelector.Options.WITH_COMMUNITY_ACCOUNT })
 										.get(currentUserId);
 		
-		Boolean userHasAPSNumber = String.IsNotBlank(currentUser?.EmployeeNumber);
+		Boolean userHasAPSNumber = String.IsNotBlank(currentUser?.APSNumber__c);
 		Boolean userNetworkIsCPO = currentUser?.Contact?.Account?.RecordTypeId == facilityRTId;
 
 		return userHasAPSNumber && userNetworkIsCPO;

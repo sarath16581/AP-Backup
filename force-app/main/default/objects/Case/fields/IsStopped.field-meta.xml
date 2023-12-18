@@ -3,5 +3,5 @@
     <fullName>IsStopped</fullName>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
 </CustomField>

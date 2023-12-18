@@ -55,6 +55,7 @@
         <role>Service_Intermediaries_Service_Partner</role>
         <role>Service_Key_Strategic_North_Partners_Service_Partner</role>
         <role>Service_Key_Strategic_South_Partners_Service_Partner</role>
+        <role>Service_Optimisation_Service_Manager</role>
         <role>Service_State_Government_Service_Partner</role>
     </sharedTo>
 </ListView>

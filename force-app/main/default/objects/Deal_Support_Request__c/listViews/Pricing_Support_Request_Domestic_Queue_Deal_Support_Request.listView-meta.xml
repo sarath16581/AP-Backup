@@ -33,6 +33,11 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filters>
+        <field>OWNER.ALIAS</field>
+        <operation>notEqual</operation>
+        <value>Product Specialist Support Queue</value>
+    </filters>
     <label>Pricing Support Request - Domestic</label>
     <sharedTo>
         <group>Pricing_Support_Request_Domestic_team</group>

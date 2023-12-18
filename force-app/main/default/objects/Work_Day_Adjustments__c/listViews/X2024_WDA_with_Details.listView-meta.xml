@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X2024_WDA_with_Details</fullName>
+    <columns>OBJECT_ID</columns>
+    <columns>NAME</columns>
+    <columns>Current_Role__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>Sales_Team__c</columns>
+    <columns>Sales_Team_Manager__c</columns>
+    <columns>FiscalYear__c</columns>
+    <columns>Holiday__c</columns>
+    <columns>Role__c</columns>
+    <columns>Role_Group__c</columns>
+    <columns>Target_Activity__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FiscalYear__c</field>
+        <operation>equals</operation>
+        <value>2024</value>
+    </filters>
+    <label>2024 WDA with Details</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Sales_Reporting</group>
+    </sharedTo>
+</ListView>

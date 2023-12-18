@@ -10,6 +10,11 @@
         <operation>equals</operation>
         <value>Account.Facility,Account.Facility_CMA,Account.Facility_CPA</value>
     </filters>
+    <filters>
+        <field>Hidden_Data_Score_Individual__pc</field>
+        <operation>equals</operation>
+        <value>377043</value>
+    </filters>
     <label>Facilities</label>
     <sharedTo>
         <allInternalUsers></allInternalUsers>

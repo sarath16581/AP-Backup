@@ -361,7 +361,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>dashboardId</name>
-                    <value>New_dashboard3</value>
+                    <value>Opportunity_360</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableNotifications</name>
@@ -414,7 +414,7 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <name>Facet-df93af30-3191-4e8d-942d-db7e83a81284</name>
+        <name>Facet-30b1c3b5-f165-48b0-aeb7-9a4f11d7d7dd</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -909,16 +909,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>kfsell:standaloneScorecardNavigate</componentName>
-                <identifier>kfsell_standaloneScorecardNavigate</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-e22ad4d6-134d-4641-8400-1c864c900198</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
@@ -1009,14 +999,14 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-df93af30-3191-4e8d-942d-db7e83a81284</value>
+                    <value>Facet-30b1c3b5-f165-48b0-aeb7-9a4f11d7d7dd</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Customer 360</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab3</identifier>
+                <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1101,20 +1091,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab9</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-e22ad4d6-134d-4641-8400-1c864c900198</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Scorecard</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

@@ -3,8 +3,6 @@
     <autoGreeting>All Australia Post employees have the right to be treated with courtesy and respect. Lack of such conduct may lead to termination of your interaction.
 
 Hello, my name is {!User_FirstName}. I’m catching up on your chat conversation now. I&apos;ll be with you in a moment.</autoGreeting>
-    <chasitorIdleTimeout>90</chasitorIdleTimeout>
-    <chasitorIdleTimeoutWarning>60</chasitorIdleTimeoutWarning>
     <chatPage>ConsumerLiveChatWindow</chatPage>
     <customAgentName>{!User_FirstName}</customAgentName>
     <deployments/>
@@ -12,7 +10,7 @@ Hello, my name is {!User_FirstName}. I’m catching up on your chat conversation
     <isActive>true</isActive>
     <label>Consumer H&amp;S Specialist</label>
     <optionsCustomRoutingIsEnabled>false</optionsCustomRoutingIsEnabled>
-    <optionsHasChasitorIdleTimeout>true</optionsHasChasitorIdleTimeout>
+    <optionsHasChasitorIdleTimeout>false</optionsHasChasitorIdleTimeout>
     <optionsHasInviteAfterAccept>false</optionsHasInviteAfterAccept>
     <optionsHasInviteAfterReject>false</optionsHasInviteAfterReject>
     <optionsHasRerouteDeclinedRequest>false</optionsHasRerouteDeclinedRequest>
