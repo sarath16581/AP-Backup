@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SurchargeSetupDSRWorkType__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Work Type to be specified on newly created DSR to action surcharge setup and manual activation steps for sub accounts.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Work Type to be specified on newly created DSR to action surcharge setup and manual activation steps for sub accounts.</inlineHelpText>
+    <label>Surcharge Setup DSR Work Type</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

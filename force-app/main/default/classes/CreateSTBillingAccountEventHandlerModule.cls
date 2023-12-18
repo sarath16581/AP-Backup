@@ -70,10 +70,36 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	private static final Holding_Role_Reference__c NEW_ACCOUNT_HOLDING_ROLE {
 		get {
 			if (NEW_ACCOUNT_HOLDING_ROLE == null) {
-				Map<Id, Holding_Role_Reference__c> holdingRoles = HoldingReferenceRoleSelector.newInstance(1).selectByName('New Account');
+				Map<Id, Holding_Role_Reference__c> holdingRoles = HoldingReferenceRoleSelector.newInstance(1).selectByName('New Accounts');
 				NEW_ACCOUNT_HOLDING_ROLE = (!holdingRoles.isEmpty() ? holdingRoles.values()[0] : new Holding_Role_Reference__c());
 			}
 			return NEW_ACCOUNT_HOLDING_ROLE;
+		}
+		set;
+	}
+
+	// custom metadata holding billing account configuration parameters for StarTrack accounts
+	@TestVisible private static final BillingAccountCreationConfiguration__mdt BILLING_ACCOUNT_CREATION_CONFIGURATION {
+		get {
+			if (BILLING_ACCOUNT_CREATION_CONFIGURATION == null) {
+				BILLING_ACCOUNT_CREATION_CONFIGURATION = BillingAccountCreationConfiguration__mdt.getInstance('StarTrack_TEAM');
+			}
+			return BILLING_ACCOUNT_CREATION_CONFIGURATION;
+		}
+		set;
+	}
+
+	// deal support request queue to assign new DSR record requesting surcharge setup and manual activation of
+	// newly provisioned sub account.
+	private static final Group SURCHARGE_SETUP_DSR_OWNER_QUEUE {
+		get {
+			if (SURCHARGE_SETUP_DSR_OWNER_QUEUE == null) {
+				List<Group> groups = ((GroupsSelector) GroupsSelector.newInstance(1).setFieldOverrides(new Set<SObjectField>{
+						Group.Id, Group.DeveloperName
+				})).selectByGroupTypeAndDeveloperName(new Set<String>{'queue'}, new Set<String>{BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRQueue__c}).values();
+				SURCHARGE_SETUP_DSR_OWNER_QUEUE = (!groups.isEmpty() ? groups[0] : new Group());
+			}
+			return SURCHARGE_SETUP_DSR_OWNER_QUEUE;
 		}
 		set;
 	}
@@ -594,8 +620,9 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				RecordTypeId = CUSTOMER_ONBOARDING_DSR_RECORDTYPEID, Organisation__c=organisation.Id, Requestor__c=subAccountRequest.OwnerId,
 				Stage__c = 'Submitted', Status__c = 'Submitted', Sub_Accounts__c = event.Billing_Account_Number__c,
 				Product__c = 'StarTrack', CustomerContact1__c = subAccountRequest.SubAccountContact__c,
-				Work_Type__c = 'Add Contract Rates', Support_Work_Type__c = 'Deal Processing', //TODO work type and support work type in custom metadata?
-				Description__c = System.Label.StarTrackSubAccountActivationDSRDescription
+				Work_Type__c = BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRWorkType__c,
+				Support_Work_Type__c = BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRSupportWorkType__c,
+				Description__c = System.Label.StarTrackSubAccountActivationDSRDescription, OwnerId= SURCHARGE_SETUP_DSR_OWNER_QUEUE.Id
 		);
 	}
 

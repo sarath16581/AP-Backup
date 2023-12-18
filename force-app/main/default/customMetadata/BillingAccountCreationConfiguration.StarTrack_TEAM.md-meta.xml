@@ -14,4 +14,16 @@
         <field>DefaultCreditCode__c</field>
         <value xsi:type="xsd:string">A11</value>
     </values>
+    <values>
+        <field>SurchargeSetupDSRQueue__c</field>
+        <value xsi:type="xsd:string">Deal_Enablement_Centre_Queue</value>
+    </values>
+    <values>
+        <field>SurchargeSetupDSRSupportWorkType__c</field>
+        <value xsi:type="xsd:string">Deal Processing</value>
+    </values>
+    <values>
+        <field>SurchargeSetupDSRWorkType__c</field>
+        <value xsi:type="xsd:string">Add Contract Rates</value>
+    </values>
 </CustomMetadata>
