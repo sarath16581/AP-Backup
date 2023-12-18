@@ -26,6 +26,18 @@
                 <behavior>Edit</behavior>
                 <field>AnnualPriceReviewCutOffPeriod__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SurchargeSetupDSRQueue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SurchargeSetupDSRWorkType__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SurchargeSetupDSRSupportWorkType__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
