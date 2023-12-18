@@ -400,7 +400,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		newBillingAccount.Suburb__c = (isLeaderAccount ? organisation?.BillingCity : subAccountRequest?.APT_Postal_Address_Suburb__c);
 		newBillingAccount.Postal_Code__c = (isLeaderAccount ? organisation?.BillingPostalCode : subAccountRequest?.APT_Postal_Address_Street_Postcode__c);
 		newBillingAccount.State__c = (isLeaderAccount ? organisation?.BillingState : subAccountRequest?.APT_Postal_Address_State__c);
-		newBillingAccount.Country__c = (isLeaderAccount ? organisation?.BillingCountry : subAccountRequest?.APT_Postal_Address_State__c);
+		newBillingAccount.Country__c = (isLeaderAccount ? organisation?.BillingCountry : subAccountRequest?.APT_Postal_Address_Country_Code__c);
 
 		newBillingAccount.PhysicalStreet__c = (isLeaderAccount ? pickupLocation?.Address__c : subAccountRequest?.APT_Street_Address_Street_Name__c);
 		newBillingAccount.PhysicalSuburb__c = (isLeaderAccount ? pickupLocation?.Suburb__c : subAccountRequest?.APT_Street_Address_Suburb__c);
