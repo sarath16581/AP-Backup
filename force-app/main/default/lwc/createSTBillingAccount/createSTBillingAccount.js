@@ -179,8 +179,8 @@ export default class CreateSTBillingAccount extends LightningElement {
 
 	get billingPostCodeDisplayString() {
 		// billing post code in request payload is an integer, convert to a string for display
-		const postcodeDisplayString = get(this.preConditionCheckResult, 'requestPayload.team.organisations.billingAddress.postcode', '');
-		return postcodeDisplayString.toString();
+		const postcode = get(this.preConditionCheckResult, 'requestPayload.team.organisations.billingAddress.postcode', '');
+		return (postcode ? postcode.toString() : '');
 	}
 
 	get statusInformationStyleClass() {
