@@ -7,6 +7,7 @@ History:
 2019-06-27  ajudd@salesforce.com 			Changes to use named credential for auth
 2019-08-12  ajudd@salesforce.com            Added BAM Record Type Id conditions
 2023-12-12  mahesh.parvathaneni@auspost.com.au Changed the authentication mechanism to Auth0
+2023-12-19  boris.bachovski2@austpost.com.au Changes to use AP Secrets manage package for Auth0. Also removed getRequest() methods as they are not used.
 **************************************************/
 public class BAMIntegrationUtility {
 	@TestVisible
@@ -20,108 +21,71 @@ public class BAMIntegrationUtility {
 	//constants
 	private static final String BAM_LODGEMENT = 'BAMLodgement';
 
-	private static Auth0AccessManager.Auth0Token AUTH0_TOKEN {
+	private static apsecrets.Auth0AccessManager.Auth0Token AUTH0_TOKEN {
 		get {
 			if (AUTH0_TOKEN == null) {
-				AUTH0_TOKEN = Auth0AccessManager.getAccessToken(BAM_LODGEMENT);
+				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(BAM_LODGEMENT);
 			}
 			return AUTH0_TOKEN;
 		}
 		private set;
 	}
 
-    /* making HTTP POST call
-     * BAMIntegrationUtility.postRequest(String apiName, String request)
-     */
-    public static HttpResponse postRequest(String apiName, Object request) {
-        return postRequest(apiName, JSON.serialize(request));
-    }
+	/* making HTTP POST call
+	 * BAMIntegrationUtility.postRequest(String apiName, String request)
+	 */
+	public static HttpResponse postRequest(String apiName, Object request) {
+		return postRequest(apiName, JSON.serialize(request));
+	}
 
-    /* making HTTP POST call
-     * BAMIntegrationUtility.postRequest(String apiName, String request)
-     * Uses named credential, prefixed in url value in custom setting.
-     */
-    public static HttpResponse postRequest(String apiName, String request)
-    {
-        
-        AusPostSettings__c setting = AusPostSettings__c.getValues(apiName);
-        
-        System.debug('BAMIntegrationUtility::postRequest:setting url = ' + setting.URL2__c);
-        System.debug('BAMIntegrationUtility::postRequest:request = ' + request);
-        
-        HttpRequest req = new HttpRequest();
-        req.setMethod('POST');
-        req.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        req.setEndpoint(setting.URL2__c);
+	/* making HTTP POST call
+	 * BAMIntegrationUtility.postRequest(String apiName, String request)
+	 * Uses named credential, prefixed in url value in custom setting.
+	 */
+	public static HttpResponse postRequest(String apiName, String request)
+	{
+		
+		AusPostSettings__c setting = AusPostSettings__c.getValues(apiName);
+		
+		System.debug('BAMIntegrationUtility::postRequest:setting url = ' + setting.URL2__c);
+		System.debug('BAMIntegrationUtility::postRequest:request = ' + request);
+		
+		HttpRequest req = new HttpRequest();
+		req.setMethod('POST');
+		req.setHeader('Content-Type', 'application/json;charset=UTF-8');
+		req.setEndpoint(setting.URL2__c);
 		req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
-        req.setBody(request);
-        
-        Http httpHandler = new Http();
-        HttpResponse response = new HttpResponse();
-        
-        if(!Test.isRunningTest() || (Test.isRunningTest() && !testingDoNotSend)) {
-            response = httpHandler.send(req);
-            //system.debug(response.getBody());
-        } else {
-            response.setBody('dummy-test-response-body');
-        }
-        
-        return response;
-        
-    }
+		req.setBody(request);
+		
+		Http httpHandler = new Http();
+		HttpResponse response = new HttpResponse();
+		
+		if(!Test.isRunningTest() || (Test.isRunningTest() && !testingDoNotSend)) {
+			response = httpHandler.send(req);
+			
+			// If the response is 401, then the token has expired. Get a new token and retry the request.
+			if (response.getStatusCode() == 401) {	
+				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, BAM_LODGEMENT);
+				req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
+				response = httpHandler.send(req);
+			}
 
-    /* making HTTP GET call
-     * BAMIntegrationUtility.getRequest(String apiName, String request)
-     */
-    public static HttpResponse getRequest(String apiName) {
-        return getRequest(apiName, new Map<String, String>());
-    }
-
-    /* making HTTP GET call
-     * BAMIntegrationUtility.getRequest(String apiName, String request)
-     * Uses named credential, prefixed in url value in custom setting.
-     */
-    public static HttpResponse getRequest(String apiName, Map<String, String> queryString) {
-
-        AusPostSettings__c setting = AusPostSettings__c.getValues(apiName);
-
-        System.debug('BAMIntegrationUtility::getRequest:setting url = ' + setting.URL2__c);
-        System.debug('BAMIntegrationUtility::getRequest:queryString = ' + queryString);
-
-        String url = setting.URL2__c;
-        if(queryString != null && !queryString.isEmpty()) {
-            url += '?';
-            for(String param : queryString.keySet()) {
-                url += EncodingUtil.urlEncode(param, 'UTF-8') + '=' + EncodingUtil.urlEncode(queryString.get(param), 'UTF-8');
-            }
-        }
-
-        HttpRequest req = new HttpRequest();
-        req.setMethod('GET');
-        req.setHeader('Content-Type', 'application/json;charset=UTF-8');
-		req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
-        req.setEndpoint(url);
-        
-        Http httpHandler = new Http();
-        HttpResponse response = new HttpResponse();
-        
-        if(!Test.isRunningTest() || (Test.isRunningTest() && !testingDoNotSend)) {
-            response = httpHandler.send(req);
-            system.debug(response.getBody());
-        }
-        
-        return response;
-        
-    }
+		} else {
+			response.setBody('dummy-test-response-body');
+		}
+		
+		return response;
+		
+	}
 
 	/**
-     * Cancel any inflight pending requests for the selected contact
-     */
+	 * Cancel any inflight pending requests for the selected contact
+	 */
 	public static Boolean cancelExternalRequest(Id contactId) {
 		Map<String, Object> mapResults = new Map<String, Object>();
 
-        //Get external onboarding request BAM record type id
-        Id bamExtObRTId = BAMUserUtility.BAM_EXTERNAL_ONBOARDING_REQUEST_RECORD_TYPE_ID;
+		//Get external onboarding request BAM record type id
+		Id bamExtObRTId = BAMUserUtility.BAM_EXTERNAL_ONBOARDING_REQUEST_RECORD_TYPE_ID;
 
 		// check to see if there is anything that requires cancelling first
 		List<ExternalOnboardingEvent__e> onboardingEvents = new List<ExternalOnboardingEvent__e>();
@@ -180,6 +144,6 @@ public class BAMIntegrationUtility {
 	}
 
 	public class BamException extends Exception {}
-    public class applicationException extends Exception {}
-    
+	public class applicationException extends Exception {}
+	
 }
