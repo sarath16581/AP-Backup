@@ -2,7 +2,7 @@
 private class StarTrackTrackingIDSearchUtil_Test {
     @testSetup
     static void testSetup(){
-		MockUtility.disableTriggerExecution();
+        MockUtility.disableTriggerExecution();
 
         List<sobject> ls = TestDataProvider.createStartrackErrorMessagesData();
 
@@ -13,10 +13,10 @@ private class StarTrackTrackingIDSearchUtil_Test {
         Database.insert(transferCaseRules);
 
         List<Account> lst_account = TestDataProvider.createAccount('test', 1);
-		lst_account[0].Transfer_Case_Queue__c = 'Delivery Queue';
-		lst_account[0].Business_Solutions_Customer__c = true;
+        lst_account[0].Transfer_Case_Queue__c = 'Delivery Queue';
+        lst_account[0].Business_Solutions_Customer__c = true;
         Database.insert(lst_account);
-		System.debug('lst_account: ' + lst_account);
+        System.debug('lst_account: ' + lst_account);
 
         lst_account[0].Legacy_Id__c = '60000000';
         Database.Update(lst_account[0]);
@@ -31,26 +31,26 @@ private class StarTrackTrackingIDSearchUtil_Test {
         Database.insert(lst_network);
 
         List<Billing_Account__c> lst_billingAccount = new List<Billing_Account__c>();
-		Billing_Account__c testBillingAcc = new Billing_Account__c(Name = 'TestBillingAccTest',Organisation__c = lst_account[0].Id, LEGACY_ID__c = '12345');
-		lst_billingAccount.add(testBillingAcc);
+        Billing_Account__c testBillingAcc = new Billing_Account__c(Name = 'TestBillingAccTest',Organisation__c = lst_account[0].Id, LEGACY_ID__c = '12345');
+        lst_billingAccount.add(testBillingAcc);
         Database.insert(lst_billingAccount);
 
         List<Article__c> lst_article = TestDataProvider.createArticle('Subject', 1, lst_billingAccount);
-		lst_article[0].Network__c = lst_network[0].Id;
-		lst_article[0].Billing_Account__c = lst_billingAccount[0].Id;
+        lst_article[0].Network__c = lst_network[0].Id;
+        lst_article[0].Billing_Account__c = lst_billingAccount[0].Id;
         Database.insert(lst_article);
 
         List<case> lst_cases = TestDataProvider.createCases('Subject', 1, lst_article);
-		lst_cases[0].AccountId = lst_account[0].Id;
-		lst_cases[0].Related_Billing_Account__c = lst_billingAccount[0].Id;
-		lst_cases[0].Origin = StarTrack_Constants.CASE_ORIGIN_WEB;
-		lst_cases[0].ReferenceID__c = 'XYZ';
-		lst_cases[0].RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
-		lst_cases[0].CHASEnquiryType__c = STHSConstants.TRACKING_ENQUIRY_TRACK_TRACE;
-		lst_cases[0].Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
+        lst_cases[0].AccountId = lst_account[0].Id;
+        lst_cases[0].Related_Billing_Account__c = lst_billingAccount[0].Id;
+        lst_cases[0].Origin = StarTrack_Constants.CASE_ORIGIN_WEB;
+        lst_cases[0].ReferenceID__c = 'XYZ';
+        lst_cases[0].RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        lst_cases[0].CHASEnquiryType__c = STHSConstants.TRACKING_ENQUIRY_TRACK_TRACE;
+        lst_cases[0].Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
 
-		Database.insert(lst_cases);
-		System.debug('lst_cases: ' + lst_cases);
+        Database.insert(lst_cases);
+        System.debug('lst_cases: ' + lst_cases);
 
 
         User usr = [Select id from User where Id = :UserInfo.getUserId()];
@@ -99,11 +99,11 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
     @isTest
     static void testCaseTransferForBusinessSolutionsPositiveNetworkOwner() {
-		Account testAccount = [SELECT Id, Business_Solutions_Customer__c 
-								FROM Account 
-								LIMIT 1];
-		testAccount.Business_Solutions_Customer__c = false;
-		Database.Update(testAccount);
+        Account testAccount = [SELECT Id, Business_Solutions_Customer__c 
+                                FROM Account 
+                                LIMIT 1];
+        testAccount.Business_Solutions_Customer__c = false;
+        Database.Update(testAccount);
 
         Case testCase = [
                 SELECT Id,
@@ -208,34 +208,34 @@ private class StarTrackTrackingIDSearchUtil_Test {
 
     @isTest static void testCaseTransferForBusinessSolutionsNoQueueNegative() {
 
-		Account testAccount = [SELECT Id, Transfer_Case_Queue__c 
-								FROM Account 
-								LIMIT 1];
-		testAccount.Transfer_Case_Queue__c = 'WRONG_QUEUE_NAME';
-		Database.Update(testAccount);		
+        Account testAccount = [SELECT Id, Transfer_Case_Queue__c 
+                                FROM Account 
+                                LIMIT 1];
+        testAccount.Transfer_Case_Queue__c = 'WRONG_QUEUE_NAME';
+        Database.Update(testAccount);       
 
         Case testCase = [
                         SELECT
                                 Id,
-								Call_Purpose__c, 
-								RecordTypeId, 
-								Enquiry_Type__c, 
-								Business_Solutions_Customer__c, 
-								Initial_Caller_Type__c,
-								Status, 
-								OwnerId, 
-								Article_Service_Type__c, 
-								ReferenceID__c, 
-								Origin, 
-								ArticleTest__c, 
-								ArticleTest__r.Product_Group__c,
-								RecordType.Name, 
-								Network__r.OwnerId, 
-								Network__r.Name, 
-								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c,
-								Account.StarTrack_Customer_Stream__c,
-								Account.Business_Solutions_Customer__c,
-								Account.Transfer_Case_Queue__c
+                                Call_Purpose__c, 
+                                RecordTypeId, 
+                                Enquiry_Type__c, 
+                                Business_Solutions_Customer__c, 
+                                Initial_Caller_Type__c,
+                                Status, 
+                                OwnerId, 
+                                Article_Service_Type__c, 
+                                ReferenceID__c, 
+                                Origin, 
+                                ArticleTest__c, 
+                                ArticleTest__r.Product_Group__c,
+                                RecordType.Name, 
+                                Network__r.OwnerId, 
+                                Network__r.Name, 
+                                Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c,
+                                Account.StarTrack_Customer_Stream__c,
+                                Account.Business_Solutions_Customer__c,
+                                Account.Transfer_Case_Queue__c
                         FROM
                                 Case
                         LIMIT 1

@@ -24,6 +24,16 @@
                 <label>Allocation Error</label>
             </value>
             <value>
+                <fullName>Annual PO box charge</fullName>
+                <default>false</default>
+                <label>Annual PO Box charge</label>
+            </value>
+            <value>
+                <fullName>Annual reply paid</fullName>
+                <default>false</default>
+                <label>Annual reply paid</label>
+            </value>
+            <value>
                 <fullName>APR Rollback</fullName>
                 <default>false</default>
                 <label>APR Rollback</label>
@@ -37,6 +47,11 @@
                 <fullName>Bad Debt Write Off</fullName>
                 <default>false</default>
                 <label>Bad Debt Write Off</label>
+            </value>
+            <value>
+                <fullName>Cash/Credit Transfers</fullName>
+                <default>false</default>
+                <label>Cash/Credit Transfers</label>
             </value>
             <value>
                 <fullName>Cash Transfer</fullName>
@@ -69,9 +84,19 @@
                 <label>CCM - NXF Recovery</label>
             </value>
             <value>
+                <fullName>Consignment Note</fullName>
+                <default>false</default>
+                <label>Consignment Note</label>
+            </value>
+            <value>
                 <fullName>Consolidation Credit</fullName>
                 <default>false</default>
                 <label>Consolidation Credit</label>
+            </value>
+            <value>
+                <fullName>Consumable returns - Merch / online shop</fullName>
+                <default>false</default>
+                <label>Consumable returns - Merch / Online Shop</label>
             </value>
             <value>
                 <fullName>Copy Request – Electronic Connotes</fullName>
@@ -104,6 +129,11 @@
                 <label>CWC Recovery</label>
             </value>
             <value>
+                <fullName>Damages / Lost</fullName>
+                <default>false</default>
+                <label>Damages / Lost</label>
+            </value>
+            <value>
                 <fullName>Data Entry Error</fullName>
                 <default>false</default>
                 <label>Data Entry Error</label>
@@ -134,14 +164,24 @@
                 <label>Document Charge</label>
             </value>
             <value>
+                <fullName>Duplicate/Invalid Claim</fullName>
+                <default>false</default>
+                <label>Duplicate/Invalid Claim</label>
+            </value>
+            <value>
                 <fullName>Duplicate Banking</fullName>
                 <default>false</default>
                 <label>Duplicate Banking</label>
             </value>
             <value>
-                <fullName>Duplicate/Invalid Claim</fullName>
+                <fullName>Duplicate Charge</fullName>
                 <default>false</default>
-                <label>Duplicate/Invalid Claim</label>
+                <label>Duplicate charge</label>
+            </value>
+            <value>
+                <fullName>Fee/Surcharge reversal</fullName>
+                <default>false</default>
+                <label>Fee/Surcharge reversal</label>
             </value>
             <value>
                 <fullName>FSC / SSC Rate</fullName>
@@ -164,6 +204,11 @@
                 <label>General Service Dispute</label>
             </value>
             <value>
+                <fullName>General Service Performance failure</fullName>
+                <default>false</default>
+                <label>General service performance failure</label>
+            </value>
+            <value>
                 <fullName>Incorrect Adjustment Raised</fullName>
                 <default>false</default>
                 <label>Incorrect Adjustment Raised</label>
@@ -174,9 +219,19 @@
                 <label>Incorrect Int&apos;l Charges</label>
             </value>
             <value>
+                <fullName>Incorrectly returned</fullName>
+                <default>false</default>
+                <label>Incorrectly returned</label>
+            </value>
+            <value>
                 <fullName>Incorrect Origin/Destination</fullName>
                 <default>false</default>
                 <label>Incorrect Origin/Destination</label>
+            </value>
+            <value>
+                <fullName>Incorrect pricing/rates</fullName>
+                <default>false</default>
+                <label>Incorrect pricing / rates</label>
             </value>
             <value>
                 <fullName>Incorrect Rates</fullName>
@@ -189,14 +244,49 @@
                 <label>Incorrect Service Type</label>
             </value>
             <value>
+                <fullName>Incorrect weight / cubic charge</fullName>
+                <default>false</default>
+                <label>Incorrect weight / cubic charge</label>
+            </value>
+            <value>
+                <fullName>International Fees/Taxes</fullName>
+                <default>false</default>
+                <label>International fees / taxes</label>
+            </value>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>Late Delivery</fullName>
+                <default>false</default>
+                <label>Late Delivery</label>
+            </value>
+            <value>
                 <fullName>Late delivery claim</fullName>
                 <default>false</default>
                 <label>Late delivery claim</label>
             </value>
             <value>
+                <fullName>Late payment</fullName>
+                <default>false</default>
+                <label>Late payment</label>
+            </value>
+            <value>
+                <fullName>Manifested not sent</fullName>
+                <default>false</default>
+                <label>Manifested not sent</label>
+            </value>
+            <value>
                 <fullName>Manual Check Weigh</fullName>
                 <default>false</default>
                 <label>Manual Check Weigh</label>
+            </value>
+            <value>
+                <fullName>Manual Handling Surcharge</fullName>
+                <default>false</default>
+                <label>Manual handling surcharge</label>
             </value>
             <value>
                 <fullName>Migration Satchels</fullName>
@@ -249,6 +339,16 @@
                 <label>No Sender Signature</label>
             </value>
             <value>
+                <fullName>Not home card - Second delivery</fullName>
+                <default>false</default>
+                <label>Not home card - Second delivery</label>
+            </value>
+            <value>
+                <fullName>Not our charge</fullName>
+                <default>false</default>
+                <label>Not our charge</label>
+            </value>
+            <value>
                 <fullName>No Track &amp; Trace Data</fullName>
                 <default>false</default>
                 <label>No Track &amp; Trace Data</label>
@@ -264,6 +364,11 @@
                 <label>NXF On-forward Charge Dispute</label>
             </value>
             <value>
+                <fullName>Over maximum limits fee</fullName>
+                <default>false</default>
+                <label>Over maximum limits fee</label>
+            </value>
+            <value>
                 <fullName>Possible Leopard Scanner</fullName>
                 <default>false</default>
                 <label>Possible Leopard Scanner</label>
@@ -272,6 +377,16 @@
                 <fullName>Prepaid Product Return</fullName>
                 <default>false</default>
                 <label>Prepaid Product Return</label>
+            </value>
+            <value>
+                <fullName>Pricing statement</fullName>
+                <default>false</default>
+                <label>Pricing statement</label>
+            </value>
+            <value>
+                <fullName>Proof of Delivery</fullName>
+                <default>false</default>
+                <label>Proof of Delivery</label>
             </value>
             <value>
                 <fullName>Provide/Show Calculations</fullName>
@@ -324,6 +439,11 @@
                 <label>Special Service Dispute</label>
             </value>
             <value>
+                <fullName>StarTrack Courier</fullName>
+                <default>false</default>
+                <label>StarTrack Courier</label>
+            </value>
+            <value>
                 <fullName>Sub Docket Dispute</fullName>
                 <default>false</default>
                 <label>Sub Docket Dispute</label>
@@ -349,173 +469,21 @@
                 <label>UETP</label>
             </value>
             <value>
-                <fullName>Weight / Cube Dispute</fullName>
-                <default>false</default>
-                <label>Weight / Cube Dispute</label>
-            </value>
-            <value>
-                <fullName>Not our charge</fullName>
-                <default>false</default>
-                <label>Not our charge</label>
-            </value>
-            <value>
-                <fullName>Incorrect pricing/rates</fullName>
-                <default>false</default>
-                <label>Incorrect pricing / rates</label>
-            </value>
-            <value>
-                <fullName>Manifested not sent</fullName>
-                <default>false</default>
-                <label>Manifested not sent</label>
-            </value>
-            <value>
                 <fullName>Un-manifested charge</fullName>
                 <default>false</default>
                 <label>Un-manifested charge</label>
             </value>
             <value>
-                <fullName>Incorrect weight / cubic charge</fullName>
+                <fullName>Weight / Cube Dispute</fullName>
                 <default>false</default>
-                <label>Incorrect weight / cubic charge</label>
-            </value>
-            <value>
-                <fullName>Not home card - Second delivery</fullName>
-                <default>false</default>
-                <label>Not home card - Second delivery</label>
-            </value>
-            <value>
-                <fullName>Incorrectly returned</fullName>
-                <default>false</default>
-                <label>Incorrectly returned</label>
-            </value>
-            <value>
-                <fullName>General Service Performance failure</fullName>
-                <default>false</default>
-                <label>General service performance failure</label>
-            </value>
-            <value>
-                <fullName>Invoice</fullName>
-                <default>false</default>
-                <label>Invoice</label>
-            </value>
-            <value>
-                <fullName>Consignment Note</fullName>
-                <default>false</default>
-                <label>Consignment Note</label>
-            </value>
-            <value>
-                <fullName>Proof of Delivery</fullName>
-                <default>false</default>
-                <label>Proof of Delivery</label>
-            </value>
-            <value>
-                <fullName>Pricing statement</fullName>
-                <default>false</default>
-                <label>Pricing statement</label>
-            </value>
-            <value>
-                <fullName>Late Delivery</fullName>
-                <default>false</default>
-                <label>Late Delivery</label>
-            </value>
-            <value>
-                <fullName>Damages / Lost</fullName>
-                <default>false</default>
-                <label>Damages / Lost</label>
-            </value>
-            <value>
-                <fullName>Fee/Surcharge reversal</fullName>
-                <default>false</default>
-                <label>Fee/Surcharge reversal</label>
-            </value>
-            <value>
-                <fullName>Cash/Credit Transfers</fullName>
-                <default>false</default>
-                <label>Cash/Credit Transfers</label>
+                <label>Weight / Cube Dispute</label>
             </value>
             <value>
                 <fullName>Write Off</fullName>
                 <default>false</default>
                 <label>Write Off</label>
             </value>
-            <value>
-                <fullName>Late payment</fullName>
-                <default>false</default>
-                <label>Late payment</label>
-            </value>
-            <value>
-                <fullName>International Fees/Taxes</fullName>
-                <default>false</default>
-                <label>International fees / taxes</label>
-            </value>
-            <value>
-                <fullName>Duplicate Charge</fullName>
-                <default>false</default>
-                <label>Duplicate charge</label>
-            </value>
-            <value>
-                <fullName>Annual PO box charge</fullName>
-                <default>false</default>
-                <label>Annual PO Box charge</label>
-            </value>
-            <value>
-                <fullName>Annual reply paid</fullName>
-                <default>false</default>
-                <label>Annual reply paid</label>
-            </value>
-            <value>
-                <fullName>Over maximum limits fee</fullName>
-                <default>false</default>
-                <label>Over maximum limits fee</label>
-            </value>
-            <value>
-                <fullName>StarTrack Courier</fullName>
-                <default>false</default>
-                <label>StarTrack Courier</label>
-            </value>
-            <value>
-                <fullName>Manual Handling Surcharge</fullName>
-                <default>false</default>
-                <label>Manual handling surcharge</label>
-            </value>
-            <value>
-                <fullName>Consumable returns - Merch / online shop</fullName>
-                <default>false</default>
-                <label>Consumable returns - Merch / Online Shop</label>
-            </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Not our charge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Incorrect pricing/rates</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Manifested not sent</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Un-manifested charge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Incorrect weight / cubic charge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Late payment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>International Fees/Taxes</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Duplicate Charge</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
             <valueName>Annual PO box charge</valueName>
@@ -523,6 +491,42 @@
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
             <valueName>Annual reply paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Consumable returns - Merch / online shop</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Duplicate Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Incorrect pricing/rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Incorrect weight / cubic charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>International Fees/Taxes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Late payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Manifested not sent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Manual Handling Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Dispute</controllingFieldValue>
+            <valueName>Not our charge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
@@ -534,15 +538,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Manual Handling Surcharge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Dispute</controllingFieldValue>
-            <valueName>Consumable returns - Merch / online shop</valueName>
+            <valueName>Un-manifested charge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>
-            <valueName>Not home card - Second delivery</valueName>
+            <valueName>General Service Performance failure</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>
@@ -550,11 +550,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service Performance</controllingFieldValue>
-            <valueName>General Service Performance failure</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Copy of Document</controllingFieldValue>
-            <valueName>Invoice</valueName>
+            <valueName>Not home card - Second delivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Copy of Document</controllingFieldValue>
@@ -562,11 +558,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Copy of Document</controllingFieldValue>
-            <valueName>Proof of Delivery</valueName>
+            <valueName>Invoice</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Copy of Document</controllingFieldValue>
             <valueName>Pricing statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Copy of Document</controllingFieldValue>
+            <valueName>Proof of Delivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Internal Credit Request</controllingFieldValue>
@@ -578,11 +578,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Internal Credit Request</controllingFieldValue>
-            <valueName>Credit / Cash Refund</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Internal Credit Request</controllingFieldValue>
-            <valueName>Late Delivery</valueName>
+            <valueName>Cash/Credit Transfers</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Internal Credit Request</controllingFieldValue>
@@ -594,7 +590,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Internal Credit Request</controllingFieldValue>
-            <valueName>Cash/Credit Transfers</valueName>
+            <valueName>Late Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Credit Request</controllingFieldValue>
+            <valueName>Credit / Cash Refund</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

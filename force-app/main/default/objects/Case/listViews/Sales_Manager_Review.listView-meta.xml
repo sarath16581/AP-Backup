@@ -2,12 +2,12 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Manager_Review</fullName>
     <columns>CASES.CASE_NUMBER</columns>
-    <columns>CASES.SUBJECT</columns>
+    <columns>Reason_Code__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Opportunity__c</columns>
     <columns>CASES.STATUS</columns>
-    <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <columns>Reason_Code__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
@@ -15,9 +15,9 @@
         <value>Case.Sales_Manager_Review_Exception</value>
     </filters>
     <filters>
-        <field>Reason_Code__c</field>
-        <operation>contains</operation>
-        <value>OPC1.8 - Lost Opportunity</value>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>New,In Progress</value>
     </filters>
     <label>Sales Manager Review</label>
     <sharedTo>

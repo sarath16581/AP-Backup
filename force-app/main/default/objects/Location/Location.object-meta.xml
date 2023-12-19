@@ -141,6 +141,7 @@
         <lookupDialogsAdditionalFields>City__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>State__c</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>LocationType</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>VisitorAddress</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>LocationType</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Street__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>City__c</searchResultsAdditionalFields>

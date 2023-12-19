@@ -6,7 +6,8 @@
     <description>Lead Duplicate Rule with matching rules on object.
 Contact , Account, Lead.
 Last Mod:
-A.judd 10/03/20- Update on Contact and Lead mappings</description>
+A.judd 10/03/20- Update on Contact and Lead mappings
+08/2023-removed snnap integration profile in condition</description>
     <duplicateRuleFilter>
         <booleanFilter xsi:nil="true"/>
         <duplicateRuleFilterItems>
@@ -65,14 +66,6 @@ A.judd 10/03/20- Update on Contact and Lead mappings</description>
         <objectMapping>
             <inputObject>Lead</inputObject>
             <mappingFields>
-                <inputField>Email</inputField>
-                <outputField>Email</outputField>
-            </mappingFields>
-            <mappingFields>
-                <inputField>LastName</inputField>
-                <outputField>LastName</outputField>
-            </mappingFields>
-            <mappingFields>
                 <inputField>MobilePhone</inputField>
                 <outputField>MobilePhone</outputField>
             </mappingFields>
@@ -80,10 +73,18 @@ A.judd 10/03/20- Update on Contact and Lead mappings</description>
                 <inputField>Phone</inputField>
                 <outputField>Phone</outputField>
             </mappingFields>
+            <mappingFields>
+                <inputField>Email</inputField>
+                <outputField>Email</outputField>
+            </mappingFields>
+            <mappingFields>
+                <inputField>LastName</inputField>
+                <outputField>LastName</outputField>
+            </mappingFields>
             <outputObject>Contact</outputObject>
         </objectMapping>
     </duplicateRuleMatchRules>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <masterLabel>Lead Duplicate Rule1</masterLabel>
     <operationsOnInsert>Alert</operationsOnInsert>
     <operationsOnInsert>Report</operationsOnInsert>

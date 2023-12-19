@@ -225,6 +225,15 @@
         <relatedList>ChildLocations</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>Name</fields>
+        <fields>RelatedRecord</fields>
+        <fields>ResourceType</fields>
+        <fields>IsActive</fields>
+        <fields>LastModifiedBy</fields>
+        <fields>LastModifiedDate</fields>
+        <relatedList>ServiceResource.Vehicle__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>Title</fields>
         <fields>Description</fields>
         <fields>IconUrl</fields>

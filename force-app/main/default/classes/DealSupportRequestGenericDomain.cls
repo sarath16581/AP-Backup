@@ -9,7 +9,7 @@
  * Pratyush Chalasani - 2023-07-12 - Added SurchargeExemptionRequestModule
  */
 public with sharing class DealSupportRequestGenericDomain  extends ApplicationDomain{
-	public static DealSupportRequestGenericDomain newInstance(List<SObject> sObjectList) {
+    public static DealSupportRequestGenericDomain newInstance(List<SObject> sObjectList) {
 		return (DealSupportRequestGenericDomain)ApplicationDomain.newInstance(DealSupportRequestGenericDomain.class, sObjectList);
 	}
 	/**

@@ -3,16 +3,22 @@
     <fullName>LPuD_Queue</fullName>
     <columns>FULL_NAME</columns>
     <columns>LEAD.COMPANY</columns>
-    <columns>LEAD.PHONE</columns>
+    <columns>LEAD.STATE</columns>
     <columns>LEAD.EMAIL</columns>
-    <columns>LEAD.LEAD_SOURCE</columns>
     <columns>LEAD.STATUS</columns>
     <columns>LEAD.CREATED_DATE</columns>
-    <filterScope>Queue</filterScope>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LEAD.UNREAD</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LEAD.LEAD_SOURCE</field>
+        <operation>equals</operation>
+        <value>LPuD Enquiries</value>
+    </filters>
     <label>LPuD Queue</label>
     <language>en_US</language>
-    <queue>LPuD_Queue</queue>
     <sharedTo>
         <group>LPuD_Group</group>
+        <group>SystemAdmin</group>
     </sharedTo>
 </ListView>

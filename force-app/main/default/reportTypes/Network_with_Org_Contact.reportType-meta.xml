@@ -5010,9 +5010,11 @@
             <field>Winning_Master_Record__c</field>
             <table>Network__c.Accounts__r.Contacts</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>Network__c.Accounts__r.Contacts</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
-    </sections>
-    <sections>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

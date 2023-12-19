@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deferrals_Confirmed_and_Published_date</fullName>
+    <active>false</active>
+    <description>Validation required to ensure Confirmed Date are not left blank</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+Confirmed_Date__c = Published_Date__c,
+OR(
+ISPICKVAL(Status__c, &apos;Deferral&apos;),
+ISPICKVAL(Status__c, &apos;Go early&apos;)
+)
+)</errorConditionFormula>
+    <errorMessage>For Deferrals or Go Early, the Published Date can not equal the Effective Date.</errorMessage>
+</ValidationRule>

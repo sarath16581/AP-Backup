@@ -1065,10 +1065,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Fulfilment</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Information and Mailroom Management</fullName>
             <default>false</default>
         </values>
@@ -1224,21 +1220,6 @@
         <values>
             <fullName>Resolution of problems quickly</fullName>
             <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>kfsell__Scorecard_Stage__c</picklist>
-        <values>
-            <fullName>Complete</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>In Progress</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not Started</fullName>
-            <default>true</default>
         </values>
     </picklistValues>
 </RecordType>

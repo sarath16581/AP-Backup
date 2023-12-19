@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexTestSuite xmlns="http://soap.sforce.com/2006/04/metadata">
+    <testClassName>APT_AgreementLineItemTriggerHandler_Test</testClassName>
+    <testClassName>APT_AgreementLodgementPointsSelectorTest</testClassName>
+    <testClassName>APT_AgreementLPTriggerHandler_Test</testClassName>
+    <testClassName>APT_AgreementObjectsSelector_Test</testClassName>
+    <testClassName>APT_CartValidationCallBack_Test</testClassName>
+    <testClassName>APT_CreatePMBatch_Test</testClassName>
+    <testClassName>APT_CreatePMEBatch_Test</testClassName>
+    <testClassName>APT_DeleteExistingPMEBatch_Test</testClassName>
+    <testClassName>APT_DetermineZoneTypesBatch_Test</testClassName>
+    <testClassName>APT_DomesticPricingPLIAndPMBatch_Test</testClassName>
+    <testClassName>APT_PricingBatchUtility_Test</testClassName>
+    <testClassName>APT_PricingCallBackTest</testClassName>
+    <testClassName>APT_PricingDataBatch_Test</testClassName>
+    <testClassName>APT_ProcessApprvdConfigBatch_Test</testClassName>
+    <testClassName>APT_ProductAttributeValueTrigger_Test</testClassName>
+    <testClassName>APT_ProposalObjectsSelector_Test</testClassName>
+    <testClassName>APT_UpdatePostCodeMappingBatch_Test</testClassName>
+    <testClassName>ApttusContractsSelector_Test</testClassName>
+    <testClassName>BillingAccountCreationEventHelperTest</testClassName>
+    <testClassName>BillingAccountsSelector_Test</testClassName>
+    <testClassName>ChargeAccountRequestSelector_Test</testClassName>
+    <testClassName>CreateBillingAccountController_Test</testClassName>
+    <testClassName>CreateSubAccountsControllerTest</testClassName>
+    <testClassName>DealSupportRequestsSelector_Test</testClassName>
+    <testClassName>ExternalOnboardingRequestSelector_Test</testClassName>
+    <testClassName>LineItemsSelector_Test</testClassName>
+    <testClassName>OpportunitySelector_Test</testClassName>
+    <testClassName>ProductConfigurationSelector_Test</testClassName>
+    <testClassName>ProductsSelectorTest</testClassName>
+    <testClassName>SubAccountRequestsSelector_Test</testClassName>
+</ApexTestSuite>

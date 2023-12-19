@@ -3,6 +3,37 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW WFM Queue 5</name>
+    <queueMembers>
+        <users>
+            <user>alicia.nguyen58@auspost.com.au</user>
+            <user>brendon.smith@auspost.com.au</user>
+            <user>carl.cardoso@auspost.com.au</user>
+            <user>clinton.jarm@auspost.com.au</user>
+            <user>deepa.silva@auspost.com.au</user>
+            <user>deniz.ozturk@auspost.com.au</user>
+            <user>franca.romas@auspost.com.au</user>
+            <user>hasandeep.singh@auspost.com.au</user>
+            <user>henny.trisno@auspost.com.au</user>
+            <user>jack.horsley@auspost.com.au</user>
+            <user>jason.billings@auspost.com.au</user>
+            <user>jeya.emmanuel@auspost.com.au</user>
+            <user>kate.havas@auspost.com.au</user>
+            <user>kathleen.murphy@auspost.com.au</user>
+            <user>lanz.laurencio@auspost.com.au</user>
+            <user>luke.dunbabin@auspost.com.au</user>
+            <user>maria.trinh@auspost.com.au</user>
+            <user>melanie.gill@auspost.com.au</user>
+            <user>mira.paspaliaris@auspost.com.au</user>
+            <user>niroshini.prashaanthan@auspost.com.au</user>
+            <user>rachael.heard@auspost.com.au</user>
+            <user>sandi.williams@auspost.com.au</user>
+            <user>sarah.mclaren@auspost.com.au</user>
+            <user>shaun.vikash@auspost.com.au</user>
+            <user>stephanie.cocks@auspost.com.au</user>
+            <user>tim.emanuelle@auspost.com.au</user>
+            <user>yvonne.edwin@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

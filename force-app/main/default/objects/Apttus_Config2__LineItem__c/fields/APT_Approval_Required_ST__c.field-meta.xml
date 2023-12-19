@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Approval_Required_ST__c</fullName>
+    <description>for Startrack delegation</description>
+    <externalId>false</externalId>
+    <formula>IF( 
+Apttus_Config2__AttributeValueId__r.APT_Tier_Approved__c , FALSE, 
+IF(
+ISBLANK(TEXT(  Apttus_Config2__AttributeValueId__r.APT_Tier_Adjustment_Type__c  )),FALSE,TRUE
+)
+)</formula>
+    <label>(depr) ST Approval Required?</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsExcludedFromValidationRules__c</fullName>
-    <description>Identify the user that we should exclude from validation rules (e.g. Integration users)</description>
+    <description>Identify the user that we should exclude from validation rules (e.g. Integration users)
+08/2023 removed snnap integration profile reference</description>
     <externalId>false</externalId>
     <formula>or(
 

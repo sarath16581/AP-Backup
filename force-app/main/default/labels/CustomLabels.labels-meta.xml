@@ -5246,7 +5246,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
         <value>Correct the {0} Opportunity Split. A non-{0} team member can’t be assigned to the {0} overlay split.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithInvalidQuantityOnProducts</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -5254,7 +5254,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
         <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithInvalidRevenueStartDateOnProducts</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -8264,12 +8264,28 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Sub account creation request(s) submitted Successfully. Once the Follower/Offspring accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountsCreationNoAccessError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationNoAccessError</shortDescription>
+        <value>You do not have access to create Follower/Offspring accounts, please raise a myIT ticket to Salesforce Support for assistance.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountsCreationTabError</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
         <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTitle</shortDescription>
+        <value>Create Sub Account Request(s)</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
@@ -8464,7 +8480,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>AttributeAPCNMapping</fullName>
         <categories>Auth0</categories>
         <language>en_US</language>
@@ -8849,5 +8865,5 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Australia Post No Email Phishing Statement</shortDescription>
         <value>Australia Post will never send you an email asking for your password, credit card details or account information.</value>
-    </labels>	
+    </labels>
 </CustomLabels>

@@ -1,203 +1,31 @@
 <messaging:emailTemplate subject="Australia Post {!RelatedTo.Type} - Case: {!RelatedTo.CaseNumber}" recipientType="Contact" relatedToType="Case">
 
-<messaging:htmlEmailBody >
-
-<head>
-    <title>Australia Post</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style type="text/css">
-        * {
-            -ms-text-size-adjust:100%;
-            -webkit-text-size-adjust: none;
-            -webkit-text-resize: 100%;
-            text-resize: 100%;
-        }
-        @media only screen and (max-width:500px) {
-            table[class="wrapper"]{min-width:320px !important;}
-            table[class="flexible"]{width:100% !important;}
-            span[class="hide"]{
-                display:none !important;
-                width:0 !important;
-                height:0 !important;
-                padding:0 !important;
-                font-size:0 !important;
-                line-height:0 !important;
-            }
-            td[class="alignjustify"]{text-align:justify !important;}
-            td[class="button"]{padding-top:0 !important;}
-            td[class="button"] a{
-                padding:8px 0;
-                display:block !important;
-                border-bottom:1px solid #d7d2cb;
-                text-align:center !important;
-                font-size:13px !important;
-                line-height:15px !important;
-            }
-            td[class="style-01"]{padding:0 !important;}
-        }
-        @media only screen and (max-width:343px) {
-            td[class="img-01"]{width:100px !important;}
-            td[class="img-01"] img{
-                width:100% !important;
-                height:auto !important;
-            }
-        }
-    </style>
-</head>
-<body style="margin:12; padding:10;" bgcolor="#f3f1ee" link="#dc1928">
-<!--[if gte mso 12]>
-    <style type="text/css">
-        .button-outlook{padding:8px 14px 7px !important;}
-        .button-outlook a{padding:0 !important;}
-    </style>
-<![endif]-->
-<table class="wrapper" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee">
-    <tr>
-        <td style="padding:19px 5px 30px;">
-            <table class="flexible" align="right" width="30" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td style="padding:0 0 2px;">
+    <messaging:htmlEmailBody >
+        
                         <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td width="30"></td>
-                                <td width="100" valign="vbottom">
-                                    <table width="100%" cellpadding="0" cellspacing="0" align="right">
-                                           <tr>
-                                          <td><a href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img src="http://auspost.com.au/images/emails/track/logo.png" border="0" style="right;" width="60" height="61" alt="Australia Post" /></a></td>
-
-                                        </tr>
-                                        <tr><td height="5" style="font-size:0; line-height:0;">&nbsp;</td></tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <table width="100%" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td width="33" valign="top"><a href="#"><img src="http://auspost.com.au/images/emails/track/bg-arrow.png" border="0" style="vertical-align:top;" width="33" height="33" alt="" /></a></td>
-                                <td bgcolor="#ffffff" width="10"></td>
-                                <td bgcolor="#ffffff" align="right" valign="top" style="border-radius:0 2px 0 0;">
-                
-                
-                    
-                       <table cellpadding="0" cellspacing="0" align="right">
-                           <tr>
-                               <td style="padding:3px 5px 0 0; font:11px/13px Arial, Helvetica, sans-serif; color:#807370;">Reference number <b>{!RelatedTo.CaseNumber}</b></td>
-                            </tr>
-                        </table>
-                              
-               
-                </td>
-                </tr>
-                </table>
-                   <tr>
-                      <table width="100%" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="padding:5px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">We recently contacted you regarding your enquiry, and need some additional information in order to proceed with your case.</td>
+                                <td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">We recently contacted you regarding your enquiry, and need some additional information in order to proceed with your case.</td>
                             </tr>
                             <tr>
-                                <td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;">
+                                <td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;"><br/>
                                     <p>
-                                    Please reply to this email to provide more information and we will be happy to assist you. Otherwise, sometimes enquiries can be resolved before we've completed our investigation. If that happens, let us know here:
-                                    </p>
-                                    <a href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!RelatedTo.CaseNumber}%20can%20be%20closed%20{!RelatedTo.EmailThreadID__c}">CLOSE MY CASE</a>
- 
-                                    <div style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Previous Communication: </div>                  
-                 <c:ssswRecentCustomerEmailMessage EnquiryId="{!RelatedTo.Id}" text="false"/>                            
-                                </td>
-                            </tr>
-                             <br/>
-                             <br/>              
-                            <tr>
-                                <td class="flexible" style="padding:0 13px 0 0;">&nbsp;
-                                    <table width="100%" cellpadding="0" cellspacing="0">
-                                        
-                                        <tr>
-                                            <td width="100%">
-                                                <table width="100%" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                        <td valign="top" width="100%">
-                                                            <table width="100%" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                               
-                                                                    <td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
-                                                                        Thank you, <br/><br/>
-                                                                        <b style="color:#dc1928;">Australia Post</b>
-                                                                    <br/></td>
-                                                                </tr>
-                                                                
-                                                            </table>
-                                                        </td>
-                                                       
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    Please reply to this email to provide more information and we will be happy to assist you.
+                                    </p>                           
                                 </td>
                             </tr>                               
                         </table>
-                        
-                
-                <span style="color:rgb(243, 241, 238);">{!RelatedTo.EmailThreadID__c}</span>
-               
-                            </tr>                               
-                            <tr>
-                                <td class="flexible" style="padding:0 13px 0 0;">
-                                    <table width="100%" cellpadding="0" cellspacing="0">
-                                        
-                                        <tr>
-                                            <td width="100%">
-                                                <table width="100%" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                        <td valign="top" width="100%">
-                                                            <table width="100%" cellspacing="0" cellpadding="0">
-                                                                <tr>
-                                                                    
-                                                                </tr>
-                                                                
-                                                            </table>
-                                                        </td>
-                                                        <td valign="top" width="180">
-                                                            <img src="https://auspost.my.salesforce.com/servlet/servlet.ImageServer?id=01590000005CewU&oid=00D30000001GGce&lastMod=1410516111000" style="vertical-align:top;" width="146" height="70" alt="" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                        
-                        
-                    </td>
-                </tr>               
-                <tr>
-                    <td height="14" style="font-size:0; line-height:0;">&nbsp;</td>
-                </tr>
-                <tr>
                 <br/>
-                
-                    <td class="alignjustify" style="padding:0 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</td>
-                </tr>
-                <tr><td height="1" bgcolor="#d7d2cb" style="font-size:0; line-height:0;">&nbsp;</td></tr>
-                <tr>
-                    <td class="button" style="padding:13px 2px 0; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">
-                        <a href="http://auspost.com.au/help-and-support?ilink=ccc-edm-cases-help" target="_blank" style="text-decoration:none; color:#fff;background:#5e514d;padding:10px 15px 16px 15px;border-top-left-radius:3px;border-top-right-radius:3px;"><span style="padding-right:10px;"><img src="http://auspost.com.au/images/emails/track/help-icon.png" width="16" height="12" vspace="0" hspace="0" align="centre" alt="Help icon" /></span>Help &amp; support</a>
-                        <span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                        <a href="http://auspost.com.au/terms-conditions.html?ilink=ccc-edm-cases-terms-conditions" target="_blank" style="text-decoration:none; color:#444">Terms &amp; conditions</a>
-                        <span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                        <a href="http://auspost.com.au/privacy.html?ilink=ccc-edm-cases-privacy-policy" target="_blank" style="text-decoration:none; color:#444">Privacy policy</a>
-                    </td>
-                </tr>
-            </table> 
-           </body>                     
+                <span style="color:rgb(243, 241, 238);">{!RelatedTo.EmailThreadID__c}</span>
+                <br/>
 
-                                
-</messaging:htmlEmailBody>
- <messaging:plainTextEmailBody >
+                <div style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Previous Communication: </div>                  
+                 <c:ssswRecentCustomerEmailMessage EnquiryId="{!RelatedTo.Id}" text="false"/>                                   
+                 <br/>
+                 <br/>                                 
+
+                 <hr size="2px" color="black"/>    
+    </messaging:htmlEmailBody>
+    <messaging:plainTextEmailBody >
     
     We recently contacted you regarding your enquiry, and need some additional information in order to proceed with your case.
 
@@ -207,8 +35,8 @@
     Previous Communication :
      
      
-    <c:ssswRecentCustomerEmailMessage EnquiryId="{!RelatedTo.Id}" text="true"/ > 
+    <c:ssswRecentCustomerEmailMessage EnquiryId="{!RelatedTo.Id}" text="true"/  > 
 
-</messaging:plainTextEmailBody>
+    </messaging:plainTextEmailBody>
     
 </messaging:emailTemplate>

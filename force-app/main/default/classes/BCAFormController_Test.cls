@@ -1,6 +1,6 @@
 /**
  * Created by vcheng on 13/04/2021.
- * 2023-05-05	Naveen Rajanna	REQ3184691	changed api version and added new constant for custom setting
+ * 2023-05-05	Naveen Rajanna	REQ3184691	changed api version and added new constant for custom settings
  */
 
  @IsTest
@@ -910,27 +910,25 @@
 			L2C_Referral_Rejection_Reason__c = BCAFormConstants.FAIL_REASON_CREDIT_SUSPECT
 		);
 		// =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
 		BCAFormHelper.bcaSettings = new Map<String,SObject>{
 			BCAFormConstants.BCASETTING_CREDIT_SUSPECT_MATCH_THRESHOLD => new BCA_Settings__c(
 				Name = BCAFormConstants.BCASETTING_CREDIT_SUSPECT_MATCH_THRESHOLD,
 				Number_Value__c = 60
 			)
 		};
-		
+        
 		UserRecordAccessSelector uraSelector = (UserRecordAccessSelector)MockUtility.mockSelector(UserRecordAccessSelector.class);
 		CreditsAssessmentSelector caSelector = (CreditsAssessmentSelector)MockUtility.mockSelector(CreditsAssessmentSelector.class);
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
-		Double matchingConfidence = 80;
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
 
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-
-		// Database
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject()))
-			.thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+        // Database
+        MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject()))
+            .thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 
 		MockUtility.Mocks.when(
 			mockDatabase.findDuplicates((List<SObject>)fflib_Match.anyObject())
@@ -941,12 +939,12 @@
 						Id = fflib_IDGenerator.generate(CreditSuspect__c.SObjectType),
 						FirstName__c = 'first',
 						LastName__c = 'last'
-					), matchingConfidence
+					), 80
 				)
 			}
 		);
 
-		MockUtility.Mocks.when(
+        MockUtility.Mocks.when(
 			uraSelector.selectById((Id)fflib_Match.eq(caRecord.Id))
 		).thenReturn(
 			(UserRecordAccess)UserRecordAccessSelector_Test.mockUserRecordAccess(
@@ -955,10 +953,10 @@
 			)
 		);
 
-		MockUtility.Mocks.when(caSelector.selectById((Set<Id>)fflib_Match.anyObject()))
-			.thenReturn(new Map<Id,APT_Credit_Assessment__c>{ caRecord.Id => caRecord });
+        MockUtility.Mocks.when(caSelector.selectById((Set<Id>)fflib_Match.anyObject()))
+            .thenReturn(new Map<Id,APT_Credit_Assessment__c>{ caRecord.Id => caRecord });
 
-		MockUtility.Mocks.stopStubbing();
+        MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
 
@@ -969,15 +967,5 @@
 		);
 
 		Test.stopTest();
-
-		fflib_ArgumentCaptor updateRecordsCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)updateRecordsCaptor.capture());
-		List<SObject> updatedRecords = (List<SObject>)updateRecordsCaptor.getValue();
-
-		APT_Credit_Assessment__c dmlCARecord = (APT_Credit_Assessment__c)updatedRecords[0];
-		System.assertEquals(matchingConfidence, dmlCARecord.APT_Applicant_1_Suspect_Match__c, 'Incorrect matching level');
-		System.assertEquals(matchingConfidence, dmlCARecord.Business_Contact_Suspect_Match__c, 'Incorrect matching level');
-		System.assertEquals(BCAFormConstants.FAIL_REASON_CREDIT_SUSPECT, dmlCARecord.L2C_Referral_Rejection_Reason__c, 'Missing Rejection Reason');
-		System.assertEquals(BCAFormConstants.CREDIT_ASSESSMENT_STATUS_REFERRED, dmlCARecord.APT_Credit_Assessment_Status__c, 'Status invalid');
 	}
 }

@@ -12,6 +12,11 @@
         <operation>equals</operation>
         <value>Network__c.Street_Posting_Box_6</value>
     </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>equals</operation>
+        <value>6160</value>
+    </filters>
     <label>SPB</label>
     <sharedTo>
         <group>AllUsers</group>
@@ -28,7 +33,6 @@
         <group>Customer_Service_Senior_Leadership_Tea</group>
         <group>Customer_Service_Senior_Management_Team</group>
         <group>Customer_Service_TMs</group>
-        <group>Dashcord</group>
         <group>DataMigration</group>
         <group>Delegate_Team</group>
         <group>Enterprise</group>

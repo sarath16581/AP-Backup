@@ -123,6 +123,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>VisitorAddress</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>RootLocation</field>
             <table>Location</table>
         </columns>

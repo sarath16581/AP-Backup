@@ -73,6 +73,6 @@
     </objectPermissions>
     <tabSettings>
         <tab>CreditSuspect__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

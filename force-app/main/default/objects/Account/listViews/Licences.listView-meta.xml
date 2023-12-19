@@ -13,6 +13,7 @@
         <value>Account.Licence,Account.Licence_CMA,Account.Licence_CPA,Account.Licence_PP</value>
     </filters>
     <label>Licences</label>
+    <language>en_US</language>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>

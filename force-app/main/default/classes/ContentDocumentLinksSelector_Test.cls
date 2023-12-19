@@ -74,7 +74,6 @@ private class ContentDocumentLinksSelector_Test {
 
 	}
 
-
 	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output

@@ -3,12 +3,6 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Niche Group 4</name>
-    <queueMembers>
-        <users>
-            <user>gaurav.dhiman.callcentre@auspost.com.au</user>
-            <user>lisha.annadaniel@auspost.com.au</user>
-        </users>
-    </queueMembers>
     <queueRoutingConfig>AP_SSSW_Community_Niche</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>

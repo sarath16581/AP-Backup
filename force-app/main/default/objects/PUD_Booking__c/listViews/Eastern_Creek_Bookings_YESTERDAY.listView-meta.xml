@@ -14,7 +14,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>Eastern creek</value>
+        <value>Kemps creek</value>
     </filters>
     <filters>
         <field>Effective_Date__c</field>
@@ -26,7 +26,7 @@
         <operation>notEqual</operation>
         <value>PUD_Booking__c.Other</value>
     </filters>
-    <label>Eastern Creek Bookings - YESTERDAY</label>
+    <label>Kemps Creek Bookings - YESTERDAY</label>
     <sharedTo>
         <group>EASTERN_CREEK_VAN_OPS</group>
     </sharedTo>

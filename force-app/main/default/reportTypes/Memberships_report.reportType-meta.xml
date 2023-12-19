@@ -338,11 +338,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Western_Union_Category__c</field>
-            <table>Membership__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>WU_Swtich_On_Requested__c</field>
             <table>Membership__c</table>
         </columns>
@@ -394,6 +389,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Licensee__c.MailingPostalCode</field>
+            <table>Membership__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Western_Union_Category__c</field>
             <table>Membership__c</table>
         </columns>
         <masterLabel>Memberships</masterLabel>
