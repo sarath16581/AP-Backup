@@ -449,10 +449,6 @@
                 <name>brad.chippendale@startrack.com.au</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>greg.smith@startrack.com.au</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
@@ -629,10 +625,6 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>lisa.assaf@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
                 <name>minz.sankari@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -789,10 +781,6 @@
             </approver>
             <approver>
                 <name>paul.trembath@auspost.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>philip.faulks@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -963,14 +951,6 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>adam.trefry@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>gary.rudd@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
                 <name>owen.graham@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -1023,10 +1003,6 @@
             </action>
         </approvalActions>
         <assignedApprover>
-            <approver>
-                <name>keith.walsh@startrack.com.au</name>
-                <type>user</type>
-            </approver>
             <approver>
                 <name>owen.graham@startrack.com.au</name>
                 <type>user</type>
@@ -1301,14 +1277,6 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>adam.trefry@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>gary.rudd@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
                 <name>owen.graham@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -1361,10 +1329,6 @@
             </action>
         </approvalActions>
         <assignedApprover>
-            <approver>
-                <name>keith.walsh@startrack.com.au</name>
-                <type>user</type>
-            </approver>
             <approver>
                 <name>owen.graham@startrack.com.au</name>
                 <type>user</type>
@@ -1485,10 +1449,6 @@
         <assignedApprover>
             <approver>
                 <name>darren.vandenberg@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>lisa.assaf@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -1761,7 +1721,7 @@
         </action>
     </initialSubmissionActions>
     <label>Location Approval Process Final9</label>
-    <processOrder>1</processOrder>
+    <processOrder>2</processOrder>
     <recallActions>
         <action>
             <name>Status_Draft</name>
