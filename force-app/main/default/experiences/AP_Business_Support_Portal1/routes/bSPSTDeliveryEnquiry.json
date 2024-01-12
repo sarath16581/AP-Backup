@@ -2,6 +2,7 @@
   "activeViewId" : "f0e828be-430d-44b5-a14f-70c02974e387",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "BSP_ST_Delivery_Enquiry__c",
   "id" : "fb518625-71d3-43d8-9e0e-72078d7d612e",
   "label" : "BSP ST Delivery Enquiry",
   "pageAccess" : "UseParent",

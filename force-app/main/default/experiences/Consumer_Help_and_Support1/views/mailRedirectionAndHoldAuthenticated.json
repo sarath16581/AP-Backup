@@ -1,6 +1,7 @@
 {
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "98f042d2-52f7-4654-8f83-24fa1eae39f5",
   "label" : "Mail redirection and hold (authenticated",
   "regions" : [ {

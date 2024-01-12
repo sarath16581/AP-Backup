@@ -2,6 +2,7 @@
   "activeViewId" : "0dcbdf39-163a-40bd-bb90-1243f57fc27b",
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "configurationTags" : [ ],
+  "devName" : "Feedback__c",
   "id" : "52965dc1-89a9-406b-a2d0-d780c30c66d1",
   "label" : "Feedback",
   "pageAccess" : "UseParent",

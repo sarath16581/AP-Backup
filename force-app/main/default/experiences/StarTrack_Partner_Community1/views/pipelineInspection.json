@@ -1,0 +1,23 @@
+{
+  "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "9649babc-3da9-4ae6-808e-e1556979ff30",
+  "label" : "Pipeline Inspection",
+  "regions" : [ {
+    "id" : "55628fa5-a9c8-40bc-99ea-d16ba4db108b",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "ee2c1e45-b5c1-47a2-baf7-d3eaa7be9cce",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "c9066e69-f954-427b-a128-ee61801e76fb",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "pipeline-inspection"
+}

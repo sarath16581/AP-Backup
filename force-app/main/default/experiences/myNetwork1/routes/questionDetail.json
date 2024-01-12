@@ -2,6 +2,7 @@
   "activeViewId" : "d7c764e5-cfe4-4d7a-8b55-37924c23ea6e",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "Question_Detail",
   "id" : "3a4d9f4f-42ce-49cc-8661-2695297896ac",
   "label" : "Question Detail",
   "routeType" : "feeditem",

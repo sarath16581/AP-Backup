@@ -2,6 +2,7 @@
   "activeViewId" : "86a4681c-c8f9-4a80-9503-9a26d442b0c4",
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "configurationTags" : [ ],
+  "devName" : "Account_Management",
   "id" : "7c0e4106-acae-48e9-a1e6-4afdfa42a738",
   "label" : "Account Management",
   "routeType" : "account-management",

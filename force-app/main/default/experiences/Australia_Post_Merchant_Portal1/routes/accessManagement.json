@@ -2,6 +2,7 @@
   "activeViewId" : "3c7703dc-b7ef-41bc-9ee4-ccfc7042e849",
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Access_Management__c",
   "id" : "bb852b46-fb74-420c-9298-4784d112f6cd",
   "label" : "Access Management",
   "pageAccess" : "RequiresLogin",

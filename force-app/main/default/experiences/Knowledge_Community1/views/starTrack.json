@@ -1,6 +1,7 @@
 {
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
   "id" : "9cc55b6b-cba4-422f-be45-e98d50337f4d",
   "label" : "Star Track",
   "regions" : [ {

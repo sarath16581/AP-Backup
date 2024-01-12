@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "Search",
   "id" : "789a5873-bb47-43ae-8ea7-7329cb9088a1",
   "label" : "Search",
   "pageAccess" : "UseParent",

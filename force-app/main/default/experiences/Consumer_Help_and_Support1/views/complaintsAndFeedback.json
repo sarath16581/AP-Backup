@@ -1,6 +1,7 @@
 {
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "2a5d7305-2897-4013-a5f1-4251fdfb87e6",
   "label" : "Complaints And Feedback",
   "regions" : [ {

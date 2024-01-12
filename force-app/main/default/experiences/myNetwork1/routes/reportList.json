@@ -2,6 +2,7 @@
   "activeViewId" : "91e98691-da20-47ef-8586-1bb98d3a8097",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "Report_List",
   "id" : "74292f20-30ac-4915-a59a-ddbbda106679",
   "label" : "Report List",
   "routeType" : "list-00O",

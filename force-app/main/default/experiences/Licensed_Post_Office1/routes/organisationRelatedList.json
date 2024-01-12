@@ -2,6 +2,7 @@
   "activeViewId" : "ff72cd01-3fc2-4d96-8631-4b7ab1023406",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Organisation_Related_List__c",
   "id" : "c41f94dc-2665-4758-93da-34d4e72e76b2",
   "label" : "Organisation Related List",
   "routeType" : "relatedlist-001",

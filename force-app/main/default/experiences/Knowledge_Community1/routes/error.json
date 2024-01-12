@@ -2,6 +2,7 @@
   "activeViewId" : "9d946079-5dbb-4e9f-a058-4ab2a6b7810d",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Error",
   "id" : "afb9c51d-127a-4cf4-a85a-6d0d55a2e3ce",
   "label" : "Error",
   "routeType" : "error",

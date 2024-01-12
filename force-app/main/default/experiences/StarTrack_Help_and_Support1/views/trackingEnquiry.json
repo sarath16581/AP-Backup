@@ -1,6 +1,7 @@
 {
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "06a3d350-bb34-424a-806b-b4d5d4a7e6aa",
   "label" : "Tracking Enquiry",
   "regions" : [ {

@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "52ef64ce-8bfd-4ac4-a48e-21a896e14e5d",
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "configurationTags" : [ ],
+  "devName" : "Ideas_Unsubscribe__c",
+  "id" : "80c6e132-4b28-4ab5-b75e-50ae3ad77a1c",
+  "label" : "Ideas Unsubscribe",
+  "pageAccess" : "RequiresLogin",
+  "routeType" : "custom-ideas-unsubscribe",
+  "type" : "route",
+  "urlPrefix" : "ideas-unsubscribe"
+}

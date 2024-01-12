@@ -5,7 +5,7 @@
   "isProgressiveRenderingEnabled" : false,
   "loginAppPageId" : "e23c24be-9394-4934-bb69-a16b06392aa0",
   "mainAppPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
-  "preferredDomain" : "ptest.npe.mynetwork.auspost.com.au",
+  "preferredDomain" : "mynetwork.auspost.com.au",
   "selfRegistrationRouteId" : "69fbf3e4-56b3-4d0f-bdec-4f4fb1b9c3f4",
   "type" : "site"
 }

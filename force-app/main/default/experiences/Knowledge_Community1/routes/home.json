@@ -2,6 +2,7 @@
   "activeViewId" : "b18f808e-98ef-49f0-995d-e42181cf7614",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Home",
   "id" : "d38f688c-1d74-4364-8942-efc0999fc9af",
   "label" : "Home",
   "routeType" : "home",

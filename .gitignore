@@ -80,6 +80,8 @@ force-app/main/default/staticresources/Cognition_StaticRes/js/Icon?
 **/certs/
 **/reports/
 **/dashboards/
+**/siteDotComSites/
+**/flowDefinitions/
 **/contentassets/
 **/objectTranslations/
 **/myDomainDiscoverableLogins/

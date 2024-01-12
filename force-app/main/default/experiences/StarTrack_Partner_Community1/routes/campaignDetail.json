@@ -2,6 +2,7 @@
   "activeViewId" : "a8d17277-3851-48ec-ad9a-b41efdb16ac0",
   "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
   "configurationTags" : [ ],
+  "devName" : "Campaign_Detail",
   "id" : "748594fb-2a35-47d8-9134-042e15245634",
   "label" : "Campaign Detail",
   "routeType" : "detail-701",
