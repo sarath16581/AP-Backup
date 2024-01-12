@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Audience xmlns="http://soap.sforce.com/2006/04/metadata">
     <audienceName>Group Style 13</audienceName>
-    <container>Inactive - APCommunityOld</container>
+    <container>Australia Post Community</container>
     <criteria>
         <criterion>
             <criterionValue>

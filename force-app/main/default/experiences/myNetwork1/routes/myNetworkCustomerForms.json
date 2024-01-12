@@ -2,6 +2,7 @@
   "activeViewId" : "ed297f43-89a7-4c9f-aada-afec39a2e1dd",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "myNetwork_Customer_Forms__c",
   "id" : "ca15a5d3-59bd-4251-8d5c-3a2b4a03856e",
   "label" : "myNetwork Customer Forms",
   "pageAccess" : "UseParent",

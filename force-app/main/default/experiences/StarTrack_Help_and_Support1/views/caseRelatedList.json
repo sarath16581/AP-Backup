@@ -1,6 +1,7 @@
 {
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "ddf169dc-6653-4af8-b4b6-c553d47f2a3f",
   "label" : "Case Related List",
   "regions" : [ {

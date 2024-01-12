@@ -61,6 +61,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Lead:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;LastName&quot;,&quot;FirstName&quot;,&quot;LeadSource&quot;,&quot;Campaign_Name__c&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;Mpb_Is_Migrated__c&quot;,&quot;Send_MPB_Registration__c&quot;,&quot;MPB_Campaign_Member_Id__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SalesforceObj5c33e9c22e1b54a32d003517e86048e0_FireJBTrigger</name>
@@ -124,6 +126,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Lead:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;FirstName&quot;,&quot;CreatedDate&quot;,&quot;MobilePhone&quot;,&quot;Hub_Catchment__c&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;Created_Time_Date__c&quot;,&quot;Channel_Preference__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SalesforceObj96642d37dfb94a791acfa29c3acce693_FireJBTrigger</name>
@@ -187,6 +191,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Lead:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;FirstName&quot;,&quot;RecordTypeId&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;Registration_Type__c&quot;,&quot;Created_Time_Date__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SalesforceObjdcbf374b76c56a839c33df6075f137c5_FireJBTrigger</name>
@@ -250,6 +256,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Lead:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;LastName&quot;,&quot;FirstName&quot;,&quot;LeadSource&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;Mpb_Is_Migrated__c&quot;,&quot;Send_MPB_Registration__c&quot;,&quot;MPB_Campaign_Member_Id__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

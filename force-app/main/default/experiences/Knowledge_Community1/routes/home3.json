@@ -2,6 +2,7 @@
   "activeViewId" : "eca57153-a90d-4249-8a86-b7562c52cb7d",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Home3__c",
   "id" : "bb41b695-1e1d-4c1c-80c6-afdbc5217c68",
   "label" : "Home3",
   "routeType" : "custom-home3",

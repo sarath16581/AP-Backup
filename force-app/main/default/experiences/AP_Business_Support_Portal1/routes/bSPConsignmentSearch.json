@@ -2,6 +2,7 @@
   "activeViewId" : "a9268b0d-38f9-47ea-b567-a149f86f4cf0",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "BSP_Consignment_Search__c",
   "id" : "52b8fb76-6991-4e36-9cf3-55fb7fa3ec31",
   "label" : "BSP Consignment Search",
   "pageAccess" : "UseParent",

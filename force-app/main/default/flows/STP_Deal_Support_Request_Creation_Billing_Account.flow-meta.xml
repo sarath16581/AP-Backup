@@ -29,6 +29,8 @@
                 <elementReference>VarNewDSRRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:navigateToRecord</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <assignments>

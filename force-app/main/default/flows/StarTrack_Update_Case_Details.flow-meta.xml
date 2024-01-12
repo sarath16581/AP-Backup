@@ -106,6 +106,8 @@
                 <elementReference>myVariable_current.OwnerId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StarTrack_Populate_Manager_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -162,6 +164,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StarTrackCreateAutomatedSWMYTask</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

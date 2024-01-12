@@ -2,6 +2,7 @@
   "activeViewId" : "e5005f89-d961-45d5-ad6a-075edc7ceaf3",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Flow",
   "id" : "d3449907-8f5f-4d69-b371-4d44301636f7",
   "label" : "Flow",
   "routeType" : "flow",

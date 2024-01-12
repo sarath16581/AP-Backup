@@ -6,7 +6,7 @@
     <label>Overlay Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

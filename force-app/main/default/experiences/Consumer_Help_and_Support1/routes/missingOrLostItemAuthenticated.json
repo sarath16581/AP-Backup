@@ -2,6 +2,7 @@
   "activeViewId" : "9a1b16aa-7560-4b60-afe7-f569d18db3a4",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Missing_or_lost_item_authenticated__c",
   "id" : "754007d0-20cb-4b61-a275-73a242649c4d",
   "label" : "Missing or lost item (authenticated)",
   "pageAccess" : "RequiresLogin",

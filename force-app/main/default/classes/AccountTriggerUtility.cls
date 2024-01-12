@@ -1280,7 +1280,7 @@ public with sharing class AccountTriggerUtility {
                 AND RecordType.Name = 'Facility'
             ]) {
 
-                if (('RP'.equalsIgnoreCase(a.Licence_Type__c) || 'BC'.equalsIgnoreCase(a.licence_Type__c)) && a.ParentId == null) {
+                if (('RP'.equalsIgnoreCase(a.Licence_Type__c) || 'BC'.equalsIgnoreCase(a.licence_Type__c))  && a.ParentId == null) {
                     // this is too accommodate the CPO scenario where a facility record will exist, however no License or Organisation record
                     // the contacts in the scenario will exist on the Facility record directly
                     partnerAcctsToOrgId.put(a.Id, a.WCIS_Code__c);

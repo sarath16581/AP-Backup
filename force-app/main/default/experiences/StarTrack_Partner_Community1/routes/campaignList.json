@@ -2,6 +2,7 @@
   "activeViewId" : "32a1e8a9-0ae7-4368-b4d9-f90f9cd922a0",
   "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
   "configurationTags" : [ ],
+  "devName" : "Campaign_List",
   "id" : "9eaf2545-d1d4-4c54-b70e-30c20ca1df1b",
   "label" : "Campaign List",
   "routeType" : "list-701",

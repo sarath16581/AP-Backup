@@ -14,82 +14,82 @@
             <value>
                 <fullName>OPC1.1 – Product Migration</fullName>
                 <default>false</default>
-                <label>OPC1.1  Product Migration</label>
+                <label>OPC1.1 – Product Migration</label>
             </value>
             <value>
                 <fullName>OPC1.2 - ABN Change</fullName>
                 <default>false</default>
-                <label>OPC1.2  ABN Change</label>
+                <label>OPC1.2 - ABN Change</label>
             </value>
             <value>
                 <fullName>OPC1.3 - Trade Before Contract Executed</fullName>
                 <default>false</default>
-                <label>OPC1.3  Trade Before Contract Executed</label>
+                <label>OPC1.3 - Trade Before Contract Executed</label>
             </value>
             <value>
                 <fullName>OPC1.5 - Product Line Error</fullName>
                 <default>false</default>
-                <label>OPC1.5  Product Line Error</label>
+                <label>OPC1.5 - Product Line Error</label>
             </value>
             <value>
                 <fullName>OPC1.6 - Revenue Date</fullName>
                 <default>false</default>
-                <label>OPC1.6  Revenue Date</label>
+                <label>OPC1.6 - Revenue Date</label>
             </value>
             <value>
                 <fullName>OPC1.7 – Remove ACV from Performance Results</fullName>
                 <default>false</default>
-                <label>OPC1.7  Remove ACV from Performance Results</label>
+                <label>OPC1.7 – Remove ACV from Performance Results</label>
             </value>
             <value>
                 <fullName>OPC1.8 - Lost Opportunity</fullName>
                 <default>false</default>
-                <label>OPC1.8  Lost Opportunity</label>
+                <label>OPC1.8 - Lost Opportunity</label>
             </value>
             <value>
                 <fullName>TE1.2 – Liquidation/Receivership</fullName>
                 <default>false</default>
-                <label>TE1.2  Liquidation/Receivership</label>
+                <label>TE1.2 – Liquidation/Receivership</label>
             </value>
             <value>
                 <fullName>XBU1.1 - Adverse Transfers between Business Units</fullName>
                 <default>false</default>
-                <label>XBU1.1  Adverse Transfers between Business Units</label>
+                <label>XBU1.1 - Adverse Transfers between Business Units</label>
             </value>
             <value>
                 <fullName>ENT1.4 – Channel Shift</fullName>
                 <default>false</default>
-                <label>ENT1.4  Channel Shift</label>
+                <label>ENT1.4 – Channel Shift</label>
             </value>
             <value>
                 <fullName>TE1.1 – Abnormalities</fullName>
                 <default>false</default>
-                <label>TE1.1  Abnormalities</label>
+                <label>TE1.1 – Abnormalities</label>
             </value>
             <value>
                 <fullName>TE1.3 – Credit Block</fullName>
                 <default>false</default>
-                <label>TE1.3  Credit Block</label>
+                <label>TE1.3 – Credit Block</label>
             </value>
             <value>
                 <fullName>BD SIS – Delayed start date requested</fullName>
                 <default>false</default>
-                <label>BD SIS  Delayed start date requested</label>
+                <label>BD SIS – Delayed start date requested</label>
             </value>
             <value>
                 <fullName>BD SIS - Not previously Contracted</fullName>
                 <default>false</default>
-                <label>BD SIS  Not previously Contracted</label>
+                <label>BD SIS - Not previously Contracted</label>
             </value>
             <value>
                 <fullName>BD SIS - Trialling product</fullName>
                 <default>false</default>
-                <label>BD SIS  Trialling product</label>
+                <label>BD SIS - Trialling product</label>
             </value>
             <value>
                 <fullName>BD SIS - Win Back within 12 months</fullName>
                 <default>false</default>
-                <label>BD SIS  Win Back within 12 months</label>
+                <label>BD SIS - Win Back within 12 months</label>
             </value>
             <value>
                 <fullName>Competitive Win</fullName>
@@ -104,32 +104,32 @@
             <value>
                 <fullName>ENT1.2 - Product Substitution Policy</fullName>
                 <default>false</default>
-                <label>ENT1.2  Product Substitution Policy</label>
+                <label>ENT1.2 - Product Substitution Policy</label>
             </value>
             <value>
                 <fullName>ENT1.5 – Billing Account changes</fullName>
                 <default>false</default>
-                <label>ENT1.5  Billing Account changes</label>
+                <label>ENT1.5 – Billing Account changes</label>
             </value>
             <value>
                 <fullName>GM1 – Excess Leave/Time away from role</fullName>
                 <default>false</default>
-                <label>GM1  Excess Leave/Time away from role</label>
+                <label>GM1 – Excess Leave/Time away from role</label>
             </value>
             <value>
                 <fullName>GM2 – Additional Customer Opt Outs</fullName>
                 <default>false</default>
-                <label>GM2  Additional Customer Opt Outs</label>
+                <label>GM2 – Additional Customer Opt Outs</label>
             </value>
             <value>
                 <fullName>Incorrect Product Classification – No Revenue found LFY</fullName>
                 <default>false</default>
-                <label>Incorrect Product Classification  No Revenue found LFY</label>
+                <label>Incorrect Product Classification – No Revenue found LFY</label>
             </value>
             <value>
                 <fullName>Incorrect Product Classification – Revenue found LFY</fullName>
                 <default>false</default>
-                <label>Incorrect Product Classification  Revenue found LFY</label>
+                <label>Incorrect Product Classification – Revenue found LFY</label>
             </value>
             <value>
                 <fullName>Lodgement on Business Partner Account</fullName>
@@ -159,32 +159,32 @@
             <value>
                 <fullName>OPC1.2 – Channel Migration</fullName>
                 <default>false</default>
-                <label>OPC1.2  Channel Migration</label>
+                <label>OPC1.2 – Channel Migration</label>
             </value>
             <value>
                 <fullName>OPC1.3 – Channel Shift</fullName>
                 <default>false</default>
-                <label>OPC1.3  Channel Shift</label>
+                <label>OPC1.3 – Channel Shift</label>
             </value>
             <value>
                 <fullName>OPC1.4 – Trade Before Onboard</fullName>
                 <default>false</default>
-                <label>OPC1.4  Trade Before Onboard</label>
+                <label>OPC1.4 – Trade Before Onboard</label>
             </value>
             <value>
                 <fullName>OPC1.5 – Pre-Entry</fullName>
                 <default>false</default>
-                <label>OPC1.5  Pre Entry</label>
+                <label>OPC1.5 – Pre-Entry</label>
             </value>
             <value>
                 <fullName>OPC1.6 – New Product</fullName>
                 <default>false</default>
-                <label>OPC1.6  New Product</label>
+                <label>OPC1.6 – New Product</label>
             </value>
             <value>
                 <fullName>OPC1.7 - User Error</fullName>
                 <default>false</default>
-                <label>OPC1.7  User Error</label>
+                <label>OPC1.7 - User Error</label>
             </value>
             <value>
                 <fullName>Credit</fullName>

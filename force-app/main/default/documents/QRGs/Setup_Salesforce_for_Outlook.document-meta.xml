@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>step by step instructions on how to check if outlook connector is installed on machine, get security token if needed, and then connect to salesforce.com</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>Setup Salesforce for Outlook</name>
+    <public>true</public>
+</Document>

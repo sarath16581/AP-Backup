@@ -25,6 +25,8 @@
                 <stringValue>vcheng@salesforce.com</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>invocableSObjectErrorEmail</name>
@@ -53,6 +55,8 @@
                 <stringValue>vcheng@salesforce.com</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -73,6 +77,8 @@
                 <elementReference>SObject.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Deal_Support_Request__c.E_G_DSR_Notification_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

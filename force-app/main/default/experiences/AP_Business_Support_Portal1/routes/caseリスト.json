@@ -2,6 +2,7 @@
   "activeViewId" : "d94c04c3-e92e-4a5c-b90f-a0c295e509c0",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "list_500",
   "id" : "9d798238-fc15-416a-ae14-d656b731e2e8",
   "label" : "Case リスト",
   "routeType" : "list-500",

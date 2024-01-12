@@ -2,6 +2,7 @@
   "activeViewId" : "1f893b8e-7c6f-4821-9d37-618ed9967aac",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Compensation__c",
   "id" : "aa0399bb-ea9f-4b7f-b0ce-da84e6156e51",
   "label" : "Compensation",
   "pageAccess" : "UseParent",
