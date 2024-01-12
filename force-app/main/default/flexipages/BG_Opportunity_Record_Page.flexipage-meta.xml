@@ -909,6 +909,16 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>kfsell:standaloneScorecardNavigate</componentName>
+                <identifier>kfsell_standaloneScorecardNavigate</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-38f29a28-70f0-4e6c-a1ec-7409de3dc4db</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
@@ -1091,6 +1101,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-38f29a28-70f0-4e6c-a1ec-7409de3dc4db</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Scorecard</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab3</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
