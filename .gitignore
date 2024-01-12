@@ -60,6 +60,7 @@ package.xml
 workspace/
 .vscode/
 .vscode/settings.json
+dist/
 
 #npm
 package-lock.json
