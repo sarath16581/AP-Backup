@@ -19,7 +19,6 @@ pipelines:
                   script:
                       # allows us to write back to repository where branch permissions are enabled
                       #- export access_token=$(curl -s -X POST -u "${BITBUCKET_OAUTH_CLIENT_ID}:${BITBUCKET_OAUTH_CLIENT_SECRET}" https://bitbucket.org/site/oauth2/access_token -d grant_type=client_credentials -d scopes="repository"| jq --raw-output '.access_token')
-                      - cd $BITBUCKET_CLONE_DIR && git config user.email ${REPO_ACCESS_TOKEN_GIT_EMAIL}
-                      - cd $BITBUCKET_CLONE_DIR && git remote set-url origin "https://x-token-auth:${REPO_ACCESS_TOKEN}@bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}"
+                      - cd $BITBUCKET_CLONE_DIR && git remote set-url origin "https://${PIPELINES_GIT_USER}:${PIPELINES_GIT_PASS}@bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}"
                       - cd $BITBUCKET_CLONE_DIR && GIT_SSL_NO_VERIFY=true && git config http.sslVerify false && git remote set-branches --add origin $BITBUCKET_BRANCH && git fetch origin && git checkout $BITBUCKET_BRANCH && git pull
                       - bash /root/pipelines/pipeline-orchestrator/get-env.sh --clientid "${PTEST_CLIENT_ID}" --clientsecret "${PTEST_CLIENT_SECRET}" --username "${PTEST_USERNAME}" --password "${PTEST_PASSWORD}" --loginurl "${PTEST_LOGIN_URL}" --src "${BITBUCKET_CLONE_DIR}"
