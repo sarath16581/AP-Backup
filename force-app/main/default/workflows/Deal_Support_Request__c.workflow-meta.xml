@@ -5,11 +5,11 @@
         <description>Bid Support DSR Request submit Notification</description>
         <protected>false</protected>
         <recipients>
-            <recipient>james.jackman@auspost.com.au</recipient>
+            <recipient>astrid.ambrens@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>michele.gordon@auspost.com.au</recipient>
+            <recipient>patricia.sievers@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>

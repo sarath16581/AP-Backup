@@ -2,6 +2,7 @@
   "activeViewId" : "e87f32b9-006a-4ea3-b775-3f965e497052",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Top_Articles",
   "id" : "dc572366-6ef7-4cf8-9a69-7b1367fa128f",
   "label" : "Top Articles",
   "routeType" : "top-articles",

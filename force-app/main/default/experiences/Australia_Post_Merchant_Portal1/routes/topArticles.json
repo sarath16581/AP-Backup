@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Top_Articles",
   "id" : "3721db42-20b3-4eac-bfc2-90edfb67a981",
   "label" : "Top Articles",
   "pageAccess" : "RequiresLogin",

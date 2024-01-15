@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "configurationTags" : [ ],
+  "devName" : "Stream_List",
   "id" : "bddf70e2-4be4-4c50-84eb-e0640197ac7b",
   "label" : "Stream List",
   "routeType" : "list-0Fq",

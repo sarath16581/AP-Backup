@@ -19,10 +19,12 @@
                 <elementReference>AgreementDocumentId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>submit</nameSegment>
         <outputParameters>
             <assignToReference>Status</assignToReference>
             <name>instanceStatus</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

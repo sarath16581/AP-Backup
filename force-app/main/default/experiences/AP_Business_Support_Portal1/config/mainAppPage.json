@@ -3,6 +3,7 @@
   "currentThemeId" : "7d7fd668-6312-42c4-96ff-e46f51987bc6",
   "headMarkup" : "<link rel=\"icon\" type=\"image/x-icon\" href=\"https://auspost.com.au/content/dam/global/favicons/favicon-32x32.png\">",
   "id" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "isLockerServiceEnabled" : true,
   "isRelaxedCSPLevel" : true,
   "label" : "main",
   "templateName" : "Service Community Template",

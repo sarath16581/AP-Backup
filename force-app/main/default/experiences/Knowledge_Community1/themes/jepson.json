@@ -135,6 +135,17 @@
           "regionName" : "search",
           "type" : "region"
         }, {
+          "components" : [ {
+            "componentAttributes" : {
+              "navAlignment" : "left",
+              "navItemThreshold" : 15,
+              "navigationMenuEditorRefresh" : "Default_Navigation10"
+            },
+            "componentName" : "forceCommunity:themeNav",
+            "id" : "34089459-713a-4f62-861a-537dd3676b85",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
           "id" : "c0f4f520-1ef5-4356-8c04-6e3f1dfc9000",
           "regionName" : "nav",
           "type" : "region"
@@ -343,6 +354,17 @@
           "regionName" : "search",
           "type" : "region"
         }, {
+          "components" : [ {
+            "componentAttributes" : {
+              "navAlignment" : "left",
+              "navItemThreshold" : 15,
+              "navigationMenuEditorRefresh" : "Default_Navigation10"
+            },
+            "componentName" : "forceCommunity:themeNav",
+            "id" : "5ac0edfa-04e9-4425-baa9-7f9d9a5718d6",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
           "id" : "81c779ce-0aae-4805-a1c3-c510e87f37c4",
           "regionName" : "nav",
           "type" : "region"

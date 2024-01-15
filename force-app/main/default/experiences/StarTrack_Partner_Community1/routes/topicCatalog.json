@@ -2,6 +2,7 @@
   "activeViewId" : "6047b322-a3f3-4409-bf52-5e448dfd8b2e",
   "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
   "configurationTags" : [ ],
+  "devName" : "Topic_Catalog",
   "id" : "e0bfc875-3e52-4b31-90a7-97b6e83c8760",
   "label" : "Topic Catalog",
   "pageAccess" : "UseParent",

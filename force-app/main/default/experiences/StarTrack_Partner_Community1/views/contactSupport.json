@@ -1,6 +1,7 @@
 {
   "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
   "componentName" : "siteforce:sldsTwoCol66Layout",
+  "dataProviders" : [ ],
   "id" : "805357b6-1f52-40d9-98a7-5849eb5d2bbe",
   "label" : "Contact Support",
   "regions" : [ {
@@ -21,7 +22,7 @@
         "guestQuickActionName" : "Select or configure a global action",
         "headerSubtitle" : "Tell us how we can help.",
         "headerTitle" : "Contact Customer Support",
-        "quickActionName" : "New_Community_Case",
+        "quickActionName" : "",
         "requestSummaryText" : "Case summary"
       },
       "componentName" : "forceCommunity:contactSupportForm",

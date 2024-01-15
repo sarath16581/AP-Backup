@@ -2,6 +2,7 @@
   "activeViewId" : "0610f504-c79b-4e4f-8f0e-9be2d3e617aa",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Record_Detail",
   "id" : "45defe0e-3e73-4e99-81a7-d95f94ac3d4d",
   "label" : "Record Detail",
   "routeType" : "detail",

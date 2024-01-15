@@ -1,0 +1,73 @@
+{
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "29bd4c1e-6c14-49a7-a7bd-e71e9f10270e",
+  "label" : "Case Investigation Detail",
+  "regions" : [ {
+    "id" : "c34b60b5-f464-4dfa-977c-e896db5f854f",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "c:myNetworkCaseDetails",
+      "id" : "fcafa4cf-1794-4e38-96c9-5ba6b1147d1a",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "c:myNetworkCaseInvestigationMilestones",
+      "id" : "b44dbfce-2b57-45ec-9002-7298bddf3f82",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "c:myNetworkRelatedEventMessages",
+      "id" : "d623eaa0-c655-4921-84cf-e213bdf5749f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "c:myNetworkOtherCaseInvestigations",
+      "id" : "6e33d849-ee90-4f3a-abd3-53086ef34410",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ec966a7f-e20c-41cb-8de1-e444f71a3765",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "46b30bd7-9089-4a8c-ac61-b47861389972",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "b8860747-5815-4c14-aa29-4f10af79f613",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "46993776-2cd9-4730-9199-869fcccc50fc",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-aEg"
+}

@@ -2,6 +2,7 @@
   "activeViewId" : "141e5591-1381-4fce-9d0b-3e5ea0d93770",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Deal_Support_Request_Detail__c",
   "id" : "ae6bd9aa-1e23-458d-8f52-5843fd00d727",
   "label" : "Deal Support Request Detail",
   "objectApiName" : "Deal_Support_Request__c",

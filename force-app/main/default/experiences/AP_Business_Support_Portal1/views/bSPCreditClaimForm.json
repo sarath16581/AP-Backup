@@ -1,0 +1,46 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "42297d60-802f-49d2-b18d-4fc7bcf20f34",
+  "label" : "BSP Credit Claim Form",
+  "regions" : [ {
+    "id" : "59205768-0aa0-444f-bc39-c88d90188a81",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspFormCreditClaim",
+      "id" : "65ba9b9e-51e9-4dd8-8ad2-870837d2fc43",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2c5ce314-6990-495b-9852-048decbb1ce1",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "12929dce-5301-47a6-a03d-6ee912406974",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "BSP Credit Claim Form"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "216c0221-081d-4ea5-82ae-9ee3aa2aceee",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a0a2ab12-8957-427e-aff6-757ab2e57e33",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "custom-credit-claim-form"
+}

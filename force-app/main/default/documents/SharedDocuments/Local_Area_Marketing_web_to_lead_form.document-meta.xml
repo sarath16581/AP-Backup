@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This document is a hosted Web to Lead form for the Marketing Initiative Campaign. Do not Delete this as this is being used for this webform.</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>Local Area Marketing web to lead form</name>
+    <public>true</public>
+</Document>

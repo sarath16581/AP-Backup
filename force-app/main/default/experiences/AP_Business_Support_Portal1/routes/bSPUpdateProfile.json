@@ -2,6 +2,7 @@
   "activeViewId" : "90b9b882-ffb7-4836-8739-e018937476b0",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "BSP_Update_Profile__c",
   "id" : "5d5a4a9a-95e1-44bc-b56b-1ccb182a402f",
   "label" : "BSP Update Profile",
   "pageAccess" : "UseParent",

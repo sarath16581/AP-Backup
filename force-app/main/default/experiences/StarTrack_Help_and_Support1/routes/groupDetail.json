@@ -2,6 +2,7 @@
   "activeViewId" : "9e5d6ab7-412a-4b7f-9745-fad90852517a",
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "configurationTags" : [ ],
+  "devName" : "Group_Detail",
   "id" : "7ca2117b-d2d2-40f2-a228-559bdf6a4ba1",
   "label" : "Group Detail",
   "routeType" : "detail-0F9",

@@ -2,6 +2,7 @@
   "activeViewId" : "f1cda8bc-e669-4ad3-8de5-f10db1029fec",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Lead_List__c",
   "id" : "fa751c1e-5bb7-417e-88d9-7c1ed9457fad",
   "label" : "Lead List",
   "routeType" : "list-00Q",
