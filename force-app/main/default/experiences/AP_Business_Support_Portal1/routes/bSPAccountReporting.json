@@ -2,6 +2,7 @@
   "activeViewId" : "9964f6f8-6a8c-45f3-acd1-e3d85142ff75",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "BSP_Account_Reporting__c",
   "id" : "0a4d4e11-8777-49ca-be42-2a3c9740a181",
   "label" : "BSP Account Reporting",
   "pageAccess" : "UseParent",

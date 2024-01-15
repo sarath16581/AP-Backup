@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Quip_Docs_Related_List",
   "id" : "65ff8e9a-bd0a-434e-91c0-2fc8d1138d0a",
   "label" : "Quip Docs Related List",
   "pageAccess" : "RequiresLogin",

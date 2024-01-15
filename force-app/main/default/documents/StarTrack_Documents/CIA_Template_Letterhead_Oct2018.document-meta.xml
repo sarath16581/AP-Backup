@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>CIA - Template Letterhead Oct2018
+Used for templates:
+- Shipping &amp; Tracking API Prod Key attached in the encrypted Zip file
+- Shipping and Tracking API Prod Key Password follow up</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>CIA - Template Letterhead Oct2018</name>
+    <public>true</public>
+</Document>

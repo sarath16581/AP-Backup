@@ -1,0 +1,12 @@
+{
+  "activeViewId" : null,
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "configurationTags" : [ ],
+  "devName" : "Questions__c",
+  "id" : "da24b1dd-c5cb-4ef5-916a-77d6a2b6e06b",
+  "label" : "Questions",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-questions",
+  "type" : "route",
+  "urlPrefix" : "questions"
+}

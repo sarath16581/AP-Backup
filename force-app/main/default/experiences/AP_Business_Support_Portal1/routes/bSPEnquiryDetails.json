@@ -2,6 +2,7 @@
   "activeViewId" : "7bb3ce47-93a8-4f18-94e9-66eb5e285f5f",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "BSP_Enquiry_Details__c",
   "id" : "ebe19c7d-81bc-4f6b-bcc7-b4b3fa003103",
   "label" : "BSP Enquiry Details",
   "pageAccess" : "UseParent",

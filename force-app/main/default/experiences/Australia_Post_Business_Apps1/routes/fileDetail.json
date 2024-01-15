@@ -2,6 +2,7 @@
   "activeViewId" : "5efbb525-6334-4129-937a-5e3fb71080b8",
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "configurationTags" : [ ],
+  "devName" : "File_Detail",
   "id" : "0f307d2d-1364-470a-bdbf-627d42c81db9",
   "label" : "File Detail",
   "routeType" : "detail-069",

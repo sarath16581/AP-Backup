@@ -61,11 +61,6 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
                 <label>Regional 1 (WOL)</label>
             </value>
             <value>
-                <fullName>Regional 1 (CBR, WOL, ALB, WAG, ORG)</fullName>
-                <default>false</default>
-                <label>Regional 1 (CBR, WOL, ALB, WAG, ORG)</label>
-            </value>
-            <value>
                 <fullName>Regional 2 (CBR, ALB, WAG, ORG)</fullName>
                 <default>false</default>
                 <label>Regional 2 (CBR, ALB, WAG, ORG)</label>
@@ -76,14 +71,22 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
                 <label>Regional 4 (COF, NCL, PTM, TUG, TAM)</label>
             </value>
             <value>
-                <fullName>Regional 2 (ORG,TAM)</fullName>
+                <fullName>Regional 1 (CBR, WOL, ALB, WAG, ORG)</fullName>
                 <default>false</default>
-                <label>Regional 2 (ORG,TAM)</label>
+                <isActive>false</isActive>
+                <label>Regional 1 (CBR, WOL, ALB, WAG, ORG)</label>
             </value>
             <value>
                 <fullName>Regional 1 (CBR,WOL,ALB,WAG)</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Regional 1 (CBR,WOL,ALB,WAG)</label>
+            </value>
+            <value>
+                <fullName>Regional 2 (ORG,TAM)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Regional 2 (ORG,TAM)</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -116,16 +119,6 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
             <controllingFieldValue>NSW</controllingFieldValue>
             <controllingFieldValue>ACT</controllingFieldValue>
             <valueName>Regional 4 (COF, NCL, PTM, TUG, TAM)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>NSW</controllingFieldValue>
-            <controllingFieldValue>ACT</controllingFieldValue>
-            <valueName>Regional 2 (ORG,TAM)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>NSW</controllingFieldValue>
-            <controllingFieldValue>ACT</controllingFieldValue>
-            <valueName>Regional 1 (CBR,WOL,ALB,WAG)</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>QLD</controllingFieldValue>

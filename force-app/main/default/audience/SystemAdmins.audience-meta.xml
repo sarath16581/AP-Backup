@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Audience xmlns="http://soap.sforce.com/2006/04/metadata">
     <audienceName>SystemAdmins</audienceName>
-    <container>Inactive - APCommunityOld</container>
+    <container>Australia Post Community</container>
     <criteria>
         <criterion>
             <criterionValue>
-                <profile>auspost community administrator</profile>
+                <profile>admin</profile>
             </criterionValue>
             <operator>Equal</operator>
             <type>Profile</type>
         </criterion>
         <criterion>
             <criterionValue>
-                <profile>admin</profile>
+                <profile>auspost community administrator</profile>
             </criterionValue>
             <operator>Equal</operator>
             <type>Profile</type>

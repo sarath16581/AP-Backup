@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ManagedTopics xmlns="http://soap.sforce.com/2006/04/metadata">
+    <managedTopic>
+        <fullName>Australia Post Community.Content:Auspost.com.au</fullName>
+        <managedTopicType>Content</managedTopicType>
+        <name>Auspost.com.au</name>
+        <parentName></parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Future of Australia Post</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Future of Australia Post</name>
+        <parentName></parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Letters</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Letters</name>
+        <parentName></parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Off topic</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Off topic</name>
+        <parentName></parentName>
+        <position>11</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Other products &amp; services</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Other products &amp; services</name>
+        <parentName></parentName>
+        <position>10</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Passports &amp; travel</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Passports &amp; travel</name>
+        <parentName></parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Post Office</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Post Office</name>
+        <parentName></parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Receiving parcels</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Receiving parcels</name>
+        <parentName></parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Sending parcels</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Sending parcels</name>
+        <parentName></parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Small business</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Small business</name>
+        <parentName></parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Stamps &amp; collectables</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Stamps &amp; collectables</name>
+        <parentName></parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Featured:Tracking</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>Tracking</name>
+        <parentName></parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Auspost.com.au</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Auspost.com.au</name>
+        <parentName>Products &amp; services</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Australia Post in the community</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Australia Post in the community</name>
+        <parentName></parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Australia Post workforce</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Australia Post workforce</name>
+        <parentName></parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Christmas</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Christmas</name>
+        <parentName></parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Corporate Responsibility</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Corporate Responsibility</name>
+        <parentName>Australia Post in the community</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Environmental sustainability</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Environmental sustainability</name>
+        <parentName>Australia Post in the community</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Financial services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Financial services</name>
+        <parentName>Products &amp; services</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Future of Australia Post</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Future of Australia Post</name>
+        <parentName></parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Government services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Government services</name>
+        <parentName>Products &amp; services</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Innovation</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Innovation</name>
+        <parentName>Future of Australia Post</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:International</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>International</name>
+        <parentName></parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Letters</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Letters</name>
+        <parentName>Products &amp; services</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Off topic</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Off topic</name>
+        <parentName></parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Other products &amp; services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other products &amp; services</name>
+        <parentName>Products &amp; services</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:PO Boxes</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>PO Boxes</name>
+        <parentName>Receiving parcels</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Parcel Collect</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Parcel Collect</name>
+        <parentName>Receiving parcels</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Parcel Lockers</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Parcel Lockers</name>
+        <parentName>Receiving parcels</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Passports &amp; travel</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Passports &amp; travel</name>
+        <parentName>Products &amp; services</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Post Office</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Post Office</name>
+        <parentName>Australia Post in the community</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Products &amp; services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Products &amp; services</name>
+        <parentName></parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Receiving parcels</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Receiving parcels</name>
+        <parentName></parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Redirection</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Redirection</name>
+        <parentName>Receiving parcels</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Regional, rural &amp; remote</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Regional, rural &amp; remote</name>
+        <parentName>Australia Post in the community</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Safe Drop</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Safe Drop</name>
+        <parentName>Receiving parcels</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Safety</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Safety</name>
+        <parentName>Australia Post in the community</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Sending parcels</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Sending parcels</name>
+        <parentName>Products &amp; services</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Small business</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Small business</name>
+        <parentName></parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Social inclusion</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Social inclusion</name>
+        <parentName>Australia Post in the community</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Stamps &amp; collectables</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Stamps &amp; collectables</name>
+        <parentName>Products &amp; services</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Australia Post Community.Navigational:Tracking</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Tracking</name>
+        <parentName>Receiving parcels</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+</ManagedTopics>

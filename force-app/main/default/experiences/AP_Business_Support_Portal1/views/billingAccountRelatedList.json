@@ -1,6 +1,7 @@
 {
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "bd365671-e5ac-411d-a0fe-a23769c39b83",
   "label" : "Billing Account Related List",
   "regions" : [ {

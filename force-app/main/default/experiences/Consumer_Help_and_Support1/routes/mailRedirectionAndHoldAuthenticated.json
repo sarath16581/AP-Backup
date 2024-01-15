@@ -2,6 +2,7 @@
   "activeViewId" : "98f042d2-52f7-4654-8f83-24fa1eae39f5",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Mail_redirection_and_hold_authenticated__c",
   "id" : "ce5cc669-0a86-4ef0-871b-670c9456ac4a",
   "label" : "Mail redirection and hold (authenticated",
   "pageAccess" : "RequiresLogin",

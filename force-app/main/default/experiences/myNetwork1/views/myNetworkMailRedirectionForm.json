@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "9c78194a-9829-43e9-9dae-0970defc5be7",
   "label" : "myNetwork Mail redirection form",
   "regions" : [ {

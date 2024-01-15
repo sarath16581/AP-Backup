@@ -2,6 +2,7 @@
   "activeViewId" : "4c40e9f2-c200-4324-9077-15119ca840c1",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "User_List",
   "id" : "156bf78d-7851-41d2-9e21-5556a50e13c3",
   "label" : "User List",
   "routeType" : "list-005",

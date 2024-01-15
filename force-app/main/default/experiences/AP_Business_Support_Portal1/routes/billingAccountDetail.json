@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "Billing_Account_Detail__c",
   "id" : "94d61ac0-21ef-461f-a8ef-934bea203616",
   "label" : "Billing Account Detail",
   "objectApiName" : "Billing_Account__c",

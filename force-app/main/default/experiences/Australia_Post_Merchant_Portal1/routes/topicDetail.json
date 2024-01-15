@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Topic_Detail",
   "id" : "280a78c8-c546-4296-93d3-f12ef46d6448",
   "label" : "Topic Detail",
   "routeType" : "topic",

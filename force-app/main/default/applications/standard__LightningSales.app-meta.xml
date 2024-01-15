@@ -51,5 +51,6 @@
     <tabs>standard-Case</tabs>
     <tabs>standard-Forecasting3</tabs>
     <tabs>APT_Charge_Code__c</tabs>
+    <tabs>standard-WaveHomeLightningEacFree</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

@@ -67,6 +67,9 @@
           }, {
             "isPublic" : false,
             "name" : "User"
+          }, {
+            "isPublic" : true,
+            "name" : "CaseInvestigation__c"
           } ]
         },
         "componentName" : "forceCommunity:globalSearchInput",

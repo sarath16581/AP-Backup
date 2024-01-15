@@ -2,6 +2,7 @@
   "activeViewId" : "863a63f0-9f29-491d-bfd9-f4d858cf2476",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Contact_List__c",
   "id" : "a2b8bff2-a268-4d40-98f4-40f970d77196",
   "label" : "Contact List",
   "routeType" : "list-003",

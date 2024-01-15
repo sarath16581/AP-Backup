@@ -100,6 +100,8 @@
                 <stringValue>Draft</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Set_Incoming_Partner_Addendum_Status</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -198,6 +200,8 @@
                 <elementReference>formula_14_myRule_13_A1_StartDate</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Update_Partner_Addendum_Dates_Outgoing</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -254,6 +258,8 @@
                 <elementReference>myVariable_current.Parent</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Set_Role_for_Legal_Entity</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -397,6 +403,8 @@
                 <elementReference>formula_4_myRule_1_A1_EndDate</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Update_Partner_Addendum_Dates</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -453,6 +461,8 @@
                 <elementReference>myVariable_current.Parent</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Set_Role_for_Legal_Entity</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -551,6 +561,8 @@
                 <stringValue>Pending</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Set_Incoming_Partner_Addendum_Status</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -649,6 +661,8 @@
                 <stringValue>Rejected</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>Partner_Info_Set_Incoming_Partner_Addendum_Status</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>
