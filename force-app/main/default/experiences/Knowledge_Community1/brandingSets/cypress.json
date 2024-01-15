@@ -1,0 +1,28 @@
+{
+  "definitionName" : "cypress:branding-cypress",
+  "id" : "766b40dc-64af-4169-aa1b-4c6f2fa41c40",
+  "label" : "Cypress",
+  "type" : "brandingSet",
+  "values" : {
+    "ActionColor" : "rgb(218, 26, 49)",
+    "BorderColor" : "rgb(106, 106, 106)",
+    "CardBackgroundColor" : "rgba(255, 255, 255, 0)",
+    "CompanyLogo" : "/file-asset/AusPostpng?v=1&height=300&width=300",
+    "DetailTextColor" : "rgba(0, 0, 0, 0.6)",
+    "ErrorFontColor" : "#ff9e9e",
+    "HeaderFonts" : "Lato",
+    "LinkColor" : "rgb(218, 26, 49)",
+    "LoginBackgroundColor" : "#F4F4F4",
+    "LoginBackgroundImage" : "../../../../sfsites/picasso/core/external/salesforceIdentity/images/background.jpg?v=1",
+    "OverlayTextColor" : "rgb(255, 255, 255)",
+    "PageBackgroundColor" : "rgb(255, 255, 255)",
+    "PrimaryFont" : "Lato",
+    "TextColor" : "rgba(0, 0, 0, 0.8)",
+    "TextTransformStyle" : "none",
+    "_ActionColorDarker" : "#ac1527",
+    "_ActionColorTrans" : "rgba(218, 26, 49, 0.9)",
+    "_HoverColor" : "rgba(218, 26, 49, 0.05)",
+    "_LinkColorDarker" : "#b61629",
+    "_OverlayTextColorShadow" : "#000000"
+  }
+}

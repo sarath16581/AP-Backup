@@ -11,6 +11,7 @@
  * 2022-11-29 - nasir.jawed@auspost.com.au - added the Option WITH_PRODUCT
  * 2023-04-13 - Yatika Bansal - added the method to get line item record by passing parameter config id, Line Type and Status
  * 2023-08-14 - Yatika Bansal - added the method to get line item record by passing parameter config id and product names
+ * 2023-10-10 - Bharat Patel - Update selectByProdConfigLineTypeAndStatus() to consider Pricing Status or Configuration Status
  */
 
  public with sharing class LineItemsSelector extends ApplicationSelector{
@@ -144,8 +145,9 @@
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		qb.addConditions()
 			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfigIds'))
-			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c + ' != :lineType'))
 			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigStatus__c + ' IN :status'))
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__PricingStatus__c + ' IN :status'))
+		.setConditionOrder('1 AND (2 OR 3)')
 		.endConditions();
 		return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
 	}

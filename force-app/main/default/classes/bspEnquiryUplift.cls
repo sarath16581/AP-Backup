@@ -15,6 +15,7 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 04/09/2023	hasantha.liyanage@auspost.com.au SB-120 added credit claim filtering for case listing and restructured the getSearchEnquiriesWhereClause method
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
+23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -370,9 +371,23 @@ public without sharing class bspEnquiryUplift {
 		for (Integer i = 0; i < bspBaseUplift.accessibleBillingAccounts.values().size(); i++) {
 			Billing_Account__c billingAccount = bspBaseUplift.accessibleBillingAccounts.values()[i];
 			// assign the value with a separator, so that we can use the values for the SOQL (SF ID and Legacy ID)
-			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name));
+			options.add(new SelectOptionCustom(billingAccount.id , billingAccount.LEGACY_ID__c.replaceAll('[a-zA-Z]', '') + ' - ' + billingAccount.Name, billingAccount.Source_System__c));
 		}
 		return options;
+	}
+
+	/**
+	 * get the help text custom metadata by label
+	 * @return help text custom metadata by label
+	 */
+	@AuraEnabled(cacheable=true)
+	public static Map<String, Picklist_Entry_Helptext__mdt> buildReasonForClaimHelpText(){
+		Map<String, Picklist_Entry_Helptext__mdt> reasonDescriptionMap = new Map<String, Picklist_Entry_Helptext__mdt>();
+		for (Picklist_Entry_Helptext__mdt reason : bspBaseUplift.creditClaimReasonHelpTexts) {
+			String key = reason.Label+'_'+reason.BusinessUnit__c;
+			reasonDescriptionMap.put(key.replaceAll('\\s+', '').toLowerCase(), reason);
+		}
+		return reasonDescriptionMap;
 	}
 
 	/**
@@ -550,9 +565,10 @@ public without sharing class bspEnquiryUplift {
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
-			&& enq.EstimatedDelivery__c != null 
+           && enq.EstimatedDelivery__c != null
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-			setDirectRoutingValues(enq);
+				setDirectRoutingValues(enq);
+			
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
@@ -1688,8 +1704,17 @@ public without sharing class bspEnquiryUplift {
 			this.escapeItem = false;
 		}
 
+		public SelectOptionCustom(String value, String label, String key) {
+			this.value = value;
+			this.label = label;
+			this.disabled = false;
+			this.escapeItem = false;
+			this.key = key;
+		}
+
 		@AuraEnabled public String label { get;set; }
 		@AuraEnabled public String value { get;set; }
+		@AuraEnabled public String key { get;set; }
 		@AuraEnabled public Boolean disabled { get;set; }
 		@AuraEnabled public Boolean escapeItem { get;set; }
 

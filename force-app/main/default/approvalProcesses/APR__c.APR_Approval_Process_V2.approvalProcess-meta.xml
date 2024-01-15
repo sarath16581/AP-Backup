@@ -99,6 +99,7 @@ $User.Manager__c &lt;&gt; $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</form
     <emailTemplate>All_Email_Templates/APR_for_Billing_Accts</emailTemplate>
     <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
     <entryCriteria>
+        <booleanFilter>1 AND 2</booleanFilter>
         <formula>AND(
 RecordType.DeveloperName = &apos;StarTrack&apos;, 
 OR( Confirmed_Rate__c &lt; Walk_out_Rate__c)

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Go_Early_Effective_Date</fullName>
+    <active>false</active>
+    <description>Go early effective date needs to be between 1/7 and 31/10 of the relevant year</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+ ISPICKVAL( Status__c , &apos;Go early&apos;), 
+NOT (
+AND(
+Confirmed_Date__c &gt;= (Published_Date__c - 123),
+Confirmed_Date__c &lt;= (Published_Date__c - 1)
+)
+)
+)</errorConditionFormula>
+    <errorDisplayField>Confirmed_Date__c</errorDisplayField>
+    <errorMessage>For Go Early status the Effective Date must be between 1/7 and 31/10 of the relevant year.</errorMessage>
+</ValidationRule>

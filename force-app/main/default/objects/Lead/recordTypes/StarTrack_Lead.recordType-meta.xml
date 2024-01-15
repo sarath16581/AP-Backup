@@ -1198,10 +1198,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Events</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Email</fullName>
             <default>false</default>
         </values>

@@ -10,7 +10,7 @@
         <operation>startsWith</operation>
         <value>Alex</value>
     </filters>
-    <label>Alexandria Routes</label>
+    <label>Alexandria Van Ops</label>
     <sharedTo>
         <group>ALEXANDRIA_VAN_OPS</group>
     </sharedTo>

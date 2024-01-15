@@ -556,18 +556,6 @@
         <minutesToComplete>15</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>StarTrack_Transit_Warranty_Warning_Notification</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>StarTrack_Set_Entitlement_Stage_Reminder</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-15</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>StarTrack_Transit_Warranty_Violation_Notification</name>
                 <type>Alert</type>
             </actions>
@@ -584,6 +572,18 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>StarTrack_Transit_Warranty_Warning_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>StarTrack_Set_Entitlement_Stage_Reminder</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-15</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>

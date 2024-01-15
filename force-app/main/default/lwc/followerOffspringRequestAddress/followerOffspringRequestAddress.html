@@ -1,0 +1,31 @@
+<template>
+	<h3 class="slds-section__title slds-theme_shade">
+		<span class="slds-p-horizontal_small" title="Addresses">Addresses</span>
+	</h3>
+	<div class="slds-section__content slds-grid slds-p-around_small">
+		<div class="slds-col slds-size_1-of-2 slds-m-right_small slds-has-flexi-truncate">
+			<c-ame-sub-account-address
+					label="Physical Address"
+					default-address={confirmedPhysicalAddress}
+					onconfirmaddress={handleConfirmedPhysicalAddress}
+					street-max-length=40
+					required>
+			</c-ame-sub-account-address>
+		</div>
+		<template lwc:if={showMailingAddress}>
+			<div class="slds-col slds-size_1-of-2">
+				<c-ame-sub-account-address
+						label="Mailing Address"
+						default-address={confirmedMailingAddress}
+						onconfirmaddress={handleConfirmedMailingAddress}
+						street-max-length=40
+						required>
+				</c-ame-sub-account-address>
+			</div>
+		</template>
+	</div>
+	<div class="slds-m-left_small">
+		<div class="slds-form-element__label slds-p-bottom_xxx-small">Is Mailing Address Same as Physical Address?</div>
+		<lightning-input type="toggle" message-toggle-active="Yes" message-toggle-inactive="No" onchange={handleAddressToggleChange} style="width: fit-content;" checked={toggleChecked}></lightning-input>
+	</div>
+</template>

@@ -29,6 +29,7 @@
 								<c-bsp-error data-id="error"
 											 error-message={errorMessage}></c-bsp-error>
 							</template>
+							<c-bsp-form-credit-intro-text billing-account-scope={currentPageReference}></c-bsp-form-credit-intro-text>
 							<lightning-layout multiple-rows="true">
 								<!-- Business and contact details HEADING -->
 								<div>
@@ -176,6 +177,7 @@
 														onfocus={handleFocus}
 														message-when-value-missing="Please enter account held with"
 														required
+														disabled
 														class="brand-form-input slds-p-bottom_x-large">
 									</lightning-combobox>
 								</lightning-layout-item>
@@ -195,7 +197,7 @@
 									</lightning-combobox>
 								</lightning-layout-item>
 								<!-- reasonForCreditClaim -->
-								<lightning-layout-item size="12" large-device-size="9">
+								<lightning-layout-item size="12" large-device-size="9" class="slds-p-bottom_x-large">
 									<lightning-combobox label="Reason for credit claim"
 														data-validation="creditClaimForm"
 														data-id="reasonClaim"
@@ -206,8 +208,15 @@
 														onfocus={handleFocus}
 														message-when-value-missing="Please enter a reason"
 														required
-														class="brand-form-input slds-p-bottom_x-large">
+														class="brand-form-input">
 									</lightning-combobox>
+									<template if:true={reasonClaimHelpText.text}>
+										<span>
+											<div class="slds-var-p-top_xx-small slds-p-left_xx-small">
+												<lightning-formatted-rich-text value={reasonClaimHelpText.text}></lightning-formatted-rich-text>
+											</div>
+										</span>
+									</template>
 								</lightning-layout-item>
 								<!-- claimAmount -->
 								<lightning-layout-item size="12" large-device-size="9">
@@ -253,8 +262,10 @@
 									</lightning-layout-item>
 									<!--  Files upload -->
 									<lightning-layout-item size="12">
-										<c-bsp-dispute-items
-												account-held-with={accountHeldWith}></c-bsp-dispute-items>
+										<div class="slds-p-bottom_x-large">
+											<c-bsp-dispute-items
+													account-held-with={accountHeldWith}></c-bsp-dispute-items>
+										</div>
 									</lightning-layout-item>
 								</template>
 								<!-- Supporting documents HEADING -->
@@ -295,18 +306,18 @@
 					</lightning-card>
 				</template>
 				<div if:true={showModal}>
-					<c-bsp-modal-basic onclosemodal={closeModal}>
+					<c-bsp-modal-basic onclosemodal={closeModal} >
 						<span slot="body">
-									<p>You haven’t attached any supporting documents to this credit claim.</p>
+							<h2>No supporting documents attached</h2>
 							<p class="slds-var-p-top_large">
-									For “{reasonClaim}“ credit claims,
-										we recommend that you upload relevant file(s) that support the validity of your claim.
-								</p>
-							</span>
+								For "{reasonClaimLabel}" credit claims,
+								we recommend that you upload relevant file(s) to support your credit claim.
+							</p>
+						</span>
 						<span slot="footer">
 							<button class="slds-button slds-button_neutral" name="close"
 									data-buttonname="close" onclick={handleButtonClick}>Close and upload file</button>
-							<button class="slds-button slds-button_brand" name="submitAnyway"
+							<button class="slds-button slds-button_brand slds-button-mobile" name="submitAnyway"
 									data-buttonname="submitAnyway" onclick={handleButtonClick}>Submit anyway</button>
 						</span>
 					</c-bsp-modal-basic>

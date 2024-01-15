@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!--<title>StarTrack</title>-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="margin:0; padding:0;" bgcolor="#f3f1ee" link="#dc1928">
+<!--[if gte mso 12]>
+	<style type="text/css">
+		.button-outlook{padding:8px 14px 7px !important;}
+		.button-outlook a{padding:0 !important;}
+	</style>
+<![endif]-->
+<table class="wrapper" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee">
+	<tr>
+		<td style="padding:19px 5px 30px;">
+			<table class="flexible" align="center" width="510" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="padding:0 0 25px;">
+						<table width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+							
+								<td width="100%" valign="bottom" halign="right">
+									<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+<td><img style="border: 0;display: block;" width="98" height="35"  src="http://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/1/2016-logo-AP-grey-text.png"  border="0" margin="0" alt="auspost.com.au" style="" /></td>
+<td><img style="border: 0;display: block;" src="http://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/1/2016-logo-ST-grey-text.png"  width="162" height="35" border="0" margin="0" alt="startrack.com.au" style="" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff" style="padding:5px 10px 0 10px; border-radius:0 0 2px 2px;">
+						<table width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td style="padding:0 0 0px; font:12px/13px Arial, Helvetica, sans-serif; ">
+<p>
+Hi {!Case.Name__c},
+<br/><br/>
+We refer to case {!Case.CaseNumber}.
+<br/><br/>
+Thank you for your enquiry. Under the terms of your contract our eParcel Express service does not offer a postage refund when an article is delayed in transit. Please accept my apologies for the inconvenience this may have caused you. If you require any further clarification or would like to provide feedback regarding this limitation, please contact your account manager for additional assistance.
+<br/><br/>
+Kind regards,
+<br/><br/>
+Customer Resolutions Team <br/>
+Australia Post <br/>
+credit.claims@auspost.com.au <br/>
+{!Case.EmailThreadID__c} 
+<p/>
+                                                             </td>
+                                                  </tr> 									
+						</table>
+					</td>
+				<tr>
+					<td class="alignjustify" style="padding:13px 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;"> {!$Label.Australia_Post_Email_Security_Disclaimer}</td>
+				</tr>
+				<tr>
+					<td class="alignjustify" style="padding:13px 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;"> {!$Label.Australia_Post_No_Email_Phishing_Statement}</td>
+				</tr>
+
+				<tr>
+					<td class="button" style="padding:13px 2px 0; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">
+						<a href="https://auspost.com.au/help-and-support" target="_blank" style="text-decoration:none; color:#444";background:#5e514d;padding:10px 15px 16px 15px;border-top-left-radius:3px;border-top-right-radius:3px;"><span style="padding-right:10px;"></span>Help &amp; Support</a>
+						<span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+						<a href="https://auspost.com.au/terms-conditions" target="_blank" style="text-decoration:none; color:#444">Terms &amp; Conditions</a>
+						<span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+						<a href="https://auspost.com.au/privacy" target="_blank" style="text-decoration:none; color:#444">Privacy Policy</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

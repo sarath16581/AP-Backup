@@ -1,13 +1,16 @@
 {
   "appPageId" : "b67e956c-d854-4559-b1e0-8969ea9a2b41",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "997419e1-64cc-458b-8b75-35946213fbc0",
   "label" : "Register",
   "regions" : [ {
     "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:bspRegistration",
-      "id" : "f11eabc5-bec2-4433-bb40-5292fdc90aff",
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"headline-box slds-m-vertical_x-large text-centered\"> \n    <h3>If you already have an account, please login to <a target=\"_blank\" class=\"underline-dec\" href=\"https://bsp.auspost.com.au/s/login\">Business Support Portal </a></h3><br/>\n    <p class=\"slds-p-vertical_medium text-centered\" style=\"font-size:16px\"><b>Don't have an account?</b> &nbsp;Contact the access management administrator within your organisation or your account manager. If you do not have an allocated account manager, contact Australia Post on 131 118 and a team member will arrange a call-back from an available account manager who can assist.</p>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "15ebb28f-f1c9-4a21-8084-1a621c8c1cbf",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

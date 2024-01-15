@@ -77,7 +77,7 @@ Novenmber 24, 2022 - Mahesh Parvathaneni - Added title
                 <apex:pageBlock tabStyle="Case" mode="maindetail" id="theBlock">
                     <apex:actionRegion >
                     <apex:pageBlockSection columns="2" id="mainSection">
-                        <apex:inputField id="type" value="{!newTask.Type}" >
+                        <apex:inputField id="type" value="{!newTask.Type}">
                             <apex:actionSupport event="onchange" action="{!changeTaskField}" rerender="pageMessages,theBlock,searchIcon" oncomplete="resizePA();"/>
                         </apex:inputField>
                         <apex:inputField value="{!newTask.Is_Bulk_Task__c}" rendered="{!newTask.Type == 'Operations Task' && Case.RecordType.Name != 'Pickup Booking Enquiry' && createTaskAllowed}">

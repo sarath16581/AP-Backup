@@ -2,6 +2,7 @@
   "activeViewId" : "7c6e4ece-16b3-493d-a6e2-f05b2a189895",
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Registration_Successful__c",
   "id" : "6e1b22d2-24a6-490d-9948-dee448e9a313",
   "label" : "Registration Successful",
   "pageAccess" : "UseParent",

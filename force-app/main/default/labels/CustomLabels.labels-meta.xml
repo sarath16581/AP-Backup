@@ -5246,7 +5246,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
         <value>Correct the {0} Opportunity Split. A non-{0} team member can’t be assigned to the {0} overlay split.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithInvalidQuantityOnProducts</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -5254,7 +5254,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <shortDescription>Opportunity With Invalid Quantity On Products</shortDescription>
         <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>OpportunityWithInvalidRevenueStartDateOnProducts</fullName>
         <categories>Sales Pipeline</categories>
         <language>en_US</language>
@@ -7209,11 +7209,239 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Social Account</value>
     </labels>
     <labels>
+        <fullName>StarTrackABNRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackABNRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>ABN is required from the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</shortDescription>
+        <value>Billing account request has been submitted previously and failed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</shortDescription>
+        <value>Billing account creation request is in progress for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</shortDescription>
+        <value>Once the accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</shortDescription>
+        <value>Billing account creation request submitted successfully. You may close this window now.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</shortDescription>
+        <value>Billing account has already been created for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Billing Address is required from the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackChargeAccountRequestIdRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackChargeAccountRequestIdRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Charge Account Request Id is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactEmailRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactEmailRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact Email is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactFirstNameRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactFirstNameRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact First Name is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactLastNameRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactLastNameRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact Last Name is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditAssessmentStatusInvalidForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditAssessmentStatusInvalidForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Assessment must be Approved.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditLimitMustBeHigherForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditLimitMustBeHigherForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Amount must be greater than 10$.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditLimitRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditLimitRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Limit is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackEstimatedMonthlyRevenueRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackEstimatedMonthlyRevenueRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Estimated Monthly Revenue is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackFinaliseSubAccountRequestsTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackFinaliseSubAccountRequestsTitle</shortDescription>
+        <value>Finalise Sub Account Request(s)</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackMailingAddressRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackMailingAddressRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Please select Primary Pick-Up Location on CSQ.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</shortDescription>
+        <value>&lt;b&gt;Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</shortDescription>
+        <value>&lt;b&gt;If the problem persists, Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Next Revenue Date is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOnlyOneOrganisationRoleAllowedForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOnlyOneOrganisationRoleAllowedForNewAccountsErrorMessage</shortDescription>
+        <value>Organisation has multiple roles. Please resolve.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOrganisationRoleInvalidForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOrganisationRoleInvalidForNewAccountsErrorMessage</shortDescription>
+        <value>Organisation role must be Prospect, Known or Customer.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackProvisionNewAccountValidationFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackProvisionNewAccountValidationFailedErrorMessage</shortDescription>
+        <value>Please resolve the below issues for billing account creation and try again.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackProvisionNewBillingAccountsModalTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrack Provision New Billing Accounts Modal Title</shortDescription>
+        <value>TEAM Billing Account Request</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedNonTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedNonTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please raise an IT request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please try again.</value>
+    </labels>
+    <labels>
         <fullName>StatusTitle</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Status filter title</shortDescription>
         <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubmitBillingAccountProvisioningRequestPermissionsError</shortDescription>
+        <value>You do not have permissions to submit new billing account provisioning requests.</value>
     </labels>
     <labels>
         <fullName>TDF_CustomLabel_PTO</fullName>
@@ -7932,6 +8160,166 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
     </labels>
     <labels>
+        <fullName>StarTrackNewBillingAccountProvisonNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountProvisonNotificationTitle</shortDescription>
+        <value>Click here to go to the {0} record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewLeaderBillingAccountProvisonErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewLeaderBillingAccountProvisonErrorNotification</shortDescription>
+        <value>Billing account creation request for {0} has encountered an error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewLeaderBillingAccountProvisonSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewLeaderBillingAccountProvisonSuccessNotification</shortDescription>
+        <value>Billing account creation request for {0} is completed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewSubAccountProvisonErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewSubAccountProvisonErrorNotification</shortDescription>
+        <value>Follower/Offspring request for TEAM Billing Account {0} has encountered an error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewSubAccountProvisonSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewSubAccountProvisonSuccessNotification</shortDescription>
+        <value>Follower/Offspring Account {0} for TEAM Billing Account {1} has been successfully completed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountActivationDSRDescription</shortDescription>
+        <value>Align additional charges, create dispatch ID, activate account &amp; provide Parcel Send access (if requested).</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxFinalizeErrorMessage</shortDescription>
+        <value>Please be advised that you can only finalize up to 10 follower/offspring requests at a time. If you have more than 10, you can finalize them in a subsequent request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</shortDescription>
+        <value>Please select only upto 10 records for submission.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForFinaliseError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForFinaliseError</shortDescription>
+        <value>Please add Parent Account for the Offspring to finalise.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</shortDescription>
+        <value>Please add Parent Account for the Offspring to Submit.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedNonTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedNonTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</shortDescription>
+        <value>Sub account creation request(s) submitted Successfully. Once the Follower/Offspring accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationNoAccessError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationNoAccessError</shortDescription>
+        <value>You do not have access to create Follower/Offspring accounts, please raise a myIT ticket to Salesforce Support for assistance.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTabError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
+        <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTitle</shortDescription>
+        <value>Create Sub Account Request(s)</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountABNConfirmationErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a follower/offspring account. Please raise a Data Quality Management Case to link ABN to required Salesforce Organisation. Once this has been completed, please Self-Serve or raise a Customer Onboarding Deal Support Request for a New Agreement, account will be created post agreement fully signed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountFinaliseConfirmation</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
+        <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSubmitConfirmationMessage</shortDescription>
+        <value>Follower/Offspring creation request(s) for Leader billing account will be submitted. Do you want to proceed?</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubmitSubAccountRequestsTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubmitSubAccountRequestsTitle</shortDescription>
+        <value>Submit Sub Account Request(s)</value>
+    </labels>
+    <labels>
         <fullName>STHSSenderReceiverValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
@@ -8092,7 +8480,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>AttributeAPCNMapping</fullName>
         <categories>Auth0</categories>
         <language>en_US</language>
@@ -8461,5 +8849,21 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>BAM Invalid Billing Account Json Filter</shortDescription>
         <value>JSON provided is invalid. Please fix it.</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_Email_Security_Disclaimer</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post Email Security Disclaimer</shortDescription>
+        <value>This email was sent by Australia Post. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_No_Email_Phishing_Statement</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post No Email Phishing Statement</shortDescription>
+        <value>Australia Post will never send you an email asking for your password, credit card details or account information.</value>
     </labels>
 </CustomLabels>

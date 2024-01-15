@@ -134,6 +134,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Case_Update__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Update__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Priority</field>
             </layoutItems>
             <layoutItems>
@@ -178,6 +186,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>AccountId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ContactId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -304,10 +316,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Case_Update__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Case_Update_Time__c</field>
             </layoutItems>
         </layoutColumns>
@@ -365,10 +373,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ContactId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>Total_Number_of_Items_Claimed__c</field>
             </layoutItems>
         </layoutColumns>
@@ -421,9 +425,6 @@
         <quickActionListItems>
             <quickActionName>New_Default_Task</quickActionName>
         </quickActionListItems>
-        <quickActionListItems>
-            <quickActionName>Case.Closed</quickActionName>
-        </quickActionListItems>
     </quickActionList>
     <relatedContent>
         <relatedContentItems>
@@ -443,15 +444,11 @@
         <customButtons>Mass_Edit</customButtons>
         <customButtons>Mass_Update</customButtons>
         <fields>NAME</fields>
-        <fields>Connote__c</fields>
         <fields>Invoice_Number__c</fields>
+        <fields>Connote__c</fields>
         <fields>Transaction_ID__c</fields>
-        <fields>Credit_Amount_Exclusive_GST__c</fields>
-        <fields>Product__c</fields>
-        <fields>Product_Sub_Category__c</fields>
-        <fields>Reason__c</fields>
-        <fields>Reason_Category__c</fields>
-        <fields>Status__c</fields>
+        <fields>Amount__c</fields>
+        <fields>Amount_Claimed__c</fields>
         <relatedList>Disputed_Item__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -495,9 +492,6 @@
         <relatedList>AuthorisedContacts__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedEmailMessageList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>CreatedDate</fields>
         <fields>StepStatus</fields>
         <fields>OriginalActor</fields>
@@ -532,6 +526,7 @@
         <relatedList>RelatedActivityList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>SendEmail</excludeButtons>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>
         <fields>ACTIVITY.TASK</fields>
@@ -550,7 +545,7 @@
         <relatedList>workflow_Email__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedFileList</relatedList>
+        <relatedList>RelatedAttachmentList</relatedList>
     </relatedLists>
     <relatedObjects>ArticleTest__c</relatedObjects>
     <runAssignmentRulesDefault>false</runAssignmentRulesDefault>

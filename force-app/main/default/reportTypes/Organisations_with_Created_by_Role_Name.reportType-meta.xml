@@ -3158,11 +3158,6 @@
             <field>CCUYourReference__c</field>
             <table>Account.Cases</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
-            <table>Account.Cases</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -3182,13 +3177,5 @@
             <table>Account</table>
         </columns>
         <masterLabel>User</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

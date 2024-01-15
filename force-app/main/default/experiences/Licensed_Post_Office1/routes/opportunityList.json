@@ -2,6 +2,7 @@
   "activeViewId" : "f5845c15-c53e-42d9-9d51-ba969a077e87",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Opportunity_List__c",
   "id" : "6f3729b4-083b-43da-b780-01ab127aaf83",
   "label" : "Opportunity List",
   "routeType" : "list-006",

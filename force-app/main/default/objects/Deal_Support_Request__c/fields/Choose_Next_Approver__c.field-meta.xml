@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Choose_Next_Approver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>This field will allow Surcharge users to select approver when Submitting a request</description>
+    <description>This field will allow Surcharge users to select approver when Submitting a request. Note: this field is due to be deprecated in a future release.</description>
     <externalId>false</externalId>
-    <label>Choose Next Approver</label>
+    <label>Choose Next Approver (Deprecated)</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_RequestaAeh</relationshipName>
     <required>false</required>

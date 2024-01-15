@@ -12,6 +12,7 @@
 	* 2023-01-27 - Sarath Burra -Removed the method validateSearchLodgementZone in the main class as part of https://australiapost.jira.com/browse/CI-828 so removed the test menthod validateSearchLodgementZoneTest()
 	* 								Lines Removed 554-632
 	* 2023-03-23 - sarath burra CI-703 Added new test method to cover the check APPC contracts logic. This logic is added in the class to check for existing APPC contracts and display message to user
+	* 2023-08-18 - Harry Wang - added test method for getBillingAccountDetails
 	*/
 	@IsTest
 	public with sharing class CreateSubAccountsControllerTest {
@@ -586,5 +587,34 @@
 
 		Test.stopTest();
 
-	}
+		}
+
+		/**
+		 * Test:
+		 *  Ensures that billing account details are retrieved
+		 */
+		@IsTest
+		private static void testGetBillingAccountDetails() {
+			// =====================================
+			// Data Preparation
+			// =====================================
+			List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+			Map<Id, Billing_Account__c> billingAccounts = new Map<Id, Billing_Account__c>(ApplicationTestDataFactory.getBillingAccounts(1, accounts[0].Id, 'TEAM', true));
+
+			// =====================================
+			// Stubbing
+			// =====================================
+			BillingAccountsSelector selector = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);
+			MockUtility.Mocks.startStubbing();
+			MockUtility.Mocks.when(selector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(billingAccounts);
+			MockUtility.Mocks.stopStubbing();
+
+			// =====================================
+			// Testing
+			// =====================================
+			Test.startTest();
+			Billing_Account__c billingAccount = CreateSubAccountsController.getBillingAccountDetails(billingAccounts.values()[0].Id);
+			Test.stopTest();
+			System.assertEquals('TEAM', billingAccount.Source_System__c, 'TEAM expected');
+		}
 	}

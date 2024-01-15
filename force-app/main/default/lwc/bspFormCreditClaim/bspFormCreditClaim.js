@@ -8,6 +8,7 @@
  * 2023-08-11 - Thang Nguyen - Created
  * 2023-08-16 - Hasantha Liyanage - auto populate account held with
  * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
+ * 2023-10-23 - Hasantha Liyanage - added credit claim reason display help text capability
  */
 import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
@@ -25,11 +26,11 @@ import getUserProfileDetails from '@salesforce/apex/bspProfileUplift.getUserProf
 import deleteAttachment from '@salesforce/apex/bspEnquiryUplift.deleteAttachment';
 import createCreditClaim from '@salesforce/apex/BSPCreditClaimController.createCreditClaim';
 import getBillingAccounts from '@salesforce/apex/bspEnquiryUplift.buildBillingAccountOptions';
+import getCreditClaimReasonHelpTexts from '@salesforce/apex/bspEnquiryUplift.buildReasonForClaimHelpText';
 import getRelatedSuperAdminRoles from '@salesforce/apex/BSPCreditClaimController.getSuperAdminRoles';
 import isValidBillingAccount from '@salesforce/apex/BSPCreditClaimController.isValidBillingAccount';
 import acceptedFileFormats from '@salesforce/label/c.BSP_Accepted_file_formats_credit_claim';
 export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) {
-
 	//	enquiryType = 'Missing Item';
 	spinnerAltText = 'loading';
 	errorGeneric = 'An error has occurred';
@@ -71,6 +72,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	accountHeldWith;
 	disputeType;
 	reasonClaim;
+	reasonClaimLabel;
+	reasonClaimHelpText = {};
 	claimAmount;
 	description;
 
@@ -88,6 +91,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 	};
 	acceptedFileFormats = acceptedFileFormats;
 	allBillingAccOptions = [];
+	creditClaimReasonHelpTexts = [];
 	superAdminRoles;
 	showBilling = false;
 	defaultValue = {}; // contains default value for billing account dropdown
@@ -100,6 +104,10 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		label:'Other account number',
 		isCustom:true
 	}];
+	additionalFormData = {
+		businessAccountNumber:'',
+		isOther: false
+	};
 	isValidateFileUploaded = false;
 
 
@@ -137,12 +145,34 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		if(selectedValue.value === this.otherOptions[0].value) {
 			this.isShowOtherBillingAccountField = true;
 			this.businessAccountNumber = null; // clear any previously selected values, otherwise Related Billing Account will be linked if found
+			this.additionalFormData.isOther = true;
+			this.additionalFormData.businessAccountNumber = '';
+			this.accountHeldWith = '';
 		} else {
 			this.isShowOtherBillingAccountField = false;
 			this.businessAccountNumber = selectedValue.value; // selected value passed from search component is an ID value
+			this.additionalFormData.businessAccountNumber = selectedValue.label; // passing the label values for case comments
+			this.additionalFormData.isOther = false;
 			this.billingNumber = null; // there is no billing Number passed in to apex when Id exists
+			// prefill the account held with dropdown
+			this.autoSelectAccountHeldWith(selectedValue.value);
 		}
 	}
+
+	/**
+	 * Based on the selection of Account number account held with values are auto selected,
+	 * When it is the initial load, url parameters are considered
+	 * @param selectedValue
+	 */
+	autoSelectAccountHeldWith(businessUnit) {
+		const selectedOption = this.allBillingAccOptions.find(option => option.value === businessUnit);
+		if (selectedOption.key === 'TEAM') {
+			this.accountHeldWith = 'StarTrack';
+		} else if (selectedOption.key === 'SAP ERP') {
+			this.accountHeldWith = 'Australia Post'
+		}
+	}
+
 	async connectedCallback() {
 		await this.initialLoad();
 	}
@@ -177,6 +207,17 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				console.error(error);
 			}).finally(() => {
 
+			});
+
+		await getCreditClaimReasonHelpTexts()
+			.then((data) => {
+				this.creditClaimReasonHelpTexts = data;
+				console.log(this.creditClaimReasonHelpTexts);
+				console.log('this.creditClaimReasonHelpTexts');
+			})
+			.catch((error) => {
+				console.error(error);
+			}).finally(() => {
 			});
 	}
 
@@ -285,13 +326,13 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
 	onChangeField(event) {
 		const field = event.target.dataset.id;
-		switch(field)
-		{
+		switch(field) {
 			case 'businessName':
 				this.businessName = event.detail.value;
 				break;
 			case 'businessAccountNumberOther':
 				this.billingNumber = event.target.value;
+				this.additionalFormData.businessAccountNumber = this.billingNumber
 				break;
 			case 'contactName':
 				this.contactName = event.detail.value;
@@ -304,13 +345,19 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 			case 'accountHeldWith':
 				this.accountHeldWith = event.detail.value;
+				this.setHelpText();
 				break;
 			case 'disputeType':
 				this.disputeType = event.detail.value;
 				this.handleEnquiryTypeChange(event);
+				this.reasonClaimHelpText = {}; // clear the reason's help text
+				this.reasonClaim = ''; // clear the reason value.
+				this.reasonClaimLabel = ''; // clear the reason label.
 				break;
 			case 'reasonClaim':
 				this.reasonClaim = event.detail.value;
+				this.reasonClaimLabel = this.reasonClaimList.find(reason => reason.value === event.detail.value).label;
+				this.setHelpText();
 				break;
 			case 'claimAmount':
 				this.claimAmount = event.detail.value;
@@ -323,6 +370,23 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				break;
 		}
 
+	}
+
+	/**
+	 * Setting the help text
+	 */
+	setHelpText() {
+		this.reasonClaimHelpText.text = '';
+		let businessUnit = '';
+		if (this.accountHeldWith === 'Australia Post') {
+			businessUnit = 'ap';
+		} else if (this.accountHeldWith === 'StarTrack') {
+			businessUnit = 'st';
+		}
+		const stringWithoutSpaces = this.reasonClaim.replace(/\s+/g, '').toLowerCase();
+		const reasonHelpText = this.creditClaimReasonHelpTexts[stringWithoutSpaces + '_' + businessUnit];
+		this.reasonClaimHelpText.text = reasonHelpText.Message__c;
+		this.reasonClaimHelpText.isAttachmentRequired = reasonHelpText.IsAttachmentRequired__c;
 	}
 
 	handleFocus(event) {
@@ -346,10 +410,17 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 						.then(result => {
 							// if entered is an invalid billing account, we expect a message here
 							if(result) {
-								inputCmp[0].setCustomValidity(result);
-								inputCmp[0].reportValidity();
-							} else {
-								this.isValidOtherBillingAccount = true;
+								if(result.status === 'ERROR') {
+									inputCmp[0].setCustomValidity(result.message);
+									inputCmp[0].reportValidity();
+								} else if(result.status === 'SUCCESS') {
+									this.isValidOtherBillingAccount = true;
+									if (result.billingAccount.Source_System__c === 'TEAM') {
+										this.accountHeldWith = 'StarTrack';
+									} else if (result.billingAccount.Source_System__c === 'SAP ERP') {
+										this.accountHeldWith = 'Australia Post'
+									}
+								}
 							}
 							this.showSpinner = false;
 						}).catch(error => {
@@ -454,18 +525,19 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 		//get disputeItems 
 		let disputeItems = inputDisputeItems.getDisputedItems();
 
-		if(!this.isValidateFileUploaded) {
-			this.openModal();
+		if(!this.isValidateFileUploaded && this.reasonClaimHelpText.isAttachmentRequired) {
+			this.openModal(); // open attachment confirmation
 			return;
 		} else if(this.showModal){
-			this.closeModal();
-			this.isValidateFileUploaded = false;
+			this.closeModal(); // close modal if submit anyway otherwise modal will appear on confirmation
+			this.isValidateFileUploaded = false; // reset the attachment validation confirmation modal
 		}
 
 		createCreditClaim({
 			caseRecord: this.tempCase,
 			uploadedFiles: this.uploadedFiles,
-			disputeItems: disputeItems
+			disputeItems: disputeItems,
+			formData: this.additionalFormData
 		}).then(result =>{
 			if(result.status === 'error'){
 				this.errorMessage = result.message;

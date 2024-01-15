@@ -9,6 +9,7 @@
     <columns>LEAD.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.UNREAD</columns>
+    <columns>Facility__c</columns>
     <filterScope>Queue</filterScope>
     <filters>
         <field>LEAD.STATUS</field>

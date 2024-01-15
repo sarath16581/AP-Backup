@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Confirmed_Rate_Required_Deferral</fullName>
+    <active>false</active>
+    <description>Confirmed rate is not required for Status = Deferral with Sub Status equal Long Term Agreement. The confirmed Rate can be 0 (zero).</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+Confirmed_Rate__c &lt;= 0,
+
+OR(
+ISPICKVAL(Status__c, &apos;Deferral&apos;),
+ISPICKVAL(Status__c, &apos;Go early&apos;)
+),
+
+NOT(
+OR(
+ISPICKVAL(Sub_Status__c, &apos;Long term agreement&apos;),
+ISPICKVAL(Sub_Status__c, &apos;Price Target Set&apos;),
+ISPICKVAL(Sub_Status__c, &apos;Sales Director Delegation&apos;),
+ISPICKVAL(Sub_Status__c, &apos;Management decision&apos;)
+)
+)
+)</errorConditionFormula>
+    <errorDisplayField>Confirmed_Rate__c</errorDisplayField>
+    <errorMessage>Where status is Deferral or Go Early and the sub-status is not Long Term Agreement, Price Target Set, Sales Director Delegation or Management Decision the confirmed rate cannot be 0 or negative</errorMessage>
+</ValidationRule>

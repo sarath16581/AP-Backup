@@ -3,7 +3,7 @@
     <fullName>Check_EFT_Compensation_Value</fullName>
     <active>false</active>
     <description>Compensation amount has to be equal to or greater than $0.01 and not more than $5000
-Inactivating rule - REQ3311264</description>
+Inactivating rule : REQ3311264</description>
     <errorConditionFormula>AND(($RecordType.DeveloperName =&apos;EFT&apos; ||
 $RecordType.DeveloperName =&apos;Account_Credit&apos;
 ),

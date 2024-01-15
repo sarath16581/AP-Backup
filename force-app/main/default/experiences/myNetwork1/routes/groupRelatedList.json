@@ -2,6 +2,7 @@
   "activeViewId" : "8054e0ff-f898-414a-8d30-2f2a871c48ec",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "Group_Related_List",
   "id" : "8f63a810-0496-4dca-bd63-5d57aec3fa8f",
   "label" : "Group Related List",
   "routeType" : "relatedlist-0F9",

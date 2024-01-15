@@ -4535,22 +4535,17 @@
             <field>Operations_Outcome_Comment__c</field>
             <table>Case.Activities__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Events__c</field>
+            <field>Count_of_Tasks__c</field>
             <table>Case.Activities__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Tasks__c</field>
+            <field>Count_of_Events__c</field>
             <table>Case.Activities__r</table>
         </columns>
         <masterLabel>Activities</masterLabel>

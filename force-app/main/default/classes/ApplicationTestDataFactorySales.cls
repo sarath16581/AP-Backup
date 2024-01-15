@@ -10,6 +10,7 @@
  * 2023-07-13 - Pratyush Chalasani - Added getSalesSegmentReferences
  * 2023-08-18 - Ranjeewa Silva - Added new method to return Competitors (Competitor__c)
  * 2023-10-26 - Mahesh Parvathaneni - Added method getPriceBookEntries
+ * 2023-10-30 - Ranjeewa Silva - New methods to return CSQ, Pickup Locations and Sales Team Segments
  */
 @IsTest
 public with sharing class ApplicationTestDataFactorySales {
@@ -60,6 +61,35 @@ public with sharing class ApplicationTestDataFactorySales {
 				PricebookEntry.Product2Id => productId,
 				PricebookEntry.UnitPrice => 10000,
 				PricebookEntry.IsActive => true
+		}, count), generateIds);
+	}
+
+	public static List<Customer_Scoping_Questionnaire__c> getCustomerScopingQuestionnaires(Integer count, Id opportunityId, Boolean generateIds) {
+		return getCustomerScopingQuestionnaires(count, new Set<Id>{opportunityId}, generateIds);
+	}
+
+	public static List<Customer_Scoping_Questionnaire__c> getCustomerScopingQuestionnaires(Integer count, Set<Id> opportunityIds, Boolean generateIds) {
+		return (List<Customer_Scoping_Questionnaire__c>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Customer_Scoping_Questionnaire__c.SObjectType, new Map<SObjectField, Object>{
+				Customer_Scoping_Questionnaire__c.Opportunity__c => opportunityIds,
+				Customer_Scoping_Questionnaire__c.CSQ_Status__c => 'Draft'
+		}, count), generateIds);
+	}
+
+	public static List<Pick_Up_Location__c> getPickUpLocations(Integer count, Id csqId, Boolean generateIds) {
+		return getPickUpLocations(count, new Set<Id>{csqId}, generateIds);
+	}
+
+	public static List<Pick_Up_Location__c> getPickUpLocations(Integer count, Set<Id> csqIds, Boolean generateIds) {
+		return (List<Pick_Up_Location__c>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Pick_Up_Location__c.SObjectType, new Map<SObjectField, Object>{
+				Pick_Up_Location__c.CSQ__c => csqIds,
+				Pick_Up_Location__c.Pick_up_Location_Status__c => 'Draft'
+		}, count), generateIds);
+	}
+
+	public static List<Sales_Team_Segment__c> getSalesTeamSegments(Integer count, Boolean generateIds) {
+		return (List<Sales_Team_Segment__c>) ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Sales_Team_Segment__c.SObjectType, new Map<SObjectField, Object>{
+				Sales_Team_Segment__c.Name => 'Test Segment %count%',
+				Sales_Team_Segment__c.Segment__c => 'Segment %count%'
 		}, count), generateIds);
 	}
 }

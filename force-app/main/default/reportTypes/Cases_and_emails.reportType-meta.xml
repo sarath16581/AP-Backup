@@ -3790,11 +3790,6 @@
             <field>Network__c.Contact_Facility__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>

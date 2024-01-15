@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "1eaa326e-7a9b-4412-a3fe-a06de0d42849",
   "label" : "Search",
   "regions" : [ {
@@ -40,6 +41,9 @@
         }, {
           "isPublic" : true,
           "name" : "User"
+        }, {
+          "isPublic" : true,
+          "name" : "CaseInvestigation__c"
         } ],
         "searchTerm" : "{!searchString}",
         "showTopResults" : true

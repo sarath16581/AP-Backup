@@ -10,10 +10,12 @@
         <connector>
             <targetReference>Check_Community_Name_Is_CHAS</targetReference>
         </connector>
+        <nameSegment>ChasLoginFlow</nameSegment>
         <outputParameters>
             <assignToReference>CHASCommunity</assignToReference>
             <name>output</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

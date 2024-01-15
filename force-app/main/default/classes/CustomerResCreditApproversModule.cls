@@ -33,8 +33,8 @@ public with sharing class CustomerResCreditApproversModule extends ApplicationDo
     }
 
     /**
-     * Called when a Credit Approval is being updated.
-     */
+	 * Called when a Credit Approval is being updated.
+	 */
     public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 
         List<Credit_Approval__c> creditApprovalsToPopulateApprovers = new List<Credit_Approval__c>();
@@ -239,20 +239,17 @@ public with sharing class CustomerResCreditApproversModule extends ApplicationDo
      * @return Approver Id
      */
     private Id getApprover(String approverRole, Id configuredApproverId, Sales_Segment_Reference__c salesTeam) {
-        
-         System.debug('Inside getApprover');
+
         // check if the approver role is one of sales team roles where the approver should be determined dynamically
         if (!(DYNAMIC_APPROVER_ROLE_SALES_DIRECTOR.equalsIgnoreCase(approverRole) || DYNAMIC_APPROVER_ROLE_GM_OF_SALES.equalsIgnoreCase(approverRole))) {
             // approver role is not a sales team role. return the configured approver.
-           System.debug('configuredApproverId_________________'+configuredApproverId);
             return configuredApproverId;
         }
-        
+
         // approver role is one of sales team roles. check if the sales team owner is valid and the sales team is not assigned
         // to 'Holding User'.
         if (!isSalesTeamOwnerAvailable(salesTeam)) {
             // sales team owner is not available. return the configured approver.
-            System.debug('configuredApproverId1_____________'+configuredApproverId);
             return configuredApproverId;
         }
 
@@ -261,18 +258,14 @@ public with sharing class CustomerResCreditApproversModule extends ApplicationDo
         if (DYNAMIC_APPROVER_ROLE_SALES_DIRECTOR.equalsIgnoreCase(approverRole)) {
             if (Label.I2C_Sales_Director == salesTeam.Sales_Team_Owner_Type__c) {
                 salesTeamApprover = salesTeam.Sales_Director__r;
-                System.debug('salesTeamApprover_____________'+salesTeamApprover);
             } else if (Label.I2C_Sales_Manager == salesTeam.Sales_Team_Owner_Type__c) {
                 salesTeamApprover = salesTeam.Sales_Director__r.Manager;
-                System.debug('salesTeamApprover1_____________'+salesTeamApprover);
             }
         } else if (DYNAMIC_APPROVER_ROLE_GM_OF_SALES.equalsIgnoreCase(approverRole)) {
             if (Label.I2C_Sales_Director == salesTeam.Sales_Team_Owner_Type__c) {
                 salesTeamApprover = salesTeam.Sales_Director__r.Manager;
-                System.debug('salesTeamApprover2_____________'+salesTeamApprover);
             } else if (Label.I2C_Sales_Manager == salesTeam.Sales_Team_Owner_Type__c) {
                 salesTeamApprover =  salesTeam.Sales_Director__r.Manager.Manager;
-                System.debug('salesTeamApprover3_____________'+salesTeamApprover);
             }
         }
 
@@ -456,8 +449,8 @@ public with sharing class CustomerResCreditApproversModule extends ApplicationDo
 
 
     /**
-     * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-     */
+	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
+	 */
     public class Constructor implements ApplicationDomain.IConstructableModule {
         public ApplicationDomain.Module construct() {
             return (ApplicationDomain.Module)CustomerResCreditApproversModule.newInstance();

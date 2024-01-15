@@ -4645,6 +4645,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Area_to_Benefit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.ArticleCubing__c</field>
         <readable>true</readable>
@@ -5656,7 +5661,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Other_CoE_s_Involved__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Other_Service_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Others_Involved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5862,6 +5877,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Recent_Contact_Mobile_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Refer_to_Third_Party__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8357,21 +8377,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Retail_Wholesale_Manufacturing_Special__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Lead.SFGA__CorrelationID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Lead.SFGA__Correlation_Data__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Lead.SFGA__Web_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

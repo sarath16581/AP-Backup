@@ -11,7 +11,6 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>Is_APPC__c</controllingField>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -70,6 +69,11 @@
                 <label>Rebate</label>
             </value>
             <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
                 <fullName>Manual Handling Surcharge</fullName>
                 <default>false</default>
                 <label>Manual Handling Surcharge</label>
@@ -84,168 +88,6 @@
                 <default>false</default>
                 <label>International Surcharge</label>
             </value>
-            <value>
-                <fullName>Unmanifested Article fee</fullName>
-                <default>false</default>
-                <label>Unmanifested Article fee</label>
-            </value>
-            <value>
-                <fullName>Returns Shipping costs</fullName>
-                <default>false</default>
-                <label>Returns Shipping costs</label>
-            </value>
-            <value>
-                <fullName>Signature on Delivery fee</fullName>
-                <default>false</default>
-                <label>Signature on Delivery fee</label>
-            </value>
-            <value>
-                <fullName>Capture ID fee</fullName>
-                <default>false</default>
-                <label>Capture ID fee</label>
-            </value>
-            <value>
-                <fullName>Capture ID (Addressee only) fee</fullName>
-                <default>false</default>
-                <label>Capture ID (Addressee only) fee</label>
-            </value>
-            <value>
-                <fullName>Transit Cover fee</fullName>
-                <default>false</default>
-                <label>Transit Cover fee</label>
-            </value>
-            <value>
-                <fullName>Return to Sender fee</fullName>
-                <default>false</default>
-                <label>Return to Sender fee</label>
-            </value>
-            <value>
-                <fullName>Fuel Surcharge</fullName>
-                <default>false</default>
-                <label>Fuel Surcharge</label>
-            </value>
-            <value>
-                <fullName>Wine &amp; Alcohol fee</fullName>
-                <default>false</default>
-                <label>Wine &amp; Alcohol fee</label>
-            </value>
-            <value>
-                <fullName>None</fullName>
-                <default>false</default>
-                <label>None</label>
-            </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Accounting adjustment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Billing Processing error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Bulk Mail Lodgement (BML)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Customer Data Issue</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Delivery Issue</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Discretionary Settlement</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Order Processing Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Write off</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Pick/Pack Errors</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Reimbursement of Shipping Costs</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Rebate</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Manual Handling Surcharge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Security surcharge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>International Surcharge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>Unmanifested Article fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Returns Shipping costs</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Signature on Delivery fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Capture ID fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Capture ID (Addressee only) fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Transit Cover fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Return to Sender fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Fuel Surcharge</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>Wine &amp; Alcohol fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <controllingFieldValue>No</controllingFieldValue>
-            <valueName>None</valueName>
-        </valueSettings>
     </valueSet>
 </CustomField>

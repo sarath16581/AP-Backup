@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
+    <email>noreply@auspost.com.au</email>
     <name>SSSW WFM Queue 10</name>
     <queueMembers>
         <users>
-            <user>snigdha.sahu@auspost.com.au</user>
-            <user>swati.mogadala2@auspost.com.au</user>
+            <user>leonid.kefalianos@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

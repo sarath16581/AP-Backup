@@ -2,6 +2,7 @@
   "activeViewId" : "9cc55b6b-cba4-422f-be45-e98d50337f4d",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Star_Track__c",
   "id" : "dc7d96d5-d33b-48eb-86fd-71982863bb67",
   "label" : "Star Track",
   "routeType" : "custom-star-track",

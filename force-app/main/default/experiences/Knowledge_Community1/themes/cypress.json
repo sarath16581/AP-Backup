@@ -358,7 +358,7 @@
             "componentAttributes" : {
               "navAlignment" : "left",
               "navItemThreshold" : 4,
-              "navigationMenuEditorRefresh" : ""
+              "navigationMenuEditorRefresh" : "Default_Navigation10"
             },
             "componentName" : "forceCommunity:themeNav",
             "id" : "2eed8f59-d2ed-45fb-8152-440f92c894f7",

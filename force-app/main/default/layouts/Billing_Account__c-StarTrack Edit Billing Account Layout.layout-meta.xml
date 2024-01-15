@@ -9,7 +9,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Source_System__c</field>
             </layoutItems>
             <layoutItems>
@@ -57,6 +57,14 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>PAYER_ACCOUNT_ID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LeaderAccount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>BillingAccountType__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -307,12 +315,14 @@
                 <field>Credit_Person__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Credit_Person_Phone__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Credit_Representative_Email__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Credit_Person_Phone__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -323,7 +333,6 @@
                 <field>Credit_Group_Formula__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -336,11 +345,27 @@
                 <behavior>Readonly</behavior>
                 <field>Phone_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactFirstName__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactLastName__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Fax_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactEmail__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SiteContactTelephone__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -349,7 +374,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Address Information</label>
+        <label>Billing Address</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -380,6 +405,37 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Country__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Physical Address</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PhysicalStreet__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PhysicalSuburb__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PhysicalState__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PhysicalPostalCode__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PhysicalCountry__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -609,15 +665,27 @@
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
         <fields>LEGACY_ID__c</fields>
+        <fields>BillingAccountType__c</fields>
         <fields>Organisation__c</fields>
         <fields>Credit_Limit_Formula__c</fields>
         <fields>Credit_Status__c</fields>
         <fields>Suburb__c</fields>
         <fields>State__c</fields>
         <fields>Postal_Code__c</fields>
+        <fields>LeaderAccount__c</fields>
         <relatedList>Billing_Account__c.PAYER_ACCOUNT_ID__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <fields>NAME</fields>
+        <fields>LEGACY_ID__c</fields>
+        <fields>BillingAccountType__c</fields>
+        <fields>Organisation__c</fields>
+        <fields>PAYER_ACCOUNT_ID__c</fields>
+        <relatedList>Billing_Account__c.LeaderAccount__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
@@ -681,6 +749,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>AccountType__c</fields>
         <fields>APT_eParcel_Enabled__c</fields>
         <fields>APT_Sub_Account_Request_Status__c</fields>
         <fields>CREATED_DATE</fields>

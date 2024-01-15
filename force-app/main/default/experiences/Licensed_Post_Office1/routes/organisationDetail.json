@@ -2,6 +2,7 @@
   "activeViewId" : "9a28f181-b356-4e11-894a-e560d35dd1ce",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Organisation_Detail__c",
   "id" : "313fd730-cb7a-4bed-baa2-7a181896c7bb",
   "label" : "Organisation Detail",
   "routeType" : "detail-001",

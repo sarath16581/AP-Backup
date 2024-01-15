@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HasAuthorityToDeliver__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>HasAuthorityToDeliver</description>
+    <externalDeveloperName>HasAuthorityToDeliver</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>HasAuthorityToDeliver</label>
+    <type>Checkbox</type>
+</CustomField>

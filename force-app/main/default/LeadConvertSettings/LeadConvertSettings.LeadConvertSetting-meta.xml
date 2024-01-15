@@ -4,6 +4,38 @@
     <objectMapping>
         <inputObject>Lead</inputObject>
         <mappingFields>
+            <inputField>Qualifier_Type__c</inputField>
+            <outputField>Qualifier_Type__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>ReferralSource__c</inputField>
+            <outputField>ReferalSource__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Registration_Type__c</inputField>
+            <outputField>Registration_Type__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Relationship_Status__c</inputField>
+            <outputField>Relationship_status__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Segment__c</inputField>
+            <outputField>Segment__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>SMB_Lead_ID__c</inputField>
+            <outputField>SMB_Lead_ID__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Transaction_Fee__c</inputField>
+            <outputField>Conveyancer_Transaction_Fee__c</outputField>
+        </mappingFields>
+        <mappingFields>
+            <inputField>Passcode__c</inputField>
+            <outputField>Passcode__c</outputField>
+        </mappingFields>
+        <mappingFields>
             <inputField>ABN__c</inputField>
             <outputField>ABN__c</outputField>
         </mappingFields>
@@ -50,38 +82,6 @@
         <mappingFields>
             <inputField>Hub_Catchment__c</inputField>
             <outputField>Hub_Catchment__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Passcode__c</inputField>
-            <outputField>Passcode__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Qualifier_Type__c</inputField>
-            <outputField>Qualifier_Type__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>ReferralSource__c</inputField>
-            <outputField>ReferalSource__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Registration_Type__c</inputField>
-            <outputField>Registration_Type__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Relationship_Status__c</inputField>
-            <outputField>Relationship_status__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Segment__c</inputField>
-            <outputField>Segment__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>SMB_Lead_ID__c</inputField>
-            <outputField>SMB_Lead_ID__c</outputField>
-        </mappingFields>
-        <mappingFields>
-            <inputField>Transaction_Fee__c</inputField>
-            <outputField>Conveyancer_Transaction_Fee__c</outputField>
         </mappingFields>
         <outputObject>Account</outputObject>
     </objectMapping>

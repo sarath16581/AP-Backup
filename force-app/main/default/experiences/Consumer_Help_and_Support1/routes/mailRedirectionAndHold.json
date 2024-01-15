@@ -2,6 +2,7 @@
   "activeViewId" : "652138f0-df88-4e66-98db-6a22971eefe2",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Mail_redirection_and_hold__c",
   "id" : "b17d4716-d776-4b75-ab9e-dd466be985a8",
   "label" : "Mail redirection and hold",
   "pageAccess" : "UseParent",

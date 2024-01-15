@@ -167,16 +167,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>SFGA__Correlation_Data__c</field>
-            <table>Lead</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>SFGA__CorrelationID__c</field>
-            <table>Lead</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Country</field>
             <table>Lead</table>
         </columns>
@@ -717,11 +707,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>SFGA__Web_Source__c</field>
-            <table>Lead</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>ZING_Brochure__c</field>
             <table>Lead</table>
         </columns>
@@ -745,12 +730,12 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Events__c</field>
+            <field>Count_of_Tasks__c</field>
             <table>Lead.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Tasks__c</field>
+            <field>Count_of_Events__c</field>
             <table>Lead.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>

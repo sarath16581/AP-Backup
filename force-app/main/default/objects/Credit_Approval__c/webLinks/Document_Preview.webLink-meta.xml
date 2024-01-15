@@ -7,8 +7,8 @@
     <masterLabel>Document Preview</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/57.0/connection.js&quot;)}
-{!REQUIRESCRIPT(&quot;/support/console/57.0/integration.js&quot;)}
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/28.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/support/console/28.0/integration.js&quot;)}
 
 var url = &apos;/apex/DocumentPreview?Id={! Credit_Approval__c.Id }&amp;isdtp=vw&apos;;
 

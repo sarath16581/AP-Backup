@@ -169,13 +169,9 @@
     </relatedLists>
     <relatedLists>
         <fields>ASSET.NAME</fields>
-        <fields>PRODUCT2.NAME</fields>
         <fields>ASSET.INSTALL_DATE</fields>
-        <fields>CONTACT.NAME</fields>
+        <fields>Product_Name__c</fields>
         <fields>ASSET.STATUS</fields>
-        <fields>Tier_Type__c</fields>
-        <fields>Freeze_Period_Start_Date__c</fields>
-        <fields>Freeze_Period_End_Date__c</fields>
         <relatedList>RelatedAssetList</relatedList>
     </relatedLists>
     <relatedLists>

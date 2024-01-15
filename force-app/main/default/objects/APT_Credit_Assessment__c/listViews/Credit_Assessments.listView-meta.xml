@@ -11,7 +11,13 @@
     <columns>CREATED_DATE</columns>
     <columns>APT_Proposal__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>L2C_Assessment_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Manual Entry Screen</value>
+    </filters>
     <label>Credit Assessments</label>
+    <language>en_US</language>
     <sharedTo>
         <group>APT_Credit_Management_Team</group>
         <role>SO_Sales_Excellence</role>

@@ -2,6 +2,7 @@
   "activeViewId" : "2ebac786-1183-48f5-9149-f7379aba1cef",
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "configurationTags" : [ ],
+  "devName" : "Report_Detail",
   "id" : "1e4c4379-38d3-4164-bc57-fb5875b59fcf",
   "label" : "Report Detail",
   "routeType" : "detail-00O",

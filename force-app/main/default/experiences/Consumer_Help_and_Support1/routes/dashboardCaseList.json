@@ -2,6 +2,7 @@
   "activeViewId" : "03e09356-eff9-4c93-b233-a1bb19423009",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Dashboard_Case_List__c",
   "id" : "48f33374-ea27-4ff6-a8e6-a59167e919b6",
   "label" : "Dashboard Case List",
   "pageAccess" : "UseParent",

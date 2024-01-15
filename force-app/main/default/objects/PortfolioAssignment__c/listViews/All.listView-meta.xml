@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>AccountManager__c</columns>
+    <columns>SalesTeam__c</columns>
+    <columns>SalesTeamOwner__c</columns>
+    <columns>SalesDirector__c</columns>
+    <columns>SalesGM__c</columns>
+    <columns>SalesEGM__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

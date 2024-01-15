@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>LIT Items</name>
+    <style>none</style>
+    <subject>Credit Claim Case {!Case.CaseNumber} - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi {!Case.Name__c},
+
+We refer to case {!Case.CaseNumber}.
+
+Thank you for your enquiry. Please note that any claims relating to lost and/or damaged delayed articles must first be lodged through our Customer Contact Centre (CCC) on 13 11 18 or via the Business Support Portal.
+
+Our service team will investigate what has occurred and will process any compensation payable in line with the terms and conditions of the service used. If you have already lodged a case through the above, please use that case number as a reference when making a contact.
+
+Kind regards,
+
+Customer Resolutions Team
+Australia Post 
+credit.claims@auspost.com.au
+{!Case.EmailThreadID__c}
+
+{!$Label.Australia_Post_Email_Security_Disclaimer}
+{!$Label.Australia_Post_No_Email_Phishing_Statement}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

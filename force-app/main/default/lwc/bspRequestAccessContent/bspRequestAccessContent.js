@@ -44,27 +44,27 @@ export default class BspRequestAccessContent extends NavigationMixin(LightningEl
 		const subject = 'Australia Post - Business Support Portal - Enable account number';
 		let body = 'Hi '+contentParam.firstName+',';
 		body += '\n\n';
-		body += 'Can you please update my Australia Post Business Support Portal access for me?';
+		body += 'Can you please update my Australia Post Business Support Portal access?';
 		body += '\n\n';
 		body += 'As an Access Management Administrator, you\'re authorised to update user access.';
 		body += '\n\n';
-		body += 'I\'m submitting a "credit claim" webform on the Business Support Portal (https://bsp.auspost.com.au/s/CreditClaimForm) for '+this.contentParam.businessName;
+		body += 'I\'m submitting a \'credit claim\' enquiry on the Business Support Portal (https://bsp.auspost.com.au/s/CreditClaimForm) for \''+this.contentParam.businessName +'\'.';
 		body += '\n\n';
 		body += 'Please review which accounts I have access to, including this account number, '+ this.billingNumber +'.';
-		body += '\n\n';
-		body += 'Instructions below.';
-		body += '\n\n';
+		body += '\n\n\n';
+		body += 'How to update Business Support Portal user access';
+		body += '\n';
 		body += '--------------------';
-		body += '\n\n';
+		body += '\n';
 		body += '1. Load the Australia Merchant Portal https://merchant-portal.auspost.com.au';
 		body += '\n';
-		body += '2. Select "Access Management"';
+		body += '2. Select \'Access Management\'';
 		body += '\n';
-		body += '3. Locate user '+this.contentParam.loggedInUserEmail+' and click edit';
+		body += '3. Locate user '+this.contentParam.loggedInUserEmail+' and select the edit icon';
 		body += '\n';
-		body += '4. For Business Support Portal, update / enable account numbers including '+ this.billingNumber +'.';
+		body += '4. For \'Business Support Portal\', update or enable account numbers including '+ this.billingNumber;
 		body += '\n';
-		body += '5. Click "Save changes"';
+		body += '5. Select \'Save changes\'';
 		body += '\n\n\n';
 
 		// Define the email URL

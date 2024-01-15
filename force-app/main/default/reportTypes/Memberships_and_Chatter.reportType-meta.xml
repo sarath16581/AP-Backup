@@ -131,11 +131,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Western_Union_Category__c</field>
-            <table>Membership__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>hidden_LPO_Name__c</field>
             <table>Membership__c</table>
         </columns>
@@ -337,6 +332,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Days_until_expiry__c</field>
+            <table>Membership__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Western_Union_Category__c</field>
             <table>Membership__c</table>
         </columns>
         <masterLabel>Memberships</masterLabel>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>System_Admins</fullName>
-    <booleanFilter>(1 OR 3) AND 2</booleanFilter>
     <columns>FULL_NAME</columns>
     <columns>CORE.USERS.USERNAME</columns>
     <columns>CORE.USERS.EMAIL</columns>
     <columns>CORE.PROFILE.NAME</columns>
     <columns>CORE.USER_ROLE.NAME</columns>
+    <columns>CORE.USERS.LAST_LOGIN</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CORE.PROFILE.NAME</field>
@@ -18,10 +18,6 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <filters>
-        <field>CORE.PROFILE.NAME</field>
-        <operation>equals</operation>
-        <value>Sales Admin</value>
-    </filters>
     <label>System Admins</label>
+    <language>en_US</language>
 </ListView>

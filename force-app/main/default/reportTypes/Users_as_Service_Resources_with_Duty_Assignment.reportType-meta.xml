@@ -695,6 +695,11 @@
             <field>ResourceType</field>
             <table>User.ServiceResources</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Vehicle__c</field>
+            <table>User.ServiceResources</table>
+        </columns>
         <masterLabel>Service Resources (User)</masterLabel>
     </sections>
 </ReportType>

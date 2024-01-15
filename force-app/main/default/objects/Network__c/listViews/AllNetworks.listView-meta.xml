@@ -13,6 +13,16 @@
     <columns>State__c</columns>
     <columns>Post_Code__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>State__c</field>
+        <operation>equals</operation>
+        <value>QLD</value>
+    </filters>
+    <filters>
+        <field>ORG_UNIT_ADDR_3__c</field>
+        <operation>contains</operation>
+        <value>red hill</value>
+    </filters>
     <label>All Networks</label>
     <sharedTo>
         <group>AllUsers</group>
@@ -29,7 +39,6 @@
         <group>Customer_Service_Senior_Leadership_Tea</group>
         <group>Customer_Service_Senior_Management_Team</group>
         <group>Customer_Service_TMs</group>
-        <group>Dashcord</group>
         <group>DataMigration</group>
         <group>Delegate_Team</group>
         <group>Enterprise</group>

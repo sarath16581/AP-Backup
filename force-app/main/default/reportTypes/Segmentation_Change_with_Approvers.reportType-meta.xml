@@ -976,12 +976,4 @@
         </columns>
         <masterLabel>Segmentation Change Requests</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
-    </sections>
 </ReportType>

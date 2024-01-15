@@ -2,6 +2,7 @@
   "activeViewId" : "188f17d6-a0a0-4888-a90a-232f934e120c",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Feed_Detail",
   "id" : "d63c648c-7bf8-4f49-b773-67215c7d134a",
   "label" : "Feed Detail",
   "routeType" : "feeditem-generic",

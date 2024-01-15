@@ -300,6 +300,11 @@
         <field>APR__c.Year__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.APR_Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>APR Admin</label>
     <objectPermissions>
@@ -344,10 +349,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>APR__c.AP_International</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>APR__c.ST_Courier</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

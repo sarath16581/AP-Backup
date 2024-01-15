@@ -5,7 +5,9 @@
     <name>SSSW FOH Group 4</name>
     <queueMembers>
         <users>
-            <user>leonid.kefalianos@auspost.com.au</user>
+            <user>alia.jattana@auspost.com.au</user>
+            <user>jennifer.jong@auspost.com.au</user>
+            <user>rana.waleed@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueRoutingConfig>AP_SSSW_FOH_Group_4</queueRoutingConfig>

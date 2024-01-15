@@ -81,17 +81,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Is_APPC__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Product_Sub_Category__c</picklist>
         <values>
             <fullName>Direct Entry Letters</fullName>
@@ -152,18 +141,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Bulk Mail Lodgement %28BML%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Capture ID %28Addressee only%29 fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Capture ID fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer Data Issue</fullName>
             <default>false</default>
         </values>
@@ -176,63 +153,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Fuel Surcharge</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>International Surcharge</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Manual Handling Surcharge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>None</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Order Processing Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pick%2FPack Errors</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rebate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reimbursement of Shipping Costs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Return to Sender fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Returns Shipping costs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Security surcharge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Signature on Delivery fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transit Cover fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unmanifested Article fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wine %26 Alcohol fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -244,34 +169,6 @@
         <picklist>Reason__c</picklist>
         <values>
             <fullName>Additional Charges</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Annual Price Review Rollback</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BML - Duplicate Mail</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BML - Mailing Statement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BML - Operator Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BML - Overcharged</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BML - Undercharged</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BML - Wrong Account</fullName>
             <default>false</default>
         </values>
         <values>
@@ -315,14 +212,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Contract Expired - Charged Full Rate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit2</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cubic Leopard scan</fullName>
             <default>false</default>
         </values>
@@ -331,23 +220,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Account Transfer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Claim Met</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Data Entry Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Delivery Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Despatch ID Error</fullName>
             <default>false</default>
         </values>
         <values>
@@ -355,31 +228,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Duplicate Cash Receipts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Early Payment Rebate</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Fee Refund Applied</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>General Ledger Adjustment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Bill</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Incorrect Cube Data</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Cubic Data</fullName>
             <default>false</default>
         </values>
         <values>
@@ -395,27 +248,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Miscellaneous Charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Incorrect Origin%2FDestination</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Incorrect Pricing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Pricing Profile Applied</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Product Data Provided</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Weight</fullName>
             <default>false</default>
         </values>
         <values>
@@ -428,14 +265,6 @@
         </values>
         <values>
             <fullName>Incorrect service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal Post transfer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International Charge Error</fullName>
             <default>false</default>
         </values>
         <values>
@@ -455,51 +284,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Manifest Not Posted</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Manual Connote Surcharge</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Manual Handling Surcharge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Minimum Value - Shortfall Fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Miscellaneous Charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Misdirect</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Proof Of Delivery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Proof Of Delivery Available</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Track %26 Trace Scans</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Non Consolidation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Operator Error</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Oversize Charge</fullName>
             <default>false</default>
         </values>
         <values>
@@ -511,10 +300,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Product Return</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Product Return %28Commercial%29</fullName>
             <default>false</default>
         </values>
@@ -523,31 +308,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Rebate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rebate Not Applied</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Receiver Reversal</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Refund credit balance</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Returns Charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Satchel Migration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Schedule Rates</fullName>
             <default>false</default>
         </values>
         <values>
@@ -556,14 +317,6 @@
         </values>
         <values>
             <fullName>Small Debt Write Off</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Special Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Subdocket Charge</fullName>
             <default>false</default>
         </values>
         <values>
@@ -576,10 +329,6 @@
         </values>
         <values>
             <fullName>Write Off</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eLMS Mailing Statement</fullName>
             <default>false</default>
         </values>
     </picklistValues>

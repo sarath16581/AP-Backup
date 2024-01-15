@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is a template used by the Marketing Team to download a Lead Import Template</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>Lead Import Template</name>
+    <public>true</public>
+</Document>

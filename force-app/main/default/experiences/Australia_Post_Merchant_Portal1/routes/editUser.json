@@ -2,6 +2,7 @@
   "activeViewId" : "8530f65f-b6a8-486c-b457-11ae9954b832",
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Edit_User__c",
   "id" : "41fd9f16-c999-40dd-a978-5e71f9fa102e",
   "label" : "Edit User",
   "pageAccess" : "RequiresLogin",

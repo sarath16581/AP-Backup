@@ -4506,6 +4506,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Annual PO box charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual reply paid</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Bad Debt Write Off</fullName>
             <default>false</default>
         </values>
@@ -4534,10 +4542,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>CHQ Handling Fee Reversal</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>CWC Recovery</fullName>
             <default>false</default>
         </values>
@@ -4555,6 +4559,10 @@
         </values>
         <values>
             <fullName>Consolidation Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumable returns - Merch %2F online shop</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4611,10 +4619,6 @@
         </values>
         <values>
             <fullName>Duplicate%2FInvalid Claim</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Explanation of charge</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4702,10 +4706,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Manifest Correction Fee Credit</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Manifested not sent</fullName>
             <default>false</default>
         </values>
@@ -4742,10 +4742,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Next Flight failure</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>No Freight Collected</fullName>
             <default>false</default>
         </values>
@@ -4775,6 +4771,10 @@
         </values>
         <values>
             <fullName>Not our charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over maximum limits fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4827,6 +4827,10 @@
         </values>
         <values>
             <fullName>Special Service Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack Courier</fullName>
             <default>false</default>
         </values>
         <values>

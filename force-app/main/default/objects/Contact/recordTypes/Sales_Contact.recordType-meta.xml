@@ -755,10 +755,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Events</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Client</fullName>
             <default>false</default>
         </values>

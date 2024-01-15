@@ -9,14 +9,13 @@
     <values>
         <field>EntryConditionsJSON__c</field>
         <value xsi:type="xsd:string">{
-&quot;Case_RecordType_Name__c&quot;:&quot;Service Delivery&quot;,
-&quot;ResolutionCode__c&quot;:&quot;Assistance provided&quot;,
-&quot;notContains&quot; : 
-{
-&quot;ContactEmail&quot; : [&quot;@auspost.com.au&quot;,&quot;@strattrack.com.au&quot;],
-&quot;Origin&quot; : &quot;Internal -&quot;,
-&quot;Last_Assigned_Queue__c&quot;:&quot;BGS Billing Support&quot;
-}
+    &quot;Case_RecordType_Name__c&quot;:&quot;Service Delivery&quot;,
+    &quot;ResolutionCode__c&quot;:&quot;Assistance provided&quot;,
+    &quot;notContains&quot; : 
+        {
+          &quot;ContactEmail&quot; : [&quot;@auspost.com.au&quot;,&quot;@strattrack.com.au&quot;],
+          &quot;Origin&quot; : &quot;Internal -&quot;
+        }
 }</value>
     </values>
 </CustomMetadata>

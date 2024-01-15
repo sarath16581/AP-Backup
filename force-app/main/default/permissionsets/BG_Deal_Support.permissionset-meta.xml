@@ -8,6 +8,10 @@
         <enabled>true</enabled>
         <name>BG_Deal_Support</name>
     </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Submit_Billing_Account_Provisioning_Request</name>
+    </customPermissions>
     <description>Permission to for users who will be actioning Deal Support Requests in relation to Sales activities.</description>
     <fieldPermissions>
         <editable>false</editable>

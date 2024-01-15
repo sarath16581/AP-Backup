@@ -1,3 +1,10 @@
+/**
+ * @author		:Thang Nguyen
+ * @date		:25/07/2023
+ * @description	:Disputed items table for BSP credit claim
+ * --------------------------------------- History --------------------------------------------------
+ * 25.07.2023		Thang Nguyen			Created
+ */
 import { LightningElement, api, track } from 'lwc';
 
 import {checkAllValidity, checkCustomValidity} from 'c/bspCommonJS';

@@ -33,14 +33,14 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 
 	get isVisibleApCreateEnqiries() {
 		console.log('billing account scope:' + this.userBillingAccountScope);
-		if (this.userBillingAccountScope == 'ALL' || this.userBillingAccountScope == 'AP')
+		if (this.userBillingAccountScope === 'ALL' || this.userBillingAccountScope === 'AP')
 			return true;
 		else
 			return false;
 	}
 
 	get isVisibleStCreateEnqiries() {
-		if (this.userBillingAccountScope == 'ALL' || this.userBillingAccountScope == 'ST')
+		if (this.userBillingAccountScope === 'ALL' || this.userBillingAccountScope === 'ST')
 			return true;
 		else
 			return false;
@@ -88,7 +88,8 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
 			state: {
 				enquiryType: this.enquiryType,
 				trackingId : this.trackingId,
-				accountHeldWith : this.accountHeldWith
+				accountHeldWith : this.accountHeldWith,
+				userBillingAccountScope : this.userBillingAccountScope
 			}
 		}, false);
 	}

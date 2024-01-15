@@ -9,5 +9,10 @@
         <operation>startsWith</operation>
         <value>Pink</value>
     </filters>
+    <filters>
+        <field>Decommissioned__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <label>Pinkenba Routes</label>
 </ListView>

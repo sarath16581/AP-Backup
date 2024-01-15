@@ -5,7 +5,7 @@
   "isProgressiveRenderingEnabled" : false,
   "loginAppPageId" : "098c25c3-cdf9-40b6-8c44-e7208019f57e",
   "mainAppPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
-  "preferredDomain" : "ptest.npe.contact.startrack.com.au",
+  "preferredDomain" : "contact.startrack.com.au",
   "selfRegistrationRouteId" : "71be1d76-95e2-4d27-b59b-4f14704492e7",
   "type" : "site"
 }

@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "configurationTags" : [ ],
+  "devName" : "Report_Builder",
   "id" : "d593951c-354e-4cbb-a1ea-e3fac683aef6",
   "label" : "Report Builder",
   "routeType" : "createreport",

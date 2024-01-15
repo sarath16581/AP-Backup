@@ -23,6 +23,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Apttus__APTS_Agreement__c.APT_Send_Contract_Expiration_Email_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
     <assignments>
@@ -616,7 +618,7 @@
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <interviewLabel>APT_Notify_Contract_Owner_about_Expiration-4_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Notify_Contract_Owner_about_Expiration-2_InterviewLabel</interviewLabel>
     <label>APT Notify Contract Owner about Expiration</label>
     <processMetadataValues>
         <name>ObjectType</name>

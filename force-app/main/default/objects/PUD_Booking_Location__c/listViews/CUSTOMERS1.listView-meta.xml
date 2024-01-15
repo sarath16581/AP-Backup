@@ -6,6 +6,14 @@
     <columns>Address__c</columns>
     <columns>City__c</columns>
     <columns>Network__c</columns>
+    <columns>Largest_Vehicle_Type__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>Site_Instructions__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>State__c</field>
+        <operation>equals</operation>
+        <value>VIC</value>
+    </filters>
     <label>CUSTOMERS</label>
 </ListView>

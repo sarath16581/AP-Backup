@@ -768,6 +768,7 @@ private class bspEnquiryUplift_Test {
 			System.assertNotEquals(null, bspEnquiryUplift.getIndOrgPicklist(), 'getIndOrgPicklist failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getAllBillingAccounts(), 'getAllBillingAccounts failed');
 			System.assertNotEquals(null, bspEnquiryUplift.buildBillingAccountOptions(), 'buildBillingAccountOptions failed');
+			System.assertNotEquals(null, bspEnquiryUplift.buildReasonForClaimHelpText(), 'buildReasonForClaimHelpText failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getSTDeliveyEnquiryRecordType(), 'getSTDeliveyEnquiryRecordType failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getdynamicPageSizePicklist(), 'getdynamicPageSizePicklist failed');
 			System.assertNotEquals(null, bspEnquiryUplift.getStatusList(), 'getStatusList failed');
@@ -800,7 +801,8 @@ private class bspEnquiryUplift_Test {
 		}
 	}*/
 
-	public static testMethod void testBooleanMethods() {
+	@IsTest
+	public static void testBooleanMethods() {
 		List<Article__c> lstArticles = new List<Article__c>();
 		StarTrackConsignmentSearchUtil.ConsignmentWrapper cw = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, StarTrack_Constants.ERR_CODE_0, lstArticles);
 		Test.startTest();
@@ -815,7 +817,8 @@ private class bspEnquiryUplift_Test {
 		
 	}
 
-	public static testMethod void testSearchConsignmentStarTrack() {
+	@IsTest
+	public static void testSearchConsignmentStarTrack() {
 		//Account a = [select id from Account where name = 'Test Account0'];
 		Map<Id, Billing_Account__c> billingAccountsMap = new Map<Id, Billing_Account__c>([Select Id, Name, LEGACY_ID__c From Billing_Account__c]);
 		Map<String, Billing_Account__c> billingAccounts = mapBillingAccountsToNumber(billingAccountsMap.values());

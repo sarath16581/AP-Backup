@@ -3,15 +3,13 @@
     <autoGreeting>All Australia Post employees have the right to be treated with courtesy and respect. Lack of such conduct may lead to termination of your interaction.
 
 Hi {!LiveAgent_VisitorName}, how can I help you today?</autoGreeting>
-    <chasitorIdleTimeout>90</chasitorIdleTimeout>
-    <chasitorIdleTimeoutWarning>60</chasitorIdleTimeoutWarning>
     <customAgentName>{!User_FirstName}</customAgentName>
     <deployments/>
     <enableQueue>true</enableQueue>
     <isActive>true</isActive>
     <label>General(SSSW)</label>
     <optionsCustomRoutingIsEnabled>false</optionsCustomRoutingIsEnabled>
-    <optionsHasChasitorIdleTimeout>true</optionsHasChasitorIdleTimeout>
+    <optionsHasChasitorIdleTimeout>false</optionsHasChasitorIdleTimeout>
     <optionsHasInviteAfterAccept>false</optionsHasInviteAfterAccept>
     <optionsHasInviteAfterReject>false</optionsHasInviteAfterReject>
     <optionsHasRerouteDeclinedRequest>false</optionsHasRerouteDeclinedRequest>

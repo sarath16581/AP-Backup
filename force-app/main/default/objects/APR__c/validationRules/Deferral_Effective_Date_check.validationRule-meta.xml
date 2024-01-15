@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deferral_Effective_Date_check</fullName>
+    <active>false</active>
+    <description>To check the effective date validity in certain circumstances</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+ISPICKVAL(Status__c , &apos;Deferral&apos;),
+Confirmed_Date__c &lt;= Published_Date__c
+)</errorConditionFormula>
+    <errorDisplayField>Confirmed_Date__c</errorDisplayField>
+    <errorMessage>For Deferral status the Effective Date cannot be less than Published Date.</errorMessage>
+</ValidationRule>

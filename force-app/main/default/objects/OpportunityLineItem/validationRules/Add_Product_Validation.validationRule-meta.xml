@@ -3,6 +3,17 @@
     <fullName>Add_Product_Validation</fullName>
     <active>true</active>
     <description>Product cannot be added if the Opportunity Stage Name is set to Closed Won</description>
-    <errorConditionFormula>AND( ISNEW(), ISPICKVAL(Opportunity.StageName, &quot;Closed Won&quot;), OR( $Profile.Name = &apos;Coverage Sales&apos;, $Profile.Name = &apos;BG Base&apos;, $Profile.Name = &apos;Hub Users&apos;, $Profile.Name = &apos;Product Sales&apos;, $Profile.Name = &apos;Sales 3rd Party&apos;, $Profile.Name = &apos;SecurePay Super User&apos;, $Profile.Name = &apos;Solution Sales&apos;) )</errorConditionFormula>
+    <errorConditionFormula>AND(
+ISNEW(),
+ISPICKVAL(Opportunity.StageName, &quot;Closed Won&quot;),
+OR(
+$Profile.Name = &apos;Coverage Sales&apos;,
+$Profile.Name = &apos;BG Base&apos;,
+$Profile.Name = &apos;Hub Users&apos;,
+$Profile.Name = &apos;Product Sales&apos;,
+$Profile.Name = &apos;Sales 3rd Party&apos;,
+$Profile.Name = &apos;SecurePay Super User&apos;,
+$Profile.Name = &apos;Solution Sales&apos;)
+)</errorConditionFormula>
     <errorMessage>This Opportunity is Closed-Won, you don&apos;t have access to add or remove Products</errorMessage>
 </ValidationRule>

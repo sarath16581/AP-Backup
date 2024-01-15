@@ -6672,6 +6672,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Configure_Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Contract_Number__c</field>
         <readable>true</readable>

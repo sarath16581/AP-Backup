@@ -1,7 +1,5 @@
 import { LightningElement,api } from 'lwc';
 
-const COMPLETE_STATUS = 'Completed';
-
 export default class ActivityTimelineItem extends LightningElement {
     @api activity;
 
@@ -29,6 +27,6 @@ export default class ActivityTimelineItem extends LightningElement {
     }
 
     get dueDateStyle() {
-        return this.activity.dueDate <  this.currentDate && this.activity.status != COMPLETE_STATUS ? 'color:red' : '';
+        return this.activity.dueDate <  this.currentDate ? 'color:red' : '';
     }
 }

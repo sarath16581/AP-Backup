@@ -1,0 +1,30 @@
+<!-- Bsp info text header
+	@author Hasantha Liyanage
+	@date 2023-11-02
+	@group child component
+	@domain BSP
+	@description info text on bsp credit claim header
+	@changelog
+	2023-11-02 - Hasantha Liyanage  - Created
+-->
+<template>
+	<template lwc:if={isAp}>
+		<div class="info-text">
+			<p>This form is to request a credit for an <strong style="white-space: nowrap;">invoice discrepancy</strong> or <strong>incorrect charge</strong>.</p>
+			<p>For transit or delivery issues, use the <a href="/bsp/s/EnquiryForm" >late or missing parcel</a> or <a href="/bsp/s/EnquiryForm?enquiryType=delivery">delivery issue</a> forms.</p>
+		</div>
+	</template>
+	<template lwc:if={isSt}>
+		<div class="info-text">
+			<p>This form is to request a credit for an <strong>invoice discrepancy</strong> or <strong>incorrect charge</strong>.</p>
+			<p>To enquire about shipped articles that haven’t been delivered yet, use the <a href="/bsp/s/StarTrackDeliveryEnquiry" >StarTrack deliveries</a> form.</p>
+		</div>
+	</template>
+	<template lwc:if={isAll}>
+		<div class="info-text">
+			<p>This form is to request a credit for an <strong>invoice discrepancy</strong> or <strong>incorrect charge</strong>.</p>
+			<p>For Australia Post transit or delivery issues, use the <a href="/bsp/s/EnquiryForm">late or missing parcel</a> or <a href="/bsp/s/EnquiryForm?enquiryType=delivery">delivery issue</a> forms.</p>
+			<p>For StarTrack enquiries about shipped articles that haven’t been delivered yet, use the <a href="/bsp/s/StarTrackDeliveryEnquiry" style="text-decoration:underline;white-space:nowrap;">StarTrack deliveries</a> form.</p>
+		</div>
+		</template>
+</template>

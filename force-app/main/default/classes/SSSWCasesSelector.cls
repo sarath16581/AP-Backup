@@ -239,7 +239,6 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 		return qb;
 	}
 
-
 	public override virtual QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}

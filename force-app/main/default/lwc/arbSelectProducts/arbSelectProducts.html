@@ -4,9 +4,7 @@
 	</template>
 
 	<template if:true={empty}>
-		<span class="noproducts">
-			Please click <strong>Edit</strong> below and select one or more products, or select <q>Whole of Business</q> from the <strong>Scale</strong> field.
-		</span>
+		<i>No products selected</i>
 	</template>
 
 	<template if:false={empty}>
@@ -17,7 +15,8 @@
 			onrowselection={updateSelectedRows}
 			selected-rows={selectedRows}
 			expanded-rows={expandedRows}
-			hide-checkbox-column={viewing}>
+			hide-checkbox-column={viewing}
+			>
 		</lightning-tree-grid>
 	</template>
 
@@ -29,7 +28,7 @@
 		<template if:true={editing}>
 			<lightning-button variant="destructive-text" label="Cancel" onclick={close}></lightning-button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<lightning-button variant="brand" label="Save" onclick={saveSelection}></lightning-button>
+			<lightning-button variant="brand" label="Save" onclick={saveSelection} disabled={disableSave}></lightning-button>
 		</template>
 	</div>
 </template>

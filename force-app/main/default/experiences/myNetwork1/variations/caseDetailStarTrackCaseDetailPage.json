@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "1b73e236-3b88-4fa7-8465-a50b2d4d9f98",
+    "propertyOverrides" : {
+      "activeViewId" : "8ed537f4-c570-42e8-bb44-62c5d6254aa3"
+    },
+    "targetId" : "09be6399-ec5b-4c18-9ad7-064addeb4888",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Case_Detail_StarTrackCaseDetail_Page",
+  "id" : "053aedc7-b18a-4997-95ea-ebe3a7f5732d",
+  "type" : "experienceVariation"
+}

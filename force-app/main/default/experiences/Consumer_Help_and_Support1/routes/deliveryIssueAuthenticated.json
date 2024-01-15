@@ -2,6 +2,7 @@
   "activeViewId" : "5d94f84b-bc77-4fdc-84ea-1983db0513ea",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Delivery_issue_authenticated__c",
   "id" : "8fe9e400-4794-4d1d-a8c1-40c7ff17d0b9",
   "label" : "Delivery issue (authenticated)",
   "pageAccess" : "RequiresLogin",

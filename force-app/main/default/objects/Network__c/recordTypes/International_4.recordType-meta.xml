@@ -98,15 +98,7 @@
     <picklistValues>
         <picklist>LBP_Retail_relationship_network__c</picklist>
         <values>
-            <fullName>CPO</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>LBP Program</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LPO</fullName>
             <default>false</default>
         </values>
         <values>

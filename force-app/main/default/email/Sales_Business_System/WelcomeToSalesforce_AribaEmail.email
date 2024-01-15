@@ -1,14 +1,14 @@
 <FONT FACE="Ap Letter" font size="2" >Hi {!Target_User.FirstName}<br/><br/>We’ve just activated your accounts in Salesforce and Ariba. In the next few minutes you will receive system generated emails with login details. If it’s not received after 5 minutes – have a quick look in your junk mail folder. They have been known to end up there! If still nothing – let us know via <a href="mailto:SalesforceSupport@auspost.com.au?subject=Help! I'm having trouble accessing Salesforce!!">Salesforce Support</a>.<br/><br/><b>Salesforce Access</b><br/>
 Once you’ve clicked the link within the email you’ll be asked to set your password and a secret question. The secret question is used should you ever forgot your password. If this does happen – simply click the link to the bottom left of the login screen:<br/><br/>
 
-<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=01590000005B2WD&oid=00D30000001GGce&lastMod=1409537055000" alt="SalesforceLoginPage"> <br/><br/>
+<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=01590000005B2WD&oid=00DBm00000198H7&lastMod=1409537055000" alt="SalesforceLoginPage"> <br/><br/>
 
 To get to the Salesforce login page in future go to <a href="https://login.salesforce.com/">login.salesforce.com</a> or via Salesforce.com – then click the “Login” link at the top right of the page.
 <br/><br/>
 To get you started – check out our series of <a href="http://share/team/SalesCentral/crm/default.aspx">Quick Reference Guides (QRG’s)</a> which cover just about all of the basic Salesforce functions.
 <br/><br/><b>Ariba Access</b><br/>Once you’ve clicked the link within the email you’ll be asked to set your password. If you ever forget your password simply click the link below the login page.
 <br/><br/>
-<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=01590000005B2Wr&oid=00D30000001GGce&lastMod=1409537095000" alt="AriaLoginPage"> <br/><br/>
+<img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=01590000005B2Wr&oid=00DBm00000198H7&lastMod=1409537095000" alt="AriaLoginPage"> <br/><br/>
 To get to the Ariba login page in future – you can either click the Contract Link within the opportunity in Salesforce or go to <a href="https://s1.ariba.com/Sourcing/Main/ad/loginPage/SSOActions?awsr=true&realm=australiapost&awsso_tkn=33WHjVESGc53ba2cc8ffffffffd86d6faa2&awsso_ap=ACM&awsso_cc=cmVhbG06WVhWemRISmhiR2xoY0c5emRBPT07YXdzc29fdGtuOk16TlhTR3BXUlZOSFl6VXpZbUV5WTJNNFptWm1abVptWm1aa09EWmtObVpoWVRJPTthd3Nzb19ydTphSFIwY0hNNkx5OXpNUzVoY21saVlTNWpiMjB2VTI5MWNtTnBibWN2VFdGcGJpOWhaQzlrWldaaGRXeDBMMFJwY21WamRFRmpkR2x2Ymo4bWNtVmhiRzA5WVhWemRISmhiR2xoY0c5emRBPT07YXdzc29fbHU6YUhSMGNITTZMeTl6TVM1aGNtbGlZUzVqYjIwdlUyOTFjbU5wYm1jdlRXRnBiaTloWkM5amJHbGxiblJNYjJkdmRYUXZVMU5QUVdOMGFXOXVjdz09O2F3c3NvX2FwOlFVTk47YXdzc29fYXJpZDpNVFF3TlRNeE5qWTBNelU1TWc9PTthd3Nzb19rdTphSFIwY0hNNkx5OXpNUzVoY21saVlTNWpiMjB2VTI5MWNtTnBibWN2VFdGcGJpOWhaQzlqYkdsbGJuUkxaV1Z3UVd4cGRtVXZVMU5QUVdOMGFXOXVjdz09O2F3c3NvX2ZsOk1RPT0%3D%3AF68jqMOlKomfq0BCgfyLaATMvd0%3D">http//:AustraliaPost.sourcing.ariba.com</a>
 <br/><br/>
 Regards

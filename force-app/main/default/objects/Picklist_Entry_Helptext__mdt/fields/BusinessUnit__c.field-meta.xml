@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BusinessUnit__c</fullName>
+    <description>which business unit this help text is belongs to</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Business Unit</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AP</fullName>
+                <default>true</default>
+                <label>AP</label>
+            </value>
+            <value>
+                <fullName>ST</fullName>
+                <default>false</default>
+                <label>ST</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

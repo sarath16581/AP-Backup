@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "8a247ecb-37e0-48f5-a040-a8da075c369a",
   "label" : "myNetwork Delivery concerns form",
   "regions" : [ {

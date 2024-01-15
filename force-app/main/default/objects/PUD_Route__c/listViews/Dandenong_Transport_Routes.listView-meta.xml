@@ -7,8 +7,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>equals</operation>
-        <value>Dandenong Transport Faclty</value>
+        <operation>contains</operation>
+        <value>Dandenong Transport</value>
     </filters>
     <label>Dandenong Transport Routes</label>
 </ListView>
