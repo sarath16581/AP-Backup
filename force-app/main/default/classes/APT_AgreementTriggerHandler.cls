@@ -47,6 +47,7 @@ Last Modified Date - 7th Feb, 2023 | remove minimum spend field reference from a
 2023-07-27 - Bharat Patel update populateServiceDatesOnUpdate() - added condition (Apttus_CMConfig__EffectiveDate__c < Contract_Fully_Signed_Date__c) to filter ALI to update Apttus_CMConfig__EffectiveDate__c
 2023-07-28 - Yatika Bansal - update populateServiceDatesOnUpdate() - added charge type logic to filter alis
 2023-09-11 - Bharat Patel - update populateServiceDatesOnUpdate() - add conditions before processing DML related executions to resolve STP-9614
+2023-12-13 - Sarath Burra - CI-1075 Delete population of fields APT_Courier_on_demand_services__c,APT_Interstate_Distribution__c,APT_Taxi_Truck_services__c as these fields are no longer used in templates
 **/
 public with sharing class APT_AgreementTriggerHandler{
 
@@ -822,9 +823,7 @@ public with sharing class APT_AgreementTriggerHandler{
 						os.APT_Courier__c = false;
 						os.APT_Courier_Scheduled_Run__c = false; //1284
 						os.APT_Courier_AP_Contact__c = null;
-						os.APT_Courier_on_demand_services__c = false;
-						os.APT_Interstate_Distribution__c = false;
-						os.APT_Taxi_Truck_services__c = false;
+						//CI-1075 Delete population of fields APT_Courier_on_demand_services__c,APT_Interstate_Distribution__c,APT_Taxi_Truck_services__c as these fields are no longer used in templates
 						os.APT_Courier_Customer_Contact__c = null;
 						os.APT_Courier_Business_Account_del__c = null;
 					}
