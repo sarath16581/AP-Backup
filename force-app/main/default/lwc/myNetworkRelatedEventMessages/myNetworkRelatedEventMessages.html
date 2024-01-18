@@ -11,6 +11,7 @@
 29.07.2021    neha.mehta@auspost.com.au     Added changes related to REQ2547720
 13.12.2022	  dattaraj.deshmukh@auspost.com.au	Removed '<br /><br />' tags before start of Accordion.
 08.03.2023	  mahesh.parvathaneni@auspost.com.au Fixed styling for GPS Pin drop 
+18.01.2024	  jacob.isaac@auspost.com.au REQ3184843-Updated slds for Map to scollable
 -->
 <template>
     <lightning-card>
@@ -200,7 +201,7 @@
                                         </template>
                                     </header>
                                     <!-- modal body start -->
-                                    <div class="slds-modal__content slds-p-around_medium slds-scrollable--none" id="modal-content-id-1">
+                                    <div class="slds-modal__content slds-p-around_medium slds-scrollable" id="modal-content-id-1">
                                         <lightning-map map-markers={mapMarkers}  markers-title={mapMarkers}>
                                         </lightning-map>
                                     </div>
