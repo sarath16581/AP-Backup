@@ -16,7 +16,7 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
-11/12/2023	hasantha.liyanage@auspost.com.au added logic to prevent modification to Case.EstimatedDelivery__c field on the UI and added getCasePicklistValuesByFieldName()
+11/12/2023	hasantha.liyanage@auspost.com.au added getCasePicklistValuesByFieldName()
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -604,33 +604,12 @@ public without sharing class bspEnquiryUplift {
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
+			&& enq.EstimatedDelivery__c != null 
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-			
-			if (!String.isEmpty(enq.ReferenceID__c)){				
-				// make sure the delivery date retrieved via the search has not being compromised from the client side
-				Map<Id, Article__c> savedArticles = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{enq.ReferenceID__c}, new Set<Id>{}, new Set<Object>{}, true);
-
-				if (savedArticles !=null && savedArticles.size() > 0){
-					for(Article__c article : savedArticles.values()) {
-						enq.EstimatedDelivery__c = article.ExpectedDeliveryDate__c;
-					}	
-				}else{
-					// TODO : poc only
-					String reference = enq.referenceID__c;
-					TIBCOSearchResult trackRes = TIBCOArticleService.searchArticles(new List<String> {reference});
-					List<TIBCOTrackingResultWrapper> trackResults = trackRes.trackResults;
-					for(TIBCOTrackingResultWrapper res : trackResults) {
-						if(res.articleDetails.proxyArticle.ArticleID__c == reference) {
-							enq.EstimatedDelivery__c = res.articleDetails.proxyArticle.ExpectedDeliveryDate__c;
-						}
-					}
-				}
-				if (enq.EstimatedDelivery__c != null){
-					setDirectRoutingValues(enq);
-				}
-			}
+			setDirectRoutingValues(enq);
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
+
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
