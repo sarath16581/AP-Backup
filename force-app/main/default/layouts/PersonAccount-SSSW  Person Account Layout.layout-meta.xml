@@ -3,6 +3,7 @@
     <customButtons>ShareInformation</customButtons>
     <customButtons>New_Lead</customButtons>
     <customButtons>Create_Case_MiniCase</customButtons>
+    <customButtons>Close_Account</customButtons>
     <customConsoleComponents>
         <primaryTabComponents>
             <containers>
