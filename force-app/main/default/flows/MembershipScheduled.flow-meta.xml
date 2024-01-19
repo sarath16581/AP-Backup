@@ -15,6 +15,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Membership__c.Western_Union_Licence_Registration_S75_Completion_1st_Reminder</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send out an Email Alert after 21 days of S75 Status equal to Missin Information</description>
@@ -31,6 +33,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_2nd_Reminder</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send an Email Alert after 28 days of S75 Status equal fo Issued</description>
@@ -47,6 +51,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Membership__c.Western_Union_Licence_Registration_S75_Completion_2nd_Reminder</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send an Email Alert after 28 days of S75 Status equal to Missing Information</description>
@@ -63,6 +69,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_3rd_Reminder</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send out a reminder after 7 days of Missing Information</description>
@@ -79,6 +87,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Membership__c.Western_Union_Licence_Registration_S75_Further_Info_Required_1st_Reminder</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>57.0</apiVersion>
     <constants>
@@ -394,7 +404,7 @@
             <label>After 7 Days</label>
             <offsetNumber>174</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -405,7 +415,7 @@
             <label>After 14 Days</label>
             <offsetNumber>342</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -416,7 +426,7 @@
             <label>After 21 Days</label>
             <offsetNumber>510</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <scheduledPaths>
@@ -427,7 +437,7 @@
             <label>After 28 Days</label>
             <offsetNumber>678</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
-            <recordField>S75_Last_Status_Update__c</recordField>
+            <recordField>S75_Last_Status_Update_test__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>

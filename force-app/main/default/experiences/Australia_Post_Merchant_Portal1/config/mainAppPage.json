@@ -3,6 +3,7 @@
   "currentThemeId" : "74570525-423a-404e-80aa-2141bc9b8491",
   "headMarkup" : "<script>\n    var analytics = {};\n    analytics.page = {};\n    analytics.page.pageData = {};\n    analytics.component = {};\n    analytics.component.form = {};\n    analytics.component.search = {};\n    analytics.user = {};\n    analytics.user.userData = {};\n    analytics.page.pageData.sitePrefix = \"auspost:business access\";\n    analytics.page.pageData.pageAbort = \"true\"; \n    analytics.user.userData.apcn = '';\n\tanalytics.user.userData.loginStatus = 'anonymous';\n</script>\n<script src=\"//assets.adobedtm.com/bfecad1ae7e5d7a2b8a9353b2d496d9b392db768/satelliteLib-9c215febcba74f72ca4a2cc8370a7f4b70048c28.js\"></script>",
   "id" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
+  "isLockerServiceEnabled" : true,
   "isRelaxedCSPLevel" : true,
   "label" : "main",
   "templateName" : "Service Community Template",

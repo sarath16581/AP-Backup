@@ -5,11 +5,11 @@
         <description>Bid Support DSR Request submit Notification</description>
         <protected>false</protected>
         <recipients>
-            <recipient>james.jackman@auspost.com.au</recipient>
+            <recipient>astrid.ambrens@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>michele.gordon@auspost.com.au</recipient>
+            <recipient>patricia.sievers@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
@@ -78,12 +78,8 @@
         <description>Commercial Analytics Modelling Request Submission Notification - Commercial Governance</description>
         <protected>false</protected>
         <recipients>
-            <recipient>jason.tran2@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>simranjit.sokhi@auspost.com.au</recipient>
-            <type>user</type>
+            <recipient>Deal_Governance_Support_Team</recipient>
+            <type>group</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
@@ -108,8 +104,8 @@
         <description>Deal Governance DSR Request submit notiifcation</description>
         <protected>false</protected>
         <recipients>
-            <recipient>james.jackman@auspost.com.au</recipient>
-            <type>user</type>
+            <recipient>Deal_Governance_Support_Team</recipient>
+            <type>group</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>

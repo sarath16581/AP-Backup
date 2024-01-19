@@ -2,6 +2,7 @@
   "activeViewId" : "7efca505-81e2-4f98-b12c-31ed5f50b6b7",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Billing_Account_Related_List__c",
   "id" : "baade906-c26d-4a9a-939e-11a085eca42b",
   "label" : "Billing Account Related List",
   "objectApiName" : "Billing_Account__c",

@@ -17,6 +17,8 @@
                 <elementReference>varCaseID</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.AP_Sales_Implementation_Post_Implementation_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send E&amp;G Internal Sales Implementation Survey</description>
@@ -35,6 +37,8 @@
                 <elementReference>varCaseID</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.E_G_Sales_Implementation_Post_Implementation_Email_for_Requestor</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <choices>

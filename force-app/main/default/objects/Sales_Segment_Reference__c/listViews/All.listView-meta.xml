@@ -3,8 +3,6 @@
     <fullName>All</fullName>
     <columns>Sales_Director__c</columns>
     <columns>OBJECT_ID</columns>
-    <columns>GeneralManager__c</columns>
-    <columns>SalesDirectorApprover__c</columns>
     <columns>Sales_Segment__c</columns>
     <columns>NAME</columns>
     <columns>UPDATEDBY_USER</columns>

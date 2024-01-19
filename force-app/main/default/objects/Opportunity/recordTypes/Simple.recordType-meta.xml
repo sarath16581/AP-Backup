@@ -1065,10 +1065,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Fulfilment</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Information and Mailroom Management</fullName>
             <default>false</default>
         </values>

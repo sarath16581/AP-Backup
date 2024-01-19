@@ -8,6 +8,8 @@
         <actionName>ICPSArticle__c.ICPSArticleOutboundMessagetoSAPEM</actionName>
         <actionType>outboundMessage</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>ICPSArticle__c.ICPSArticleOutboundMessagetoSAPEM</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
     <description>Update status when ICPS Article created and send outbound message asynchronously</description>

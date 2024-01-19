@@ -97,6 +97,8 @@
                 <elementReference>myVariable_old</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>JBSystemFlow_Authorization_Rule_c</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

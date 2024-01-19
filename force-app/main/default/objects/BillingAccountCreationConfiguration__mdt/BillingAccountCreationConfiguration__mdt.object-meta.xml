@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Contains a list of configuration settings in use by billing account creation process. Billing account requests are generated in Salesforce and sent to billing account master system (AusPost - SAP, StarTrack - TEAM) to provision the billing account. Once provisioned, billing accounts master notify Salesforce by publishing platform event - BillingAccountCreationEvent__e.
+Currently only used by StarTrack billing account integration with TEAM.</description>
+    <label>Billing Account Creation Configuration</label>
+    <pluralLabel>Billing Account Creation Configurations</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

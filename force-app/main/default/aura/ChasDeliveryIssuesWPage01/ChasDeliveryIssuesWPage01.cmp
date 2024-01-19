@@ -10,6 +10,7 @@
   * @Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
   * @Modifield by Thang Nguyen - 30/06/2022 - add Accessibility and disability issue
   * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
+  * 2024-01-16 - Swati Mogadala - REQ3382638 Cosmetic change wording
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Delivery Issues wizard page 1: Issue Details">
     
@@ -134,7 +135,7 @@
                         <aura:if isTrue="{! v.IssueName == 'Item was damaged' }">
                             <c:ChasBspDeflection borderStyle="info-box-left-bar bottom-gap">
                                 <p>
-                                    To make a <a href="https://auspost.com.au/receiving/delayed-lost-or-damaged-items/compensation" style="color:red;">compensation</a> claim, please take your packaged item to a Post Office for assessment. Otherwise, enter some details here and we'll investigate with your local delivery centre.
+                                    To make a <a href="https://auspost.com.au/receiving/delayed-lost-or-damaged-items/compensation" style="color:red;">compensation</a> claim, please take your packaged item to a Corporate Post Office for assessment (i.e. not a Licensed Post Office (LPO) or Community Postal Agents (CPA) outlet). Otherwise, enter some details here and we'll investigate with your local delivery centre.
                                 </p>
                             </c:ChasBspDeflection>
                         </aura:if>        

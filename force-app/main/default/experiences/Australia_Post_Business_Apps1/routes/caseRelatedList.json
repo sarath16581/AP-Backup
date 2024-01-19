@@ -2,6 +2,7 @@
   "activeViewId" : "cf13b3a6-6c29-4b14-a804-a62f67070d0d",
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "configurationTags" : [ ],
+  "devName" : "Case_Related_List",
   "id" : "29d0abe1-a6b7-42f1-856f-c57848da7545",
   "label" : "Case Related List",
   "routeType" : "relatedlist-500",

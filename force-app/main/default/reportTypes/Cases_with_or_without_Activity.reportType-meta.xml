@@ -127,6 +127,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Enquiry_Type__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>IsClosed</field>
             <table>Case</table>
         </columns>
@@ -138,6 +143,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IsEscalated</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Action_Date__c</field>
             <table>Case</table>
         </columns>
         <columns>
@@ -1677,6 +1687,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Call_Purpose__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Batch__c</field>
             <table>Case</table>
         </columns>
@@ -1953,11 +1968,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Number_of_Cases__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>
@@ -2250,12 +2260,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Events__c</field>
+            <field>Count_of_Tasks__c</field>
             <table>Case.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Tasks__c</field>
+            <field>Count_of_Events__c</field>
             <table>Case.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>

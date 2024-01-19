@@ -3,7 +3,7 @@
     <isDefaultPartition>true</isDefaultPartition>
     <masterLabel>PlatformCache</masterLabel>
     <platformCachePartitionTypes>
-        <allocatedCapacity>15</allocatedCapacity>
+        <allocatedCapacity>14</allocatedCapacity>
         <allocatedPartnerCapacity>0</allocatedPartnerCapacity>
         <allocatedPurchasedCapacity>0</allocatedPurchasedCapacity>
         <allocatedTrialCapacity>0</allocatedTrialCapacity>

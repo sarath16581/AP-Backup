@@ -4,7 +4,6 @@
     <description>Number of Billing Accounts (Count) on the Account record</description>
     <externalId>false</externalId>
     <formula>Organisation__r.Roll_up_Billing_Accounts__c</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Number of Billing Accounts</label>
     <precision>18</precision>
     <required>false</required>

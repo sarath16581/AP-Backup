@@ -3632,7 +3632,7 @@ if case is accepted manually, change case status from New to In Progress</descri
             <name>ST_Business_Unit_Update</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Business Unit update For Email To Case for StarTrack</description>
         <formula>AND( Owner:Queue.DeveloperName = &apos;StarTrack_Credit_Claims_Queue&apos;, ISPICKVAL( Business_Unit__c, &apos;&apos; ), RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>

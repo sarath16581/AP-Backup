@@ -460,6 +460,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Products__c</fieldItem>
                 <identifier>RecordProducts_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Scale__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Product Specific (Please Specify after save)</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -544,6 +551,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Value_of_Business_at_Risk__c</fieldItem>
                 <identifier>RecordValue_of_Business_at_Risk__cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Date_of_Revenue_Calculation__c</fieldItem>
+                <identifier>RecordDate_of_Revenue_Calculation_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1605,7 +1622,7 @@
                     <criteria>
                         <leftValue>{!Record.Scale__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Product Specific (Please Specify)</rightValue>
+                        <rightValue>Product Specific (Please Specify after save)</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

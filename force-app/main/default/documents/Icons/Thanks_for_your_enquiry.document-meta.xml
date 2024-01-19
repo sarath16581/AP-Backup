@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provided by Kirsty MacCulloch, 31/7/15.</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>Thanks for your enquiry</name>
+    <public>true</public>
+</Document>

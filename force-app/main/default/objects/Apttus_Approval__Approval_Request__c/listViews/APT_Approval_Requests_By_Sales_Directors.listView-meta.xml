@@ -4,6 +4,7 @@
     <columns>NAME</columns>
     <columns>Apttus_QPApprov__ProposalId__c</columns>
     <columns>Apttus_Approval__Initial_Submitter__c</columns>
+    <columns>APT_Account_Manager__c</columns>
     <columns>Apttus_Approval__Assigned_To_Link__c</columns>
     <columns>Apttus_Approval__Assigned_To__c</columns>
     <filterScope>Everything</filterScope>

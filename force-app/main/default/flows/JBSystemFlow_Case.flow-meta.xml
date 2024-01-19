@@ -61,6 +61,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Case:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Status&quot;,&quot;ContactId&quot;,&quot;CaseNumber&quot;,&quot;First_Name__c&quot;,&quot;ReferenceID__c&quot;,&quot;Contact_Mobile__c&quot;,&quot;Reference_Number__c&quot;,&quot;Article_Event_Codes__c&quot;,&quot;Recent_Contact_Mobile_Number__c&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Contact&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;Contact&quot;,&quot;dePrefix&quot;:&quot;Case:Contact:&quot;,&quot;fields&quot;:[&quot;Email&quot;,&quot;FirstName&quot;,&quot;MobilePhone&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;Contact_Report_ID__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

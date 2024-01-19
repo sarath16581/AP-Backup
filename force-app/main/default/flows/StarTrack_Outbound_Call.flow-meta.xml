@@ -100,6 +100,8 @@
                 <elementReference>myVariable_current.CaseObject__r</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StarTrack_Milestone_Completion</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

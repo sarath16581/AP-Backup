@@ -2,6 +2,7 @@
   "activeViewId" : "9ee95949-af3a-4c65-8bca-4f42147aa388",
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "configurationTags" : [ ],
+  "devName" : "User_Settings",
   "id" : "c9445f85-7b1b-4fb1-9e2b-a877b38ffe1c",
   "label" : "User Settings",
   "routeType" : "usersettings",

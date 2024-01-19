@@ -1,6 +1,7 @@
 {
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "componentName" : "c:ChasCasePageLayout",
+  "dataProviders" : [ ],
   "id" : "1fe3728a-82dc-4ef3-83fc-e3a8e0a0aee8",
   "label" : "Case List",
   "regions" : [ {

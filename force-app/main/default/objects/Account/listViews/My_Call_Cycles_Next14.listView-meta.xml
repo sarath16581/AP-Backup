@@ -44,7 +44,10 @@
         <role>Business_Sales_Solutions_Manager</role>
         <role>Business_Sales_Solutions_SR</role>
         <role>Service_Government_Head_of_Service</role>
+        <roleAndSubordinatesInternal>Business</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Enterprise_Government</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Enterprise_Strategic</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Government</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Intermediaries_Director_Sales</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Small_Medium_Business</roleAndSubordinatesInternal>

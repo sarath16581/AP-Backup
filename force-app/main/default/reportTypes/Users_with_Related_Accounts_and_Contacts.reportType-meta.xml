@@ -1023,12 +1023,4 @@
         </columns>
         <masterLabel>Accounts (Account Owner)</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>User.Account$OwnerId</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
-    </sections>
 </ReportType>

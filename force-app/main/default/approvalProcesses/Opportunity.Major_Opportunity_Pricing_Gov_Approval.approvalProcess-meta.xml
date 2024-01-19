@@ -21,7 +21,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>scott.durkin@auspost.com.au</name>
+                <name>gen.nenna@auspost.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

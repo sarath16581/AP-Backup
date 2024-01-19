@@ -19,6 +19,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__IndividualEmailResult__c.Lead_Nurture_Tactical_Notification_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

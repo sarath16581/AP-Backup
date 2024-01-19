@@ -2,7 +2,7 @@
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
     <baseObject>Case</baseObject>
     <category>cases</category>
-    <deployed>false</deployed>
+    <deployed>true</deployed>
     <description>Listing of all live chats, with/without a case - SSSW</description>
     <join>
         <join>
@@ -2387,11 +2387,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>StarTrackSuppliedFromEmail__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

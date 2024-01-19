@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Count_of_Events__c</fullName>
-    <description>Count of Tasks. Created to replicate a formula field in the FSL package.</description>
+    <description>Count of Events. Created to replace Formula Field from the FSL Package</description>
     <externalId>false</externalId>
     <formula>IF( IsTask,1,0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

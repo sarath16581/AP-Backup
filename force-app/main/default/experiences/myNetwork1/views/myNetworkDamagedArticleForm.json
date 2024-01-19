@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "5c5f9511-671a-4328-8730-73f427b68c4f",
   "label" : "myNetwork Damaged article form",
   "regions" : [ {

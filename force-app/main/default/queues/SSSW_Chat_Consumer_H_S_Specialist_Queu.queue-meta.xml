@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>SSSW Chat - Consumer H&amp;S Specialist Queu</name>
     <queueMembers>
         <users>
-            <user>jacob.isaac@auspost.com.au</user>
-            <user>leonid.kefalianos@auspost.com.au</user>
-            <user>melissa.langdale.ap@startrack.com.au</user>
-            <user>norzaini.amin3@auspost.com.au</user>
             <user>robert.warburton@auspost.com.au</user>
-            <user>support@smartspeak.ai</user>
+            <user>stephanos.dimopoulos@startrack.com.au.ap</user>
             <user>stephanos.dimopoulos.ap@startrack.com.au</user>
             <user>susan.moorhouse@auspost.com.au</user>
         </users>

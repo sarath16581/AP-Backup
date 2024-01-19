@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
     <name>SSSW Chat - Consumer H&amp;S General Queue</name>
     <queueMembers>
         <users>
             <user>adele.reid@auspost.com.au</user>
-            <user>al.nguyen41@auspost.com.au</user>
             <user>alexandra.panzarino2@auspost.com.au</user>
             <user>amanda.hutton@auspost.com.au</user>
             <user>ashleigh.coleman@auspost.com.au</user>
-            <user>ashleigh.mccormack@auspost.com.au</user>
             <user>ashley.weidner@auspost.com.au</user>
-            <user>baseer.shraim@auspost.com.au</user>
             <user>benjamin.boyd@auspost.com.au</user>
             <user>ben.johnson@auspost.com.au</user>
             <user>cameron.cross@auspost.com.au</user>
@@ -23,79 +19,69 @@
             <user>catherine.phillipou-cooney@auspost.com.au</user>
             <user>chris.doust@auspost.com.au</user>
             <user>chris.partridge@auspost.com.au</user>
-            <user>christine.creeney@auspost.com.au</user>
             <user>daina.cavill@auspost.com.au</user>
+            <user>daisuke.nakajima@auspost.com.au</user>
             <user>daniel.criddle@auspost.com.au</user>
             <user>daniel.salter@auspost.com.au</user>
             <user>danni.popovic@auspost.com.au</user>
-            <user>deborah.davis@auspost.com.au</user>
             <user>delilah.wolens@auspost.com.au</user>
+            <user>donn.alegre@auspost.com.au</user>
             <user>emma.buckridge@auspost.com.au</user>
+            <user>emma.hudson@auspost.com.au</user>
             <user>gemma.elsom@auspost.com.au</user>
             <user>gloria.malolua@auspost.com.au</user>
-            <user>hannah.brett@auspost.com.au</user>
+            <user>harry.blight@auspost.com.au</user>
             <user>heidi.hansen@auspost.com.au</user>
-            <user>jacalyn.kelly25@auspost.com.au</user>
-            <user>jacob.isaac@auspost.com.au</user>
             <user>jessica.thomson@auspost.com.au</user>
             <user>johnny.stallmann@auspost.com.au</user>
             <user>pili.vaigalu@auspost.com.au</user>
-            <user>katie.edwardes@auspost.com.au</user>
+            <user>justin.perez@auspost.com.au</user>
+            <user>katie.grist@auspost.com.au</user>
+            <user>kayla.hancharoernkit@auspost.com.au</user>
             <user>kiona.tapper@auspost.com.au</user>
             <user>kristen.hodge@auspost.com.au</user>
             <user>kyle.staniland@auspost.com.au</user>
             <user>leanne.maik@auspost.com.au</user>
-            <user>leonid.kefalianos@auspost.com.au</user>
             <user>liam.noble@auspost.com.au</user>
             <user>liam.pither@auspost.com.au</user>
             <user>liz.dunne@auspost.com.au</user>
             <user>louise.furey@auspost.com.au</user>
-            <user>luke.ellul@auspost.com.au</user>
             <user>maddi.jenner@auspost.com.au</user>
-            <user>mahamudur.rahman@auspost.com.au</user>
+            <user>mahima.hogan@auspost.com.au</user>
             <user>mathew.larkin@auspost.com.au</user>
+            <user>max.wilson26@auspost.com.au</user>
             <user>melanie.jayatilake@auspost.com.au</user>
-            <user>melissa.langdale.ap@startrack.com.au</user>
             <user>michael.abbott@auspost.com.au</user>
             <user>michael.young@auspost.com.au</user>
             <user>miranda.richardson14@auspost.com.au</user>
             <user>monica.borgman@auspost.com.au</user>
-            <user>nadia.sparksman@auspost.com.au</user>
-            <user>naomi.collins6@auspost.com.au</user>
             <user>nathan.cameron@auspost.com.au</user>
-            <user>nathan.kinleyside@auspost.com.au</user>
+            <user>nathan.franklin1@auspost.com.au</user>
             <user>nicholas.lee@auspost.com.au</user>
             <user>nicholas.stewart@auspost.com.au</user>
             <user>nicola.hilton@auspost.com.au</user>
-            <user>nicole.callus@auspost.com.au</user>
-            <user>norzaini.amin3@auspost.com.au</user>
-            <user>maurice.chaparro@auspost.com.au</user>
-            <user>pamela.ledingham@auspost.com.au</user>
             <user>peter.spanos@auspost.com.au</user>
-            <user>rebecca.waller@auspost.com.au</user>
             <user>robert.warburton@auspost.com.au</user>
             <user>rory.mackinnon@auspost.com.au</user>
             <user>rosita.faimalo@auspost.com.au</user>
-            <user>ross.davenport@auspost.com.au</user>
             <user>rubaina.seth@auspost.com.au</user>
             <user>sara.lori@auspost.com.au</user>
+            <user>sarah.hulse@auspost.com.au</user>
             <user>support@smartspeak.ai</user>
             <user>sarah.tran14@auspost.com.au</user>
-            <user>scott.haupt@auspost.com.au</user>
             <user>scott.hunter@auspost.com.au</user>
             <user>seiji.rus@auspost.com.au</user>
             <user>shannon.mcgowan@auspost.com.au</user>
             <user>sharyn.luu@auspost.com.au</user>
+            <user>stephanos.dimopoulos@startrack.com.au.ap</user>
             <user>stephanos.dimopoulos.ap@startrack.com.au</user>
             <user>steven.hatzivagianis@auspost.com.au</user>
-            <user>suma.karamchedu@auspost.com.au</user>
             <user>susan.moorhouse@auspost.com.au</user>
             <user>tahlia.guihard@auspost.com.au</user>
             <user>terrence.maxey@auspost.com.au</user>
             <user>tess.duffy@auspost.com.au</user>
             <user>thomas.robinson@auspost.com.au</user>
             <user>tobias.terjung@auspost.com.au</user>
-            <user>zoe.nguyen@auspost.com.au</user>
             <user>zoe-renae.sellin@auspost.com.au</user>
         </users>
     </queueMembers>

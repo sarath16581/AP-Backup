@@ -3,6 +3,32 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW WFM Queue 8</name>
+    <queueMembers>
+        <users>
+            <user>alison.adams@auspost.com.au</user>
+            <user>ashley.beale2@auspost.com.au</user>
+            <user>ben.harvey6@auspost.com.au</user>
+            <user>bree.collinson@auspost.com.au</user>
+            <user>calen.landman@auspost.com.au</user>
+            <user>clae.brookes@auspost.com.au</user>
+            <user>elaine.klein@auspost.com.au</user>
+            <user>eli.vervoorst2@auspost.com.au</user>
+            <user>georgia.gailey@auspost.com.au</user>
+            <user>james.livingstone@auspost.com.au</user>
+            <user>jessica.nunn4@auspost.com.au</user>
+            <user>julian.aldermanmayo@auspost.com.au</user>
+            <user>kerry.payton@auspost.com.au</user>
+            <user>lauren.worthington@auspost.com.au</user>
+            <user>michelle.west@auspost.com.au</user>
+            <user>pania.sussmilch@auspost.com.au</user>
+            <user>paramjit.kaur@auspost.com.au</user>
+            <user>samantha.milton@auspost.com.au</user>
+            <user>sarah.smythward@auspost.com.au</user>
+            <user>tony.larubina@auspost.com.au</user>
+            <user>violeti.mapusua@auspost.com.au</user>
+            <user>zean.johnson@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

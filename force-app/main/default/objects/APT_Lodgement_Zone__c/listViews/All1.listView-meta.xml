@@ -4,17 +4,6 @@
     <columns>APT_Zone_Structure__c</columns>
     <columns>NAME</columns>
     <columns>OBJECT_ID</columns>
-    <columns>APT_Lodgement_Zone__c</columns>
-    <columns>APT_Lodgement_Zone_Code__c</columns>
-    <columns>APT_Post_Code_Start__c</columns>
-    <columns>APT_Post_Code_End__c</columns>
-    <columns>APT_Postcode__c</columns>
-    <columns>APT_Locality__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>APT_Lodgement_Zone__c</field>
-        <operation>notEqual</operation>
-        <value>APPC</value>
-    </filters>
     <label>All</label>
 </ListView>

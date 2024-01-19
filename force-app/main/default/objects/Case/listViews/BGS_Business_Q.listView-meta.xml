@@ -30,5 +30,8 @@
     <sharedTo>
         <group>SalesOpsSupport</group>
         <group>Sales_Ops_Delivery</group>
+        <role>Service_Business_Service_Manager</role>
+        <role>Service_Enterprise_Service_Manager</role>
+        <role>Service_Government_Service_Manager</role>
     </sharedTo>
 </ListView>

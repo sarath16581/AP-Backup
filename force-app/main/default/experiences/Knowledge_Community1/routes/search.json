@@ -2,6 +2,7 @@
   "activeViewId" : "97e03880-9fad-4f6f-9731-7ff157461564",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Search",
   "id" : "2cf0b35e-e213-4003-992b-725354726391",
   "label" : "Search",
   "routeType" : "global-search",

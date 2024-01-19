@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!--<title>StarTrack</title>-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="margin:0; padding:0;" bgcolor="#f3f1ee" link="#dc1928">
+<!--[if gte mso 12]>
+	<style type="text/css">
+		.button-outlook{padding:8px 14px 7px !important;}
+		.button-outlook a{padding:0 !important;}
+	</style>
+<![endif]-->
+<table class="wrapper" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee">
+	<tr>
+		<td style="padding:19px 5px 30px;">
+			<table class="flexible" align="center" width="510" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="padding:0 0 25px;">
+						<table width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+							
+								<td width="100%" valign="bottom" halign="right">
+									<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+											<td><a href="http://www.startrack.com.au/"><img src="https://auspost.file.force.com/servlet/servlet.ImageServer?id=0159000000Aem3t&oid=00D30000001GGce" border="0" style="vertical-align:top;" align="right",width="50%" height="50%" alt="StarTrack" /></a></td>
+										</tr>
+										<tr><td height="5" style="font-size:0; line-height:0;">&nbsp;</td></tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="33" valign="top"><a href="#"><img src="http://auspost.com.au/images/emails/track/bg-arrow.png" border="0" style="vertical-align:top;" width="33" height="33" alt="" /></a></td>
+								<td bgcolor="#ffffff" width="10"></td>
+								<td bgcolor="#ffffff" align="right" valign="top" style="border-radius:0 2px 0 0;">
+									<table cellpadding="0" cellspacing="0">
+										<tr>
+											<td style="padding:5px 7px 0 0; font:11px/13px Arial, Helvetica, sans-serif; color:#807370;">Case No.: <b>{!Case.CaseNumber}</b></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
+						<table width="100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td style="padding:0 0 0px; font:12px/13px Arial, Helvetica, sans-serif; color:#807370;">
+<p>Hi,  <br>
+<br>Thank you for getting in touch with us.<br>
+
+<br>We are aware of a scam text message and email currently circulating asking for payment to receive delivery of a StarTrack consignment. <br>
+
+<br>I can see this article number is not legitimate and is being sent to people as part of a scam we are currently investigating. I can recommend reporting the scam to the ACCC via the SCAMwatch website or by calling SCAMwatch on 1300 795 995.<br>
+
+<br>Please be assured that this matter is currently under investigation, and we ask customers to be vigilant regarding texts, emails and links that are made to look like they come from StarTrack or from Australia Post.<br>
+
+
+
+                                                                  <br>
+                                                                  <br><br><hr>
+                                                                         Regards,<br><p/>
+                                                             </td>
+                                                  </tr> 									
+	                                             <tr>
+								<td style="padding:5px 7px 0 0; font:12px/13px Arial; color:#003359;font-weight = normal;"><b>          
+                                                     {!User.FirstName}</b><br>StarTrack Customer Service<br></td>
+										</tr>
+	                                             
+ 		
+							<tr><br/>
+                                                              </tr>
+                                                               <tr>
+                                                                         <td style=" font:2px/3px Arial; color:White;"> {!Case.Thread_Id} <br>
+								<td class="flexible" style="padding:0 13px 0 0;">
+									<table width="100%" cellpadding="0" cellspacing="0">
+
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>				
+				<tr>
+					<td height="14" style="font-size:0; line-height:0;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="alignjustify" style="padding:0 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">This email is sent by Star Track Express Pty Limited or one of its related entities (collectively referred to as “STARTRACK”). The information contained in this email is confidential and may contain legally privileged information. Confidentiality and legal privilege are not waived or lost by reason of mistaken delivery. The content of this email is the view or opinion of the stated author and does not necessarily reflect the view or opinion of STARTRACK. If you are not the intended recipient or the person responsible for the delivery of the message to the intended recipient, any dissemination of the information is strictly prohibited. If you have received this email in error, please contact the sender by return email and delete the email and any attachments from your computer. Although STARTRACK has taken care to ensure the attachments (if any) to this email are virus free, STARTRACK does not warrant that any such attachments are free of errors, viruses or other malicious codes and does not accept liability for any consequences to the recipient upon opening or using this email. </td>
+				</tr>
+				<tr><td height="1" bgcolor="#d7d2cb" style="font-size:0; line-height:0;">&nbsp;</td></tr>
+				<tr>
+					<td class="button" style="padding:13px 2px 0; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">
+						<a href="http://www.startrack.com.au/support/faqs/" target="_blank" style="text-decoration:none; color:#444";background:#5e514d;padding:10px 15px 16px 15px;border-top-left-radius:3px;border-top-right-radius:3px;"><span style="padding-right:10px;"></span>Help &amp; Support</a>
+						<span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+						<a href="http://www.startrack.com.au/terms-conditions" target="_blank" style="text-decoration:none; color:#444">Terms &amp; Conditions</a>
+						<span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+						<a href="http://www.startrack.com.au/privacy-policy" target="_blank" style="text-decoration:none; color:#444">Privacy Policy</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

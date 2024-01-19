@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <email>no-reply@auspost.com.au</email>
+    <email>noreply@auspost.com.au</email>
     <name>SSSW WFM Queue 3</name>
     <queueMembers>
         <users>
@@ -10,6 +10,7 @@
             <user>caroline.sinisa@auspost.com.au</user>
             <user>damian.moore@auspost.com.au</user>
             <user>danny.smith54@auspost.com.au</user>
+            <user>don.nisayuruatulugama@auspost.com.au</user>
             <user>dana.raljevic@auspost.com.au</user>
             <user>gordon.costello2@auspost.com.au</user>
             <user>grant.parton@auspost.com.au</user>

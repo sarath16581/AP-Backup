@@ -2,15 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Applicant1_Suspect_Lookup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>This field is used to capture referred Credit Suspect after performing a Credit Suspect Register check</description>
     <externalId>false</externalId>
-    <inlineHelpText>This field is used to capture referred Credit Suspect</inlineHelpText>
     <label>Applicant 1 Suspect</label>
     <referenceTo>CreditSuspect__c</referenceTo>
     <relationshipLabel>Credit Assessments</relationshipLabel>
     <relationshipName>Credit_Assessments</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

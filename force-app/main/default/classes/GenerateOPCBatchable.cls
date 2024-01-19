@@ -106,7 +106,6 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         
 		String rtId = rc.size()== 1 ? rc[0].id : null;
 
-
 		for (Revenue_Schedule__c rs : revenueScheduleMap.values()) {
 			String opcId = rs.Opportunity_Product_Classification__c;
 

@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>eParcelDamagesDelegate__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>eParcel Damages delegate contact ---- Label changed to &apos;Parcel Damages Delegate&apos; so this same field is used in AP and ST account layouts to maintain delegate contact info</description>
+    <description>eParcel Damages delegate contact</description>
     <externalId>false</externalId>
-    <label>Parcel Damages Delegate</label>
+    <label>eParcel Damages Delegate</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Organisations (eParcel Damages Delegate)</relationshipLabel>
     <relationshipName>Organisations</relationshipName>

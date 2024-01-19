@@ -4,12 +4,9 @@
     <email>noreply@startrack.com.au</email>
     <name>StarTrack Shop</name>
     <queueMembers>
-        <users>
-            <user>billy-jess.macfarlane@startrack.com.au</user>
-            <user>kayla.giancola@startrack.com.au</user>
-            <user>pap.utumauu@startrack.com.au</user>
-            <user>stephanos.dimopoulos@startrack.com.au</user>
-        </users>
+        <publicGroups>
+            <publicGroup>StarTrack_Shop</publicGroup>
+        </publicGroups>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

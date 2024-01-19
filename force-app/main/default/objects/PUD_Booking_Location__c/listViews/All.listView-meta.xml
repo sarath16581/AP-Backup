@@ -9,5 +9,20 @@
     <columns>State__c</columns>
     <columns>RECORDTYPE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>State__c</field>
+        <operation>contains</operation>
+        <value>QLD</value>
+    </filters>
+    <filters>
+        <field>Route__c</field>
+        <operation>contains</operation>
+        <value>PIN</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>Lego</value>
+    </filters>
     <label>All</label>
 </ListView>

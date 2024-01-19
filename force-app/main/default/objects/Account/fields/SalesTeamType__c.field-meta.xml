@@ -35,7 +35,6 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Financial Institutions - Not Active</controllingFieldValue>
             <controllingFieldValue>Small Business NSW 1</controllingFieldValue>
             <controllingFieldValue>Small Business NSW 2</controllingFieldValue>
             <controllingFieldValue>Small Business NSW 3</controllingFieldValue>
@@ -50,29 +49,36 @@
             <controllingFieldValue>LBP Post Offices VIC/TAS &amp; WA &amp; SA</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager WA 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager WA 2</controllingFieldValue>
-            <controllingFieldValue>LBP Tier 2 CPO North</controllingFieldValue>
-            <controllingFieldValue>LBP Tier 2 CPO South</controllingFieldValue>
-            <controllingFieldValue>LBP Tier 2 LPO North</controllingFieldValue>
-            <controllingFieldValue>LBP Tier 2 LPO South</controllingFieldValue>
-            <controllingFieldValue>Other PP&amp;eCS</controllingFieldValue>
-            <controllingFieldValue>Small Business SA/NT</controllingFieldValue>
-            <controllingFieldValue>Small Business WA</controllingFieldValue>
-            <controllingFieldValue>Government North - National Defence</controllingFieldValue>
+            <controllingFieldValue>eCommerce Partnerships</controllingFieldValue>
+            <controllingFieldValue>Enterprise - Not Active</controllingFieldValue>
+            <controllingFieldValue>Enterprise NSW 1</controllingFieldValue>
+            <controllingFieldValue>Enterprise NSW 2</controllingFieldValue>
             <controllingFieldValue>Government - Not Active</controllingFieldValue>
             <controllingFieldValue>Medium Business - Not Active</controllingFieldValue>
             <controllingFieldValue>Micro - Not Active</controllingFieldValue>
             <controllingFieldValue>Small Business - Not Active</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 1</controllingFieldValue>
+            <controllingFieldValue>Enterprise QLD &amp; NT</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager QLD 1</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 1</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 2</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 3</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager VIC 1</controllingFieldValue>
+            <controllingFieldValue>Enterprise VIC 4</controllingFieldValue>
+            <controllingFieldValue>Financial Institutions</controllingFieldValue>
+            <controllingFieldValue>Financial Institutions - Not Active</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 1</controllingFieldValue>
             <controllingFieldValue>Government North</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 2</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 3</controllingFieldValue>
             <controllingFieldValue>Government South</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 4</controllingFieldValue>
-            <controllingFieldValue>eCommerce Partnerships</controllingFieldValue>
             <controllingFieldValue>Medium Business QLD 1</controllingFieldValue>
+            <controllingFieldValue>Other PP&amp;eCS</controllingFieldValue>
+            <controllingFieldValue>Small Business SA/NT</controllingFieldValue>
+            <controllingFieldValue>Small Business WA</controllingFieldValue>
+            <controllingFieldValue>LBP Tier 2 CPO North</controllingFieldValue>
+            <controllingFieldValue>LBP Tier 2 CPO South</controllingFieldValue>
             <controllingFieldValue>Medium Business QLD 2</controllingFieldValue>
             <controllingFieldValue>Medium Business SA/NT</controllingFieldValue>
             <controllingFieldValue>Medium Business VIC 1</controllingFieldValue>
@@ -80,28 +86,22 @@
             <controllingFieldValue>Medium Business VIC 3</controllingFieldValue>
             <controllingFieldValue>Medium Business VIC 4</controllingFieldValue>
             <controllingFieldValue>Medium Business WA</controllingFieldValue>
+            <controllingFieldValue>LBP Tier 2 LPO North</controllingFieldValue>
+            <controllingFieldValue>LBP Tier 2 LPO South</controllingFieldValue>
+            <controllingFieldValue>Government North - National Defence</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 2</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 3</controllingFieldValue>
-            <controllingFieldValue>Enterprise - Not Active</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 4</controllingFieldValue>
-            <controllingFieldValue>Enterprise NSW 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager QLD 2</controllingFieldValue>
-            <controllingFieldValue>Enterprise NSW 2</controllingFieldValue>
-            <controllingFieldValue>Enterprise QLD &amp; NT</controllingFieldValue>
-            <controllingFieldValue>Enterprise VIC 1</controllingFieldValue>
-            <controllingFieldValue>Enterprise VIC 2</controllingFieldValue>
             <controllingFieldValue>LBP Post Offices NSW/ACT &amp; QLD/NT</controllingFieldValue>
-            <controllingFieldValue>Enterprise VIC 3</controllingFieldValue>
-            <controllingFieldValue>Enterprise VIC 4</controllingFieldValue>
-            <controllingFieldValue>Financial Institutions</controllingFieldValue>
             <valueName>Direct</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Not Active</controllingFieldValue>
-            <controllingFieldValue>Nurture Program</controllingFieldValue>
+            <controllingFieldValue>Centrally Managed</controllingFieldValue>
             <controllingFieldValue>New Accounts</controllingFieldValue>
             <controllingFieldValue>Holding Sales Team</controllingFieldValue>
-            <controllingFieldValue>Centrally Managed</controllingFieldValue>
+            <controllingFieldValue>Not Active</controllingFieldValue>
+            <controllingFieldValue>Nurture Program</controllingFieldValue>
             <controllingFieldValue>MyPost Business</controllingFieldValue>
             <valueName>Holding</valueName>
         </valueSettings>

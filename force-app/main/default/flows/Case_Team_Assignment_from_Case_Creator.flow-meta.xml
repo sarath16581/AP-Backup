@@ -104,6 +104,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Add_Case_Creator_to_Case_Team_Member</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -209,6 +211,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Add_Case_Creator_to_Case_Team_Member_Modify</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -314,6 +318,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Add_Case_Creator_to_Case_Team_Member</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -419,6 +425,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Add_Case_Creator_to_Case_Team_Member_Modify</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -479,7 +487,7 @@
             </processMetadataValues>
             <name>CaseCreator</name>
             <value>
-                <elementReference>myVariable_current.Requestor__c</elementReference>
+                <elementReference>myVariable_current.CreatedById</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -524,6 +532,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Add_Case_Creator_to_Case_Team_Member_Modify</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>
@@ -954,7 +964,7 @@
         </rules>
     </decisions>
     <description>Edited to remove Report Request criteria from the process builder</description>
-    <interviewLabel>Case_Team_Assignment_from_Case_Creator-15_InterviewLabel</interviewLabel>
+    <interviewLabel>Case_Team_Assignment_from_Case_Creator-16_InterviewLabel</interviewLabel>
     <label>Case Team Assignment from Case Creator</label>
     <processMetadataValues>
         <name>ObjectType</name>

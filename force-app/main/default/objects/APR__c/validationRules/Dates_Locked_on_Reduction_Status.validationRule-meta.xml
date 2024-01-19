@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dates_Locked_on_Reduction_Status</fullName>
+    <active>false</active>
+    <description>Dates are locked in when Status is Reduction and Accepted</description>
+    <errorConditionFormula>AND( 
+ RecordType.DeveloperName = &apos;StarTrack&apos;,
+ NOT(ISCHANGED( Status__c )),
+ OR( 
+  ISCHANGED( Confirmed_Date__c ), 
+  ISCHANGED( Conclusion_Date__c)
+ ), 
+ OR(
+  ISPICKVAL( Status__c , &apos;Reduction&apos;),
+  ISPICKVAL( Status__c , &apos;Accepted&apos;)
+ )
+)</errorConditionFormula>
+    <errorDisplayField>Approval_Status__c</errorDisplayField>
+    <errorMessage>You cannot change the Effective and/or Conclusion Dates</errorMessage>
+</ValidationRule>

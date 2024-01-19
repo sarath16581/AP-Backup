@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SynonymDictionary xmlns="http://soap.sforce.com/2006/04/metadata">
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_GB</languages>
+        <languages>en_AU</languages>
+        <terms>Work Cover</terms>
+        <terms>workcover</terms>
+        <terms>worker&apos;s compensation</terms>
+        <terms>workers comp</terms>
+        <terms>workers compensation</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_GB</languages>
+        <languages>en_AU</languages>
+        <terms>Philippines</terms>
+        <terms>Phillipines</terms>
+        <terms>Phillippines</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_GB</languages>
+        <languages>en_AU</languages>
+        <terms>USA</terms>
+        <terms>United States</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_GB</languages>
+        <languages>en_AU</languages>
+        <terms>master card</terms>
+        <terms>mastercard</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>disconnect</terms>
+        <terms>disconnection</terms>
+        <terms>hang up</terms>
+        <terms>hanging up</terms>
+        <terms>terminate</terms>
+        <terms>termination</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>post +</terms>
+        <terms>post plus</terms>
+        <terms>post+</terms>
+        <terms>postplus</terms>
+    </groups>
+    <groups>
+        <languages>en_GB</languages>
+        <languages>en_AU</languages>
+        <terms>coins</terms>
+        <terms>collectable</terms>
+        <terms>numismatic</terms>
+        <terms>philatelic</terms>
+        <terms>stamps</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>DV</terms>
+        <terms>EDV</terms>
+        <terms>Electronic delivery vehicle</terms>
+        <terms>buggy</terms>
+        <terms>cart</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>comp</terms>
+        <terms>compensation</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>AP</terms>
+        <terms>Australia Post</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>T &amp; T</terms>
+        <terms>T&amp;T</terms>
+        <terms>Track &amp; Trace</terms>
+        <terms>Track and Trace</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>fire arm</terms>
+        <terms>fire arms</terms>
+        <terms>firearm</terms>
+        <terms>firearms</terms>
+        <terms>gun</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>STC</terms>
+        <terms>StarTrack Courier</terms>
+        <terms>StarTrack Couriers</terms>
+        <terms>courier</terms>
+        <terms>couriers</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>STC</terms>
+        <terms>Star Track</terms>
+        <terms>StarTrack</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Pbp</terms>
+        <terms>Post bill pay</terms>
+        <terms>Post billpay</terms>
+        <terms>Postbill pay</terms>
+        <terms>Postbillpay</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>3rd</terms>
+        <terms>third</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_AU</languages>
+        <terms>Pilot</terms>
+        <terms>Trial</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_AU</languages>
+        <terms>fundraising</terms>
+        <terms>relief</terms>
+        <terms>supporting</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_AU</languages>
+        <terms>Parcelpoint</terms>
+        <terms>parcel point</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_AU</languages>
+        <terms>COVID-19</terms>
+        <terms>COVID19</terms>
+        <terms>Coronavirus</terms>
+        <terms>Virus</terms>
+        <terms>nCov</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>drop ship</terms>
+        <terms>dropship</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_AU</languages>
+        <terms>escalation</terms>
+        <terms>escalations</terms>
+        <terms>esco</terms>
+        <terms>escos</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>WFM</terms>
+        <terms>Workforce Management</terms>
+        <terms>roster</terms>
+        <terms>schedule</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>high value</terms>
+        <terms>high-value</terms>
+        <terms>priority</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>SOP</terms>
+        <terms>Standard Operating Procedure</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>karatha</terms>
+        <terms>karratha</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>junk mail</terms>
+        <terms>ums</terms>
+        <terms>unaddressed mail</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>gift card</terms>
+        <terms>giftcard</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>over size</terms>
+        <terms>oversize</terms>
+        <terms>super size</terms>
+        <terms>supersize</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>delivery dispute</terms>
+        <terms>delivery issue</terms>
+        <terms>disputed delivery</terms>
+        <terms>misdelivery</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>po box</terms>
+        <terms>po boxes</terms>
+        <terms>pob</terms>
+        <terms>pobboxes</terms>
+        <terms>pobox</terms>
+        <terms>pobs</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>can&apos;t log in</terms>
+        <terms>log in</terms>
+        <terms>login</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>MIA</terms>
+        <terms>UPA</terms>
+        <terms>absence</terms>
+        <terms>safety</terms>
+        <terms>unplanned absence</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>foot path</terms>
+        <terms>footpath</terms>
+        <terms>nature strip</terms>
+        <terms>naturestrip</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>line haul</terms>
+        <terms>linehaul</terms>
+        <terms>surcharge</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Key pass</terms>
+        <terms>Keypass</terms>
+        <terms>proof of age</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>firearm</terms>
+        <terms>gun</terms>
+        <terms>secure post</terms>
+        <terms>weapon</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Mail Plus</terms>
+        <terms>MailPlus</terms>
+        <terms>Plus</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>+</terms>
+        <terms>plus</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Correctional Facilities</terms>
+        <terms>Correctional Facility</terms>
+        <terms>gaol</terms>
+        <terms>jail</terms>
+        <terms>prison</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>My Business</terms>
+        <terms>MyBusiness</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Mail 2 day</terms>
+        <terms>Mail 2day</terms>
+        <terms>Mail today</terms>
+        <terms>Mail2 day</terms>
+        <terms>Mail2day</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Invoice</terms>
+        <terms>eInvoice</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_AU</languages>
+        <terms>Macedonia</terms>
+        <terms>North Macedonia</terms>
+        <terms>Republic of Macedonia</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_GB</languages>
+        <terms>APGL</terms>
+        <terms>Global Logistics</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Network Contact</terms>
+        <terms>Network Information</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>GACH</terms>
+        <terms>Great Aussie Coin Hunt</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>my benefits</terms>
+        <terms>mybenefits</terms>
+        <terms>staff discounts</terms>
+        <terms>staff offers</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <languages>en_IE</languages>
+        <languages>en_PH</languages>
+        <languages>en_IN</languages>
+        <languages>en_MY</languages>
+        <languages>en_GB</languages>
+        <languages>en_HK</languages>
+        <languages>en_CA</languages>
+        <languages>en_AU</languages>
+        <languages>en_NZ</languages>
+        <languages>en_ZA</languages>
+        <languages>en_SG</languages>
+        <terms>ID Services</terms>
+        <terms>Identity Services</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>id</terms>
+        <terms>identification</terms>
+        <terms>identity</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Amazon</terms>
+        <terms>Parcel Post Plus</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Coaching Op</terms>
+        <terms>Coaching Opportunity</terms>
+        <terms>QI</terms>
+        <terms>QIs</terms>
+        <terms>issues</terms>
+        <terms>quality issue</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>24/7</terms>
+        <terms>247</terms>
+        <terms>evening</terms>
+        <terms>overnight</terms>
+        <terms>weekend</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>escalation</terms>
+        <terms>escalations</terms>
+        <terms>esco</terms>
+        <terms>escos</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Parcel</terms>
+        <terms>Plus</terms>
+        <terms>Post</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>digital</terms>
+        <terms>online</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>PDO</terms>
+        <terms>postie</terms>
+        <terms>postman</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>Recruitment</terms>
+        <terms>employ</terms>
+        <terms>employment</terms>
+        <terms>recruit</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>leave in a safe place</terms>
+        <terms>safe drop</terms>
+        <terms>safe place</terms>
+        <terms>safedrop</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>SSD</terms>
+        <terms>cust ops</terms>
+        <terms>customer operations</terms>
+        <terms>customer ops</terms>
+        <terms>shared services</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>language loop</terms>
+        <terms>languageloop</terms>
+    </groups>
+    <groups>
+        <languages>en_AU</languages>
+        <terms>phishing</terms>
+        <terms>scam</terms>
+        <terms>spam</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Pick Up</terms>
+        <terms>Pickup</terms>
+        <terms>Pickups</terms>
+        <terms>Shuttle Run</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>aisle</terms>
+        <terms>isle</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>MPDM</terms>
+        <terms>digital mailbox</terms>
+        <terms>my post digital mailbox</terms>
+        <terms>mypost digital mailbox</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>ibound</terms>
+        <terms>inb</terms>
+        <terms>inbound</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>int</terms>
+        <terms>international</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>comp</terms>
+        <terms>compensate</terms>
+        <terms>compensation</terms>
+        <terms>compo</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>EOI</terms>
+        <terms>expression of interest</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>obound</terms>
+        <terms>out bound</terms>
+        <terms>outbound</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>cust</terms>
+        <terms>customer</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>ATO</terms>
+        <terms>TFN</terms>
+        <terms>tax office</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>SSD</terms>
+        <terms>shared services</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>DC</terms>
+        <terms>delivery center</terms>
+        <terms>delivery centre</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>bank @ post</terms>
+        <terms>bank at post</terms>
+        <terms>bank@post</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>RSD</terms>
+        <terms>road side delivery</terms>
+        <terms>roadside delivery</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>M/O</terms>
+        <terms>MO</terms>
+        <terms>Money order</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>article</terms>
+        <terms>item</terms>
+        <terms>package</terms>
+        <terms>parcel</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>V&amp;D</terms>
+        <terms>voice &amp; desktop</terms>
+        <terms>voice and desktop</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>WFM</terms>
+        <terms>workforce management</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>MPB</terms>
+        <terms>my post business</terms>
+        <terms>mypost business</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>my post</terms>
+        <terms>mypost</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>MRS</terms>
+        <terms>MRSO</terms>
+        <terms>redi</terms>
+        <terms>redirection</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>PDO</terms>
+        <terms>postie</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>PO Box</terms>
+        <terms>POB</terms>
+        <terms>post office box</terms>
+    </groups>
+    <label>_Default</label>
+</SynonymDictionary>

@@ -96,4 +96,12 @@
     </criteria>
     <formulaFilterType>AllCriteriaMatch</formulaFilterType>
     <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>09be6399-ec5b-4c18-9ad7-064addeb4888</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Case_Detail_StarTrackCaseDetail_Page</targetValue>
+        </target>
+    </targets>
 </Audience>

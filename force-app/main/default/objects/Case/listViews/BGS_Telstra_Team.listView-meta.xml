@@ -36,9 +36,11 @@
         <value>Roger Pio,Nancy Patsiouris,Abdul Rehman</value>
     </filters>
     <label>BGS Telstra Team</label>
+    <language>en_US</language>
     <sharedTo>
         <role>Service_Business_Service_Manager</role>
         <role>Service_Enterprise_Service_Manager</role>
         <role>Service_Government_Head_of_Service</role>
+        <role>Service_Government_Service_Manager</role>
     </sharedTo>
 </ListView>

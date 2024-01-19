@@ -54,7 +54,7 @@ public with sharing class ContactPointEmailContactSyncModule_Test {
 		existingUser.Username = cpe1.emailAddress + '.community' + sandboxSuffix;
 		existingUser.FederationIdentifier = cpe1.emailAddress + '.community' + sandboxSuffix;
 
-		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 0)).registerDirty(
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<User>) fflib_Match.eq(new List<User>{existingUser}),
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{
 				User.Email,

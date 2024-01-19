@@ -5745,10 +5745,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Explanation of charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>FSC %2F SSC Rate</fullName>
             <default>false</default>
         </values>
@@ -5862,10 +5858,6 @@
         </values>
         <values>
             <fullName>Next Flight Service Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Next Flight failure</fullName>
             <default>false</default>
         </values>
         <values>
