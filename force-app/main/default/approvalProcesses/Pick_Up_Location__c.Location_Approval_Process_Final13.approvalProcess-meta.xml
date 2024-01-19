@@ -513,6 +513,10 @@
                 <name>brad.chippendale@startrack.com.au</name>
                 <type>user</type>
             </approver>
+            <approver>
+                <name>greg.smith@startrack.com.au</name>
+                <type>user</type>
+            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
@@ -686,6 +690,10 @@
         <assignedApprover>
             <approver>
                 <name>darren.vandenberg@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>lisa.assaf@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -873,6 +881,10 @@
             </approver>
             <approver>
                 <name>paul.trembath@auspost.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>philip.faulks@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -1103,6 +1115,10 @@
             </action>
         </approvalActions>
         <assignedApprover>
+            <approver>
+                <name>keith.walsh@startrack.com.au</name>
+                <type>user</type>
+            </approver>
             <approver>
                 <name>owen.graham@startrack.com.au</name>
                 <type>user</type>
@@ -1392,6 +1408,10 @@
             </action>
         </approvalActions>
         <assignedApprover>
+            <approver>
+                <name>keith.walsh@startrack.com.au</name>
+                <type>user</type>
+            </approver>
             <approver>
                 <name>owen.graham@startrack.com.au</name>
                 <type>user</type>

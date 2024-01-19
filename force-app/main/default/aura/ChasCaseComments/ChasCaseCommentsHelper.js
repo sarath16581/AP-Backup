@@ -131,6 +131,10 @@
         }
         cmp.set('v.case', vcase);
         cmp.set('v.isLoadingStatus', true);
+		console.log('vcase:::JSON-------caseRecordData----');
+		console.log(JSON.stringify(vcase));
+		console.log(cmp.find('caseRecordData').get('v.recordId'));
+		//console.log(cmp.find('caseRecordData').getAll);
         cmp.find('caseRecordData').saveRecord($A.getCallback(function(saveResult) {
             if (saveResult.state === "SUCCESS" || saveResult.state === "DRAFT") {
                 console.log("Save completed successfully.");
@@ -147,6 +151,7 @@
             } else if (saveResult.state === "ERROR") {
                 console.log('Problem saving record, error: ' + 
                             JSON.stringify(saveResult.error));
+							console.log(JSON.stringify(saveResult));
             } else {
                 console.log('Unknown problem, state: ' + saveResult.state + ', error: ' + JSON.stringify(saveResult.error));
             }

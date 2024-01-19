@@ -232,6 +232,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Potential Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Price</fullName>
             <default>false</default>
         </values>
