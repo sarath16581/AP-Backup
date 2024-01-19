@@ -77,8 +77,11 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	// Finalised sub Accounts passed from request wrapper
 	@api finalisedSubAccounts = [];
 
+	// Submitted sub Accounts passed from request wrapper
+	@api submittedSubAccounts = [];
+
 	columns;
-	finalisedColumns;
+	readOnlyColumns;
 
 	// Default sorting is on CreatedDate DESC
 	sortBy = 'CreatedDate';
@@ -87,6 +90,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	picklistMap;
 	_filteredSubAccounts;
 	_finalisedSubAccountsList;
+	_submittedSubAccountsList;
 	searchTerm;
 	selectedRows = [];
 	isLoading = true;
@@ -150,13 +154,19 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 			});
 		}
 
+		if (this.hasSubmittedSubAccounts) {
+			this.submittedSubAccountsList.forEach(acc => {
+				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
+			});
+		}
+
 		if (this.hasFilteredSubAccounts) {
 			this.filteredSubAccounts.forEach(acc => {
 				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
 			});
 		}
 
-		if (this.hasFinalisedSubAccounts || this.hasFilteredSubAccounts) {
+		if (this.hasFinalisedSubAccounts || this.hasFilteredSubAccounts || this.hasSubmittedSubAccounts) {
 			//Load columns from server and add Physical Address, Account Type and row actions columns
 			getDatatableColumns().then(c => {
 				this.columns = c.map(item => {
@@ -166,7 +176,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 				this.columns.splice(2, 0, {label: 'Physical Address', fieldName: 'PhysicalAddressStr', type: 'text', sortable: 'true'});
 				// replace AccountType__c with AccountTypeLabel
 				this.columns.splice(0, 1, {label: 'Account Type', fieldName: 'AccountTypeLabel', type: 'text', sortable: 'true'})
-				this.finalisedColumns = [...this.columns];
+				this.readOnlyColumns = [...this.columns];
 				this.columns.push({type: 'action', typeAttributes: {rowActions: actions}});
 			}).catch(error => {
 				console.error(error);
@@ -187,6 +197,10 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 
 	get hasFinalisedSubAccounts() {
 		return this.finalisedSubAccountsList?.length > 0;
+	}
+
+	get hasSubmittedSubAccounts() {
+		return this.submittedSubAccountsList?.length > 0;
 	}
 
 	get hasFilteredSubAccounts() {
@@ -213,6 +227,17 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 
 	set finalisedSubAccountsList(value) {
 		this._finalisedSubAccountsList = value;
+	}
+
+	get submittedSubAccountsList() {
+		if (this._submittedSubAccountsList == null && this.submittedSubAccounts?.length > 0) {
+			this._submittedSubAccountsList = JSON.parse(JSON.stringify(this.submittedSubAccounts));
+		}
+		return this._submittedSubAccountsList;
+	}
+
+	set submittedSubAccountsList(value) {
+		this._submittedSubAccountsList = value;
 	}
 
 	get subAccountsByIdMap() {
@@ -510,8 +535,18 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 									label: provisioningStatus.label
 								}).then(result => {
 									// user has acknowledged the alert. if the provisioning request has been submitted successfully
-									// navigate back to the leader billing account. in all other cases stay on sub account list view.
+									// update the table and navigate back to the leader billing account. in all other cases stay on sub account list view.
 									if (provisioningStatus.isSuccess) {
+										const ids = this.selectedRows.map(item => item.Id);
+										this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
+										this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
+
+										const updatedSubmittedSubAccounts = [...this.selectedRows].map(i => {
+											i[SUB_ACCOUNT_STAGE.fieldApiName] = 'Submitted';
+											return i;
+										});
+										this.submittedSubAccountsList = this.hasSubmittedSubAccounts ? updatedSubmittedSubAccounts.concat([...this.submittedSubAccountsList]) : [...updatedSubmittedSubAccounts];
+
 										this[NavigationMixin.Navigate]({
 											type: 'standard__recordPage',
 											attributes: {

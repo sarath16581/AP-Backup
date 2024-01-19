@@ -39,7 +39,7 @@ public with sharing class FollowerOffspringRequestController {
 	//For Billing Account Flow, Select Sub Account Requests by Leader Billing Account in Draft or Error stage
 	public static List<APT_Sub_Account__c> getSubAccounts(String leaderAccountId, Boolean isBillingAccount) {
 		if (isBillingAccount) {
-			return SubAccountRequestsSelector.newInstance().selectByBillingAccountId(new Set<Id>{leaderAccountId}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR});
+			return SubAccountRequestsSelector.newInstance().selectByBillingAccountId(new Set<Id>{leaderAccountId}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR_SUBMITTED});
 		}
 		return SubAccountRequestsSelector.newInstance().selectByChargeAccountId(new Set<Id>{leaderAccountId}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR_PENDING});
 	}
