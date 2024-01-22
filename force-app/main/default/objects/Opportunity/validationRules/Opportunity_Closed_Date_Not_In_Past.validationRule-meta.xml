@@ -5,5 +5,5 @@
     <description>Ensures an Opportunity CloseDate is not the past date. This is validated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond (OR) when the CloseDate is being updated with the past date on opportunity.</description>
     <errorConditionFormula>AND( $Profile.Name &lt;&gt; &quot;System Administrator&quot;, $Profile.Name &lt;&gt; &quot;Sales Admin&quot;, NOT(ISNEW()), OR(ISCHANGED( StageName ), ISCHANGED(CloseDate)), OR( ISPICKVAL(StageName, &quot;Identify&quot;), ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ), CloseDate &lt; Today() )</errorConditionFormula>
     <errorDisplayField>CloseDate</errorDisplayField>
-    <errorMessage>Update the Close Date to a future date. This date should indicate the best estimate of when the opportunity is expected to close.</errorMessage>
+    <errorMessage>Update the Close Date to a future date. This date should indicate your best estimate of when the opportunity is expected to close. No update is required if you are closing the opportunity: this date will automatically be set to today on closure.</errorMessage>
 </ValidationRule>
