@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_Account</fullName>
+    <availability>online</availability>
+    <description>Use this button to Close the Consumer Account using SAP interface</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Close Account</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>window.open(&quot;http://hxaix23.hq.auspost.com.au:50000/irj/go/km/docs/SAP_AusPost_Web_Content/Enterprise/Display/PortalUniqueRedirectSecure.html?URL=sapfes.hq.auspost.com.au/sap/bc/ui5_ui5/sap/zcs_cac/index.html#/apcn/{!Account.APCN__c}&quot;,&quot;_blank&quot;);</url>
+</WebLink>
