@@ -567,7 +567,8 @@ public without sharing class bspEnquiryUplift {
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
            && enq.EstimatedDelivery__c != null
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-				setDirectRoutingValues(enq);			
+				setDirectRoutingValues(enq);
+			
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
 		if(enq != null){
