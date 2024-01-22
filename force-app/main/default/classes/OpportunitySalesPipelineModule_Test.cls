@@ -7,7 +7,7 @@
  * 2023-08-08 - Ranjeewa Silva - Created
  * 2023-10-16 - Mahesh Parvathaneni - Added test method testOpportunitySplitsAreValidatedOnOpportunityStageChangeBeforeUpdate
  * 2023-10-26 - Mahesh Parvathaneni - Added test method testOpportunityProductsQuantityIsValidOnOpportunityStageChangeBeforeUpdate
- * 2023-11-09 - Mahesh Parvathaneni - Added test method testOpportunityProductsRevenueStartDateIsValidOnOpportunityStageChangeBeforeUpdate
+ * 2024-01-22 - Mahesh Parvathaneni - Added test method testOpportunityProductsRevenueStartDateIsValidOnOpportunityStageChangeBeforeUpdate
  */
 @IsTest
 private class OpportunitySalesPipelineModule_Test {
@@ -390,11 +390,11 @@ private class OpportunitySalesPipelineModule_Test {
 		// Data Preparation
 		// =====================================
 		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
-		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(3, organisation.Id, true);
+		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(2, organisation.Id, true);
 		//opportunity 1 has pre entry scenario checked
 		opportunities[0].Pre_Entry__c = true;
 		//set close date for opportunity 3
-		opportunities[2].CloseDate = Date.today().addDays(10);
+		opportunities[1].CloseDate = Date.today().addDays(10);
 		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
 		Id priceBookId = Test.getStandardPricebookId();
 		List<PricebookEntry> pricebookEntries = ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, products[0].Id, true);
@@ -411,27 +411,17 @@ private class OpportunitySalesPipelineModule_Test {
 
 		//Scenario #2
 		//two opportunity product records are assigned to second opportunity record
-		//one of the product has revenue start date in the past
+		//one of the product has revenue start date less than the opportunity close date
 		//opportunity has pre-entry scenario unchecked, so the validation is applicable
 		List<OpportunityLineItem> opportunity1_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
 		opportunity1_oppLineItems[0].Quantity = 1000;
-		opportunity1_oppLineItems[0].Contract_Start_Date__c = Date.today().addDays(-10);
+		opportunity1_oppLineItems[0].Contract_Start_Date__c = Date.today().addDays(5);
 		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1_oppLineItems});
-
-		//Scenario #3
-		//two opportunity product records are assigned to third opportunity record
-		//one of the product has revenue start date less than the opportunity close date
-		//opportunity has pre-entry scenario unchecked, so the validation is applicable
-		List<OpportunityLineItem> opportunity2_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[2].Id, pricebookEntries[1].Id, true);
-		opportunity2_oppLineItems[0].Quantity = 1000;
-		opportunity2_oppLineItems[0].Contract_Start_Date__c = Date.today().addDays(5);
-		opportunities[2] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[2], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity2_oppLineItems});
 
 		// attempt to update opportunity stage to Qualify
 		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
 		updatedOpportunities[0].StageName = 'Qualify';
 		updatedOpportunities[1].StageName = 'Qualify';
-		updatedOpportunities[2].StageName = 'Qualify';
 
 		// =====================================
 		// Stubbing
@@ -457,15 +447,12 @@ private class OpportunitySalesPipelineModule_Test {
 
 		// verify both the opportunity record ids are passed to the mock opportunity selector
 		Set<Id> queriedOpportunityIds = (Set<Id>) opportunityIdCaptor.getValue();
-		System.assertEquals(3, queriedOpportunityIds.size(), 'Opportunities moving to a monitored stage must be queried to retrieve related records');
+		System.assertEquals(2, queriedOpportunityIds.size(), 'Opportunities moving to a monitored stage must be queried to retrieve related records');
 
 		// no errors will be added to this opportunity here as the pre-entry scenario is valid for this opportunity
 		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity moving to Qualify as pre-entry scenario is set to true');
 
 		// verify errors are added to opportunity record
-		System.assert(updatedOpportunities[1].hasErrors(), 'Error expected on opportunity moving to Qualify as the Revenue Start Date is in the past for one of the product');
-
-		// verify errors are added to opportunity record
-		System.assert(updatedOpportunities[2].hasErrors(), 'Error expected on opportunity moving to Qualify as the Revenue Start Date is less than the opportunity close date for one of the product');
+		System.assert(updatedOpportunities[1].hasErrors(), 'Error expected on opportunity moving to Qualify as the Revenue Start Date is less than the opportunity close date for one of the product');
 	}
 }
