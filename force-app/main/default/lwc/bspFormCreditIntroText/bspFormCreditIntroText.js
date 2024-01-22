@@ -9,10 +9,16 @@
  */
 
 import {api, LightningElement} from 'lwc';
+import retrieveBspCommunityURL from '@salesforce/apex/bspBaseUplift.retrieveCommunityURL';
 
 export default class BspFormCreditIntroText extends LightningElement {
 
+	commURLPrefix;
 	@api billingAccountScope;
+	enquiryForm;
+	enquiryFormDelivery;
+	enquiryFormStartrack;
+
 	get isAp() {
 		if (this.billingAccountScope.state.userBillingAccountScope === 'AP') {
 			return true;
@@ -35,5 +41,13 @@ export default class BspFormCreditIntroText extends LightningElement {
 		} else {
 			return false;
 		}
+	}
+
+	async connectedCallback() {
+		// retrieve the base url to navigate to the forms mentioned with the links
+		this.commURLPrefix = await retrieveBspCommunityURL()
+		this.enquiryForm = this.commURLPrefix+'/s/EnquiryForm';
+		this.enquiryFormDelivery = this.commURLPrefix+'/s/EnquiryForm?enquiryType=delivery';
+		this.enquiryFormStartrack = this.commURLPrefix+'/s/StarTrackDeliveryEnquiry';
 	}
 }
