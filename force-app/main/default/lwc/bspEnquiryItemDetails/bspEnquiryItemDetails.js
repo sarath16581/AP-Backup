@@ -2,50 +2,66 @@ import { LightningElement, wire, track, api } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 import { navigation } from 'c/bspNavigationUtils';
 import retrieveBspCommunityURL from '@salesforce/apex/bspBaseUplift.retrieveCommunityURL';
-import getCasePicklistValues from '@salesforce/apex/bspEnquiryUplift.getCasePicklistValuesByFieldName';
+import {getObjectInfo, getPicklistValues} from 'lightning/uiObjectInfoApi';
+
+// case object
+import CASE_OBJECT from '@salesforce/schema/Case';
+import ENQUIRY_TYPE_FIELD from '@salesforce/schema/Case.Enquiry_Type__c';
+import REASON_CREDIT_CLAIM_FIELD from '@salesforce/schema/Case.ReasonforCreditClaim__c';
+
 export default class BspEnquiryItemDetails extends NavigationMixin(LightningElement) {
 
 	@api caseDetailWrapper;
 	commUrlPrefix;
 	navigate;
 	formattedReasonForCreditClaim;
-	reasonsForCreditClaim = new Map();;
+	reasonsForCreditClaim;
 	formattedEnquiryType;
-	enquiryTypes = new Map();;
+	enquiryTypes;
+	recordTypeId;
+
+	@wire(getObjectInfo, { objectApiName: CASE_OBJECT })
+	wiredObjectInfo({data, error}) {
+		if (error) {
+			console.error(error);
+		} else if (data) {
+			const rtis = data.recordTypeInfos;
+			this.recordTypeId = Object.keys(rtis).find(rti => rtis[rti].name === 'Enterprise Credit Dispute Claim');
+		}
+	}
+
+	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: ENQUIRY_TYPE_FIELD })
+	enquiryTypeInfo({data, error}) {
+		if (error) {
+			console.error(error);
+		} else if (data) {
+			if (this.recordTypeId){
+				this.enquiryTypes = data;	
+			}
+		}
+	}
+
+	@wire(getPicklistValues, {recordTypeId: "$recordTypeId", fieldApiName: REASON_CREDIT_CLAIM_FIELD })
+	reasonClaimInfo({data, error}) {
+		if (error) {
+			console.error(error);
+		} else if (data) {
+			if (this.recordTypeId){
+				this.reasonsForCreditClaim = data;
+				this.getPicklistLabels();
+			}
+		}
+	}
 
 	connectedCallback() {
 		try {
-			this.initialLoad().then(r => this.getPicklistLabels());
 			retrieveBspCommunityURL().then(result => {
 				this.commURLPrefix = result;
 				this.navigate = navigation(this.commURLPrefix);
 			});
-			// formatting the enq type to de-capitalize the rest of the words when found in a value
-
 		} catch (er) {
 			console.error(er)
 		}
-	}
-
-	async initialLoad() {
-		await getCasePicklistValues({fieldName:'ReasonforCreditClaim__c'})
-			.then((data) => {
-				this.reasonsForCreditClaim = new Map(Object.entries(data));
-			})
-			.catch((error) => {
-				console.error(error);
-			}).finally(() => {
-
-			});
-		await getCasePicklistValues({fieldName:'Enquiry_Type__c'})
-			.then((data) => {
-				this.enquiryTypes = new Map(Object.entries(data));
-			})
-			.catch((error) => {
-				console.error(error);
-			}).finally(() => {
-
-			});
 	}
 
 	get isSSSW() {
@@ -125,8 +141,14 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 	 * eg: Billing Dispute to Billing dispute (see the 'D' in dispute)
 	 */
 	getPicklistLabels() {
-		this.formattedReasonForCreditClaim = this.reasonsForCreditClaim.get(this.caseDetailWrapper.enq.ReasonforCreditClaim__c);
-		this.formattedEnquiryType = this.enquiryTypes.get(this.caseDetailWrapper.enq.Enquiry_Type__c);
-
+		if (this.reasonsForCreditClaim){
+			let formattedReasonForCreditClaimValues = this.reasonsForCreditClaim.values.filter(opt => opt.value.includes(this.caseDetailWrapper.enq.ReasonforCreditClaim__c));
+			if (formattedReasonForCreditClaimValues.length > 0) this.formattedReasonForCreditClaim = formattedReasonForCreditClaimValues[0].label;
+		}
+		if (this.enquiryTypes){
+			let formattedEnquiryTypeValues = this.enquiryTypes.values.filter(opt => opt.value.includes(this.caseDetailWrapper.enq.Enquiry_Type__c));	
+			if (formattedEnquiryTypeValues.length > 0)  this.formattedEnquiryType = formattedEnquiryTypeValues[0].label;
+		}
 	}
+
 }

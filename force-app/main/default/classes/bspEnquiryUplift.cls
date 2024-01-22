@@ -16,7 +16,6 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
-11/12/2023	hasantha.liyanage@auspost.com.au added getCasePicklistValuesByFieldName()
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -405,44 +404,6 @@ public without sharing class bspEnquiryUplift {
 	}
 
 	/**
-	 * In the Springboard project, we want to display the labels of picklist values in the UI instead of the picklist value API names.
-	 * Rather than modifying the API names themselves, this method will retrieve and use the label values for display in the UI.
-	 * @param fieldName picklist field API name
-	 *
-	 * @return map of API name to labels picklist values
-	 */
-	@AuraEnabled(cacheable=true)
-	public static Map<String, String> getCasePicklistValuesByFieldName(String fieldName) {
-		return getPicklistValues(Case.SObjectType, fieldName);
-	}
-
-	/**
-	 * Read the pick list values using object and the field api names
-	 * @param sObjectType object name to retrive the picklist values
-	 * @param fieldName API name of the picklist field
-	 *
-	 * @return map of API name to labels picklist values
-	 */
-	public static Map<String, String> getPicklistValues(SObjectType sObjectType, String fieldName){
-		Map<String, String> picklistValuesMap = new Map<String, String>();
-
-		Schema.DescribeFieldResult fieldResult = sObjectType.getDescribe().fields.getMap().get(fieldName).getDescribe();
-
-		if (fieldResult.getType() == Schema.DisplayType.PICKLIST) {
-			List<Schema.PicklistEntry> picklistValues = fieldResult.getPicklistValues();
-
-			for (Schema.PicklistEntry picklistEntry : picklistValues) {
-				picklistValuesMap.put(picklistEntry.getValue(), picklistEntry.getLabel());
-			}
-		} else {
-			// Handle if the field is not a picklist (optional)
-			System.debug('Field ' + fieldName + ' is not a picklist.');
-		}
-
-		return picklistValuesMap;
-	}
-
-	/**
 	 * What it is: method called by the bspFormAPEnquiry LWC to create a Case on submit
 	 * What it does:
 	 *  - Creates a Case record with the details passed in from the 'enq' parameter
@@ -604,12 +565,12 @@ public without sharing class bspEnquiryUplift {
 		// Gunith: When a Case is created from BSP, the Case should always be routed if EDD+ business days rule is met
 		enq.AllocateToQueue__c = true;
 		if(enq.CCUEnquiryType__c == BspConstants.ENQUIRY_SUBTYPE_MISSING_ITEM
-			&& enq.EstimatedDelivery__c != null 
+           && enq.EstimatedDelivery__c != null
 			&& additionalData.containsEssentialMedicine.equalsIgnoreCase('no') && additionalData.isSentimental.equalsIgnoreCase('no')) {
-			setDirectRoutingValues(enq);
+				setDirectRoutingValues(enq);
+			
 		}
 		enq = createEnquiryAusPostFinalise(enq, enquiryWrapper, additionalData);
-
 		if(enq != null){
 			// link any files
 			bspBaseUplift.insertFiles(enq.Id, uploadedFiles);
