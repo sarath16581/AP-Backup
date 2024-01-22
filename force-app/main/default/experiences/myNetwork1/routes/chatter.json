@@ -2,6 +2,7 @@
   "activeViewId" : "c2d8b6e7-a767-42bd-bc90-04b15b7fc3f4",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "Chatter__c",
   "id" : "b93b77a8-9a4b-401f-80a1-7ffcb585240f",
   "label" : "Chatter",
   "pageAccess" : "UseParent",

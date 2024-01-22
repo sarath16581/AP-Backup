@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>AP Logo used for email template.</description>
+    <internalUseOnly>false</internalUseOnly>
+    <name>CnS_image001</name>
+    <public>true</public>
+</Document>

@@ -2,6 +2,7 @@
   "activeViewId" : "616a9ff2-9f74-46fd-96a0-a4d72dfef774",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "BSP_AP_Enquiry_Form__c",
   "id" : "40869a3e-0a19-423d-bb2e-29927695c47f",
   "label" : "BSP AP Enquiry Form",
   "pageAccess" : "UseParent",

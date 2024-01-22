@@ -1232,10 +1232,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LPuD Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Marketing identified</fullName>
             <default>false</default>
         </values>
@@ -1257,10 +1253,6 @@
         </values>
         <values>
             <fullName>Phone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Proactive Sales Leads</fullName>
             <default>false</default>
         </values>
         <values>

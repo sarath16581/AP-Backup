@@ -14,7 +14,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>WELSHPOOL</value>
+        <value>perth</value>
     </filters>
     <filters>
         <field>Effective_Date__c</field>
@@ -26,5 +26,5 @@
         <operation>notEqual</operation>
         <value>PUD_Booking__c.Other</value>
     </filters>
-    <label>WELSHPOOL Bookings - YESTERDAY</label>
+    <label>PERTH Bookings - YESTERDAY</label>
 </ListView>

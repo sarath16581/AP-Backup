@@ -201,19 +201,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>APT_Courier_on_demand_services__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>APT_Courier_Scheduled_Run__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Interstate_Distribution__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Taxi_Truck_services__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -272,10 +260,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_LPD_To_Time_24_hour_clock_2__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_LPD_Service_Type_and_Frequency__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

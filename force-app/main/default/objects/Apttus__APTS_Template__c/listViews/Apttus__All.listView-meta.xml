@@ -5,16 +5,12 @@
     <columns>NAME</columns>
     <columns>Apttus__IsActive__c</columns>
     <columns>Apttus__Category__c</columns>
+    <columns>Apttus__Keywords__c</columns>
     <columns>Apttus__Subcategory__c</columns>
     <columns>Apttus__ReferenceId__c</columns>
     <columns>Apttus__ClonedFromReferenceId__c</columns>
     <columns>Apttus__Agreement_Types__c</columns>
     <columns>Apttus__Guidance__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Apttus__IsActive__c</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
     <label>All</label>
 </ListView>

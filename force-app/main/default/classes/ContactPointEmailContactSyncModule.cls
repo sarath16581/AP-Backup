@@ -4,7 +4,6 @@
  * @domain            : connected customer
  * @last modified on  : 08-19-2022
  * @last modified by  : Sreenish Krishnan
- * @last modified by  : 30-06-2023 Thang Nguyen - queuable the updates of the users.
  **/
 public inherited sharing class ContactPointEmailContactSyncModule extends ApplicationDomain.Module {
 	public static ContactPointEmailContactSyncModule newInstance() {
@@ -23,8 +22,15 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 			processPortalUsers((List<ContactPointEmail>) records, null, uow);
 		} catch (Exception e) {
-			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', ContactPointEmailContactSyncModule.class.getName(), 'onAfterInsert', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(
+				e,
+				UserInfo.getOrganizationId(),
+				'ContactPointEmailContactSyncModule',
+				ContactPointEmailContactSyncModule.class.getName(),
+				'onAfterInsert',
+				'ContactPointEmailContactSyncModule',
+				LoggingLevel.ERROR
+			);
 		}
 	}
 
@@ -36,8 +42,15 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 
 			processPortalUsers((List<ContactPointEmail>) records, (Map<Id, ContactPointEmail>) existingRecords, uow);
 		} catch (Exception e) {
-			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', ContactPointEmailContactSyncModule.class.getName(), 'onAfterUpdate', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(
+				e,
+				UserInfo.getOrganizationId(),
+				'ContactPointEmailContactSyncModule',
+				ContactPointEmailContactSyncModule.class.getName(),
+				'onAfterUpdate',
+				'ContactPointEmailContactSyncModule',
+				LoggingLevel.ERROR
+			);
 		}
 	}
 
@@ -47,8 +60,15 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 				.syncContactPointEmailToContacts(null, (List<ContactPointEmail>) records, null);
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 		} catch (Exception e) {
-			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', ContactPointEmailContactSyncModule.class.getName(), 'onAfterDelete', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(
+				e,
+				UserInfo.getOrganizationId(),
+				'ContactPointEmailContactSyncModule',
+				ContactPointEmailContactSyncModule.class.getName(),
+				'onAfterDelete',
+				'ContactPointEmailContactSyncModule',
+				LoggingLevel.ERROR
+			);
 		}
 	}
 
@@ -204,8 +224,15 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 							usersToUpdate.add(portalUser);
 						}
 					}
-					//queue a job to update the users
-					System.enqueueJob(new UpdateUserQueueable(usersToUpdate));
+
+					uow.registerDirty(
+						usersToUpdate,
+						new List<SObjectField>{ User.Email, User.Username, User.FederationIdentifier },
+						false, // do not throw exception on error as it is async. It will be logged
+						ContactPointEmailContactSyncModule.class.getName() +
+						'.' +
+						AsyncUpdateUserLoginDetailsWorker.class.getName()
+					);
 				}
 			}
 		}
@@ -229,25 +256,6 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 				List<String> ids = input.split('-');
 				userIdsVsContactPointEmailIds.put(ids[0], ids[1]);
 				contactPointEmailIds.add(ids[1]);
-			}
-		}
-	}
-
-	public inherited sharing class UpdateUserQueueable implements Queueable, Database.AllowsCallouts {
-		List<User> usersToUpdate = new List<User>();
-
-		public UpdateUserQueueable(List<User> records) {				
-			this.usersToUpdate = records;
-		}
-
-		public void execute(QueueableContext context) {
-			try {
-				if (this.usersToUpdate.size() > 0 ){
-					List<Database.SaveResult> result = ApplicationDatabase.getInstance().dmlUpdate(this.usersToUpdate);
-				}					
-			} catch (Exception e) {
-				// Error Logged to Exception object for analysis
-				ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ContactPointEmailContactSyncModule', UpdateUserQueueable.class.getName(), 'execute', 'ContactPointEmailContactSyncModule', ApplicationLogger.LoggingLevel.ERROR);
 			}
 		}
 	}

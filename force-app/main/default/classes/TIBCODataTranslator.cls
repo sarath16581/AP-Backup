@@ -45,9 +45,7 @@ public without sharing class TIBCODataTranslator {
 	}
 
 	// Need this for proper mocking
-	public TIBCODataTranslator() {
-		
-	}
+	public TIBCODataTranslator() {}
 
 	public TIBCODataTranslator translate(List<TIBCOTrackingResultWrapper> trackingResults) {
 		this.trackingResults = trackingResults;

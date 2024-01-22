@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AnnualPriceReviewCutOffPeriod__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>If Billing Account Creation is these many days before Annual Price Review Effective Date, Annual Price Review is Effective in same calendar year otherwise next year. Currently this is being used for TEAM only for nextRevenueDueDate calculation.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Annual Price Review Cutoff Date. Only Day of the month  and month part of the date is considered.</inlineHelpText>
+    <label>Annual Price Review CutOff Period</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

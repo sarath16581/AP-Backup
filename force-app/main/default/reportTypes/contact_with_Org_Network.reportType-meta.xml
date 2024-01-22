@@ -984,6 +984,11 @@
             <field>Unique_Mobile__c</field>
             <table>Contact</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>Contact</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -3626,13 +3631,5 @@
             <table>Contact.Accounts__r.Apttus__AccountHierarchiesLeaf__r</table>
         </columns>
         <masterLabel>Account Hierarchies</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Contact.Accounts__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

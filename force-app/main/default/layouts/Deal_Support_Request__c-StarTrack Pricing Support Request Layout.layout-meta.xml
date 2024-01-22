@@ -43,10 +43,6 @@
                 <behavior>Edit</behavior>
                 <field>Bid_Manager__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Data_Quality_Score__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

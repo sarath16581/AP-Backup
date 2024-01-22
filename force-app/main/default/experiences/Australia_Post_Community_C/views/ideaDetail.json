@@ -1,0 +1,74 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerPageLayout",
+  "dataProviders" : [ ],
+  "id" : "0d72f0a8-3191-4990-8e9c-daf279c855c4",
+  "label" : "Idea Detail",
+  "regions" : [ {
+    "id" : "05ef6baf-b453-41dd-8bd4-f9e0baa36e9e",
+    "regionName" : "ContentHeader",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:brideas_IdeaDetail",
+      "id" : "b534d04f-8200-4ee4-b369-a73678e41867",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "76f31461-a9c0-4987-bbe2-8c453f7ca633",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Share your ideas to help us find new ways of doing things, or to improve existing products and services to meet customer and community needs.",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "b6a4e1e1-815b-4730-9e24-d262d43a731c",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e03418e5-9935-40c6-a2cd-5a2f99d6c5c2",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<br><h1><b>Idea details</b></h1>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "c09b945a-da78-458b-ab09-cb4c9d0294be",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "9d814d6d-b8f0-48fa-b654-1104c4860be9",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "404c4e5f-7d05-4faf-9874-8e75e2c045e6",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "IdeaDetail"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "099a3270-b4d0-4f1b-b2b0-eadeb1e54f91",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3e449782-5b5f-4b4b-82fd-ccec5fcfd3ea",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "type" : "view",
+  "viewType" : "detail-087"
+}

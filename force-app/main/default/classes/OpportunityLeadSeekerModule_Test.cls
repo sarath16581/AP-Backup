@@ -24,7 +24,7 @@ private class OpportunityLeadSeekerModule_Test {
 		contact.account = account; // set explicitly to prevent issues with traversal in the actual code
 		User user = ApplicationTestDataFactory.getCommunityUsers(1, new List <Id> { contact.Id }, true)[0];
 		user.contact = contact; // set explicitly to prevent issues with traversal in the actual code
-		user.EmployeeNumber = '1234';
+		user.APSNumber__c = '1234';
 		List <Opportunity> oppties = ApplicationTestDataFactory.getOpportunities(2, account.Id, false);
 
 		// =====================================
@@ -53,7 +53,7 @@ private class OpportunityLeadSeekerModule_Test {
 
 		System.Assert(oppties[0].LeadSource == OpportunityLeadSeekerModule.LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE, 'Expected opportunity record Lead Source to be ' + OpportunityLeadSeekerModule.LEAD_SEEKER_OPPORTUNITY_LEAD_SOURCE + '. Received ' + oppties[0].LeadSource);
 		System.Assert(oppties[0].Lead_Seeker__c == true, 'Expected opportunity record Lead Seeker to be true.');
-		System.Assert(oppties[0].APS_number__c == user.EmployeeNumber, 'Expected opportunity APS Number to match User APS Number.');
+		System.Assert(oppties[0].APS_number__c == user.APSNumber__c, 'Expected opportunity APS Number to match User APS Number.');
 		System.Assert(oppties[0].Hidden_Lead_Seeker_Lead_Owner__c == user.Email, 'Expected opportunity Hidden_Lead_Seeker_Lead_Owner__c Number to match User Email.');
 	}
 

@@ -3,6 +3,7 @@
   "currentThemeId" : "a68a212a-85b7-49cc-ba51-8e80b886c19e",
   "headMarkup" : null,
   "id" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
+  "isLockerServiceEnabled" : true,
   "isRelaxedCSPLevel" : false,
   "label" : "main",
   "templateName" : "Help Center Template",

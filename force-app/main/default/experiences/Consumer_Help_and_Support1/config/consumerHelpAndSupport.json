@@ -5,7 +5,7 @@
   "isProgressiveRenderingEnabled" : false,
   "loginAppPageId" : "c4945705-a694-4a05-8987-0e3f88bd71b9",
   "mainAppPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
-  "preferredDomain" : "ptest.npe.helpandsupport.auspost.com.au",
+  "preferredDomain" : "helpandsupport.auspost.com.au",
   "selfRegistrationRouteId" : "be70f343-ebf3-4b36-8d05-1e2e110830e0",
   "trustedSitesForScript" : [ {
     "id" : "9c64baf6-8ace-4cae-a74b-5152777d74a3",
@@ -14,15 +14,15 @@
     "trustedSiteUrl" : "https://assets.adobedtm.com",
     "type" : "trustedSitesForScripts"
   }, {
-    "id" : "9bb2cd62-92a8-49c6-be8d-3bbd3d06267f",
+    "id" : "b889ceb7-c28c-4a1b-b196-dbd0a5e4c00c",
     "isActive" : true,
     "trustedSiteName" : "Google Recaptcha",
     "trustedSiteUrl" : "https://www.google.com",
     "type" : "trustedSitesForScripts"
   }, {
-    "id" : "302d8644-d6f0-42f2-91c1-9bbd91696dab",
+    "id" : "035b6aa0-3d2c-4da5-8b20-217e61eb04b8",
     "isActive" : true,
-    "trustedSiteName" : "Google Recaptcha GStatic",
+    "trustedSiteName" : "Google Recaptcha Gstatic",
     "trustedSiteUrl" : "https://www.gstatic.com",
     "type" : "trustedSitesForScripts"
   } ],

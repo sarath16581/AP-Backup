@@ -2,7 +2,7 @@
 <MatchingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <matchingRules>
         <fullName>Lead_Lead_Matching_Rule_1</fullName>
-        <booleanFilter>6 AND (1 OR 2 OR (3 AND 4) OR (3 AND 5))</booleanFilter>
+        <booleanFilter>1 AND 2 AND ((3 AND 4) OR (3 AND 5))</booleanFilter>
         <description>Lead matching rule for Lead Duplicate Rule 1.
 Last Mod:
 A Judd 16/03/20 Removed Lead Status. Added LastName and Disqualified Lead Reason*
@@ -34,11 +34,6 @@ A Judd 10/03/20 Added mobile, phone and Lead Status match
             <fieldName>Phone</fieldName>
             <matchingMethod>Phone</matchingMethod>
         </matchingRuleItems>
-        <matchingRuleItems>
-            <blankValueBehavior>MatchBlanks</blankValueBehavior>
-            <fieldName>Disqualified_Lead_Reason__c</fieldName>
-            <matchingMethod>Exact</matchingMethod>
-        </matchingRuleItems>
-        <ruleStatus>ActivationFailed</ruleStatus>
+        <ruleStatus>Active</ruleStatus>
     </matchingRules>
 </MatchingRules>

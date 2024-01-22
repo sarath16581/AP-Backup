@@ -6,10 +6,10 @@
 public class CreditSuspectTrigger_Test {
 
 	@IsTest
-	static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {		
+    static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {		
 		Date csDoB = Date.newInstance(1980, 1, 1);
 
-		CreditSuspectTriggerHandler mock = (CreditSuspectTriggerHandler)
+        CreditSuspectTriggerHandler mock = (CreditSuspectTriggerHandler)
 			MockUtility.mockUtility(CreditSuspectTriggerHandler.class);
 
 		CreditSuspect__c csRecord = new CreditSuspect__c(
@@ -27,11 +27,11 @@ public class CreditSuspectTrigger_Test {
 
 		insert csRecord;
 
-		((CreditSuspectTriggerHandler)
+        ((CreditSuspectTriggerHandler)
 			MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())
 		).dispatch();
-		
-		// PMD Warning
+        
+        // PMD Warning
 		System.assert(true, 'PMD Warning');
-	}
+    }
 }

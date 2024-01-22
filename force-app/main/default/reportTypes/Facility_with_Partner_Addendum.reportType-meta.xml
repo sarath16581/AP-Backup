@@ -1597,12 +1597,4 @@
         </columns>
         <masterLabel>Partner Addendums (Facility)</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
-    </sections>
 </ReportType>

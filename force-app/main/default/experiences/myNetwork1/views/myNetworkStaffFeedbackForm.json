@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "980b51f3-6ca8-4ad5-a9af-142c8ca6d020",
   "label" : "myNetwork Staff feedback form",
   "regions" : [ {

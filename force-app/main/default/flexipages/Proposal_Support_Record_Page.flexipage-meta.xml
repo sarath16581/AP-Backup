@@ -50,6 +50,9 @@
                             <value>CustomButton.Apttus_Proposal__Proposal__c.Apttus_CQApprov__MyApprovals</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>CustomButton.Apttus_Proposal__Proposal__c.Apttus_CQApprov__Approvals</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Apttus_Proposal__Proposal__c.Clone_with_Configuration</value>
                         </valueListItems>
                     </valueList>

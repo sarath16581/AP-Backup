@@ -61,6 +61,8 @@
                 <elementReference>myVariable_current.Lodgement_Customer_Migration_Parent__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>LCM_Update_Parent_Once_All_Children_Are_Complete</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

@@ -507,11 +507,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.OperatingHoursId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1953,6 +1948,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>At_Risk_Business__c.Value_of_Business_at_Risk__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Billing_Account__c.Credit_Representative_Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -2,6 +2,7 @@
   "activeViewId" : "360d4cf6-aa98-44a8-adb5-b9ada6d5d909",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Opportunity_Detail__c",
   "id" : "5588733a-4423-4f58-9e06-a5b9370b2b1b",
   "label" : "Opportunity Detail",
   "routeType" : "detail-006",

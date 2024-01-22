@@ -1,6 +1,7 @@
 {
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
   "id" : "ab6eed3b-6aa2-4e79-8786-72936bebd88e",
   "label" : "BCA Application",
   "regions" : [ {

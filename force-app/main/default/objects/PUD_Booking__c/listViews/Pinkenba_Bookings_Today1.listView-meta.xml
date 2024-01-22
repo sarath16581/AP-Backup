@@ -13,19 +13,18 @@
     <columns>Booking_Comments__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>Pin</value>
+        <field>Expiry_Date__c</field>
+        <operation>equals</operation>
     </filters>
     <filters>
-        <field>Effective_Date__c</field>
-        <operation>notEqual</operation>
-        <value>TODAY</value>
+        <field>Route_Lookup__c</field>
+        <operation>contains</operation>
+        <value>PIN</value>
     </filters>
     <filters>
-        <field>RECORDTYPE</field>
-        <operation>notEqual</operation>
-        <value>PUD_Booking__c.Other</value>
+        <field>Location__c</field>
+        <operation>contains</operation>
+        <value>lego</value>
     </filters>
     <label>Pinkenba - Bookings Today</label>
 </ListView>

@@ -2595,7 +2595,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
+            <field>Owner.UserRole.PortalAccountOwner.CompanyName</field>
             <table>Network__c.Cases__r</table>
         </columns>
         <masterLabel>Cases</masterLabel>

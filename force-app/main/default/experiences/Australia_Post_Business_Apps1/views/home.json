@@ -1,6 +1,7 @@
 {
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "componentName" : "siteforce:sldsTwoCol84SidebarFeaturedLayout",
+  "dataProviders" : [ ],
   "id" : "0434f1e4-a164-42d9-8ffa-b71852ce3117",
   "label" : "Home",
   "regions" : [ {
@@ -8,6 +9,13 @@
       "componentAttributes" : { },
       "componentName" : "c:bcaForm",
       "id" : "285be3c8-db4b-4d40-a87b-45a9e6bac696",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:bcaTestLogin",
+      "id" : "e939eb2b-f63c-4293-b427-28f77a300351",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

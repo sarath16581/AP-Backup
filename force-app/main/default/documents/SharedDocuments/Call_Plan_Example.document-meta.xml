@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is not the official PWC created call plan but an example based on the call plan from the PWC Sales Process Design and has not been approved by AusPost. This is simply provided as an example for demo purposes for the Salesforce.com project team.</description>
+    <internalUseOnly>true</internalUseOnly>
+    <name>Call Plan Example</name>
+    <public>false</public>
+</Document>

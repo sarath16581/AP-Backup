@@ -3,7 +3,7 @@
     <fullName>Supply_Chain_Optimisation</fullName>
     <active>true</active>
     <businessProcess>Supply Chain Optimisation</businessProcess>
-    <description>Case type for sales operation Service Optimisation team to manage work.</description>
+    <description>Case type for sales operation Service Optimisation team to manage work</description>
     <label>Service Optimisation</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>

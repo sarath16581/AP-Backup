@@ -740,6 +740,11 @@
             <field>CreatedBy.Profile.Name</field>
             <table>Contact</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>Contact</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -2856,11 +2861,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CCUYourReference__c</field>
-            <table>Contact.Cases</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Contact.Cases</table>
         </columns>
         <masterLabel>Cases</masterLabel>

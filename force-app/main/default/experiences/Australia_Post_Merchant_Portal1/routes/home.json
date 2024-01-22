@@ -2,6 +2,7 @@
   "activeViewId" : "3121d913-d48d-4d19-9a91-f760a63c762a",
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "Home",
   "id" : "e040a065-ec1c-43f2-8add-95a6ab432e9f",
   "label" : "Home",
   "pageAccess" : "RequiresLogin",

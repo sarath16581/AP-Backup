@@ -943,6 +943,11 @@
             <field>Record_Maintainer__c</field>
             <table>Billing_Account__c.Contacts__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>Billing_Account__c.Contacts__r</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
 </ReportType>

@@ -46,6 +46,10 @@
                 <field>APT_Contract_Number__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APT_Configure_Products__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Quote_Accepted_Date__c</field>
             </layoutItems>

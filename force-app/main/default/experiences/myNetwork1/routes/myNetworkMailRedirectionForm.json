@@ -2,6 +2,7 @@
   "activeViewId" : "9c78194a-9829-43e9-9dae-0970defc5be7",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "myNetwork_Mail_redirection_form__c",
   "id" : "3bb70219-d2c7-42b3-bca4-e7f09682f4e6",
   "label" : "myNetwork Mail redirection form",
   "pageAccess" : "UseParent",

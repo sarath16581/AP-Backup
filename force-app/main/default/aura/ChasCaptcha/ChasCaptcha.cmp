@@ -26,4 +26,4 @@ Requires the use of <script src='https://www.google.com/recaptcha/enterprise.js?
 		<div id="recaptchaCheckbox"></div>
 	</div>
 
-</aura:component>	
+</aura:component>

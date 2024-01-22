@@ -9,7 +9,7 @@
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>Network_Type__c</field>
         <operation>equals</operation>

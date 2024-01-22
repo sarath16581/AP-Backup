@@ -113,7 +113,7 @@
         <type>Default</type>
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <deploymentStatus>Deployed</deploymentStatus>
+    <deploymentStatus>InDevelopment</deploymentStatus>
     <description>Mobiles</description>
     <enableFeeds>false</enableFeeds>
     <enableLicensing>false</enableLicensing>

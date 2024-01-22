@@ -23,14 +23,6 @@
                 <behavior>Edit</behavior>
                 <field>Organisation_Founded_Date__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Licensee_considering_sale__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Facility_on_the_market__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

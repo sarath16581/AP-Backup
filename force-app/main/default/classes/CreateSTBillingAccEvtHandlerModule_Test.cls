@@ -364,7 +364,8 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				Assert.isTrue(new List<String>{events[0].Billing_Account_Number__c, events[1].Billing_Account_Number__c}.contains(inserted.LEGACY_ID__c), 'Expected two new billing accounts with the numbers specified in platform event.');
 			} else if (obj instanceof  Deal_Support_Request__c) {
 				Deal_Support_Request__c inserted = (Deal_Support_Request__c) obj;
-				Assert.areEqual('Add Contract Rates', inserted.Work_Type__c, 'New DSR must be created for surcharge setup and activation');
+				Assert.areEqual(CreateSTBillingAccountEventHandlerModule.BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRWorkType__c, inserted.Work_Type__c, 'New DSR must be created for surcharge setup and activation');
+				Assert.areEqual(CreateSTBillingAccountEventHandlerModule.BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRSupportWorkType__c, inserted.Support_Work_Type__c, 'New DSR must be created for surcharge setup and activation');
 			}
 		}
 
@@ -894,7 +895,8 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				Assert.isTrue(new List<String>{events[0].Billing_Account_Number__c, events[2].Billing_Account_Number__c}.contains(inserted.LEGACY_ID__c), 'Expected two new billing accounts with the numbers specified in platform event.');
 			} else if (obj instanceof  Deal_Support_Request__c) {
 				Deal_Support_Request__c inserted = (Deal_Support_Request__c) obj;
-				Assert.areEqual('Add Contract Rates', inserted.Work_Type__c, 'New DSR must be created for surcharge setup and activation');
+				Assert.areEqual(CreateSTBillingAccountEventHandlerModule.BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRWorkType__c, inserted.Work_Type__c, 'New DSR must be created for surcharge setup and activation');
+				Assert.areEqual(CreateSTBillingAccountEventHandlerModule.BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRSupportWorkType__c, inserted.Support_Work_Type__c, 'New DSR must be created for surcharge setup and activation');
 			}
 		}
 

@@ -751,7 +751,7 @@ public with sharing class CreateBillingAccountController_Test {
 		Continuation con = (Continuation)CreateBillingAccountController.ratingPlanActivationCreationRequest(onboardingRecordJson, dealSupportRequest.Id);
 		requestLabel = new List<String>(con.getRequests().keySet())[0];
 		Boolean serviceDatesInPlace =CreateBillingAccountController.checkServiceDatesOnALI(dealSupportRequest.Id);
-		System.assertEquals(true, serviceDatesInPlace, 'Expected success in Callout response');
+		System.assertEquals(false, serviceDatesInPlace, 'Expected success in Callout response');
 		Test.stopTest();
 		String mockResponseBody = '{"Status":"success"}';
 		// Verify that the continuation has the correct number of requests

@@ -3,17 +3,7 @@
     <fullName>Opportunity_Closed_Date_Not_In_Past</fullName>
     <active>true</active>
     <description>Ensures an Opportunity CloseDate is not the past date. This is validated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond (OR) when the CloseDate is being updated with the past date on opportunity.</description>
-    <errorConditionFormula>AND(
-  $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
-  $Profile.Name &lt;&gt; &quot;Sales Admin&quot;,
-  NOT(ISNEW()),
-  OR(ISCHANGED( StageName ), ISCHANGED(CloseDate)),
-  OR( ISPICKVAL(StageName, &quot;Identify&quot;), ISPICKVAL(StageName, 
-  &quot;Qualify&quot;), ISPICKVAL(StageName,
-  &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;),
-  ISPICKVAL(StageName, &quot;Closed Won&quot;) ),
-  CloseDate &lt; Today()
-)</errorConditionFormula>
+    <errorConditionFormula>AND( $Profile.Name &lt;&gt; &quot;System Administrator&quot;, $Profile.Name &lt;&gt; &quot;Sales Admin&quot;, NOT(ISNEW()), OR(ISCHANGED( StageName ), ISCHANGED(CloseDate)), OR( ISPICKVAL(StageName, &quot;Identify&quot;), ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ), CloseDate &lt; Today() )</errorConditionFormula>
     <errorDisplayField>CloseDate</errorDisplayField>
     <errorMessage>Update the Close Date to a future date. This date should indicate the best estimate of when the opportunity is expected to close.</errorMessage>
 </ValidationRule>

@@ -22,5 +22,9 @@
         <operation>equals</operation>
         <value>TODAY</value>
     </filters>
+    <filters>
+        <field>Booking_Record_Type__c</field>
+        <operation>notEqual</operation>
+    </filters>
     <label>Oakleigh South - All Jobs Today</label>
 </ListView>

@@ -2,6 +2,7 @@
   "activeViewId" : "83509b96-c0b0-4ad4-9685-4acf251aacd3",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Task_Detail__c",
   "id" : "660fcad9-71da-4e64-a67a-e99adcf8cca2",
   "label" : "Task Detail",
   "routeType" : "detail-00T",

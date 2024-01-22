@@ -1336,7 +1336,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_10_myRule_7_A1_9688072895</name>
+        <name>formula_10_myRule_7_A1_3500290555</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1368,7 +1368,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_7_A1_0810212689</name>
+        <name>formula_11_myRule_7_A1_4873790694</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1399,7 +1399,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myRule_13_A1_1574668565</name>
+        <name>formula_15_myRule_13_A1_7152111783</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1431,7 +1431,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
 </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_13_A1_0850563286</name>
+        <name>formula_16_myRule_13_A1_8444280954</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1463,7 +1463,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_18_A1_8202680386</name>
+        <name>formula_20_myRule_18_A1_1730094862</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1495,7 +1495,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_21_myRule_18_A1_4394137594</name>
+        <name>formula_21_myRule_18_A1_7003247199</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1514,7 +1514,7 @@ ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_
 ))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_2134173472</name>
+        <name>formula_3_myRule_1_A1_6949778431</name>
         <dataType>String</dataType>
         <expression>IF(
 ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
@@ -1553,7 +1553,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_9343569007</name>
+        <name>formula_4_myRule_1_A1_3748409464</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -1584,7 +1584,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_1_A1_8001643948</name>
+        <name>formula_5_myRule_1_A1_5815688517</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -1603,7 +1603,7 @@ ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_
 ))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_9_myRule_7_A1_8453835664</name>
+        <name>formula_9_myRule_7_A1_8164841477</name>
         <dataType>String</dataType>
         <expression>IF(
 ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
@@ -1615,7 +1615,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
 
 ))</expression>
     </formulas>
-    <interviewLabel>APT_Contract_DSR_Creation-11_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Contract_DSR_Creation-28_InterviewLabel</interviewLabel>
     <label>APT Contract DSR Creation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -2085,7 +2085,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_15_myRule_13_A1_1574668565</elementReference>
+                <elementReference>formula_15_myRule_13_A1_7152111783</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2121,7 +2121,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_16_myRule_13_A1_0850563286</elementReference>
+                <elementReference>formula_16_myRule_13_A1_8444280954</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2785,7 +2785,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_20_myRule_18_A1_8202680386</elementReference>
+                <elementReference>formula_20_myRule_18_A1_1730094862</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2821,7 +2821,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_21_myRule_18_A1_4394137594</elementReference>
+                <elementReference>formula_21_myRule_18_A1_7003247199</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3263,7 +3263,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_2134173472</elementReference>
+                <elementReference>formula_3_myRule_1_A1_6949778431</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3485,7 +3485,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_9343569007</elementReference>
+                <elementReference>formula_4_myRule_1_A1_3748409464</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3521,7 +3521,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_5_myRule_1_A1_8001643948</elementReference>
+                <elementReference>formula_5_myRule_1_A1_5815688517</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3963,7 +3963,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_9_myRule_7_A1_8453835664</elementReference>
+                <elementReference>formula_9_myRule_7_A1_8164841477</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4185,7 +4185,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_10_myRule_7_A1_9688072895</elementReference>
+                <elementReference>formula_10_myRule_7_A1_3500290555</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4221,7 +4221,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_11_myRule_7_A1_0810212689</elementReference>
+                <elementReference>formula_11_myRule_7_A1_4873790694</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4731,7 +4731,7 @@ ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_
         <object>Apttus__APTS_Agreement__c</object>
     </recordUpdates>
     <startElementReference>isChangedDecision2_myRule_1_Apttus_Status_c</startElementReference>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

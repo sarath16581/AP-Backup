@@ -1,0 +1,113 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerTwoColumnLayout",
+  "dataProviders" : [ ],
+  "id" : "0c9799f5-6906-4f1f-8347-8ac0c00c3846",
+  "label" : "Search",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"cp-inner-page-heading-outer\"> \n <div class=\"cp-inner-page-heading-box cp-heading-box-with-p cp-inner-articles-landing-page-heading\"> \n  <h1 class=\"cp-inner-page-heading-text\">Search Results</h1> \n </div> \n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "0e048d7a-5327-4f0c-9b1d-da4a5dd4f7e4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8eefe8ba-7142-41c5-866b-270e25c5d2fb",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "scopes" : [ {
+          "isPublic" : true,
+          "name" : "FullFeed"
+        }, {
+          "isPublic" : true,
+          "name" : "KnowledgeArticleVersion"
+        }, {
+          "isPublic" : true,
+          "name" : "CollaborationGroup"
+        }, {
+          "isPublic" : true,
+          "name" : "Topic"
+        } ],
+        "searchTerm" : "{!searchString}",
+        "showTopResults" : true
+      },
+      "componentName" : "forceCommunity:search",
+      "id" : "5251d432-79b5-4999-98d5-a868e71fbf50",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "368d2050-317a-43df-8ffb-60771de404cf",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "Search"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "31d0ff03-75cf-46bc-b7b3-4037185ecbca",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f2fe17fe-e925-459a-bcff-4db82235ebe4",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "id" : "23f6169e-c906-41c2-9492-2a887f66dc0f",
+    "regionName" : "Sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<br><h1>Search results</h1>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "72cd8f3f-6f59-4a91-9d91-2cbe74909cb9",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4fd7e9c0-d261-4fbf-a433-038af9db6019",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p style=\"text-align: center;\"><b>Don't see what you're looking for?</b></p><br>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "c9f1f7ae-f6a4-4760-a00d-f73765e7a8a7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "41f9db16-7516-4256-a897-ad10de414712",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "Search"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "cbd4d8db-23f4-4534-ba18-bfe4a7d63986",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "83cf6ccb-cf19-43df-8fac-b931d035aefa",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "type" : "view",
+  "viewType" : "global-search"
+}

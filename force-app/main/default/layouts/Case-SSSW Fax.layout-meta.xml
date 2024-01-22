@@ -127,10 +127,6 @@
                 <behavior>Edit</behavior>
                 <field>IsCR__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LinkedArticleHasExtraCover__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

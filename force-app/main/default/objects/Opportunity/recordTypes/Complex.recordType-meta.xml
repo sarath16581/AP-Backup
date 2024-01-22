@@ -232,6 +232,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Potential Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Price</fullName>
             <default>false</default>
         </values>
@@ -1062,10 +1066,6 @@
         </values>
         <values>
             <fullName>Domestic Parcels %28B2C%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fulfilment</fullName>
             <default>false</default>
         </values>
         <values>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModerationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <action>Flag</action>
+    <active>true</active>
+    <description>Keywords the business is interested in</description>
+    <entitiesAndFields>
+        <entityName>FeedItem</entityName>
+        <fieldName>Title</fieldName>
+        <keywordList>Australia Post Community.Interest_keywords</keywordList>
+    </entitiesAndFields>
+    <entitiesAndFields>
+        <entityName>FeedItem</entityName>
+        <fieldName>RawBody</fieldName>
+        <keywordList>Australia Post Community.Interest_keywords</keywordList>
+    </entitiesAndFields>
+    <entitiesAndFields>
+        <entityName>FeedItem</entityName>
+        <fieldName>LinkUrl</fieldName>
+        <keywordList>Australia Post Community.Interest_keywords</keywordList>
+    </entitiesAndFields>
+    <entitiesAndFields>
+        <entityName>FeedComment</entityName>
+        <fieldName>RawCommentBody</fieldName>
+        <keywordList>Australia Post Community.Interest_keywords</keywordList>
+    </entitiesAndFields>
+    <entitiesAndFields>
+        <entityName>FeedPollChoice</entityName>
+        <fieldName>ChoiceBody</fieldName>
+        <keywordList>Australia Post Community.Interest_keywords</keywordList>
+    </entitiesAndFields>
+    <entitiesAndFields>
+        <entityName>WorkThanks</entityName>
+        <fieldName>Message</fieldName>
+        <keywordList>Australia Post Community.Interest_keywords</keywordList>
+    </entitiesAndFields>
+    <masterLabel>Interest Keywords</masterLabel>
+    <type>Content</type>
+    <userCriteria>Australia Post Community.Customer_and_Partner_Members</userCriteria>
+    <userCriteria>Australia Post Community.Internal_Employee</userCriteria>
+    <userCriteria>Australia Post Community.Customer_Members</userCriteria>
+    <userCriteria>Australia Post Community.External_Community_members</userCriteria>
+    <userMessage>You can&apos;t use %BLOCKED_KEYWORD% or other inappropriate words in this community. Review your content and try again.</userMessage>
+</ModerationRule>
