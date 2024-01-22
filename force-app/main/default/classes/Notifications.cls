@@ -70,6 +70,7 @@ public inherited sharing class Notifications {
 		private Set<Id> recipientIds;
 
 		private CustomNotification() {
+			this.recipientIds = new Set<Id>();
 		}
 
 		/**
