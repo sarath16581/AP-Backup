@@ -261,18 +261,18 @@ private class OpportunitySalesPipelineModule_Test {
 
 		//two overlay opportunity split records are assigned to first opportunity record
 		//one for sales specialist and other for product specialist which are correct role for users
-		List<OpportunitySplit> opportunity0_splits = ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[0].Id, teamMembers[0].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Sales Specialist', true);
-		opportunity0_splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[0].Id, teamMembers[1].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Product Specialist', true));
-		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunitySplits' => opportunity0_splits});
+		List<OpportunitySplit> opportunity0Splits = ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[0].Id, teamMembers[0].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Sales Specialist', true);
+		opportunity0Splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[0].Id, teamMembers[1].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Product Specialist', true));
+		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunitySplits' => opportunity0Splits});
 
 		//three overlay opportunity split records are assigned to second opportunity record
 		//one for sales specialist
 		//one for product specialist where the product specialist role is incorrect
 		//one for international specialist where the user doesn't belong to any group
-		List<OpportunitySplit> opportunity1_splits = ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[0].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Sales Specialist', true);
-		opportunity1_splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[2].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Product Specialist', true));
-		opportunity1_splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[3].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'International Specialist', true));
-		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunitySplits' => opportunity1_splits});
+		List<OpportunitySplit> opportunity1Splits = ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[0].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Sales Specialist', true);
+		opportunity1Splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[2].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'Product Specialist', true));
+		opportunity1Splits.addAll(ApplicationTestDataFactory.getOpportunitySplits(1, opportunities[1].Id, teamMembers[3].Id, ApplicationTestDataFactory.overlayContributionOverlayType, 'International Specialist', true));
+		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunitySplits' => opportunity1Splits});
 
 		// attempt to update opportunity stage to Qualify
 		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
@@ -334,14 +334,14 @@ private class OpportunitySalesPipelineModule_Test {
 
 		//two opportunity product records are assigned to first opportunity record
 		//both of them have quantity = 1
-		List<OpportunityLineItem> opportunity0_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[0].Id, pricebookEntries[0].Id, true);
-		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity0_oppLineItems});
+		List<OpportunityLineItem> opportunity0OppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[0].Id, pricebookEntries[0].Id, true);
+		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity0OppLineItems});
 
 		//two opportunity product records are assigned to second opportunity record
 		//one of them have quantity = 1000 and other quantity = 1
-		List<OpportunityLineItem> opportunity1_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
-		opportunity1_oppLineItems[0].Quantity = 1000;
-		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1_oppLineItems});
+		List<OpportunityLineItem> opportunity1OppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
+		opportunity1OppLineItems[0].Quantity = 1000;
+		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1OppLineItems});
 
 		// attempt to update opportunity stage to Qualify
 		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
@@ -404,19 +404,19 @@ private class OpportunitySalesPipelineModule_Test {
 		//two opportunity product records are assigned to first opportunity record
 		//one of the product has revenue start date in the past
 		//opportunity has pre-entry scenario checked, so the validation is not applicable
-		List<OpportunityLineItem> opportunity0_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[0].Id, pricebookEntries[0].Id, true);
-		opportunity0_oppLineItems[0].Quantity = 1000;
-		opportunity0_oppLineItems[0].Contract_Start_Date__c = Date.today().addDays(-10);
-		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity0_oppLineItems});
+		List<OpportunityLineItem> opportunity0OppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[0].Id, pricebookEntries[0].Id, true);
+		opportunity0OppLineItems[0].Quantity = 1000;
+		opportunity0OppLineItems[0].Contract_Start_Date__c = Date.today().addDays(-10);
+		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity0OppLineItems});
 
 		//Scenario #2
 		//two opportunity product records are assigned to second opportunity record
 		//one of the product has revenue start date less than the opportunity close date
 		//opportunity has pre-entry scenario unchecked, so the validation is applicable
-		List<OpportunityLineItem> opportunity1_oppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
-		opportunity1_oppLineItems[0].Quantity = 1000;
-		opportunity1_oppLineItems[0].Contract_Start_Date__c = Date.today().addDays(5);
-		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1_oppLineItems});
+		List<OpportunityLineItem> opportunity1OppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
+		opportunity1OppLineItems[0].Quantity = 1000;
+		opportunity1OppLineItems[0].Contract_Start_Date__c = Date.today().addDays(5);
+		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1OppLineItems});
 
 		// attempt to update opportunity stage to Qualify
 		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
