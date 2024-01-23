@@ -1457,10 +1457,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Proactive Sales Leads</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Procurement</fullName>
             <default>false</default>
         </values>

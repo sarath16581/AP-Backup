@@ -5,6 +5,7 @@
 *@description This test class is used to validate the date business object and redirect user from porposal to OppProductList
 *@changelog
 18/07/2023 Ken Mcguire Extended mocking of test
+12/05/2023 Bharat Patel : STP-8932 : add Product Configuration's APT_Configuration_Update_Version__c in redirectToOPCScreenTest() and replace space by tab
 */
 
 @IsTest
@@ -26,7 +27,7 @@ public static void redirectToOPCScreenTest(){
 
 	// Retrieve the Permission Set
 	PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'APT_Apttus_R2T_User' LIMIT 1];
-	
+
 	// Assign the Permission Set to the User
 	PermissionSetAssignment psAssignment = new PermissionSetAssignment(
 		PermissionSetId = ps.Id,
@@ -35,8 +36,8 @@ public static void redirectToOPCScreenTest(){
 
 	insert psAssignment;
 	Apttus_Proposal__Proposal__c quote1;
-	Apttus_Config2__ProductConfiguration__c prodConfig; 
-	
+	Apttus_Config2__ProductConfiguration__c prodConfig;
+
 	system.runAs(testuser) {
 
 		//creating Account record
@@ -56,25 +57,26 @@ public static void redirectToOPCScreenTest(){
 		quote1 = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, account.Id, keyCon.id, true)[0];
 
 		prodConfig = APT_TestDataFactory.getAPTProductConfig(1, null, null, true)[0];
+		prodConfig.APT_Configuration_Update_Version__c = 1;
 		prodConfig.Apttus_QPConfig__Proposald__c =quote1.id;
 		prodConfig.Apttus_Config2__Status__c ='New';
 	}
-    
-    // =====================================
+
+	// =====================================
 	// Stubbing
 	// =====================================
 	APT_ProposalObjectsSelector mockSelectorP = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
-    ProductConfigurationSelector mockSelectorProdConfi = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
+	ProductConfigurationSelector mockSelectorProdConfi = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
 	ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-    
-    MockUtility.Mocks.startStubbing();
+
+	MockUtility.Mocks.startStubbing();
 	MockUtility.Mocks.when(mockSelectorP.selectByConfigIds((set<Id>)fflib_Match.eq(new Set<Id>{quote1.id}))).
 		thenReturn(new List<Apttus_Proposal__Proposal__c>{quote1});
-    
+
 	MockUtility.Mocks.when(mockSelectorProdConfi.selectByProposalId(new set<ID>{(ID)quote1.Id})).thenReturn(
 	new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}));
-    
-    MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+
+	MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
 	MockUtility.Mocks.stopStubbing();
 
 	PageReference testPage = Page.APT_Save_RedirectToOPCScreen ;

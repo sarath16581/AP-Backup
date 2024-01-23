@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "c2d8b6e7-a767-42bd-bc90-04b15b7fc3f4",
   "label" : "Chatter",
   "regions" : [ {

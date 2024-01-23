@@ -2969,11 +2969,6 @@
             <field>Entered_in_Team_PeopleSoft__c</field>
             <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Minimum_Rate__c</field>
-            <table>Account.Billing_Accounts__r.APRs__r</table>
-        </columns>
         <masterLabel>APRs</masterLabel>
     </sections>
     <sections>
@@ -3047,14 +3042,11 @@
             <field>Title__c</field>
             <table>Account.Billing_Accounts__r.APRs__r.APR_Contacts__r</table>
         </columns>
-        <masterLabel>APR Contacts</masterLabel>
-    </sections>
-    <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
+            <field>Minimum_Rate__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
-        <masterLabel>Organisations</masterLabel>
+        <masterLabel>APR Contacts</masterLabel>
     </sections>
 </ReportType>

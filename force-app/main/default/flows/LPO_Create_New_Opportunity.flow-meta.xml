@@ -26,7 +26,9 @@
                 <stringValue>View</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>c:navigateToRecord</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <assignments>

@@ -75,6 +75,16 @@
             <field>StarTrack_Team_Name__c</field>
             <table>User</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Account</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>User</table>
+        </columns>
         <masterLabel>User info</masterLabel>
     </sections>
     <sections>
@@ -155,7 +165,87 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Reason_Code__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>FCR__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case_Owner_Department__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ResolutionCode__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case_Owner_Business_Unit__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Account</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case_Owner_Division__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedMonth__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Account.Id</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Resolution__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Report_Purpose__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case_Owner_Company__c</field>
+            <table>User.Case$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Company_Name__c</field>
             <table>User.Case$OwnerId</table>
         </columns>
         <masterLabel>Case (owner) info</masterLabel>
@@ -163,9 +253,9 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
-            <table>User.Case$OwnerId</table>
+            <field>UserRole.PortalAccountOwner.CompanyName</field>
+            <table>User</table>
         </columns>
-        <masterLabel>Cases</masterLabel>
+        <masterLabel>Users</masterLabel>
     </sections>
 </ReportType>

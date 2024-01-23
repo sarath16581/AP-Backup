@@ -14,5 +14,5 @@ public class CreditSuspectTriggerHandler_Test {
 		System.assertNotEquals(null, handler.registerDomains(), 'Expected valid list of domain types to be returned');
 		System.assertEquals(CreditSuspect__c.SObjectType, handler.getSObjectType(), 'Expected the correct sobject type');
 		System.assert(CreditSuspectTriggerHandler.getUnitOfWorkSObjectTypes().contains(CreditSuspect__c.SObjectType), 'Expected valid list of sobject types to be returned');
-	}
+	}    
 }

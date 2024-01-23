@@ -1120,4 +1120,12 @@
         </columns>
         <masterLabel>Contacts (Created By)</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>User.Contact$CreatedById</table>
+        </columns>
+        <masterLabel>Contacts</masterLabel>
+    </sections>
 </ReportType>

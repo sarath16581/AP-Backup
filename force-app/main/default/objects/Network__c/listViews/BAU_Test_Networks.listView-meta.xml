@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAU_Test_Networks</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OBJECT_ID</field>
+        <operation>equals</operation>
+        <value>a2K90000001SgTp</value>
+    </filters>
+    <label>BAU Test Networks</label>
+    <language>en_US</language>
+</ListView>

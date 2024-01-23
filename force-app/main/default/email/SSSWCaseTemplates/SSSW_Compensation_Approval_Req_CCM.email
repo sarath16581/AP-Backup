@@ -53,7 +53,7 @@
   </div>
   
 	<div class="content">
-		Hi
+		Hi,
 
 		<h3 class="red">Compensation {!Compensation__c.Name} requires your approval.</h3> 
                 <b>Case:</b> <a href="{!Compensation__c.Link}">{!Case.CaseNumber}</a> <br/>

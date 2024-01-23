@@ -29,6 +29,7 @@
             </containers>
         </primaryTabComponents>
     </customConsoleComponents>
+    <excludeButtons>Clone</excludeButtons>
     <excludeButtons>CloseCase</excludeButtons>
     <excludeButtons>Delete</excludeButtons>
     <excludeButtons>Edit</excludeButtons>
@@ -200,6 +201,9 @@
         <quickActionListItems>
             <quickActionName>Case.Closed</quickActionName>
         </quickActionListItems>
+        <quickActionListItems>
+            <quickActionName>Case.Email</quickActionName>
+        </quickActionListItems>
     </quickActionList>
     <relatedContent>
         <relatedContentItems>
@@ -215,9 +219,6 @@
             </layoutItem>
         </relatedContentItems>
     </relatedContent>
-    <relatedLists>
-        <relatedList>RelatedTeamMemberList</relatedList>
-    </relatedLists>
     <relatedLists>
         <relatedList>RelatedCommentsList</relatedList>
     </relatedLists>
@@ -252,13 +253,6 @@
         <relatedList>RelatedChildCaseList</relatedList>
         <sortField>CASES.CREATED_DATE</sortField>
         <sortOrder>Desc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>ReferenceID__c</fields>
-        <fields>Status__c</fields>
-        <fields>Network__c</fields>
-        <relatedList>CaseInvestigation__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>

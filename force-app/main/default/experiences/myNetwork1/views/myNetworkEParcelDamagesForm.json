@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "3528124f-ea20-437c-98b2-08c97f330c9c",
   "label" : "myNetwork eParcel damages form",
   "regions" : [ {

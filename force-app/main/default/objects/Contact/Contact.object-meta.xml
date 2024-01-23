@@ -339,6 +339,7 @@
         <customTabListAdditionalFields>Record_Maintainer__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>CONTACT.ADDRESS1_STATE</customTabListAdditionalFields>
+        <listViewButtons>Merge_Contacts</listViewButtons>
         <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CONTACT.TITLE</lookupDialogsAdditionalFields>
@@ -359,6 +360,8 @@
         <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE4</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE5</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CONTACT.PHONE6</lookupPhoneDialogsAdditionalFields>
+        <massQuickActions>Update_Contact_BGS</massQuickActions>
+        <massQuickActions>Quick_Edit</massQuickActions>
         <searchFilterFields>Record_Maintainer__c</searchFilterFields>
         <searchFilterFields>Status__c</searchFilterFields>
         <searchFilterFields>ACCOUNT.NAME</searchFilterFields>

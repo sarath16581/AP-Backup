@@ -3,6 +3,7 @@
     <fullName>All_Users_Internal</fullName>
     <columns>FULL_NAME</columns>
     <columns>CORE.USERS.USERNAME</columns>
+    <columns>CORE.USERS.LAST_LOGIN</columns>
     <columns>CORE.USER_ROLE.NAME</columns>
     <columns>CORE.USERS.ACTIVE</columns>
     <columns>CORE.PROFILE.NAME</columns>
@@ -19,15 +20,6 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <filters>
-        <field>CORE.PROFILE.NAME</field>
-        <operation>equals</operation>
-        <value>SSSW - Service Agent</value>
-    </filters>
-    <filters>
-        <field>Sales_Director__c</field>
-        <operation>contains</operation>
-        <value>SSSW</value>
-    </filters>
     <label>All Users - Internal</label>
+    <language>en_US</language>
 </ListView>

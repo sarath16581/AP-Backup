@@ -30,7 +30,7 @@
     <filters>
         <field>Support_Work_Type__c</field>
         <operation>equals</operation>
-        <value>Deal Processing</value>
+        <value>Deal Processing,Contract Administration</value>
     </filters>
     <filters>
         <field>Pending_Information_Reason__c</field>

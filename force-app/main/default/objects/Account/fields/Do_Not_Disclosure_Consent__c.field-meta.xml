@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Do_Not_Disclosure_Consent__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>Capture do not disclosure consent within license record in Salesforce</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Capture do not disclosure consent within license record in Salesforce</inlineHelpText>
+    <label>Do Not Disclosure Consent</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

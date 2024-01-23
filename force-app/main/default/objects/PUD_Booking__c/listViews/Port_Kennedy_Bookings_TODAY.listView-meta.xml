@@ -13,8 +13,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>contains</operation>
-        <value>ken</value>
+        <operation>startsWith</operation>
+        <value>port ken</value>
     </filters>
     <filters>
         <field>RECORDTYPE</field>

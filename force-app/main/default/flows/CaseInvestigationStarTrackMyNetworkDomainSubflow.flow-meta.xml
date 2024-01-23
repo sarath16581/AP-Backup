@@ -15,6 +15,8 @@
                 <elementReference>vCaseInvestigation.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>CaseInvestigation__c.StarTrack_MyNetwork_Network_Escalation_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <decisions>

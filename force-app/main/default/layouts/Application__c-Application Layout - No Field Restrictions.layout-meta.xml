@@ -64,11 +64,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Submitted_to_Risk__c</field>
+                <field>Decided_by_Risk__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Decided_by_Risk__c</field>
+                <field>Submitted_to_Risk__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

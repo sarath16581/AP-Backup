@@ -1,0 +1,444 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerSingleHeaderLayout",
+  "dataProviders" : [ ],
+  "id" : "6302d63e-5e8a-44ae-ad17-85b8aabf673b",
+  "label" : "Style 2",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"cp-inner-page-heading-outer\"> \n <div class=\"cp-inner-page-heading-box cp-inner-group-detail-page-heading\"> \n  <h1 class=\"cp-inner-page-heading-text\">Join a conversation</h1> \n </div> \n</div> \n<!--render facet: 138:2;a-->"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "52bd763b-0938-463d-964e-cbe959a6a350",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "08f57cdd-4b3a-40fe-958b-1967ea5aa0d1",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "config" : {
+          "contentItemContentKey" : "MCQ74TKKZPCNHOXKJO3XONQCIIEI",
+          "contentItemUrlNameId" : "caronavirus-delays-other-impacts-20Y2v000000LK1NEAW",
+          "layoutDefinition" : {
+            "attributes" : {
+              "additionalLinks" : "{}",
+              "backgroundPosition" : "center center",
+              "backgroundSize" : "cover",
+              "borderColor" : "",
+              "componentBorderStyles" : "{\"borderTopLeftRadius\":{\"value\":\"2\"},\"borderTopRightRadius\":{\"value\":\"2\"},\"borderBottomRightRadius\":{\"value\":\"2\"},\"borderBottomLeftRadius\":{\"value\":\"2\"}}",
+              "componentHoverEffect" : "none",
+              "componentPadding" : "medium",
+              "contentBackgroundColor" : "rgb(243, 241, 238)",
+              "contentOffset" : "0",
+              "contentOffsetBackgroundColor" : "#ffffff",
+              "contentOffsetPadding" : "medium",
+              "contentPosition" : "center",
+              "contentWidth" : 100,
+              "dateFormat" : "none",
+              "datetime" : "",
+              "datetimeFontSize" : "regular",
+              "datetimeTextColor" : "",
+              "datetimeTextDecoration" : "",
+              "defaultLinksOverrides" : "{}",
+              "displayDayOfWeek" : false,
+              "eyebrowFontSize" : "regular",
+              "eyebrowHighlightColor" : "",
+              "eyebrowText" : "",
+              "eyebrowTextColor" : "",
+              "eyebrowTextDecoration" : "",
+              "flagAlignment" : "top left",
+              "flagBackgroundColor" : "#ff0000",
+              "flagBorderColor" : "#ffffff",
+              "flagBorderStyles" : "{\"borderTopLeftRadius\":{\"value\":\"0\"},\"borderTopRightRadius\":{\"value\":\"0\"},\"borderBottomRightRadius\":{\"value\":\"0\"},\"borderBottomLeftRadius\":{\"value\":\"0\"}}",
+              "flagConstraints" : "media",
+              "flagRotation" : 0,
+              "flagSpacing" : "medium",
+              "flagText" : "",
+              "flagTextColor" : "#ffffff",
+              "flagTextDecoration" : "",
+              "imageAlignment" : "top",
+              "imageAltText" : "",
+              "imageBorderColor" : "#ffffff",
+              "imageBorderStyles" : "",
+              "imageUrl" : "{!CurrentItem.bannerImage.url}",
+              "mediaAspectRatio" : "16:9",
+              "mediaHeight" : "203",
+              "metadata1HighlightColor" : "",
+              "metadata1Text" : "",
+              "metadata2HighlightColor" : "",
+              "metadata2Text" : "",
+              "metadataFontSize" : "regular",
+              "metadataTextColor" : "",
+              "metadataTextDecoration" : "",
+              "showDateTime" : false,
+              "showExcerpt" : false,
+              "showEyebrow" : false,
+              "showEyebrowHighlight" : false,
+              "showFeaturedMedia" : true,
+              "showFlag" : false,
+              "showMetadata1" : false,
+              "showMetadata1Highlight" : false,
+              "showMetadata2" : false,
+              "showMetadata2Highlight" : false,
+              "showTitle" : true,
+              "showTitleHighlight" : false,
+              "subTitle" : "",
+              "subTitleFontSize" : "regular",
+              "subTitleTextColor" : "",
+              "textAlignment" : "center",
+              "timeFormat" : "none",
+              "timeZoneDisplay" : "short",
+              "timeZoneOptions" : "none",
+              "title" : "{!CurrentItem.title}",
+              "titleFontSize" : "large",
+              "titleHeadingTag" : "p",
+              "titleHighlightColor" : "",
+              "titleTextColor" : "",
+              "titleTextDecoration" : "",
+              "useAspectRatio" : false,
+              "videoUrl" : ""
+            },
+            "componentName" : "forceCommunity:tileLayout"
+          },
+          "schemaVersion" : "V2.0"
+        }
+      },
+      "componentName" : "forceCommunity:managedContent",
+      "id" : "fd192790-c7de-49bb-b9ff-75128a2ddd36",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "config" : {
+          "collectionLayoutDefinition" : {
+            "attributes" : {
+              "collectionTitle" : "",
+              "collectionTitleHeadingTag" : "h2",
+              "columns" : 3,
+              "rows" : "1",
+              "showCollectionTitle" : true,
+              "showViewMoreButton" : false,
+              "spacing" : "medium",
+              "viewMoreButtonBackgroundColor" : "",
+              "viewMoreButtonBackgroundColorHover" : "",
+              "viewMoreButtonBorderColor" : "",
+              "viewMoreButtonBorderColorHover" : "",
+              "viewMoreButtonLabel" : "View More Items",
+              "viewMoreButtonPlacement" : "center",
+              "viewMoreButtonRadius" : 4,
+              "viewMoreButtonTextColor" : "",
+              "viewMoreButtonTextColorHover" : ""
+            },
+            "componentName" : "forceCommunity:dynamicCollectionGrid"
+          },
+          "dataProviderDefinition" : {
+            "attributes" : {
+              "dataProviderInfo" : {
+                "apiName" : "COVID_19_support"
+              },
+              "dataProviderType" : "NamedCollection"
+            },
+            "componentName" : "forceCommunity:managedContentCollectionDataProvider"
+          },
+          "itemLayoutDefinition" : {
+            "attributes" : {
+              "additionalLinks" : "{}",
+              "backgroundPosition" : "center center",
+              "backgroundSize" : "cover",
+              "borderColor" : "",
+              "componentBorderStyles" : "{\"borderTopLeftRadius\":{\"value\":\"2\"},\"borderTopRightRadius\":{\"value\":\"2\"},\"borderBottomRightRadius\":{\"value\":\"2\"},\"borderBottomLeftRadius\":{\"value\":\"2\"}}",
+              "componentHoverEffect" : "none",
+              "componentPadding" : "medium",
+              "contentBackgroundColor" : "rgb(243, 241, 238)",
+              "contentOffset" : "0",
+              "contentOffsetBackgroundColor" : "#ffffff",
+              "contentOffsetPadding" : "medium",
+              "contentPosition" : "center",
+              "contentWidth" : 100,
+              "dateFormat" : "none",
+              "datetime" : "",
+              "datetimeFontSize" : "regular",
+              "datetimeTextColor" : "",
+              "datetimeTextDecoration" : "",
+              "defaultLinksOverrides" : "{}",
+              "displayDayOfWeek" : false,
+              "eyebrowFontSize" : "regular",
+              "eyebrowHighlightColor" : "",
+              "eyebrowText" : "",
+              "eyebrowTextColor" : "",
+              "eyebrowTextDecoration" : "",
+              "flagAlignment" : "top left",
+              "flagBackgroundColor" : "#ff0000",
+              "flagBorderColor" : "#ffffff",
+              "flagBorderStyles" : "{\"borderTopLeftRadius\":{\"value\":\"0\"},\"borderTopRightRadius\":{\"value\":\"0\"},\"borderBottomRightRadius\":{\"value\":\"0\"},\"borderBottomLeftRadius\":{\"value\":\"0\"}}",
+              "flagConstraints" : "media",
+              "flagRotation" : 0,
+              "flagSpacing" : "medium",
+              "flagText" : "",
+              "flagTextColor" : "#ffffff",
+              "flagTextDecoration" : "",
+              "imageAlignment" : "top",
+              "imageAltText" : "",
+              "imageBorderColor" : "#ffffff",
+              "imageBorderStyles" : "",
+              "imageUrl" : "{!CurrentItem.bannerImage.url}",
+              "mediaAspectRatio" : "16:9",
+              "mediaHeight" : "257",
+              "metadata1HighlightColor" : "",
+              "metadata1Text" : "",
+              "metadata2HighlightColor" : "",
+              "metadata2Text" : "",
+              "metadataFontSize" : "regular",
+              "metadataTextColor" : "",
+              "metadataTextDecoration" : "",
+              "showDateTime" : false,
+              "showExcerpt" : false,
+              "showEyebrow" : false,
+              "showEyebrowHighlight" : false,
+              "showFeaturedMedia" : true,
+              "showFlag" : false,
+              "showMetadata1" : false,
+              "showMetadata1Highlight" : false,
+              "showMetadata2" : false,
+              "showMetadata2Highlight" : false,
+              "showTitle" : true,
+              "showTitleHighlight" : false,
+              "subTitle" : "{!CurrentItem.body}",
+              "subTitleFontSize" : "regular",
+              "subTitleTextColor" : "",
+              "textAlignment" : "center",
+              "timeFormat" : "none",
+              "timeZoneDisplay" : "short",
+              "timeZoneOptions" : "none",
+              "title" : "{!CurrentItem.title}",
+              "titleFontSize" : "medium",
+              "titleHeadingTag" : "p",
+              "titleHighlightColor" : "",
+              "titleTextColor" : "",
+              "titleTextDecoration" : "{\"bold\":true}",
+              "useAspectRatio" : false,
+              "videoUrl" : ""
+            },
+            "componentName" : "forceCommunity:flexTileLayout"
+          },
+          "schemaVersion" : "V2.0"
+        }
+      },
+      "componentName" : "forceCommunity:dynamicCollection",
+      "id" : "6df7525d-404a-4c2d-a95d-22c71fe6b6da",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "context" : "RECORD",
+        "recordId" : "{!recordId}",
+        "width" : "WIDE"
+      },
+      "componentName" : "forceCommunity:feedPublisher",
+      "id" : "9a62870e-d17b-4d28-ae7f-362846086b1f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "defaultFilter" : "",
+        "feedDesign" : "DEFAULT",
+        "subjectId" : "{!recordId}",
+        "type" : "Record"
+      },
+      "componentName" : "forceCommunity:forceCommunityFeed",
+      "id" : "d5bffd82-9509-4aa2-899f-179bcfbf2c86",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "763d82e5-9757-46ce-8e06-5dd9386578ca",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "ConversationDetails"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "bfbb3f0a-a965-4d0c-8308-721c94b7ead6",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "630f150f-8d13-488f-94b1-464440b5c323",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "config" : {
+          "contentItemContentKey" : "MCZD47P43NFRBCDNOM6CVWOJUL4Q",
+          "contentItemUrlNameId" : "help-communities-impacted-by-the-bushfires-20Y2v000000TnyDEAS",
+          "layoutDefinition" : {
+            "attributes" : {
+              "additionalLinks" : "{}",
+              "backgroundPosition" : "center center",
+              "backgroundSize" : "cover",
+              "borderColor" : "",
+              "componentBorderStyles" : "",
+              "componentHoverEffect" : "none",
+              "componentPadding" : "medium",
+              "contentBackgroundColor" : "rgb(243, 241, 238)",
+              "contentOffset" : "0",
+              "contentOffsetBackgroundColor" : "#ffffff",
+              "contentOffsetPadding" : "medium",
+              "contentPosition" : "center",
+              "contentWidth" : 100,
+              "dateFormat" : "none",
+              "datetime" : "",
+              "datetimeFontSize" : "regular",
+              "datetimeTextColor" : "",
+              "datetimeTextDecoration" : "",
+              "defaultLinksOverrides" : "{}",
+              "displayDayOfWeek" : false,
+              "eyebrowFontSize" : "regular",
+              "eyebrowHighlightColor" : "",
+              "eyebrowText" : "",
+              "eyebrowTextColor" : "",
+              "eyebrowTextDecoration" : "",
+              "flagAlignment" : "top left",
+              "flagBackgroundColor" : "#ff0000",
+              "flagBorderColor" : "#ffffff",
+              "flagBorderStyles" : "{\"borderTopLeftRadius\":{\"value\":\"0\"},\"borderTopRightRadius\":{\"value\":\"0\"},\"borderBottomRightRadius\":{\"value\":\"0\"},\"borderBottomLeftRadius\":{\"value\":\"0\"}}",
+              "flagConstraints" : "media",
+              "flagRotation" : 0,
+              "flagSpacing" : "medium",
+              "flagText" : "",
+              "flagTextColor" : "#ffffff",
+              "flagTextDecoration" : "",
+              "imageAlignment" : "top",
+              "imageAltText" : "",
+              "imageBorderColor" : "#ffffff",
+              "imageBorderStyles" : "",
+              "imageUrl" : "{!CurrentItem.bannerImage.url}",
+              "mediaAspectRatio" : "16:9",
+              "mediaHeight" : "354",
+              "metadata1HighlightColor" : "",
+              "metadata1Text" : "",
+              "metadata2HighlightColor" : "",
+              "metadata2Text" : "",
+              "metadataFontSize" : "regular",
+              "metadataTextColor" : "",
+              "metadataTextDecoration" : "",
+              "showDateTime" : false,
+              "showExcerpt" : true,
+              "showEyebrow" : false,
+              "showEyebrowHighlight" : false,
+              "showFeaturedMedia" : true,
+              "showFlag" : false,
+              "showMetadata1" : false,
+              "showMetadata1Highlight" : false,
+              "showMetadata2" : false,
+              "showMetadata2Highlight" : false,
+              "showTitle" : true,
+              "showTitleHighlight" : false,
+              "subTitle" : "{!CurrentItem.body}",
+              "subTitleFontSize" : "regular",
+              "subTitleTextColor" : "",
+              "textAlignment" : "center",
+              "timeFormat" : "none",
+              "timeZoneDisplay" : "short",
+              "timeZoneOptions" : "none",
+              "title" : "{!CurrentItem.title}",
+              "titleFontSize" : "medium",
+              "titleHeadingTag" : "p",
+              "titleHighlightColor" : "",
+              "titleTextColor" : "",
+              "titleTextDecoration" : "{\"bold\":true}",
+              "useAspectRatio" : false,
+              "videoUrl" : ""
+            },
+            "componentName" : "forceCommunity:tileLayout"
+          },
+          "schemaVersion" : "V2.0"
+        }
+      },
+      "componentName" : "forceCommunity:managedContent",
+      "id" : "062823c9-7cbb-4977-ba3a-6d52ad472d9d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "headerLabel" : "Add member",
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:addMember",
+      "id" : "5c441f5a-12a2-4864-b6f8-098dc80f610a",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:groupRelatedList",
+      "id" : "63dfaaf1-40c9-423b-a867-f9b52fc7e4b5",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "26e69bac-a168-4690-8692-a8886dbf604f",
+    "regionName" : "Sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Join a group to have ongoing conversations with your fellow Community members and Australia Post.",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8816d194-0947-402c-8822-c5b6ecfdb8fa",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ed1ae66e-e9b4-4336-89b7-ba082e3b6518",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:groupHeadline",
+      "id" : "60e51370-412a-4f08-8ef0-dd33d5839e54",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c053e024-f5be-4179-b9bc-11b53b81e170",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "ConversationDetails"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "8d730ffc-d9d7-4772-a1c1-c7d45e344b16",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "aa56fdcb-90d9-4203-806d-754e2b7cb4f0",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "type" : "view",
+  "viewType" : "detail-0F9"
+}

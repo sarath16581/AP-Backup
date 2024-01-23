@@ -824,16 +824,6 @@
                 <label>Joint Business Review</label>
             </value>
             <value>
-                <fullName>Opportunity Assistance</fullName>
-                <default>false</default>
-                <label>Opportunity Assistance</label>
-            </value>
-            <value>
-                <fullName>Lead Assistance</fullName>
-                <default>false</default>
-                <label>Lead Assistance</label>
-            </value>
-            <value>
                 <fullName>Label / Manifest test</fullName>
                 <default>false</default>
                 <label>Label / Manifest test</label>
@@ -1812,6 +1802,16 @@
                 <fullName>Revenue Flow issues</fullName>
                 <default>false</default>
                 <label>Revenue Flow issues</label>
+            </value>
+            <value>
+                <fullName>Opportunity Assistance</fullName>
+                <default>false</default>
+                <label>Opportunity Assistance</label>
+            </value>
+            <value>
+                <fullName>Lead Assistance</fullName>
+                <default>false</default>
+                <label>Lead Assistance</label>
             </value>
             <value>
                 <fullName>Reporting</fullName>

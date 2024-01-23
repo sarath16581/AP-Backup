@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Port_Kennedy_Locations</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Street_Fx__c</columns>
+    <columns>City__c</columns>
+    <columns>Customer_or_Network__c</columns>
+    <columns>State__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Route__c</field>
+        <operation>startsWith</operation>
+        <value>PK</value>
+    </filters>
+    <filters>
+        <field>Network__c</field>
+        <operation>notContain</operation>
+        <value>red box</value>
+    </filters>
+    <label>Port Kennedy Locations</label>
+</ListView>

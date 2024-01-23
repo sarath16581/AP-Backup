@@ -2,6 +2,7 @@
   "activeViewId" : "3528124f-ea20-437c-98b2-08c97f330c9c",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "myNetwork_eParcel_damages_form__c",
   "id" : "460c272f-d496-4d49-a26f-965995fcaf1f",
   "label" : "myNetwork eParcel damages form",
   "pageAccess" : "UseParent",

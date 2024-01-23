@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Dispute Case Acknowledgement StarTrack Origin Email</name>
+    <style>none</style>
+    <subject>Credit claim enquiry created: Case No. {!Case.CaseNumber}</subject>
+    <textOnly>StarTrack
+
+We&apos;re looking into your credit enquiry
+
+Hi {!Case.Name__c}
+
+Thanks for taking the time to contact us. This is confirmation that we have received your enquiry and a case has been created for you.
+
+Details of your case are:
+
+Case Reference Number: {!Case.CaseNumber}.
+ClaimType: {!Case.Enquiry_Type__c}
+Reason for Credit Claim: {!Case.ReasonforCreditClaim__c}
+Business Name: {!Case.Business_Name__c}
+Account Number: {!Case.Billing_Number__c}
+Total Amount Claimed ($): {!Case.Amount_Claimed__c}
+Description: {!Case.Description}
+
+
+Just so you’re aware, it may take up to 10 business days before you hear back from us so thanks in advance for your patience. We will try to resolve this as quickly as possible and will be in touch once we have an outcome.
+
+In the meantime, if you have any questions, please email customer.resolutions@startrack.com.au including your Case Number: {!Case.CaseNumber} in the Subject line. We look forward to helping you with your request.
+
+Please do not reply to this email; this is an automated message.
+
+Kind regards,
+
+Customer Resolution Team
+Australia Post &amp; StarTrack
+customer.resolutions@startrack.com.au
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

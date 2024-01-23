@@ -2,6 +2,7 @@
   "activeViewId" : "f53850b1-5602-4a03-93b6-ccad446135d6",
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "configurationTags" : [ ],
+  "devName" : "Contact_Support",
   "id" : "28d4a413-115f-4a8d-8545-f0974437f35f",
   "label" : "Contact Support",
   "routeType" : "contactsupport",

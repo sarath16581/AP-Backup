@@ -46,7 +46,7 @@ export default class Main {
 		const responseFeedback = (isReferred) => {
 			// Response from backend will be true or false. Any exceptions will be handled in the catch block of the sequence execution
 			if (isReferred) {
-				return UIToasts.showToast({ thisArg, ...TOAST.REFERRED });				
+				UIToasts.showToast({ thisArg, ...TOAST.REFERRED });				
 			} else {
 				return UIToasts.showToastSuccess({ thisArg, ...TOAST.NO_MATCHES });
 			}
@@ -71,10 +71,8 @@ export default class Main {
 		];
 		
 		const execute = async (taskIdx = 0, args) => {
-			let result;
-
 			try {
-				result = await taskList[taskIdx](args);
+				const result = await taskList[taskIdx](args);
 				// Continue sequence execution until completed or user navigated elsewhere (prevents errors in Console App)
 				if (taskIdx < taskList.length - 1 && !thisArg.backgroundTasks.isDestroyed.status) {
 					// Execute the next task in the sequence
@@ -82,10 +80,8 @@ export default class Main {
 				}
 			} catch (ex) {
 				// Handle all other type of Errors (like possible connectivity issues or insufficient record access)
-				result = await UIToasts.showToastError({ thisArg, message: ex });
+				return await UIToasts.showToastError({ thisArg, message: ex });
 			}
-
-			return result;
 		};
 
 		// Execute the sequence

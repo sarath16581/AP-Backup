@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "533aa968-ef8f-481b-93da-247908261d9d",
   "label" : "myNetwork Others form",
   "regions" : [ {

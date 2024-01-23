@@ -55,6 +55,8 @@
                 <elementReference>formula_2_myRule_1_A1_0237983507</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>SSSW_CaseClearViewMapping_ForOnline</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <assignments>

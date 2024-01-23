@@ -86,6 +86,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Collected from outlet by authorised person</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Considered delivered as addressed %28believes letterbox%29</fullName>
             <default>false</default>
         </values>

@@ -12,10 +12,4 @@
     <filterScope>Queue</filterScope>
     <label>Business Events Queue</label>
     <queue>Business_Events</queue>
-    <sharedTo>
-        <group>Account_Managers</group>
-        <group>Sales_Group_Specialist</group>
-        <group>Sales_Managers</group>
-        <role>Marketing</role>
-    </sharedTo>
 </ListView>

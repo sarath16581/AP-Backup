@@ -5,6 +5,7 @@ Created Date: 22-02-2023
 Last Modified By:
 Last Modified Date:
 @changelog:
+06-12-2023 Bharat Patel - STP-9773: Update oPCScreenRedirect(), set configuration update's version logic
 */
 
 public class APT_Save_RedirectToOPCScreen{
@@ -24,23 +25,18 @@ public class APT_Save_RedirectToOPCScreen{
 	List<Apttus_Config2__ProductConfiguration__c>  prodConfigListToUpdate = new List<Apttus_Config2__ProductConfiguration__c>();
 	// Query product configuration record
 	List<Apttus_Config2__ProductConfiguration__c>  prodConfigList = ProductConfigurationSelector.newInstance().selectByProposalId(new Set<Id>{proposalID});
-
-	if(prodConfigList != null){
 		for(Apttus_Config2__ProductConfiguration__c productConfig : prodConfigList){
-			if(productConfig.Apttus_Config2__Status__c == 'Saved'){
-				productConfig.Apttus_Config2__Description__c = 'test' + System.now();
-				prodConfigListToUpdate.add(productConfig);
+		if(productConfig.Apttus_Config2__Status__c == APT_Constants.URL_SAVED || productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW) {
+			if(productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW) {
+				productConfig.Apttus_Config2__Status__c = APT_Constants.URL_SAVED;
 			}
-			else if(productConfig.Apttus_Config2__Status__c == APT_Constants.CASE_STATUS_NEW){
-				productConfig.Apttus_Config2__Status__c = 'Saved';
+				productConfig.APT_Configuration_Update_Version__c = productConfig.APT_Configuration_Update_Version__c + 1;
 				prodConfigListToUpdate.add(productConfig);
-			}
 		}
 	}
 
-	if(prodConfigListToUpdate.size() > 0){
 		ApplicationDatabase.getInstance().dmlUpdate(prodConfigListToUpdate);
-	}
+
 	//Querying the proposal record by passing the proposal id
 	List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance(0,new Set<SObjectField>{Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c}).selectByConfigIds(new Set<Id>{proposalId});
 	for(Apttus_Proposal__Proposal__c proposal:existingProposalList){

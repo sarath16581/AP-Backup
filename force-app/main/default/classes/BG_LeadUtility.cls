@@ -8,7 +8,7 @@ Test Class:BG_LeadUtilityTest
 23-07-2020      Victor Cheng        Added Send notification email code
 17-01-2020      Suman Gunaganti     Methods to support HVS functionality 
 05-03-2020      Suman Gunaganti     Lead SLA fields logic update
-01-10-2021  Seth Heang      Uplift SF API version to 52
+01-10-2021	Seth Heang	    Uplift SF API version to 52
 08-04-2022      Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
 **************************************************/
 

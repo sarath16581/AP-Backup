@@ -271,12 +271,32 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>mh_Managers_Review_Date__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Citizenship_Status__c</field>
             <table>Account</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Disclosure_Consent__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Depot_Bag_Handling__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Lodgement_Fee_Loading__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Tray_Despatch_Loading__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Licence</masterLabel>
@@ -1711,14 +1731,31 @@
             <field>Facility__c.Network_Facility__c.LBP_Retail_relationship_type_network__c</field>
             <table>Account</table>
         </columns>
-        <masterLabel>Accounts</masterLabel>
-    </sections>
-    <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
+            <field>ShippingAddress</field>
             <table>Account</table>
         </columns>
-        <masterLabel>Organisations</masterLabel>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingCity</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingState</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingStreet</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ShippingPostalCode</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Accounts</masterLabel>
     </sections>
 </ReportType>

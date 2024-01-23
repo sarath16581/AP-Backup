@@ -71,6 +71,11 @@
             <field>Account</field>
             <table>ServiceResource</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Vehicle__c</field>
+            <table>ServiceResource</table>
+        </columns>
         <masterLabel>Service Resources</masterLabel>
     </sections>
     <sections>

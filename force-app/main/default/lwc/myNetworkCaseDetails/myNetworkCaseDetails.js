@@ -11,6 +11,7 @@
  * 2023-03-31 - Mahesh Parvathaneni - Added Initial contact fields under More Details for case investigation
  * 2023-04-05 - Mahesh Parvathaneni - Removed the field WEB_EMAIL_FIELD from More Details section
  * 2023-05-03 - Mahesh Parvathaneni - Updated SentToNetworkDatetime__c field for case investigation
+ * 2023-12-20 - Talib Raza - INC2252982 - added back call to getCaseMessages
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
@@ -33,6 +34,7 @@ import CASE_ORIGINATOR from "@salesforce/schema/Case.CaseOriginator__c";
 import DESCRIPTION_CONTENT from "@salesforce/schema/Case.DescriptionofContents__c";
 import SENT_TO_NETWORK from '@salesforce/schema/Case.Sent_To_Network_Date__c';
 import VALUE_OF_CONTENTS from '@salesforce/schema/Case.ValueofContents__c';
+import getCaseMessages from "@salesforce/apex/MyNetworkCaseListController.getCaseMessages";
 import PURPOSE_FIELD from '@salesforce/schema/Case.Call_Purpose__c';
 //import CONSIGNMENT_ID_FIELD from '@salesforce/schema/Case.Consignment_Unique_External_ID__c';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/Case.Calc_Case_Consignment__c';
@@ -234,6 +236,17 @@ export default class CaseDetails extends LightningElement {
 			// eslint-disable-next-line no-console
 			console.log("error in loading the style>>", error);
 		});
+		console.log('this.recordId: '+this.recordId +' getCaseMessages({ caseRecordId: this.recordId}): ' + getCaseMessages({ caseRecordId: this.recordId}));
+		getCaseMessages({ caseRecordId: this.recordId})
+		.then(result =>{
+			console.log('result>>>>>',result);
+			for (let i = 0; i < result.length; i++) {
+				this.showToast(result[i].messageType, result[i].messageString, 'sticky', 'success') ;
+			}
+		})
+		.catch(error =>{
+			console.log('error>>>',error);
+		})
 		//get case record when called from CI Detail Page
 		this.getRequiredDetails();
 	}

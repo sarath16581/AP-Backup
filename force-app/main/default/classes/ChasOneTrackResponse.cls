@@ -166,8 +166,8 @@ public with sharing class ChasOneTrackResponse {
         public String id {get;set;} 
         public String code {get;set;} 
         public String consignmentId {get;set;} 
-        public String consignmentCode {get;set;}
-        public String fullBarcode {get;set;}
+        public String consignmentCode {get;set;} 
+        public String fullBarcode {get;set;} 
         public String shortBarcode {get;set;} 
         public Boolean isRegisteredByAP {get;set;} 
         public Boolean isReceivedByAP {get;set;} 

@@ -5,11 +5,10 @@
     <externalId>false</externalId>
     <inlineHelpText>Impending changes to outward mail processing that may affect outlet</inlineHelpText>
     <label>Impending Outward Mail Changes</label>
-    <length>255</length>
-    <required>false</required>
+    <length>1200</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
 </CustomField>

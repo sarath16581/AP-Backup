@@ -1,453 +1,453 @@
 <!--
-	12-Jan-2016 - kalpita.talwadekar@auspost.com.au  : updated the code to displaythe critical incidents for networks
-													   on the network search
-	29-Mar-2016 - nandan.narasappa@auspost.com.au    : Commented getNumbers method as part of performance fix (INC0690144)
+    12-Jan-2016 - kalpita.talwadekar@auspost.com.au  : updated the code to displaythe critical incidents for networks
+                                                       on the network search
+    29-Mar-2016 - nandan.narasappa@auspost.com.au    : Commented getNumbers method as part of performance fix (INC0690144)
 
-	 7-Apr-2016 - kalpita.talwadekar@auspost.com.au  : updated code to accomodate product standardization messages
-													  for international networks
-	09-May-2016 - eugene.jandusay@auspost.com.au     : updated code to check contact email before sending to service now
-	06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
-	13/07/2017 nanda.kothamasu@auspost.com.au  --  modified code for map and data is loaded when user is clicked on search button.
-	23/07/2017 nathan.franklin@auspost.com.au  --  major client side refactor. separated js/css into static resource bundle
-	17/09/2017 nathan.franklin@auspost.com.au  --  Added ScriptLoader component to manage frontend scripts
-	2017-10-23 nathan.franklin@auspost.com.au  --  Performance refresh
-	15.05.2018 hasantha.liyanage@auspost.com.au  -- Make available the page through cpVisualforceWrapper.cmp
-													added resizeMonitor and the implementation of the resize monitor
-													adding the openTab functionality to open a lightning tab when opened with lightning experience
+     7-Apr-2016 - kalpita.talwadekar@auspost.com.au  : updated code to accomodate product standardization messages
+                                                      for international networks
+    09-May-2016 - eugene.jandusay@auspost.com.au     : updated code to check contact email before sending to service now
+    06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
+    13/07/2017 nanda.kothamasu@auspost.com.au  --  modified code for map and data is loaded when user is clicked on search button.
+    23/07/2017 nathan.franklin@auspost.com.au  --  major client side refactor. separated js/css into static resource bundle
+    17/09/2017 nathan.franklin@auspost.com.au  --  Added ScriptLoader component to manage frontend scripts
+    2017-10-23 nathan.franklin@auspost.com.au  --  Performance refresh
+    15.05.2018 hasantha.liyanage@auspost.com.au  -- Make available the page through cpVisualforceWrapper.cmp
+                                                    added resizeMonitor and the implementation of the resize monitor
+                                                    adding the openTab functionality to open a lightning tab when opened with lightning experience
 -->
 <apex:page applyHtmlTag="false" applyBodyTag="false" showheader="false" docType="html" controller="FacilitySearchController" title="Facility Search">
-	<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-		<c:ScriptLoader jsLibraries="jquery,jqueryui,interaction,integration,bootstrap,localstate,webanalyser,resizeMonitor"
-						cssLibraries="jqueryui,bootstrap,ssswconsole" />
+        <c:ScriptLoader jsLibraries="jquery,jqueryui,interaction,integration,bootstrap,localstate,webanalyser,resizeMonitor"
+                        cssLibraries="jqueryui,bootstrap,ssswconsole" />
 
-		<apex:includeScript value="https://maps.googleapis.com/maps/api/js?v=3.16{!googleMapClient}" />
+        <apex:includeScript value="https://maps.googleapis.com/maps/api/js?v=3.16{!googleMapClient}" />
 
-		<apex:stylesheet value="{!URLFOR($Resource.FacilitySearchAssets, '/css/styles.css')}" />
-		<apex:includeScript value="{!URLFOR($Resource.FacilitySearchAssets, '/js/controller.js')}" />
-	</head>
-	<body>
-	<apex:form id="frm">
+        <apex:stylesheet value="{!URLFOR($Resource.FacilitySearchAssets, '/css/styles.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.FacilitySearchAssets, '/js/controller.js')}" />
+    </head>
+    <body>
+    <apex:form id="frm">
 
-		<c:AddressValidation />
+        <c:AddressValidation />
 
-		<apex:actionFunction name="doSearchAddress"
-							 action="{!postback_searchFacilitiesByGeoCode}"
-							 rerender="searchResults, pnlPageVars"
-							 oncomplete="pageController.searchComplete();return false;">
-			<apex:param id="aname" name="geocode" value="" />
-			<apex:param name="countryName" assignTo="{!countryName}" value="" />
-		</apex:actionFunction>
+        <apex:actionFunction name="doSearchAddress"
+                             action="{!postback_searchFacilitiesByGeoCode}"
+                             rerender="searchResults, pnlPageVars"
+                             oncomplete="pageController.searchComplete();return false;">
+            <apex:param id="aname" name="geocode" value="" />
+            <apex:param name="countryName" assignTo="{!countryName}" value="" />
+        </apex:actionFunction>
 
-		<apex:actionFunction name="doSearchPostcode" action="{!postback_searchFacilitiesBySuburbPostCode}"
-							 rerender="searchResults, pnlPageVars"
-							 oncomplete="pageController.searchComplete();return false;">
-			<apex:param name="countryName" assignTo="{!countryName}" value="" />
-		</apex:actionFunction>
+        <apex:actionFunction name="doSearchPostcode" action="{!postback_searchFacilitiesBySuburbPostCode}"
+                             rerender="searchResults, pnlPageVars"
+                             oncomplete="pageController.searchComplete();return false;">
+            <apex:param name="countryName" assignTo="{!countryName}" value="" />
+        </apex:actionFunction>
 
-		<apex:actionFunction name="loadInternationalNW" action="{!loadInternationalNetworks}"
-							 rerender="searchResults, btnLoadInterNW"
-							 oncomplete="pageController.searchComplete();return false;">
-			<apex:param name="countryName" assignTo="{!countryName}" value="" />
-		</apex:actionFunction>
+        <apex:actionFunction name="loadInternationalNW" action="{!loadInternationalNetworks}"
+                             rerender="searchResults, btnLoadInterNW"
+                             oncomplete="pageController.searchComplete();return false;">
+            <apex:param name="countryName" assignTo="{!countryName}" value="" />
+        </apex:actionFunction>
 
-		<div id="facilitysearch-toppanel">
-			<div id="facilitysearch-searchpanel">
-				<div class="fieldset" id="facilitysearch-search">
-					<h3>Search</h3>
-					<table>
-						<tr>
-							<td class="fs-label">Postcode/Suburb:</td>
-							<td class="fs-input">
-								<c:PostcodeSuburbLookup className="postcode-autocomplete" onselectFunctionName="pageController.setLocalityId"/>
-								<apex:inputtext styleClass="form-control input-sm postcode-autocomplete formatvalue" value="{!keyword}" id="txtKeyword" />
+        <div id="facilitysearch-toppanel">
+            <div id="facilitysearch-searchpanel">
+                <div class="fieldset" id="facilitysearch-search">
+                    <h3>Search</h3>
+                    <table>
+                        <tr>
+                            <td class="fs-label">Postcode/Suburb:</td>
+                            <td class="fs-input">
+                                <c:PostcodeSuburbLookup className="postcode-autocomplete" onselectFunctionName="pageController.setLocalityId"/>
+                                <apex:inputtext styleClass="form-control input-sm postcode-autocomplete formatvalue" value="{!keyword}" id="txtKeyword" />
 
-								<apex:inputHidden id="localityId" value="{!localityId}"/>
-							</td>
-							<td class="fs-button">
-								<apex:commandButton value="Search" id="btnPostcode" />
-							</td>
-						</tr>
-						<apex:outputText rendered="{!if(LEN(casetype)>0, true, false)}">
-							<tr>
-								<td class="fs-label">Case Type:</td>
-								<td class="fs-input" colspan="2">{!CaseType}</td>
-							</tr>
-						</apex:outputText>
-					</table>
-				</div>
-				<div class="fieldset" id="facilitysearch-addressinfo">
-					<h3>Address Information</h3>
-					<table>
-						<tr>
-							<td class="fs-label">{!address1Label}:</td>
-							<td class="fs-input">
-								<apex:inputtextarea styleClass="form-control input-sm addressValidation" id="senderAddress" value="{!senderAddress}" />
-							</td>
-							<td class="fs-button">
-								<apex:commandButton value="Search" id="btnSenderAddress" />
-							</td>
-						</tr>
-						<tr>
-							<td class="fs-label">{!address2Label}:</td>
-							<td class="fs-input">
-								<apex:inputtextarea styleClass="form-control input-sm addressValidation" id="recipientAddress" value="{!recipientAddress}" />
-							</td>
-							<td class="fs-button">
-								<apex:commandButton value="Search"  id="btnRecipientAddress" />
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="fieldset" id="facilitysearch-facilitytype">
-					<h3>Network Type</h3>
-					<apex:outputpanel id="pnlCheck">
-						<table>
-							<apex:repeat value="{!networkTabs.tabIds}" var="tabId">
-								<apex:variable value="{!networkTabs.tabs[tabId]}" var="networkTab" />
-								<apex:outputText rendered="{!if(tabId != 'caserelated',true,false)}">
-									<tr>
-										<td>
-											<img src="{!URLFOR($Resource.Markers, networkTab.recordTypeDevName + '.png')}" />
-											<input type="checkbox" id="{!networkTab.recordTypeId}" class="ckbNetworkType"  checked="" onkeydown="if (event.keyCode == 13) event.preventDefault()" onclick="pageController.toggleGroup('{!networkTab.recordTypeId}', this.checked)" />
-											<label for="{!networkTab.recordTypeId}">{!networkTab.tabName}</label></td>
-									</tr>
-								</apex:outputText>
-							</apex:repeat>
-						</table>
-					</apex:outputpanel>
-				</div>
-			</div>
+                                <apex:inputHidden id="localityId" value="{!localityId}"/>
+                            </td>
+                            <td class="fs-button">
+                                <apex:commandButton value="Search" id="btnPostcode" />
+                            </td>
+                        </tr>
+                        <apex:outputText rendered="{!if(LEN(casetype)>0, true, false)}">
+                            <tr>
+                                <td class="fs-label">Case Type:</td>
+                                <td class="fs-input" colspan="2">{!CaseType}</td>
+                            </tr>
+                        </apex:outputText>
+                    </table>
+                </div>
+                <div class="fieldset" id="facilitysearch-addressinfo">
+                    <h3>Address Information</h3>
+                    <table>
+                        <tr>
+                            <td class="fs-label">{!address1Label}:</td>
+                            <td class="fs-input">
+                                <apex:inputtextarea styleClass="form-control input-sm addressValidation" id="senderAddress" value="{!senderAddress}" />
+                            </td>
+                            <td class="fs-button">
+                                <apex:commandButton value="Search" id="btnSenderAddress" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fs-label">{!address2Label}:</td>
+                            <td class="fs-input">
+                                <apex:inputtextarea styleClass="form-control input-sm addressValidation" id="recipientAddress" value="{!recipientAddress}" />
+                            </td>
+                            <td class="fs-button">
+                                <apex:commandButton value="Search"  id="btnRecipientAddress" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="fieldset" id="facilitysearch-facilitytype">
+                    <h3>Network Type</h3>
+                    <apex:outputpanel id="pnlCheck">
+                        <table>
+                            <apex:repeat value="{!networkTabs.tabIds}" var="tabId">
+                                <apex:variable value="{!networkTabs.tabs[tabId]}" var="networkTab" />
+                                <apex:outputText rendered="{!if(tabId != 'caserelated',true,false)}">
+                                    <tr>
+                                        <td>
+                                            <img src="{!URLFOR($Resource.Markers, networkTab.recordTypeDevName + '.png')}" />
+                                            <input type="checkbox" id="{!networkTab.recordTypeId}" class="ckbNetworkType"  checked="" onkeydown="if (event.keyCode == 13) event.preventDefault()" onclick="pageController.toggleGroup('{!networkTab.recordTypeId}', this.checked)" />
+                                            <label for="{!networkTab.recordTypeId}">{!networkTab.tabName}</label></td>
+                                    </tr>
+                                </apex:outputText>
+                            </apex:repeat>
+                        </table>
+                    </apex:outputpanel>
+                </div>
+            </div>
 
-			<div id="map" style="background-image:url({!URLFOR($Resource.FacilitySearchAssets, '/images/mapplaceholder.jpg')});">
-				<button type="button" id="showMap" class="btn">Show Map</button>
-			</div>
-		</div>
+            <div id="map" style="background-image:url({!URLFOR($Resource.FacilitySearchAssets, '/images/mapplaceholder.jpg')});">
+                <button type="button" id="showMap" class="btn">Show Map</button>
+            </div>
+        </div>
 
-		<div id="facilitysearch-bottompanel">
-			<apex:outputPanel id="tabSearchResults" layout="block">
-				<c:Tabpanel tabGroupName="tabs">
+        <div id="facilitysearch-bottompanel">
+            <apex:outputPanel id="tabSearchResults" layout="block">
+                <c:Tabpanel tabGroupName="tabs">
 
-					<apex:variable value="{!deliveryNWRecordId}" var="deliveryNWRecord" />
-					<apex:variable value="{!str_case_Category}" var="caseCategory" />
-					<apex:variable value="{!allowContactNetwork}" var="allowContact" />
-					<apex:variable value="{!internationalNWRecordDevName}" var="internationalRecordTypeDevName" />
+                    <apex:variable value="{!deliveryNWRecordId}" var="deliveryNWRecord" />
+                    <apex:variable value="{!str_case_Category}" var="caseCategory" />
+                    <apex:variable value="{!allowContactNetwork}" var="allowContact" />
+                    <apex:variable value="{!internationalNWRecordDevName}" var="internationalRecordTypeDevName" />
 
-					<apex:repeat value="{!networkTabs.tabIds}" var="tabPanelId">
-						<c:Tab title="{!networkTabs.tabs[tabPanelId].tabName}" tabId="tab{!networkTabs.tabs[tabPanelId].recordTypeId}">
+                    <apex:repeat value="{!networkTabs.tabIds}" var="tabPanelId">
+                        <c:Tab title="{!networkTabs.tabs[tabPanelId].tabName}" tabId="tab{!networkTabs.tabs[tabPanelId].recordTypeId}">
 
-							<apex:outputPanel id="btnLoadInterNW" rendered="{!if(tabPanelId==internationalRecordTypeDevName, true, false)}">
+                            <apex:outputPanel id="btnLoadInterNW" rendered="{!if(tabPanelId==internationalRecordTypeDevName, true, false)}">
 
-								<apex:outputLabel value="Country Name" for="countryInp"/> &nbsp;&nbsp;
-								<apex:inputText value="{!countryName}" id="countryInp"/> &nbsp;&nbsp;
-								<apex:commandButton value="Show International Networks" onclick="pageController.showProgress();loadInternationalNW(j$('input[id=\'{!$Component.countryInp}\']').val()); return false;" />
+                                <apex:outputLabel value="Country Name" for="countryInp"/> &nbsp;&nbsp;
+                                <apex:inputText value="{!countryName}" id="countryInp"/> &nbsp;&nbsp;
+                                <apex:commandButton value="Show International Networks" onclick="pageController.showProgress();loadInternationalNW(j$('input[id=\'{!$Component.countryInp}\']').val()); return false;" />
 
-								<apex:outputText rendered="{!if(searchedInternationalNetworks && networkTabs.tabs[tabPanelId].networks.size==0, true, false)}">
-									<br />
-									<br />
-									<br />
-									<span style="font-weight:bold;">Network not found. Please check the Country Name and search again.</span>
-								</apex:outputText>
-							</apex:outputPanel>
+                                <apex:outputText rendered="{!if(searchedInternationalNetworks && networkTabs.tabs[tabPanelId].networks.size==0, true, false)}">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <span style="font-weight:bold;">Network not found. Please check the Country Name and search again.</span>
+                                </apex:outputText>
+                            </apex:outputPanel>
 
-							<apex:outputPanel id="searchResults" layout="block" styleClass="ui-widget-content accordion-resizer result-container">
-								<apex:variable value="{!networkTabs.tabs[tabPanelId]}" var="networkTab" />
+                            <apex:outputPanel id="searchResults" layout="block" styleClass="ui-widget-content accordion-resizer result-container">
+                                <apex:variable value="{!networkTabs.tabs[tabPanelId]}" var="networkTab" />
 
-								<apex:outputText rendered="{!if(tabPanelId == deliveryNWRecord && CONTAINS(caseCategory, 'Parcel'), true, false)}">
-									<span style="font-weight:bold;">The Case Product Category has limited Delivery Networks to those handling Parcels Only</span>
-								</apex:outputText>
-								<apex:outputText rendered="{!if(tabPanelId == deliveryNWRecord && CONTAINS(caseCategory, 'Letter'), true, false)}">
-									<span style="font-weight:bold;">The Case Product Category has limited Delivery Networks to those handling Letters Only</span>
-								</apex:outputText>
-								<div class="accordion" id="acc{!tabPanelId}">
-									<apex:repeat value="{!networkTab.networks}" var="facility">
-										<apex:variable var="network" value="{!facility.network}" />
+                                <apex:outputText rendered="{!if(tabPanelId == deliveryNWRecord && CONTAINS(caseCategory, 'Parcel'), true, false)}">
+                                    <span style="font-weight:bold;">The Case Product Category has limited Delivery Networks to those handling Parcels Only</span>
+                                </apex:outputText>
+                                <apex:outputText rendered="{!if(tabPanelId == deliveryNWRecord && CONTAINS(caseCategory, 'Letter'), true, false)}">
+                                    <span style="font-weight:bold;">The Case Product Category has limited Delivery Networks to those handling Letters Only</span>
+                                </apex:outputText>
+                                <div class="accordion" id="acc{!tabPanelId}">
+                                    <apex:repeat value="{!networkTab.networks}" var="facility">
+                                        <apex:variable var="network" value="{!facility.network}" />
 
-										<h3 data-facilityId="{!facility.id}" id="acc{!facility.id}" class="bobthebuilder">
-											<apex:outputText value="{!facility.name}" />
-											<apex:outputText rendered="{!IF(ISBLANK(facility.state),false,true)}"> ({!facility.state})</apex:outputText>
-										</h3>
-										<div class="clearfix">
-											<div id="fs-facility-leftpanel">
-												<div id="fs-messages">
-													<div class="alert alert-info" role="alert">
+                                        <h3 data-facilityId="{!facility.id}" id="acc{!facility.id}" class="bobthebuilder">
+                                            <apex:outputText value="{!facility.name}" />
+                                            <apex:outputText rendered="{!IF(ISBLANK(facility.state),false,true)}"> ({!facility.state})</apex:outputText>
+                                        </h3>
+                                        <div class="clearfix">
+                                            <div id="fs-facility-leftpanel">
+                                                <div id="fs-messages">
+                                                    <div class="alert alert-info" role="alert">
                                                         <apex:outputPanel rendered="{!NOT(isReadOnly)}">
-                                                        	<a href="#" onClick="openTab('{!facility.id}');">View Network Record</a>
+                                                            <a href="#" onClick="openTab('{!facility.id}');">View Network Record</a>
                                                         </apex:outputPanel>    
-                                                		<apex:outputPanel rendered="{!isReadOnly}">
-                                                        	<a href="#" onclick="pageController.openFacilityDetail('{!facility.id}','{!JSENCODE(facility.name)}');return false;">View Network Record</a>
+                                                        <apex:outputPanel rendered="{!isReadOnly}">
+                                                            <a href="#" onclick="pageController.openFacilityDetail('{!facility.id}','{!JSENCODE(facility.name)}');return false;">View Network Record</a>
                                                         </apex:outputPanel>    
-													</div>
+                                                    </div>
 
-													<apex:repeat value="{!byPasses}" var="byPass">
-														<apex:outputText rendered="{!if(byPass.Facility_By_Pass_From__c==facility.id,true,false)}">
-															<div class="alert alert-warning" role="alert">
-																Bypass to <a href="#" onclick="pageController.goToFacility('{!JSENCODE(byPass.Facility_By_Pass_To__c)}');return false;">{!JSENCODE(byPass.Facility_By_Pass_To_Name__c)}</a> with following reasons:<br />
-																<br />{!byPass.Comment__c}
+                                                    <apex:repeat value="{!byPasses}" var="byPass">
+                                                        <apex:outputText rendered="{!if(byPass.Facility_By_Pass_From__c==facility.id,true,false)}">
+                                                            <div class="alert alert-warning" role="alert">
+                                                                Bypass to <a href="#" onclick="pageController.goToFacility('{!JSENCODE(byPass.Facility_By_Pass_To__c)}');return false;">{!JSENCODE(byPass.Facility_By_Pass_To_Name__c)}</a> with following reasons:<br />
+                                                                <br />{!byPass.Comment__c}
 
-																<apex:outputPanel rendered="{!NOT(ISBLANK(byPass.Frequency__c))}" >
-																	<br />
-																	<br />
-																	with frequency:
-																	<br />
-																	<br />
-																		{!byPass.Frequency__c}
-																</apex:outputPanel>
-															</div>
-														</apex:outputText>
+                                                                <apex:outputPanel rendered="{!NOT(ISBLANK(byPass.Frequency__c))}" >
+                                                                    <br />
+                                                                    <br />
+                                                                    with frequency:
+                                                                    <br />
+                                                                    <br />
+                                                                        {!byPass.Frequency__c}
+                                                                </apex:outputPanel>
+                                                            </div>
+                                                        </apex:outputText>
 
-														<apex:outputText rendered="{!if(byPass.Facility_By_Pass_To__c==facility.id,true,false)}">
-															<div class="alert alert-info" role="alert">
-																Bypass from <a href="#" onclick="pageController.goToFacility('{!JSENCODE(byPass.Facility_By_Pass_From__c)}');return false;">{!JSENCODE(byPass.Facility_By_Pass_From_Name__c)}</a> with following reasons:<br />
-																<br />{!byPass.Comment__c}
+                                                        <apex:outputText rendered="{!if(byPass.Facility_By_Pass_To__c==facility.id,true,false)}">
+                                                            <div class="alert alert-info" role="alert">
+                                                                Bypass from <a href="#" onclick="pageController.goToFacility('{!JSENCODE(byPass.Facility_By_Pass_From__c)}');return false;">{!JSENCODE(byPass.Facility_By_Pass_From_Name__c)}</a> with following reasons:<br />
+                                                                <br />{!byPass.Comment__c}
 
-																<apex:outputPanel rendered="{!ISBLANK(byPass.Frequency__c) == false}" >
-																	<br />
-																	<br />
-																	with frequency:
-																	<br />
-																	<br />
-																		{!byPass.Frequency__c}
-																</apex:outputPanel>
-															</div>
-														</apex:outputText>
-													</apex:repeat>
-												</div>
-												<div id="fs-comment">
-													<table>
-														<tr>
-															<th>Network Comments:</th>
-														</tr>
-														<tr>
-															<td>
+                                                                <apex:outputPanel rendered="{!ISBLANK(byPass.Frequency__c) == false}" >
+                                                                    <br />
+                                                                    <br />
+                                                                    with frequency:
+                                                                    <br />
+                                                                    <br />
+                                                                        {!byPass.Frequency__c}
+                                                                </apex:outputPanel>
+                                                            </div>
+                                                        </apex:outputText>
+                                                    </apex:repeat>
+                                                </div>
+                                                <div id="fs-comment">
+                                                    <table>
+                                                        <tr>
+                                                            <th>Network Comments:</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                                 <!--REQ1738146 the the network comment box to display 5 rows by default (instead of 2) -->
                                                                 <textarea id="{!facility.id}" class="form-control input-sm" readonly="readonly" rows="5">{!facility.comment}</textarea>
-															</td>
-														</tr>
-													</table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
 
-												</div>
+                                                </div>
 
-												<apex:outputPanel rendered="{!facility.criticalIncidents!=null}">
-													<div id="fs-messages">
-														<table >
-															<tr>
-																<th>Critical Incidents:</th>
-															</tr>
-															<tr>
-																<td>
-																	<apex:repeat value="{!facility.criticalIncidents}" var="criInc">
-																		<br/>
-																		<a href="#" onclick="pageController.openFacilityDetail('{!criInc.KnowledgeArticleId}','{!JSENCODE(criInc.URLName)}');return false;">{!criInc.URLName}</a>
-																	</apex:repeat>
-																</td>
-															</tr>
-														</table><br/>
-													</div>
-												</apex:outputPanel>
-
-
-												<div class="ckbPreventStatusChange">
-
-												</div>
-												<div id="fs-emailfax">
-													<apex:outputText rendered="{!allowContact}">
-														<table>
-															<tr><td colspan="2">
-																<apex:outputpanel rendered="{!requiresLodgementPoint}">
-																	<ul class="alert alert-danger"><li>You must provide a lodgement point before you can contact the Network.</li></ul>
-																</apex:outputpanel>
-															</td></tr>
-															<tr>
-																<td>
-																	<apex:outputpanel rendered="{!requiresLodgementPoint == false}">
-																		<input type="checkbox" id="ckbPreventStatusChange_{!facility.id}" onchange="pageController.ckbPreventStatusChangeSynch(this);"  /> Prevent Status Change
-																	</apex:outputpanel>
-																</td>
-																<td>
-																	<apex:outputpanel rendered="{!(facility.contactFacility == 'Manually' && !requiresLodgementPoint && facility.recordTypeDevName !='International_4')}">
-																		External System:
-																		<apex:selectList id="pklExternalSystem" onchange="pageController.networkExternalSystemSynch(this);"  styleClass="pklExternalSystem_{!facility.id}"  multiselect="false" size="1">
-																			<apex:selectoptions value="{!networkExternalSystem}" />
-																		</apex:selectList>
-																	</apex:outputpanel>
-																	<apex:outputpanel rendered="{!(facility.contactFacility == 'Manually' && !requiresLodgementPoint && facility.recordTypeDevName =='International_4')}">
-																		External System:
-																		<apex:selectList value="{!facility.nwExtSystemValue}" id="pklExternalSystem1" onchange="pageController.networkExternalSystemSynch(this);" styleClass="pklExternalSystem_{!facility.id}"   multiselect="false" size="1">
-																			<apex:selectoptions value="{!facility.networkExternalSystem}" />
-																		</apex:selectList>
-																	</apex:outputpanel>
-																</td></tr>
-															<tr>
-																<td >
-																	<apex:outputpanel rendered="{!(facility.contactFacility != '' && !requiresLodgementPoint)}">
-																		<apex:commandbutton value="{!if(contactRequiresEscalation, 'Escalate to Network', 'Contact ' + facility.contactFacility)}"
-																							immediate="false"
-																							onclick="pageController.contactFacility('{!facility.contactFacility}', '{!facility.id}', '{!jsEncode(facility.email)}', '{!jsEncode(facility.escalationEmail)}', this); return false;" />
-																		&nbsp;&nbsp;&nbsp;
-																	</apex:outputpanel>
-																	<apex:commandbutton value="Lodgement Point"
-																						rendered="{!IF(ISBLANK(facility.lon),'false','true')}"
-																						immediate="true"
-																						onclick="pageController.lodgementPoint('{!facility.id}');return false;" />
-																</td>
-																<td ><br/>
-																	<b>    <apex:outputText value="{!facility.prdStdMessag}" style="text-align:right;" rendered="{!(facility.contactFacility == 'Manually' && !requiresLodgementPoint && facility.recordTypeDevName =='International_4')}" /> </b>
-																</td>
-															</tr>
-														</table>
-													</apex:outputText>
-												</div>
-											</div>
-
-											<div id="fs-facility-rightpanel">
-
-												<div id="fs-facilitydetail">
-													<div class="fs-header3">
-														<h3>Network Detail</h3>
-													</div>
-
-													<div id="htmlFields">
-														<apex:repeat value="{!facility.htmlFields}" var="f">
-															<div class="facility-detail-field-outer">
-																<apex:outputText value="{!f}" escape="false" />
-															</div>
-														</apex:repeat>
-													</div>
-
-													<apex:outputText rendered="{!if(facility.displayBusinessHours,true,false)}">
-														<table id="fs-businesshours">
-															<thead>
-															<tr><th></th><th>Opening Hours</th><th>Closed for Lunch</th><th>Additional Hatch Hours</th>                           </tr>
-															</thead>
-
-															<tr>
-																<th>Mon</th><td>{!network.Mon__c}</td> <td>{!network.CL_Mon__c}</td> <td>{!network.Hatch_Mon__c}</td>
-															</tr>
-
-															<tr>
-																<th>Tue</th><td>{!network.Tue__c}</td> <td>{!network.CL_Tue__c}</td> <td>{!network.Hatch_Tue__c}</td>
-															</tr>
-
-															<tr>
-																<th>Wed</th><td>{!network.Wed__c}</td> <td>{!network.CL_Wed__c}</td ><td>{!network.Hatch_Wed__c}</td>
-															</tr>
-
-															<tr>
-																<th>Thu</th><td>{!network.Thu__c}</td> <td>{!network.CL_Thu__c}</td> <td>{!network.Hatch_Thu__c}</td>
-															</tr>
-
-															<tr>
-																<th>Fri</th><td>{!network.Fri__c}</td> <td>{!network.CL_Fri__c}</td> <td>{!network.Hatch_Fri__c}</td>
-															</tr>
-
-															<tr>
-																<th>Sat</th><td>{!network.Sat__c}</td> <td>{!network.CL_Sat__c}</td> <td>{!network.Hatch_Sat__c}</td>
-															</tr>
-
-															<tr>
-																<th>Sun</th><td>{!network.Sun__c}</td> <td>{!network.CL_Sun__c}</td> <td>{!network.Hatch_Sun__c}</td>
-															</tr>
-															<apex:outputText rendered="{!if(ISBLANK(network.Hatch_Desc__c),false,true)}">
-																<tr>
-																	<th>Hatch Location</th><td colspan="3">{!network.Hatch_Desc__c}</td>
-																</tr>
-															</apex:outputText>
-														</table>
-													</apex:outputText>
-
-													<div style="width:100%">
-														<br />
-														<!--c:RelatedListLazyLoad objectId="{!facility.id}" relatedFieldNames="Facility_Box_Bag__r,Facility_Box_Price__r" isCaseRelated="true" title="Box Details" /-->
-														<a id="toggler_{!facility.relatedListUniqueId}" onclick="pageController.toggleRelatedList('{!facility.relatedListUniqueId}', 'Box Details', '{!facility.id}', 'Facility_Box_Bag__r,Facility_Box_Price__r', true);">Show Box Details</a>
-													</div>
-												</div>
-											</div>
-											<div class="clear"></div>
-										</div>
-									</apex:repeat>
-								</div>
-							</apex:outputPanel>
-
-						</c:Tab>
-					</apex:repeat>
-				</c:Tabpanel>
-			</apex:outputPanel>
-		</div>
+                                                <apex:outputPanel rendered="{!facility.criticalIncidents!=null}">
+                                                    <div id="fs-messages">
+                                                        <table >
+                                                            <tr>
+                                                                <th>Critical Incidents:</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:repeat value="{!facility.criticalIncidents}" var="criInc">
+                                                                        <br/>
+                                                                        <a href="#" onclick="pageController.openFacilityDetail('{!criInc.KnowledgeArticleId}','{!JSENCODE(criInc.URLName)}');return false;">{!criInc.URLName}</a>
+                                                                    </apex:repeat>
+                                                                </td>
+                                                            </tr>
+                                                        </table><br/>
+                                                    </div>
+                                                </apex:outputPanel>
 
 
-		<div id="waitingDiv" style="display: none;">
-			<div class="waitingBackground" />
-			<div class="waitingHolder">
-				<img src="{!$Resource.loading32}" class="waitingImage"
-					 title="Please Wait..." />
-				<div class="waitingDescription">Searching...</div>
-			</div>
-		</div>
+                                                <div class="ckbPreventStatusChange">
 
-		<c:LoadingSpinnerComponent showFunctionName="showFacilitySearchProgress" topMargin="80%" leftMargin="50%" hideFunctionName="hideFacilitySearchProgress" />
-	
+                                                </div>
+                                                <div id="fs-emailfax">
+                                                    <apex:outputText rendered="{!allowContact}">
+                                                        <table>
+                                                            <tr><td colspan="2">
+                                                                <apex:outputpanel rendered="{!requiresLodgementPoint}">
+                                                                    <ul class="alert alert-danger"><li>You must provide a lodgement point before you can contact the Network.</li></ul>
+                                                                </apex:outputpanel>
+                                                            </td></tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:outputpanel rendered="{!requiresLodgementPoint == false}">
+                                                                        <input type="checkbox" id="ckbPreventStatusChange_{!facility.id}" onchange="pageController.ckbPreventStatusChangeSynch(this);"  /> Prevent Status Change
+                                                                    </apex:outputpanel>
+                                                                </td>
+                                                                <td>
+                                                                    <apex:outputpanel rendered="{!(facility.contactFacility == 'Manually' && !requiresLodgementPoint && facility.recordTypeDevName !='International_4')}">
+                                                                        External System:
+                                                                        <apex:selectList id="pklExternalSystem" onchange="pageController.networkExternalSystemSynch(this);"  styleClass="pklExternalSystem_{!facility.id}"  multiselect="false" size="1">
+                                                                            <apex:selectoptions value="{!networkExternalSystem}" />
+                                                                        </apex:selectList>
+                                                                    </apex:outputpanel>
+                                                                    <apex:outputpanel rendered="{!(facility.contactFacility == 'Manually' && !requiresLodgementPoint && facility.recordTypeDevName =='International_4')}">
+                                                                        External System:
+                                                                        <apex:selectList value="{!facility.nwExtSystemValue}" id="pklExternalSystem1" onchange="pageController.networkExternalSystemSynch(this);" styleClass="pklExternalSystem_{!facility.id}"   multiselect="false" size="1">
+                                                                            <apex:selectoptions value="{!facility.networkExternalSystem}" />
+                                                                        </apex:selectList>
+                                                                    </apex:outputpanel>
+                                                                </td></tr>
+                                                            <tr>
+                                                                <td >
+                                                                    <apex:outputpanel rendered="{!(facility.contactFacility != '' && !requiresLodgementPoint)}">
+                                                                        <apex:commandbutton value="{!if(contactRequiresEscalation, 'Escalate to Network', 'Contact ' + facility.contactFacility)}"
+                                                                                            immediate="false"
+                                                                                            onclick="pageController.contactFacility('{!facility.contactFacility}', '{!facility.id}', '{!jsEncode(facility.email)}', '{!jsEncode(facility.escalationEmail)}', this); return false;" />
+                                                                        &nbsp;&nbsp;&nbsp;
+                                                                    </apex:outputpanel>
+                                                                    <apex:commandbutton value="Lodgement Point"
+                                                                                        rendered="{!IF(ISBLANK(facility.lon),'false','true')}"
+                                                                                        immediate="true"
+                                                                                        onclick="pageController.lodgementPoint('{!facility.id}');return false;" />
+                                                                </td>
+                                                                <td ><br/>
+                                                                    <b>    <apex:outputText value="{!facility.prdStdMessag}" style="text-align:right;" rendered="{!(facility.contactFacility == 'Manually' && !requiresLodgementPoint && facility.recordTypeDevName =='International_4')}" /> </b>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </apex:outputText>
+                                                </div>
+                                            </div>
+
+                                            <div id="fs-facility-rightpanel">
+
+                                                <div id="fs-facilitydetail">
+                                                    <div class="fs-header3">
+                                                        <h3>Network Detail</h3>
+                                                    </div>
+
+                                                    <div id="htmlFields">
+                                                        <apex:repeat value="{!facility.htmlFields}" var="f">
+                                                            <div class="facility-detail-field-outer">
+                                                                <apex:outputText value="{!f}" escape="false" />
+                                                            </div>
+                                                        </apex:repeat>
+                                                    </div>
+
+                                                    <apex:outputText rendered="{!if(facility.displayBusinessHours,true,false)}">
+                                                        <table id="fs-businesshours">
+                                                            <thead>
+                                                            <tr><th></th><th>Opening Hours</th><th>Closed for Lunch</th><th>Additional Hatch Hours</th>                           </tr>
+                                                            </thead>
+
+                                                            <tr>
+                                                                <th>Mon</th><td>{!network.Mon__c}</td> <td>{!network.CL_Mon__c}</td> <td>{!network.Hatch_Mon__c}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Tue</th><td>{!network.Tue__c}</td> <td>{!network.CL_Tue__c}</td> <td>{!network.Hatch_Tue__c}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Wed</th><td>{!network.Wed__c}</td> <td>{!network.CL_Wed__c}</td ><td>{!network.Hatch_Wed__c}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Thu</th><td>{!network.Thu__c}</td> <td>{!network.CL_Thu__c}</td> <td>{!network.Hatch_Thu__c}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Fri</th><td>{!network.Fri__c}</td> <td>{!network.CL_Fri__c}</td> <td>{!network.Hatch_Fri__c}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Sat</th><td>{!network.Sat__c}</td> <td>{!network.CL_Sat__c}</td> <td>{!network.Hatch_Sat__c}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>Sun</th><td>{!network.Sun__c}</td> <td>{!network.CL_Sun__c}</td> <td>{!network.Hatch_Sun__c}</td>
+                                                            </tr>
+                                                            <apex:outputText rendered="{!if(ISBLANK(network.Hatch_Desc__c),false,true)}">
+                                                                <tr>
+                                                                    <th>Hatch Location</th><td colspan="3">{!network.Hatch_Desc__c}</td>
+                                                                </tr>
+                                                            </apex:outputText>
+                                                        </table>
+                                                    </apex:outputText>
+
+                                                    <div style="width:100%">
+                                                        <br />
+                                                        <!--c:RelatedListLazyLoad objectId="{!facility.id}" relatedFieldNames="Facility_Box_Bag__r,Facility_Box_Price__r" isCaseRelated="true" title="Box Details" /-->
+                                                        <a id="toggler_{!facility.relatedListUniqueId}" onclick="pageController.toggleRelatedList('{!facility.relatedListUniqueId}', 'Box Details', '{!facility.id}', 'Facility_Box_Bag__r,Facility_Box_Price__r', true);">Show Box Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </apex:repeat>
+                                </div>
+                            </apex:outputPanel>
+
+                        </c:Tab>
+                    </apex:repeat>
+                </c:Tabpanel>
+            </apex:outputPanel>
+        </div>
+
+
+        <div id="waitingDiv" style="display: none;">
+            <div class="waitingBackground" />
+            <div class="waitingHolder">
+                <img src="{!$Resource.loading32}" class="waitingImage"
+                     title="Please Wait..." />
+                <div class="waitingDescription">Searching...</div>
+            </div>
+        </div>
+
+        <c:LoadingSpinnerComponent showFunctionName="showFacilitySearchProgress" topMargin="80%" leftMargin="50%" hideFunctionName="hideFacilitySearchProgress" />
+    
         </apex:form>
 
-	<script type="text/javascript">
-		var j$ = jQuery.noConflict();
-		var pageController = new controller();
-	</script>
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        var pageController = new controller();
+    </script>
 
 
-	<apex:outputpanel id="pnlPageVars">
-		<script type="text/javascript">
-			// refresh with ajax rerender tag
-			// this will reset the new page var values
-			j$(function() {
-				pageController.model.set('contactId', '{!HtmlEncode($CurrentPage.parameters.contactId)}');
-				pageController.model.set('contactEmail', '{!currentCase.contact.Email}');
-				pageController.model.set('contactRequiresEscalation', '{!if(contactRequiresEscalation == true,"true","false")}');
-				pageController.model.set('caseId', '{!caseID}');
-				pageController.model.set('caseCurrentNetwork', '{!currentCase.Network__c}');
-				pageController.model.set('caseContactId', '{!currentCase.Contact.Id}');
-				pageController.model.set('requiresToSetEmail', '{!if(requiresToSetEmail == true,"true","false")}');
-				pageController.model.set('listOfRecordTypes', [{!jsonNetworkRecordTypes}]);
-				pageController.model.set('locations', [{!listOfLocations}]);
-				pageController.model.set('addressLoc', [{!addressLocation}]);
-				pageController.model.set('markerURL', '{!$Resource.Markers}');
-				pageController.model.set('caseNetwork', '{!currentCase.Network__c}');
-			});
-		</script>
-	</apex:outputpanel>
+    <apex:outputpanel id="pnlPageVars">
+        <script type="text/javascript">
+            // refresh with ajax rerender tag
+            // this will reset the new page var values
+            j$(function() {
+                pageController.model.set('contactId', '{!HtmlEncode($CurrentPage.parameters.contactId)}');
+                pageController.model.set('contactEmail', '{!currentCase.contact.Email}');
+                pageController.model.set('contactRequiresEscalation', '{!if(contactRequiresEscalation == true,"true","false")}');
+                pageController.model.set('caseId', '{!caseID}');
+                pageController.model.set('caseCurrentNetwork', '{!currentCase.Network__c}');
+                pageController.model.set('caseContactId', '{!currentCase.Contact.Id}');
+                pageController.model.set('requiresToSetEmail', '{!if(requiresToSetEmail == true,"true","false")}');
+                pageController.model.set('listOfRecordTypes', [{!jsonNetworkRecordTypes}]);
+                pageController.model.set('locations', [{!listOfLocations}]);
+                pageController.model.set('addressLoc', [{!addressLocation}]);
+                pageController.model.set('markerURL', '{!$Resource.Markers}');
+                pageController.model.set('caseNetwork', '{!currentCase.Network__c}');
+            });
+        </script>
+    </apex:outputpanel>
 
-	<script type="text/javascript">
-		j$(function() {
-			// initialize js controller
-			pageController.initialize();
-		});
-	</script>
+    <script type="text/javascript">
+        j$(function() {
+            // initialize js controller
+            pageController.initialize();
+        });
+    </script>
 
-	<script type="text/javascript">
-		if(!window.loadTabData) { // prevent errors when loadTabData is not implemented
-			function loadTabData() { }
-		}
+    <script type="text/javascript">
+        if(!window.loadTabData) { // prevent errors when loadTabData is not implemented
+            function loadTabData() { }
+        }
 
-		function resilzeRelatedListFrame(id, height)
-		{
-			pageController.resilzeRelatedListFrame(id, height);
-		}
+        function resilzeRelatedListFrame(id, height)
+        {
+            pageController.resilzeRelatedListFrame(id, height);
+        }
 
-	        // documentObserver implementation for cpVisualforceWrapper component
-	        resizeMonitoringObserver();
-	        // this is to open a detailed tab based on the id provided in the console
-	        // this will post the message to parent window, and then catch the event in the lightning component with a listener
-	        // TODO: move to a utility stat resource
-	        function openTab(Id){
-	            var message = {
-	                id: Id,
-	                name: "opentab"
-	            };
-	            parent.postMessage(message, '*');
-	        }
-	</script>
-	</body>
-	</html>
+            // documentObserver implementation for cpVisualforceWrapper component
+            resizeMonitoringObserver();
+            // this is to open a detailed tab based on the id provided in the console
+            // this will post the message to parent window, and then catch the event in the lightning component with a listener
+            // TODO: move to a utility stat resource
+            function openTab(Id){
+                var message = {
+                    id: Id,
+                    name: "opentab"
+                };
+                parent.postMessage(message, '*');
+            }
+    </script>
+    </body>
+    </html>
 </apex:page>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <groups>StarTrack Shop</groups>
     <groups>BSC - TPG</groups>
     <groups>BSC – Accent Brands</groups>
     <groups>BSC – Cora Group</groups>
@@ -35,6 +34,7 @@
     <groups>StarTrack Investigations WA</groups>
     <groups>StarTrack Pickup Enquiry</groups>
     <groups>BSC - Westpac</groups>
+    <groups>StarTrack Shop</groups>
     <groups>StarTrack SWMY Temp</groups>
     <groups>uli</groups>
     <groups>Disputes Access</groups>
@@ -55,7 +55,7 @@
     <groups>GM Product</groups>
     <groups>GM StarTrack &amp; Express Products Group</groups>
     <groups>GM Finance</groups>
-    <groups>General Enquiries</groups>
+    <groups>StarTrack TL Escalation</groups>
     <groups>Head of Product (Express)</groups>
     <groups>Head of Product (Premium)</groups>
     <groups>ST National Dispute Mgr</groups>

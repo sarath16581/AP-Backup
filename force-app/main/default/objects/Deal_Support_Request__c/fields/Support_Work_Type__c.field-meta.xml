@@ -1656,6 +1656,7 @@
             <controllingFieldValue>Termination of Contract</controllingFieldValue>
             <controllingFieldValue>Change OE APR rate</controllingFieldValue>
             <controllingFieldValue>Extensions</controllingFieldValue>
+            <controllingFieldValue>Change of address / change of customer details</controllingFieldValue>
             <controllingFieldValue>Lodgement Points</controllingFieldValue>
             <valueName>Deal Processing</valueName>
         </valueSettings>

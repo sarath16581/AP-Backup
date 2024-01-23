@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Deal_Enablement_Centre_Queue_Deal_Support_Request</fullName>
-    <booleanFilter>(1 AND 2 AND 3) OR (1 AND 3 AND 4 AND 5)</booleanFilter>
+    <booleanFilter>(1 AND 2 AND 5 AND 6) OR (1 AND 3 AND 4 AND 5 AND 6)</booleanFilter>
     <columns>NAME</columns>
     <columns>Stage__c</columns>
     <columns>Status__c</columns>
@@ -25,11 +25,6 @@
         <value>Submitted,Received Information,In Progress</value>
     </filters>
     <filters>
-        <field>Work_Type__c</field>
-        <operation>equals</operation>
-        <value>Addendum/DOV,Agreement Renewal,New Agreement,New Proposal,Other</value>
-    </filters>
-    <filters>
         <field>Pending_Information_Reason__c</field>
         <operation>equals</operation>
         <value>Remedy Logged With IT</value>
@@ -38,6 +33,16 @@
         <field>Status__c</field>
         <operation>equals</operation>
         <value>Pending Information</value>
+    </filters>
+    <filters>
+        <field>Support_Work_Type__c</field>
+        <operation>equals</operation>
+        <value>Deal Enablement Support</value>
+    </filters>
+    <filters>
+        <field>Work_Type__c</field>
+        <operation>equals</operation>
+        <value>Addendum/DOV,Agreement Renewal,Existing Account,New Account,New Agreement,New Proposal,Other,Update proposal/offer expiration date</value>
     </filters>
     <label>Deal Enablement Support Request</label>
     <sharedTo>

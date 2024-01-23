@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ManagedTopics xmlns="http://soap.sforce.com/2006/04/metadata">
+    <managedTopic>
+        <fullName>Knowledge Community.Content:Airmail Over 2kg</fullName>
+        <managedTopicType>Content</managedTopicType>
+        <name>Airmail Over 2kg</name>
+        <parentName></parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Content:PRODUCT</fullName>
+        <managedTopicType>Content</managedTopicType>
+        <name>PRODUCT</name>
+        <parentName></parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Content:STAR TRACK</fullName>
+        <managedTopicType>Content</managedTopicType>
+        <name>STAR TRACK</name>
+        <parentName></parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Featured:PRODUCT</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>PRODUCT</name>
+        <parentName></parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Featured:STAR TRACK</fullName>
+        <managedTopicType>Featured</managedTopicType>
+        <name>STAR TRACK</name>
+        <parentName></parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:AP Digital Mailbox</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>AP Digital Mailbox</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Airmail Over 2kg</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Airmail Over 2kg</name>
+        <parentName>International Parcels</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Airmail Under 2kg</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Airmail Under 2kg</name>
+        <parentName>International Parcels</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Airmail Under 2kg (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Airmail Under 2kg (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:All Other ID&amp;V Services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>All Other ID&amp;V Services</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Amex</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Amex</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Article Collection</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Article Collection</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Australia Post</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Australia Post</name>
+        <parentName>STAR TRACK</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Bank@Post</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Bank@Post</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Business Letters</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Business Letters</name>
+        <parentName>Domestic Letters</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Cash On Delivery</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Cash On Delivery</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Cash On Delivery (Domestic Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Cash On Delivery (Domestic Letters)</name>
+        <parentName>Domestic Letters</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Credit</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Credit</name>
+        <parentName>STAR TRACK</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Delivery</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Delivery</name>
+        <parentName>STAR TRACK</parentName>
+        <position>9</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Delivery Choices</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Delivery Choices</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Disputes</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Disputes</name>
+        <parentName>Credit</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Domestic Letters</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Domestic Letters</name>
+        <parentName>PRODUCT</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Domestic Parcels</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Domestic Parcels</name>
+        <parentName>PRODUCT</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:EBay Store</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>EBay Store</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:ECI</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>ECI</name>
+        <parentName>International Parcels</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:ECI (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>ECI (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:ECI Platinum</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>ECI Platinum</name>
+        <parentName>International Parcels</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:ECI Platinum (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>ECI Platinum (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:EParcel Online, Parcel Send</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>EParcel Online, Parcel Send</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:EParcel-Regular, EParcel-Express</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>EParcel-Regular, EParcel-Express</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Express</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Express</name>
+        <parentName>Delivery</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Express Post</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Express Post</name>
+        <parentName>Domestic Letters</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Express Post International</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Express Post International</name>
+        <parentName>International Parcels</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Express Post International (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Express Post International (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Express Post Platinum</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Express Post Platinum</name>
+        <parentName>Domestic Letters</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Foreign Currency</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Foreign Currency</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:General</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>General</name>
+        <parentName>STAR TRACK</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:General Merchandise</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>General Merchandise</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Insurance</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Insurance</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:International Letters</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>International Letters</name>
+        <parentName>PRODUCT</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:International Parcels</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>International Parcels</name>
+        <parentName>PRODUCT</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Item Transfer</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Item Transfer</name>
+        <parentName>Domestic Letters</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:KeyPass</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>KeyPass</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Load &amp; Go</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Load &amp; Go</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:MRS. Online</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>MRS. Online</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mail Hold (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mail Hold (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mail Pick Up</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mail Pick Up</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mail Redirection &amp; Mail Hold</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mail Redirection &amp; Mail Hold</name>
+        <parentName>Domestic Letters</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mail Redirection (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mail Redirection (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mail Redirection, Mail Hold</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mail Redirection, Mail Hold</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Messenger Post</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Messenger Post</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mobile Devices</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mobile Devices</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Mobile Website</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Mobile Website</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Money &amp; Insurance</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Money &amp; Insurance</name>
+        <parentName>PRODUCT</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Multi Currency Cash Passport</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Multi Currency Cash Passport</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Multi-Currency Cash Passport</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Multi-Currency Cash Passport</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:My Post ID Card</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>My Post ID Card</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Next Flight</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Next Flight</name>
+        <parentName>STAR TRACK</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Operations &amp; Security</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Operations &amp; Security</name>
+        <parentName>STAR TRACK</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Ordinary Mail</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Ordinary Mail</name>
+        <parentName>Domestic Letters</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Organisation</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Organisation</name>
+        <parentName>STAR TRACK</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Other Domestic Parcel Products</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other Domestic Parcel Products</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Other Financial Services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other Financial Services</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>9</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Other International Letters</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other International Letters</name>
+        <parentName>International Letters</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Other International Parcels</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other International Parcels</name>
+        <parentName>International Parcels</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Other Technology Products</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other Technology Products</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>9</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Other Web &amp; Apps</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Other Web &amp; Apps</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>9</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:PO Boxes &amp; Bags</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>PO Boxes &amp; Bags</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:PRODUCT</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>PRODUCT</name>
+        <parentName></parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Pack &amp; Track International</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Pack &amp; Track International</name>
+        <parentName>International Parcels</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Pack &amp; Track International (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Pack &amp; Track International (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Packaging</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Packaging</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Parcel Collect, Click &amp; Send</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Parcel Collect, Click &amp; Send</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Parcel Lockers</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Parcel Lockers</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Parcel Post, Courier Post, Express</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Parcel Post, Courier Post, Express</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Passport - Australian (Money&amp;Insurance)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Passport - Australian (Money&amp;Insurance)</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Passport - British (Money&amp;Insurance)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Passport - British (Money&amp;Insurance)</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Passport-Australian</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Passport-Australian</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Passport-British</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Passport-British</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Philatelic Stamps, Concession Stamps</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Philatelic Stamps, Concession Stamps</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Pickup</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Pickup</name>
+        <parentName>STAR TRACK</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Post Office &amp; Business Hub Services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Post Office &amp; Business Hub Services</name>
+        <parentName>PRODUCT</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:PostBillPay</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>PostBillPay</name>
+        <parentName>Money &amp; Insurance</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Premium</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Premium</name>
+        <parentName>Delivery</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Registered Post</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Registered Post</name>
+        <parentName>Domestic Letters</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Registered Post International</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Registered Post International</name>
+        <parentName>International Parcels</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Registered Post International (Intl Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Registered Post International (Intl Letters)</name>
+        <parentName>International Letters</parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:STAR TRACK</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>STAR TRACK</name>
+        <parentName></parentName>
+        <position>2</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Sales</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Sales</name>
+        <parentName>STAR TRACK</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Sea Mail</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Sea Mail</name>
+        <parentName>International Parcels</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Staff Feedback (Domestic Letters)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Staff Feedback (Domestic Letters)</name>
+        <parentName>Domestic Letters</parentName>
+        <position>9</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Staff Feedback(Domestic Parcels)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Staff Feedback(Domestic Parcels)</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Staff Feedback(Post Office &amp; Business Hub Services)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Staff Feedback(Post Office &amp; Business Hub Services)</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>8</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Star Track Express</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Star Track Express</name>
+        <parentName>Domestic Parcels</parentName>
+        <position>5</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Stationery And Gift Cards</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Stationery And Gift Cards</name>
+        <parentName>Post Office &amp; Business Hub Services</parentName>
+        <position>6</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Transit Warranty</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Transit Warranty</name>
+        <parentName>Credit</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Travel &amp; ID</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Travel &amp; ID</name>
+        <parentName>PRODUCT</parentName>
+        <position>3</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Unaddressed Mail</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Unaddressed Mail</name>
+        <parentName>Domestic Letters</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:VOC</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>VOC</name>
+        <parentName>STAR TRACK</parentName>
+        <position>4</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Web &amp; Apps</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Web &amp; Apps</name>
+        <parentName>PRODUCT</parentName>
+        <position>7</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Website (Shop &amp; Stationary)</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Website (Shop &amp; Stationary)</name>
+        <parentName>Web &amp; Apps</parentName>
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>Knowledge Community.Navigational:Western Union</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Western Union</name>
+        <parentName>Travel &amp; ID</parentName>
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+</ManagedTopics>

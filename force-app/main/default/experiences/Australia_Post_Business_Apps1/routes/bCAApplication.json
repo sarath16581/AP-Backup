@@ -2,6 +2,7 @@
   "activeViewId" : "ab6eed3b-6aa2-4e79-8786-72936bebd88e",
   "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
   "configurationTags" : [ ],
+  "devName" : "bca__c",
   "id" : "56eef2e7-51ac-4a9f-92db-04107b75c087",
   "label" : "BCA Application",
   "pageAccess" : "UseParent",

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Public_Holidays_2024</fullName>
+    <columns>NAME</columns>
+    <columns>State__c</columns>
+    <columns>July__c</columns>
+    <columns>August__c</columns>
+    <columns>September__c</columns>
+    <columns>October__c</columns>
+    <columns>November__c</columns>
+    <columns>December__c</columns>
+    <columns>January__c</columns>
+    <columns>February__c</columns>
+    <columns>March__c</columns>
+    <columns>April__c</columns>
+    <columns>May__c</columns>
+    <columns>June__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Fiscal_Year__c</field>
+        <operation>equals</operation>
+        <value>2024</value>
+    </filters>
+    <label>Public Holidays 2024</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Sales_Reporting</group>
+    </sharedTo>
+</ListView>

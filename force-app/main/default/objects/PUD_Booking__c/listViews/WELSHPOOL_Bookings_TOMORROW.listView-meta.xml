@@ -14,7 +14,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>WELSHPOOL</value>
+        <value>perth</value>
     </filters>
     <filters>
         <field>RECORDTYPE</field>
@@ -26,5 +26,5 @@
         <operation>greaterThan</operation>
         <value>TODAY</value>
     </filters>
-    <label>WELSHPOOL Bookings - TOMORROW</label>
+    <label>PERTH Bookings - TOMORROW</label>
 </ListView>

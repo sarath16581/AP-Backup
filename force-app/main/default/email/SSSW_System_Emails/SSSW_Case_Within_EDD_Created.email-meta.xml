@@ -17,7 +17,7 @@ Thanks for your enquiry{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; a
 
 What happens next?
 
-Most late items arrive within 10 business days of the expected delivery date. If your parcel is delivered, we’ll let you know and close your enquiry.
+Most late items arrive within 5 business days of the expected delivery date. If your parcel is delivered, we’ll let you know and close your enquiry.
 
 To allow for delayed delivery, we’ll monitor this delivery until  {!CASE(WEEKDAY(DATEVALUE(Case.Case_Reopen_Date__c)), 1, &quot;Sun&quot;, 2, &quot;Mon&quot;, 3, &quot;Tue&quot;, 4, &quot;Wed&quot;, 5, &quot;Thu&quot;, 6, &quot;Fri&quot;, &quot;Sat&quot;)} 												{!DAY(DATEVALUE(Case.Case_Reopen_Date__c))} 												{!CASE(MONTH(DATEVALUE(Case.Case_Reopen_Date__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)}  . If it doesn’t arrive by then, we’ll begin investigating. No need to submit another enquiry.
 

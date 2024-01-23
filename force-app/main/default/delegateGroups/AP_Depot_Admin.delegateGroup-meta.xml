@@ -36,11 +36,12 @@
     <groups>CENTRAL COAST VAN SERVICES</groups>
     <groups>BROOKVALE VAN OPS</groups>
     <groups>LEIGHTONFIELD VAN OPS</groups>
-    <groups>ST LEONARDS VAN OPS</groups>
+    <groups>MACQUARIE PARK VAN OPS</groups>
     <groups>NORTH WOLLONGONG VAN OPS</groups>
     <groups>SEAFORD VAN OPERATIONS</groups>
     <groups>DERRIMUT VAN SERVICES</groups>
     <groups>NAMBOUR PUD TRANSPORT</groups>
+    <groups>KEMPS CREEK VANS</groups>
     <label>AP Depot Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSets>Auspost Depot Super User</permissionSets>

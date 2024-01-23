@@ -7,8 +7,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>GEE</value>
+        <operation>contains</operation>
+        <value>avalon pcl</value>
     </filters>
     <label>Geelong Routes</label>
     <sharedTo>

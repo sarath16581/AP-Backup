@@ -13,6 +13,8 @@
                 <elementReference>recordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Notify_Case_owner_on_Resolution_Milestone_Violation_BGS</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SendEmailToManager</name>
@@ -51,6 +53,8 @@
                 <stringValue>OrgWideEmailAddress</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <constants>

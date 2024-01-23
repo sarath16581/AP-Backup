@@ -367,11 +367,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.OperatingHoursId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.Organisation_Alternate_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -1,0 +1,151 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerSingleHeaderLayout",
+  "dataProviders" : [ ],
+  "id" : "6e305378-43f4-4679-b542-3f50919aa5c6",
+  "label" : "Style 14",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"cp-inner-page-heading-outer\"> \n <div class=\"cp-inner-page-heading-box cp-inner-group-detail-page-heading\"> \n  <h1 class=\"cp-inner-page-heading-text\">Join a conversation</h1> \n </div> \n</div> \n<!--render facet: 138:2;a-->"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "84333069-bc42-45af-8392-4bbc36b1ef4b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f2e335ba-812b-4658-a78d-844e33abd1fa",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "context" : "RECORD",
+        "recordId" : "{!recordId}",
+        "width" : "WIDE"
+      },
+      "componentName" : "forceCommunity:feedPublisher",
+      "id" : "5f0bd0c9-2cf1-4eab-9232-d725fd75b8c8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "defaultFilter" : "",
+        "feedDesign" : "DEFAULT",
+        "subjectId" : "{!recordId}",
+        "type" : "Record"
+      },
+      "componentName" : "forceCommunity:forceCommunityFeed",
+      "id" : "7d16e1c4-48e6-4e83-ac3f-96ecc4242e2d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3c90a325-b151-4d1d-a20b-87b287f7368d",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "ConversationDetails"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "f2cf1b00-3414-4d74-9563-3b7d76a5ac51",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "63df290e-db63-40cb-86c9-8dedc615a701",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:cpSocialMediaSharing",
+      "id" : "b430a70c-d4fc-4906-99dd-51e69a2efb57",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "headerLabel" : "",
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:groupDetail",
+      "id" : "bd7e273d-78a7-448d-916e-4ca67564a968",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "headerLabel" : "Add member",
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:addMember",
+      "id" : "41c53e78-1ec9-4d0b-930b-4f7a76a98336",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:groupRelatedList",
+      "id" : "7254b516-4aad-44f2-ae51-4f90f75fc428",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "edcf512f-d463-4ea3-9a81-822bfe2f34b2",
+    "regionName" : "Sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Join a group to have ongoing conversations with your fellow Community members and Australia Post.",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8d4e82e0-4771-49b3-bec4-5aabfb46d78b",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6f9b5915-384b-4027-b1c0-88324198dc8b",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:groupHeadline",
+      "id" : "ea5637eb-637c-4836-bdc1-e6b014f7dbc1",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8e098b6c-69ba-415b-aa1a-e8120723bf40",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "ConversationDetails"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "ece1ed65-277a-418b-8fe6-28ac64431c6c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e7cd1f78-4534-4268-8556-966da7e05713",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "type" : "view",
+  "viewType" : "detail-0F9"
+}

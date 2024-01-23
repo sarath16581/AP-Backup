@@ -9828,6 +9828,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__ProductConfiguration__c.APT_Configuration_Update_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__ProductConfiguration__c.APT_Customised_Pricing__c</field>
         <readable>true</readable>
     </fieldPermissions>

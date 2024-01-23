@@ -316,8 +316,8 @@ public without sharing class EFTBankDetailsController {
             }
 
         } else if(!isCompensationUser && !isCompensationSupervisor) {
-            // User DOESN't have the system permission “CC Compensation Agent” OR,
-            // the system permission “CC Compensation Supervisor” he is not allowed to send email
+            // User DOESN't have the system permission �CC Compensation Agent� OR,
+            // the system permission �CC Compensation Supervisor� he is not allowed to send email
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, Label.CompensationMsgUserIsNotAllowedToSendEmail));
         }
 

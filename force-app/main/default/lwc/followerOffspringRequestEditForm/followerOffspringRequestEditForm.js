@@ -40,10 +40,14 @@ import SUB_ACCOUNT_MAILING_SUBURB from "@salesforce/schema/APT_Sub_Account__c.AP
 import SUB_ACCOUNT_MAILING_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_State__c";
 import SUB_ACCOUNT_MAILING_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
+import CONTACT_PHONE from "@salesforce/schema/Contact.Phone";
+import CONTACT_MOBILE from "@salesforce/schema/Contact.MobilePhone";
+import CONTACT_EMAIL from "@salesforce/schema/Contact.Email";
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 
 const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_ORG_NAME, BILLING_ACCOUNT_NUMBER, BILLING_ACCOUNT_CUSTOMER_NUMBER];
 const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_OPPORTUNITY_NAME, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_REQUEST_NUMBER, CHARGE_ACCOUNT_CUSTOMER_NUMBER, CHARGE_ACCOUNT_OPPORTUNITY, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT];
+const CONTACT_FIELDS = [CONTACT_PHONE, CONTACT_MOBILE, CONTACT_EMAIL];
 export default class FollowerOffspringRequestEditForm extends LightningElement {
 	// Can be either charge account ID or billing account ID
 	@api leaderId;
@@ -79,6 +83,23 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	mailingAddress = {};
 	selectedFollower;
 	@api isLoading;
+
+	/**
+	 * Load primary contact details
+	 */
+	@wire(getRecord, { recordId: "$subAccountContact", fields: CONTACT_FIELDS })
+	contactRecord({error, data}) {
+		if (data) {
+			this.primaryContact = data;
+			// toggle 'Invoicing Contact Same As Sub Account Contact?' to true if phone and email are matched
+			const phone = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
+			this.contactDetailsSame = this.subAccountContactTel === phone && this.subAccountContactEmail === getFieldValue(this.primaryContact, CONTACT_EMAIL);
+		}
+		if (error) {
+			console.log('Error when loading leader: ' + error);
+		}
+	}
+	primaryContact;
 
 	/**
 	 * Load leader account details
@@ -149,7 +170,6 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 				this.selectedFollower = this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]
 					? {Id: this._subAccount[SUB_ACCOUNT_PARENT_BILLING_ACCOUNT.fieldApiName]} : {Id: this._subAccount[SUB_ACCOUNT_PARENT_SUB_ACCOUNT.fieldApiName]};
 			}
-			this.contactDetailsSame = !(this.subAccountContactTel || this.subAccountContactEmail);
 		}
 	}
 
@@ -162,6 +182,13 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 
 	get isAccountSearchable() {
 		return this.accountType === 'Offspring Follower';
+	}
+
+	/**
+	 *  Set subAccountContact when sub account contact value updated
+	 */
+	handleSubAccountContactChange(event) {
+		this.subAccountContact = event.target.value;
 	}
 
 	/**
@@ -295,7 +322,6 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName] !== this.template.querySelector("[data-name='sub-account-is-login-required']").value)) {
 				fields[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName] = this.template.querySelector("[data-name='sub-account-is-login-required']").value;
 			}
-
 			if (!this.contactDetailsSame) {
 				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== this.template.querySelector("[data-name='sub-account-tel']").value)) {
 					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = this.template.querySelector("[data-name='sub-account-tel']").value;
@@ -304,11 +330,12 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 					fields[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] = this.template.querySelector("[data-name='sub-account-email']").value;
 				}
 			} else {
-				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] != null)) {
-					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = null;
+				const phone = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
+				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== phone)) {
+					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
 				}
-				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] != null)) {
-					fields[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] = null;
+				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] !== getFieldValue(this.primaryContact, CONTACT_EMAIL))) {
+					fields[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] = getFieldValue(this.primaryContact, CONTACT_EMAIL);
 				}
 			}
 			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_PHYSICAL_STREET.fieldApiName] !== this.physicalAddress.street)) {

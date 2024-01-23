@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UserCriteria xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>For URL moderation for external users - flag URLs shared
+For Interest Keyword</description>
+    <masterLabel>External Community members</masterLabel>
+    <profiles>ddc consumer community user</profiles>
+    <userTypes>Customer</userTypes>
+</UserCriteria>

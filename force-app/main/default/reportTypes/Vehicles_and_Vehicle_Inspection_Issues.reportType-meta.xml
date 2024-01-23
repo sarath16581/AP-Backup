@@ -301,6 +301,11 @@
             <field>VIN_number__c</field>
             <table>Location</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>VisitorAddress</field>
+            <table>Location</table>
+        </columns>
         <masterLabel>Locations</masterLabel>
     </sections>
 </ReportType>

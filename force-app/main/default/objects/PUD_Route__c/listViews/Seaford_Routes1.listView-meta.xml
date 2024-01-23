@@ -7,8 +7,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>sea</value>
+        <operation>equals</operation>
+        <value>SEAFORD VAN OPERATIONS</value>
     </filters>
     <label>Seaford Routes</label>
     <sharedTo>

@@ -3830,14 +3830,11 @@
             <field>Has_Online_Credential__c</field>
             <table>Account.Billing_Accounts__r.Contacts__r</table>
         </columns>
-        <masterLabel>Contacts</masterLabel>
-    </sections>
-    <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
+            <field>IsInactiveCustomer__c</field>
+            <table>Account.Billing_Accounts__r.Contacts__r</table>
         </columns>
-        <masterLabel>Organisations</masterLabel>
+        <masterLabel>Contacts</masterLabel>
     </sections>
 </ReportType>

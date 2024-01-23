@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Postbillpay</fullName>
+    <columns>NAME</columns>
+    <columns>Sequence_No__c</columns>
+    <columns>Settings_Type__c</columns>
+    <columns>Subtype__c</columns>
+    <columns>Compare_against_IPL__c</columns>
+    <columns>Record_Type_API__c</columns>
+    <columns>Template_Product_Name__c</columns>
+    <columns>Template_ID__c</columns>
+    <columns>Default_Document_Output__c</columns>
+    <columns>Security_Level__c</columns>
+    <columns>Contract_Type__c</columns>
+    <columns>Permission_Type__c</columns>
+    <columns>Permission_ID__c</columns>
+    <columns>APT_Rate_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Record_Type_API__c</field>
+        <operation>equals</operation>
+        <value>APT_Postbillpay_Contract</value>
+    </filters>
+    <label>All - Postbillpay</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>SO_Sales_Excellence</role>
+    </sharedTo>
+</ListView>

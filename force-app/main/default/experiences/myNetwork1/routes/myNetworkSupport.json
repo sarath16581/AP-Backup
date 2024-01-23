@@ -2,6 +2,7 @@
   "activeViewId" : "610ff942-5b88-466a-8519-e3a99ccc8db2",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "myNetwork_Support__c",
   "id" : "1c1d8840-63cb-41ef-a7f6-4c293d9c8865",
   "label" : "myNetwork Support",
   "pageAccess" : "UseParent",

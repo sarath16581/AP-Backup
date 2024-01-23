@@ -3203,6 +3203,11 @@
             <field>ReportsTo.Name</field>
             <table>Account.Contacts</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInactiveCustomer__c</field>
+            <table>Account.Contacts</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -3278,13 +3283,5 @@
             <table>Account</table>
         </columns>
         <masterLabel>Network</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

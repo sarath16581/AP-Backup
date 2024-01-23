@@ -1,6 +1,7 @@
 {
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "f0e828be-430d-44b5-a14f-70c02974e387",
   "label" : "BSP ST Delivery Enquiry",
   "regions" : [ {

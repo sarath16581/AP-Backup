@@ -1183,11 +1183,6 @@
             <field>Account_Owner_Role_Group__c</field>
             <table>Account</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TradedRevenueMyCommunity__c</field>
-            <table>Account</table>
-        </columns>
         <masterLabel>Organisations</masterLabel>
     </sections>
     <sections>
@@ -1679,11 +1674,6 @@
             <field>RecordType</field>
             <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Minimum_Rate__c</field>
-            <table>Account.Billing_Accounts__r.APRs__r</table>
-        </columns>
         <masterLabel>APRs</masterLabel>
     </sections>
     <sections>
@@ -1746,6 +1736,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Title__c</field>
             <table>Account.Billing_Accounts__r.APRs__r.APR_Contacts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Minimum_Rate__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
         <masterLabel>APR Contacts</masterLabel>
     </sections>

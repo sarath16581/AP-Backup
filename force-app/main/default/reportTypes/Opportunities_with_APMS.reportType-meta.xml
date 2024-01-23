@@ -1813,16 +1813,6 @@
             <field>ApmsSettingPage__c</field>
             <table>Opportunity.Applications__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Submitted_to_Risk__c</field>
-            <table>Opportunity.Applications__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Decided_by_Risk__c</field>
-            <table>Opportunity.Applications__r</table>
-        </columns>
         <masterLabel>APMS Applications</masterLabel>
     </sections>
 </ReportType>

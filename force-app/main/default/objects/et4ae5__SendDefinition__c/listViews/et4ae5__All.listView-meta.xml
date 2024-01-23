@@ -3,7 +3,8 @@
     <fullName>et4ae5__All</fullName>
     <columns>NAME</columns>
     <columns>et4ae5__EmailName__c</columns>
-    <columns>et4ae5__SubjectLine__c</columns>
+    <columns>et4ae5__FromName__c</columns>
+    <columns>et4ae5__Subject__c</columns>
     <columns>et4ae5__DateSent__c</columns>
     <columns>et4ae5__NumberSent__c</columns>
     <columns>et4ae5__Bounce_Rate_del__c</columns>
@@ -13,6 +14,7 @@
     <columns>et4ae5__Open_Rate__c</columns>
     <columns>et4ae5__NumberofUniqueClicks__c</columns>
     <columns>et4ae5__Click_Through_Rate__c</columns>
+    <columns>et4ae5__NumberUnsubscribed__c</columns>
     <columns>et4ae5__Unsubscribe_Rate__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
@@ -21,5 +23,4 @@
         <value>BUS</value>
     </filters>
     <label>Business EDMs</label>
-    <language>en_US</language>
 </ListView>

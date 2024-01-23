@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingCriteriaRules>
-        <fullName>DashCord_Sharing_Rule</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>DashCord Sharing Rule</label>
-        <sharedTo>
-            <group>Dashcord</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>User_Type__c</field>
-            <operation>equals</operation>
-            <value>Corporate</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Share_Internal_Users_to_LBP</fullName>
         <accessLevel>Read</accessLevel>

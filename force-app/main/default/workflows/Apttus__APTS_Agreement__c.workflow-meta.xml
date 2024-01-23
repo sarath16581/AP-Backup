@@ -133,7 +133,7 @@
     </alerts>
     <alerts>
         <fullName>APT_PBP_Signed_Notification</fullName>
-        <ccEmails>TEST_dlhqssdagencyrecordsmanagement@auspost.com.au; DLHQSAC@auspost.com.au;</ccEmails>
+        <ccEmails>dlhqssdagencyrecordsmanagement@auspost.com.au; TEST_DLHQSAC@auspost.com.au;</ccEmails>
         <description>APT PBP Signed Notification</description>
         <protected>false</protected>
         <recipients>

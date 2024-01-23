@@ -2,6 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SSSW_F_Date_Posted</fullName>
     <active>true</active>
+    <description>08/2023 removed snnap integration profile reference</description>
     <errorConditionFormula>AND( ISBLANK(DatePosted__c), 
 NOT(ISPICKVAL( Origin , &quot;Web&quot;)),
 NOT(ISPICKVAL( Origin , &quot;Portal&quot;)),NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)), 

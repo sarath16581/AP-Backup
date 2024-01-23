@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:sldsThreeCol444Layout",
+  "dataProviders" : [ ],
   "id" : "ed297f43-89a7-4c9f-aada-afec39a2e1dd",
   "label" : "myNetwork Customer Forms",
   "regions" : [ {

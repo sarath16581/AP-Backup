@@ -3,6 +3,7 @@
   "currentThemeId" : "f946f4d4-b099-40f8-9753-fa11bcd3e414",
   "headMarkup" : null,
   "id" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
+  "isLockerServiceEnabled" : true,
   "isRelaxedCSPLevel" : false,
   "label" : "main",
   "templateName" : "PRM Community Template",

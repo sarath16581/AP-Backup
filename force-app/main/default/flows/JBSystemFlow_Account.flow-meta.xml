@@ -55,6 +55,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Account:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Record_Type_Id__c&quot;,&quot;Conveyancer_Is_a__c&quot;,&quot;Registration_Type__c&quot;,&quot;ConveyancerContact__pc&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Contact&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;PersonContact&quot;,&quot;dePrefix&quot;:&quot;Account:PersonContact:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;FirstName&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;ConveyancerContact__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

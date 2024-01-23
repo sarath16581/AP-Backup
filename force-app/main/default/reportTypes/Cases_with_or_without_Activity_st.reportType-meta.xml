@@ -731,12 +731,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Events__c</field>
+            <field>Count_of_Tasks__c</field>
             <table>Case.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Count_of_Tasks__c</field>
+            <field>Count_of_Events__c</field>
             <table>Case.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>
@@ -765,11 +765,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>PONUser__c.UserRole</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

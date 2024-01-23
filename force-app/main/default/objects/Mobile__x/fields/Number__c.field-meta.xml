@@ -5,7 +5,7 @@
     <externalDeveloperName>Number</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
-    <isNameField>true</isNameField>
+    <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Number</label>
     <length>30</length>

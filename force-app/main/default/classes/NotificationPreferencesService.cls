@@ -6,20 +6,26 @@
  * @date 2021-05-05
  * @group Tracking
  * @changelog
+ * 2023-11-22 - Mahesh Parvathaneni - Changed the authentication mechanism from Authz to Auth0
+ * 2023-12-18 - Boris Bachovski - Updated getter to not use Test.IsRunningTest() as the "AP Secrets" package now supports mocking
  */
 public with sharing class NotificationPreferencesService {
 
-	private static AuthzAccessManager.AccessToken ACCESS_TOKEN
-	{
+	//constants
+	private static final String NOTIFICATION_PREFERENCE = 'NotificationPreference';
+
+	private static apsecrets.Auth0AccessManager.Auth0Token AUTH0_TOKEN {
 		get {
-		if (ACCESS_TOKEN == null)
-		{
-			ACCESS_TOKEN = AuthzAccessManager.getAccessToken(AuthzAccessManager.RunMode.STANDARD);
+			if (AUTH0_TOKEN == null) { 
+				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(NOTIFICATION_PREFERENCE);
+			}
+
+			return AUTH0_TOKEN;
 		}
-		return ACCESS_TOKEN;
-	    }
+
 		private set;
 	}
+
 	Map<String, Set<String>> searchStringMap;
 	
 	/**
@@ -108,7 +114,7 @@ public with sharing class NotificationPreferencesService {
 			req.setMethod('PUT');
 			req.setHeader('Content-Type', 'application/json');
 			req.setEndpoint('callout:NotificationPreferences/consumer/preferences/groups/track');
-			req.setHeader('Authorization', 'Bearer ' + ACCESS_TOKEN.access_token);
+			req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 			req.setHeader('staffId', UserInfo.getUserId());
 			JSONGenerator gen = JSON.createGenerator(true);
 			gen.writeStartObject();
@@ -120,8 +126,8 @@ public with sharing class NotificationPreferencesService {
 			HttpResponse vRes = vHTTP.send(req);
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
-				ACCESS_TOKEN = AuthzAccessManager.getAccessToken(AuthzAccessManager.RunMode.FORCE_GENERATE);
-				req.setHeader('Authorization', 'Bearer ' + ACCESS_TOKEN.access_token);
+				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, NOTIFICATION_PREFERENCE);
+				req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(req);
 			}
 			if (vRes.getStatusCode() == 204) {
@@ -147,13 +153,13 @@ public with sharing class NotificationPreferencesService {
 			HttpRequest vReq = new HttpRequest();
 			vReq.setEndpoint('callout:NotificationPreferences/' + pAPCN + '/preferences/groups/track');
 			vReq.setMethod('GET');
-			vReq.setHeader('Authorization', 'Bearer ' + ACCESS_TOKEN.access_token);
+			vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 			vReq.setHeader('staffId', UserInfo.getUserId());
 			HttpResponse vRes = vHTTP.send(vReq);
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
-				ACCESS_TOKEN = AuthzAccessManager.getAccessToken(AuthzAccessManager.RunMode.FORCE_GENERATE);
-				vReq.setHeader('Authorization', 'Bearer ' + ACCESS_TOKEN.access_token);
+				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, NOTIFICATION_PREFERENCE);
+				vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(vReq);
 			}
 			if (vRes.getStatusCode() == 200) {
@@ -182,7 +188,7 @@ public with sharing class NotificationPreferencesService {
 			HttpRequest vReq = new HttpRequest();
 			vReq.setEndpoint('callout:NotificationPreferences/preferences/groups/track/get');
 			vReq.setMethod('POST');
-			vReq.setHeader('Authorization', 'Bearer ' + ACCESS_TOKEN.access_token);
+			vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 			vReq.setHeader('staffId', UserInfo.getUserId());
 			vReq.setHeader('Content-Type', 'application/json');
 			JSONGenerator vJSON = JSON.createGenerator(true);
@@ -197,8 +203,8 @@ public with sharing class NotificationPreferencesService {
 			HttpResponse vRes = vHTTP.send(vReq);
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
-				ACCESS_TOKEN = AuthzAccessManager.getAccessToken(AuthzAccessManager.RunMode.FORCE_GENERATE);
-				vReq.setHeader('Authorization', 'Bearer ' + ACCESS_TOKEN.access_token);
+				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, NOTIFICATION_PREFERENCE);
+				vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(vReq);
 			}
 			if (vRes.getStatusCode() == 200) {

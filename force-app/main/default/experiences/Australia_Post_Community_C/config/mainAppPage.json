@@ -1,0 +1,11 @@
+{
+  "cmsSettings" : { },
+  "currentThemeId" : "29aa498a-211e-4c2f-adc2-6189eb4ffbd5",
+  "headMarkup" : "<meta property=\"og:type\"               content=\"website\" />\n<meta property=\"og:title\"              content=\"Australia Post Online Community\" />\n<meta property=\"og:description\"        content=\"Your place to connect, help each other, share ideas and discuss what matters to you.\" />\n\n<meta name=\"google-site-verification\" content=\"QhD6-X_6KSi05yMSb1_h_vv9q7HYMu6HhDzDD0OuOKI\" />\n\n<link rel=\"icon\" type=\"image/x-icon\" href=\"https://auspost.com.au/content/dam/global/favicons/favicon-32x32.png\">\n\n    <script>\n        //Auspost website standard variables\n        //Default values will be set here, data will be dynamically overwritten in the ListenerEvent below.\n        var analytics = {};\n        analytics.page = {};\n        analytics.page.pageData = {};\n  \t\tanalytics.page.pageData.pageName = \"\";\n      \tanalytics.page.pageData.pageType = \"\";\n      \tanalytics.page.pageData.siteName = \"\";\n        analytics.page.pageData.siteType = {};\n        analytics.page.pageData.pageAbort = \"\";\n        analytics.page.pageData.errorType = \"\";\n        analytics.page.pageData.sitePrefix = \"auspost:community\";\n\n        analytics.component = {};\n        analytics.component.community = {};\n        analytics.component.community.pageCategory=\"\";\n        analytics.component.community.pageDescription=\"\";\n    </script>\n    <script type=\"text/javascript\" src=\"//assets.adobedtm.com/bfecad1ae7e5d7a2b8a9353b2d496d9b392db768/satelliteLib-9c215febcba74f72ca4a2cc8370a7f4b70048c28.js\"></script>",
+  "id" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "isLockerServiceEnabled" : true,
+  "isRelaxedCSPLevel" : true,
+  "label" : "main",
+  "templateName" : "Service Community Template",
+  "type" : "appPage"
+}

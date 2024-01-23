@@ -2,6 +2,7 @@
   "activeViewId" : "badf63ab-0c5a-4860-9416-5c74e0e44ae3",
   "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
   "configurationTags" : [ ],
+  "devName" : "Messages",
   "id" : "ff8e1a2c-7cca-4230-93ef-32aa161a7013",
   "label" : "Messages",
   "routeType" : "messages",

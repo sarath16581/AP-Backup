@@ -2,6 +2,7 @@
   "activeViewId" : "81e71561-c2a0-44c3-a33b-350f3ec1a5ba",
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "configurationTags" : [ ],
+  "devName" : "Customer_Complaint_Form__c",
   "id" : "fc5bdec1-62a3-4a41-bf87-61663b7928b9",
   "label" : "Customer Complaint Form",
   "pageAccess" : "UseParent",
