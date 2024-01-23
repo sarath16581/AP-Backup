@@ -45,6 +45,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		DealSupportRequestsSelector mockDealSupportRequestsSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
 		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
 		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
@@ -126,23 +127,12 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 			}
 		}
 
-		// verify async operation registered to send success notification for leader account.
-		fflib_ArgumentCaptor asyncWorkerCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker)asyncWorkerCaptor.capture());
-		ApplicationUnitOfWork.AsyncStagingWorker asyncStagingWorker = (ApplicationUnitOfWork.AsyncStagingWorker) asyncWorkerCaptor.getValue();
+		// verify no async operations registered as no self lookups need to be populated on leader billing account.
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) fflib_Match.anyObject());
 
-		Assert.areEqual(CreateSTBillingAccountEventHandlerModule.CreateStarTrackBillingAccountPostCommitAsyncWorker.class, asyncStagingWorker.classType,
-				'Expected AsyncWorker type that handle post commit actions for newly created billing accounts, but got something else');
-
-		Assert.isNotNull(asyncStagingWorker.params, 'Expected valid AsyncWorker parameters, but was null');
-		Assert.isInstanceOfType(asyncStagingWorker.params, List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam>.class,
-				'AsyncWorker parameters are not of the expected type');
-
-		List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam> params = (List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam>)asyncStagingWorker.params;
-		Assert.areEqual(1, params.size(), 'Expected parameters not passed into async process');
-		Assert.areEqual(events[0].Billing_Account_Number__c, params[0].billingAccountNumber, 'Expected billing account number not passed into async process');
-		Assert.isNull(params[0].leaderBillingAccountNumber, 'Leader billing account is not expected to set \'leaderBillingAccountNumber\' on async worker parameters');
-		Assert.isTrue(params[0].relatedBillingAccountNumbers.isEmpty(), 'Leader billing account should not have billing account self lookup fields populated.');
+		// verify one notification is sent
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
 	}
 
 	/**
@@ -178,6 +168,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		DealSupportRequestsSelector mockDealSupportRequestsSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
 		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
 		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
@@ -239,6 +230,10 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		APT_Charge_Account__c updated = (APT_Charge_Account__c) obj;
 		Assert.areEqual(chargeAccountRequest.Id, updated.Id, 'Only the charge account request related to deal support request that initiated the billing account provisioning request should be updated. Updated some other record.');
 		Assert.areEqual('Error', updated.Status__c, 'Charge Account Request status should have been updated on receiving platform event.');
+
+		// verify one notification is sent
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
 	}
 
 	/**
@@ -278,6 +273,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
 		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
 		SubAccountRequestsSelector mockSubAccountRequestsSelector = (SubAccountRequestsSelector) MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
@@ -392,7 +388,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 			}
 		}
 
-		// verify async operation registered to populate leader account lookup relationship and to send notifications.
+		// verify async operation registered to populate leader account lookup relationship.
 		fflib_ArgumentCaptor asyncWorkerCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker)asyncWorkerCaptor.capture());
 		ApplicationUnitOfWork.AsyncStagingWorker asyncStagingWorker = (ApplicationUnitOfWork.AsyncStagingWorker) asyncWorkerCaptor.getValue();
@@ -405,15 +401,13 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				'AsyncWorker parameters are not of the expected type');
 
 		List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam> params = (List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam>)asyncStagingWorker.params;
-		Assert.areEqual(2, params.size(), 'Expected parameters not passed into async process');
-		for (Integer i=0; i<params.size(); i++) {
-			Assert.areEqual(events[i].Billing_Account_Number__c, params[i].billingAccountNumber, 'Expected billing account number not passed into async process');
-			Assert.areEqual(events[i].LeaderAccountNumber__c, params[i].leaderBillingAccountNumber, 'Sub accounts should have leader billing account number passed into async process');
-			if (String.isNotBlank(events[i].LeaderAccountNumber__c)) {
-				Assert.areEqual(events[i].LeaderAccountNumber__c, params[i].relatedBillingAccountNumbers.get('LeaderAccount__c'), 'Expected related billing account number not passed into async process');
-			}
-		}
+		Assert.areEqual(1, params.size(), 'Expected parameters not passed into async process');
+		Assert.areEqual(events[1].Billing_Account_Number__c, params[0].billingAccountNumber, 'Only the sub account is expected to be passed into async process.');
+		Assert.areEqual(events[1].LeaderAccountNumber__c, params[0].relatedBillingAccountNumbers.get('LeaderAccount__c'), 'Expected related billing account number not passed into async process');
 
+		// verify one notification is sent for the external onboarding request covering both leader and sub account creation.
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
 	}
 
 	/**
@@ -453,6 +447,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
 		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
 		SubAccountRequestsSelector mockSubAccountRequestsSelector = (SubAccountRequestsSelector) MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
@@ -538,6 +533,10 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				Assert.isNull(updated.Sub_Account_Number__c, 'Sub Account number should not have been updated on receiving creation failed event.');
 			}
 		}
+
+		// verify one notification is sent for the external onboarding request covering both leader and sub account failures.
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
 	}
 
 	/**
@@ -577,6 +576,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
 		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
 		SubAccountRequestsSelector mockSubAccountRequestsSelector = (SubAccountRequestsSelector) MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
@@ -675,8 +675,12 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 			}
 		}
 
-		// verify async operation is registered for post commit actions (success notification on leader).
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) fflib_Match.anyObject());
+		// verify no async operation is registered for post commit actions (no self-lookups on leader).
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) fflib_Match.anyObject());
+
+		// verify one notification is sent for the external onboarding request covering both successful leader creation and sub account failures.
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
 	}
 
 	/**
@@ -809,6 +813,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
 		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
 		SubAccountRequestsSelector mockSubAccountRequestsSelector = (SubAccountRequestsSelector) MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
@@ -866,7 +871,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				Credit_Person__c = 'TEST OFFICER',
 				Credit_Officer_Phone__c = '1234512345',
 				LeaderAccountNumber__c = 'L1000000',
-				Parent_Account_Number__c = 'FOBillingAccountName1', //off spring of follower
+				Parent_Account_Number__c = 'FO1000001', //off spring of follower
 				Sub_Account_Request_Id__c = subAccountRequests[2].Id
 		));
 
@@ -921,12 +926,14 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				'AsyncWorker parameters are not of the expected type');
 
 		List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam> params = (List<CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam>)asyncStagingWorker.params;
-		Assert.areEqual(2, params.size(), 'Expected parameters not passed into async process');
-		for (CreateSTBillingAccountEventHandlerModule.StarTrackBillingAccountPostCommitWorkerParam param: params) {
-			Assert.isTrue(new Set<String>{events[0].Billing_Account_Number__c, events[2].Billing_Account_Number__c}.contains(param.billingAccountNumber), 'All new billing accounts must be passed into async worker to post commit actions.');
-			Assert.areEqual('L1000000', param.leaderBillingAccountNumber, 'Leader billing account number must be passed into async worker for notifications.');
-			Assert.isTrue(param.relatedBillingAccountNumbers.isEmpty(), 'Leader account was already existing, leader account self lookup population must not be done as a post commit action.');
-		}
+		Assert.areEqual(1, params.size(), 'Leader account was already existing, leader account self lookup population must not be done as a post commit action.');
+		Assert.areEqual(events[2].Billing_Account_Number__c, params[0].billingAccountNumber, 'Only the successful offspring billing account must be passed into async worker to populate parent  lookup.');
+		Assert.areEqual(1,  params[0].relatedBillingAccountNumbers.size(), 'Only parent relationship need to be populated by async worker.');
+		Assert.areEqual(events[0].Billing_Account_Number__c, params[0].relatedBillingAccountNumbers.values()[0], 'Incorrect parent account passed into async worker.');
+
+		// verify one notification is sent for the external onboarding request covering 2 successful sub account creations and one sub account failure.
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
 	}
 
 	/**
