@@ -9,6 +9,7 @@
  * 2023-08-16 - Hasantha Liyanage - auto populate account held with
  * 2023-09-27 - Hasantha Liyanage - Account Number and Other Account number functionality with type ahead component
  * 2023-10-23 - Hasantha Liyanage - added credit claim reason display help text capability
+ * 2024-01-23 - Thang Nguyen - fixed defect SB-269
  */
 import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
@@ -186,6 +187,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 				this.allBillingAccOptions = data;
 				if(this.allBillingAccOptions.length === 1) {
 					this.defaultValue = this.allBillingAccOptions[0];
+					this.businessAccountNumber = this.allBillingAccOptions[0].value;
 				}
 
 			})
