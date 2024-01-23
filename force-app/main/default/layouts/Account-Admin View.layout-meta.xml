@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customButtons>AdobeSignVOIPropertyTransfers</customButtons>
     <customButtons>DecaKC2v000000PAxJGAW</customButtons>
     <customButtons>MassUpload</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
@@ -929,6 +930,11 @@
             <actionName>EmailHighlightAction</actionName>
             <actionType>ProductivityAction</actionType>
             <sortOrder>44</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>AdobeSignVOIPropertyTransfers</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>45</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
