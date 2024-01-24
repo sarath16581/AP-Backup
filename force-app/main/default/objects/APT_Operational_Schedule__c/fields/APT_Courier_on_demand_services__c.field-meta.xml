@@ -4,7 +4,7 @@
     <defaultValue>false</defaultValue>
     <description>This Field is deprecated as part of the story CI-1075 and is no longer required to be populated in any of the templates</description>
     <externalId>false</externalId>
-    <label>Courier (on demand services) (Deprecated)</label>
+    <label>Courier (on demand services) (Deprecated</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

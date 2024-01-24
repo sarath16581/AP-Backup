@@ -26,7 +26,7 @@
             <value>
                 <fullName>Pickup &amp; Delivery At the same time</fullName>
                 <default>false</default>
-                <label>Delivery Service with Pickup at the same time</label>
+                <label>Pickup &amp; Delivery At the same time</label>
             </value>
             <value>
                 <fullName>Combined Pickup &amp; Delivery Service</fullName>
