@@ -70,6 +70,10 @@
                 <behavior>Edit</behavior>
                 <field>SAP_Contract_Numbers__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CompileAndSendForAdobeESignatures__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -876,6 +880,14 @@
         <relatedList>APT_SAP_Contracts__c.APT_Apttus_Contract__c</relatedList>
         <sortField>SAP_Contract_Status__c</sortField>
         <sortOrder>Asc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>echosign_dev1__DateSentDate__c</fields>
+        <fields>echosign_dev1__Recipient__c</fields>
+        <fields>echosign_dev1__Status__c</fields>
+        <fields>echosign_dev1__Document__c</fields>
+        <relatedList>echosign_dev1__SIGN_Agreement__c.ApttusContract__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
