@@ -102,6 +102,7 @@ public with sharing class AdobeSignCustomController {
 				pageRef.getParameters().put(key, params.get(key));
 			}
 
+			pageRef.getParameters().put('masterId', masterId);
 			// TODO - move this to a custom setting
 			pageRef.getParameters().put('templateId', 'aF21m0000008OgKCAU');
 		}
