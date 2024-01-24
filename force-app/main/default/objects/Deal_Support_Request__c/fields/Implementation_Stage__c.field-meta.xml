@@ -37,6 +37,16 @@
                 <default>false</default>
                 <label>Handover - Onboarding to Service</label>
             </value>
+            <value>
+                <fullName>Go Live - Hypercare</fullName>
+                <default>false</default>
+                <label>Go Live - Hypercare</label>
+            </value>
+            <value>
+                <fullName>Closed to BAU</fullName>
+                <default>false</default>
+                <label>Closed to BAU</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
