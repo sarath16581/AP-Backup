@@ -1279,6 +1279,30 @@
         <senderType>CurrentUser</senderType>
         <template>Sales_Business_System/Case_Assigned</template>
     </alerts>
+    <alerts>
+        <fullName>New_Dispute_Claim_Case_Created_Origin_Email</fullName>
+        <description>New Dispute Claim Case Created Origin Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>credit.claims@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement_Origin_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</fullName>
+        <description>New Dispute Claim Case Created StarTrack Origin Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>credit.claims@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement_StarTrack_Origin_Email</template>
+    </alerts>	
     <fieldUpdates>
         <fullName>AMLCTF_Set_Status_to_In_Progress</fullName>
         <description>Update an Unannounced Audit Case&apos;s status to In-Progress once approved.</description>
