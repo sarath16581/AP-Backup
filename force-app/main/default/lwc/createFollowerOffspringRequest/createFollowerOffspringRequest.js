@@ -32,6 +32,7 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 	subAccounts = [];
 	_wiredSubAccounts;
 	finalisedSubAccounts;
+	submittedSubAccounts;
 
 	/**
 	 * Wired sub accounts passed to list view
@@ -56,6 +57,15 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 					return {...item};
 			});
 			this.finalisedSubAccounts.forEach(item => {
+				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
+					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
+			});
+
+			this.submittedSubAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Submitted')
+				.map(item => {
+					return {...item};
+				});
+			this.submittedSubAccounts.forEach(item => {
 				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
 					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
 			});
