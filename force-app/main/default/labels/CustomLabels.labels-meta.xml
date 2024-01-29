@@ -8389,7 +8389,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountsPartialSuccessNotification</shortDescription>
-        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {0} and Follower/Offspring accounts encountered error - {1}. Click here to go to the Leader Billing Account record.</value>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1} and Follower/Offspring accounts encountered error - {2}. Click here to go to the Leader Billing Account record.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountsPartialSuccessNotificationTitle</fullName>

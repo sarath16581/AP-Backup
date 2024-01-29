@@ -27,13 +27,14 @@ private class Notifications_Test {
 		Test.startTest();
 
 		try {
-			Notifications.create()
-					.setNotificationTypeId(Notifications.DEFAULT_CUSTOM_NOTIFICATION_TYPE_ID)
-					.setTitle('test')
-					.setBody('test body')
-					.setRecipientIds(users.keySet())
-					.setTargetId(organisation.Id)
-					.setSenderId(UserInfo.getUserId())
+			Notifications.newInstance()
+					.add(Notifications.create()
+							.setNotificationTypeId(Notifications.DEFAULT_CUSTOM_NOTIFICATION_TYPE_ID)
+							.setTitle('test')
+							.setBody('test body')
+							.setRecipientIds(users.keySet())
+							.setTargetId(organisation.Id)
+							.setSenderId(UserInfo.getUserId()))
 					.send();
 		} catch (Exception e) {
 			Assert.fail('Unexpected exception in sending custom notification : ' + e.getMessage());
@@ -60,7 +61,7 @@ private class Notifications_Test {
 		// =====================================
 		Test.startTest();
 		try {
-			Notifications notificationSender = Notifications.getInstance();
+			Notifications notificationSender = Notifications.newInstance();
 			for (Integer i=0; i < organisations.size(); i++) {
 				notificationSender.add(Notifications.create()
 						.setNotificationTypeId(Notifications.DEFAULT_CUSTOM_NOTIFICATION_TYPE_ID)

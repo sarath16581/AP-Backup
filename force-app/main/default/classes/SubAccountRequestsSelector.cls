@@ -10,11 +10,12 @@
  * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
  * 2023-03-21 - CI-703 Sarath Burra Added new field Is_Parcel_Send_Login_Required__c
  * 2023-10-27 - Harry Wang Added new method selectByChargeAccountId and selectByBillingAccountId and option FILTER_UNPROVISIONED_FOLLOWER_ONLY
- * 2023-10-30 - Ranjeewa Silva - Added selector options to select related billing account fields
+ * 2023-10-30 - Ranjeewa Silva - Added selector options to select related billing account, parent account request and offspring account requests
  */
 public inherited sharing class SubAccountRequestsSelector extends ApplicationSelector{
 	public enum Options {
-		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION, WITH_BILLING_ACCOUNT, WITH_ST_PARENT_BILLING_ACCOUNT, FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR, FILTER_DRAFT_ERROR_PENDING
+		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION, WITH_BILLING_ACCOUNT, WITH_ST_PARENT_BILLING_ACCOUNT, WITH_ST_PARENT_ACCOUNT_REQUEST,
+		WITH_ST_OFFSPRING_ACCOUNT_REQUESTS, FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR, FILTER_DRAFT_ERROR_PENDING
 	}
 	public static SubAccountRequestsSelector newInstance() {
 		return (SubAccountRequestsSelector)Application.Selectors.newInstance(SubAccountRequestsSelector.class);
@@ -162,6 +163,18 @@ public inherited sharing class SubAccountRequestsSelector extends ApplicationSel
 		if(selectorOptions.contains(Options.FILTER_DRAFT_ERROR_PENDING)) {
 			builder.addConditions().add(new QueryBuilder.InCondition(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c).inCollection(new List<String>{'Draft', 'Error', 'Pending Charge Account'})).
 					endConditions();
+		}
+		if (selectorOptions.contains(Options.WITH_ST_PARENT_ACCOUNT_REQUEST)) {
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_ST_PARENT_ACCOUNT_REQUEST);
+			clonedOptions.remove(Options.WITH_ST_OFFSPRING_ACCOUNT_REQUESTS);
+			builder.addRelatedFields(SubAccountRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(clonedOptions), 'ParentAccountRequest__r');
+		}
+		if (selectorOptions.contains(Options.WITH_ST_OFFSPRING_ACCOUNT_REQUESTS)) {
+			Set<Object> clonedOptions = selectorOptions.clone();
+			clonedOptions.remove(Options.WITH_ST_OFFSPRING_ACCOUNT_REQUESTS);
+			clonedOptions.remove(Options.WITH_ST_PARENT_ACCOUNT_REQUEST);
+			builder.addSubQuery(SubAccountRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(clonedOptions), 'OffspringAccountRequests__r');
 		}
 		return builder;
 	}
