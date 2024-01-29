@@ -2,7 +2,7 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>jodi.mitchell@auspost.com.au</email>
-    <name>BGS Government</name>
+    <name>Service Advisor</name>
     <queueMembers>
         <users>
             <user>ana.aguirre@auspost.com.au</user>
