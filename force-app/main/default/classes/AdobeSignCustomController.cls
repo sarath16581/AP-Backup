@@ -11,29 +11,39 @@ History:
 public with sharing class AdobeSignCustomController {
 	public Id masterId {get; set;}
 	private static String ADOBE_SIGN_TEMPLATE_PAGE = '/apex/echosign_dev1__AgreementTemplateProcess';
-	private static String PAGE_ADOBESIGN_VOI = 'AdobeSignVOI';
-	private static String PAGE_ADOBESIGN_APT = 'AdobeSignApttus';
+	@TestVisible private static String PAGE_ADOBESIGN_VOI = 'AdobeSignVOI';
+	@TestVisible private static String PAGE_ADOBESIGN_APT = 'AdobeSignApttus';
+	@TestVisible private static String TEMPLATE_VOI_PROPERTY = 'VOI_Property';
+	@TestVisible private static String TEMPLATE_APTTUS = 'Apttus';
+	@TestVisible private static String MSG_ERROR_ORG_MISSING_CONTACT = 'The Organisation has missing a primary contact';
+	@TestVisible private static String MSG_ERROR_PAGE_NOT_SUPPORTED = 'Page not supported';
+	@TestVisible private static String MSG_ERROR_PAGE_GENERIC = 'Something went wrong please try again later';
+	@TestVisible private static String MSG_ERROR_APT_CONTRACT_EXPIRED = 'Cannot Send eSignature for an expired Contract. Please Create a new contract to continue.';
+	@TestVisible private static String MSG_ERROR_APT_MISSING_CONTRACT = 'No contract found with the provided Id';
 
 	/**
 	 * Base on the page being called route to the requested agreement
-	 * @return
+	 * @return target PageReference
 	 */
 	public PageReference redirect(){
 		Pagereference pageRef = ApexPages.currentPage();
-
+		system.debug('HAS 1'+pageRef);
 		try {
 			String strUrl = ApexPages.currentPage().getUrl();
-			if (strUrl.contains(PAGE_ADOBESIGN_VOI)) {
+			system.debug('HAS 2'+strUrl);
+			if (strUrl.containsIgnoreCase(PAGE_ADOBESIGN_VOI)) {
 				pageRef = navigateToVOIAgreement();
-			} else if (strUrl.contains(PAGE_ADOBESIGN_APT)) {
+			} else if (strUrl.containsIgnoreCase(PAGE_ADOBESIGN_APT)) {
 				pageRef = navigateToApptusAgreement();
 			} else {
-				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'Object type not supported');
+				system.debug('HAS 2 ERR '+strUrl);
+				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_PAGE_NOT_SUPPORTED);
 				ApexPages.addMessage(errorMsg);
 				return null;
 			}
 		} catch(Exception ex){
-			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR,'Something went wrong please try again later');
+			system.debug('HAS 2 ERR '+ex.getStackTraceString());
+			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR,MSG_ERROR_PAGE_GENERIC);
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
@@ -42,32 +52,34 @@ public with sharing class AdobeSignCustomController {
 	}
 	
 	/**
-	 * Navigate to
-	 * @return
+	 * Navigate to VOI Agreement template process
+	 * @return PageReference
 	 */
 	private PageReference navigateToVOIAgreement() {
 		Pagereference pageRef = new Pagereference(ADOBE_SIGN_TEMPLATE_PAGE);
-
 		// get the primary contact of the organisation based on the boolean value of ConveyancerContact__c
 		// assumes that there will always be one primary contact per org
 		List<contact> primaryContacts = ContactsSelector.newInstance().selectPrimaryContactByAccount(new Set<Id>{
 			masterId
 		});
 
-		if (primaryContacts.size() > 0) {
+		if (primaryContacts != null && primaryContacts.size() > 0) {
 			Map <String, String> params = ApexPages.currentPage().getParameters();
 			
 			for (String key : params.keySet()) {
 				pageRef.getParameters().put(key, params.get(key));
 			}
 
+			// setting the page reference params to be referenced in the template
 			pageRef.getParameters().put('masterId', masterId);
 			pageRef.getParameters().put('contactId', primaryContacts[0].Id);
-			// TODO - move this to a custom setting
-			pageRef.getParameters().put('templateId', 'aF21m0000008OgcCAE');
+
+			// read the custom setting to get the template ID by the custom setting name
+			AdobeSignTemplateSettings__c voiPropertySetting = getTemplateSetting(TEMPLATE_VOI_PROPERTY);
+			pageRef.getParameters().put('templateId', voiPropertySetting.TemplateId__c);
 		} else {
 			//throws UI exception message when there is no primary contact found
-			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'The Organisation has missing a primary contact');
+			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_ORG_MISSING_CONTACT);
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
@@ -76,10 +88,29 @@ public with sharing class AdobeSignCustomController {
 	}
 
 	/**
+	 * @param templateName get the template custom setting by the name
+	 *
+	 * @return AdobeSignTemplateSettings__c
+	 */
+	private AdobeSignTemplateSettings__c getTemplateSetting(String templateName) {
+		Set<SObjectField> fields = new Set<SObjectField>{
+				AdobeSignTemplateSettings__c.TemplateId__c, AdobeSignTemplateSettings__c.Name
+		};
+		CustomsSettingsSelector settingsSelector = CustomsSettingsSelector.newInstance(AdobeSignTemplateSettings__c.SObjectType, fields);
+		Set<String> settingNames = new Set<String>{
+				templateName
+		};
+		Map<String, SObject> voiPropertySettings = (Map<String, SObject>) settingsSelector.selectByNames(settingNames);
+		AdobeSignTemplateSettings__c voiPropertySetting = (AdobeSignTemplateSettings__c) voiPropertySettings.get(templateName);
+		return voiPropertySetting;
+	}
+
+	/**
 	 *	Navigate to Apptus Agreement Template Process
 	 *	@return Page Reference
 	 */
-	private PageReference navigateToApptusAgreement() {	
+	private PageReference navigateToApptusAgreement() {
+		system.debug('HAS 2 IN ');
 		Pagereference pageRef = new Pagereference(ADOBE_SIGN_TEMPLATE_PAGE);
 		
 		Map <Id, Apttus__APTS_Agreement__c> contracts = ApttusContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>> {
@@ -87,10 +118,11 @@ public with sharing class AdobeSignCustomController {
 													}).selectById(new Set <Id> {
 														masterId
 													});
+		system.debug('HAS 2 IN contracts '+contracts);
 		if (contracts.keySet().size() == 1) {
-			if (contracts.get(masterId).DaysUntilContractExpires__c < 0) {
+			if (contracts.get(masterId).DaysUntilContractExpires__c <= 0) {
 				// Throw UI exception message when the contract has expired
-				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'The contract has expired');
+				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_APT_CONTRACT_EXPIRED);
 				ApexPages.addMessage(errorMsg);
 				return null;
 			}
@@ -103,12 +135,13 @@ public with sharing class AdobeSignCustomController {
 			}
 
 			pageRef.getParameters().put('masterId', masterId);
-			// TODO - move this to a custom setting
-			pageRef.getParameters().put('templateId', 'aF21m0000008OgKCAU');
+			// read the custom setting to get the template ID by the custom setting name
+			AdobeSignTemplateSettings__c apptusSetting = getTemplateSetting(TEMPLATE_APTTUS);
+			pageRef.getParameters().put('templateId', apptusSetting.TemplateId__c);
 		}
 		else {
 			//throws UI exception message when there is no primary contact found
-			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'No contract found with the provided Id');
+			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_APT_MISSING_CONTRACT);
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
