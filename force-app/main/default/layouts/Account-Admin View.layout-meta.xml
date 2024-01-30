@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>AdobeSignVOIPropertyTransfers</customButtons>
-    <customButtons>DecaKC2v000000PAxJGAW</customButtons>
     <customButtons>MassUpload</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
@@ -907,34 +906,29 @@
             <sortOrder>17</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>DecaKC2v000000PAxJGAW</actionName>
+            <actionName>BAM_Configure_Apps</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>40</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>BAM_Configure_Apps</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>41</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>CallHighlightAction</actionName>
             <actionType>ProductivityAction</actionType>
-            <sortOrder>42</sortOrder>
+            <sortOrder>41</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>SmsHighlightAction</actionName>
             <actionType>ProductivityAction</actionType>
-            <sortOrder>43</sortOrder>
+            <sortOrder>42</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>EmailHighlightAction</actionName>
             <actionType>ProductivityAction</actionType>
-            <sortOrder>44</sortOrder>
+            <sortOrder>43</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>AdobeSignVOIPropertyTransfers</actionName>
             <actionType>CustomButton</actionType>
-            <sortOrder>45</sortOrder>
+            <sortOrder>44</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

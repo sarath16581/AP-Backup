@@ -22,27 +22,23 @@ public with sharing class AdobeSignCustomController {
 	@TestVisible private static String MSG_ERROR_APT_MISSING_CONTRACT = 'No contract found with the provided Id';
 
 	/**
-	 * Base on the page being called route to the requested agreement
+	 * Base on the page being called route to the requestedno agreement
 	 * @return target PageReference
 	 */
 	public PageReference redirect(){
 		Pagereference pageRef = ApexPages.currentPage();
-		system.debug('HAS 1'+pageRef);
 		try {
 			String strUrl = ApexPages.currentPage().getUrl();
-			system.debug('HAS 2'+strUrl);
 			if (strUrl.containsIgnoreCase(PAGE_ADOBESIGN_VOI)) {
 				pageRef = navigateToVOIAgreement();
 			} else if (strUrl.containsIgnoreCase(PAGE_ADOBESIGN_APT)) {
 				pageRef = navigateToApptusAgreement();
 			} else {
-				system.debug('HAS 2 ERR '+strUrl);
 				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_PAGE_NOT_SUPPORTED);
 				ApexPages.addMessage(errorMsg);
 				return null;
 			}
 		} catch(Exception ex){
-			system.debug('HAS 2 ERR '+ex.getStackTraceString());
 			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR,MSG_ERROR_PAGE_GENERIC);
 			ApexPages.addMessage(errorMsg);
 			return null;
@@ -110,7 +106,6 @@ public with sharing class AdobeSignCustomController {
 	 *	@return Page Reference
 	 */
 	private PageReference navigateToApptusAgreement() {
-		system.debug('HAS 2 IN ');
 		Pagereference pageRef = new Pagereference(ADOBE_SIGN_TEMPLATE_PAGE);
 		
 		Map <Id, Apttus__APTS_Agreement__c> contracts = ApttusContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>> {
@@ -118,7 +113,6 @@ public with sharing class AdobeSignCustomController {
 													}).selectById(new Set <Id> {
 														masterId
 													});
-		system.debug('HAS 2 IN contracts '+contracts);
 		if (contracts.keySet().size() == 1) {
 			if (contracts.get(masterId).DaysUntilContractExpires__c <= 0) {
 				// Throw UI exception message when the contract has expired
