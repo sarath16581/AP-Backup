@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pricing_Condition_Code__c</fullName>
+    <description>Pricing condition code to be sent to SAP</description>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(Is_APPC__c) == &apos;Yes&apos;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Manual Handling Surcharge&quot;),&quot;Y593&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Security surcharge&quot;),&quot;Y595&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Unmanifested Article fee&quot;),&quot;Y503&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Returns Shipping costs&quot;),&quot;Y110&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Signature on Delivery fee&quot;),&quot;Y201&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Capture ID fee&quot;),&quot;Y202&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Capture ID (Addressee only) fee&quot;),&quot;Y203&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Transit Cover fee&quot;),&quot;Y224&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Return to Sender fee&quot;),&quot;Y502&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Fuel Surcharge&quot;),&quot;Y580&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Peak Fee&quot;),&quot;Y598&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Over Maximum Limits Fee&quot;),&quot;Y599&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Manifest Correction Fee&quot;),&quot;Y601&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Force Majeure Fee&quot;),&quot;Y603&quot;,
+IF(ISPICKVAL(Reason_Category__c, &quot;Wine &amp; Alcohol fee&quot;),&quot;Y206&quot;,&quot;Y101&quot;))))))))))))))),
+null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Pricing condition code to be sent to SAP</inlineHelpText>
+    <label>Pricing Condition Code</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

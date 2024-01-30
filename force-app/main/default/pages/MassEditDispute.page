@@ -5,6 +5,7 @@
 *******************************  History ************************************************
     Date                User                                        Comments
     2019-06-26          gunith.devasurendra@auspost.com.au          Add Connote as editable and Invoice Number (REQ1836599)
+	2024-01-30			sarath.burra@auspost.com.au					Add Is_APPC__c flag as an iput field
 *******************************  History ************************************************
 -->
 
@@ -44,6 +45,9 @@ Note: All modifications made on the page will be lost if Cancel button is clicke
     </apex:column>
     <apex:column headerValue="Status">
         <apex:inputField value="{!a.Status__c}"/>
+    </apex:column>
+    <apex:column headerValue="Is APPC?">
+        <apex:inputField value="{!a.Is_APPC__c}"/>
     </apex:column>
     <apex:column headerValue="Reason Category">
         <apex:inputField value="{!a.Reason_Category__c}"/>
